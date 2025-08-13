@@ -35,37 +35,18 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle, TrendingUp, Shield, Target, ArrowRight, BookOpen, Brain, Star, Award, Calendar, Play, Zap } from "lucide-react";
 import Footer from "@/components/ui/Footer";
 // Removed old Hero component usage
-import { SplineScene } from "@/components/ui/splite";
+import { Hero } from "@/components/ui/hero";
 import { Testimonials } from "@/components/ui/testimonials";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--bs-background,#FAF3E0)]">
-      <section className="relative overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div className="space-y-6">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900">
-                Lead with <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-500">confidence</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-slate-600 max-w-2xl">
-                Join thousands of behavior leaders using evidence-based strategies to reduce overwhelm and build sustainable success—without burnout.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="h-12 px-6 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl">
-                  <Link href="https://study.behaviorschool.com">Get Started</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="h-12 px-6 text-base font-semibold rounded-xl">
-                  <Link href="https://study.behaviorschool.com/product-tour">Product Tour</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="relative h-[320px] sm:h-[420px] lg:h-[520px] rounded-2xl overflow-hidden ring-1 ring-slate-200">
-              <SplineScene scene="https://prod.spline.design/placeholder/scene.splinecode" className="w-full h-full" />
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero
+        variant="light"
+        title="Lead with"
+        highlight="confidence"
+        subtitle="Join thousands of behavior leaders using evidence-based strategies to reduce overwhelm and build sustainable success—without burnout."
+      />
 
       {/* Features Section */}
       <section className="py-24" style={{ backgroundColor: 'var(--bs-background, #FAF3E0)' }}>
