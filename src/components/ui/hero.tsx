@@ -12,6 +12,7 @@ type HeroProps = {
   highlight?: string;
   subtitle?: string;
   primaryCta?: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
   variant?: 'light' | 'dark';
 };
 
@@ -21,7 +22,8 @@ export function Hero({
   title,
   highlight,
   subtitle,
-  primaryCta = { href: "/subscribe", label: "Get Started Free" },
+  primaryCta = { href: "https://study.behaviorschool.com", label: "Get Started" },
+  secondaryCta = { href: "https://study.behaviorschool.com/product-tour", label: "Product Tour" },
   variant = 'light',
 }: HeroProps) {
   return (
@@ -92,6 +94,22 @@ export function Hero({
                 <Link href={primaryCta.href}>
                   {primaryCta.label}
                   <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant={variant === 'dark' ? 'outline' : 'ghost'}
+                className={cn(
+                  "h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold rounded-xl",
+                  variant === 'dark'
+                    ? 'border-white/30 text-white hover:bg-white/10'
+                    : 'bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 shadow-sm'
+                )}
+              >
+                <Link href={secondaryCta.href}>
+                  {secondaryCta.label}
                 </Link>
               </Button>
             </div>
