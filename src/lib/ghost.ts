@@ -68,7 +68,18 @@ function assertServerOnly(): void {
 }
 
 function getEnv(name: 'GHOST_CONTENT_URL' | 'GHOST_CONTENT_KEY'): string | null {
-  return process.env[name] || null;
+  const raw = process.env[name] || '';
+  const value = raw.trim();
+  if (!value) return null;
+  // Treat common placeholders as unset to avoid build-time failures
+  const placeholders = [
+    'REPLACE_WITH_CONTENT_API_KEY',
+    'YOUR_GHOST_CONTENT_API_KEY',
+    'REPLACE_ME',
+    'YOUR_KEY_HERE',
+  ];
+  if (placeholders.includes(value)) return null;
+  return value;
 }
 
 function getApiBaseUrl(): string {
@@ -185,17 +196,34 @@ export async function getPosts(
 
   const revalidate = resolveRevalidate(next);
   type PostsResponse = { posts: Post[]; meta: { pagination: PaginationMeta } };
-  return fetchGhost<PostsResponse>(
-    'posts/',
-    {
-      limit,
-      page,
-      include,
-      filter: combinedFilter,
-      order,
-    },
-    revalidate
-  );
+  try {
+    return await fetchGhost<PostsResponse>(
+      'posts/',
+      {
+        limit,
+        page,
+        include,
+        filter: combinedFilter,
+        order,
+      },
+      revalidate
+    );
+  } catch (err) {
+    // Fail-soft: when Ghost is misconfigured or unavailable, surface no posts instead of failing the build
+    return {
+      posts: [],
+      meta: {
+        pagination: {
+          page: 1,
+          limit,
+          pages: 0,
+          total: 0,
+          next: null,
+          prev: null,
+        },
+      },
+    };
+  }
 }
 
 export async function getPostBySlug(
@@ -206,12 +234,16 @@ export async function getPostBySlug(
   const { include = 'tags,authors', formats = 'html,plaintext', next } = args;
   const revalidate = resolveRevalidate(next);
   type PostBySlugResponse = { posts: Post[] };
-  const data = await fetchGhost<PostBySlugResponse>(
-    `posts/slug/${encodeURIComponent(slug)}/`,
-    { include, formats },
-    revalidate
-  );
-  return Array.isArray(data.posts) && data.posts.length > 0 ? data.posts[0] : null;
+  try {
+    const data = await fetchGhost<PostBySlugResponse>(
+      `posts/slug/${encodeURIComponent(slug)}/`,
+      { include, formats },
+      revalidate
+    );
+    return Array.isArray(data.posts) && data.posts.length > 0 ? data.posts[0] : null;
+  } catch {
+    return null;
+  }
 }
 
 export async function getTags(args: { limit?: number } & NextRevalidate = {}): Promise<Tag[]> {
@@ -219,16 +251,24 @@ export async function getTags(args: { limit?: number } & NextRevalidate = {}): P
   const { limit = 50, next } = args;
   const revalidate = resolveRevalidate(next);
   type TagsResponse = { tags: Tag[] };
-  const data = await fetchGhost<TagsResponse>('tags/', { limit }, revalidate);
-  return data.tags ?? [];
+  try {
+    const data = await fetchGhost<TagsResponse>('tags/', { limit }, revalidate);
+    return data.tags ?? [];
+  } catch {
+    return [];
+  }
 }
 
 export async function getAuthors(args: NextRevalidate = {}): Promise<Author[]> {
   assertServerOnly();
   const revalidate = resolveRevalidate(args.next);
   type AuthorsResponse = { authors: Author[] };
-  const data = await fetchGhost<AuthorsResponse>('authors/', {}, revalidate);
-  return data.authors ?? [];
+  try {
+    const data = await fetchGhost<AuthorsResponse>('authors/', {}, revalidate);
+    return data.authors ?? [];
+  } catch {
+    return [];
+  }
 }
 
 

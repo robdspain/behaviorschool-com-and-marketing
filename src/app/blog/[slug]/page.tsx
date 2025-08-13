@@ -3,12 +3,13 @@ import { notFound } from "next/navigation";
 import readingTime from "reading-time";
 import { getPostBySlug } from "@/lib/ghost";
 
-type PageProps = { params: { slug: string } };
+type PageProps = { params: Promise<{ slug: string }> };
 
 export const revalidate = 60;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug, { include: "tags,authors", formats: "html,plaintext" });
+  const { slug } = await params;
+  const post = await getPostBySlug(slug, { include: "tags,authors", formats: "html,plaintext" });
   if (!post) return {};
   const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
   const url = `${SITE_URL}/blog/${post.slug}`;
@@ -23,7 +24,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogPost({ params }: PageProps) {
-  const post = await getPostBySlug(params.slug, { include: "tags,authors", formats: "html,plaintext" });
+  const { slug } = await params;
+  const post = await getPostBySlug(slug, { include: "tags,authors", formats: "html,plaintext" });
   if (!post) return notFound();
 
   const rt = readingTime(post.plaintext || post.excerpt || "");

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "monitor:netlify": "node scripts/netlify-monitor.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
