@@ -1,0 +1,58 @@
+@layer components {
+  .prose {
+    @apply text-base leading-7 text-foreground/90;
+  }
+  .prose :where(p):not(:where([class~="not-prose"] *)) {
+    @apply my-6;
+  }
+  .prose :where(h1):not(:where([class~="not-prose"] *)) {
+    @apply scroll-m-20 text-3xl font-bold tracking-tight lg:text-4xl mb-4 mt-8 text-foreground;
+  }
+  .prose :where(h2):not(:where([class~="not-prose"] *)) {
+    @apply scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0 mt-10 mb-4 text-foreground;
+  }
+  .prose :where(h3):not(:where([class~="not-prose"] *)) {
+    @apply scroll-m-20 text-xl font-semibold tracking-tight mt-8 mb-3 text-foreground;
+  }
+  .prose :where(h4):not(:where([class~="not-prose"] *)) {
+    @apply scroll-m-20 text-lg font-semibold tracking-tight mt-6 mb-2 text-foreground;
+  }
+  .prose :where(a):not(:where([class~="not-prose"] *)) {
+    @apply font-medium text-primary underline underline-offset-4 hover:no-underline;
+  }
+  .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
+    @apply mt-6 border-l-2 pl-6 italic text-muted-foreground;
+  }
+  .prose :where(ul):not(:where([class~="not-prose"] *)) {
+    @apply my-6 ml-6 list-disc marker:text-muted-foreground;
+  }
+  .prose :where(ol):not(:where([class~="not-prose"] *)) {
+    @apply my-6 ml-6 list-decimal marker:text-muted-foreground;
+  }
+  .prose :where(li):not(:where([class~="not-prose"] *)) {
+    @apply my-2;
+  }
+  .prose :where(code):not(:where([class~="not-prose"] *)) {
+    @apply rounded bg-muted px-1.5 py-0.5 text-sm font-mono;
+  }
+  .prose :where(pre):not(:where([class~="not-prose"] *)) {
+    @apply my-6 overflow-x-auto rounded-lg bg-muted p-4 font-mono text-sm;
+  }
+  .prose :where(hr):not(:where([class~="not-prose"] *)) {
+    @apply my-10 h-px border-0 bg-border;
+  }
+  .prose :where(img):not(:where([class~="not-prose"] *)) {
+    @apply rounded-lg;
+  }
+  .prose :where(table):not(:where([class~="not-prose"] *)) {
+    @apply w-full my-6 border-collapse overflow-hidden rounded-lg text-sm;
+  }
+  .prose :where(th):not(:where([class~="not-prose"] *)) {
+    @apply bg-muted/50 px-3 py-2 text-left font-semibold text-foreground;
+  }
+  .prose :where(td):not(:where([class~="not-prose"] *)) {
+    @apply border-t px-3 py-2 align-top text-foreground/90;
+  }
+}
+
+

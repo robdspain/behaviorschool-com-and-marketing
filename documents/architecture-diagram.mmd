@@ -1,0 +1,29 @@
+flowchart LR
+  %% Architecture overview for Rob Spain's stack
+  %% DigitalOcean hosts Ghost sites, Traefik, and n8n. Netlify hosts landing pages. Mailgun handles transactional email. Traefik obtains certs via Let's Encrypt.
+
+  subgraph DO["DigitalOcean Droplet [$12–24/mo]"]
+    direction TB
+    TRAEFIK["Traefik (reverse proxy)"]
+    G1["Ghost CMS\nrobspain.com"]
+    G2["Ghost CMS\nbehaviorschool.com"]
+    N8N["n8n (automation)"]
+  end
+
+  BROWSERS["Web Browsers"] -->|HTTPS| TRAEFIK
+  TRAEFIK --> G1
+  TRAEFIK --> G2
+  TRAEFIK --> N8N
+
+  LETS["Let's Encrypt"] -. "ACME certs" .-> TRAEFIK
+
+  NETLIFY["Netlify (landing pages, CDN, HTTPS)"]
+  BROWSERS --> NETLIFY
+
+  MAILGUN["Mailgun (transactional email)"]
+  MAILGUN --> G1
+  MAILGUN --> G2
+
+  classDef infra fill:#eef8ff,stroke:#6aa7ff,color:#0b3d91;
+  class DO,NETLIFY infra;
+
