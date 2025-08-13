@@ -43,9 +43,11 @@ export default function Home() {
     <div className="min-h-screen bg-[var(--bs-background,#FAF3E0)]">
       <Hero
         variant="light"
+        eyebrow="Behavior School"
         title="Lead with"
         highlight="confidence"
-        subtitle="Join thousands of behavior leaders using evidence-based strategies to reduce overwhelm and build sustainable success—without burnout."
+        subtitle="We help overwhelmed BCBAs build structured behavior systems for student success."
+        
       />
 
       {/* Features Section */}
