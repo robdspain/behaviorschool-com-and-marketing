@@ -32,6 +32,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import Footer from "@/components/ui/Footer";
 import { Hero } from "@/components/ui/hero";
+import { FAQ } from "@/components/faq";
+import { faqData } from "@/components/faq-data";
  
 
 export default function Home() {
@@ -116,6 +118,9 @@ export default function Home() {
 
       {/* Light CTA simplified is integrated into Section 3 above */}
       
+      {/* FAQ Section */}
+      <FAQ />
+      
       {/* Structured data (WebPage + Breadcrumbs) */}
       {(() => {
         const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
@@ -140,10 +145,26 @@ export default function Home() {
             },
           ],
         } as const;
+        
+        // FAQ Structured Data
+        const faqJsonLd = {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqData.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        } as const;
+        
         return (
           <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
           </>
         );
       })()}
