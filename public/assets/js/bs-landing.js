@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){var links=document.querySelectorAll('a[href^="#"]');links.forEach(function(l){l.addEventListener("click",function(e){var id=this.getAttribute("href");if(id&&id.length>1){var el=document.querySelector(id);if(el){e.preventDefault();el.scrollIntoView({behavior:"smooth"});}}});});});
