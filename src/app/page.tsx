@@ -32,6 +32,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import Footer from "@/components/ui/Footer";
 import { Hero } from "@/components/ui/hero";
+import { GhostSignupEmbed } from "@/components/GhostSignupEmbed";
  
 
 export default function Home() {
@@ -114,8 +115,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Light CTA simplified is integrated into Section 3 above */}
-      
+      {/* Newsletter */}
+      <section className="py-16 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4 text-center">Subscribe for updates</h2>
+          <p className="text-slate-700 mb-6 text-center">Get practical resources and updates from Behavior School.</p>
+          <div className="max-w-md mx-auto">
+            <GhostSignupEmbed />
+          </div>
+        </div>
+      </section>
+
       {/* Structured data (WebPage + Breadcrumbs) */}
       {(() => {
         const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
