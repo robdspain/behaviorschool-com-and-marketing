@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export type Testimonial = {
   id: string;
@@ -46,11 +47,9 @@ export function Testimonials({ title = "", items, className }: TestimonialsProps
                 className="grid grid-cols-[220px_minmax(0,1fr)] 2xl:grid-cols-2 gap-8 data-[state=inactive]:hidden"
               >
                 <div className="mb-20 flex flex-col justify-end">
-                    <img
-                    src={t.image}
-                    alt={t.name}
-                    className="mb-6 h-auto max-w-[200px] rounded-t-[200px] rounded-b-lg 2xl:max-w-[260px] 2xl:rounded-t-[260px] object-cover"
-                  />
+                    <div className="mb-6 relative w-[200px] h-[200px] 2xl:w-[260px] 2xl:h-[260px] rounded-t-[200px] rounded-b-lg overflow-hidden">
+                      <Image src={t.image} alt={t.name} fill sizes="200px" className="object-cover" />
+                    </div>
                 </div>
                 <div className="flex flex-col justify-center">
                   <p className="text-2xl xl:text-[28px] leading-[1.3] text-slate-900 italic mb-6">
@@ -73,11 +72,9 @@ export function Testimonials({ title = "", items, className }: TestimonialsProps
                     className="data-[state=active]:opacity-100 opacity-40 p-0 bg-transparent shadow-none outline-none ring-0"
                     title={`${t.company ?? ""} ${t.name}`.trim()}
                   >
-                    <img
-                      src={t.image}
-                      alt={t.name}
-                      className="h-auto w-14 2xl:w-[72px] rounded-t-[56px] rounded-b-[3px] object-cover"
-                    />
+                    <div className="relative w-14 h-14 2xl:w-[72px] 2xl:h-[72px] rounded-t-[56px] rounded-b-[3px] overflow-hidden">
+                      <Image src={t.image} alt={t.name} fill sizes="56px" className="object-cover" />
+                    </div>
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -91,11 +88,9 @@ export function Testimonials({ title = "", items, className }: TestimonialsProps
             <section key={t.id} className="mx-auto h-full max-w-[496px] px-6 md:px-0">
               <p className="text-2xl leading-[1.35] text-slate-900 italic mb-6">“{t.quote}”</p>
               <div className="flex flex-row items-center">
-                <img
-                  src={t.image}
-                  alt={t.name}
-                  className="mr-3 h-[94px] w-[74px] rounded-t-[74px] rounded-b-[2px] object-cover"
-                />
+                <div className="mr-3 relative h-[94px] w-[74px] rounded-t-[74px] rounded-b-[2px] overflow-hidden">
+                  <Image src={t.image} alt={t.name} fill sizes="74px" className="object-cover" />
+                </div>
                 <div className="flex flex-col justify-center">
                   <p className="text-base font-semibold text-slate-900">{t.name}</p>
                   {(t.role || t.company) && (

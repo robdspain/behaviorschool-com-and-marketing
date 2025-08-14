@@ -145,11 +145,11 @@ async function fetchGhost<TResponse>(
 
   try {
     return (await response.json()) as TResponse;
-  } catch (err) {
+  } catch {
     throw new GhostAPIError('Failed to parse Ghost API response as JSON', {
       status: response.status,
       url: url.toString(),
-      details: err,
+      details: undefined,
     });
   }
 }

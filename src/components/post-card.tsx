@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import * as React from "react";
 
 import type { Post } from "@/lib/ghost";
@@ -31,10 +32,12 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
     <Card className={cn("group overflow-hidden h-full flex flex-col", className)} {...props}>
       {post.feature_image ? (
         <div className="relative aspect-[16/9] w-full overflow-hidden">
-          <img
+          <Image
             src={post.feature_image}
             alt={post.title}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </div>
       ) : null}

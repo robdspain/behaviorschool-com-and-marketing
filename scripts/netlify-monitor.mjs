@@ -13,6 +13,42 @@
 
 const NETLIFY_API = 'https://api.netlify.com/api/v1';
 
+// Load env from .env and .env.local if present (ESM-safe, no deps)
+async function loadEnvFromFiles() {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+  const parse = (text) => {
+    const map = {};
+    text.split(/\r?\n/).forEach((line) => {
+      const m = line.match(/^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/);
+      if (!m) return;
+      const key = m[1];
+      let val = m[2].trim();
+      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+        val = val.slice(1, -1);
+      }
+      map[key] = val;
+    });
+    return map;
+  };
+  const cwd = process.cwd();
+  const envPath = path.join(cwd, '.env');
+  const localPath = path.join(cwd, '.env.local');
+  let base = {};
+  let local = {};
+  try { if (fs.existsSync(envPath)) base = parse(fs.readFileSync(envPath, 'utf8')); } catch {}
+  try { if (fs.existsSync(localPath)) local = parse(fs.readFileSync(localPath, 'utf8')); } catch {}
+  const merged = { ...base, ...local }; // .env.local takes precedence
+  for (const [k, v] of Object.entries(merged)) {
+    if (process.env[k] == null || process.env[k] === '') {
+      process.env[k] = v;
+    }
+  }
+  return { loaded: [fs.existsSync(envPath) ? '.env' : null, fs.existsSync(localPath) ? '.env.local' : null].filter(Boolean) };
+}
+
+await loadEnvFromFiles();
+
 function parseArgs(argv) {
   const args = {};
   for (let i = 2; i < argv.length; i++) {
@@ -46,7 +82,15 @@ async function netlifyFetch(path, token, options = {}) {
 
 async function triggerBuildHook(buildHookUrl) {
   if (!buildHookUrl) return;
-  const res = await fetch(buildHookUrl, { method: 'POST' });
+  let urlToCall = '';
+  try {
+    const u = new URL(buildHookUrl);
+    if (u.protocol === 'http:' || u.protocol === 'https:') urlToCall = u.toString();
+  } catch {
+    // ignore – treated as no build hook provided
+  }
+  if (!urlToCall) return;
+  const res = await fetch(urlToCall, { method: 'POST' });
   if (!res.ok) {
     const text = await res.text().catch(() => '');
     throw new Error(`Build hook trigger failed: ${res.status} ${res.statusText} ${text}`);
@@ -62,7 +106,8 @@ function withClearCacheParam(url) {
     }
     return u.toString();
   } catch {
-    return url.includes('?') ? `${url}&clear_cache=true` : `${url}?clear_cache=true`;
+    // if it's not a valid URL, skip modifying it
+    return '';
   }
 }
 
@@ -125,14 +170,19 @@ async function main() {
   const args = parseArgs(process.argv);
   const siteId = args.site || process.env.NETLIFY_SITE_ID;
   const token = args.token || process.env.NETLIFY_AUTH_TOKEN;
-  const buildHook = args.buildHook || process.env.NETLIFY_BUILD_HOOK_URL;
+  // Treat missing or placeholder values (e.g. 'true') as absent
+  let buildHook = args.buildHook || process.env.NETLIFY_BUILD_HOOK_URL;
+  if (!buildHook || buildHook === 'true' || buildHook === 'false') buildHook = '';
   const timeout = Number(args.timeout || process.env.NETLIFY_TIMEOUT_SECS || 1800);
   const retryCount = Number(args.retry || process.env.NETLIFY_RETRY_COUNT || 1);
   const monitorLast = args.monitorLast === 'true' || args.monitorLast === true;
   const autoFix = (args.autoFix ?? process.env.NETLIFY_AUTO_FIX ?? 'true') === 'true';
 
   if (!siteId || !token) {
-    console.error('Missing required --site and --token (or NETLIFY_SITE_ID / NETLIFY_AUTH_TOKEN).');
+    const missing = [];
+    if (!siteId) missing.push('NETLIFY_SITE_ID');
+    if (!token) missing.push('NETLIFY_AUTH_TOKEN');
+    console.error(`Missing required env: ${missing.join(', ')}`);
     process.exit(2);
   }
 
