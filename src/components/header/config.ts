@@ -3,7 +3,12 @@ import type { MenuSection } from "./types";
 export const menuSections: MenuSection[] = [
   {
     label: "Products",
-    href: "/products",
+    children: [
+      { label: "All Products", href: "/products" },
+      { label: "Behavior Study Tools", href: "/study" },
+      { label: "Supervision Tools", href: "/supervisors" },
+      { label: "TierPath MTSS/PBIS", href: "/tierpath" },
+    ],
   },
   {
     label: "Resources",
