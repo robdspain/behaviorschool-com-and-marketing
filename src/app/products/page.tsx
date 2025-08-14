@@ -2,33 +2,53 @@ import Link from "next/link";
 
 export default function ProductsPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 lg:px-8 py-12">
-      <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Products</h1>
-      <p className="text-lg text-slate-600 mb-10 max-w-3xl">
-        Explore Behavior School’s tools designed for school-based BCBAs and supervisors. Build structured systems for student success, streamline supervision, and grow with confidence.
-      </p>
-
-      <div className="grid gap-6 sm:gap-8 sm:grid-cols-2">
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-slate-900">Behavior Study Tools</h2>
-          <p className="mt-2 text-slate-600">AI-powered prep and practice tools to master the BCBA exam with clarity and confidence.</p>
-          <div className="mt-4">
-            <Link href="/study" className="inline-flex items-center rounded-md bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700">
-              Learn more
-            </Link>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-slate-900">Supervision Tools</h2>
-          <p className="mt-2 text-slate-600">Simple, scalable workflows and resources to support meaningful, compassionate supervision.</p>
-          <div className="mt-4">
-            <Link href="/supervisors" className="inline-flex items-center rounded-md bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700">
-              Learn more
-            </Link>
-          </div>
-        </div>
+    <div className="relative overflow-hidden">
+      {/* background accents */}
+      <div className="pointer-events-none absolute inset-0 -z-10 select-none">
+        <div className="absolute -top-24 left-1/3 h-72 w-72 rounded-full bg-emerald-300/20 blur-3xl" />
+        <div className="absolute -bottom-24 right-1/3 h-80 w-80 rounded-full bg-yellow-300/20 blur-3xl" />
       </div>
+
+      <section className="mx-auto max-w-6xl px-6 lg:px-8 py-16">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">Products</h1>
+          <p className="text-lg text-slate-600 mt-4 max-w-3xl mx-auto">
+            Explore Behavior School’s tools designed for school-based BCBAs and supervisors. Build structured systems for student success, streamline supervision, and grow with confidence.
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2">
+          {/* Study card */}
+          <Link href="/study" className="group rounded-2xl bg-white/80 ring-1 ring-slate-200/70 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] transition-all duration-300">
+            <div className="p-6 sm:p-8">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-400 text-white shadow-md group-hover:scale-105 transition-transform">BS</span>
+                <h2 className="text-2xl font-semibold text-slate-900">Behavior Study Tools</h2>
+              </div>
+              <p className="mt-3 text-slate-600">AI-powered prep and practice tools to master the BCBA exam with clarity and confidence.</p>
+              <div className="mt-5 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-white group-hover:bg-emerald-700 transition-colors">
+                Learn more
+                <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 15.707a1 1 0 010-1.414L13.586 11H5a1 1 0 110-2h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"/></svg>
+              </div>
+            </div>
+          </Link>
+
+          {/* Supervisors card */}
+          <Link href="/supervisors" className="group rounded-2xl bg-white/80 ring-1 ring-slate-200/70 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] transition-all duration-300">
+            <div className="p-6 sm:p-8">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-yellow-500 to-amber-400 text-white shadow-md group-hover:scale-105 transition-transform">SV</span>
+                <h2 className="text-2xl font-semibold text-slate-900">Supervision Tools</h2>
+              </div>
+              <p className="mt-3 text-slate-600">Simple, scalable workflows and resources to support meaningful, compassionate supervision.</p>
+              <div className="mt-5 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-white group-hover:bg-emerald-700 transition-colors">
+                Learn more
+                <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 15.707a1 1 0 010-1.414L13.586 11H5a1 1 0 110-2h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"/></svg>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

@@ -11,7 +11,6 @@ export const menuSections: MenuSection[] = [
       { label: "All Resources", href: "/resources" },
     ],
   },
-  { label: "Featured", href: "/featured" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   // External community entry for parity with live site
