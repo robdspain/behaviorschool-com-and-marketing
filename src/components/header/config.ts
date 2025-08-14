@@ -4,6 +4,9 @@ export const menuSections: MenuSection[] = [
   {
     label: "Products",
     href: "/products",
+    children: [
+      { label: "TierPath", href: "/tierpath" },
+    ],
   },
   {
     label: "Resources",
