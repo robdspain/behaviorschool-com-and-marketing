@@ -2,6 +2,10 @@ import type { MenuSection } from "./types";
 
 export const menuSections: MenuSection[] = [
   {
+    label: "ClassroomPilot",
+    href: "/classroom-pilot",
+  },
+  {
     label: "Products",
     href: "/products",
   },
