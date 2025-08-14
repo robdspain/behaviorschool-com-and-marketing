@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Bolt, BarChart3, ShieldCheck, Clock, Layers, BookOpen } from "lucide-react";
 
 export default function ProductsPage() {
   return (
@@ -47,6 +48,33 @@ export default function ProductsPage() {
               </div>
             </div>
           </Link>
+        </div>
+      </section>
+
+      {/* Highlights similar to feature showcase */}
+      <section className="mx-auto max-w-6xl px-6 lg:px-8 pb-20">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Why teams choose Behavior School</h2>
+          <p className="mt-3 text-slate-600 max-w-3xl mx-auto">Practical tools and workflows designed for real classrooms—fast to adopt, easy to love.</p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { icon: Bolt, title: "Fast setup", desc: "Get started in minutes with opinionated defaults and clear guidance." },
+            { icon: BarChart3, title: "Actionable analytics", desc: "See mastery growth, risks, and next steps at a glance." },
+            { icon: ShieldCheck, title: "Audit‑ready", desc: "Defensible documentation and signatures where it matters." },
+            { icon: Clock, title: "Time‑saving", desc: "Automations reduce busywork so teams can focus on students." },
+            { icon: Layers, title: "Flexible", desc: "Works across districts, programs, and caseload sizes." },
+            { icon: BookOpen, title: "Evidence‑based", desc: "Grounded in behavioral science and field‑tested in schools." },
+          ].map((f) => (
+            <div key={f.title} className="group relative rounded-2xl bg-white/80 ring-1 ring-slate-200/70 p-6 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(0,0,0,0.35)]">
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/15 to-emerald-400/5 text-emerald-700">
+                <f.icon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900">{f.title}</h3>
+              <p className="mt-1 text-slate-600">{f.desc}</p>
+              <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(120% 60% at 50% 0%, rgba(16,185,129,0.10) 0%, transparent 60%)" }} />
+            </div>
+          ))}
         </div>
       </section>
     </div>
