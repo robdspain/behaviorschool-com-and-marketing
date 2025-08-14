@@ -4,6 +4,12 @@ export const menuSections: MenuSection[] = [
   {
     label: "Products",
     href: "/products",
+    children: [
+      { label: "All Products", href: "/products" },
+      { label: "TierPath (MTSS/PBIS)", href: "/products/tierpath" },
+      { label: "Study Tools", href: "/study" },
+      { label: "Supervision Tools", href: "/supervisors" },
+    ],
   },
   {
     label: "Resources",
