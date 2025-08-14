@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { NewsletterSignupInline, NewsletterSignup } from "@/components/newsletter-signup";
 
 export const metadata = {
   title: "Behavior School Supervision Tools",
@@ -21,10 +22,14 @@ export default function SupervisorsPage() {
           <Badge className="bg-white/10 text-white border-white/20 mb-4">Coming Soon</Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-white">Supervision Tools for BCBAs</h1>
           <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">From competency tracking to signed hours logs—everything you need to run effective, compliant supervision in one place.</p>
-          <div className="mt-8 flex items-center justify-center">
-            <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-              <Link href="https://study.behaviorschool.com/supervisors" target="_blank" rel="noopener noreferrer">Join the Waitlist</Link>
-            </Button>
+          <div className="mt-8 max-w-md mx-auto">
+            <NewsletterSignupInline
+              source="supervisors-hero"
+              buttonText="Join Waitlist"
+              placeholder="Enter your email for early access"
+              className="w-full"
+            />
+            <p className="mt-3 text-sm text-slate-300">Be the first to know when we launch. No spam, unsubscribe anytime.</p>
           </div>
         </div>
       </section>
@@ -68,10 +73,16 @@ export default function SupervisorsPage() {
               <AccordionContent>All logs include timestamps, signatures, and role attestations designed for audit readiness.</AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div className="mt-8">
-            <Button asChild size="lg" className="bg-[#E3B23C] hover:bg-[#d9a42f] text-slate-900">
-              <Link href="https://study.behaviorschool.com/supervisors" target="_blank" rel="noopener noreferrer">Join the Waitlist</Link>
-            </Button>
+          <div className="mt-12">
+            <NewsletterSignup
+              source="supervisors-faq"
+              title="Get Early Access"
+              description="Join our waitlist to be the first to try our supervision tools when they launch."
+              buttonText="Join Waitlist"
+              variant="card"
+              showNameField={true}
+              className="max-w-md mx-auto"
+            />
           </div>
         </div>
       </section>
