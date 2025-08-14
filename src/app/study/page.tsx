@@ -12,17 +12,17 @@ export const metadata = {
 export default function StudyPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FAF3E0' }}>
-      <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #152825 0%, #1E3A34 100%)' }}>
+      <section
+        className="relative overflow-hidden border-b"
+        style={{ backgroundColor: '#1F4D3F', borderColor: '#16372D' }}
+      >
         <div className="max-w-6xl mx-auto px-6 py-20 text-center">
           <Badge className="bg-white/10 text-white border-white/20 mb-4">AI-Powered Exam Prep</Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-white">Master Your BCBA Exam</h1>
           <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">Adaptive practice tests, targeted feedback, and precision learning to help you pass—faster.</p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-8 flex items-center justify-center">
             <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
               <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-              <Link href="#features">See Features</Link>
             </Button>
           </div>
         </div>

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Behavior School — Lead with confidence, reduce overwhelm",
+  title: "Empowering Behavior Analysts in Education | Behavior School",
   description:
-    "Evidence-based strategies for leaders to reduce overwhelm, build sustainable success, and create lasting impact without burnout.",
+    "Tools, training, and community to help school-based BCBAs thrive — from functional assessments to supervision systems that work in real classrooms.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    title: "Behavior School — Lead with confidence, reduce overwhelm",
+    title: "Empowering Behavior Analysts in Education | Behavior School",
     description:
-      "Evidence-based strategies for leaders to reduce overwhelm, build sustainable success, and create lasting impact without burnout.",
+      "Tools, training, and community to help school-based BCBAs thrive — from functional assessments to supervision systems that work in real classrooms.",
     url: "/",
     images: [
       {
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School — Lead with confidence, reduce overwhelm",
+    title: "Empowering Behavior Analysts in Education | Behavior School",
     description:
-      "Evidence-based strategies for leaders to reduce overwhelm, build sustainable success, and create lasting impact without burnout.",
+      "Tools, training, and community to help school-based BCBAs thrive — from functional assessments to supervision systems that work in real classrooms.",
     images: ["/og-image.png"],
   },
   robots: { index: true, follow: true },
@@ -122,10 +122,10 @@ export default function Home() {
         const webPageJsonLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Behavior School — Lead with confidence, reduce overwhelm",
+          name: "Empowering Behavior Analysts in Education | Behavior School",
           url: SITE_URL,
           description:
-            "Evidence-based strategies for leaders to reduce overwhelm, build sustainable success, and create lasting impact without burnout.",
+            "Tools, training, and community to help school-based BCBAs thrive — from functional assessments to supervision systems that work in real classrooms.",
           isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Behavior School" },
         } as const;
         const breadcrumbJsonLd = {

@@ -19,7 +19,7 @@ type TestimonialsProps = {
   className?: string;
 };
 
-export function Testimonials({ title = "Don't take our word for it, take theirs", items, className }: TestimonialsProps) {
+export function Testimonials({ title = "", items, className }: TestimonialsProps) {
   const first = items[0]?.id ?? "item-0";
   return (
     <section className={cn("py-20 lg:py-28 bg-gradient-to-b from-emerald-50/40 to-white", className)}>
