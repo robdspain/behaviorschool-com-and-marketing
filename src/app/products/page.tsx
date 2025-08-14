@@ -1,7 +1,31 @@
-"use client";
 import Link from "next/link";
-import { Bolt, BarChart3, ShieldCheck, Clock, Layers, BookOpen } from "lucide-react";
-import { motion } from "framer-motion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { ProductCards } from "./ProductCards";
+import { FeatureHighlights } from "./FeatureHighlights";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "BCBA Tools & Software | Behavior Analysis Products | Behavior School",
+  description: "Comprehensive behavior analysis tools for school-based BCBAs. AI-powered BCBA exam prep, supervision management software, and RBT training tools designed for educational settings.",
+  keywords: [
+    "BCBA tools",
+    "behavior analysis software",
+    "BCBA exam prep tools",
+    "RBT supervision software",
+    "school-based BCBA tools",
+    "behavior analyst products",
+    "BACB compliance software",
+    "behavior analysis technology",
+    "BCBA certification tools",
+    "educational behavior tools"
+  ],
+  openGraph: {
+    title: "BCBA Tools & Software | Behavior School",
+    description: "Comprehensive behavior analysis tools for school-based BCBAs. From exam prep to supervision management.",
+    type: "website",
+  },
+};
 
 export default function ProductsPage() {
   return (
@@ -14,102 +38,126 @@ export default function ProductsPage() {
 
       <section className="mx-auto max-w-6xl px-6 lg:px-8 py-16">
         <div className="text-center mb-10">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">Products</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">
+            Behavior Analysis Tools for School-Based BCBAs
+          </h1>
           <p className="text-lg text-slate-600 mt-4 max-w-3xl mx-auto">
-            Explore Behavior School’s tools designed for school-based BCBAs and supervisors. Build structured systems for student success, streamline supervision, and grow with confidence.
+            Comprehensive BCBA tools designed for education settings. From BCBA exam prep to supervision management—build 
+            structured systems for student success, streamline RBT training, and grow your behavior analysis practice with confidence.
           </p>
         </div>
 
-        <motion.div
-          className="grid gap-8 md:grid-cols-2"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
-        >
-          {/* Study card */}
-          <Link href="/study" className="group rounded-2xl">
-            <motion.div
-              className="rounded-2xl bg-white/80 ring-1 ring-slate-200/70 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)] transition-all duration-300"
-              variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              whileTap={{ scale: 0.99 }}
-            >
-              <div className="p-6 sm:p-8">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-400 text-white shadow-md group-hover:scale-105 transition-transform">BS</span>
-                <h2 className="text-2xl font-semibold text-slate-900">Behavior Study Tools</h2>
-              </div>
-              <p className="mt-3 text-slate-600">AI-powered prep and practice tools to master the BCBA exam with clarity and confidence.</p>
-              <div className="mt-5 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-white group-hover:bg-emerald-700 transition-colors">
-                Learn more
-                <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 15.707a1 1 0 010-1.414L13.586 11H5a1 1 0 110-2h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"/></svg>
-              </div>
-              </div>
-            </motion.div>
-          </Link>
+        <ProductCards />
+      </section>
 
-          {/* Supervisors card */}
-          <Link href="/supervisors" className="group rounded-2xl">
-            <motion.div
-              className="rounded-2xl bg-white/80 ring-1 ring-slate-200/70 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)] transition-all duration-300"
-              variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              whileTap={{ scale: 0.99 }}
-            >
-              <div className="p-6 sm:p-8">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-yellow-500 to-amber-400 text-white shadow-md group-hover:scale-105 transition-transform">SV</span>
-                <h2 className="text-2xl font-semibold text-slate-900">Supervision Tools</h2>
-              </div>
-              <p className="mt-3 text-slate-600">Simple, scalable workflows and resources to support meaningful, compassionate supervision.</p>
-              <div className="mt-5 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-white group-hover:bg-emerald-700 transition-colors">
-                Learn more
-                <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 15.707a1 1 0 010-1.414L13.586 11H5a1 1 0 110-2h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"/></svg>
-              </div>
-              </div>
-            </motion.div>
-          </Link>
-        </motion.div>
+      {/* Problem/Solution Section */}
+      <section className="mx-auto max-w-6xl px-6 lg:px-8 pb-16">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            Why School-Based BCBAs Choose Our Behavior Analysis Tools
+          </h2>
+          <p className="mt-3 text-slate-600 max-w-3xl mx-auto">
+            Built by behavior analysts for behavior analysts. Our tools address the unique challenges of 
+            school-based practice—from managing large caseloads to ensuring BACB compliance.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="rounded-2xl bg-slate-50 p-6">
+            <h3 className="text-xl font-semibold text-slate-900 mb-3">The Challenge</h3>
+            <p className="text-slate-700 mb-4">
+              School-based BCBAs face unique pressures: managing multiple RBT supervisees, tracking student behavior data, 
+              preparing for certification exams, and maintaining compliance—all while supporting classroom teams.
+            </p>
+            <ul className="space-y-2 text-slate-600">
+              <li>• Time-consuming manual documentation</li>
+              <li>• Difficulty tracking supervision hours</li>
+              <li>• Limited exam prep resources for busy professionals</li>
+              <li>• Compliance risks from incomplete records</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl bg-emerald-50 p-6">
+            <h3 className="text-xl font-semibold text-slate-900 mb-3">Our Solution</h3>
+            <p className="text-slate-700 mb-4">
+              Purpose-built tools that automate administrative tasks, enhance learning efficiency, and ensure 
+              defensible documentation—giving you more time to focus on what matters: student outcomes.
+            </p>
+            <ul className="space-y-2 text-slate-600">
+              <li>• Automated supervision documentation</li>
+              <li>• AI-powered adaptive exam prep</li>
+              <li>• BACB-compliant record keeping</li>
+              <li>• Intelligent analytics and insights</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       {/* Highlights similar to feature showcase */}
       <section className="mx-auto max-w-6xl px-6 lg:px-8 pb-20">
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Why teams choose Behavior School</h2>
-          <p className="mt-3 text-slate-600 max-w-3xl mx-auto">Practical tools and workflows designed for real classrooms—fast to adopt, easy to love.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+            Why Behavior Analysis Teams Choose Behavior School
+          </h2>
+          <p className="mt-3 text-slate-600 max-w-3xl mx-auto">
+            Practical BCBA tools and workflows designed for real educational settings—fast to adopt, 
+            easy to implement, proven to deliver results.
+          </p>
         </div>
-        <motion.div
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
-        >
-          {[
-            { icon: Bolt, title: "Fast setup", desc: "Get started in minutes with opinionated defaults and clear guidance." },
-            { icon: BarChart3, title: "Actionable analytics", desc: "See mastery growth, risks, and next steps at a glance." },
-            { icon: ShieldCheck, title: "Audit‑ready", desc: "Defensible documentation and signatures where it matters." },
-            { icon: Clock, title: "Time‑saving", desc: "Automations reduce busywork so teams can focus on students." },
-            { icon: Layers, title: "Flexible", desc: "Works across districts, programs, and caseload sizes." },
-            { icon: BookOpen, title: "Evidence‑based", desc: "Grounded in behavioral science and field‑tested in schools." },
-          ].map((f) => (
-            <motion.div
-              key={f.title}
-              className="group relative rounded-2xl bg-white/80 ring-1 ring-slate-200/70 p-6 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_-20px_rgba(0,0,0,0.35)]"
-              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
-              whileHover={{ y: -6, scale: 1.015 }}
-              whileTap={{ scale: 0.99 }}
-            >
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/15 to-emerald-400/5 text-emerald-700">
-                <f.icon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-semibold text-slate-900">{f.title}</h3>
-              <p className="mt-1 text-slate-600">{f.desc}</p>
-              <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(120% 60% at 50% 0%, rgba(16,185,129,0.10) 0%, transparent 60%)" }} />
-            </motion.div>
-          ))}
-        </motion.div>
+        <FeatureHighlights />
+      </section>
+
+      {/* FAQ Section */}
+      <section className="mx-auto max-w-4xl px-6 lg:px-8 pb-20">
+        <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">
+          Frequently Asked Questions About Our BCBA Tools
+        </h2>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="q1">
+            <AccordionTrigger>What behavior analysis tools does Behavior School offer?</AccordionTrigger>
+            <AccordionContent>
+              Behavior School provides two main product lines for BCBAs and behavior analysts: (1) BCBA Exam Prep Tools 
+              featuring AI-powered adaptive practice tests, personalized study plans, and performance analytics to help 
+              you pass certification exams, and (2) BCBA Supervision Tools for managing RBT training, tracking supervision 
+              hours, documenting competencies, and maintaining BACB compliance. Both tools are designed specifically for 
+              school-based behavior analysts and educational settings.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="q2">
+            <AccordionTrigger>How do these tools help with BACB compliance and documentation?</AccordionTrigger>
+            <AccordionContent>
+              Our supervision tools generate BACB-compliant documentation automatically, including timestamped supervision 
+              logs, digital signatures, competency assessments, and hour tracking (restricted/unrestricted). All records 
+              are audit-ready and exportable in formats accepted by the BACB. The platform ensures you meet current 
+              supervision standards and maintains defensible documentation for certification applications and audits.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="q3">
+            <AccordionTrigger>Can school districts use these tools for multiple BCBAs and RBTs?</AccordionTrigger>
+            <AccordionContent>
+              Yes! Our tools scale from individual BCBAs to large school districts with multiple behavior analysts and 
+              RBT teams. Districts can standardize supervision practices, monitor compliance across sites, track exam 
+              prep progress for new hires, and maintain centralized oversight of all behavior analysis activities. 
+              Volume pricing and district partnerships are available for larger implementations.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="q4">
+            <AccordionTrigger>What makes these tools different from generic behavior tracking apps?</AccordionTrigger>
+            <AccordionContent>
+              Unlike generic apps, Behavior School tools are built specifically for school-based BCBAs by practicing 
+              behavior analysts who understand educational settings. Our tools integrate with existing school systems, 
+              address classroom-specific challenges, and follow evidence-based practices from behavior science research. 
+              The AI-powered features adapt to individual learning needs while maintaining the rigor required for 
+              professional certification and compliance.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">
+            <Link href="/study">Start BCBA Exam Prep</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/supervisors">Explore Supervision Tools</Link>
+          </Button>
+        </div>
       </section>
     </div>
   );
