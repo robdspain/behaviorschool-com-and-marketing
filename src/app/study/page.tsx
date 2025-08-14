@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import GhostNewsletterSignup from "@/components/ghost-newsletter-signup";
 
 export const metadata = {
   title: "Behavior School Study Platform",
@@ -96,7 +97,7 @@ export default function StudyPage() {
               <AccordionContent>We analyze your responses to adjust difficulty and surface the highest-impact items for your next session.</AccordionContent>
             </AccordionItem>
             <AccordionItem value="q2">
-              <AccordionTrigger>What’s included in the free trial?</AccordionTrigger>
+              <AccordionTrigger>What&apos;s included in the free trial?</AccordionTrigger>
               <AccordionContent>Full access to the core practice engine and analytics for a limited time—no credit card required.</AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
@@ -104,6 +105,28 @@ export default function StudyPage() {
               <AccordionContent>Yes, dashboards show your mastery growth and time-to-target estimates by task area.</AccordionContent>
             </AccordionItem>
           </Accordion>
+        </div>
+      </section>
+
+      {/* Newsletter Signup Section */}
+      <section className="py-16" style={{ backgroundColor: '#FFF8EA' }}>
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-slate-900">Study Smarter with Our Newsletter</h2>
+            <p className="mt-3 text-slate-600 max-w-2xl mx-auto">Get study tips, BCBA exam updates, and exclusive practice content delivered weekly.</p>
+          </div>
+          <div className="bg-white rounded-2xl p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)]">
+            <GhostNewsletterSignup
+              title="BCBA Study Newsletter"
+              description="Weekly study strategies, practice questions, and exam preparation tips from behavior analysis experts."
+              backgroundColor="#FFFFFF"
+              textColor="#1F4D3F"
+              buttonColor="#E3B23C"
+              buttonTextColor="#FFFFFF"
+              compact={true}
+              className="mx-auto"
+            />
+          </div>
         </div>
       </section>
     </div>

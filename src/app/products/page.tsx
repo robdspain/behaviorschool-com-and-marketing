@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Bolt, BarChart3, ShieldCheck, Clock, Layers, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
+import GhostNewsletterSignup from "@/components/ghost-newsletter-signup";
 
 export default function ProductsPage() {
   return (
@@ -110,6 +111,22 @@ export default function ProductsPage() {
             </motion.div>
           ))}
         </motion.div>
+      </section>
+
+      {/* Newsletter Signup Section */}
+      <section className="mx-auto max-w-4xl px-6 lg:px-8 pb-20">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Stay Updated</h2>
+          <p className="mt-3 text-slate-600 max-w-2xl mx-auto">Get the latest insights, product updates, and practical strategies delivered to your inbox.</p>
+        </div>
+        <div className="bg-white/80 ring-1 ring-slate-200/70 rounded-2xl p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)]">
+          <GhostNewsletterSignup
+            title="Behavior School Updates"
+            description="Join thousands of BCBAs getting weekly insights on effective behavior management and professional growth."
+            compact={true}
+            className="mx-auto"
+          />
+        </div>
       </section>
     </div>
   );
