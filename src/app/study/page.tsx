@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 export const metadata = {
-  title: "Behavior School Study Platform",
-  description: "AI-powered BCBA exam prep with adaptive practice tests and smart study tools.",
+  title: "BCBA Exam Prep | Behavior Study Tools by Behavior School",
+  description: "AI-powered BCBA exam prep with adaptive practice tests, mastery tracking, and smart study tools.",
 };
 
 export default function StudyPage() {
@@ -18,8 +18,8 @@ export default function StudyPage() {
           titleComponent={(
             <div className="text-center">
               <Badge className="bg-white/10 text-white border-white/20 mb-4">AI-Powered Exam Prep</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold text-white">Master Your BCBA Exam</h1>
-              <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">Adaptive practice tests, targeted feedback, and precision learning to help you pass—faster.</p>
+              <h1 className="text-4xl md:text-5xl font-bold text-white">BCBA Exam Prep for School‑based Analysts</h1>
+              <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">Adaptive practice tests, mastery tracking, and precision feedback to help you pass the BCBA exam faster.</p>
               <div className="mt-8 flex items-center justify-center">
                 <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
                   <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
@@ -83,13 +83,16 @@ export default function StudyPage() {
             <Button asChild variant="outline" size="lg">
               <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start free trial</Link>
             </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/products">View All Products</Link>
+            </Button>
           </div>
         </div>
       </section>
 
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-slate-900 mb-6">FAQs</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">BCBA Exam Prep FAQs</h2>
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="q1">
               <AccordionTrigger>How does the AI adapt to me?</AccordionTrigger>

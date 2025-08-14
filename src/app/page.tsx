@@ -42,8 +42,8 @@ export default function Home() {
         eyebrow="Behavior School"
         title="Empowering"
         highlight="Behavior Analysts in Education"
-        subtitle="Tools, training, and community to help school-based BCBAs thrive — from functional assessments to supervision systems that work in real classrooms."
-        primaryCta={{ href: "/subscribe", label: "Join the Community" }}
+        subtitle="Behavior analysis resources, BCBA exam prep, and BCBA supervision tools for school-based teams."
+        primaryCta={{ href: "/products", label: "Explore BCBA Tools" }}
       />
 
       {/* Section 1 – What We Do */}
@@ -54,7 +54,7 @@ export default function Home() {
           </div>
           <div className="mx-auto max-w-3xl text-slate-700 space-y-6">
             <p>
-              Behavior School is built for the realities of working in education. We provide:
+              Behavior School is built for the realities of working in education. We provide BCBA study tools, school‑based supervision workflows, and behavior analysis resources that help teams deliver results.
             </p>
             <ul className="list-disc pl-5 space-y-2">
               <li>Research-backed intervention strategies</li>
@@ -102,10 +102,16 @@ export default function Home() {
               <li>Participate in collaborative problem-solving</li>
               <li>Share and access proven strategies</li>
             </ul>
-            <div className="pt-2">
+            <div className="pt-2 flex gap-3">
               <Button asChild size="lg" className="h-12 px-6 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl">
-                <a href="https://community.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                  Join the Community
+                <a href="/study">
+                  Explore BCBA Exam Prep
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="h-12 px-6 text-base font-semibold rounded-xl">
+                <a href="/supervisors">
+                  View Supervision Tools
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
@@ -147,6 +153,23 @@ export default function Home() {
           </>
         );
       })()}
+
+      {/* Home FAQ */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">Behavior School FAQs</h2>
+          <div className="space-y-6 text-slate-700">
+            <div>
+              <h3 className="text-xl font-semibold text-slate-900">Do you offer BCBA exam prep for schools?</h3>
+              <p>Yes. Our Behavior Study Tools deliver AI‑powered BCBA exam prep with adaptive practice and mastery tracking.</p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-slate-900">Do you have BCBA supervision tools for school‑based programs?</h3>
+              <p>We’re building comprehensive BCBA supervision workflows with competency matrices, hours logs, and audit‑ready exports.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

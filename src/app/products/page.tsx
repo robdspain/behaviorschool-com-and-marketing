@@ -14,9 +14,9 @@ export default function ProductsPage() {
 
       <section className="mx-auto max-w-6xl px-6 lg:px-8 py-16">
         <div className="text-center mb-10">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">Products</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">BCBA Study Tools & Supervision Software for Schools</h1>
           <p className="text-lg text-slate-600 mt-4 max-w-3xl mx-auto">
-            Explore Behavior School’s tools designed for school-based BCBAs and supervisors. Build structured systems for student success, streamline supervision, and grow with confidence.
+            Explore Behavior School’s BCBA exam prep and BCBA supervision tools designed for school-based BCBAs and supervisors. Build structured systems for student success, streamline supervision, and grow with confidence.
           </p>
         </div>
 
@@ -40,7 +40,7 @@ export default function ProductsPage() {
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-400 text-white shadow-md group-hover:scale-105 transition-transform">BS</span>
                 <h2 className="text-2xl font-semibold text-slate-900">Behavior Study Tools</h2>
               </div>
-              <p className="mt-3 text-slate-600">AI-powered prep and practice tools to master the BCBA exam with clarity and confidence.</p>
+              <p className="mt-3 text-slate-600">AI-powered BCBA exam prep with adaptive practice tests, mastery tracking, and a guided study planner.</p>
               <div className="mt-5 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-white group-hover:bg-emerald-700 transition-colors">
                 Learn more
                 <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 15.707a1 1 0 010-1.414L13.586 11H5a1 1 0 110-2h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"/></svg>
@@ -62,7 +62,7 @@ export default function ProductsPage() {
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-yellow-500 to-amber-400 text-white shadow-md group-hover:scale-105 transition-transform">SV</span>
                 <h2 className="text-2xl font-semibold text-slate-900">Supervision Tools</h2>
               </div>
-              <p className="mt-3 text-slate-600">Simple, scalable workflows and resources to support meaningful, compassionate supervision.</p>
+              <p className="mt-3 text-slate-600">Simple, scalable BCBA supervision workflows—competency tracking, hours logs, and audit‑ready documentation.</p>
               <div className="mt-5 inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-white group-hover:bg-emerald-700 transition-colors">
                 Learn more
                 <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.293 15.707a1 1 0 010-1.414L13.586 11H5a1 1 0 110-2h8.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"/></svg>
@@ -77,7 +77,7 @@ export default function ProductsPage() {
       <section className="mx-auto max-w-6xl px-6 lg:px-8 pb-20">
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Why teams choose Behavior School</h2>
-          <p className="mt-3 text-slate-600 max-w-3xl mx-auto">Practical tools and workflows designed for real classrooms—fast to adopt, easy to love.</p>
+          <p className="mt-3 text-slate-600 max-w-3xl mx-auto">Practical behavior analysis tools and workflows designed for real classrooms—fast to adopt, easy to love.</p>
         </div>
         <motion.div
           className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
@@ -88,11 +88,11 @@ export default function ProductsPage() {
         >
           {[
             { icon: Bolt, title: "Fast setup", desc: "Get started in minutes with opinionated defaults and clear guidance." },
-            { icon: BarChart3, title: "Actionable analytics", desc: "See mastery growth, risks, and next steps at a glance." },
+            { icon: BarChart3, title: "Actionable analytics", desc: "See mastery growth, supervision insights, and next steps at a glance." },
             { icon: ShieldCheck, title: "Audit‑ready", desc: "Defensible documentation and signatures where it matters." },
             { icon: Clock, title: "Time‑saving", desc: "Automations reduce busywork so teams can focus on students." },
             { icon: Layers, title: "Flexible", desc: "Works across districts, programs, and caseload sizes." },
-            { icon: BookOpen, title: "Evidence‑based", desc: "Grounded in behavioral science and field‑tested in schools." },
+            { icon: BookOpen, title: "Evidence‑based", desc: "Grounded in ABA and field‑tested in schools." },
           ].map((f) => (
             <motion.div
               key={f.title}
@@ -110,6 +110,27 @@ export default function ProductsPage() {
             </motion.div>
           ))}
         </motion.div>
+      </section>
+
+      {/* FAQ */}
+      <section className="mx-auto max-w-6xl px-6 lg:px-8 pb-24">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">BCBA Tools FAQs</h2>
+        </div>
+        <div className="mx-auto max-w-3xl text-slate-700 space-y-6">
+          <div>
+            <h3 className="text-xl font-semibold text-slate-900">What are the best BCBA exam prep tools for schools?</h3>
+            <p>Behavior Study Tools provide AI-powered BCBA exam prep with adaptive practice tests, analytics, and study plans built for school schedules.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-slate-900">Do you offer BCBA supervision tools for school-based programs?</h3>
+            <p>Yes. Our Supervision Tools streamline competency tracking, hours logs, and defensible documentation for effective BCBA supervision.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-slate-900">Can these behavior analysis tools fit into IEP and district workflows?</h3>
+            <p>They’re designed for K–12 with simple setup, data collection support, and IEP‑friendly exports that support compliance.</p>
+          </div>
+        </div>
       </section>
     </div>
   );
