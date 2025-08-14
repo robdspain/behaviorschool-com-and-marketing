@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Bolt, BarChart3, ShieldCheck, Clock, Layers, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
+import { GhostSignup } from "@/components/ghost-signup";
 
 export default function ProductsPage() {
   return (
@@ -110,6 +111,17 @@ export default function ProductsPage() {
             </motion.div>
           ))}
         </motion.div>
+      </section>
+
+      {/* Newsletter CTA */}
+      <section className="mx-auto max-w-6xl px-6 lg:px-8 pb-20">
+        <div className="text-center mb-6">
+          <h2 className="text-3xl font-bold text-slate-900">Get updates and resources</h2>
+          <p className="text-slate-600 mt-2">Join the newsletter for product updates, resources, and early access invites.</p>
+        </div>
+        <div className="max-w-md mx-auto">
+          <GhostSignup />
+        </div>
       </section>
     </div>
   );

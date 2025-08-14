@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { getPosts, type Post } from "@/lib/ghost";
+import { GhostSignup } from "@/components/ghost-signup";
 
 function PostRow({ post }: { post: Post }) {
   return (
@@ -22,6 +23,15 @@ export default async function ResourcesPage() {
         {posts.map((post) => (
           <PostRow key={post.id} post={post} />
         ))}
+      </div>
+      <div className="mt-12">
+        <div className="text-center mb-4">
+          <h2 className="text-2xl font-semibold text-slate-900">Get new resources in your inbox</h2>
+          <p className="text-slate-600 mt-2">Join the newsletter for fresh posts, tools, and actionable insights.</p>
+        </div>
+        <div className="max-w-md mx-auto">
+          <GhostSignup />
+        </div>
       </div>
     </div>
   );
