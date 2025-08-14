@@ -69,10 +69,12 @@ export function Footer() {
           <div>
             <div className="mb-3 text-xs font-semibold tracking-widest text-emerald-500 uppercase">Product</div>
             <ul className="space-y-2 text-foreground/70">
+              <li><Link href="/products/classroom-pilot">ClassroomPilot</Link></li>
               <li><Link href="/study">Study Tools</Link></li>
               <li><Link href="/supervisors">Supervision</Link></li>
               <li><Link href="/products">All Products</Link></li>
               <li><Link href="/resources">Resources</Link></li>
+              <li><Link href="/resources/iep-data-tracking-tips">IEP Data Tracking Tips</Link></li>
             </ul>
           </div>
           <div>

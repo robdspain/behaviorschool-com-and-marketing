@@ -46,6 +46,19 @@ export default function Home() {
         primaryCta={{ href: "/subscribe", label: "Join the Community" }}
       />
 
+      <section className="py-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-xl bg-white/80 ring-1 ring-slate-200/70 p-4 text-sm text-slate-700 flex items-center justify-between gap-3">
+            <p>
+              Looking for IEP goal tracking and progress monitoring? Explore <a className="text-emerald-700 underline" href="/products/classroom-pilot">ClassroomPilot</a>.
+            </p>
+            <a href="/products/classroom-pilot" className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-white font-semibold text-sm">
+              Learn more <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Section 1 – What We Do */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

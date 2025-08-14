@@ -9,6 +9,7 @@ export const menuSections: MenuSection[] = [
     label: "Resources",
     children: [
       { label: "All Resources", href: "/resources" },
+      { label: "IEP Data Tracking Tips", href: "/resources/iep-data-tracking-tips" },
     ],
   },
   { label: "Blog", href: "/blog" },
