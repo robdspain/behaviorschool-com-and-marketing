@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { GhostSignupEmbed } from "@/components/GhostSignupEmbed";
 
 export const metadata = {
   title: "Behavior School Study Platform",
@@ -104,6 +105,9 @@ export default function StudyPage() {
               <AccordionContent>Yes, dashboards show your mastery growth and time-to-target estimates by task area.</AccordionContent>
             </AccordionItem>
           </Accordion>
+          <div className="mt-10 max-w-md mx-auto">
+            <GhostSignupEmbed />
+          </div>
         </div>
       </section>
     </div>

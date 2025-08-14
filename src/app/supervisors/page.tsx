@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { GhostSignupEmbed } from "@/components/GhostSignupEmbed";
 
 export const metadata = {
   title: "Behavior School Supervision Tools",
@@ -72,6 +73,9 @@ export default function SupervisorsPage() {
             <Button asChild size="lg" className="bg-[#E3B23C] hover:bg-[#d9a42f] text-slate-900">
               <Link href="https://study.behaviorschool.com/supervisors" target="_blank" rel="noopener noreferrer">Join the Waitlist</Link>
             </Button>
+          </div>
+          <div className="mt-10 max-w-md mx-auto">
+            <GhostSignupEmbed />
           </div>
         </div>
       </section>

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Bolt, BarChart3, ShieldCheck, Clock, Layers, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
+import { GhostSignupEmbed } from "@/components/GhostSignupEmbed";
 
 export default function ProductsPage() {
   return (
@@ -71,6 +72,17 @@ export default function ProductsPage() {
             </motion.div>
           </Link>
         </motion.div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="mx-auto max-w-6xl px-6 lg:px-8 py-16">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4 text-center">Subscribe for updates</h2>
+          <p className="text-slate-700 mb-6 text-center">Get product updates and practical resources from Behavior School.</p>
+          <div className="max-w-md mx-auto">
+            <GhostSignupEmbed />
+          </div>
+        </div>
       </section>
 
       {/* Highlights similar to feature showcase */}

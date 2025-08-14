@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { getPosts, type Post } from "@/lib/ghost";
+import { GhostSignupEmbed } from "@/components/GhostSignupEmbed";
 
 function PostRow({ post }: { post: Post }) {
   return (
@@ -22,6 +23,9 @@ export default async function ResourcesPage() {
         {posts.map((post) => (
           <PostRow key={post.id} post={post} />
         ))}
+      </div>
+      <div className="mt-10 max-w-md mx-auto">
+        <GhostSignupEmbed />
       </div>
     </div>
   );
