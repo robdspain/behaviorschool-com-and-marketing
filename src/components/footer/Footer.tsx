@@ -73,6 +73,7 @@ export function Footer() {
               <li><Link href="/supervisors">Supervision</Link></li>
               <li><Link href="/products">All Products</Link></li>
               <li><Link href="/resources">Resources</Link></li>
+              <li><Link href="/classroom-pilot/faq">ClassroomPilot FAQ</Link></li>
             </ul>
           </div>
           <div>
