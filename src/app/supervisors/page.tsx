@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import InlineSubscribeForm from "@/components/subscribe/InlineSubscribeForm";
 
 export const metadata = {
   title: "Behavior School Supervision Tools",
@@ -25,6 +26,9 @@ export default function SupervisorsPage() {
             <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
               <Link href="https://study.behaviorschool.com/supervisors" target="_blank" rel="noopener noreferrer">Join the Waitlist</Link>
             </Button>
+          </div>
+          <div className="mt-6 max-w-2xl mx-auto">
+            <InlineSubscribeForm className="mx-auto" ctaLabel="Notify me when available" />
           </div>
         </div>
       </section>
