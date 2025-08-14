@@ -32,6 +32,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import Footer from "@/components/ui/Footer";
 import { Hero } from "@/components/ui/hero";
+import { FAQ } from "@/components/faq";
  
 
 export default function Home() {
@@ -113,6 +114,29 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* TierPath FAQ Section */}
+      <FAQ 
+        className="bg-slate-50"
+        items={[
+          {
+            question: "What is the best MTSS software for schools?",
+            answer: "TierPath streamlines multi-tiered systems of support (MTSS) by centralizing Tier 1–3 interventions, PBIS tracking, and progress monitoring into one platform."
+          },
+          {
+            question: "Can TierPath help track PBIS interventions?",
+            answer: "Yes. TierPath includes built-in PBIS tracking, from Check-In/Check-Out (CICO) to Tier 3 intervention fidelity, with easy-to-read dashboards."
+          },
+          {
+            question: "Does TierPath support universal screening?",
+            answer: "Absolutely. TierPath includes a universal screening module with risk flagging so you can identify students in need of additional support early."
+          },
+          {
+            question: "How does TierPath help with fidelity checks?",
+            answer: "TierPath tracks implementation fidelity at all tiers, giving district leaders and coaches the data they need to improve program consistency."
+          }
+        ]}
+      />
 
       {/* Light CTA simplified is integrated into Section 3 above */}
       
