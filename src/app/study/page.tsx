@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 export const metadata = {
   title: "Behavior School Study Platform",
@@ -12,20 +13,23 @@ export const metadata = {
 export default function StudyPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FAF3E0' }}>
-      <section
-        className="relative overflow-hidden border-b"
-        style={{ backgroundColor: '#1F4D3F', borderColor: '#16372D' }}
-      >
-        <div className="max-w-6xl mx-auto px-6 py-20 text-center">
-          <Badge className="bg-white/10 text-white border-white/20 mb-4">AI-Powered Exam Prep</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold text-white">Master Your BCBA Exam</h1>
-          <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">Adaptive practice tests, targeted feedback, and precision learning to help you pass—faster.</p>
-          <div className="mt-8 flex items-center justify-center">
-            <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
-            </Button>
-          </div>
-        </div>
+      <section className="relative overflow-hidden" style={{ backgroundColor: '#1F4D3F' }}>
+        <ContainerScroll
+          titleComponent={(
+            <div className="text-center">
+              <Badge className="bg-white/10 text-white border-white/20 mb-4">AI-Powered Exam Prep</Badge>
+              <h1 className="text-4xl md:text-5xl font-bold text-white">Master Your BCBA Exam</h1>
+              <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">Adaptive practice tests, targeted feedback, and precision learning to help you pass—faster.</p>
+              <div className="mt-8 flex items-center justify-center">
+                <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
+                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
+                </Button>
+              </div>
+            </div>
+          )}
+        >
+          <div className="w-full h-full bg-white" />
+        </ContainerScroll>
       </section>
 
       <section id="features" className="py-16">

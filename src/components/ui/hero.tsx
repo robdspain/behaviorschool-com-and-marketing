@@ -12,7 +12,7 @@ type HeroProps = {
   highlight?: string;
   subtitle?: string;
   primaryCta?: { href: string; label: string };
-  variant?: 'light' | 'dark';
+  variant?: 'light' | 'dark' | 'brand';
 };
 
 export function Hero({
@@ -24,13 +24,15 @@ export function Hero({
   primaryCta = { href: "https://study.behaviorschool.com", label: "Get Started" },
   variant = 'light',
 }: HeroProps) {
+  const isDark = variant === 'dark' || variant === 'brand';
   return (
     <section
       className={cn(
         "relative pt-16 pb-20 lg:pt-24 lg:pb-28 overflow-hidden",
-        variant === 'dark' ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : 'bg-white',
+        variant === 'dark' ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : variant === 'light' ? 'bg-white' : undefined,
         className
       )}
+      style={variant === 'brand' ? { backgroundColor: '#1F4D3F' } : undefined}
     >
       {variant === 'light' ? (
         <>
@@ -38,13 +40,13 @@ export function Hero({
           <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-emerald-100 to-transparent opacity-30 blur-3xl" />
           <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-blue-100 to-transparent opacity-20 blur-2xl" />
         </>
-      ) : (
+      ) : variant === 'dark' ? (
         <>
           <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
           <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-emerald-500/20 blur-3xl" />
           <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-blue-500/20 blur-2xl" />
         </>
-      )}
+      ) : null}
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -53,7 +55,7 @@ export function Hero({
               {eyebrow ? (
                 <Badge className={cn(
                   "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium",
-                  variant === 'dark' ? 'bg-white/10 text-white border-white/20' : 'bg-emerald-100 text-emerald-800 border-emerald-200'
+                  isDark ? 'bg-white/10 text-white border-white/20' : 'bg-emerald-100 text-emerald-800 border-emerald-200'
                 )}>
                   <Zap className="w-4 h-4 mr-1" />
                   {eyebrow}
@@ -61,19 +63,19 @@ export function Hero({
               ) : null}
               <h1 className={cn(
                 "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.05]",
-                variant === 'dark' ? 'text-white' : 'text-slate-900'
+                isDark ? 'text-white' : 'text-slate-900'
               )}>
                 {title}{" "}
                 {highlight ? (
                   <span className={cn(
                     "text-transparent bg-clip-text bg-gradient-to-r",
-                    variant === 'dark' ? 'from-emerald-300 to-emerald-400' : 'from-emerald-600 to-emerald-500'
+                    isDark ? 'from-emerald-300 to-emerald-400' : 'from-emerald-600 to-emerald-500'
                   )}>{highlight}</span>
                 ) : null}
               </h1>
               {subtitle ? (
                 <p className={cn("text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-2xl",
-                  variant === 'dark' ? 'text-slate-300' : 'text-slate-600'
+                  isDark ? 'text-slate-300' : 'text-slate-600'
                 )}>{subtitle}</p>
               ) : null}
             </div>

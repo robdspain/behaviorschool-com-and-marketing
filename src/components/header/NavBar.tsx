@@ -14,10 +14,9 @@ export function NavBar() {
 
   return (
     <nav
-      className="border-b"
       role="navigation"
       aria-label="Primary"
-      style={{ backgroundColor: '#1F4D3F', borderColor: '#16372D' }}
+      style={{ backgroundColor: '#1F4D3F' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">

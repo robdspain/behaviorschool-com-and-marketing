@@ -14,8 +14,8 @@ export default function SupervisorsPage() {
     <div className="min-h-screen" style={{ backgroundColor: '#FAF3E0' }}>
       {/* Hero */}
       <section
-        className="relative overflow-hidden border-b"
-        style={{ backgroundColor: '#1F4D3F', borderColor: '#16372D' }}
+        className="relative overflow-hidden"
+        style={{ backgroundColor: '#1F4D3F' }}
       >
         <div className="max-w-6xl mx-auto px-6 py-20 text-center">
           <Badge className="bg-white/10 text-white border-white/20 mb-4">Coming Soon</Badge>

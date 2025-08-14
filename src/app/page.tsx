@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--bs-background,#FAF3E0)]">
       <Hero
-        variant="light"
+        variant="brand"
         eyebrow="Behavior School"
         title="Empowering"
         highlight="Behavior Analysts in Education"
