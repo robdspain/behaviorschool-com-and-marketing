@@ -9,12 +9,22 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-  description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
-  keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
+  description: "Special education and behavior tools to plan lessons, track IEP goals, and generate progress reports—so you can lead with confidence and reduce overwhelm.",
+  keywords: [
+    "behavior change",
+    "leadership",
+    "productivity",
+    "burnout prevention",
+    "special education teacher software",
+    "IEP goal tracking tool",
+    "progress monitoring app for special ed",
+    "IEP progress report generator",
+    "accommodations tracking tool",
+  ],
   authors: [{ name: "Behavior School" }],
   openGraph: {
     title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-    description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
+    description: "Special education and behavior tools to plan lessons, track IEP goals, and generate progress reports—so you can lead with confidence and reduce overwhelm.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     images: [
@@ -31,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-    description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
+    description: "Special education and behavior tools to plan lessons, track IEP goals, and generate progress reports—so you can lead with confidence and reduce overwhelm.",
     images: ["/og-image.png"],
   },
   metadataBase: new URL("https://behaviorschool.com"),
