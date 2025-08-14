@@ -15,4 +15,14 @@
 [build.processing]
   skip_processing = true
 
+[[redirects]]
+  from = "/tierpath"
+  to = "/tierpath.html"
+  status = 200
+
+[[redirects]]
+  from = "/tierpath/"
+  to = "/tierpath/index.html"
+  status = 200
+
 

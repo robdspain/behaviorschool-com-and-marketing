@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
       { protocol: "http", hostname: "*" },
     ],
   },
+  async rewrites() {
+    return [
+      { source: "/tierpath", destination: "/tierpath.html" },
+      { source: "/tierpath/", destination: "/tierpath/index.html" },
+    ];
+  },
 };
 
 export default nextConfig;
