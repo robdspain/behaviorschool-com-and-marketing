@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AboutUsOne } from "@/components/blocks/about-us-1";
 
 export const metadata: Metadata = {
   title: "About | Behavior School",
@@ -63,6 +64,10 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <div className="mt-12">
+        <AboutUsOne />
+      </div>
 
       <section className="mt-12 prose prose-slate max-w-none">
         <h2>Our story</h2>
