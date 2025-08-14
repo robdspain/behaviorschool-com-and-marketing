@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
           BehaviorStudyTools.com is a product of Behavior School LLC
         </p>
         <div className="mt-4 space-x-6">
-          <a href="https://study.behaviorschool.com/faq" className="hover:text-quiz-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-quiz-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100 rounded-md">FAQ</a>
+          <Link href="/faq" className="hover:text-quiz-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-quiz-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100 rounded-md">FAQ</Link>
           <a href="https://study.behaviorschool.com/contact" className="hover:text-quiz-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-quiz-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100 rounded-md">Contact Us</a>
           <a href="https://study.behaviorschool.com/privacy-policy" className="hover:text-quiz-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-quiz-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100 rounded-md">Privacy Policy</a>
           <a href="https://study.behaviorschool.com/terms-of-service" className="hover:text-quiz-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-quiz-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-100 rounded-md">Terms of Service</a>
