@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { GhostSignup } from "@/components/ghost-signup";
 
 export const metadata = {
   title: "Behavior School Study Platform",
@@ -104,6 +105,19 @@ export default function StudyPage() {
               <AccordionContent>Yes, dashboards show your mastery growth and time-to-target estimates by task area.</AccordionContent>
             </AccordionItem>
           </Accordion>
+        </div>
+      </section>
+
+      {/* Newsletter CTA */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-bold text-slate-900">Get BCBA study tips and product updates</h2>
+            <p className="text-slate-600 mt-2">Join the newsletter for practice strategies, study planning tips, and early access features.</p>
+          </div>
+          <div className="max-w-md mx-auto">
+            <GhostSignup />
+          </div>
         </div>
       </section>
     </div>
