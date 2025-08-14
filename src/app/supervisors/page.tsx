@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import GhostNewsletterSignup from "@/components/ghost-newsletter-signup";
 
 export const metadata = {
   title: "Behavior School Supervision Tools",
@@ -72,6 +73,28 @@ export default function SupervisorsPage() {
             <Button asChild size="lg" className="bg-[#E3B23C] hover:bg-[#d9a42f] text-slate-900">
               <Link href="https://study.behaviorschool.com/supervisors" target="_blank" rel="noopener noreferrer">Join the Waitlist</Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Signup Section */}
+      <section className="py-16" style={{ backgroundColor: '#FFF8EA' }}>
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-slate-900">Stay Informed About Supervision Tools</h2>
+            <p className="mt-3 text-slate-600 max-w-2xl mx-auto">Get updates on our supervision platform launch, plus weekly insights on effective BCBA supervision practices.</p>
+          </div>
+          <div className="bg-white rounded-2xl p-8 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)]">
+            <GhostNewsletterSignup
+              title="Supervision Newsletter"
+              description="Early access updates, supervision best practices, and resources for effective BCBA supervision."
+              backgroundColor="#FFFFFF"
+              textColor="#1F4D3F"
+              buttonColor="#E3B23C"
+              buttonTextColor="#FFFFFF"
+              compact={true}
+              className="mx-auto"
+            />
           </div>
         </div>
       </section>
