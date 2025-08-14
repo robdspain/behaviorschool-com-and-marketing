@@ -8,21 +8,32 @@ import { ToastProvider } from "@/components/toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-  description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
-  keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
-  authors: [{ name: "Behavior School" }],
+  title: "ClassroomPilot — IEP Goal Tracking & Progress Monitoring Software",
+  description: "Special education software to plan lessons, track IEP goals, and generate progress reports with ease. AI-powered for teachers and case managers.",
+  keywords: [
+    "special education teacher software",
+    "IEP goal tracking tool", 
+    "progress monitoring app for special ed",
+    "IEP progress report generator",
+    "accommodations tracking tool",
+    "sped data collection app",
+    "special education planning software",
+    "IDEA compliance",
+    "parent communication tools",
+    "assistive technology integration"
+  ],
+  authors: [{ name: "ClassroomPilot" }],
   openGraph: {
-    title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-    description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
-    url: "https://behaviorschool.com",
-    siteName: "Behavior School",
+    title: "ClassroomPilot — IEP Goal Tracking & Progress Monitoring Software",
+    description: "Special education software to plan lessons, track IEP goals, and generate progress reports with ease. AI-powered for teachers and case managers.",
+    url: "https://classroompilot.com",
+    siteName: "ClassroomPilot",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Behavior School",
+        alt: "ClassroomPilot - Special Education Teacher Software",
       },
     ],
     locale: "en_US",
@@ -30,11 +41,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-    description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
+    title: "ClassroomPilot — IEP Goal Tracking & Progress Monitoring Software",
+    description: "Special education software to plan lessons, track IEP goals, and generate progress reports with ease. AI-powered for teachers and case managers.",
     images: ["/og-image.png"],
   },
-  metadataBase: new URL("https://behaviorschool.com"),
+  metadataBase: new URL("https://classroompilot.com"),
 };
 
 export default function RootLayout({
@@ -42,18 +53,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://classroompilot.com";
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Behavior School",
+    name: "ClassroomPilot",
     url: SITE_URL,
+    description: "Special education software for IEP goal tracking and progress monitoring",
+    sameAs: [
+      "https://twitter.com/classroompilot",
+      "https://linkedin.com/company/classroompilot"
+    ]
   } as const;
   const webSiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Behavior School",
+    name: "ClassroomPilot",
     url: SITE_URL,
+    description: "IEP goal tracking and progress monitoring software for special education teachers",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${SITE_URL}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
   } as const;
   return (
     <html lang="en">

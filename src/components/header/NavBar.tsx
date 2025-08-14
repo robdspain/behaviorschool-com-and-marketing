@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import { DesktopMenu } from "./DesktopMenu";
 import { MobileMenu } from "./MobileMenu";
 
@@ -16,13 +16,13 @@ export function NavBar() {
     <nav
       role="navigation"
       aria-label="Primary"
-      style={{ backgroundColor: '#1F4D3F' }}
+      style={{ backgroundColor: '#1E40AF' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0">
-              <span className="text-2xl font-bold text-white">Behavior School</span>
+              <span className="text-2xl font-bold text-white">ClassroomPilot</span>
             </Link>
           </div>
 
