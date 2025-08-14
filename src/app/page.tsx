@@ -30,7 +30,6 @@ export const metadata: Metadata = {
 };
 import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight } from "lucide-react";
-import Footer from "@/components/ui/Footer";
 import { Hero } from "@/components/ui/hero";
  
 
@@ -148,7 +147,7 @@ export default function Home() {
         );
       })()}
 
-      <Footer />
+      {/* Footer rendered by root layout */}
     </div>
   );
 }
