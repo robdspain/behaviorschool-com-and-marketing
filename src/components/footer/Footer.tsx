@@ -81,6 +81,7 @@ export function Footer() {
               <li><Link href="/about">About</Link></li>
               <li><Link href="/contact">Contact</Link></li>
               <li><Link href="/blog">Blog</Link></li>
+              <li><Link href="/faq">FAQ</Link></li>
             </ul>
           </div>
           <div>
@@ -88,7 +89,7 @@ export function Footer() {
             <ul className="space-y-2 text-foreground/70">
               <li><a href="https://study.behaviorschool.com/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
               <li><a href="https://study.behaviorschool.com/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a></li>
-              <li><a href="https://study.behaviorschool.com/faq" target="_blank" rel="noopener noreferrer">FAQ</a></li>
+              <li><a href="https://study.behaviorschool.com/faq" target="_blank" rel="noopener noreferrer">FAQ (Study Platform)</a></li>
             </ul>
           </div>
         </nav>
