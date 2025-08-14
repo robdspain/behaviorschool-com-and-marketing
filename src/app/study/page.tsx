@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { NewsletterSignupInline, NewsletterSignup } from "@/components/newsletter-signup";
 
 export const metadata = {
   title: "Behavior School Study Platform",
@@ -20,10 +21,14 @@ export default function StudyPage() {
               <Badge className="bg-white/10 text-white border-white/20 mb-4">AI-Powered Exam Prep</Badge>
               <h1 className="text-4xl md:text-5xl font-bold text-white">Master Your BCBA Exam</h1>
               <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">Adaptive practice tests, targeted feedback, and precision learning to help you pass—faster.</p>
-              <div className="mt-8 flex items-center justify-center">
-                <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
-                </Button>
+              <div className="mt-8 max-w-md mx-auto">
+                <NewsletterSignupInline
+                  source="study-hero"
+                  buttonText="Start Free Trial"
+                  placeholder="Enter your email to get started"
+                  className="w-full"
+                />
+                <p className="mt-3 text-sm text-slate-300">Get instant access to our AI-powered study platform.</p>
               </div>
             </div>
           )}
@@ -104,6 +109,17 @@ export default function StudyPage() {
               <AccordionContent>Yes, dashboards show your mastery growth and time-to-target estimates by task area.</AccordionContent>
             </AccordionItem>
           </Accordion>
+          <div className="mt-12">
+            <NewsletterSignup
+              source="study-faq"
+              title="Ready to ace your BCBA exam?"
+              description="Start your free trial today and get access to our full suite of AI-powered study tools."
+              buttonText="Start Free Trial"
+              variant="card"
+              showNameField={true}
+              className="max-w-md mx-auto"
+            />
+          </div>
         </div>
       </section>
     </div>
