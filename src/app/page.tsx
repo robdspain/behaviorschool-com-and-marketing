@@ -32,6 +32,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import Footer from "@/components/ui/Footer";
 import { Hero } from "@/components/ui/hero";
+import { FAQ } from "@/components/ui/faq";
  
 
 export default function Home() {
@@ -114,7 +115,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Light CTA simplified is integrated into Section 3 above */}
+      {/* ClassroomPilot FAQ Section */}
+      <FAQ 
+        title="Frequently Asked Questions"
+        items={[
+          {
+            question: "What is the best IEP goal tracking software for teachers?",
+            answer: "ClassroomPilot helps special education teachers track IEP goals, monitor student progress, and generate reports — all in a single, user-friendly platform."
+          },
+          {
+            question: "Can ClassroomPilot help with IEP progress monitoring?",
+            answer: "Yes. The platform lets you log progress in real time, view trends, and create parent- and admin-friendly reports instantly."
+          },
+          {
+            question: "Does ClassroomPilot work for tracking accommodations?",
+            answer: "Absolutely. ClassroomPilot includes tools for documenting accommodations and modifications, ensuring IDEA compliance and easy reporting."
+          },
+          {
+            question: "Can ClassroomPilot improve collaboration with paras and service providers?",
+            answer: "Yes. You can share lesson plans, track shared student progress, and communicate updates with paraprofessionals and service providers securely."
+          }
+        ]}
+        className="bg-slate-50"
+      />
       
       {/* Structured data (WebPage + Breadcrumbs) */}
       {(() => {
