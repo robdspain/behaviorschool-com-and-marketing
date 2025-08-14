@@ -17,7 +17,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </header>
       {post.feature_image ? (
         <div className="mt-6 overflow-hidden rounded-lg bg-slate-100">
-          <img src={post.feature_image} alt={post.title} className="h-auto w-full object-cover" />
+          <img 
+            src={post.feature_image} 
+            alt={`${post.title} - BCBA training and behavior analysis resources from Behavior School`} 
+            className="h-auto w-full object-cover" 
+          />
         </div>
       ) : null}
       {post.excerpt ? (

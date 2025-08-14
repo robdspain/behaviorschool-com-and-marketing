@@ -34,7 +34,11 @@ export default async function BlogPost({ params }: PageProps) {
     <article className="mx-auto max-w-3xl px-6 lg:px-8 py-10">
       {post.feature_image ? (
         <div className="mb-6 overflow-hidden rounded-lg aspect-[16/9] bg-slate-100">
-          <img src={post.feature_image} alt={post.title} className="h-full w-full object-cover" />
+          <img 
+            src={post.feature_image} 
+            alt={`${post.title} - Behavior analysis insights and educational strategies from Behavior School`} 
+            className="h-full w-full object-cover" 
+          />
         </div>
       ) : null}
       <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">{post.title}</h1>
