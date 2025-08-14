@@ -1,0 +1,24 @@
+# Robots.txt for Behavior School
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# ClassroomPilot specific pages - prioritize crawling
+User-agent: *
+Allow: /products/classroom-pilot
+
+# Sitemap location
+Sitemap: https://behaviorschool.com/sitemap.xml
