@@ -15,6 +15,7 @@ export const menuSections: MenuSection[] = [
   { label: "About", href: "/about" },
   // External community entry for parity with live site
   { label: "Community", href: "https://community.behaviorschool.com" },
+  { label: "Admin", href: "/admin" },
 ];
 
 
