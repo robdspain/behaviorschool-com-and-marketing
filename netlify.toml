@@ -5,6 +5,7 @@
 [build.environment]
   NODE_VERSION = "20"
   ENABLE_EXPERIMENTAL_COREPACK = "1"
+  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_URL,NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
