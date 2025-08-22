@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Behavior School - Tools and training for school-based BCBAs and behavior analysts in education",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "School BCBAs & Behavior Support Tools | Behavior School",
     description:
       "Tools, training, and community for school-based BCBAs, psychologists, and educators. BCBA exam prep, supervision tools, IEP goal writing, and behavior intervention plans.",
-    images: ["/og-image.png"],
+    images: ["/og-image.webp"],
     creator: "@BehaviorSchool",
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },

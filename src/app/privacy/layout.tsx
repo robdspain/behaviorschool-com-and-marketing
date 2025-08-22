@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "/privacy",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Privacy Policy",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Privacy Policy - Behavior School",
     description: "Your privacy is important to us. This policy explains how we collect, use, and protect your information.",
-    images: ["/og-image.png"],
+    images: ["/og-image.webp"],
   },
   robots: { index: true, follow: true },
 };

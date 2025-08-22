@@ -82,12 +82,13 @@ export default function ProductsPage() {
               </div>
               <div className="relative">
                 <div className="relative z-10">
-                  <Image
+                  <img
                     src="/Hero/Hero-group1.webp"
                     alt="Behavior Study Tools - AI-powered BCBA exam preparation"
                     width={600}
                     height={400}
                     className="w-full h-auto rounded-2xl shadow-2xl"
+                    loading="eager"
                   />
                 </div>
                 <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-200 to-yellow-100 opacity-80 animate-pulse" />
@@ -102,12 +103,13 @@ export default function ProductsPage() {
             >
               <div className="relative">
                 <div className="relative z-10">
-                  <Image
+                  <img
                     src="/Supervision/Supervision1.webp"
                     alt="Supervision Tools Dashboard"
                     width={800}
                     height={533}
                     className="w-full h-auto rounded-2xl shadow-2xl"
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -206,12 +208,13 @@ export default function ProductsPage() {
               </div>
               <div className="relative">
                 <div className="relative z-10">
-                  <Image
+                  <img
                     src="/IEP-Goal/IEP-Goal-Writing.webp"
                     alt="IEP Goal Writing Tool - Professional goal setting interface"
                     width={600}
                     height={400}
                     className="w-full h-auto rounded-2xl shadow-2xl"
+                    loading="lazy"
                   />
                 </div>
                 <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-200 to-purple-100 opacity-80 animate-pulse" />
@@ -226,12 +229,13 @@ export default function ProductsPage() {
             >
               <div className="relative">
                 <div className="relative z-10">
-                  <Image
+                  <img
                     src="/BIP-Writer/BIP-Writer-Team.webp"
                     alt="Behavior Plan Writer - Team collaboration on behavior intervention planning"
                     width={600}
                     height={400}
                     className="w-full h-auto rounded-2xl shadow-2xl"
+                    loading="lazy"
                   />
                 </div>
                 <div className="absolute -top-6 -left-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-orange-200 to-orange-100 opacity-80 animate-pulse" />

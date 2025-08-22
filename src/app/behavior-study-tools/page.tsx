@@ -86,12 +86,13 @@ export default function BehaviorStudyToolsPage() {
               transition={{ duration: 0.8 }}
             >
               <div className="relative z-10">
-                <Image
+                <img
                   src="/Hero/Hero-group1.webp"
                   alt="Behavior Study Tools - AI-powered BCBA exam preparation"
                   width={600}
                   height={400}
                   className="w-full h-auto rounded-2xl shadow-2xl"
+                  loading="eager"
                 />
               </div>
               <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-200 to-yellow-100 opacity-80 animate-pulse" />

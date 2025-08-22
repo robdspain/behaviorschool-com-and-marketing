@@ -266,13 +266,13 @@ export default function TransformationProgramPage() {
               >
                 {/* Professional Education Image */}
                 <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
-                  <Image
+                  <img
                     src="/Hero/Hero-group1.webp"
                     alt="Professional education team collaborating - confident leaders working together with systems and clarity"
                     width={800}
                     height={600}
                     className="w-full h-full object-cover"
-                    priority
+                    loading="eager"
                   />
                   
                   {/* Professional Overlay with Gradient */}
@@ -335,7 +335,7 @@ export default function TransformationProgramPage() {
           >
             {/* Hero image */}
             <div className="w-full max-w-4xl mx-auto">
-              <Image
+              <img
                 src="/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
                 alt="BCBA working at desk with stressed expression, symbolizing the overwhelm that the Behavior School Operating System solves"
                 width={800}
@@ -1089,7 +1089,7 @@ export default function TransformationProgramPage() {
             "@type": "Organization",
             "name": "Behavior School",
             "url": SITE_URL,
-            "logo": `${SITE_URL}/logo.png`
+            "logo": `${SITE_URL}/Logos/logo-gold-transparent.webp`
           },
           "courseMode": "online",
           "educationalLevel": "Professional",

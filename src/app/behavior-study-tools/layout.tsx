@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "/behavior-study-tools",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Behavior Study Tools - BCBA Exam Preparation",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Behavior Study Tools - Smarter Studying for Future BCBAs",
     description: "AI-powered BCBA exam preparation platform with unlimited practice questions, adaptive learning, and performance tracking designed for behavior analysts.",
-    images: ["/og-image.png"],
+    images: ["/og-image.webp"],
   },
   robots: { index: true, follow: true },
 };

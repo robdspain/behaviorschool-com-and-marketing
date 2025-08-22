@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Behavior School",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Behavior School",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Behavior School - Lead with confidence. Reduce overwhelm.",
     description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
-    images: ["/og-image.png"],
+    images: ["/og-image.webp"],
   },
   metadataBase: new URL("https://behaviorschool.com"),
   other: {

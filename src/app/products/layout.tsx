@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "/products",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Behavior School Products",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Behavior School Products - BCBA Study Tools, Supervision & IEP Solutions",
     description: "Comprehensive tools for behavior analysts: AI-powered BCBA exam prep, supervision systems, IEP goal writing, and behavior plan creation.",
-    images: ["/og-image.png"],
+    images: ["/og-image.webp"],
   },
   robots: { index: true, follow: true },
 };

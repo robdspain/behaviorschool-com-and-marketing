@@ -131,12 +131,13 @@ export default function BehaviorPlansPage() {
               transition={{ duration: 0.8 }}
             >
               <div className="relative z-10">
-                <Image
+                <img
                   src="/BIP-Writer/BIP-Writer-Team.webp"
                   alt="BIP Writer - AI-powered behavior intervention plan creation"
                   width={600}
                   height={400}
                   className="w-full h-auto rounded-2xl shadow-2xl"
+                  loading="eager"
                 />
               </div>
               <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-orange-200 to-orange-100 opacity-80 animate-pulse" />

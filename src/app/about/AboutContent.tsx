@@ -109,12 +109,12 @@ export default function AboutContent() {
               <div className="bg-white rounded-2xl p-8 shadow-2xl">
                 <div className="text-center space-y-6">
                   <div className="relative mx-auto w-32 h-32">
-                    <Image
+                    <img
                       src="/profile-Rob.webp"
                       alt="Rob Spain, BCBA, IBA - Founder of Behavior School"
                       width={128}
                       height={128}
-                      className="rounded-full object-cover"
+                      className="rounded-full object-cover w-full h-full"
                     />
                   </div>
                   <div>
