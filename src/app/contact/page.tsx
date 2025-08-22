@@ -31,7 +31,7 @@ export default function ContactPage() {
 
   return (
     <section className="w-full max-w-screen-md px-4 sm:px-6 mx-auto pt-20 md:pt-24 pb-4">
-      <h2 className="mb-3 bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-700 bg-clip-text text-center text-3xl font-bold text-transparent md:text-5xl">
+      <h2 className="mb-3 bg-gradient-to-br from-emerald-800 via-emerald-600 to-emerald-400 bg-clip-text text-center text-3xl font-bold text-transparent md:text-5xl">
         Let&apos;s Get in Touch
       </h2>
       <p className="text-slate-600 mb-4 text-center text-sm md:text-base">
