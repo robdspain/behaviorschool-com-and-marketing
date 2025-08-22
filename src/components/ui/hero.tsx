@@ -101,10 +101,10 @@ export function Hero({
           <div className="relative">
             <div className="relative z-10">
               <img
-                src="/Hero/Hero-group1.webp"
+                src="/Hero/Hero-group1-optimized.webp"
                 alt="Behavior School team collaboration"
-                width={600}
-                height={400}
+                width="800"
+                height="600"
                 className="w-full h-auto rounded-2xl shadow-2xl"
                 loading="eager"
               />

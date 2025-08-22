@@ -338,8 +338,8 @@ export default function TransformationProgramPage() {
               <img
                 src="/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
                 alt="BCBA working at desk with stressed expression, symbolizing the overwhelm that the Behavior School Operating System solves"
-                width={800}
-                height={600}
+                width={1536}
+                height={1024}
                 className="w-full h-auto rounded-lg shadow-lg"
                 loading="lazy"
               />

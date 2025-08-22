@@ -102,7 +102,9 @@ export default function Home() {
                   src="/Community/comein-coffee-people.webp" 
                   alt="Come on in - welcoming community space with people collaborating over coffee"
                   className="w-full h-auto object-cover"
-                  loading="eager"
+                  width="1536"
+                  height="1024"
+                  loading="lazy"
                 />
               </div>
               {/* Decorative elements */}
@@ -128,7 +130,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/Hero/Hero-group1.webp" alt="Behavior Study Tools" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" />
+                  <img src="/thumbnails/hero-thumb.webp" alt="Behavior Study Tools" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Exam Prep & Practice Tests</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Master the BCBA exam with AI-powered practice questions and BCBA study materials.</p>
                   <div className="space-y-2 mt-auto">
@@ -155,7 +157,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/Supervision/Supervision1.webp" alt="Supervision Tools" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" />
+                  <img src="/thumbnails/supervision-thumb.webp" alt="Supervision Tools" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Supervision Tools</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Track BCBA fieldwork hours, competencies, and streamline your supervision practice.</p>
                   <div className="mt-auto">
@@ -174,7 +176,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/IEP-Goal/IEP-Goal-Writing.webp" alt="IEP Goal Writer" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" />
+                  <img src="/thumbnails/iep-goal-thumb.webp" alt="IEP Goal Writer" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">IEP Goal Writer</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Write measurable IEP behavior goals and SMART IEP goals for students.</p>
                   <div className="mt-auto">
@@ -193,7 +195,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/BIP-Writer/BIP-Writer-Team.webp" alt="Behavior Plan Writer" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" />
+                  <img src="/thumbnails/bip-writer-thumb.webp" alt="Behavior Plan Writer" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">Behavior Intervention Plan Writer</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Develop comprehensive behavior intervention plans (BIPs) from functional behavior assessments.</p>
                   <div className="mt-auto">
@@ -298,6 +300,9 @@ export default function Home() {
                 src="/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp" 
                 alt="Behavior School Operating System"
                 className="rounded-xl shadow-lg w-full h-auto"
+                width="1536"
+                height="1024"
+                loading="lazy"
               />
             </div>
           </div>
