@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
-import Image from "next/image";
 import { getPostBySlug } from "@/lib/ghost";
 
 type PageProps = { params: Promise<{ slug: string }> };

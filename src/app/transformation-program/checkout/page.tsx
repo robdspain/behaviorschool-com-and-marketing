@@ -27,7 +27,7 @@ export default function CheckoutPage() {
           Congratulations & Welcome!
         </h1>
         <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-12">
-          You've made a fantastic decision to join the Transformation Program. We are thrilled to have you on board and can't wait to see you achieve amazing results.
+          You&apos;ve made a fantastic decision to join the Transformation Program. We are thrilled to have you on board and can&apos;t wait to see you achieve amazing results.
         </p>
         <Button
           asChild
