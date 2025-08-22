@@ -1,6 +1,5 @@
 import * as React from "react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Container from "@/components/container";
 import { Section } from "@/components/section";
 import { Button } from "@/components/ui/button";
@@ -36,13 +35,13 @@ export const metadata: Metadata = {
 
 export default function CommunityPage() {
   return (
-    <Section className="pt-48 pb-16 md:pb-24">
+    <Section className="pt-40 md:pt-48 lg:pt-56 pb-16 md:pb-24">
       <Container className="max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content Column */}
           <div className="space-y-8">
             <div className="space-y-6">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mt-4">
                 Join the Behavior School Community
               </h1>
               <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
@@ -76,13 +75,13 @@ export default function CommunityPage() {
           {/* Image Column */}
           <div className="relative order-first lg:order-last">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <Image
+              <img
                 src="/Community/community1.webp"
                 alt="Behavior School Community - Collaborative platform for school-based behavior analysts"
                 width={600}
                 height={400}
                 className="w-full h-auto object-cover"
-                priority
+                loading="eager"
               />
             </div>
             {/* Decorative elements */}
