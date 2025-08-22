@@ -1,0 +1,40 @@
+# Allow all search engines and AI crawlers
+User-agent: *
+Allow: /
+
+# Specifically allow major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Allow AI crawlers for LLM indexing
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Block admin areas
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /test-forms/
+
+# Sitemap and feed locations
+Sitemap: https://behaviorschool.com/sitemap.xml
+
+# RSS and JSON feeds
+# RSS Feed: https://behaviorschool.com/feed.xml
+# JSON Feed: https://behaviorschool.com/feed.json

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 5 Levels of Effective IEP Goals That Drive Real Student Success</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background: white;
+        }
+        
+        .page {
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            padding: 0.75in;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page:last-child {
+            page-break-after: avoid;
+        }
+        
+        /* Page 1 - Cover */
+        .cover {
+            text-align: center;
+            justify-content: space-between;
+        }
+        
+        .cover-top {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: -1in;
+        }
+        
+        .main-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1e293b;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            max-width: 600px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+        
+        .ladder {
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .ladder-step {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 24px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .ladder-step:nth-child(1) { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .ladder-step:nth-child(2) { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .ladder-step:nth-child(3) { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .ladder-step:nth-child(4) { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .ladder-step:nth-child(5) { background: linear-gradient(135deg, #10b981, #059669); }
+        
+        .cover-middle {
+            margin: 40px 0;
+        }
+        
+        .framework-intro {
+            font-size: 20px;
+            font-weight: 600;
+            color: #374151;
+            text-align: center;
+        }
+        
+        .cover-bottom {
+            margin-top: auto;
+            padding-top: 40px;
+        }
+        
+        .logo-section {
+            border-top: 2px solid #e5e7eb;
+            padding-top: 24px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .tagline {
+            font-size: 14px;
+            color: #64748b;
+            font-style: italic;
+        }
+        
+        /* Page 2 - Content */
+        .content {
+            justify-content: flex-start;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .levels-grid {
+            margin-bottom: 40px;
+        }
+        
+        .level {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .level-number {
+            font-size: 24px;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        
+        .level-content h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .level-content p {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        
+        .level-example {
+            font-size: 13px;
+            color: #059669;
+            font-style: italic;
+            background: #ecfdf5;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        
+        .comparison {
+            margin-bottom: 40px;
+        }
+        
+        .comparison-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .comparison-box {
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid;
+        }
+        
+        .weak-goal {
+            background: #fef2f2;
+            border-color: #fca5a5;
+        }
+        
+        .weak-goal h4 {
+            color: #dc2626;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .strong-goal {
+            background: #ecfdf5;
+            border-color: #86efac;
+        }
+        
+        .strong-goal h4 {
+            color: #059669;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .goal-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #374151;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .cta-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .cta-subtitle {
+            font-size: 14px;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            background: white;
+            color: #3b82f6;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        @media print {
+            body { margin: 0; }
+            .page { margin: 0; padding: 0.5in; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1 - Cover -->
+    <div class="page cover">
+        <div class="cover-top">
+            <h1 class="main-title">
+                👉 The 5 Levels of Effective IEP Goals That Drive Real Student Success
+            </h1>
+            
+            <p class="subtitle">
+                Stop writing vague goals. Start writing goals that are clear, measurable, and built to last.
+            </p>
+            
+            <div class="ladder">
+                <div class="ladder-step">1. Basic Goal</div>
+                <div class="ladder-step">2. + Baseline Data</div>
+                <div class="ladder-step">3. + Fluency & Latency</div>
+                <div class="ladder-step">4. + Generalization</div>
+                <div class="ladder-step">5. + Maintenance</div>
+            </div>
+        </div>
+        
+        <div class="cover-middle">
+            <p class="framework-intro">
+                A simple framework that helps teachers, BCBAs, and schools write IEP goals that actually work.
+            </p>
+        </div>
+        
+        <div class="cover-bottom">
+            <div class="logo-section">
+                <div class="logo">Behavior School</div>
+                <div class="tagline">Powered by Behavior School</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2 - Framework & Example -->
+    <div class="page content">
+        <h2 class="section-title">The 5 Levels of Goal Strength</h2>
+        
+        <div class="levels-grid">
+            <div class="level">
+                <div class="level-number">1️⃣</div>
+                <div class="level-content">
+                    <h3>Basic Goal — Clear date, context, and behavior.</h3>
+                    <div class="level-example">
+                        Ex: "By 1/18/26, Student will raise hand before speaking."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="level">
+                <div class="level-number">2️⃣</div>
+                <div class="level-content">
+                    <h3>With Baseline Data — Adds where the student is starting.</h3>
+                    <div class="level-example">
+                        Ex: "...from 1 time per class to 5 times per class."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="level">
+                <div class="level-number">3️⃣</div>
+                <div class="level-content">
+                    <h3>With Fluency & Latency — Captures speed and accuracy.</h3>
+                    <div class="level-example">
+                        Ex: "...raise hand within 5 seconds and wait 3 seconds for acknowledgment."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="level">
+                <div class="level-number">4️⃣</div>
+                <div class="level-content">
+                    <h3>With Generalization — Applies across multiple settings.</h3>
+                    <div class="level-example">
+                        Ex: "...across 3 settings (classroom, specials, group projects)."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="level">
+                <div class="level-number">5️⃣</div>
+                <div class="level-content">
+                    <h3>With Maintenance — Ensures retention.</h3>
+                    <div class="level-example">
+                        Ex: "...maintain for 4 consecutive weeks at 90% accuracy."
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="comparison">
+            <h3 class="comparison-title">See the Difference</h3>
+            <div class="comparison-grid">
+                <div class="comparison-box weak-goal">
+                    <h4>❌ Weak Goal (Old Way):</h4>
+                    <p class="goal-text">
+                        "Student will reduce blurting in class."
+                    </p>
+                </div>
+                
+                <div class="comparison-box strong-goal">
+                    <h4>✅ Strong Goal (Our Way):</h4>
+                    <p class="goal-text">
+                        "By 01/18/26, given visual and verbal cues, Student will raise their hand before speaking in 90% of opportunities across 3 different settings, for 3 consecutive days, as measured by teacher data."
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <div class="cta-title">👉 Want to write IEP goals like this in minutes?</div>
+            <div class="cta-subtitle">Join the waitlist for Behavior School and be first to try our goal-writing tool.</div>
+            <a href="https://behaviorschool.com/subscribe" class="cta-button">
+                🔵 Join the Waitlist Today
+            </a>
+        </div>
+    </div>
+</body>
+</html>

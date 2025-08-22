@@ -1,0 +1,101 @@
+import Link from "next/link";
+import { Twitter, Code, Youtube, Instagram, Facebook, Linkedin } from "lucide-react";
+
+export function Footer() {
+  return (
+    <footer className="bg-gray-100">
+      {/* Upper Section - Social Media and Copyright */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Social Media Icons */}
+        <div className="flex justify-center space-x-6 mb-4">
+          <Link 
+            href="https://twitter.com/behaviorschool" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <Twitter size={24} />
+          </Link>
+          <Link 
+            href="https://github.com/behaviorschool" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <Code size={24} />
+          </Link>
+          <Link 
+            href="https://youtube.com/@behaviorschool" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <Youtube size={24} />
+          </Link>
+          <Link 
+            href="https://instagram.com/behaviorschool" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <Instagram size={24} />
+          </Link>
+          <Link 
+            href="https://facebook.com/behaviorschool" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <Facebook size={24} />
+          </Link>
+          <Link 
+            href="https://linkedin.com/company/behaviorschool" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <Linkedin size={24} />
+          </Link>
+        </div>
+
+        {/* Copyright Information */}
+        <div className="text-center mb-4">
+          <p className="text-gray-600 text-sm">
+            © 2025 Behavior School. All rights reserved.
+          </p>
+          <p className="text-gray-600 text-sm mt-1">
+            BehaviorStudyTools.com is a product of Behavior School LLC
+          </p>
+        </div>
+      </div>
+
+      {/* Lower Section - Navigation Links */}
+      <div className="border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex justify-center space-x-6 text-sm">
+            <Link href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors">
+              FAQ
+            </Link>
+            <Link href="/contact" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Contact Us
+            </Link>
+            <Link href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Terms of Service
+            </Link>
+            <Link href="/" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Behavior School
+            </Link>
+            <Link href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Blog
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+
