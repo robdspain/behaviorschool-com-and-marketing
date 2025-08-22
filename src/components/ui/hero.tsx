@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -101,13 +100,13 @@ export function Hero({
 
           <div className="relative">
             <div className="relative z-10">
-              <Image
+              <img
                 src="/Hero/Hero-group1.webp"
                 alt="Behavior School team collaboration"
                 width={600}
                 height={400}
                 className="w-full h-auto rounded-2xl shadow-2xl"
-                priority
+                loading="eager"
               />
             </div>
 
