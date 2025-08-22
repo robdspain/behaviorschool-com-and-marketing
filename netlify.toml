@@ -1,5 +1,6 @@
 [build]
   command = "pnpm run build"
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -8,9 +9,11 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [functions]
   node_bundler = "esbuild"
   external_node_modules = []
-
-[build.processing]
-  skip_processing = true
