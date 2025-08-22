@@ -125,13 +125,13 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {/* Product Card 1: Behavior Study Tools */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95">
-              <div className="p-4 sm:p-6">
-                <div className="text-center">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
+              <div className="p-4 sm:p-6 flex flex-col h-full">
+                <div className="text-center flex-grow flex flex-col">
                   <img src="/Hero/Hero-group1.webp" alt="Behavior Study Tools" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Exam Prep & Practice Tests</h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-3">Master the BCBA exam with AI-powered practice questions and BCBA study materials.</p>
-                  <div className="space-y-2">
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Master the BCBA exam with AI-powered practice questions and BCBA study materials.</p>
+                  <div className="space-y-2 mt-auto">
                     <Link 
                       href="/behavior-study-tools"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
@@ -152,52 +152,58 @@ export default function Home() {
             </div>
 
             {/* Product Card 2: Supervision Tools */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95">
-              <div className="p-4 sm:p-6">
-                <div className="text-center">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
+              <div className="p-4 sm:p-6 flex flex-col h-full">
+                <div className="text-center flex-grow flex flex-col">
                   <img src="/Supervision/Supervision1.webp" alt="Supervision Tools" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Supervision Tools</h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-3">Track BCBA fieldwork hours, competencies, and streamline your supervision practice.</p>
-                  <Link 
-                    href="/supervisors"
-                    className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
-                  >
-                    Learn More
-                  </Link>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Track BCBA fieldwork hours, competencies, and streamline your supervision practice.</p>
+                  <div className="mt-auto">
+                    <Link 
+                      href="/supervisors"
+                      className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Product Card 3: IEP Goal Writer */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95">
-              <div className="p-4 sm:p-6">
-                <div className="text-center">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
+              <div className="p-4 sm:p-6 flex flex-col h-full">
+                <div className="text-center flex-grow flex flex-col">
                   <img src="/IEP-Goal/IEP-Goal-Writing.webp" alt="IEP Goal Writer" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">IEP Goal Writer</h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-3">Write measurable IEP behavior goals and SMART IEP goals for students.</p>
-                  <Link 
-                    href="/iep-goals"
-                    className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
-                  >
-                    Learn More
-                  </Link>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Write measurable IEP behavior goals and SMART IEP goals for students.</p>
+                  <div className="mt-auto">
+                    <Link 
+                      href="/iep-goals"
+                      className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Product Card 4: Behavior Plan Writer */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95">
-              <div className="p-4 sm:p-6">
-                <div className="text-center">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
+              <div className="p-4 sm:p-6 flex flex-col h-full">
+                <div className="text-center flex-grow flex flex-col">
                   <img src="/BIP-Writer/BIP-Writer-Team.webp" alt="Behavior Plan Writer" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">Behavior Intervention Plan Writer</h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-3">Develop comprehensive behavior intervention plans (BIPs) from functional behavior assessments.</p>
-                  <Link 
-                    href="/behavior-plans"
-                    className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
-                  >
-                    Learn More
-                  </Link>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Develop comprehensive behavior intervention plans (BIPs) from functional behavior assessments.</p>
+                  <div className="mt-auto">
+                    <Link 
+                      href="/behavior-plans"
+                      className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
