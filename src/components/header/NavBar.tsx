@@ -26,8 +26,8 @@ export function NavBar() {
             transition={{ duration: 0.2 }}
           >
             <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-              <TrendingUp className="h-8 w-8 text-yellow-400" />
-              <span className="text-yellow-400 text-xl font-bold">Behavior School</span>
+              <TrendingUp className="h-8 w-8 text-yellow-200" />
+              <span className="text-yellow-200 text-xl font-bold">Behavior School</span>
             </Link>
           </motion.div>
 

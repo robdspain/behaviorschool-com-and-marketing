@@ -4,7 +4,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  PNPM_VERSION = "9.12.3"
   ENABLE_EXPERIMENTAL_COREPACK = "1"
+  NPM_FLAGS = "--prefer-offline --no-audit"
   SECRETS_SCAN_ENABLED = "false"
 
 [[plugins]]

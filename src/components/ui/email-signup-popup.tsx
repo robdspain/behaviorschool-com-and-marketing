@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, Check, Bell } from "lucide-react";
+import { X, Mail, Check, Bell, User } from "lucide-react";
 
 interface EmailSignupPopupProps {
   isOpen: boolean;
@@ -13,6 +13,7 @@ interface EmailSignupPopupProps {
   buttonText?: string;
   successMessage?: string;
   className?: string;
+  showNameField?: boolean; // New prop to control name field visibility
 }
 
 export function EmailSignupPopup({
@@ -21,8 +22,8 @@ export function EmailSignupPopup({
   title,
   description,
   pageSource,
-  buttonText = "Notify Me",
-  successMessage = "Thanks! We'll notify you when it launches.",
+  buttonText = "Subscribe",
+  successMessage = "Thanks for subscribing!",
   className = ""
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -97,6 +98,19 @@ export function EmailSignupPopup({
                 <form onSubmit={handleSubmit} className="space-y-4" data-netlify="true" name="email-signup" action="/__forms.html">
                   <input type="hidden" name="form-name" value="email-signup" />
                   <input type="hidden" name="page-source" value={pageSource} />
+                  
+                  {showNameField && (
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder="Enter your name"
+                        className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors"
+                      />
+                    </div>
+                  )}
                   
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />

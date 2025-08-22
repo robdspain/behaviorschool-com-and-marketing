@@ -13,6 +13,7 @@ export function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
+            aria-label="Follow Behavior School on Twitter"
           >
             <Twitter size={24} />
           </Link>
@@ -21,6 +22,7 @@ export function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
+            aria-label="View Behavior School on GitHub"
           >
             <Code size={24} />
           </Link>
@@ -29,6 +31,7 @@ export function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
+            aria-label="Subscribe to Behavior School on YouTube"
           >
             <Youtube size={24} />
           </Link>
@@ -37,6 +40,7 @@ export function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
+            aria-label="Follow Behavior School on Instagram"
           >
             <Instagram size={24} />
           </Link>
@@ -45,6 +49,7 @@ export function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
+            aria-label="Like Behavior School on Facebook"
           >
             <Facebook size={24} />
           </Link>
@@ -53,6 +58,7 @@ export function Footer() {
             target="_blank" 
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
+            aria-label="Connect with Behavior School on LinkedIn"
           >
             <Linkedin size={24} />
           </Link>

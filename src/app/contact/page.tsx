@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import Link from "next/link";
-import { Mail, Phone, MapPin, Github, Twitter, Facebook, Instagram, Send } from "lucide-react";
+import { Send } from "lucide-react";
 
 export default function ContactPage() {
   const [state, setState] = React.useState({
@@ -24,27 +23,26 @@ export default function ContactPage() {
         body: JSON.stringify({ email: state.email, name: state.name, message: state.message, company: "" }),
       });
       if (!res.ok) throw new Error(await res.text());
-      setState((s) => ({ ...s, submitting: false, submitted: true }));
-    } catch {
-      setState((s) => ({ ...s, submitting: false, submitted: false, errors: { submit: "Failed to send" } }));
+      setState((s) => ({ ...s, submitting: false, submitted: true, name: "", email: "", message: "" }));
+    } catch (error) {
+      setState((s) => ({ ...s, submitting: false, submitted: false, errors: { submit: "Failed to send message. Please try again." } }));
     }
   };
 
   return (
-    <section className="w-full max-w-screen-md px-2 mx-auto pt-32 md:pt-40 lg:pt-44 pb-10">
-      <h2 className="mt-4 mb-5 bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-700 bg-clip-text text-center text-4xl font-bold text-transparent md:text-6xl">
+    <section className="w-full max-w-screen-md px-4 sm:px-6 mx-auto pt-20 md:pt-24 pb-4">
+      <h2 className="mb-3 bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-700 bg-clip-text text-center text-3xl font-bold text-transparent md:text-5xl">
         Let&apos;s Get in Touch
       </h2>
-      <p className="text-slate-600 mb-6 text-center">
+      <p className="text-slate-600 mb-4 text-center text-sm md:text-base">
         Fill out the form below and we&apos;ll get back to you as soon as possible.
       </p>
-      <div className="mx-auto mb-6 grid w-full items-start gap-12 rounded-lg border border-emerald-200 bg-white px-4 pt-10 pb-6 shadow-lg shadow-emerald-100/50 md:grid-cols-2 lg:px-12">
-        <form className="space-y-8 text-slate-700" onSubmit={handleSubmit} data-netlify="true" name="contact" action="/__forms.html">
+      <div className="mx-auto mb-4 w-full max-w-lg items-start rounded-lg border border-emerald-200 bg-white px-4 pt-6 pb-4 shadow-lg shadow-emerald-100/50 lg:px-8">
+        <form className="space-y-4 text-slate-700" onSubmit={handleSubmit} data-netlify="true" name="contact" action="/__forms.html">
           <input type="hidden" name="form-name" value="contact" />
           <input type="hidden" name="page-source" value="contact" />
-          <div className="space-y-4 text-lg">
+          <div className="space-y-2">
             <label htmlFor="name" className="text-slate-700 font-medium">
-              {" "}
               Name
             </label>
             <input
@@ -54,12 +52,12 @@ export default function ContactPage() {
               className="flex h-10 w-full rounded-md border border-emerald-300 bg-emerald-50/30 px-3 py-2 text-sm text-slate-700 outline-none transition-all hover:border-emerald-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
               placeholder="Enter your name"
               name="name"
+              value={state.name}
               onChange={(e) => setState((s) => ({ ...s, name: e.target.value }))}
             />
           </div>
-          <div className="space-y-4 text-lg">
+          <div className="space-y-2">
             <label htmlFor="email" className="text-slate-700 font-medium">
-              {" "}
               Email
             </label>
             <input
@@ -69,20 +67,21 @@ export default function ContactPage() {
               className="flex h-10 w-full rounded-md border border-emerald-300 bg-emerald-50/30 px-3 py-2 text-sm text-slate-700 placeholder:text-slate-500 outline-none transition-all hover:border-emerald-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
               name="email"
               required
+              value={state.email}
               onChange={(e) => setState((s) => ({ ...s, email: e.target.value }))}
             />
             {state.errors && state.errors.email && <p className="mt-1 text-sm text-red-500">{state.errors.email}</p>}
           </div>
-          <div className="space-y-4 text-lg">
-            <label htmlFor="message" className="text-slate-700 font-medium text-lg">
-              {" "}
+          <div className="space-y-2">
+            <label htmlFor="message" className="text-slate-700 font-medium">
               Message
             </label>
             <textarea
-              className="mb-5 flex min-h-[100px] w-full rounded-md border border-emerald-300 bg-emerald-50/30 px-3 py-2 text-sm text-slate-700 placeholder:text-slate-500 outline-none transition-all hover:border-emerald-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
+              className="flex min-h-[80px] w-full rounded-md border border-emerald-300 bg-emerald-50/30 px-3 py-2 text-sm text-slate-700 placeholder:text-slate-500 outline-none transition-all hover:border-emerald-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 resize-none"
               id="message"
               placeholder="Enter your message"
               name="message"
+              value={state.message}
               onChange={(e) => setState((s) => ({ ...s, message: e.target.value }))}
             />
             {state.errors && (state.errors as Record<string, string>).message && (
@@ -90,90 +89,20 @@ export default function ContactPage() {
             )}
           </div>
           <button
-            className="group/btn relative block h-10 w-full rounded-md bg-emerald-600 py-2 text-center font-medium text-white shadow-lg shadow-emerald-600/20 transition-all duration-300 ease-in-out hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-200"
+            className="group/btn relative flex items-center justify-center h-12 w-full rounded-md bg-emerald-600 py-2 text-center font-medium text-white shadow-lg shadow-emerald-600/20 transition-all duration-300 ease-in-out hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-200 disabled:opacity-50 disabled:cursor-not-allowed"
             type="submit"
             disabled={state.submitting}
           >
-            {state.submitting ? "Sending..." : "Send"}
-            <Send className="mx-2 inline h-4" />
+            <span className="mr-2">{state.submitting ? "Sending..." : "Send"}</span>
+            <Send className="h-4 w-4" />
           </button>
         </form>
-        <div>
-          <h3 className="text-emerald-700 mb-10 text-2xl font-semibold">Connect with Us</h3>
-          <div className="mb-12 flex gap-8">
-            <Link
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 text-emerald-600 transition-all duration-300 ease-in-out hover:bg-emerald-100 hover:border-emerald-400"
-              href="#"
-            >
-              <Mail className="h-5 w-5" />
-            </Link>
-            <div className="text-md text-slate-700">
-              <p>Email us at</p>
-              <p>hello@behaviorschool.com</p>
-            </div>
-          </div>
-          <div className="mb-12 flex gap-8">
-            <Link
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 text-emerald-600 transition-all duration-300 ease-in-out hover:bg-emerald-100 hover:border-emerald-400"
-              href="#"
-            >
-              <Phone className="h-5 w-5" />
-            </Link>
-            <div className="text-md text-slate-700">
-              <p>Call us at</p>
-              <p>(555) 555-5555</p>
-            </div>
-          </div>
-          <div className="mb-12 flex gap-8">
-            <Link
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 text-emerald-600 px-2 transition-all duration-300 ease-in-out hover:bg-emerald-100 hover:border-emerald-400"
-              href="#"
-            >
-              <MapPin className="h-5 w-5" />
-            </Link>
-            <div className="text-md text-slate-700">
-              <p>Location</p>
-              <p>Remote-first, US-based</p>
-            </div>
-          </div>
-          <div className="flex space-x-12 py-7">
-            <Link
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 text-emerald-600 transition-all duration-300 ease-in-out hover:bg-emerald-100 hover:border-emerald-400"
-              href="https://x.com/behavior_school"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Twitter className="h-5 w-5" />
-            </Link>
-            <Link
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 text-emerald-600 transition-all duration-300 ease-in-out hover:bg-emerald-100 hover:border-emerald-400"
-              href="https://www.facebook.com/profile.php?id=61564836345571"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Facebook className="h-5 w-5" />
-            </Link>
-            <Link
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 text-emerald-600 transition-all duration-300 ease-in-out hover:bg-emerald-100 hover:border-emerald-400"
-              href="https://www.instagram.com/behaviorschool"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Instagram className="h-5 w-5" />
-            </Link>
-            <Link
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 text-emerald-600 transition-all duration-300 ease-in-out hover:bg-emerald-100 hover:border-emerald-400"
-              href="https://github.com/robdspain"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="h-5 w-5" />
-            </Link>
-          </div>
-        </div>
       </div>
       {state.submitted && (
         <p className="text-center text-sm text-emerald-600 font-medium">Thanks! We&apos;ll be in touch.</p>
+      )}
+      {state.errors.submit && (
+        <p className="text-center text-sm text-red-500 font-medium mt-2">{state.errors.submit}</p>
       )}
     </section>
   );

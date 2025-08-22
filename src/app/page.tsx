@@ -99,11 +99,11 @@ export default function Home() {
             <div className="relative order-first lg:order-last">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src="/Community/comein-coffee-people.webp" 
+                  src="/Community/comein-coffee-people-optimized.webp" 
                   alt="Come on in - welcoming community space with people collaborating over coffee"
                   className="w-full h-auto object-cover"
-                  width="1536"
-                  height="1024"
+                  width="800"
+                  height="533"
                   loading="lazy"
                 />
               </div>
