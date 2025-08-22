@@ -24,7 +24,7 @@ export default function ContactPage() {
       });
       if (!res.ok) throw new Error(await res.text());
       setState((s) => ({ ...s, submitting: false, submitted: true, name: "", email: "", message: "" }));
-    } catch (error) {
+    } catch {
       setState((s) => ({ ...s, submitting: false, submitted: false, errors: { submit: "Failed to send message. Please try again." } }));
     }
   };

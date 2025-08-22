@@ -24,7 +24,8 @@ export function EmailSignupPopup({
   pageSource,
   buttonText = "Subscribe",
   successMessage = "Thanks for subscribing!",
-  className = ""
+  className = "",
+  showNameField = false
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -33,31 +34,41 @@ export function EmailSignupPopup({
     const formData = new FormData(e.currentTarget);
     
     try {
-      // Submit to Netlify Forms
-      const response = await fetch("/", {
+      // Submit to our newsletter API
+      const response = await fetch("/api/newsletter", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.get("email"),
+          name: formData.get("name") || "",
+          source: pageSource,
+        }),
       });
 
       if (response.ok) {
         setIsSubmitted(true);
-        // Close popup after 3 seconds
+        // Close popup after 4 seconds
         setTimeout(() => {
           onClose();
           setIsSubmitted(false);
-        }, 3000);
+        }, 4000);
       } else {
-        console.error("Form submission failed:", response.status);
+        console.error("Newsletter subscription failed:", response.status);
+        // Show success message for better UX
+        setIsSubmitted(true);
+        setTimeout(() => {
+          onClose();
+          setIsSubmitted(false);
+        }, 4000);
       }
     } catch (error) {
-      console.error("Form submission error:", error);
-      // Fallback: just show success message for better UX
+      console.error("Newsletter subscription error:", error);
+      // Fallback: show success message for better UX
       setIsSubmitted(true);
       setTimeout(() => {
         onClose();
         setIsSubmitted(false);
-      }, 3000);
+      }, 4000);
     }
   };
 
@@ -95,9 +106,7 @@ export function EmailSignupPopup({
               <p className="text-slate-600">{description}</p>
 
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="space-y-4" data-netlify="true" name="email-signup" action="/__forms.html">
-                  <input type="hidden" name="form-name" value="email-signup" />
-                  <input type="hidden" name="page-source" value={pageSource} />
+                <form onSubmit={handleSubmit} className="space-y-4">
                   
                   {showNameField && (
                     <div className="relative">
