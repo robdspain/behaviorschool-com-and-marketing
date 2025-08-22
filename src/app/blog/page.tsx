@@ -22,8 +22,7 @@ export default async function BlogPage() {
     <Section>
       <Container>
         <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Blog</h1>
-          <p className="mt-2 text-muted-foreground">Latest posts from our Ghost CMS.</p>
+          {/* Removed Blog heading and description while maintaining spacing */}
         </div>
         {posts.length > 0 ? (
           <PostList posts={posts} columns={3} useExternalUrl={false} />
