@@ -12,10 +12,18 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Next.js handles routing, only redirect specific cases
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  from = "/www/*"
+  to = "/:splat"
+  status = 301
+  force = true
+
+# Handle old URLs if any
+[[redirects]]
+  from = "/old-page"
+  to = "/"
+  status = 301
 
 [functions]
   node_bundler = "esbuild"

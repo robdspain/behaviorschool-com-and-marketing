@@ -25,12 +25,16 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-# Block admin areas
+# Block admin and internal areas  
 User-agent: *
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/
 Disallow: /test-forms/
+Disallow: /unauthorized/
+Disallow: /*.json$
+Disallow: /feed.json
+Disallow: /posts/
 
 # Sitemap and feed locations
 Sitemap: https://behaviorschool.com/sitemap.xml

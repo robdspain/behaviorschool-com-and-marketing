@@ -43,6 +43,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://behaviorschool.com/signup</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://behaviorschool.com/study</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://behaviorschool.com/transformation-program</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://behaviorschool.com/iep-goals</loc>
     <lastmod>2024-12-23</lastmod>
     <changefreq>monthly</changefreq>
