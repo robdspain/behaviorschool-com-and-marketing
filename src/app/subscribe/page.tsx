@@ -8,13 +8,13 @@ export default function SubscribePage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-orange-50">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-16">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-orange-500 rounded-2xl mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-700 to-emerald-400 rounded-2xl mb-6">
             <Mail className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-orange-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-800 to-emerald-400 bg-clip-text text-transparent mb-4">
             Stay Connected
           </h1>
           <p className="text-xl text-slate-700 mb-2 max-w-3xl mx-auto">
@@ -25,7 +25,7 @@ export default function SubscribePage() {
           </p>
           <button
             onClick={() => setIsPopupOpen(true)}
-            className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-emerald-600 to-orange-600 hover:from-emerald-700 hover:to-orange-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
+            className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-emerald-700 to-emerald-500 hover:from-emerald-800 hover:to-emerald-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
           >
             Subscribe to Newsletter
           </button>
@@ -45,8 +45,8 @@ export default function SubscribePage() {
                 </div>
               </div>
               <div className="flex items-center gap-3 text-left">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-4 h-4 text-orange-600" />
+                <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-4 h-4 text-emerald-600" />
                 </div>
                 <div>
                   <div className="font-medium text-slate-900">Product Updates</div>
@@ -63,8 +63,8 @@ export default function SubscribePage() {
                 </div>
               </div>
               <div className="flex items-center gap-3 text-left">
-                <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-4 h-4 text-orange-600" />
+                <div className="w-8 h-8 bg-emerald-200 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-4 h-4 text-emerald-700" />
                 </div>
                 <div>
                   <div className="font-medium text-slate-900">Early Access</div>
