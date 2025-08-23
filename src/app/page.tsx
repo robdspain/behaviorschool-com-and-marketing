@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 export const metadata: Metadata = {
-  title: "School BCBAs & Behavior Support Tools | Behavior School",
+  title: "School-Based BCBA Training & Certification Prep | Behavior School",
   description:
     "Tools, training, and community for school-based BCBAs, psychologists, and educators. BCBA exam prep, supervision tools, IEP goal writing, and behavior intervention plans that work in real classrooms.",
   keywords: "school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support",
