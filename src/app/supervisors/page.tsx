@@ -1,8 +1,11 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 
 export const metadata = {
   title: "Behavior School Supervision Tools",
@@ -10,6 +13,8 @@ export const metadata = {
 };
 
 export default function SupervisorsPage() {
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FAF3E0' }}>
       {/* Hero */}
@@ -22,8 +27,12 @@ export default function SupervisorsPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white">Supervision Tools for BCBAs</h1>
           <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">From competency tracking to signed hours logs—everything you need to run effective, compliant supervision in one place.</p>
           <div className="mt-8 flex items-center justify-center">
-            <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-              <Link href="/signup">Join the Waitlist</Link>
+            <Button 
+              size="lg" 
+              className="bg-white text-slate-900 hover:bg-slate-100"
+              onClick={() => setShowPopup(true)}
+            >
+              Join the Waitlist
             </Button>
           </div>
         </div>
@@ -69,12 +78,25 @@ export default function SupervisorsPage() {
             </AccordionItem>
           </Accordion>
           <div className="mt-8">
-            <Button asChild size="lg" className="bg-[#E3B23C] hover:bg-[#d9a42f] text-slate-900">
-              <Link href="/signup">Join the Waitlist</Link>
+            <Button 
+              size="lg" 
+              className="bg-[#E3B23C] hover:bg-[#d9a42f] text-slate-900"
+              onClick={() => setShowPopup(true)}
+            >
+              Join the Waitlist
             </Button>
           </div>
         </div>
       </section>
+
+      {/* Email Signup Popup */}
+      <EmailSignupPopup
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        title="Join the Supervision Tools Waitlist"
+        description="Be the first to know when our comprehensive BCBA supervision platform launches. Get early access and priority onboarding."
+        pageSource="supervisors"
+      />
     </div>
   );
 }
