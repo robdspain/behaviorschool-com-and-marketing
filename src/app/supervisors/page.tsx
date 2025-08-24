@@ -73,21 +73,21 @@ export default function SupervisorsPage() {
               <AccordionContent>Yes. CSV import and bulk evidence uploads are supported for fast migration.</AccordionContent>
             </AccordionItem>
             <AccordionItem value="q3">
-              <AccordionTrigger>Are exported records defensible for audits?</AccordionTrigger>
-              <AccordionContent>All logs include timestamps, signatures, and role attestations designed for audit readiness.</AccordionContent>
+              <AccordionTrigger>Are the exported supervision records BACB audit-ready?</AccordionTrigger>
+              <AccordionContent>Yes. All supervision logs include detailed timestamps, digital signatures, role attestations, and compliance documentation specifically designed for BACB audits. Our export formats meet professional standards and regulatory requirements.</AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q4">
+              <AccordionTrigger>Does the platform support both RBT and BCaBA supervision?</AccordionTrigger>
+              <AccordionContent>Yes. Our supervision platform is designed for all levels of behavior analyst supervision, including RBT supervision by BCBAs, BCaBA supervision, and BCBA-to-BCBA mentoring relationships with appropriate competency frameworks for each level.</AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q5">
+              <AccordionTrigger>How does the digital signature feature work for supervision documentation?</AccordionTrigger>
+              <AccordionContent>Our digital signature system uses secure, legally-binding electronic signatures that meet industry standards. Both supervisors and supervisees can sign documents remotely, with automatic timestamp and identity verification for complete audit trails.</AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div className="mt-8">
-            <Button 
-              size="lg" 
-              className="bg-[#E3B23C] hover:bg-[#d9a42f] text-slate-900"
-              onClick={() => setShowPopup(true)}
-            >
-              Join the Waitlist
-            </Button>
-          </div>
         </div>
       </section>
+      </div>
 
       {/* Email Signup Popup */}
       <EmailSignupPopup
@@ -97,7 +97,7 @@ export default function SupervisorsPage() {
         description="Be the first to know when our comprehensive BCBA supervision platform launches. Get early access and priority onboarding."
         pageSource="supervisors"
       />
-    </div>
+    </>
   );
 }
 
