@@ -252,11 +252,11 @@ export default function IEPBehaviorGoalsPage() {
             
             <div className="prose prose-lg max-w-none">
               <blockquote className="border-l-4 border-emerald-500 pl-6 italic text-slate-700 text-lg leading-relaxed">
-                "When wanting to join a group activity during recess and lunch periods, 
+                &ldquo;When wanting to join a group activity during recess and lunch periods, 
                 [Student] will appropriately request to join by asking permission and 
                 waiting for a response before joining, in 4 out of 5 observed opportunities 
                 across 3 consecutive weeks, as measured by teacher observation and data collection, 
-                by the end of the IEP year."
+                by the end of the IEP year.&rdquo;
               </blockquote>
             </div>
             

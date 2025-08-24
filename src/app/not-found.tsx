@@ -18,7 +18,7 @@ export default function NotFound() {
             Page Not Found
           </h1>
           <p className="text-slate-600 mb-8">
-            Sorry, we couldn't find the page you're looking for. Perhaps you'd like to explore our BCBA training resources or certification prep materials?
+            Sorry, we couldn&apos;t find the page you&apos;re looking for. Perhaps you&apos;d like to explore our BCBA training resources or certification prep materials?
           </p>
           <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
             <Button asChild className="w-full sm:w-auto">
