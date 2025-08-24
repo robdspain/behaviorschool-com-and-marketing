@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
     ],
     formats: ['image/webp', 'image/avif'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/supervision',
+        destination: '/supervisors',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
