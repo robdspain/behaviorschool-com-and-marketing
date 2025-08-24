@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowLeft, Mail, Phone, Building } from "lucide-react";
+import { CheckCircle, ArrowLeft, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function SignupPage() {
@@ -10,10 +10,7 @@ export default function SignupPage() {
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
-    organization: "",
     role: "",
-    caseloadSize: "",
     currentChallenges: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -174,42 +171,6 @@ export default function SignupPage() {
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
-                  Phone Number
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                    placeholder="(555) 123-4567"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="organization" className="block text-sm font-medium text-slate-700 mb-2">
-                  School District/Organization *
-                </label>
-                <div className="relative">
-                  <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
-                  <input
-                    type="text"
-                    id="organization"
-                    name="organization"
-                    required
-                    value={formData.organization}
-                    onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                    placeholder="Your school district or organization"
-                  />
-                </div>
-              </div>
 
               <div>
                 <label htmlFor="role" className="block text-sm font-medium text-slate-700 mb-2">
@@ -234,29 +195,10 @@ export default function SignupPage() {
                 </select>
               </div>
 
-              <div>
-                <label htmlFor="caseloadSize" className="block text-sm font-medium text-slate-700 mb-2">
-                  Current Caseload Size
-                </label>
-                <select
-                  id="caseloadSize"
-                  name="caseloadSize"
-                  value={formData.caseloadSize}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                >
-                  <option value="">Select caseload size</option>
-                  <option value="1-10">1-10 students</option>
-                  <option value="11-20">11-20 students</option>
-                  <option value="21-30">21-30 students</option>
-                  <option value="31-50">31-50 students</option>
-                  <option value="50+">50+ students</option>
-                </select>
-              </div>
 
               <div>
                 <label htmlFor="currentChallenges" className="block text-sm font-medium text-slate-700 mb-2">
-                  Biggest Current Challenge (Optional)
+                  Would you like to share your biggest current challenge? <span className="text-slate-500 text-sm">(Optional)</span>
                 </label>
                 <textarea
                   id="currentChallenges"
@@ -265,8 +207,9 @@ export default function SignupPage() {
                   onChange={handleInputChange}
                   rows={3}
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  placeholder="What&apos;s your biggest challenge right now? (e.g., teacher resistance, data collection, crisis management, etc.)"
+                  placeholder="Feel free to share what&apos;s your biggest challenge right now - this helps us better support you! (e.g., teacher resistance, data collection, crisis management, etc.)"
                 />
+                <p className="text-xs text-slate-500 mt-1">This is completely optional and helps us understand how to better serve you.</p>
               </div>
 
               <button

@@ -6,10 +6,10 @@ export async function POST(request: NextRequest) {
     // Lazily create the admin client at request time to avoid build-time env lookups
     const supabase = createSupabaseAdminClient();
     const body = await request.json();
-    const { firstName, lastName, email, phone, organization, role, caseloadSize, currentChallenges } = body;
+    const { firstName, lastName, email, role, currentChallenges } = body;
 
     // Validate required fields
-    if (!firstName || !lastName || !email || !organization || !role) {
+    if (!firstName || !lastName || !email || !role) {
       return NextResponse.json(
         { message: 'Please fill in all required fields' },
         { status: 400 }
@@ -33,10 +33,10 @@ export async function POST(request: NextRequest) {
           first_name: firstName,
           last_name: lastName,
           email: email,
-          phone: phone || null,
-          organization: organization,
+          phone: null,
+          organization: null,
           role: role,
-          caseload_size: caseloadSize || null,
+          caseload_size: null,
           current_challenges: currentChallenges || null,
           status: 'new',
           submitted_at: new Date().toISOString()
@@ -76,11 +76,11 @@ export async function POST(request: NextRequest) {
       firstName,
       lastName,
       email,
-      phone: phone || 'Not provided',
-      organization,
+      phone: 'Not collected',
+      organization: 'Not collected',
       role,
-      caseloadSize: caseloadSize || 'Not specified',
-      currentChallenges: currentChallenges || 'Not specified',
+      caseloadSize: 'Not collected',
+      currentChallenges: currentChallenges || 'Not provided',
       submittedAt: new Date().toLocaleString(),
     };
 
