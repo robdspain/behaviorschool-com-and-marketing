@@ -25,6 +25,12 @@
   to = "/"
   status = 301
 
+# Redirect supervision to supervisors
+[[redirects]]
+  from = "/supervision"
+  to = "/supervisors"
+  status = 301
+
 [functions]
   node_bundler = "esbuild"
   external_node_modules = []
