@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
-import { CheckCircle, BookOpen, Users, Target, Download, Clock, ArrowRight, Info, ChevronDown, ChevronUp, BarChart3, Calendar, Brain } from "lucide-react";
+import { CheckCircle, BookOpen, Users, Target, Download, Clock, ArrowRight, Info, ChevronDown, ChevronUp, BarChart3, Calendar, Brain, TrendingUp } from "lucide-react";
 
 export default function BCBAExamPrepPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -38,89 +38,6 @@ export default function BCBAExamPrepPage() {
     },
   ];
 
-  const examTopics = [
-    {
-      category: "Behaviorism and Philosophical Foundations",
-      percentage: "5%",
-      questions: "9 questions",
-      timeAllotment: "12 minutes",
-      topics: ["Service goals identification", "Assessment procedures", "Behavioral assessment data analysis"],
-      icon: BookOpen,
-      description: "Focuses on identifying service goals, conducting appropriate assessment procedures, and analyzing behavioral assessment data."
-    },
-    {
-      category: "Concepts and Principles",
-      percentage: "14%",
-      questions: "25 questions", 
-      timeAllotment: "34 minutes",
-      topics: ["Define behavior and environment", "Behavior-environment relations", "Data-based decisions"],
-      icon: Target,
-      description: "Examines how to define behavior and environment in observable terms, explain behavior-environment relations, and analyze factors influencing behavior."
-    },
-    {
-      category: "Measurement, Data Display, and Interpretation",
-      percentage: "12%",
-      questions: "22 questions",
-      timeAllotment: "29 minutes",
-      topics: ["Behavior change programs", "Function-based interventions", "Progress monitoring"],
-      icon: Target,
-      description: "Covers establishing behavior change programs, implementing function-based interventions, and monitoring client progress and treatment integrity."
-    },
-    {
-      category: "Experimental Design",
-      percentage: "7%",
-      questions: "14 questions",
-      timeAllotment: "17 minutes",
-      topics: ["Documentation requirements", "Professional ethical standards", "Confidentiality"],
-      icon: Users,
-      description: "Addresses applying behavior-analytic documentation requirements and professional ethical standards."
-    },
-    {
-      category: "Ethical and Professional Issues",
-      percentage: "13%",
-      questions: "23 questions",
-      timeAllotment: "31 minutes",
-      topics: ["Collaboration with others", "Barrier identification", "Stakeholder engagement"],
-      icon: CheckCircle,
-      description: "Focuses on collaborating with others and identifying and addressing barriers to behavior change."
-    },
-    {
-      category: "Behavior Assessment",
-      percentage: "13%",
-      questions: "24 questions",
-      timeAllotment: "31 minutes",
-      topics: ["Single-case experimental designs", "Intervention evaluation", "Treatment effectiveness"],
-      icon: Target,
-      description: "Examines using single-case experimental designs, evaluating interventions, and arranging conditions for behavior change."
-    },
-    {
-      category: "Behavior-Change Procedures",
-      percentage: "14%",
-      questions: "26 questions",
-      timeAllotment: "34 minutes",
-      topics: ["Fundamental principles application", "Assessment implementation", "Training others"],
-      icon: BookOpen,
-      description: "Covers applying fundamental principles in applied settings, selecting and implementing assessment and behavior change procedures."
-    },
-    {
-      category: "Selecting and Implementing Interventions",
-      percentage: "11%",
-      questions: "21 questions",
-      timeAllotment: "26 minutes",
-      topics: ["Treatment plan design", "Plan monitoring and modification", "Reinforcer assessments"],
-      icon: Target,
-      description: "Addresses designing and implementing comprehensive treatment plans, monitoring and modifying plans, and conducting preference assessments."
-    },
-    {
-      category: "Personnel Supervision and Management", 
-      percentage: "11%",
-      questions: "21 questions",
-      timeAllotment: "26 minutes",
-      topics: ["Training program design", "Supervision provision", "Quality service delivery"],
-      icon: Users,
-      description: "Focuses on designing and implementing training programs and providing supervision to ensure quality service delivery."
-    }
-  ];
 
   const studyResources = [
     {
