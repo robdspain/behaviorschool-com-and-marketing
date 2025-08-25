@@ -132,7 +132,7 @@ export default function BehaviorPlansPage() {
             >
               <div className="relative z-10">
                 <img
-                  src="/BIP-Writer/BIP-Writer-Team.webp"
+                  src="/optimized/BIP-Writer/BIP-Writer-Team.webp"
                   alt="BIP Writer - AI-powered behavior intervention plan creation"
                   width={600}
                   height={400}

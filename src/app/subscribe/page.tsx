@@ -27,7 +27,7 @@ export default function SubscribePage() {
             onClick={() => setIsPopupOpen(true)}
             className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-emerald-700 to-emerald-500 hover:from-emerald-800 hover:to-emerald-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
           >
-            Subscribe to Newsletter
+            Subscribe for updates
           </button>
         </div>
 
@@ -85,7 +85,7 @@ export default function SubscribePage() {
       <EmailSignupPopup
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
-        title="Subscribe to Our Newsletter"
+        title="Subscribe for updates"
         description="Be the first to know about new courses, product updates, and expert insights in behavior management."
         pageSource="/subscribe"
         showNameField={true}

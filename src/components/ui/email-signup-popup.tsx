@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, Check, Bell, User } from "lucide-react";
+import { X, Mail, Check, Bell, User, ArrowRight } from "lucide-react";
 
 interface EmailSignupPopupProps {
   isOpen: boolean;
@@ -46,29 +46,100 @@ export function EmailSignupPopup({
       });
 
       if (response.ok) {
+        // Generate secure download token and trigger download
+        try {
+          const downloadResponse = await fetch('/api/download', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: formData.get('email'),
+              resource: 'bcba-study-guide'
+            })
+          });
+          
+          if (downloadResponse.ok) {
+            const responseText = await downloadResponse.text();
+            if (responseText) {
+              try {
+                const { downloadUrl } = JSON.parse(responseText);
+                
+                // Trigger secure download
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = 'BCBA-Study-Guide.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              } catch (parseError) {
+                console.error('Failed to parse download response:', parseError);
+              }
+            }
+          }
+        } catch (downloadError) {
+          console.error('Download token generation failed:', downloadError);
+        }
+        
         setIsSubmitted(true);
-        // Close popup after 4 seconds
+        // Close popup after 8 seconds to allow time to see success message and CTA
         setTimeout(() => {
           onClose();
           setIsSubmitted(false);
-        }, 4000);
+        }, 8000);
       } else {
         console.error("Newsletter subscription failed:", response.status);
-        // Show success message for better UX
+        // Trigger download even if subscription fails for better UX
+        await triggerSecureDownload(formData.get('email') as string);
+        
         setIsSubmitted(true);
         setTimeout(() => {
           onClose();
           setIsSubmitted(false);
-        }, 4000);
+        }, 8000);
       }
     } catch (error) {
       console.error("Newsletter subscription error:", error);
-      // Fallback: show success message for better UX
+      // Fallback: trigger download and show success message for better UX
+      await triggerSecureDownload(formData.get('email') as string);
+      
       setIsSubmitted(true);
       setTimeout(() => {
         onClose();
         setIsSubmitted(false);
-      }, 4000);
+      }, 8000);
+    }
+  };
+
+  // Helper function for secure download
+  const triggerSecureDownload = async (email: string) => {
+    try {
+      const downloadResponse = await fetch('/api/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email || 'anonymous@user.com',
+          resource: 'bcba-study-guide'
+        })
+      });
+      
+      if (downloadResponse.ok) {
+        const responseText = await downloadResponse.text();
+        if (responseText) {
+          try {
+            const { downloadUrl } = JSON.parse(responseText);
+            
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'BCBA-Study-Guide.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } catch (parseError) {
+            console.error('Failed to parse download response:', parseError);
+          }
+        }
+      }
+    } catch (downloadError) {
+      console.error('Secure download failed:', downloadError);
     }
   };
 
@@ -132,6 +203,12 @@ export function EmailSignupPopup({
                     />
                   </div>
 
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 mb-4">
+                    <p className="text-xs text-slate-600 text-left leading-relaxed">
+                      By downloading this resource, you agree to receive helpful emails with behavior analysis tips, study resources, and updates from Behavior School. You can unsubscribe at any time.
+                    </p>
+                  </div>
+
                   <button
                     type="submit"
                     className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
@@ -141,16 +218,37 @@ export function EmailSignupPopup({
                   </button>
                 </form>
               ) : (
-                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-                  <div className="flex items-center justify-center gap-2">
-                    <Check className="w-5 h-5 text-emerald-600" />
-                    <p className="text-emerald-800 font-medium">{successMessage}</p>
+                <div className="space-y-4">
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Check className="w-5 h-5 text-emerald-600" />
+                      <p className="text-emerald-800 font-medium">{successMessage}</p>
+                    </div>
+                    <p className="text-emerald-700 text-sm text-center">
+                      Check your downloads folder or email for your study guide.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                    <h4 className="font-semibold text-slate-900 mb-2 text-center">Ready to Practice?</h4>
+                    <p className="text-slate-600 text-sm mb-4 text-center">
+                      Get free daily practice questions and take a free mock exam to test your knowledge.
+                    </p>
+                    <a
+                      href="https://study.behaviorschool.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 text-white font-medium rounded-lg transition-all duration-200"
+                    >
+                      Start Free Practice Questions
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </a>
                   </div>
                 </div>
               )}
 
               <p className="text-xs text-slate-500">
-                No spam, unsubscribe anytime. We respect your privacy.
+                We respect your privacy and will never share your information.
               </p>
             </div>
           </motion.div>

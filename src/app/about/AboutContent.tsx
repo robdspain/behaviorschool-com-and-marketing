@@ -110,7 +110,7 @@ export default function AboutContent() {
                 <div className="text-center space-y-6">
                   <div className="relative mx-auto w-32 h-32">
                     <img
-                      src="/profile-Rob.webp"
+                      src="/optimized/profile-Rob.webp"
                       alt="Rob Spain, BCBA, IBA - Founder of Behavior School"
                       width={128}
                       height={128}
@@ -119,7 +119,7 @@ export default function AboutContent() {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-slate-900 mb-2">Rob Spain, BCBA, IBA</h3>
-                    <p className="text-slate-600 mb-4">Founder & Lead Behavior Analyst</p>
+                    <p className="text-slate-600 mb-4">Founder & Behavior Analyst</p>
                     <Link
                       href="https://robspain.com"
                       target="_blank"

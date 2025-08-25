@@ -241,6 +241,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Preconnect hints for performance */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="preconnect" href="https://behaviorstudytools.com" />
+        <link rel="preconnect" href="https://community.behaviorschool.com" />
+        
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <script

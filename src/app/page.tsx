@@ -61,7 +61,7 @@ export default function Home() {
           <div className="text-center">
             <h2 className="sr-only">About Behavior School</h2>
             <p className="text-lg font-medium text-slate-800 leading-relaxed">
-              <strong>Behavior School is an online community and toolkit for school-based BCBAs, behavior analysts in schools, and education professionals.</strong> We provide BCBA exam prep, BCBA practice exams, supervision tools, IEP goal writing, and behavior intervention plan templates to help school BCBAs reduce burnout, increase fidelity, and improve student outcomes. Founded by <a href="https://robspain.com" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-700 font-semibold">Rob Spain, BCBA</a>, our platform offers AI-powered BCBA study tools, supervision workflows, behavior plan writers, and an 8-week transformation program for school behavior professionals practicing applied behavior analysis in schools.
+              <strong>Behavior School is an online community and toolkit for school-based BCBAs, behavior analysts in schools, and education professionals.</strong> We provide BCBA exam prep, BCBA practice exams, supervision tools, IEP goal writing, and behavior intervention plan templates to help school BCBAs reduce burnout, increase fidelity, and improve student outcomes. Founded by <a href="https://robspain.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-800 font-semibold">Rob Spain, BCBA</a>, our platform offers AI-powered BCBA study tools, supervision workflows, behavior plan writers, and an 8-week transformation program for school behavior professionals practicing applied behavior analysis in schools.
             </p>
           </div>
         </div>
@@ -102,9 +102,10 @@ export default function Home() {
                   src="/Community/comein-coffee-people-optimized.webp" 
                   alt="Come on in - welcoming community space with people collaborating over coffee"
                   className="w-full h-auto object-cover"
-                  width="800"
-                  height="533"
+                  width="584"
+                  height="389"
                   loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 584px"
                 />
               </div>
               {/* Decorative elements */}
@@ -138,13 +139,13 @@ export default function Home() {
                       href="/behavior-study-tools"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      Learn More
+                      BCBA Exam Prep Details
                     </Link>
                     <a 
                       href="https://behaviorstudytools.com" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block w-full border border-emerald-600 text-emerald-600 hover:bg-emerald-50 py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      className="block w-full border border-emerald-700 text-emerald-700 hover:bg-emerald-50 py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
                       Try Free BCBA Practice Test
                     </a>
@@ -165,7 +166,7 @@ export default function Home() {
                       href="/supervisors"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      Learn More
+                      BCBA Supervision Details
                     </Link>
                   </div>
                 </div>
@@ -184,7 +185,7 @@ export default function Home() {
                       href="/iep-goals"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      Learn More
+                      IEP Goal Writer Details
                     </Link>
                   </div>
                 </div>
@@ -203,7 +204,7 @@ export default function Home() {
                       href="/behavior-plans"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      Learn More
+                      Behavior Plan Details
                     </Link>
                   </div>
                 </div>
@@ -278,7 +279,7 @@ export default function Home() {
                 Stop surviving your role and start transforming your entire district.
               </p>
               <p className="text-base sm:text-lg leading-relaxed">
-                This isn&apos;t just another course—it&apos;s a complete operating system that addresses the 6 universal pain points every school BCBA faces, with practical tools, scripts, and systems you can implement immediately. Learn how to conduct functional behavior assessments in schools, write effective behavior intervention plans, and reduce BCBA burnout. Get support from our <Link href="/community" className="text-emerald-600 hover:text-emerald-700 font-medium">school BCBA community</Link> and enhance your skills with our <Link href="/behavior-study-tools" className="text-emerald-600 hover:text-emerald-700 font-medium">BCBA exam prep tools</Link>.
+                This isn&apos;t just another course—it&apos;s a complete operating system that addresses the 6 universal pain points every school BCBA faces, with practical tools, scripts, and systems you can implement immediately. Learn how to conduct functional behavior assessments in schools, write effective behavior intervention plans, and reduce BCBA burnout. Get support from our <Link href="/community" className="text-emerald-700 hover:text-emerald-800 font-medium">school BCBA community</Link> and enhance your skills with our <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-medium">BCBA exam prep tools</Link>.
               </p>
               <div className="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg">
                 <p className="text-emerald-800 font-medium text-sm sm:text-base leading-relaxed">
@@ -297,12 +298,13 @@ export default function Home() {
             </div>
             <div className="relative order-1 md:order-2">
               <img 
-                src="/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp" 
+                src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp" 
                 alt="Behavior School Operating System"
                 className="rounded-xl shadow-lg w-full h-auto"
-                width="1536"
-                height="1024"
+                width="592"
+                height="395"
                 loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
               />
             </div>
           </div>

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: "https://behaviorschool.com/community",
     images: [
       {
-        url: "/Community/community1.webp",
+        url: "/optimized/Community/community1.webp",
         width: 600,
         height: 400,
         alt: "Behavior School Community platform",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Join the Behavior School Community",
     description: "Connect with school-based behavior analysts in our focused, distraction-free community.",
-    images: ["/Community/community1.webp"],
+    images: ["/optimized/Community/community1.webp"],
   },
   robots: { index: true, follow: true },
 };
@@ -76,7 +76,7 @@ export default function CommunityPage() {
           <div className="relative order-first lg:order-last">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/Community/community1.webp"
+                src="/optimized/Community/community1.webp"
                 alt="Behavior School Community - Collaborative platform for school-based behavior analysts"
                 width={600}
                 height={400}

@@ -101,12 +101,14 @@ export function Hero({
           <div className="relative">
             <div className="relative z-10">
               <img
-                src="/Hero/Hero-group1-optimized.webp"
+                src="/optimized/Hero/Hero-group1-optimized.webp"
                 alt="Behavior School team collaboration"
-                width="800"
-                height="600"
+                width="576"
+                height="384"
                 className="w-full h-auto rounded-2xl shadow-2xl"
                 loading="eager"
+                fetchPriority="high"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 576px"
               />
             </div>
 

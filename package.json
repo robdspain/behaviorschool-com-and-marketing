@@ -13,7 +13,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "monitor:netlify": "node scripts/netlify-monitor.mjs"
+    "monitor:netlify": "node scripts/netlify-monitor.mjs",
+    "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -49,7 +50,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@playwright/test": "^1.55.0",
-    "@squoosh/cli": "^0.7.3",
+    "@squoosh/cli": "^0.8.0",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",

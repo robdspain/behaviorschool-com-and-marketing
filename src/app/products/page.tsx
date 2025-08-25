@@ -230,7 +230,7 @@ export default function ProductsPage() {
               <div className="relative">
                 <div className="relative z-10">
                   <img
-                    src="/BIP-Writer/BIP-Writer-Team.webp"
+                    src="/optimized/BIP-Writer/BIP-Writer-Team.webp"
                     alt="Behavior Plan Writer - Team collaboration on behavior intervention planning"
                     width={600}
                     height={400}

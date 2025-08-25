@@ -35,6 +35,7 @@ Disallow: /unauthorized/
 Disallow: /*.json$
 Disallow: /feed.json
 Disallow: /posts/
+Disallow: /*.pdf$
 
 # Sitemap and feed locations
 Sitemap: https://behaviorschool.com/sitemap.xml

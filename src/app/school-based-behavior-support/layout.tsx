@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: "Behavior School",
     images: [
       {
-        url: "/og-image.webp", 
+        url: "/optimized/og-image.webp", 
         width: 1200,
         height: 630,
         alt: "School-Based Behavior Support - Behavior School",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "School-Based Behavior Support & PBIS Training",
     description: "Comprehensive behavior support training for school-based BCBAs and educators. PBIS implementation and evidence-based interventions.",
-    images: ["/og-image.webp"],
+    images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },
 };

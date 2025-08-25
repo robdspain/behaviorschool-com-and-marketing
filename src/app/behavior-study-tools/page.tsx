@@ -87,7 +87,7 @@ export default function BehaviorStudyToolsPage() {
             >
               <div className="relative z-10">
                 <img
-                  src="/Hero/Hero-group1.webp"
+                  src="/optimized/Hero/Hero-group1.webp"
                   alt="Behavior Study Tools - AI-powered BCBA exam preparation"
                   width={600}
                   height={400}

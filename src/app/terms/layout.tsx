@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     url: "/terms",
     images: [
       {
-        url: "/og-image.webp",
+        url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Terms of Service",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Terms of Service - Behavior School",
     description: "Please read these terms carefully before using Behavior Study Tools.",
-    images: ["/og-image.webp"],
+    images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },
 };

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: "Behavior School",
     images: [
       {
-        url: "/og-image.webp",
+        url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
         alt: "IEP Behavior Goals - Behavior School",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "IEP Behavior Goals & Writing Guide for School BCBAs",
     description: "Complete guide to writing measurable IEP behavior goals with templates and examples for school-based BCBAs.",
-    images: ["/og-image.webp"],
+    images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },
 };

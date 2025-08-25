@@ -156,7 +156,7 @@ export default function TransformationProgramPage() {
                 >
                   <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
                   <span className="text-sm font-medium text-slate-700">Cohort-Based Program</span>
-                  <span className="text-xs text-slate-500">• 8 Weeks</span>
+                  <span className="text-xs text-slate-500"> • Classes forming now - starting soon</span>
                 </motion.div>
 
                 {/* Enhanced Headline with Professional Typography */}
@@ -168,11 +168,6 @@ export default function TransformationProgramPage() {
                 >
                   <h1 className="text-4xl/tight sm:text-5xl/tight md:text-6xl/tight lg:text-7xl/tight font-extrabold text-slate-900 tracking-tight">
                     From Chaos to Confidence
-                    <br className="hidden sm:block" />
-                    <span className="sm:hidden"> </span>
-                    <span className="bg-gradient-to-r from-red-600 via-red-500 to-red-600 bg-clip-text text-transparent">
-                      in Just 8 Weeks
-                    </span>
                   </h1>
                   
                   <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 leading-tight">
@@ -336,7 +331,7 @@ export default function TransformationProgramPage() {
             {/* Hero image */}
             <div className="w-full max-w-4xl mx-auto">
               <img
-                src="/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
+                src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
                 alt="BCBA working at desk with stressed expression, symbolizing the overwhelm that the Behavior School Operating System solves"
                 width={1536}
                 height={1024}
@@ -546,7 +541,7 @@ export default function TransformationProgramPage() {
               The Behavior School Operating System
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-6 sm:mb-8">
-              Your 8-Week Blueprint to BCBA Mastery
+              Your Blueprint to BCBA Mastery
             </p>
             <p className="text-base sm:text-lg text-slate-600 max-w-4xl mx-auto">
               This isn&apos;t another course filled with theory you&apos;ll never use. This is the exact step-by-step system my clients use to transform chaotic school practices into streamlined, results-driven operations.
