@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: "/Logos/Logo.webp",
+    shortcut: "/Logos/Logo.webp",
+    apple: "/Logos/Logo.webp",
   },
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
@@ -58,7 +58,7 @@ export default function RootLayout({
     "@type": ["Organization", "EducationalOrganization"],
     name: "Behavior School",
     url: SITE_URL,
-    logo: `${SITE_URL}/optimized/Logos/logo-gold-transparent.webp`,
+    logo: `${SITE_URL}/Logos/Logo.webp`,
     description: "Professional development and training platform for school-based BCBAs, behavior analysts in education, and applied behavior analysis professionals. We provide BCBA exam prep, supervision tools, IEP goal writing, behavior intervention plans, and comprehensive training programs.",
     foundingDate: "2020",
     founder: {
@@ -278,7 +278,7 @@ export default function RootLayout({
             name: "Behavior School",
             description: "Professional development and training platform for school-based BCBAs and behavior analysts in education",
             url: SITE_URL,
-            logo: `${SITE_URL}/optimized/Logos/logo-gold-transparent.webp`,
+            logo: `${SITE_URL}/Logos/Logo.webp`,
             image: `${SITE_URL}/optimized/og-image.webp`,
             telephone: null,
             priceRange: "$$",

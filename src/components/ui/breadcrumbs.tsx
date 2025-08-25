@@ -28,8 +28,8 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      ...(item.href && { "item": `${SITE_URL}${item.href}` })
-    }))
+      "item": item.href ? `${SITE_URL}${item.href}` : undefined
+    })).filter(item => item.item !== undefined || item.name)
   };
 
   return (

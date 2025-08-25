@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { CheckCircle, BookOpen, Users, Target, Download, Clock, Star, ArrowRight, Info } from "lucide-react";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 export default function BCBAExamPrepPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -95,7 +95,7 @@ export default function BCBAExamPrepPage() {
       {/* Hero Section */}
       <section className="pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <Breadcrumbs items={[{ name: "BCBA Exam Prep" }]} />
+          <Breadcrumbs items={[{ label: "BCBA Exam Prep" }]} />
           <div className="text-center">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium mb-6">
               <Star className="w-4 h-4 mr-2" />
