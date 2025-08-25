@@ -51,8 +51,8 @@ export default function Home() {
         eyebrow="Behavior School"
         title="Empowering"
         highlight="School BCBAs & Behavior Analysts in Education"
-        subtitle="Tools, training, and community to help school-based BCBAs, psychologists, and educators thrive — from BCBA exam prep to supervision systems that work in real classrooms."
-        primaryCta={{ href: "/subscribe", label: "Join the School BCBA Community" }}
+        subtitle="Tools, training, and a free community to help school-based BCBAs, psychologists, and educators thrive — from BCBA exam prep to supervision systems that work in real classrooms."
+        primaryCta={{ href: "/community", label: "Join Our Free Community" }}
       />
 
       {/* AI-Friendly Summary for LLM Indexing */}
