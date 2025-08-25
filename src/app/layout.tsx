@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { ToastProvider } from "@/components/toast";
 import { SessionProvider } from "next-auth/react";
 import { ConditionalNavBar } from "@/components/ConditionalNavBar";
+import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyCompliantAnalytics";
 
 export const metadata: Metadata = {
   title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
@@ -248,24 +249,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://behaviorstudytools.com" />
         <link rel="preconnect" href="https://community.behaviorschool.com" />
         
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-                `,
-              }}
-            />
-          </>
-        )}
+        <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       </head>
       <body className="font-sans antialiased">
         <SessionProvider>
