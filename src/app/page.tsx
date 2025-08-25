@@ -489,7 +489,7 @@ export default function Home() {
                 "name": "What is the BCBA exam pass rate?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "The BCBA exam pass rate is approximately 54% for first-time test takers as of 2024. However, candidates who use comprehensive exam prep programs with practice questions and structured study plans typically achieve pass rates of 80-90%."
+                  "text": "The BCBA exam pass rate is approximately 54% for first-time test takers as of 2024. Comprehensive exam prep programs with practice questions and structured study plans can help improve preparation and test performance."
                 }
               },
               {
