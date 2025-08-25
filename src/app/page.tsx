@@ -61,7 +61,7 @@ export default function Home() {
           <div className="text-center">
             <h2 className="sr-only">About Behavior School</h2>
             <p className="text-lg font-medium text-slate-800 leading-relaxed">
-              <strong>Behavior School is an online community and toolkit for school-based BCBAs, behavior analysts in schools, and education professionals.</strong> We provide BCBA exam prep, BCBA practice exams, supervision tools, IEP goal writing, and behavior intervention plan templates to help school BCBAs reduce burnout, increase fidelity, and improve student outcomes. Founded by <a href="https://robspain.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-800 font-semibold">Rob Spain, BCBA</a>, our platform offers AI-powered BCBA study tools, supervision workflows, behavior plan writers, and an 8-week transformation program for school behavior professionals practicing applied behavior analysis in schools.
+              <strong>Behavior School is an online community and toolkit for school-based BCBAs, behavior analysts in schools, and education professionals.</strong> We provide <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-medium">BCBA exam prep</Link>, <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-medium">BCBA practice exams</Link>, <Link href="/supervisors" className="text-emerald-700 hover:text-emerald-800 font-medium">supervision tools</Link>, <Link href="/iep-goals" className="text-emerald-700 hover:text-emerald-800 font-medium">IEP goal writing</Link>, and <Link href="/behavior-plans" className="text-emerald-700 hover:text-emerald-800 font-medium">behavior intervention plan templates</Link> to help school BCBAs reduce burnout, increase fidelity, and improve student outcomes. Founded by <a href="https://robspain.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-800 font-semibold">Rob Spain, BCBA</a>, our platform offers AI-powered BCBA study tools, supervision workflows, behavior plan writers, and <Link href="/transformation-program" className="text-emerald-700 hover:text-emerald-800 font-medium">8-week transformation program</Link> for school behavior professionals practicing applied behavior analysis in schools.
             </p>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/thumbnails/hero-thumb.webp" alt="Behavior Study Tools" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
+                  <img src="/thumbnails/hero-thumb.webp" alt="BCBA exam prep practice questions and study tools for behavior analysts" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Exam Prep & Practice Tests</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Master the BCBA exam with AI-powered practice questions and BCBA study materials.</p>
                   <div className="space-y-2 mt-auto">
@@ -158,7 +158,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/thumbnails/supervision-thumb.webp" alt="Supervision Tools" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
+                  <img src="/thumbnails/supervision-thumb.webp" alt="BCBA supervision tools and fieldwork tracking for behavior analyst training" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Supervision Tools</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Track BCBA fieldwork hours, competencies, and streamline your supervision practice.</p>
                   <div className="mt-auto">
@@ -177,7 +177,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/thumbnails/iep-goal-thumb.webp" alt="IEP Goal Writer" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
+                  <img src="/thumbnails/iep-goal-thumb.webp" alt="IEP goal writing templates and tools for school-based behavior analysts" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">IEP Goal Writer</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Write measurable IEP behavior goals and SMART IEP goals for students.</p>
                   <div className="mt-auto">
@@ -196,7 +196,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/thumbnails/bip-writer-thumb.webp" alt="Behavior Plan Writer" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
+                  <img src="/thumbnails/bip-writer-thumb.webp" alt="Behavior intervention plan templates and BIP writing tools for school BCBAs" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">Behavior Intervention Plan Writer</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Develop comprehensive behavior intervention plans (BIPs) from functional behavior assessments.</p>
                   <div className="mt-auto">
@@ -299,7 +299,7 @@ export default function Home() {
             <div className="relative order-1 md:order-2">
               <img 
                 src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp" 
-                alt="Behavior School Operating System"
+                alt="BCBA training program dashboard showing school-based behavior support tools and operating system"
                 className="rounded-xl shadow-lg w-full h-auto"
                 width="592"
                 height="395"

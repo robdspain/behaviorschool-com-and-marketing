@@ -102,7 +102,7 @@ export function Hero({
             <div className="relative z-10">
               <img
                 src="/optimized/Hero/Hero-group1-optimized.webp"
-                alt="Behavior School team collaboration"
+                alt="School-based BCBAs and behavior analysts collaborating on student behavior support plans"
                 width="576"
                 height="384"
                 className="w-full h-auto rounded-2xl shadow-2xl"
