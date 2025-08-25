@@ -7,11 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 
-export const metadata = {
-  title: "Behavior School Supervision Tools",
-  description: "Plan, deliver, and document high‑quality BCBA supervision with automation and defensible records.",
-};
-
 export default function SupervisorsPage() {
   const [showPopup, setShowPopup] = useState(false);
 
@@ -87,7 +82,6 @@ export default function SupervisorsPage() {
           </Accordion>
         </div>
       </section>
-      </div>
 
       {/* Email Signup Popup */}
       <EmailSignupPopup
@@ -97,7 +91,7 @@ export default function SupervisorsPage() {
         description="Be the first to know when our comprehensive BCBA supervision platform launches. Get early access and priority onboarding."
         pageSource="supervisors"
       />
-    </>
+    </div>
   );
 }
 

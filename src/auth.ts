@@ -19,13 +19,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
   logger: {
-    error: (code, metadata) => {
+    error: (error: Error) => {
       // Suppress auth errors in production when credentials are missing
       if (process.env.NODE_ENV === "production" && 
-          (code.includes("CLIENT_ID") || code.includes("CLIENT_SECRET"))) {
+          error.message && 
+          (error.message.includes("CLIENT_ID") || error.message.includes("CLIENT_SECRET"))) {
         return;
       }
-      console.error(code, metadata);
+      console.error(error);
     },
   },
 });
