@@ -6,8 +6,8 @@ import { SessionProvider } from "next-auth/react";
 import { ConditionalNavBar } from "@/components/ConditionalNavBar";
 
 export const metadata: Metadata = {
-  title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-  description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
+  title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
+  description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs. Try free.",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   icons: {
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     apple: "/favicon.svg",
   },
   openGraph: {
-    title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-    description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
+    title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
+    description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     images: [
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School - Lead with confidence. Reduce overwhelm.",
-    description: "Lead with confidence. Reduce overwhelm. Create lasting change—without the burnout.",
+    title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
+    description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
     images: ["/optimized/og-image.webp"],
   },
   metadataBase: new URL("https://behaviorschool.com"),

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 export const metadata: Metadata = {
-  title: "School-Based BCBA Training & Certification Prep | Behavior School",
+  title: "Free BCBA Practice Tests & School Behavior Support Tools | Behavior School",
   description:
-    "Tools, training, and community for school-based BCBAs, psychologists, and educators. BCBA exam prep, supervision tools, IEP goal writing, and behavior intervention plans that work in real classrooms.",
+    "Free BCBA practice questions, proven exam strategies, and complete school behavior toolkit. Comprehensive training programs, supervision tools, and IEP templates for school-based behavior analysts.",
   keywords: "school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
@@ -451,6 +451,59 @@ export default function Home() {
           </>
         );
       })()}
+
+      {/* FAQ Schema for Featured Snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is BCBA exam prep?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "BCBA exam prep includes practice questions, study materials, and test-taking strategies designed to help behavior analysts pass the Board Certified Behavior Analyst certification exam. Effective prep programs cover all BACB task list items with adaptive learning and performance tracking."
+                }
+              },
+              {
+                "@type": "Question", 
+                "name": "How long does it take to become a BCBA?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Becoming a BCBA typically takes 4-6 years total: bachelor's degree (4 years), master's in ABA or related field (2 years), supervised fieldwork (1,500-2,000 hours), and passing the BCBA exam. Many complete fieldwork during their master's program."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What do school-based BCBAs do?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "School-based BCBAs conduct functional behavior assessments, write behavior intervention plans (BIPs), provide teacher training, develop IEP goals, implement school-wide PBIS systems, supervise staff, and provide direct behavior support services for students with disabilities in educational settings."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the BCBA exam pass rate?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The BCBA exam pass rate is approximately 54% for first-time test takers as of 2024. However, candidates who use comprehensive exam prep programs with practice questions and structured study plans typically achieve pass rates of 80-90%."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How much do school BCBAs make?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "School-based BCBAs earn an average salary of $65,000-$85,000 per year, with experienced BCBAs in leadership roles earning $90,000-$110,000. Salaries vary by state, district size, and years of experience in school-based applied behavior analysis."
+                }
+              }
+            ]
+          })
+        }}
+      />
 
       {/* Footer rendered by root layout */}
     </div>
