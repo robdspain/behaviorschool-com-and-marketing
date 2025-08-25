@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
 import { getPostBySlug } from "@/lib/ghost";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -31,9 +32,18 @@ export default async function BlogPost({ params }: PageProps) {
   const rt = readingTime(post.plaintext || post.excerpt || "");
 
   return (
-    <article className="mx-auto max-w-3xl px-6 lg:px-8 py-10">
+    <div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Blog", href: "/blog" },
+            { label: post.title }
+          ]}
+        />
+      </div>
       
-      <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">{post.title}</h1>
+      <article className="mx-auto max-w-3xl px-6 lg:px-8 py-10">
+        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">{post.title}</h1>
       <div className="mb-6 text-sm text-slate-600 flex flex-wrap items-center gap-2">
         {post.published_at ? <span>{new Date(post.published_at).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}</span> : null}
         {rt?.text ? <span>• {rt.text}</span> : null}
@@ -54,7 +64,8 @@ export default async function BlogPost({ params }: PageProps) {
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
       ) : null}
-    </article>
+      </article>
+    </div>
   );
 }
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Brain, Users, FileText, Target } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -22,6 +23,15 @@ const staggerContainer = {
 export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-white">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Products" }
+          ]}
+        />
+      </div>
+      
       {/* Products Section */}
       <section id="products" className="pt-36 pb-16 lg:pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

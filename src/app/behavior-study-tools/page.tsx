@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Brain, Target, TrendingUp, BookOpen, Users } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -22,6 +23,16 @@ const staggerContainer = {
 export default function BehaviorStudyToolsPage() {
   return (
     <div className="min-h-screen bg-white">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Products", href: "/products" },
+            { label: "Behavior Study Tools" }
+          ]}
+        />
+      </div>
+      
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-blue-50" />

@@ -3,6 +3,7 @@ import { getPosts } from "@/lib/ghost";
 import { Container } from "@/components/container";
 import { Section } from "@/components/section";
 import { PostList } from "@/components/post-list";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 export const revalidate = 60;
 
@@ -19,18 +20,28 @@ export default async function BlogPage() {
     : (await getPosts({ limit: 24, order: "published_at desc", include: "tags,authors" })).posts;
 
   return (
-    <Section>
-      <Container>
-        <div className="mb-8">
-          {/* Removed Blog heading and description while maintaining spacing */}
-        </div>
+    <div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Blog" }
+          ]}
+        />
+      </div>
+      
+      <Section>
+        <Container>
+          <div className="mb-8">
+            {/* Removed Blog heading and description while maintaining spacing */}
+          </div>
         {posts.length > 0 ? (
           <PostList posts={posts} columns={3} useExternalUrl={false} />
         ) : (
           <p className="text-muted-foreground">No posts found.</p>
         )}
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </div>
   );
 }
 

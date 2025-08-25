@@ -3,10 +3,21 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 export default function IEPGoalsPage() {
   return (
     <div className="min-h-screen bg-white">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Products", href: "/products" },
+            { label: "IEP Goals" }
+          ]}
+        />
+      </div>
+      
       {/* Hero Section (Above the Fold) */}
       <section className="relative pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-pink-50" />
