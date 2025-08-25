@@ -45,7 +45,7 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
     
     // Disable analytics
     if (typeof window !== "undefined") {
-      (window as Record<string, unknown>)["ga-disable-" + gaId] = true;
+      (window as unknown as Record<string, unknown>)["ga-disable-" + gaId] = true;
     }
   };
 
