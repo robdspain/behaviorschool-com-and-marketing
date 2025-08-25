@@ -46,102 +46,30 @@ export function EmailSignupPopup({
       });
 
       if (response.ok) {
-        // Generate secure download token and trigger download
-        try {
-          const downloadResponse = await fetch('/api/download', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: formData.get('email'),
-              resource: 'bcba-study-guide'
-            })
-          });
-          
-          if (downloadResponse.ok) {
-            const responseText = await downloadResponse.text();
-            if (responseText) {
-              try {
-                const { downloadUrl } = JSON.parse(responseText);
-                
-                // Trigger secure download
-                const link = document.createElement('a');
-                link.href = downloadUrl;
-                link.download = 'BCBA-Study-Guide.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-              } catch (parseError) {
-                console.error('Failed to parse download response:', parseError);
-              }
-            }
-          }
-        } catch (downloadError) {
-          console.error('Download token generation failed:', downloadError);
-        }
-        
         setIsSubmitted(true);
-        // Close popup after 8 seconds to allow time to see success message and CTA
+        // Close popup after 3 seconds
         setTimeout(() => {
           onClose();
           setIsSubmitted(false);
-        }, 8000);
+        }, 3000);
       } else {
         console.error("Newsletter subscription failed:", response.status);
-        // Trigger download even if subscription fails for better UX
-        await triggerSecureDownload(formData.get('email') as string);
-        
         setIsSubmitted(true);
         setTimeout(() => {
           onClose();
           setIsSubmitted(false);
-        }, 8000);
+        }, 3000);
       }
     } catch (error) {
       console.error("Newsletter subscription error:", error);
-      // Fallback: trigger download and show success message for better UX
-      await triggerSecureDownload(formData.get('email') as string);
-      
       setIsSubmitted(true);
       setTimeout(() => {
         onClose();
         setIsSubmitted(false);
-      }, 8000);
+      }, 3000);
     }
   };
 
-  // Helper function for secure download
-  const triggerSecureDownload = async (email: string) => {
-    try {
-      const downloadResponse = await fetch('/api/download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email || 'anonymous@user.com',
-          resource: 'bcba-study-guide'
-        })
-      });
-      
-      if (downloadResponse.ok) {
-        const responseText = await downloadResponse.text();
-        if (responseText) {
-          try {
-            const { downloadUrl } = JSON.parse(responseText);
-            
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.download = 'BCBA-Study-Guide.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          } catch (parseError) {
-            console.error('Failed to parse download response:', parseError);
-          }
-        }
-      }
-    } catch (downloadError) {
-      console.error('Secure download failed:', downloadError);
-    }
-  };
 
   return (
     <AnimatePresence>

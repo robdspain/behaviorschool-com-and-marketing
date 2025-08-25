@@ -299,7 +299,7 @@ export default function BCBAExamPrepPage() {
                              hover:shadow-xl shadow-lg
                              text-lg font-semibold px-8 py-4"
                 >
-                  <span className="hidden sm:inline text-lg">Download Free Study Guide – Pass the BCBA Exam Faster</span>
+                  <span className="hidden sm:inline text-lg">Get Free Study Resources – Pass the BCBA Exam Faster</span>
                   <span className="sm:hidden text-lg">Get Free Study Guide</span>
                   <Download className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
                 </Button>
@@ -703,7 +703,7 @@ export default function BCBAExamPrepPage() {
                          hover:shadow-xl shadow-lg
                          text-lg font-semibold px-8 py-4"
             >
-              Download Free Study Guide – Pass Faster
+              Get Free Study Resources – Pass Faster
               <Download className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
             </Button>
           </div>
@@ -734,12 +734,12 @@ export default function BCBAExamPrepPage() {
       <EmailSignupPopup
         isOpen={isSignupOpen}
         onClose={() => setIsSignupOpen(false)}
-        title="Download Your Free BCBA Study Guide"
-        description="Get our comprehensive study guide with practice questions, exam strategies, and school-specific scenarios to help you pass on the first try."
+        title="Get Your Free BCBA Study Resources"
+        description="Get access to our comprehensive BCBA study resources, practice questions, exam strategies, and school-specific scenarios to help you pass on the first try."
         pageSource="/bcba-exam-prep"
         showNameField={true}
-        buttonText="Download Study Guide"
-        successMessage="Check your email! Your BCBA study guide is on its way."
+        buttonText="Get Study Resources"
+        successMessage="Thanks for signing up! We'll send you valuable BCBA study resources soon."
       />
     </div>
   );
