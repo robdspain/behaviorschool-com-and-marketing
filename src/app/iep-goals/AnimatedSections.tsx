@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ChevronDown, ChevronUp, CheckCircle, XCircle, Target, BarChart3, Zap, RefreshCw, TrendingUp, Clock, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2, Quote } from "lucide-react";
+import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2, Quote } from "lucide-react";
 import { ClientCTA } from "./ClientCTA";
 
 export function AnimatedSections() {
@@ -174,7 +174,7 @@ export function AnimatedSections() {
             <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-8 max-w-2xl mx-auto">
               <div className="bg-white rounded-lg p-6 border border-red-300">
                 <p className="text-lg font-medium text-red-800">
-                  "Student will reduce blurting in class."
+                  &ldquo;Student will reduce blurting in class.&rdquo;
                 </p>
               </div>
             </div>
@@ -296,7 +296,7 @@ export function AnimatedSections() {
                 <h3 className="text-2xl font-bold text-red-800 mb-6">OLD GOAL</h3>
                 <div className="bg-white rounded-lg p-6 border border-red-300 mb-6">
                   <p className="text-lg font-medium text-red-800">
-                    "Student will reduce blurting in class."
+                    &ldquo;Student will reduce blurting in class.&rdquo;
                   </p>
                 </div>
                 <ul className="space-y-2">
@@ -333,7 +333,7 @@ export function AnimatedSections() {
                 <h3 className="text-2xl font-bold text-emerald-800 mb-6">SMART GOAL</h3>
                 <div className="bg-white rounded-lg p-6 border border-emerald-300 mb-6">
                   <p className="text-lg font-medium text-emerald-800">
-                    "Student will raise hand 90% of the time before speaking, across 3 settings, for 3 consecutive days."
+                    &ldquo;Student will raise hand 90% of the time before speaking, across 3 settings, for 3 consecutive days.&rdquo;
                   </p>
                 </div>
                 <ul className="space-y-2">
@@ -392,12 +392,12 @@ export function AnimatedSections() {
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Teachers</h3>
                 <p className="text-slate-600 mb-6">Save time</p>
                 
-                <div className="bg-slate-50 rounded-xl p-4">
-                  <p className="text-slate-700 text-sm italic leading-relaxed">
-                    "This saved me hours every week. My IEP goals are now consistently measurable."
-                  </p>
-                  <p className="text-purple-600 text-xs font-medium mt-2">— Sarah M., Special Ed Teacher</p>
-                </div>
+                                  <div className="bg-slate-50 rounded-xl p-4">
+                    <p className="text-slate-700 text-sm italic leading-relaxed">
+                      &ldquo;This saved me hours every week. My IEP goals are now consistently measurable.&rdquo;
+                    </p>
+                    <p className="text-purple-600 text-xs font-medium mt-2">— Sarah M., Special Ed Teacher</p>
+                  </div>
               </motion.article>
 
               {/* BCBAs */}
@@ -417,12 +417,12 @@ export function AnimatedSections() {
                 <h3 className="text-xl font-bold text-slate-900 mb-3">BCBAs</h3>
                 <p className="text-slate-600 mb-6">Align with ABA</p>
                 
-                <div className="bg-slate-50 rounded-xl p-4">
-                  <p className="text-slate-700 text-sm italic leading-relaxed">
-                    "Finally, goals that align with ABA best practices. The specificity is exactly what we need."
-                  </p>
-                  <p className="text-blue-600 text-xs font-medium mt-2">— Dr. Michael R., BCBA</p>
-                </div>
+                                  <div className="bg-slate-50 rounded-xl p-4">
+                    <p className="text-slate-700 text-sm italic leading-relaxed">
+                      &ldquo;Finally, goals that align with ABA best practices. The specificity is exactly what we need.&rdquo;
+                    </p>
+                    <p className="text-blue-600 text-xs font-medium mt-2">— Dr. Michael R., BCBA</p>
+                  </div>
               </motion.article>
 
               {/* Schools */}
@@ -442,12 +442,12 @@ export function AnimatedSections() {
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Schools</h3>
                 <p className="text-slate-600 mb-6">Compliance</p>
                 
-                                  <div className="bg-slate-50 rounded-xl p-4">
-                    <p className="text-slate-700 text-sm italic leading-relaxed">
-                      "We&apos;ve improved our compliance rate from 60% to 95% since using this system."
-                    </p>
-                    <p className="text-emerald-600 text-xs font-medium mt-2">— Lisa T., Special Ed Director</p>
-                  </div>
+                                                                     <div className="bg-slate-50 rounded-xl p-4">
+                     <p className="text-slate-700 text-sm italic leading-relaxed">
+                       &ldquo;We&apos;ve improved our compliance rate from 60% to 95% since using this system.&rdquo;
+                     </p>
+                     <p className="text-emerald-600 text-xs font-medium mt-2">— Lisa T., Special Ed Director</p>
+                   </div>
               </motion.article>
             </div>
           </motion.div>
@@ -554,7 +554,7 @@ export function AnimatedSections() {
                   <div className="flex items-start space-x-3 mb-4">
                     <Quote className="h-6 w-6 text-orange-500 flex-shrink-0 mt-1" />
                     <p className="text-slate-700 text-sm italic leading-relaxed">
-                      "{testimonial.quote}"
+                      &ldquo;{testimonial.quote}&rdquo;
                     </p>
                   </div>
                   <div className="border-t border-slate-200 pt-4">
