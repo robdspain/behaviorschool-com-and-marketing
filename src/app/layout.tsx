@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { ToastProvider } from "@/components/toast";
 import { ConditionalNavBar } from "@/components/ConditionalNavBar";
 import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyCompliantAnalytics";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
@@ -315,17 +316,19 @@ export default function RootLayout({
             }
           }) }}
         />
-        <script>
-          if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-              navigator.serviceWorker.register('/sw.js').then(registration => {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-              }, err => {
-                console.log('ServiceWorker registration failed: ', err);
+        <Script id="sw-register" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                  console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, err => {
+                  console.log('ServiceWorker registration failed: ', err);
+                });
               });
-            });
-          }
-        </script>
+            }
+          `}
+        </Script>
       </body>
     </html>
   );
