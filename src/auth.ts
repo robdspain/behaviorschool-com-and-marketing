@@ -1,6 +1,19 @@
-import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
+// NextAuth completely disabled to avoid conflicts with Supabase auth
+// import NextAuth from "next-auth";
+// import Google from "next-auth/providers/google";
 
+// Placeholder exports to prevent import errors
+export const handlers = {
+  GET: () => new Response('NextAuth disabled', { status: 404 }),
+  POST: () => new Response('NextAuth disabled', { status: 404 })
+};
+
+export const auth = () => null;
+export const signIn = () => Promise.reject('NextAuth disabled');
+export const signOut = () => Promise.reject('NextAuth disabled');
+
+// Original NextAuth configuration commented out
+/*
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
   providers: [
@@ -30,6 +43,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
 });
+*/
 
 
 
