@@ -14,6 +14,7 @@ interface EmailSignupPopupProps {
   successMessage?: string;
   className?: string;
   showNameField?: boolean; // New prop to control name field visibility
+  isDownloadFlow?: boolean; // When true, show download-specific disclaimer/messages
 }
 
 export function EmailSignupPopup({
@@ -25,7 +26,8 @@ export function EmailSignupPopup({
   buttonText = "Subscribe",
   successMessage = "Thanks for subscribing!",
   className = "",
-  showNameField = false
+  showNameField = false,
+  isDownloadFlow = false
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -131,11 +133,13 @@ export function EmailSignupPopup({
                     />
                   </div>
 
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 mb-4">
-                    <p className="text-xs text-slate-600 text-left leading-relaxed">
-                      By downloading this resource, you agree to receive helpful emails with behavior analysis tips, study resources, and updates from Behavior School. You can unsubscribe at any time.
-                    </p>
-                  </div>
+                  {isDownloadFlow && (
+                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 mb-4">
+                      <p className="text-xs text-slate-600 text-left leading-relaxed">
+                        By downloading this resource, you agree to receive helpful emails with behavior analysis tips, study resources, and updates from Behavior School. You can unsubscribe at any time.
+                      </p>
+                    </div>
+                  )}
 
                   <button
                     type="submit"
@@ -152,9 +156,11 @@ export function EmailSignupPopup({
                       <Check className="w-5 h-5 text-emerald-600" />
                       <p className="text-emerald-800 font-medium">{successMessage}</p>
                     </div>
-                    <p className="text-emerald-700 text-sm text-center">
-                      Check your downloads folder or email for your study guide.
-                    </p>
+                    {isDownloadFlow && (
+                      <p className="text-emerald-700 text-sm text-center">
+                        Check your downloads folder or email for your study guide.
+                      </p>
+                    )}
                   </div>
                   
                   <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">

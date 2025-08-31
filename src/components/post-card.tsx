@@ -27,13 +27,26 @@ export interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
 export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl = false, ...props }: PostCardProps) {
   const href = `${hrefBase}/${post.slug}`;
   const primaryTag = post.primary_tag ?? (post.tags && post.tags.length > 0 ? post.tags[0] : null);
+  const imageSrc = React.useMemo(() => {
+    if (!post.feature_image) return "/thumbnails/hero-thumb.webp";
+    try {
+      const url = new URL(post.feature_image);
+      if (url.protocol === "http:") {
+        url.protocol = "https:";
+        return url.toString();
+      }
+      return post.feature_image;
+    } catch {
+      return post.feature_image.startsWith("/") ? post.feature_image : "/thumbnails/hero-thumb.webp";
+    }
+  }, [post.feature_image]);
 
   return (
     <Card className={cn("group overflow-hidden h-full flex flex-col", className)} {...props}>
-      {post.feature_image ? (
+      {imageSrc ? (
         <div className="relative aspect-[16/9] w-full overflow-hidden">
           <Image
-            src={post.feature_image}
+            src={imageSrc}
             alt={post.title}
             fill
             sizes="(max-width: 768px) 100vw, 400px"
