@@ -141,3 +141,11 @@ ased-bcbas 404 in 2115ms
  ✓ Compiled in 226ms (809 modules)
  ✓ Compiled in 316ms (809 modules)
  ✓ Compiled in 261ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 341ms (809 modules)
+ ✓ Compiled in 360ms (809 modules)
+ ✓ Compiled in 388ms (809 modules)
+ ✓ Compiled in 537ms (809 modules)
+ ✓ Compiled in 341ms (809 modules)
+ ✓ Compiled in 450ms (809 modules)
+ ✓ Compiled in 349ms (809 modules)

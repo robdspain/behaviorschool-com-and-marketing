@@ -12,20 +12,20 @@ export function AnimatedSections() {
 
   const faqs = [
     {
-      question: "How do you write a measurable behavioral IEP goal?",
-      answer: "A behavioral goal should define the exact behavior, include baseline data, and set a clear success criterion (e.g., \"Student will request a break using a visual card in 80% of opportunities across 3 settings.\")."
+      question: "Why do 90-100% accuracy goals work better than 80%?",
+      answer: "Research by Pitts (2021) found that skills taught with 100% accuracy were maintained at higher levels compared to 80% or 90%. Our tool targets 90-100% accuracy for better long-term retention and skill stability."
     },
     {
-      question: "What are examples of functional language skills IEP goals?",
-      answer: "Functional language goals might include, \"Student will independently request help using a 3-word phrase in 80% of opportunities during classroom routines.\""
+      question: "What's the difference between basic and research-based IEP goals?",
+      answer: "Basic goals include date, context, behavior, and measurement. Research-based goals add baseline data, latency & fluency, generalization across settings, and maintenance periods of 4+ weeks for lasting behavior change."
     },
     {
-      question: "Is there a free IEP goal-writing tool for teachers and BCBAs?",
-      answer: "Yes — our Free IEP Goal Generator helps you instantly create SMART, evidence-based goals you can use in IEPs."
+      question: "How does fluency building improve skill retention?",
+      answer: "Precision teaching research shows that fluency (accuracy + speed) improves retention and generalization. Our tool incorporates fluency components to ensure skills are not just accurate but also performed efficiently and maintained over time."
     },
     {
-      question: "What makes an IEP goal SMART?",
-      answer: "SMART goals are Specific, Measurable, Achievable, Relevant, and Time-bound — ensuring clarity and accountability."
+      question: "What makes an IEP goal truly comprehensive?",
+      answer: "Comprehensive goals include all 5 levels: baseline data, latency & fluency, 90-100% accuracy, generalization across multiple settings, and maintenance periods. This research-based approach ensures maximum effectiveness and lasting outcomes."
     }
   ];
 
@@ -49,11 +49,11 @@ export function AnimatedSections() {
               className="space-y-8"
             >
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.05] text-slate-900">
-                Free IEP Goal Generator — Write Clear, Measurable Goals in Minutes
+                Research-Based IEP Goal Generator — 5-Level Hierarchy for Maximum Effectiveness
               </h1>
               
               <p className="text-xl sm:text-2xl text-slate-600 leading-relaxed">
-                Create SMART IEP goals instantly — specific, measurable, and functional.
+                Create comprehensive IEP goals with baseline data, fluency building, 90-100% accuracy targets, generalization, and maintenance — backed by behavior analysis research.
               </p>
 
               <motion.div
@@ -152,7 +152,7 @@ export function AnimatedSections() {
             className="text-center space-y-12"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Why Most IEP Goals Fail
+              Why 80% of IEP Goals Fail (Research Shows the Solution)
             </h2>
 
             <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-8 max-w-2xl mx-auto">
@@ -200,43 +200,43 @@ export function AnimatedSections() {
             className="text-center space-y-12"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Every Goal Written with Our Tool Is...
+              Research-Based Components for Maximum Effectiveness
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="flex items-start space-x-4 text-left">
                 <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Specific</h3>
-                  <p className="text-slate-600">Clear, observable behaviors</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Baseline Data</h3>
+                  <p className="text-slate-600">Current performance levels for accurate measurement</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4 text-left">
                 <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Measurable</h3>
-                  <p className="text-slate-600">Includes baseline + criteria</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Latency & Fluency</h3>
+                  <p className="text-slate-600">Response time + accuracy for skill stability</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4 text-left">
                 <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Functional</h3>
-                  <p className="text-slate-600">Paired with replacement behaviors</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">90-100% Accuracy</h3>
+                  <p className="text-slate-600">Research shows higher retention than 80%</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4 text-left">
                 <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Generalized</h3>
-                  <p className="text-slate-600">Across settings</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Generalization</h3>
+                  <p className="text-slate-600">Multiple settings for real-world application</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4 text-left">
                 <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Sustainable</h3>
-                  <p className="text-slate-600">Skills that stick</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Maintenance</h3>
+                  <p className="text-slate-600">4+ weeks retention for lasting change</p>
                 </div>
               </div>
             </div>
@@ -265,82 +265,86 @@ export function AnimatedSections() {
             className="space-y-12"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 text-center">
-              See the Difference: Vague vs. SMART IEP Goals
+              The 5-Level IEP Goal Hierarchy: From Basic to Research-Based
             </h2>
 
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Old Goal */}
+            <div className="space-y-8">
+              {/* Level 1: Basic Goal */}
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
                 className="bg-red-50 border-2 border-red-200 rounded-2xl p-8 relative"
               >
-                <div className="absolute top-4 right-4">
-                  <XCircle className="h-8 w-8 text-red-500" />
+                <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  Level 1
                 </div>
-                <h3 className="text-2xl font-bold text-red-800 mb-6">OLD GOAL</h3>
+                <h3 className="text-2xl font-bold text-red-800 mb-6">Basic Goal (Low Effectiveness 🔴)</h3>
                 <div className="bg-white rounded-lg p-6 border border-red-300 mb-6">
                   <p className="text-lg font-medium text-red-800">
-                    &ldquo;Student will reduce blurting in class.&rdquo;
+                    &ldquo;By 01/16/26, when in a structured classroom setting and given verbal prompts, Jordan will increase on-task behavior (remaining seated and completing assignments) with 80% accuracy for 3 consecutive days as measured by teacher observation.&rdquo;
                   </p>
                 </div>
-                <ul className="space-y-2">
-                  <li className="flex items-center space-x-2">
-                    <XCircle className="h-5 w-5 text-red-500" />
-                    <span className="text-slate-700">No specific behavior defined</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <XCircle className="h-5 w-5 text-red-500" />
-                    <span className="text-slate-700">No measurement criteria</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <XCircle className="h-5 w-5 text-red-500" />
-                    <span className="text-slate-700">No timeline specified</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <XCircle className="h-5 w-5 text-red-500" />
-                    <span className="text-slate-700">Impossible to track progress</span>
-                  </li>
-                </ul>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-bold text-red-800 mb-2">✅ Includes:</h4>
+                    <ul className="space-y-1 text-sm">
+                      <li>• Date and context</li>
+                      <li>• Specific behavior</li>
+                      <li>• Measurement criteria</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-red-800 mb-2">❌ Missing:</h4>
+                    <ul className="space-y-1 text-sm">
+                      <li>• Baseline data</li>
+                      <li>• Latency & fluency</li>
+                      <li>• Generalization</li>
+                      <li>• Maintenance</li>
+                    </ul>
+                  </div>
+                </div>
               </motion.div>
 
-              {/* SMART Goal */}
+              {/* Level 5: Comprehensive Goal */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
                 className="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-8 relative"
               >
-                <div className="absolute top-4 right-4">
-                  <CheckCircle className="h-8 w-8 text-emerald-500" />
+                <div className="absolute top-4 right-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  Level 5
                 </div>
-                <h3 className="text-2xl font-bold text-emerald-800 mb-6">SMART GOAL</h3>
+                <h3 className="text-2xl font-bold text-emerald-800 mb-6">Research-Based Goal (Most Effective ✅)</h3>
                 <div className="bg-white rounded-lg p-6 border border-emerald-300 mb-6">
                   <p className="text-lg font-medium text-emerald-800">
-                    &ldquo;Student will raise hand 90% of the time before speaking, across 3 settings, for 3 consecutive days.&rdquo;
+                    &ldquo;By 01/16/26, in both general and special education classrooms, Jordan will remain on task for 90% of observed intervals, initiating tasks within 10 seconds of instruction, across 3 different school settings, and maintain this behavior for 4 weeks after mastery as measured by teacher observation and data collection.&rdquo;
                   </p>
                 </div>
-                <ul className="space-y-2">
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-emerald-500" />
-                    <span className="text-slate-700">Specific behavior (raise hand)</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-emerald-500" />
-                    <span className="text-slate-700">Measurable (90% success rate)</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-emerald-500" />
-                    <span className="text-slate-700">Time-bound (3 consecutive days)</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-emerald-500" />
-                    <span className="text-slate-700">Generalized (3 settings)</span>
-                  </li>
-                </ul>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-bold text-emerald-800 mb-2">✅ Includes All Components:</h4>
+                    <ul className="space-y-1 text-sm">
+                      <li>• Baseline data (current performance)</li>
+                      <li>• Latency (10 seconds)</li>
+                      <li>• Fluency (90% accuracy)</li>
+                      <li>• Generalization (3 settings)</li>
+                      <li>• Maintenance (4 weeks)</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-emerald-800 mb-2">🎯 Research Benefits:</h4>
+                    <ul className="space-y-1 text-sm">
+                      <li>• 90-100% accuracy for better retention</li>
+                      <li>• Fluency building for skill stability</li>
+                      <li>• Cross-setting generalization</li>
+                      <li>• Long-term maintenance</li>
+                    </ul>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </motion.div>
