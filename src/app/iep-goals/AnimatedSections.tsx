@@ -90,7 +90,7 @@ export function AnimatedSections() {
                   <div className="space-y-4 mb-6">
                     <label className="block text-sm font-medium text-slate-700">Student Name:</label>
                     <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
-                      <p className="text-slate-600">Jordan</p>
+                      <p className="text-slate-600">[Student]</p>
                     </div>
                     
                     <label className="block text-sm font-medium text-slate-700">Target Behavior:</label>
@@ -114,7 +114,7 @@ export function AnimatedSections() {
                     <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-4">
                       <p className="text-emerald-800 text-sm leading-relaxed">
                         <CheckCircle className="inline h-4 w-4 mr-2" />
-                        By 03/10/26, when in a structured classroom, small group instruction, and independent work time, and given verbal prompts, Jordan will increase on-task behavior (remaining seated and completing assignments) in 90% of opportunities for 3 consecutively measured school days, initiating the task within 10 seconds of instruction, across 3 different school settings, as measured by teacher observation. Additionally, Jordan will maintain on-task behavior for 4 weeks following mastery to ensure long-term retention.
+                        By 03/10/26, when in a structured classroom, small group instruction, and independent work time, and given verbal prompts, [Student] will increase on-task behavior (remaining seated and completing assignments) in 90% of opportunities for 3 consecutively measured school days, initiating the task within 10 seconds of instruction, across 3 different school settings, as measured by teacher observation. Additionally, [Student] will maintain on-task behavior for 4 weeks following mastery to ensure long-term retention.
                       </p>
                     </div>
                   </div>
@@ -168,7 +168,7 @@ export function AnimatedSections() {
             <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-8 max-w-2xl mx-auto">
               <div className="bg-white rounded-lg p-6 border border-red-300">
                 <p className="text-lg font-medium text-red-800">
-                  &ldquo;Student will reduce blurting in class.&rdquo;
+                  &ldquo;[Student] will reduce blurting in class.&rdquo;
                 </p>
               </div>
             </div>
@@ -362,7 +362,7 @@ export function AnimatedSections() {
                 <h3 className="text-2xl font-bold text-red-800 mb-6">Basic Goal (Low Effectiveness 🔴)</h3>
                 <div className="bg-white rounded-lg p-6 border border-red-300 mb-6">
                   <p className="text-lg font-medium text-red-800">
-                    &ldquo;By 03/10/26, when in a structured classroom setting and given verbal prompts, Jordan will increase on-task behavior (remaining seated and completing assignments) in 80% of opportunities for 3 consecutively measured school days as measured by teacher observation.&rdquo;
+                    &ldquo;By 03/10/26, when in a structured classroom setting and given verbal prompts, [Student] will increase on-task behavior (remaining seated and completing assignments) in 80% of opportunities for 3 consecutively measured school days as measured by teacher observation.&rdquo;
                   </p>
                   <div className="mt-4 p-3 bg-red-50 rounded border border-red-200">
                     <p className="text-sm text-red-700 font-medium">Baseline:</p>
@@ -404,11 +404,11 @@ export function AnimatedSections() {
                 <h3 className="text-2xl font-bold text-emerald-800 mb-6">Research-Based Goal (Most Effective ✅)</h3>
                 <div className="bg-white rounded-lg p-6 border border-emerald-300 mb-6">
                   <p className="text-lg font-medium text-emerald-800">
-                    &ldquo;By 03/10/26, when in a structured classroom, small group instruction, and independent work time, and given verbal prompts, Jordan will increase on-task behavior (remaining seated and completing assignments) in 90% of opportunities for 3 consecutively measured school days, initiating the task within 10 seconds of instruction, across 3 different school settings, as measured by teacher observation. Additionally, Jordan will maintain on-task behavior for 4 weeks following mastery to ensure long-term retention.&rdquo;
+                    &ldquo;By 03/10/26, when in a structured classroom, small group instruction, and independent work time, and given verbal prompts, [Student] will increase on-task behavior (remaining seated and completing assignments) in 90% of opportunities for 3 consecutively measured school days, initiating the task within 10 seconds of instruction, across 3 different school settings, as measured by teacher observation. Additionally, [Student] will maintain on-task behavior for 4 weeks following mastery to ensure long-term retention.&rdquo;
                   </p>
                   <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
                     <p className="text-sm text-emerald-700 font-medium">Baseline:</p>
-                    <p className="text-sm text-emerald-600">Jordan currently remains on-task in 40% of observed intervals, takes an average of 25 seconds to begin a task after instruction, and is inconsistent across different settings.</p>
+                    <p className="text-sm text-emerald-600">[Student] currently remains on-task in 40% of observed intervals, takes an average of 25 seconds to begin a task after instruction, and is inconsistent across different settings.</p>
                   </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
