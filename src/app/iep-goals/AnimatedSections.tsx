@@ -12,24 +12,24 @@ export function AnimatedSections() {
 
   const faqs = [
     {
-      question: "Why do 90-100% accuracy goals work better than 80%?",
-      answer: "Research by Pitts (2021) found that skills taught with 100% accuracy were maintained at higher levels compared to 80% or 90%. Our tool targets 90-100% accuracy for better long-term retention and skill stability."
+      question: "How do values-based goals improve student motivation?",
+      answer: "When students help choose goals that reflect their values (like being Brave, Kind, or Focused), they develop autonomous motivation. Research shows values-driven goals foster resilience and long-term follow-through, even when school gets hard."
     },
     {
-      question: "How does the tool ensure generalization doesn't happen by chance?",
-      answer: "Based on Stokes & Baer (1977), our tool requires explicit generalization planning with multiple exemplars, mediators, and indiscriminable contingencies. We don't hope for generalization—we program it systematically."
+      question: "What is the Values Wizard and how does it work?",
+      answer: "The Values Wizard is a simple tool where students pick what matters most to them—like being Helpful to peers, Curious in learning, or Brave when speaking up. The system then suggests age-appropriate skills linked to those values and generates SMART goals."
     },
     {
-      question: "What's the difference between fluency and accuracy in goals?",
-      answer: "Kubina & Wolfe (2005) showed that fluency (accuracy + rate) leads to better retention, endurance, stability, and application. Our tool offers optional Fluency Mode with rate criteria for more robust skill development."
+      question: "How do you ensure skills generalize across settings?",
+      answer: "Our tool builds generalization plans into every goal, including multiple settings, people, and prompts. Research shows generalization must be programmed on purpose, not left to chance. We include self-monitoring tools and variable reinforcement options."
     },
     {
-      question: "How does the tool address maintenance and long-term retention?",
-      answer: "Following Carr & LeBlanc (2003), our tool includes maintenance probe scheduling, natural reinforcement planning, and implementation support fields. We ensure skills don't just meet criteria but maintain over time."
+      question: "What makes these goals different from compliance-based goals?",
+      answer: "Instead of compliance-based goals that fade, values-based goals are anchored in meaning. Students don't just comply—they own their goals. Skills last longer when anchored to natural reinforcers like peer recognition or classroom roles."
     },
     {
-      question: "What makes an IEP goal research-based vs. basic?",
-      answer: "Research-based goals include all components from Cooper et al. (2020): clear behavior definitions, function-based replacement behaviors, specific measurement systems, and explicit generalization/maintenance planning."
+      question: "How do you measure long-term skill maintenance?",
+      answer: "Our tool includes maintenance checks at 2 and 4 weeks following mastery to ensure skills last. Research confirms skills persist longer when connected to student values and natural reinforcers rather than external rewards."
     }
   ];
 
@@ -53,11 +53,11 @@ export function AnimatedSections() {
               className="space-y-6"
             >
               <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight leading-[1.1] text-slate-900">
-                Research-Based IEP Goal Generator — 5-Level Hierarchy for Maximum Effectiveness
+                Write IEP Goals That Actually Stick—Because They Start With What Students Value Most
               </h1>
               
               <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed">
-                Create comprehensive IEP goals with baseline data, fluency building, 90-100% accuracy targets, generalization, and maintenance — backed by behavior analysis research.
+                Students co-create goals that reflect who they want to be. Our Values Wizard helps students identify what matters most—like being Helpful, Brave, or Focused—then generates SMART goals that drive committed action and lasting change.
               </p>
 
               <motion.div
@@ -92,25 +92,25 @@ export function AnimatedSections() {
                 
                 <div className="p-4 sm:p-6">
                   <div className="space-y-3 mb-4">
-                    <label className="block text-sm font-medium text-slate-700">Student Name:</label>
+                    <label className="block text-sm font-medium text-slate-700">Student Values:</label>
                     <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
-                      <p className="text-slate-600 text-sm sm:text-base">[Student]</p>
+                      <p className="text-slate-600 text-sm sm:text-base">Being Helpful, Brave, and Focused</p>
                     </div>
                     
-                    <label className="block text-sm font-medium text-slate-700">Target Behavior:</label>
+                    <label className="block text-sm font-medium text-slate-700">Target Skill:</label>
                     <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
-                      <p className="text-slate-600 text-sm sm:text-base">On-task behavior (remaining seated and completing assignments)</p>
+                      <p className="text-slate-600 text-sm sm:text-base">Speaking up in class (Brave value)</p>
                     </div>
                     
                     <label className="block text-sm font-medium text-slate-700">Current Performance:</label>
                     <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
-                      <p className="text-slate-600 text-sm sm:text-base">40% of observed intervals, 25 seconds to begin tasks</p>
+                      <p className="text-slate-600 text-sm sm:text-base">Raises hand 20% of opportunities, waits 30+ seconds</p>
                     </div>
                   </div>
 
                   <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 px-4 sm:px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg text-sm sm:text-base">
                     <Zap className="inline h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                    Generate Level 5 Goal
+                    Generate Values-Based Goal
                   </button>
 
                   <div className="mt-4 space-y-3">
@@ -118,7 +118,7 @@ export function AnimatedSections() {
                     <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-3 sm:p-4">
                       <p className="text-emerald-800 text-xs sm:text-sm leading-relaxed">
                         <CheckCircle className="inline h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                        By 03/10/26, when in a structured classroom, small group instruction, and independent work time, and given verbal prompts, [Student] will increase on-task behavior (remaining seated and completing assignments) in 90% of opportunities for 3 consecutively measured school days, initiating the task within 10 seconds of instruction, across 3 different school settings, as measured by teacher observation. Additionally, [Student] will maintain on-task behavior for 4 weeks following mastery to ensure long-term retention.
+                        By 03/10/26, when in classroom discussions and given opportunities to share ideas, [Student] will demonstrate bravery by raising hand and speaking up in 90% of opportunities for 3 consecutive days, responding within 5 seconds of being called on, across classroom, small group, and whole-class settings, as measured by teacher observation. Additionally, [Student] will maintain this brave communication for 4 weeks following mastery, connecting to their value of being Brave.
                       </p>
                     </div>
                   </div>
@@ -126,15 +126,15 @@ export function AnimatedSections() {
                   <div className="mt-4 flex flex-wrap gap-1 sm:gap-2">
                     <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                      Baseline Data
+                      Values-Based
                     </span>
                     <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                      Latency & Fluency
+                      Student-Driven
                     </span>
                     <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                      90% Accuracy
+                      SMART Goals
                     </span>
                     <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
@@ -166,37 +166,38 @@ export function AnimatedSections() {
             className="text-center space-y-12"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Why 80% of IEP Goals Fail (Research Shows the Solution)
+              Why Values Come First in Effective IEP Goals
             </h2>
 
-            <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-8 max-w-2xl mx-auto">
-              <div className="bg-white rounded-lg p-6 border border-red-300">
-                <p className="text-lg font-medium text-red-800">
+            <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
+              <div className="bg-white rounded-lg p-4 sm:p-6 border border-red-300">
+                <p className="text-base sm:text-lg font-medium text-red-800">
                   &ldquo;[Student] will reduce blurting in class.&rdquo;
                 </p>
+                <p className="text-sm text-red-600 mt-2">Compliance-based goal that fades when motivation drops</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6 max-w-4xl mx-auto">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">Vague / Unmeasurable</span>
+                <span className="text-slate-700 text-xs sm:text-sm">No student values</span>
               </div>
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">No baseline data</span>
+                <span className="text-slate-700 text-xs sm:text-sm">Compliance-focused</span>
               </div>
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">No success criteria</span>
+                <span className="text-slate-700 text-xs sm:text-sm">No ownership</span>
               </div>
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">Teachers guessing</span>
+                <span className="text-slate-700 text-xs sm:text-sm">Skills fade</span>
               </div>
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">Parents in dark</span>
+                <span className="text-slate-700 text-xs sm:text-sm">No meaning</span>
               </div>
             </div>
           </motion.div>
@@ -438,43 +439,43 @@ export function AnimatedSections() {
             className="text-center space-y-12"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Research-Based Components for Maximum Effectiveness
+              How the Values Wizard Works
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
                 <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Baseline Data</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Current performance levels for accurate measurement</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Values Wizard</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Students pick what matters most—Kind, Brave, Focused, etc.</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
                 <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Latency & Fluency</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Response time + accuracy for skill stability</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Age-Appropriate Skills</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Suggests skills linked to student&apos;s chosen values</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
                 <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">90-100% Accuracy</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Research shows higher retention than 80%</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">SMART Goals</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Auto-generates Specific, Measurable, Achievable goals</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
                 <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Generalization</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Multiple settings for real-world application</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Generalization Plans</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Different settings, people, and prompts built-in</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
                 <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Maintenance</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">4+ weeks retention for lasting change</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Maintenance Checks</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Follow-ups at 2 and 4 weeks to ensure skills last</p>
                 </div>
               </div>
             </div>
@@ -699,22 +700,22 @@ export function AnimatedSections() {
             className="text-center space-y-8"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Why Join the Waitlist?
+              Why This Matters (Evidence)
             </h2>
 
             <div className="bg-slate-50 rounded-2xl p-8">
               <ul className="space-y-6 text-left max-w-2xl mx-auto mb-8">
                 <li className="flex items-center space-x-4 text-xl font-medium text-slate-700">
                   <Zap className="h-6 w-6 text-orange-500 flex-shrink-0" />
-                  <span>First to try free tool</span>
+                  <span>Values create autonomous motivation</span>
                 </li>
                 <li className="flex items-center space-x-4 text-xl font-medium text-slate-700">
                   <BarChart3 className="h-6 w-6 text-blue-500 flex-shrink-0" />
-                  <span>Bonus templates</span>
+                  <span>ACT research shows resilience</span>
                 </li>
                 <li className="flex items-center space-x-4 text-xl font-medium text-slate-700">
                   <Award className="h-6 w-6 text-emerald-500 flex-shrink-0" />
-                  <span>Built by BCBAs</span>
+                  <span>Skills last longer with meaning</span>
                 </li>
               </ul>
 
