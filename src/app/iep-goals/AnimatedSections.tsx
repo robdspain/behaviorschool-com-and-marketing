@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { ClientCTA } from "./ClientCTA";
+import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 
 export function AnimatedSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   const faqs = [
     {
@@ -240,7 +242,10 @@ export function AnimatedSections() {
             </div>
 
             <div className="text-center">
-              <button className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200">
+              <button 
+                onClick={() => setIsSignupOpen(true)}
+                className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
+              >
                 Start Writing Goals
                 <ArrowRight className="ml-3 h-6 w-6" />
               </button>
@@ -464,7 +469,10 @@ export function AnimatedSections() {
               </ul>
 
               <div className="text-center">
-                <button className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200">
+                <button 
+                  onClick={() => setIsSignupOpen(true)}
+                  className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
+                >
                   Join Waitlist Now
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </button>
@@ -527,7 +535,10 @@ export function AnimatedSections() {
             </div>
 
             <div className="text-center pt-8">
-              <button className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200">
+              <button 
+                onClick={() => setIsSignupOpen(true)}
+                className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
+              >
                 Yes, I Want Better Goals
                 <ArrowRight className="ml-3 h-6 w-6" />
               </button>
@@ -544,13 +555,24 @@ export function AnimatedSections() {
               <Star className="h-6 w-6 text-orange-500" />
               <span className="text-lg font-semibold text-slate-900">Join the Waitlist for the Free IEP Goal Generator</span>
             </div>
-            <button className="inline-flex items-center px-6 py-3 text-base font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
+            <button 
+              onClick={() => setIsSignupOpen(true)}
+              className="inline-flex items-center px-6 py-3 text-base font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+            >
               Generate My First Goal Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </button>
           </div>
         </div>
       </div>
+      
+      <EmailSignupPopup
+        isOpen={isSignupOpen}
+        onClose={() => setIsSignupOpen(false)}
+        title="Join the Waitlist"
+        description="Be the first to know when the IEP Goal Writer launches."
+        pageSource="/iep-goals"
+      />
     </main>
   );
 }
