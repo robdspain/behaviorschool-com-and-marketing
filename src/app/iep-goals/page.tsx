@@ -1,11 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 
 export default function IEPGoalsPage() {
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   return (
     <div className="min-h-screen bg-white">
       {/* Breadcrumbs */}
@@ -44,13 +46,13 @@ export default function IEPGoalsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <Link 
-                href="/subscribe" 
+              <button 
+                onClick={() => setIsSignupOpen(true)}
                 className="inline-flex items-center px-12 py-5 text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
               >
                 🔵 Join the Waitlist — Be the First to Know When We Launch
                 <ArrowRight className="ml-3 h-6 w-6" />
-              </Link>
+              </button>
             </motion.div>
           </motion.div>
         </div>
@@ -130,13 +132,13 @@ export default function IEPGoalsPage() {
                 transition={{ delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                <Link 
-                  href="/subscribe" 
+                <button 
+                  onClick={() => setIsSignupOpen(true)}
                   className="inline-flex items-center px-10 py-4 text-lg font-bold bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   👉 Start Writing Better Goals — Join the Waitlist
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                </button>
               </motion.div>
 
               
@@ -265,7 +267,13 @@ export default function IEPGoalsPage() {
           </motion.div>
         </div>
       </section>
-
+      <EmailSignupPopup
+        isOpen={isSignupOpen}
+        onClose={() => setIsSignupOpen(false)}
+        title="Join the Waitlist"
+        description="Be the first to know when the IEP Goal Writer launches."
+        pageSource="/iep-goals"
+      />
       
     </div>
   );
