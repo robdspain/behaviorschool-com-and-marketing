@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { ClientCTA } from "./ClientCTA";
 import { AnimatedSections } from "./AnimatedSections";
 
 export const metadata: Metadata = {
