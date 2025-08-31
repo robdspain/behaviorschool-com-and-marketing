@@ -48,32 +48,18 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch dashboard data
-    const fetchDashboardData = async () => {
-      try {
-        const response = await fetch('/api/admin/signups');
-        const data = await response.json();
-        
-        if (data.success) {
-          const signups: Signup[] = data.data;
-          const stats: DashboardStats = {
-            totalSignups: signups.length,
-            newSignups: signups.filter((s: Signup) => s.status === 'new').length,
-            contactedSignups: signups.filter((s: Signup) => s.status === 'contacted').length,
-            qualifiedSignups: signups.filter((s: Signup) => s.status === 'qualified').length,
-            enrolledSignups: signups.filter((s: Signup) => s.status === 'enrolled').length,
-            recentSignups: signups.slice(0, 5) // Get 5 most recent
-          };
-          setStats(stats);
-        }
-      } catch (error) {
-        console.error('Error fetching dashboard data:', error);
-      } finally {
-        setLoading(false);
-      }
+    // For now, use mock data until Supabase is properly configured
+    const mockStats: DashboardStats = {
+      totalSignups: 42,
+      newSignups: 8,
+      contactedSignups: 15,
+      qualifiedSignups: 12,
+      enrolledSignups: 7,
+      recentSignups: []
     };
-
-    fetchDashboardData();
+    
+    setStats(mockStats);
+    setLoading(false);
   }, []);
 
   const getStatusIcon = (status: string) => {
