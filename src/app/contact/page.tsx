@@ -31,14 +31,15 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <Breadcrumbs 
-        items={[
-          { label: "Contact" }
-        ]}
-      />
-    </div>
-    <section className="w-full max-w-screen-md px-4 sm:px-6 mx-auto pt-20 md:pt-24 pb-4">
+    <>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Contact" }
+          ]}
+        />
+      </div>
+      <section className="w-full max-w-screen-md px-4 sm:px-6 mx-auto pt-20 md:pt-24 pb-4">
       <h2 className="mb-3 bg-gradient-to-br from-emerald-800 via-emerald-600 to-emerald-400 bg-clip-text text-center text-3xl font-bold text-transparent md:text-5xl">
         Let&apos;s Get in Touch
       </h2>
@@ -112,7 +113,8 @@ export default function ContactPage() {
       {state.errors.submit && (
         <p className="text-center text-sm text-red-500 font-medium mt-2">{state.errors.submit}</p>
       )}
-    </section>
+      </section>
+    </>
   );
 }
 

@@ -248,7 +248,7 @@ export default function NewBlogPostPage() {
             className="w-full h-96 text-lg text-slate-900 placeholder-slate-400 border border-slate-200 rounded-lg p-4 resize-y focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
           />
           <p className="text-sm text-slate-500 mt-2">
-            Use Markdown formatting: **bold**, *italic*, [links](url), > quotes, - lists
+            Use Markdown formatting: **bold**, *italic*, [links](url), &gt; quotes, - lists
           </p>
         </div>
 
