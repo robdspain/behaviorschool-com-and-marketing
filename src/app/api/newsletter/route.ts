@@ -4,7 +4,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase-server";
 
 const SubscribeSchema = z.object({
   email: z.string().email(),
-  name: z.string().min(2).max(80),
+  name: z.string().optional().default(""),
   source: z.string().optional().default("newsletter"),
 });
 
@@ -53,12 +53,15 @@ export async function POST(req: NextRequest) {
 
   const { email, name, source } = parsed.data;
 
+  // Simple tagging: just identify if they came from IEP goals page
+  const tags = source === "/iep-goals" ? ["IEPgoals"] : ["general"];
+
   try {
     const supabase = createSupabaseAdminClient();
 
     // Check if email already exists
     const { data: existingSubscriber } = await supabase
-      .from('newsletter_subscribers')
+      .from('subscribers')
       .select('id, status')
       .eq('email', email)
       .single();
@@ -69,11 +72,12 @@ export async function POST(req: NextRequest) {
       }
       // Reactivate if previously unsubscribed
       const { error: updateError } = await supabase
-        .from('newsletter_subscribers')
+        .from('subscribers')
         .update({ 
           status: 'active', 
           subscribed_at: new Date().toISOString(),
-          source 
+          source,
+          tags
         })
         .eq('id', existingSubscriber.id);
 
@@ -84,12 +88,13 @@ export async function POST(req: NextRequest) {
     } else {
       // Create new subscriber
       const { error: insertError } = await supabase
-        .from('newsletter_subscribers')
+        .from('subscribers')
         .insert([{
           email,
           name,
           status: 'active',
           source,
+          tags,
           subscribed_at: new Date().toISOString()
         }]);
 

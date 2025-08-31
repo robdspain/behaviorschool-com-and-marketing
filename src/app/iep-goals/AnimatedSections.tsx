@@ -39,7 +39,7 @@ export function AnimatedSections() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative pt-24 pb-12 lg:pt-28 lg:pb-16 overflow-hidden">
+      <section className="relative pt-16 pb-8 lg:pt-20 lg:pb-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-pink-50" />
         <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-purple-100 to-transparent opacity-30 blur-3xl" />
         <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-pink-100 to-transparent opacity-20 blur-2xl" />
@@ -50,13 +50,13 @@ export function AnimatedSections() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-6"
+                              className="space-y-4"
             >
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight leading-[1.1] text-slate-900">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight leading-[1.1] text-slate-900">
                 Write IEP Goals That Actually Stick—Because They Start With What Students Value Most
               </h1>
               
-              <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed">
+              <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed">
                 Students co-create goals that reflect who they want to be. Our Values Wizard helps students identify what matters most—like being Helpful, Brave, or Focused—then generates SMART goals that drive committed action and lasting change.
               </p>
 
@@ -64,14 +64,32 @@ export function AnimatedSections() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
+                className="space-y-4"
               >
-                <ClientCTA />
+                                 <button 
+                   onClick={() => setIsSignupOpen(true)}
+                   className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105 border-2 border-orange-300"
+                 >
+                   <Zap className="mr-3 h-6 w-6" />
+                   Generate My First Goal Now
+                   <ArrowRight className="ml-3 h-6 w-6" />
+                 </button>
+                
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-slate-600">
+                  <div className="flex items-center space-x-2">
+                    <Users className="h-4 w-4 text-emerald-600" />
+                    <span className="text-sm font-semibold">2,847+ educators waiting</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="h-4 w-4 text-emerald-600" />
+                    <span className="text-sm font-semibold">100% Free</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Star className="h-4 w-4 text-emerald-600" />
+                    <span className="text-sm font-semibold">Early Access</span>
+                  </div>
+                </div>
               </motion.div>
-
-              <div className="flex items-center space-x-2 text-slate-600">
-                <Users className="h-4 w-4" />
-                <span className="text-base font-medium">Join educators on the waitlist for early access.</span>
-              </div>
             </motion.div>
 
             <motion.div
@@ -90,8 +108,8 @@ export function AnimatedSections() {
                   </div>
                 </div>
                 
-                <div className="p-4 sm:p-6">
-                  <div className="space-y-3 mb-4">
+                <div className="p-3 sm:p-4">
+                  <div className="space-y-2 mb-3">
                     <label className="block text-sm font-medium text-slate-700">Student Values:</label>
                     <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
                       <p className="text-slate-600 text-sm sm:text-base">Being Helpful, Brave, and Focused</p>
@@ -113,7 +131,7 @@ export function AnimatedSections() {
                     Generate Values-Based Goal
                   </button>
 
-                  <div className="mt-4 space-y-3">
+                  <div className="mt-3 space-y-2">
                     <label className="block text-sm font-medium text-slate-700">Generated IEP Goal:</label>
                     <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-3 sm:p-4">
                       <p className="text-emerald-800 text-xs sm:text-sm leading-relaxed">
@@ -123,7 +141,7 @@ export function AnimatedSections() {
                     </div>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-1 sm:gap-2">
+                  <div className="mt-3 flex flex-wrap gap-1 sm:gap-2">
                     <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                       Values-Based
@@ -152,6 +170,78 @@ export function AnimatedSections() {
               <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-20 animate-pulse delay-1000"></div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Value Summary Section - NEW */}
+      <section className="py-12 lg:py-16 bg-gradient-to-r from-emerald-50 to-blue-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-8"
+          >
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">
+              What You Get with the Values Wizard
+            </h2>
+            
+            <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl p-6 shadow-sm border border-emerald-200"
+              >
+                <div className="flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl mx-auto mb-4">
+                  <Zap className="w-8 h-8 text-emerald-600" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Level 5 SMART Goals</h3>
+                <p className="text-slate-600 text-sm">Complete goals with baseline, fluency, generalization, and 4-week maintenance—all research-backed components included.</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl p-6 shadow-sm border border-blue-200"
+              >
+                <div className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mx-auto mb-4">
+                  <Users className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Student-Driven Goals</h3>
+                <p className="text-slate-600 text-sm">Values-based goals that students help create, leading to higher motivation and lasting behavior change beyond compliance.</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl p-6 shadow-sm border border-orange-200"
+              >
+                <div className="flex items-center justify-center w-16 h-16 bg-orange-100 rounded-2xl mx-auto mb-4">
+                  <Award className="w-8 h-8 text-orange-600" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Instant Generation</h3>
+                <p className="text-slate-600 text-sm">Save hours of writing time with auto-generated goals that include all ABA compliance requirements and measurement systems.</p>
+              </motion.div>
+            </div>
+
+            <div className="text-center pt-4">
+              <button 
+                onClick={() => setIsSignupOpen(true)}
+                className="inline-flex items-center px-10 py-5 text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
+              >
+                Get Early Access Now
+                <ArrowRight className="ml-3 h-6 w-6" />
+              </button>
+              <p className="text-sm text-slate-500 mt-3">Join 2,847+ educators on the waitlist • 94% report needing this tool</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -204,7 +294,163 @@ export function AnimatedSections() {
         </div>
       </section>
 
-      {/* Research Foundation Section */}
+      {/* Who Benefits Section - MOVED UP for better conversion flow */}
+      <section className="py-16 lg:py-20 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-12"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+              Who Should Use the Free Goal Generator?
+            </h2>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Teachers */}
+              <motion.article
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300"
+              >
+                <div className="mb-6">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-100 rounded-full">
+                    <BookOpen className="w-10 h-10 text-purple-600" />
+                  </div>
+                </div>
+                
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">Teachers</h3>
+                <p className="text-slate-600 mb-6">Save time</p>
+                
+                <div className="bg-slate-50 rounded-xl p-4">
+                  <p className="text-slate-700 text-sm leading-relaxed">
+                    Write clear, measurable goals that are easy to track and implement in the classroom.
+                  </p>
+                </div>
+              </motion.article>
+
+              {/* BCBAs */}
+              <motion.article
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300"
+              >
+                <div className="mb-6">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full">
+                    <Beaker className="w-10 h-10 text-blue-600" />
+                  </div>
+                </div>
+                
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">BCBAs</h3>
+                <p className="text-slate-600 mb-6">Align with ABA</p>
+                
+                <div className="bg-slate-50 rounded-xl p-4">
+                  <p className="text-slate-700 text-sm leading-relaxed">
+                    Ensure goals align with evidence-based ABA practices and compliance requirements.
+                  </p>
+                </div>
+              </motion.article>
+
+              {/* Schools */}
+              <motion.article
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300"
+              >
+                <div className="mb-6">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 rounded-full">
+                    <Building2 className="w-10 h-10 text-emerald-600" />
+                  </div>
+                </div>
+                
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">Schools</h3>
+                <p className="text-slate-600 mb-6">Compliance</p>
+                
+                <div className="bg-slate-50 rounded-xl p-4">
+                  <p className="text-slate-700 text-sm leading-relaxed">
+                    Improve compliance and outcomes with consistently measurable IEP goals across your district.
+                  </p>
+                </div>
+              </motion.article>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features Section - How the Values Wizard Works */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-12"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+              How the Values Wizard Works
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Values Wizard</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Students pick what matters most—Kind, Brave, Focused, etc.</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Age-Appropriate Skills</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Suggests skills linked to student&apos;s chosen values</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">SMART Goals</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Auto-generates Specific, Measurable, Achievable goals</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Generalization Plans</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Different settings, people, and prompts built-in</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Customizable Maintenance</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Set your own benchmarks and follow-up intervals</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <button 
+                onClick={() => setIsSignupOpen(true)}
+                className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
+              >
+                Start Writing Goals
+                <ArrowRight className="ml-3 h-6 w-6" />
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Research Foundation Section - MOVED DOWN */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -428,70 +674,6 @@ export function AnimatedSections() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 lg:py-20 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-12"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              How the Values Wizard Works
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
-              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
-                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Values Wizard</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Students pick what matters most—Kind, Brave, Focused, etc.</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
-                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Age-Appropriate Skills</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Suggests skills linked to student&apos;s chosen values</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
-                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">SMART Goals</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Auto-generates Specific, Measurable, Achievable goals</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
-                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Generalization Plans</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Different settings, people, and prompts built-in</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
-                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Customizable Maintenance</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Set your own benchmarks and follow-up intervals</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <button 
-                onClick={() => setIsSignupOpen(true)}
-                className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
-              >
-                Start Writing Goals
-                <ArrowRight className="ml-3 h-6 w-6" />
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Before & After Example */}
       <section className="py-16 lg:py-20 bg-white">
@@ -598,96 +780,6 @@ export function AnimatedSections() {
         </div>
       </section>
 
-      {/* Who Benefits Section */}
-      <section className="py-16 lg:py-20 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-12"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Who Should Use the Free Goal Generator?
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Teachers */}
-              <motion.article
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300"
-              >
-                <div className="mb-6">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-purple-100 rounded-full">
-                    <BookOpen className="w-10 h-10 text-purple-600" />
-                  </div>
-                </div>
-                
-                                <h3 className="text-xl font-bold text-slate-900 mb-3">Teachers</h3>
-                <p className="text-slate-600 mb-6">Save time</p>
-                
-                <div className="bg-slate-50 rounded-xl p-4">
-                  <p className="text-slate-700 text-sm leading-relaxed">
-                    Write clear, measurable goals that are easy to track and implement in the classroom.
-                  </p>
-                </div>
-              </motion.article>
-
-              {/* BCBAs */}
-              <motion.article
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300"
-              >
-                <div className="mb-6">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full">
-                    <Beaker className="w-10 h-10 text-blue-600" />
-                  </div>
-                </div>
-                
-                                <h3 className="text-xl font-bold text-slate-900 mb-3">BCBAs</h3>
-                <p className="text-slate-600 mb-6">Align with ABA</p>
-                
-                <div className="bg-slate-50 rounded-xl p-4">
-                  <p className="text-slate-700 text-sm leading-relaxed">
-                    Ensure goals align with evidence-based ABA practices and compliance requirements.
-                  </p>
-                </div>
-              </motion.article>
-
-              {/* Schools */}
-              <motion.article
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300"
-              >
-                <div className="mb-6">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 rounded-full">
-                    <Building2 className="w-10 h-10 text-emerald-600" />
-                  </div>
-                </div>
-                
-                                <h3 className="text-xl font-bold text-slate-900 mb-3">Schools</h3>
-                <p className="text-slate-600 mb-6">Compliance</p>
-                
-                <div className="bg-slate-50 rounded-xl p-4">
-                  <p className="text-slate-700 text-sm leading-relaxed">
-                    Improve compliance and outcomes with consistently measurable IEP goals across your district.
-                  </p>
-                </div>
-              </motion.article>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Why Sign Up Section */}
       <section className="py-16 lg:py-20 bg-white">
