@@ -53,7 +53,7 @@ function markdownToHtml(markdown: string): string {
     
     // Lists
     .replace(/^- (.*$)/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+    .replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>')
     
     // Horizontal rules
     .replace(/^---$/gm, '<hr>')
