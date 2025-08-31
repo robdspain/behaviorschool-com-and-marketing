@@ -50,8 +50,8 @@ export default function Home() {
         variant="brand"
         eyebrow="Behavior School"
         title="Empowering"
-        highlight="School BCBAs & Behavior Analysts in Education"
-        subtitle="Tools, training, and a free community to help school-based BCBAs, psychologists, and educators thrive — from BCBA exam prep to supervision systems that work in real classrooms."
+        highlight="School Behavior Support Teams & BCBAs"
+        subtitle="The premier Behavior School platform providing tools, training, and community for school-based BCBAs, psychologists, and educators — from BCBA exam prep to supervision systems that work in real classrooms."
         primaryCta={{ href: "/community", label: "Join Our Free Community" }}
       />
 
