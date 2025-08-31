@@ -74,7 +74,7 @@ export function Hero({
               </h1>
               {subtitle ? (
                 <p className={cn("text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-2xl",
-                  isDark ? 'text-slate-300' : 'text-slate-600'
+                  isDark ? 'text-slate-200' : 'text-slate-600'
                 )}>{subtitle}</p>
               ) : null}
             </div>
