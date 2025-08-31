@@ -6,6 +6,11 @@ import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { FileText, Target, CheckCircle, Users, BookOpen, Download, ArrowRight, Star, TrendingUp } from "lucide-react";
 
+export const metadata = {
+  title: "IEP Behavior Goals: Templates, Examples & Resources | Behavior School",
+  description: "Write measurable IEP behavior goals with our free templates, examples, and data collection tools. Designed for BCBAs & special education teams.",
+};
+
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 

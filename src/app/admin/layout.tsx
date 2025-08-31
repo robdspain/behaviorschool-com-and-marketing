@@ -210,6 +210,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <a href="/admin" className="text-sm text-slate-600 hover:text-slate-900">
                   Dashboard
                 </a>
+                <a href="/admin/blog" className="text-sm text-slate-600 hover:text-slate-900">
+                  Blog
+                </a>
                 <a href="/admin/signups" className="text-sm text-slate-600 hover:text-slate-900">
                   Signups
                 </a>

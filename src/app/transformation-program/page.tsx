@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Users, Target, CheckCircle, Star, Award, Heart, Shield, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { EmailSignupPopup } from '@/components/ui/email-signup-popup';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -128,6 +129,14 @@ export default function TransformationProgramPage() {
         >
           👉 Secure Your Spot - $500 Off Today!
         </Link>
+      </div>
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Transformation Program" }
+          ]}
+        />
       </div>
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden">

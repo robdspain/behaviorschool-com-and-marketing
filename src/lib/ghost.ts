@@ -358,7 +358,13 @@ function parseRSSPosts(rssXML: string, limit: number, page: number): Post[] {
         
         // Extract feature image from content
         const imageMatch = item.match(/<media:content[^>]*url="([^"]*)"[^>]*>/);
-        const featureImage = imageMatch ? imageMatch[1] : null;
+        let featureImage = imageMatch ? imageMatch[1] : null;
+        
+        // If no media:content, try to extract from content:encoded img tags
+        if (!featureImage) {
+          const contentImageMatch = content?.match(/<img[^>]*src="([^"]*)"[^>]*>/);
+          featureImage = contentImageMatch ? contentImageMatch[1] : null;
+        }
 
         // Parse categories as tags
         const categoryMatches = item.match(/<category><!\[CDATA\[(.*?)\]\]><\/category>/g) || [];

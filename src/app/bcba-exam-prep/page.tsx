@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { CheckCircle, BookOpen, Users, Target, Download, Clock, ArrowRight, Info, ChevronDown, ChevronUp, BarChart3, Calendar, Brain, TrendingUp } from "lucide-react";
 
 export default function BCBAExamPrepPage() {
@@ -247,6 +248,14 @@ export default function BCBAExamPrepPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-slate-50">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "BCBA Exam Prep" }
+          ]}
+        />
+      </div>
       {/* FAQ Structured Data */}
       <script
         type="application/ld+json"

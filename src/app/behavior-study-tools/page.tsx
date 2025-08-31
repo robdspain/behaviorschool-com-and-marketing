@@ -21,6 +21,26 @@ const staggerContainer = {
 };
 
 export default function BehaviorStudyToolsPage() {
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+
+  const faqData = [
+    {
+      question: "What are Behavior Study Tools?",
+      answer: "Behavior Study Tools provide an AI-powered platform for BCBA exam preparation, offering unlimited practice questions, adaptive learning, and performance tracking to help you master concepts and pass your exam."
+    },
+    {
+      question: "How do these tools help me pass the BCBA exam?",
+      answer: "Our platform uses an adaptive learning system that adjusts question difficulty based on your performance, provides clear explanations for every answer, and tracks your progress across all content domains, ensuring efficient and effective study."
+    },
+    {
+      question: "Are the practice questions aligned with the BACB Task List?",
+      answer: "Yes, all AI-generated practice questions are aligned with the BACB® 6th Edition Task List, ensuring you're studying the most relevant and up-to-date content."
+    },
+    {
+      question: "Can I track my study progress?",
+      answer: "Absolutely. The platform includes performance tracking with daily, 7-day, and 30-day score graphs, allowing you to monitor your progress and identify areas for improvement at a glance."
+    }
+  ];
   return (
     <div className="min-h-screen bg-white">
       {/* Breadcrumbs */}
@@ -71,7 +91,7 @@ export default function BehaviorStudyToolsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  Preparing for the BCBA® exam doesn&apos;t have to feel overwhelming. Behavior Study Tools is built for busy behavior analysts who want a study system that&apos;s as focused and practical as the science we practice.
+                  Welcome to Behavior School's Study Tools, designed to make preparing for the BCBA® exam feel less overwhelming. Our system is built for busy behavior analysts who want a study system that&apos;s as focused and practical as the science we practice.
                 </motion.p>
               </div>
 
@@ -280,6 +300,88 @@ export default function BehaviorStudyToolsPage() {
         </div>
       </section>
 
+      {/* How It's Different From the Competition Section */}
+      <section className="py-16 lg:py-20 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 text-center">
+              How It’s Different From the Competition
+            </h2>
+            <p className="text-xl text-slate-600 leading-relaxed text-center">
+              Most prep options fall into three camps:
+            </p>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-200">
+                <h3 className="text-xl font-bold text-red-700 mb-4">Flashcards</h3>
+                <p className="text-slate-700">Quick but shallow; they don’t explain why an answer is correct, so learners memorize terms without mastering concepts.</p>
+              </div>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-200">
+                <h3 className="text-xl font-bold text-red-700 mb-4">Recycled Test Banks</h3>
+                <p className="text-slate-700">Often outdated, poorly written, or overly simplistic, leaving huge gaps in readiness.</p>
+              </div>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-200">
+                <h3 className="text-xl font-bold text-red-700 mb-4">Expensive Review Modules</h3>
+                <p className="text-slate-700">Long lectures and static question sets that don’t adapt to your strengths and weaknesses, so you waste time on material you already know.</p>
+              </div>
+            </div>
+            <p className="text-xl text-slate-600 leading-relaxed text-center">
+              Behavior Study Tools is different. It combines the best of all worlds—efficient practice, clear explanations, adaptive learning, and real-time data tracking. Instead of passive studying, it actively teaches you how to think like a BCBA. That’s the innovation future behavior analysts deserve.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-slate-600 mb-4">
+              Here are some common questions about Behavior Study Tools.
+            </p>
+          </div>
+          
+          <div className="space-y-4">
+            {faqData.map((faq, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-lg border border-slate-200">
+                <button
+                  onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+                  className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-slate-50 transition-colors"
+                  aria-expanded={activeFaq === index}
+                >
+                  <h3 className="text-lg font-semibold text-slate-900 pr-4">
+                    {faq.question}
+                  </h3>
+                  {activeFaq === index ? (
+                    <ChevronUp className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                  )}
+                </button>
+                
+                {activeFaq === index && (
+                  <div className="px-6 pb-4">
+                    <div className="border-t border-slate-100 pt-4">
+                      <p className="text-slate-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 lg:py-20 bg-gradient-to-br from-emerald-600 to-emerald-500">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -318,6 +420,18 @@ export default function BehaviorStudyToolsPage() {
       {/* Structured Data */}
       {(() => {
         const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+        const faqStructuredData = {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqData.map((faq) => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.answer
+            }
+          }))
+        };
         const webPageJsonLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
@@ -352,6 +466,7 @@ export default function BehaviorStudyToolsPage() {
         } as const;
         return (
           <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
           </>

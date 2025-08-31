@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
+export const metadata = {
+  title: "IEP Goals Writing Tool | Simple & Effective Goal Creation",
+  description: "Discover our simple tool for writing clear, trackable, and effective IEP goals. Join the waitlist for a solution that helps students succeed.",
+};
+
 export default function IEPGoalsPage() {
   return (
     <div className="min-h-screen bg-white">
@@ -32,7 +37,7 @@ export default function IEPGoalsPage() {
             className="space-y-8"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.05] text-slate-900">
-              👉 &quot;The Simple Tool for Writing IEP Goals That Actually Work&quot;
+              The Simple Tool for Writing Effective IEP Goals
             </h1>
             
             <p className="text-xl sm:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">

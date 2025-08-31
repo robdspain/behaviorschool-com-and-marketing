@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Check, FileText, Target, TrendingUp, Users, Shield, Mail, Bell } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -25,6 +26,15 @@ export default function BehaviorPlansPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Products", href: "/products" },
+            { label: "Behavior Plans" }
+          ]}
+        />
+      </div>
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-red-50" />
