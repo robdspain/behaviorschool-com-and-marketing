@@ -260,7 +260,7 @@ export function AnimatedSections() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-slate-900 mb-2">Stokes & Baer (1977)</h3>
-                    <p className="text-slate-600 text-sm">"Implicit Technology of Generalization"</p>
+                    <p className="text-slate-600 text-sm">&ldquo;Implicit Technology of Generalization&rdquo;</p>
                   </div>
                 </div>
                 
@@ -268,7 +268,7 @@ export function AnimatedSections() {
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">Research Requirements:</h4>
                     <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Don't hope for generalization—program it</li>
+                      <li>• Don&apos;t hope for generalization—program it</li>
                       <li>• Train multiple exemplars</li>
                       <li>• Use mediators (self-management cues)</li>
                       <li>• Indiscriminable contingencies</li>
