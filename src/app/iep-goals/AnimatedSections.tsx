@@ -29,7 +29,7 @@ export function AnimatedSections() {
     },
     {
       question: "How do you measure long-term skill maintenance?",
-      answer: "Our tool includes maintenance checks at 2 and 4 weeks following mastery to ensure skills last. Research confirms skills persist longer when connected to student values and natural reinforcers rather than external rewards."
+      answer: "Our tool offers completely customizable objective benchmarks and maintenance intervals. You can set your own mastery criteria and schedule follow-up checks based on your specific needs. Research confirms skills persist longer when connected to student values and natural reinforcers rather than external rewards."
     }
   ];
 
@@ -474,8 +474,8 @@ export function AnimatedSections() {
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
                 <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Maintenance Checks</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Follow-ups at 2 and 4 weeks to ensure skills last</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Customizable Maintenance</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Set your own benchmarks and follow-up intervals</p>
                 </div>
               </div>
             </div>

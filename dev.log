@@ -232,3 +232,10 @@ ased-bcbas 404 in 2115ms
  ✓ Compiled in 202ms (809 modules)
  ✓ Compiled in 353ms (809 modules)
  ✓ Compiled in 210ms (809 modules)
+ ✓ Compiled in 439ms (809 modules)
+ ✓ Compiled in 319ms (809 modules)
+ ✓ Compiled in 359ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 578ms (809 modules)
+ ✓ Compiled in 327ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'

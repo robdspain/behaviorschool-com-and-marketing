@@ -176,8 +176,8 @@ const howToSchema = {
     },
     {
       "@type": "HowToStep",
-      "name": "Maintenance Checks",
-      "text": "Follow-up scheduling at 2 and 4 weeks to ensure long-term skill retention"
+      "name": "Customizable Maintenance",
+      "text": "Customizable follow-up scheduling with your own benchmarks and intervals to ensure long-term skill retention"
     }
   ]
 };
@@ -224,7 +224,7 @@ const faqSchema = {
       "name": "How do you measure long-term skill maintenance?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our tool includes maintenance checks at 2 and 4 weeks following mastery to ensure skills last. Research confirms skills persist longer when connected to student values and natural reinforcers rather than external rewards."
+        "text": "Our tool offers completely customizable objective benchmarks and maintenance intervals. You can set your own mastery criteria and schedule follow-up checks based on your specific needs. Research confirms skills persist longer when connected to student values and natural reinforcers rather than external rewards."
       }
     }
   ]
