@@ -82,29 +82,39 @@ export function AnimatedSections() {
                     <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                     <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                     <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <div className="ml-4 text-sm text-slate-600 font-medium">Free IEP Goal Generator</div>
+                    <div className="ml-4 text-sm text-slate-600 font-medium">IEP Goal Generator - Level 5</div>
                   </div>
                 </div>
                 
                 <div className="p-8">
                   <div className="space-y-4 mb-6">
-                    <label className="block text-sm font-medium text-slate-700">Describe the behavior goal:</label>
-                    <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                      <p className="text-slate-600 italic">Student blurts out answers in class...</p>
+                    <label className="block text-sm font-medium text-slate-700">Student Name:</label>
+                    <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                      <p className="text-slate-600">Jordan</p>
+                    </div>
+                    
+                    <label className="block text-sm font-medium text-slate-700">Target Behavior:</label>
+                    <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                      <p className="text-slate-600">On-task behavior (remaining seated and completing assignments)</p>
+                    </div>
+                    
+                    <label className="block text-sm font-medium text-slate-700">Current Performance:</label>
+                    <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                      <p className="text-slate-600">40% of observed intervals, 25 seconds to begin tasks</p>
                     </div>
                   </div>
 
                   <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg">
                     <Zap className="inline h-5 w-5 mr-2" />
-                    Generate SMART Goal
+                    Generate Level 5 Goal
                   </button>
 
                   <div className="mt-6 space-y-4">
-                    <label className="block text-sm font-medium text-slate-700">Your SMART IEP Goal:</label>
+                    <label className="block text-sm font-medium text-slate-700">Generated IEP Goal:</label>
                     <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-4">
-                      <p className="text-emerald-800 font-medium">
-                        <CheckCircle className="inline h-5 w-5 mr-2" />
-                        Student will raise hand 90% of the time before speaking, across 3 settings, for 3 consecutive days.
+                      <p className="text-emerald-800 text-sm leading-relaxed">
+                        <CheckCircle className="inline h-4 w-4 mr-2" />
+                        By 03/10/26, when in a structured classroom, small group instruction, and independent work time, and given verbal prompts, Jordan will increase on-task behavior (remaining seated and completing assignments) in 90% of opportunities for 3 consecutively measured school days, initiating the task within 10 seconds of instruction, across 3 different school settings, as measured by teacher observation. Additionally, Jordan will maintain on-task behavior for 4 weeks following mastery to ensure long-term retention.
                       </p>
                     </div>
                   </div>
@@ -112,23 +122,23 @@ export function AnimatedSections() {
                   <div className="mt-4 flex flex-wrap gap-2">
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-3 w-3 mr-1" />
-                      Specific
+                      Baseline Data
                     </span>
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-3 w-3 mr-1" />
-                      Measurable
+                      Latency & Fluency
                     </span>
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-3 w-3 mr-1" />
-                      Achievable
+                      90% Accuracy
                     </span>
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-3 w-3 mr-1" />
-                      Relevant
+                      Generalization
                     </span>
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
                       <CheckCircle className="h-3 w-3 mr-1" />
-                      Time-bound
+                      Maintenance
                     </span>
                   </div>
                 </div>
@@ -183,6 +193,75 @@ export function AnimatedSections() {
               <div className="flex items-center space-x-3">
                 <XCircle className="h-6 w-6 text-red-500 flex-shrink-0" />
                 <span className="text-slate-700">Parents in dark</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 5-Level Progression Section */}
+      <section className="py-16 lg:py-20 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-12"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+              The 5-Level Goal Writing Progression
+            </h2>
+            
+            <div className="grid gap-6 max-w-4xl mx-auto">
+              {/* Level 1 */}
+              <div className="bg-white rounded-xl p-6 border-l-4 border-red-400 shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-slate-900">Level 1: Basic Goal</h3>
+                  <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Low Effectiveness</span>
+                </div>
+                <p className="text-slate-600 mb-3">Includes: Date, context, behavior, measurement criteria</p>
+                <p className="text-slate-600">Missing: Baseline data, latency, fluency, generalization, maintenance</p>
+              </div>
+
+              {/* Level 2 */}
+              <div className="bg-white rounded-xl p-6 border-l-4 border-yellow-400 shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-slate-900">Level 2: + Baseline Data</h3>
+                  <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Moderate</span>
+                </div>
+                <p className="text-slate-600 mb-3">Adds: Current performance levels for comparison</p>
+                <p className="text-slate-600">Missing: Latency, fluency, generalization, maintenance</p>
+              </div>
+
+              {/* Level 3 */}
+              <div className="bg-white rounded-xl p-6 border-l-4 border-orange-400 shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-slate-900">Level 3: + Latency & Fluency</h3>
+                  <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Improving</span>
+                </div>
+                <p className="text-slate-600 mb-3">Adds: Response time and accuracy for skill stability</p>
+                <p className="text-slate-600">Missing: Generalization, maintenance</p>
+              </div>
+
+              {/* Level 4 */}
+              <div className="bg-white rounded-xl p-6 border-l-4 border-blue-400 shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-slate-900">Level 4: + Generalization</h3>
+                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Strong</span>
+                </div>
+                <p className="text-slate-600 mb-3">Adds: Multiple settings for real-world application</p>
+                <p className="text-slate-600">Missing: Maintenance</p>
+              </div>
+
+              {/* Level 5 */}
+              <div className="bg-white rounded-xl p-6 border-l-4 border-emerald-400 shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-slate-900">Level 5: + Maintenance</h3>
+                  <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">Most Effective</span>
+                </div>
+                <p className="text-slate-600 mb-3">Adds: 4+ weeks retention for lasting change</p>
+                <p className="text-slate-600 font-medium">Complete: All research-based components included</p>
               </div>
             </div>
           </motion.div>
@@ -283,8 +362,12 @@ export function AnimatedSections() {
                 <h3 className="text-2xl font-bold text-red-800 mb-6">Basic Goal (Low Effectiveness 🔴)</h3>
                 <div className="bg-white rounded-lg p-6 border border-red-300 mb-6">
                   <p className="text-lg font-medium text-red-800">
-                    &ldquo;By 01/16/26, when in a structured classroom setting and given verbal prompts, Jordan will increase on-task behavior (remaining seated and completing assignments) with 80% accuracy for 3 consecutive days as measured by teacher observation.&rdquo;
+                    &ldquo;By 03/10/26, when in a structured classroom setting and given verbal prompts, Jordan will increase on-task behavior (remaining seated and completing assignments) in 80% of opportunities for 3 consecutively measured school days as measured by teacher observation.&rdquo;
                   </p>
+                  <div className="mt-4 p-3 bg-red-50 rounded border border-red-200">
+                    <p className="text-sm text-red-700 font-medium">Baseline:</p>
+                    <p className="text-sm text-red-600">Narrative or not connected to the goal measurement.</p>
+                  </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
@@ -321,8 +404,12 @@ export function AnimatedSections() {
                 <h3 className="text-2xl font-bold text-emerald-800 mb-6">Research-Based Goal (Most Effective ✅)</h3>
                 <div className="bg-white rounded-lg p-6 border border-emerald-300 mb-6">
                   <p className="text-lg font-medium text-emerald-800">
-                    &ldquo;By 01/16/26, in both general and special education classrooms, Jordan will remain on task for 90% of observed intervals, initiating tasks within 10 seconds of instruction, across 3 different school settings, and maintain this behavior for 4 weeks after mastery as measured by teacher observation and data collection.&rdquo;
+                    &ldquo;By 03/10/26, when in a structured classroom, small group instruction, and independent work time, and given verbal prompts, Jordan will increase on-task behavior (remaining seated and completing assignments) in 90% of opportunities for 3 consecutively measured school days, initiating the task within 10 seconds of instruction, across 3 different school settings, as measured by teacher observation. Additionally, Jordan will maintain on-task behavior for 4 weeks following mastery to ensure long-term retention.&rdquo;
                   </p>
+                  <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
+                    <p className="text-sm text-emerald-700 font-medium">Baseline:</p>
+                    <p className="text-sm text-emerald-600">Jordan currently remains on-task in 40% of observed intervals, takes an average of 25 seconds to begin a task after instruction, and is inconsistent across different settings.</p>
+                  </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
