@@ -19,9 +19,9 @@ export function ShareBar({ url, title }: ShareBarProps) {
 
   return (
     <div className="hidden lg:flex lg:flex-col gap-3 sticky top-24 self-start">
-      <a href={xUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900">X</a>
-      <a href={fbUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900">FB</a>
-      <a href={liUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900">LI</a>
+      <a href={xUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900" aria-label="Share on X">X</a>
+      <a href={fbUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900" aria-label="Share on Facebook">FB</a>
+      <a href={liUrl} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900" aria-label="Share on LinkedIn">LI</a>
       <button onClick={handleCopy} className="text-slate-500 hover:text-slate-900 text-left">Copy</button>
     </div>
   );

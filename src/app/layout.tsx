@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs. Try free.",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
+  viewport: "width=device-width, initial-scale=1",
   icons: {
     icon: "/Logos/Logo.webp",
     shortcut: "/Logos/Logo.webp",
@@ -249,6 +250,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://community.behaviorschool.com" />
         
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#1F4D3F" />
+        <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
       </head>
       <body className="font-sans antialiased">
         <ToastProvider>
@@ -278,7 +282,7 @@ export default function RootLayout({
             logo: `${SITE_URL}/Logos/Logo.webp`,
             image: `${SITE_URL}/optimized/og-image.webp`,
             telephone: null,
-            priceRange: "$$",
+            priceRange: "$",
             address: {
               "@type": "PostalAddress",
               addressCountry: "US"
@@ -311,6 +315,17 @@ export default function RootLayout({
             }
           }) }}
         />
+        <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+              }, err => {
+                console.log('ServiceWorker registration failed: ', err);
+              });
+            });
+          }
+        </script>
       </body>
     </html>
   );
