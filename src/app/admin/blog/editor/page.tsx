@@ -183,7 +183,7 @@ export default function GhostEditor() {
 
     switch (block.type) {
       case 'heading':
-        const HeadingTag = `h${block.level || 2}` as keyof JSX.IntrinsicElements;
+        const HeadingTag = `h${block.level || 2}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
         return (
           <HeadingTag className="text-3xl font-bold leading-tight">
             <input
