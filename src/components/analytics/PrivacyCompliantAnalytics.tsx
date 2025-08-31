@@ -91,7 +91,7 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
                   target="_blank"
                   rel="noopener"
                 >
-                  Learn more
+                  Learn more about our privacy policy
                 </a>
               </p>
             </div>
