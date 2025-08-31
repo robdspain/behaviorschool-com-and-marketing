@@ -1,0 +1,109 @@
+
+> behaviorschool-frontend@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 7376, using available port 3002 instead.
+   ▲ Next.js 15.5.0
+   - Local:        http://localhost:3002
+   - Network:      http://10.0.0.11:3002
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 1461ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1370ms (1473 modules)
+ ⚠ Unsupported metadata viewport is configured in metadata export in /_not-found. Please move it to viewport export instead.
+Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport
+ GET /the-act-matrix-a-framework-for-school-based-bcbas 404 in 1872ms
+ ✓ Compiled in 1029ms (644 modules)
+ ✓ Compiled in 485ms (658 modules)
+ ✓ Compiled in 242ms (658 modules)
+[?25h
+ased-bcbas 404 in 2115ms
+ ✓ Compiled in 730ms (900 modules)
+ ✓ Compiled in 446ms (809 modules)
+ ✓ Compiled in 254ms (809 modules)
+[Error: ENOENT: no such file or directory, stat '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/server-development/10.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/server-development/10.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/server-development/10.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/server-development/10.pack.gz'
+}
+ ⨯ unhandledRejection:  [Error: ENOENT: no such file or directory, stat '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/server-development/10.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/server-development/10.pack.gz'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/server-development/10.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 607ms (809 modules)
+ ✓ Compiled in 381ms (809 modules)
+ ✓ Compiled in 377ms (809 modules)
+ ✓ Compiled in 389ms (809 modules)
+ ✓ Compiled in 252ms (809 modules)
+ ✓ Compiled in 218ms (809 modules)
+ ✓ Compiled in 335ms (809 modules)
+ ✓ Compiled in 254ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 560ms (809 modules)
+ ✓ Compiled in 260ms (809 modules)
+ ✓ Compiled in 275ms (809 modules)
+ ✓ Compiled in 173ms (809 modules)
+ ✓ Compiled in 255ms (809 modules)
+ ✓ Compiled in 276ms (809 modules)
+ ✓ Compiled in 194ms (809 modules)
+ ✓ Compiled in 296ms (809 modules)
+ ✓ Compiled in 173ms (809 modules)
+ ✓ Compiled in 523ms (809 modules)
+ ✓ Compiled in 330ms (809 modules)
+ ✓ Compiled in 151ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 844ms (809 modules)
+ ✓ Compiled in 263ms (809 modules)
+ ✓ Compiled in 460ms (809 modules)
+ ✓ Compiled in 324ms (809 modules)
+ ✓ Compiled in 429ms (809 modules)
+ ✓ Compiled in 390ms (809 modules)
+ ✓ Compiled in 376ms (809 modules)
+ ✓ Compiled in 211ms (809 modules)
+ ✓ Compiled in 442ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 269ms (809 modules)
+ ✓ Compiled in 327ms (809 modules)
+ ✓ Compiled in 204ms (809 modules)
+ ✓ Compiled in 252ms (809 modules)
+ ✓ Compiled in 224ms (809 modules)
+ ✓ Compiled in 386ms (809 modules)
+ ✓ Compiled in 263ms (809 modules)
+ ✓ Compiled in 244ms (809 modules)
+ ✓ Compiled in 438ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 346ms (809 modules)
+ ✓ Compiled in 394ms (809 modules)
+ ✓ Compiled in 176ms (809 modules)
+ ✓ Compiled in 186ms (809 modules)
+ ✓ Compiled in 295ms (809 modules)
+ ✓ Compiled in 533ms (809 modules)
+ ✓ Compiled in 300ms (809 modules)
+ ✓ Compiled in 332ms (809 modules)
+ ✓ Compiled in 410ms (809 modules)
+ ✓ Compiled in 181ms (809 modules)
+ ✓ Compiled in 403ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 390ms (809 modules)
+ ✓ Compiled in 487ms (809 modules)
+ ✓ Compiled in 383ms (809 modules)
+ ✓ Compiled in 242ms (809 modules)
+ ✓ Compiled in 400ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 727ms (809 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz_' -> '/Users/robspain/Desktop/marketing suite/.next/cache/webpack/client-development/0.pack.gz'
+ ✓ Compiled in 330ms (809 modules)
+ ✓ Compiled in 331ms (809 modules)
