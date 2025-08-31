@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { ToastProvider } from "@/components/toast";
-import { SessionProvider } from "next-auth/react";
 import { ConditionalNavBar } from "@/components/ConditionalNavBar";
 import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyCompliantAnalytics";
 
@@ -252,15 +251,13 @@ export default function RootLayout({
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       </head>
       <body className="font-sans antialiased">
-        <SessionProvider>
-          <ToastProvider>
-            <div className="min-h-screen flex flex-col">
-              <ConditionalNavBar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </ToastProvider>
-        </SessionProvider>
+        <ToastProvider>
+          <div className="min-h-screen flex flex-col">
+            <ConditionalNavBar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </ToastProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}

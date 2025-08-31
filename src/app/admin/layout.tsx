@@ -24,9 +24,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     // Check authentication status
     const checkAuth = async () => {
       try {
-        // Check if we're in development mode with admin bypass
-        if (DEV_CONFIG.isDevelopmentBypass()) {
-          // Development bypass - simulate authorized admin user
+        // For local development, bypass authentication completely
+        if (process.env.NODE_ENV === 'development') {
           const devUser: User = { 
             id: 'dev-user', 
             email: DEV_CONFIG.DEV_ADMIN_EMAIL,
@@ -91,34 +90,36 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
     checkAuth();
 
-    // Listen for auth changes
-    const supabaseForListener = createSupabaseClient();
-    if (!supabaseForListener) return;
-    
-    const { data: { subscription } } = supabaseForListener.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_OUT') {
-          setUser(null);
-          setIsAdmin(false);
-          router.push('/admin/login');
-        } else if (session) {
-          setUser(session.user);
-          // Re-check admin status
-          const supabaseInstance = createSupabaseClient();
-          if (supabaseInstance) {
-            const { data: profile } = await supabaseInstance
-              .from('profiles')
-              .select('role')
-              .eq('id', session.user.id)
-              .single();
-            
-            setIsAdmin(profile?.role === 'admin' || true); // Allow access for now
+    // Only set up auth listener in production
+    if (process.env.NODE_ENV !== 'development') {
+      const supabaseForListener = createSupabaseClient();
+      if (!supabaseForListener) return;
+      
+      const { data: { subscription } } = supabaseForListener.auth.onAuthStateChange(
+        async (event, session) => {
+          if (event === 'SIGNED_OUT') {
+            setUser(null);
+            setIsAdmin(false);
+            router.push('/admin/login');
+          } else if (session) {
+            setUser(session.user);
+            // Re-check admin status
+            const supabaseInstance = createSupabaseClient();
+            if (supabaseInstance) {
+              const { data: profile } = await supabaseInstance
+                .from('profiles')
+                .select('role')
+                .eq('id', session.user.id)
+                .single();
+              
+              setIsAdmin(profile?.role === 'admin' || true); // Allow access for now
+            }
           }
         }
-      }
-    );
+      );
 
-    return () => subscription.unsubscribe();
+      return () => subscription.unsubscribe();
+    }
   }, [router]);
 
   const handleSignOut = async () => {
