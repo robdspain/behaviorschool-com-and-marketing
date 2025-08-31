@@ -45,18 +45,18 @@ export function AnimatedSections() {
         <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-pink-100 to-transparent opacity-20 blur-2xl" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="space-y-6"
             >
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-[1.05] text-slate-900">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight leading-[1.1] text-slate-900">
                 Research-Based IEP Goal Generator — 5-Level Hierarchy for Maximum Effectiveness
               </h1>
               
-              <p className="text-lg sm:text-xl text-slate-600 leading-relaxed">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed">
                 Create comprehensive IEP goals with baseline data, fluency building, 90-100% accuracy targets, generalization, and maintenance — backed by behavior analysis research.
               </p>
 
@@ -90,58 +90,58 @@ export function AnimatedSections() {
                   </div>
                 </div>
                 
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <div className="space-y-3 mb-4">
                     <label className="block text-sm font-medium text-slate-700">Student Name:</label>
-                    <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
-                      <p className="text-slate-600">[Student]</p>
+                    <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
+                      <p className="text-slate-600 text-sm sm:text-base">[Student]</p>
                     </div>
                     
                     <label className="block text-sm font-medium text-slate-700">Target Behavior:</label>
-                    <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
-                      <p className="text-slate-600">On-task behavior (remaining seated and completing assignments)</p>
+                    <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
+                      <p className="text-slate-600 text-sm sm:text-base">On-task behavior (remaining seated and completing assignments)</p>
                     </div>
                     
                     <label className="block text-sm font-medium text-slate-700">Current Performance:</label>
-                    <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
-                      <p className="text-slate-600">40% of observed intervals, 25 seconds to begin tasks</p>
+                    <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
+                      <p className="text-slate-600 text-sm sm:text-base">40% of observed intervals, 25 seconds to begin tasks</p>
                     </div>
                   </div>
 
-                  <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg">
-                    <Zap className="inline h-5 w-5 mr-2" />
+                  <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 px-4 sm:px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg text-sm sm:text-base">
+                    <Zap className="inline h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                     Generate Level 5 Goal
                   </button>
 
                   <div className="mt-4 space-y-3">
                     <label className="block text-sm font-medium text-slate-700">Generated IEP Goal:</label>
-                    <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-4">
-                      <p className="text-emerald-800 text-sm leading-relaxed">
-                        <CheckCircle className="inline h-4 w-4 mr-2" />
+                    <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-3 sm:p-4">
+                      <p className="text-emerald-800 text-xs sm:text-sm leading-relaxed">
+                        <CheckCircle className="inline h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                         By 03/10/26, when in a structured classroom, small group instruction, and independent work time, and given verbal prompts, [Student] will increase on-task behavior (remaining seated and completing assignments) in 90% of opportunities for 3 consecutively measured school days, initiating the task within 10 seconds of instruction, across 3 different school settings, as measured by teacher observation. Additionally, [Student] will maintain on-task behavior for 4 weeks following mastery to ensure long-term retention.
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-3 w-3 mr-1" />
+                  <div className="mt-4 flex flex-wrap gap-1 sm:gap-2">
+                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                       Baseline Data
                     </span>
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-3 w-3 mr-1" />
+                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                       Latency & Fluency
                     </span>
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-3 w-3 mr-1" />
+                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                       90% Accuracy
                     </span>
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-3 w-3 mr-1" />
+                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                       Generalization
                     </span>
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-3 w-3 mr-1" />
+                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
                       Maintenance
                     </span>
                   </div>
@@ -177,26 +177,26 @@ export function AnimatedSections() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-4xl mx-auto">
-              <div className="flex items-center space-x-3">
-                <XCircle className="h-6 w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700">Vague / Unmeasurable</span>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6 max-w-4xl mx-auto">
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
+                <span className="text-slate-700 text-xs sm:text-sm">Vague / Unmeasurable</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <XCircle className="h-6 w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700">No baseline data</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
+                <span className="text-slate-700 text-xs sm:text-sm">No baseline data</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <XCircle className="h-6 w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700">No success criteria</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
+                <span className="text-slate-700 text-xs sm:text-sm">No success criteria</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <XCircle className="h-6 w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700">Teachers guessing</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
+                <span className="text-slate-700 text-xs sm:text-sm">Teachers guessing</span>
               </div>
-              <div className="flex items-center space-x-3">
-                <XCircle className="h-6 w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700">Parents in dark</span>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
+                <span className="text-slate-700 text-xs sm:text-sm">Parents in dark</span>
               </div>
             </div>
           </motion.div>
@@ -217,16 +217,16 @@ export function AnimatedSections() {
               Research-Based Goal Requirements & How Our Tool Delivers
             </h2>
             
-            <div className="grid gap-8 max-w-5xl mx-auto">
+            <div className="grid gap-6 sm:gap-8 max-w-5xl mx-auto">
               {/* Cooper, Heron, & Heward */}
-              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
-                <div className="flex items-start space-x-4 mb-6">
-                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <BookOpen className="w-6 h-6 text-white" />
+              <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200">
+                <div className="flex items-start space-x-3 sm:space-x-4 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Cooper, Heron, & Heward (2020)</h3>
-                    <p className="text-slate-600 text-sm">Applied Behavior Analysis, 3rd Edition</p>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Cooper, Heron, & Heward (2020)</h3>
+                    <p className="text-slate-600 text-xs sm:text-sm">Applied Behavior Analysis, 3rd Edition</p>
                   </div>
                 </div>
                 
@@ -253,14 +253,14 @@ export function AnimatedSections() {
               </div>
 
               {/* Stokes & Baer */}
-              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
-                <div className="flex items-start space-x-4 mb-6">
-                  <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <BarChart3 className="w-6 h-6 text-white" />
+              <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200">
+                <div className="flex items-start space-x-3 sm:space-x-4 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Stokes & Baer (1977)</h3>
-                    <p className="text-slate-600 text-sm">&ldquo;Implicit Technology of Generalization&rdquo;</p>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Stokes & Baer (1977)</h3>
+                    <p className="text-slate-600 text-xs sm:text-sm">&ldquo;Implicit Technology of Generalization&rdquo;</p>
                   </div>
                 </div>
                 
@@ -287,14 +287,14 @@ export function AnimatedSections() {
               </div>
 
               {/* Kubina & Wolfe */}
-              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
-                <div className="flex items-start space-x-4 mb-6">
-                  <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Zap className="w-6 h-6 text-white" />
+              <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200">
+                <div className="flex items-start space-x-3 sm:space-x-4 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Kubina & Wolfe (2005)</h3>
-                    <p className="text-slate-600 text-sm">Behavioral Fluency Research</p>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Kubina & Wolfe (2005)</h3>
+                    <p className="text-slate-600 text-xs sm:text-sm">Behavioral Fluency Research</p>
                   </div>
                 </div>
                 
@@ -321,14 +321,14 @@ export function AnimatedSections() {
               </div>
 
               {/* Pitts */}
-              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
-                <div className="flex items-start space-x-4 mb-6">
-                  <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Award className="w-6 h-6 text-white" />
+              <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200">
+                <div className="flex items-start space-x-3 sm:space-x-4 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Pitts (2021)</h3>
-                    <p className="text-slate-600 text-sm">Mastery Criteria & Maintenance</p>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Pitts (2021)</h3>
+                    <p className="text-slate-600 text-xs sm:text-sm">Mastery Criteria & Maintenance</p>
                   </div>
                 </div>
                 
@@ -372,53 +372,53 @@ export function AnimatedSections() {
               The 5-Level Goal Writing Progression
             </h2>
             
-            <div className="grid gap-6 max-w-4xl mx-auto">
+            <div className="grid gap-4 sm:gap-6 max-w-4xl mx-auto">
               {/* Level 1 */}
-              <div className="bg-white rounded-xl p-6 border-l-4 border-red-400 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900">Level 1: Basic Goal</h3>
-                  <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Low Effectiveness</span>
-                </div>
+                              <div className="bg-white rounded-xl p-4 sm:p-6 border-l-4 border-red-400 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">Level 1: Basic Goal</h3>
+                    <span className="bg-red-100 text-red-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium self-start sm:self-auto">Low Effectiveness</span>
+                  </div>
                 <p className="text-slate-600 mb-3">Includes: Date, context, behavior, measurement criteria</p>
                 <p className="text-slate-600">Missing: Baseline data, latency, fluency, generalization, maintenance</p>
               </div>
 
               {/* Level 2 */}
-              <div className="bg-white rounded-xl p-6 border-l-4 border-yellow-400 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900">Level 2: + Baseline Data</h3>
-                  <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">Moderate</span>
-                </div>
+                              <div className="bg-white rounded-xl p-4 sm:p-6 border-l-4 border-yellow-400 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">Level 2: + Baseline Data</h3>
+                    <span className="bg-yellow-100 text-yellow-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium self-start sm:self-auto">Moderate</span>
+                  </div>
                 <p className="text-slate-600 mb-3">Adds: Current performance levels for comparison</p>
                 <p className="text-slate-600">Missing: Latency, fluency, generalization, maintenance</p>
               </div>
 
               {/* Level 3 */}
-              <div className="bg-white rounded-xl p-6 border-l-4 border-orange-400 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900">Level 3: + Latency & Fluency</h3>
-                  <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">Improving</span>
-                </div>
+                              <div className="bg-white rounded-xl p-4 sm:p-6 border-l-4 border-orange-400 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">Level 3: + Latency & Fluency</h3>
+                    <span className="bg-orange-100 text-orange-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium self-start sm:self-auto">Improving</span>
+                  </div>
                 <p className="text-slate-600 mb-3">Adds: Response time and accuracy for skill stability</p>
                 <p className="text-slate-600">Missing: Generalization, maintenance</p>
               </div>
 
               {/* Level 4 */}
-              <div className="bg-white rounded-xl p-6 border-l-4 border-blue-400 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900">Level 4: + Generalization</h3>
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Strong</span>
-                </div>
+                              <div className="bg-white rounded-xl p-4 sm:p-6 border-l-4 border-blue-400 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">Level 4: + Generalization</h3>
+                    <span className="bg-blue-100 text-blue-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium self-start sm:self-auto">Strong</span>
+                  </div>
                 <p className="text-slate-600 mb-3">Adds: Multiple settings for real-world application</p>
                 <p className="text-slate-600">Missing: Maintenance</p>
               </div>
 
               {/* Level 5 */}
-              <div className="bg-white rounded-xl p-6 border-l-4 border-emerald-400 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900">Level 5: + Maintenance</h3>
-                  <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">Most Effective</span>
-                </div>
+                              <div className="bg-white rounded-xl p-4 sm:p-6 border-l-4 border-emerald-400 shadow-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">Level 5: + Maintenance</h3>
+                    <span className="bg-emerald-100 text-emerald-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium self-start sm:self-auto">Most Effective</span>
+                  </div>
                 <p className="text-slate-600 mb-3">Adds: 4+ weeks retention for lasting change</p>
                 <p className="text-slate-600 font-medium">Complete: All research-based components included</p>
               </div>
@@ -441,40 +441,40 @@ export function AnimatedSections() {
               Research-Based Components for Maximum Effectiveness
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="flex items-start space-x-4 text-left">
-                <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Baseline Data</h3>
-                  <p className="text-slate-600">Current performance levels for accurate measurement</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Baseline Data</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Current performance levels for accurate measurement</p>
                 </div>
               </div>
-              <div className="flex items-start space-x-4 text-left">
-                <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Latency & Fluency</h3>
-                  <p className="text-slate-600">Response time + accuracy for skill stability</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Latency & Fluency</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Response time + accuracy for skill stability</p>
                 </div>
               </div>
-              <div className="flex items-start space-x-4 text-left">
-                <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">90-100% Accuracy</h3>
-                  <p className="text-slate-600">Research shows higher retention than 80%</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">90-100% Accuracy</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Research shows higher retention than 80%</p>
                 </div>
               </div>
-              <div className="flex items-start space-x-4 text-left">
-                <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Generalization</h3>
-                  <p className="text-slate-600">Multiple settings for real-world application</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Generalization</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Multiple settings for real-world application</p>
                 </div>
               </div>
-              <div className="flex items-start space-x-4 text-left">
-                <CheckCircle className="h-8 w-8 text-emerald-500 flex-shrink-0 mt-1" />
+              <div className="flex items-start space-x-3 sm:space-x-4 text-left">
+                <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Maintenance</h3>
-                  <p className="text-slate-600">4+ weeks retention for lasting change</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Maintenance</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">4+ weeks retention for lasting change</p>
                 </div>
               </div>
             </div>
@@ -799,18 +799,18 @@ export function AnimatedSections() {
 
       {/* Sticky CTA Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-lg z-50 transform translate-y-full animate-slide-up">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Star className="h-6 w-6 text-orange-500" />
-              <span className="text-lg font-semibold text-slate-900">Join the Waitlist for the Free IEP Goal Generator</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <Star className="h-5 w-5 sm:h-6 sm:w-6 text-orange-500" />
+              <span className="text-sm sm:text-lg font-semibold text-slate-900">Join the Waitlist for the Free IEP Goal Generator</span>
             </div>
             <button 
               onClick={() => setIsSignupOpen(true)}
-              className="inline-flex items-center px-6 py-3 text-base font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+              className="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
             >
               Generate My First Goal Now
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </button>
           </div>
         </div>
