@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2, Quote } from "lucide-react";
+import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { ClientCTA } from "./ClientCTA";
 
 export function AnimatedSections() {
@@ -27,26 +27,8 @@ export function AnimatedSections() {
     }
   ];
 
-  const testimonials = [
-    {
-      quote: "This tool saved me hours every week. My IEP goals are now consistently measurable and trackable.",
-      author: "Sarah M.",
-      role: "Special Education Teacher",
-      district: "Springfield School District"
-    },
-    {
-      quote: "Finally, goals that align with ABA best practices. The specificity is exactly what we need for compliance.",
-      author: "Dr. Michael R.",
-      role: "BCBA",
-      district: "Behavior Solutions Inc."
-    },
-    {
-      quote: "We&apos;ve improved our compliance rate from 60% to 95% since using this system. Game changer.",
-      author: "Lisa T.",
-      role: "Special Ed Director",
-      district: "Metro Public Schools"
-    }
-  ];
+  // Note: No testimonials yet as the tool is still in development
+  // These will be added when we have real user feedback
 
   return (
     <main>
@@ -82,7 +64,7 @@ export function AnimatedSections() {
 
               <div className="flex items-center space-x-2 text-slate-600">
                 <Users className="h-5 w-5" />
-                <span className="text-lg font-medium">Join 500+ educators already on the waitlist.</span>
+                <span className="text-lg font-medium">Join educators on the waitlist for early access.</span>
               </div>
             </motion.div>
 
@@ -389,15 +371,14 @@ export function AnimatedSections() {
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Teachers</h3>
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">Teachers</h3>
                 <p className="text-slate-600 mb-6">Save time</p>
                 
-                                  <div className="bg-slate-50 rounded-xl p-4">
-                    <p className="text-slate-700 text-sm italic leading-relaxed">
-                      &ldquo;This saved me hours every week. My IEP goals are now consistently measurable.&rdquo;
-                    </p>
-                    <p className="text-purple-600 text-xs font-medium mt-2">— Sarah M., Special Ed Teacher</p>
-                  </div>
+                <div className="bg-slate-50 rounded-xl p-4">
+                  <p className="text-slate-700 text-sm leading-relaxed">
+                    Write clear, measurable goals that are easy to track and implement in the classroom.
+                  </p>
+                </div>
               </motion.article>
 
               {/* BCBAs */}
@@ -414,15 +395,14 @@ export function AnimatedSections() {
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-bold text-slate-900 mb-3">BCBAs</h3>
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">BCBAs</h3>
                 <p className="text-slate-600 mb-6">Align with ABA</p>
                 
-                                  <div className="bg-slate-50 rounded-xl p-4">
-                    <p className="text-slate-700 text-sm italic leading-relaxed">
-                      &ldquo;Finally, goals that align with ABA best practices. The specificity is exactly what we need.&rdquo;
-                    </p>
-                    <p className="text-blue-600 text-xs font-medium mt-2">— Dr. Michael R., BCBA</p>
-                  </div>
+                <div className="bg-slate-50 rounded-xl p-4">
+                  <p className="text-slate-700 text-sm leading-relaxed">
+                    Ensure goals align with evidence-based ABA practices and compliance requirements.
+                  </p>
+                </div>
               </motion.article>
 
               {/* Schools */}
@@ -439,15 +419,14 @@ export function AnimatedSections() {
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Schools</h3>
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">Schools</h3>
                 <p className="text-slate-600 mb-6">Compliance</p>
                 
-                                                                     <div className="bg-slate-50 rounded-xl p-4">
-                     <p className="text-slate-700 text-sm italic leading-relaxed">
-                       &ldquo;We&apos;ve improved our compliance rate from 60% to 95% since using this system.&rdquo;
-                     </p>
-                     <p className="text-emerald-600 text-xs font-medium mt-2">— Lisa T., Special Ed Director</p>
-                   </div>
+                <div className="bg-slate-50 rounded-xl p-4">
+                  <p className="text-slate-700 text-sm leading-relaxed">
+                    Improve compliance and outcomes with consistently measurable IEP goals across your district.
+                  </p>
+                </div>
               </motion.article>
             </div>
           </motion.div>
@@ -495,79 +474,7 @@ export function AnimatedSections() {
         </div>
       </section>
 
-      {/* Social Proof Section */}
-      <section className="py-16 lg:py-20 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-12"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Trusted by Educators Nationwide
-            </h2>
 
-            {/* District Logos */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <p className="text-lg font-medium text-slate-700 mb-6">Trusted by educators in:</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-                <div className="text-center">
-                  <div className="w-24 h-12 bg-slate-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-slate-600 font-semibold text-sm">Springfield</span>
-                  </div>
-                  <p className="text-xs text-slate-500">School District</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-24 h-12 bg-slate-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-slate-600 font-semibold text-sm">Metro</span>
-                  </div>
-                  <p className="text-xs text-slate-500">Public Schools</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-24 h-12 bg-slate-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-slate-600 font-semibold text-sm">Behavior</span>
-                  </div>
-                  <p className="text-xs text-slate-500">Solutions Inc.</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-24 h-12 bg-slate-100 rounded-lg mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-slate-600 font-semibold text-sm">500+</span>
-                  </div>
-                  <p className="text-xs text-slate-500">Educators</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonial Carousel */}
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-2xl p-6 shadow-lg"
-                >
-                  <div className="flex items-start space-x-3 mb-4">
-                    <Quote className="h-6 w-6 text-orange-500 flex-shrink-0 mt-1" />
-                    <p className="text-slate-700 text-sm italic leading-relaxed">
-                      &ldquo;{testimonial.quote}&rdquo;
-                    </p>
-                  </div>
-                  <div className="border-t border-slate-200 pt-4">
-                    <p className="font-semibold text-slate-900">{testimonial.author}</p>
-                    <p className="text-sm text-slate-600">{testimonial.role}</p>
-                    <p className="text-xs text-slate-500">{testimonial.district}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* FAQ Section */}
       <section className="py-16 lg:py-20 bg-white">
