@@ -39,7 +39,7 @@ export function AnimatedSections() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
+      <section className="relative pt-24 pb-12 lg:pt-28 lg:pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-pink-50" />
         <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-purple-100 to-transparent opacity-30 blur-3xl" />
         <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-pink-100 to-transparent opacity-20 blur-2xl" />
@@ -50,13 +50,13 @@ export function AnimatedSections() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="space-y-6"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.05] text-slate-900">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-[1.05] text-slate-900">
                 Research-Based IEP Goal Generator — 5-Level Hierarchy for Maximum Effectiveness
               </h1>
               
-              <p className="text-xl sm:text-2xl text-slate-600 leading-relaxed">
+              <p className="text-lg sm:text-xl text-slate-600 leading-relaxed">
                 Create comprehensive IEP goals with baseline data, fluency building, 90-100% accuracy targets, generalization, and maintenance — backed by behavior analysis research.
               </p>
 
@@ -69,8 +69,8 @@ export function AnimatedSections() {
               </motion.div>
 
               <div className="flex items-center space-x-2 text-slate-600">
-                <Users className="h-5 w-5" />
-                <span className="text-lg font-medium">Join educators on the waitlist for early access.</span>
+                <Users className="h-4 w-4" />
+                <span className="text-base font-medium">Join educators on the waitlist for early access.</span>
               </div>
             </motion.div>
 
@@ -90,8 +90,8 @@ export function AnimatedSections() {
                   </div>
                 </div>
                 
-                <div className="p-8">
-                  <div className="space-y-4 mb-6">
+                <div className="p-6">
+                  <div className="space-y-3 mb-4">
                     <label className="block text-sm font-medium text-slate-700">Student Name:</label>
                     <div className="bg-slate-50 rounded-lg p-3 border border-slate-200">
                       <p className="text-slate-600">[Student]</p>
@@ -113,7 +113,7 @@ export function AnimatedSections() {
                     Generate Level 5 Goal
                   </button>
 
-                  <div className="mt-6 space-y-4">
+                  <div className="mt-4 space-y-3">
                     <label className="block text-sm font-medium text-slate-700">Generated IEP Goal:</label>
                     <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-4">
                       <p className="text-emerald-800 text-sm leading-relaxed">
