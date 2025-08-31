@@ -16,16 +16,20 @@ export function AnimatedSections() {
       answer: "Research by Pitts (2021) found that skills taught with 100% accuracy were maintained at higher levels compared to 80% or 90%. Our tool targets 90-100% accuracy for better long-term retention and skill stability."
     },
     {
-      question: "What's the difference between basic and research-based IEP goals?",
-      answer: "Basic goals include date, context, behavior, and measurement. Research-based goals add baseline data, latency & fluency, generalization across settings, and maintenance periods of 4+ weeks for lasting behavior change."
+      question: "How does the tool ensure generalization doesn't happen by chance?",
+      answer: "Based on Stokes & Baer (1977), our tool requires explicit generalization planning with multiple exemplars, mediators, and indiscriminable contingencies. We don't hope for generalization—we program it systematically."
     },
     {
-      question: "How does fluency building improve skill retention?",
-      answer: "Precision teaching research shows that fluency (accuracy + speed) improves retention and generalization. Our tool incorporates fluency components to ensure skills are not just accurate but also performed efficiently and maintained over time."
+      question: "What's the difference between fluency and accuracy in goals?",
+      answer: "Kubina & Wolfe (2005) showed that fluency (accuracy + rate) leads to better retention, endurance, stability, and application. Our tool offers optional Fluency Mode with rate criteria for more robust skill development."
     },
     {
-      question: "What makes an IEP goal truly comprehensive?",
-      answer: "Comprehensive goals include all 5 levels: baseline data, latency & fluency, 90-100% accuracy, generalization across multiple settings, and maintenance periods. This research-based approach ensures maximum effectiveness and lasting outcomes."
+      question: "How does the tool address maintenance and long-term retention?",
+      answer: "Following Carr & LeBlanc (2003), our tool includes maintenance probe scheduling, natural reinforcement planning, and implementation support fields. We ensure skills don't just meet criteria but maintain over time."
+    },
+    {
+      question: "What makes an IEP goal research-based vs. basic?",
+      answer: "Research-based goals include all components from Cooper et al. (2020): clear behavior definitions, function-based replacement behaviors, specific measurement systems, and explicit generalization/maintenance planning."
     }
   ];
 
@@ -193,6 +197,161 @@ export function AnimatedSections() {
               <div className="flex items-center space-x-3">
                 <XCircle className="h-6 w-6 text-red-500 flex-shrink-0" />
                 <span className="text-slate-700">Parents in dark</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Research Foundation Section */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-12"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+              Research-Based Goal Requirements & How Our Tool Delivers
+            </h2>
+            
+            <div className="grid gap-8 max-w-5xl mx-auto">
+              {/* Cooper, Heron, & Heward */}
+              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                <div className="flex items-start space-x-4 mb-6">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Cooper, Heron, & Heward (2020)</h3>
+                    <p className="text-slate-600 text-sm">Applied Behavior Analysis, 3rd Edition</p>
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-3">Research Requirements:</h4>
+                    <ul className="space-y-2 text-sm text-slate-700">
+                      <li>• Clear, observable, measurable behavior definitions</li>
+                      <li>• Function-based replacement behaviors</li>
+                      <li>• Specific measurement systems (frequency, duration, latency)</li>
+                      <li>• Explicit generalization and maintenance planning</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-3">How Our Tool Delivers:</h4>
+                    <ul className="space-y-2 text-sm text-slate-700">
+                      <li>• Required fields: Condition → Behavior → Criterion → Measurement</li>
+                      <li>• Mandatory replacement behavior when reduction target selected</li>
+                      <li>• Measurement presets: % opportunities, responses/min, latency</li>
+                      <li>• Built-in generalization and maintenance planners</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stokes & Baer */}
+              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                <div className="flex items-start space-x-4 mb-6">
+                  <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <BarChart3 className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Stokes & Baer (1977)</h3>
+                    <p className="text-slate-600 text-sm">"Implicit Technology of Generalization"</p>
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-3">Research Requirements:</h4>
+                    <ul className="space-y-2 text-sm text-slate-700">
+                      <li>• Don't hope for generalization—program it</li>
+                      <li>• Train multiple exemplars</li>
+                      <li>• Use mediators (self-management cues)</li>
+                      <li>• Indiscriminable contingencies</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-3">How Our Tool Delivers:</h4>
+                    <ul className="space-y-2 text-sm text-slate-700">
+                      <li>• Generalization Planner with common stimuli checklist</li>
+                      <li>• Multiple exemplars input (≥3 settings/people/materials)</li>
+                      <li>• Self-monitoring card templates and mediators</li>
+                      <li>• Variable-interval reinforcement options</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Kubina & Wolfe */}
+              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                <div className="flex items-start space-x-4 mb-6">
+                  <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Kubina & Wolfe (2005)</h3>
+                    <p className="text-slate-600 text-sm">Behavioral Fluency Research</p>
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-3">Research Requirements:</h4>
+                    <ul className="space-y-2 text-sm text-slate-700">
+                      <li>• Fluency = accuracy + rate for retention</li>
+                      <li>• RESA: Retention, Endurance, Stability, Application</li>
+                      <li>• Frequency-based aims support robust performance</li>
+                      <li>• Component → Composite skill building</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-3">How Our Tool Delivers:</h4>
+                    <ul className="space-y-2 text-sm text-slate-700">
+                      <li>• Optional Fluency Mode with rate criteria</li>
+                      <li>• Endurance testing under distraction</li>
+                      <li>• Component → Composite assistant</li>
+                      <li>• 90-100% accuracy targets for better retention</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pitts */}
+              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                <div className="flex items-start space-x-4 mb-6">
+                  <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Award className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Pitts (2021)</h3>
+                    <p className="text-slate-600 text-sm">Mastery Criteria & Maintenance</p>
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-3">Research Requirements:</h4>
+                    <ul className="space-y-2 text-sm text-slate-700">
+                      <li>• Multi-session mastery criteria</li>
+                      <li>• Consistency across sessions/contexts</li>
+                      <li>• Stricter criteria maintain better over time</li>
+                      <li>• 90-100% accuracy vs 80% for retention</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-3">How Our Tool Delivers:</h4>
+                    <ul className="space-y-2 text-sm text-slate-700">
+                      <li>• Default mastery presets: ≥90% across 3 sessions</li>
+                      <li>• Multi-context consistency requirements</li>
+                      <li>• Guardrails for too-lenient criteria</li>
+                      <li>• 4-week maintenance probes built-in</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
