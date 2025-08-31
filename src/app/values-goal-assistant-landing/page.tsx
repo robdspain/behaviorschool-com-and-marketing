@@ -77,7 +77,7 @@ export default function ValuesGoalAssistantLandingPage() {
             <div className="bg-blue-50 rounded-lg p-8 text-center shadow-md">
               <Target className="w-12 h-12 text-blue-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-slate-900 mb-2">Values-Aligned Goals</h3>
-              <p className="text-slate-600">Craft goals that resonate with the student's core values, fostering intrinsic motivation and engagement.</p>
+              <p className="text-slate-600">Craft goals that resonate with the student&apos;s core values, fostering intrinsic motivation and engagement.</p>
             </div>
             <div className="bg-purple-50 rounded-lg p-8 text-center shadow-md">
               <CheckCircle className="w-12 h-12 text-purple-600 mx-auto mb-4" />

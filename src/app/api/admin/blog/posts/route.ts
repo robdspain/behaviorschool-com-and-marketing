@@ -30,7 +30,17 @@ export async function GET(request: NextRequest) {
     const data = await response.json();
     
     // Transform the data to match our interface
-    const posts = data.posts.map((post: any) => ({
+    const posts = data.posts.map((post: {
+      id: string;
+      title: string;
+      slug: string;
+      excerpt: string;
+      visibility: string;
+      created_at: string;
+      updated_at: string;
+      feature_image: string;
+      tags?: { name: string }[];
+    }) => ({
       id: post.id,
       title: post.title,
       slug: post.slug,
@@ -39,7 +49,7 @@ export async function GET(request: NextRequest) {
       created_at: post.created_at,
       updated_at: post.updated_at,
       feature_image: post.feature_image,
-      tags: post.tags?.map((tag: any) => ({ name: tag.name })) || []
+      tags: post.tags?.map((tag: { name: string }) => ({ name: tag.name })) || []
     }));
 
     return NextResponse.json({ posts });

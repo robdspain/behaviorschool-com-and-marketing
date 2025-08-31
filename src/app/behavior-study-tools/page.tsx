@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Brain, Target, TrendingUp, BookOpen, Users } from "lucide-react";
+import { ArrowRight, Check, Brain, Target, TrendingUp, BookOpen, Users, ChevronUp, ChevronDown } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {
@@ -91,7 +91,7 @@ export default function BehaviorStudyToolsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  Welcome to Behavior School's Study Tools, designed to make preparing for the BCBA® exam feel less overwhelming. Our system is built for busy behavior analysts who want a study system that&apos;s as focused and practical as the science we practice.
+                  Welcome to Behavior School&apos;s Study Tools, designed to make preparing for the BCBA® exam feel less overwhelming. Our system is built for busy behavior analysts who want a study system that&apos;s as focused and practical as the science we practice.
                 </motion.p>
               </div>
 
