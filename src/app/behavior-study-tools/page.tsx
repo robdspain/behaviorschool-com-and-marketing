@@ -324,7 +324,7 @@ export default function BehaviorStudyToolsPage() {
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-200">
                 <h3 className="text-xl font-bold text-red-700 mb-4">Recycled Test Banks</h3>
-                <p className="text-slate-700">Often outdated, poorly written, or overly simplistic, leaving huge gaps in readiness.</p>
+                <p className="text-slate-700">Often outdated, poorly written, or overly simplistic, leaving gaps that Behavior School addresses.</p>
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-200">
                 <h3 className="text-xl font-bold text-red-700 mb-4">Expensive Review Modules</h3>
