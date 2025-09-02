@@ -96,7 +96,10 @@ async function fixBrokenImages() {
         
         const brokenImageUrls = [
             'https://ghost.behaviorschool.com/content/images/2025/08/passthefreakinexam-1.png',
-            'https://ghost.behaviorschool.com/content/images/2025/07/skinner90.jpeg'
+            'https://ghost.behaviorschool.com/content/images/2025/07/skinner90.jpeg',
+            // Add more broken URLs as they are discovered
+            'ghost.behaviorschool.com/content/images/2025/08/passthefreakinexam-1.png',
+            'ghost.behaviorschool.com/content/images/2025/07/skinner90.jpeg'
         ];
         
         for (const post of posts) {
@@ -109,13 +112,17 @@ async function fixBrokenImages() {
                     console.log(`Found broken image in post: ${post.title}`);
                     needsUpdate = true;
                     
-                    // Option 1: Remove broken image
-                    const imgRegex = new RegExp(`<img[^>]*src="${brokenUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>`, 'gi');
-                    updatedHtml = updatedHtml.replace(imgRegex, '');
-                    
-                    // Option 2: Replace with placeholder (uncomment to use)
-                    // updatedHtml = updatedHtml.replace(brokenUrl, 'https://via.placeholder.com/800x400?text=Image+Coming+Soon');
+                    // Replace broken image with a placeholder that explains the issue
+                    const imgRegex = new RegExp(`<img[^>]*src="[^"]*${brokenUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^"]*"[^>]*>`, 'gi');
+                    updatedHtml = updatedHtml.replace(imgRegex, '<div style="background: #f3f4f6; border: 2px dashed #d1d5db; padding: 20px; text-align: center; border-radius: 8px; margin: 16px 0;"><p style="color: #6b7280; font-style: italic;">Image temporarily unavailable</p></div>');
                 }
+            }
+            
+            // Also fix any HTTP image URLs to use HTTPS
+            if (post.html && post.html.includes('http://')) {
+                console.log(`Fixing HTTP images in post: ${post.title}`);
+                needsUpdate = true;
+                updatedHtml = updatedHtml.replace(/(<img[^>]*src=")http:\/\//gi, '$1https://');
             }
             
             if (needsUpdate) {

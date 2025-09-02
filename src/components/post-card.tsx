@@ -29,6 +29,17 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
   const primaryTag = post.primary_tag ?? (post.tags && post.tags.length > 0 ? post.tags[0] : null);
   const imageSrc = React.useMemo(() => {
     if (!post.feature_image) return "/thumbnails/hero-thumb.webp";
+    
+    // Check for known broken image URLs
+    const brokenUrls = [
+      'ghost.behaviorschool.com/content/images/2025/08/passthefreakinexam-1.png',
+      'ghost.behaviorschool.com/content/images/2025/07/skinner90.jpeg'
+    ];
+    
+    if (brokenUrls.some(brokenUrl => post.feature_image?.includes(brokenUrl))) {
+      return "/thumbnails/hero-thumb.webp";
+    }
+    
     try {
       const url = new URL(post.feature_image);
       if (url.protocol === "http:") {
@@ -51,6 +62,10 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
             fill
             sizes="(max-width: 768px) 100vw, 400px"
             className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = '/thumbnails/hero-thumb.webp';
+            }}
           />
         </div>
       ) : null}
