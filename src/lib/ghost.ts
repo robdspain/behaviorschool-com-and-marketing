@@ -154,6 +154,36 @@ async function fetchGhost<TResponse>(
   }
 }
 
+// Helper function to fix broken image URLs in posts
+function fixBrokenImageUrls(post: Post): Post {
+  const brokenPatterns = [
+    'ghost.behaviorschool.com/content/images/',
+    'behaviorschool.ghost.io/content/images/'
+  ];
+  
+  // Fix feature image
+  if (post.feature_image && brokenPatterns.some(pattern => post.feature_image?.includes(pattern))) {
+    post.feature_image = '/thumbnails/hero-thumb.webp';
+  }
+  
+  // Fix HTML content
+  if (post.html) {
+    const brokenImageRegexes = [
+      /https?:\/\/ghost\.behaviorschool\.com\/content\/images\/[^"'\s]*/g,
+      /https?:\/\/behaviorschool\.ghost\.io\/content\/images\/[^"'\s]*/g
+    ];
+    
+    let fixedHtml = post.html;
+    brokenImageRegexes.forEach(regex => {
+      fixedHtml = fixedHtml.replace(regex, '/thumbnails/hero-thumb.webp');
+    });
+    
+    post.html = fixedHtml;
+  }
+  
+  return post;
+}
+
 // ===== Public helpers =====
 
 export async function getPosts(
@@ -197,7 +227,7 @@ export async function getPosts(
   const revalidate = resolveRevalidate(next);
   type PostsResponse = { posts: Post[]; meta: { pagination: PaginationMeta } };
   try {
-    return await fetchGhost<PostsResponse>(
+    const result = await fetchGhost<PostsResponse>(
       'posts/',
       {
         limit,
@@ -208,6 +238,11 @@ export async function getPosts(
       },
       revalidate
     );
+    
+    // Fix broken image URLs in posts from Ghost API
+    result.posts = result.posts.map(post => fixBrokenImageUrls(post));
+    
+    return result;
   } catch (error) {
     // Try RSS fallback when API key is invalid
     if (error instanceof GhostAPIError && error.details && 
@@ -254,7 +289,10 @@ export async function getPostBySlug(
       { include, formats },
       revalidate
     );
-    return Array.isArray(data.posts) && data.posts.length > 0 ? data.posts[0] : null;
+    const post = Array.isArray(data.posts) && data.posts.length > 0 ? data.posts[0] : null;
+    
+    // Fix broken image URLs in the post
+    return post ? fixBrokenImageUrls(post) : null;
   } catch (error) {
     // Try RSS fallback when API key is invalid
     if (error instanceof GhostAPIError && error.details && 
@@ -365,6 +403,22 @@ function parseRSSPosts(rssXML: string, limit: number, page: number): Post[] {
           const contentImageMatch = content?.match(/<img[^>]*src="([^"]*)"[^>]*>/);
           featureImage = contentImageMatch ? contentImageMatch[1] : null;
         }
+        
+        // Fix broken Ghost image URLs - use fallback if image is from Ghost content/images
+        if (featureImage && featureImage.includes('/content/images/')) {
+          // Check if it's a broken Ghost image URL
+          const brokenPatterns = [
+            'ghost.behaviorschool.com/content/images/',
+            'behaviorschool.ghost.io/content/images/'
+          ];
+          
+          const isBrokenImage = brokenPatterns.some(pattern => featureImage?.includes(pattern));
+          
+          if (isBrokenImage) {
+            // Use a fallback image instead of broken Ghost images
+            featureImage = '/thumbnails/hero-thumb.webp';
+          }
+        }
 
         // Parse categories as tags
         const categoryMatches = item.match(/<category><!\[CDATA\[(.*?)\]\]><\/category>/g) || [];
@@ -464,7 +518,7 @@ function cleanRSSContent(content: string | null): string {
 function cleanRSSContentForHTML(content: string | null): string {
   if (!content) return '';
   
-  return content
+  let cleanedContent = content
     // Remove CDATA wrappers
     .replace(/^<!\[CDATA\[([\s\S]*?)\]\]>$/, '$1')
     .replace(/CDATA\[(.*?)\]/g, '$1')
@@ -484,6 +538,18 @@ function cleanRSSContentForHTML(content: string | null): string {
     .replace(/^<[^>]*\s+id><\/[^>]*>/g, '')
     // Keep HTML tags but clean up
     .trim();
+  
+  // Fix broken image URLs in HTML content
+  const brokenImagePatterns = [
+    /https?:\/\/ghost\.behaviorschool\.com\/content\/images\/[^"'\s]*/g,
+    /https?:\/\/behaviorschool\.ghost\.io\/content\/images\/[^"'\s]*/g
+  ];
+  
+  brokenImagePatterns.forEach(pattern => {
+    cleanedContent = cleanedContent.replace(pattern, '/thumbnails/hero-thumb.webp');
+  });
+  
+  return cleanedContent;
 }
 
 
