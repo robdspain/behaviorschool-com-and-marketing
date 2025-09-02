@@ -32,8 +32,11 @@ Broken images appearing on https://behaviorschool.com/blog:
 
 ## Results ✅
 - **Blog fixed**: https://behaviorschool.com/blog no longer shows broken images
-- **Posts updated**: Removed broken `<img>` tags from affected blog posts
-- **Script ready**: Can be run again if new broken images appear
+- **Posts updated**: Removed broken `<img>` tags from 3 affected blog posts:
+  - "Behavior School Launches AI-Powered BCBA Exam Prep Platform That Works" (guessing-1.png)
+  - "From Teaching Machines to Smart Learning: The Science Behind Adaptive Education" (SAKI.png)
+  - "The ACT Matrix: A Framework for School-Based BCBAs" (matrix.png)
+- **Script ready**: Multiple scripts available for future image fixes
 
 ## Next Steps
 - Monitor blog for any new broken images
