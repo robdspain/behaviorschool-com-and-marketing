@@ -302,15 +302,17 @@ export default function BCBAExamPrepPage() {
               <div className="flex justify-center lg:justify-start">
                 <Button 
                   size="lg" 
-                  onClick={() => setIsSignupOpen(true)}
+                  asChild
                   className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 
                              transform hover:scale-105 transition-all duration-300 ease-out
                              hover:shadow-xl shadow-lg
                              text-lg font-semibold px-8 py-4"
                 >
-                  <span className="hidden sm:inline text-lg">Get Free Study Resources – Pass the BCBA Exam Faster</span>
-                  <span className="sm:hidden text-lg">Get Free Study Guide</span>
-                  <Download className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
+                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                    <span className="hidden sm:inline text-lg">Get Free Study Resources – Pass the BCBA Exam Faster</span>
+                    <span className="sm:hidden text-lg">Get Free Study Guide</span>
+                    <Download className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -520,13 +522,15 @@ export default function BCBAExamPrepPage() {
               
               <Button 
                 size="lg"
-                onClick={() => setIsSignupOpen(true)}
+                asChild
                 className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 
                            transform hover:scale-105 transition-all duration-300 ease-out
                            hover:shadow-xl shadow-lg text-lg font-semibold px-8 py-4"
               >
-                Start Free BCBA Practice Questions Now
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                  Start Free BCBA Practice Questions Now
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -604,11 +608,13 @@ export default function BCBAExamPrepPage() {
           <div className="text-center mt-12">
             <Button 
               size="lg"
-              onClick={() => setIsSignupOpen(true)} 
+              asChild
               className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700"
             >
-              Download Free Study Package
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                Download Free Study Package
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -706,14 +712,16 @@ export default function BCBAExamPrepPage() {
           <div className="text-center mt-12">
             <Button 
               size="lg"
-              onClick={() => setIsSignupOpen(true)}
+              asChild
               className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700
                          transform hover:scale-105 transition-all duration-300 ease-out
                          hover:shadow-xl shadow-lg
                          text-lg font-semibold px-8 py-4"
             >
-              Get Free Study Resources – Pass Faster
-              <Download className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
+              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                Get Free Study Resources – Pass Faster
+                <Download className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -730,11 +738,13 @@ export default function BCBAExamPrepPage() {
           </p>
           <Button 
             size="lg"
-            onClick={() => setIsSignupOpen(true)}
+            asChild
             className="bg-yellow-500 text-slate-900 hover:bg-yellow-400"
           >
-            Get Free Study Guide →
-            <ArrowRight className="ml-2 w-5 h-5" />
+            <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+              Get Free Study Guide →
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </Button>
         </div>
       </section>
