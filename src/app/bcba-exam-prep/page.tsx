@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { CheckCircle, BookOpen, Users, Target, Download, Clock, ArrowRight, Info, ChevronDown, ChevronUp, BarChart3, Calendar, Brain, TrendingUp } from "lucide-react";
+import { CheckCircle, BookOpen, Users, Target, ArrowRight, Info, ChevronDown, ChevronUp, BarChart3, Calendar, Brain, TrendingUp } from "lucide-react";
 
 export default function BCBAExamPrepPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
