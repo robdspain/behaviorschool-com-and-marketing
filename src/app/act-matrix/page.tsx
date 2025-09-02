@@ -226,33 +226,33 @@ export default function ACTMatrixPage() {
           />
         </nav>
         
-        {/* Hero Section */}
-        <section className="pt-8 pb-16 px-4 sm:px-6 lg:px-8">
+        {/* Hero Section - Mobile Optimized */}
+        <section className="pt-6 pb-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Left Column - Text Content */}
-              <div>
-                <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
+              <div className="text-center lg:text-left">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 lg:mb-6 leading-tight">
                   <span className="bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">
                     ACT Matrix for Schools
                   </span>
                 </h1>
                 
-                <h2 className="text-2xl text-slate-700 mb-4 font-medium">
+                <h2 className="text-lg sm:text-xl lg:text-2xl text-slate-700 mb-4 font-medium leading-relaxed">
                   Complete guide with free PDF download, examples, and step-by-step implementation for school-based behavior analysts
                 </h2>
                 
-                <p className="text-xl text-slate-600 mb-8">
+                <p className="text-base sm:text-lg lg:text-xl text-slate-600 mb-6 lg:mb-8 leading-relaxed">
                   The ACT Matrix is a powerful visual tool that helps students make values-based choices even when experiencing difficult thoughts and feelings. Learn how to use this evidence-based intervention in your school practice.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col gap-3 sm:gap-4">
                   <Button 
                     size="lg"
                     asChild
-                    className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700"
+                    className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 h-12 text-base font-semibold"
                   >
-                    <Link href="#download">
+                    <Link href="#download" className="flex items-center justify-center">
                       <Download className="mr-2 w-5 h-5" />
                       Download Free ACT Matrix PDF
                     </Link>
@@ -262,27 +262,30 @@ export default function ACTMatrixPage() {
                     size="lg"
                     variant="outline"
                     asChild
+                    className="h-12 text-base font-semibold"
                   >
-                    <Link href="#examples">
-                      View Examples
+                    <Link href="#examples" className="flex items-center justify-center">
+                      View Step-by-Step Examples
                     </Link>
                   </Button>
                 </div>
               </div>
               
-              {/* Right Column - Matrix Diagram */}
-              <div className="flex justify-center lg:justify-end">
-                <div className="relative">
+              {/* Right Column - Matrix Diagram - Mobile Optimized */}
+              <div className="flex justify-center lg:justify-end mt-8 lg:mt-0">
+                <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
                   {/* ACT Matrix Diagram */}
-                  <div className="bg-white border-2 border-slate-300 rounded-xl p-8 shadow-2xl max-w-lg">
-                    <div className="grid grid-cols-2 gap-6 text-center relative">
+                  <div className="bg-white border-2 border-slate-300 rounded-xl p-4 sm:p-6 lg:p-8 shadow-2xl">
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6 text-center relative">
                       {/* Horizontal line */}
-                      <div className="absolute inset-x-0 top-1/2 border-t border-slate-300 z-10"></div>
+                      <div className="absolute inset-x-0 top-1/2 border-t-2 border-slate-400 z-10"></div>
+                      {/* Vertical line */}
+                      <div className="absolute inset-y-0 left-1/2 border-l-2 border-slate-400 z-10"></div>
                       
                       {/* Top Left - Away Moves */}
-                      <div className="border-r border-slate-200 pb-6 pr-6">
-                        <div className="text-red-500 font-semibold mb-2">Away Moves</div>
-                        <div className="text-sm text-slate-600">
+                      <div className="pb-4 sm:pb-6 pr-2 sm:pr-4">
+                        <div className="text-red-600 font-bold mb-2 text-sm sm:text-base">Away Moves</div>
+                        <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                           Avoiding challenges<br/>
                           Acting out<br/>
                           Giving up easily
@@ -290,9 +293,9 @@ export default function ACTMatrixPage() {
                       </div>
                       
                       {/* Top Right - Toward Moves */}
-                      <div className="pb-6 pl-6">
-                        <div className="text-emerald-600 font-semibold mb-2">Toward Moves</div>
-                        <div className="text-sm text-slate-600">
+                      <div className="pb-4 sm:pb-6 pl-2 sm:pl-4">
+                        <div className="text-emerald-600 font-bold mb-2 text-sm sm:text-base">Toward Moves</div>
+                        <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                           Asking for help<br/>
                           Trying new things<br/>
                           Being kind to others
@@ -300,9 +303,9 @@ export default function ACTMatrixPage() {
                       </div>
                       
                       {/* Bottom Left - Unhelpful Internal */}
-                      <div className="border-r border-slate-200 pt-6 pr-6">
-                        <div className="text-red-500 font-semibold mb-2">Unhelpful Thoughts & Feelings</div>
-                        <div className="text-sm text-slate-600">
+                      <div className="pt-4 sm:pt-6 pr-2 sm:pr-4">
+                        <div className="text-red-600 font-bold mb-2 text-sm sm:text-base">Unhelpful Internal</div>
+                        <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                           &quot;I&apos;m not smart enough&quot;<br/>
                           Feeling anxious<br/>
                           Fear of failure
@@ -310,9 +313,9 @@ export default function ACTMatrixPage() {
                       </div>
                       
                       {/* Bottom Right - Helpful Internal */}
-                      <div className="pt-6 pl-6">
-                        <div className="text-emerald-600 font-semibold mb-2">Helpful Thoughts & Feelings</div>
-                        <div className="text-sm text-slate-600">
+                      <div className="pt-4 sm:pt-6 pl-2 sm:pl-4">
+                        <div className="text-emerald-600 font-bold mb-2 text-sm sm:text-base">Helpful Internal</div>
+                        <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                           &quot;I can learn from mistakes&quot;<br/>
                           Feeling confident<br/>
                           Curiosity about learning
@@ -320,10 +323,10 @@ export default function ACTMatrixPage() {
                       </div>
                     </div>
                     
-                    {/* Center Values Circle */}
+                    {/* Center Values Circle - Mobile Optimized */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="bg-yellow-100 border-2 border-yellow-400 rounded-full w-20 h-20 flex items-center justify-center">
-                        <div className="text-yellow-800 font-bold text-sm text-center">Student Values</div>
+                      <div className="bg-yellow-100 border-2 border-yellow-500 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center shadow-lg">
+                        <div className="text-yellow-800 font-bold text-xs sm:text-sm text-center px-1">Student Values</div>
                       </div>
                     </div>
                   </div>
@@ -333,14 +336,14 @@ export default function ACTMatrixPage() {
           </div>
         </section>
 
-        {/* What is ACT Matrix Section */}
-        <section className="py-16 bg-slate-50">
+        {/* What is ACT Matrix Section - Mobile Optimized */}
+        <section className="py-12 lg:py-16 bg-slate-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <div className="text-center mb-8 lg:mb-12">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 lg:mb-4 leading-tight">
                 What is the ACT Matrix? (Matrice ACT)
               </h2>
-              <p className="text-lg text-slate-600">
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
                 A simple yet powerful tool from Acceptance and Commitment Training (ACT) for helping students navigate challenges while staying connected to their values
               </p>
             </div>
@@ -376,24 +379,48 @@ export default function ACTMatrixPage() {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
-                <div className="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
-                  <h3 className="text-xl font-semibold text-emerald-600 mb-3">The Four Quadrants</h3>
-                  <ul className="space-y-2 text-slate-700">
-                    <li><strong>Toward Moves:</strong> Behaviors that move students toward their values</li>
-                    <li><strong>Away Moves:</strong> Behaviors that move students away from their values</li>
-                    <li><strong>Helpful Internal:</strong> Thoughts, feelings that support values-based action</li>
-                    <li><strong>Unhelpful Internal:</strong> Difficult thoughts, feelings that pull away from values</li>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 my-8 lg:my-12">
+                <div className="bg-white p-5 lg:p-6 rounded-lg shadow-lg border border-slate-200">
+                  <h3 className="text-lg lg:text-xl font-semibold text-emerald-600 mb-4">The Four Quadrants</h3>
+                  <ul className="space-y-3 text-slate-700">
+                    <li className="flex items-start">
+                      <span className="text-emerald-500 mr-2">→</span>
+                      <span><strong>Toward Moves:</strong> Behaviors that move students toward their values</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-red-500 mr-2">←</span>
+                      <span><strong>Away Moves:</strong> Behaviors that move students away from their values</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-emerald-500 mr-2">✓</span>
+                      <span><strong>Helpful Internal:</strong> Thoughts, feelings that support values-based action</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-red-500 mr-2">✗</span>
+                      <span><strong>Unhelpful Internal:</strong> Difficult thoughts, feelings that pull away from values</span>
+                    </li>
                   </ul>
                 </div>
                 
-                <div className="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
-                  <h3 className="text-xl font-semibold text-emerald-600 mb-3">Key Principles</h3>
-                  <ul className="space-y-2 text-slate-700">
-                    <li>Values are at the center of all decisions</li>
-                    <li>All internal experiences are normal and acceptable</li>
-                    <li>Behavior choices can be values-based regardless of feelings</li>
-                    <li>Psychological flexibility grows through practice</li>
+                <div className="bg-white p-5 lg:p-6 rounded-lg shadow-lg border border-slate-200">
+                  <h3 className="text-lg lg:text-xl font-semibold text-emerald-600 mb-4">Key Principles</h3>
+                  <ul className="space-y-3 text-slate-700">
+                    <li className="flex items-start">
+                      <span className="text-yellow-500 mr-2">★</span>
+                      <span>Values are at the center of all decisions</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-500 mr-2">◯</span>
+                      <span>All internal experiences are normal and acceptable</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-purple-500 mr-2">◆</span>
+                      <span>Behavior choices can be values-based regardless of feelings</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-500 mr-2">↑</span>
+                      <span>Psychological flexibility grows through practice</span>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -401,19 +428,19 @@ export default function ACTMatrixPage() {
           </div>
         </section>
 
-        {/* How to Use Section */}
-        <section className="py-16">
+        {/* How to Use Section - Mobile Optimized */}
+        <section className="py-12 lg:py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <div className="text-center mb-8 lg:mb-12">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 lg:mb-4 leading-tight">
                 How to Use the ACT Matrix with Students
               </h2>
-              <p className="text-lg text-slate-600">
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
                 A step-by-step process for implementing the ACT Matrix in school settings
               </p>
             </div>
             
-            <div className="space-y-8">
+            <div className="space-y-6 lg:space-y-8">
               {[
                 {
                   step: "1",
@@ -446,19 +473,19 @@ export default function ACTMatrixPage() {
                   icon: Target
                 }
               ].map((item, index) => (
-                <div key={index} className="flex gap-6 items-start">
+                <div key={index} className="flex gap-4 sm:gap-6 items-start p-4 sm:p-6 bg-white rounded-xl shadow-sm border border-slate-100">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <span className="text-emerald-600 font-bold text-lg">{item.step}</span>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                      <span className="text-emerald-600 font-bold text-base sm:text-lg">{item.step}</span>
                     </div>
                   </div>
                   
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
-                      <item.icon className="w-6 h-6 text-emerald-600" />
-                      <h3 className="text-xl font-semibold text-slate-900">{item.title}</h3>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                      <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                      <h3 className="text-lg sm:text-xl font-semibold text-slate-900 leading-tight">{item.title}</h3>
                     </div>
-                    <p className="text-slate-700 leading-relaxed">{item.description}</p>
+                    <p className="text-slate-700 leading-relaxed text-sm sm:text-base">{item.description}</p>
                   </div>
                 </div>
               ))}
