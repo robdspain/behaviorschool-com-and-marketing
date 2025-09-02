@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
+import FallbackImage from "@/components/fallback-image";
 import * as React from "react";
 
 import type { Post } from "@/lib/ghost";
@@ -45,7 +45,7 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
     <Card className={cn("group overflow-hidden h-full flex flex-col", className)} {...props}>
       {imageSrc ? (
         <div className="relative aspect-[16/9] w-full overflow-hidden">
-          <Image
+          <FallbackImage
             src={imageSrc}
             alt={post.title}
             fill
