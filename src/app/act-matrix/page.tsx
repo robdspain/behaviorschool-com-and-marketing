@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     url: "https://behaviorschool.com/act-matrix",
     images: [
       {
-        url: "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp",
+        url: "https://behaviorschool.com/og-image.webp",
         width: 1200,
         height: 630,
         alt: "ACT Matrix for Schools - Free PDF Download with Examples"
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
     description: "Complete ACT Matrix guide for school-based behavior analysts. Free PDF download with examples, explained step-by-step. Learn how the ACT Matrix improves student values-based interventions in schools.",
-    images: ["https://behaviorschool.com/thumbnails/act-matrix-thumb.webp"]
+    images: ["https://behaviorschool.com/og-image.webp"]
   },
   alternates: {
     canonical: "https://behaviorschool.com/act-matrix"
@@ -67,7 +67,7 @@ const structuredData = {
   "@type": "Article",
   "headline": "ACT Matrix for Schools: Complete Guide with Free PDF Download",
   "description": "Comprehensive guide to using the ACT Matrix in school settings for behavior analysts, including examples, implementation strategies, and free downloadable resources.",
-  "image": "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp",
+  "image": "https://behaviorschool.com/og-image.webp",
   "author": {
     "@type": "Organization",
     "name": "Behavior School",
@@ -109,7 +109,7 @@ const howToSchema = {
   "@type": "HowTo",
   "name": "How to Use the ACT Matrix in School Settings",
   "description": "Step-by-step guide for implementing the ACT Matrix with students to improve psychological flexibility and values-based behavior",
-  "image": "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp",
+  "image": "https://behaviorschool.com/og-image.webp",
   "totalTime": "PT30M",
   "estimatedCost": {
     "@type": "MonetaryAmount", 
@@ -131,7 +131,7 @@ const howToSchema = {
       "@type": "HowToStep",
       "name": "Identify Student Values",
       "text": "Help the student identify what matters most to them in their relationships, learning, and personal growth",
-      "image": "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp"
+      "image": "https://behaviorschool.com/og-image.webp"
     },
     {
       "@type": "HowToStep",

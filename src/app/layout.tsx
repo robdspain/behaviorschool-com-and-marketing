@@ -12,10 +12,15 @@ export const metadata: Metadata = {
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   viewport: "width=device-width, initial-scale=1",
+  applicationName: "Behavior School",
   icons: {
-    icon: "/Logos/Logo.webp",
-    shortcut: "/Logos/Logo.webp",
-    apple: "/Logos/Logo.webp",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" }
+    ],
+    shortcut: [
+      { url: "/favicon.svg", type: "image/svg+xml" }
+    ],
+    apple: "/favicon.svg",
   },
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
@@ -253,7 +258,9 @@ export default function RootLayout({
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
-        <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <meta name="application-name" content="Behavior School" />
+        <meta name="apple-mobile-web-app-title" content="Behavior School" />
       </head>
       <body className="font-sans antialiased">
         <ToastProvider>

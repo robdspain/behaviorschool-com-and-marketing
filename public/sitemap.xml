@@ -87,6 +87,14 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- ACT Matrix Guide -->
+  <url>
+    <loc>https://behaviorschool.com/act-matrix</loc>
+    <lastmod>2025-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   
   <!-- Study Tools -->
   <url>

@@ -8,9 +8,9 @@
   "description": "Tools, training, and community for school-based BCBAs, psychologists, and educators.",
   "icons": [
     {
-      "src": "/Logos/Logo.webp",
-      "sizes": "192x192",
-      "type": "image/webp"
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     },
     {
       "src": "/Logos/Logo.webp",
