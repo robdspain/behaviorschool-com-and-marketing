@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Apply for Behavior School Operating System | Behavior School",
     description: "Secure your spot in the 8-week Behavior School Operating System. Transform from overwhelmed BCBA to confident district leader.",
-    url: "https://behaviorschool.com/signup",
+    url: "http://localhost:3000/signup",
     siteName: "Behavior School",
     type: "website",
   },

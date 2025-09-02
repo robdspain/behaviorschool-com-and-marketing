@@ -33,7 +33,7 @@ export default function BehaviorStudyToolsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   
   const serviceJsonLd = {
     "@context": "https://schema.org",

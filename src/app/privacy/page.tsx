@@ -97,7 +97,7 @@ export default function PrivacyPage() {
               <li><strong>Study Progress:</strong> Retained to maintain your learning history</li>
               <li><strong>Payment Data:</strong> Retained as required for tax and accounting purposes</li>
             </ul>
-            <p className="text-slate-700">You may request deletion of your account and associated data by contacting us at privacy@behaviorschool.com.</p>
+            <p className="text-slate-700">You may request deletion of your account and associated data by contacting us at privacy@localhost.</p>
           </section>
 
           {/* Section 6 */}
@@ -142,9 +142,9 @@ export default function PrivacyPage() {
             <h2 className="text-2xl font-bold text-slate-900 mb-6">11. Contact Us</h2>
             <p className="text-slate-700 mb-4">If you have any questions about this privacy policy or our privacy practices, please contact us:</p>
             <ul className="list-disc pl-6 mb-6 space-y-2 text-slate-700">
-              <li><strong>Email:</strong> privacy@behaviorschool.com</li>
+              <li><strong>Email:</strong> privacy@localhost</li>
               <li><strong>Address:</strong> Behavior School, LLC</li>
-              <li><strong>Website:</strong> <a href="https://behaviorschool.com" className="text-emerald-600 hover:text-emerald-700">behaviorschool.com</a></li>
+              <li><strong>Website:</strong> <a href="http://localhost:3000" className="text-emerald-600 hover:text-emerald-700">localhost:3000</a></li>
             </ul>
           </section>
 
@@ -156,7 +156,7 @@ export default function PrivacyPage() {
               <li>This app collects study progress data to provide personalized learning experiences</li>
               <li>Usage analytics are collected to improve app performance</li>
               <li>No data is shared with third parties except as described in this policy</li>
-              <li>You can request data deletion by contacting privacy@behaviorschool.com</li>
+              <li>You can request data deletion by contacting privacy@localhost</li>
               <li>All data collection complies with Apple&apos;s App Store guidelines</li>
             </ul>
           </section>

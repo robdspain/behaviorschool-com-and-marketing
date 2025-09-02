@@ -201,9 +201,9 @@ export default function TermsPage() {
             <h2 className="text-2xl font-bold text-slate-900 mb-6">16. Contact Information</h2>
             <p className="text-slate-700 mb-4">If you have questions about these Terms, please contact us:</p>
             <ul className="list-disc pl-6 mb-6 space-y-2 text-slate-700">
-              <li><strong>Email:</strong> support@behaviorschool.com</li>
-              <li><strong>Website:</strong> <a href="https://behaviorschool.com" className="text-emerald-600 hover:text-emerald-700">behaviorschool.com</a></li>
-              <li><strong>App Support:</strong> For technical support, contact us through the app or email app-support@behaviorschool.com</li>
+              <li><strong>Email:</strong> support@localhost</li>
+              <li><strong>Website:</strong> <a href="http://localhost:3000" className="text-emerald-600 hover:text-emerald-700">localhost:3000</a></li>
+              <li><strong>App Support:</strong> For technical support, contact us through the app or email app-support@localhost</li>
             </ul>
           </section>
         </div>

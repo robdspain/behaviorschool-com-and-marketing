@@ -3,7 +3,7 @@ const fs = require('fs');
 const FormData = require('form-data');
 
 // Configuration
-const GHOST_URL = 'https://ghost.behaviorschool.com';
+const GHOST_URL = 'http://localhost:3000';
 const API_KEY = '67b19c0c5db7be0001c0e715:083ac197565fea2fd87f44a37204db0baa769791f4ba5102b9912a4b9beb82a3';
 
 // JWT token for Ghost Admin API
@@ -95,8 +95,8 @@ async function fixBrokenImages() {
         const posts = await fetchPosts();
         
         const brokenImageUrls = [
-            'https://ghost.behaviorschool.com/content/images/2025/08/passthefreakinexam-1.png',
-            'https://ghost.behaviorschool.com/content/images/2025/07/skinner90.jpeg'
+            'http://localhost:3000/content/images/2025/08/passthefreakinexam-1.png',
+            'http://localhost:3000/content/images/2025/07/skinner90.jpeg'
         ];
         
         for (const post of posts) {

@@ -531,7 +531,7 @@ export default function BehaviorPlansPage() {
 
       {/* Structured Data */}
       {(() => {
-        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
         const webPageJsonLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",

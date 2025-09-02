@@ -548,7 +548,7 @@ export default function BCBAExamPrepPage() {
               asChild
               className="bg-yellow-500 text-slate-900 hover:bg-yellow-400 px-8 py-4 text-lg font-semibold"
             >
-              <Link href="https://study.behaviorschool.com/product-tour/Welcome" target="_blank" rel="noopener noreferrer">
+              <Link href="#" target="_blank" rel="noopener noreferrer">
                 Start Free Practice Questions
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>

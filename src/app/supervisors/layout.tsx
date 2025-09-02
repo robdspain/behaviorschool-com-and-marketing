@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "BCBA Supervision Tools & Training Platform | Behavior School",
   description: "Plan, deliver, and document high‑quality BCBA supervision with automation and defensible records. Track competencies, hours, and compliance for BACB audit-ready documentation.",
   keywords: "BCBA supervision tools, behavior analyst supervision, RBT supervision, BCBA fieldwork tracking, supervision documentation, BACB compliance, behavior analyst training",
-  alternates: { canonical: "https://behaviorschool.com/supervisors" },
+  alternates: { canonical: "http://localhost:3000/supervisors" },
   openGraph: {
     type: "website",
     title: "BCBA Supervision Tools & Training Platform",

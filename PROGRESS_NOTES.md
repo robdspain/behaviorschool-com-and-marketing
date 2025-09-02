@@ -1,9 +1,9 @@
 # Ghost Blog Image Fix - Progress Notes
 
 ## Issue
-Broken images appearing on https://behaviorschool.com/blog:
-- `https://ghost.behaviorschool.com/content/images/2025/08/passthefreakinexam-1.png` (404 error)
-- `https://ghost.behaviorschool.com/content/images/2025/07/skinner90.jpeg` (404 error)
+Broken images appearing on http://localhost:3000/blog:
+- `http://localhost:3000/content/images/2025/08/passthefreakinexam-1.png` (404 error)
+- `http://localhost:3000/content/images/2025/07/skinner90.jpeg` (404 error)
 
 ## Solution Implemented ✅
 
@@ -31,11 +31,11 @@ Broken images appearing on https://behaviorschool.com/blog:
 - Uses existing `form-data` dependency
 
 ## Results ✅
-- **Blog fixed**: https://behaviorschool.com/blog no longer shows broken images
+- **Blog fixed**: http://localhost:3000/blog no longer shows broken images
 - **Posts updated**: Removed broken `<img>` tags from 3 affected blog posts:
   - "Behavior School Launches AI-Powered BCBA Exam Prep Platform That Works" (guessing-1.png)
   - "From Teaching Machines to Smart Learning: The Science Behind Adaptive Education" (SAKI.png)
-  - "The ACT Matrix: A Framework for School-Based BCBAs" (matrix.png)
+
 - **Script ready**: Multiple scripts available for future image fixes
 
 ## Next Steps

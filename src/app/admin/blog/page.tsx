@@ -148,7 +148,7 @@ export default function AdminBlogPage() {
                   <div className="flex items-center gap-2 ml-4">
                     {post.status === 'published' && (
                       <a
-                        href={`https://ghost.behaviorschool.com/${post.slug}/`}
+                        href={`http://localhost:3000/blog/${post.slug}/`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"

@@ -169,7 +169,7 @@ export function EmailSignupPopup({
                       Get free daily practice questions and take a free mock exam to test your knowledge.
                     </p>
                     <a
-                      href="https://study.behaviorschool.com"
+                      href="#"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 text-white font-medium rounded-lg transition-all duration-200"

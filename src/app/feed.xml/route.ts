@@ -1,7 +1,7 @@
 import { getPosts } from "@/lib/ghost";
 
 export async function GET() {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   try {
     // Get latest blog posts from Ghost CMS
@@ -42,8 +42,8 @@ export async function GET() {
       <title>Behavior School</title>
       <link>${SITE_URL}</link>
     </image>
-    <managingEditor>info@behaviorschool.com (Behavior School)</managingEditor>
-    <webMaster>info@behaviorschool.com (Behavior School)</webMaster>
+    <managingEditor>info@localhost (Behavior School)</managingEditor>
+    <webMaster>info@localhost (Behavior School)</webMaster>
     <copyright>Copyright ${new Date().getFullYear()} Behavior School. All rights reserved.</copyright>
     <category>Education</category>
     <category>Behavior Analysis</category>

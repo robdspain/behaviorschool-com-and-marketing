@@ -507,7 +507,7 @@ export default function BCBAExamPrepPage() {
               asChild
               className="bg-white text-emerald-700 hover:bg-emerald-50"
             >
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+              <Link href="#" target="_blank" rel="noopener noreferrer">
                 Take a Free Mock Exam
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
@@ -518,7 +518,7 @@ export default function BCBAExamPrepPage() {
               asChild
               className="border-white text-white hover:bg-white hover:text-emerald-700"
             >
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+              <Link href="#" target="_blank" rel="noopener noreferrer">
                 Free Mini Mock
                 <Clock className="ml-2 w-5 h-5" />
               </Link>

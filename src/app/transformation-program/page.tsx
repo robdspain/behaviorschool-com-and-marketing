@@ -1083,7 +1083,7 @@ export default function TransformationProgramPage() {
 
       {/* Structured Data (Course Schema) */}
       {(() => {
-        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
         const courseJsonLd = {
           "@context": "https://schema.org",
           "@type": "Course",
