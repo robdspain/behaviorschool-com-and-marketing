@@ -5,6 +5,7 @@ import { Download, CheckCircle, Target, Users, BookOpen } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  applicationName: "Behavior School ACT Matrix",
   title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
   description: "Complete ACT Matrix guide for school-based behavior analysts. Free PDF download with examples, explained step-by-step. Learn how the ACT Matrix improves student values-based interventions in schools.",
   robots: {
@@ -41,6 +42,7 @@ export const metadata: Metadata = {
     description: "Complete ACT Matrix guide for school-based behavior analysts. Free PDF download with examples, explained step-by-step. Learn how the ACT Matrix improves student values-based interventions in schools.",
     type: "website", 
     url: "https://behaviorschool.com/act-matrix",
+    siteName: "Behavior School ACT Matrix",
     images: [
       {
         url: "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp",
@@ -54,6 +56,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
     description: "Complete ACT Matrix guide for school-based behavior analysts. Free PDF download with examples, explained step-by-step. Learn how the ACT Matrix improves student values-based interventions in schools.",
+    site: "@BehaviorSchool",
+    creator: "@BehaviorSchool",
     images: ["https://behaviorschool.com/thumbnails/act-matrix-thumb.webp"]
   },
   alternates: {
