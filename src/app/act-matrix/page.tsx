@@ -742,7 +742,7 @@ export default function ACTMatrixPage() {
                   Comprehensive guide to implementing positive behavior supports in school settings.
                 </p>
                 <Button variant="outline" asChild>
-                  <Link href="/school-based-behavior-support">
+                  <Link href="/transformation-program">
                     Learn More
                   </Link>
                 </Button>

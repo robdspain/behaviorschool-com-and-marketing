@@ -31,6 +31,12 @@
   to = "/supervisors"
   status = 301
 
+# Redirect old school behavior support page to transformation program
+[[redirects]]
+  from = "/school-based-behavior-support"
+  to = "/transformation-program"
+  status = 301
+
 [functions]
   node_bundler = "esbuild"
   external_node_modules = []
