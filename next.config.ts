@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  env: {
+    GHOST_CONTENT_URL: process.env.GHOST_CONTENT_URL,
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "*" },

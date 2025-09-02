@@ -29,16 +29,11 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
   const primaryTag = post.primary_tag ?? (post.tags && post.tags.length > 0 ? post.tags[0] : null);
   const imageSrc = React.useMemo(() => {
     if (!post.feature_image) return "/thumbnails/hero-thumb.webp";
-    try {
-      const url = new URL(post.feature_image);
-      if (url.protocol === "http:") {
-        url.protocol = "https:";
-        return url.toString();
-      }
+    if (post.feature_image.startsWith("http")) {
       return post.feature_image;
-    } catch {
-      return post.feature_image.startsWith("/") ? post.feature_image : "/thumbnails/hero-thumb.webp";
     }
+    const ghostUrl = process.env.GHOST_CONTENT_URL || "";
+    return `${ghostUrl.replace(/\/$/, "")}${post.feature_image}`;
   }, [post.feature_image]);
 
   return (
