@@ -41,16 +41,23 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
     }
   }, [post.feature_image]);
 
+  // Fallback client-side if the remote image fails to load
+  const [resolvedSrc, setResolvedSrc] = React.useState(imageSrc);
+  React.useEffect(() => {
+    setResolvedSrc(imageSrc);
+  }, [imageSrc]);
+
   return (
     <Card className={cn("group overflow-hidden h-full flex flex-col", className)} {...props}>
       {imageSrc ? (
         <div className="relative aspect-[16/9] w-full overflow-hidden">
           <Image
-            src={imageSrc}
+            src={resolvedSrc}
             alt={post.title}
             fill
             sizes="(max-width: 768px) 100vw, 400px"
             className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            onError={() => setResolvedSrc("/thumbnails/hero-thumb.webp")}
           />
         </div>
       ) : null}
