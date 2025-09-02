@@ -37,10 +37,10 @@ export default function SchoolBehaviorSupportPage() {
   ];
 
   const outcomes = [
-    { metric: "85%", description: "Reduction in office referrals", icon: TrendingUp },
-    { metric: "92%", description: "Teacher satisfaction rate", icon: Star }, 
-    { metric: "78%", description: "Improvement in academic engagement", icon: BookOpen },
-    { metric: "96%", description: "Students meeting behavior goals", icon: CheckCircle }
+    { metric: "Research-Based", description: "Evidence-supported interventions", icon: TrendingUp },
+    { metric: "Practical", description: "Real-world implementation focus", icon: Star }, 
+    { metric: "Systematic", description: "Structured multi-tier approach", icon: BookOpen },
+    { metric: "Sustainable", description: "Long-term behavior support", icon: CheckCircle }
   ];
 
   const resources = [
@@ -68,7 +68,7 @@ export default function SchoolBehaviorSupportPage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium mb-6">
             <School className="w-4 h-4 mr-2" />
-            Trusted by 200+ Schools Nationwide
+            Evidence-Based Behavior Support
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
@@ -107,10 +107,10 @@ export default function SchoolBehaviorSupportPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Proven Results in School Settings
+              Research-Based Approach
             </h2>
             <p className="text-lg text-slate-600">
-              Data-driven outcomes from schools implementing our behavior support systems
+              Evidence-supported principles for effective school behavior support systems
             </p>
           </div>
           
@@ -267,7 +267,7 @@ export default function SchoolBehaviorSupportPage() {
             Ready to Transform Your School?
           </h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-            Join hundreds of schools that have successfully implemented positive behavior support systems with our evidence-based approach.
+            Start implementing positive behavior support systems with our evidence-based resources and guidance.
           </p>
           <Button 
             size="lg"
