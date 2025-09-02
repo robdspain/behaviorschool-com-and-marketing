@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
-  description: "Complete ACT Matrix guide for school-based behavior analysts. Free PDF download with examples, explained step-by-step. Learn how the ACT Matrix improves student values-based interventions in schools.",
+  description: "Free ACT Matrix PDF download with examples explained step-by-step. Complete guide for school behavior analysts with ACT values examples, implementation templates, and practical scenarios.",
   robots: {
     index: true,
     follow: true,
@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     "the act matrix",
     "what is the act matrix",
     "act values examples",
+    "matrice act",
+    "act matrix examples",
+    "act values examples students",
     "what is in the act",
     "acceptance commitment therapy matrix",
     "act matrix schools",
@@ -335,10 +338,10 @@ export default function ACTMatrixPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                What is the ACT Matrix?
+                What is the ACT Matrix? (Matrice ACT)
               </h2>
               <p className="text-lg text-slate-600">
-                A simple yet powerful tool for helping students navigate challenges while staying connected to their values
+                A simple yet powerful tool from Acceptance and Commitment Training (ACT) for helping students navigate challenges while staying connected to their values
               </p>
             </div>
             
@@ -346,6 +349,32 @@ export default function ACTMatrixPage() {
               <p className="text-slate-700 leading-relaxed mb-6">
                 The ACT Matrix is a visual framework from Acceptance and Commitment Therapy (ACT) that helps students organize their experiences around what matters most to them. Unlike traditional behavior interventions that focus primarily on reducing problem behaviors, the ACT Matrix builds psychological flexibility - the ability to stay present with difficult experiences while choosing actions based on personal values.
               </p>
+              
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-8 mb-8">
+                <h3 className="text-2xl font-semibold text-blue-900 mb-4">Acceptance and Commitment Training (ACT) in Schools</h3>
+                <p className="text-blue-800 mb-4">
+                  Acceptance and Commitment Training represents the educational application of ACT principles, specifically adapted for school settings and student populations.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-semibold text-blue-900 mb-3">Core Components:</h4>
+                    <ul className="space-y-2 text-blue-800">
+                      <li>• <strong>Acceptance:</strong> Learning to experience difficult thoughts and feelings without fighting them</li>
+                      <li>• <strong>Commitment:</strong> Taking action guided by personal values even when it&apos;s difficult</li>
+                      <li>• <strong>Training:</strong> Building skills through practice and repetition</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-blue-900 mb-3">School Applications:</h4>
+                    <ul className="space-y-2 text-blue-800">
+                      <li>• Social-emotional learning curricula</li>
+                      <li>• Individual behavior support plans</li>
+                      <li>• Classroom management strategies</li>
+                      <li>• Student resilience building programs</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
                 <div className="bg-white p-6 rounded-lg shadow-lg border border-slate-200">
@@ -552,6 +581,198 @@ export default function ACTMatrixPage() {
                         <li>• Wanting connection</li>
                       </ul>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ACT Values Examples Section */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                ACT Values Examples for Students
+              </h2>
+              <p className="text-lg text-slate-600">
+                Common values that guide student behavior and decision-making in school settings
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="bg-slate-50 rounded-xl p-8">
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Learning & Growth Values</h3>
+                <ul className="space-y-2 text-slate-700">
+                  <li>• Being curious about new ideas</li>
+                  <li>• Learning from mistakes</li>
+                  <li>• Asking questions when confused</li>
+                  <li>• Trying challenging tasks</li>
+                  <li>• Seeking feedback to improve</li>
+                  <li>• Reading and exploring topics</li>
+                </ul>
+              </div>
+              
+              <div className="bg-slate-50 rounded-xl p-8">
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Relationship Values</h3>
+                <ul className="space-y-2 text-slate-700">
+                  <li>• Being kind to classmates</li>
+                  <li>• Helping others when they struggle</li>
+                  <li>• Including everyone in activities</li>
+                  <li>• Listening when others speak</li>
+                  <li>• Sharing and cooperating</li>
+                  <li>• Building genuine friendships</li>
+                </ul>
+              </div>
+              
+              <div className="bg-slate-50 rounded-xl p-8">
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Character Values</h3>
+                <ul className="space-y-2 text-slate-700">
+                  <li>• Being honest and truthful</li>
+                  <li>• Taking responsibility for actions</li>
+                  <li>• Showing courage in difficult situations</li>
+                  <li>• Being fair and just</li>
+                  <li>• Demonstrating perseverance</li>
+                  <li>• Acting with integrity</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-8">
+              <h3 className="text-2xl font-semibold text-emerald-800 mb-4">How to Use ACT Values Examples</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-emerald-800 mb-3">For Students:</h4>
+                  <ul className="space-y-2 text-emerald-700">
+                    <li>• Choose 3-5 values that feel most important to you</li>
+                    <li>• Think about how these values guide your daily choices</li>
+                    <li>• Use values to make decisions when facing challenges</li>
+                    <li>• Remember values when experiencing difficult emotions</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-emerald-800 mb-3">For Behavior Analysts:</h4>
+                  <ul className="space-y-2 text-emerald-700">
+                    <li>• Help students identify personally meaningful values</li>
+                    <li>• Connect behavior goals to student values</li>
+                    <li>• Use values language in intervention planning</li>
+                    <li>• Encourage values-based choice making</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ACT Matrix Explained Section */}
+        <section className="py-16 bg-slate-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                ACT Matrix Explained: Step-by-Step Guide
+              </h2>
+              <p className="text-lg text-slate-600">
+                Understanding each component of the ACT Matrix and how it works in practice
+              </p>
+            </div>
+            
+            <div className="space-y-12">
+              <div className="bg-white rounded-xl p-8 shadow-lg border border-slate-200">
+                <h3 className="text-2xl font-semibold text-slate-900 mb-6">The Four Quadrants Explained</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-semibold text-red-600 mb-3">Away Moves (Top Left)</h4>
+                      <p className="text-slate-600 mb-3">
+                        Behaviors that move students away from their values, often providing short-term relief but long-term problems.
+                      </p>
+                      <div className="bg-red-50 p-4 rounded-lg">
+                        <p className="text-red-800 font-medium mb-2">Examples:</p>
+                        <ul className="text-red-700 space-y-1">
+                          <li>• Avoiding difficult assignments</li>
+                          <li>• Acting out to escape demands</li>
+                          <li>• Withdrawing from social situations</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-lg font-semibold text-red-600 mb-3">Unhelpful Internal (Bottom Left)</h4>
+                      <p className="text-slate-600 mb-3">
+                        Difficult thoughts, feelings, and sensations that can trigger away moves but are normal human experiences.
+                      </p>
+                      <div className="bg-red-50 p-4 rounded-lg">
+                        <p className="text-red-800 font-medium mb-2">Examples:</p>
+                        <ul className="text-red-700 space-y-1">
+                          <li>• &quot;I&apos;m not smart enough&quot;</li>
+                          <li>• Anxiety about failing</li>
+                          <li>• Fear of being judged</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-semibold text-emerald-600 mb-3">Toward Moves (Top Right)</h4>
+                      <p className="text-slate-600 mb-3">
+                        Behaviors that move students toward their values, even when it feels difficult or uncomfortable.
+                      </p>
+                      <div className="bg-emerald-50 p-4 rounded-lg">
+                        <p className="text-emerald-800 font-medium mb-2">Examples:</p>
+                        <ul className="text-emerald-700 space-y-1">
+                          <li>• Asking for help when stuck</li>
+                          <li>• Trying new challenges</li>
+                          <li>• Being kind to others</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-lg font-semibold text-emerald-600 mb-3">Helpful Internal (Bottom Right)</h4>
+                      <p className="text-slate-600 mb-3">
+                        Thoughts, feelings, and sensations that support values-based action and psychological flexibility.
+                      </p>
+                      <div className="bg-emerald-50 p-4 rounded-lg">
+                        <p className="text-emerald-800 font-medium mb-2">Examples:</p>
+                        <ul className="text-emerald-700 space-y-1">
+                          <li>• &quot;I can learn from this&quot;</li>
+                          <li>• Feeling curious</li>
+                          <li>• Sense of purpose</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-8 shadow-lg border border-slate-200">
+                <h3 className="text-2xl font-semibold text-slate-900 mb-6">Key Principles of the ACT Matrix</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="text-lg font-semibold text-slate-900 mb-3">1. Values Are Central</h4>
+                    <p className="text-slate-600">
+                      All decisions and behaviors are evaluated based on whether they move toward or away from what truly matters to the student.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-slate-900 mb-3">2. All Feelings Are Normal</h4>
+                    <p className="text-slate-600">
+                      Difficult thoughts and emotions are part of human experience. The goal isn&apos;t to eliminate them but to act on values despite them.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-slate-900 mb-3">3. Choice Is Always Available</h4>
+                    <p className="text-slate-600">
+                      Even in difficult moments, students can choose behaviors that align with their values rather than just react to emotions.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-slate-900 mb-3">4. Flexibility Over Control</h4>
+                    <p className="text-slate-600">
+                      Instead of trying to control internal experiences, focus on developing flexibility to act on values regardless of how you feel.
+                    </p>
                   </div>
                 </div>
               </div>
