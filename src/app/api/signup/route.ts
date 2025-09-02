@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
         },
         body: new URLSearchParams({
           from: `Behavior School <noreply@${process.env.MAILGUN_DOMAIN}>`,
-          to: process.env.NOTIFICATION_EMAIL || 'admin@behaviorschool.com',
+          to: process.env.NOTIFICATION_EMAIL || 'admin@localhost',
           subject: adminEmailSubject,
           text: adminEmailText,
           html: adminEmailHtml,

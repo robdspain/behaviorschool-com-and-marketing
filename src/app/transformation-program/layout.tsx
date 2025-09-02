@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "Transform Your School Practice in 8 Weeks | BCBA Operating System | Behavior School",
   description: "Join 500+ School BCBAs, Psychologists & Special Ed Leaders who transformed chaos into confidence. Stop firefighting, build ethical systems, reduce burnout. 8-week cohort program with proven results.",
   keywords: "school BCBA training, behavior analyst burnout solution, special education leadership, school psychology systems, BCBA ethics training, crisis management schools, staff training protocols, behavior support systems, school transformation program, cohort-based BCBA course",
-  alternates: { canonical: "https://behaviorschool.com/transformation-program" },
+  alternates: { canonical: "http://localhost:3000/transformation-program" },
   openGraph: {
     type: "website",
     title: "Transform Your School Practice in 8 Weeks | BCBA Operating System",
@@ -39,7 +39,7 @@ export default function TransformationProgramLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   
   const courseJsonLd = {
     "@context": "https://schema.org",

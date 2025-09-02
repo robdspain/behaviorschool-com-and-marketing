@@ -51,10 +51,10 @@ export const metadata: Metadata = {
     title: "Values-Based IEP Goal Generator | Student-Centered SMART Goals | Behavior School",
     description: "Free values-based IEP goal generator. Students co-create goals that reflect their values (Brave, Kind, Focused). Write SMART IEP behavior goals that stick because they start with what students value most.",
     type: "website",
-    url: "https://behaviorschool.com/iep-goals",
+    url: "http://localhost:3000/iep-goals",
     images: [
       {
-        url: "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp",
+        url: "http://localhost:3000/thumbnails/iep-goal-thumb.webp",
         width: 1200,
         height: 630,
         alt: "Values-Based IEP Goal Generator - Student-Centered SMART Goals"
@@ -65,10 +65,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Values-Based IEP Goal Generator | Student-Centered SMART Goals | Behavior School",
     description: "Free values-based IEP goal generator. Students co-create goals that reflect their values (Brave, Kind, Focused). Write SMART IEP behavior goals that stick because they start with what students value most.",
-    images: ["https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"]
+    images: ["http://localhost:3000/thumbnails/iep-goal-thumb.webp"]
   },
   alternates: {
-    canonical: "https://behaviorschool.com/iep-goals"
+    canonical: "http://localhost:3000/iep-goals"
   }
 };
 
@@ -78,7 +78,7 @@ const structuredData = {
   "@type": "SoftwareApplication",
   "name": "Values-Based IEP Goal Generator",
   "description": "A free tool for creating student-centered, values-based IEP goals that drive autonomous motivation and lasting skill development",
-  "url": "https://behaviorschool.com/iep-goals",
+  "url": "http://localhost:3000/iep-goals",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web Browser",
   "offers": {
@@ -93,7 +93,7 @@ const structuredData = {
   "provider": {
     "@type": "Organization",
     "name": "Behavior School",
-    "url": "https://behaviorschool.com"
+    "url": "http://localhost:3000"
   },
   "about": [
     {
@@ -125,7 +125,7 @@ const howToSchema = {
   "@type": "HowTo",
   "name": "How to Create Values-Based IEP Goals Using the Values Wizard",
   "description": "Step-by-step process for creating student-centered, values-based IEP goals that drive autonomous motivation and lasting skill development",
-  "image": "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp",
+  "image": "http://localhost:3000/thumbnails/iep-goal-thumb.webp",
   "totalTime": "PT10M",
   "estimatedCost": {
     "@type": "MonetaryAmount",
@@ -157,7 +157,7 @@ const howToSchema = {
       "@type": "HowToStep",
       "name": "Student Values Selection",
       "text": "Students pick what matters most to them—like being Helpful, Brave, Focused, Kind, or Curious",
-      "image": "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"
+      "image": "http://localhost:3000/thumbnails/iep-goal-thumb.webp"
     },
     {
       "@type": "HowToStep", 

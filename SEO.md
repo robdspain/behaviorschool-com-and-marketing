@@ -1,5 +1,5 @@
 # SEO Strategy & Implementation Guide
-## Behavior School - behaviorschool.com
+## Behavior School - localhost:3000
 
 **Last Updated:** December 23, 2024  
 **Status:** 🚨 CRITICAL - Site not indexed by Google
@@ -9,7 +9,7 @@
 ## 🔍 Current SEO Issues Identified
 
 ### **CRITICAL ISSUES:**
-- [ ] **NOT INDEXED BY GOOGLE** - Site:behaviorschool.com returns no results
+- [ ] **NOT INDEXED BY GOOGLE** - Site:localhost:3000 returns no results
 - [ ] **Google Search Console not connected** - Need immediate setup
 - [ ] **Sitemap outdated** - Last modified 2024-08-20  
 - [ ] **Missing Google Analytics 4** - No traffic tracking
@@ -45,7 +45,7 @@
 | behavioruniversity.com | RBT online training |
 | behaviorinschools.com | PBIS training for schools |
 | thebehavioracademy.com | BCBA CEUs |
-| humanbehaviorschool.com | General behavior studies |
+| humanbeha viorschool.com | General behavior studies |
 
 ---
 

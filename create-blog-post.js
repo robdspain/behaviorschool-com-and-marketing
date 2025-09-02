@@ -54,7 +54,7 @@ function createPost(title, content, excerpt = '', tags = '') {
     execSync(command, { stdio: 'inherit' });
     
     console.log('✅ Blog post created successfully!');
-    console.log('URL: https://ghost.behaviorschool.com/' + slug + '/');
+    console.log('URL: http://localhost:3000/blog/' + slug + '/');
     console.log('Admin API will pick this up automatically');
     
   } catch (error) {

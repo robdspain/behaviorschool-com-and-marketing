@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage - Highest Priority -->
   <url>
-    <loc>https://behaviorschool.com/</loc>
+    <loc>http://localhost:3000/</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -10,25 +10,25 @@
   
   <!-- Core Service Pages - High Priority -->
   <url>
-    <loc>https://behaviorschool.com/transformation-program</loc>
+    <loc>http://localhost:3000/transformation-program</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/behavior-study-tools</loc>
+    <loc>http://localhost:3000/behavior-study-tools</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/bcba-exam-prep</loc>
+    <loc>http://localhost:3000/bcba-exam-prep</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/supervisors</loc>
+    <loc>http://localhost:3000/supervisors</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -36,25 +36,25 @@
   
   <!-- Tools and Resources -->
   <url>
-    <loc>https://behaviorschool.com/iep-goals</loc>
+    <loc>http://localhost:3000/iep-goals</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/behavior-plans</loc>
+    <loc>http://localhost:3000/behavior-plans</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/iep-behavior-goals</loc>
+    <loc>http://localhost:3000/iep-behavior-goals</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/school-based-behavior-support</loc>
+    <loc>http://localhost:3000/school-based-behavior-support</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -62,19 +62,19 @@
   
   <!-- Main Navigation Pages -->
   <url>
-    <loc>https://behaviorschool.com/products</loc>
+    <loc>http://localhost:3000/products</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/community</loc>
+    <loc>http://localhost:3000/community</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/about</loc>
+    <loc>http://localhost:3000/about</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -82,7 +82,7 @@
   
   <!-- Blog and Content -->
   <url>
-    <loc>https://behaviorschool.com/blog</loc>
+    <loc>http://localhost:3000/blog</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -90,7 +90,7 @@
   
   <!-- Study Tools -->
   <url>
-    <loc>https://behaviorschool.com/study</loc>
+    <loc>http://localhost:3000/study</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -98,19 +98,19 @@
   
   <!-- Engagement Pages -->
   <url>
-    <loc>https://behaviorschool.com/signup</loc>
+    <loc>http://localhost:3000/signup</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.65</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/subscribe</loc>
+    <loc>http://localhost:3000/subscribe</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/contact</loc>
+    <loc>http://localhost:3000/contact</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -118,13 +118,13 @@
   
   <!-- Legal Pages -->
   <url>
-    <loc>https://behaviorschool.com/privacy</loc>
+    <loc>http://localhost:3000/privacy</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/terms</loc>
+    <loc>http://localhost:3000/terms</loc>
     <lastmod>2025-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>

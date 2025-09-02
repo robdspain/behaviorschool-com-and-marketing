@@ -1,7 +1,7 @@
 import { getPosts } from "@/lib/ghost";
 
 export async function GET() {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   try {
     // Get latest blog posts from Ghost CMS

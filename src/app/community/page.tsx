@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: "Join the Behavior School Community | Support for School-Based BCBAs",
   description: "Connect with school-based behavior analysts in our focused, distraction-free community. Get support, swap resources, and collaborate on MTSS, Functional Analysis, ACT, and practical data tools.",
   keywords: "BCBA community, school-based behavior analysts, MTSS, functional analysis, behavior support, special education community",
-  alternates: { canonical: "https://behaviorschool.com/community" },
+  alternates: { canonical: "http://localhost:3000/community" },
   openGraph: {
     title: "Join the Behavior School Community",
     description: "Connect with school-based behavior analysts in our focused, distraction-free community. Get support, swap resources, and collaborate with peers who understand real classrooms.",
     type: "website",
-    url: "https://behaviorschool.com/community",
+    url: "http://localhost:3000/community",
     images: [
       {
         url: "/optimized/Community/community1.webp",
@@ -64,7 +64,7 @@ export default function CommunityPage() {
                 size="lg" 
                 className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto min-w-[250px]"
               >
-                <a href="https://community.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                <a href="#" target="_blank" rel="noopener noreferrer">
                   Join the Community
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>

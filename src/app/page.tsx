@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Free BCBA practice questions, proven exam strategies, and complete school behavior toolkit. Comprehensive training programs, supervision tools, and IEP templates for school-based behavior analysts.",
   keywords: "school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support",
-  alternates: { canonical: "https://behaviorschool.com/" },
+  alternates: { canonical: "http://localhost:3000/" },
   openGraph: {
     type: "website",
     title: "Behavior School - BCBA Training & School Behavior Support",
@@ -87,7 +87,7 @@ export default function Home() {
               </div>
               <div className="pt-2">
                 <Button asChild size="lg" className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl w-full sm:w-auto min-w-[200px]">
-                  <a href="https://community.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                  <a href="#" target="_blank" rel="noopener noreferrer">
                     Join the School BCBA Community
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
@@ -315,7 +315,7 @@ export default function Home() {
       
       {/* Comprehensive Structured Data for AI Indexing */}
       {(() => {
-        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
         
         const organizationJsonLd = {
           "@context": "https://schema.org",

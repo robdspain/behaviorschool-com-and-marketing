@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
     description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
-    url: "https://behaviorschool.com",
+    url: "http://localhost:3000",
     siteName: "Behavior School",
     images: [
       {
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
     images: ["/optimized/og-image.webp"],
   },
-  metadataBase: new URL("https://behaviorschool.com"),
+  metadataBase: new URL("http://localhost:3000"),
   other: {
     'feed': '/feed.xml',
     'rss': '/feed.xml',
@@ -53,7 +53,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": ["Organization", "EducationalOrganization"],
@@ -80,7 +80,7 @@ export default function RootLayout({
     sameAs: [
       "https://www.linkedin.com/company/behavior-school",
       "https://x.com/behaviorschool",
-      "https://community.behaviorschool.com"
+      "http://localhost:3000"
     ],
     serviceArea: {
       "@type": "GeoCircle",
@@ -248,7 +248,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="preconnect" href="https://behaviorstudytools.com" />
-        <link rel="preconnect" href="https://community.behaviorschool.com" />
+        <link rel="preconnect" href="http://localhost:3000" />
         
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         <link rel="manifest" href="/manifest.json" />

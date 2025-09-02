@@ -102,7 +102,7 @@ export default function BehaviorStudyToolsPage() {
                 transition={{ delay: 0.8 }}
               >
                 <Link 
-                  href="https://study.behaviorschool.com" 
+                  href="#" 
                   className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   Start Studying Today
@@ -404,7 +404,7 @@ export default function BehaviorStudyToolsPage() {
               whileTap={{ scale: 0.95 }}
             >
               <Link 
-                href="https://study.behaviorschool.com" 
+                href="#" 
                 className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 hover:bg-slate-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 Explore Behavior Study Tools
@@ -420,7 +420,7 @@ export default function BehaviorStudyToolsPage() {
 
       {/* Structured Data */}
       {(() => {
-        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
         const faqStructuredData = {
           "@context": "https://schema.org",
           "@type": "FAQPage",

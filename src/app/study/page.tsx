@@ -22,7 +22,7 @@ export default function StudyPage() {
               <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">Adaptive practice tests, targeted feedback, and precision learning to help you pass—faster.</p>
               <div className="mt-8 flex items-center justify-center">
                 <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
+                  <Link href="#" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
                 </Button>
               </div>
             </div>
@@ -55,7 +55,7 @@ export default function StudyPage() {
           <div className="flex items-baseline justify-between mb-8">
             <h2 className="text-3xl font-bold text-slate-900">Product Tour</h2>
             <Button asChild variant="outline">
-              <Link href="https://study.behaviorschool.com/product-tour" target="_blank" rel="noopener noreferrer">Open full tour</Link>
+              <Link href="#" target="_blank" rel="noopener noreferrer">Open full tour</Link>
             </Button>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -78,10 +78,10 @@ export default function StudyPage() {
           </div>
           <div className="mt-8 flex gap-3">
             <Button asChild size="lg" className="bg-[#E3B23C] hover:bg-[#d9a42f] text-slate-900">
-              <Link href="https://study.behaviorschool.com/product-tour" target="_blank" rel="noopener noreferrer">View interactive tour</Link>
+              <Link href="#" target="_blank" rel="noopener noreferrer">View interactive tour</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start free trial</Link>
+              <Link href="#" target="_blank" rel="noopener noreferrer">Start free trial</Link>
             </Button>
           </div>
         </div>

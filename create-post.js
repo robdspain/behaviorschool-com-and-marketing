@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
 // Ghost Admin API configuration
-const GHOST_URL = 'https://ghost.behaviorschool.com';
+const GHOST_URL = 'http://localhost:3000';
 const ADMIN_API_KEY = '675e5c4d3a1b2c8d9f0e4a5d:675e5c4d3a1b2c8d9f0e4a5c675e5c4d3a1b2c8d9f0e4a5c675e5c4d3a1b2c8e';
 
 // Parse the API key

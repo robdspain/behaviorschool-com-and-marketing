@@ -20,7 +20,7 @@ export function Hero({
   title,
   highlight,
   subtitle,
-  primaryCta = { href: "https://study.behaviorschool.com", label: "Get Started" },
+  primaryCta = { href: "#", label: "Get Started" },
   variant = 'light',
 }: HeroProps) {
   const isDark = variant === 'dark' || variant === 'brand';

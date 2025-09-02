@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "School-Based Behavior Support & PBIS Training | Behavior School",
   description: "Comprehensive behavior support training for school-based BCBAs, psychologists, and educators. PBIS implementation, behavior intervention plans, and evidence-based strategies for schools.",
   keywords: "school-based behavior support, PBIS training, behavior intervention plans, school BCBA, behavior analyst in schools, MTSS behavior support, school-wide behavior interventions, classroom behavior management",
-  alternates: { canonical: "https://behaviorschool.com/school-based-behavior-support" },
+  alternates: { canonical: "http://localhost:3000/school-based-behavior-support" },
   openGraph: {
     title: "School-Based Behavior Support & PBIS Training",
     description: "Comprehensive behavior support training for school-based BCBAs and educators. PBIS implementation and evidence-based interventions.",
