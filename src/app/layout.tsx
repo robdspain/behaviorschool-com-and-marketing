@@ -9,13 +9,51 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
   description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs. Try free.",
-  keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
+  keywords: [
+    "BCBA exam prep",
+    "school behavior support",
+    "behavior analyst training", 
+    "IEP behavior goals",
+    "ACT matrix schools",
+    "PBIS implementation",
+    "behavior intervention plans",
+    "school-based BCBA",
+    "behavior study tools",
+    "supervision tools BCBA"
+  ],
   authors: [{ name: "Behavior School" }],
   viewport: "width=device-width, initial-scale=1",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  category: 'education',
   icons: {
-    icon: "/Logos/Logo.webp",
-    shortcut: "/Logos/Logo.webp",
-    apple: "/Logos/Logo.webp",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180" },
+      { url: "/apple-touch-icon-152x152.png", sizes: "152x152" },
+      { url: "/apple-touch-icon-120x120.png", sizes: "120x120" },
+    ],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/favicon.svg",
+        color: "#1F4D3F",
+      },
+    ],
   },
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
@@ -251,9 +289,26 @@ export default function RootLayout({
         <link rel="preconnect" href="https://community.behaviorschool.com" />
         
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        
+        {/* Manifest and PWA */}
         <link rel="manifest" href="/manifest.json" />
+        <link rel="alternate" type="application/json+oembed" href="/site.webmanifest" />
         <meta name="theme-color" content="#1F4D3F" />
-        <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
+        
+        {/* Additional favicon links for better browser support */}
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        
+        {/* Microsoft Tiles */}
+        <meta name="msapplication-TileColor" content="#1F4D3F" />
+        <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+        
+        {/* Additional SEO meta tags */}
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <link rel="canonical" href="https://behaviorschool.com" />
       </head>
       <body className="font-sans antialiased">
         <ToastProvider>
