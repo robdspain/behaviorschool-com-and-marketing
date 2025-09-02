@@ -7,6 +7,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
   description: "Complete ACT Matrix guide for school-based behavior analysts. Free PDF download with examples, explained step-by-step. Learn how the ACT Matrix improves student values-based interventions in schools.",
+  applicationName: "Behavior School",
   robots: {
     index: true,
     follow: true,
@@ -41,6 +42,7 @@ export const metadata: Metadata = {
     description: "Complete ACT Matrix guide for school-based behavior analysts. Free PDF download with examples, explained step-by-step. Learn how the ACT Matrix improves student values-based interventions in schools.",
     type: "website", 
     url: "https://behaviorschool.com/act-matrix",
+    siteName: "Behavior School",
     images: [
       {
         url: "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp",
@@ -101,6 +103,19 @@ const structuredData = {
       "name": "School-based behavior analysis"
     }
   ]
+};
+
+// WebPage schema to reinforce correct site/page naming in search results
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Behavior School ACT Matrix",
+  "url": "https://behaviorschool.com/act-matrix",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Behavior School",
+    "url": "https://behaviorschool.com"
+  }
 };
 
 // HowTo Schema for using ACT Matrix
@@ -210,6 +225,10 @@ export default function ACTMatrixPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       
       <div className="min-h-screen bg-white">
