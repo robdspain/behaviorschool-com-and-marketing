@@ -13,9 +13,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Behavior School" }],
   viewport: "width=device-width, initial-scale=1",
   icons: {
-    icon: "/Logos/Logo.webp",
-    shortcut: "/Logos/Logo.webp",
-    apple: "/Logos/Logo.webp",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
@@ -253,7 +256,10 @@ export default function RootLayout({
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
-        <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
+        <meta name="application-name" content="Behavior School" />
+        <meta name="apple-mobile-web-app-title" content="Behavior School" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className="font-sans antialiased">
         <ToastProvider>
