@@ -9,6 +9,7 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
   description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs. Try free.",
+  applicationName: "Behavior School",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   viewport: "width=device-width, initial-scale=1",
@@ -38,6 +39,11 @@ export const metadata: Metadata = {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
     description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
     images: ["/optimized/og-image.webp"],
+  },
+  appleWebApp: {
+    title: "Behavior School",
+    capable: true,
+    statusBarStyle: "default",
   },
   metadataBase: new URL("https://behaviorschool.com"),
   other: {
