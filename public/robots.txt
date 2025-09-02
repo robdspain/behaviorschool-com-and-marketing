@@ -38,8 +38,8 @@ Disallow: /posts/
 Disallow: /*.pdf$
 
 # Sitemap and feed locations
-Sitemap: https://behaviorschool.com/sitemap.xml
+Sitemap: /sitemap.xml
 
 # RSS and JSON feeds
-# RSS Feed: https://behaviorschool.com/feed.xml
-# JSON Feed: https://behaviorschool.com/feed.json
+# RSS Feed: /feed.xml
+# JSON Feed: /feed.json

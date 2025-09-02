@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { ToastProvider } from "@/components/toast";
 import { ConditionalNavBar } from "@/components/ConditionalNavBar";
 import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyCompliantAnalytics";
 import Script from "next/script";
+
+const SITE_URL = getSiteUrl();
 
 export const metadata: Metadata = {
   title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
@@ -20,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
     description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
-    url: "https://behaviorschool.com",
+    url: SITE_URL,
     siteName: "Behavior School",
     images: [
       {
@@ -39,7 +42,7 @@ export const metadata: Metadata = {
     description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
     images: ["/optimized/og-image.webp"],
   },
-  metadataBase: new URL("https://behaviorschool.com"),
+  metadataBase: new URL(SITE_URL),
   other: {
     'feed': '/feed.xml',
     'rss': '/feed.xml',
@@ -53,7 +56,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = getSiteUrl();
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": ["Organization", "EducationalOrganization"],

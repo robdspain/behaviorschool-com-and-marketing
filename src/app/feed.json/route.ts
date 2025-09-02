@@ -1,7 +1,9 @@
 import { getPosts } from "@/lib/ghost";
 
+import { getSiteUrl } from "@/lib/site";
+
 export async function GET() {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = getSiteUrl();
 
   try {
     // Get latest blog posts from Ghost CMS
