@@ -40,26 +40,6 @@ export default function BCBAExamPrepPage() {
   ];
 
 
-  const studyResources = [
-    {
-      title: "BCBA Practice Exam (160 Questions)",
-      description: "Full-length practice test with detailed explanations",
-      type: "Practice Test",
-      duration: "4 hours"
-    },
-    {
-      title: "School-Based BCBA Study Guide", 
-      description: "Comprehensive guide focused on education settings",
-      type: "Study Guide",
-      duration: "200+ pages"
-    },
-    {
-      title: "Ethics in Schools Quick Reference",
-      description: "Essential ethics scenarios for school-based BCBAs", 
-      type: "Reference Guide",
-      duration: "50 pages"
-    }
-  ];
 
   const faqData = [
     {
@@ -292,7 +272,7 @@ export default function BCBAExamPrepPage() {
               </h1>
               
               <h2 className="text-2xl text-slate-700 mb-4 font-medium">
-                Free study guide, adaptive practice questions, and analytics designed to help school-based BCBAs pass the exam on the first attempt.
+                AI-powered practice questions and analytics designed to help school-based BCBAs pass the exam on the first attempt.
               </h2>
               
               <p className="text-xl text-slate-600 mb-8">
@@ -309,9 +289,9 @@ export default function BCBAExamPrepPage() {
                              text-lg font-semibold px-8 py-4"
                 >
                   <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                    <span className="hidden sm:inline text-lg">Get Free Study Resources – Pass the BCBA Exam Faster</span>
-                    <span className="sm:hidden text-lg">Get Free Study Guide</span>
-                    <Download className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
+                    <span className="hidden sm:inline text-lg">Start BCBA Practice Questions – Pass Faster</span>
+                    <span className="sm:hidden text-lg">Start Practice Questions</span>
+                    <ArrowRight className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
                   </Link>
                 </Button>
               </div>
@@ -544,7 +524,7 @@ export default function BCBAExamPrepPage() {
             Get Started with Behavior Study Tools
           </h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-            Access unlimited practice questions, adaptive learning technology, and comprehensive analytics. Start your journey to BCBA certification success today with our evidence-based study platform.
+            Access unlimited practice questions, adaptive learning technology, and comprehensive analytics. Start your BCBA certification success today with our AI-powered study platform.
           </p>
           <div className="flex justify-center">
             <Button 
@@ -564,55 +544,52 @@ export default function BCBAExamPrepPage() {
         </div>
       </section>
 
-      {/* Study Resources Section */}
+      {/* Practice Platform Section */}
       <section className="py-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              BCBA Exam Study Package (Practice Test + Study Guides)
+              AI-Powered BCBA Practice Questions
             </h2>
             <p className="text-lg text-slate-600">
-              Everything you need to pass your BCBA exam with confidence
+              Get unlimited practice with adaptive questions designed specifically for the BCBA exam
             </p>
           </div>
           
-          <div className="space-y-6">
-            {studyResources.map((resource, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center mb-2">
-                      <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-sm font-medium rounded-full mr-3">
-                        {resource.type}
-                      </span>
-                      <div className="flex items-center text-slate-500">
-                        <Clock className="w-4 h-4 mr-1" />
-                        <span className="text-sm">{resource.duration}</span>
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                      {resource.title}
-                    </h3>
-                    <p className="text-slate-600">
-                      {resource.description}
-                    </p>
-                  </div>
-                  <Button variant="outline" size="sm" className="ml-4">
-                    <Download className="w-4 h-4" />
-                  </Button>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200 text-center">
+              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Brain className="w-6 h-6 text-emerald-600" />
               </div>
-            ))}
+              <h3 className="text-lg font-semibold text-slate-900 mb-3">Unlimited Questions</h3>
+              <p className="text-slate-600">Access thousands of BCBA practice questions across all content areas with detailed explanations.</p>
+            </div>
+            
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200 text-center">
+              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <BarChart3 className="w-6 h-6 text-emerald-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-3">Performance Analytics</h3>
+              <p className="text-slate-600">Track your progress and identify weak areas with comprehensive performance data.</p>
+            </div>
+            
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200 text-center">
+              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="w-6 h-6 text-emerald-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-3">Adaptive Learning</h3>
+              <p className="text-slate-600">Questions adapt to your knowledge level for optimal learning and exam preparation.</p>
+            </div>
           </div>
           
-          <div className="text-center mt-12">
+          <div className="text-center">
             <Button 
               size="lg"
               asChild
               className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700"
             >
               <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                Download Free Study Package
+                Start Practice Questions Now
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
@@ -719,8 +696,8 @@ export default function BCBAExamPrepPage() {
                          text-lg font-semibold px-8 py-4"
             >
               <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                Get Free Study Resources – Pass Faster
-                <Download className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
+                Start BCBA Practice Questions
+                <ArrowRight className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
               </Link>
             </Button>
           </div>
@@ -742,7 +719,7 @@ export default function BCBAExamPrepPage() {
             className="bg-yellow-500 text-slate-900 hover:bg-yellow-400"
           >
             <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-              Get Free Study Guide →
+              Start Practice Questions →
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
           </Button>
