@@ -250,7 +250,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://behaviorstudytools.com" />
         <link rel="preconnect" href="https://community.behaviorschool.com" />
         
-        <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
         <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
