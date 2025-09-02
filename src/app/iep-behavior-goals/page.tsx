@@ -9,6 +9,44 @@ import { FileText, Target, CheckCircle, Users, BookOpen, Download, ArrowRight, S
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
+  // FAQ data for structured data
+  const faqData = [
+    {
+      question: "What is a behavior goal IEP?",
+      answer: "A behavior goal IEP is a specific, measurable objective written into a student's Individualized Education Program (IEP) to address behavioral challenges. These IEP behavior goals target specific behaviors like attention, social skills, self-regulation, and academic behaviors to help students succeed in school."
+    },
+    {
+      question: "What are examples of behavioral goals for IEP?",
+      answer: "Examples of behavioral goals include: on-task behavior (staying focused for specific time periods), social skills (initiating conversations with peers), self-regulation (using coping strategies when frustrated), and academic behaviors (completing assignments independently). Each goal must be measurable and include specific criteria."
+    },
+    {
+      question: "How do you write measurable behavioral goals examples?",
+      answer: "Measurable behavioral goals examples include four key components: 1) Observable behavior (what the student will do), 2) Conditions (when/where it occurs), 3) Criteria (success rate and timeframe), 4) Measurement method (how progress is tracked). For example: 'During math class, [Student] will complete assigned work with 80% accuracy in 4 out of 5 consecutive days.'"
+    },
+    {
+      question: "What are behavior IEP goals vs regular IEP goals?",
+      answer: "Behavior IEP goals specifically target behavioral challenges and social-emotional skills, while regular IEP goals may focus on academic achievement. Behavior iep goals often address attention, self-regulation, social skills, and classroom behaviors that impact learning, using behavioral measurement techniques."
+    },
+    {
+      question: "How do you track progress on IEP behavior goals?",
+      answer: "Track progress on IEP behavior goals through direct observation, data collection sheets, frequency counts, duration recording, and teacher/staff reports. Document daily or weekly progress, review monthly, and adjust goals during quarterly IEP meetings based on student performance data."
+    }
+  ];
+
+  // Structured data for FAQ
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqData.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   const goalTypes = [
     {
       category: "Social Skills Goals",
@@ -95,6 +133,12 @@ export default function IEPBehaviorGoalsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-slate-50">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
+      
       {/* Hero Section */}
       <section className="pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
@@ -231,15 +275,145 @@ export default function IEPBehaviorGoalsPage() {
         </div>
       </section>
 
-      {/* Example Goal Section */}
+      {/* Measurable Behavioral Goals Examples Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Measurable Behavioral Goals Examples
+            </h2>
+            <p className="text-lg text-slate-600">
+              Ready-to-use examples of behavioral goals for IEP teams. Copy, customize, and implement these behavior goal IEP templates in your school.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Attention/Focus Examples */}
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <div className="flex items-center mb-4">
+                <Target className="w-6 h-6 text-emerald-600 mr-3" />
+                <h3 className="text-xl font-semibold text-slate-900">Attention & Focus Examples</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
+                  <h4 className="font-semibold text-emerald-800 mb-2">On-Task Behavior Goal:</h4>
+                  <p className="text-sm text-emerald-700">
+                    &ldquo;During independent work time, [Student] will remain on-task and engaged with assigned activities for 15 consecutive minutes, in 4 out of 5 trials across 2 consecutive weeks, as measured by teacher observation.&rdquo;
+                  </p>
+                </div>
+                <div className="p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
+                  <h4 className="font-semibold text-emerald-800 mb-2">Following Directions Goal:</h4>
+                  <p className="text-sm text-emerald-700">
+                    &ldquo;When given a 2-step direction during classroom instruction, [Student] will complete both steps within 3 minutes without additional prompts, in 80% of opportunities over 4 consecutive weeks.&rdquo;
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Skills Examples */}
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <div className="flex items-center mb-4">
+                <Users className="w-6 h-6 text-emerald-600 mr-3" />
+                <h3 className="text-xl font-semibold text-slate-900">Social Skills Examples</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                  <h4 className="font-semibold text-blue-800 mb-2">Peer Interaction Goal:</h4>
+                  <p className="text-sm text-blue-700">
+                    &ldquo;During structured social activities, [Student] will initiate appropriate conversation with peers by asking questions or making comments, at least 3 times per 20-minute session, for 3 consecutive weeks.&rdquo;
+                  </p>
+                </div>
+                <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                  <h4 className="font-semibold text-blue-800 mb-2">Conflict Resolution Goal:</h4>
+                  <p className="text-sm text-blue-700">
+                    &ldquo;When experiencing conflict with peers, [Student] will use appropriate conflict resolution strategies (walk away, ask for help, use calm words) in 4 out of 5 opportunities across 2 consecutive weeks.&rdquo;
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Self-Regulation Examples */}
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <div className="flex items-center mb-4">
+                <TrendingUp className="w-6 h-6 text-emerald-600 mr-3" />
+                <h3 className="text-xl font-semibold text-slate-900">Self-Regulation Examples</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                  <h4 className="font-semibold text-purple-800 mb-2">Emotional Regulation Goal:</h4>
+                  <p className="text-sm text-purple-700">
+                    &ldquo;When feeling frustrated or upset, [Student] will use learned coping strategies (deep breathing, count to 10, request break) before acting out, in 80% of observed situations over 4 consecutive weeks.&rdquo;
+                  </p>
+                </div>
+                <div className="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                  <h4 className="font-semibold text-purple-800 mb-2">Appropriate Help-Seeking Goal:</h4>
+                  <p className="text-sm text-purple-700">
+                    &ldquo;When needing assistance with academic tasks, [Student] will appropriately request help by raising hand and waiting to be acknowledged, in 9 out of 10 opportunities across 3 consecutive weeks.&rdquo;
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Academic Behavior Examples */}
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <div className="flex items-center mb-4">
+                <BookOpen className="w-6 h-6 text-emerald-600 mr-3" />
+                <h3 className="text-xl font-semibold text-slate-900">Academic Behavior Examples</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="p-4 bg-orange-50 rounded-lg border-l-4 border-orange-500">
+                  <h4 className="font-semibold text-orange-800 mb-2">Work Completion Goal:</h4>
+                  <p className="text-sm text-orange-700">
+                    &ldquo;Given classroom assignments at instructional level, [Student] will complete assigned work with 80% accuracy within the designated time frame, in 4 out of 5 consecutive school days over 3 weeks.&rdquo;
+                  </p>
+                </div>
+                <div className="p-4 bg-orange-50 rounded-lg border-l-4 border-orange-500">
+                  <h4 className="font-semibold text-orange-800 mb-2">Class Participation Goal:</h4>
+                  <p className="text-sm text-orange-700">
+                    &ldquo;During whole group discussions, [Student] will participate by raising hand and contributing relevant comments or questions at least 2 times per class period, for 4 out of 5 consecutive days.&rdquo;
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <div className="bg-slate-100 rounded-lg p-6 max-w-4xl mx-auto">
+              <h3 className="text-xl font-semibold text-slate-900 mb-3">
+                📋 Key Elements in These Behavioral Goals Examples
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                <div>
+                  <div className="font-semibold text-emerald-600">Observable Behavior</div>
+                  <div className="text-slate-600">Clear, specific actions that can be seen and measured</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-blue-600">Conditions</div>
+                  <div className="text-slate-600">When, where, and under what circumstances</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-purple-600">Criteria</div>
+                  <div className="text-slate-600">Success rate and time frame for achievement</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-orange-600">Measurement</div>
+                  <div className="text-slate-600">How progress will be tracked and documented</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Example Goal Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Example: Well-Written Behavior Goal
+              Complete IEP Behavior Goal Example
             </h2>
             <p className="text-lg text-slate-600">
-              See how all components come together in a complete, measurable goal
+              See how all components come together in a complete, measurable behavior goal IEP teams can implement
             </p>
           </div>
           
@@ -316,6 +490,29 @@ export default function IEPBehaviorGoalsPage() {
                     Download
                   </Button>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Frequently Asked Questions About IEP Behavior Goals
+            </h2>
+            <p className="text-lg text-slate-600">
+              Common questions about writing and implementing behavior goals IEP teams ask
+            </p>
+          </div>
+          
+          <div className="space-y-6">
+            {faqData.map((faq, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 shadow-md border border-slate-200">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">{faq.question}</h3>
+                <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "IEP Behavior Goals & Writing Guide for School BCBAs | Behavior School",
-  description: "Complete guide to writing measurable IEP behavior goals for students with disabilities. Templates, examples, and strategies for school-based BCBAs and special education teams.",
-  keywords: "IEP behavior goals, behavior goals for IEP, measurable behavior goals, IEP goal writing, special education behavior goals, school BCBA IEP goals, behavior intervention IEP, autism behavior goals",
+  title: "IEP Behavior Goals Examples & Templates | Measurable Behavioral Goals | Behavior School",
+  description: "Free IEP behavior goal templates with measurable behavioral goals examples. Complete guide for writing behavior goals IEP, behavior iep goals, and behavioral goals for school teams.",
+  keywords: "behavior goal iep, iep behavior goal, iep behavior, behavior goals, iep behavior goals, behavior iep goals, behavior iep goal, behavioral goals, measurable behavioral goals examples, examples of behavioral goals, IEP goal writing, special education behavior goals, school BCBA IEP goals",
   alternates: { canonical: "https://behaviorschool.com/iep-behavior-goals" },
   openGraph: {
-    title: "IEP Behavior Goals & Writing Guide for School BCBAs",
-    description: "Complete guide to writing measurable IEP behavior goals with templates and examples for school-based BCBAs.",
+    title: "IEP Behavior Goals Examples & Templates | Measurable Behavioral Goals",
+    description: "Free IEP behavior goal templates with measurable behavioral goals examples. Complete guide for behavior goals IEP and behavior iep goals for school teams.",
     url: "/iep-behavior-goals",
     type: "website",
     siteName: "Behavior School",
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "IEP Behavior Goals & Writing Guide for School BCBAs",
-    description: "Complete guide to writing measurable IEP behavior goals with templates and examples for school-based BCBAs.",
+    title: "IEP Behavior Goals Examples & Templates | Measurable Behavioral Goals",
+    description: "Free IEP behavior goal templates with measurable behavioral goals examples. Complete guide for behavior goals IEP and behavior iep goals.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },
