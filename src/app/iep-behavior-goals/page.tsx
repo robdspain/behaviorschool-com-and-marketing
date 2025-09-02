@@ -152,11 +152,11 @@ export default function IEPBehaviorGoalsPage() {
               IEP Behavior Goals
             </span>
             <br />
-            Made Simple
+            <span className="text-3xl md:text-4xl">Templates & Examples</span>
           </h1>
           
           <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-            Write measurable, meaningful IEP behavior goals that actually work in classroom settings. Complete templates, examples, and data collection tools for school-based BCBAs and special education teams.
+            Free behavior goal IEP templates with measurable behavioral goals examples. Write effective IEP behavior goals that improve student outcomes with our comprehensive guide for school teams and special education professionals.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -178,21 +178,81 @@ export default function IEPBehaviorGoalsPage() {
         </div>
       </section>
 
+      {/* Quick Navigation Section */}
+      <section className="py-12 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              Popular Behavior Goal IEP Resources
+            </h2>
+            <p className="text-slate-600">
+              Jump to the most requested IEP behavior goals examples and templates
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Button 
+              variant="outline" 
+              asChild 
+              className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-emerald-50 hover:border-emerald-300"
+            >
+              <Link href="#behavioral-goals-examples">
+                <Target className="w-6 h-6 text-emerald-600" />
+                <span className="text-sm font-medium">Behavioral Goals Examples</span>
+              </Link>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              asChild 
+              className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-emerald-50 hover:border-emerald-300"
+            >
+              <Link href="#measurable-goals">
+                <CheckCircle className="w-6 h-6 text-emerald-600" />
+                <span className="text-sm font-medium">Measurable Behavioral Goals</span>
+              </Link>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              asChild 
+              className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-emerald-50 hover:border-emerald-300"
+            >
+              <Link href="#goal-components">
+                <BookOpen className="w-6 h-6 text-emerald-600" />
+                <span className="text-sm font-medium">IEP Behavior Goal Writing</span>
+              </Link>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              asChild 
+              className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-emerald-50 hover:border-emerald-300"
+            >
+              <Link href="#resources">
+                <FileText className="w-6 h-6 text-emerald-600" />
+                <span className="text-sm font-medium">Free Templates</span>
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-emerald-600 mb-2">50+</div>
-              <div className="text-slate-600">Goal Templates</div>
+              <div className="text-slate-600">Behavior Goal Templates</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-emerald-600 mb-2">1,000+</div>
-              <div className="text-slate-600">Schools Using</div>
+              <div className="text-slate-600">Schools Using IEP Goals</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-emerald-600 mb-2">89%</div>
-              <div className="text-slate-600">Goal Achievement Rate</div>
+              <div className="text-slate-600">Behavioral Goal Success Rate</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-emerald-600 mb-2">24/7</div>
@@ -203,14 +263,14 @@ export default function IEPBehaviorGoalsPage() {
       </section>
 
       {/* Goal Components Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="goal-components" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              4 Essential Components of Strong Behavior Goals
+              How to Write IEP Behavior Goals: 4 Essential Components
             </h2>
             <p className="text-lg text-slate-600">
-              Every effective IEP behavior goal must include these critical elements
+              Every effective behavior goal IEP must include these critical elements for measurable behavioral goals that work in school settings
             </p>
           </div>
           
@@ -276,14 +336,14 @@ export default function IEPBehaviorGoalsPage() {
       </section>
 
       {/* Measurable Behavioral Goals Examples Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="measurable-goals" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Measurable Behavioral Goals Examples
+              Measurable Behavioral Goals Examples for IEP Teams
             </h2>
             <p className="text-lg text-slate-600">
-              Ready-to-use examples of behavioral goals for IEP teams. Copy, customize, and implement these behavior goal IEP templates in your school.
+              Ready-to-use examples of behavioral goals for IEP implementation. Copy, customize, and use these behavior goal IEP templates with your students. Each behavioral goal includes specific criteria and measurement methods.
             </p>
           </div>
           
@@ -379,26 +439,49 @@ export default function IEPBehaviorGoalsPage() {
           
           <div className="text-center mt-12">
             <div className="bg-slate-100 rounded-lg p-6 max-w-4xl mx-auto">
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                📋 Key Elements in These Behavioral Goals Examples
+              <h3 className="text-xl font-semibold text-slate-900 mb-4">
+                📋 Why These Examples of Behavioral Goals Work
               </h3>
+              <p className="text-slate-700 mb-4">
+                Each behavioral goal example above demonstrates the SMART criteria for effective IEP behavior goals: Specific, Measurable, Achievable, Relevant, and Time-bound.
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
                 <div>
                   <div className="font-semibold text-emerald-600">Observable Behavior</div>
-                  <div className="text-slate-600">Clear, specific actions that can be seen and measured</div>
+                  <div className="text-slate-600">Clear, specific actions that can be seen and measured by school staff</div>
                 </div>
                 <div>
                   <div className="font-semibold text-blue-600">Conditions</div>
-                  <div className="text-slate-600">When, where, and under what circumstances</div>
+                  <div className="text-slate-600">When, where, and under what circumstances the behavior should occur</div>
                 </div>
                 <div>
                   <div className="font-semibold text-purple-600">Criteria</div>
-                  <div className="text-slate-600">Success rate and time frame for achievement</div>
+                  <div className="text-slate-600">Success rate and time frame for achievement in school settings</div>
                 </div>
                 <div>
                   <div className="font-semibold text-orange-600">Measurement</div>
-                  <div className="text-slate-600">How progress will be tracked and documented</div>
+                  <div className="text-slate-600">How progress will be tracked and documented by IEP teams</div>
                 </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 bg-emerald-50 rounded-lg p-6 border border-emerald-200">
+            <h3 className="text-xl font-semibold text-emerald-800 mb-4">
+              🎯 Using These Behavioral Goals in Your IEP Process
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div>
+                <h4 className="font-semibold text-emerald-700 mb-2">1. Customize for Your Student</h4>
+                <p className="text-emerald-700">Adapt these behavioral goals examples to match your student&apos;s specific needs, current performance level, and classroom environment.</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-emerald-700 mb-2">2. Set Up Data Collection</h4>
+                <p className="text-emerald-700">Create data collection systems that match the measurement criteria specified in each behavior goal IEP.</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-emerald-700 mb-2">3. Train Your Team</h4>
+                <p className="text-emerald-700">Ensure all school staff understand the behavioral goals and know how to support student success with consistent implementation.</p>
               </div>
             </div>
           </div>
