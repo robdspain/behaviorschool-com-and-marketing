@@ -272,19 +272,22 @@ export default function ACTMatrixPage() {
                 <div className="relative">
                   {/* ACT Matrix Diagram */}
                   <div className="bg-white border-2 border-slate-300 rounded-xl p-8 shadow-2xl max-w-lg">
-                    <div className="grid grid-cols-2 gap-6 text-center">
-                      {/* Top Left - Toward + Mental */}
-                      <div className="border-r border-b border-slate-200 pb-6 pr-6">
-                        <div className="text-emerald-600 font-semibold mb-2">Helpful Thoughts & Feelings</div>
+                    <div className="grid grid-cols-2 gap-6 text-center relative">
+                      {/* Horizontal line */}
+                      <div className="absolute inset-x-0 top-1/2 border-t border-slate-300 z-10"></div>
+                      
+                      {/* Top Left - Away Moves */}
+                      <div className="border-r border-slate-200 pb-6 pr-6">
+                        <div className="text-red-500 font-semibold mb-2">Away Moves</div>
                         <div className="text-sm text-slate-600">
-                          &quot;I can learn from mistakes&quot;<br/>
-                          Feeling confident<br/>
-                          Curiosity about learning
+                          Avoiding challenges<br/>
+                          Acting out<br/>
+                          Giving up easily
                         </div>
                       </div>
                       
-                      {/* Top Right - Toward + Behavior */}
-                      <div className="border-b border-slate-200 pb-6 pl-6">
+                      {/* Top Right - Toward Moves */}
+                      <div className="pb-6 pl-6">
                         <div className="text-emerald-600 font-semibold mb-2">Toward Moves</div>
                         <div className="text-sm text-slate-600">
                           Asking for help<br/>
@@ -293,7 +296,7 @@ export default function ACTMatrixPage() {
                         </div>
                       </div>
                       
-                      {/* Bottom Left - Away + Mental */}
+                      {/* Bottom Left - Unhelpful Internal */}
                       <div className="border-r border-slate-200 pt-6 pr-6">
                         <div className="text-red-500 font-semibold mb-2">Unhelpful Thoughts & Feelings</div>
                         <div className="text-sm text-slate-600">
@@ -303,13 +306,13 @@ export default function ACTMatrixPage() {
                         </div>
                       </div>
                       
-                      {/* Bottom Right - Away + Behavior */}
+                      {/* Bottom Right - Helpful Internal */}
                       <div className="pt-6 pl-6">
-                        <div className="text-red-500 font-semibold mb-2">Away Moves</div>
+                        <div className="text-emerald-600 font-semibold mb-2">Helpful Thoughts & Feelings</div>
                         <div className="text-sm text-slate-600">
-                          Avoiding challenges<br/>
-                          Acting out<br/>
-                          Giving up easily
+                          &quot;I can learn from mistakes&quot;<br/>
+                          Feeling confident<br/>
+                          Curiosity about learning
                         </div>
                       </div>
                     </div>
@@ -457,13 +460,16 @@ export default function ACTMatrixPage() {
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-2 gap-4 text-sm relative">
+                    {/* Horizontal line */}
+                    <div className="absolute inset-x-0 top-1/2 border-t border-slate-200 z-10"></div>
+                    
                     <div className="border-r border-slate-200 pr-4">
-                      <div className="text-emerald-600 font-semibold mb-2">Helpful Internal</div>
+                      <div className="text-red-500 font-semibold mb-2">Away Moves</div>
                       <ul className="text-slate-600 space-y-1">
-                        <li>• &quot;Mistakes help me learn&quot;</li>
-                        <li>• Feeling curious</li>
-                        <li>• Sense of challenge</li>
+                        <li>• Skipping math class</li>
+                        <li>• Not doing homework</li>
+                        <li>• Distracting others</li>
                       </ul>
                     </div>
                     
@@ -486,11 +492,11 @@ export default function ACTMatrixPage() {
                     </div>
                     
                     <div className="pl-4 pt-4">
-                      <div className="text-red-500 font-semibold mb-2">Away Moves</div>
+                      <div className="text-emerald-600 font-semibold mb-2">Helpful Internal</div>
                       <ul className="text-slate-600 space-y-1">
-                        <li>• Skipping math class</li>
-                        <li>• Not doing homework</li>
-                        <li>• Distracting others</li>
+                        <li>• &quot;Mistakes help me learn&quot;</li>
+                        <li>• Feeling curious</li>
+                        <li>• Sense of challenge</li>
                       </ul>
                     </div>
                   </div>
@@ -507,13 +513,16 @@ export default function ACTMatrixPage() {
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-2 gap-4 text-sm relative">
+                    {/* Horizontal line */}
+                    <div className="absolute inset-x-0 top-1/2 border-t border-slate-200 z-10"></div>
+                    
                     <div className="border-r border-slate-200 pr-4">
-                      <div className="text-emerald-600 font-semibold mb-2">Helpful Internal</div>
+                      <div className="text-red-500 font-semibold mb-2">Away Moves</div>
                       <ul className="text-slate-600 space-y-1">
-                        <li>• &quot;Others feel nervous too&quot;</li>
-                        <li>• Feeling hopeful</li>
-                        <li>• Wanting connection</li>
+                        <li>• Eating lunch alone</li>
+                        <li>• Avoiding group work</li>
+                        <li>• Staying quiet in class</li>
                       </ul>
                     </div>
                     
@@ -536,11 +545,11 @@ export default function ACTMatrixPage() {
                     </div>
                     
                     <div className="pl-4 pt-4">
-                      <div className="text-red-500 font-semibold mb-2">Away Moves</div>
+                      <div className="text-emerald-600 font-semibold mb-2">Helpful Internal</div>
                       <ul className="text-slate-600 space-y-1">
-                        <li>• Eating lunch alone</li>
-                        <li>• Avoiding group work</li>
-                        <li>• Staying quiet in class</li>
+                        <li>• &quot;Others feel nervous too&quot;</li>
+                        <li>• Feeling hopeful</li>
+                        <li>• Wanting connection</li>
                       </ul>
                     </div>
                   </div>

@@ -283,19 +283,22 @@ export default function ProductsPage() {
               <div className="relative">
                 <div className="relative z-10">
                   <div className="bg-white border-2 border-slate-300 rounded-xl p-8 shadow-2xl">
-                    <div className="grid grid-cols-2 gap-6 text-center text-sm">
-                      {/* Top Left - Toward + Mental */}
-                      <div className="border-r border-b border-slate-200 pb-4 pr-4">
-                        <div className="text-emerald-600 font-semibold mb-2">Helpful Thoughts</div>
+                    <div className="grid grid-cols-2 gap-6 text-center text-sm relative">
+                      {/* Horizontal line */}
+                      <div className="absolute inset-x-0 top-1/2 border-t border-slate-300 z-10"></div>
+                      
+                      {/* Top Left - Away Moves */}
+                      <div className="border-r border-slate-200 pb-4 pr-4">
+                        <div className="text-red-500 font-semibold mb-2">Away Moves</div>
                         <div className="text-xs text-slate-600">
-                          &quot;I can learn&quot;<br/>
-                          Feeling confident<br/>
-                          Curiosity
+                          Avoiding challenges<br/>
+                          Acting out<br/>
+                          Giving up
                         </div>
                       </div>
                       
-                      {/* Top Right - Toward + Behavior */}
-                      <div className="border-b border-slate-200 pb-4 pl-4">
+                      {/* Top Right - Toward Moves */}
+                      <div className="pb-4 pl-4">
                         <div className="text-emerald-600 font-semibold mb-2">Toward Moves</div>
                         <div className="text-xs text-slate-600">
                           Asking for help<br/>
@@ -304,7 +307,7 @@ export default function ProductsPage() {
                         </div>
                       </div>
                       
-                      {/* Bottom Left - Away + Mental */}
+                      {/* Bottom Left - Unhelpful Internal */}
                       <div className="border-r border-slate-200 pt-4 pr-4">
                         <div className="text-red-500 font-semibold mb-2">Difficult Thoughts</div>
                         <div className="text-xs text-slate-600">
@@ -314,13 +317,13 @@ export default function ProductsPage() {
                         </div>
                       </div>
                       
-                      {/* Bottom Right - Away + Behavior */}
+                      {/* Bottom Right - Helpful Internal */}
                       <div className="pt-4 pl-4">
-                        <div className="text-red-500 font-semibold mb-2">Away Moves</div>
+                        <div className="text-emerald-600 font-semibold mb-2">Helpful Thoughts</div>
                         <div className="text-xs text-slate-600">
-                          Avoiding challenges<br/>
-                          Acting out<br/>
-                          Giving up
+                          &quot;I can learn&quot;<br/>
+                          Feeling confident<br/>
+                          Curiosity
                         </div>
                       </div>
                     </div>
