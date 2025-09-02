@@ -288,7 +288,7 @@ export default function ProductsPage() {
                       <div className="border-r border-b border-slate-200 pb-4 pr-4">
                         <div className="text-emerald-600 font-semibold mb-2">Helpful Thoughts</div>
                         <div className="text-xs text-slate-600">
-                          "I can learn"<br/>
+                          &quot;I can learn&quot;<br/>
                           Feeling confident<br/>
                           Curiosity
                         </div>
@@ -308,7 +308,7 @@ export default function ProductsPage() {
                       <div className="border-r border-slate-200 pt-4 pr-4">
                         <div className="text-red-500 font-semibold mb-2">Difficult Thoughts</div>
                         <div className="text-xs text-slate-600">
-                          "I'm not smart"<br/>
+                          &quot;I&apos;m not smart&quot;<br/>
                           Feeling anxious<br/>
                           Fear of failure
                         </div>

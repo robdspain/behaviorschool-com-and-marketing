@@ -434,8 +434,8 @@ export function AnimatedSections() {
                 </div>
                 <div className="bg-slate-50 rounded-xl p-6">
                   <p className="text-slate-600 text-sm italic">
-                    "I created this tool because I was tired of seeing IEP goals that students didn't care about. 
-                    When we start with what matters to them, everything changes."
+                    &quot;I created this tool because I was tired of seeing IEP goals that students didn&apos;t care about. 
+                    When we start with what matters to them, everything changes.&quot;
                   </p>
                   <p className="text-slate-900 font-semibold mt-3">- Rob Spain, Founder</p>
                 </div>
@@ -562,7 +562,7 @@ export function AnimatedSections() {
                     <h4 className="font-bold text-slate-900 mb-3">How Our Tool Helps:</h4>
                     <ul className="space-y-2 text-sm text-slate-700">
                       <li>• Guides you through: Setting → Behavior → Goal → How to Measure</li>
-                      <li>• Always asks "what should they do instead?" for problem behaviors</li>
+                      <li>• Always asks &quot;what should they do instead?&quot; for problem behaviors</li>
                       <li>• Built-in options: count times, track minutes, measure speed</li>
                       <li>• Automatic planning for different settings and long-term success</li>
                     </ul>
@@ -586,7 +586,7 @@ export function AnimatedSections() {
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">What Research Says:</h4>
                     <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Don't hope skills transfer to new places—plan for it</li>
+                      <li>• Don&apos;t hope skills transfer to new places—plan for it</li>
                       <li>• Practice the same skill in many different situations</li>
                       <li>• Give students tools to remind themselves what to do</li>
                       <li>• Make rewards unpredictable so skills stick better</li>
@@ -629,7 +629,7 @@ export function AnimatedSections() {
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">How Our Tool Helps:</h4>
                     <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Option to add speed goals (like "within 5 seconds")</li>
+                      <li>• Option to add speed goals (like &quot;within 5 seconds&quot;)</li>
                       <li>• Tests if skills work even when students are distracted</li>
                       <li>• Helps break big skills into smaller, learnable steps</li>
                       <li>• Sets high standards (90-100% correct) for better results</li>

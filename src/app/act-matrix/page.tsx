@@ -277,7 +277,7 @@ export default function ACTMatrixPage() {
                       <div className="border-r border-b border-slate-200 pb-6 pr-6">
                         <div className="text-emerald-600 font-semibold mb-2">Helpful Thoughts & Feelings</div>
                         <div className="text-sm text-slate-600">
-                          "I can learn from mistakes"<br/>
+                          &quot;I can learn from mistakes&quot;<br/>
                           Feeling confident<br/>
                           Curiosity about learning
                         </div>
@@ -297,7 +297,7 @@ export default function ACTMatrixPage() {
                       <div className="border-r border-slate-200 pt-6 pr-6">
                         <div className="text-red-500 font-semibold mb-2">Unhelpful Thoughts & Feelings</div>
                         <div className="text-sm text-slate-600">
-                          "I'm not smart enough"<br/>
+                          &quot;I&apos;m not smart enough&quot;<br/>
                           Feeling anxious<br/>
                           Fear of failure
                         </div>
@@ -461,7 +461,7 @@ export default function ACTMatrixPage() {
                     <div className="border-r border-slate-200 pr-4">
                       <div className="text-emerald-600 font-semibold mb-2">Helpful Internal</div>
                       <ul className="text-slate-600 space-y-1">
-                        <li>• "Mistakes help me learn"</li>
+                        <li>• &quot;Mistakes help me learn&quot;</li>
                         <li>• Feeling curious</li>
                         <li>• Sense of challenge</li>
                       </ul>
@@ -479,7 +479,7 @@ export default function ACTMatrixPage() {
                     <div className="border-r border-slate-200 pr-4 pt-4">
                       <div className="text-red-500 font-semibold mb-2">Unhelpful Internal</div>
                       <ul className="text-slate-600 space-y-1">
-                        <li>• "I'm terrible at math"</li>
+                        <li>• &quot;I&apos;m terrible at math&quot;</li>
                         <li>• Feeling frustrated</li>
                         <li>• Fear of looking stupid</li>
                       </ul>
@@ -511,7 +511,7 @@ export default function ACTMatrixPage() {
                     <div className="border-r border-slate-200 pr-4">
                       <div className="text-emerald-600 font-semibold mb-2">Helpful Internal</div>
                       <ul className="text-slate-600 space-y-1">
-                        <li>• "Others feel nervous too"</li>
+                        <li>• &quot;Others feel nervous too&quot;</li>
                         <li>• Feeling hopeful</li>
                         <li>• Wanting connection</li>
                       </ul>
@@ -529,7 +529,7 @@ export default function ACTMatrixPage() {
                     <div className="border-r border-slate-200 pr-4 pt-4">
                       <div className="text-red-500 font-semibold mb-2">Unhelpful Internal</div>
                       <ul className="text-slate-600 space-y-1">
-                        <li>• "They'll reject me"</li>
+                        <li>• &quot;They&apos;ll reject me&quot;</li>
                         <li>• Feeling anxious</li>
                         <li>• Racing heart</li>
                       </ul>
