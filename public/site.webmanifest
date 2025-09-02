@@ -1,11 +1,12 @@
 {
-  "name": "Behavior School",
+  "name": "Behavior School - BCBA Training & School Behavior Support",
   "short_name": "Behavior School",
+  "description": "Tools, training, and community for school-based BCBAs, psychologists, and educators.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1F4D3F",
-  "description": "Tools, training, and community for school-based BCBAs, psychologists, and educators.",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -22,6 +23,18 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
     }
-  ]
+  ],
+  "categories": ["education", "health", "medical"],
+  "lang": "en-US"
 }
