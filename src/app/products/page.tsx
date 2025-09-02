@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Brain, Users, FileText, Target } from "lucide-react";
+import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {
@@ -229,6 +229,112 @@ export default function ProductsPage() {
                 </div>
                 <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-purple-200 to-purple-100 opacity-80 animate-pulse" />
                 <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-gradient-to-br from-pink-200 to-pink-100 opacity-60" />
+              </div>
+            </motion.div>
+
+            {/* ACT Matrix Guide */}
+            <motion.div 
+              className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+              variants={fadeInUp}
+            >
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                    <BookOpen className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">ACT Matrix Guide</h2>
+                </div>
+                <p className="text-lg text-slate-600 leading-relaxed">
+                  Master values-based interventions with our comprehensive ACT Matrix guide. Help students make choices based on their values, not just their feelings.
+                </p>
+                <ul className="space-y-3">
+                  {[
+                    "Complete ACT Matrix worksheets and templates",
+                    "Step-by-step implementation guide for schools",
+                    "Real examples from school-based practice",
+                    "Values exploration activities and exercises"
+                  ].map((feature, index) => (
+                    <motion.li 
+                      key={index}
+                      className="flex items-center gap-3 text-slate-700"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <Check className="w-5 h-5 text-teal-500 flex-shrink-0" />
+                      {feature}
+                    </motion.li>
+                  ))}
+                </ul>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link 
+                    href="/act-matrix" 
+                    className="inline-flex items-center text-teal-600 hover:text-teal-700 font-semibold group"
+                  >
+                    Learn more about ACT Matrix Guide
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </motion.div>
+              </div>
+              <div className="relative">
+                <div className="relative z-10">
+                  <div className="bg-white border-2 border-slate-300 rounded-xl p-8 shadow-2xl">
+                    <div className="grid grid-cols-2 gap-6 text-center text-sm">
+                      {/* Top Left - Toward + Mental */}
+                      <div className="border-r border-b border-slate-200 pb-4 pr-4">
+                        <div className="text-emerald-600 font-semibold mb-2">Helpful Thoughts</div>
+                        <div className="text-xs text-slate-600">
+                          "I can learn"<br/>
+                          Feeling confident<br/>
+                          Curiosity
+                        </div>
+                      </div>
+                      
+                      {/* Top Right - Toward + Behavior */}
+                      <div className="border-b border-slate-200 pb-4 pl-4">
+                        <div className="text-emerald-600 font-semibold mb-2">Toward Moves</div>
+                        <div className="text-xs text-slate-600">
+                          Asking for help<br/>
+                          Trying new things<br/>
+                          Being kind
+                        </div>
+                      </div>
+                      
+                      {/* Bottom Left - Away + Mental */}
+                      <div className="border-r border-slate-200 pt-4 pr-4">
+                        <div className="text-red-500 font-semibold mb-2">Difficult Thoughts</div>
+                        <div className="text-xs text-slate-600">
+                          "I'm not smart"<br/>
+                          Feeling anxious<br/>
+                          Fear of failure
+                        </div>
+                      </div>
+                      
+                      {/* Bottom Right - Away + Behavior */}
+                      <div className="pt-4 pl-4">
+                        <div className="text-red-500 font-semibold mb-2">Away Moves</div>
+                        <div className="text-xs text-slate-600">
+                          Avoiding challenges<br/>
+                          Acting out<br/>
+                          Giving up
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Center Values Circle */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="bg-yellow-100 border-2 border-yellow-400 rounded-full w-16 h-16 flex items-center justify-center">
+                        <div className="text-yellow-800 font-bold text-xs text-center">Values</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-teal-200 to-teal-100 opacity-80 animate-pulse" />
+                <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-gradient-to-br from-cyan-200 to-cyan-100 opacity-60" />
               </div>
             </motion.div>
 
