@@ -9,13 +9,18 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
   description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs. Try free.",
-  keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
+  keywords: ["BCBA", "behavior analyst", "school psychology", "behavior intervention", "IEP goals", "behavior plans", "applied behavior analysis", "BCBA exam prep", "school-based BCBA", "behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   viewport: "width=device-width, initial-scale=1",
   icons: {
-    icon: "/Logos/Logo.webp",
-    shortcut: "/Logos/Logo.webp",
-    apple: "/Logos/Logo.webp",
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/favicon-48x48.png",
   },
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
@@ -253,7 +258,12 @@ export default function RootLayout({
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
-        <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
+        <meta name="application-name" content="Behavior School" />
+        <meta name="msapplication-TileColor" content="#1F4D3F" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        <link rel="apple-touch-icon" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
       <body className="font-sans antialiased">
         <ToastProvider>
