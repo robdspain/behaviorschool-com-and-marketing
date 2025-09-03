@@ -14,6 +14,10 @@ interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
+interface Profile {
+  role: string;
+}
+
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -110,7 +114,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             // Re-check admin status
             if (supabase) {
               const { data: profile } = await supabase
-                .from('profiles')
+                .from<Profile>('profiles')
                 .select('role')
                 .eq('id', session.user.id)
                 .single();
