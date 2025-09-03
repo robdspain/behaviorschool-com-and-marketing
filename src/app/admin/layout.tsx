@@ -21,12 +21,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Allow public access to the admin login page without auth wrapper
-  if (pathname === "/admin/login") {
-    return <>{children}</>;
-  }
-
   useEffect(() => {
+    if (pathname === "/admin/login") {
+      setLoading(false);
+      return;
+    }
+
     // Check authentication status
     const checkAuth = async () => {
       try {
@@ -123,13 +123,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
       return () => subscription.unsubscribe();
     }
-  }, [router]);
+  }, [router, pathname]);
 
   const handleSignOut = async () => {
     if (supabase) {
       await supabase.auth.signOut();
     }
   };
+
+  if (pathname === "/admin/login") {
+    return <>{children}</>;
+  }
 
   if (loading) {
     return (
