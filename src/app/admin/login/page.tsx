@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Shield, Loader2, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { createSupabaseClient } from "@/lib/supabase-client";
-import { isAuthorizedAdmin, getUnauthorizedMessage } from "@/lib/admin-config";
+import { isAuthorizedAdmin, getUnauthorizedMessage, DEV_CONFIG } from "@/lib/admin-config";
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
@@ -24,6 +24,12 @@ export default function AdminLoginPage() {
     
     if (!supabase) {
       setError('Supabase authentication is not configured. Please check environment variables.');
+      return;
+    }
+
+    // Check if using development bypass
+    if (DEV_CONFIG.isDevelopmentBypass()) {
+      router.push('/admin');
       return;
     }
 

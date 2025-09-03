@@ -24,8 +24,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     // Check authentication status
     const checkAuth = async () => {
       try {
-        // For local development, bypass authentication completely
-        if (process.env.NODE_ENV === 'development') {
+        // For development mode with bypass enabled, skip authentication
+        if (DEV_CONFIG.isDevelopmentBypass()) {
           const devUser: User = { 
             id: 'dev-user', 
             email: DEV_CONFIG.DEV_ADMIN_EMAIL,
@@ -90,8 +90,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
     checkAuth();
 
-    // Only set up auth listener in production
-    if (process.env.NODE_ENV !== 'development') {
+    // Only set up auth listener when not using development bypass
+    if (!DEV_CONFIG.isDevelopmentBypass()) {
       const supabaseForListener = createSupabaseClient();
       if (!supabaseForListener) return;
       

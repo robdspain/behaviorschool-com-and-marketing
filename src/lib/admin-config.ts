@@ -35,9 +35,9 @@ export const DEV_CONFIG = {
   // Use the first authorized email for development mode
   DEV_ADMIN_EMAIL: AUTHORIZED_ADMIN_EMAILS[0],
   
-  // Check if we're in development mode with admin bypass enabled
+  // Check if admin bypass is enabled (development mode OR explicit bypass flag)
   isDevelopmentBypass(): boolean {
-    return process.env.NODE_ENV === 'development' && 
+    return process.env.NODE_ENV === 'development' || 
            process.env.NEXT_PUBLIC_ADMIN_DEV_MODE === 'true';
   }
 } as const;
