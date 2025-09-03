@@ -1,7 +1,7 @@
-'''"use client";
+"use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Loader2, Shield, LogOut } from "lucide-react";
 import { User } from "@supabase/supabase-js";
 import { supabaseClient as supabase } from "@/lib/supabase-client";
@@ -19,6 +19,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Allow public access to the admin login page without auth wrapper
+  if (pathname === "/admin/login") {
+    return <>{children}</>;
+  }
 
   useEffect(() => {
     // Check authentication status
@@ -194,7 +200,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Shield className.tsx="w-6 h-6 text-emerald-600" />
+              <Shield className="w-6 h-6 text-emerald-600" />
               <div>
                 <h1 className="text-lg font-semibold text-slate-900">Behavior School Admin</h1>
                 <p className="text-sm text-slate-600">Welcome back, {user.email}</p>
@@ -234,4 +240,3 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     </div>
   );
 }
-'''
