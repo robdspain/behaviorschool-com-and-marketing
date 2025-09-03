@@ -5,10 +5,10 @@ const GHOST_CONTENT_KEY = process.env.GHOST_CONTENT_KEY;
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     if (!GHOST_CONTENT_URL || !GHOST_CONTENT_KEY) {
       return NextResponse.json(
