@@ -123,6 +123,32 @@ export default function GhostEditor() {
     }
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, blockId: string) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/admin/blog/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        updateBlock(blockId, result.images[0].url);
+      } else {
+        console.error('Upload failed');
+        alert('Failed to upload image');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('Failed to upload image');
+    }
+  };
+
   const generateContent = () => {
     return blocks.map(block => {
       switch (block.type) {
@@ -137,6 +163,8 @@ export default function GhostEditor() {
           return '---';
         case 'code':
           return `\`\`\`\n${block.content}\n\`\`\``;
+        case 'image':
+          return block.content ? `![Image](${block.content})` : '';
         default:
           return block.content;
       }
@@ -253,12 +281,40 @@ export default function GhostEditor() {
       case 'image':
         return (
           <div className="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center">
-            <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-            <p className="text-slate-500 mb-4">Click to upload an image</p>
-            <button className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200">
-              <Upload className="w-4 h-4 mr-2 inline" />
-              Upload Image
-            </button>
+            {block.content ? (
+              <div className="relative">
+                <img 
+                  src={block.content} 
+                  alt="Uploaded image" 
+                  className="max-w-full h-auto rounded-lg mx-auto"
+                />
+                <button
+                  onClick={() => updateBlock(block.id, '')}
+                  className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <>
+                <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+                <p className="text-slate-500 mb-4">Click to upload an image</p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(e, block.id)}
+                  className="hidden"
+                  id={`image-upload-${block.id}`}
+                />
+                <label
+                  htmlFor={`image-upload-${block.id}`}
+                  className="inline-flex items-center px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 cursor-pointer"
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Upload Image
+                </label>
+              </>
+            )}
           </div>
         );
 

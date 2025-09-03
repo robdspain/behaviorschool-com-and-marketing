@@ -68,10 +68,17 @@ function markdownToHtml(markdown: string): string {
     .replace(/<\/p>$/, '');
 }
 
-export async function POST(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, content, excerpt, tags, status, featured } = body;
+    const { id, title, content, excerpt, tags, status, featured } = body;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Post ID is required' },
+        { status: 400 }
+      );
+    }
 
     if (!title?.trim()) {
       return NextResponse.json(
@@ -83,7 +90,7 @@ export async function POST(request: NextRequest) {
     const token = createToken();
     const html = markdownToHtml(content || '');
 
-    // Create post data
+    // Update post data
     const postData = {
       posts: [{
         title: title.trim(),
@@ -95,8 +102,8 @@ export async function POST(request: NextRequest) {
       }]
     };
 
-    const response = await fetch(`${GHOST_URL}/ghost/api/admin/posts/`, {
-      method: 'POST',
+    const response = await fetch(`${GHOST_URL}/ghost/api/admin/posts/${id}/`, {
+      method: 'PUT',
       headers: {
         'Authorization': `Ghost ${token}`,
         'Content-Type': 'application/json'
@@ -109,7 +116,7 @@ export async function POST(request: NextRequest) {
       console.error('Ghost API Error:', response.status, errorText);
       
       return NextResponse.json(
-        { error: `Failed to create post: ${response.status} ${response.statusText}` },
+        { error: `Failed to update post: ${response.status} ${response.statusText}` },
         { status: response.status }
       );
     }
@@ -118,7 +125,49 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result.posts[0]);
 
   } catch (error) {
-    console.error('Error creating post:', error);
+    console.error('Error updating post:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Post ID is required' },
+        { status: 400 }
+      );
+    }
+
+    const token = createToken();
+
+    const response = await fetch(`${GHOST_URL}/ghost/api/admin/posts/${id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Ghost ${token}`,
+      }
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Ghost API Error:', response.status, errorText);
+      
+      return NextResponse.json(
+        { error: `Failed to delete post: ${response.status} ${response.statusText}` },
+        { status: response.status }
+      );
+    }
+
+    return NextResponse.json({ success: true });
+
+  } catch (error) {
+    console.error('Error deleting post:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
