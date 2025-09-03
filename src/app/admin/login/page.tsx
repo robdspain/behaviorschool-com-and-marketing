@@ -1,11 +1,11 @@
-"use client";
+'''"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Shield, Loader2, AlertCircle } from "lucide-react";
 import Link from "next/link";
-import { createSupabaseClient } from "@/lib/supabase-client";
+import { supabaseClient as supabase } from "@/lib/supabase-client";
 import { isAuthorizedAdmin, getUnauthorizedMessage, DEV_CONFIG } from "@/lib/admin-config";
 
 // Force dynamic rendering
@@ -19,7 +19,6 @@ export default function AdminLoginPage() {
 
   useEffect(() => {
     // Check if Supabase is configured
-    const supabase = createSupabaseClient();
     setSupabaseConfigured(!!supabase);
     
     if (!supabase) {
@@ -57,7 +56,6 @@ export default function AdminLoginPage() {
       setLoading(true);
       setError("");
 
-      const supabase = createSupabaseClient();
       if (!supabase) {
         setError('Supabase client is not configured');
         return;
@@ -169,3 +167,4 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+'''

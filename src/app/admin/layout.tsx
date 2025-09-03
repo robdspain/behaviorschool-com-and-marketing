@@ -1,10 +1,10 @@
-"use client";
+'''"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Shield, LogOut } from "lucide-react";
 import { User } from "@supabase/supabase-js";
-import { createSupabaseClient } from "@/lib/supabase-client";
+import { supabaseClient as supabase } from "@/lib/supabase-client";
 import { isAuthorizedAdmin, DEV_CONFIG } from "@/lib/admin-config";
 
 // Force dynamic rendering
@@ -46,7 +46,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           return;
         }
 
-        const supabase = createSupabaseClient();
         if (!supabase) {
           // If Supabase is not configured, show error instead of infinite loading
           console.warn('Supabase is not configured. Admin access requires authentication setup.');
@@ -92,10 +91,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
     // Only set up auth listener when not using development bypass
     if (!DEV_CONFIG.isDevelopmentBypass()) {
-      const supabaseForListener = createSupabaseClient();
-      if (!supabaseForListener) return;
+      if (!supabase) return;
       
-      const { data: { subscription } } = supabaseForListener.auth.onAuthStateChange(
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(
         async (event, session) => {
           if (event === 'SIGNED_OUT') {
             setUser(null);
@@ -104,9 +102,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           } else if (session) {
             setUser(session.user);
             // Re-check admin status
-            const supabaseInstance = createSupabaseClient();
-            if (supabaseInstance) {
-              const { data: profile } = await supabaseInstance
+            if (supabase) {
+              const { data: profile } = await supabase
                 .from('profiles')
                 .select('role')
                 .eq('id', session.user.id)
@@ -123,7 +120,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   }, [router]);
 
   const handleSignOut = async () => {
-    const supabase = createSupabaseClient();
     if (supabase) {
       await supabase.auth.signOut();
     }
@@ -140,8 +136,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     );
   }
 
-  // Check if Supabase is configured
-  const supabase = createSupabaseClient();
   if (!supabase) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -200,7 +194,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Shield className="w-6 h-6 text-emerald-600" />
+              <Shield className.tsx="w-6 h-6 text-emerald-600" />
               <div>
                 <h1 className="text-lg font-semibold text-slate-900">Behavior School Admin</h1>
                 <p className="text-sm text-slate-600">Welcome back, {user.email}</p>
@@ -240,3 +234,4 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     </div>
   );
 }
+'''
