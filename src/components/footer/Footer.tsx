@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Twitter, Code, Youtube, Instagram, Facebook, Linkedin } from "lucide-react";
 
 export function Footer() {
@@ -73,6 +74,32 @@ export function Footer() {
             BehaviorStudyTools.com is a product of Behavior School LLC
           </p>
         </div>
+
+        {/* ACE Provider Information */}
+        <div className="text-center mt-4">
+          <div className="flex justify-center items-center space-x-4">
+            <Image
+              src="/BACB-ACE/BACB_ACE-Logo-1.jpg"
+              alt="BACB ACE Provider Logo"
+              width={100}
+              height={100}
+            />
+            <div>
+              <p className="text-gray-600 text-sm font-bold">
+                Behavior School LLC
+              </p>
+              <p className="text-gray-600 text-sm">
+                ACE Provider Number: OP-25-11420
+              </p>
+              <p className="text-gray-600 text-sm">
+                Provider: Robert Spain
+              </p>
+              <p className="text-gray-600 text-sm">
+                Valid: 01/30/25 - 01/31/26
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Lower Section - Navigation Links */}
@@ -103,5 +130,3 @@ export function Footer() {
     </footer>
   );
 }
-
-
