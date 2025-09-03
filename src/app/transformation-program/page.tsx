@@ -165,7 +165,7 @@ export default function TransformationProgramPage() {
                 >
                   <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
                   <span className="text-sm font-medium text-slate-700">Cohort-Based Program</span>
-                  <span className="text-xs text-slate-500"> • Classes forming now - starting soon</span>
+                  <span className="text-xs text-slate-500"> • Classes forming now. Next cohort starts March 15th - Secure your spot today!</span>
                 </motion.div>
 
                 {/* Enhanced Headline with Professional Typography */}
@@ -1057,7 +1057,7 @@ export default function TransformationProgramPage() {
                 🔥 EARLY BIRD PRICING ENDS SOON
               </div>
               <div className="text-red-600 text-xs sm:text-sm text-center mt-1">
-                Next cohort starts March 15th - Secure your spot today!
+                Classes forming now. Next cohort starts March 15th - Secure your spot today!
               </div>
             </div>
 
