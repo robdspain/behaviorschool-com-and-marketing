@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Download, FolderOpen, ArrowRight } from "lucide-react";
+import { CheckCircle, FolderOpen, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -44,8 +44,8 @@ function DownloadConfirmationContent() {
                 <h3 className="font-semibold text-blue-900 mb-3">Windows Users:</h3>
                 <ol className="space-y-2 text-blue-800 text-sm">
                   <li>1. Open File Explorer</li>
-                  <li>2. Click on "Downloads" in the sidebar</li>
-                  <li>3. Look for "ACT-Matrix-for-Schools-Guide.pdf"</li>
+                  <li>2. Click on &quot;Downloads&quot; in the sidebar</li>
+                  <li>3. Look for &quot;ACT-Matrix-for-Schools-Guide.pdf&quot;</li>
                   <li>4. Double-click to open with your PDF reader</li>
                 </ol>
               </div>
@@ -55,8 +55,8 @@ function DownloadConfirmationContent() {
                 <h3 className="font-semibold text-slate-900 mb-3">Mac Users:</h3>
                 <ol className="space-y-2 text-slate-800 text-sm">
                   <li>1. Open Finder</li>
-                  <li>2. Click "Downloads" in the sidebar</li>
-                  <li>3. Find "ACT-Matrix-for-Schools-Guide.pdf"</li>
+                  <li>2. Click &quot;Downloads&quot; in the sidebar</li>
+                  <li>3. Find &quot;ACT-Matrix-for-Schools-Guide.pdf&quot;</li>
                   <li>4. Double-click to open with Preview</li>
                 </ol>
               </div>
@@ -66,7 +66,7 @@ function DownloadConfirmationContent() {
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <h3 className="font-semibold text-yellow-800 mb-2">Mobile Users:</h3>
               <p className="text-yellow-700 text-sm">
-                Check your device's Downloads folder or notification bar. The file will open in your default PDF viewer.
+                Check your device&apos;s Downloads folder or notification bar. The file will open in your default PDF viewer.
               </p>
             </div>
           </div>
@@ -75,7 +75,7 @@ function DownloadConfirmationContent() {
         {/* What's Next */}
         <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 mb-8">
           <h2 className="text-xl font-semibold text-emerald-800 mb-4">
-            What's Next?
+            What&apos;s Next?
           </h2>
           <p className="text-emerald-700 mb-4">
             Now that you have your ACT Matrix guide, explore more free resources and tools for school-based behavior analysts.
@@ -110,7 +110,7 @@ function DownloadConfirmationContent() {
         {/* Optional: Email confirmation note */}
         <div className="mt-8 text-sm text-slate-500">
           <p>
-            💌 Keep an eye on your inbox! We'll occasionally share helpful resources and updates for school-based behavior analysts.
+            💌 Keep an eye on your inbox! We&apos;ll occasionally share helpful resources and updates for school-based behavior analysts.
           </p>
         </div>
       </div>
