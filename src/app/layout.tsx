@@ -7,8 +7,8 @@ import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyComplia
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
-  description: "BCBA exam prep and school behavior support tools for behavior analysts. AI-powered practice tests, supervision tools, IEP goals, and training programs.",
+  title: "Behavior School | BCBA Training & Exam Prep for School-Based Behavior Analysts",
+  description: "Behavior School provides BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs.",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   viewport: "width=device-width, initial-scale=1",
