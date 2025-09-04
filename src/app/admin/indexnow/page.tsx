@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { submitToIndexNow, submitCommonPages, COMMON_URLS } from '@/lib/indexnow';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input'; // Not used
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, XCircle, Loader2, ExternalLink } from 'lucide-react';
@@ -11,7 +11,17 @@ import { CheckCircle, XCircle, Loader2, ExternalLink } from 'lucide-react';
 export default function IndexNowAdminPage() {
   const [urls, setUrls] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<{
+    success: boolean;
+    results: Array<{
+      endpoint: string;
+      status: number;
+      success: boolean;
+      message: string;
+    }>;
+    submittedUrls: string[];
+    timestamp: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
@@ -190,7 +200,7 @@ export default function IndexNowAdminPage() {
               <div>
                 <h4 className="font-medium mb-2">Endpoint Results:</h4>
                 <div className="space-y-2">
-                  {results.results.map((result: any, index: number) => (
+                  {results.results.map((result, index: number) => (
                     <div key={index} className="flex items-center justify-between p-2 bg-white rounded border">
                       <span className="font-mono text-sm">{result.endpoint}</span>
                       <div className="flex items-center space-x-2">
