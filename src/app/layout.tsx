@@ -17,6 +17,17 @@ export const metadata: Metadata = {
     shortcut: "/Logos/Logo.webp",
     apple: "/Logos/Logo.webp",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
     description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
@@ -269,6 +280,16 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
         <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
+        
+        {/* Logo meta tags for Google search results */}
+        <meta name="logo" content="https://behaviorschool.com/Logos/Logo.webp" />
+        <link rel="image_src" href="https://behaviorschool.com/Logos/Logo.webp" />
+        
+        {/* Additional favicon formats for better compatibility */}
+        <link rel="icon" type="image/webp" sizes="32x32" href="/Logos/Logo.webp" />
+        <link rel="icon" type="image/webp" sizes="16x16" href="/Logos/Logo.webp" />
+        <link rel="icon" type="image/webp" sizes="192x192" href="/Logos/Logo.webp" />
+        <link rel="icon" type="image/webp" sizes="512x512" href="/Logos/Logo.webp" />
       </head>
       <body className="font-sans antialiased">
         <ToastProvider>
@@ -285,6 +306,34 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": `${SITE_URL}#Organization`,
+            name: "Behavior School",
+            url: SITE_URL,
+            logo: {
+              "@type": "ImageObject",
+              url: `${SITE_URL}/Logos/Logo.webp`,
+              width: 512,
+              height: 512,
+              caption: "Behavior School Logo"
+            },
+            image: {
+              "@type": "ImageObject", 
+              url: `${SITE_URL}/Logos/Logo.webp`,
+              width: 512,
+              height: 512
+            },
+            sameAs: [
+              "https://www.linkedin.com/company/behavior-school",
+              "https://x.com/behaviorschool",
+              "https://community.behaviorschool.com"
+            ]
+          }) }}
         />
         <script
           type="application/ld+json"

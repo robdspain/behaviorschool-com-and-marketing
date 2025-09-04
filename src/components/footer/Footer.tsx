@@ -78,12 +78,20 @@ export function Footer() {
         {/* ACE Provider Information */}
         <div className="text-center mt-4">
           <div className="flex justify-center items-center space-x-4">
-            <Image
-              src="/BACB-ACE/BACB_ACE-Logo-1.jpg"
-              alt="BACB ACE Provider Logo"
-              width={100}
-              height={100}
-            />
+            <Link 
+              href="https://www.bacb.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit BACB Website"
+            >
+              <Image
+                src="/BACB-ACE/BACB_ACE-Logo-1.jpg"
+                alt="BACB ACE Provider Logo"
+                width={100}
+                height={100}
+                className="hover:opacity-80 transition-opacity cursor-pointer"
+              />
+            </Link>
             <div>
               <p className="text-gray-600 text-sm font-bold">
                 Behavior School LLC
