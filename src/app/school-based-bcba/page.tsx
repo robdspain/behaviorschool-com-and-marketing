@@ -55,7 +55,7 @@ export const metadata: Metadata = {
 
 export default function SchoolBasedBCBAPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50">
       <div className="container mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
@@ -105,21 +105,21 @@ export default function SchoolBasedBCBAPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-emerald-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-slate-900">Functional Behavior Assessments (FBAs)</h4>
                       <p className="text-slate-600 mt-1">Conduct comprehensive assessments to identify the function and environmental factors contributing to challenging behaviors. This involves direct observation, data collection, interviews with stakeholders, and environmental analysis.</p>
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-emerald-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-slate-900">Behavior Intervention Plans (BIPs)</h4>
                       <p className="text-slate-600 mt-1">Design evidence-based intervention strategies that teach replacement behaviors while reducing problematic ones. Plans must be practical for school implementation and aligned with educational goals.</p>
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-emerald-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-slate-900">Staff Training and Consultation</h4>
                       <p className="text-slate-600 mt-1">Provide ongoing training to teachers, paraprofessionals, and support staff on behavior management strategies, data collection procedures, and implementation of behavior plans.</p>
@@ -128,21 +128,21 @@ export default function SchoolBasedBCBAPage() {
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-emerald-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-slate-900">Data Collection and Analysis</h4>
                       <p className="text-slate-600 mt-1">Systematically collect and analyze behavioral data to monitor progress, make data-driven decisions, and modify interventions as needed. This includes training others on data collection procedures.</p>
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-emerald-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-slate-900">IEP Team Participation</h4>
                       <p className="text-slate-600 mt-1">Actively participate in IEP meetings, contribute to the development of behavioral goals and objectives, and ensure behavior plans align with educational programming.</p>
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-emerald-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-slate-900">Crisis Management</h4>
                       <p className="text-slate-600 mt-1">Develop crisis intervention protocols, train staff on de-escalation techniques, and provide support during behavioral emergencies while ensuring student and staff safety.</p>
@@ -195,7 +195,7 @@ export default function SchoolBasedBCBAPage() {
 
             <div className="space-y-12">
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-2xl">1</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">1</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Earn a Master&apos;s Degree</h3>
                   <p className="text-slate-600 mb-4">
@@ -215,7 +215,7 @@ export default function SchoolBasedBCBAPage() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-2xl">2</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">2</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Complete BACB-Approved Coursework</h3>
                   <p className="text-slate-600 mb-4">
@@ -242,7 +242,7 @@ export default function SchoolBasedBCBAPage() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-2xl">3</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">3</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Complete Supervised Experience</h3>
                   <p className="text-slate-600 mb-4">
@@ -277,7 +277,7 @@ export default function SchoolBasedBCBAPage() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-2xl">4</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">4</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Pass the BCBA Certification Exam</h3>
                   <p className="text-slate-600 mb-4">
@@ -298,7 +298,7 @@ export default function SchoolBasedBCBAPage() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-2xl">5</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">5</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Meet State and District Requirements</h3>
                   <p className="text-slate-600 mb-4">
@@ -347,7 +347,7 @@ export default function SchoolBasedBCBAPage() {
                   <div className="text-sm text-slate-500">New BCBAs, 0-2 years experience</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">$70K-85K</div>
+                  <div className="text-3xl font-bold text-emerald-600 mb-2">$70K-85K</div>
                   <div className="text-slate-600 font-semibold">Mid-Career Range</div>
                   <div className="text-sm text-slate-500">3-7 years experience</div>
                 </div>
@@ -387,9 +387,9 @@ export default function SchoolBasedBCBAPage() {
             <div className="mb-12">
               <h3 className="text-2xl font-semibold text-slate-900 mb-6 text-center">Comprehensive Benefits</h3>
               <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-green-50 rounded-lg p-6">
-                  <h4 className="font-semibold text-green-800 mb-3">Health & Wellness</h4>
-                  <ul className="text-green-700 space-y-1 text-sm">
+                <div className="bg-emerald-50 rounded-lg p-6">
+                  <h4 className="font-semibold text-emerald-800 mb-3">Health & Wellness</h4>
+                  <ul className="text-emerald-700 space-y-1 text-sm">
                     <li>• Medical, dental, vision insurance</li>
                     <li>• Mental health support</li>
                     <li>• Employee assistance programs</li>
