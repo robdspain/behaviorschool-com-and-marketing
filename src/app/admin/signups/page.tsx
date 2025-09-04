@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabaseClient as supabase } from '@/lib/supabase-client';
-import { Loader2, Mail, Users, Calendar, ExternalLink } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 interface Subscriber {
   id: string;

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Check, FileText, Target, TrendingUp, Users, Shield, Mail, Bell } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";

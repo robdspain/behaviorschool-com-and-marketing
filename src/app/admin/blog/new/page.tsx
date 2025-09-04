@@ -1,26 +1,20 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
-  Save, 
-  Eye, 
-  Globe, 
+  Save,
+  Globe,
   Calendar, 
-  Tag, 
-  Image as ImageIcon,
+  Tag,
   Bold,
   Italic,
   Link2,
   List,
   Quote,
   Minus,
-  Type,
-  Plus,
-  Settings,
-  ChevronDown,
-  X
+  Type
 } from "lucide-react";
 import Link from "next/link";
 

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";

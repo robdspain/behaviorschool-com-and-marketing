@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
-import { ClientCTA } from "./ClientCTA";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 
 export function AnimatedSections() {
