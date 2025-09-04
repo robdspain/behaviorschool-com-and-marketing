@@ -251,6 +251,21 @@ export default function RootLayout({
         <link rel="preconnect" href="https://community.behaviorschool.com" />
         
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
+        
+        {/* Google Ads tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17439907778"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-config" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17439907778');
+          `}
+        </Script>
+        
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
         <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
