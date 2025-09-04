@@ -4,7 +4,7 @@ import { AnimatedSections } from "./AnimatedSections";
 
 export const metadata: Metadata = {
   title: "Values-Based IEP Goal Generator | Student-Centered SMART Goals | Behavior School",
-  description: "Free values-based IEP goal generator. Students co-create goals that reflect their values (Brave, Kind, Focused). Write SMART IEP behavior goals that stick because they start with what students value most.",
+  description: "Free values-based IEP goal generator. Students co-create SMART goals that reflect their values. Write behavior goals that stick.",
   robots: {
     index: true,
     follow: true,

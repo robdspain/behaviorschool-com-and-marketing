@@ -7,7 +7,7 @@ import SimpleDownloadButton from "@/components/SimpleDownloadButton";
 
 export const metadata: Metadata = {
   title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
-  description: "Free ACT Matrix PDF download with examples explained step-by-step. Complete guide for school behavior analysts with ACT values examples, implementation templates, and practical scenarios.",
+  description: "Free ACT Matrix PDF download with examples explained step-by-step. Complete guide for school behavior analysts with ACT values examples.",
   robots: {
     index: true,
     follow: true,

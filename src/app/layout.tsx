@@ -8,7 +8,7 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
-  description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs. Try free.",
+  description: "BCBA exam prep and school behavior support tools for behavior analysts. AI-powered practice tests, supervision tools, IEP goals, and training programs.",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   viewport: "width=device-width, initial-scale=1",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School", 
-    description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
+    description: "BCBA exam prep and school behavior support tools for behavior analysts. AI-powered practice tests, supervision tools, IEP goals, and training programs.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BCBA Training & Exam Prep for School-Based Behavior Analysts | Behavior School",
-    description: "Comprehensive BCBA exam prep and school behavior support tools for behavior analysts. Get AI-powered practice tests, supervision tools, IEP goal templates, and proven training programs.",
+    description: "BCBA exam prep and school behavior support tools for behavior analysts. AI-powered practice tests, supervision tools, IEP goals, and training programs.",
     images: ["/optimized/og-image.webp"],
   },
   metadataBase: new URL("https://behaviorschool.com"),
