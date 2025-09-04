@@ -1,0 +1,114 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - navigation "Primary" [ref=e3]:
+      - generic [ref=e5]:
+        - link "Behavior School" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8] [cursor=pointer]
+          - generic [ref=e11] [cursor=pointer]: Behavior School
+        - generic [ref=e12]:
+          - link "Community" [ref=e14] [cursor=pointer]:
+            - /url: /community
+            - generic [ref=e16] [cursor=pointer]: Community
+          - link "Tools" [ref=e18] [cursor=pointer]:
+            - /url: /products
+            - generic [ref=e20] [cursor=pointer]: Tools
+          - link "Transformation" [ref=e22] [cursor=pointer]:
+            - /url: /transformation-program
+            - generic [ref=e24] [cursor=pointer]: Transformation
+          - link "About" [ref=e26] [cursor=pointer]:
+            - /url: /about
+            - generic [ref=e28] [cursor=pointer]: About
+    - main [ref=e29]:
+      - generic [ref=e30]:
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - img [ref=e35]
+            - generic [ref=e37]:
+              - heading "Behavior School Admin" [level=1] [ref=e38]
+              - paragraph [ref=e39]: Welcome back, robspain@gmail.com
+          - generic [ref=e40]:
+            - navigation [ref=e41]:
+              - link "Dashboard" [ref=e42] [cursor=pointer]:
+                - /url: /admin
+              - link "Blog" [ref=e43] [cursor=pointer]:
+                - /url: /admin/blog
+              - link "Signups" [ref=e44] [cursor=pointer]:
+                - /url: /admin/signups
+              - link "Users" [ref=e45] [cursor=pointer]:
+                - /url: /admin/users
+            - button "Sign Out" [ref=e46]:
+              - img [ref=e47]
+              - text: Sign Out
+        - main [ref=e50]:
+          - generic [ref=e51]:
+            - generic [ref=e54]:
+              - link [ref=e56] [cursor=pointer]:
+                - /url: /admin/blog
+                - img [ref=e57] [cursor=pointer]
+              - generic [ref=e59]:
+                - button [ref=e60]:
+                  - img [ref=e61]
+                - button "Save" [ref=e64]
+                - button "Publish" [disabled] [ref=e65]
+            - generic [ref=e66]:
+              - textbox "Post title" [active] [ref=e68]
+              - generic [ref=e70]:
+                - button [ref=e72]:
+                  - img [ref=e73]
+                - textbox "Tell your story..." [ref=e75]
+    - contentinfo [ref=e76]:
+      - generic [ref=e77]:
+        - generic [ref=e78]:
+          - link "Follow Behavior School on Twitter" [ref=e79] [cursor=pointer]:
+            - /url: https://twitter.com/behaviorschool
+            - img [ref=e80] [cursor=pointer]
+          - link "View Behavior School on GitHub" [ref=e82] [cursor=pointer]:
+            - /url: https://github.com/behaviorschool
+            - img [ref=e83] [cursor=pointer]
+          - link "Subscribe to Behavior School on YouTube" [ref=e86] [cursor=pointer]:
+            - /url: https://youtube.com/@behaviorschool
+            - img [ref=e87] [cursor=pointer]
+          - link "Follow Behavior School on Instagram" [ref=e90] [cursor=pointer]:
+            - /url: https://instagram.com/behaviorschool
+            - img [ref=e91] [cursor=pointer]
+          - link "Like Behavior School on Facebook" [ref=e94] [cursor=pointer]:
+            - /url: https://facebook.com/behaviorschool
+            - img [ref=e95] [cursor=pointer]
+          - link "Connect with Behavior School on LinkedIn" [ref=e97] [cursor=pointer]:
+            - /url: https://linkedin.com/company/behaviorschool
+            - img [ref=e98] [cursor=pointer]
+        - generic [ref=e102]:
+          - paragraph [ref=e103]: © 2025 Behavior School. All rights reserved.
+          - paragraph [ref=e104]: BehaviorStudyTools.com is a product of Behavior School LLC
+      - generic [ref=e107]:
+        - link "FAQ" [ref=e108] [cursor=pointer]:
+          - /url: /faq
+        - link "Contact Us" [ref=e109] [cursor=pointer]:
+          - /url: /contact
+        - link "Privacy Policy" [ref=e110] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms of Service" [ref=e111] [cursor=pointer]:
+          - /url: /terms
+        - link "Behavior School" [ref=e112] [cursor=pointer]:
+          - /url: /
+        - link "Blog" [ref=e113] [cursor=pointer]:
+          - /url: /blog
+  - generic [ref=e118] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e119] [cursor=pointer]:
+      - img [ref=e120] [cursor=pointer]
+    - generic [ref=e123] [cursor=pointer]:
+      - button "Open issues overlay" [ref=e124] [cursor=pointer]:
+        - generic [ref=e125] [cursor=pointer]:
+          - generic [ref=e126] [cursor=pointer]: "1"
+          - generic [ref=e127] [cursor=pointer]: "2"
+        - generic [ref=e128] [cursor=pointer]:
+          - text: Issue
+          - generic [ref=e129] [cursor=pointer]: s
+      - button "Collapse issues badge" [ref=e130] [cursor=pointer]:
+        - img [ref=e131] [cursor=pointer]
+  - alert [ref=e133]
+```

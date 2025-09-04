@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { Download, CheckCircle, Target, Users, BookOpen } from "lucide-react";
+import { CheckCircle, Target, Users, BookOpen } from "lucide-react";
 import Link from "next/link";
+import SecureDownloadButton from "@/components/SecureDownloadButton";
 
 export const metadata: Metadata = {
   title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
@@ -247,16 +248,12 @@ export default function ACTMatrixPage() {
                 </p>
                 
                 <div className="flex flex-col gap-3 sm:gap-4">
-                  <Button 
-                    size="lg"
-                    asChild
-                    className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 h-12 text-base font-semibold"
-                  >
-                    <Link href="#download" className="flex items-center justify-center">
-                      <Download className="mr-2 w-5 h-5" />
-                      Download Free ACT Matrix PDF
-                    </Link>
-                  </Button>
+                  <SecureDownloadButton 
+                    resource="act-matrix"
+                    fileName="ACT-Matrix-for-Schools-Guide.pdf"
+                    title="Download Free ACT Matrix PDF (Login Required)"
+                    className="w-full"
+                  />
                   
                   <Button 
                     size="lg"
@@ -893,13 +890,12 @@ export default function ACTMatrixPage() {
               </div>
             </div>
             
-            <Button 
-              size="lg"
+            <SecureDownloadButton 
+              resource="act-matrix"
+              fileName="ACT-Matrix-for-Schools-Guide.pdf"
+              title="Download Free ACT Matrix PDF Pack"
               className="bg-yellow-500 text-slate-900 hover:bg-yellow-400 text-lg font-semibold px-8 py-4"
-            >
-              <Download className="mr-2 w-6 h-6" />
-              Download Free ACT Matrix PDF Pack
-            </Button>
+            />
             
             <div className="mt-4 text-emerald-100 text-sm">
               Instant download • No spam • Used by 1000+ school professionals
