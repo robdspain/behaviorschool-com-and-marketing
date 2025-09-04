@@ -89,7 +89,7 @@ export default function BCBAStudyFluencyPage() {
               The Fluency Factor: The Missing Piece in Your BCBA Exam Prep
             </h1>
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              The BCBA exam is tough, and many students struggle despite knowing the material. Fluency is the key to not just knowing the material, but mastering it. It's the difference between hesitation and confidence, between passing and excelling.
+              The BCBA exam is tough, and many students struggle despite knowing the material. Fluency is the key to not just knowing the material, but mastering it. It&apos;s the difference between hesitation and confidence, between passing and excelling.
             </p>
           </div>
 
