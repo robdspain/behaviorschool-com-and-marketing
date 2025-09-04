@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Users, BookOpen, Target, Award, ArrowRight } from "lucide-react";
+import { CheckCircle, Users, BookOpen, Target, Award, ArrowRight, DollarSign, Briefcase, Clock, ThumbsUp, ThumbsDown } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "School-Based BCBA Resources | Training & Tools for Behavior Analysts in Education",
-  description: "Comprehensive resources for school-based BCBAs. Get training, tools, and support for behavior analysts working in educational settings.",
+  title: "How to Become a School-Based BCBA: A Complete Guide",
+  description: "Learn how to become a school-based BCBA with our complete guide. Find out about the responsibilities, requirements, salary, and career outlook for school-based behavior analysts.",
   robots: {
     index: true,
     follow: true,
@@ -19,16 +19,19 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
+    "how to become a school bcba",
     "school based bcba",
     "bcba in schools",
     "behavior analyst education",
     "school behavior support",
     "bcba training",
-    "educational behavior analysis"
+    "educational behavior analysis",
+    "school bcba salary",
+    "school bcba job description"
   ],
   openGraph: {
-    title: "School-Based BCBA Resources | Training & Tools for Behavior Analysts in Education",
-    description: "Comprehensive resources for school-based BCBAs. Get training, tools, and support for behavior analysts working in educational settings.",
+    title: "How to Become a School-Based BCBA: A Complete Guide",
+    description: "Learn how to become a school-based BCBA with our complete guide. Find out about the responsibilities, requirements, salary, and career outlook for school-based behavior analysts.",
     url: "https://behaviorschool.com/school-based-bcba",
     siteName: "Behavior School",
     images: [
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
         url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "School-Based BCBA Resources",
+        alt: "How to Become a School-Based BCBA",
       },
     ],
     locale: "en_US",
@@ -44,8 +47,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "School-Based BCBA Resources | Training & Tools for Behavior Analysts in Education",
-    description: "Comprehensive resources for school-based BCBAs. Get training, tools, and support for behavior analysts working in educational settings.",
+    title: "How to Become a School-Based BCBA: A Complete Guide",
+    description: "Learn how to become a school-based BCBA with our complete guide. Find out about the responsibilities, requirements, salary, and career outlook for school-based behavior analysts.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -57,7 +60,7 @@ export default function SchoolBasedBCBAPage() {
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },
-            { label: "School-Based BCBA Resources", href: "/school-based-bcba" }
+            { label: "How to Become a School-Based BCBA" }
           ]}
         />
         
@@ -65,201 +68,223 @@ export default function SchoolBasedBCBAPage() {
           {/* Hero Section */}
           <div className="text-center py-12">
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              School-Based BCBA Resources
+              How to Become a School-Based BCBA: A Complete Guide
             </h1>
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              Comprehensive training, tools, and support for Board Certified Behavior Analysts working in educational settings. 
-              Master the unique challenges of school-based practice.
+              A comprehensive guide for aspiring behavior analysts who want to make a difference in the lives of students.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <Link href="/transformation-program">
-                  <Users className="mr-2 h-5 w-5" />
-                  Join BCBA Training Program
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/behavior-study-tools">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  BCBA Exam Prep
-                </Link>
-              </Button>
-            </div>
           </div>
 
-          {/* Key Challenges Section */}
+          {/* What is a School-Based BCBA? */}
           <div className="py-12">
             <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              Unique Challenges for School-Based BCBAs
+              What is a School-Based BCBA?
+            </h2>
+            <p className="text-lg text-slate-600 mb-8">
+              A school-based Board Certified Behavior Analyst (BCBA) is a certified behavior analyst who works within a school system to help students with behavioral challenges succeed academically, socially, and emotionally. Unlike clinical settings, school-based BCBAs work with a wide range of students, from those with severe disabilities to those in general education who need extra support. They are experts in behavior analysis and use their skills to create positive learning environments for all students.
+            </p>
+          </div>
+
+          {/* What Does a School-Based BCBA Do? */}
+          <div className="py-12 bg-white rounded-lg shadow-sm border">
+            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
+              What Does a School-Based BCBA Do?
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-lg p-6 shadow-sm border">
-                <h3 className="text-xl font-semibold text-slate-900 mb-4">System-Level Change</h3>
-                <p className="text-slate-600 mb-4">
-                  Unlike clinical settings, school-based BCBAs must navigate complex educational systems, 
-                  multiple stakeholders, and district-level policies.
-                </p>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    District-wide implementation strategies
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Key Responsibilities</h3>
+                <ul className="space-y-2 text-slate-600">
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Conducting Functional Behavior Assessments (FBAs) to identify the reasons for challenging behaviors.</span>
                   </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Multi-tiered systems of support (MTSS)
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Developing and implementing Behavior Intervention Plans (BIPs) to teach new skills and reduce problem behaviors.</span>
                   </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Policy and compliance requirements
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Training and supporting teachers, paraprofessionals, and other school staff on how to implement behavior plans and use evidence-based practices.</span>
                   </li>
-                </ul>
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm border">
-                <h3 className="text-xl font-semibold text-slate-900 mb-4">Stakeholder Collaboration</h3>
-                <p className="text-slate-600 mb-4">
-                  Success requires building relationships with teachers, administrators, parents, 
-                  and support staff while maintaining professional boundaries.
-                </p>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Teacher training and support
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Collecting and analyzing data to monitor student progress and make data-driven decisions.</span>
                   </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Parent communication strategies
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Collaborating with teachers, parents, and other professionals to create a team-based approach to student support.</span>
                   </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Administrative buy-in and support
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Participating in Individualized Education Program (IEP) meetings and helping to develop behavior-related goals.</span>
                   </li>
                 </ul>
               </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm border">
-                <h3 className="text-xl font-semibold text-slate-900 mb-4">Data-Driven Decision Making</h3>
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">A Day in the Life</h3>
                 <p className="text-slate-600 mb-4">
-                  School environments require robust data collection systems that work within 
-                  existing educational frameworks and time constraints.
+                  A typical day for a school-based BCBA is varied and dynamic. It might start with observing a student in a classroom, followed by a meeting with a teacher to discuss a behavior plan. In the afternoon, you might lead a training for paraprofessionals on data collection, and then end the day analyzing data and writing reports. No two days are the same, which makes the job both challenging and exciting.
                 </p>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Efficient data collection methods
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Progress monitoring systems
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Outcome measurement and reporting
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm border">
-                <h3 className="text-xl font-semibold text-slate-900 mb-4">Crisis Management</h3>
-                <p className="text-slate-600 mb-4">
-                  School-based BCBAs often face high-intensity situations requiring immediate 
-                  intervention while maintaining safety and dignity.
-                </p>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    De-escalation techniques
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Safety planning and protocols
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                    Post-crisis support and debriefing
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
 
-          {/* Resources Section */}
+          {/* How to Become a School-Based BCBA */}
           <div className="py-12">
             <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              Essential Resources for School-Based BCBAs
+              How to Become a School-Based BCBA
             </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white rounded-lg p-6 shadow-sm border text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <BookOpen className="h-8 w-8 text-blue-600" />
+            <div className="space-y-8">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">1</div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-slate-900">Earn a Master's Degree</h3>
+                  <p className="text-slate-600 mt-2">The first step is to earn a master's degree from an accredited university in a relevant field, such as psychology, education, or applied behavior analysis.</p>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">BCBA Exam Prep</h3>
-                <p className="text-slate-600 mb-4">
-                  AI-powered practice tests and study materials specifically designed for behavior analysts.
-                </p>
-                <Button asChild variant="outline">
-                  <Link href="/behavior-study-tools">
-                    Start Studying
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
               </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm border text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-green-600" />
+              <div className="flex items-start">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">2</div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-slate-900">Complete a Verified Course Sequence (VCS)</h3>
+                  <p className="text-slate-600 mt-2">You must complete graduate-level coursework in specific areas of behavior analysis. Many master's programs include a VCS, but if yours doesn't, you can complete the coursework through a post-graduate certificate program.</p>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">Transformation Program</h3>
-                <p className="text-slate-600 mb-4">
-                  8-week intensive training program for school-based BCBAs to master ethical leadership and systems change.
-                </p>
-                <Button asChild variant="outline">
-                  <Link href="/transformation-program">
-                    Learn More
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
               </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm border text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Target className="h-8 w-8 text-purple-600" />
+              <div className="flex items-start">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">3</div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-slate-900">Complete Supervised Fieldwork</h3>
+                  <p className="text-slate-600 mt-2">You need to complete 2,000 hours of supervised fieldwork under the supervision of a qualified BCBA. This is where you'll get hands-on experience applying the principles of behavior analysis in a real-world setting.</p>
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">IEP Goal Generator</h3>
-                <p className="text-slate-600 mb-4">
-                  Free tool for writing values-based IEP goals that students actually care about.
-                </p>
-                <Button asChild variant="outline">
-                  <Link href="/iep-goals">
-                    Try Free Tool
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+              </div>
+              <div className="flex items-start">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">4</div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-slate-900">Pass the BCBA Examination</h3>
+                  <p className="text-slate-600 mt-2">After completing your degree, coursework, and fieldwork, you must pass the BCBA certification exam. This is a challenging exam that tests your knowledge of the entire BCBA task list.</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">5</div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-slate-900">Meet State-Specific Requirements</h3>
+                  <p className="text-slate-600 mt-2">In addition to BCBA certification, many states and school districts have their own requirements, such as state licensure or a teaching certificate. Be sure to check the requirements in the state where you want to work.</p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* CTA Section */}
+          {/* Salary and Career Outlook */}
+          <div className="py-12 bg-white rounded-lg shadow-sm border">
+            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
+              Salary and Career Outlook
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Average Salary</h3>
+                <p className="text-4xl font-bold text-green-600 mb-4">$89,075 / year</p>
+                <p className="text-slate-600">The average salary for a school-based BCBA in the United States is approximately $89,075 per year. However, salaries can range from $47,500 to $149,000 depending on location, experience, and other factors.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Career Growth</h3>
+                <p className="text-slate-600">The demand for BCBAs is growing rapidly, especially in school settings. As schools increasingly recognize the value of behavior analysis, the need for qualified school-based BCBAs will continue to grow. This is a career with excellent job security and opportunities for advancement.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Pros and Cons */}
+          <div className="py-12">
+            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
+              Pros and Cons of Being a School-Based BCBA
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-4 flex items-center"><ThumbsUp className="h-6 w-6 text-green-500 mr-2" /> Pros</h3>
+                <ul className="space-y-2 text-slate-600">
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Making a real difference in the lives of students.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>A dynamic and challenging work environment.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Opportunities for collaboration with other professionals.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>A consistent schedule that often aligns with the school year.</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-slate-900 mb-4 flex items-center"><ThumbsDown className="h-6 w-6 text-red-500 mr-2" /> Cons</h3>
+                <ul className="space-y-2 text-slate-600">
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Navigating complex school systems and bureaucracy.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>A heavy workload and high levels of stress.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Dealing with challenging behaviors and crisis situations.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0" />
+                    <span>Potentially lower salaries than in some clinical settings.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* How Behavior School Can Help */}
           <div className="py-12 text-center bg-blue-600 rounded-lg text-white">
-            <h2 className="text-3xl font-bold mb-4">Ready to Excel as a School-Based BCBA?</h2>
+            <h2 className="text-3xl font-bold mb-4">Ready to Start Your Journey?</h2>
             <p className="text-xl mb-8 opacity-90">
-              Join thousands of behavior analysts who have transformed their school-based practice.
+              Behavior School provides the training, tools, and support you need to become a successful school-based BCBA.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" variant="secondary">
                 <Link href="/transformation-program">
                   <Award className="mr-2 h-5 w-5" />
-                  Start Your Transformation
+                  Explore Our Training Programs
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
-                <Link href="/community">
-                  <Users className="mr-2 h-5 w-5" />
-                  Join Our Community
+                <Link href="/behavior-study-tools">
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  Prepare for the BCBA Exam
                 </Link>
               </Button>
             </div>
           </div>
+
+          {/* FAQ Section */}
+          <div className="py-12">
+            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Do I need a teaching certificate to be a school-based BCBA?</h3>
+                <p className="text-slate-600">It depends on the state and school district. Some require a teaching certificate, while others do not. It's important to check the specific requirements for the job you are applying for.</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Can I complete my supervised fieldwork in a school setting?</h3>
+                <p className="text-slate-600">Yes, and it's highly recommended! Gaining experience in a school setting during your fieldwork will give you a significant advantage when you start your career.</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">What is the difference between a school-based BCBA and a clinical BCBA?</h3>
+                <p className="text-slate-600">The main difference is the setting. School-based BCBAs work in schools and collaborate with educators, while clinical BCBAs typically work in clinics or homes and focus on providing direct therapy to clients.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
