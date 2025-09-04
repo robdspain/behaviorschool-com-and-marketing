@@ -66,38 +66,174 @@ export default function BCBAMockPracticeTestPage() {
           {/* Hero Section */}
           <div className="text-center py-12">
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              From Fear to Confidence: Conquer the BCBA Exam with Mock Tests
+              Free BCBA Mock Practice Test: Your Blueprint for Exam Success
             </h1>
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              The BCBA exam is a high-stakes test that can be intimidating. But what if you could walk into the exam room feeling confident, prepared, and ready to succeed? That's the power of mock exams.
+              Transform anxiety into confidence with authentic BCBA exam simulations. Our free mock practice tests replicate the real exam experience, giving you the preparation you need to pass on your first attempt.
             </p>
+            
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 max-w-2xl mx-auto mb-8">
+              <div className="flex items-center justify-center mb-4">
+                <Target className="h-8 w-8 text-yellow-600 mr-2" />
+                <h2 className="text-xl font-semibold text-yellow-800">The Reality Check</h2>
+              </div>
+              <p className="text-yellow-700 mb-4">
+                A significant percentage of BCBA candidates don&apos;t pass on their first attempt. The difference between success and failure often comes down to one critical factor: exam preparation that goes beyond just knowing the content.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <h3 className="font-semibold text-yellow-800 mb-1">Successful Candidates:</h3>
+                  <ul className="text-yellow-700 space-y-1">
+                    <li>• Complete 3-5+ full mock exams</li>
+                    <li>• Practice under timed conditions</li>
+                    <li>• Analyze mistakes systematically</li>
+                    <li>• Build exam-day stamina</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-yellow-800 mb-1">Struggling Candidates:</h3>
+                  <ul className="text-yellow-700 space-y-1">
+                    <li>• Rely only on reading and flashcards</li>
+                    <li>• Avoid timed practice</li>
+                    <li>• Focus on content, not application</li>
+                    <li>• Underestimate exam endurance needs</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Why Free BCBA Mock Practice Tests Are a Game-Changer */}
           <div className="py-12">
             <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              Why Free BCBA Mock Practice Tests Are a Game-Changer for Your Studies
+              Why Free BCBA Mock Practice Tests Are Essential for Exam Success
             </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <Clock className="h-12 w-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Master the BCBA Exam Format and Timing</h3>
-                <p className="text-slate-600">The BCBA exam is a 4-hour, 185-question marathon. Our mock exams simulate this experience perfectly, so you can get used to the pace and pressure of the real thing.</p>
+            
+            <div className="prose prose-lg text-slate-600 max-w-none mb-12">
+              <p className="text-lg text-center mb-8">
+                Mock practice tests aren&apos;t just another study tool - they&apos;re the closest thing to a crystal ball for your exam performance. Research in educational psychology consistently shows that testing enhances learning more than any other study method, including re-reading, highlighting, or summarizing.
+              </p>
+            </div>
+
+            {/* Core Benefits */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="bg-white p-8 rounded-lg shadow-sm border">
+                <Clock className="h-16 w-16 text-blue-500 mb-6" />
+                <h3 className="text-2xl font-semibold text-slate-900 mb-4">Master the BCBA Exam Format and Timing</h3>
+                <p className="text-slate-600 mb-4">
+                  The BCBA exam is a 4-hour, 185-question marathon that tests not just your knowledge, but your endurance, focus, and time management skills. Many well-prepared candidates fail simply because they&apos;ve never experienced the mental fatigue of a 4-hour exam.
+                </p>
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-800 mb-2">What You&apos;ll Master:</h4>
+                  <ul className="text-blue-700 space-y-1 text-sm">
+                    <li>• Pacing: 1.3 minutes per question average</li>
+                    <li>• Endurance: Maintaining focus for 4 hours</li>
+                    <li>• Navigation: Using computer-based testing interface</li>
+                    <li>• Strategy: When to skip and return to difficult questions</li>
+                    <li>• Break management: Optimizing optional break times</li>
+                  </ul>
+                </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <Target className="h-12 w-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Identify Your Strengths and Weaknesses</h3>
-                <p className="text-slate-600">Don't waste time studying what you already know. Our mock exams provide detailed feedback on your performance, so you can focus your studies on the areas where you need the most improvement.</p>
+              
+              <div className="bg-white p-8 rounded-lg shadow-sm border">
+                <Target className="h-16 w-16 text-blue-500 mb-6" />
+                <h3 className="text-2xl font-semibold text-slate-900 mb-4">Pinpoint Your Knowledge Gaps with Precision</h3>
+                <p className="text-slate-600 mb-4">
+                  Traditional studying gives you a false sense of security. You might think you know the material because you can recognize correct answers in your textbook, but recognition is not recall. Mock exams force you to retrieve information from memory, revealing what you truly know versus what you think you know.
+                </p>
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-green-800 mb-2">Detailed Analytics Include:</h4>
+                  <ul className="text-green-700 space-y-1 text-sm">
+                    <li>• Performance by BACB Task List sections</li>
+                    <li>• Question difficulty analysis</li>
+                    <li>• Time spent per question tracking</li>
+                    <li>• Common mistake patterns identification</li>
+                    <li>• Improvement trends over multiple attempts</li>
+                  </ul>
+                </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <Zap className="h-12 w-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Reduce Exam Anxiety and Build Confidence</h3>
-                <p className="text-slate-600">The more you practice in a simulated exam environment, the more comfortable and confident you'll feel on test day. Walk in with the confidence of a seasoned pro.</p>
+              
+              <div className="bg-white p-8 rounded-lg shadow-sm border">
+                <Zap className="h-16 w-16 text-blue-500 mb-6" />
+                <h3 className="text-2xl font-semibold text-slate-900 mb-4">Transform Anxiety into Confidence</h3>
+                <p className="text-slate-600 mb-4">
+                  Test anxiety isn&apos;t just about nerves - it&apos;s about the unknown. When you&apos;ve experienced the exact format, timing, and pressure of the BCBA exam multiple times through mock tests, the real exam becomes familiar territory rather than uncharted waters.
+                </p>
+                <div className="bg-purple-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-purple-800 mb-2">Confidence Building Benefits:</h4>
+                  <ul className="text-purple-700 space-y-1 text-sm">
+                    <li>• Familiarity with exam interface and format</li>
+                    <li>• Experience managing time pressure</li>
+                    <li>• Practice with complex scenario questions</li>
+                    <li>• Reduced fear of the unknown</li>
+                    <li>• Proven ability to complete full-length exams</li>
+                  </ul>
+                </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <TrendingUp className="h-12 w-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Improve Your Knowledge Retention</h3>
-                <p className="text-slate-600">The act of retrieving information during a mock exam (a process known as active recall) is a powerful way to strengthen your memory and improve long-term retention.</p>
+              
+              <div className="bg-white p-8 rounded-lg shadow-sm border">
+                <TrendingUp className="h-16 w-16 text-blue-500 mb-6" />
+                <h3 className="text-2xl font-semibold text-slate-900 mb-4">Supercharge Learning with Active Recall</h3>
+                <p className="text-slate-600 mb-4">
+                  The &quot;testing effect&quot; is one of the most robust findings in learning science. When you actively retrieve information from memory (as you do during a mock exam), you strengthen neural pathways and significantly improve long-term retention compared to passive study methods.
+                </p>
+                <div className="bg-orange-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-orange-800 mb-2">Learning Science Benefits:</h4>
+                  <ul className="text-orange-700 space-y-1 text-sm">
+                    <li>• Enhanced memory consolidation through retrieval practice</li>
+                    <li>• Improved transfer of knowledge to new contexts</li>
+                    <li>• Better discrimination between similar concepts</li>
+                    <li>• Increased metacognitive awareness of your knowledge</li>
+                    <li>• Stronger resistance to forgetting over time</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Research Evidence */}
+            <div className="bg-slate-50 rounded-lg p-8">
+              <h3 className="text-2xl font-semibold text-slate-900 mb-6 text-center">The Research Is Clear: Testing Enhances Learning</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-lg font-semibold text-slate-900 mb-4">The Science Behind Practice Testing:</h4>
+                  <div className="space-y-4">
+                    <div className="bg-white rounded-lg p-4">
+                      <p className="text-slate-600 text-sm">
+                        <strong>The Testing Effect:</strong> Decades of educational psychology research consistently show that practice testing improves long-term retention more effectively than repeated studying of the same material.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg p-4">
+                      <p className="text-slate-600 text-sm">
+                        <strong>Retrieval Practice:</strong> The act of retrieving information from memory strengthens neural pathways and improves both factual recall and conceptual understanding.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg p-4">
+                      <p className="text-slate-600 text-sm">
+                        <strong>Spaced Testing:</strong> Repeated practice testing sessions distributed over time lead to better long-term retention than massed practice sessions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-slate-900 mb-4">Real-World Applications:</h4>
+                  <div className="space-y-4">
+                    <div className="bg-white rounded-lg p-4">
+                      <p className="text-slate-600 text-sm">
+                        <strong>Medical Education:</strong> Medical students using practice exams consistently show improved board exam performance compared to traditional study methods alone.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg p-4">
+                      <p className="text-slate-600 text-sm">
+                        <strong>Legal Education:</strong> Law students who complete mock bar exams typically demonstrate higher pass rates than those who don&apos;t include practice testing in their preparation.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg p-4">
+                      <p className="text-slate-600 text-sm">
+                        <strong>Professional Certifications:</strong> Candidates using practice tests consistently outperform those using study guides alone across multiple professions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -192,20 +328,206 @@ export default function BCBAMockPracticeTestPage() {
           {/* FAQ Section */}
           <div className="py-12">
             <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              Frequently Asked Questions
+              Frequently Asked Questions About BCBA Mock Practice Tests
             </h2>
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">How many questions are on the BCBA exam?</h3>
-                <p className="text-slate-600">The BCBA exam has 185 multiple-choice questions. 160 of these questions are scored, and 25 are unscored pilot questions.</p>
+            <div className="space-y-8">
+              <div className="bg-slate-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">How many questions are on the BCBA exam and how is it structured?</h3>
+                <p className="text-slate-600 mb-3">
+                  The BCBA exam contains 185 multiple-choice questions, with some unscored pilot questions being tested for future exams. You won&apos;t know which questions are unscored, so you must treat every question as if it counts. Check the current BACB handbook for the most up-to-date exam structure.
+                </p>
+                <div className="bg-blue-50 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-800 mb-2">Question Distribution by Content Area:</h4>
+                  <ul className="text-blue-700 space-y-1 text-sm">
+                    <li>• <strong>Concepts and Principles (24-26%):</strong> 38-42 questions</li>
+                    <li>• <strong>Measurement, Data Display, Interpretation (16-18%):</strong> 26-29 questions</li>
+                    <li>• <strong>Experimental Design (9-11%):</strong> 14-18 questions</li>
+                    <li>• <strong>Ethics and Professional Conduct (8-12%):</strong> 13-19 questions</li>
+                    <li>• <strong>Behavior Change Procedures (35-39%):</strong> 56-62 questions</li>
+                    <li>• <strong>Selecting and Implementing Interventions (4-6%):</strong> 6-10 questions</li>
+                    <li>• <strong>Personnel Supervision and Management (6-8%):</strong> 10-13 questions</li>
+                  </ul>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">How long is the BCBA exam?</h3>
-                <p className="text-slate-600">You will have 4 hours to complete the BCBA exam.</p>
+              
+              <div className="bg-slate-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">How long is the BCBA exam and how should I pace myself?</h3>
+                <p className="text-slate-600 mb-3">
+                  The BCBA exam allows 4 hours (240 minutes) to complete all 185 questions. This provides approximately 1.3 minutes per question, but effective time management requires a strategic approach rather than equal time distribution.
+                </p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-green-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-green-800 mb-2">Recommended Pacing Strategy:</h4>
+                    <ul className="text-green-700 space-y-1 text-sm">
+                      <li>• <strong>Easy questions:</strong> 30-45 seconds</li>
+                      <li>• <strong>Moderate questions:</strong> 1-2 minutes</li>
+                      <li>• <strong>Complex scenarios:</strong> 2-3 minutes</li>
+                      <li>• <strong>Review flagged questions:</strong> 15-30 minutes</li>
+                      <li>• <strong>Buffer time:</strong> 10-15 minutes</li>
+                    </ul>
+                  </div>
+                  <div className="bg-yellow-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-yellow-800 mb-2">Time Checkpoints:</h4>
+                    <ul className="text-yellow-700 space-y-1 text-sm">
+                      <li>• <strong>60 minutes:</strong> 50+ questions completed</li>
+                      <li>• <strong>120 minutes:</strong> 90+ questions completed</li>
+                      <li>• <strong>180 minutes:</strong> 140+ questions completed</li>
+                      <li>• <strong>210 minutes:</strong> All questions attempted</li>
+                      <li>• <strong>240 minutes:</strong> Final review complete</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">What is a passing score on the BCBA exam?</h3>
-                <p className="text-slate-600">The passing score for the BCBA exam is determined by the BACB and can vary. However, it is typically around 400 out of a possible 500.</p>
+              
+              <div className="bg-slate-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">What is a passing score on the BCBA exam?</h3>
+                <p className="text-slate-600 mb-3">
+                  The BCBA exam uses scaled scoring, where raw scores are converted to scaled scores. Check the current BACB candidate handbook for the most up-to-date passing score requirements and scoring methodology.
+                </p>
+                <div className="bg-blue-50 rounded-lg p-4 mb-3">
+                  <h4 className="font-semibold text-blue-800 mb-2">Understanding Scaled Scoring:</h4>
+                  <p className="text-blue-700 text-sm mb-2">
+                    Scaled scoring accounts for variations in difficulty between different exam forms to ensure fairness across all test administrations. The BACB provides official scoring information in their candidate handbook.
+                  </p>
+                </div>
+                <p className="text-slate-600 text-sm">
+                  <strong>Pro Tip:</strong> Aim for consistent high performance on practice tests to ensure you&apos;re well-prepared, accounting for test-day conditions and question formats you haven&apos;t seen before.
+                </p>
+              </div>
+              
+              <div className="bg-slate-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">How many mock practice tests should I take before the real exam?</h3>
+                <p className="text-slate-600 mb-3">
+                  Research suggests that candidates who complete 3-5 full-length practice tests perform significantly better than those who take fewer. However, quality is more important than quantity - it&apos;s better to thoroughly analyze 3 exams than to rush through 6.
+                </p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-green-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-green-800 mb-2">Recommended Schedule:</h4>
+                    <ul className="text-green-700 space-y-2 text-sm">
+                      <li><strong>8-12 weeks before exam:</strong> Baseline mock test</li>
+                      <li><strong>6-8 weeks before exam:</strong> Second mock test after initial studying</li>
+                      <li><strong>4-6 weeks before exam:</strong> Third mock test to assess progress</li>
+                      <li><strong>2-3 weeks before exam:</strong> Fourth mock test for final assessment</li>
+                      <li><strong>1 week before exam:</strong> Light review, no new full tests</li>
+                    </ul>
+                  </div>
+                  <div className="bg-blue-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-blue-800 mb-2">Between Each Mock Test:</h4>
+                    <ul className="text-green-700 space-y-1 text-sm">
+                      <li>• Spend 2-3 hours analyzing results</li>
+                      <li>• Focus study on identified weak areas</li>
+                      <li>• Review all incorrect answers</li>
+                      <li>• Research unfamiliar concepts thoroughly</li>
+                      <li>• Track improvement trends</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-slate-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">Are free BCBA practice tests as good as paid ones?</h3>
+                <p className="text-slate-600 mb-3">
+                  Quality varies significantly among both free and paid options. The key factors that determine value are question accuracy, explanation quality, performance analytics, and similarity to the actual exam format. Many free options provide excellent preparation when they include these elements.
+                </p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-2">What to Look for in Any Practice Test:</h4>
+                    <ul className="text-slate-600 space-y-1 text-sm">
+                      <li>• Questions aligned with current BACB Task List</li>
+                      <li>• Detailed explanations for all answer choices</li>
+                      <li>• Performance analytics by content area</li>
+                      <li>• Realistic exam timing and interface</li>
+                      <li>• Questions written by BCBA subject matter experts</li>
+                      <li>• Regular updates to reflect exam changes</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-2">Red Flags to Avoid:</h4>
+                    <ul className="text-slate-600 space-y-1 text-sm">
+                      <li>• Questions with obvious errors or typos</li>
+                      <li>• Outdated content not reflecting current practice</li>
+                      <li>• Minimal or incorrect explanations</li>
+                      <li>• No performance tracking or analytics</li>
+                      <li>• Unrealistic question difficulty (too easy/hard)</li>
+                      <li>• Format that doesn&apos;t match the real exam</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-slate-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">What should I do if I&apos;m not improving on practice tests?</h3>
+                <p className="text-slate-600 mb-3">
+                  Plateauing on practice tests is common and usually indicates the need for a strategic shift in your preparation approach. The key is systematic analysis of your performance patterns to identify the root causes.
+                </p>
+                <div className="space-y-4">
+                  <div className="bg-red-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-red-800 mb-2">If Your Scores Are Consistently Low (Below 60%):</h4>
+                    <ul className="text-red-700 space-y-1 text-sm">
+                      <li>• Return to foundational study materials</li>
+                      <li>• Focus on understanding concepts, not memorizing facts</li>
+                      <li>• Work with a tutor or study group</li>
+                      <li>• Take shorter, topic-specific practice quizzes</li>
+                      <li>• Consider additional coursework if knowledge gaps are substantial</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-yellow-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-yellow-800 mb-2">If You&apos;re Stuck in the 60-70% Range:</h4>
+                    <ul className="text-yellow-700 space-y-1 text-sm">
+                      <li>• Analyze mistakes by content area and question type</li>
+                      <li>• Practice with more complex scenario questions</li>
+                      <li>• Work on eliminating obviously wrong answers</li>
+                      <li>• Improve time management strategies</li>
+                      <li>• Focus on application rather than recall</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-green-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-green-800 mb-2">If You&apos;re Above 70% But Want to Improve:</h4>
+                    <ul className="text-green-700 space-y-1 text-sm">
+                      <li>• Focus on your 1-2 weakest content areas</li>
+                      <li>• Practice advanced clinical reasoning skills</li>
+                      <li>• Review ethics scenarios and edge cases</li>
+                      <li>• Work on speed and efficiency</li>
+                      <li>• Take practice tests under increasingly challenging conditions</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-slate-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">How do I know if I&apos;m ready to take the real BCBA exam?</h3>
+                <p className="text-slate-600 mb-3">
+                  Readiness isn&apos;t just about hitting a score threshold - it&apos;s about consistent performance, confidence with the format, and demonstrable improvement over time. Here are objective indicators of readiness:
+                </p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-green-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-green-800 mb-2">Performance Indicators:</h4>
+                    <ul className="text-green-700 space-y-1 text-sm">
+                      <li>• Consistently scoring 75%+ on practice tests</li>
+                      <li>• Improving or stable scores over last 2-3 attempts</li>
+                      <li>• Completing full exams within time limit</li>
+                      <li>• Strong performance across all content areas</li>
+                      <li>• Minimal careless errors on easy questions</li>
+                    </ul>
+                  </div>
+                  <div className="bg-blue-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-blue-800 mb-2">Confidence Indicators:</h4>
+                    <ul className="text-blue-700 space-y-1 text-sm">
+                      <li>• Comfortable with computer-based testing format</li>
+                      <li>• Effective test-taking strategies developed</li>
+                      <li>• Able to maintain focus for 4 hours</li>
+                      <li>• Confident in time management approach</li>
+                      <li>• Ready to handle test-day logistics and stress</li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4">
+                  <p className="text-yellow-800 text-sm">
+                    <strong>Important:</strong> If you&apos;re not consistently performing at 75%+ on practice tests, consider delaying your exam date. The $245 exam fee is substantial, and first-time pass rates are significantly higher for well-prepared candidates.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
