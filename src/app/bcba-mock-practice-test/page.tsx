@@ -125,9 +125,9 @@ export default function BCBAMockPracticeTestPage() {
           {/* Direct Access to Free Practice Tests */}
           <div className="py-8 text-center">
             <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-8 border border-emerald-200">
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">Start Your Practice Now - Completely Free</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Start Your Free BCBA Practice Now</h2>
               <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
-                Don&apos;t wait to start practicing. Get immediate access to our free BCBA mock exams and begin building your confidence today.
+                Don&apos;t wait to start practicing. Get immediate access to our free BCBA mock exams and fluency practice tools. Begin building your confidence today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">
@@ -144,7 +144,7 @@ export default function BCBAMockPracticeTestPage() {
                 </Button>
               </div>
               <p className="text-sm text-slate-500 mt-4">
-                Quick signup • Instant access • Detailed explanations included
+                Quick signup • Full & mini exams • Fluency practice • Detailed explanations
               </p>
             </div>
           </div>
@@ -375,6 +375,24 @@ export default function BCBAMockPracticeTestPage() {
                 <CheckCircle className="h-12 w-12 text-blue-500 mb-4" />
                 <h3 className="text-xl font-semibold text-slate-900 mb-2">Performance Tracking</h3>
                 <p className="text-slate-600">Track your progress across different content areas. Identify your strengths and weaknesses to focus your study time where it matters most.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Mid-Page Action CTA */}
+          <div className="py-8 text-center">
+            <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
+              <h2 className="text-xl font-bold text-slate-900 mb-3">Experience the Difference Yourself</h2>
+              <p className="text-slate-600 mb-4 max-w-xl mx-auto">
+                See why thousands of BCBA candidates trust our practice platform. Start with a free exam today.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                    <Zap className="mr-2 h-4 w-4" />
+                    Launch Free Practice Platform
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>

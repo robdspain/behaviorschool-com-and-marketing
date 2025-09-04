@@ -485,22 +485,25 @@ export default function BCBAStudyFluencyPage() {
           {/* Early Action CTA */}
           <div className="py-8 text-center">
             <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-6 border border-emerald-200">
-              <h2 className="text-xl font-bold text-slate-900 mb-3">Start Building Fluency Today</h2>
-              <p className="text-slate-600 mb-4">Don&apos;t wait to implement these proven study techniques. Get access to our fluency-based practice tools.</p>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">Ready to Build Fluency? Start Practicing Now</h2>
+              <p className="text-slate-600 mb-4">Don&apos;t wait to implement these proven study techniques. Access our free practice platform and begin building fluency today.</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                  <Link href="/behavior-study-tools">
+                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
                     <Zap className="mr-2 h-4 w-4" />
-                    Try Our Fluency Tools
+                    Start Free Practice Now
                   </Link>
                 </Button>
                 <Button asChild variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
-                  <Link href="/bcba-mock-practice-test">
+                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
                     <Target className="mr-2 h-4 w-4" />
-                    Take Practice Tests
+                    Try Mock Exams Free
                   </Link>
                 </Button>
               </div>
+              <p className="text-xs text-slate-500 mt-3">
+                Free access • SAFMEDS practice • Fluency tracking included
+              </p>
             </div>
           </div>
 
@@ -531,16 +534,24 @@ export default function BCBAStudyFluencyPage() {
 
           {/* How Behavior School Can Help */}
           <div className="py-12 text-center bg-emerald-600 rounded-lg text-white">
-            <h2 className="text-3xl font-bold mb-4">Ready to Take Your BCBA Exam Prep to the Next Level?</h2>
+            <h2 className="text-3xl font-bold mb-4">Ready to Start Fluency-Based Practice?</h2>
             <p className="text-xl mb-8 opacity-90">
-              Behavior School's fluency practice tools automate the process of fluency-based learning, so you can focus on what matters most: mastering the material.
+              Put these proven techniques into action. Access our free fluency practice tools and start building automatic recall of BCBA concepts today.
             </p>
-            <Button asChild size="lg" variant="secondary">
-              <Link href="/behavior-study-tools">
-                <Zap className="mr-2 h-5 w-5" />
-                Explore Our BCBA Study Tools
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" variant="secondary">
+                <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                  <Zap className="mr-2 h-5 w-5" />
+                  Start Free Fluency Practice
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-emerald-600">
+                <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                  <Target className="mr-2 h-5 w-5" />
+                  Take Practice Tests Now
+                </Link>
+              </Button>
+            </div>
           </div>
 
           {/* FAQ Section */}
