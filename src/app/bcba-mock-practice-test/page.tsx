@@ -318,9 +318,9 @@ export default function BCBAMockPracticeTestPage() {
               Take a free mock exam now and get a baseline of your current knowledge. It's the first step on your path to BCBA exam success.
             </p>
             <Button asChild size="lg" variant="secondary">
-              <Link href="https://study.behaviorschool.com/product-tour/welcome">
+              <Link href="/behavior-study-tools">
                 <Zap className="mr-2 h-5 w-5" />
-                Take a Free Mock Exam Now
+                Access Our BCBA Practice Tests
               </Link>
             </Button>
           </div>

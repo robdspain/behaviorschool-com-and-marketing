@@ -495,9 +495,9 @@ export default function BCBAStudyFluencyPage() {
               Behavior School's fluency practice tools automate the process of fluency-based learning, so you can focus on what matters most: mastering the material.
             </p>
             <Button asChild size="lg" variant="secondary">
-              <Link href="https://study.behaviorschool.com/product-tour">
+              <Link href="/behavior-study-tools">
                 <Zap className="mr-2 h-5 w-5" />
-                Take a Tour of Our Fluency Practice Tools
+                Explore Our BCBA Study Tools
               </Link>
             </Button>
           </div>
@@ -540,7 +540,7 @@ export default function BCBAStudyFluencyPage() {
                   <li>• <strong>Week 5+:</strong> Maintaining fluency, focusing on retention and transfer</li>
                 </ul>
                 <p className="text-slate-600">
-                  The key is consistency. Daily 15-20 minute sessions are more effective than long weekend cramming sessions.
+                  The key is consistency. Daily 15-20 minute sessions are more effective than long weekend cramming sessions. Our <Link href="/behavior-study-tools" className="text-emerald-600 hover:text-emerald-700 font-medium">BCBA study tools</Link> are designed to support this type of consistent, effective practice.
                 </p>
               </div>
               

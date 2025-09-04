@@ -115,7 +115,7 @@ export default function SchoolBasedBCBAPage() {
                     <CheckCircle className="h-5 w-5 text-emerald-500 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-slate-900">Behavior Intervention Plans (BIPs)</h4>
-                      <p className="text-slate-600 mt-1">Design evidence-based intervention strategies that teach replacement behaviors while reducing problematic ones. Plans must be practical for school implementation and aligned with educational goals.</p>
+                      <p className="text-slate-600 mt-1">Design evidence-based intervention strategies that teach replacement behaviors while reducing problematic ones. Our <Link href="/behavior-plans" className="text-emerald-600 hover:text-emerald-700 font-medium">behavior intervention plan templates</Link> and <Link href="/iep-goals" className="text-emerald-600 hover:text-emerald-700 font-medium">IEP goal writing tools</Link> can streamline this process. Plans must be practical for school implementation and aligned with educational goals.</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -219,7 +219,7 @@ export default function SchoolBasedBCBAPage() {
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Complete BACB-Approved Coursework</h3>
                   <p className="text-slate-600 mb-4">
-                    You must complete specific graduate-level coursework that covers the BACB Task List. This includes courses in:
+                    You must complete specific graduate-level coursework that covers the BACB Task List. This includes courses in behavior analysis principles, measurement, and intervention techniques. Our <Link href="/behavior-study-tools" className="text-emerald-600 hover:text-emerald-700 font-medium">BCBA study tools</Link> can help you master this content:
                   </p>
                   <div className="grid md:grid-cols-2 gap-4 mb-4">
                     <ul className="list-disc pl-6 text-slate-600 space-y-1">
@@ -632,7 +632,7 @@ export default function SchoolBasedBCBAPage() {
                   Absolutely! Completing your supervised fieldwork in schools is one of the best career investments you can make. School-based fieldwork gives you direct experience with IEP processes, classroom management, collaboration with educators, and the unique challenges of educational settings.
                 </p>
                 <p className="text-slate-600">
-                  Look for supervised independent fieldwork opportunities in special education programs, autism support classrooms, or behavioral support roles in public schools. This experience makes you significantly more competitive for school-based positions after certification.
+                  Look for supervised independent fieldwork opportunities in special education programs, autism support classrooms, or behavioral support roles in public schools. Our <Link href="/supervisors" className="text-emerald-600 hover:text-emerald-700 font-medium">supervision tools</Link> can help track your fieldwork progress. This experience makes you significantly more competitive for school-based positions after certification.
                 </p>
               </div>
               
