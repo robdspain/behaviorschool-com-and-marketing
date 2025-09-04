@@ -115,7 +115,12 @@ export async function POST(request: NextRequest) {
       });
 
       if (!mailgunResponse.ok) {
-        console.error('Mailgun admin email error:', await mailgunResponse.text());
+        const errorText = await mailgunResponse.text();
+        console.error('Mailgun admin email error:', {
+          status: mailgunResponse.status,
+          statusText: mailgunResponse.statusText,
+          error: errorText
+        });
       }
     }
 
@@ -141,7 +146,12 @@ export async function POST(request: NextRequest) {
       });
 
       if (!confirmationResponse.ok) {
-        console.error('Mailgun confirmation email error:', await confirmationResponse.text());
+        const errorText = await confirmationResponse.text();
+        console.error('Mailgun confirmation email error:', {
+          status: confirmationResponse.status,
+          statusText: confirmationResponse.statusText,
+          error: errorText
+        });
       }
     }
 
