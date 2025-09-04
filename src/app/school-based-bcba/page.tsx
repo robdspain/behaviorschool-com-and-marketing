@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Users, BookOpen, Target, Award, ArrowRight, DollarSign, Briefcase, Clock, ThumbsUp, ThumbsDown } from "lucide-react";
+import { CheckCircle, BookOpen, Award, ThumbsUp, ThumbsDown } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "How to Become a School-Based BCBA: A Complete Guide",
@@ -60,9 +60,28 @@ export default function SchoolBasedBCBAPage() {
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },
+            { label: "BCBA Resources", href: "/bcba-exam-prep" },
             { label: "How to Become a School-Based BCBA" }
           ]}
         />
+        
+        {/* Related Pages Navigation */}
+        <div className="mb-8">
+          <div className="bg-slate-100 rounded-lg p-4">
+            <p className="text-sm text-slate-600 mb-2">Related BCBA Resources:</p>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/bcba-study-fluency" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+                Study Fluency Guide
+              </Link>
+              <Link href="/bcba-mock-practice-test" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+                Free Practice Tests
+              </Link>
+              <Link href="/behavior-study-tools" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+                Study Tools
+              </Link>
+            </div>
+          </div>
+        </div>
         
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
@@ -177,6 +196,28 @@ export default function SchoolBasedBCBAPage() {
                 <p className="text-slate-700">
                   <strong>3:00 PM - 4:00 PM:</strong> Data analysis, report writing, and planning for tomorrow&apos;s activities. Return parent calls and respond to team communications.
                 </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Early CTA */}
+          <div className="py-8 text-center">
+            <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-6 border border-emerald-200">
+              <h2 className="text-xl font-bold text-slate-900 mb-3">Ready to Start Your BCBA Journey?</h2>
+              <p className="text-slate-600 mb-4">Get the tools and training you need to become a successful school-based BCBA.</p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                  <Link href="/transformation-program">
+                    <Award className="mr-2 h-4 w-4" />
+                    Explore Training Programs
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
+                  <Link href="/behavior-study-tools">
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Start BCBA Exam Prep
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>

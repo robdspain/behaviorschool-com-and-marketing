@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Target, TrendingUp, BookOpen, Zap, ArrowRight } from "lucide-react";
+import { CheckCircle, Clock, Target, TrendingUp, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
@@ -53,14 +53,33 @@ export const metadata: Metadata = {
 
 export default function BCBAMockPracticeTestPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50">
       <div className="container mx-auto px-4 py-8">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },
+            { label: "BCBA Resources", href: "/bcba-exam-prep" },
             { label: "Free BCBA Mock Practice Test" }
           ]}
         />
+        
+        {/* Related Pages Navigation */}
+        <div className="mb-8">
+          <div className="bg-slate-100 rounded-lg p-4">
+            <p className="text-sm text-slate-600 mb-2">Related BCBA Resources:</p>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/school-based-bcba" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+                School-Based BCBA Guide
+              </Link>
+              <Link href="/bcba-study-fluency" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+                Study Fluency Guide
+              </Link>
+              <Link href="/behavior-study-tools" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+                Study Tools
+              </Link>
+            </div>
+          </div>
+        </div>
         
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
@@ -108,7 +127,7 @@ export default function BCBAMockPracticeTestPage() {
             <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-8 border border-emerald-200">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Start Your Practice Now - Completely Free</h2>
               <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
-                Don't wait to start practicing. Get immediate access to our free BCBA mock exams and begin building your confidence today.
+                Don&apos;t wait to start practicing. Get immediate access to our free BCBA mock exams and begin building your confidence today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">
@@ -282,28 +301,28 @@ export default function BCBAMockPracticeTestPage() {
                 <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">2</div>
                 <div className="ml-6">
                   <h3 className="text-xl font-semibold text-slate-900">Create a Realistic Exam Environment</h3>
-                  <p className="text-slate-600 mt-2">Find a quiet place where you won't be disturbed, set a timer for 4 hours, and take the mock exam as if it were the real thing. No distractions, no breaks (except for the ones you'd get in the real exam).</p>
+                  <p className="text-slate-600 mt-2">Find a quiet place where you won&apos;t be disturbed, set a timer for 4 hours, and take the mock exam as if it were the real thing. No distractions, no breaks (except for the ones you&apos;d get in the real exam).</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">3</div>
                 <div className="ml-6">
                   <h3 className="text-xl font-semibold text-slate-900">Analyze Your Results</h3>
-                  <p className="text-slate-600 mt-2">Don't just look at your score. Go through every question, including the ones you got right, and read the detailed explanations. Understand why the correct answer is correct and why the other answers are incorrect.</p>
+                  <p className="text-slate-600 mt-2">Don&apos;t just look at your score. Go through every question, including the ones you got right, and read the detailed explanations. Understand why the correct answer is correct and why the other answers are incorrect.</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">4</div>
                 <div className="ml-6">
                   <h3 className="text-xl font-semibold text-slate-900">Focus Your Studies</h3>
-                  <p className="text-slate-600 mt-2">Use the results of your mock exam to create a targeted study plan. Focus on the areas where you scored the lowest, but don't neglect your areas of strength. Use our detailed analytics to track your progress over time.</p>
+                  <p className="text-slate-600 mt-2">Use the results of your mock exam to create a targeted study plan. Focus on the areas where you scored the lowest, but don&apos;t neglect your areas of strength. Use our detailed analytics to track your progress over time.</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">5</div>
                 <div className="ml-6">
                   <h3 className="text-xl font-semibold text-slate-900">Repeat the Process</h3>
-                  <p className="text-slate-600 mt-2">Take multiple mock exams throughout your studies to track your progress and identify new areas of weakness. The more you practice, the more confident you'll become.</p>
+                  <p className="text-slate-600 mt-2">Take multiple mock exams throughout your studies to track your progress and identify new areas of weakness. The more you practice, the more confident you&apos;ll become.</p>
                 </div>
               </div>
             </div>
@@ -340,7 +359,7 @@ export default function BCBAMockPracticeTestPage() {
               <div className="bg-white p-6 rounded-lg shadow-sm border">
                 <Zap className="h-12 w-12 text-blue-500 mb-4" />
                 <h3 className="text-xl font-semibold text-slate-900 mb-2">AI-Powered Questions</h3>
-                <p className="text-slate-600">Our mock exams are powered by AI, which means you'll get a unique set of questions every time. No more memorizing old test banks.</p>
+                <p className="text-slate-600">Our mock exams are powered by AI, which means you&apos;ll get a unique set of questions every time. No more memorizing old test banks.</p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm border">
                 <Clock className="h-12 w-12 text-blue-500 mb-4" />
@@ -364,7 +383,7 @@ export default function BCBAMockPracticeTestPage() {
           <div className="py-12 text-center bg-blue-600 rounded-lg text-white">
             <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-xl mb-8 opacity-90">
-              Take a free mock exam now and get a baseline of your current knowledge. It's the first step on your path to BCBA exam success.
+              Take a free mock exam now and get a baseline of your current knowledge. It&apos;s the first step on your path to BCBA exam success.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" variant="secondary">
@@ -593,7 +612,7 @@ export default function BCBAMockPracticeTestPage() {
           <div className="py-12 text-center">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Your Path to BCBA Exam Success Starts Here</h2>
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              Don't leave your BCBA exam success to chance. Use our free mock practice tests to build your confidence, identify your weaknesses, and go into the exam room with the skills you need to succeed.
+              Don&apos;t leave your BCBA exam success to chance. Use our free mock practice tests to build your confidence, identify your weaknesses, and go into the exam room with the skills you need to succeed.
             </p>
           </div>
 

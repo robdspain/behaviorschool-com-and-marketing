@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Zap, Target, Clock, TrendingUp, BookOpen, ArrowRight } from "lucide-react";
+import { CheckCircle, Zap, Target, TrendingUp } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "BCBA Study Fluency: The Secret to Passing the BCBA Exam",
@@ -59,9 +59,28 @@ export default function BCBAStudyFluencyPage() {
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },
+            { label: "BCBA Resources", href: "/bcba-exam-prep" },
             { label: "BCBA Study Fluency" }
           ]}
         />
+        
+        {/* Related Pages Navigation */}
+        <div className="mb-8">
+          <div className="bg-slate-100 rounded-lg p-4">
+            <p className="text-sm text-slate-600 mb-2">Related BCBA Resources:</p>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/school-based-bcba" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+                School-Based BCBA Guide
+              </Link>
+              <Link href="/bcba-mock-practice-test" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+                Free Practice Tests
+              </Link>
+              <Link href="/behavior-study-tools" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+                Study Tools
+              </Link>
+            </div>
+          </div>
+        </div>
         
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
@@ -129,9 +148,9 @@ export default function BCBAStudyFluencyPage() {
               </div>
             </div>
 
-            {/* Why Most BCBA Students Struggle */}
-            <div className="bg-red-50 rounded-lg p-6 border border-red-200">
-              <h3 className="text-xl font-semibold text-red-800 mb-4">Why 33% of BCBA Candidates Fail on Their First Attempt</h3>
+                      {/* Why Most BCBA Students Struggle */}
+          <div className="bg-red-50 rounded-lg p-6 border border-red-200">
+            <h3 className="text-xl font-semibold text-red-800 mb-4">Why 33% of BCBA Candidates Fail on Their First Attempt</h3>
               <div className="grid md:grid-cols-2 gap-6 text-red-700">
                 <div>
                   <h4 className="font-semibold mb-2">Common Study Mistakes:</h4>
@@ -463,6 +482,28 @@ export default function BCBAStudyFluencyPage() {
             </div>
           </div>
 
+          {/* Early Action CTA */}
+          <div className="py-8 text-center">
+            <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-6 border border-emerald-200">
+              <h2 className="text-xl font-bold text-slate-900 mb-3">Start Building Fluency Today</h2>
+              <p className="text-slate-600 mb-4">Don&apos;t wait to implement these proven study techniques. Get access to our fluency-based practice tools.</p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                  <Link href="/behavior-study-tools">
+                    <Zap className="mr-2 h-4 w-4" />
+                    Try Our Fluency Tools
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
+                  <Link href="/bcba-mock-practice-test">
+                    <Target className="mr-2 h-4 w-4" />
+                    Take Practice Tests
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+
           {/* The Benefits of Fluency-Based Learning */}
           <div className="py-12 bg-white rounded-lg shadow-sm border">
             <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
@@ -475,15 +516,15 @@ export default function BCBAStudyFluencyPage() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-4">Reduced Anxiety</h3>
-                <p className="text-slate-600">Fluency builds confidence. When you know you can answer questions quickly and accurately, you'll feel less anxious on exam day and be able to perform at your best.</p>
+                <p className="text-slate-600">Fluency builds confidence. When you know you can answer questions quickly and accurately, you&apos;ll feel less anxious on exam day and be able to perform at your best.</p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-4">Better Retention</h3>
-                <p className="text-slate-600">Fluency-based learning creates stronger neural pathways, which leads to better long-term retention. You'll remember the material long after the exam is over.</p>
+                <p className="text-slate-600">Fluency-based learning creates stronger neural pathways, which leads to better long-term retention. You&apos;ll remember the material long after the exam is over.</p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-slate-900 mb-4">Enhanced Application</h3>
-                <p className="text-slate-600">As a BCBA, you'll need to make quick, data-driven decisions in the moment. Fluency practice prepares you for the fast-paced nature of the job.</p>
+                <p className="text-slate-600">As a BCBA, you&apos;ll need to make quick, data-driven decisions in the moment. Fluency practice prepares you for the fast-paced nature of the job.</p>
               </div>
             </div>
           </div>
@@ -659,7 +700,7 @@ export default function BCBAStudyFluencyPage() {
           <div className="py-12 text-center">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Go Beyond Memorization and Achieve True Mastery</h2>
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              Don't just study for the BCBA exam; train for it. By incorporating fluency-based learning into your study routine, you'll not only be better prepared to pass the exam, but you'll also be a more effective and confident behavior analyst.
+              Don&apos;t just study for the BCBA exam; train for it. By incorporating fluency-based learning into your study routine, you&apos;ll not only be better prepared to pass the exam, but you&apos;ll also be a more effective and confident behavior analyst.
             </p>
           </div>
 
