@@ -114,7 +114,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             // Re-check admin status
             if (supabase) {
               const { data: profile } = await supabase
-                .from<Profile>('profiles')
+                .from('profiles')
                 .select('role')
                 .eq('id', session.user.id)
                 .single();
