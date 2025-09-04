@@ -285,6 +285,11 @@ export default function RootLayout({
         <meta name="logo" content="https://behaviorschool.com/Logos/Logo.webp" />
         <link rel="image_src" href="https://behaviorschool.com/Logos/Logo.webp" />
         
+        {/* Bing-specific meta tags */}
+        <meta name="msvalidate.01" content="D6F638D35C42D071C62B47907C2CD0CC" />
+        <meta name="msapplication-TileColor" content="#1F4D3F" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        
         {/* Additional favicon formats for better compatibility */}
         <link rel="icon" type="image/webp" sizes="32x32" href="/Logos/Logo.webp" />
         <link rel="icon" type="image/webp" sizes="16x16" href="/Logos/Logo.webp" />
