@@ -125,7 +125,7 @@ export default function BCBAMockPracticeTestPage() {
                 </Button>
               </div>
               <p className="text-sm text-slate-500 mt-4">
-                No signup required • Instant access • Detailed explanations included
+                Quick signup • Instant access • Detailed explanations included
               </p>
             </div>
           </div>
