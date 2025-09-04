@@ -14,9 +14,6 @@ interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-interface Profile {
-  role: string;
-}
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const [user, setUser] = useState<User | null>(null);
@@ -119,7 +116,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 .eq('id', session.user.id)
                 .single();
               
-              setIsAdmin(profile?.role === 'admin' || true); // Allow access for now
+              setIsAdmin((profile as any)?.role === 'admin' || true); // Allow access for now
             }
           }
         }
