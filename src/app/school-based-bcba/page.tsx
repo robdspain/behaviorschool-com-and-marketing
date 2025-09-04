@@ -67,16 +67,16 @@ export default function SchoolBasedBCBAPage() {
         
         {/* Related Pages Navigation */}
         <div className="mb-8">
-          <div className="bg-slate-100 rounded-lg p-4">
-            <p className="text-sm text-slate-600 mb-2">Related BCBA Resources:</p>
+          <div className="bg-slate-100 rounded-lg p-4 border border-emerald-800">
+            <p className="text-sm text-emerald-800 font-medium mb-2">Related BCBA Resources:</p>
             <div className="flex flex-wrap gap-2">
-              <Link href="/bcba-study-fluency" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+              <Link href="/bcba-study-fluency" className="text-xs bg-white px-3 py-1 rounded-full text-emerald-800 hover:bg-emerald-800 hover:text-white transition-colors border border-emerald-700">
                 Study Fluency Guide
               </Link>
-              <Link href="/bcba-mock-practice-test" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+              <Link href="/bcba-mock-practice-test" className="text-xs bg-white px-3 py-1 rounded-full text-emerald-800 hover:bg-emerald-800 hover:text-white transition-colors border border-emerald-700">
                 Free Practice Tests
               </Link>
-              <Link href="/behavior-study-tools" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors">
+              <Link href="/behavior-study-tools" className="text-xs bg-white px-3 py-1 rounded-full text-emerald-800 hover:bg-emerald-800 hover:text-white transition-colors border border-emerald-700">
                 Study Tools
               </Link>
             </div>
@@ -86,10 +86,10 @@ export default function SchoolBasedBCBAPage() {
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <div className="text-center py-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-emerald-900 mb-6">
               How to Become a School-Based BCBA: A Complete Guide
             </h1>
-            <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl text-emerald-700 mb-8 max-w-3xl mx-auto">
               A comprehensive guide for aspiring behavior analysts who want to make a difference in the lives of students.
             </p>
           </div>
@@ -202,17 +202,17 @@ export default function SchoolBasedBCBAPage() {
 
           {/* Early CTA */}
           <div className="py-8 text-center">
-            <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-6 border border-emerald-200">
-              <h2 className="text-xl font-bold text-slate-900 mb-3">Ready to Start Your BCBA Journey?</h2>
-              <p className="text-slate-600 mb-4">Get the tools and training you need to become a successful school-based BCBA.</p>
+            <div className="bg-gradient-to-r from-emerald-50 to-yellow-50 rounded-xl p-6 border-2 border-emerald-800">
+              <h2 className="text-xl font-bold text-emerald-900 mb-3">Ready to Start Your BCBA Journey?</h2>
+              <p className="text-emerald-700 mb-4">Get the tools and training you need to become a successful school-based BCBA.</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                <Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-emerald-900 font-semibold shadow-lg">
                   <Link href="/transformation-program">
                     <Award className="mr-2 h-4 w-4" />
                     Explore Training Programs
                   </Link>
                 </Button>
-                <Button asChild variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
+                <Button asChild className="bg-yellow-400 hover:bg-yellow-500 text-emerald-900 font-semibold shadow-lg">
                   <Link href="/behavior-study-tools">
                     <BookOpen className="mr-2 h-4 w-4" />
                     Start BCBA Exam Prep
@@ -236,7 +236,7 @@ export default function SchoolBasedBCBAPage() {
 
             <div className="space-y-12">
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">1</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-800 text-yellow-400 rounded-full flex items-center justify-center font-bold text-2xl shadow-lg">1</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Earn a Master&apos;s Degree</h3>
                   <p className="text-slate-600 mb-4">
@@ -256,7 +256,7 @@ export default function SchoolBasedBCBAPage() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">2</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-800 text-yellow-400 rounded-full flex items-center justify-center font-bold text-2xl shadow-lg">2</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Complete BACB-Approved Coursework</h3>
                   <p className="text-slate-600 mb-4">
@@ -283,7 +283,7 @@ export default function SchoolBasedBCBAPage() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">3</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-800 text-yellow-400 rounded-full flex items-center justify-center font-bold text-2xl shadow-lg">3</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Complete Supervised Experience</h3>
                   <p className="text-slate-600 mb-4">
@@ -318,7 +318,7 @@ export default function SchoolBasedBCBAPage() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">4</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-800 text-yellow-400 rounded-full flex items-center justify-center font-bold text-2xl shadow-lg">4</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Pass the BCBA Certification Exam</h3>
                   <p className="text-slate-600 mb-4">
@@ -339,7 +339,7 @@ export default function SchoolBasedBCBAPage() {
               </div>
 
               <div className="flex items-start">
-                <div className="flex-shrink-0 w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-bold text-2xl">5</div>
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-800 text-yellow-400 rounded-full flex items-center justify-center font-bold text-2xl shadow-lg">5</div>
                 <div className="ml-8">
                   <h3 className="text-2xl font-semibold text-slate-900 mb-4">Meet State and District Requirements</h3>
                   <p className="text-slate-600 mb-4">
@@ -428,9 +428,9 @@ export default function SchoolBasedBCBAPage() {
             <div className="mb-12">
               <h3 className="text-2xl font-semibold text-slate-900 mb-6 text-center">Comprehensive Benefits</h3>
               <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-emerald-50 rounded-lg p-6">
-                  <h4 className="font-semibold text-emerald-800 mb-3">Health & Wellness</h4>
-                  <ul className="text-emerald-700 space-y-1 text-sm">
+                <div className="bg-emerald-100 rounded-lg p-6 border border-emerald-800">
+                  <h4 className="font-semibold text-emerald-900 mb-3">Health & Wellness</h4>
+                  <ul className="text-emerald-800 space-y-1 text-sm">
                     <li>• Medical, dental, vision insurance</li>
                     <li>• Mental health support</li>
                     <li>• Employee assistance programs</li>
@@ -618,31 +618,31 @@ export default function SchoolBasedBCBAPage() {
               </div>
             </div>
             
-            <div className="mt-8 bg-blue-50 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-blue-800 mb-4">Is School-Based BCBA Work Right for You?</h3>
-              <p className="text-blue-700 mb-4">
+            <div className="mt-8 bg-emerald-50 rounded-lg p-6 border border-emerald-800">
+              <h3 className="text-lg font-semibold text-emerald-900 mb-4">Is School-Based BCBA Work Right for You?</h3>
+              <p className="text-emerald-800 mb-4">
                 This career path tends to be most fulfilling for professionals who thrive in collaborative environments, enjoy variety in their daily work, and are passionate about educational equity and student success. You&apos;ll need strong communication skills, patience with system-level change, and the ability to work independently while maintaining team relationships.
               </p>
-              <p className="text-blue-700">
+              <p className="text-emerald-800">
                 Consider shadowing a school-based BCBA or volunteering in special education classrooms to get firsthand experience before committing to this career path. Many successful school-based BCBAs report that despite the challenges, the opportunity to create positive change in students&apos; lives makes the work incredibly rewarding.
               </p>
             </div>
           </div>
 
           {/* How Behavior School Can Help */}
-          <div className="py-12 text-center bg-blue-600 rounded-lg text-white">
-            <h2 className="text-3xl font-bold mb-4">Ready to Start Your Journey?</h2>
-            <p className="text-xl mb-8 opacity-90">
+          <div className="py-12 text-center bg-emerald-800 rounded-lg text-white shadow-xl">
+            <h2 className="text-3xl font-bold mb-4 text-yellow-400">Ready to Start Your Journey?</h2>
+            <p className="text-xl mb-8 text-emerald-100">
               Behavior School provides the training, tools, and support you need to become a successful school-based BCBA.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="secondary">
+              <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-emerald-900 font-bold shadow-lg">
                 <Link href="/transformation-program">
                   <Award className="mr-2 h-5 w-5" />
                   Explore Our Training Programs
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
+              <Button asChild size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-emerald-900 font-bold shadow-lg">
                 <Link href="/behavior-study-tools">
                   <BookOpen className="mr-2 h-5 w-5" />
                   Prepare for the BCBA Exam
