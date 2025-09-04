@@ -104,8 +104,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Send admin notification email (if configured and template found)
-    // Temporarily disabled until Mailgun domain issue is resolved
-    if (false && process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && adminTemplate) {
+    if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && adminTemplate) {
       const adminEmailSubject = renderTemplate(adminTemplate.subject, templateData);
       const adminEmailText = adminTemplate.body_text ? renderTemplate(adminTemplate.body_text, templateData) : '';
       const adminEmailHtml = adminTemplate.body_html ? renderTemplate(adminTemplate.body_html, templateData) : '';
@@ -135,9 +134,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Send confirmation email to applicant (if configured and template found)  
-    // Temporarily disabled until Mailgun domain issue is resolved
-    if (false && process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && userTemplate) {
+    // Send confirmation email to applicant (if configured and template found)
+    if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && userTemplate) {
       const userEmailSubject = renderTemplate(userTemplate.subject, templateData);
       const userEmailText = userTemplate.body_text ? renderTemplate(userTemplate.body_text, templateData) : '';
       const userEmailHtml = userTemplate.body_html ? renderTemplate(userTemplate.body_html, templateData) : '';
