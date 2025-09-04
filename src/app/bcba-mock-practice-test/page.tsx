@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Target, TrendingUp, ArrowRight, BookOpen, Zap } from "lucide-react";
+import { CheckCircle, Clock, Target, TrendingUp, BookOpen, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free BCBA Mock Practice Test | AI-Powered Exam Simulation | Behavior School",

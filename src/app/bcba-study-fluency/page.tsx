@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Zap, Target, Clock, TrendingUp, ArrowRight, BookOpen } from "lucide-react";
+import { CheckCircle, Zap, Target, Clock, TrendingUp, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "BCBA Study Fluency Practice Test | AI-Powered Exam Prep | Behavior School",
@@ -145,7 +145,7 @@ export default function BCBAStudyFluencyPage() {
                 </div>
                 <p className="text-slate-600">
                   The BCBA exam is timed, and fluency practice helps you answer questions quickly without sacrificing accuracy. 
-                  You'll feel confident and in control during the actual exam.
+                  You&apos;ll feel confident and in control during the actual exam.
                 </p>
               </div>
 
@@ -158,7 +158,7 @@ export default function BCBAStudyFluencyPage() {
                 </div>
                 <p className="text-slate-600">
                   Fluency-based practice creates stronger neural pathways, leading to better long-term retention. 
-                  You'll remember concepts months after the exam, not just during it.
+                  You&apos;ll remember concepts months after the exam, not just during it.
                 </p>
               </div>
 
@@ -170,7 +170,7 @@ export default function BCBAStudyFluencyPage() {
                   <h3 className="text-xl font-semibold text-slate-900">Real-World Application</h3>
                 </div>
                 <p className="text-slate-600">
-                  As a BCBA, you'll need to make quick, accurate decisions in clinical settings. Fluency practice 
+                  As a BCBA, you&apos;ll need to make quick, accurate decisions in clinical settings. Fluency practice 
                   prepares you for the fast-paced nature of behavior analysis work.
                 </p>
               </div>
@@ -205,7 +205,7 @@ export default function BCBAStudyFluencyPage() {
                     <h3 className="text-xl font-semibold text-slate-900 mb-2">Adaptive Question Selection</h3>
                     <p className="text-slate-600">
                       Our AI selects questions based on your performance, focusing on areas where you need more practice 
-                      while maintaining fluency in areas you've mastered.
+                      while maintaining fluency in areas you&apos;ve mastered.
                     </p>
                   </div>
                 </div>
@@ -219,7 +219,7 @@ export default function BCBAStudyFluencyPage() {
                   <div>
                     <h3 className="text-xl font-semibold text-slate-900 mb-2">Speed and Accuracy Tracking</h3>
                     <p className="text-slate-600">
-                      We track both your accuracy and response time, helping you identify when you've achieved true fluency 
+                      We track both your accuracy and response time, helping you identify when you&apos;ve achieved true fluency 
                       in each topic area.
                     </p>
                   </div>
