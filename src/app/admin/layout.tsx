@@ -116,7 +116,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 .eq('id', session.user.id)
                 .single();
               
-              setIsAdmin((profile as any)?.role === 'admin' || true); // Allow access for now
+              setIsAdmin((profile as unknown as { role?: string })?.role === 'admin' || true); // Allow access for now
             }
           }
         }

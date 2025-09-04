@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
 
     // Check if user is already authenticated
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabase!.auth.getSession();
       if (session) {
         const userEmail = session.user.email;
         
@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
           router.push('/admin');
         } else {
           // Sign out unauthorized user and show error
-          await supabase.auth.signOut();
+          await supabase!.auth.signOut();
           setError(getUnauthorizedMessage(userEmail || undefined));
         }
       }
