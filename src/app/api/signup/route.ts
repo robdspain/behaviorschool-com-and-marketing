@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
           last_name: lastName,
           email: email,
           phone: null,
-          organization: null,
+          organization: 'Not collected',
           role: role,
           caseload_size: null,
           current_challenges: currentChallenges || null,
