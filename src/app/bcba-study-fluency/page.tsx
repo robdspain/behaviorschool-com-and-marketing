@@ -249,10 +249,10 @@ export default function BCBAStudyFluencyPage() {
                   <h4 className="text-lg font-semibold text-slate-900 mb-4">Professional Training Applications</h4>
                   <div className="space-y-3 text-slate-600">
                     <p className="text-sm">
-                      <strong>Medical Education:</strong> Residents using SAFMEDS for diagnostic criteria showed 40% improvement in speed and accuracy.
+                      <strong>Medical Education:</strong> Residents using fluency-based practice methods have shown improved diagnostic speed and accuracy.
                     </p>
                     <p className="text-sm">
-                      <strong>Psychology Training:</strong> Graduate students achieved higher scores on comprehensive exams after fluency-based review.
+                      <strong>Psychology Training:</strong> Graduate students report better performance on comprehensive exams after fluency-based review.
                     </p>
                     <p className="text-sm">
                       <strong>BCBA Programs:</strong> Students using fluency practice report increased confidence and better exam performance.
@@ -502,7 +502,7 @@ export default function BCBAStudyFluencyPage() {
                 </Button>
               </div>
               <p className="text-xs text-slate-500 mt-3">
-                Free access • SAFMEDS practice • Fluency tracking included
+                Free access • Practice questions • Progress tracking included
               </p>
             </div>
           </div>

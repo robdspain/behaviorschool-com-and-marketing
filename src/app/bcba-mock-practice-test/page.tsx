@@ -384,7 +384,7 @@ export default function BCBAMockPracticeTestPage() {
             <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
               <h2 className="text-xl font-bold text-slate-900 mb-3">Experience the Difference Yourself</h2>
               <p className="text-slate-600 mb-4 max-w-xl mx-auto">
-                See why thousands of BCBA candidates trust our practice platform. Start with a free exam today.
+                Experience our practice platform for yourself. Start with a free exam today.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
