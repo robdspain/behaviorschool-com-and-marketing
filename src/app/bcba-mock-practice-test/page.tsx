@@ -103,6 +103,33 @@ export default function BCBAMockPracticeTestPage() {
             </div>
           </div>
 
+          {/* Direct Access to Free Practice Tests */}
+          <div className="py-8 text-center">
+            <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-8 border border-emerald-200">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Start Your Practice Now - Completely Free</h2>
+              <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
+                Don't wait to start practicing. Get immediate access to our free BCBA mock exams and begin building your confidence today.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                    <Zap className="mr-2 h-5 w-5" />
+                    Take Free Full-Length Mock Exam
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
+                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                    <Target className="mr-2 h-5 w-5" />
+                    Try Free Mini Mock Exam (Quick Start)
+                  </Link>
+                </Button>
+              </div>
+              <p className="text-sm text-slate-500 mt-4">
+                No signup required • Instant access • Detailed explanations included
+              </p>
+            </div>
+          </div>
+
           {/* Why Free BCBA Mock Practice Tests Are a Game-Changer */}
           <div className="py-12">
             <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
@@ -280,6 +307,28 @@ export default function BCBAMockPracticeTestPage() {
                 </div>
               </div>
             </div>
+            
+            {/* Action Step CTA */}
+            <div className="mt-8 text-center bg-slate-50 rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-slate-900 mb-3">Ready to Take Your First Mock Exam?</h3>
+              <p className="text-slate-600 mb-4">
+                Follow the process above with our free practice tests. Start with a baseline assessment today.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                    <Clock className="mr-2 h-4 w-4" />
+                    Start Full Mock Exam
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="border-slate-400 text-slate-700 hover:bg-slate-100">
+                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                    <Target className="mr-2 h-4 w-4" />
+                    Try Mini Version First
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
 
           {/* What Makes Our Free BCBA Mock Practice Tests Different */}
@@ -317,12 +366,20 @@ export default function BCBAMockPracticeTestPage() {
             <p className="text-xl mb-8 opacity-90">
               Take a free mock exam now and get a baseline of your current knowledge. It's the first step on your path to BCBA exam success.
             </p>
-            <Button asChild size="lg" variant="secondary">
-              <Link href="/behavior-study-tools">
-                <Zap className="mr-2 h-5 w-5" />
-                Access Our BCBA Practice Tests
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" variant="secondary">
+                <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                  <Zap className="mr-2 h-5 w-5" />
+                  Take Free Full-Length Mock Exam
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
+                <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                  <Target className="mr-2 h-5 w-5" />
+                  Try Free Mini Mock Exam
+                </Link>
+              </Button>
+            </div>
           </div>
 
           {/* FAQ Section */}
