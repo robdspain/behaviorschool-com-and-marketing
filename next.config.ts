@@ -27,29 +27,6 @@ const nextConfig: NextConfig = {
       };
     }
     
-    // Optimize bundle splitting
-    config.optimization = {
-      ...config.optimization,
-      splitChunks: {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            priority: 10,
-            chunks: 'all',
-          },
-          common: {
-            name: 'common',
-            minChunks: 2,
-            priority: 5,
-            chunks: 'all',
-            enforce: true,
-          },
-        },
-      },
-    };
-    
     return config;
   },
   async redirects() {
