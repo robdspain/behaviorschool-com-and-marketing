@@ -416,27 +416,36 @@ export function AnimatedSections() {
               </div>
             </div>
 
-            {/* Founder Credibility */}
+            {/* Founder Story */}
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 max-w-4xl mx-auto">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6">Built by Rob Spain, M.Ed., BCBA</h3>
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div className="text-left space-y-4">
-                  <p className="text-slate-700">
-                    Behavior School founder and practicing BCBA with 15+ years developing 
-                    evidence-based tools for special education professionals.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">BCBA Certified</span>
-                    <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">M.Ed. Special Education</span>
-                    <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">15+ Years Experience</span>
-                  </div>
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Meet the Creator</h3>
+                <div className="flex flex-wrap justify-center gap-2 mb-6">
+                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Rob Spain, M.Ed., BCBA</span>
+                  <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">Behavior School Founder</span>
+                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">15+ Years Experience</span>
                 </div>
-                <div className="bg-slate-50 rounded-xl p-6">
-                  <p className="text-slate-600 text-sm italic">
-                    &quot;I created this tool because I was tired of seeing IEP goals that students didn&apos;t care about. 
-                    When we start with what matters to them, everything changes.&quot;
+              </div>
+              
+              <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-8 border-l-4 border-emerald-500">
+                <h4 className="text-lg font-semibold text-slate-900 mb-4">Why I Built This Tool</h4>
+                <p className="text-slate-700 leading-relaxed mb-4">
+                  After 15+ years as a practicing BCBA in schools, I grew frustrated seeing IEP goals that students didn&apos;t connect with. 
+                  Traditional goals focused on compliance rather than what actually mattered to the students themselves.
+                </p>
+                <p className="text-slate-700 leading-relaxed mb-4">
+                  I developed this values-based approach because I believe when we start with what matters to students — 
+                  their own values like being brave, kind, or helpful — everything changes. The goals become meaningful, 
+                  and students become invested in their own growth.
+                </p>
+                <p className="text-slate-700 leading-relaxed">
+                  This tool represents years of research, field testing, and refinement to create IEP goals that actually work 
+                  in real classrooms with real students.
+                </p>
+                <div className="mt-6 pt-4 border-t border-slate-200">
+                  <p className="text-slate-600 text-sm">
+                    <strong>Rob Spain, M.Ed., BCBA</strong> • Behavior School Founder • Practicing School-Based BCBA
                   </p>
-                  <p className="text-slate-900 font-semibold mt-3">- Rob Spain, Founder</p>
                 </div>
               </div>
             </div>
