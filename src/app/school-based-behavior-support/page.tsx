@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { School, Users, Target, TrendingUp, CheckCircle, BookOpen, ArrowRight, Download, Star } from "lucide-react";
 
@@ -63,6 +64,16 @@ export default function SchoolBehaviorSupportPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-slate-50">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Tools", href: "/products" },
+            { label: "School-Based Behavior Support" }
+          ]}
+        />
+      </div>
+      
       {/* Hero Section */}
       <section className="pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
@@ -170,6 +181,31 @@ export default function SchoolBehaviorSupportPage() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Contextual CTA after services */}
+          <div className="text-center mt-16">
+            <div className="bg-gradient-to-r from-emerald-50 to-blue-50 border border-emerald-200 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Ready to Transform Your School's Behavior Support?</h3>
+              <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
+                These services work best when combined with comprehensive training. Get the complete toolkit for building effective, sustainable school-wide behavior systems.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href="/transformation-program" 
+                  className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
+                >
+                  Get School BCBA Training Program
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link 
+                  href="/iep-goals" 
+                  className="inline-flex items-center px-8 py-3 border border-emerald-600 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition-colors"
+                >
+                  Start with IEP Goal Writing
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

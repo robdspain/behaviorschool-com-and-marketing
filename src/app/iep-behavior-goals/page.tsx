@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { FileText, Target, CheckCircle, Users, BookOpen, Download, ArrowRight, Star, TrendingUp } from "lucide-react";
 
@@ -138,6 +139,16 @@ export default function IEPBehaviorGoalsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
       />
+      
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Tools", href: "/products" },
+            { label: "IEP Behavior Goals" }
+          ]}
+        />
+      </div>
       
       {/* Hero Section */}
       <section className="pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8">

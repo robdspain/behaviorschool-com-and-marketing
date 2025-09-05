@@ -228,6 +228,34 @@ export default function BehaviorPlansPage() {
                 </div>
               </div>
             </div>
+            
+            {/* Contextual CTA after features preview */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="pt-8"
+            >
+              <p className="text-lg text-slate-600 mb-6">
+                While you wait for the BIP Writer, start building your behavior support expertise with our comprehensive training and tools.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href="/transformation-program" 
+                  className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
+                >
+                  Get School BCBA Training Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link 
+                  href="/iep-goals" 
+                  className="inline-flex items-center px-8 py-3 border border-emerald-600 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition-colors"
+                >
+                  Start with IEP Goal Writing
+                </Link>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>

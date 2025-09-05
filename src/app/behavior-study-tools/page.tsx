@@ -198,6 +198,37 @@ export default function BehaviorStudyToolsPage() {
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Contextual CTA after features */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mt-16"
+          >
+            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-white shadow-xl">
+              <h3 className="text-2xl font-bold mb-4">Ready to Experience Smarter BCBA Prep?</h3>
+              <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
+                Join hundreds of behavior analysts who've improved their study efficiency with our AI-powered system. Start with unlimited practice questions today.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href="https://study.behaviorschool.com" 
+                  className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-slate-50 transition-colors"
+                >
+                  Start Free Trial
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link 
+                  href="/transformation-program" 
+                  className="inline-flex items-center px-8 py-3 bg-emerald-700 text-white font-semibold rounded-xl hover:bg-emerald-800 transition-colors"
+                >
+                  Get Complete School BCBA Training
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -296,6 +327,34 @@ export default function BehaviorStudyToolsPage() {
               This is not just about passing an exam—it&apos;s about building fluency in the science of behavior. You&apos;ll learn to think like a behavior analyst, not just answer like one.
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-emerald-400 mx-auto rounded-full"></div>
+            
+            {/* Contextual CTA after platform description */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="pt-8"
+            >
+              <p className="text-lg text-slate-600 mb-6">
+                Ready to develop true behavioral fluency? After you pass your BCBA exam, continue building expertise with our comprehensive school-based training.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href="https://study.behaviorschool.com" 
+                  className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
+                >
+                  Start BCBA Prep Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link 
+                  href="/supervisors" 
+                  className="inline-flex items-center px-8 py-3 border border-emerald-600 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition-colors"
+                >
+                  Explore Supervision Tools
+                </Link>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>

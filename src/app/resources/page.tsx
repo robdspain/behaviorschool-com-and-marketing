@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { getPosts, type Post } from "@/lib/ghost";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 function PostRow({ post }: { post: Post }) {
   return (
@@ -17,6 +18,15 @@ export default async function ResourcesPage() {
   const { posts } = await getPosts({ limit: 24, tag: "resources", order: "published_at desc" });
   return (
     <div className="mx-auto max-w-4xl px-6 lg:px-8 py-12">
+      {/* Breadcrumbs */}
+      <div className="mb-8">
+        <Breadcrumbs 
+          items={[
+            { label: "Resources" }
+          ]}
+        />
+      </div>
+      
       <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">Resources</h1>
       <div>
         {posts.map((post) => (

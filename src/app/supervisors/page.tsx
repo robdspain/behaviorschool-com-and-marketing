@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 
@@ -12,6 +13,16 @@ export default function SupervisorsPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FAF3E0' }}>
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumbs 
+          items={[
+            { label: "Tools", href: "/products" },
+            { label: "BCBA Supervision" }
+          ]}
+        />
+      </div>
+      
       {/* Hero */}
       <section
         className="relative overflow-hidden"
