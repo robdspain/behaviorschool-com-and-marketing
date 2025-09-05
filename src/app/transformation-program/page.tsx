@@ -62,7 +62,7 @@ export default function TransformationProgramPage() {
         event: eventName,
         ...properties,
         variantId: 'hero-opt1',
-        viewportWidth: window.innerWidth
+        viewportWidth: typeof window !== 'undefined' ? window.innerWidth : 0
       });
     }
     

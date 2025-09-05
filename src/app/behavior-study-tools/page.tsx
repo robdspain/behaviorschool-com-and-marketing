@@ -210,7 +210,7 @@ export default function BehaviorStudyToolsPage() {
             <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-white shadow-xl">
               <h3 className="text-2xl font-bold mb-4">Ready to Experience Smarter BCBA Prep?</h3>
               <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
-                Join hundreds of behavior analysts who've improved their study efficiency with our AI-powered system. Start with unlimited practice questions today.
+                Join hundreds of behavior analysts who&apos;ve improved their study efficiency with our AI-powered system. Start with unlimited practice questions today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 

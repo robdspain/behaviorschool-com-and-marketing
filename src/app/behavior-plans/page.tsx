@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, FileText, Target, TrendingUp, Users, Shield, Mail, Bell } from "lucide-react";
+import { Check, FileText, Target, TrendingUp, Users, Shield, Mail, Bell, ArrowRight } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import Link from "next/link";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },

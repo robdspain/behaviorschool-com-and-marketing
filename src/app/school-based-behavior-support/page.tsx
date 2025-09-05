@@ -186,7 +186,7 @@ export default function SchoolBehaviorSupportPage() {
           {/* Contextual CTA after services */}
           <div className="text-center mt-16">
             <div className="bg-gradient-to-r from-emerald-50 to-blue-50 border border-emerald-200 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Ready to Transform Your School's Behavior Support?</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Ready to Transform Your School&apos;s Behavior Support?</h3>
               <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
                 These services work best when combined with comprehensive training. Get the complete toolkit for building effective, sustainable school-wide behavior systems.
               </p>
