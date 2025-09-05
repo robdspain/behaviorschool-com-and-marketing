@@ -353,32 +353,38 @@ export default function BCBAMockPracticeTestPage() {
           </div>
         </section>
 
-        {/* Success Statistics */}
+        {/* Practice Benefits */}
         <section className="py-20">
           <div className="bg-gradient-to-r from-blue-600 to-emerald-600 rounded-3xl p-12 text-white">
             <div className="text-center">
               <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-                Proven Results from Practice Testing
+                Benefits of Regular Practice Testing
               </h2>
               <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
-                Students who take multiple mock exams show significantly higher pass rates and confidence levels
+                Research shows that practice testing improves retention, builds confidence, and helps identify knowledge gaps
               </p>
               
               <div className="grid md:grid-cols-3 gap-8 mb-12">
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-white mb-2">85%</div>
-                  <div className="text-blue-100">Higher confidence</div>
-                  <div className="text-sm text-blue-200">After 3+ mock exams</div>
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Brain className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Improved Retention</h3>
+                  <p className="text-blue-100 text-sm">Practice testing enhances long-term memory consolidation</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-white mb-2">3x</div>
-                  <div className="text-blue-100">Better retention</div>
-                  <div className="text-sm text-blue-200">vs. passive study methods</div>
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Clock className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Better Pacing</h3>
+                  <p className="text-blue-100 text-sm">Learn to manage time effectively during exams</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-white mb-2">92%</div>
-                  <div className="text-blue-100">Recommend to peers</div>
-                  <div className="text-sm text-blue-200">Student satisfaction rate</div>
+                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Target className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Focused Study</h3>
+                  <p className="text-blue-100 text-sm">Identify specific areas that need more attention</p>
                 </div>
               </div>
 

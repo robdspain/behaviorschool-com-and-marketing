@@ -924,7 +924,7 @@ export default function TransformationProgramPage() {
           <div className="text-center mb-8 sm:mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 border border-emerald-300 rounded-full text-emerald-800 text-sm font-medium">
               <Star className="w-4 h-4 fill-current" />
-              <span>Join 500+ School BCBAs who transformed their practice</span>
+              <span>Join School BCBAs transforming their practice</span>
             </div>
           </div>
 

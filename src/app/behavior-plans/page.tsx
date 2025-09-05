@@ -456,10 +456,10 @@ export default function BehaviorPlansPage() {
                 </div>
                 <div className="space-y-4">
                   {[
-                    { label: "Active BIPs", value: "12", color: "orange" },
-                    { label: "Success Rate", value: "89%", color: "emerald" },
-                    { label: "Avg. Implementation", value: "2.3 weeks", color: "blue" },
-                    { label: "Staff Training", value: "100%", color: "purple" }
+                    { label: "Plan Management", value: "Organized", color: "orange" },
+                    { label: "Progress Tracking", value: "Visual", color: "emerald" },
+                    { label: "Implementation", value: "Systematic", color: "blue" },
+                    { label: "Staff Support", value: "Ongoing", color: "purple" }
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between p-4 rounded-lg bg-slate-50">
                       <span className="font-medium text-slate-900">{item.label}</span>

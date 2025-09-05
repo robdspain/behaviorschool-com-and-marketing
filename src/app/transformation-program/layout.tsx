@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Transform Your School Practice in 8 Weeks | BCBA Operating System | Behavior School",
-  description: "Join 500+ School BCBAs, Psychologists & Special Ed Leaders who transformed chaos into confidence. Stop firefighting, build ethical systems, reduce burnout. 8-week cohort program with proven results.",
+  description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. 8-week cohort program with proven strategies for school behavior support.",
   keywords: "school BCBA training, behavior analyst burnout solution, special education leadership, school psychology systems, BCBA ethics training, crisis management schools, staff training protocols, behavior support systems, school transformation program, cohort-based BCBA course",
   alternates: { canonical: "https://behaviorschool.com/transformation-program" },
   openGraph: {
     type: "website",
     title: "Transform Your School Practice in 8 Weeks | BCBA Operating System",
-    description: "Join 500+ School BCBAs who transformed chaos into confidence. Stop firefighting, build ethical systems, reduce burnout. Proven 8-week program with immediate results.",
+    description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. Proven 8-week program with immediate results.",
     url: "/transformation-program",
     siteName: "Behavior School",
     locale: "en_US",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Transform Your School Practice in 8 Weeks | BCBA Operating System",
-    description: "Join 500+ School BCBAs who transformed chaos into confidence. Stop firefighting, build ethical systems, reduce burnout. Proven results.",
+    description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. Proven results.",
     images: ["/hero-chaos-to-confidence.jpg"],
     creator: "@BehaviorSchool",
   },
