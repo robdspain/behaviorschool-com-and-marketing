@@ -60,8 +60,8 @@ export default function BCBAMockPracticeTestPage() {
 
   const mockTestFeatures = [
     {
-      title: "Real Exam Simulation",
-      description: "Experience the exact format, timing, and question types you&apos;ll encounter on the actual BCBA exam.",
+      title: "Realistic Exam Practice",
+      description: "Practice with exam-style questions and timing based on the official BCBA exam structure outlined in the <a href='https://www.bacb.com/bcba/' target='_blank' rel='noopener noreferrer' className='text-emerald-600 hover:text-emerald-700 underline'>BCBA Handbook</a>.",
       icon: Target,
       highlight: "4-hour timed sessions"
     },
