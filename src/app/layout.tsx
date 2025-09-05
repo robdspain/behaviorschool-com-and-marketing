@@ -7,8 +7,8 @@ import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyComplia
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Behavior School | #1 BCBA Training & Exam Prep Platform for School-Based Behavior Analysts",
-  description: "Behavior School is the premier platform for BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs trusted by behavior analysts.",
+  title: "Behavior School | BCBA Training & Exam Prep for School-Based Behavior Analysts",
+  description: "Behavior School provides comprehensive BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs for behavior analysts.",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   viewport: "width=device-width, initial-scale=1",
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Behavior School | #1 BCBA Training & Exam Prep Platform for School-Based Behavior Analysts", 
-    description: "Behavior School is the premier platform for BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs trusted by behavior analysts.",
+    title: "Behavior School | BCBA Training & Exam Prep for School-Based Behavior Analysts", 
+    description: "Behavior School provides comprehensive BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs trusted by behavior analysts.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     images: [
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School | #1 BCBA Training & Exam Prep Platform for School-Based Behavior Analysts",
-    description: "Behavior School is the premier platform for BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs trusted by behavior analysts.",
+    title: "Behavior School | BCBA Training & Exam Prep for School-Based Behavior Analysts",
+    description: "Behavior School provides comprehensive BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs trusted by behavior analysts.",
     images: ["/optimized/og-image.webp"],
   },
   metadataBase: new URL("https://behaviorschool.com"),

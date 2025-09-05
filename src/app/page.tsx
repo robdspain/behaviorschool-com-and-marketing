@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 export const metadata: Metadata = {
-  title: "Behavior School | Premier BCBA Training & School Behavior Support Platform",
+  title: "Behavior School | BCBA Training & School Behavior Support Platform",
   description:
-    "Behavior School is the leading platform for BCBA exam prep and school behavior support. Free practice questions, proven strategies, comprehensive training programs, supervision tools, and IEP templates for school-based behavior analysts.",
+    "Behavior School offers comprehensive BCBA exam prep and school behavior support. Free practice questions, evidence-based strategies, training programs, supervision tools, and IEP templates for school-based behavior analysts.",
   keywords: "Behavior School, school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, behavior school platform",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
     type: "website",
-    title: "Behavior School | Premier BCBA Training & School Behavior Support Platform",
+    title: "Behavior School | BCBA Training & School Behavior Support Platform",
     description:
-      "Behavior School is the leading platform for school-based BCBAs, psychologists, and educators. BCBA exam prep, supervision tools, IEP goal writing, and behavior intervention plans that work in real classrooms.",
+      "Behavior School provides comprehensive resources for school-based BCBAs, psychologists, and educators. BCBA exam prep, supervision tools, IEP goal writing, and behavior intervention plans that work in real classrooms.",
     url: "/",
     siteName: "Behavior School",
     locale: "en_US",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School | Premier BCBA Training & School Behavior Support Platform",
+    title: "Behavior School | BCBA Training & School Behavior Support Platform",
     description:
-      "Behavior School is the leading platform for school-based BCBAs, psychologists, and educators. BCBA exam prep, supervision tools, IEP goal writing, and behavior intervention plans.",
+      "Behavior School provides comprehensive resources for school-based BCBAs, psychologists, and educators. BCBA exam prep, supervision tools, IEP goal writing, and behavior intervention plans.",
     images: ["/og-image.webp"],
     creator: "@BehaviorSchool",
   },
