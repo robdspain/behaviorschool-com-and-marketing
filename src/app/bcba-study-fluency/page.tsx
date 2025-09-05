@@ -361,6 +361,238 @@ export default function BCBAStudyFluencyPage() {
           </div>
         </section>
 
+        {/* Research Evidence */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              The Science Behind Fluency-Based Learning
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Decades of research support fluency training as a superior method for skill acquisition and retention
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Research Findings</h3>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-xl flex-shrink-0">
+                    <BarChart3 className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-2">Retention Advantage</h4>
+                    <p className="text-slate-600">Studies show fluent learners retain information 3x longer than those who achieve accuracy alone, with skills maintained even after extended breaks from practice.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 bg-emerald-100 rounded-xl flex-shrink-0">
+                    <Zap className="h-6 w-6 text-emerald-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-2">Transfer Benefits</h4>
+                    <p className="text-slate-600">Fluent skills transfer more readily to novel situations and complex problems, enabling better performance on application-based exam questions.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 bg-purple-100 rounded-xl flex-shrink-0">
+                    <Brain className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-2">Cognitive Load Reduction</h4>
+                    <p className="text-slate-600">Automatic recall frees up working memory for higher-order thinking, improving performance on complex, multi-step problems common in BCBA exams.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-emerald-50 rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Precision Teaching Principles</h3>
+              <div className="space-y-4">
+                <div className="bg-white/80 rounded-2xl p-4">
+                  <h4 className="font-bold text-slate-900 mb-2">Measurement Focus</h4>
+                  <p className="text-slate-600 text-sm">Precise measurement of both rate and accuracy provides clear feedback on learning progress and skill development.</p>
+                </div>
+                
+                <div className="bg-white/80 rounded-2xl p-4">
+                  <h4 className="font-bold text-slate-900 mb-2">Individualized Pacing</h4>
+                  <p className="text-slate-600 text-sm">Each learner progresses at their own rate, ensuring mastery before moving to more complex material.</p>
+                </div>
+                
+                <div className="bg-white/80 rounded-2xl p-4">
+                  <h4 className="font-bold text-slate-900 mb-2">Data-Driven Decisions</h4>
+                  <p className="text-slate-600 text-sm">Regular assessment data guides instructional changes, optimizing learning efficiency and outcomes.</p>
+                </div>
+
+                <div className="bg-white/80 rounded-2xl p-4">
+                  <h4 className="font-bold text-slate-900 mb-2">Fluency Building</h4>
+                  <p className="text-slate-600 text-sm">Systematic practice builds automatic responding, creating durable skills that maintain over time.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Fluency vs Traditional Comparison */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Fluency vs. Traditional Study Methods
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              See how fluency-based approaches compare to conventional study techniques
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden">
+            <div className="grid lg:grid-cols-2">
+              <div className="p-8 bg-red-50">
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-2xl mb-4">
+                    <BookOpen className="h-8 w-8 text-red-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-red-800">Traditional Methods</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-red-700">Focus on accuracy alone without speed consideration</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-red-700">Passive reading and highlighting of materials</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-red-700">Infrequent practice with long study sessions</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-red-700">Limited measurement of progress</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-red-700">Skills fade quickly without continued practice</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-8 bg-emerald-50">
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl mb-4">
+                    <Zap className="h-8 w-8 text-emerald-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-emerald-800">Fluency-Based Methods</h3>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <p className="text-emerald-700">Combines speed and accuracy for true mastery</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <p className="text-emerald-700">Active recall and frequent self-testing</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <p className="text-emerald-700">Short, frequent practice sessions with timing</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <p className="text-emerald-700">Precise tracking of rate and accuracy data</p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <p className="text-emerald-700">Durable skills that maintain over time</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Success Implementation Guide */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Implementing Fluency Training Successfully
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Practical strategies for integrating fluency-based methods into your BCBA exam preparation
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {[
+              {
+                title: "Start with Accuracy First",
+                description: "Build a solid foundation before focusing on speed",
+                steps: [
+                  "Master basic concepts with 100% accuracy",
+                  "Use flashcards and self-testing for foundational knowledge",
+                  "Don&apos;t time yourself until accuracy is consistent",
+                  "Focus on understanding before memorization"
+                ],
+                icon: Target,
+                color: "blue"
+              },
+              {
+                title: "Add Timing Gradually",
+                description: "Introduce speed requirements systematically",
+                steps: [
+                  "Begin with generous time limits",
+                  "Gradually reduce time as accuracy maintains",
+                  "Track both speed and accuracy metrics",
+                  "Celebrate improvements in both dimensions"
+                ],
+                icon: Clock,
+                color: "emerald"
+              },
+              {
+                title: "Practice Daily & Track Progress",
+                description: "Consistent practice with data-driven adjustments",
+                steps: [
+                  "Schedule 15-20 minute daily practice sessions",
+                  "Use charts to visualize your progress over time",
+                  "Adjust difficulty based on performance data",
+                  "Review and analyze trends weekly"
+                ],
+                icon: TrendingUp,
+                color: "purple"
+              }
+            ].map((guide, index) => (
+              <div key={index} className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+                <div className="grid lg:grid-cols-4 gap-8 items-start">
+                  <div className="lg:col-span-1">
+                    <div className={`inline-flex items-center justify-center w-16 h-16 bg-${guide.color}-100 rounded-2xl mb-4`}>
+                      <guide.icon className={`h-8 w-8 text-${guide.color}-600`} />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">{guide.title}</h3>
+                    <p className="text-slate-600">{guide.description}</p>
+                  </div>
+                  
+                  <div className="lg:col-span-3">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {guide.steps.map((step, stepIndex) => (
+                        <div key={stepIndex} className="flex items-start space-x-3 p-4 bg-slate-50 rounded-xl">
+                          <div className="flex items-center justify-center w-6 h-6 bg-emerald-100 rounded-full text-emerald-700 font-bold text-sm flex-shrink-0 mt-0.5">
+                            {stepIndex + 1}
+                          </div>
+                          <span className="text-slate-700 text-sm">{step}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-20">
           <div className="bg-gradient-to-r from-purple-600 to-emerald-600 rounded-3xl p-12 text-white">

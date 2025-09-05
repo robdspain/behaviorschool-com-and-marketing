@@ -366,6 +366,200 @@ export default function SchoolBasedBCBAPage() {
           </div>
         </section>
 
+        {/* School District Requirements */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              What School Districts Look For
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Understanding district requirements and preferences can help you position yourself as the ideal candidate
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Essential Qualifications</h3>
+              <div className="space-y-4">
+                {[
+                  "Current BCBA certification in good standing",
+                  "Master&apos;s degree in behavior analysis or related field", 
+                  "Experience with IEP development and implementation",
+                  "Knowledge of special education law and regulations",
+                  "Familiarity with RTI/MTSS frameworks",
+                  "Strong communication and collaboration skills"
+                ].map((req, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">{req}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Preferred Experience</h3>
+              <div className="space-y-4">
+                {[
+                  "Previous work in educational settings",
+                  "Experience with autism spectrum disorders",
+                  "Training in crisis intervention techniques",
+                  "Knowledge of classroom management strategies",
+                  "Bilingual capabilities (district-dependent)",
+                  "Technology proficiency for data collection"
+                ].map((pref, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <Star className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">{pref}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Day in the Life */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              A Day in the Life of a School-Based BCBA
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Get an inside look at what your typical workday might include as a behavior analyst in schools
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 lg:p-12">
+            <div className="grid lg:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mb-4">
+                  <Clock className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Morning (8:00-11:00 AM)</h3>
+                <div className="text-left space-y-2 text-slate-600">
+                  <p>• Review overnight incident reports</p>
+                  <p>• Observe students in classroom settings</p>
+                  <p>• Conduct functional behavior assessments</p>
+                  <p>• Meet with teachers about intervention strategies</p>
+                  <p>• Update behavior data collection systems</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl mb-4">
+                  <Users className="h-8 w-8 text-emerald-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Midday (11:00 AM-2:00 PM)</h3>
+                <div className="text-left space-y-2 text-slate-600">
+                  <p>• Participate in IEP team meetings</p>
+                  <p>• Provide direct student support</p>
+                  <p>• Train paraprofessionals on interventions</p>
+                  <p>• Collaborate with related service providers</p>
+                  <p>• Document progress and adjust plans</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-2xl mb-4">
+                  <TrendingUp className="h-8 w-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Afternoon (2:00-4:00 PM)</h3>
+                <div className="text-left space-y-2 text-slate-600">
+                  <p>• Analyze behavioral data and trends</p>
+                  <p>• Develop new behavior intervention plans</p>
+                  <p>• Communicate with parents and families</p>
+                  <p>• Plan professional development sessions</p>
+                  <p>• Prepare reports for administration</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 p-6 bg-slate-50 rounded-2xl">
+              <p className="text-slate-700 text-center italic">
+                &ldquo;Every day brings new challenges and opportunities to make a real difference in students&apos; lives. 
+                The variety keeps the work engaging, and seeing students succeed makes it incredibly rewarding.&rdquo;
+              </p>
+              <p className="text-slate-600 text-center mt-2 text-sm">— Typical reflection from a school-based BCBA</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Common Challenges & Solutions */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Common Challenges & How to Overcome Them
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Prepare for the realities of school-based practice with proven solutions from experienced BCBAs
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {[
+              {
+                challenge: "Large Caseloads",
+                description: "Managing 20-30+ students across multiple schools can feel overwhelming.",
+                solutions: [
+                  "Prioritize students by severity and immediate need",
+                  "Use technology for efficient data collection and analysis", 
+                  "Train teachers to implement interventions independently",
+                  "Develop systematic scheduling and documentation processes"
+                ],
+                icon: Users
+              },
+              {
+                challenge: "Limited Resources", 
+                description: "Schools often have budget constraints that limit available materials and support.",
+                solutions: [
+                  "Focus on low-cost, high-impact interventions",
+                  "Partner with community organizations for resources",
+                  "Apply for grants specifically for special education programs",
+                  "Train staff to create materials using existing supplies"
+                ],
+                icon: Target
+              },
+              {
+                challenge: "Staff Resistance",
+                description: "Some educators may be hesitant to implement new behavioral strategies.",
+                solutions: [
+                  "Start with willing teachers to build success stories",
+                  "Provide ongoing support and troubleshooting",
+                  "Demonstrate clear connections to student outcomes",
+                  "Offer professional development in digestible chunks"
+                ],
+                icon: Shield
+              }
+            ].map((item, index) => (
+              <div key={index} className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+                <div className="grid lg:grid-cols-3 gap-8 items-start">
+                  <div className="lg:col-span-1">
+                    <div className="flex items-center space-x-4 mb-4">
+                      <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-2xl">
+                        <item.icon className="h-6 w-6 text-red-600" />
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900">{item.challenge}</h3>
+                    </div>
+                    <p className="text-slate-600">{item.description}</p>
+                  </div>
+                  
+                  <div className="lg:col-span-2">
+                    <h4 className="text-lg font-semibold text-slate-900 mb-4">Proven Solutions:</h4>
+                    <div className="grid md:grid-cols-2 gap-3">
+                      {item.solutions.map((solution, solutionIndex) => (
+                        <div key={solutionIndex} className="flex items-start space-x-3">
+                          <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                          <span className="text-slate-700 text-sm">{solution}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-20">
           <div className="text-center bg-white rounded-3xl shadow-lg border border-slate-200 p-12">

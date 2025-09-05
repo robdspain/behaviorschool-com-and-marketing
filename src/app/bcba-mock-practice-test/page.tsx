@@ -411,6 +411,266 @@ export default function BCBAMockPracticeTestPage() {
           </div>
         </section>
 
+        {/* Test-Taking Strategies */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Proven Test-Taking Strategies for BCBA Success
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Master these evidence-based strategies to maximize your performance on exam day
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div className="space-y-8">
+              <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-2xl font-bold text-slate-900 mb-6">Before You Start</h3>
+                <div className="space-y-4">
+                  {[
+                    {
+                      strategy: "Read Instructions Carefully",
+                      description: "Take 2-3 minutes to understand the format and requirements completely"
+                    },
+                    {
+                      strategy: "Plan Your Time",
+                      description: "Allocate roughly 1.3 minutes per question, leaving 15 minutes for review"
+                    },
+                    {
+                      strategy: "Start with Easy Questions",
+                      description: "Build confidence and momentum by tackling straightforward questions first"
+                    },
+                    {
+                      strategy: "Mark Difficult Questions",
+                      description: "Flag challenging items to return to later rather than getting stuck"
+                    }
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full text-blue-700 font-bold text-sm flex-shrink-0">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 mb-1">{item.strategy}</h4>
+                        <p className="text-slate-600 text-sm">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <div className="bg-gradient-to-br from-blue-50 to-emerald-50 rounded-3xl p-8">
+                <h3 className="text-2xl font-bold text-slate-900 mb-6">During the Exam</h3>
+                <div className="space-y-4">
+                  {[
+                    {
+                      strategy: "Use Process of Elimination",
+                      description: "Eliminate obviously wrong answers first to improve your odds"
+                    },
+                    {
+                      strategy: "Look for Key Words",
+                      description: "Watch for terms like &apos;always,&apos; &apos;never,&apos; &apos;most likely,&apos; and &apos;best&apos;"
+                    },
+                    {
+                      strategy: "Apply the Pareto Principle",
+                      description: "Focus 80% of your effort on the 20% of questions you&apos;re most confident about"
+                    },
+                    {
+                      strategy: "Trust Your First Instinct",
+                      description: "Change answers only when you&apos;re certain you made an error"
+                    }
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="flex items-center justify-center w-8 h-8 bg-emerald-100 rounded-full text-emerald-700 font-bold text-sm flex-shrink-0">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 mb-1">{item.strategy}</h4>
+                        <p className="text-slate-600 text-sm">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Common Exam Pitfalls */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Avoid These Common BCBA Exam Pitfalls
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Learn from the mistakes of others to maximize your chances of success
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {[
+              {
+                pitfall: "Overthinking Simple Questions",
+                description: "Many test-takers complicate straightforward questions by reading too much into them.",
+                solution: "If your first instinct seems obvious, it&apos;s probably correct. Trust your knowledge.",
+                icon: Brain
+              },
+              {
+                pitfall: "Running Out of Time",
+                description: "Spending too long on difficult questions leaves insufficient time for easier ones.",
+                solution: "Set time limits per question and stick to them. Mark and return to challenging items.",
+                icon: Clock
+              },
+              {
+                pitfall: "Misreading Question Stems",
+                description: "Rushing through questions leads to misunderstanding what&apos;s actually being asked.",
+                solution: "Read each question twice. Identify key terms and what type of response is required.",
+                icon: Target
+              },
+              {
+                pitfall: "Second-Guessing Yourself",
+                description: "Changing correct answers due to test anxiety or overthinking reduces scores.",
+                solution: "Only change answers when you identify a clear error in your reasoning.",
+                icon: Shield
+              }
+            ].map((item, index) => (
+              <div key={index} className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+                <div className="grid lg:grid-cols-4 gap-8 items-start">
+                  <div className="lg:col-span-1">
+                    <div className="flex items-center space-x-4 mb-4">
+                      <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-2xl">
+                        <item.icon className="h-6 w-6 text-red-600" />
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900">{item.pitfall}</h3>
+                    </div>
+                  </div>
+                  
+                  <div className="lg:col-span-2">
+                    <p className="text-slate-600 mb-4">{item.description}</p>
+                  </div>
+                  
+                  <div className="lg:col-span-1">
+                    <div className="bg-emerald-50 rounded-2xl p-4">
+                      <h4 className="font-bold text-emerald-800 mb-2">Solution:</h4>
+                      <p className="text-emerald-700 text-sm">{item.solution}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Study Schedule Integration */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Integrating Mock Tests into Your Study Schedule
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Strategic timing and frequency of practice tests for optimal preparation
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 lg:p-12">
+            <div className="grid lg:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-2xl mb-6">
+                  <BookOpen className="h-8 w-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Early Preparation (3-6 months out)</h3>
+                <div className="text-left space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Take baseline diagnostic test</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Identify major knowledge gaps</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Focus on content review first</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Take mini-mocks weekly</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mb-6">
+                  <BarChart3 className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Active Preparation (1-3 months out)</h3>
+                <div className="text-left space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Take full-length mocks bi-weekly</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Analyze performance patterns</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Adjust study plan based on results</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Practice time management</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl mb-6">
+                  <Zap className="h-8 w-8 text-emerald-600" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Final Preparation (2-4 weeks out)</h3>
+                <div className="text-left space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Take 2-3 final full-length tests</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Simulate exact exam conditions</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Focus on weak areas only</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-slate-700">Build confidence and reduce anxiety</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 p-6 bg-blue-50 rounded-2xl">
+              <h4 className="text-lg font-bold text-slate-900 mb-4 text-center">Optimal Testing Schedule</h4>
+              <div className="grid md:grid-cols-3 gap-4 text-center">
+                <div className="bg-white rounded-xl p-4">
+                  <div className="text-2xl font-bold text-blue-600 mb-2">8-12</div>
+                  <div className="text-sm text-slate-600">Total practice tests over 3-6 months</div>
+                </div>
+                <div className="bg-white rounded-xl p-4">
+                  <div className="text-2xl font-bold text-emerald-600 mb-2">3-4</div>
+                  <div className="text-sm text-slate-600">Full-length tests in final month</div>
+                </div>
+                <div className="bg-white rounded-xl p-4">
+                  <div className="text-2xl font-bold text-purple-600 mb-2">24-48hr</div>
+                  <div className="text-sm text-slate-600">Review time after each test</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Getting Started */}
         <section className="py-20">
           <div className="text-center bg-white rounded-3xl shadow-lg border border-slate-200 p-12">
