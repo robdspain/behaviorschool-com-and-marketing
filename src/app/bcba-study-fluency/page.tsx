@@ -228,7 +228,7 @@ export default function BCBAStudyFluencyPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900 mb-2">Precision Teaching</h3>
-                    <p className="text-slate-600">Based on decades of research in precision teaching, fluency training has helped thousands of students achieve mastery.</p>
+                    <p className="text-slate-600">Research demonstrates that behavioral fluency training enhances learning outcomes by combining accuracy and speed (Binder, 1996). Studies show fluency-based instruction leads to improved retention, endurance, and skill application across educational settings (Weiss et al., 2010).</p>
                   </div>
                 </div>
                 
@@ -382,7 +382,7 @@ export default function BCBAStudyFluencyPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900 mb-2">Retention Advantage</h4>
-                    <p className="text-slate-600">Studies show fluent learners retain information 3x longer than those who achieve accuracy alone, with skills maintained even after extended breaks from practice.</p>
+                    <p className="text-slate-600">Research demonstrates that fluent learners show superior retention compared to those achieving accuracy alone, with skills maintained even after extended breaks from practice (Binder, 1996).</p>
                   </div>
                 </div>
 
@@ -392,7 +392,7 @@ export default function BCBAStudyFluencyPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900 mb-2">Transfer Benefits</h4>
-                    <p className="text-slate-600">Fluent skills transfer more readily to novel situations and complex problems, enabling better performance on application-based exam questions.</p>
+                    <p className="text-slate-600">Fluent skills transfer more readily to novel situations and complex problems, enabling better performance on application-based questions (Yaber-Oltra, 1993).</p>
                   </div>
                 </div>
 
@@ -685,6 +685,26 @@ export default function BCBAStudyFluencyPage() {
                   <div className="text-sm text-slate-600">Comprehensive prep</div>
                 </div>
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Research References */}
+        <section className="py-16 bg-slate-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 className="text-2xl font-bold text-slate-900 mb-8">Research References</h3>
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
+              <div className="space-y-4 text-sm text-slate-700">
+                <p>
+                  Binder, C. (1996). Behavioral fluency: Evolution of a new paradigm. <em>The Behavior Analyst</em>, <em>19</em>(2), 163–197. https://doi.org/10.1007/BF03393163
+                </p>
+                <p>
+                  Weiss, M. J., Pearson, N., Foley, K., & Pahl, S. (2010). The importance of fluency outcomes in learners with autism. <em>The Behavior Analyst Today</em>, <em>11</em>(4), 245–252.
+                </p>
+                <p>
+                  Yaber-Oltra, G. E. (1993). <em>Computer-based fluency training with the terminology of behavior analysis</em> [Doctoral dissertation, Western Michigan University]. ScholarWorks at WMU. https://scholarworks.wmich.edu/dissertations/1887/
+                </p>
+              </div>
             </div>
           </div>
         </section>
