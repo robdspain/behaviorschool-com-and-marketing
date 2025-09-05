@@ -10,20 +10,29 @@ export function ConditionalNavBar() {
   // Hide navbar completely on these pages
   const hideNavbarPages = ['/bcba-exam-prep'];
   
-  // Use minimal landing page navbar on these pages
-  const landingPages = [
-    '/school-based-bcba',
-    '/bcba-study-fluency', 
-    '/bcba-mock-practice-test'
+  // Keep full navbar on these main navigation pages
+  const fullNavbarPages = [
+    '/community',
+    '/products', 
+    '/transformation-program',
+    '/about',
+    '/contact'
   ];
+  
+  // Admin pages and other special cases also get full navbar
+  const keepFullNavbar = fullNavbarPages.includes(pathname) || 
+                        pathname.startsWith('/admin') || 
+                        pathname.startsWith('/blog') ||
+                        pathname === '/';
   
   if (hideNavbarPages.includes(pathname)) {
     return null;
   }
   
-  if (landingPages.includes(pathname)) {
-    return <LandingNavBar />;
+  if (keepFullNavbar) {
+    return <NavBar />;
   }
   
-  return <NavBar />;
+  // All other pages are landing pages - use minimal navbar
+  return <LandingNavBar />;
 }
