@@ -5,7 +5,6 @@ export function FooterLinks() {
     <div className="flex flex-wrap items-center gap-4 text-slate-600">
       <Link href="/products" className="hover:text-slate-900">Tools</Link>
       <Link href="/resources" className="hover:text-slate-900">Resources</Link>
-      <Link href="/featured" className="hover:text-slate-900">Featured</Link>
       <Link href="/blog" className="hover:text-slate-900">Blog</Link>
       <Link href="/about" className="hover:text-slate-900">About</Link>
       <Link href="/contact" className="hover:text-slate-900">Contact</Link>
