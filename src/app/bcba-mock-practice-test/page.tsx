@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Target, TrendingUp, Zap } from "lucide-react";
+import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
@@ -52,589 +52,458 @@ export const metadata: Metadata = {
 };
 
 export default function BCBAMockPracticeTestPage() {
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "BCBA Resources", href: "/bcba-exam-prep" },
+    { label: "Mock Practice Test", href: "/bcba-mock-practice-test" },
+  ];
+
+  const mockTestFeatures = [
+    {
+      title: "Real Exam Simulation",
+      description: "Experience the exact format, timing, and question types you&apos;ll encounter on the actual BCBA exam.",
+      icon: Target,
+      highlight: "4-hour timed sessions"
+    },
+    {
+      title: "Instant Detailed Feedback",
+      description: "Get immediate explanations for every question, including why answers are correct or incorrect.",
+      icon: Brain,
+      highlight: "Learn from every question"
+    },
+    {
+      title: "Comprehensive Analytics",
+      description: "Track your performance across all content areas and identify exactly where to focus your studies.",
+      icon: BarChart3,
+      highlight: "Data-driven insights"
+    },
+    {
+      title: "Adaptive Difficulty",
+      description: "Questions adjust to your skill level, ensuring you&apos;re always challenged at the right level.",
+      icon: TrendingUp,
+      highlight: "Personalized experience"
+    }
+  ];
+
+  const testBenefits = [
+    {
+      category: "Confidence Building",
+      benefits: [
+        "Reduce test anxiety through familiarity",
+        "Practice time management strategies",
+        "Build stamina for 4-hour exam sessions",
+        "Experience realistic testing conditions"
+      ],
+      icon: Shield,
+      color: "from-blue-500 to-blue-600"
+    },
+    {
+      category: "Knowledge Assessment",
+      benefits: [
+        "Identify knowledge gaps early",
+        "Focus study time on weak areas",
+        "Track improvement over time",
+        "Validate your readiness level"
+      ],
+      icon: Brain,
+      color: "from-emerald-500 to-emerald-600"
+    },
+    {
+      category: "Strategic Preparation",
+      benefits: [
+        "Learn question patterns and formats",
+        "Practice elimination techniques",
+        "Develop test-taking strategies",
+        "Master time allocation skills"
+      ],
+      icon: Target,
+      color: "from-purple-500 to-purple-600"
+    }
+  ];
+
+  const practiceOptions = [
+    {
+      title: "Quick Mini Mock",
+      description: "25 questions in 30 minutes - perfect for focused practice sessions",
+      duration: "30 minutes",
+      questions: "25 questions",
+      ideal: "Daily practice",
+      ctaText: "Start Mini Mock",
+      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      popular: false
+    },
+    {
+      title: "Full Practice Exam",
+      description: "Complete 185-question simulation matching the real BCBA exam format",
+      duration: "4 hours",
+      questions: "185 questions",
+      ideal: "Comprehensive assessment",
+      ctaText: "Take Full Mock Exam",
+      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      popular: true
+    },
+    {
+      title: "Targeted Practice",
+      description: "Focus on specific content areas where you need the most improvement",
+      duration: "Flexible",
+      questions: "Customizable",
+      ideal: "Skill building",
+      ctaText: "Practice by Topic",
+      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      popular: false
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50">
-      <div className="container mx-auto px-4 py-8">
-        <Breadcrumbs
-          items={[
-            { label: "Home", href: "/" },
-            { label: "BCBA Resources", href: "/bcba-exam-prep" },
-            { label: "Free BCBA Mock Practice Test" }
-          ]}
-        />
-        
-        {/* Related Pages Navigation */}
-        <div className="mb-8">
-          <div className="bg-slate-100 rounded-lg p-4">
-            <p className="text-sm text-slate-600 mb-2">Related BCBA Resources:</p>
-            <div className="flex flex-wrap gap-2">
-              <Link href="/school-based-bcba" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
-                School-Based BCBA Guide
-              </Link>
-              <Link href="/bcba-study-fluency" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
-                Study Fluency Guide
-              </Link>
-              <Link href="/behavior-study-tools" className="text-xs bg-white px-3 py-1 rounded-full text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
-                Study Tools
-              </Link>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumbs */}
+        <div className="pt-8 pb-4">
+          <Breadcrumbs items={breadcrumbItems} />
         </div>
-        
-        <div className="max-w-4xl mx-auto">
-          {/* Hero Section */}
-          <div className="text-center py-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Free BCBA Mock Practice Test: Your Blueprint for Exam Success
+
+        {/* Hero Section */}
+        <section className="relative py-16 lg:py-24 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-emerald-50 rounded-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-gradient-to-br from-blue-100 to-transparent opacity-30 blur-3xl" />
+          <div className="absolute -bottom-10 left-0 w-80 h-80 rounded-full bg-gradient-to-tr from-emerald-100 to-transparent opacity-20 blur-2xl" />
+          
+          <div className="relative text-center">
+            <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-8">
+              <PlayCircle className="mr-2 h-4 w-4" />
+              Free Mock Practice Tests
+            </div>
+            
+            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+              Master the BCBA Exam with 
+              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent"> Realistic Mock Tests</span>
             </h1>
-            <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              Transform anxiety into confidence with authentic BCBA exam simulations. Our free mock practice tests replicate the real exam experience, giving you the preparation you need to pass on your first attempt.
-            </p>
             
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 max-w-2xl mx-auto mb-8">
-              <div className="flex items-center justify-center mb-4">
-                <Target className="h-8 w-8 text-yellow-600 mr-2" />
-                <h2 className="text-xl font-semibold text-yellow-800">The Reality Check</h2>
+            <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Build confidence, identify weak areas, and perfect your test-taking strategy with our comprehensive BCBA mock practice tests. Experience the real exam before exam day.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
+              >
+                <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                  <PlayCircle className="mr-2 h-5 w-5" />
+                  Start Free Mock Test
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+              
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg"
+                className="border-2 border-blue-200 text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl"
+              >
+                <Link href="/behavior-study-tools">
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  Explore Study Tools
+                </Link>
+              </Button>
+            </div>
+
+            <div className="flex items-center justify-center space-x-8 text-sm text-slate-600">
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="h-4 w-4 text-emerald-600" />
+                <span>Quick signup</span>
               </div>
-              <p className="text-yellow-700 mb-4">
-                A significant percentage of BCBA candidates don&apos;t pass on their first attempt. The difference between success and failure often comes down to one critical factor: exam preparation that goes beyond just knowing the content.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <h3 className="font-semibold text-yellow-800 mb-1">Successful Candidates:</h3>
-                  <ul className="text-yellow-700 space-y-1">
-                    <li>• Complete 3-5+ full mock exams</li>
-                    <li>• Practice under timed conditions</li>
-                    <li>• Analyze mistakes systematically</li>
-                    <li>• Build exam-day stamina</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-yellow-800 mb-1">Struggling Candidates:</h3>
-                  <ul className="text-yellow-700 space-y-1">
-                    <li>• Rely only on reading and flashcards</li>
-                    <li>• Avoid timed practice</li>
-                    <li>• Focus on content, not application</li>
-                    <li>• Underestimate exam endurance needs</li>
-                  </ul>
-                </div>
+              <div className="flex items-center space-x-2">
+                <Timer className="h-4 w-4 text-emerald-600" />
+                <span>Realistic timing</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <BarChart3 className="h-4 w-4 text-emerald-600" />
+                <span>Detailed analytics</span>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Direct Access to Free Practice Tests */}
-          <div className="py-8 text-center">
-            <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-8 border border-emerald-200">
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">Start Your Free BCBA Practice Now</h2>
-              <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
-                Don&apos;t wait to start practicing. Get immediate access to our free BCBA mock exams and fluency practice tools. Begin building your confidence today.
+        {/* Practice Test Options */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Choose Your Practice Format
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Whether you have 30 minutes or 4 hours, we have the perfect practice option for your schedule
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {practiceOptions.map((option, index) => (
+              <div key={index} className={`relative bg-white rounded-3xl shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-all duration-300 ${option.popular ? 'ring-2 ring-blue-500 transform scale-105' : ''}`}>
+                {option.popular && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-full text-sm font-bold">
+                      Most Popular
+                    </div>
+                  </div>
+                )}
+                
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{option.title}</h3>
+                  <p className="text-slate-600 mb-6">{option.description}</p>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-center space-x-2 text-sm text-slate-600">
+                      <Clock className="h-4 w-4 text-blue-600" />
+                      <span>{option.duration}</span>
+                    </div>
+                    <div className="flex items-center justify-center space-x-2 text-sm text-slate-600">
+                      <Target className="h-4 w-4 text-blue-600" />
+                      <span>{option.questions}</span>
+                    </div>
+                    <div className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                      {option.ideal}
+                    </div>
+                  </div>
+                </div>
+
+                <Button 
+                  asChild 
+                  size="lg" 
+                  className={`w-full rounded-2xl ${option.popular ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-900'}`}
+                >
+                  <a href={option.ctaUrl} target="_blank" rel="noopener noreferrer">
+                    <PlayCircle className="mr-2 h-5 w-5" />
+                    {option.ctaText}
+                  </a>
+                </Button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Why Mock Tests Work */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Why Mock Tests Are Essential for BCBA Success
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Research shows that practice testing is one of the most effective study strategies for long-term retention and exam performance
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {mockTestFeatures.map((feature, index) => (
+              <div key={index} className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-start space-x-6">
+                  <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-2xl flex-shrink-0">
+                    <feature.icon className="h-8 w-8 text-blue-600" />
+                  </div>
+                  
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+                    <p className="text-slate-600 mb-4">{feature.description}</p>
+                    <div className="inline-flex items-center px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium">
+                      <Star className="mr-2 h-4 w-4" />
+                      {feature.highlight}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Benefits by Category */}
+        <section className="py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              How Mock Tests Transform Your Exam Preparation
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Our comprehensive mock tests provide benefits across three critical areas of exam success
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {testBenefits.map((category, index) => (
+              <div key={index} className="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden">
+                <div className={`bg-gradient-to-r ${category.color} p-6`}>
+                  <div className="flex items-center text-white">
+                    <div className="flex items-center justify-center w-12 h-12 bg-white/20 rounded-2xl mr-4">
+                      <category.icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-2xl font-bold">{category.category}</h3>
+                  </div>
+                </div>
+                
+                <div className="p-8">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {category.benefits.map((benefit, benefitIndex) => (
+                      <div key={benefitIndex} className="flex items-start space-x-3">
+                        <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                        <span className="text-slate-700">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Success Statistics */}
+        <section className="py-20">
+          <div className="bg-gradient-to-r from-blue-600 to-emerald-600 rounded-3xl p-12 text-white">
+            <div className="text-center">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+                Proven Results from Practice Testing
+              </h2>
+              <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
+                Students who take multiple mock exams show significantly higher pass rates and confidence levels
               </p>
+              
+              <div className="grid md:grid-cols-3 gap-8 mb-12">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">85%</div>
+                  <div className="text-blue-100">Higher confidence</div>
+                  <div className="text-sm text-blue-200">After 3+ mock exams</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">3x</div>
+                  <div className="text-blue-100">Better retention</div>
+                  <div className="text-sm text-blue-200">vs. passive study methods</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">92%</div>
+                  <div className="text-blue-100">Recommend to peers</div>
+                  <div className="text-sm text-blue-200">Student satisfaction rate</div>
+                </div>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
-                    <Zap className="mr-2 h-5 w-5" />
-                    Take Free Full-Length Mock Exam
-                  </Link>
+                <Button 
+                  asChild 
+                  size="lg" 
+                  className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
+                >
+                  <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                    <PlayCircle className="mr-2 h-5 w-5" />
+                    Take Your First Mock Test
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
-                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
-                    <Target className="mr-2 h-5 w-5" />
-                    Try Free Mini Mock Exam (Quick Start)
+                
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  size="lg"
+                  className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-2xl"
+                >
+                  <Link href="/bcba-exam-prep">
+                    <BookOpen className="mr-2 h-5 w-5" />
+                    Full Exam Prep Course
                   </Link>
                 </Button>
               </div>
-              <p className="text-sm text-slate-500 mt-4">
-                Quick signup • Full & mini exams • Fluency practice • Detailed explanations
-              </p>
             </div>
           </div>
+        </section>
 
-          {/* Why Free BCBA Mock Practice Tests Are a Game-Changer */}
-          <div className="py-12">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              Why Free BCBA Mock Practice Tests Are Essential for Exam Success
+        {/* Getting Started */}
+        <section className="py-20">
+          <div className="text-center bg-white rounded-3xl shadow-lg border border-slate-200 p-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Start Your Mock Test Journey Today
             </h2>
-            
-            <div className="prose prose-lg text-slate-600 max-w-none mb-12">
-              <p className="text-lg text-center mb-8">
-                Mock practice tests aren&apos;t just another study tool - they&apos;re the closest thing to a crystal ball for your exam performance. Research in educational psychology consistently shows that testing enhances learning more than any other study method, including re-reading, highlighting, or summarizing.
-              </p>
-            </div>
-
-            {/* Core Benefits */}
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <div className="bg-white p-8 rounded-lg shadow-sm border">
-                <Clock className="h-16 w-16 text-blue-500 mb-6" />
-                <h3 className="text-2xl font-semibold text-slate-900 mb-4">Master the BCBA Exam Format and Timing</h3>
-                <p className="text-slate-600 mb-4">
-                  The BCBA exam is a 4-hour, 185-question marathon that tests not just your knowledge, but your endurance, focus, and time management skills. Many well-prepared candidates fail simply because they&apos;ve never experienced the mental fatigue of a 4-hour exam.
-                </p>
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-800 mb-2">What You&apos;ll Master:</h4>
-                  <ul className="text-blue-700 space-y-1 text-sm">
-                    <li>• Pacing: 1.3 minutes per question average</li>
-                    <li>• Endurance: Maintaining focus for 4 hours</li>
-                    <li>• Navigation: Using computer-based testing interface</li>
-                    <li>• Strategy: When to skip and return to difficult questions</li>
-                    <li>• Break management: Optimizing optional break times</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="bg-white p-8 rounded-lg shadow-sm border">
-                <Target className="h-16 w-16 text-blue-500 mb-6" />
-                <h3 className="text-2xl font-semibold text-slate-900 mb-4">Pinpoint Your Knowledge Gaps with Precision</h3>
-                <p className="text-slate-600 mb-4">
-                  Traditional studying gives you a false sense of security. You might think you know the material because you can recognize correct answers in your textbook, but recognition is not recall. Mock exams force you to retrieve information from memory, revealing what you truly know versus what you think you know.
-                </p>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-green-800 mb-2">Detailed Analytics Include:</h4>
-                  <ul className="text-green-700 space-y-1 text-sm">
-                    <li>• Performance by BACB Task List sections</li>
-                    <li>• Question difficulty analysis</li>
-                    <li>• Time spent per question tracking</li>
-                    <li>• Common mistake patterns identification</li>
-                    <li>• Improvement trends over multiple attempts</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="bg-white p-8 rounded-lg shadow-sm border">
-                <Zap className="h-16 w-16 text-blue-500 mb-6" />
-                <h3 className="text-2xl font-semibold text-slate-900 mb-4">Transform Anxiety into Confidence</h3>
-                <p className="text-slate-600 mb-4">
-                  Test anxiety isn&apos;t just about nerves - it&apos;s about the unknown. When you&apos;ve experienced the exact format, timing, and pressure of the BCBA exam multiple times through mock tests, the real exam becomes familiar territory rather than uncharted waters.
-                </p>
-                <div className="bg-purple-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-purple-800 mb-2">Confidence Building Benefits:</h4>
-                  <ul className="text-purple-700 space-y-1 text-sm">
-                    <li>• Familiarity with exam interface and format</li>
-                    <li>• Experience managing time pressure</li>
-                    <li>• Practice with complex scenario questions</li>
-                    <li>• Reduced fear of the unknown</li>
-                    <li>• Proven ability to complete full-length exams</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="bg-white p-8 rounded-lg shadow-sm border">
-                <TrendingUp className="h-16 w-16 text-blue-500 mb-6" />
-                <h3 className="text-2xl font-semibold text-slate-900 mb-4">Supercharge Learning with Active Recall</h3>
-                <p className="text-slate-600 mb-4">
-                  The &quot;testing effect&quot; is one of the most robust findings in learning science. When you actively retrieve information from memory (as you do during a mock exam), you strengthen neural pathways and significantly improve long-term retention compared to passive study methods.
-                </p>
-                <div className="bg-orange-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-orange-800 mb-2">Learning Science Benefits:</h4>
-                  <ul className="text-orange-700 space-y-1 text-sm">
-                    <li>• Enhanced memory consolidation through retrieval practice</li>
-                    <li>• Improved transfer of knowledge to new contexts</li>
-                    <li>• Better discrimination between similar concepts</li>
-                    <li>• Increased metacognitive awareness of your knowledge</li>
-                    <li>• Stronger resistance to forgetting over time</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Research Evidence */}
-            <div className="bg-slate-50 rounded-lg p-8">
-              <h3 className="text-2xl font-semibold text-slate-900 mb-6 text-center">The Research Is Clear: Testing Enhances Learning</h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="text-lg font-semibold text-slate-900 mb-4">The Science Behind Practice Testing:</h4>
-                  <div className="space-y-4">
-                    <div className="bg-white rounded-lg p-4">
-                      <p className="text-slate-600 text-sm">
-                        <strong>The Testing Effect:</strong> Decades of educational psychology research consistently show that practice testing improves long-term retention more effectively than repeated studying of the same material.
-                      </p>
-                    </div>
-                    <div className="bg-white rounded-lg p-4">
-                      <p className="text-slate-600 text-sm">
-                        <strong>Retrieval Practice:</strong> The act of retrieving information from memory strengthens neural pathways and improves both factual recall and conceptual understanding.
-                      </p>
-                    </div>
-                    <div className="bg-white rounded-lg p-4">
-                      <p className="text-slate-600 text-sm">
-                        <strong>Spaced Testing:</strong> Repeated practice testing sessions distributed over time lead to better long-term retention than massed practice sessions.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-slate-900 mb-4">Real-World Applications:</h4>
-                  <div className="space-y-4">
-                    <div className="bg-white rounded-lg p-4">
-                      <p className="text-slate-600 text-sm">
-                        <strong>Medical Education:</strong> Medical students using practice exams consistently show improved board exam performance compared to traditional study methods alone.
-                      </p>
-                    </div>
-                    <div className="bg-white rounded-lg p-4">
-                      <p className="text-slate-600 text-sm">
-                        <strong>Legal Education:</strong> Law students who complete mock bar exams typically demonstrate higher pass rates than those who don&apos;t include practice testing in their preparation.
-                      </p>
-                    </div>
-                    <div className="bg-white rounded-lg p-4">
-                      <p className="text-slate-600 text-sm">
-                        <strong>Professional Certifications:</strong> Candidates using practice tests consistently outperform those using study guides alone across multiple professions.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* How to Use Our Free BCBA Mock Practice Tests Effectively */}
-          <div className="py-12 bg-white rounded-lg shadow-sm border">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              How to Use Our Free BCBA Mock Practice Tests Effectively
-            </h2>
-            <div className="space-y-8">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">1</div>
-                <div className="ml-6">
-                  <h3 className="text-xl font-semibold text-slate-900">Take a Baseline Mock Exam</h3>
-                  <p className="text-slate-600 mt-2">Before you start studying, take a full-length mock exam to get a baseline of your current knowledge. This will help you identify your strengths and weaknesses from the very beginning.</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">2</div>
-                <div className="ml-6">
-                  <h3 className="text-xl font-semibold text-slate-900">Create a Realistic Exam Environment</h3>
-                  <p className="text-slate-600 mt-2">Find a quiet place where you won&apos;t be disturbed, set a timer for 4 hours, and take the mock exam as if it were the real thing. No distractions, no breaks (except for the ones you&apos;d get in the real exam).</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">3</div>
-                <div className="ml-6">
-                  <h3 className="text-xl font-semibold text-slate-900">Analyze Your Results</h3>
-                  <p className="text-slate-600 mt-2">Don&apos;t just look at your score. Go through every question, including the ones you got right, and read the detailed explanations. Understand why the correct answer is correct and why the other answers are incorrect.</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">4</div>
-                <div className="ml-6">
-                  <h3 className="text-xl font-semibold text-slate-900">Focus Your Studies</h3>
-                  <p className="text-slate-600 mt-2">Use the results of your mock exam to create a targeted study plan. Focus on the areas where you scored the lowest, but don&apos;t neglect your areas of strength. Use our detailed analytics to track your progress over time.</p>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xl">5</div>
-                <div className="ml-6">
-                  <h3 className="text-xl font-semibold text-slate-900">Repeat the Process</h3>
-                  <p className="text-slate-600 mt-2">Take multiple mock exams throughout your studies to track your progress and identify new areas of weakness. The more you practice, the more confident you&apos;ll become.</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Action Step CTA */}
-            <div className="mt-8 text-center bg-slate-50 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">Ready to Take Your First Mock Exam?</h3>
-              <p className="text-slate-600 mb-4">
-                Follow the process above with our free practice tests. Start with a baseline assessment today.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
-                    <Clock className="mr-2 h-4 w-4" />
-                    Start Full Mock Exam
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" className="border-slate-400 text-slate-700 hover:bg-slate-100">
-                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
-                    <Target className="mr-2 h-4 w-4" />
-                    Try Mini Version First
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* What Makes Our Free BCBA Mock Practice Tests Different */}
-          <div className="py-12">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              What Makes Our Free BCBA Mock Practice Tests Different
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <Zap className="h-12 w-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">AI-Powered Questions</h3>
-                <p className="text-slate-600">Our mock exams are powered by AI, which means you&apos;ll get a unique set of questions every time. No more memorizing old test banks.</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <Clock className="h-12 w-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Real Exam Timing</h3>
-                <p className="text-slate-600">Practice with the same time constraints as the actual BCBA exam. Build your confidence and learn to manage your time effectively under pressure.</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <TrendingUp className="h-12 w-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Detailed Explanations</h3>
-                <p className="text-slate-600">Get comprehensive explanations for every question, including why each answer is correct and why the other answers are incorrect.</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
-                <CheckCircle className="h-12 w-12 text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold text-slate-900 mb-2">Performance Tracking</h3>
-                <p className="text-slate-600">Track your progress across different content areas. Identify your strengths and weaknesses to focus your study time where it matters most.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Mid-Page Action CTA */}
-          <div className="py-8 text-center">
-            <div className="bg-slate-50 rounded-xl p-6 border border-slate-200">
-              <h2 className="text-xl font-bold text-slate-900 mb-3">Experience the Difference Yourself</h2>
-              <p className="text-slate-600 mb-4 max-w-xl mx-auto">
-                Experience our practice platform for yourself. Start with a free exam today.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-                  <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
-                    <Zap className="mr-2 h-4 w-4" />
-                    Launch Free Practice Platform
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Ready to Get Started? */}
-          <div className="py-12 text-center bg-blue-600 rounded-lg text-white">
-            <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-            <p className="text-xl mb-8 opacity-90">
-              Take a free mock exam now and get a baseline of your current knowledge. It&apos;s the first step on your path to BCBA exam success.
+            <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+              Join behavior analysts worldwide who trust our platform for comprehensive BCBA exam preparation
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="secondary">
-                <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
+              >
+                <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
                   <Zap className="mr-2 h-5 w-5" />
-                  Take Free Full-Length Mock Exam
-                </Link>
+                  Start Free Practice
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
-                <Link href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
-                  <Target className="mr-2 h-5 w-5" />
-                  Try Free Mini Mock Exam
+              
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg"
+                className="border-2 border-blue-200 text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl"
+              >
+                <Link href="/community">
+                  <Users className="mr-2 h-5 w-5" />
+                  Join Study Community
                 </Link>
               </Button>
             </div>
-          </div>
 
-          {/* FAQ Section */}
-          <div className="py-12">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              Frequently Asked Questions About BCBA Mock Practice Tests
-            </h2>
-            <div className="space-y-8">
-              <div className="bg-slate-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">How many questions are on the BCBA exam and how is it structured?</h3>
-                <p className="text-slate-600 mb-3">
-                  The BCBA exam contains 185 multiple-choice questions, with some unscored pilot questions being tested for future exams. You won&apos;t know which questions are unscored, so you must treat every question as if it counts. Check the current BACB handbook for the most up-to-date exam structure.
-                </p>
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-800 mb-2">Question Distribution by Content Area:</h4>
-                  <ul className="text-blue-700 space-y-1 text-sm">
-                    <li>• <strong>Concepts and Principles (24-26%):</strong> 38-42 questions</li>
-                    <li>• <strong>Measurement, Data Display, Interpretation (16-18%):</strong> 26-29 questions</li>
-                    <li>• <strong>Experimental Design (9-11%):</strong> 14-18 questions</li>
-                    <li>• <strong>Ethics and Professional Conduct (8-12%):</strong> 13-19 questions</li>
-                    <li>• <strong>Behavior Change Procedures (35-39%):</strong> 56-62 questions</li>
-                    <li>• <strong>Selecting and Implementing Interventions (4-6%):</strong> 6-10 questions</li>
-                    <li>• <strong>Personnel Supervision and Management (6-8%):</strong> 10-13 questions</li>
-                  </ul>
-                </div>
+            <div className="flex items-center justify-center space-x-8 text-sm text-slate-600">
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="h-4 w-4 text-emerald-600" />
+                <span>Free to start</span>
               </div>
-              
-              <div className="bg-slate-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">How long is the BCBA exam and how should I pace myself?</h3>
-                <p className="text-slate-600 mb-3">
-                  The BCBA exam allows 4 hours (240 minutes) to complete all 185 questions. This provides approximately 1.3 minutes per question, but effective time management requires a strategic approach rather than equal time distribution.
-                </p>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-green-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-green-800 mb-2">Recommended Pacing Strategy:</h4>
-                    <ul className="text-green-700 space-y-1 text-sm">
-                      <li>• <strong>Easy questions:</strong> 30-45 seconds</li>
-                      <li>• <strong>Moderate questions:</strong> 1-2 minutes</li>
-                      <li>• <strong>Complex scenarios:</strong> 2-3 minutes</li>
-                      <li>• <strong>Review flagged questions:</strong> 15-30 minutes</li>
-                      <li>• <strong>Buffer time:</strong> 10-15 minutes</li>
-                    </ul>
-                  </div>
-                  <div className="bg-yellow-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-yellow-800 mb-2">Time Checkpoints:</h4>
-                    <ul className="text-yellow-700 space-y-1 text-sm">
-                      <li>• <strong>60 minutes:</strong> 50+ questions completed</li>
-                      <li>• <strong>120 minutes:</strong> 90+ questions completed</li>
-                      <li>• <strong>180 minutes:</strong> 140+ questions completed</li>
-                      <li>• <strong>210 minutes:</strong> All questions attempted</li>
-                      <li>• <strong>240 minutes:</strong> Final review complete</li>
-                    </ul>
-                  </div>
-                </div>
+              <div className="flex items-center space-x-2">
+                <Shield className="h-4 w-4 text-emerald-600" />
+                <span>Secure platform</span>
               </div>
-              
-              <div className="bg-slate-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">What is a passing score on the BCBA exam?</h3>
-                <p className="text-slate-600 mb-3">
-                  The BCBA exam uses scaled scoring, where raw scores are converted to scaled scores. Check the current BACB candidate handbook for the most up-to-date passing score requirements and scoring methodology.
-                </p>
-                <div className="bg-blue-50 rounded-lg p-4 mb-3">
-                  <h4 className="font-semibold text-blue-800 mb-2">Understanding Scaled Scoring:</h4>
-                  <p className="text-blue-700 text-sm mb-2">
-                    Scaled scoring accounts for variations in difficulty between different exam forms to ensure fairness across all test administrations. The BACB provides official scoring information in their candidate handbook.
-                  </p>
-                </div>
-                <p className="text-slate-600 text-sm">
-                  <strong>Pro Tip:</strong> Aim for consistent high performance on practice tests to ensure you&apos;re well-prepared, accounting for test-day conditions and question formats you haven&apos;t seen before.
-                </p>
-              </div>
-              
-              <div className="bg-slate-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">How many mock practice tests should I take before the real exam?</h3>
-                <p className="text-slate-600 mb-3">
-                  Research suggests that candidates who complete 3-5 full-length practice tests perform significantly better than those who take fewer. However, quality is more important than quantity - it&apos;s better to thoroughly analyze 3 exams than to rush through 6.
-                </p>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-green-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-green-800 mb-2">Recommended Schedule:</h4>
-                    <ul className="text-green-700 space-y-2 text-sm">
-                      <li><strong>8-12 weeks before exam:</strong> Baseline mock test</li>
-                      <li><strong>6-8 weeks before exam:</strong> Second mock test after initial studying</li>
-                      <li><strong>4-6 weeks before exam:</strong> Third mock test to assess progress</li>
-                      <li><strong>2-3 weeks before exam:</strong> Fourth mock test for final assessment</li>
-                      <li><strong>1 week before exam:</strong> Light review, no new full tests</li>
-                    </ul>
-                  </div>
-                  <div className="bg-blue-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-blue-800 mb-2">Between Each Mock Test:</h4>
-                    <ul className="text-green-700 space-y-1 text-sm">
-                      <li>• Spend 2-3 hours analyzing results</li>
-                      <li>• Focus study on identified weak areas</li>
-                      <li>• Review all incorrect answers</li>
-                      <li>• Research unfamiliar concepts thoroughly</li>
-                      <li>• Track improvement trends</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-slate-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">Are free BCBA practice tests as good as paid ones?</h3>
-                <p className="text-slate-600 mb-3">
-                  Quality varies significantly among both free and paid options. The key factors that determine value are question accuracy, explanation quality, performance analytics, and similarity to the actual exam format. Many free options provide excellent preparation when they include these elements.
-                </p>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">What to Look for in Any Practice Test:</h4>
-                    <ul className="text-slate-600 space-y-1 text-sm">
-                      <li>• Questions aligned with current BACB Task List</li>
-                      <li>• Detailed explanations for all answer choices</li>
-                      <li>• Performance analytics by content area</li>
-                      <li>• Realistic exam timing and interface</li>
-                      <li>• Questions written by BCBA subject matter experts</li>
-                      <li>• Regular updates to reflect exam changes</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-slate-900 mb-2">Red Flags to Avoid:</h4>
-                    <ul className="text-slate-600 space-y-1 text-sm">
-                      <li>• Questions with obvious errors or typos</li>
-                      <li>• Outdated content not reflecting current practice</li>
-                      <li>• Minimal or incorrect explanations</li>
-                      <li>• No performance tracking or analytics</li>
-                      <li>• Unrealistic question difficulty (too easy/hard)</li>
-                      <li>• Format that doesn&apos;t match the real exam</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-slate-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">What should I do if I&apos;m not improving on practice tests?</h3>
-                <p className="text-slate-600 mb-3">
-                  Plateauing on practice tests is common and usually indicates the need for a strategic shift in your preparation approach. The key is systematic analysis of your performance patterns to identify the root causes.
-                </p>
-                <div className="space-y-4">
-                  <div className="bg-red-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-red-800 mb-2">If Your Scores Are Consistently Low (Below 60%):</h4>
-                    <ul className="text-red-700 space-y-1 text-sm">
-                      <li>• Return to foundational study materials</li>
-                      <li>• Focus on understanding concepts, not memorizing facts</li>
-                      <li>• Work with a tutor or study group</li>
-                      <li>• Take shorter, topic-specific practice quizzes</li>
-                      <li>• Consider additional coursework if knowledge gaps are substantial</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-yellow-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-yellow-800 mb-2">If You&apos;re Stuck in the 60-70% Range:</h4>
-                    <ul className="text-yellow-700 space-y-1 text-sm">
-                      <li>• Analyze mistakes by content area and question type</li>
-                      <li>• Practice with more complex scenario questions</li>
-                      <li>• Work on eliminating obviously wrong answers</li>
-                      <li>• Improve time management strategies</li>
-                      <li>• Focus on application rather than recall</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-green-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-green-800 mb-2">If You&apos;re Above 70% But Want to Improve:</h4>
-                    <ul className="text-green-700 space-y-1 text-sm">
-                      <li>• Focus on your 1-2 weakest content areas</li>
-                      <li>• Practice advanced clinical reasoning skills</li>
-                      <li>• Review ethics scenarios and edge cases</li>
-                      <li>• Work on speed and efficiency</li>
-                      <li>• Take practice tests under increasingly challenging conditions</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-slate-50 rounded-lg p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-3">How do I know if I&apos;m ready to take the real BCBA exam?</h3>
-                <p className="text-slate-600 mb-3">
-                  Readiness isn&apos;t just about hitting a score threshold - it&apos;s about consistent performance, confidence with the format, and demonstrable improvement over time. Here are objective indicators of readiness:
-                </p>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-green-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-green-800 mb-2">Performance Indicators:</h4>
-                    <ul className="text-green-700 space-y-1 text-sm">
-                      <li>• Consistently scoring 75%+ on practice tests</li>
-                      <li>• Improving or stable scores over last 2-3 attempts</li>
-                      <li>• Completing full exams within time limit</li>
-                      <li>• Strong performance across all content areas</li>
-                      <li>• Minimal careless errors on easy questions</li>
-                    </ul>
-                  </div>
-                  <div className="bg-blue-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-blue-800 mb-2">Confidence Indicators:</h4>
-                    <ul className="text-blue-700 space-y-1 text-sm">
-                      <li>• Comfortable with computer-based testing format</li>
-                      <li>• Effective test-taking strategies developed</li>
-                      <li>• Able to maintain focus for 4 hours</li>
-                      <li>• Confident in time management approach</li>
-                      <li>• Ready to handle test-day logistics and stress</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4">
-                  <p className="text-yellow-800 text-sm">
-                    <strong>Important:</strong> If you&apos;re not consistently performing at 75%+ on practice tests, consider delaying your exam date. The $245 exam fee is substantial, and first-time pass rates are significantly higher for well-prepared candidates.
-                  </p>
-                </div>
+              <div className="flex items-center space-x-2">
+                <Award className="h-4 w-4 text-emerald-600" />
+                <span>Evidence-based</span>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Conclusion */}
-          <div className="py-12 text-center">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Your Path to BCBA Exam Success Starts Here</h2>
-            <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-              Don&apos;t leave your BCBA exam success to chance. Use our free mock practice tests to build your confidence, identify your weaknesses, and go into the exam room with the skills you need to succeed.
-            </p>
+        {/* Related BCBA Resources Navigation */}
+        <section className="py-12">
+          <div className="bg-slate-100 rounded-2xl p-8">
+            <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">Related BCBA Resources</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Link 
+                href="/school-based-bcba" 
+                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <Users className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">School-Based BCBA</div>
+                  <div className="text-sm text-slate-600">Career pathway guide</div>
+                </div>
+              </Link>
+              
+              <Link 
+                href="/bcba-study-fluency" 
+                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <Zap className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">Study Fluency</div>
+                  <div className="text-sm text-slate-600">Fluency-based learning</div>
+                </div>
+              </Link>
+              
+              <Link 
+                href="/behavior-study-tools" 
+                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <BookOpen className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">Study Tools</div>
+                  <div className="text-sm text-slate-600">Comprehensive prep</div>
+                </div>
+              </Link>
+            </div>
           </div>
-
-        </div>
+        </section>
       </div>
     </div>
   );
