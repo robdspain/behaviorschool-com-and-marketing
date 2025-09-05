@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Shield, Loader2, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { supabaseClient as supabase } from "@/lib/supabase-client";
-import { isAuthorizedAdmin, getUnauthorizedMessage, DEV_CONFIG } from "@/lib/admin-config";
+import { isAuthorizedAdmin, getUnauthorizedMessage, DEV_CONFIG, SIMPLE_AUTH_CONFIG } from "@/lib/admin-config";
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
@@ -18,6 +18,12 @@ export default function AdminLoginPage() {
   const router = useRouter();
 
   useEffect(() => {
+    // Check if simple auth should be used instead
+    if (SIMPLE_AUTH_CONFIG.isSimpleAuthEnabled()) {
+      router.push('/admin/simple-login');
+      return;
+    }
+    
     // Check if Supabase is configured
     setSupabaseConfigured(!!supabase);
     

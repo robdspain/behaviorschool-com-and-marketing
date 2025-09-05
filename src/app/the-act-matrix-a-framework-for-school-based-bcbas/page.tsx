@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Target, Users, BookOpen, ArrowRight } from "lucide-react";
+import { Target, Users, BookOpen, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import SimpleDownloadButton from "@/components/SimpleDownloadButton";
 
@@ -206,7 +206,7 @@ export default function ACTMatrixFrameworkPage() {
             {/* Introduction */}
             <div className="mb-12">
               <p className="text-xl text-slate-700 leading-relaxed mb-6">
-                As a school-based BCBA, you've likely encountered students whose behavior challenges seem to resist traditional interventions. You implement function-based interventions, modify antecedents, and adjust consequences, yet some students continue to struggle with motivation, emotional regulation, and behavioral flexibility.
+                As a school-based BCBA, you&apos;ve likely encountered students whose behavior challenges seem to resist traditional interventions. You implement function-based interventions, modify antecedents, and adjust consequences, yet some students continue to struggle with motivation, emotional regulation, and behavioral flexibility.
               </p>
               
               <p className="text-lg text-slate-600 mb-6">
@@ -258,7 +258,7 @@ export default function ACTMatrixFrameworkPage() {
                   <div className="pt-8 pr-4">
                     <h4 className="text-lg font-bold text-red-600 mb-4">Unhelpful Internal</h4>
                     <div className="text-sm text-slate-600">
-                      • "I can't do this"<br/>
+                      • &ldquo;I can&apos;t do this&rdquo;<br/>
                       • Feeling anxious<br/>
                       • Fear of failure
                     </div>
@@ -267,7 +267,7 @@ export default function ACTMatrixFrameworkPage() {
                   <div className="pt-8 pl-4">
                     <h4 className="text-lg font-bold text-emerald-600 mb-4">Helpful Internal</h4>
                     <div className="text-sm text-slate-600">
-                      • "I can learn from mistakes"<br/>
+                      • &ldquo;I can learn from mistakes&rdquo;<br/>
                       • Feeling motivated<br/>
                       • Curiosity about learning
                     </div>
@@ -325,7 +325,7 @@ export default function ACTMatrixFrameworkPage() {
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Implementing the ACT Matrix in Your BCBA Practice</h2>
               
               <p className="text-lg text-slate-600 mb-8">
-                Here's a step-by-step approach to integrating the ACT Matrix framework into your school-based behavior analysis practice:
+                Here&apos;s a step-by-step approach to integrating the ACT Matrix framework into your school-based behavior analysis practice:
               </p>
               
               <div className="space-y-8">
@@ -429,7 +429,7 @@ export default function ACTMatrixFrameworkPage() {
                   
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <p className="text-blue-800">
-                      <strong>Intervention Integration:</strong> Combined systematic desensitization with values-based exposure. Student practiced "brave moves toward friendship" rather than just "exposure trials."
+                      <strong>Intervention Integration:</strong> Combined systematic desensitization with values-based exposure. Student practiced &ldquo;brave moves toward friendship&rdquo; rather than just &ldquo;exposure trials.&rdquo;
                     </p>
                   </div>
                 </div>
@@ -441,7 +441,7 @@ export default function ACTMatrixFrameworkPage() {
               <h2 className="text-3xl font-bold text-slate-900 mb-6">Building Your ACT Matrix Skills</h2>
               
               <p className="text-lg text-slate-600 mb-6">
-                Implementing the ACT Matrix effectively requires specific training and practice. Here's how to develop competency in this framework:
+                Implementing the ACT Matrix effectively requires specific training and practice. Here&apos;s how to develop competency in this framework:
               </p>
               
               <div className="grid md:grid-cols-3 gap-6">

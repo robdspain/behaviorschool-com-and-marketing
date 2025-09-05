@@ -38,7 +38,24 @@ export const DEV_CONFIG = {
   // Check if admin bypass is enabled (development mode OR explicit bypass flag)
   isDevelopmentBypass(): boolean {
     return process.env.NODE_ENV === 'development' || 
-           process.env.NEXT_PUBLIC_ADMIN_DEV_MODE === 'true';
+           process.env.NEXT_PUBLIC_ADMIN_DEV_MODE === 'true' ||
+           process.env.ADMIN_BYPASS === 'true';
+  }
+} as const;
+
+/**
+ * Simple password-based authentication for admin access
+ * This provides a fallback when OAuth is not configured
+ */
+export const SIMPLE_AUTH_CONFIG = {
+  // Simple password for admin access (should be set via environment variable)
+  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || 'behavior-school-admin-2024',
+  
+  // Check if simple auth is enabled
+  isSimpleAuthEnabled(): boolean {
+    return process.env.USE_SIMPLE_ADMIN_AUTH === 'true' || 
+           !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+           !process.env.GOOGLE_CLIENT_ID;
   }
 } as const;
 

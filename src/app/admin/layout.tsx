@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { Loader2, Shield, LogOut } from "lucide-react";
 import { User } from "@supabase/supabase-js";
 import { supabaseClient as supabase } from "@/lib/supabase-client";
-import { isAuthorizedAdmin, DEV_CONFIG } from "@/lib/admin-config";
+import { isAuthorizedAdmin, DEV_CONFIG, SIMPLE_AUTH_CONFIG } from "@/lib/admin-config";
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
@@ -23,7 +23,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === "/admin/login") {
+    if (pathname === "/admin/login" || pathname === "/admin/simple-login") {
       setLoading(false);
       return;
     }
@@ -50,6 +50,49 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           setUser(devUser);
           setIsAdmin(true);
           setLoading(false);
+          return;
+        }
+
+        // Check simple authentication first
+        if (SIMPLE_AUTH_CONFIG.isSimpleAuthEnabled()) {
+          const isAuthenticated = localStorage.getItem('admin-authenticated') === 'true';
+          const adminEmail = localStorage.getItem('admin-email');
+          const loginTime = localStorage.getItem('admin-login-time');
+          
+          if (isAuthenticated && adminEmail && loginTime) {
+            // Check if session is still valid (24 hours)
+            const sessionAge = Date.now() - parseInt(loginTime);
+            const maxAge = 24 * 60 * 60 * 1000; // 24 hours
+            
+            if (sessionAge < maxAge && isAuthorizedAdmin(adminEmail)) {
+              const simpleUser: User = {
+                id: 'simple-auth-user',
+                email: adminEmail,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                app_metadata: {},
+                user_metadata: {},
+                aud: 'authenticated',
+                confirmation_sent_at: new Date().toISOString(),
+                confirmed_at: new Date().toISOString(),
+                email_confirmed_at: new Date().toISOString(),
+                phone_confirmed_at: new Date().toISOString(),
+                last_sign_in_at: new Date().toISOString()
+              };
+              setUser(simpleUser);
+              setIsAdmin(true);
+              setLoading(false);
+              return;
+            } else {
+              // Session expired or invalid, clear storage
+              localStorage.removeItem('admin-authenticated');
+              localStorage.removeItem('admin-email');
+              localStorage.removeItem('admin-login-time');
+            }
+          }
+          
+          // Redirect to simple login if simple auth is enabled
+          router.push('/admin/simple-login');
           return;
         }
 
@@ -127,12 +170,22 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   }, [router, pathname]);
 
   const handleSignOut = async () => {
+    // Handle simple auth logout
+    if (SIMPLE_AUTH_CONFIG.isSimpleAuthEnabled()) {
+      localStorage.removeItem('admin-authenticated');
+      localStorage.removeItem('admin-email');
+      localStorage.removeItem('admin-login-time');
+      router.push('/admin/simple-login');
+      return;
+    }
+    
+    // Handle Supabase auth logout
     if (supabase) {
       await supabase.auth.signOut();
     }
   };
 
-  if (pathname === "/admin/login") {
+  if (pathname === "/admin/login" || pathname === "/admin/simple-login") {
     return <>{children}</>;
   }
 
