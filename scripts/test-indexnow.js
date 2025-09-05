@@ -84,3 +84,4 @@ async function testIndexNow() {
 
 // Run the test
 testIndexNow().catch(console.error);
+

@@ -11,6 +11,47 @@ const nextConfig: NextConfig = {
     ],
     formats: ['image/webp', 'image/avif'],
   },
+  // Performance optimizations
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    webVitalsAttribution: ['CLS', 'LCP'],
+  },
+  // Bundle optimization
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+    
+    // Optimize bundle splitting
+    config.optimization = {
+      ...config.optimization,
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            priority: 10,
+            chunks: 'all',
+          },
+          common: {
+            name: 'common',
+            minChunks: 2,
+            priority: 5,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      },
+    };
+    
+    return config;
+  },
   async redirects() {
     return [
       {

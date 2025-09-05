@@ -139,3 +139,4 @@ export async function submitBlogPosts(
   const urls = postSlugs.map(slug => `/blog/${slug}`);
   return submitToIndexNow(urls, options);
 }
+
