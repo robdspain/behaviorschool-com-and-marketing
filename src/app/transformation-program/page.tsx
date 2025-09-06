@@ -1093,7 +1093,7 @@ export default function TransformationProgramPage() {
             "@type": "Organization",
             "name": "Behavior School",
             "url": SITE_URL,
-            "logo": `${SITE_URL}/Logos/logo-gold-transparent.webp`
+            "logo": `${SITE_URL}/optimized/Logos/logo-gold-transparent.webp`
           },
           "courseMode": "online",
           "educationalLevel": "Professional",

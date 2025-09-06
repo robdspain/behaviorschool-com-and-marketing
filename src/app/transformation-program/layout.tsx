@@ -146,9 +146,9 @@ export default function TransformationProgramLayout({
     ],
     occupationalCategory: {
       "@type": "CategoryCode",
-      codeValue: "21-1094",
+      codeValue: "25-2057",
       codingSystem: "O*NET-SOC",
-      name: "Community Health Workers"
+      name: "Special Education Teachers"
     },
     offers: {
       "@type": "Offer",

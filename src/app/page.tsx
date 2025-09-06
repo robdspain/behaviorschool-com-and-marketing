@@ -323,7 +323,7 @@ export default function Home() {
           "@type": "Organization",
           name: "Behavior School",
           url: SITE_URL,
-          logo: `${SITE_URL}/Logos/logo-gold-transparent.webp`,
+          logo: `${SITE_URL}/optimized/Logos/logo-gold-transparent.webp`,
           description: "Behavior School is an online community and toolkit for school-based BCBAs, behavior analysts in schools, and education professionals. We provide BCBA exam prep, BCBA practice exams, supervision tools, IEP goal writing, behavior intervention plan templates, and training to help school BCBAs reduce burnout, increase fidelity, and improve student outcomes through applied behavior analysis in schools.",
           founder: {
             "@type": "Person",
@@ -410,7 +410,7 @@ export default function Home() {
           },
           potentialAction: {
             "@type": "SearchAction",
-            target: `${SITE_URL}/search?q={search_term_string}`,
+            target: `${SITE_URL}/blog?q={search_term_string}`,
             "query-input": "required name=search_term_string"
           }
         } as const;

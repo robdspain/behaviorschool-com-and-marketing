@@ -83,8 +83,8 @@ const structuredData = {
   "operatingSystem": "Web Browser",
   "offers": {
     "@type": "Offer",
-    "availability": "PreOrder",
-    "description": "Join the waitlist for early access to the Values-Based IEP Goal Generator"
+    "availability": "InStock",
+    "description": "Free access to the Values-Based IEP Goal Generator"
   },
   "audience": {
     "@type": "Audience",
