@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHmac } from 'crypto';
+import { submitBlogPostUniversal } from '@/lib/universal-indexing';
 
 // Ghost Admin API configuration
 const GHOST_URL = process.env.GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com';
@@ -115,7 +116,37 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await response.json();
-    return NextResponse.json(result.posts[0]);
+    const createdPost = result.posts[0];
+    
+    // Auto-submit to all indexing services if post is published
+    if (createdPost && createdPost.status === 'published') {
+      try {
+        console.log(`🚀 Auto-submitting published post to all indexing services: ${createdPost.slug}`);
+        const universalResult = await submitBlogPostUniversal(createdPost.slug);
+        
+        // Add universal indexing status to response
+        createdPost.universalIndexing = {
+          submitted: universalResult.success,
+          timestamp: universalResult.timestamp,
+          indexnow: universalResult.indexnow,
+          google: universalResult.google,
+          aiOptimization: universalResult.aiOptimization,
+          summary: universalResult.summary
+        };
+        
+        console.log(`✅ Universal indexing ${universalResult.success ? 'successful' : 'failed'} for post: ${createdPost.slug}`);
+        console.log(`📊 Coverage: ${universalResult.summary.successfulSubmissions}/${universalResult.summary.totalEndpoints} endpoints succeeded`);
+      } catch (indexingError) {
+        console.error(`❌ Universal indexing failed for post ${createdPost.slug}:`, indexingError);
+        // Don't fail the post creation if indexing fails
+        createdPost.universalIndexing = {
+          submitted: false,
+          error: indexingError instanceof Error ? indexingError.message : 'Unknown error'
+        };
+      }
+    }
+    
+    return NextResponse.json(createdPost);
 
   } catch (error) {
     console.error('Error creating post:', error);

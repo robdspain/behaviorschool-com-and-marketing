@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createHmac } from 'crypto';
+import { submitBlogPostUniversal } from '@/lib/universal-indexing';
 
 // Ghost Admin API configuration
 const GHOST_URL = process.env.GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com';
@@ -122,7 +123,37 @@ export async function PUT(request: NextRequest) {
     }
 
     const result = await response.json();
-    return NextResponse.json(result.posts[0]);
+    const updatedPost = result.posts[0];
+    
+    // Auto-submit to all indexing services if post status changed to published
+    if (updatedPost && updatedPost.status === 'published') {
+      try {
+        console.log(`🚀 Auto-submitting updated post to all indexing services: ${updatedPost.slug}`);
+        const universalResult = await submitBlogPostUniversal(updatedPost.slug);
+        
+        // Add universal indexing status to response
+        updatedPost.universalIndexing = {
+          submitted: universalResult.success,
+          timestamp: universalResult.timestamp,
+          indexnow: universalResult.indexnow,
+          google: universalResult.google,
+          aiOptimization: universalResult.aiOptimization,
+          summary: universalResult.summary
+        };
+        
+        console.log(`✅ Universal indexing ${universalResult.success ? 'successful' : 'failed'} for updated post: ${updatedPost.slug}`);
+        console.log(`📊 Coverage: ${universalResult.summary.successfulSubmissions}/${universalResult.summary.totalEndpoints} endpoints succeeded`);
+      } catch (indexingError) {
+        console.error(`❌ Universal indexing failed for updated post ${updatedPost.slug}:`, indexingError);
+        // Don't fail the post update if indexing fails
+        updatedPost.universalIndexing = {
+          submitted: false,
+          error: indexingError instanceof Error ? indexingError.message : 'Unknown error'
+        };
+      }
+    }
+    
+    return NextResponse.json(updatedPost);
 
   } catch (error) {
     console.error('Error updating post:', error);

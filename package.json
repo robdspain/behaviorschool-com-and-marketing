@@ -15,7 +15,16 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "monitor:netlify": "node scripts/netlify-monitor.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
-    "fix-ghost-images": "node fix-ghost-images.js"
+    "fix-ghost-images": "node fix-ghost-images.js",
+    "postbuild": "node scripts/universal-indexing-scheduler.js --daily",
+    "universal-indexing": "node scripts/universal-indexing-submit.js",
+    "universal-indexing:priority": "node scripts/universal-indexing-submit.js --priority",
+    "universal-indexing:validate": "node scripts/universal-indexing-submit.js --validate",
+    "universal-indexing:coverage": "node scripts/universal-indexing-submit.js --coverage",
+    "universal-indexing:schedule": "node scripts/universal-indexing-scheduler.js --smart",
+    "universal-indexing:schedule:daily": "node scripts/universal-indexing-scheduler.js --daily",
+    "universal-indexing:schedule:weekly": "node scripts/universal-indexing-scheduler.js --weekly",
+    "universal-indexing:schedule:status": "node scripts/universal-indexing-scheduler.js --status"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
