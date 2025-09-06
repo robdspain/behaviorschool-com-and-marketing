@@ -41,6 +41,3 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
-
-# compiled javascript files
-src/lib/**/*.js
