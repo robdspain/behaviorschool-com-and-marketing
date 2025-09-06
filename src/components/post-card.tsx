@@ -32,7 +32,8 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
     if (post.feature_image.startsWith("http")) {
       return post.feature_image;
     }
-    const ghostUrl = process.env.GHOST_CONTENT_URL || "";
+    // For relative URLs, construct the full URL using the public Ghost URL
+    const ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || "https://ghost.behaviorschool.com";
     return `${ghostUrl.replace(/\/$/, "")}${post.feature_image}`;
   }, [post.feature_image]);
 

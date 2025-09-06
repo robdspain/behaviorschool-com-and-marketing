@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { 
   ArrowLeft, 
@@ -27,6 +27,13 @@ interface PostData {
   status: 'draft' | 'published';
   featured: boolean;
   featureImage: string;
+  slug: string;
+  metaTitle: string;
+  metaDescription: string;
+  author: string;
+  canonicalUrl: string;
+  codeInjectionHead: string;
+  codeInjectionFoot: string;
 }
 
 interface Block {
@@ -37,7 +44,7 @@ interface Block {
   focused: boolean;
 }
 
-export default function GhostEditor() {
+export default function BlogEditPage() {
   const router = useRouter();
   const params = useParams();
   const postId = params?.id as string;
@@ -57,7 +64,14 @@ export default function GhostEditor() {
     tags: '',
     status: 'draft',
     featured: false,
-    featureImage: ''
+    featureImage: '',
+    slug: '',
+    metaTitle: '',
+    metaDescription: '',
+    author: 'rob-spain',
+    canonicalUrl: '',
+    codeInjectionHead: '',
+    codeInjectionFoot: ''
   });
 
   const titleRef = useRef<HTMLInputElement>(null);
@@ -69,7 +83,7 @@ export default function GhostEditor() {
     }
   }, [postId, fetchPost]);
 
-  const fetchPost = async () => {
+  const fetchPost = useCallback(async () => {
     try {
       const response = await fetch(`/api/admin/blog/${postId}`);
       if (response.ok) {
@@ -81,10 +95,17 @@ export default function GhostEditor() {
           title: postData.title,
           content: postData.html || '',
           excerpt: postData.excerpt || '',
-          tags: postData.tags?.join(', ') || '',
+          tags: postData.tags?.map((t: { name: string }) => t.name).join(', ') || '',
           status: postData.status,
           featured: postData.featured || false,
-          featureImage: postData.feature_image || ''
+          featureImage: postData.feature_image || '',
+          slug: postData.slug || '',
+          metaTitle: postData.meta_title || '',
+          metaDescription: postData.meta_description || '',
+          author: postData.primary_author?.slug || 'rob-spain',
+          canonicalUrl: postData.canonical_url || '',
+          codeInjectionHead: postData.codeinjection_head || '',
+          codeInjectionFoot: postData.codeinjection_foot || ''
         });
 
         // Convert HTML content back to blocks (simplified)
@@ -100,7 +121,7 @@ export default function GhostEditor() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [postId, router]);
 
   // Simple HTML to blocks converter
   const htmlToBlocks = (html: string): Block[] => {
@@ -402,7 +423,7 @@ export default function GhostEditor() {
             <div className="flex items-center gap-3">
               {post.status === 'published' && (
                 <a
-                  href={`https://ghost.behaviorschool.com/${post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/`}
+                  href={`https://ghost.behaviorschool.com/${post.slug}/`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 text-slate-500 hover:text-slate-700 rounded-full hover:bg-slate-100 transition-colors"
@@ -513,5 +534,77 @@ export default function GhostEditor() {
 
         {/* Content Blocks */}
         <div className="space-y-4">
-          {blocks.map((block, index) => (
+          {blocks.map((block) => (
             <div key={block.id} className="group relative">
+              {renderBlock(block)}
+              
+              {/* Block Actions */}
+              <div className="absolute -left-12 top-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => setShowBlockMenu(showBlockMenu === block.id ? null : block.id)}
+                    className="p-1 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                  
+                  {blocks.length > 1 && (
+                    <button
+                      onClick={() => deleteBlock(block.id)}
+                      className="p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded"
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Block Type Menu */}
+              {showBlockMenu === block.id && (
+                <div className="absolute left-0 top-8 bg-white border border-slate-200 rounded-lg shadow-lg z-10">
+                  <div className="p-2">
+                    <button
+                      onClick={() => addBlock(block.id, 'heading')}
+                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 rounded"
+                    >
+                      <Type className="w-4 h-4" />
+                      Heading
+                    </button>
+                    <button
+                      onClick={() => addBlock(block.id, 'quote')}
+                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 rounded"
+                    >
+                      <Quote className="w-4 h-4" />
+                      Quote
+                    </button>
+                    <button
+                      onClick={() => addBlock(block.id, 'list')}
+                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 rounded"
+                    >
+                      <List className="w-4 h-4" />
+                      List
+                    </button>
+                    <button
+                      onClick={() => addBlock(block.id, 'code')}
+                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 rounded"
+                    >
+                      <Code className="w-4 h-4" />
+                      Code
+                    </button>
+                    <button
+                      onClick={() => addBlock(block.id, 'divider')}
+                      className="flex items-center gap-2 w-full px-3 py-2 text-sm text-slate-700 hover:bg-slate-100 rounded"
+                    >
+                      <Minus className="w-4 h-4" />
+                      Divider
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
