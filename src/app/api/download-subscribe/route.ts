@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, resource, source } = body;
+    const { email, resource, source, name } = body;
 
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -14,24 +15,61 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate required fields
+    if (!resource || !source) {
+      return NextResponse.json(
+        { error: 'Resource and source are required' },
+        { status: 400 }
+      );
+    }
+
+    // Get client IP and user agent
+    const ip = request.headers.get('x-forwarded-for') || 
+               request.headers.get('x-real-ip') || 
+               'unknown';
+    const userAgent = request.headers.get('user-agent') || 'unknown';
+
+    // Save to database
+    const supabase = createSupabaseAdminClient();
+    
+    const { data, error } = await supabase
+      .from('download_submissions')
+      .insert({
+        email,
+        name: name || null,
+        resource,
+        source,
+        user_agent: userAgent,
+        ip_address: ip
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Database error:', error);
+      return NextResponse.json(
+        { error: 'Failed to save subscription' },
+        { status: 500 }
+      );
+    }
+
     // Log the subscription for immediate visibility
     console.log('📥 NEW DOWNLOAD SUBSCRIPTION:', {
+      id: data.id,
       email: email,
-      resource: resource || 'unknown',
-      source: source || 'unknown',
+      resource: resource,
+      source: source,
       timestamp: new Date().toLocaleString(),
       message: 'User subscribed for download access'
     });
 
     // Here you can integrate with your email service
-    // For example, add to Mailgun mailing list, Supabase, etc.
-
-    // Example: Save to a simple log or database
-    // You could also integrate with Mailchimp, ConvertKit, etc.
+    // For example, add to Mailgun mailing list, ConvertKit, etc.
 
     return NextResponse.json({
       success: true,
-      message: 'Subscription recorded successfully'
+      message: 'Subscription recorded successfully',
+      id: data.id
     });
 
   } catch (error) {

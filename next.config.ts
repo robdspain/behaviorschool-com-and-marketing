@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
     webVitalsAttribution: ['CLS', 'LCP'],
+    optimizeCss: true,
+    scrollRestoration: true,
+  },
+  // Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
   },
   // Bundle optimization
   webpack: (config, { isServer }) => {
@@ -119,6 +125,29 @@ const nextConfig: NextConfig = {
         destination: '/blog/:slug',
         permanent: true,
       },
+      // Domain redirect for schoolbcba.com
+      {
+        source: '/(.*)',
+        destination: 'https://behaviorschool.com/school-based-bcba',
+        permanent: true,
+        has: [
+          {
+            type: 'host',
+            value: 'schoolbcba.com',
+          },
+        ],
+      },
+      {
+        source: '/(.*)',
+        destination: 'https://behaviorschool.com/school-based-bcba',
+        permanent: true,
+        has: [
+          {
+            type: 'host',
+            value: 'www.schoolbcba.com',
+          },
+        ],
+      },
     ];
   },
   async headers() {
@@ -141,6 +170,11 @@ const nextConfig: NextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+          },
+          // Performance headers
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

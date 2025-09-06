@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart3, Users, TrendingUp, Globe, Eye, MousePointer, Clock } from 'lucide-react';
+import ConversionTrackingDashboard from '@/components/admin/ConversionTrackingDashboard';
+import SiteMapViewer from '@/components/admin/SiteMapViewer';
 
 interface AnalyticsData {
   pageViews: number;
@@ -25,47 +27,58 @@ interface AnalyticsData {
     page: string;
     user: string;
   }>;
+  // Real conversion data
+  totalSignups?: number;
+  totalDownloads?: number;
+  totalConversions?: number;
+  trends?: {
+    signups: number;
+    downloads: number;
+    conversions: number;
+  };
 }
 
 export default function AdminAnalyticsPage() {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState('7d');
+  const [activeTab, setActiveTab] = useState<'overview' | 'conversions' | 'sitemap'>('overview');
 
   useEffect(() => {
-    // Simulate analytics data (replace with real analytics API)
-    const mockAnalytics: AnalyticsData = {
-      pageViews: 12847,
-      uniqueVisitors: 8234,
-      averageSessionDuration: '3m 42s',
-      bounceRate: '42.3%',
-      topPages: [
-        { page: '/bcba-exam-prep', views: 3421, uniqueViews: 2876 },
-        { page: '/behavior-study-tools', views: 2987, uniqueViews: 2543 },
-        { page: '/transformation-program', views: 2156, uniqueViews: 1897 },
-        { page: '/iep-goals', views: 1876, uniqueViews: 1654 },
-        { page: '/behavior-plans', views: 1543, uniqueViews: 1321 }
-      ],
-      trafficSources: [
-        { source: 'Organic Search', visitors: 4521, percentage: 54.9 },
-        { source: 'Direct', visitors: 1876, percentage: 22.8 },
-        { source: 'Social Media', visitors: 987, percentage: 12.0 },
-        { source: 'Email', visitors: 543, percentage: 6.6 },
-        { source: 'Referral', visitors: 307, percentage: 3.7 }
-      ],
-      recentActivity: [
-        { timestamp: '2 minutes ago', event: 'Page View', page: '/bcba-exam-prep', user: 'Anonymous' },
-        { timestamp: '5 minutes ago', event: 'Signup', page: '/transformation-program', user: 'john@example.com' },
-        { timestamp: '8 minutes ago', event: 'Download', page: '/iep-goals', user: 'sarah@school.edu' },
-        { timestamp: '12 minutes ago', event: 'Page View', page: '/behavior-study-tools', user: 'Anonymous' },
-        { timestamp: '15 minutes ago', event: 'Contact Form', page: '/contact', user: 'mike@district.org' }
-      ]
+    const fetchAnalyticsData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/admin/analytics/overview?timeRange=${timeRange}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch analytics data');
+        }
+
+        const result = await response.json();
+        
+        if (result.success) {
+          setAnalytics(result.data);
+        } else {
+          throw new Error(result.error || 'Failed to fetch analytics data');
+        }
+      } catch (error) {
+        console.error('Error fetching analytics data:', error);
+        // Set empty data on error
+        setAnalytics({
+          pageViews: 0,
+          uniqueVisitors: 0,
+          averageSessionDuration: '0m 0s',
+          bounceRate: '0%',
+          topPages: [],
+          trafficSources: [],
+          recentActivity: []
+        });
+      } finally {
+        setLoading(false);
+      }
     };
 
-    setTimeout(() => {
-      setAnalytics(mockAnalytics);
-      setLoading(false);
-    }, 1000);
+    fetchAnalyticsData();
   }, [timeRange]);
 
   if (loading) {
@@ -105,58 +118,110 @@ export default function AdminAnalyticsPage() {
         </div>
       </div>
 
-      {analytics && (
+      {/* Tab Navigation */}
+      <div className="border-b border-slate-200 mb-8">
+        <nav className="-mb-px flex space-x-8">
+          <button
+            onClick={() => setActiveTab('overview')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'overview'
+                ? 'border-emerald-500 text-emerald-600'
+                : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+            }`}
+          >
+            <BarChart3 className="w-4 h-4 inline mr-2" />
+            Overview
+          </button>
+          <button
+            onClick={() => setActiveTab('conversions')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'conversions'
+                ? 'border-emerald-500 text-emerald-600'
+                : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+            }`}
+          >
+            <TrendingUp className="w-4 h-4 inline mr-2" />
+            Conversions
+          </button>
+          <button
+            onClick={() => setActiveTab('sitemap')}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === 'sitemap'
+                ? 'border-emerald-500 text-emerald-600'
+                : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+            }`}
+          >
+            <Globe className="w-4 h-4 inline mr-2" />
+            Site Map
+          </button>
+        </nav>
+      </div>
+
+      {/* Tab Content */}
+      {activeTab === 'overview' && analytics && (
         <>
           {/* Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Page Views</CardTitle>
+                <CardTitle className="text-sm font-medium">Total Conversions</CardTitle>
+                <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{analytics.totalConversions?.toLocaleString() || 0}</div>
+                <p className="text-xs text-muted-foreground">
+                  {analytics.trends?.conversions && analytics.trends.conversions > 0 ? (
+                    <span className="text-green-600">+{analytics.trends.conversions}%</span>
+                  ) : (
+                    <span className="text-slate-500">No change</span>
+                  )} from last period
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Email Signups</CardTitle>
+                <Users className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{analytics.totalSignups?.toLocaleString() || 0}</div>
+                <p className="text-xs text-muted-foreground">
+                  {analytics.trends?.signups && analytics.trends.signups > 0 ? (
+                    <span className="text-green-600">+{analytics.trends.signups}%</span>
+                  ) : (
+                    <span className="text-slate-500">No change</span>
+                  )} from last period
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Downloads</CardTitle>
                 <Eye className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{analytics.totalDownloads?.toLocaleString() || 0}</div>
+                <p className="text-xs text-muted-foreground">
+                  {analytics.trends?.downloads && analytics.trends.downloads > 0 ? (
+                    <span className="text-green-600">+{analytics.trends.downloads}%</span>
+                  ) : (
+                    <span className="text-slate-500">No change</span>
+                  )} from last period
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Page Views</CardTitle>
+                <MousePointer className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{analytics.pageViews.toLocaleString()}</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-green-600">+12.3%</span> from last period
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Unique Visitors</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{analytics.uniqueVisitors.toLocaleString()}</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-green-600">+8.7%</span> from last period
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Avg. Session Duration</CardTitle>
-                <Clock className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{analytics.averageSessionDuration}</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-green-600">+5.2%</span> from last period
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Bounce Rate</CardTitle>
-                <MousePointer className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{analytics.bounceRate}</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-red-600">+2.1%</span> from last period
+                  Estimated from conversions
                 </p>
               </CardContent>
             </Card>
@@ -169,27 +234,35 @@ export default function AdminAnalyticsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="h-5 w-5" />
-                  Top Pages
+                  Top Conversion Sources
                 </CardTitle>
-                <CardDescription>Most visited pages on your site</CardDescription>
+                <CardDescription>Pages generating the most conversions</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {analytics.topPages.map((page, index) => (
-                    <div key={page.page} className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="text-sm font-medium text-slate-500">#{index + 1}</span>
-                        <div>
-                          <p className="text-sm font-medium">{page.page}</p>
-                          <p className="text-xs text-slate-500">{page.uniqueViews} unique views</p>
+                  {analytics.topPages.length > 0 ? (
+                    analytics.topPages.map((page, index) => (
+                      <div key={page.page} className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="text-sm font-medium text-slate-500">#{index + 1}</span>
+                          <div>
+                            <p className="text-sm font-medium">{page.page}</p>
+                            <p className="text-xs text-slate-500">{page.uniqueViews} conversions</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm font-semibold">{page.views.toLocaleString()}</p>
+                          <p className="text-xs text-slate-500">total actions</p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-sm font-semibold">{page.views.toLocaleString()}</p>
-                        <p className="text-xs text-slate-500">views</p>
-                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-8 text-slate-500">
+                      <BarChart3 className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                      <p className="text-sm">No conversion data yet</p>
+                      <p className="text-xs mt-1">Start getting signups and downloads to see data here</p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -233,25 +306,43 @@ export default function AdminAnalyticsPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {analytics.recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-b-0">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                      <div>
-                        <p className="text-sm font-medium">{activity.event}</p>
-                        <p className="text-xs text-slate-500">{activity.page}</p>
+                {analytics.recentActivity.length > 0 ? (
+                  analytics.recentActivity.map((activity, index) => (
+                    <div key={index} className="flex items-center justify-between py-3 border-b border-slate-100 last:border-b-0">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                        <div>
+                          <p className="text-sm font-medium">{activity.event}</p>
+                          <p className="text-xs text-slate-500">{activity.page}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-medium">{activity.user}</p>
+                        <p className="text-xs text-slate-500">{activity.timestamp}</p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-sm font-medium">{activity.user}</p>
-                      <p className="text-xs text-slate-500">{activity.timestamp}</p>
-                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-8 text-slate-500">
+                    <TrendingUp className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                    <p className="text-sm">No recent activity</p>
+                    <p className="text-xs mt-1">Activity will appear here as users interact with your site</p>
                   </div>
-                ))}
+                )}
               </div>
             </CardContent>
           </Card>
         </>
+      )}
+
+      {/* Conversion Tracking Tab */}
+      {activeTab === 'conversions' && (
+        <ConversionTrackingDashboard />
+      )}
+
+      {/* Site Map Tab */}
+      {activeTab === 'sitemap' && (
+        <SiteMapViewer />
       )}
     </div>
   );

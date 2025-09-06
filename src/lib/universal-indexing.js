@@ -8,30 +8,12 @@
  * - Traditional sitemaps
  */
 
-import { submitToIndexNow, IndexNowResult } from './indexnow';
-import { submitToGoogleIndexing, GoogleIndexingResult } from './google-indexing';
-
-interface UniversalIndexingResult {
-  success: boolean;
-  indexnow: IndexNowResult;
-  google?: GoogleIndexingResult;
-  aiOptimization: {
-    robotsOptimized: boolean;
-    sitemapUpdated: boolean;
-    rssUpdated: boolean;
-  };
-  summary: {
-    totalEndpoints: number;
-    successfulSubmissions: number;
-    failedSubmissions: number;
-  };
-  timestamp: string;
-}
+const { submitToIndexNow } = require('./indexnow');
 
 /**
  * Submit URLs to all available indexing services
  */
-export async function submitToAllIndexes(urls: string | string[]): Promise<UniversalIndexingResult> {
+async function submitToAllIndexes(urls) {
   const urlList = Array.isArray(urls) ? urls : [urls];
   const timestamp = new Date().toISOString();
 
@@ -41,11 +23,28 @@ export async function submitToAllIndexes(urls: string | string[]): Promise<Unive
   const indexnowResult = await submitToIndexNow(urlList);
   
   // 2. Google Indexing API (if configured)
-  let googleResult: GoogleIndexingResult | undefined;
+  let googleResult;
   try {
-    googleResult = await submitToGoogleIndexing(urlList);
+    if (process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+      console.log('📝 Google Indexing API: Service account configured');
+      // Google Indexing API would be implemented here
+      googleResult = {
+        success: false,
+        urls: urlList,
+        errors: ['Google Indexing API requires server-side implementation'],
+        timestamp: timestamp
+      };
+    } else {
+      console.log('ℹ️  Google Indexing API not configured - using traditional crawling');
+      googleResult = {
+        success: false,
+        urls: [],
+        errors: ['Google Service Account key not configured'],
+        timestamp: timestamp
+      };
+    }
   } catch (error) {
-    console.log('ℹ️  Google Indexing API not available:', error instanceof Error ? error.message : 'Unknown error');
+    console.log('ℹ️  Google Indexing API not available:', error.message);
   }
 
   // 3. AI Bot optimization (passive - they crawl based on signals)
@@ -91,11 +90,7 @@ export async function submitToAllIndexes(urls: string | string[]): Promise<Unive
  * - Link following
  * - Social signals
  */
-async function optimizeForAIBots(): Promise<{
-  robotsOptimized: boolean;
-  sitemapUpdated: boolean;
-  rssUpdated: boolean;
-}> {
+async function optimizeForAIBots() {
   
   // AI bots primarily discover content through:
   // 1. Sitemap.xml (already optimized ✅)
@@ -119,7 +114,7 @@ async function optimizeForAIBots(): Promise<{
 /**
  * Specialized submission for blog posts (includes RSS update)
  */
-export async function submitBlogPostUniversal(slug: string): Promise<UniversalIndexingResult> {
+async function submitBlogPostUniversal(slug) {
   const urls = [
     `/blog/${slug}`,
     '/blog',           // Blog index
@@ -133,7 +128,7 @@ export async function submitBlogPostUniversal(slug: string): Promise<UniversalIn
 /**
  * Specialized submission for landing page updates
  */
-export async function submitLandingPageUniversal(path: string): Promise<UniversalIndexingResult> {
+async function submitLandingPageUniversal(path) {
   const urls = [
     path,
     '/',               // Homepage (often links to updated pages)
@@ -147,7 +142,7 @@ export async function submitLandingPageUniversal(path: string): Promise<Universa
 /**
  * Priority URLs for bulk submissions
  */
-export const UNIVERSAL_PRIORITY_URLS = [
+const UNIVERSAL_PRIORITY_URLS = [
   '/',
   '/bcba-exam-prep',
   '/school-based-bcba',
@@ -168,7 +163,7 @@ export const UNIVERSAL_PRIORITY_URLS = [
 /**
  * Submit all priority URLs to all available indexes
  */
-export async function submitPriorityUrlsUniversal(): Promise<UniversalIndexingResult> {
+async function submitPriorityUrlsUniversal() {
   console.log('🚀 Universal priority URL submission');
   return submitToAllIndexes(UNIVERSAL_PRIORITY_URLS);
 }
@@ -176,15 +171,7 @@ export async function submitPriorityUrlsUniversal(): Promise<UniversalIndexingRe
 /**
  * Get indexing coverage report
  */
-export function getIndexingCoverage(): {
-  platforms: Array<{
-    platform: string;
-    status: 'active' | 'available' | 'not-configured';
-    coverage: string;
-    description: string;
-  }>;
-  totalCoverage: string;
-} {
+function getIndexingCoverage() {
   return {
     platforms: [
       {
@@ -215,3 +202,12 @@ export function getIndexingCoverage(): {
     totalCoverage: '95%+ of search engines and AI platforms'
   };
 }
+
+module.exports = {
+  submitToAllIndexes,
+  submitBlogPostUniversal,
+  submitLandingPageUniversal,
+  submitPriorityUrlsUniversal,
+  getIndexingCoverage,
+  UNIVERSAL_PRIORITY_URLS
+};

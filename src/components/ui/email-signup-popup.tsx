@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Mail, Check, Bell, User, ArrowRight } from "lucide-react";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 interface EmailSignupPopupProps {
   isOpen: boolean;
@@ -30,24 +31,41 @@ export function EmailSignupPopup({
   isDownloadFlow = false
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { trackEmailSignup, trackFormSubmission, trackButtonClick } = useAnalytics();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const name = formData.get("name") as string;
     
     try {
+      // Track form submission start
+      trackFormSubmission('email_signup_popup', true, {
+        pageSource,
+        showNameField,
+        isDownloadFlow
+      });
+
       // Submit to our newsletter API
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: formData.get("email"),
-          name: formData.get("name") || "",
+          email,
+          name: name || "",
           source: pageSource,
         }),
       });
 
       if (response.ok) {
+        // Track successful email signup
+        trackEmailSignup('newsletter', email, {
+          name,
+          pageSource,
+          isDownloadFlow
+        });
+        
         setIsSubmitted(true);
         // Close popup after 3 seconds
         setTimeout(() => {
@@ -56,6 +74,11 @@ export function EmailSignupPopup({
         }, 3000);
       } else {
         console.error("Newsletter subscription failed:", response.status);
+        trackFormSubmission('email_signup_popup', false, {
+          pageSource,
+          error: 'api_failed',
+          status: response.status
+        });
         setIsSubmitted(true);
         setTimeout(() => {
           onClose();
@@ -64,6 +87,10 @@ export function EmailSignupPopup({
       }
     } catch (error) {
       console.error("Newsletter subscription error:", error);
+      trackFormSubmission('email_signup_popup', false, {
+        pageSource,
+        error: 'network_error'
+      });
       setIsSubmitted(true);
       setTimeout(() => {
         onClose();
@@ -143,6 +170,11 @@ export function EmailSignupPopup({
 
                   <button
                     type="submit"
+                    onClick={() => trackButtonClick('email_signup_submit', 'popup_form', {
+                      pageSource,
+                      buttonText,
+                      isDownloadFlow
+                    })}
                     className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     <Bell className="w-4 h-4 mr-2" />

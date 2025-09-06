@@ -7,8 +7,8 @@
  * It is a command-line interface for the universal-indexing library.
  */
 
-const { submitToAllIndexes, submitBlogPostUniversal, submitLandingPageUniversal, submitPriorityUrlsUniversal, getIndexingCoverage } = require('../src/lib/universal-indexing.ts');
-const { validateIndexNowKey } = require('../src/lib/indexnow.ts');
+const { submitToAllIndexes, submitBlogPostUniversal, submitLandingPageUniversal, submitPriorityUrlsUniversal, getIndexingCoverage } = require('../src/lib/universal-indexing.js');
+const { validateIndexNowKey } = require('../src/lib/indexnow.js');
 
 function showCoverage() {
     const coverage = getIndexingCoverage();

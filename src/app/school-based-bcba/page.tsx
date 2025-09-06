@@ -2,11 +2,32 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BookOpen, Award, Users, Building2, GraduationCap, TrendingUp, Star, ArrowRight, Clock, Target, Shield, Zap } from "lucide-react";
+import { 
+  CheckCircle, 
+  BookOpen, 
+  Award, 
+  Users, 
+  Building2, 
+  GraduationCap, 
+  TrendingUp, 
+  Star, 
+  ArrowRight, 
+  Clock, 
+  Target, 
+  Shield, 
+  Zap,
+  FileText,
+  Brain,
+  MessageCircle,
+  Settings,
+  ChevronRight,
+  PlayCircle,
+  Download
+} from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "How to Become a School-Based BCBA: A Complete Guide",
-  description: "Learn how to become a school-based BCBA with our complete guide. Find out about the responsibilities, requirements, salary, and career outlook for school-based behavior analysts.",
+  title: "School-Based BCBA Operating System: From Crisis Manager to Systems Leader",
+  description: "School behavior doesn't have to feel overwhelming. Transform from crisis manager to systems leader with practical, ethical tools built for real classrooms. 8-week program + AI tools.",
   robots: {
     index: true,
     follow: true,
@@ -19,19 +40,22 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "how to become a school bcba",
-    "school based bcba",
-    "bcba in schools",
-    "behavior analyst education",
-    "school behavior support",
-    "bcba training",
-    "educational behavior analysis",
-    "school bcba salary",
-    "school bcba job description"
+    "school based BCBA",
+    "school-based behavior analyst",
+    "BCBA in schools",
+    "school behavior systems",
+    "PBIS implementation",
+    "MTSS behavior support",
+    "IEP behavior goals",
+    "school BIP writing",
+    "FBA in schools",
+    "school BCBA training",
+    "behavior intervention plans schools",
+    "school behavior analyst certification"
   ],
   openGraph: {
-    title: "How to Become a School-Based BCBA: A Complete Guide",
-    description: "Learn how to become a school-based BCBA with our complete guide. Find out about the responsibilities, requirements, salary, and career outlook for school-based behavior analysts.",
+    title: "School-Based BCBA Operating System: From Crisis Manager to Systems Leader",
+    description: "School behavior doesn't have to feel overwhelming. Transform from crisis manager to systems leader with practical, ethical tools built for real classrooms.",
     url: "https://behaviorschool.com/school-based-bcba",
     siteName: "Behavior School",
     images: [
@@ -39,7 +63,7 @@ export const metadata: Metadata = {
         url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "How to Become a School-Based BCBA",
+        alt: "School-Based BCBA Operating System",
       },
     ],
     locale: "en_US",
@@ -47,598 +71,566 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "How to Become a School-Based BCBA: A Complete Guide",
-    description: "Learn how to become a school-based BCBA with our complete guide. Find out about the responsibilities, requirements, salary, and career outlook for school-based behavior analysts.",
+    title: "School-Based BCBA Operating System: From Crisis Manager to Systems Leader",
+    description: "School behavior doesn't have to feel overwhelming. Transform from crisis manager to systems leader with practical, ethical tools built for real classrooms.",
     images: ["/optimized/og-image.webp"],
   },
+  alternates: {
+    canonical: "https://behaviorschool.com/school-based-bcba",
+  }
 };
 
+const breadcrumbItems = [
+  { label: "Home", href: "/" },
+  { label: "School-Based BCBA", href: "/school-based-bcba" }
+];
+
 export default function SchoolBasedBCBAPage() {
-  const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "BCBA Resources", href: "/bcba-exam-prep" },
-    { label: "School-Based BCBA Guide", href: "/school-based-bcba" },
-  ];
-
-  const pathwaySteps = [
-    {
-      step: "01",
-      title: "Complete Your Bachelor&apos;s Degree",
-      description: "Earn a bachelor&apos;s degree in psychology, education, or related field with coursework in behavioral science.",
-      duration: "4 years",
-      icon: GraduationCap
-    },
-    {
-      step: "02", 
-      title: "Complete ABA Coursework",
-      description: "Complete BACB-approved coursework sequence covering behavior analysis principles and applications.",
-      duration: "1-2 years",
-      icon: BookOpen
-    },
-    {
-      step: "03",
-      title: "Gain Supervised Experience",
-      description: "Complete 2,000+ hours of supervised fieldwork experience in applied behavior analysis settings.",
-      duration: "1-2 years", 
-      icon: Users
-    },
-    {
-      step: "04",
-      title: "Pass the BCBA Exam",
-      description: "Successfully pass the Board Certified Behavior Analyst examination administered by the BACB.",
-      duration: "3-6 months prep",
-      icon: Award
-    },
-    {
-      step: "05",
-      title: "Apply for School Positions",
-      description: "Seek employment in school districts as a behavior analyst or BCBA supporting students with behavioral needs.",
-      duration: "Ongoing",
-      icon: Building2
-    }
-  ];
-
-  const responsibilities = [
-    {
-      category: "Assessment & Planning",
-      items: [
-        "Conduct functional behavior assessments (FBAs)",
-        "Develop comprehensive behavior intervention plans (BIPs)",
-        "Design data collection systems for behavior tracking",
-        "Collaborate with IEP teams on behavioral goals"
-      ],
-      icon: Target
-    },
-    {
-      category: "Implementation & Training",
-      items: [
-        "Train teachers and staff on behavior interventions",
-        "Provide direct consultation on classroom management",
-        "Support implementation of school-wide PBIS programs",
-        "Deliver professional development on ABA principles"
-      ],
-      icon: Users
-    },
-    {
-      category: "Monitoring & Evaluation",
-      items: [
-        "Analyze behavioral data and adjust interventions",
-        "Monitor progress toward IEP behavioral goals",
-        "Evaluate effectiveness of behavior support plans",
-        "Provide ongoing consultation and troubleshooting"
-      ],
-      icon: TrendingUp
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumbs */}
-        <div className="pt-8 pb-4">
-          <Breadcrumbs items={breadcrumbItems} />
-        </div>
+    <main className="min-h-screen bg-gradient-to-b from-blue-50/50 to-white">
+      {/* Breadcrumbs */}
+      <div className="container mx-auto px-6 py-4">
+        <Breadcrumbs items={breadcrumbItems} />
+      </div>
 
-        {/* Hero Section */}
-        <section className="relative py-16 lg:py-24 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-slate-50 rounded-3xl" />
-          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-gradient-to-br from-emerald-100 to-transparent opacity-30 blur-3xl" />
-          <div className="absolute -bottom-10 left-0 w-80 h-80 rounded-full bg-gradient-to-tr from-slate-100 to-transparent opacity-20 blur-2xl" />
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-16 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            School-Based BCBA Operating System: <span className="text-blue-600">From Crisis Manager to Systems Leader</span>
+          </h1>
           
-          <div className="relative grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium">
-                <Building2 className="mr-2 h-4 w-4" />
-                Complete Career Guide
-              </div>
-              
-              <div className="space-y-6">
-                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 leading-tight">
-                  Become a 
-                  <span className="bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent"> School-Based BCBA</span>
-                </h1>
-                
-                <p className="text-xl text-slate-600 leading-relaxed">
-                  Transform student outcomes and build a rewarding career in educational behavior analysis. Our comprehensive guide covers everything from education requirements to career advancement strategies.
-                </p>
-              </div>
+          <p className="text-xl md:text-2xl text-gray-600 mb-8">
+            School behavior doesn't have to feel overwhelming. As a school-based BCBA, you need practical, ethical systems built for real classrooms.
+          </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  asChild 
-                  size="lg" 
-                  className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
-                >
-                  <Link href="/bcba-exam-prep">
-                    <Zap className="mr-2 h-5 w-5" />
-                    Start BCBA Exam Prep
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                
-                <Button 
-                  asChild 
-                  variant="outline" 
-                  size="lg"
-                  className="border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50 px-8 py-4 rounded-2xl"
-                >
-                  <Link href="/community">
-                    <Users className="mr-2 h-5 w-5" />
-                    Join BCBA Community
-                  </Link>
-                </Button>
+          {/* Quick Wins */}
+          <div className="grid md:grid-cols-2 gap-4 mb-10 text-left max-w-3xl mx-auto">
+            <div className="flex items-start space-x-3">
+              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <CheckCircle className="w-4 h-4 text-green-600" />
               </div>
-
-              <div className="flex items-center space-x-6 text-sm text-slate-600">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-4 w-4 text-emerald-600" />
-                  <span>Complete pathway guide</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Star className="h-4 w-4 text-emerald-600" />
-                  <span>Expert insights</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Shield className="h-4 w-4 text-emerald-600" />
-                  <span>BACB-aligned</span>
-                </div>
-              </div>
+              <span className="text-gray-700 font-medium">AI-powered IEP Goal Generator & Behavior Plan Writer</span>
             </div>
-
-            {/* Visual Element */}
-            <div className="relative">
-              <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 p-8">
-                <div className="space-y-6">
-                  <div className="text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl mb-4">
-                      <Award className="h-8 w-8 text-emerald-600" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900">BCBA Certification Path</h3>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    {pathwaySteps.slice(0, 3).map((step, index) => (
-                      <div key={index} className="flex items-center space-x-4 p-3 bg-slate-50 rounded-xl">
-                        <div className="flex items-center justify-center w-8 h-8 bg-emerald-100 rounded-full text-emerald-700 font-bold text-sm">
-                          {step.step}
-                        </div>
-                        <div className="flex-1">
-                          <div className="font-medium text-slate-900 text-sm">{step.title}</div>
-                          <div className="text-xs text-slate-600">{step.duration}</div>
-                        </div>
-                      </div>
-                    ))}
-                    <div className="text-center py-2">
-                      <div className="inline-flex items-center text-emerald-600 font-medium text-sm">
-                        <ArrowRight className="mr-1 h-4 w-4" />
-                        Complete pathway below
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div className="flex items-start space-x-3">
+              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <CheckCircle className="w-4 h-4 text-green-600" />
               </div>
+              <span className="text-gray-700 font-medium">8-week Transformation Program for School-Based BCBAs</span>
+            </div>
+            <div className="flex items-start space-x-3">
+              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+              </div>
+              <span className="text-gray-700 font-medium">Fieldwork & Supervision Tools to Reduce Burnout</span>
+            </div>
+            <div className="flex items-start space-x-3">
+              <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <CheckCircle className="w-4 h-4 text-green-600" />
+              </div>
+              <span className="text-gray-700 font-medium">Evidence-Based Systems Aligned with MTSS & PBIS</span>
             </div>
           </div>
-        </section>
 
-        {/* 5-Step Pathway */}
-        <section className="py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              Your 5-Step Path to Becoming a School-Based BCBA
+          <Button size="lg" className="text-lg px-8 py-6 bg-blue-600 hover:bg-blue-700" asChild>
+            <Link href="/transformation-program">
+              <PlayCircle className="w-5 h-5 mr-2" />
+              Start Your Transformation Program
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
+          </Button>
+        </div>
+      </section>
+
+      {/* What Is a School-Based BCBA */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+              What Is a School-Based BCBA?
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Follow this proven pathway to launch your career as a behavior analyst in educational settings
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {pathwaySteps.map((step, index) => (
-              <div key={index} className="relative">
-                <div className="flex flex-col lg:flex-row items-center gap-8 p-8 bg-white rounded-3xl shadow-lg border border-slate-200 hover:shadow-xl transition-shadow duration-300">
-                  <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-2xl">
-                    <step.icon className="h-10 w-10 text-emerald-600" />
-                  </div>
-                  
-                  <div className="flex-1 text-center lg:text-left">
-                    <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
-                      <span className="inline-flex items-center justify-center w-12 h-12 bg-emerald-600 text-white rounded-full font-bold text-lg">
-                        {step.step}
-                      </span>
-                      <h3 className="text-2xl font-bold text-slate-900">{step.title}</h3>
-                    </div>
-                    <p className="text-lg text-slate-600 mb-4">{step.description}</p>
-                    <div className="inline-flex items-center px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium">
-                      <Clock className="mr-2 h-4 w-4" />
-                      {step.duration}
-                    </div>
-                  </div>
-                </div>
-                
-                {index < pathwaySteps.length - 1 && (
-                  <div className="flex justify-center mt-6">
-                    <div className="w-1 h-8 bg-gradient-to-b from-emerald-300 to-emerald-400 rounded-full"></div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Key Responsibilities */}
-        <section className="py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              What School-Based BCBAs Do
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              School-based BCBAs play a crucial role in supporting students with behavioral needs across educational settings
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {responsibilities.map((category, index) => (
-              <div key={index} className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-shadow duration-300">
-                <div className="text-center mb-8">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl mb-4">
-                    <category.icon className="h-8 w-8 text-emerald-600" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900">{category.category}</h3>
-                </div>
-                
-                <div className="space-y-4">
-                  {category.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-700">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Career Outlook & Salary */}
-        <section className="py-20">
-          <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-3xl p-12 text-white">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-                  Excellent Career Outlook
-                </h2>
-                <p className="text-xl text-emerald-100 mb-8">
-                  The demand for school-based BCBAs continues to grow as schools recognize the value of evidence-based behavior support.
-                </p>
-                
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">22%</div>
-                    <div className="text-emerald-100">Job Growth Rate</div>
-                    <div className="text-sm text-emerald-200">Much faster than average</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-2">$75K+</div>
-                    <div className="text-emerald-100">Average Salary</div>
-                    <div className="text-sm text-emerald-200">Varies by location</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white/10 rounded-2xl p-8 backdrop-blur-sm">
-                <h3 className="text-xl font-bold text-white mb-6">Why Choose School-Based ABA?</h3>
-                <div className="space-y-4">
-                  {[
-                    "Make a lasting impact on student success",
-                    "Work in collaborative educational teams",
-                    "Enjoy stable employment with benefits",
-                    "Follow traditional school calendar schedules",
-                    "Grow expertise in educational behavior support"
-                  ].map((benefit, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-emerald-300" />
-                      <span className="text-emerald-100">{benefit}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* School District Requirements */}
-        <section className="py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              What School Districts Look For
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Understanding district requirements and preferences can help you position yourself as the ideal candidate
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6">Essential Qualifications</h3>
-              <div className="space-y-4">
-                {[
-                  "Current BCBA certification in good standing",
-                  "Master&apos;s degree in behavior analysis or related field", 
-                  "Experience with IEP development and implementation",
-                  "Knowledge of special education law and regulations",
-                  "Familiarity with RTI/MTSS frameworks",
-                  "Strong communication and collaboration skills"
-                ].map((req, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">{req}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-3xl p-8">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6">Preferred Experience</h3>
-              <div className="space-y-4">
-                {[
-                  "Previous work in educational settings",
-                  "Experience with autism spectrum disorders",
-                  "Training in crisis intervention techniques",
-                  "Knowledge of classroom management strategies",
-                  "Bilingual capabilities (district-dependent)",
-                  "Technology proficiency for data collection"
-                ].map((pref, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <Star className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">{pref}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Day in the Life */}
-        <section className="py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              A Day in the Life of a School-Based BCBA
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Get an inside look at what your typical workday might include as a behavior analyst in schools
-            </p>
-          </div>
-
-          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 lg:p-12">
-            <div className="grid lg:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mb-4">
-                  <Clock className="h-8 w-8 text-blue-600" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Morning (8:00-11:00 AM)</h3>
-                <div className="text-left space-y-2 text-slate-600">
-                  <p>• Review overnight incident reports</p>
-                  <p>• Observe students in classroom settings</p>
-                  <p>• Conduct functional behavior assessments</p>
-                  <p>• Meet with teachers about intervention strategies</p>
-                  <p>• Update behavior data collection systems</p>
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl mb-4">
-                  <Users className="h-8 w-8 text-emerald-600" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Midday (11:00 AM-2:00 PM)</h3>
-                <div className="text-left space-y-2 text-slate-600">
-                  <p>• Participate in IEP team meetings</p>
-                  <p>• Provide direct student support</p>
-                  <p>• Train paraprofessionals on interventions</p>
-                  <p>• Collaborate with related service providers</p>
-                  <p>• Document progress and adjust plans</p>
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-2xl mb-4">
-                  <TrendingUp className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Afternoon (2:00-4:00 PM)</h3>
-                <div className="text-left space-y-2 text-slate-600">
-                  <p>• Analyze behavioral data and trends</p>
-                  <p>• Develop new behavior intervention plans</p>
-                  <p>• Communicate with parents and families</p>
-                  <p>• Plan professional development sessions</p>
-                  <p>• Prepare reports for administration</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 p-6 bg-slate-50 rounded-2xl">
-              <p className="text-slate-700 text-center italic">
-                &ldquo;Every day brings new challenges and opportunities to make a real difference in students&apos; lives. 
-                The variety keeps the work engaging, and seeing students succeed makes it incredibly rewarding.&rdquo;
-              </p>
-              <p className="text-slate-600 text-center mt-2 text-sm">— Typical reflection from a school-based BCBA</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Common Challenges & Solutions */}
-        <section className="py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              Common Challenges & How to Overcome Them
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Prepare for the realities of school-based practice with proven solutions from experienced BCBAs
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {[
-              {
-                challenge: "Large Caseloads",
-                description: "Managing 20-30+ students across multiple schools can feel overwhelming.",
-                solutions: [
-                  "Prioritize students by severity and immediate need",
-                  "Use technology for efficient data collection and analysis", 
-                  "Train teachers to implement interventions independently",
-                  "Develop systematic scheduling and documentation processes"
-                ],
-                icon: Users
-              },
-              {
-                challenge: "Limited Resources", 
-                description: "Schools often have budget constraints that limit available materials and support.",
-                solutions: [
-                  "Focus on low-cost, high-impact interventions",
-                  "Partner with community organizations for resources",
-                  "Apply for grants specifically for special education programs",
-                  "Train staff to create materials using existing supplies"
-                ],
-                icon: Target
-              },
-              {
-                challenge: "Staff Resistance",
-                description: "Some educators may be hesitant to implement new behavioral strategies.",
-                solutions: [
-                  "Start with willing teachers to build success stories",
-                  "Provide ongoing support and troubleshooting",
-                  "Demonstrate clear connections to student outcomes",
-                  "Offer professional development in digestible chunks"
-                ],
-                icon: Shield
-              }
-            ].map((item, index) => (
-              <div key={index} className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
-                <div className="grid lg:grid-cols-3 gap-8 items-start">
-                  <div className="lg:col-span-1">
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-2xl">
-                        <item.icon className="h-6 w-6 text-red-600" />
-                      </div>
-                      <h3 className="text-xl font-bold text-slate-900">{item.challenge}</h3>
-                    </div>
-                    <p className="text-slate-600">{item.description}</p>
-                  </div>
-                  
-                  <div className="lg:col-span-2">
-                    <h4 className="text-lg font-semibold text-slate-900 mb-4">Proven Solutions:</h4>
-                    <div className="grid md:grid-cols-2 gap-3">
-                      {item.solutions.map((solution, solutionIndex) => (
-                        <div key={solutionIndex} className="flex items-start space-x-3">
-                          <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-slate-700 text-sm">{solution}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20">
-          <div className="text-center bg-white rounded-3xl shadow-lg border border-slate-200 p-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              Ready to Start Your BCBA Journey?
-            </h2>
-            <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-              Join thousands of behavior analysts who have successfully transitioned into school-based roles with our comprehensive training and support.
-            </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
-              >
-                <Link href="/bcba-exam-prep">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  Explore BCBA Exam Prep
-                  <ArrowRight className="ml-2 h-5 w-5" />
+            <div className="text-lg text-gray-700 mb-8 space-y-4">
+              <p>
+                A school-based BCBA is a Board Certified Behavior Analyst who applies ABA in K–12 schools. Unlike clinic-based practitioners, school BCBAs target behaviors that affect learning, engagement, and IEP compliance.
+              </p>
+              
+              <p className="font-semibold">They serve a dual role:</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="bg-blue-50 p-6 rounded-lg">
+                <div className="flex items-center mb-4">
+                  <Target className="w-8 h-8 text-blue-600 mr-3" />
+                  <h3 className="text-xl font-semibold text-gray-900">Student-focused</h3>
+                </div>
+                <p className="text-gray-700">
+                  Conducting FBAs, writing BIPs, and supporting IEP teams with measurable, achievable goals.
+                </p>
+              </div>
+
+              <div className="bg-green-50 p-6 rounded-lg">
+                <div className="flex items-center mb-4">
+                  <Settings className="w-8 h-8 text-green-600 mr-3" />
+                  <h3 className="text-xl font-semibold text-gray-900">Systems-focused</h3>
+                </div>
+                <p className="text-gray-700">
+                  Training staff, embedding interventions, and aligning supports with district-wide frameworks.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Responsibilities */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
+              Core Responsibilities
+            </h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* FBA */}
+              <div className="bg-white p-8 rounded-xl shadow-sm border">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                  <Brain className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  1. Conduct Functional Behavior Assessments (FBAs)
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Identify the root causes of challenging behaviors and design context-fit interventions.
+                </p>
+              </div>
+
+              {/* BIP */}
+              <div className="bg-white p-8 rounded-xl shadow-sm border">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                  <FileText className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  2. Develop Behavior Intervention Plans (BIPs)
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Plans that teachers can actually follow: prevention, skill replacement, reinforcement, and progress monitoring.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/behavior-plans">
+                    Try our Behavior Plan Writer Tool
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </div>
+
+              {/* IEP */}
+              <div className="bg-white p-8 rounded-xl shadow-sm border">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                  <Award className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  3. Collaborate on IEP Teams
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Craft measurable, IDEA-compliant goals that improve student outcomes.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/iep-goals">
+                    Try our IEP Goal Generator
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </div>
+
+              {/* MTSS/PBIS */}
+              <div className="bg-white p-8 rounded-xl shadow-sm border">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">
+                  <TrendingUp className="w-8 h-8 text-orange-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  4. Align With Tiered Systems (MTSS/PBIS)
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Embed ABA strategies across Tier 1, Tier 2, and Tier 3 for school-wide consistency.
+                </p>
+              </div>
+
+              {/* Training */}
+              <div className="bg-white p-8 rounded-xl shadow-sm border md:col-span-2">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                  <MessageCircle className="w-8 h-8 text-red-600" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  5. Train & Coach School Staff
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Provide practical coaching that boosts teacher confidence and ensures fidelity.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Schools Need BCBAs */}
+      <section className="py-16 bg-blue-600 text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12">
+              Why Schools Need BCBAs
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="text-left">
+                <div className="flex items-start space-x-3 mb-6">
+                  <Shield className="w-8 h-8 text-blue-200 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Legal Compliance</h3>
+                    <p className="text-blue-100">Help districts meet federal/state mandates.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 mb-6">
+                  <Target className="w-8 h-8 text-blue-200 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Better Outcomes</h3>
+                    <p className="text-blue-100">Function-based interventions reduce disruption and increase engagement.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-left">
+                <div className="flex items-start space-x-3 mb-6">
+                  <Users className="w-8 h-8 text-blue-200 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Staff Confidence</h3>
+                    <p className="text-blue-100">Teachers succeed when supported with coaching and usable strategies.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 mb-6">
+                  <Settings className="w-8 h-8 text-blue-200 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Sustainable Systems</h3>
+                    <p className="text-blue-100">Embedding BCBAs reduces burnout and ensures fidelity.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Transformation Program */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+              Our Transformation Program
+            </h2>
+            
+            <p className="text-xl text-gray-600 mb-12">
+              <strong>8 Weeks to Shift From Overwhelm to Ethical Leadership</strong>
+            </p>
+
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl mb-12">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">You'll gain:</h3>
+              
+              <div className="grid md:grid-cols-2 gap-6 text-left">
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <CheckCircle className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <span className="text-gray-700 font-medium">Leadership tools for working with administrators</span>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <CheckCircle className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <span className="text-gray-700 font-medium">Strategies to scale PBIS/MTSS across schools</span>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <CheckCircle className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <span className="text-gray-700 font-medium">ACT-based resilience skills for stress & burnout</span>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <CheckCircle className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <span className="text-gray-700 font-medium">Systems for supervision, coaching, and fidelity</span>
+                </div>
+              </div>
+            </div>
+
+            <Button size="lg" className="text-lg px-8 py-6 bg-purple-600 hover:bg-purple-700" asChild>
+              <Link href="/transformation-program">
+                Learn More About the Transformation Program
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Tools Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
+              Tools for Everyday Success
+            </h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              <div className="bg-white p-6 rounded-xl shadow-sm border text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Target className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">IEP Goal Generator</h3>
+                <p className="text-gray-600 mb-4">Create SMART goals in seconds.</p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/iep-goals">Try Now</Link>
+                </Button>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-sm border text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FileText className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Behavior Plan Writer</h3>
+                <p className="text-gray-600 mb-4">Build practical, teacher-ready plans.</p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/behavior-plans">Try Now</Link>
+                </Button>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-sm border text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Supervision Tracker</h3>
+                <p className="text-gray-600 mb-4">Monitor fieldwork with precision.</p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/supervisors">Try Now</Link>
+                </Button>
+              </div>
+
+              <div className="bg-white p-6 rounded-xl shadow-sm border text-center">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BookOpen className="w-8 h-8 text-orange-600" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Study Tools</h3>
+                <p className="text-gray-600 mb-4">Support for future BCBAs prepping for exams.</p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/behavior-study-tools">Try Now</Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Button variant="outline" size="lg" asChild>
+                <Link href="/resources">
+                  Explore All Tools
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>
-              
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8">
+              Ready to lead behavior systems with confidence?
+            </h2>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
               <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="border-2 border-emerald-200 text-emerald-700 hover:bg-emerald-50 px-8 py-4 rounded-2xl"
+                size="lg" 
+                className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-6" 
+                asChild
               >
                 <Link href="/transformation-program">
-                  <Star className="mr-2 h-5 w-5" />
-                  School BCBA Program
+                  Join the 8-Week Transformation Program
+                </Link>
+              </Button>
+              
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold py-6" 
+                asChild
+              >
+                <Link href="/iep-goals">
+                  Access the Free IEP Goal Generator
+                </Link>
+              </Button>
+              
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-purple-600 font-semibold py-6" 
+                asChild
+              >
+                <Link href="/community">
+                  Connect with Our Community
                 </Link>
               </Button>
             </div>
-          </div>
-        </section>
 
-        {/* Related BCBA Resources Navigation */}
-        <section className="py-12">
-          <div className="bg-slate-100 rounded-2xl p-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">Related BCBA Resources</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Link 
-                href="/bcba-study-fluency" 
-                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
-              >
-                <div>
-                  <Zap className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                  <div className="font-medium text-slate-900">BCBA Study Fluency</div>
-                  <div className="text-sm text-slate-600">Fluency-based learning</div>
-                </div>
-              </Link>
-              
-              <Link 
-                href="/bcba-mock-practice-test" 
-                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
-              >
-                <div>
-                  <Target className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                  <div className="font-medium text-slate-900">Mock Practice Tests</div>
-                  <div className="text-sm text-slate-600">Free BCBA practice</div>
-                </div>
-              </Link>
-              
-              <Link 
-                href="/behavior-study-tools" 
-                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
-              >
-                <div>
-                  <BookOpen className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                  <div className="font-medium text-slate-900">Study Tools</div>
-                  <div className="text-sm text-slate-600">Comprehensive prep</div>
-                </div>
-              </Link>
+            <p className="text-xl text-blue-100">
+              Join hundreds of school-based BCBAs transforming behavior systems nationwide.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
+              Frequently Asked Questions
+            </h2>
+
+            <div className="space-y-8">
+              <div className="border-l-4 border-blue-600 pl-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  What does a school-based BCBA do?
+                </h3>
+                <p className="text-gray-700">
+                  They design and implement school-wide systems, conduct FBAs, write BIPs, join IEP teams, and coach staff.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-green-600 pl-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  How are they different from clinic BCBAs?
+                </h3>
+                <p className="text-gray-700">
+                  Clinic BCBAs focus on 1:1 therapy. School BCBAs balance individual supports + systems leadership.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-purple-600 pl-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  What challenges do school BCBAs face?
+                </h3>
+                <p className="text-gray-700">
+                  High caseloads, under-trained staff, limited direct time, and crisis-driven burnout.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-orange-600 pl-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  How does the Transformation Program help?
+                </h3>
+                <p className="text-gray-700">
+                  It provides tools, leadership strategies, and stress resilience skills for sustainable school impact.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-red-600 pl-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  What tools are available daily?
+                </h3>
+                <p className="text-gray-700">
+                  The IEP Goal Generator, Behavior Plan Writer, Supervision Tracker, and more.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-blue-600 pl-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Who should join the Behavior School community?
+                </h3>
+                <p className="text-gray-700">
+                  BCBAs, RBTs, and educators in K–12 who want ready-to-use school systems.
+                </p>
+              </div>
             </div>
           </div>
-        </section>
-      </div>
-    </div>
+        </div>
+      </section>
+
+      {/* Schema Markup for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "School-Based BCBA Operating System",
+            "description": "School behavior doesn't have to feel overwhelming. Transform from crisis manager to systems leader with practical, ethical tools built for real classrooms.",
+            "url": "https://behaviorschool.com/school-based-bcba",
+            "mainEntity": {
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What does a school-based BCBA do?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "They design and implement school-wide systems, conduct FBAs, write BIPs, join IEP teams, and coach staff."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How are they different from clinic BCBAs?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Clinic BCBAs focus on 1:1 therapy. School BCBAs balance individual supports + systems leadership."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What challenges do school BCBAs face?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "High caseloads, under-trained staff, limited direct time, and crisis-driven burnout."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How does the Transformation Program help?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "It provides tools, leadership strategies, and stress resilience skills for sustainable school impact."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What tools are available daily?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The IEP Goal Generator, Behavior Plan Writer, Supervision Tracker, and more."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Who should join the Behavior School community?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "BCBAs, RBTs, and educators in K–12 who want ready-to-use school systems."
+                  }
+                }
+              ]
+            },
+            "provider": {
+              "@type": "Organization",
+              "name": "Behavior School",
+              "url": "https://behaviorschool.com"
+            }
+          }),
+        }}
+      />
+    </main>
   );
 }

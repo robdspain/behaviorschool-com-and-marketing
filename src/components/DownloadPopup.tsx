@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, X, Mail, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 interface DownloadPopupProps {
   isOpen: boolean;
@@ -23,6 +24,7 @@ export default function DownloadPopup({
   const [email, setEmail] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
   const router = useRouter();
+  const { trackDownload, trackEmailSignup, trackFormSubmission } = useAnalytics();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +37,13 @@ export default function DownloadPopup({
     setIsDownloading(true);
 
     try {
+      // Track form submission start
+      trackFormSubmission('download_popup', true, {
+        resource,
+        fileName,
+        title
+      });
+
       // Submit email to newsletter/download tracking
       const subscribeResponse = await fetch('/api/download-subscribe', {
         method: 'POST',
@@ -44,13 +53,25 @@ export default function DownloadPopup({
         body: JSON.stringify({
           email,
           resource,
-          source: 'act-matrix-download'
+          source: 'download-popup'
         }),
       });
 
       if (!subscribeResponse.ok) {
         console.error('Subscribe failed:', await subscribeResponse.text());
+        trackFormSubmission('download_popup', false, {
+          resource,
+          fileName,
+          error: 'subscribe_failed'
+        });
         // Continue with download anyway
+      } else {
+        // Track successful email signup
+        trackEmailSignup('download', email, {
+          resource,
+          fileName,
+          title
+        });
       }
 
       // Start the download
@@ -73,6 +94,9 @@ export default function DownloadPopup({
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
+
+      // Track successful download
+      trackDownload(fileName, email);
 
       // Close popup and redirect to confirmation page
       onClose();

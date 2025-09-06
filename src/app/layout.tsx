@@ -4,6 +4,8 @@ import { Footer } from "@/components/footer";
 import { ToastProvider } from "@/components/toast";
 import { ConditionalNavBar } from "@/components/ConditionalNavBar";
 import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyCompliantAnalytics";
+import PerformanceOptimizer from "@/components/PerformanceOptimizer";
+import PerformanceMonitor from "@/components/PerformanceMonitor";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -263,6 +265,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <PerformanceOptimizer />
+        <PerformanceMonitor />
         {/* Preconnect hints for performance */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -272,12 +276,12 @@ export default function RootLayout({
         
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
         
-        {/* Google Ads tag (gtag.js) */}
+        {/* Google Ads tag (gtag.js) - Deferred for better performance */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-17439907778"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-ads-config" strategy="afterInteractive">
+        <Script id="google-ads-config" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
