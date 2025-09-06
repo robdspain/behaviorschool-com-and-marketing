@@ -253,8 +253,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Admin Header */}
-      <div className="bg-transparent shadow-sm border-b">
+      {/* Admin Header - Clean and minimal */}
+      <div className="bg-white shadow-sm border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -266,16 +266,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </div>
             <div className="flex items-center gap-4">
               <nav className="flex items-center gap-6">
-                <a href="/admin" className="text-sm text-slate-600 hover:text-slate-900">
+                <a href="/admin" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                   Dashboard
                 </a>
-                <a href="/admin/blog" className="text-sm text-slate-600 hover:text-slate-900">
+                <a href="/admin/blog" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                   Blog
                 </a>
-                <a href="/admin/signups" className="text-sm text-slate-600 hover:text-slate-900">
+                <a href="/admin/signups" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                   Signups
                 </a>
-                <a href="/admin/users" className="text-sm text-slate-600 hover:text-slate-900">
+                <a href="/admin/users" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                   Users
                 </a>
               </nav>

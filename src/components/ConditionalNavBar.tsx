@@ -10,6 +10,9 @@ export function ConditionalNavBar() {
   // Hide navbar completely on these pages
   const hideNavbarPages = ['/bcba-exam-prep'];
   
+  // Also hide navbar on admin pages (they have their own admin header)
+  const hideAdminNavbar = pathname.startsWith('/admin');
+  
   // Keep full navbar on these main navigation pages
   const fullNavbarPages = [
     '/community',
@@ -19,13 +22,12 @@ export function ConditionalNavBar() {
     '/contact'
   ];
   
-  // Admin pages and other special cases also get full navbar
+  // Main navigation pages and blog get full navbar
   const keepFullNavbar = fullNavbarPages.includes(pathname) || 
-                        pathname.startsWith('/admin') || 
                         pathname.startsWith('/blog') ||
                         pathname === '/';
   
-  if (hideNavbarPages.includes(pathname)) {
+  if (hideNavbarPages.includes(pathname) || hideAdminNavbar) {
     return null;
   }
   
