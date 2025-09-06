@@ -36,6 +36,26 @@ Disallow: /*.json$
 Disallow: /feed.json
 Disallow: /posts/
 
+# Block Ghost CMS URLs causing 404 errors
+Disallow: /*ghost
+Disallow: /*@ghost
+Disallow: /tag/*/ghost
+Disallow: /tag/*/@ghost
+Disallow: /author/*/ghost
+Disallow: /author/*/@ghost
+
+# Block thin content tag pages
+Disallow: /tag/resources/
+Disallow: /tag/product/
+Disallow: /tag/home-cta/
+Disallow: /category/uncategorized/
+
+# Block old/moved pages
+Disallow: /home/
+Disallow: /welcome
+Disallow: /coming-soon/
+Disallow: /second-call-to-action/
+
 # Sitemap and feed locations
 Sitemap: https://behaviorschool.com/sitemap.xml
 

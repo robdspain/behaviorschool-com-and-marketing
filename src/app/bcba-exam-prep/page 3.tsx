@@ -212,6 +212,7 @@ export default function BCBAExamPrepPage() {
       "itemListElement": [
         {
           "@type": "Offer",
+          "name": "BCBA Exam Prep Study Guide",
           "itemOffered": {
             "@type": "Course",
             "name": "BCBA Exam Prep Study Guide",

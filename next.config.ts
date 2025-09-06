@@ -31,9 +31,92 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Existing redirects
       {
         source: '/supervision',
         destination: '/supervisors',
+        permanent: true,
+      },
+      // Fix 404 redirects from GSC
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/home/',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/welcome',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/behavior-study-tools/',
+        destination: '/behavior-study-tools',
+        permanent: true,
+      },
+      {
+        source: '/fba-bip-plan-writer',
+        destination: '/behavior-plans',
+        permanent: true,
+      },
+      {
+        source: '/program',
+        destination: '/transformation-program',
+        permanent: true,
+      },
+      {
+        source: '/program/',
+        destination: '/transformation-program',
+        permanent: true,
+      },
+      {
+        source: '/coming-soon/:path*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/second-call-to-action/:path*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/school-based-behavior-work-can-be-overwhelming-2/',
+        destination: '/school-based-behavior-support',
+        permanent: true,
+      },
+      // Block Ghost CMS URLs with redirects to proper pages
+      {
+        source: '/tag/:tag/ghost',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/tag/:tag/@ghost',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/author/:author/ghost',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/author/:author/@ghost',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/:slug/ghost',
+        destination: '/blog/:slug',
+        permanent: true,
+      },
+      {
+        source: '/:slug/@ghost',
+        destination: '/blog/:slug',
         permanent: true,
       },
     ];

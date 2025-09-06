@@ -108,6 +108,7 @@ export default function RootLayout({
       itemListElement: [
         {
           "@type": "Offer",
+          name: "BCBA Exam Prep & Practice Tests",
           itemOffered: {
             "@type": "Service",
             name: "BCBA Exam Prep & Practice Tests",
@@ -127,6 +128,7 @@ export default function RootLayout({
         },
         {
           "@type": "Offer",
+          name: "BCBA Supervision Tools & Training",
           itemOffered: {
             "@type": "Service", 
             name: "BCBA Supervision Tools & Training",
@@ -146,6 +148,7 @@ export default function RootLayout({
         },
         {
           "@type": "Offer",
+          name: "School BCBA Transformation Program",
           itemOffered: {
             "@type": "Course",
             name: "School BCBA Transformation Program",
@@ -167,6 +170,7 @@ export default function RootLayout({
         },
         {
           "@type": "Offer",
+          name: "IEP Goal Writing Tools",
           itemOffered: {
             "@type": "Service",
             name: "IEP Goal Writing Tools",
@@ -186,6 +190,7 @@ export default function RootLayout({
         },
         {
           "@type": "Offer",
+          name: "Behavior Intervention Plan Development",
           itemOffered: {
             "@type": "Service",
             name: "Behavior Intervention Plan Development",
