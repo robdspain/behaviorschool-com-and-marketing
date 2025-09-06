@@ -77,12 +77,6 @@ export default function BlogEditPage() {
   const titleRef = useRef<HTMLInputElement>(null);
   const [showBlockMenu, setShowBlockMenu] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (postId) {
-      fetchPost();
-    }
-  }, [postId, fetchPost]);
-
   const fetchPost = useCallback(async () => {
     try {
       const response = await fetch(`/api/admin/blog/${postId}`);
@@ -122,6 +116,12 @@ export default function BlogEditPage() {
       setLoading(false);
     }
   }, [postId, router]);
+
+  useEffect(() => {
+    if (postId) {
+      fetchPost();
+    }
+  }, [postId, fetchPost]);
 
   // Simple HTML to blocks converter
   const htmlToBlocks = (html: string): Block[] => {

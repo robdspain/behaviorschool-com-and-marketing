@@ -41,7 +41,6 @@ export const metadata: Metadata = {
         alt: "Behavior School",
       },
     ],
-    locale: "en_US",
     type: "website",
   },
   twitter: {

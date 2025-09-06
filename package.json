@@ -16,7 +16,7 @@
     "monitor:netlify": "node scripts/netlify-monitor.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
     "fix-ghost-images": "node fix-ghost-images.js",
-    "postbuild": "node scripts/universal-indexing-scheduler.js --daily",
+    "postbuild": "echo 'Post-build script disabled'",
     "universal-indexing": "node scripts/universal-indexing-submit.js",
     "universal-indexing:priority": "node scripts/universal-indexing-submit.js --priority",
     "universal-indexing:validate": "node scripts/universal-indexing-submit.js --validate",
