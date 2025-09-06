@@ -9,7 +9,7 @@
 
 ### 1. Updated Meta Descriptions to Emphasize "FREE"
 - **Before**: "Behavior School provides comprehensive BCBA exam prep..."
-- **After**: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools trusted by 10,000+ behavior analysts."
+- **After**: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools for behavior analysts."
 
 ### 2. Updated Titles to Lead with "FREE"
 - **Before**: "Behavior School | BCBA Training & Exam Prep..."
@@ -39,7 +39,7 @@ Based on your website analysis, here are your main free resources:
 ```
 URL: /free-resources
 Title: "FREE BCBA & School Behavior Resources | Download Now"
-Description: "Download 20+ FREE BCBA exam prep tools, IEP templates, and behavior intervention plans. Used by 10,000+ behavior analysts."
+Description: "Download 20+ FREE BCBA exam prep tools, IEP templates, and behavior intervention plans. Created for behavior analysts."
 ```
 
 ### 2. **Add Schema Markup for Free Resources**
@@ -76,9 +76,9 @@ Target these high-intent keywords:
 - "FREE BCBA Practice Questions with Answers"
 
 ### 5. **Add Social Proof to Meta Descriptions**
-- "Trusted by 10,000+ behavior analysts"
-- "Used in 500+ schools nationwide"
-- "4.9/5 star rating from BCBA candidates"
+- "Designed for behavior analysts"
+- "Created by experienced BCBAs"
+- "Evidence-based resources"
 
 ## 🔍 Competitive Analysis
 
@@ -112,6 +112,7 @@ Target these high-intent keywords:
 - [x] Update homepage meta descriptions
 - [x] Update titles to emphasize "FREE"
 - [x] Update OpenGraph and Twitter cards
+- [x] Remove false social proof claims
 
 ### **Phase 2 (Next 2 weeks)**
 - [ ] Create dedicated "Free Resources" landing page
@@ -128,11 +129,11 @@ Target these high-intent keywords:
 ## 📝 Content Recommendations
 
 ### **New Meta Description Templates:**
-1. "FREE BCBA practice questions, study guides & school behavior tools. Download 20+ free resources trusted by 10,000+ behavior analysts. No signup required."
+1. "FREE BCBA practice questions, study guides & school behavior tools. Download 20+ free resources created for behavior analysts. No signup required."
 
-2. "Get FREE BCBA exam prep tools, IEP templates & behavior plans. Used by 500+ schools. Download instantly - no email required."
+2. "Get FREE BCBA exam prep tools, IEP templates & behavior plans. Created by experienced BCBAs. Download instantly - no email required."
 
-3. "FREE BCBA resources: practice questions, study guides, IEP templates & supervision tools. Trusted by behavior analysts nationwide."
+3. "FREE BCBA resources: practice questions, study guides, IEP templates & supervision tools. Designed for behavior analysts."
 
 ### **Title Variations to Test:**
 - "FREE BCBA Exam Prep & School Behavior Tools | Behavior School"

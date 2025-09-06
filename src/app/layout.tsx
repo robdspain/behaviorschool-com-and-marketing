@@ -8,7 +8,7 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School",
-  description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools trusted by 10,000+ behavior analysts.",
+  description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools for behavior analysts.",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   icons: {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School", 
-    description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools trusted by 10,000+ behavior analysts.",
+    description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools for behavior analysts.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     locale: "en_US",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School",
-    description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools trusted by 10,000+ behavior analysts.",
+    description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools for behavior analysts.",
     images: ["/optimized/og-image.webp"],
   },
   metadataBase: new URL("https://behaviorschool.com"),
