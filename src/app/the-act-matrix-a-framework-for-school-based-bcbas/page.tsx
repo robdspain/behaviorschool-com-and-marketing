@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Target, Users, BookOpen, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import SimpleDownloadButton from "@/components/SimpleDownloadButton";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "The ACT Matrix: A Framework for School-Based BCBAs | Complete Guide",
@@ -190,7 +191,7 @@ export default function ACTMatrixFrameworkPage() {
           {/* Featured Image */}
           <div className="mb-12">
             <div className="aspect-video bg-gradient-to-br from-emerald-100 to-blue-100 rounded-2xl overflow-hidden shadow-xl">
-              <img
+              <Image
                 src="/thumbnails/act-matrix-thumb.webp"
                 alt="The ACT Matrix Framework for School-Based BCBAs"
                 className="w-full h-full object-cover"

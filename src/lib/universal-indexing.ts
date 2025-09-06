@@ -49,7 +49,7 @@ export async function submitToAllIndexes(urls: string | string[]): Promise<Unive
   }
 
   // 3. AI Bot optimization (passive - they crawl based on signals)
-  const aiOptimization = await optimizeForAIBots(urlList);
+  const aiOptimization = await optimizeForAIBots();
 
   // Calculate summary
   let totalEndpoints = indexnowResult.results.length;
@@ -91,7 +91,7 @@ export async function submitToAllIndexes(urls: string | string[]): Promise<Unive
  * - Link following
  * - Social signals
  */
-async function optimizeForAIBots(urls: string[]): Promise<{
+async function optimizeForAIBots(): Promise<{
   robotsOptimized: boolean;
   sitemapUpdated: boolean;
   rssUpdated: boolean;

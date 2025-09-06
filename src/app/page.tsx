@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 export const metadata: Metadata = {
   title: "Behavior School | BCBA Training & School Behavior Support Platform",
   description:
@@ -98,12 +99,12 @@ export default function Home() {
             {/* Image Column */}
             <div className="relative order-first lg:order-last">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img 
+                <Image 
                   src="/Community/comein-coffee-people-optimized.webp" 
                   alt="Come on in - welcoming community space with people collaborating over coffee"
                   className="w-full h-auto object-cover"
-                  width="584"
-                  height="389"
+                  width={584}
+                  height={389}
                   loading="lazy"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 584px"
                 />
@@ -131,7 +132,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/thumbnails/hero-thumb.webp" alt="BCBA exam prep practice questions and study tools for behavior analysts" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
+                  <Image src="/thumbnails/hero-thumb.webp" alt="BCBA exam prep practice questions and study tools for behavior analysts" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width={128} height={128} loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Exam Prep & Practice Tests</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Master the BCBA exam with AI-powered practice questions and BCBA study materials.</p>
                   <div className="space-y-2 mt-auto">
@@ -158,7 +159,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/thumbnails/supervision-thumb.webp" alt="BCBA supervision tools and fieldwork tracking for behavior analyst training" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
+                  <Image src="/thumbnails/supervision-thumb.webp" alt="BCBA supervision tools and fieldwork tracking for behavior analyst training" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width={128} height={128} loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Supervision Tools</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Track BCBA fieldwork hours, competencies, and streamline your supervision practice.</p>
                   <div className="mt-auto">
@@ -177,7 +178,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/thumbnails/iep-goal-thumb.webp" alt="IEP goal writing templates and tools for school-based behavior analysts" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
+                  <Image src="/thumbnails/iep-goal-thumb.webp" alt="IEP goal writing templates and tools for school-based behavior analysts" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width={128} height={128} loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">IEP Goal Writer</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Write measurable IEP behavior goals and SMART IEP goals for students.</p>
                   <div className="mt-auto">
@@ -196,7 +197,7 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
-                  <img src="/thumbnails/bip-writer-thumb.webp" alt="Behavior intervention plan templates and BIP writing tools for school BCBAs" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width="128" height="128" loading="lazy" />
+                  <Image src="/thumbnails/bip-writer-thumb.webp" alt="Behavior intervention plan templates and BIP writing tools for school BCBAs" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width={128} height={128} loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">Behavior Intervention Plan Writer</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Develop comprehensive behavior intervention plans (BIPs) from functional behavior assessments.</p>
                   <div className="mt-auto">
@@ -297,12 +298,12 @@ export default function Home() {
               </div>
             </div>
             <div className="relative order-1 md:order-2">
-              <img 
+              <Image 
                 src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp" 
                 alt="BCBA training program dashboard showing school-based behavior support tools and operating system"
                 className="rounded-xl shadow-lg w-full h-auto"
-                width="592"
-                height="395"
+                width={592}
+                height={395}
                 loading="lazy"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
               />

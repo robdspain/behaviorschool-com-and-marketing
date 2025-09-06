@@ -46,7 +46,7 @@ export async function submitToIndexNow(
   urls: string | string[],
   options: IndexNowOptions = {}
 ): Promise<IndexNowResult> {
-  const { retries = 1, timeout = 10000 } = options;
+  const { timeout = 10000 } = options;
   
   // Normalize URLs to array
   const urlList = Array.isArray(urls) ? urls : [urls];

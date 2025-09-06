@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { CheckCircle, BookOpen, Users, Target, Download, Clock, ArrowRight, Info, ChevronDown, ChevronUp } from "lucide-react";
@@ -337,7 +338,7 @@ export default function BCBAExamPrepPage() {
             {/* Right Column - Image */}
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
-                <img
+                <Image
                   src="/BehaviorStudyTools/bcbaq-first-time-falling.webp"
                   alt="BCBA exam statistics showing declining pass rates - first-time candidates struggling with certification requirements"
                   className="w-full max-w-lg h-auto rounded-2xl shadow-2xl"

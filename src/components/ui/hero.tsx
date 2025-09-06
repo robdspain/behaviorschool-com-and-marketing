@@ -3,6 +3,7 @@ import { ArrowRight, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type HeroProps = {
   className?: string;
@@ -100,14 +101,14 @@ export function Hero({
 
           <div className="relative">
             <div className="relative z-10">
-              <img
+              <Image
                 src="/optimized/Hero/Hero-group1-optimized.webp"
                 alt="School-based BCBAs and behavior analysts collaborating on student behavior support plans"
-                width="576"
-                height="384"
+                width={576}
+                height={384}
                 className="w-full h-auto rounded-2xl shadow-2xl"
                 loading="eager"
-                fetchPriority="high"
+                priority={true}
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 576px"
               />
             </div>

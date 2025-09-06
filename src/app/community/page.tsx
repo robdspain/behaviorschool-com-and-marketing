@@ -4,6 +4,7 @@ import Container from "@/components/container";
 import { Section } from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Join the Behavior School Community | Support for School-Based BCBAs",
@@ -75,7 +76,7 @@ export default function CommunityPage() {
           {/* Image Column */}
           <div className="relative order-first lg:order-last">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <Image
                 src="/optimized/Community/community1.webp"
                 alt="Behavior School Community - Collaborative platform for school-based behavior analysts"
                 width={600}

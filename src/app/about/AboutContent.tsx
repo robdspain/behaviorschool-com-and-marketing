@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   ArrowRight,
   Users,
@@ -108,7 +109,7 @@ export default function AboutContent() {
               <div className="bg-white rounded-2xl p-8 shadow-2xl">
                 <div className="text-center space-y-6">
                   <div className="relative mx-auto w-32 h-32">
-                    <img
+                    <Image
                       src="/optimized/profile-Rob.webp"
                       alt="Rob Spain, BCBA, IBA - Founder of Behavior School"
                       width={128}

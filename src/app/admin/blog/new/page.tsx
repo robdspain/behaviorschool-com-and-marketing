@@ -55,7 +55,7 @@ export default function NewBlogPostPage() {
       });
 
       if (response.ok) {
-        const data = await response.json();
+        await response.json();
         router.push('/admin/blog');
       } else {
         const error = await response.json();

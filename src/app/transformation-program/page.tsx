@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Users, Target, CheckCircle, Star, Award, Heart, Shield, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -269,7 +270,7 @@ export default function TransformationProgramPage() {
               >
                 {/* Professional Education Image */}
                 <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
-                  <img
+                  <Image
                     src="/Hero/Hero-group1.webp"
                     alt="Professional education team collaborating - confident leaders working together with systems and clarity"
                     width={800}

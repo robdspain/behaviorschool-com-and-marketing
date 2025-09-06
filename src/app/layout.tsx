@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   description: "Behavior School provides comprehensive BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs for behavior analysts.",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
-  viewport: "width=device-width, initial-scale=1",
   icons: {
     icon: "/Logos/Logo.webp",
     shortcut: "/Logos/Logo.webp",
@@ -33,6 +32,7 @@ export const metadata: Metadata = {
     description: "Behavior School provides comprehensive BCBA exam prep and school behavior support tools. AI-powered practice tests, supervision tools, IEP goals, and training programs trusted by behavior analysts.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
+    locale: "en_US",
     images: [
       {
         url: "/optimized/og-image.webp",
@@ -57,6 +57,11 @@ export const metadata: Metadata = {
     'application/rss+xml': '/feed.xml',
     'application/feed+json': '/feed.json',
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

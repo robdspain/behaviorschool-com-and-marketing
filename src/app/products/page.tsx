@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
@@ -91,7 +92,7 @@ export default function ProductsPage() {
               </div>
               <div className="relative">
                 <div className="relative z-10">
-                  <img
+                  <Image
                     src="/Hero/Hero-group1.webp"
                     alt="Behavior Study Tools - AI-powered BCBA exam preparation"
                     width={600}
@@ -112,7 +113,7 @@ export default function ProductsPage() {
             >
               <div className="relative">
                 <div className="relative z-10">
-                  <img
+                  <Image
                     src="/Supervision/Supervision1.webp"
                     alt="Supervision Tools Dashboard"
                     width={800}
@@ -217,7 +218,7 @@ export default function ProductsPage() {
               </div>
               <div className="relative">
                 <div className="relative z-10">
-                  <img
+                  <Image
                     src="/IEP-Goal/IEP-Goal-Writing.webp"
                     alt="IEP Goal Writing Tool - Professional goal setting interface"
                     width={600}
@@ -347,7 +348,7 @@ export default function ProductsPage() {
             >
               <div className="relative">
                 <div className="relative z-10">
-                  <img
+                  <Image
                     src="/optimized/BIP-Writer/BIP-Writer-Team.webp"
                     alt="Behavior Plan Writer - Team collaboration on behavior intervention planning"
                     width={600}

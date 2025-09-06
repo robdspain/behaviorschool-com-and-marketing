@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const GHOST_CONTENT_URL = process.env.GHOST_CONTENT_URL;
 const GHOST_CONTENT_KEY = process.env.GHOST_CONTENT_KEY;
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     if (!GHOST_CONTENT_URL || !GHOST_CONTENT_KEY) {
       return NextResponse.json(

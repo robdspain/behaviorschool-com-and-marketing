@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-server';
 // import { verifyAdminSession } from '@/lib/admin-auth'; // TODO: Re-enable when cookie auth is fixed
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const supabase = createSupabaseAdminClient();
     

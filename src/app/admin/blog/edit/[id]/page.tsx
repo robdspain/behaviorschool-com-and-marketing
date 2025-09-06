@@ -4,9 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { 
   ArrowLeft, 
-  Save, 
   Eye, 
-  Globe, 
   Settings,
   Plus,
   Type,
@@ -14,12 +12,7 @@ import {
   Image as ImageIcon,
   List,
   Minus,
-  Link2,
-  Bold,
-  Italic,
-  Underline,
   Code,
-  X,
   Upload,
   Trash2
 } from "lucide-react";
@@ -74,7 +67,7 @@ export default function GhostEditor() {
     if (postId) {
       fetchPost();
     }
-  }, [postId]);
+  }, [postId, fetchPost]);
 
   const fetchPost = async () => {
     try {
@@ -176,32 +169,6 @@ export default function GhostEditor() {
       const filtered = prev.filter(b => b.id !== id);
       return filtered.length > 0 ? filtered : [{ id: '1', type: 'paragraph', content: '', focused: false }];
     });
-  };
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, blockId: string) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('/api/admin/blog/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        updateBlock(blockId, result.images[0].url);
-      } else {
-        console.error('Upload failed');
-        alert('Failed to upload image');
-      }
-    } catch (error) {
-      console.error('Upload error:', error);
-      alert('Failed to upload image');
-    }
   };
 
   const generateContent = () => {
@@ -548,77 +515,3 @@ export default function GhostEditor() {
         <div className="space-y-4">
           {blocks.map((block, index) => (
             <div key={block.id} className="group relative">
-              {/* Block Menu */}
-              {block.focused && (
-                <div className="absolute -left-12 top-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={() => setShowBlockMenu(showBlockMenu === block.id ? null : block.id)}
-                    className="w-8 h-8 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 shadow-sm"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
-
-                  {showBlockMenu === block.id && (
-                    <div className="absolute left-10 top-0 bg-white border border-slate-200 rounded-lg shadow-lg p-2 flex gap-1 whitespace-nowrap">
-                      <button
-                        onClick={() => addBlock(block.id, 'paragraph')}
-                        className="p-2 hover:bg-slate-100 rounded"
-                        title="Paragraph"
-                      >
-                        <Type className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => addBlock(block.id, 'heading')}
-                        className="p-2 hover:bg-slate-100 rounded"
-                        title="Heading"
-                      >
-                        <span className="font-bold text-lg">H</span>
-                      </button>
-                      <button
-                        onClick={() => addBlock(block.id, 'quote')}
-                        className="p-2 hover:bg-slate-100 rounded"
-                        title="Quote"
-                      >
-                        <Quote className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => addBlock(block.id, 'list')}
-                        className="p-2 hover:bg-slate-100 rounded"
-                        title="List"
-                      >
-                        <List className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => addBlock(block.id, 'divider')}
-                        className="p-2 hover:bg-slate-100 rounded"
-                        title="Divider"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => addBlock(block.id, 'code')}
-                        className="p-2 hover:bg-slate-100 rounded"
-                        title="Code"
-                      >
-                        <Code className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => addBlock(block.id, 'image')}
-                        className="p-2 hover:bg-slate-100 rounded"
-                        title="Image"
-                      >
-                        <ImageIcon className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {renderBlock(block)}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}

@@ -4,9 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
-  Save, 
-  Eye, 
-  Globe, 
   Settings,
   Plus,
   Type,
@@ -14,14 +11,10 @@ import {
   Image as ImageIcon,
   List,
   Minus,
-  Link2,
-  Bold,
-  Italic,
-  Underline,
   Code,
-  X,
   Upload
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface PostData {
@@ -283,10 +276,12 @@ export default function GhostEditor() {
           <div className="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center">
             {block.content ? (
               <div className="relative">
-                <img 
+                <Image 
                   src={block.content} 
                   alt="Uploaded image" 
                   className="max-w-full h-auto rounded-lg mx-auto"
+                  width={800} // You might need to adjust these values
+                  height={600} // based on your image sizes
                 />
                 <button
                   onClick={() => updateBlock(block.id, '')}
@@ -397,7 +392,7 @@ export default function GhostEditor() {
 
         {/* Content Blocks */}
         <div className="space-y-6">
-          {blocks.map((block, index) => (
+          {blocks.map((block) => (
             <div key={block.id} className="group relative">
               {/* Block Menu Button */}
               <div className="absolute -left-12 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -499,10 +494,12 @@ export default function GhostEditor() {
                 </label>
                 {post.featureImage ? (
                   <div className="relative">
-                    <img 
+                    <Image 
                       src={post.featureImage} 
                       alt="Feature" 
                       className="w-full h-32 object-cover rounded-lg border border-slate-200"
+                      width={320} // Adjust as needed
+                      height={128} // Adjust as needed
                     />
                     <button
                       onClick={() => setPost({ ...post, featureImage: '' })}

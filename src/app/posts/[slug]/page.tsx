@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/ghost";
+import Image from "next/image";
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -17,7 +18,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </header>
       {post.feature_image ? (
         <div className="mt-6 overflow-hidden rounded-lg bg-slate-100">
-          <img src={post.feature_image} alt={post.title} className="h-auto w-full object-cover" />
+          <Image src={post.feature_image} alt={post.title} className="h-auto w-full object-cover" fill={true} />
         </div>
       ) : null}
       {post.excerpt ? (

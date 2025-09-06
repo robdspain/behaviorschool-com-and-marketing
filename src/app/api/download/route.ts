@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     let requestData;
     try {
       requestData = JSON.parse(body);
-    } catch (parseError) {
+    } catch (error) {
       return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
     }
 

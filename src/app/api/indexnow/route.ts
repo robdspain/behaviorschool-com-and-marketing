@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { 
-  submitToIndexNow, 
   submitBatchToIndexNow, 
   submitPriorityUrls,
   validateIndexNowKey 

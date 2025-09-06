@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Check, FileText, Target, TrendingUp, Users, Shield, Mail, Bell, ArrowRight } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -141,7 +142,7 @@ export default function BehaviorPlansPage() {
               transition={{ duration: 0.8 }}
             >
               <div className="relative z-10">
-                <img
+                <Image
                   src="/optimized/BIP-Writer/BIP-Writer-Team.webp"
                   alt="BIP Writer - AI-powered behavior intervention plan creation"
                   width={600}
