@@ -51,11 +51,28 @@ export const SIMPLE_AUTH_CONFIG = {
   // Simple password for admin access (should be set via environment variable)
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || 'behavior-school-admin-2024',
   
+  // Session timeout in milliseconds (24 hours)
+  SESSION_TIMEOUT: 24 * 60 * 60 * 1000,
+  
+  // Maximum login attempts before temporary lockout
+  MAX_LOGIN_ATTEMPTS: 5,
+  
+  // Lockout duration in milliseconds (15 minutes)
+  LOCKOUT_DURATION: 15 * 60 * 1000,
+  
   // Check if simple auth is enabled
   isSimpleAuthEnabled(): boolean {
     return process.env.USE_SIMPLE_ADMIN_AUTH === 'true' || 
            !process.env.NEXT_PUBLIC_SUPABASE_URL ||
            !process.env.GOOGLE_CLIENT_ID;
+  },
+  
+  // Validate password strength (basic check)
+  isPasswordStrong(password: string): boolean {
+    return password.length >= 8 && 
+           /[A-Z]/.test(password) && 
+           /[a-z]/.test(password) && 
+           /\d/.test(password);
   }
 } as const;
 

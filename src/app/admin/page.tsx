@@ -48,18 +48,66 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // For now, use mock data until Supabase is properly configured
-    const mockStats: DashboardStats = {
-      totalSignups: 42,
-      newSignups: 8,
-      contactedSignups: 15,
-      qualifiedSignups: 12,
-      enrolledSignups: 7,
-      recentSignups: []
+    const fetchDashboardData = async () => {
+      try {
+        const response = await fetch('/api/admin/signups');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch signup data');
+        }
+        
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          const signups = result.data;
+          
+          // Calculate stats from real data
+          const totalSignups = signups.length;
+          const newSignups = signups.filter((s: Signup) => s.status === 'new').length;
+          const contactedSignups = signups.filter((s: Signup) => s.status === 'contacted').length;
+          const qualifiedSignups = signups.filter((s: Signup) => s.status === 'qualified').length;
+          const enrolledSignups = signups.filter((s: Signup) => s.status === 'enrolled').length;
+          
+          // Get recent signups (last 5)
+          const recentSignups = signups.slice(0, 5);
+          
+          setStats({
+            totalSignups,
+            newSignups,
+            contactedSignups,
+            qualifiedSignups,
+            enrolledSignups,
+            recentSignups
+          });
+        } else {
+          // Fallback to mock data if API fails
+          console.warn('API returned no data, using mock data');
+          setStats({
+            totalSignups: 0,
+            newSignups: 0,
+            contactedSignups: 0,
+            qualifiedSignups: 0,
+            enrolledSignups: 0,
+            recentSignups: []
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+        // Fallback to empty stats if there's an error
+        setStats({
+          totalSignups: 0,
+          newSignups: 0,
+          contactedSignups: 0,
+          qualifiedSignups: 0,
+          enrolledSignups: 0,
+          recentSignups: []
+        });
+      } finally {
+        setLoading(false);
+      }
     };
-    
-    setStats(mockStats);
-    setLoading(false);
+
+    fetchDashboardData();
   }, []);
 
   const getStatusIcon = (status: string) => {

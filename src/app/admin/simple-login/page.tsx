@@ -18,11 +18,30 @@ export default function SimpleAdminLoginPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user is already authenticated
-    const isAuthenticated = localStorage.getItem('admin-authenticated') === 'true';
-    if (isAuthenticated) {
-      router.push('/admin');
-    }
+    // Check if user is already authenticated via cookie
+    const checkAuth = () => {
+      const cookies = document.cookie.split(';');
+      const authCookie = cookies.find(cookie => 
+        cookie.trim().startsWith('admin-simple-auth=')
+      );
+      
+      if (authCookie) {
+        try {
+          const cookieValue = authCookie.split('=')[1];
+          const authData = JSON.parse(decodeURIComponent(cookieValue));
+          const sessionAge = Date.now() - authData.loginTime;
+          const maxAge = 24 * 60 * 60 * 1000; // 24 hours
+          
+          if (sessionAge < maxAge) {
+            router.push('/admin');
+          }
+        } catch (error) {
+          console.warn('Invalid auth cookie:', error);
+        }
+      }
+    };
+    
+    checkAuth();
   }, [router]);
 
   const handlePasswordLogin = async (e: React.FormEvent) => {
@@ -34,9 +53,21 @@ export default function SimpleAdminLoginPage() {
 
       // Simple password check
       if (password === SIMPLE_AUTH_CONFIG.ADMIN_PASSWORD) {
-        // Set authentication flag
+        // Set secure authentication cookie
+        const authData = {
+          email: 'robspain@gmail.com', // Use first authorized email
+          loginTime: Date.now()
+        };
+        
+        // Set secure cookie with 24 hour expiration
+        const cookieValue = encodeURIComponent(JSON.stringify(authData));
+        const expirationDate = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+        
+        document.cookie = `admin-simple-auth=${cookieValue}; expires=${expirationDate.toUTCString()}; path=/; secure; samesite=strict`;
+        
+        // Also set localStorage for backward compatibility with existing layout
         localStorage.setItem('admin-authenticated', 'true');
-        localStorage.setItem('admin-email', 'robspain@gmail.com'); // Use first authorized email
+        localStorage.setItem('admin-email', 'robspain@gmail.com');
         localStorage.setItem('admin-login-time', Date.now().toString());
         
         router.push('/admin');

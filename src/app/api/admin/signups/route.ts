@@ -1,10 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-server';
+import { verifyAdminSession } from '@/lib/admin-auth';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    // Verify admin authentication
+    const adminUser = await verifyAdminSession(request);
+    if (!adminUser) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized access' },
+        { status: 401 }
+      );
+    }
+
     const supabase = createSupabaseAdminClient();
-    // In a real application, you would verify admin authentication here
     
     const { data: signups, error } = await supabase
       .from('signup_submissions')
@@ -51,6 +60,15 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   try {
+    // Verify admin authentication
+    const adminUser = await verifyAdminSession(request);
+    if (!adminUser) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized access' },
+        { status: 401 }
+      );
+    }
+
     const supabase = createSupabaseAdminClient();
     const body = await request.json();
     const { id, status, notes } = body;
@@ -113,6 +131,15 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    // Verify admin authentication
+    const adminUser = await verifyAdminSession(request);
+    if (!adminUser) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized access' },
+        { status: 401 }
+      );
+    }
+
     const supabase = createSupabaseAdminClient();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');

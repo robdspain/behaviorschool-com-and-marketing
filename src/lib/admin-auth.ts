@@ -60,13 +60,38 @@ export async function verifyAdminAuth(request: NextRequest): Promise<Authenticat
 /**
  * Alternative method for routes that use session-based auth
  * This checks the session cookie instead of Authorization header
+ * Also supports simple authentication mode
  */
 export async function verifyAdminSession(request: NextRequest): Promise<AuthenticatedUser | null> {
   try {
+    // Check for simple authentication first
+    const simpleAuthCookie = request.cookies.get('admin-simple-auth')?.value;
+    if (simpleAuthCookie) {
+      try {
+        const authData = JSON.parse(simpleAuthCookie);
+        const { email, loginTime } = authData;
+        
+        // Check if session is still valid (24 hours)
+        const sessionAge = Date.now() - loginTime;
+        const maxAge = 24 * 60 * 60 * 1000; // 24 hours
+        
+        if (sessionAge < maxAge && isAuthorizedAdmin(email)) {
+          return {
+            id: 'simple-auth-user',
+            email: email,
+            isAdmin: true
+          };
+        }
+      } catch (error) {
+        console.warn('Invalid simple auth cookie:', error);
+      }
+    }
+
+    // Fall back to Supabase authentication
     const supabase = createSupabaseAdminClient();
-    
-    // For now, we'll implement a basic check
-    // In production, you might want to verify session cookies more thoroughly
+    if (!supabase) {
+      return null;
+    }
     
     // This is a simplified approach - you might need to adjust based on your auth setup
     const sessionCookie = request.cookies.get('sb-access-token')?.value;
