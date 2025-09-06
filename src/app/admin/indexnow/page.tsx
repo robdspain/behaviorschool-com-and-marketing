@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { submitToIndexNow, submitCommonPages, COMMON_URLS } from '@/lib/indexnow';
+import { submitToIndexNow, submitPriorityUrls, PRIORITY_URLS } from '@/lib/indexnow';
 import { Button } from '@/components/ui/button';
 // import { Input } from '@/components/ui/input'; // Not used
 import { Textarea } from '@/components/ui/textarea';
@@ -41,7 +41,17 @@ export default function IndexNowAdminPage() {
         .filter(url => url.length > 0);
 
       const result = await submitToIndexNow(urlList);
-      setResults(result);
+      setResults({
+        success: result.success,
+        results: result.results.map(r => ({
+          endpoint: r.endpoint,
+          status: r.status,
+          success: r.success,
+          message: r.success ? 'Success' : (r.error || 'Failed')
+        })),
+        submittedUrls: result.submittedUrls,
+        timestamp: result.timestamp
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Submission failed');
     } finally {
@@ -55,8 +65,18 @@ export default function IndexNowAdminPage() {
     setResults(null);
 
     try {
-      const result = await submitCommonPages();
-      setResults(result);
+      const result = await submitPriorityUrls();
+      setResults({
+        success: result.success,
+        results: result.results.map(r => ({
+          endpoint: r.endpoint,
+          status: r.status,
+          success: r.success,
+          message: r.success ? 'Success' : (r.error || 'Failed')
+        })),
+        submittedUrls: result.submittedUrls,
+        timestamp: result.timestamp
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Submission failed');
     } finally {
@@ -71,7 +91,17 @@ export default function IndexNowAdminPage() {
 
     try {
       const result = await submitToIndexNow([url]);
-      setResults(result);
+      setResults({
+        success: result.success,
+        results: result.results.map(r => ({
+          endpoint: r.endpoint,
+          status: r.status,
+          success: r.success,
+          message: r.success ? 'Success' : (r.error || 'Failed')
+        })),
+        submittedUrls: result.submittedUrls,
+        timestamp: result.timestamp
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Submission failed');
     } finally {
@@ -112,15 +142,15 @@ export default function IndexNowAdminPage() {
             </Button>
 
             <div className="grid grid-cols-2 gap-2">
-              {Object.entries(COMMON_URLS).map(([key, url]) => (
+              {PRIORITY_URLS.map((url, index) => (
                 <Button
-                  key={key}
+                  key={index}
                   variant="outline"
                   size="sm"
                   onClick={() => handleSubmitSingleUrl(url)}
                   disabled={isSubmitting}
                 >
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
+                  {url}
                 </Button>
               ))}
             </div>

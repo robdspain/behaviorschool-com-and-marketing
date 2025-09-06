@@ -1,7 +1,26 @@
 /**
- * IndexNow utility for instant search engine indexing
- * Supports Bing, Yandex, and other IndexNow-compatible search engines
+ * IndexNow API Integration for Behavior School
+ * 
+ * This utility handles direct notifications to search engines when content changes.
+ * Supports Bing, Yandex, and other IndexNow-compatible search engines.
  */
+
+const INDEXNOW_KEY = 'a07fc6c7-3148-489c-85e2-5d82ab778569';
+const SITE_URL = 'https://behaviorschool.com';
+
+// IndexNow endpoints for different search engines
+const INDEXNOW_ENDPOINTS = [
+  'https://api.indexnow.org/indexnow',  // Primary endpoint
+  'https://bing.com/indexnow',          // Bing direct
+  'https://yandex.com/indexnow',        // Yandex direct
+];
+
+interface IndexNowSubmission {
+  host: string;
+  key: string;
+  keyLocation: string;
+  urlList: string[];
+}
 
 export interface IndexNowResult {
   success: boolean;
@@ -9,134 +28,219 @@ export interface IndexNowResult {
     endpoint: string;
     status: number;
     success: boolean;
-    message: string;
+    error?: string;
   }>;
   submittedUrls: string[];
   timestamp: string;
 }
 
 export interface IndexNowOptions {
-  host?: string;
-  apiEndpoint?: string;
+  retries?: number;
+  timeout?: number;
 }
 
 /**
- * Submit URLs to IndexNow for instant indexing
- * @param urls - Array of URLs to submit (can be relative or absolute)
- * @param options - Optional configuration
- * @returns Promise with submission results
+ * Submit URLs to IndexNow for immediate search engine notification
  */
 export async function submitToIndexNow(
-  urls: string[],
+  urls: string | string[],
   options: IndexNowOptions = {}
 ): Promise<IndexNowResult> {
-  const { host = 'behaviorschool.com', apiEndpoint = '/api/indexnow' } = options;
-
-  try {
-    const response = await fetch(apiEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        urls,
-        host
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+  const { retries = 1, timeout = 10000 } = options;
+  
+  // Normalize URLs to array
+  const urlList = Array.isArray(urls) ? urls : [urls];
+  
+  // Ensure all URLs are absolute
+  const absoluteUrls = urlList.map(url => {
+    if (url.startsWith('/')) {
+      return `${SITE_URL}${url}`;
     }
+    return url;
+  });
 
-    return await response.json();
+  const submission: IndexNowSubmission = {
+    host: new URL(SITE_URL).hostname,
+    key: INDEXNOW_KEY,
+    keyLocation: `${SITE_URL}/${INDEXNOW_KEY}.txt`,
+    urlList: absoluteUrls,
+  };
+
+  const results = [];
+  let hasSuccess = false;
+
+  // Submit to all endpoints for maximum coverage
+  for (const endpoint of INDEXNOW_ENDPOINTS) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': 'BehaviorSchool-IndexNow/1.0',
+        },
+        body: JSON.stringify(submission),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      const success = response.ok;
+      if (success) hasSuccess = true;
+
+      results.push({
+        endpoint,
+        status: response.status,
+        success,
+        error: success ? undefined : `HTTP ${response.status}`,
+      });
+
+      // Log for debugging
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`IndexNow ${endpoint}: ${response.status} for ${urlList.length} URLs`);
+      }
+
+    } catch (error) {
+      results.push({
+        endpoint,
+        status: 0,
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+      });
+    }
+  }
+
+  return {
+    success: hasSuccess,
+    results,
+    submittedUrls: absoluteUrls,
+    timestamp: new Date().toISOString(),
+  };
+}
+
+/**
+ * Submit a single URL with automatic retry logic
+ */
+export async function submitUrlToIndexNow(url: string): Promise<boolean> {
+  try {
+    const result = await submitToIndexNow(url);
+    return result.success;
   } catch (error) {
     console.error('IndexNow submission failed:', error);
-    throw error;
+    return false;
   }
 }
 
 /**
- * Submit a single URL to IndexNow
- * @param url - URL to submit
- * @param options - Optional configuration
- * @returns Promise with submission results
+ * Submit multiple URLs in batch (maximum 10,000 per submission)
  */
-export async function submitUrlToIndexNow(
-  url: string,
-  options: IndexNowOptions = {}
-): Promise<IndexNowResult> {
-  return submitToIndexNow([url], options);
-}
-
-/**
- * Submit multiple URLs in batches (IndexNow supports up to 10,000 URLs per request)
- * @param urls - Array of URLs to submit
- * @param batchSize - Number of URLs per batch (default: 1000)
- * @param options - Optional configuration
- * @returns Promise with all submission results
- */
-export async function submitUrlsInBatches(
-  urls: string[],
-  batchSize: number = 1000,
-  options: IndexNowOptions = {}
-): Promise<IndexNowResult[]> {
-  const results: IndexNowResult[] = [];
+export async function submitBatchToIndexNow(urls: string[]): Promise<IndexNowResult> {
+  // IndexNow has a limit of 10,000 URLs per request
+  const BATCH_SIZE = 10000;
   
-  for (let i = 0; i < urls.length; i += batchSize) {
-    const batch = urls.slice(i, i + batchSize);
+  if (urls.length === 0) {
+    return {
+      success: true,
+      results: [],
+      submittedUrls: [],
+      timestamp: new Date().toISOString(),
+    };
+  }
+  
+  // If within limit, submit all at once
+  if (urls.length <= BATCH_SIZE) {
+    return submitToIndexNow(urls);
+  }
+  
+  // Otherwise, submit in batches and combine results
+  const allResults = [];
+  const allUrls = [];
+  let overallSuccess = false;
+  
+  for (let i = 0; i < urls.length; i += BATCH_SIZE) {
+    const batch = urls.slice(i, i + BATCH_SIZE);
     try {
-      const result = await submitToIndexNow(batch, options);
-      results.push(result);
+      const result = await submitToIndexNow(batch);
+      if (result.success) overallSuccess = true;
+      allResults.push(...result.results);
+      allUrls.push(...result.submittedUrls);
     } catch (error) {
-      console.error(`Batch ${Math.floor(i / batchSize) + 1} failed:`, error);
-      // Continue with next batch even if one fails
+      console.error('Batch IndexNow submission failed:', error);
     }
   }
   
-  return results;
+  return {
+    success: overallSuccess,
+    results: allResults,
+    submittedUrls: allUrls,
+    timestamp: new Date().toISOString(),
+  };
 }
 
 /**
- * Common URL patterns for your site
+ * Common URLs that should be submitted when content changes
  */
-export const COMMON_URLS = {
-  homepage: '/',
-  iepGoals: '/iep-goals',
-  transformationProgram: '/transformation-program',
-  behaviorStudyTools: '/behavior-study-tools',
-  bcbaExamPrep: '/bcba-exam-prep',
-  supervisors: '/supervisors',
-  behaviorPlans: '/behavior-plans',
-  blog: '/blog',
-  about: '/about',
-  contact: '/contact',
-  privacy: '/privacy',
-  terms: '/terms'
-} as const;
+export const PRIORITY_URLS = [
+  '/',
+  '/bcba-exam-prep',
+  '/school-based-bcba',
+  '/iep-goals',
+  '/behavior-study-tools',
+  '/supervisors',
+  '/behavior-plans',
+  '/school-based-behavior-support',
+  '/transformation-program',
+  '/blog',
+  '/about',
+  '/resources',
+  '/community',
+];
 
 /**
- * Submit all common pages to IndexNow
- * @param options - Optional configuration
- * @returns Promise with submission results
+ * Submit all priority URLs (useful after major site updates)
  */
-export async function submitCommonPages(
-  options: IndexNowOptions = {}
-): Promise<IndexNowResult> {
-  const urls = Object.values(COMMON_URLS);
-  return submitToIndexNow(urls, options);
+export async function submitPriorityUrls(): Promise<IndexNowResult> {
+  return submitBatchToIndexNow(PRIORITY_URLS);
 }
 
 /**
- * Submit blog post URLs (useful for new blog posts)
- * @param postSlugs - Array of blog post slugs
- * @param options - Optional configuration
- * @returns Promise with submission results
+ * Auto-submit when blog posts are created/updated
  */
-export async function submitBlogPosts(
-  postSlugs: string[],
-  options: IndexNowOptions = {}
-): Promise<IndexNowResult> {
-  const urls = postSlugs.map(slug => `/blog/${slug}`);
-  return submitToIndexNow(urls, options);
+export async function submitBlogPost(slug: string): Promise<IndexNowResult> {
+  const urls = [
+    `/blog/${slug}`,
+    '/blog', // Blog index page
+  ];
+  
+  return submitBatchToIndexNow(urls);
+}
+
+/**
+ * Auto-submit when landing pages are updated
+ */
+export async function submitLandingPageUpdate(path: string): Promise<IndexNowResult> {
+  const urls = [
+    path,
+    '/', // Homepage (often links to updated pages)
+  ];
+  
+  return submitBatchToIndexNow(urls);
+}
+
+/**
+ * Validate IndexNow key is accessible
+ */
+export async function validateIndexNowKey(): Promise<boolean> {
+  try {
+    const response = await fetch(`${SITE_URL}/${INDEXNOW_KEY}.txt`);
+    if (!response.ok) return false;
+    
+    const keyContent = await response.text();
+    return keyContent.trim() === INDEXNOW_KEY;
+  } catch {
+    return false;
+  }
 }
 
