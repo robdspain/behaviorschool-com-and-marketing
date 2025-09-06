@@ -491,42 +491,265 @@ export default function GhostEditor() {
               </button>
             </div>
             
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Excerpt
+            <div className="space-y-6 max-h-[calc(100vh-120px)] overflow-y-auto">
+              {/* Feature Image Section */}
+              <div className="border-b border-slate-200 pb-6">
+                <label className="block text-sm font-medium text-slate-700 mb-3">
+                  Feature Image
                 </label>
-                <textarea
-                  placeholder="Optional excerpt..."
-                  value={post.excerpt}
-                  onChange={(e) => setPost({ ...post, excerpt: e.target.value })}
-                  className="w-full h-20 text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                {post.featureImage ? (
+                  <div className="relative">
+                    <img 
+                      src={post.featureImage} 
+                      alt="Feature" 
+                      className="w-full h-32 object-cover rounded-lg border border-slate-200"
+                    />
+                    <button
+                      onClick={() => setPost({ ...post, featureImage: '' })}
+                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center">
+                    <Upload className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                    <p className="text-sm text-slate-600 mb-2">Upload feature image</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      id="feature-image"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          // In a real app, upload to your storage service
+                          const url = URL.createObjectURL(file);
+                          setPost({ ...post, featureImage: url });
+                        }
+                      }}
+                    />
+                    <label
+                      htmlFor="feature-image"
+                      className="text-sm text-blue-600 hover:text-blue-700 cursor-pointer"
+                    >
+                      Choose file
+                    </label>
+                  </div>
+                )}
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Tags
-                </label>
-                <input
-                  type="text"
-                  placeholder="Comma-separated tags"
-                  value={post.tags}
-                  onChange={(e) => setPost({ ...post, tags: e.target.value })}
-                  className="w-full text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+              {/* Basic Settings */}
+              <div className="border-b border-slate-200 pb-6">
+                <h4 className="text-sm font-semibold text-slate-900 mb-4">Basic Settings</h4>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      URL Slug
+                    </label>
+                    <div className="flex items-center text-sm">
+                      <span className="text-slate-500 bg-slate-50 px-3 py-2 border border-r-0 border-slate-200 rounded-l-lg">
+                        /blog/
+                      </span>
+                      <input
+                        type="text"
+                        placeholder="post-url-slug"
+                        className="flex-1 border border-slate-200 rounded-r-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Excerpt
+                    </label>
+                    <textarea
+                      placeholder="Optional excerpt for previews..."
+                      value={post.excerpt}
+                      onChange={(e) => setPost({ ...post, excerpt: e.target.value })}
+                      className="w-full h-20 text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">
+                      {post.excerpt.length}/300 characters
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Tags
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="BCBA, education, behavior-analysis"
+                      value={post.tags}
+                      onChange={(e) => setPost({ ...post, tags: e.target.value })}
+                      className="w-full text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">
+                      Separate tags with commas
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <label className="flex items-center gap-3">
-                  <input
-                    type="checkbox"
-                    checked={post.featured}
-                    onChange={(e) => setPost({ ...post, featured: e.target.checked })}
-                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="text-sm text-slate-700">Feature this post</span>
-                </label>
+              {/* Publishing Options */}
+              <div className="border-b border-slate-200 pb-6">
+                <h4 className="text-sm font-semibold text-slate-900 mb-4">Publishing</h4>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Visibility
+                    </label>
+                    <select className="w-full text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      <option value="public">Public</option>
+                      <option value="members">Members only</option>
+                      <option value="paid">Paid members only</option>
+                      <option value="draft">Draft</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Publish Date
+                    </label>
+                    <input
+                      type="datetime-local"
+                      className="w-full text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">
+                      Leave empty to publish immediately
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        checked={post.featured}
+                        onChange={(e) => setPost({ ...post, featured: e.target.checked })}
+                        className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                      />
+                      <span className="text-sm text-slate-700">Feature this post</span>
+                    </label>
+                    <p className="text-xs text-slate-500 mt-1 ml-6">
+                      Featured posts appear at the top of your blog
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* SEO & Social */}
+              <div className="border-b border-slate-200 pb-6">
+                <h4 className="text-sm font-semibold text-slate-900 mb-4">SEO & Social</h4>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Meta Title
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Custom title for search engines"
+                      className="w-full text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">
+                      Recommended: 70 characters or less
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Meta Description
+                    </label>
+                    <textarea
+                      placeholder="Custom description for search engines and social media"
+                      className="w-full h-16 text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">
+                      Recommended: 156 characters or less
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Social Image
+                    </label>
+                    <div className="text-xs text-slate-500 mb-2">
+                      Custom image for social media shares (optional)
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="w-full text-sm border border-slate-200 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Advanced */}
+              <div className="pb-6">
+                <h4 className="text-sm font-semibold text-slate-900 mb-4">Advanced</h4>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Author
+                    </label>
+                    <select className="w-full text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                      <option value="rob-spain">Rob Spain</option>
+                      <option value="behavior-school">Behavior School</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                      Canonical URL
+                    </label>
+                    <input
+                      type="url"
+                      placeholder="https://example.com/original-post"
+                      className="w-full text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">
+                      For republished content only
+                    </p>
+                  </div>
+
+                  <div>
+                    <details className="group">
+                      <summary className="text-sm font-medium text-slate-700 cursor-pointer list-none">
+                        <span className="flex items-center justify-between">
+                          Code Injection
+                          <span className="text-slate-400 group-open:rotate-180 transition-transform">
+                            ▼
+                          </span>
+                        </span>
+                      </summary>
+                      <div className="mt-3 space-y-3">
+                        <div>
+                          <label className="block text-xs font-medium text-slate-600 mb-1">
+                            Post Header
+                          </label>
+                          <textarea
+                            placeholder="<style>...</style> or <script>...</script>"
+                            className="w-full h-16 text-xs font-mono border border-slate-200 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-medium text-slate-600 mb-1">
+                            Post Footer
+                          </label>
+                          <textarea
+                            placeholder="<script>...</script>"
+                            className="w-full h-16 text-xs font-mono border border-slate-200 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                          />
+                        </div>
+                      </div>
+                    </details>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

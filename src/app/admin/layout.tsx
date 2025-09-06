@@ -278,6 +278,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <a href="/admin/users" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                   Users
                 </a>
+                <a href="/admin/analytics" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
+                  Analytics
+                </a>
               </nav>
               <button
                 onClick={handleSignOut}
