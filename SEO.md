@@ -49,6 +49,13 @@
 - ✅ **Canonical URLs** - Duplicate content prevention
 - ✅ **Robot directives** - Proper indexing instructions
 
+#### **6. IndexNow Integration ✅** 
+- ✅ **IndexNow API key generated** - Unique key for instant search engine notifications
+- ✅ **Multi-endpoint submission** - Supports Bing, Yandex, and primary IndexNow API
+- ✅ **Automated API routes** - `/api/indexnow` for programmatic submissions
+- ✅ **Manual submission script** - Command-line tool for immediate URL submissions
+- ✅ **Priority URL management** - Predefined list of important pages for bulk submissions
+
 ---
 
 ## 🔍 Remaining SEO Issues to Address
@@ -305,12 +312,119 @@
 
 ---
 
+## 🚀 **INDEXNOW INTEGRATION** (Instant Search Engine Notifications)
+
+### **What is IndexNow?**
+IndexNow is a protocol that allows you to instantly notify search engines when your website content changes, rather than waiting for search engines to crawl and discover updates naturally.
+
+### **Implementation Status: ✅ COMPLETE**
+
+#### **IndexNow Setup Completed:**
+- **✅ API Key Generated:** `a07fc6c7-3148-489c-85e2-5d82ab778569`
+- **✅ Key File Created:** `https://behaviorschool.com/a07fc6c7-3148-489c-85e2-5d82ab778569.txt`
+- **✅ Multi-endpoint Support:** Bing, Yandex, and primary IndexNow API
+- **✅ Automated API Route:** `/api/indexnow` for programmatic submissions
+- **✅ Manual CLI Tool:** `scripts/indexnow-submit.js` for immediate submissions
+
+#### **Search Engine Coverage:**
+- **✅ Microsoft Bing** - Direct IndexNow support
+- **✅ Yandex** - Russia's largest search engine
+- **✅ API.IndexNow.org** - Primary endpoint (forwards to participating engines)
+
+### **How to Use IndexNow:**
+
+#### **1. API Endpoint Usage:**
+```bash
+# Submit specific URLs
+curl -X POST https://behaviorschool.com/api/indexnow \
+  -H "Content-Type: application/json" \
+  -d '{"urls": ["/", "/bcba-exam-prep", "/iep-goals"]}'
+
+# Submit all priority URLs
+curl -X POST https://behaviorschool.com/api/indexnow \
+  -H "Content-Type: application/json" \
+  -d '{"action": "priority"}'
+
+# Validate IndexNow key
+curl https://behaviorschool.com/api/indexnow?action=validate
+```
+
+#### **2. Manual Command-Line Submissions:**
+```bash
+# Submit all priority URLs (recommended after major updates)
+node scripts/indexnow-submit.js --priority
+
+# Submit specific URLs
+node scripts/indexnow-submit.js --urls / /bcba-exam-prep /iep-goals
+
+# Submit new blog post
+node scripts/indexnow-submit.js --blog "bcba-salary-guide-2025"
+
+# Validate IndexNow key accessibility
+node scripts/indexnow-submit.js --validate
+```
+
+#### **3. Programmatic Integration:**
+```javascript
+import { submitToIndexNow, submitPriorityUrls } from '@/lib/indexnow';
+
+// Submit URLs after content updates
+await submitToIndexNow(['/blog/new-post', '/blog']);
+
+// Submit all priority URLs after site updates
+await submitPriorityUrls();
+```
+
+### **When to Use IndexNow:**
+
+#### **Immediate Submission (Use CLI Tool):**
+- ✅ **New blog posts** - Get indexed within hours instead of days
+- ✅ **Landing page updates** - Changes to your key pages (/iep-goals, /bcba-exam-prep, etc.)
+- ✅ **After major site updates** - Use `--priority` to submit all important pages
+- ✅ **New tool launches** - Ensure search engines discover new features immediately
+
+#### **Automated Integration (Future Enhancement):**
+- **Ghost CMS webhook** - Auto-submit when blog posts are published
+- **Page deployment** - Auto-submit updated landing pages after builds
+- **Sitemap updates** - Auto-submit when new pages are added
+
+### **Expected Benefits:**
+- **⚡ Faster indexing** - Hours instead of days/weeks for new content
+- **🎯 Bing visibility** - Better coverage in Microsoft's search ecosystem  
+- **📈 Competitive advantage** - Get indexed before competitors discover IndexNow
+- **🔄 Real-time updates** - Content changes reflected in search results quickly
+
+### **Priority URLs Configured:**
+```
+/ (homepage)
+/bcba-exam-prep
+/school-based-bcba
+/iep-goals
+/behavior-study-tools
+/supervisors
+/behavior-plans
+/school-based-behavior-support
+/transformation-program
+/blog
+/about
+/resources
+/community
+```
+
+### **Monitoring IndexNow Success:**
+- **Bing Webmaster Tools** - Monitor IndexNow submissions and indexing status
+- **Server logs** - Track successful API submissions (HTTP 200 responses)
+- **Manual verification** - Check if pages appear in Bing search results faster
+
+---
+
 ## 🔧 Tools & Resources
 
 ### **Essential SEO Tools:**
 - **Google Search Console** - Free indexing & performance data
 - **Google Analytics 4** - Traffic and conversion tracking  
 - **Google PageSpeed Insights** - Core Web Vitals monitoring
+- **IndexNow CLI Tool** - Instant search engine notifications (implemented ✅)
 - **Schema.org** - Structured data reference
 - **Screaming Frog** - Technical SEO auditing (optional)
 
