@@ -4,8 +4,9 @@
  * This provides faster Google indexing than waiting for crawling.
  * Requires Google Cloud Service Account setup.
  */
+import * as jwt from 'jsonwebtoken';
 
-interface GoogleIndexingResult {
+export interface GoogleIndexingResult {
   success: boolean;
   urls: string[];
   errors?: string[];
@@ -88,9 +89,35 @@ export async function submitToGoogleIndexing(urls: string | string[]): Promise<G
 }
 
 async function getGoogleAccessToken(serviceAccountKey: string): Promise<string> {
-  // This is a simplified version - in production you'd use Google's official SDK
-  // For now, return placeholder to show the structure
-  throw new Error('Google Indexing API requires service account setup - see setup instructions');
+  const key = JSON.parse(serviceAccountKey);
+  const token = jwt.sign(
+    {
+      iss: key.client_email,
+      scope: 'https://www.googleapis.com/auth/indexing',
+      aud: 'https://oauth2.googleapis.com/token',
+      exp: Math.floor(Date.now() / 1000) + 3600,
+      iat: Math.floor(Date.now() / 1000),
+    },
+    key.private_key,
+    { algorithm: 'RS256' }
+  );
+
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      assertion: token,
+    }),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(`Failed to fetch access token: ${data.error_description}`);
+  }
+  return data.access_token;
 }
 
 /**
