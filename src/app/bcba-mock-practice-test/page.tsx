@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     "bcba test prep",
     "bcba exam prep"
   ],
+  canonical: "https://behaviorschool.com/bcba-mock-practice-test",
   openGraph: {
     title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
     description: "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
@@ -61,7 +62,7 @@ export default function BCBAMockPracticeTestPage() {
   const mockTestFeatures = [
     {
       title: "Realistic Exam Practice",
-      description: "Practice with exam-style questions and timing based on the official BCBA exam structure outlined in the <a href='https://www.bacb.com/bcba/' target='_blank' rel='noopener noreferrer' className='text-emerald-600 hover:text-emerald-700 underline'>BCBA Handbook</a>.",
+      description: "Practice with exam-style questions and timing based on the official BCBA exam structure outlined in the BCBA Handbook.",
       icon: Target,
       highlight: "4-hour timed sessions"
     },
@@ -123,39 +124,152 @@ export default function BCBAMockPracticeTestPage() {
 
   const practiceOptions = [
     {
-      title: "Quick Mini Mock",
-      description: "25 questions in 30 minutes - perfect for focused practice sessions",
-      duration: "30 minutes",
-      questions: "25 questions",
-      ideal: "Daily practice",
-      ctaText: "Start Mini Mock",
+      title: "Domain Mini-Exams",
+      description: "Target specific BCBA domains with focused practice sessions. Each domain contains the exact number of questions as the real exam.",
+      duration: "15-45 minutes",
+      questions: "8-35 questions",
+      ideal: "Focused practice",
+      ctaText: "Start Domain Practice",
       ctaUrl: "https://study.behaviorschool.com/free-practice",
-      popular: false
+      popular: false,
+      features: ["Domain A: 8 questions", "Domain G: 35 questions", "All 9 domains available", "Free with detailed analytics"]
     },
     {
-      title: "Full Practice Exam",
-      description: "Complete 185-question simulation matching the real BCBA exam format",
+      title: "Full Mock Exam",
+      description: "Complete 185-question simulation with exact timing and question distribution matching the real BCBA exam.",
       duration: "4 hours",
       questions: "185 questions",
-      ideal: "Comprehensive assessment",
+      ideal: "Complete assessment",
       ctaText: "Take Full Mock Exam",
       ctaUrl: "https://study.behaviorschool.com/free-practice",
-      popular: true
+      popular: true,
+      features: ["One free complete exam", "Exact BACB question distribution", "Comprehensive performance analytics", "Detailed explanations included"]
     },
     {
-      title: "Targeted Practice",
-      description: "Focus on specific content areas where you need the most improvement",
+      title: "Daily Practice Questions",
+      description: "Build consistent study habits with daily question practice. Choose your domains and track your progress over time.",
       duration: "Flexible",
-      questions: "Customizable",
-      ideal: "Skill building",
-      ctaText: "Practice by Topic",
+      questions: "10 questions daily (free)",
+      ideal: "Daily habit building",
+      ctaText: "Start Daily Practice",
       ctaUrl: "https://study.behaviorschool.com/free-practice",
-      popular: false
+      popular: false,
+      features: ["10 free questions per day", "Choose specific domains", "Adaptive difficulty", "Progress tracking included"]
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Course",
+            "name": "Free BCBA Mock Practice Test",
+            "description": "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
+            "url": "https://behaviorschool.com/bcba-mock-practice-test",
+            "provider": {
+              "@type": "Organization",
+              "name": "Behavior School",
+              "url": "https://behaviorschool.com"
+            },
+            "educationalLevel": "Professional",
+            "courseMode": "Online",
+            "hasCourseInstance": [
+              {
+                "@type": "CourseInstance",
+                "courseMode": "Online",
+                "name": "Domain Mini-Exams",
+                "description": "Target specific BCBA domains with focused practice sessions",
+                "duration": "PT30M"
+              },
+              {
+                "@type": "CourseInstance",
+                "courseMode": "Online", 
+                "name": "Full Mock Exam",
+                "description": "Complete 185-question simulation with exact timing",
+                "duration": "PT4H"
+              },
+              {
+                "@type": "CourseInstance",
+                "courseMode": "Online",
+                "name": "Daily Practice Questions", 
+                "description": "Build consistent study habits with daily question practice",
+                "duration": "PT15M"
+              }
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock",
+              "name": "Free BCBA Mock Practice Tests"
+            },
+            "about": [
+              {
+                "@type": "Thing",
+                "name": "BCBA Certification"
+              },
+              {
+                "@type": "Thing", 
+                "name": "Behavior Analysis"
+              },
+              {
+                "@type": "Thing",
+                "name": "Mock Exams"
+              }
+            ]
+          })
+        }}
+      />
+      
+      {/* FAQ Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How realistic are your mock exams compared to the actual BCBA exam?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our mock exams match the real BCBA exam with exact question distribution (Domain A: 8 questions, Domain G: 35 questions, etc.), 4-hour time limit, multiple choice format with detailed scenarios, computer-based interface simulation, and difficulty calibrated to BCBA exam complexity."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What analytics do I get after completing a mock exam?",
+                "acceptedAnswer": {
+                  "@type": "Answer", 
+                  "text": "Our comprehensive analytics include millisecond-precision response time analysis, domain-specific performance breakdown across all 9 BCBA domains, answer pattern tracking showing uncertainty, time management insights with pacing recommendations, weak area identification, and trend analysis showing improvement over multiple sessions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What's included in the free version?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Free access includes one complete 185-question mock exam with 4-hour timing, domain mini-exams for all domains, 10 daily practice questions with adaptive difficulty, complete analytics with all performance metrics, and detailed explanations for every question. No credit card required."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Will I see the same questions if I retake the mock exam?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No, our smart question management system includes question exposure tracking so our AI remembers every question you've seen, adaptive selection choosing new questions based on your performance, a large question bank with thousands of unique questions, and difficulty matching calibrated to your skill level."
+                }
+              }
+            ]
+          })
+        }}
+      />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs */}
         <div className="pt-8 pb-4">
@@ -195,18 +309,6 @@ export default function BCBAMockPracticeTestPage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-              
-              <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="border-2 border-blue-200 text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl"
-              >
-                <Link href="/behavior-study-tools">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  Explore Study Tools
-                </Link>
-              </Button>
             </div>
 
             <div className="flex items-center justify-center space-x-8 text-sm text-slate-600">
@@ -221,6 +323,90 @@ export default function BCBAMockPracticeTestPage() {
               <div className="flex items-center space-x-2">
                 <BarChart3 className="h-4 w-4 text-emerald-600" />
                 <span>Detailed analytics</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Advanced Mock Test Platform */}
+        <section className="py-20 bg-gradient-to-br from-blue-50 to-emerald-50">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Advanced Mock Test Platform with Real-Time Analytics
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Experience the most comprehensive BCBA mock testing system with precision tracking and detailed performance insights
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Precise Performance Tracking</h3>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <BarChart3 className="h-4 w-4 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">Response Time Analysis</h4>
+                    <p className="text-slate-600 text-sm">Track your response time to the millisecond for every question, including first-interaction delay and total thinking time.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <TrendingUp className="h-4 w-4 text-emerald-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">Domain-Specific Performance</h4>
+                    <p className="text-slate-600 text-sm">Get detailed breakdowns for all 9 BCBA domains (A-I) with accuracy percentages and time management insights.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Brain className="h-4 w-4 text-purple-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">Answer Pattern Analysis</h4>
+                    <p className="text-slate-600 text-sm">Monitor answer changes, confidence levels, and decision-making patterns to identify test-taking weaknesses.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-100 to-emerald-100 rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Smart Question Management</h3>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Target className="h-4 w-4 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">Adaptive Question Selection</h4>
+                    <p className="text-slate-600 text-sm">Our AI ensures you never see the same question twice and adjusts difficulty based on your performance level.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Shield className="h-4 w-4 text-emerald-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">Realistic Exam Simulation</h4>
+                    <p className="text-slate-600 text-sm">Exact timing, question distribution, and interface matching the real BCBA computer-based test environment.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Award className="h-4 w-4 text-purple-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">Detailed Explanations</h4>
+                    <p className="text-slate-600 text-sm">Every question includes comprehensive explanations with references to help you understand concepts thoroughly.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -252,7 +438,7 @@ export default function BCBAMockPracticeTestPage() {
                   <h3 className="text-2xl font-bold text-slate-900 mb-4">{option.title}</h3>
                   <p className="text-slate-600 mb-6">{option.description}</p>
                   
-                  <div className="space-y-3">
+                  <div className="space-y-3 mb-6">
                     <div className="flex items-center justify-center space-x-2 text-sm text-slate-600">
                       <Clock className="h-4 w-4 text-blue-600" />
                       <span>{option.duration}</span>
@@ -265,6 +451,17 @@ export default function BCBAMockPracticeTestPage() {
                       {option.ideal}
                     </div>
                   </div>
+                  
+                  {option.features && (
+                    <div className="text-left space-y-2 mb-6">
+                      {option.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center space-x-3">
+                          <CheckCircle className="h-4 w-4 text-emerald-600 flex-shrink-0" />
+                          <span className="text-sm text-slate-700">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <Button 
@@ -399,18 +596,6 @@ export default function BCBAMockPracticeTestPage() {
                     Take Your First Mock Test
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
-                </Button>
-                
-                <Button 
-                  asChild 
-                  variant="outline" 
-                  size="lg"
-                  className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-2xl"
-                >
-                  <Link href="/bcba-exam-prep">
-                    <BookOpen className="mr-2 h-5 w-5" />
-                    Full Exam Prep Course
-                  </Link>
                 </Button>
               </div>
             </div>
@@ -699,18 +884,6 @@ export default function BCBAMockPracticeTestPage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-              
-              <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="border-2 border-blue-200 text-blue-700 hover:bg-blue-50 px-8 py-4 rounded-2xl"
-              >
-                <Link href="/community">
-                  <Users className="mr-2 h-5 w-5" />
-                  Join Study Community
-                </Link>
-              </Button>
             </div>
 
             <div className="flex items-center justify-center space-x-8 text-sm text-slate-600">
@@ -725,6 +898,137 @@ export default function BCBAMockPracticeTestPage() {
               <div className="flex items-center space-x-2">
                 <Award className="h-4 w-4 text-emerald-600" />
                 <span>Evidence-based</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xl text-slate-600">
+                Common questions about BCBA mock practice tests and exam preparation
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">How realistic are your mock exams compared to the actual BCBA exam?</h3>
+                <p className="text-slate-600 mb-4">
+                  Our mock exams are designed to match the real BCBA exam as closely as possible:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>Exact question distribution:</strong> Domain A: 8 questions, Domain B: 25 questions, Domain G: 35 questions, etc.</li>
+                  <li><strong>4-hour time limit:</strong> Same as the actual computer-based test</li>
+                  <li><strong>Question format:</strong> Multiple choice with detailed scenarios matching real exam style</li>
+                  <li><strong>Interface simulation:</strong> Experience the computer-based testing environment</li>
+                  <li><strong>Difficulty calibration:</strong> Questions aligned with BCBA exam complexity</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">What analytics do I get after completing a mock exam?</h3>
+                <p className="text-slate-600 mb-4">
+                  Our advanced analytics provide comprehensive performance insights:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>Response time analysis:</strong> Millisecond-precision timing for every question</li>
+                  <li><strong>Domain-specific breakdown:</strong> Performance across all 9 BCBA domains (A-I)</li>
+                  <li><strong>Answer pattern tracking:</strong> How many times you changed answers (indicates uncertainty)</li>
+                  <li><strong>Time management insights:</strong> Which domains took longest, pacing recommendations</li>
+                  <li><strong>Weak area identification:</strong> Specific topics requiring additional study</li>
+                  <li><strong>Trend analysis:</strong> Improvement over multiple practice sessions</li>
+                </ul>
+                <p className="text-slate-600 mt-4">
+                  This detailed analytics approach is based on <Link href="/bcba-study-fluency" className="text-blue-600 hover:text-blue-700 underline font-medium">fluency-based learning principles</Link> that prioritize both speed and accuracy in BCBA exam preparation.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">What&apos;s included in the free version?</h3>
+                <p className="text-slate-600 mb-4">
+                  We provide substantial free access to help you succeed:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>One complete full-length mock exam:</strong> All 185 questions with 4-hour timing</li>
+                  <li><strong>Domain mini-exams:</strong> Practice specific domains (A: 8 questions, B: 25, C: 20, etc.)</li>
+                  <li><strong>10 daily practice questions:</strong> Choose any domain, <Link href="/bcba-study-fluency" className="text-blue-600 hover:text-blue-700 underline font-medium">adaptive difficulty</Link> based on fluency principles</li>
+                  <li><strong>Complete analytics:</strong> All performance metrics and insights</li>
+                  <li><strong>Detailed explanations:</strong> Learn from every question with comprehensive feedback</li>
+                </ul>
+                <p className="text-slate-600 mt-4">
+                  No credit card required - start practicing immediately.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">How often should I take mock exams?</h3>
+                <p className="text-slate-600 mb-4">
+                  The optimal testing schedule depends on your preparation timeline:
+                </p>
+                <div className="grid md:grid-cols-3 gap-4 mb-4">
+                  <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+                    <h4 className="font-bold text-purple-800 mb-2">Early Prep (3-6 months out)</h4>
+                    <ul className="text-sm text-purple-700 space-y-1">
+                      <li>• One diagnostic test initially</li>
+                      <li>• Focus on content review</li>
+                      <li>• Weekly mini-domain exams</li>
+                    </ul>
+                  </div>
+                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                    <h4 className="font-bold text-blue-800 mb-2">Active Prep (1-3 months out)</h4>
+                    <ul className="text-sm text-blue-700 space-y-1">
+                      <li>• Full mock exam every 2 weeks</li>
+                      <li>• Analyze performance patterns</li>
+                      <li>• Focus on weak domains</li>
+                    </ul>
+                  </div>
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                    <h4 className="font-bold text-emerald-800 mb-2">Final Prep (2-4 weeks out)</h4>
+                    <ul className="text-sm text-emerald-700 space-y-1">
+                      <li>• 2-3 final practice exams</li>
+                      <li>• Simulate exact conditions</li>
+                      <li>• Build confidence</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Will I see the same questions if I retake the mock exam?</h3>
+                <p className="text-slate-600 mb-4">
+                  No, our smart question management system ensures fresh content:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>Question exposure tracking:</strong> Our AI remembers every question you&apos;ve seen</li>
+                  <li><strong>Adaptive selection:</strong> New questions chosen based on your performance level</li>
+                  <li><strong>Large question bank:</strong> Thousands of unique questions across all domains</li>
+                  <li><strong>Difficulty matching:</strong> Questions calibrated to your current skill level</li>
+                </ul>
+                <p className="text-slate-600 mt-4">
+                  This ensures every practice session provides new learning opportunities while maintaining appropriate challenge levels.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">What should I do if I&apos;m not scoring well on mock exams?</h3>
+                <p className="text-slate-600 mb-4">
+                  Low mock exam scores provide valuable diagnostic information:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>Identify weak domains:</strong> Use our analytics to see which areas need focus</li>
+                  <li><strong>Review question explanations:</strong> Understand why answers are correct/incorrect</li>
+                  <li><strong>Practice domain mini-exams:</strong> Target specific weak areas with focused practice</li>
+                  <li><strong>Check timing issues:</strong> Determine if accuracy or speed is the primary concern</li>
+                  <li><strong>Adjust study plan:</strong> Allocate more time to problematic domains</li>
+                </ul>
+                <p className="text-slate-600 mt-4">
+                  Remember: Mock exams are diagnostic tools. Low initial scores are normal and expected - they guide your preparation, not predict failure. For specialized career paths, consider reading our <Link href="/school-based-bcba" className="text-blue-600 hover:text-blue-700 underline font-medium">school-based BCBA guide</Link> for additional preparation insights.
+                </p>
               </div>
             </div>
           </div>

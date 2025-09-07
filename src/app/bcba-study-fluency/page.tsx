@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     "precision teaching",
     "safmeds"
   ],
+  canonical: "https://behaviorschool.com/bcba-study-fluency",
   openGraph: {
     title: "BCBA Study Fluency: The Secret to Passing the BCBA Exam",
     description: "Discover how fluency-based learning can help you pass the BCBA exam. Learn about the benefits of fluency, how to use it in your studies, and how our tools can help you succeed.",
@@ -130,6 +131,102 @@ export default function BCBAStudyFluencyPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "BCBA Study Fluency: The Secret to Passing the BCBA Exam",
+            "description": "Discover how fluency-based learning can help you pass the BCBA exam. Learn about the benefits of fluency, how to use it in your studies, and how our tools can help you succeed.",
+            "url": "https://behaviorschool.com/bcba-study-fluency",
+            "author": {
+              "@type": "Organization",
+              "name": "Behavior School",
+              "url": "https://behaviorschool.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Behavior School",
+              "url": "https://behaviorschool.com"
+            },
+            "datePublished": "2024-01-01",
+            "dateModified": "2024-12-01",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://behaviorschool.com/bcba-study-fluency"
+            },
+            "about": [
+              {
+                "@type": "Thing",
+                "name": "BCBA Exam Preparation"
+              },
+              {
+                "@type": "Thing",
+                "name": "Fluency-Based Learning"
+              },
+              {
+                "@type": "Thing",
+                "name": "Precision Teaching"
+              }
+            ],
+            "educationalLevel": "Professional",
+            "teaches": [
+              "Fluency-based learning principles",
+              "BCBA exam preparation strategies",
+              "Precision teaching methods",
+              "Response time optimization"
+            ]
+          })
+        }}
+      />
+      
+      {/* FAQ Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What exactly is fluency in BCBA exam preparation?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Fluency combines both speed and accuracy. It means you can answer BCBA questions quickly AND correctly, without hesitation. When you're fluent, basic concepts become automatic, freeing up mental resources for complex application questions. Our platform tracks your response time to the millisecond, measuring both your thinking time (latency) and total response speed for every question across all 9 BCBA domains."
+                }
+              },
+              {
+                "@type": "Question", 
+                "name": "What can I access for free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We offer substantial free access: 10 practice questions daily from any of the 9 BCBA domains, domain mini-exams for focused practice, one complete 185-question mock exam with 4-hour timing, real-time analytics showing your fluency metrics, and detailed explanations for every question. No credit card required."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How is this different from just studying flashcards or reading?", 
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Traditional study methods focus only on accuracy - getting the right answer eventually. Fluency-based learning adds the critical speed component. While traditional methods use passive reading and long study sessions with skills that fade quickly, fluency-based methods combine speed + accuracy with active recall, short frequent practice, and create durable automatic skills."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How long does it take to build fluency?",
+                "acceptedAnswer": {
+                  "@type": "Answer", 
+                  "text": "Fluency development follows a predictable progression over 8-12 weeks: Weeks 1-4 focus on building accurate knowledge foundation, Weeks 5-8 develop speed while maintaining accuracy through timed practice sessions, and Weeks 9-12 apply fluent knowledge to complex, application-style questions. Our platform provides the structured practice and detailed tracking needed for each phase."
+                }
+              }
+            ]
+          })
+        }}
+      />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs */}
         <div className="pt-8 pb-4">
@@ -165,21 +262,9 @@ export default function BCBAStudyFluencyPage() {
               >
                 <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
                   <Target className="mr-2 h-5 w-5" />
-                  Try Free Fluency Practice
+                  Start Free Fluency Practice
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
-              </Button>
-              
-              <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-4 rounded-2xl"
-              >
-                <Link href="/bcba-exam-prep">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  Full Exam Prep Course
-                </Link>
               </Button>
             </div>
 
@@ -195,6 +280,92 @@ export default function BCBAStudyFluencyPage() {
               <div className="flex items-center space-x-2">
                 <Award className="h-4 w-4 text-emerald-600" />
                 <span>Proven results</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How Our App Implements Fluency Training */}
+        <section className="py-20 bg-gradient-to-br from-purple-50 to-emerald-50">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              How Our Study App Implements Precision Fluency Training
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Our platform uses advanced behavioral measurement to track and build your BCBA exam fluency with scientific precision
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+            <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-emerald-100 rounded-2xl flex items-center justify-center mb-6">
+                <BarChart3 className="h-8 w-8 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Millisecond-Precision Timing</h3>
+              <p className="text-slate-600 mb-4">
+                Our system tracks your response time to the millisecond, measuring both latency (thinking time) and response speed for every question.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>Response time tracking</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>First-interaction delay measurement</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>Answer change frequency analysis</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-2xl flex items-center justify-center mb-6">
+                <TrendingUp className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Real-Time Fluency Metrics</h3>
+              <p className="text-slate-600 mb-4">
+                Track your correct-per-minute and error-per-minute rates across all 9 BCBA domains, with detailed trend analysis over time. Test your current fluency level with our <Link href="/bcba-mock-practice-test" className="text-blue-600 hover:text-blue-700 underline font-medium">comprehensive mock exams</Link>.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>Domain-specific fluency tracking</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>Session-by-session improvement</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>Fluency benchmark comparisons</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
+              <div className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                <Brain className="h-8 w-8 text-emerald-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Adaptive Difficulty Engine</h3>
+              <p className="text-slate-600 mb-4">
+                Our AI adjusts question difficulty based on your fluency level, ensuring you&apos;re always challenged at the optimal level for skill building.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>Personalized question selection</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>Optimal challenge level maintenance</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-600" />
+                  <span>Progressive skill building</span>
+                </div>
               </div>
             </div>
           </div>
@@ -593,6 +764,114 @@ export default function BCBAStudyFluencyPage() {
           </div>
         </section>
 
+        {/* Specific Practice Options */}
+        <section className="py-20 bg-white">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              Start Building Fluency Today - Free Options Available
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Choose from multiple practice formats designed to build your fluency systematically
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl shadow-lg border border-purple-200 p-8">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-purple-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Brain className="h-8 w-8" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Daily Practice Questions</h3>
+                <div className="text-emerald-600 font-bold text-lg">10 Free Questions Daily</div>
+              </div>
+              
+              <div className="space-y-4 mb-6">
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-purple-600" />
+                  <span className="text-slate-700">Choose from all 9 BCBA domains</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-purple-600" />
+                  <span className="text-slate-700">Real-time fluency tracking</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-purple-600" />
+                  <span className="text-slate-700">Detailed explanations included</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-purple-600" />
+                  <span className="text-slate-700">Adaptive difficulty adjustment</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-3xl shadow-lg border border-emerald-200 p-8">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Target className="h-8 w-8" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Domain Mini-Exams</h3>
+                <div className="text-emerald-600 font-bold text-lg">Free Domain-Specific Tests</div>
+              </div>
+              
+              <div className="space-y-4 mb-6">
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-emerald-600" />
+                  <span className="text-slate-700">Focus on specific weak areas</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-emerald-600" />
+                  <span className="text-slate-700">Domain A: 8 questions</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-emerald-600" />
+                  <span className="text-slate-700">Domain G: 35 questions</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-emerald-600" />
+                  <span className="text-slate-700">All domains available</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl shadow-lg border border-blue-200 p-8">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <BarChart3 className="h-8 w-8" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Full Mock Exam</h3>
+                <div className="text-emerald-600 font-bold text-lg">One Free Complete Exam</div>
+              </div>
+              
+              <div className="space-y-4 mb-6">
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-blue-600" />
+                  <span className="text-slate-700">185 questions like real exam</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-blue-600" />
+                  <span className="text-slate-700">4-hour time limit simulation</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-blue-600" />
+                  <span className="text-slate-700">Comprehensive analytics</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-blue-600" />
+                  <span className="text-slate-700">Fluency performance breakdown</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <div className="bg-gradient-to-r from-slate-100 to-slate-200 rounded-2xl p-6 mb-8">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">No Credit Card Required</h3>
+              <p className="text-slate-600">All free practice options are available immediately without signup. Create a free account to save your progress and access detailed analytics.</p>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-20">
           <div className="bg-gradient-to-r from-purple-600 to-emerald-600 rounded-3xl p-12 text-white">
@@ -615,18 +894,6 @@ export default function BCBAStudyFluencyPage() {
                     Start Free Practice Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
-                </Button>
-                
-                <Button 
-                  asChild 
-                  variant="outline" 
-                  size="lg"
-                  className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-2xl"
-                >
-                  <Link href="/behavior-study-tools">
-                    <BookOpen className="mr-2 h-5 w-5" />
-                    Explore All Study Tools
-                  </Link>
                 </Button>
               </div>
 
@@ -689,11 +956,126 @@ export default function BCBAStudyFluencyPage() {
           </div>
         </section>
 
+        {/* FAQ Section */}
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xl text-slate-600">
+                Common questions about fluency-based learning for BCBA exam preparation
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">What exactly is fluency in BCBA exam preparation?</h3>
+                <p className="text-slate-600 mb-4">
+                  Fluency combines both speed and accuracy. It means you can answer BCBA questions quickly AND correctly, without hesitation. When you&apos;re fluent, basic concepts become automatic, freeing up mental resources for complex application questions.
+                </p>
+                <p className="text-slate-600 mb-4">
+                  Our platform tracks your response time to the millisecond, measuring both your thinking time (latency) and total response speed for every question across all 9 BCBA domains.
+                </p>
+                <p className="text-slate-600">
+                  Want to experience this in action? Try our <Link href="/bcba-mock-practice-test" className="text-purple-600 hover:text-purple-700 underline font-medium">free mock practice tests</Link> to see how fluency tracking works in real exam conditions.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">How does your fluency tracking system work?</h3>
+                <p className="text-slate-600 mb-4">
+                  Our system measures multiple data points for each question:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>Response time:</strong> Total time from question display to answer submission</li>
+                  <li><strong>First-interaction delay:</strong> How long before you start engaging with the question</li>
+                  <li><strong>Answer changes:</strong> How many times you change your answer (indicates uncertainty)</li>
+                  <li><strong>Correct-per-minute rates:</strong> Your fluency score across different domains</li>
+                  <li><strong>Session analytics:</strong> Trends over time showing your improvement</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">What can I access for free?</h3>
+                <p className="text-slate-600 mb-4">
+                  We offer substantial free access to help you get started:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>10 practice questions daily:</strong> Choose from any of the 9 BCBA domains</li>
+                  <li><strong>Domain mini-exams:</strong> Take focused tests for each domain (Domain A: 8 questions, Domain G: 35 questions, etc.)</li>
+                  <li><strong>One complete mock exam:</strong> Full 185-question simulation with 4-hour timing</li>
+                  <li><strong>Real-time analytics:</strong> See your fluency metrics and performance trends</li>
+                  <li><strong>Detailed explanations:</strong> Learn from every question with comprehensive feedback</li>
+                </ul>
+                <p className="text-slate-600 mt-4">
+                  No credit card required - you can start practicing immediately.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">How is this different from just studying flashcards or reading?</h3>
+                <p className="text-slate-600 mb-4">
+                  Traditional study methods focus only on accuracy - getting the right answer eventually. Fluency-based learning adds the critical speed component:
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                    <h4 className="font-bold text-red-800 mb-2">Traditional Methods</h4>
+                    <ul className="text-sm text-red-700 space-y-1">
+                      <li>• Focus on accuracy only</li>
+                      <li>• Passive reading/highlighting</li>
+                      <li>• Long, infrequent study sessions</li>
+                      <li>• Skills fade quickly</li>
+                    </ul>
+                  </div>
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                    <h4 className="font-bold text-emerald-800 mb-2">Fluency-Based Methods</h4>
+                    <ul className="text-sm text-emerald-700 space-y-1">
+                      <li>• Speed + accuracy combined</li>
+                      <li>• Active recall with timing</li>
+                      <li>• Short, frequent practice</li>
+                      <li>• Durable, automatic skills</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">What does the research say about fluency training?</h3>
+                <p className="text-slate-600 mb-4">
+                  Decades of behavioral research support fluency training as superior to accuracy-only methods:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>Better retention:</strong> Fluent skills maintain over time, even with extended breaks from practice</li>
+                  <li><strong>Transfer to novel situations:</strong> Fluent knowledge applies better to new, complex problems</li>
+                  <li><strong>Reduced cognitive load:</strong> Automatic recall frees up working memory for higher-order thinking</li>
+                  <li><strong>Improved endurance:</strong> Fluency training builds stamina for long exam sessions</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">How long does it take to build fluency?</h3>
+                <p className="text-slate-600 mb-4">
+                  Fluency development follows a predictable progression over 8-12 weeks:
+                </p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>Weeks 1-4:</strong> Build accurate knowledge foundation (focus on understanding, not speed)</li>
+                  <li><strong>Weeks 5-8:</strong> Develop speed while maintaining accuracy (timed practice sessions)</li>
+                  <li><strong>Weeks 9-12:</strong> Apply fluent knowledge to complex, application-style questions</li>
+                </ul>
+                <p className="text-slate-600 mt-4">
+                  Our platform provides the structured practice and detailed tracking you need for each phase. If you&apos;re planning to work in schools, also check out our <Link href="/school-based-bcba" className="text-purple-600 hover:text-purple-700 underline font-medium">school-based BCBA guide</Link> for specialized preparation strategies.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Research References */}
-        <section className="py-16 bg-slate-50">
+        <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 className="text-2xl font-bold text-slate-900 mb-8">Research References</h3>
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
+            <div className="bg-slate-50 rounded-2xl p-8 shadow-lg border border-slate-200">
               <div className="space-y-4 text-sm text-slate-700">
                 <p>
                   Binder, C. (1996). Behavioral fluency: Evolution of a new paradigm. <em>The Behavior Analyst</em>, <em>19</em>(2), 163–197. https://doi.org/10.1007/BF03393163
