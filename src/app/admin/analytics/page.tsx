@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { BarChart3, Users, TrendingUp, Globe, Eye, MousePointer, Clock } from 'lucide-react';
+import { BarChart3, Users, TrendingUp, Globe, Eye, MousePointer } from 'lucide-react';
 import ConversionTrackingDashboard from '@/components/admin/ConversionTrackingDashboard';
 import SiteMapViewer from '@/components/admin/SiteMapViewer';
 

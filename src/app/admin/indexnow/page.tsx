@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { submitToIndexNow, submitPriorityUrls, PRIORITY_URLS } from '@/lib/indexnow';
+import { submitToIndexNow } from '@/lib/indexnow';
+import { submitPriorityUrlsUniversal, UNIVERSAL_PRIORITY_URLS } from '@/lib/universal-indexing';
 import { Button } from '@/components/ui/button';
 // import { Input } from '@/components/ui/input'; // Not used
 import { Textarea } from '@/components/ui/textarea';
@@ -65,16 +66,16 @@ export default function IndexNowAdminPage() {
     setResults(null);
 
     try {
-      const result = await submitPriorityUrls();
+      const result = await submitPriorityUrlsUniversal();
       setResults({
         success: result.success,
-        results: result.results.map(r => ({
+        results: result.indexnow.results.map(r => ({
           endpoint: r.endpoint,
           status: r.status,
           success: r.success,
           message: r.success ? 'Success' : (r.error || 'Failed')
         })),
-        submittedUrls: result.submittedUrls,
+        submittedUrls: result.indexnow.submittedUrls,
         timestamp: result.timestamp
       });
     } catch (err) {
@@ -142,7 +143,7 @@ export default function IndexNowAdminPage() {
             </Button>
 
             <div className="grid grid-cols-2 gap-2">
-              {PRIORITY_URLS.map((url, index) => (
+              {UNIVERSAL_PRIORITY_URLS.map((url, index) => (
                 <Button
                   key={index}
                   variant="outline"

@@ -6,7 +6,9 @@
 // Extend the Window interface to include gtag
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     gtag?: (...args: any[]) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dataLayer?: any[];
   }
 }
@@ -17,6 +19,7 @@ export interface ConversionEvent {
   event_label?: string;
   value?: number;
   currency?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   custom_parameters?: Record<string, any>;
 }
 
@@ -143,6 +146,7 @@ export const trackToolUsage = (
   tool_name: string,
   action: string,
   source_page: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additional_data?: Record<string, any>
 ): void => {
   trackConversion({
@@ -187,6 +191,7 @@ export const trackEmailSignup = (
   source_page: string,
   signup_type: 'newsletter' | 'waitlist' | 'download' = 'newsletter',
   user_email?: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additional_data?: Record<string, any>
 ): void => {
   trackLead({
@@ -266,6 +271,7 @@ export const trackFormSubmission = (
   form_name: string,
   source_page: string,
   success: boolean = true,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additional_data?: Record<string, any>
 ): void => {
   trackConversion({
@@ -288,6 +294,7 @@ export const trackButtonClick = (
   button_name: string,
   source_page: string,
   button_location: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additional_data?: Record<string, any>
 ): void => {
   trackConversion({

@@ -5,7 +5,7 @@
  * Supports Bing, Yandex, and other IndexNow-compatible search engines.
  */
 
-const https = require('https');
+import https from 'https';
 
 const INDEXNOW_KEY = 'a07fc6c7-3148-489c-85e2-5d82ab778569';
 const SITE_URL = 'https://behaviorschool.com';
@@ -179,7 +179,7 @@ async function submitBlogPost(slug, options = {}) {
   return submitToIndexNow(urls, options);
 }
 
-module.exports = {
+export {
   submitToIndexNow,
   validateIndexNowKey,
   submitBlogPost,

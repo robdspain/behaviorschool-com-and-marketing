@@ -39,7 +39,7 @@ export default function PerformanceMonitor() {
               window.gtag('event', 'web_vitals', {
                 event_category: 'Performance',
                 event_label: 'FID',
-                value: Math.round(entry.processingStart - entry.startTime),
+                value: Math.round(((entry as PerformanceEntry & { processingStart?: number }).processingStart || 0) - entry.startTime),
                 non_interaction: true,
               });
             }
@@ -53,8 +53,9 @@ export default function PerformanceMonitor() {
         new PerformanceObserver((entryList) => {
           const entries = entryList.getEntries();
           entries.forEach((entry) => {
-            if (!entry.hadRecentInput) {
-              clsValue += entry.value;
+            const clsEntry = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+            if (!clsEntry.hadRecentInput) {
+              clsValue += clsEntry.value || 0;
             }
           });
           

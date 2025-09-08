@@ -83,7 +83,7 @@ export const useAnalytics = () => {
   const trackEmailSignupEvent = useCallback((
     signup_type: 'newsletter' | 'waitlist' | 'download' = 'newsletter',
     user_email?: string,
-    additional_data?: Record<string, any>
+    additional_data?: Record<string, unknown>
   ) => {
     trackEmailSignup(pathname, signup_type, user_email, additional_data);
   }, [pathname]);
@@ -106,7 +106,7 @@ export const useAnalytics = () => {
   const trackFormSubmissionEvent = useCallback((
     form_name: string,
     success: boolean = true,
-    additional_data?: Record<string, any>
+    additional_data?: Record<string, unknown>
   ) => {
     trackFormSubmission(form_name, pathname, success, additional_data);
   }, [pathname]);
@@ -114,7 +114,7 @@ export const useAnalytics = () => {
   const trackButtonClickEvent = useCallback((
     button_name: string,
     button_location: string,
-    additional_data?: Record<string, any>
+    additional_data?: Record<string, unknown>
   ) => {
     trackButtonClick(button_name, pathname, button_location, additional_data);
   }, [pathname]);
@@ -122,7 +122,7 @@ export const useAnalytics = () => {
   const trackToolUsageEvent = useCallback((
     tool_name: string,
     action: string,
-    additional_data?: Record<string, any>
+    additional_data?: Record<string, unknown>
   ) => {
     trackToolUsage(tool_name, action, pathname, additional_data);
   }, [pathname]);

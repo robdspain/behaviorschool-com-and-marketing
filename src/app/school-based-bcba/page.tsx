@@ -7,22 +7,15 @@ import {
   BookOpen, 
   Award, 
   Users, 
-  Building2, 
-  GraduationCap, 
   TrendingUp, 
-  Star, 
   ArrowRight, 
-  Clock, 
   Target, 
   Shield, 
-  Zap,
   FileText,
   Brain,
   MessageCircle,
   Settings,
-  ChevronRight,
-  PlayCircle,
-  Download
+  PlayCircle
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -101,7 +94,7 @@ export default function SchoolBasedBCBAPage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-600 mb-8">
-            School behavior doesn't have to feel overwhelming. As a school-based BCBA, you need practical, ethical systems built for real classrooms.
+            School behavior doesn&apos;t have to feel overwhelming. As a school-based BCBA, you need practical, ethical systems built for real classrooms.
           </p>
 
           {/* Quick Wins */}
@@ -335,7 +328,7 @@ export default function SchoolBasedBCBAPage() {
             </p>
 
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-xl mb-12">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">You'll gain:</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">You&apos;ll gain:</h3>
               
               <div className="grid md:grid-cols-2 gap-6 text-left">
                 <div className="flex items-start space-x-3">

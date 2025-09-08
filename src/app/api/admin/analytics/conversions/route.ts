@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Check authentication (you can add your admin auth logic here)
     // const isAuthenticated = await checkAdminAuth(request);

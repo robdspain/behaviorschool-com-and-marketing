@@ -11,7 +11,6 @@ import {
   Mail, 
   Target, 
   DollarSign,
-  Calendar,
   RefreshCw
 } from 'lucide-react';
 
@@ -42,7 +41,7 @@ interface ConversionEvent {
   resource_name?: string;
   value: number;
   timestamp: string;
-  additional_data?: Record<string, any>;
+  additional_data?: Record<string, unknown>;
 }
 
 export default function ConversionTrackingDashboard() {
@@ -63,7 +62,7 @@ export default function ConversionTrackingDashboard() {
         throw new Error('Failed to fetch conversion data');
       }
 
-      const data = await response.json();
+      const data: { conversionData: ConversionData; recentEvents: ConversionEvent[] } = await response.json();
       setConversionData(data.conversionData);
       setRecentEvents(data.recentEvents || []);
     } catch (err) {
@@ -204,7 +203,7 @@ export default function ConversionTrackingDashboard() {
               {conversionData?.emailSignups || 0}
             </div>
             <p className="text-xs text-muted-foreground">
-              {conversionData?.trends?.emailSignups > 0 ? '+' : ''}
+              {(conversionData?.trends?.emailSignups ?? 0) > 0 ? '+' : ''}
               {conversionData?.trends?.emailSignups || 0}% from last period
             </p>
           </CardContent>
@@ -220,7 +219,7 @@ export default function ConversionTrackingDashboard() {
               {conversionData?.downloads || 0}
             </div>
             <p className="text-xs text-muted-foreground">
-              {conversionData?.trends?.downloads > 0 ? '+' : ''}
+              {(conversionData?.trends?.downloads ?? 0) > 0 ? '+' : ''}
               {conversionData?.trends?.downloads || 0}% from last period
             </p>
           </CardContent>

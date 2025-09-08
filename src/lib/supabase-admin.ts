@@ -43,3 +43,11 @@ export const withSupabaseAdmin = async <T>(
     return fallback;
   }
 };
+
+// Function export for compatibility
+export const createSupabaseAdminClient = () => {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase admin client not configured - missing URL or service key');
+  }
+  return supabaseAdmin;
+};

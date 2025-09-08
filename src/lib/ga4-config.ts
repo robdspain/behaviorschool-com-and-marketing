@@ -172,6 +172,7 @@ export const initializeGA4 = (measurementId: string) => {
  */
 export const trackConversionGoal = (
   goalName: keyof typeof GA4_CONVERSION_GOALS,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additionalData?: Record<string, any>
 ) => {
   if (typeof window === 'undefined' || !window.gtag) return;

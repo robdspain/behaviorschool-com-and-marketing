@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { 
-  submitBatchToIndexNow, 
-  submitPriorityUrls,
+  submitToIndexNow,
   validateIndexNowKey 
 } from '@/lib/indexnow';
+import { submitPriorityUrlsUniversal } from '@/lib/universal-indexing';
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,14 +23,14 @@ export async function POST(request: NextRequest) {
     // Handle different actions
     switch (action) {
       case 'priority':
-        result = await submitPriorityUrls();
+        result = await submitPriorityUrlsUniversal();
         break;
       case 'validate':
         const isValid = await validateIndexNowKey();
         return NextResponse.json({ valid: isValid, key: isValid ? 'accessible' : 'not accessible' });
       default:
         if (urls && Array.isArray(urls)) {
-          result = await submitBatchToIndexNow(urls);
+          result = await submitToIndexNow(urls);
         } else {
           return NextResponse.json(
             { error: 'Invalid request format' },

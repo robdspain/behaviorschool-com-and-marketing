@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { 
   ExternalLink, 
   ChevronDown, 
@@ -15,7 +14,6 @@ import {
   Target,
   Settings,
   BarChart3,
-  Search,
   Eye,
   CheckCircle,
   Clock,
@@ -43,7 +41,6 @@ interface ClusterInfo {
 
 export default function SiteMapViewer() {
   const [expandedClusters, setExpandedClusters] = useState<Set<string>>(new Set());
-  const [selectedPage, setSelectedPage] = useState<string | null>(null);
 
   const clusters: ClusterInfo[] = [
     {
@@ -213,7 +210,6 @@ export default function SiteMapViewer() {
   };
 
   const handlePageClick = (page: PageInfo) => {
-    setSelectedPage(page.path);
     // Open in new tab
     window.open(page.path, '_blank');
   };

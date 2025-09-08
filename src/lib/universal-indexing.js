@@ -8,7 +8,7 @@
  * - Traditional sitemaps
  */
 
-const { submitToIndexNow } = require('./indexnow');
+import { submitToIndexNow } from './indexnow.js';
 
 /**
  * Submit URLs to all available indexing services
@@ -203,7 +203,7 @@ function getIndexingCoverage() {
   };
 }
 
-module.exports = {
+export {
   submitToAllIndexes,
   submitBlogPostUniversal,
   submitLandingPageUniversal,

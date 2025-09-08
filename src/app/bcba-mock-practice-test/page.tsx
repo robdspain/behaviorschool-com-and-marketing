@@ -27,7 +27,9 @@ export const metadata: Metadata = {
     "bcba test prep",
     "bcba exam prep"
   ],
-  canonical: "https://behaviorschool.com/bcba-mock-practice-test",
+  alternates: {
+    canonical: "https://behaviorschool.com/bcba-mock-practice-test"
+  },
   openGraph: {
     title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
     description: "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",

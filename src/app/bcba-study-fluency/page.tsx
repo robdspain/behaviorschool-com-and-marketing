@@ -28,7 +28,9 @@ export const metadata: Metadata = {
     "precision teaching",
     "safmeds"
   ],
-  canonical: "https://behaviorschool.com/bcba-study-fluency",
+  alternates: {
+    canonical: "https://behaviorschool.com/bcba-study-fluency"
+  },
   openGraph: {
     title: "BCBA Study Fluency: The Secret to Passing the BCBA Exam",
     description: "Discover how fluency-based learning can help you pass the BCBA exam. Learn about the benefits of fluency, how to use it in your studies, and how our tools can help you succeed.",
