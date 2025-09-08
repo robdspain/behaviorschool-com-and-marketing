@@ -31,12 +31,25 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession()
 
-      if (session) {
+      const AUTHORIZED_ADMIN_EMAILS = [
+        'rob@behaviorschool.com',
+        // Add more authorized emails here as needed
+      ]
+
+      if (session && session.user?.email) {
         setUser(session.user)
-        // You can add a role check here if you have roles in your database
-        setIsAdmin(true)
+        // Check if user is in whitelist
+        if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+          setIsAdmin(true)
+        } else {
+          // Authenticated but not authorized
+          setIsAdmin(false)
+          router.push('/admin/login?error=unauthorized')
+          return
+        }
       } else {
         router.push('/admin/login')
+        return
       }
       setLoading(false)
     }
@@ -47,6 +60,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       setUser(session?.user ?? null)
       if (!session) {
         router.push('/admin/login')
+      } else if (session.user?.email) {
+        const AUTHORIZED_ADMIN_EMAILS = [
+          'rob@behaviorschool.com',
+          // Add more authorized emails here as needed
+        ]
+        if (!AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+          router.push('/admin/login?error=unauthorized')
+        } else {
+          setIsAdmin(true)
+        }
       }
     })
 

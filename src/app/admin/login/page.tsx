@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase-client'
 import { Button } from '@/components/ui/button'
 import { Shield, LogIn, Loader2 } from 'lucide-react'
@@ -10,16 +10,38 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [checkingAuth, setCheckingAuth] = useState(true)
+  const [error, setError] = useState('')
   const router = useRouter()
+  const searchParams = useSearchParams()
   const supabase = createClient()
 
   useEffect(() => {
+    // Check for error in URL params
+    const errorParam = searchParams.get('error')
+    if (errorParam === 'unauthorized') {
+      setError('Access denied. Only authorized administrators can access this panel.')
+      // Sign out the user if they're not authorized
+      supabase.auth.signOut()
+    }
+
     // Check if user is already logged in
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      if (session) {
-        router.push('/admin')
-        return
+      
+      const AUTHORIZED_ADMIN_EMAILS = [
+        'rob@behaviorschool.com',
+        // Add more authorized emails here as needed
+      ]
+      
+      if (session && session.user?.email) {
+        if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+          router.push('/admin')
+          return
+        } else {
+          // Authenticated but not authorized
+          setError('Access denied. Only authorized administrators can access this panel.')
+          supabase.auth.signOut()
+        }
       }
       setCheckingAuth(false)
     }
@@ -28,13 +50,23 @@ export default function LoginPage() {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session) {
-        router.push('/admin')
+      if (event === 'SIGNED_IN' && session && session.user?.email) {
+        const AUTHORIZED_ADMIN_EMAILS = [
+          'rob@behaviorschool.com',
+          // Add more authorized emails here as needed
+        ]
+        
+        if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+          router.push('/admin')
+        } else {
+          setError('Access denied. Only authorized administrators can access this panel.')
+          supabase.auth.signOut()
+        }
       }
     })
 
     return () => subscription.unsubscribe()
-  }, [router, supabase])
+  }, [router, supabase, searchParams])
 
   const handleGoogleLogin = async () => {
     try {
@@ -103,6 +135,12 @@ export default function LoginPage() {
                 </>
               )}
             </Button>
+            
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            )}
             
             <div className="text-center">
               <p className="text-sm text-slate-600">

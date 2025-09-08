@@ -57,24 +57,41 @@ export async function middleware(request: NextRequest) {
   // Refresh session if expired - required for Server Components
   const { data: { session }, error } = await supabase.auth.getSession()
 
+  // Whitelist of authorized admin emails
+  const AUTHORIZED_ADMIN_EMAILS = [
+    'rob@behaviorschool.com',
+    // Add more authorized emails here as needed
+  ]
+
   // Protect admin routes
   if (request.nextUrl.pathname.startsWith('/admin')) {
     // Allow access to login page
     if (request.nextUrl.pathname === '/admin/login') {
-      // If already authenticated, redirect to admin dashboard
-      if (session) {
-        return NextResponse.redirect(new URL('/admin', request.url))
+      // If already authenticated, check if user is authorized admin
+      if (session && session.user?.email) {
+        if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+          return NextResponse.redirect(new URL('/admin', request.url))
+        } else {
+          // Authenticated but not authorized - sign them out and show error
+          const signOutUrl = new URL('/admin/login', request.url)
+          signOutUrl.searchParams.set('error', 'unauthorized')
+          return NextResponse.redirect(signOutUrl)
+        }
       }
       return response
     }
 
-    // For all other admin routes, require authentication
-    if (!session) {
+    // For all other admin routes, require authentication and authorization
+    if (!session || !session.user?.email) {
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
 
-    // Add role-based access control here if needed
-    // For now, any authenticated user can access admin
+    // Check if user is authorized admin
+    if (!AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+      const signOutUrl = new URL('/admin/login', request.url)
+      signOutUrl.searchParams.set('error', 'unauthorized')
+      return NextResponse.redirect(signOutUrl)
+    }
   }
 
   return response
