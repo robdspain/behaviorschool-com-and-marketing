@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import { Loader2, Shield, LogOut } from 'lucide-react'
+import { Loader2, Shield, LogOut, BarChart3, Users, Mail, Settings, FileText } from 'lucide-react'
+import Link from 'next/link'
 import { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase-client'
 
@@ -92,6 +93,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     )
   }
 
+  const navigationItems = [
+    { name: 'Dashboard', href: '/admin', icon: BarChart3 },
+    { name: 'Signups', href: '/admin/signups', icon: Users },
+    { name: 'Users', href: '/admin/users', icon: Users },
+    { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+    { name: 'Blog', href: '/admin/blog', icon: FileText },
+    { name: 'Email Templates', href: '/admin/email-templates', icon: Mail },
+  ]
+
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="bg-white shadow-sm border-b border-slate-200">
@@ -116,7 +126,33 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </div>
         </div>
       </div>
-      <main>{children}</main>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <nav className="mb-8">
+          <div className="flex flex-wrap gap-2">
+            {navigationItems.map((item) => {
+              const Icon = item.icon
+              const isActive = pathname === item.href
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    isActive
+                      ? 'bg-emerald-100 text-emerald-700'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {item.name}
+                </Link>
+              )
+            })}
+          </div>
+        </nav>
+        
+        <main>{children}</main>
+      </div>
     </div>
   )
 }
