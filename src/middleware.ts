@@ -1,14 +1,18 @@
-import { NextResponse } from 'next/server';
+import { createServerClient } from '@/lib/supabase/server'
+import { NextResponse, type NextRequest } from 'next/server'
 
-export function middleware() {
-  // For now, allow access to admin pages since authentication is handled client-side
-  // This can be enhanced later with proper server-side auth checks
-  return NextResponse.next();
+export async function middleware(request: NextRequest) {
+  const supabase = createServerClient()
+
+  const { data } = await supabase.auth.getUser()
+
+  if (data.user) {
+    return NextResponse.next()
+  } else {
+    return NextResponse.redirect(new URL('/admin/login', request.url))
+  }
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
-};
-
-
-
+  matcher: ['/admin'],
+}
