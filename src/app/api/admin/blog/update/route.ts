@@ -1,4 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createHmac } from 'crypto';
+
+// Create JWT token for authentication
+function createToken(adminApiKey: string) {
+  const [keyId, keySecret] = adminApiKey.split(':');
+  const now = Math.floor(Date.now() / 1000);
+  const header = {
+    alg: 'HS256',
+    typ: 'JWT',
+    kid: keyId
+  };
+  
+  const payload = {
+    iat: now,
+    exp: now + 300, // 5 minutes
+    aud: '/admin/'
+  };
+
+  const encodedHeader = Buffer.from(JSON.stringify(header)).toString('base64url');
+  const encodedPayload = Buffer.from(JSON.stringify(payload)).toString('base64url');
+  
+  const signature = createHmac('sha256', Buffer.from(keySecret, 'hex'))
+    .update(`${encodedHeader}.${encodedPayload}`)
+    .digest('base64url');
+    
+  return `${encodedHeader}.${encodedPayload}.${signature}`;
+}
 
 export async function PUT(request: NextRequest) {
   try {
@@ -7,13 +34,33 @@ export async function PUT(request: NextRequest) {
     
     // Update post via Ghost Admin API
     const ghostUrl = process.env.GHOST_CONTENT_URL;
-    const ghostAdminKey = process.env.GHOST_PRIVITE_KEY; // Note: This should be the admin key, not content key
+    const ghostAdminKey = process.env.GHOST_ADMIN_KEY; // Fixed typo: was GHOST_PRIVITE_KEY
     
     if (!ghostUrl || !ghostAdminKey) {
       return NextResponse.json(
         { success: false, message: 'Ghost configuration missing' },
         { status: 500 }
       );
+    }
+
+    // First, fetch the current post to get the updated_at timestamp
+    const token = createToken(ghostAdminKey);
+    const fetchResponse = await fetch(`${ghostUrl}/ghost/api/admin/posts/${id}/`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Ghost ${token}`,
+      },
+    });
+
+    if (!fetchResponse.ok) {
+      throw new Error(`Failed to fetch current post: ${fetchResponse.status}`);
+    }
+
+    const currentPostData = await fetchResponse.json();
+    const currentPost = currentPostData.posts?.[0];
+
+    if (!currentPost) {
+      throw new Error('Post not found');
     }
 
     // Convert markdown content to HTML (simplified)
@@ -34,15 +81,16 @@ export async function PUT(request: NextRequest) {
         meta_description: metaDescription,
         canonical_url: canonicalUrl,
         codeinjection_head: codeInjectionHead,
-        codeinjection_foot: codeInjectionFoot
+        codeinjection_foot: codeInjectionFoot,
+        updated_at: currentPost.updated_at // Include the required timestamp
       }]
     };
-
+    
     const response = await fetch(`${ghostUrl}/ghost/api/admin/posts/${id}/?source=html`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Ghost ${ghostAdminKey}`,
+        'Authorization': `Ghost ${token}`,
       },
       body: JSON.stringify(postData),
     });
@@ -82,7 +130,7 @@ export async function DELETE(request: NextRequest) {
     
     // Delete post via Ghost Admin API
     const ghostUrl = process.env.GHOST_CONTENT_URL;
-    const ghostAdminKey = process.env.GHOST_PRIVITE_KEY;
+    const ghostAdminKey = process.env.GHOST_ADMIN_KEY;
     
     if (!ghostUrl || !ghostAdminKey) {
       return NextResponse.json(
@@ -91,10 +139,12 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
+    const token = createToken(ghostAdminKey);
+    
     const response = await fetch(`${ghostUrl}/ghost/api/admin/posts/${id}/`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Ghost ${ghostAdminKey}`,
+        'Authorization': `Ghost ${token}`,
       },
     });
 

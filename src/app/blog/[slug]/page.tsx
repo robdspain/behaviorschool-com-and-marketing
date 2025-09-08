@@ -9,7 +9,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!post) return notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-6 lg:px-8 py-12">
+    <article className="mx-auto max-w-3xl px-6 lg:px-8 pt-20 pb-12">
       <header>
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">{post.title}</h1>
         {post.published_at ? (
@@ -32,6 +32,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       ) : null}
       {post.excerpt ? (
         <p className="mt-6 text-slate-700 text-lg">{post.excerpt}</p>
+      ) : null}
+      {post.html ? (
+        <div 
+          className="mt-8 prose prose-slate prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-ul:text-slate-700 prose-ol:text-slate-700 prose-blockquote:text-slate-600 prose-blockquote:border-l-emerald-500 prose-img:rounded-lg prose-img:shadow-md"
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
       ) : null}
     </article>
   );
