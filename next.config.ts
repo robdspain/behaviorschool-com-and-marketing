@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   env: {
     GHOST_CONTENT_URL: process.env.GHOST_CONTENT_URL,
+    NEXT_PUBLIC_GHOST_CONTENT_URL: process.env.GHOST_CONTENT_URL,
   },
   images: {
     remotePatterns: [

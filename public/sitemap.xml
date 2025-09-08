@@ -48,10 +48,16 @@
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://behaviorschool.com/bcba-study-fluency</loc>
-    <lastmod>2025-09-02</lastmod>
+    <loc>https://behaviorschool.com/bcba-practice-exam</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://behaviorschool.com/free-bcba-mock-practice-test</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://behaviorschool.com/bcba-mock-practice-test</loc>
