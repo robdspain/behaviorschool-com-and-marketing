@@ -22,7 +22,9 @@ export const metadata: Metadata = {
   title: 'School-Based BCBA: Role, Systems, FBAs & BIPs (2025 Guide)',
   description: 'Complete guide to succeeding as a school-based BCBA. Learn roles, responsibilities, MTSS/PBIS alignment, FBAs, BIPs, staff training, and ethical systems for K-12 schools.',
   keywords: 'school-based BCBA, BCBA in schools, school behavior analyst, FBA in schools, BIP school settings, MTSS BCBA, PBIS behavior analyst, school BCBA role, IEP behavior goals',
-  canonical: 'https://behaviorschool.com/school-bcba',
+  alternates: {
+    canonical: 'https://behaviorschool.com/school-bcba'
+  },
   openGraph: {
     title: 'School-Based BCBA: Complete Guide for Success in Schools',
     description: 'From crisis manager to systems leader - practical tools and strategies for school-based BCBAs working in K-12 education.',
