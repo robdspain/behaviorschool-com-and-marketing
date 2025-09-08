@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { createSupabaseAdminClient } from "@/lib/supabase-server";
+import { createClient } from "@/lib/supabase-server";
 
 const SubscribeSchema = z.object({
   email: z.string().email(),
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
   const tags = source === "/iep-goals" ? ["IEPgoals"] : ["general"];
 
   try {
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
 
     // Check if email already exists
     const { data: existingSubscriber } = await supabase

@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-server';
+import { createClient } from '@/lib/supabase-server';
 
 export async function GET() {
   try {
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
     const { data, error } = await supabase.from('email_templates').select('*');
 
     if (error) {
@@ -20,7 +20,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
     const body = await request.json();
     const { name, subject, body_html, body_text, description } = body;
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { z } from "zod";
-import { createSupabaseAdminClient } from "@/lib/supabase-server";
+import { createClient } from "@/lib/supabase-server";
 
 // Validate payload subset for member add/update
 const MemberSchema = z.object({
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
   const { email, name, id } = parsed.data.current;
 
   try {
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
     const { error } = await supabase
       .from("subscriptions")
       .upsert(

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-server';
+import { createClient } from '@/lib/supabase-server';
 // import { verifyAdminSession } from '@/lib/admin-auth'; // TODO: Re-enable when cookie auth is fixed
 
 export async function GET() {
   try {
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
     
     // TODO: Re-enable authentication once cookie handling is fixed
     // Verify admin authentication
@@ -61,7 +61,7 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   try {
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
     
     // TODO: Re-enable authentication once cookie handling is fixed
     // Verify admin authentication
@@ -133,7 +133,7 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
     
     // TODO: Re-enable authentication once cookie handling is fixed
     // Verify admin authentication

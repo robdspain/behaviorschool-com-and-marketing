@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import Mailgun from "mailgun.js";
-import { createSupabaseAdminClient } from "@/lib/supabase-server";
+import { createClient } from "@/lib/supabase-server";
 
 
 const BodySchema = z.object({
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
   }
 
-  const supabase = createSupabaseAdminClient();
+  const supabase = await createClient();
   const { data: contactTemplate, error: contactTemplateError } = await supabase
     .from('email_templates')
     .select('*')

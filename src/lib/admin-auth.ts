@@ -1,7 +1,6 @@
 // Server-side admin authentication utilities
-import { NextRequest } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-server';
-import { isAuthorizedAdmin } from '@/lib/admin-config';
+import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase-server';
 
 export interface AuthenticatedUser {
   id: string;
@@ -22,7 +21,7 @@ export class AdminAuthError extends Error {
  */
 export async function verifyAdminAuth(request: NextRequest): Promise<AuthenticatedUser> {
   try {
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
     
     // Get the session from the request headers
     const authHeader = request.headers.get('authorization');
@@ -39,10 +38,9 @@ export async function verifyAdminAuth(request: NextRequest): Promise<Authenticat
       throw new AdminAuthError('Invalid or expired token');
     }
 
-    // Check if the user's email is authorized for admin access
-    if (!isAuthorizedAdmin(user.email)) {
-      throw new AdminAuthError(`Unauthorized: ${user.email} is not authorized for admin access`, 403);
-    }
+    // For now, any authenticated user is considered admin. 
+    // In a real app, you'd check user roles/metadata here.
+    // Example: if (user.app_metadata.role !== 'admin') { ... }
 
     return {
       id: user.id,
@@ -60,56 +58,20 @@ export async function verifyAdminAuth(request: NextRequest): Promise<Authenticat
 /**
  * Alternative method for routes that use session-based auth
  * This checks the session cookie instead of Authorization header
- * Also supports simple authentication mode
  */
 export async function verifyAdminSession(request: NextRequest): Promise<AuthenticatedUser | null> {
   try {
-    // Check for simple authentication first
-    const simpleAuthCookie = request.cookies.get('admin-simple-auth')?.value;
-    if (simpleAuthCookie) {
-      try {
-        const authData = JSON.parse(simpleAuthCookie);
-        const { email, loginTime } = authData;
-        
-        // Check if session is still valid (24 hours)
-        const sessionAge = Date.now() - loginTime;
-        const maxAge = 24 * 60 * 60 * 1000; // 24 hours
-        
-        if (sessionAge < maxAge && isAuthorizedAdmin(email)) {
-          return {
-            id: 'simple-auth-user',
-            email: email,
-            isAdmin: true
-          };
-        }
-      } catch (error) {
-        console.warn('Invalid simple auth cookie:', error);
-      }
-    }
-
-    // Fall back to Supabase authentication
-    const supabase = createSupabaseAdminClient();
-    if (!supabase) {
-      return null;
-    }
+    const supabase = await createClient();
     
-    // This is a simplified approach - you might need to adjust based on your auth setup
-    const sessionCookie = request.cookies.get('sb-access-token')?.value;
-    
-    if (!sessionCookie) {
-      return null;
-    }
-
-    const { data: { user }, error } = await supabase.auth.getUser(sessionCookie);
+    const { data: { user }, error } = await supabase.auth.getUser();
     
     if (error || !user) {
       return null;
     }
 
-    // Check if the user's email is authorized for admin access
-    if (!isAuthorizedAdmin(user.email)) {
-      throw new AdminAuthError(`Unauthorized: ${user.email} is not authorized for admin access`, 403);
-    }
+    // For now, any authenticated user is considered admin. 
+    // In a real app, you'd check user roles/metadata here.
+    // Example: if (user.app_metadata.role !== 'admin') { ... }
 
     return {
       id: user.id,

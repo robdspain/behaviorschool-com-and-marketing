@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-server';
+import { createClient } from '@/lib/supabase-server';
 
 export async function POST(request: NextRequest) {
   try {
     // Lazily create the admin client at request time to avoid build-time env lookups
-    const supabase = createSupabaseAdminClient();
+    const supabase = await createClient();
     const body = await request.json();
     const { firstName, lastName, email, role, currentChallenges } = body;
 

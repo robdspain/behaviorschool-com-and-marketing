@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2, Lock } from "lucide-react";
-import { supabaseClient } from "@/lib/supabase-client";
+import { createClient } from "@/lib/supabase-client";
 import { useRouter } from "next/navigation";
 
 interface SecureDownloadButtonProps {
@@ -19,6 +19,7 @@ export default function SecureDownloadButton({
   title = "Download", 
   className = "" 
 }: SecureDownloadButtonProps) {
+  const supabase = createClient();
   const [isDownloading, setIsDownloading] = useState(false);
   const router = useRouter();
 
@@ -26,14 +27,14 @@ export default function SecureDownloadButton({
     setIsDownloading(true);
     
     try {
-      if (!supabaseClient) {
+      if (!supabase) {
         // If Supabase is not configured, redirect to login
         router.push('/admin/login');
         return;
       }
 
       // Check if user is authenticated
-      const { data: { session }, error } = await supabaseClient.auth.getSession();
+      const { data: { session }, error } = await supabase.auth.getSession();
       
       if (error || !session) {
         // Redirect to login with return URL

@@ -1,192 +1,62 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { Loader2, Shield, LogOut } from "lucide-react";
-import { User } from "@supabase/supabase-js";
-import { supabaseClient as supabase } from "@/lib/supabase-client";
-import { isAuthorizedAdmin, DEV_CONFIG, SIMPLE_AUTH_CONFIG } from "@/lib/admin-config";
+import { useEffect, useState } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import { Loader2, Shield, LogOut } from 'lucide-react'
+import { User } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase-client'
 
 // Force dynamic rendering
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
 interface AdminLayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
-
 export default function AdminLayout({ children }: AdminLayoutProps) {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
+  const supabase = createClient()
 
   useEffect(() => {
-    if (pathname === "/admin/login" || pathname === "/admin/simple-login") {
-      setLoading(false);
-      return;
+    if (pathname === '/admin/login') {
+      setLoading(false)
+      return
     }
 
-    // Check authentication status
     const checkAuth = async () => {
-      try {
-        // For development mode with bypass enabled, skip authentication
-        if (DEV_CONFIG.isDevelopmentBypass()) {
-          const devUser: User = { 
-            id: 'dev-user', 
-            email: DEV_CONFIG.DEV_ADMIN_EMAIL,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-            app_metadata: {},
-            user_metadata: {},
-            aud: 'authenticated',
-            confirmation_sent_at: new Date().toISOString(),
-            confirmed_at: new Date().toISOString(),
-            email_confirmed_at: new Date().toISOString(),
-            phone_confirmed_at: new Date().toISOString(),
-            last_sign_in_at: new Date().toISOString()
-          };
-          setUser(devUser);
-          setIsAdmin(true);
-          setLoading(false);
-          return;
-        }
+      const { data: { session } } = await supabase.auth.getSession()
 
-        // Check simple authentication first
-        if (SIMPLE_AUTH_CONFIG.isSimpleAuthEnabled()) {
-          const isAuthenticated = localStorage.getItem('admin-authenticated') === 'true';
-          const adminEmail = localStorage.getItem('admin-email');
-          const loginTime = localStorage.getItem('admin-login-time');
-          
-          if (isAuthenticated && adminEmail && loginTime) {
-            // Check if session is still valid (24 hours)
-            const sessionAge = Date.now() - parseInt(loginTime);
-            const maxAge = 24 * 60 * 60 * 1000; // 24 hours
-            
-            if (sessionAge < maxAge && isAuthorizedAdmin(adminEmail)) {
-              const simpleUser: User = {
-                id: 'simple-auth-user',
-                email: adminEmail,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-                app_metadata: {},
-                user_metadata: {},
-                aud: 'authenticated',
-                confirmation_sent_at: new Date().toISOString(),
-                confirmed_at: new Date().toISOString(),
-                email_confirmed_at: new Date().toISOString(),
-                phone_confirmed_at: new Date().toISOString(),
-                last_sign_in_at: new Date().toISOString()
-              };
-              setUser(simpleUser);
-              setIsAdmin(true);
-              setLoading(false);
-              return;
-            } else {
-              // Session expired or invalid, clear storage
-              localStorage.removeItem('admin-authenticated');
-              localStorage.removeItem('admin-email');
-              localStorage.removeItem('admin-login-time');
-            }
-          }
-          
-          // Redirect to simple login if simple auth is enabled
-          router.push('/admin/simple-login');
-          return;
-        }
-
-        if (!supabase) {
-          // If Supabase is not configured, show error instead of infinite loading
-          console.warn('Supabase is not configured. Admin access requires authentication setup.');
-          setLoading(false);
-          return;
-        }
-        
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
-        if (error) {
-          console.error('Auth error:', error);
-          router.push('/admin/login');
-          return;
-        }
-
-        if (!session) {
-          router.push('/admin/login');
-          return;
-        }
-
-        setUser(session.user);
-
-        // Check if user email is in the authorized admin list
-        const userEmail = session.user.email;
-        
-        if (!isAuthorizedAdmin(userEmail)) {
-          console.warn(`Unauthorized admin access attempt by: ${userEmail}`);
-          // Redirect to unauthorized page
-          router.push('/unauthorized');
-          return;
-        }
-
-        setIsAdmin(true);
-
-        setLoading(false);
-      } catch (error) {
-        console.error('Auth check error:', error);
-        router.push('/admin/login');
+      if (session) {
+        setUser(session.user)
+        // You can add a role check here if you have roles in your database
+        setIsAdmin(true)
+      } else {
+        router.push('/admin/login')
       }
-    };
-
-    checkAuth();
-
-    // Only set up auth listener when not using development bypass
-    if (!DEV_CONFIG.isDevelopmentBypass()) {
-      if (!supabase) return;
-      
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
-          if (event === 'SIGNED_OUT') {
-            setUser(null);
-            setIsAdmin(false);
-            router.push('/admin/login');
-          } else if (session) {
-            setUser(session.user);
-            // Re-check admin status
-            if (supabase) {
-              const { data: profile } = await supabase
-                .from('profiles')
-                .select('role')
-                .eq('id', session.user.id)
-                .single();
-              
-              setIsAdmin((profile as unknown as { role?: string })?.role === 'admin' || true); // Allow access for now
-            }
-          }
-        }
-      );
-
-      return () => subscription.unsubscribe();
+      setLoading(false)
     }
-  }, [router, pathname]);
+
+    checkAuth()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+      if (!session) {
+        router.push('/admin/login')
+      }
+    })
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [router, pathname, supabase])
 
   const handleSignOut = async () => {
-    // Handle simple auth logout
-    if (SIMPLE_AUTH_CONFIG.isSimpleAuthEnabled()) {
-      localStorage.removeItem('admin-authenticated');
-      localStorage.removeItem('admin-email');
-      localStorage.removeItem('admin-login-time');
-      router.push('/admin/simple-login');
-      return;
-    }
-    
-    // Handle Supabase auth logout
-    if (supabase) {
-      await supabase.auth.signOut();
-    }
-  };
-
-  if (pathname === "/admin/login" || pathname === "/admin/simple-login") {
-    return <>{children}</>;
+    await supabase.auth.signOut()
+    router.push('/admin/login')
   }
 
   if (loading) {
@@ -197,40 +67,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <p className="text-slate-600">Loading admin panel...</p>
         </div>
       </div>
-    );
+    )
   }
 
-  if (!supabase) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto p-6">
-          <Shield className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-slate-900 mb-2">Authentication Not Configured</h2>
-          <p className="text-slate-600 mb-6">
-            Supabase authentication is not configured. Please set up the required environment variables:
-          </p>
-          <div className="bg-slate-100 rounded-lg p-4 text-left text-sm font-mono mb-6">
-            <p className="text-slate-700 mb-2">Required in .env.local:</p>
-            <p className="text-slate-600">NEXT_PUBLIC_SUPABASE_URL=your-url</p>
-            <p className="text-slate-600">NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key</p>
-          </div>
-          <div className="space-y-2">
-            <button
-              onClick={() => router.push('/admin/login')}
-              className="w-full px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
-            >
-              Try Login Page
-            </button>
-            <button
-              onClick={() => router.push('/')}
-              className="w-full px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors"
-            >
-              Back to Home
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+  if (pathname === '/admin/login') {
+    return <>{children}</>
   }
 
   if (!user || !isAdmin) {
@@ -248,12 +89,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </button>
         </div>
       </div>
-    );
+    )
   }
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Admin Header - Clean and minimal */}
       <div className="bg-white shadow-sm border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
@@ -265,26 +105,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <nav className="flex items-center gap-6">
-                <a href="/admin" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Dashboard
-                </a>
-                <a href="/admin/blog" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Blog
-                </a>
-                <a href="/admin/signups" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Signups
-                </a>
-                <a href="/admin/users" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Users
-                </a>
-                <a href="/admin/analytics" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Analytics
-                </a>
-                <a href="/admin/sitemap" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Site Map
-                </a>
-              </nav>
               <button
                 onClick={handleSignOut}
                 className="inline-flex items-center gap-2 px-3 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
@@ -296,11 +116,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </div>
         </div>
       </div>
-
-      {/* Main Content */}
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
     </div>
-  );
+  )
 }
