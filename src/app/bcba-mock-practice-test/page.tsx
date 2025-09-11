@@ -345,16 +345,8 @@ export default function BCBAMockPracticeTestPage() {
             <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8">
               <h3 className="text-2xl font-bold text-slate-900 mb-6">Precise Performance Tracking</h3>
               <div className="space-y-4">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <BarChart3 className="h-4 w-4 text-blue-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 mb-1">Response Time Analysis</h4>
-                    <p className="text-slate-600 text-sm">Track your response time to the millisecond for every question, including first-interaction delay and total thinking time.</p>
-                  </div>
-                </div>
-                
+                {/* Removed Response Time Analysis item per accuracy concerns */}
+
                 <div className="flex items-start space-x-4">
                   <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <TrendingUp className="h-4 w-4 text-emerald-600" />

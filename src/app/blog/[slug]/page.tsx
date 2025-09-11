@@ -9,15 +9,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!post) return notFound();
 
   const ghostBase = (process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com').replace(/\/$/, '');
+  const ghostContentPrefix = `${ghostBase}/content/images/`;
   const normalizeHtml = (html: string): string => {
     if (!html) return '';
     let out = html;
     // Protocol-relative to https
     out = out.replace(/src=\"\/\/([^\"]+)\"/g, 'src="https://$1"');
-    // Force https for ghost domain
-    out = out.replace(/src=\"http:\/\/ghost\.behaviorschool\.com/g, 'src="https://ghost.behaviorschool.com');
-    // Make relative content images absolute
-    out = out.replace(/src=\"(\/content\/images\/[^\"]+)\"/g, (_m, p1) => `src="${ghostBase}${p1}"`);
+    // Force https for any http Ghost URL
+    out = out.replace(new RegExp(`src=\\"http:\\/\\/${ghostBase.replace(/https?:\/\//, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`,'g'), `src="https://${ghostBase.replace(/https?:\/\//, '')}`);
+    // Rewrite any Ghost content images (absolute or relative) to proxy path
+    out = out.replace(new RegExp(`src=\\\"${ghostContentPrefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\\"]+)\\\"`, 'g'), (_m, rest) => `src="/media/ghost/content/images/${rest}"`);
+    out = out.replace(/src=\"(\/content\/images\/[^\"]+)\"/g, (_m, p1) => `src="/media/ghost${p1}"`);
+
     // Handle srcset lists
     out = out.replace(/srcset=\"([^\"]+)\"/g, (_m, val: string) => {
       const rewritten = val.split(',').map(part => {
@@ -25,7 +28,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         let u = url || '';
         if (u.startsWith('//')) u = 'https:' + u;
         else if (u.startsWith('http://')) u = u.replace(/^http:/, 'https:');
-        else if (u.startsWith('/content/')) u = ghostBase + u;
+        // Map Ghost content images to proxy
+        if (u.startsWith(ghostContentPrefix)) {
+          u = u.replace(ghostBase, '');
+        }
+        if (u.startsWith('/content/images/')) {
+          u = '/media/ghost' + u;
+        }
         return [u, size].filter(Boolean).join(' ');
       }).join(', ');
       return `srcset="${rewritten}"`;
