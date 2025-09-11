@@ -40,6 +40,14 @@ export default function BehaviorStudyToolsPage() {
     {
       question: "Can I track my study progress?",
       answer: "Absolutely. The platform includes performance tracking with daily, 7-day, and 30-day score graphs, allowing you to monitor your progress and identify areas for improvement at a glance."
+    },
+    {
+      question: "Do you offer a free BCBA practice exam?",
+      answer: "Yes. Create a free account to try sample BCBA practice questions and a short mock test with full rationales. You’ll see your accuracy by domain and can continue with adaptive drills anytime."
+    },
+    {
+      question: "Are these BCBA mock exams similar to the real exam?",
+      answer: "Our mock tests mirror the structure and difficulty of the BACB® exam, include scenario-based items with clear rationales, and emphasize Task List alignment so you build real test-taking fluency."
     }
   ];
   return (
@@ -84,7 +92,7 @@ export default function BehaviorStudyToolsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  Smarter Studying for Future BCBAs
+                  BCBA Practice Exams, Mock Tests, and Adaptive Study Tools
                 </motion.h2>
                 <motion.p
                   className="text-lg sm:text-xl leading-relaxed text-slate-600"
@@ -105,7 +113,7 @@ export default function BehaviorStudyToolsPage() {
                   href="https://study.behaviorschool.com" 
                   className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                 >
-                  Start Studying Today
+                  Try Free Practice Questions
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </motion.div>
@@ -119,12 +127,12 @@ export default function BehaviorStudyToolsPage() {
             >
               <div className="relative z-10">
                 <Image
-                  src="/optimized/Hero/Hero-group1.webp"
-                  alt="Behavior Study Tools - AI-powered BCBA exam preparation"
+                  src="/BehaviorStudyTools/Hero-BST-Home.webp"
+                  alt="BCBA practice exams and mock tests with AI-powered rationales"
                   width={600}
                   height={400}
                   className="w-full h-auto rounded-2xl shadow-2xl"
-                  loading="eager"
+                  priority
                 />
               </div>
               <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-200 to-yellow-100 opacity-80 animate-pulse" />

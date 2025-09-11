@@ -216,7 +216,7 @@ export default function ACTMatrixPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       
-      <div className="min-h-screen bg-white">
+      <div id="act-matrix-page" className="min-h-screen bg-white">
         {/* Breadcrumbs */}
         <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Breadcrumbs 
@@ -239,7 +239,7 @@ export default function ACTMatrixPage() {
                   </span>
                 </h1>
                 
-                <h2 className="text-lg sm:text-xl lg:text-2xl text-slate-700 mb-4 font-medium leading-relaxed">
+                <h2 className="text-lg sm:text-xl lg:text-2xl text-slate-800 mb-4 font-medium leading-relaxed">
                   Complete guide with free PDF download, examples, and step-by-step implementation for school-based behavior analysts
                 </h2>
                 
@@ -996,6 +996,10 @@ export default function ACTMatrixPage() {
           </div>
         </section>
       </div>
+      {/* Contrast tuning for this page only */}
+      <style jsx global>{`
+        #act-matrix-page .text-slate-600 { color: #334155 !important; }
+      `}</style>
     </>
   );
 }

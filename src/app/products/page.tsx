@@ -89,6 +89,16 @@ export default function ProductsPage() {
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
+
+                <div className="mt-2">
+                  <Link 
+                    href="/free-bcba-practice-exam"
+                    className="inline-flex items-center text-emerald-700 hover:text-emerald-800 font-semibold"
+                  >
+                    Free BCBA Practice Exam (10 Questions)
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
               </div>
               <div className="relative">
                 <div className="relative z-10">
@@ -412,5 +422,4 @@ export default function ProductsPage() {
     </div>
   );
 }
-
 

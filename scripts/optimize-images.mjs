@@ -17,7 +17,9 @@ async function optimizeImages() {
       const fileStat = await fs.stat(filePath);
 
       if (fileStat.isFile() && /\.(webp|jpg|jpeg|png)$/i.test(file)) {
-        const optimizedFilePath = path.join(optimizedDir, file);
+        const optimizedFilePath = path
+          .join(optimizedDir, file)
+          .replace(/\.(?:webp|jpe?g|png)$/i, '.webp');
         await fs.mkdir(path.dirname(optimizedFilePath), { recursive: true });
 
         await sharp(filePath)
