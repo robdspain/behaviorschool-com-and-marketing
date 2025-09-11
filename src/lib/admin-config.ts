@@ -3,7 +3,8 @@
 
 export const AUTHORIZED_ADMIN_EMAILS = [
   'robspain@gmail.com',
-  'behaviorschoolcommunity@gmail.com'
+  'behaviorschoolcommunity@gmail.com',
+  'rob@behaviorschool.com'
 ] as const;
 
 /**

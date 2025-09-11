@@ -28,13 +28,13 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
   const href = `${hrefBase}/${post.slug}`;
   const primaryTag = post.primary_tag ?? (post.tags && post.tags.length > 0 ? post.tags[0] : null);
   const imageSrc = React.useMemo(() => {
-    if (!post.feature_image) return "/thumbnails/hero-thumb.webp";
-    if (post.feature_image.startsWith("http")) {
-      return post.feature_image;
-    }
-    // For relative URLs, construct the full URL using the public Ghost URL
-    const ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || "https://ghost.behaviorschool.com";
-    return `${ghostUrl.replace(/\/$/, "")}${post.feature_image}`;
+    const fallback = "/thumbnails/hero-thumb.webp";
+    const ghostUrl = (process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || "https://ghost.behaviorschool.com").replace(/\/$/, "");
+    let src = post.feature_image || fallback;
+    if (src.startsWith("//")) src = `https:${src}`;
+    if (src.startsWith("http://")) src = src.replace(/^http:/, "https:");
+    if (src.startsWith("/content/")) src = `${ghostUrl}${src}`;
+    return src;
   }, [post.feature_image]);
 
   return (
@@ -124,5 +124,4 @@ export function PostCardSkeleton({ className, withImage = true }: { className?: 
 }
 
 export default PostCard;
-
 

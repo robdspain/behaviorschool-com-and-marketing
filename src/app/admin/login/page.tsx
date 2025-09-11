@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase-client'
+import { SIMPLE_AUTH_CONFIG, isAuthorizedAdmin } from '@/lib/admin-config'
 import { Button } from '@/components/ui/button'
 import { Shield, LogIn, Loader2 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -14,6 +15,9 @@ export default function LoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const supabase = createClient()
+  const useSimpleAuth = SIMPLE_AUTH_CONFIG.isSimpleAuthEnabled()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
     // Check for error in URL params
@@ -92,6 +96,27 @@ export default function LoginPage() {
     }
   }
 
+  const handleSimpleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+    if (!isAuthorizedAdmin(email)) {
+      setError('Access denied. Only authorized administrators can access this panel.')
+      return
+    }
+    if (password !== SIMPLE_AUTH_CONFIG.ADMIN_PASSWORD) {
+      setError('Invalid password. Please try again.')
+      return
+    }
+    try {
+      // Store a lightweight session flag
+      localStorage.setItem('admin_simple_auth', '1')
+      router.push('/admin')
+    } catch (err) {
+      console.error('Simple auth error:', err)
+      setError('Login failed. Please try again.')
+    }
+  }
+
   if (checkingAuth) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
@@ -117,24 +142,58 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button
-              onClick={handleGoogleLogin}
-              disabled={loading}
-              className="w-full h-11 text-base"
-              size="lg"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                  Signing in...
-                </>
-              ) : (
-                <>
-                  <LogIn className="w-5 h-5 mr-2" />
-                  Continue with Google
-                </>
-              )}
-            </Button>
+            {useSimpleAuth ? (
+              <form onSubmit={handleSimpleLogin} className="space-y-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Admin email"
+                  className="w-full p-3 border border-slate-200 rounded-lg text-sm"
+                  required
+                />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Admin password"
+                  className="w-full p-3 border border-slate-200 rounded-lg text-sm"
+                  required
+                />
+                <Button type="submit" disabled={loading} className="w-full h-11 text-base" size="lg">
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Signing in...
+                    </>
+                  ) : (
+                    <>
+                      <LogIn className="w-5 h-5 mr-2" />
+                      Sign in
+                    </>
+                  )}
+                </Button>
+              </form>
+            ) : (
+              <Button
+                onClick={handleGoogleLogin}
+                disabled={loading}
+                className="w-full h-11 text-base"
+                size="lg"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  <>
+                    <LogIn className="w-5 h-5 mr-2" />
+                    Continue with Google
+                  </>
+                )}
+              </Button>
+            )}
             
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
@@ -150,17 +209,7 @@ export default function LoginPage() {
           </CardContent>
         </Card>
         
-        <div className="mt-8 text-center">
-          <p className="text-sm text-slate-500">
-            Need help? Contact{' '}
-            <a 
-              href="mailto:rob@behaviorschool.com" 
-              className="text-emerald-600 hover:text-emerald-700 font-medium"
-            >
-              rob@behaviorschool.com
-            </a>
-          </p>
-        </div>
+        {/* Support contact removed per request */}
       </div>
     </div>
   )
