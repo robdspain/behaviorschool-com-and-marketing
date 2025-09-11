@@ -53,10 +53,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       {post.feature_image ? (
         <div className="mt-6 overflow-hidden rounded-lg bg-slate-100 relative aspect-[16/9]">
           <Image 
-            src={post.feature_image.startsWith('http') 
-              ? post.feature_image.replace(/^http:/, 'https:')
-              : `${process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com'}${post.feature_image}`
-            } 
+            src={(function(){
+              let src = post.feature_image as string;
+              if (src.startsWith('//')) src = 'https:' + src;
+              if (src.startsWith('http://')) src = src.replace(/^http:/, 'https:');
+              if (src.startsWith(ghostContentPrefix)) {
+                src = src.replace(ghostBase, '');
+              }
+              if (src.startsWith('/content/images/')) {
+                src = '/media/ghost' + src;
+              }
+              return src;
+            })()} 
             alt={post.title} 
             fill 
             sizes="(max-width: 768px) 100vw, 768px" 
