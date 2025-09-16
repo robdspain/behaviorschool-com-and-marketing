@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- OPTIMIZED HOMEPAGE TITLE & META -->
+    <title>Behavior School - Free BCBA Exam Prep & School-Based Resources</title>
+    <meta name="description" content="Access free BCBA mock exams, ACT Matrix tools, and behavior resources designed specifically for school-based BCBAs. Start preparing with our evidence-based materials today.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Behavior School - Resources for School-Based BCBAs">
+    <meta property="og:description" content="Free BCBA exam prep and practical tools for school-based behavior analysts">
+    <meta property="og:type" content="website">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Behavior School",
+        "description": "Professional development and exam preparation resources for school-based BCBAs",
+        "url": "https://behaviorschool.com",
+        "sameAs": [],
+        "offers": {
+            "@type": "Offer",
+            "category": "Educational Resources",
+            "description": "Free and premium BCBA exam preparation materials"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        /* Hero Section with Clear Value Proposition */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .value-proposition {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .primary-cta {
+            background: #10b981;
+            color: white;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .primary-cta:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        .secondary-cta {
+            background: transparent;
+            color: white;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: 2px solid white;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .secondary-cta:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        /* Three Main Benefit Boxes */
+        .benefits {
+            padding: 60px 0;
+            background: #f9fafb;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .benefit-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .benefit-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .benefit-box p {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .benefit-link {
+            color: #667eea;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s;
+        }
+        
+        .benefit-link:hover {
+            gap: 10px;
+        }
+        
+        /* Popular Resources Section */
+        .popular-resources {
+            padding: 60px 0;
+            background: white;
+        }
+        
+        .popular-resources h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1f2937;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .resource-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+        
+        .resource-card:hover {
+            background: #f3f4f6;
+            transform: translateX(5px);
+        }
+        
+        .resource-card h4 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+        
+        .resource-card p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+        
+        .resource-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        /* New User Section */
+        .new-user {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .new-user h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .new-user p {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .start-here-btn {
+            background: white;
+            color: #f59e0b;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .start-here-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* School-Based Focus Section */
+        .school-focus {
+            padding: 60px 0;
+            background: #f9fafb;
+        }
+        
+        .school-focus h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        
+        .focus-subtitle {
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .focus-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .focus-item {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .focus-item-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .focus-item h4 {
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .value-proposition {
+                font-size: 1.2rem;
+            }
+            
+            .hero-cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Behavior School</div>
+            <ul class="nav-links">
+                <li><a href="/bcba-mock-practice-test">Free Mock Exam</a></li>
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/transformation-program">Programs</a></li>
+                <li><a href="/community">Community</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section with Clear Value Proposition -->
+    <section class="hero">
+        <div class="container">
+            <h1>Master the BCBA Exam & Excel in Schools</h1>
+            <p class="value-proposition">
+                The only BCBA prep platform designed specifically for school-based practitioners. 
+                Free mock exams, practical tools, and resources that actually work in classrooms.
+            </p>
+            <div class="hero-cta-group">
+                <a href="/bcba-mock-practice-test" class="primary-cta">Take Free Mock Exam →</a>
+                <a href="/resources" class="secondary-cta">Browse Resources</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Three Main Benefit Boxes -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-grid">
+                <div class="benefit-box">
+                    <div class="benefit-icon">📝</div>
+                    <h3>Free BCBA Mock Exams</h3>
+                    <p>Full-length practice tests with 160 questions, instant scoring, and detailed explanations. Includes school-based scenarios you won't find elsewhere.</p>
+                    <a href="/bcba-mock-practice-test" class="benefit-link">
+                        Start Free Test →
+                    </a>
+                </div>
+                
+                <div class="benefit-box">
+                    <div class="benefit-icon">🏫</div>
+                    <h3>School-Focused Tools</h3>
+                    <p>ACT Matrix templates, behavior plans, and IEP resources designed for real classroom implementation. Created by practicing school BCBAs.</p>
+                    <a href="/act-matrix" class="benefit-link">
+                        Explore Tools →
+                    </a>
+                </div>
+                
+                <div class="benefit-box">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Evidence-Based Training</h3>
+                    <p>Professional development programs that bridge the gap between clinic and classroom. Learn strategies that actually work in schools.</p>
+                    <a href="/transformation-program" class="benefit-link">
+                        View Programs →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Popular Resources Quick Navigation -->
+    <section class="popular-resources">
+        <div class="container">
+            <h2>Popular Resources</h2>
+            <div class="resources-grid">
+                <a href="/bcba-mock-practice-test" class="resource-card">
+                    <h4>BCBA Mock Practice Test</h4>
+                    <p>160 questions with instant scoring</p>
+                    <span class="resource-badge">FREE</span>
+                </a>
+                
+                <a href="/act-matrix" class="resource-card">
+                    <h4>ACT Matrix for Schools</h4>
+                    <p>Implementation guide and templates</p>
+                    <span class="resource-badge">FREE</span>
+                </a>
+                
+                <a href="/behavior-plans" class="resource-card">
+                    <h4>Behavior Plan Templates</h4>
+                    <p>Ready-to-use classroom behavior plans</p>
+                </a>
+                
+                <a href="/iep-behavior-goals" class="resource-card">
+                    <h4>IEP Behavior Goals</h4>
+                    <p>Evidence-based goal bank</p>
+                </a>
+                
+                <a href="/bcba-study-fluency" class="resource-card">
+                    <h4>BCBA Study Fluency</h4>
+                    <p>Master key concepts quickly</p>
+                </a>
+                
+                <a href="/supervisors" class="resource-card">
+                    <h4>Supervision Resources</h4>
+                    <p>Tools for BCBA supervisors</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- New User Section -->
+    <section class="new-user">
+        <div class="container">
+            <h2>New to Behavior School?</h2>
+            <p>Start with our free BCBA mock exam to assess your readiness, then explore our school-specific resources.</p>
+            <a href="/bcba-mock-practice-test" class="start-here-btn">Start Here →</a>
+        </div>
+    </section>
+    
+    <!-- School-Based Focus -->
+    <section class="school-focus">
+        <div class="container">
+            <h2>Why School-Based BCBAs Choose Us</h2>
+            <p class="focus-subtitle">
+                We understand the unique challenges of working in educational settings. 
+                Our resources are created by school BCBAs, for school BCBAs.
+            </p>
+            <div class="focus-features">
+                <div class="focus-item">
+                    <div class="focus-item-icon">👥</div>
+                    <h4>IEP Ready</h4>
+                </div>
+                <div class="focus-item">
+                    <div class="focus-item-icon">📚</div>
+                    <h4>Classroom Tested</h4>
+                </div>
+                <div class="focus-item">
+                    <div class="focus-item-icon">🎓</div>
+                    <h4>Teacher Friendly</h4>
+                </div>
+                <div class="focus-item">
+                    <div class="focus-item-icon">📊</div>
+                    <h4>Data Driven</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/resources">All Resources</a>
+            </div>
+            <p>&copy; 2024 Behavior School. Empowering school-based BCBAs.</p>
+        </div>
+    </footer>
+</body>
+</html>
