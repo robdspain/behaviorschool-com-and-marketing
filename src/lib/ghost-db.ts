@@ -5,7 +5,7 @@
   - Provides same interface as ghost.ts for seamless replacement
 */
 
-import mysql, { RowDataPacket } from 'mysql2/promise';
+import mysql, { RowDataPacket, FieldPacket } from 'mysql2/promise';
 
 // Reuse the same types from ghost.ts for compatibility
 export interface Tag {
@@ -92,7 +92,7 @@ async function getConnection(): Promise<mysql.Connection> {
       database: process.env.GHOST_DB_NAME!,
       ssl: process.env.GHOST_DB_SSL === 'true' ? {
         rejectUnauthorized: false
-      } : false,
+      } : undefined,
       connectTimeout: 10000,
     });
   }
@@ -136,7 +136,7 @@ export async function getPosts(
     const [countResult] = await db.execute(
       `SELECT COUNT(*) as total FROM posts p ${whereClause}`,
       queryParams
-    ) as [RowDataPacket[], any];
+    ) as [RowDataPacket[], FieldPacket[]];
 
     const total = (countResult[0] as { total: number }).total;
     const pages = Math.ceil(total / limit);
@@ -162,7 +162,7 @@ export async function getPosts(
       ${whereClause}
       ORDER BY p.${order.replace(' DESC', '').replace(' ASC', '')} ${order.includes('DESC') ? 'DESC' : 'ASC'}
       LIMIT ? OFFSET ?
-    `, [...queryParams, limit, offset]) as [PostRowWithAuthor[], any];
+    `, [...queryParams, limit, offset]) as [PostRowWithAuthor[], FieldPacket[]];
 
     // Get tags for posts
     const postIds = postsResult.map((p: PostRowWithAuthor) => p.id);
@@ -180,7 +180,7 @@ export async function getPosts(
         JOIN tags t ON pt.tag_id = t.id
         WHERE pt.post_id IN (${placeholders})
         ORDER BY pt.sort_order
-      `, postIds) as [TagRow[], any];
+      `, postIds) as [TagRow[], FieldPacket[]];
 
       // Group tags by post
       tagsResult.forEach((row: TagRow) => {
@@ -259,8 +259,7 @@ export async function getPosts(
 }
 
 export async function getPostBySlug(
-  slug: string,
-  args: { include?: string; formats?: string } = {}
+  slug: string
 ): Promise<Post | null> {
   assertServerOnly();
 
@@ -287,7 +286,7 @@ export async function getPostBySlug(
       LEFT JOIN users u ON pa.author_id = u.id
       WHERE p.slug = ? AND p.status = "published" AND p.type = "post"
       LIMIT 1
-    `, [slug]) as [PostRowWithAuthor[], any];
+    `, [slug]) as [PostRowWithAuthor[], FieldPacket[]];
 
     if (postsResult.length === 0) {
       return null;
@@ -305,7 +304,7 @@ export async function getPostBySlug(
       JOIN tags t ON pt.tag_id = t.id
       WHERE pt.post_id = ?
       ORDER BY pt.sort_order
-    `, [postRow.id]) as [TagRow[], any];
+    `, [postRow.id]) as [TagRow[], FieldPacket[]];
 
     const tags: Tag[] = tagsResult.map((row: TagRow) => ({
       id: row.id,
@@ -362,7 +361,7 @@ export async function getTags(args: { limit?: number } = {}): Promise<Tag[]> {
       WHERE visibility = 'public'
       ORDER BY name
       LIMIT ?
-    `, [limit]) as [TagRow[], any];
+    `, [limit]) as [TagRow[], FieldPacket[]];
 
     return result.map((row: TagRow) => ({
       id: row.id,
@@ -388,7 +387,7 @@ export async function getAuthors(): Promise<Author[]> {
       FROM users
       WHERE status = 'active'
       ORDER BY name
-    `) as [AuthorRow[], any];
+    `) as [AuthorRow[], FieldPacket[]];
 
     return result.map((row: AuthorRow) => ({
       id: row.id,

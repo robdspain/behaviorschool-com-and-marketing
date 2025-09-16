@@ -3,8 +3,8 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { AnimatedSections } from "./AnimatedSections";
 
 export const metadata: Metadata = {
-  title: "Values-Based IEP Goal Generator | Student-Centered SMART Goals | Behavior School",
-  description: "Free values-based IEP goal generator. Students co-create SMART goals that reflect their values. Write behavior goals that stick.",
+  title: "Free IEP Behavior Goal Generator | Create Compliant Goals in Minutes | Behavior School",
+  description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized tool for increasing positive behaviors and decreasing problem behaviors. No registration required.",
   robots: {
     index: true,
     follow: true,
@@ -17,39 +17,39 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "values-based iep goals",
-    "student-centered iep goals",
-    "iep goal generator",
-    "free iep goal generator",
-    "smart iep goals",
-    "behavior goal iep",
-    "iep behavior goal", 
-    "iep behavior",
-    "behavior goals",
-    "iep behavior goals",
+    "free iep behavior goal generator",
     "behavior iep goals",
-    "behavioral school",
-    "behavior iep goal",
-    "IEP goals",
-    "IEP goal writing",
-    "measurable IEP goals", 
-    "IEP goal examples",
-    "special education goals",
-    "IEP goal bank",
-    "writing IEP goals",
-    "IEP goal templates",
-    "special education teacher tools",
-    "BCBA IEP goals",
-    "school district IEP tools",
-    "values wizard iep",
-    "student values iep goals",
-    "autonomous motivation iep",
-    "act therapy iep goals",
-    "acceptance commitment training iep"
+    "iep behavior goals free",
+    "behavior goal generator",
+    "free behavior goal generator",
+    "iep goal generator behavior",
+    "behavior goals iep",
+    "positive behavior goals iep",
+    "problem behavior goals iep",
+    "measurable behavior goals",
+    "compliant iep behavior goals",
+    "behavior intervention goals",
+    "special education behavior goals",
+    "bcba behavior goals",
+    "school behavior goals",
+    "iep goal writer",
+    "behavior goal writer",
+    "iep goal generator free",
+    "behavior specialist goals",
+    "autism behavior goals",
+    "adhd behavior goals",
+    "classroom behavior goals",
+    "social behavior goals",
+    "replacement behavior goals",
+    "functional behavior goals",
+    "evidence based behavior goals",
+    "data driven behavior goals",
+    "baseline behavior goals",
+    "progressive behavior goals"
   ],
   openGraph: {
-    title: "Values-Based IEP Goal Generator | Student-Centered SMART Goals | Behavior School",
-    description: "Free values-based IEP goal generator. Students co-create goals that reflect their values (Brave, Kind, Focused). Write SMART IEP behavior goals that stick because they start with what students value most.",
+    title: "Free IEP Behavior Goal Generator | Create Compliant Goals in Minutes | Behavior School",
+    description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized for increasing positive behaviors and decreasing problem behaviors. No registration required - start creating now.",
     type: "website",
     url: "https://behaviorschool.com/iep-goals",
     images: [
@@ -63,8 +63,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Values-Based IEP Goal Generator | Student-Centered SMART Goals | Behavior School",
-    description: "Free values-based IEP goal generator. Students co-create goals that reflect their values (Brave, Kind, Focused). Write SMART IEP behavior goals that stick because they start with what students value most.",
+    title: "Free IEP Behavior Goal Generator | Create Compliant Goals in Minutes | Behavior School",
+    description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized for increasing positive behaviors and decreasing problem behaviors. No registration required - start creating now.",
     images: ["https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"]
   },
   alternates: {
@@ -76,19 +76,21 @@ export const metadata: Metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Values-Based IEP Goal Generator",
-  "description": "A free tool for creating student-centered, values-based IEP goals that drive autonomous motivation and lasting skill development",
+  "name": "Free IEP Behavior Goal Generator",
+  "description": "A free tool for creating professional, compliant IEP behavior goals in under 5 minutes. Specialized for increasing positive behaviors and decreasing problem behaviors.",
   "url": "https://behaviorschool.com/iep-goals",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web Browser",
   "offers": {
     "@type": "Offer",
     "availability": "InStock",
-    "description": "Free access to the Values-Based IEP Goal Generator"
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "Free access to the IEP Behavior Goal Generator - no registration required"
   },
   "audience": {
     "@type": "Audience",
-    "audienceType": ["Special Education Teachers", "BCBAs", "School Districts", "Students"]
+    "audienceType": ["Special Education Teachers", "BCBAs", "Behavior Specialists", "IEP Teams", "School Districts"]
   },
   "provider": {
     "@type": "Organization",
@@ -98,33 +100,41 @@ const structuredData = {
   "about": [
     {
       "@type": "Thing",
-      "name": "values-based IEP goals"
-    },
-    {
-      "@type": "Thing", 
-      "name": "student-centered IEP goals"
+      "name": "behavior IEP goals"
     },
     {
       "@type": "Thing",
-      "name": "SMART IEP goals"
+      "name": "positive behavior goals"
     },
     {
       "@type": "Thing",
-      "name": "autonomous motivation"
+      "name": "problem behavior reduction"
     },
     {
       "@type": "Thing",
-      "name": "ACT therapy IEP goals"
+      "name": "measurable behavior goals"
+    },
+    {
+      "@type": "Thing",
+      "name": "behavior intervention goals"
+    },
+    {
+      "@type": "Thing",
+      "name": "IEP compliance"
+    },
+    {
+      "@type": "Thing",
+      "name": "special education behavior support"
     }
   ]
 };
 
-// HowTo Schema for Values Wizard process
+// HowTo Schema for Behavior Goal Generation process
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  "name": "How to Create Values-Based IEP Goals Using the Values Wizard",
-  "description": "Step-by-step process for creating student-centered, values-based IEP goals that drive autonomous motivation and lasting skill development",
+  "name": "How to Generate Professional IEP Behavior Goals in Minutes",
+  "description": "Step-by-step process for creating compliant, measurable IEP behavior goals using our free behavior goal generator tool",
   "image": "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp",
   "totalTime": "PT10M",
   "estimatedCost": {
@@ -135,49 +145,53 @@ const howToSchema = {
   "supply": [
     {
       "@type": "HowToSupply",
-      "name": "Values Wizard Tool"
-    },
-    {
-      "@type": "HowToSupply", 
-      "name": "Student Input"
+      "name": "IEP Behavior Goal Generator"
     },
     {
       "@type": "HowToSupply",
-      "name": "IEP Goal Template"
+      "name": "Behavior Definition"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Baseline Data"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Measurement Criteria"
     }
   ],
   "tool": [
     {
       "@type": "HowToTool",
-      "name": "Free IEP Goal Generator"
+      "name": "Free IEP Behavior Goal Generator"
     }
   ],
   "step": [
     {
       "@type": "HowToStep",
-      "name": "Student Values Selection",
-      "text": "Students pick what matters most to them—like being Helpful, Brave, Focused, Kind, or Curious",
+      "name": "Define Target Behavior",
+      "text": "Enter the specific behavior you want to increase or decrease with clear, observable descriptions",
       "image": "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"
     },
     {
-      "@type": "HowToStep", 
-      "name": "Skill Suggestion",
-      "text": "The Values Wizard suggests age-appropriate skills linked to the student's chosen values"
+      "@type": "HowToStep",
+      "name": "Set Measurement Criteria",
+      "text": "The tool automatically generates appropriate measurement standards based on behavior type and direction"
     },
     {
       "@type": "HowToStep",
-      "name": "SMART Goal Generation",
-      "text": "The system auto-generates Specific, Measurable, Achievable, Relevant, and Time-bound goals"
+      "name": "Add Baseline Data",
+      "text": "Input current performance levels to establish starting point for progress monitoring"
     },
     {
       "@type": "HowToStep",
-      "name": "Generalization Planning",
-      "text": "Built-in plans for multiple settings, people, and prompts to ensure skill transfer"
+      "name": "Generate Professional Goal",
+      "text": "Tool creates compliant, measurable IEP goal with built-in quality assurance validation"
     },
     {
       "@type": "HowToStep",
-      "name": "Customizable Maintenance",
-      "text": "Customizable follow-up scheduling with your own benchmarks and intervals to ensure long-term skill retention"
+      "name": "Export and Implement",
+      "text": "Copy goal to clipboard or download as text file for immediate use in IEP documents"
     }
   ]
 };
@@ -189,42 +203,42 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do values-based goals improve student motivation?",
+      "name": "How does the free IEP behavior goal generator work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "When students help choose goals that reflect their values (like being Brave, Kind, or Focused), they develop autonomous motivation. Research shows values-driven goals foster resilience and long-term follow-through, even when school gets hard."
+        "text": "Our free tool guides you through a 6-step wizard to create professional IEP behavior goals in under 5 minutes. Simply define the target behavior, set measurement criteria, add baseline data, and generate compliant goals. No registration required."
       }
     },
     {
       "@type": "Question",
-      "name": "What is the Values Wizard and how does it work?",
+      "name": "What types of behavior goals can I create?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Values Wizard is a simple tool where students pick what matters most to them—like being Helpful to peers, Curious in learning, or Brave when speaking up. The system then suggests age-appropriate skills linked to those values and generates SMART goals."
+        "text": "The tool is specialized for both increasing positive behaviors (like social skills, communication, academic engagement) and decreasing problem behaviors (like disruption, aggression, non-compliance). It automatically detects goal direction and applies appropriate measurement standards."
       }
     },
     {
       "@type": "Question",
-      "name": "How do you ensure skills generalize across settings?",
+      "name": "Are the generated goals IEP compliant?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our tool builds generalization plans into every goal, including multiple settings, people, and prompts. Research shows generalization must be programmed on purpose, not left to chance. We include self-monitoring tools and variable reinforcement options."
+        "text": "Yes, all goals include specific, measurable criteria that meet IEP compliance standards. The tool has built-in validation rules and a 5-level quality meter to ensure goals are legally compliant and educationally sound."
       }
     },
     {
       "@type": "Question",
-      "name": "What makes these goals different from compliance-based goals?",
+      "name": "Do I need to create an account to use the generator?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Instead of compliance-based goals that fade, values-based goals are anchored in meaning. Students don't just comply—they own their goals. Skills last longer when anchored to natural reinforcers like peer recognition or classroom roles."
+        "text": "No registration is required. The tool processes everything client-side in your browser, ensuring complete privacy. No data is transmitted or stored on our servers. You can start generating goals immediately."
       }
     },
     {
       "@type": "Question",
-      "name": "How do you measure long-term skill maintenance?",
+      "name": "How can I export or save the generated goals?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our tool offers completely customizable objective benchmarks and maintenance intervals. You can set your own mastery criteria and schedule follow-up checks based on your specific needs. Research confirms skills persist longer when connected to student values and natural reinforcers rather than external rewards."
+        "text": "Goals can be copied to your clipboard with one click or downloaded as a text file. The output is formatted and ready to paste directly into IEP documents or data collection systems."
       }
     }
   ]
@@ -252,7 +266,7 @@ export default function IEPGoalsPage() {
           <Breadcrumbs 
             items={[
               { label: "Products", href: "/products" },
-              { label: "Values-Based IEP Goal Generator" }
+              { label: "Free IEP Behavior Goal Generator" }
             ]}
           />
         </nav>

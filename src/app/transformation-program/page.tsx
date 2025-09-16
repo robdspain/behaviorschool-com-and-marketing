@@ -339,7 +339,7 @@ export default function TransformationProgramPage() {
           >
             {/* Hero image */}
             <div className="w-full max-w-4xl mx-auto">
-              <img
+              <Image
                 src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
                 alt="BCBA working at desk with stressed expression, symbolizing the overwhelm that the Behavior School Operating System solves"
                 width={1536}

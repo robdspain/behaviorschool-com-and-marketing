@@ -30,7 +30,7 @@ export async function getPosts(
       return dbResult;
     }
   } catch (error) {
-    console.log('Database unavailable for getPosts, falling back to API:', error.message);
+    console.log('Database unavailable for getPosts, falling back to API:', error instanceof Error ? error.message : error);
   }
 
   // Fall back to API
@@ -44,13 +44,13 @@ export async function getPostBySlug(
 ) {
   // Try database first
   try {
-    const dbResult = await getPostBySlugFromDB(slug, args);
+    const dbResult = await getPostBySlugFromDB(slug);
     if (dbResult) {
       console.log('Using database for getPostBySlug');
       return dbResult;
     }
   } catch (error) {
-    console.log('Database unavailable for getPostBySlug, falling back to API:', error.message);
+    console.log('Database unavailable for getPostBySlug, falling back to API:', error instanceof Error ? error.message : error);
   }
 
   // Fall back to API
@@ -67,7 +67,7 @@ export async function getTags(args: { limit?: number } = {}) {
       return dbResult;
     }
   } catch (error) {
-    console.log('Database unavailable for getTags, falling back to API:', error.message);
+    console.log('Database unavailable for getTags, falling back to API:', error instanceof Error ? error.message : error);
   }
 
   // Fall back to API
@@ -78,13 +78,13 @@ export async function getTags(args: { limit?: number } = {}) {
 export async function getAuthors(args = {}) {
   // Try database first
   try {
-    const dbResult = await getAuthorsFromDB(args);
+    const dbResult = await getAuthorsFromDB();
     if (dbResult.length > 0) {
       console.log('Using database for getAuthors');
       return dbResult;
     }
   } catch (error) {
-    console.log('Database unavailable for getAuthors, falling back to API:', error.message);
+    console.log('Database unavailable for getAuthors, falling back to API:', error instanceof Error ? error.message : error);
   }
 
   // Fall back to API
