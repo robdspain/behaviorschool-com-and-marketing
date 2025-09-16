@@ -90,19 +90,24 @@ export default function IEPBehaviorGoalsPage() {
       </div>
       
       {/* Hero Section */}
-      <section className="pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
             <span className="bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">
               IEP Goal Writer Widget
             </span>
-            <br />
-            <span className="text-3xl md:text-4xl">Complete Feature List</span>
           </h1>
-          
           <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-            This widget is specifically designed for special education professionals, behavior specialists, and IEP teams who need to create compliant, measurable behavior goals quickly and efficiently.
+            Generate compliant, measurable behavior goals quickly and efficiently.
           </p>
+        </div>
+        <div className="max-w-6xl mx-auto mt-8 aspect-video w-full">
+          <iframe
+            src="https://school-behavior-goals.netlify.app/"
+            title="IEP Goal Writer Widget"
+            className="w-full h-full rounded-lg shadow-xl border border-slate-200"
+            allowFullScreen
+          ></iframe>
         </div>
       </section>
 
