@@ -1,10 +1,7 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
-import { Target, Users, BookOpen, ArrowRight, TrendingUp } from "lucide-react";
 
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -128,8 +125,8 @@ export default function IEPBehaviorGoalsPage() {
             <li><strong>Increase/Decrease Behavior Toggle</strong> - Segmented control for behavior direction</li>
             <li><strong>Automatic Measurement Rules</strong> - Smart defaults based on behavior type:
               <ul className="list-circle pl-6 text-slate-600 space-y-1 mt-1">
-                <li>Decreasing behaviors: "0 instances per day" for "5 consecutively measured school days"</li>
-                <li>Increasing behaviors: "in 90% of opportunities" for "3 consecutively measured school days"</li>
+                <li>Decreasing behaviors: &quot;0 instances per day&quot; for &quot;5 consecutively measured school days&quot;</li>
+                <li>Increasing behaviors: &quot;in 90% of opportunities&quot; for &quot;3 consecutively measured school days&quot;</li>
               </ul>
             </li>
           </ul>

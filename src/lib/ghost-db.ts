@@ -5,7 +5,7 @@
   - Provides same interface as ghost.ts for seamless replacement
 */
 
-import mysql from 'mysql2/promise';
+import mysql, { RowDataPacket } from 'mysql2/promise';
 
 // Reuse the same types from ghost.ts for compatibility
 export interface Tag {
@@ -46,6 +46,38 @@ export interface PaginationMeta {
   total: number;
   next?: number | null;
   prev?: number | null;
+}
+
+interface PostRow extends RowDataPacket {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  feature_image: string | null;
+  published_at: string | null;
+  html: string | null;
+  plaintext: string | null;
+}
+
+interface PostRowWithAuthor extends PostRow {
+  author_id: string | null;
+  author_name: string | null;
+  author_slug: string | null;
+  author_profile_image: string | null;
+}
+
+interface TagRow extends RowDataPacket {
+  id: string;
+  name: string;
+  slug: string;
+  post_id?: string; // Optional for when joining with posts_tags
+}
+
+interface AuthorRow extends RowDataPacket {
+  id: string;
+  name: string;
+  slug: string;
+  profile_image: string | null;
 }
 
 let connection: mysql.Connection | null = null;
@@ -93,7 +125,7 @@ export async function getPosts(
 
     // Build the query
     let whereClause = 'WHERE p.status = "published" AND p.type = "post"';
-    const queryParams: any[] = [];
+    const queryParams: (string | number)[] = [];
 
     if (tag) {
       whereClause += ' AND EXISTS (SELECT 1 FROM posts_tags pt JOIN tags t ON pt.tag_id = t.id WHERE pt.post_id = p.id AND t.slug = ?)';
@@ -104,9 +136,9 @@ export async function getPosts(
     const [countResult] = await db.execute(
       `SELECT COUNT(*) as total FROM posts p ${whereClause}`,
       queryParams
-    ) as [any[], any];
+    ) as [RowDataPacket[], any];
 
-    const total = countResult[0].total;
+    const total = (countResult[0] as { total: number }).total;
     const pages = Math.ceil(total / limit);
 
     // Get posts with authors
@@ -130,11 +162,11 @@ export async function getPosts(
       ${whereClause}
       ORDER BY p.${order.replace(' DESC', '').replace(' ASC', '')} ${order.includes('DESC') ? 'DESC' : 'ASC'}
       LIMIT ? OFFSET ?
-    `, [...queryParams, limit, offset]) as [any[], any];
+    `, [...queryParams, limit, offset]) as [PostRowWithAuthor[], any];
 
     // Get tags for posts
-    const postIds = postsResult.map((p: any) => p.id);
-    let tagsMap: Record<string, Tag[]> = {};
+    const postIds = postsResult.map((p: PostRowWithAuthor) => p.id);
+    const tagsMap: Record<string, Tag[]> = {};
 
     if (postIds.length > 0) {
       const placeholders = postIds.map(() => '?').join(',');
@@ -148,14 +180,14 @@ export async function getPosts(
         JOIN tags t ON pt.tag_id = t.id
         WHERE pt.post_id IN (${placeholders})
         ORDER BY pt.sort_order
-      `, postIds) as [any[], any];
+      `, postIds) as [TagRow[], any];
 
       // Group tags by post
-      tagsResult.forEach((row: any) => {
-        if (!tagsMap[row.post_id]) {
-          tagsMap[row.post_id] = [];
+      tagsResult.forEach((row: TagRow) => {
+        if (!tagsMap[row.post_id!]) {
+          tagsMap[row.post_id!] = [];
         }
-        tagsMap[row.post_id].push({
+        tagsMap[row.post_id!].push({
           id: row.id,
           name: row.name,
           slug: row.slug,
@@ -165,7 +197,7 @@ export async function getPosts(
     }
 
     // Format posts
-    const posts: Post[] = postsResult.map((row: any) => ({
+    const posts: Post[] = postsResult.map((row: PostRowWithAuthor) => ({
       id: row.id,
       title: row.title,
       slug: row.slug,
@@ -177,17 +209,17 @@ export async function getPosts(
       primary_tag: tagsMap[row.id]?.[0] || null,
       authors: row.author_id ? [{
         id: row.author_id,
-        name: row.author_name,
-        slug: row.author_slug,
+        name: row.author_name!,
+        slug: row.author_slug!,
         profile_image: row.author_profile_image,
-        url: `https://ghost.behaviorschool.com/author/${row.author_slug}/`
+        url: `https://ghost.behaviorschool.com/author/${row.author_slug!}/`
       }] : [],
       primary_author: row.author_id ? {
         id: row.author_id,
-        name: row.author_name,
-        slug: row.author_slug,
+        name: row.author_name!,
+        slug: row.author_slug!,
         profile_image: row.author_profile_image,
-        url: `https://ghost.behaviorschool.com/author/${row.author_slug}/`
+        url: `https://ghost.behaviorschool.com/author/${row.author_slug!}/`
       } : null,
       html: row.html,
       plaintext: row.plaintext
@@ -255,7 +287,7 @@ export async function getPostBySlug(
       LEFT JOIN users u ON pa.author_id = u.id
       WHERE p.slug = ? AND p.status = "published" AND p.type = "post"
       LIMIT 1
-    `, [slug]) as [any[], any];
+    `, [slug]) as [PostRowWithAuthor[], any];
 
     if (postsResult.length === 0) {
       return null;
@@ -273,9 +305,9 @@ export async function getPostBySlug(
       JOIN tags t ON pt.tag_id = t.id
       WHERE pt.post_id = ?
       ORDER BY pt.sort_order
-    `, [postRow.id]) as [any[], any];
+    `, [postRow.id]) as [TagRow[], any];
 
-    const tags: Tag[] = tagsResult.map((row: any) => ({
+    const tags: Tag[] = tagsResult.map((row: TagRow) => ({
       id: row.id,
       name: row.name,
       slug: row.slug,
@@ -294,17 +326,17 @@ export async function getPostBySlug(
       primary_tag: tags[0] || null,
       authors: postRow.author_id ? [{
         id: postRow.author_id,
-        name: postRow.author_name,
-        slug: postRow.author_slug,
+        name: postRow.author_name!,
+        slug: postRow.author_slug!,
         profile_image: postRow.author_profile_image,
-        url: `https://ghost.behaviorschool.com/author/${postRow.author_slug}/`
+        url: `https://ghost.behaviorschool.com/author/${postRow.author_slug!}/`
       }] : [],
       primary_author: postRow.author_id ? {
         id: postRow.author_id,
-        name: postRow.author_name,
-        slug: postRow.author_slug,
+        name: postRow.author_name!,
+        slug: postRow.author_slug!,
         profile_image: postRow.author_profile_image,
-        url: `https://ghost.behaviorschool.com/author/${postRow.author_slug}/`
+        url: `https://ghost.behaviorschool.com/author/${postRow.author_slug!}/`
       } : null,
       html: postRow.html,
       plaintext: postRow.plaintext
@@ -330,9 +362,9 @@ export async function getTags(args: { limit?: number } = {}): Promise<Tag[]> {
       WHERE visibility = 'public'
       ORDER BY name
       LIMIT ?
-    `, [limit]) as [any[], any];
+    `, [limit]) as [TagRow[], any];
 
-    return result.map((row: any) => ({
+    return result.map((row: TagRow) => ({
       id: row.id,
       name: row.name,
       slug: row.slug,
@@ -345,7 +377,7 @@ export async function getTags(args: { limit?: number } = {}): Promise<Tag[]> {
   }
 }
 
-export async function getAuthors(args = {}): Promise<Author[]> {
+export async function getAuthors(): Promise<Author[]> {
   assertServerOnly();
 
   try {
@@ -356,9 +388,9 @@ export async function getAuthors(args = {}): Promise<Author[]> {
       FROM users
       WHERE status = 'active'
       ORDER BY name
-    `) as [any[], any];
+    `) as [AuthorRow[], any];
 
-    return result.map((row: any) => ({
+    return result.map((row: AuthorRow) => ({
       id: row.id,
       name: row.name,
       slug: row.slug,
