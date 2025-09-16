@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPosts } from "@/lib/ghost";
+import { getPosts } from "@/lib/ghost-hybrid";
 import { Container } from "@/components/container";
 import { Section } from "@/components/section";
 import { PostList } from "@/components/post-list";
@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   // Try tagged posts first; if none, fall back to all posts
-  const tagged = await getPosts({ limit: 24, tag: "blog", order: "published_at desc", include: "tags,authors" });
+  const tagged = await getPosts({ limit: 24, tag: "blog", order: "published_at DESC", include: "tags,authors" });
   const posts = tagged.posts.length > 0
     ? tagged.posts
-    : (await getPosts({ limit: 24, order: "published_at desc", include: "tags,authors" })).posts;
+    : (await getPosts({ limit: 24, order: "published_at DESC", include: "tags,authors" })).posts;
 
   return (
     <div>

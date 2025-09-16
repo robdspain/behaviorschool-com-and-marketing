@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
-import { getPosts, type Post } from "@/lib/ghost";
+import { getPosts, type Post } from "@/lib/ghost-hybrid";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 function PostRow({ post }: { post: Post }) {

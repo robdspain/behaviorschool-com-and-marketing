@@ -1,4 +1,4 @@
-import { getPosts } from "@/lib/ghost";
+import { getPosts } from "@/lib/ghost-hybrid";
 
 export async function GET() {
   const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
@@ -7,7 +7,7 @@ export async function GET() {
     // Get latest blog posts from Ghost CMS
     const { posts } = await getPosts({ 
       limit: 20, 
-      order: "published_at desc", 
+      order: "published_at DESC", 
       include: "tags,authors" 
     });
 

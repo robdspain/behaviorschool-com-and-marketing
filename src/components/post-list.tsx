@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import type { Post } from "@/lib/ghost";
+import type { Post } from "@/lib/ghost-hybrid";
 import { PostCard, PostCardSkeleton } from "@/components/post-card";
 import { cn } from "@/lib/utils";
 

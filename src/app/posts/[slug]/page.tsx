@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/lib/ghost";
+import { getPostBySlug } from "@/lib/ghost-hybrid";
 import Image from "next/image";
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
