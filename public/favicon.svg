@@ -1,4 +1,19 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="32" height="32" fill="#1F4D3F"/>
-  <path d="M8 20L12 16L16 18L24 10M24 10H18M24 10V16" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Background -->
+  <rect width="32" height="32" fill="#FEF3C7" rx="2"/>
+
+  <!-- Grid lines -->
+  <path d="M4 8H28M4 12H24M4 16H20M4 20H28M4 24H28" stroke="#0D5239" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M4 8V28M8 8V24M12 8V20M16 12V28M20 8V28M24 8V28M28 8V28" stroke="#0D5239" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Data points (circles) -->
+  <circle cx="6" cy="10" r="2" fill="#0D5239"/>
+  <circle cx="14" cy="18" r="2" fill="#0D5239"/>
+
+  <!-- Upward trending arrow -->
+  <path d="M6 22L14 18L22 12L26 8" stroke="#0D5239" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M22 8L26 8L26 12" stroke="#0D5239" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Arrow head -->
+  <polygon points="26,8 30,8 28,4" fill="#0D5239"/>
 </svg>
