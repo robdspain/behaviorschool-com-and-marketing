@@ -79,11 +79,11 @@ const config: Config = {
           300: "#6ee7b7",
           400: "#34d399",
           500: "#10b981",
-          600: "#059669",
-          700: "#047857",
-          800: "#065f46",
+          600: "#047857", // Darker for better contrast on white (4.5:1 ratio)
+          700: "#065f46", // Even darker for links and hover states (7:1 ratio)
+          800: "#022c22", // Swapped with 950 for better progression
           900: "#064e3b",
-          950: "#022c22",
+          950: "#041f18", // New darker value for maximum contrast
         },
         slate: {
           50: "#f8fafc",
@@ -94,9 +94,9 @@ const config: Config = {
           500: "#64748b",
           600: "#475569",
           700: "#334155",
-          800: "#1e293b",
-          900: "#0f172a",
-          950: "#020617",
+          800: "#0f172a", // Much darker for better contrast (14:1 ratio on white)
+          900: "#020617", // Swapped with 950
+          950: "#000000", // Pure black for maximum contrast
         },
         stone: {
           50: "#fafaf9",

@@ -1,11 +1,10 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
-import { FileText, Target, CheckCircle, Users, BookOpen, Download, ArrowRight, Star, TrendingUp } from "lucide-react";
+import { Target, CheckCircle, Users, BookOpen, ArrowRight, TrendingUp } from "lucide-react";
 
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -48,48 +47,26 @@ export default function IEPBehaviorGoalsPage() {
     }))
   };
 
-  const goalTypes = [
-    {
-      category: "Social Skills Goals",
-      description: "Peer interaction, communication, and social appropriateness",
-      icon: Users,
-      examples: [
-        "Initiating conversations with peers",
-        "Following social rules and expectations", 
-        "Resolving conflicts appropriately"
-      ]
+  // Article structured data for E-E-A-T and SEO
+  const articleStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "IEP Behavior Goals: Guide & Examples",
+    description: "Learn how to write measurable IEP behavior goals with clear, adaptable examples for school teams and special education professionals.",
+    author: {
+      "@type": "Organization",
+      name: "Behavior School",
     },
-    {
-      category: "Attention & Focus Goals",
-      description: "On-task behavior, following directions, and sustained attention",
-      icon: Target,
-      examples: [
-        "Remaining on-task during instruction",
-        "Following multi-step directions",
-        "Transitioning between activities"
-      ]
+    publisher: {
+      "@type": "Organization",
+      name: "Behavior School",
     },
-    {
-      category: "Self-Regulation Goals",
-      description: "Emotional control, coping strategies, and behavioral responses",
-      icon: TrendingUp,
-      examples: [
-        "Using coping strategies when frustrated",
-        "Requesting breaks appropriately",
-        "Managing emotional responses"
-      ]
-    },
-    {
-      category: "Academic Behavior Goals", 
-      description: "Work completion, participation, and academic engagement",
-      icon: BookOpen,
-      examples: [
-        "Completing assignments independently",
-        "Participating in class discussions",
-        "Organizing materials effectively"
-      ]
-    }
-  ];
+    url: "https://behaviorschool.com/iep-behavior-goals",
+    datePublished: "2025-09-16",
+    dateModified: "2025-09-16"
+  };
+
+  // Removed generic goal types section per request
 
   const components = [
     {
@@ -114,23 +91,7 @@ export default function IEPBehaviorGoalsPage() {
     }
   ];
 
-  const resources = [
-    {
-      title: "IEP Behavior Goals Template Library",
-      description: "50+ pre-written, measurable behavior goals ready to customize",
-      downloads: "1,200+"
-    },
-    {
-      title: "Data Collection Sheets",
-      description: "Track progress on behavior goals with easy-to-use forms",
-      downloads: "800+"
-    },
-    {
-      title: "Parent Communication Templates",
-      description: "Share behavior goal progress with families effectively",
-      downloads: "600+"
-    }
-  ];
+  // Note: Removed bottom template/resource promos and marketing stats per request
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-slate-50">
@@ -138,6 +99,10 @@ export default function IEPBehaviorGoalsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleStructuredData) }}
       />
       
       {/* Breadcrumbs */}
@@ -153,125 +118,61 @@ export default function IEPBehaviorGoalsPage() {
       {/* Hero Section */}
       <section className="pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium mb-6">
-            <Star className="w-4 h-4 mr-2" />
-            Used by 1,000+ School Teams
-          </div>
+          {/* Badge with numerical claim removed per request */}
           
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
             <span className="bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">
               IEP Behavior Goals
             </span>
             <br />
-            <span className="text-3xl md:text-4xl">Templates & Examples</span>
+            <span className="text-3xl md:text-4xl">Guide & Examples</span>
           </h1>
           
           <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-            Free behavior goal IEP templates with measurable behavioral goals examples. Write effective IEP behavior goals that improve student outcomes with our comprehensive guide for school teams and special education professionals.
+            Learn how to write measurable IEP behavior goals with clear, adaptable examples for school teams and special education professionals.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg"
               onClick={() => setIsSignupOpen(true)}
-              className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700"
+              className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 text-white"
             >
-              Download Goal Templates
-              <Download className="ml-2 w-5 h-5" />
+              Get the Resource Guide (Coming Soon)
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link href="#goal-types">
+              <Link href="#measurable-goals">
                 View Goal Examples
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
           </div>
         </div>
-      </section>
-
-      {/* Quick Navigation Section */}
-      <section className="py-12 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-4">
-              Popular Behavior Goal IEP Resources
-            </h2>
-            <p className="text-slate-600">
-              Jump to the most requested IEP behavior goals examples and templates
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Button 
-              variant="outline" 
-              asChild 
-              className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-emerald-50 hover:border-emerald-300"
-            >
-              <Link href="#behavioral-goals-examples">
-                <Target className="w-6 h-6 text-emerald-600" />
-                <span className="text-sm font-medium">Behavioral Goals Examples</span>
-              </Link>
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              asChild 
-              className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-emerald-50 hover:border-emerald-300"
-            >
-              <Link href="#measurable-goals">
-                <CheckCircle className="w-6 h-6 text-emerald-600" />
-                <span className="text-sm font-medium">Measurable Behavioral Goals</span>
-              </Link>
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              asChild 
-              className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-emerald-50 hover:border-emerald-300"
-            >
-              <Link href="#goal-components">
-                <BookOpen className="w-6 h-6 text-emerald-600" />
-                <span className="text-sm font-medium">IEP Behavior Goal Writing</span>
-              </Link>
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              asChild 
-              className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-emerald-50 hover:border-emerald-300"
-            >
-              <Link href="#resources">
-                <FileText className="w-6 h-6 text-emerald-600" />
-                <span className="text-sm font-medium">Free Templates</span>
-              </Link>
-            </Button>
-          </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+          <p className="text-xs text-slate-500 text-center">Last updated: September 16, 2025 • Reviewed by the Behavior School editorial team</p>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold text-emerald-600 mb-2">50+</div>
-              <div className="text-slate-600">Behavior Goal Templates</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-emerald-600 mb-2">1,000+</div>
-              <div className="text-slate-600">Schools Using IEP Goals</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-emerald-600 mb-2">89%</div>
-              <div className="text-slate-600">Behavioral Goal Success Rate</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-emerald-600 mb-2">24/7</div>
-              <div className="text-slate-600">Access to Resources</div>
-            </div>
-          </div>
+      {/* Table of Contents (informational) */}
+      <section className="py-6">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav aria-label="Table of contents" className="bg-white border border-slate-200 rounded-lg p-4">
+            <p className="text-sm font-semibold text-slate-800 mb-2">On this page</p>
+            <ul className="text-sm text-slate-600 grid gap-2 sm:grid-cols-2">
+              <li><a className="hover:text-emerald-700" href="#goal-components">How to write goals</a></li>
+              <li><a className="hover:text-emerald-700" href="#measurable-goals">Examples</a></li>
+              <li><a className="hover:text-emerald-700" href="#measurement-methods">Measurement methods</a></li>
+              <li><a className="hover:text-emerald-700" href="#common-mistakes">Common mistakes</a></li>
+              <li><a className="hover:text-emerald-700" href="#faq">FAQ</a></li>
+              <li><a className="hover:text-emerald-700" href="#references">References</a></li>
+            </ul>
+          </nav>
         </div>
       </section>
+
+      {/* Quick Navigation Section removed per request */}
+
+      {/* Stats section removed per request */}
 
       {/* Goal Components Section */}
       <section id="goal-components" className="py-16 px-4 sm:px-6 lg:px-8">
@@ -304,47 +205,7 @@ export default function IEPBehaviorGoalsPage() {
         </div>
       </section>
 
-      {/* Goal Types Section */}
-      <section id="goal-types" className="py-16 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Common Types of IEP Behavior Goals
-            </h2>
-            <p className="text-lg text-slate-600">
-              Comprehensive coverage of behavior goals across different domains
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {goalTypes.map((type, index) => {
-              const Icon = type.icon;
-              return (
-                <div key={index} className="bg-white rounded-lg p-8 shadow-lg border border-slate-200">
-                  <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mr-4">
-                      <Icon className="w-6 h-6 text-emerald-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-slate-900">{type.category}</h3>
-                      <p className="text-slate-600 text-sm">{type.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    {type.examples.map((example, i) => (
-                      <div key={i} className="flex items-center">
-                        <CheckCircle className="w-4 h-4 text-emerald-500 mr-3 flex-shrink-0" />
-                        <span className="text-slate-600">{example}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Goal Types Section removed per request */}
 
       {/* Measurable Behavioral Goals Examples Section */}
       <section id="measurable-goals" className="py-16 px-4 sm:px-6 lg:px-8">
@@ -354,7 +215,7 @@ export default function IEPBehaviorGoalsPage() {
               Measurable Behavioral Goals Examples for IEP Teams
             </h2>
             <p className="text-lg text-slate-600">
-              Ready-to-use examples of behavioral goals for IEP implementation. Copy, customize, and use these behavior goal IEP templates with your students. Each behavioral goal includes specific criteria and measurement methods.
+              Ready-to-use examples of behavioral goals for IEP implementation. Copy and customize these sample goals for your students. Each behavioral goal includes specific criteria and measurement methods.
             </p>
           </div>
           
@@ -499,6 +360,66 @@ export default function IEPBehaviorGoalsPage() {
         </div>
       </section>
 
+      {/* Measurement Methods */}
+      <section id="measurement-methods" className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Measurement Methods for Behavior Goals</h2>
+            <p className="text-lg text-slate-600">Choose methods that align with the behavior and context you’re targeting.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">Frequency</h3>
+              <p className="text-slate-600 mb-3">Count how often a behavior occurs (e.g., requests help appropriately 3 times per class).</p>
+              <p className="text-sm text-slate-500">Best for discrete, clearly defined behaviors.</p>
+            </div>
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">Duration</h3>
+              <p className="text-slate-600 mb-3">Measure how long a behavior lasts (e.g., on-task for 15 consecutive minutes).</p>
+              <p className="text-sm text-slate-500">Best for sustained engagement or problem behaviors with length.</p>
+            </div>
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">Latency</h3>
+              <p className="text-slate-600 mb-3">Time between instruction and behavior (e.g., begins task within 30 seconds of direction).</p>
+              <p className="text-sm text-slate-500">Useful for following directions or initiation goals.</p>
+            </div>
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">Interval Sampling</h3>
+              <p className="text-slate-600 mb-3">Record whether a behavior occurs within set intervals (e.g., partial interval every 30 seconds).</p>
+              <p className="text-sm text-slate-500">Helpful when continuous observation isn’t feasible.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Common Mistakes */}
+      <section id="common-mistakes" className="py-16 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Common Mistakes and How to Fix Them</h2>
+            <p className="text-lg text-slate-600">Practical tips to make goals observable, measurable, and achievable.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Vague behaviors</h3>
+              <p className="text-slate-600">Replace labels like “behaves appropriately” with specific, observable actions (e.g., “raises hand before speaking”).</p>
+            </div>
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">No conditions</h3>
+              <p className="text-slate-600">State when/where the behavior occurs (during whole group instruction, in the cafeteria, etc.).</p>
+            </div>
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Unclear criteria</h3>
+              <p className="text-slate-600">Set objective thresholds (e.g., 80% across 4/5 consecutive days) and how it’s measured.</p>
+            </div>
+            <div className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Missing generalization</h3>
+              <p className="text-slate-600">Plan for multiple settings/people and note supports fading over time where appropriate.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Example Goal Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50">
         <div className="max-w-4xl mx-auto">
@@ -552,46 +473,10 @@ export default function IEPBehaviorGoalsPage() {
         </div>
       </section>
 
-      {/* Resources Section */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Free IEP Behavior Goal Resources
-            </h2>
-            <p className="text-lg text-slate-600">
-              Everything you need to write, implement, and track behavior goals effectively
-            </p>
-          </div>
-          
-          <div className="space-y-6">
-            {resources.map((resource, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 shadow-lg border border-slate-200">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center mb-2">
-                      <FileText className="w-5 h-5 text-emerald-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-slate-900">{resource.title}</h3>
-                    </div>
-                    <p className="text-slate-600 mb-2">{resource.description}</p>
-                    <p className="text-sm text-emerald-600 font-medium">{resource.downloads} downloads</p>
-                  </div>
-                  <Button 
-                    onClick={() => setIsSignupOpen(true)}
-                    className="ml-6"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Download
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Resource/template promos removed per request */}
 
       {/* FAQ Section */}
-      <section className="py-16 bg-slate-50">
+      <section id="faq" className="py-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -613,36 +498,51 @@ export default function IEPBehaviorGoalsPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-emerald-700 to-emerald-600">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Start Writing Better Behavior Goals Today
-          </h2>
-          <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of school teams using our proven templates and strategies to create meaningful, achievable IEP behavior goals.
-          </p>
-          <Button 
-            size="lg"
-            onClick={() => setIsSignupOpen(true)}
-            className="bg-white text-emerald-700 hover:bg-emerald-50"
-          >
-            Get Free Goal Templates
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
+      {/* References */}
+      <section id="references" className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">References and Further Reading</h2>
+          <ul className="list-disc pl-6 text-slate-700 space-y-2">
+            <li>Positive Behavioral Interventions & Supports (PBIS) – pbis.org</li>
+            <li>IRIS Center (Vanderbilt) – iris.peabody.vanderbilt.edu</li>
+            <li>National Center on Intensive Intervention (NCII) – intensiveintervention.org</li>
+            <li>Wrightslaw: Special Education Law – wrightslaw.com</li>
+            <li>Individuals with Disabilities Education Act (IDEA) – idea.ed.gov</li>
+          </ul>
         </div>
       </section>
 
-      {/* Newsletter Signup Popup */}
+      {/* Related Pages */}
+      <section className="py-12 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">Related Guides</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link className="block border border-slate-200 rounded-lg p-4 hover:border-emerald-300 hover:bg-emerald-50" href="/iep-goals">
+              <h3 className="font-semibold text-slate-900">IEP Goals: Complete Guide</h3>
+              <p className="text-sm text-slate-600">Structure, examples, and progress monitoring.</p>
+            </Link>
+            <Link className="block border border-slate-200 rounded-lg p-4 hover:border-emerald-300 hover:bg-emerald-50" href="/behavior-plans">
+              <h3 className="font-semibold text-slate-900">Behavior Plans</h3>
+              <p className="text-sm text-slate-600">From assessment to implementation.</p>
+            </Link>
+            <Link className="block border border-slate-200 rounded-lg p-4 hover:border-emerald-300 hover:bg-emerald-50" href="/school-based-bcba">
+              <h3 className="font-semibold text-slate-900">School-Based BCBA</h3>
+              <p className="text-sm text-slate-600">Roles, collaboration, and best practices.</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Email Signup Popup */}
       <EmailSignupPopup
         isOpen={isSignupOpen}
         onClose={() => setIsSignupOpen(false)}
-        title="Download Free IEP Behavior Goal Templates"
-        description="Get our complete library of 50+ measurable behavior goals, data collection sheets, and implementation guides for school-based teams."
+        title="Get the IEP Behavior Goals Resource Guide"
+        description="The guide is coming soon. Enter your email to be notified when it's ready and receive occasional updates about IEP behavior goals."
         pageSource="/iep-behavior-goals"
         showNameField={true}
-        buttonText="Download Templates"
-        successMessage="Check your email! Your IEP behavior goal templates are on their way."
+        buttonText="Notify Me"
+        successMessage="Thanks! We'll email you the guide as soon as it's ready."
       />
     </div>
   );

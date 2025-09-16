@@ -3,8 +3,8 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Target, Users, BookOpen, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import SimpleDownloadButton from "@/components/SimpleDownloadButton";
 import Image from "next/image";
+import SimpleDownloadButton from "@/components/SimpleDownloadButton";
 
 export const metadata: Metadata = {
   title: "The ACT Matrix: A Framework for School-Based BCBAs | Complete Guide",

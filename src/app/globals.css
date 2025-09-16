@@ -11,10 +11,10 @@
     --card-foreground: 216 13% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 216 13% 15%;
-    --primary: 120 100% 20%;
+    --primary: 160 100% 15%; /* Darker emerald for better contrast */
     --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96%;
-    --secondary-foreground: 216 13% 15%;
+    --secondary-foreground: 218 30% 8%; /* Much darker for better contrast */
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
     --accent: 210 40% 96%;
@@ -23,7 +23,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 158 65% 35%;
+    --ring: 160 100% 20%; /* Darker ring color for better focus visibility */
     --radius: 0.5rem;
     
     /* Behavior Study Tools variables */
@@ -113,6 +113,39 @@
     }
     to {
       transform: translateY(0);
+    }
+  }
+  
+  /* Accessibility improvements */
+  .link-distinguishable {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+  }
+  
+  .link-distinguishable:hover {
+    text-decoration-thickness: 2px;
+  }
+  
+  .focus-visible-improved {
+    outline: 2px solid theme(colors.ring);
+    outline-offset: 2px;
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .text-emerald-700 {
+      color: #000000 !important;
+    }
+    
+    .bg-emerald-600 {
+      background-color: #000000 !important;
+      border: 2px solid #ffffff;
+    }
+    
+    .text-slate-800 {
+      color: #000000 !important;
     }
   }
 }

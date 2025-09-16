@@ -79,10 +79,10 @@ export function Footer() {
         <div className="text-center mt-4">
           <div className="flex justify-center items-center space-x-4">
             <Link 
-              href="https://www.bacb.com/"
+              href="/BACB-ACE/BACB_ACE-Logo-1.jpg"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Visit BACB Website"
+              aria-label="BACB ACE Provider Image"
             >
               <Image
                 src="/BACB-ACE/BACB_ACE-Logo-1.jpg"

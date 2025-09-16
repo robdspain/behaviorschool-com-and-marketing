@@ -19,9 +19,9 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'School-Based BCBA: Role, Systems, FBAs & BIPs (2025 Guide)',
-  description: 'Complete guide to succeeding as a school-based BCBA. Learn roles, responsibilities, MTSS/PBIS alignment, FBAs, BIPs, staff training, and ethical systems for K-12 schools.',
-  keywords: 'school-based BCBA, BCBA in schools, school behavior analyst, FBA in schools, BIP school settings, MTSS BCBA, PBIS behavior analyst, school BCBA role, IEP behavior goals',
+  title: 'BCBAs in Schools: Complete Guide for School-Based Behavior Analysts (2025)',
+  description: 'Complete guide for BCBAs in schools. Learn how school-based BCBAs conduct FBAs, write BIPs, implement MTSS/PBIS, train staff, and prevent burnout in K-12 education.',
+  keywords: 'BCBAs in schools, school BCBA, school-based BCBA, BCBA in schools role, school behavior analyst, FBA in schools, BIP school settings, MTSS BCBA, PBIS behavior analyst, school BCBA training',
   alternates: {
     canonical: 'https://behaviorschool.com/school-bcba'
   },
@@ -142,7 +142,7 @@ export default function SchoolBCBAPage() {
                 Complete 2025 Guide
               </Badge>
               <h1 className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-                School-Based BCBA: Complete Guide for Success in Schools
+                BCBAs in Schools: Complete Guide for School-Based Success
               </h1>
               <p className="mt-6 text-xl leading-8 text-blue-100 max-w-3xl mx-auto">
                 Transform from crisis manager to systems leader. Master practical, ethical systems built for real classrooms with evidence-based tools that actually work.

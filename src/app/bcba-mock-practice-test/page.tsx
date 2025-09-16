@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
-  description: "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
+  title: "Free BCBA Mock Exam — 185 Questions + Analytics (2025)",
+  description: "Start a free BCBA mock exam: 185 questions, 4-hour realistic simulation, domain mini-exams, detailed explanations, and full analytics. Daily free practice included.",
   robots: {
     index: true,
     follow: true,
@@ -19,10 +19,13 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
+    "bcba mock exam",
+    "free bcba mock exam",
+    "mock bcba exam",
+    "best bcba mock exams",
     "bcba mock practice test free",
     "free bcba practice test",
     "bcba exam simulation",
-    "bcba mock exam",
     "bcba practice questions free",
     "bcba test prep",
     "bcba exam prep"
@@ -31,8 +34,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
-    description: "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
+    title: "Free BCBA Mock Exam — 185 Questions + Analytics (2025)",
+    description: "Free BCBA mock exam with 185 questions, 4-hour timing, detailed explanations, and real-time analytics. Includes daily free practice.",
     url: "https://behaviorschool.com/bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -48,8 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
-    description: "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
+    title: "Free BCBA Mock Exam — 185 Questions (2025)",
+    description: "Take a realistic, 4-hour BCBA mock exam with detailed explanations and analytics. 185 questions + daily free practice.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -245,10 +248,26 @@ export default function BCBAMockPracticeTestPage() {
               },
               {
                 "@type": "Question",
+                "name": "How many questions are in the BCBA mock exam?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The full BCBA mock exam includes 185 questions with a realistic 4-hour time limit and an interface that mirrors the real test day experience."
+                }
+              },
+              {
+                "@type": "Question",
                 "name": "What analytics do I get after completing a mock exam?",
                 "acceptedAnswer": {
                   "@type": "Answer", 
                   "text": "Our comprehensive analytics include millisecond-precision response time analysis, domain-specific performance breakdown across all 9 BCBA domains, answer pattern tracking showing uncertainty, time management insights with pacing recommendations, weak area identification, and trend analysis showing improvement over multiple sessions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you show feedback during the BCBA mock exam?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. To preserve realistic exam conditions, there is no mid-exam feedback. Detailed explanations and scoring are available after you submit your exam."
                 }
               },
               {
@@ -266,7 +285,47 @@ export default function BCBAMockPracticeTestPage() {
                   "@type": "Answer",
                   "text": "No, our smart question management system includes question exposure tracking so our AI remembers every question you've seen, adaptive selection choosing new questions based on your performance, a large question bank with thousands of unique questions, and difficulty matching calibrated to your skill level."
                 }
+              },
+              {
+                "@type": "Question",
+                "name": "Is there a free BCBA mock exam?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. You can take a free 185-question BCBA mock exam with a realistic 4-hour timer, detailed explanations, domain mini-exams, and full analytics. We also include 10 free practice questions daily."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What are the best BCBA mock exams?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The best BCBA mock exams mirror the real exam's timing and question distribution, provide detailed explanations, and include analytics on speed and accuracy. Behavior School's platform offers a full 185-question simulation, domain mini-exams, and millisecond-precision analytics so you can target weak areas effectively."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are mini BCBA mock exams available?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. You can choose any single domain for a compact, focused mini mock. Time limits are proportional to the domain's weight, questions are prioritized to be unexposed, and results include domain history and targeted insights."
+                }
               }
+            ]
+          })
+        }}
+      />
+
+      {/* BreadcrumbList Structured Data for richer snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://behaviorschool.com/" },
+              { "@type": "ListItem", "position": 2, "name": "BCBA Resources", "item": "https://behaviorschool.com/bcba-exam-prep" },
+              { "@type": "ListItem", "position": 3, "name": "BCBA Mock Practice Test", "item": "https://behaviorschool.com/bcba-mock-practice-test" }
             ]
           })
         }}
@@ -291,12 +350,16 @@ export default function BCBAMockPracticeTestPage() {
             </div>
             
             <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-              Master the BCBA Exam with 
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent"> Realistic Mock Tests</span>
+              Free BCBA Mock Exam 
+              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent"> — 185 Questions</span>
             </h1>
             
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Build confidence, identify weak areas, and perfect your test-taking strategy with our comprehensive BCBA mock practice tests. Experience the real exam before exam day.
+              Build confidence, identify weak areas, and perfect your test-taking strategy with our comprehensive BCBA mock exam and practice tests. Experience a realistic 4-hour simulation with detailed explanations and analytics.
+            </p>
+
+            <p className="text-sm text-slate-500 mb-2">
+              Also see our <Link href="/bcba-practice-exam" className="text-blue-600 hover:text-blue-700 underline font-medium">BCBA practice exam</Link> overview.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -326,6 +389,39 @@ export default function BCBAMockPracticeTestPage() {
                 <BarChart3 className="h-4 w-4 text-emerald-600" />
                 <span>Detailed analytics</span>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Quick Summary */}
+        <section className="py-12">
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-2xl shadow border border-slate-200 p-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">Full Mock Exam</h3>
+              <ul className="list-disc pl-5 text-slate-700 space-y-1">
+                <li>185 questions</li>
+                <li>4-hour timer</li>
+                <li>Real exam flow</li>
+                <li>Detailed results</li>
+              </ul>
+            </div>
+            <div className="bg-white rounded-2xl shadow border border-slate-200 p-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">Mini Mock Exams</h3>
+              <ul className="list-disc pl-5 text-slate-700 space-y-1">
+                <li>Domain-focused</li>
+                <li>Proportional timing</li>
+                <li>Same interface</li>
+                <li>Targeted insights</li>
+              </ul>
+            </div>
+            <div className="bg-white rounded-2xl shadow border border-slate-200 p-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">Free Access</h3>
+              <ul className="list-disc pl-5 text-slate-700 space-y-1">
+                <li>1 free full mock</li>
+                <li>1 free mini mock</li>
+                <li>10 daily practice questions</li>
+                <li>No credit card required</li>
+              </ul>
             </div>
           </div>
         </section>
@@ -511,6 +607,117 @@ export default function BCBAMockPracticeTestPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Full BCBA Mock Exam Details */}
+        <section className="py-20">
+          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 lg:p-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Full BCBA Mock Exam (185 Questions)</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                <li><strong>Realistic format:</strong> 185 questions across all 9 domains with a 4‑hour timer and exam‑like interface.</li>
+                <li><strong>Official breakdown:</strong> Mirrors the 6th Edition domain distribution (A–I) with exact counts and percentages.</li>
+                <li><strong>Authentic difficulty:</strong> Analysis‑level questions that test higher‑order reasoning, not just recall.</li>
+                <li><strong>Smart item selection:</strong> Prioritizes unexposed items; shuffles answers to avoid position bias.</li>
+              </ul>
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                <li><strong>Real exam mechanics:</strong> No mid‑exam feedback; review comes after completion, just like test day.</li>
+                <li><strong>Results & review:</strong> Domain breakdown, pass indicator, time metrics, weak‑area suggestions, trends.</li>
+                <li><strong>Explanations:</strong> Detailed, question‑level explanations with references in the review section.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* BCBA Mini Mock Exams */}
+        <section className="py-20">
+          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 lg:p-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">BCBA Mini Mock Exams (Domain‑Focused)</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                <li><strong>Domain targeting:</strong> Choose any single domain for compact, focused practice.</li>
+                <li><strong>Proportional timing:</strong> Time limits scaled to each domain’s share of the full exam.</li>
+                <li><strong>Fresh questions:</strong> Pulls unexposed items from that domain first; graceful fallback if needed.</li>
+              </ul>
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                <li><strong>Same experience:</strong> Identical interface and item style as the full BCBA mock exam.</li>
+                <li><strong>Progress & history:</strong> Saved attempts with date, score, pass/fail, and domain history.</li>
+                <li><strong>Target weak areas:</strong> Perfect for closing gaps before a full-length mock.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Ours Beats Typical Competitors */}
+        <section className="py-20">
+          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 lg:p-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Why Our BCBA Mock Exams Are Better</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                <li><strong>Exact distribution:</strong> Blueprint‑accurate counts and percentages by domain (6th Edition).</li>
+                <li><strong>Higher‑order focus:</strong> Analysis‑level questions for realistic difficulty.</li>
+                <li><strong>Freshness guarantee:</strong> Exposure tracking prevents repeats; adaptive selection.</li>
+                <li><strong>Real exam flow:</strong> No mid‑exam feedback; prevents artificial score inflation.</li>
+              </ul>
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                <li><strong>Deep analytics:</strong> Domain breakdowns, weak‑area callouts, trends, and timing insights.</li>
+                <li><strong>Targeted mini mocks:</strong> Proportional timing and domain fidelity for laser‑focused practice.</li>
+                <li><strong>Generative fallback:</strong> New, aligned items maintain coverage when banks are exhausted.</li>
+                <li><strong>Generous free tier:</strong> 1 free full + 1 free mini, plus 10 daily practice questions.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Access & Limits */}
+        <section className="py-20">
+          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 lg:p-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Access and Limits</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Free</h3>
+                <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                  <li>10 daily practice questions</li>
+                  <li>1 free full BCBA mock exam</li>
+                  <li>1 free mini mock exam</li>
+                  <li>Full results and explanations after completion</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Premium</h3>
+                <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                  <li>Unlimited full and mini mocks</li>
+                  <li>Unlimited practice questions</li>
+                  <li>Advanced analytics without limits</li>
+                  <li>Frictionless access on web and PWA</li>
+                </ul>
+              </div>
+            </div>
+            <p className="text-slate-700 mt-6">Start free at <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline font-medium">study.behaviorschool.com/free-practice</a>.</p>
+          </div>
+        </section>
+
+        {/* Choosing the Best Mock Exams */}
+        <section className="py-20">
+          <div className="bg-white rounded-3xl shadow-lg border border-slate-200 p-8 lg:p-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Choosing the Best BCBA Mock Exams</h2>
+            <p className="text-slate-700 mb-6">When evaluating the best BCBA mock exams, look for these essentials:</p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                <li>Exact 4-hour timing and realistic interface</li>
+                <li>Accurate domain distribution (A–I) and difficulty</li>
+                <li>Detailed explanations for every question</li>
+                <li>Analytics on speed, accuracy, and patterns</li>
+              </ul>
+              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+                <li>Fresh questions on retakes; adaptive selection</li>
+                <li>Free options to get started risk‑free</li>
+                <li>Progress tracking across practice sessions</li>
+                <li>Domain mini-exams for targeted practice</li>
+              </ul>
+            </div>
+            <p className="text-slate-700 mt-6">Our BCBA mock exam includes a full 185‑question simulation, domain mini‑exams, and millisecond‑level analytics—covering all criteria above.</p>
           </div>
         </section>
 
@@ -968,6 +1175,17 @@ export default function BCBAMockPracticeTestPage() {
               </div>
 
               <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Is there a free BCBA mock exam?</h3>
+                <p className="text-slate-600 mb-4">Yes. You can start a free BCBA mock exam with:</p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li><strong>185 questions:</strong> Full-length simulation with realistic timing</li>
+                  <li><strong>Detailed explanations:</strong> Learn why each answer is correct or incorrect</li>
+                  <li><strong>Analytics included:</strong> Speed, accuracy, domains, and answer changes</li>
+                  <li><strong>Daily free practice:</strong> 10 questions per day to build consistency</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
                 <h3 className="text-xl font-bold text-slate-900 mb-4">How often should I take mock exams?</h3>
                 <p className="text-slate-600 mb-4">
                   The optimal testing schedule depends on your preparation timeline:
@@ -1031,6 +1249,19 @@ export default function BCBAMockPracticeTestPage() {
                 <p className="text-slate-600 mt-4">
                   Remember: Mock exams are diagnostic tools. Low initial scores are normal and expected - they guide your preparation, not predict failure. For specialized career paths, consider reading our <Link href="/school-based-bcba" className="text-blue-600 hover:text-blue-700 underline font-medium">school-based BCBA guide</Link> for additional preparation insights.
                 </p>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">What are the best BCBA mock exams?</h3>
+                <p className="text-slate-600 mb-4">The best BCBA mock exams:</p>
+                <ul className="list-disc pl-6 text-slate-600 space-y-2">
+                  <li>Mirror the real exam’s 4-hour timing and interface</li>
+                  <li>Match BACB domain distribution and difficulty</li>
+                  <li>Include detailed explanations and references</li>
+                  <li>Provide analytics on speed, accuracy, and patterns</li>
+                  <li>Offer fresh questions on retakes</li>
+                </ul>
+                <p className="text-slate-600 mt-4">Behavior School’s mock exam meets these criteria with a 185‑question simulation, domain mini‑exams, and millisecond‑precision analytics.</p>
               </div>
             </div>
           </div>

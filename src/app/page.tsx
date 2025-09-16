@@ -62,7 +62,7 @@ export default function Home() {
           <div className="text-center">
             <h2 className="sr-only">About Behavior School</h2>
             <p className="text-lg font-medium text-slate-800 leading-relaxed">
-              <strong>Behavior School is an online community and toolkit for school-based BCBAs, behavior analysts in schools, and education professionals.</strong> We provide <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-medium">BCBA exam prep</Link>, <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-medium">BCBA practice exams</Link>, <Link href="/supervisors" className="text-emerald-700 hover:text-emerald-800 font-medium">supervision tools</Link>, <Link href="/iep-goals" className="text-emerald-700 hover:text-emerald-800 font-medium">IEP goal writing</Link>, and <Link href="/behavior-plans" className="text-emerald-700 hover:text-emerald-800 font-medium">behavior intervention plan templates</Link> to help school BCBAs reduce burnout, increase fidelity, and improve student outcomes. Founded by <a href="https://robspain.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-800 font-semibold">Rob Spain, BCBA</a>, our platform offers AI-powered BCBA study tools, supervision workflows, behavior plan writers, and <Link href="/transformation-program" className="text-emerald-700 hover:text-emerald-800 font-medium">8-week transformation program</Link> for school behavior professionals practicing applied behavior analysis in schools.
+              <strong>Behavior School is an online community and toolkit for school-based BCBAs, behavior analysts in schools, and education professionals.</strong> We provide <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA exam prep</Link>, <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA practice exams</Link>, <Link href="/supervisors" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">supervision tools</Link>, <Link href="/iep-goals" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">IEP goal writing</Link>, and <Link href="/behavior-plans" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">behavior intervention plan templates</Link> to help school BCBAs reduce burnout, increase fidelity, and improve student outcomes. Founded by <a href="https://robspain.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-800 font-semibold link-distinguishable">Rob Spain, BCBA</a>, our platform offers AI-powered BCBA study tools, supervision workflows, behavior plan writers, and <Link href="/transformation-program" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">8-week transformation program</Link> for school behavior professionals practicing applied behavior analysis in schools.
             </p>
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function Home() {
                 </ul>
               </div>
               <div className="pt-2">
-                <Button asChild size="lg" className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl w-full sm:w-auto min-w-[200px]">
+                <Button asChild size="lg" className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white rounded-xl w-full sm:w-auto min-w-[200px]">
                   <a href="https://community.behaviorschool.com" target="_blank" rel="noopener noreferrer">
                     Join the School BCBA Community
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -138,7 +138,7 @@ export default function Home() {
                   <div className="space-y-2 mt-auto">
                     <Link 
                       href="/behavior-study-tools"
-                      className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
                       BCBA Exam Prep Details
                     </Link>
@@ -165,7 +165,7 @@ export default function Home() {
                   <div className="mt-auto">
                     <Link 
                       href="/supervisors"
-                      className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
                       BCBA Supervision Details
                     </Link>
@@ -184,7 +184,7 @@ export default function Home() {
                   <div className="mt-auto">
                     <Link 
                       href="/iep-goals"
-                      className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
                       IEP Goal Writer Details
                     </Link>
@@ -203,7 +203,7 @@ export default function Home() {
                   <div className="mt-auto">
                     <Link 
                       href="/behavior-plans"
-                      className="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
                       Behavior Plan Details
                     </Link>
@@ -280,7 +280,7 @@ export default function Home() {
                 Stop surviving your role and start transforming your entire district.
               </p>
               <p className="text-base sm:text-lg leading-relaxed">
-                This isn&apos;t just another course—it&apos;s a complete operating system that addresses the 6 universal pain points every school BCBA faces, with practical tools, scripts, and systems you can implement immediately. Learn how to conduct functional behavior assessments in schools, write effective behavior intervention plans, and reduce BCBA burnout. Get support from our <Link href="/community" className="text-emerald-700 hover:text-emerald-800 font-medium">school BCBA community</Link> and enhance your skills with our <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-medium">BCBA exam prep tools</Link>.
+                This isn&apos;t just another course—it&apos;s a complete operating system that addresses the 6 universal pain points every school BCBA faces, with practical tools, scripts, and systems you can implement immediately. Learn how to conduct functional behavior assessments in schools, write effective behavior intervention plans, and reduce BCBA burnout. Get support from our <Link href="/community" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">school BCBA community</Link> and enhance your skills with our <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA exam prep tools</Link>.
               </p>
               <div className="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg">
                 <p className="text-emerald-800 font-medium text-sm sm:text-base leading-relaxed">
@@ -290,7 +290,7 @@ export default function Home() {
               <div className="pt-2">
                 <Link 
                   href="/transformation-program" 
-                  className="inline-flex items-center bg-emerald-600 hover:bg-emerald-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold group transition-colors text-sm sm:text-base w-full sm:w-auto justify-center min-w-[280px]"
+                  className="inline-flex items-center bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold group transition-colors text-sm sm:text-base w-full sm:w-auto justify-center min-w-[280px]"
                 >
                   Stop BCBA Burnout - Get the Full Program
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -499,6 +499,22 @@ export default function Home() {
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "School-based BCBAs earn an average salary of $65,000-$85,000 per year, with experienced BCBAs in leadership roles earning $90,000-$110,000. Salaries vary by state, district size, and years of experience in school-based applied behavior analysis."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What challenges do BCBAs in schools face?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "BCBAs in schools face challenges including high caseloads (15-50 students), lack of time for comprehensive services, undertrained paraprofessionals, crisis-driven reactive approaches, and balancing individual student needs with systems-level PBIS implementation."
+                }
+              },
+              {
+                "@type": "Question", 
+                "name": "How do BCBAs support PBIS implementation?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "BCBAs support PBIS across all three tiers: Tier 1 (universal school-wide prevention), Tier 2 (targeted group interventions), and Tier 3 (intensive individual supports). They provide the ABA expertise that forms the foundation of effective PBIS systems."
                 }
               }
             ]
