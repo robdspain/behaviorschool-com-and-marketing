@@ -21,7 +21,7 @@ export async function GET(_req: NextRequest, { params }: { params: { path: strin
   const upstream = `${getGhostBase()}/${relPath}`;
   const upstreamRes = await fetch(upstream, {
     // Allow edge caching
-    next: { revalidate: 60 * 60 * 24 },
+    next: { revalidate: 86400 },
   });
 
   if (!upstreamRes.ok || !upstreamRes.body) {
@@ -41,5 +41,5 @@ export async function GET(_req: NextRequest, { params }: { params: { path: strin
 }
 
 export const dynamic = 'force-static';
-export const revalidate = 60 * 60 * 24; // 24h
+export const revalidate = 86400; // 24h (60 * 60 * 24)
 

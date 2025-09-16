@@ -996,10 +996,6 @@ export default function ACTMatrixPage() {
           </div>
         </section>
       </div>
-      {/* Contrast tuning for this page only */}
-      <style jsx global>{`
-        #act-matrix-page .text-slate-600 { color: #334155 !important; }
-      `}</style>
     </>
   );
 }
