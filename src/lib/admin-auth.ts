@@ -1,5 +1,5 @@
 // Server-side admin authentication utilities
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
 
 export interface AuthenticatedUser {
@@ -59,7 +59,7 @@ export async function verifyAdminAuth(request: NextRequest): Promise<Authenticat
  * Alternative method for routes that use session-based auth
  * This checks the session cookie instead of Authorization header
  */
-export async function verifyAdminSession(request: NextRequest): Promise<AuthenticatedUser | null> {
+export async function verifyAdminSession(): Promise<AuthenticatedUser | null> {
   try {
     const supabase = await createClient();
     

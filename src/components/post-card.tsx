@@ -29,20 +29,15 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
   const primaryTag = post.primary_tag ?? (post.tags && post.tags.length > 0 ? post.tags[0] : null);
   const imageSrc = React.useMemo(() => {
     const fallback = "/thumbnails/hero-thumb.webp";
-    const ghostBase = (process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || "https://ghost.behaviorschool.com").replace(/\/$/, "");
     let src = post.feature_image || fallback;
+
+    // Handle protocol-relative URLs
     if (src.startsWith("//")) src = `https:${src}`;
+
+    // Ensure HTTPS
     if (src.startsWith("http://")) src = src.replace(/^http:/, "https:");
 
-    // If it's a Ghost content image, rewrite to internal proxy so the public markup never references the Ghost domain
-    const ghostContentRegex = new RegExp(`^https?:\\/\\/${ghostBase.replace(/[-/\\^$*+?.()|[\]{}]/g, r => r)}\\/content\\/images\\/`);
-    if (ghostContentRegex.test(src)) {
-      src = src.replace(/^https?:\/\/[\s\S]*?(?=\/content\/images\/)/, '');
-    }
-    if (src.startsWith('/content/images/')) {
-      src = `/media/ghost${src}`;
-    }
-
+    // Use Ghost URLs directly - they should work fine for images
     return src;
   }, [post.feature_image]);
 

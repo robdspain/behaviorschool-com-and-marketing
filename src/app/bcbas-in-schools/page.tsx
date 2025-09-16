@@ -3,18 +3,15 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
-  CheckCircle, 
-  Users, 
-  BookOpen, 
-  Target, 
-  TrendingUp, 
-  Shield, 
-  Clock,
+import {
+  CheckCircle,
+  Users,
+  Target,
+  TrendingUp,
+  Shield,
   FileText,
   Brain,
   Lightbulb,
-  Download,
   ArrowRight,
   AlertTriangle,
   Award
@@ -397,7 +394,7 @@ export default function BCBAsInSchoolsPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-slate-600 mb-4">
-                    "Megan works as a BCBA in special education, providing consultation and assessment at the Tier 3 level. She trains special education teachers and instructional assistants working with students supported by IEPs."
+                    &quot;Megan works as a BCBA in special education, providing consultation and assessment at the Tier 3 level. She trains special education teachers and instructional assistants working with students supported by IEPs.&quot;
                   </p>
                   <div className="bg-green-100 p-3 rounded">
                     <p className="text-xs text-green-800">
@@ -415,7 +412,7 @@ export default function BCBAsInSchoolsPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-slate-600 mb-4">
-                    "Rob leads district-wide PBIS implementation, training administrators and teachers in evidence-based behavior support while maintaining individual consultation services."
+                    &quot;Rob leads district-wide PBIS implementation, training administrators and teachers in evidence-based behavior support while maintaining individual consultation services.&quot;
                   </p>
                   <div className="bg-blue-100 p-3 rounded">
                     <p className="text-xs text-blue-800">
@@ -433,7 +430,7 @@ export default function BCBAsInSchoolsPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-slate-600 mb-4">
-                    "Holly provides services across all three tiers - from school-wide systems to intensive individual interventions, with a focus on training and sustainability."
+                    &quot;Holly provides services across all three tiers - from school-wide systems to intensive individual interventions, with a focus on training and sustainability.&quot;
                   </p>
                   <div className="bg-purple-100 p-3 rounded">
                     <p className="text-xs text-purple-800">

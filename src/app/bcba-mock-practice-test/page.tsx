@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle, Calendar } from "lucide-react";
+import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, PlayCircle, Calendar } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free BCBA Mock Exam — 185 Questions + Analytics (2025)",
@@ -457,7 +457,7 @@ export default function BCBAMockPracticeTestPage() {
                   {/* Quote */}
                   <div className="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg">
                     <p className="text-teal-800 italic text-sm">
-                      "Make a study plan to stick to...or don't and change it at anytime"
+                      &quot;Make a study plan to stick to...or don&apos;t and change it at anytime&quot;
                     </p>
                   </div>
 

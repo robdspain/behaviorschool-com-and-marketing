@@ -11,35 +11,61 @@ function isAllowedPath(p: string): boolean {
   return p.startsWith('content/images/');
 }
 
-export async function GET(_req: NextRequest, { params }: { params: { path: string[] } }) {
-  const segments = params.path || [];
-  const relPath = segments.join('/');
-  if (!isAllowedPath(relPath)) {
-    return new NextResponse('Forbidden', { status: 403 });
+export async function GET(_req: NextRequest, context: { params: Promise<{ path: string[] }> }) {
+  try {
+    const params = await context.params;
+    const segments = params.path || [];
+    const relPath = segments.join('/');
+
+    console.log('Ghost proxy request:', { segments, relPath });
+
+    if (!isAllowedPath(relPath)) {
+      console.log('Forbidden path:', relPath);
+      return new NextResponse('Forbidden', { status: 403 });
+    }
+
+    const ghostBase = getGhostBase();
+    const upstream = `${ghostBase}/${relPath}`;
+
+    console.log('Fetching from upstream:', upstream);
+
+    const upstreamRes = await fetch(upstream, {
+      headers: {
+        'User-Agent': 'BehaviorSchool-Proxy/1.0'
+      }
+    });
+
+    console.log('Upstream response status:', upstreamRes.status);
+
+    if (!upstreamRes.ok) {
+      console.log('Upstream error:', upstreamRes.status, upstreamRes.statusText);
+      return new NextResponse('Not found', { status: 404 });
+    }
+
+    const headers = new Headers();
+
+    // Copy important headers
+    if (upstreamRes.headers.get('content-type')) {
+      headers.set('Content-Type', upstreamRes.headers.get('content-type')!);
+    }
+    if (upstreamRes.headers.get('content-length')) {
+      headers.set('Content-Length', upstreamRes.headers.get('content-length')!);
+    }
+
+    // Set cache headers
+    headers.set('Cache-Control', 'public, max-age=2592000, immutable');
+    headers.set('X-Robots-Tag', 'noindex');
+
+    return new NextResponse(upstreamRes.body, {
+      status: upstreamRes.status,
+      headers,
+    });
+  } catch (error) {
+    console.error('Ghost proxy error:', error);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
-
-  const upstream = `${getGhostBase()}/${relPath}`;
-  const upstreamRes = await fetch(upstream, {
-    // Allow edge caching
-    next: { revalidate: 86400 },
-  });
-
-  if (!upstreamRes.ok || !upstreamRes.body) {
-    return new NextResponse('Not found', { status: 404 });
-  }
-
-  const headers = new Headers(upstreamRes.headers);
-  // Strong cache for images
-  headers.set('Cache-Control', 'public, max-age=2592000, immutable');
-  // Prevent search engines from indexing the proxy endpoints
-  headers.set('X-Robots-Tag', 'noindex');
-
-  return new NextResponse(upstreamRes.body, {
-    status: upstreamRes.status,
-    headers,
-  });
 }
 
-export const dynamic = 'force-static';
-export const revalidate = 86400; // 24h (60 * 60 * 24)
+export const dynamic = 'force-dynamic';
+export const revalidate = false;
 

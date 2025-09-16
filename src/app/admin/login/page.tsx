@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase-client'
 import { SIMPLE_AUTH_CONFIG, isAuthorizedAdmin } from '@/lib/admin-config'
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Shield, LogIn, Loader2 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
-export default function LoginPage() {
+function LoginPageContent() {
   const [loading, setLoading] = useState(false)
   const [checkingAuth, setCheckingAuth] = useState(true)
   const [error, setError] = useState('')
@@ -208,9 +208,17 @@ export default function LoginPage() {
             </div>
           </CardContent>
         </Card>
-        
+
         {/* Support contact removed per request */}
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginPageContent />
+    </Suspense>
   )
 }

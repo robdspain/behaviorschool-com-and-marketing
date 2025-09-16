@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Zap, Target, TrendingUp, Clock, BarChart3, Brain, Lightbulb, ArrowRight, Star, Award, Users, BookOpen, Timer } from "lucide-react";
+import { CheckCircle, Zap, Target, TrendingUp, BarChart3, Brain, ArrowRight, Star, Award, Users, Timer } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "BCBA Study Fluency Tracking - Precision Response Time Analytics",

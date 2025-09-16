@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
-import { Target, CheckCircle, Users, BookOpen, ArrowRight, TrendingUp } from "lucide-react";
+import { Target, Users, BookOpen, ArrowRight, TrendingUp } from "lucide-react";
 
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
