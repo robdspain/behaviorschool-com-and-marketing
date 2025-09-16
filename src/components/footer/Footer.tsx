@@ -114,6 +114,12 @@ export function Footer() {
       <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-center space-x-6 text-sm">
+            <Link href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors">
+              FAQ
+            </Link>
+            <Link href="https://study.behaviorschool.com/free-bcba-practice-exam" className="text-gray-600 hover:text-gray-900 transition-colors">
+              BCBA Practice Exams (Free)
+            </Link>
             <Link href="/contact" className="text-gray-600 hover:text-gray-900 transition-colors">
               Contact Us
             </Link>

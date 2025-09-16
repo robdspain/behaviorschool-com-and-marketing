@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BCBA Supervision Tools & Training Platform | Behavior School",
-  description: "Plan, deliver, and document high‑quality BCBA supervision with automation and defensible records. Track competencies, hours, and compliance for BACB audit-ready documentation.",
-  keywords: "BCBA supervision tools, behavior analyst supervision, RBT supervision, BCBA fieldwork tracking, supervision documentation, BACB compliance, behavior analyst training",
+  title: "ABA Supervision Tools & Free BCBA Supervision Curriculum | Behavior School",
+  description: "ABA supervision tools for BCBAs: competency matrix, hours & signatures, templates, and audit‑ready exports. Includes guidance and a free supervision curriculum framework for mentoring.",
+  keywords: "aba supervision tools, bcba supervision tools, bcba supervision curriculum, bcba supervision curriculum free, fieldwork tracking, supervision documentation, BACB compliance, behavior analyst training",
   alternates: { canonical: "https://behaviorschool.com/supervisors" },
   openGraph: {
     type: "website",
-    title: "BCBA Supervision Tools & Training Platform",
-    description: "Plan, deliver, and document high‑quality BCBA supervision with automation and defensible records.",
+    title: "ABA Supervision Tools & BCBA Supervision Curriculum",
+    description: "Deliver compliant ABA supervision with tools, templates, and a free supervision curriculum framework.",
     url: "/supervisors",
     siteName: "Behavior School",
     images: [
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
         url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "BCBA Supervision Tools - Behavior School",
+        alt: "ABA Supervision Tools and BCBA Supervision Curriculum - Behavior School",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BCBA Supervision Tools & Training Platform",
-    description: "Plan, deliver, and document high‑quality BCBA supervision with automation and defensible records.",
+    title: "ABA Supervision Tools & BCBA Supervision Curriculum",
+    description: "Compliant ABA supervision tools with templates, automations, and a free curriculum framework.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },

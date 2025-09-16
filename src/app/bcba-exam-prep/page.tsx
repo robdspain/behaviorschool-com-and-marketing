@@ -176,7 +176,14 @@ export default function BCBAExamPrepPage() {
       "Ethics in behavior analysis",
       "Research methodology",
       "Data analysis and interpretation"
-    ]
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://behaviorschool.com/bcba-exam-prep"
+    }
   };
 
   // Product schema for BCBA Study Package
@@ -296,6 +303,16 @@ export default function BCBAExamPrepPage() {
                     <ArrowRight className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
                   </Link>
                 </Button>
+              </div>
+
+              <div className="mt-4 flex justify-center lg:justify-start">
+                <Link 
+                  href="/free-bcba-practice-exam"
+                  className="inline-flex items-center text-emerald-700 hover:text-emerald-800 font-semibold"
+                >
+                  Free BCBA Practice Exam (10 Questions)
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </div>
             </div>
             
