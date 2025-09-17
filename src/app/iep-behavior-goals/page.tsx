@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
+import { IEPGoalWriter } from "@/components/IEPGoalWriter";
 
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -101,13 +102,8 @@ export default function IEPBehaviorGoalsPage() {
             Generate compliant, measurable behavior goals quickly and efficiently.
           </p>
         </div>
-        <div className="max-w-6xl mx-auto mt-8 aspect-video w-full">
-          <iframe
-            src="https://school-behavior-goals.netlify.app/"
-            title="IEP Goal Writer Widget"
-            className="w-full h-full rounded-lg shadow-xl border border-slate-200"
-            allowFullScreen
-          ></iframe>
+        <div className="max-w-6xl mx-auto mt-8 w-full">
+          <IEPGoalWriter />
         </div>
       </section>
 
