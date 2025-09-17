@@ -1,18 +1,11 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 
 
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
-  const router = useRouter();
-
-  const handleSignupSuccess = () => {
-    setIsSignupOpen(false);
-    router.push("/iep-behavior-goals/widget");
-  };
 
   // FAQ data for structured data
   const faqData = [
@@ -1039,7 +1032,6 @@ export default function IEPBehaviorGoalsPage() {
         showNameField={true}
         buttonText="Access Generator"
         successMessage="Thanks! Redirecting you to the IEP Behavior Goal Generator..."
-        onSuccess={handleSignupSuccess}
       />
     </div>
   );
