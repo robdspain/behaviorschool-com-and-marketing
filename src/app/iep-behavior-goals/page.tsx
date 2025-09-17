@@ -1,11 +1,27 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
+import { useRouter } from "next/navigation";
 
 
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem('hasSignedUpForIEPWidget')) {
+      router.replace('/iep-behavior-goals/widget');
+    }
+  }, [router]);
+
+  const handleSignupSuccess = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('hasSignedUpForIEPWidget', 'true');
+    }
+    setIsSignupOpen(false);
+    router.push("/iep-behavior-goals/widget");
+  };
 
   // FAQ data for structured data
   const faqData = [

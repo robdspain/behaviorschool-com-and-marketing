@@ -71,12 +71,13 @@ export function EmailSignupPopup({
         setIsSubmitted(true);
         if (onSuccess) {
           onSuccess(); // Call onSuccess callback
+        } else {
+          // Close popup after 3 seconds if no custom success handler
+          setTimeout(() => {
+            onClose();
+            setIsSubmitted(false);
+          }, 3000);
         }
-        // Close popup after 3 seconds
-        setTimeout(() => {
-          onClose();
-          setIsSubmitted(false);
-        }, 3000);
       } else {
         console.error("Newsletter subscription failed:", response.status);
         trackFormSubmission('email_signup_popup', false, {
