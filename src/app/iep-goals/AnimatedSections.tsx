@@ -357,7 +357,7 @@ export function AnimatedSections() {
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-slate-900 mb-4">Meet the Creator</h3>
                 <div className="flex flex-wrap justify-center gap-2 mb-6">
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Rob Spain, M.Ed., BCBA</span>
+                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Rob Spain, M.S.,BCBA, IBA</span>
                   <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">Behavior School Founder</span>
                   <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">15+ Years Experience</span>
                 </div>
@@ -366,8 +366,8 @@ export function AnimatedSections() {
               <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-8 border-l-4 border-emerald-500">
                 <h4 className="text-lg font-semibold text-slate-900 mb-4">Why I Built This Tool</h4>
                 <p className="text-slate-700 leading-relaxed mb-4">
-                  After 15+ years as a practicing BCBA in schools, I grew frustrated seeing IEP goals that students didn&apos;t connect with. 
-                  Traditional goals focused on compliance rather than what actually mattered to the students themselves.
+                  Over 25 years working in schools as a special education teacher and a behavior analyst, I grew frustrated seeing IEP goals that students didn&apos;t connect with. 
+                  Traditional goals often focused on compliance rather than what actually mattered to the students themselves.
                 </p>
                 <p className="text-slate-700 leading-relaxed mb-4">
                   I developed this values-based approach because I believe when we start with what matters to students — 
@@ -380,7 +380,7 @@ export function AnimatedSections() {
                 </p>
                 <div className="mt-6 pt-4 border-t border-slate-200">
                   <p className="text-slate-600 text-sm">
-                    <strong>Rob Spain, M.Ed., BCBA</strong> • Behavior School Founder • Practicing School-Based BCBA
+                                        <strong>Rob Spain, M.S.,BCBA, IBA</strong> • Behavior School Founder • Practicing School-Based BCBA
                   </p>
                 </div>
               </div>

@@ -171,7 +171,7 @@ export default function IEPBehaviorGoalsPage() {
                 onClick={() => setIsSignupOpen(true)}
                 className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 w-full md:w-auto text-base group relative overflow-hidden"
               >
-                <span className="">Start Creating Goals Now</span>
+                <span className="relative z-10">Start Creating Goals Now</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
             </div>
@@ -926,7 +926,7 @@ export default function IEPBehaviorGoalsPage() {
             onClick={() => setIsSignupOpen(true)}
             className="bg-white hover:bg-slate-50 text-emerald-600 font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-lg group relative overflow-hidden"
           >
-            <span className="">Get Started Now - It&apos;s Free</span>
+            <span className="relative z-10">Get Started Now - It&apos;s Free</span>
             <div className="absolute inset-0 bg-gradient-to-r from-white to-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
           <p className="text-emerald-100/80 text-sm mt-4">No registration required • Start immediately • 100% free</p>
