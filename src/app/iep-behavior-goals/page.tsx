@@ -100,7 +100,7 @@ export default function IEPBehaviorGoalsPage() {
                 <iframe
                   src="https://school-behavior-goals.netlify.app/"
                   width="100%"
-                  height="600px" // Adjust height as needed
+                  height="800px" // Adjust height as needed
                   frameBorder="0"
                   allowFullScreen
                   title="IEP Goal Writer Widget"
@@ -111,7 +111,7 @@ export default function IEPBehaviorGoalsPage() {
 
             {/* Right: Eyebrow, H1, Subtitle */}
             <div className="order-1 lg:order-2">
-              <div className="text-emerald-700 font-semibold uppercase tracking-wide text-sm mb-3">Free, Embeddable Widget</div>
+              <div className="text-emerald-700 font-semibold uppercase tracking-wide text-sm mb-3">Generate Behavior Related IEP goals in Minutes</div>
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-4">
                 IEP Behavior Goal Generator
               </h1>
