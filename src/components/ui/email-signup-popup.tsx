@@ -16,6 +16,7 @@ interface EmailSignupPopupProps {
   className?: string;
   showNameField?: boolean; // New prop to control name field visibility
   isDownloadFlow?: boolean; // When true, show download-specific disclaimer/messages
+  onSuccess?: () => void; // New prop for success callback
 }
 
 export function EmailSignupPopup({
@@ -28,7 +29,8 @@ export function EmailSignupPopup({
   successMessage = "Thanks for subscribing!",
   className = "",
   showNameField = false,
-  isDownloadFlow = false
+  isDownloadFlow = false,
+  onSuccess // Destructure onSuccess prop
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { trackEmailSignup, trackFormSubmission, trackButtonClick } = useAnalytics();
@@ -67,6 +69,9 @@ export function EmailSignupPopup({
         });
         
         setIsSubmitted(true);
+        if (onSuccess) {
+          onSuccess(); // Call onSuccess callback
+        }
         // Close popup after 3 seconds
         setTimeout(() => {
           onClose();
