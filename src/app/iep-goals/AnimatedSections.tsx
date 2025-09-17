@@ -173,7 +173,7 @@ export function AnimatedSections() {
                 Get Early Access Now
                 <ArrowRight className="ml-3 h-6 w-6" />
               </button>
-              <p className="text-sm text-slate-500 mt-3">Join 2,847+ educators on the waitlist • 94% report needing this tool</p>
+              <p className="text-sm text-slate-500 mt-3">Free access • No registration required • Start immediately</p>
             </div>
           </motion.div>
         </div>
@@ -336,14 +336,14 @@ export function AnimatedSections() {
             {/* Trust Indicators */}
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">2,847+</div>
-                <p className="text-slate-600 font-medium">Educators on Waitlist</p>
-                <p className="text-slate-500 text-sm mt-1">Growing weekly</p>
+                <div className="text-4xl font-bold text-blue-600 mb-2">100%</div>
+                <p className="text-slate-600 font-medium">Free to Use</p>
+                <p className="text-slate-500 text-sm mt-1">No registration required</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-emerald-600 mb-2">15+</div>
-                <p className="text-slate-600 font-medium">Research Citations</p>
-                <p className="text-slate-500 text-sm mt-1">Evidence-based approach</p>
+                <div className="text-4xl font-bold text-emerald-600 mb-2">Research</div>
+                <p className="text-slate-600 font-medium">Evidence-Based Methods</p>
+                <p className="text-slate-500 text-sm mt-1">Based on special education research</p>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-purple-600 mb-2">BCBA</div>
@@ -391,10 +391,10 @@ export function AnimatedSections() {
                 onClick={() => setIsSignupOpen(true)}
                 className="inline-flex items-center px-10 py-5 text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
-                Join 2,847+ Educators on the Waitlist
+                Start Creating Goals Now
                 <ArrowRight className="ml-3 h-6 w-6" />
               </button>
-              <p className="text-sm text-slate-500 mt-3">Early access launching soon</p>
+              <p className="text-sm text-slate-500 mt-3">Free • No registration required</p>
             </div>
           </motion.div>
         </div>
