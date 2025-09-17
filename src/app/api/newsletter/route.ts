@@ -58,19 +58,29 @@ export async function POST(req: NextRequest) {
 
   try {
     const supabase = await createClient();
+    console.log('API: Supabase client created.');
 
     // Check if email already exists
-    const { data: existingSubscriber } = await supabase
+    console.log('API: Checking for existing subscriber...');
+    const { data: existingSubscriber, error: selectError } = await supabase
       .from('subscribers')
       .select('id, status')
       .eq('email', email)
       .single();
 
+    if (selectError && selectError.code !== 'PGRST116') { // PGRST116 means no rows found, which is expected
+      console.error('API: Error selecting subscriber:', selectError);
+      return NextResponse.json({ error: "Failed to check subscription status." }, { status: 500 });
+    }
+
     if (existingSubscriber) {
+      console.log('API: Existing subscriber found.', existingSubscriber);
       if (existingSubscriber.status === 'active') {
+        console.log('API: Subscriber already active.');
         return NextResponse.json({ error: "You're already subscribed to our newsletter!" }, { status: 409 });
       }
       // Reactivate if previously unsubscribed
+      console.log('API: Reactivating subscriber...');
       const { error: updateError } = await supabase
         .from('subscribers')
         .update({ 
@@ -82,11 +92,13 @@ export async function POST(req: NextRequest) {
         .eq('id', existingSubscriber.id);
 
       if (updateError) {
-        console.error('Error reactivating subscriber:', updateError);
+        console.error('API: Error reactivating subscriber:', updateError);
         return NextResponse.json({ error: "Failed to subscribe. Please try again." }, { status: 500 });
       }
+      console.log('API: Subscriber reactivated.');
     } else {
       // Create new subscriber
+      console.log('API: Creating new subscriber...');
       const { error: insertError } = await supabase
         .from('subscribers')
         .insert([{
@@ -99,13 +111,15 @@ export async function POST(req: NextRequest) {
         }]);
 
       if (insertError) {
-        console.error('Error creating subscriber:', insertError);
+        console.error('API: Error creating subscriber:', insertError);
         return NextResponse.json({ error: "Failed to subscribe. Please try again." }, { status: 500 });
       }
+      console.log('API: New subscriber created.');
     }
 
     // Send welcome email if Mailgun is configured
     if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY) {
+      console.log('API: Mailgun configured, attempting to send welcome email...');
       try {
         const welcomeResponse = await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
           method: 'POST',
@@ -117,7 +131,21 @@ export async function POST(req: NextRequest) {
             from: `Behavior School <hello@${process.env.MAILGUN_DOMAIN}>`,
             to: email,
             subject: 'Welcome to Behavior School Newsletter!',
-            text: `Hi ${name},\n\nThank you for subscribing to our newsletter! You'll be the first to know about:\n\n• New course releases and updates\n• Exclusive insights and strategies\n• Expert tips for behavior management\n• Community events and opportunities\n\nWe're excited to have you join our community of behavior change professionals.\n\nBest regards,\nThe Behavior School Team\n\nP.S. You can unsubscribe at any time by clicking the link in any of our emails.`,
+            text: `Hi ${name},
+
+Thank you for subscribing to our newsletter! You'll be the first to know about:
+
+• New course releases and updates
+• Exclusive insights and strategies
+• Expert tips for behavior management
+• Community events and opportunities
+
+We're excited to have you join our community of behavior change professionals.
+
+Best regards,
+The Behavior School Team
+
+P.S. You can unsubscribe at any time by clicking the link in any of our emails.`,
             html: `
               <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                 <h2 style="color: #059669;">Welcome to Behavior School Newsletter!</h2>
@@ -140,21 +168,23 @@ export async function POST(req: NextRequest) {
         });
 
         if (!welcomeResponse.ok) {
-          console.error('Welcome email error:', await welcomeResponse.text());
+          console.error('API: Welcome email error:', await welcomeResponse.text());
         }
+        console.log('API: Welcome email sent (if configured).');
       } catch (emailError) {
-        console.error('Error sending welcome email:', emailError);
+        console.error('API: Error sending welcome email:', emailError);
         // Don't fail the subscription if email fails
       }
     }
 
+    console.log('API: Subscription process completed successfully.');
     return NextResponse.json({ 
       success: true,
       message: "Successfully subscribed! Check your email for a welcome message." 
     });
 
   } catch (error) {
-    console.error('Newsletter subscription error:', error);
+    console.error('API: General newsletter subscription error:', error);
     return NextResponse.json({ error: "Failed to subscribe. Please try again." }, { status: 500 });
   }
 }

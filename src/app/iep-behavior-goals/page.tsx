@@ -10,16 +10,21 @@ export default function IEPBehaviorGoalsPage() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log('IEPBehaviorGoalsPage: useEffect triggered');
     if (typeof window !== 'undefined' && localStorage.getItem('hasSignedUpForIEPWidget')) {
+      console.log('IEPBehaviorGoalsPage: localStorage flag found, redirecting...');
       router.replace('/iep-behavior-goals/widget');
     }
   }, [router]);
 
   const handleSignupSuccess = () => {
+    console.log('IEPBehaviorGoalsPage: handleSignupSuccess called');
     if (typeof window !== 'undefined') {
       localStorage.setItem('hasSignedUpForIEPWidget', 'true');
+      console.log('IEPBehaviorGoalsPage: localStorage flag set');
     }
     setIsSignupOpen(false);
+    console.log('IEPBehaviorGoalsPage: Redirecting to widget page...');
     router.push("/iep-behavior-goals/widget");
   };
 

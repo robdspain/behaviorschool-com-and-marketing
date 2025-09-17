@@ -61,6 +61,7 @@ export function EmailSignupPopup({
       });
 
       if (response.ok) {
+        console.log('EmailSignupPopup: API response OK');
         // Track successful email signup
         trackEmailSignup('newsletter', email, {
           name,
@@ -70,7 +71,9 @@ export function EmailSignupPopup({
         
         setIsSubmitted(true);
         if (onSuccess) {
+          console.log('EmailSignupPopup: Calling onSuccess');
           onSuccess(); // Call onSuccess callback
+          // Do NOT close popup here if onSuccess is provided, let onSuccess handle navigation/closing
         } else {
           // Close popup after 3 seconds if no custom success handler
           setTimeout(() => {
