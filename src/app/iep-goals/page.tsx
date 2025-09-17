@@ -206,7 +206,7 @@ const faqSchema = {
       "name": "How does the free IEP behavior goal generator work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our free tool guides you through a 6-step wizard to create professional IEP behavior goals in under 5 minutes. Simply define the target behavior, set measurement criteria, add baseline data, and generate compliant goals. No registration required."
+        "text": "Use a straightforward step-by-step flow to create professional IEP behavior goals in under 5 minutes. Define the target behavior, set measurement criteria, add baseline data, and generate compliant goals—no registration required."
       }
     },
     {
