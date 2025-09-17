@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
+import { IEPGoalWriter } from "@/components/IEPGoalWriter";
 
 export function AnimatedSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -11,24 +12,24 @@ export function AnimatedSections() {
 
   const faqs = [
     {
-      question: "How do values-based goals improve student motivation?",
-      answer: "When students help choose goals that reflect their values (like being Brave, Kind, or Focused), they develop autonomous motivation. Research shows values-driven goals foster resilience and long-term follow-through, even when school gets hard."
+      question: "How does the free IEP behavior goal generator work?",
+      answer: "Our free tool guides you through a 6-step wizard to create professional IEP behavior goals in under 5 minutes. Simply define the target behavior, set measurement criteria, add baseline data, and generate compliant goals. No registration required."
     },
     {
-      question: "What is the Values Wizard and how does it work?",
-      answer: "The Values Wizard is a simple tool where students pick what matters most to them—like being Helpful to peers, Curious in learning, or Brave when speaking up. The system then suggests age-appropriate skills linked to those values and generates SMART goals."
+      question: "What types of behavior goals can I create?",
+      answer: "The tool is specialized for both increasing positive behaviors (like social skills, communication, academic engagement) and decreasing problem behaviors (like disruption, aggression, non-compliance). It automatically detects goal direction and applies appropriate measurement standards."
     },
     {
-      question: "How do you ensure skills generalize across settings?",
-      answer: "Our tool builds generalization plans into every goal, including multiple settings, people, and prompts. Research shows generalization must be programmed on purpose, not left to chance. We include self-monitoring tools and variable reinforcement options."
+      question: "Are the generated goals IEP compliant?",
+      answer: "Yes, all goals include specific, measurable criteria that meet IEP compliance standards. The tool has built-in validation rules and a 5-level quality meter to ensure goals are legally compliant and educationally sound."
     },
     {
-      question: "What makes these goals different from compliance-based goals?",
-      answer: "Instead of compliance-based goals that fade, values-based goals are anchored in meaning. Students don't just comply—they own their goals. Skills last longer when anchored to natural reinforcers like peer recognition or classroom roles."
+      question: "Do I need to create an account to use the generator?",
+      answer: "No registration is required. The tool processes everything client-side in your browser, ensuring complete privacy. No data is transmitted or stored on our servers. You can start generating goals immediately."
     },
     {
-      question: "How do you measure long-term skill maintenance?",
-      answer: "Our tool offers completely customizable objective benchmarks and maintenance intervals. You can set your own mastery criteria and schedule follow-up checks based on your specific needs. Research confirms skills persist longer when connected to student values and natural reinforcers rather than external rewards."
+      question: "How can I export or save the generated goals?",
+      answer: "Goals can be copied to your clipboard with one click or downloaded as a text file. The output is formatted and ready to paste directly into IEP documents or data collection systems."
     }
   ];
 
@@ -37,10 +38,7 @@ export function AnimatedSections() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative pt-16 pb-8 lg:pt-20 lg:pb-12 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-pink-50" />
-        <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-purple-100 to-transparent opacity-30 blur-3xl" />
-        <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-pink-100 to-transparent opacity-20 blur-2xl" />
+      <section className="relative pt-16 pb-8 lg:pt-20 lg:pb-12 bg-white">
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -51,11 +49,15 @@ export function AnimatedSections() {
                               className="space-y-4"
             >
               <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight leading-[1.1] text-slate-900">
-                Write IEP Goals That Actually Stick—Because They Start With What Students Value Most
+                Finally, IEP Behavior Goals That <span className="text-emerald-600">Actually Work</span>
               </h1>
-              
+
+              <p className="text-lg sm:text-xl text-slate-700 font-medium mb-4">
+                Stop Struggling with Vague, Non-Compliant Goals
+              </p>
+
               <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed">
-                Students co-create goals that reflect who they want to be. Our Values Wizard helps students identify what matters most—like being Helpful, Brave, or Focused—then generates SMART goals that drive committed action and lasting change.
+                You know the pain: spending hours writing behavior goals that get rejected by administrators, questioned by parents, or simply don't lead to meaningful change. Our free tool eliminates the guesswork and creates research-backed goals that pass compliance reviews and actually help students succeed.
               </p>
 
               <motion.div
@@ -64,27 +66,27 @@ export function AnimatedSections() {
                 transition={{ delay: 0.4 }}
                 className="space-y-4"
               >
-                                 <button 
+                                 <button
                    onClick={() => setIsSignupOpen(true)}
-                   className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105 border-2 border-orange-300"
+                   className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
                  >
                    <Zap className="mr-3 h-6 w-6" />
-                   Generate My First Goal Now
+                   Start Creating Goals Free
                    <ArrowRight className="ml-3 h-6 w-6" />
                  </button>
                 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-slate-600">
                   <div className="flex items-center space-x-2">
-                    <Users className="h-4 w-4 text-emerald-600" />
-                    <span className="text-sm font-semibold">2,847+ educators waiting</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
                     <CheckCircle className="h-4 w-4 text-emerald-600" />
-                    <span className="text-sm font-semibold">100% Free</span>
+                    <span className="text-sm font-semibold">No Registration Required</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Star className="h-4 w-4 text-emerald-600" />
-                    <span className="text-sm font-semibold">Early Access</span>
+                    <Zap className="h-4 w-4 text-emerald-600" />
+                    <span className="text-sm font-semibold">Under 5 Minutes</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Users className="h-4 w-4 text-emerald-600" />
+                    <span className="text-sm font-semibold">IEP Compliant</span>
                   </div>
                 </div>
               </motion.div>
@@ -96,75 +98,9 @@ export function AnimatedSections() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-                <div className="bg-slate-100 px-6 py-4 border-b border-slate-200">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <div className="ml-4 text-sm text-slate-600 font-medium">IEP Goal Generator - Level 5</div>
-                  </div>
-                </div>
-                
-                <div className="p-3 sm:p-4">
-                  <div className="space-y-2 mb-3">
-                    <label className="block text-sm font-medium text-slate-700">Student Values:</label>
-                    <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
-                      <p className="text-slate-600 text-sm sm:text-base">Being Helpful, Brave, and Focused</p>
-                    </div>
-                    
-                    <label className="block text-sm font-medium text-slate-700">Target Skill:</label>
-                    <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
-                      <p className="text-slate-600 text-sm sm:text-base">Speaking up in class (Brave value)</p>
-                    </div>
-                    
-                    <label className="block text-sm font-medium text-slate-700">Current Performance:</label>
-                    <div className="bg-slate-50 rounded-lg p-2 sm:p-3 border border-slate-200">
-                      <p className="text-slate-600 text-sm sm:text-base">Raises hand 20% of opportunities, waits 30+ seconds</p>
-                    </div>
-                  </div>
+              <IEPGoalWriter />
 
-                  <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold py-3 px-4 sm:px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-lg text-sm sm:text-base">
-                    <Zap className="inline h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                    Generate Values-Based Goal
-                  </button>
-
-                  <div className="mt-3 space-y-2">
-                    <label className="block text-sm font-medium text-slate-700">Generated IEP Goal:</label>
-                    <div className="bg-emerald-50 border-2 border-emerald-200 rounded-lg p-3 sm:p-4">
-                      <p className="text-emerald-800 text-xs sm:text-sm leading-relaxed">
-                        <CheckCircle className="inline h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                        By 03/10/26, when in classroom discussions and given opportunities to share ideas, [Student] will demonstrate bravery by raising hand and speaking up in 90% of opportunities for 3 consecutive days, responding within 5 seconds of being called on, across classroom, small group, and whole-class settings, as measured by teacher observation. Additionally, [Student] will maintain this brave communication for 4 weeks following mastery, connecting to their value of being Brave.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 flex flex-wrap gap-1 sm:gap-2">
-                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                      Values-Based
-                    </span>
-                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                      Student-Driven
-                    </span>
-                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                      SMART Goals
-                    </span>
-                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                      Generalization
-                    </span>
-                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                      <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-0.5 sm:mr-1" />
-                      Maintenance
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
+              <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full opacity-20 animate-pulse"></div>
               <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-20 animate-pulse delay-1000"></div>
             </motion.div>
           </div>
