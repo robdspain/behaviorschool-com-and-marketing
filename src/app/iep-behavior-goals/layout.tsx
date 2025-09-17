@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "IEP Behavior Goal Generator — Free IEP Goal Writer Widget | Behavior School",
+  title: "Free IEP Behavior Goals Generator — Create Behavior Goals for IEP | Behavior School",
   description:
-    "Generate compliant, measurable IEP behavior goals in minutes with our free, embeddable widget. Step-by-step flow, baseline data, and a built-in quality meter.",
+    "Generate free IEP behavior goals in under 5 minutes. Create compliant, measurable behavior goals for IEPs with our specialized behavior goal generator. No registration required.",
   robots: {
     index: true,
     follow: true,
@@ -16,18 +16,24 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "IEP goal writer widget",
-    "IEP behavior goal generator",
-    "free IEP goal generator",
-    "behavior IEP goals",
-    "measurable behavior goals",
-    "IEP goal tool",
-    "embed IEP goal widget"
+    "behavior goal iep",
+    "iep behavior goal",
+    "iep behavior",
+    "iep behavior goals",
+    "behavior iep goals",
+    "free iep behavior goals",
+    "behavior goals for iep",
+    "iep behavior goal generator",
+    "free behavior goal generator",
+    "behavior goal writer",
+    "iep goal generator free",
+    "behavior goals iep examples",
+    "measurable behavior goals iep"
   ],
   openGraph: {
-    title: "IEP Behavior Goal Generator — Free IEP Goal Writer Widget",
+    title: "Free IEP Behavior Goals Generator — Create Behavior Goals for IEP",
     description:
-      "Create compliant, measurable IEP behavior goals in minutes. Free, embeddable widget with step-by-step flow and baseline data.",
+      "Generate free IEP behavior goals in under 5 minutes. Create compliant, measurable behavior goals for IEPs with our specialized generator. No registration required.",
     type: "website",
     url: "https://behaviorschool.com/iep-behavior-goals",
     images: [
@@ -35,15 +41,15 @@ export const metadata: Metadata = {
         url: "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp",
         width: 1200,
         height: 630,
-        alt: "IEP Goal Writer Widget — Behavior School"
+        alt: "Free IEP Behavior Goals Generator — Behavior School"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "IEP Behavior Goal Generator — Free IEP Goal Writer Widget",
+    title: "Free IEP Behavior Goals Generator — Create Behavior Goals for IEP",
     description:
-      "Generate compliant, measurable IEP behavior goals in minutes with our free, embeddable widget.",
+      "Generate free IEP behavior goals in under 5 minutes. No registration required. Specialized for behavior goals.",
     images: ["https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"]
   },
   alternates: {
