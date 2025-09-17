@@ -267,7 +267,7 @@ export default function IEPBehaviorGoalsPage() {
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-slate-600 mb-12">
-            The struggle is real for every <strong>IEP behavior goal</strong> writer—and it's stealing your time from what matters most: helping students.
+            The struggle is real for every <strong>IEP behavior goal</strong> writer—and it&apos;s stealing your time from what matters most: helping students.
           </p>
 
           {/* Symptoms List */}
@@ -280,7 +280,7 @@ export default function IEPBehaviorGoalsPage() {
               </div>
               <div>
                 <span className="font-bold text-slate-900">Wrestling with measurement criteria – </span>
-                <span className="text-slate-700">Should it be 90% accuracy for 3 days or 0 instances for 5 days? Generic IEP tools don't know behavior-specific standards, leaving you guessing.</span>
+                <span className="text-slate-700">Should it be 90% accuracy for 3 days or 0 instances for 5 days? Generic IEP tools don&apos;t know behavior-specific standards, leaving you guessing.</span>
               </div>
             </div>
 
@@ -329,12 +329,12 @@ export default function IEPBehaviorGoalsPage() {
 
               {/* Understanding Pain Paragraph */}
               <p className="text-slate-700 mb-6 leading-relaxed">
-                <strong>You're not alone in feeling frustrated by the time-consuming process of writing compliant behavior goals.</strong> Every special education professional faces the same challenge: balancing the need for legally sound, measurable goals with the reality of limited time and resources.
+                <strong>You&apos;re not alone in feeling frustrated by the time-consuming process of writing compliant behavior goals.</strong> Every special education professional faces the same challenge: balancing the need for legally sound, measurable goals with the reality of limited time and resources.
               </p>
 
               {/* Additional Context */}
               <p className="text-slate-700 mb-6 leading-relaxed">
-                That's why we created our comprehensive <a href="/iep-goals" className="text-emerald-600 hover:text-emerald-700 underline font-semibold">IEP Goal Writer</a> that eliminates the guesswork and dramatically reduces the time needed to create high-quality IEP behavior goals. This free behavior goals generator is a sample of what our full tool can do.
+                That&apos;s why we created our comprehensive <a href="/iep-goals" className="text-emerald-600 hover:text-emerald-700 underline font-semibold">IEP Goal Writer</a> that eliminates the guesswork and dramatically reduces the time needed to create high-quality IEP behavior goals. This free behavior goals generator is a sample of what our full tool can do.
               </p>
 
               {/* Qualification Statement */}
@@ -406,7 +406,7 @@ export default function IEPBehaviorGoalsPage() {
 
               {/* Description */}
               <p className="text-slate-600 leading-relaxed">
-                Our <strong>5-step behavior wizard</strong> reduces goal writing from 3-4 hours to under 5 minutes. That's 80%+ time savings you can spend on actual teaching.
+                Our <strong>5-step behavior wizard</strong> reduces goal writing from 3-4 hours to under 5 minutes. That&apos;s 80%+ time savings you can spend on actual teaching.
               </p>
             </div>
 
@@ -608,7 +608,7 @@ export default function IEPBehaviorGoalsPage() {
 
               {/* Step Description */}
               <p className="text-slate-600 leading-relaxed">
-                Get a professionally formatted, legally compliant behavior goal that's ready to copy into your IEP. No more revisions needed!
+                Get a professionally formatted, legally compliant behavior goal that&apos;s ready to copy into your IEP. No more revisions needed!
               </p>
             </div>
           </div>
@@ -942,7 +942,7 @@ export default function IEPBehaviorGoalsPage() {
             onClick={() => setIsSignupOpen(true)}
             className="bg-white hover:bg-slate-50 text-emerald-600 font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-lg group relative overflow-hidden"
           >
-            <span className="relative z-10">Get Started Now - It's Free</span>
+            <span className="relative z-10">Get Started Now - It&apos;s Free</span>
             <div className="absolute inset-0 bg-gradient-to-r from-white to-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
           <p className="text-emerald-100/80 text-sm mt-4">No registration required • Start immediately • 100% free</p>
