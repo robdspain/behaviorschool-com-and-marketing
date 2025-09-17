@@ -57,7 +57,7 @@ export function AnimatedSections() {
               </p>
 
               <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed">
-                You know the pain: spending hours writing behavior goals that get rejected by administrators, questioned by parents, or simply don't lead to meaningful change. Our free tool eliminates the guesswork and creates research-backed goals that pass compliance reviews and actually help students succeed.
+                You know the pain: spending hours writing behavior goals that get rejected by administrators, questioned by parents, or simply don&#39;t lead to meaningful change. Our free tool eliminates the guesswork and creates research-backed goals that pass compliance reviews and actually help students succeed.
               </p>
 
               <motion.div
