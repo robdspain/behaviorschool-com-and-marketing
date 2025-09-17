@@ -145,25 +145,7 @@ export default function IEPBehaviorGoalsPage() {
               <span className="relative font-semibold text-sm tracking-wide">✨ Free IEP Behavior Goals Generator — Create Behavior Goals in Under 5 Minutes</span>
             </div>
 
-            {/* Professional Hero Image */}
-            <div className="relative bg-gradient-to-br from-slate-50 via-emerald-50 to-blue-50 h-72 flex items-center justify-center overflow-hidden">
-              {/* Abstract Professional Pattern */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-10 left-10 w-32 h-32 bg-emerald-500 rounded-full blur-xl"></div>
-                <div className="absolute bottom-10 right-10 w-24 h-24 bg-blue-500 rounded-full blur-xl"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-purple-500 rounded-full blur-2xl opacity-50"></div>
-              </div>
-
-              {/* Central Icon */}
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-xl border border-slate-200 mb-4">
-                  <svg className="w-12 h-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <p className="text-slate-600 font-medium">Professional IEP Goal Generation</p>
-              </div>
-            </div>
+            
 
             {/* Content Section */}
             <div className="p-8 md:p-12 text-center">
