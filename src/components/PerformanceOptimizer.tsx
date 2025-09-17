@@ -8,29 +8,8 @@ import { useEffect } from 'react';
  */
 export default function PerformanceOptimizer() {
   useEffect(() => {
-    // Preload critical resources
-    const preloadCriticalResources = () => {
-      // Preload critical fonts
-      const fontLink = document.createElement('link');
-      fontLink.rel = 'preload';
-      fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
-      fontLink.as = 'style';
-      document.head.appendChild(fontLink);
-
-      // Preload critical images
-      const criticalImages = [
-        '/og-image.webp',
-        '/optimized/Logos/logo-gold-transparent.webp'
-      ];
-
-      criticalImages.forEach(src => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.href = src;
-        link.as = 'image';
-        document.head.appendChild(link);
-      });
-    };
+    // Note: Critical resources are already preloaded by Next.js
+    // This component focuses on runtime optimizations
 
     // Defer non-critical scripts
     const deferNonCriticalScripts = () => {
@@ -70,7 +49,6 @@ export default function PerformanceOptimizer() {
     };
 
     // Run optimizations
-    preloadCriticalResources();
     deferNonCriticalScripts();
     optimizeImages();
 

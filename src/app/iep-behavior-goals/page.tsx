@@ -25,7 +25,10 @@ export default function IEPBehaviorGoalsPage() {
     }
     setIsSignupOpen(false);
     console.log('IEPBehaviorGoalsPage: Redirecting to widget page...');
-    router.push("/iep-behavior-goals/widget");
+    // Use setTimeout to ensure the popup closes before redirecting
+    setTimeout(() => {
+      router.push("/iep-behavior-goals/widget");
+    }, 100);
   };
 
   // FAQ data for structured data

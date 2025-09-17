@@ -43,15 +43,11 @@ export const metadata: Metadata = {
         alt: "Behavior School",
       },
     ],
-    type: "website",
-  },
   twitter: {
     card: "summary_large_image",
     title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School",
     description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools for behavior analysts.",
     images: ["/optimized/og-image.webp"],
-  },
-  metadataBase: new URL("https://behaviorschool.com"),
   other: {
     'feed': '/feed.xml',
     'rss': '/feed.xml',

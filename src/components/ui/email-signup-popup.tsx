@@ -73,7 +73,11 @@ export function EmailSignupPopup({
         if (onSuccess) {
           console.log('EmailSignupPopup: Calling onSuccess');
           onSuccess(); // Call onSuccess callback
-          // Do NOT close popup here if onSuccess is provided, let onSuccess handle navigation/closing
+          // Close popup after a short delay to allow onSuccess to handle navigation
+          setTimeout(() => {
+            onClose();
+            setIsSubmitted(false);
+          }, 2000);
         } else {
           // Close popup after 3 seconds if no custom success handler
           setTimeout(() => {
