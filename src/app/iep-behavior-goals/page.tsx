@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
-import { IEPGoalWriter } from "@/components/IEPGoalWriter";
+
 
 export default function IEPBehaviorGoalsPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
@@ -91,19 +91,35 @@ export default function IEPBehaviorGoalsPage() {
       </div>
       
       {/* Hero Section */}
-      <section className="pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
-            <span className="bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">
-              IEP Goal Writer Widget
-            </span>
-          </h1>
-          <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">
-            Generate compliant, measurable behavior goals quickly and efficiently.
-          </p>
-        </div>
-        <div className="max-w-6xl mx-auto mt-8 w-full">
-          <IEPGoalWriter />
+      <section className="pt-20 md:pt-28 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* Left: Widget */}
+            <div className="order-2 lg:order-1">
+              <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-3 sm:p-4">
+                <iframe
+                  src="https://school-behavior-goals.netlify.app/"
+                  width="100%"
+                  height="600px" // Adjust height as needed
+                  frameBorder="0"
+                  allowFullScreen
+                  title="IEP Goal Writer Widget"
+                  className="rounded-lg"
+                ></iframe>
+              </div>
+            </div>
+
+            {/* Right: Eyebrow, H1, Subtitle */}
+            <div className="order-1 lg:order-2">
+              <div className="text-emerald-700 font-semibold uppercase tracking-wide text-sm mb-3">Free, Embeddable Widget</div>
+              <h1 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-4">
+                IEP Goal Writer Widget
+              </h1>
+              <p className="text-lg md:text-xl text-slate-600 max-w-prose">
+                Generate compliant, measurable IEP behavior goals in minutes. Step-by-step flow, baseline data, and a built-in quality meter — no registration required.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
