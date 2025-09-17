@@ -95,13 +95,7 @@ export default function IEPBehaviorGoalsPage() {
   
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-slate-50 opacity-95"></div>
-      <div className="absolute inset-0" style={{
-        backgroundImage: `radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
-                          radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 50%)`
-      }}></div>
+    <div className="min-h-screen bg-white">
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -117,7 +111,7 @@ export default function IEPBehaviorGoalsPage() {
       />
       
       {/* Breadcrumbs */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Breadcrumbs
           items={[
             { label: "Products", href: "/products" },
@@ -128,10 +122,10 @@ export default function IEPBehaviorGoalsPage() {
       </div>
       
       {/* Hero Section */}
-      <section className="relative z-10 pt-12 pb-20">
+      <section className="pt-12 pb-20">
         <div className="max-w-md mx-auto px-4 sm:max-w-lg md:max-w-2xl lg:max-w-5xl">
           {/* Premium Card Layout */}
-          <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden backdrop-blur-sm bg-white/95 ring-1 ring-slate-200/50">
+          <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
             {/* Top CTA Bar */}
             <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-center py-4 px-6 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/20 to-transparent"></div>
@@ -148,7 +142,7 @@ export default function IEPBehaviorGoalsPage() {
               </div>
 
               {/* Central Icon */}
-              <div className="relative z-10 text-center">
+              <div className="text-center">
                 <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-xl border border-slate-200 mb-4">
                   <svg className="w-12 h-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -180,7 +174,7 @@ export default function IEPBehaviorGoalsPage() {
                 onClick={() => setIsSignupOpen(true)}
                 className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 w-full md:w-auto text-base group relative overflow-hidden"
               >
-                <span className="relative z-10">Start Creating Goals Now</span>
+                <span className="">Start Creating Goals Now</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
             </div>
@@ -220,7 +214,7 @@ export default function IEPBehaviorGoalsPage() {
       {/* Three Key Benefits Bar */}
       <section className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 py-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 via-transparent to-blue-600/10"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="flex items-center justify-center space-x-4 group">
               <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -916,7 +910,7 @@ export default function IEPBehaviorGoalsPage() {
           <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-xl"></div>
           <div className="absolute bottom-10 right-10 w-24 h-24 bg-blue-300 rounded-full blur-xl"></div>
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -935,7 +929,7 @@ export default function IEPBehaviorGoalsPage() {
             onClick={() => setIsSignupOpen(true)}
             className="bg-white hover:bg-slate-50 text-emerald-600 font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-lg group relative overflow-hidden"
           >
-            <span className="relative z-10">Get Started Now - It&apos;s Free</span>
+            <span className="">Get Started Now - It&apos;s Free</span>
             <div className="absolute inset-0 bg-gradient-to-r from-white to-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
           <p className="text-emerald-100/80 text-sm mt-4">No registration required • Start immediately • 100% free</p>
