@@ -113,7 +113,7 @@ export default function IEPBehaviorGoalsPage() {
             <div className="order-1 lg:order-2">
               <div className="text-emerald-700 font-semibold uppercase tracking-wide text-sm mb-3">Free, Embeddable Widget</div>
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-4">
-                IEP Goal Writer Widget
+                IEP Behavior Goal Generator
               </h1>
               <p className="text-lg md:text-xl text-slate-600 max-w-prose">
                 Generate compliant, measurable IEP behavior goals in minutes. Step-by-step flow, baseline data, and a built-in quality meter — no registration required.

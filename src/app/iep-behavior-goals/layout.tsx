@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "IEP Goal Writer Widget — Free Behavior Goal Generator | Behavior School",
+  title: "IEP Behavior Goal Generator — Free IEP Goal Writer Widget | Behavior School",
   description:
     "Generate compliant, measurable IEP behavior goals in minutes with our free, embeddable widget. Step-by-step flow, baseline data, and a built-in quality meter.",
   robots: {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "embed IEP goal widget"
   ],
   openGraph: {
-    title: "IEP Goal Writer Widget — Free Behavior Goal Generator",
+    title: "IEP Behavior Goal Generator — Free IEP Goal Writer Widget",
     description:
       "Create compliant, measurable IEP behavior goals in minutes. Free, embeddable widget with step-by-step flow and baseline data.",
     type: "website",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "IEP Goal Writer Widget — Free Behavior Goal Generator",
+    title: "IEP Behavior Goal Generator — Free IEP Goal Writer Widget",
     description:
       "Generate compliant, measurable IEP behavior goals in minutes with our free, embeddable widget.",
     images: ["https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"]
