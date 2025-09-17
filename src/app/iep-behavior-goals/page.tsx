@@ -335,29 +335,11 @@ export default function IEPBehaviorGoalsPage() {
             {/* Right Column - Illustration */}
             <div className="flex justify-center items-center">
               <div className="relative">
-                {/* Illustration Placeholder */}
-                <div className="bg-gradient-to-br from-emerald-100 via-sky-100 to-purple-100 rounded-2xl p-8 w-full h-96 flex flex-col items-center justify-center border border-slate-200 shadow-lg">
-                  {/* Happy Person Illustration */}
-                  <div className="text-8xl mb-4">😊</div>
-                  <div className="text-center">
-                    <div className="text-slate-600 font-medium mb-2">Happy person with arms outstretched</div>
-                    <div className="text-sm text-slate-500">(use your own photo 📸)</div>
-                  </div>
-
-                  {/* Dashboard Elements */}
-                  <div className="absolute top-4 left-4 bg-white rounded-lg p-2 shadow-md">
-                    <div className="w-12 h-8 bg-orange-200 rounded"></div>
-                  </div>
-                  <div className="absolute top-4 right-4 bg-white rounded-lg p-2 shadow-md">
-                    <div className="w-12 h-8 bg-blue-200 rounded"></div>
-                  </div>
-                  <div className="absolute bottom-4 left-4 bg-white rounded-lg p-2 shadow-md">
-                    <div className="w-16 h-6 bg-emerald-200 rounded"></div>
-                  </div>
-                  <div className="absolute bottom-4 right-4 bg-white rounded-lg p-2 shadow-md">
-                    <div className="w-10 h-10 bg-purple-200 rounded-full"></div>
-                  </div>
-                </div>
+                <img
+                  src="/IEP-Behavior-Goal/person-with-arms-outstreached.webp"
+                  alt="Happy person with arms outstretched"
+                  className="rounded-2xl shadow-lg border border-slate-200 w-full h-auto"
+                />
               </div>
             </div>
           </div>
@@ -528,13 +510,11 @@ export default function IEPBehaviorGoalsPage() {
             <div className="text-center">
               {/* Illustration */}
               <div className="mb-8">
-                <div className="bg-gradient-to-br from-emerald-100 via-sky-100 to-blue-200 rounded-2xl p-6 w-full h-48 flex items-center justify-center border border-slate-200 shadow-md">
-                  {/* Person with device illustration */}
-                  <div className="text-center">
-                    <div className="text-6xl mb-2">👩‍💻</div>
-                    <div className="text-sm text-slate-600">Person using device</div>
-                  </div>
-                </div>
+                <img
+                  src="/IEP-Behavior-Goal/person-using-a-device.webp"
+                  alt="Person using device"
+                  className="rounded-2xl shadow-md border border-slate-200 w-full h-48 object-cover"
+                />
               </div>
 
               {/* Step Title */}
@@ -552,13 +532,11 @@ export default function IEPBehaviorGoalsPage() {
             <div className="text-center">
               {/* Illustration */}
               <div className="mb-8">
-                <div className="bg-gradient-to-br from-orange-100 via-yellow-100 to-red-200 rounded-2xl p-6 w-full h-48 flex items-center justify-center border border-slate-200 shadow-md">
-                  {/* Team working illustration */}
-                  <div className="text-center">
-                    <div className="text-6xl mb-2">👥</div>
-                    <div className="text-sm text-slate-600">Team collaboration</div>
-                  </div>
-                </div>
+                <img
+                  src="/IEP-Behavior-Goal/team-colloboration.webp"
+                  alt="Team collaboration"
+                  className="rounded-2xl shadow-md border border-slate-200 w-full h-48 object-cover"
+                />
               </div>
 
               {/* Step Title */}
@@ -576,13 +554,11 @@ export default function IEPBehaviorGoalsPage() {
             <div className="text-center">
               {/* Illustration */}
               <div className="mb-8">
-                <div className="bg-gradient-to-br from-purple-100 via-blue-100 to-emerald-200 rounded-2xl p-6 w-full h-48 flex items-center justify-center border border-slate-200 shadow-md">
-                  {/* Happy person celebrating illustration */}
-                  <div className="text-center">
-                    <div className="text-6xl mb-2">🎉</div>
-                    <div className="text-sm text-slate-600">Celebration & success</div>
-                  </div>
-                </div>
+                <img
+                  src="/IEP-Behavior-Goal/celabration-and-success.webp"
+                  alt="Celebration & success"
+                  className="rounded-2xl shadow-md border border-slate-200 w-full h-48 object-cover"
+                />
               </div>
 
               {/* Step Title */}
