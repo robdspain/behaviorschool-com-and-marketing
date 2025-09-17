@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Mail, Check, Bell, User, ArrowRight } from "lucide-react";
+import { X, Mail, Check, Bell, User } from "lucide-react";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
 interface EmailSignupPopupProps {
@@ -208,21 +208,6 @@ export function EmailSignupPopup({
                     )}
                   </div>
                   
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-                    <h4 className="font-semibold text-slate-900 mb-2 text-center">Ready to Practice?</h4>
-                    <p className="text-slate-600 text-sm mb-4 text-center">
-                      Get free daily practice questions and take a free mock exam to test your knowledge.
-                    </p>
-                    <a
-                      href="https://study.behaviorschool.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 text-white font-medium rounded-lg transition-all duration-200"
-                    >
-                      Start Free Practice Questions
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </a>
-                  </div>
                 </div>
               )}
 
