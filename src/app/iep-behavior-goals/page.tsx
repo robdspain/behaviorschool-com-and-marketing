@@ -1002,6 +1002,7 @@ export default function IEPBehaviorGoalsPage() {
         showNameField={true}
         buttonText="Access Generator"
         successMessage="Thanks! Redirecting you to the IEP Behavior Goal Generator..."
+        onSuccess={handleSignupSuccess}
       />
     </div>
   );
