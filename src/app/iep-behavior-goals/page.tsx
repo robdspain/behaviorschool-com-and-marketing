@@ -25,10 +25,7 @@ export default function IEPBehaviorGoalsPage() {
       question: "Is the IEP Goal Writer Widget secure and private?",
       answer: "Yes, the widget is 100% client-side, meaning no data is transmitted or stored externally. Everything stays within your browser, ensuring complete privacy and security. It also has no external dependencies and works offline."
     },
-    {
-      question: "Can I embed the IEP Goal Writer Widget on my website?",
-      answer: "Yes, the widget is designed for iframe embedding and offers features like customizable branding via URL parameters, auto-resize functionality, and optional CTA integration for lead generation."
-    }
+    
   ];
 
   // Structured data for FAQ

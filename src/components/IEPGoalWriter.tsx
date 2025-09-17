@@ -671,13 +671,7 @@ export function IEPGoalWriter() {
         )}
       </div>
 
-      {/* Embed Information */}
-      <div className="embed-info">
-        <div className="label">Want to embed this on your website?</div>
-        <div className="embed-code">
-          {`<iframe src="https://behaviorschool.com/embed/iep-goal-writer" width="100%" height="500"></iframe>`}
-        </div>
-      </div>
+      
     </div>
   );
 }
