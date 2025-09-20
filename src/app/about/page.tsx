@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 export const metadata: Metadata = {
   title: "About Behavior School | BCBA-Led Training for School Behavior Analysts",
-  description: "Meet Rob Spain, BCBA and founder of Behavior School. Helping 1000+ behavior analysts master school-based ABA, BCBA certification prep, and evidence-based practice.",
+  description: "Meet Rob Spain, BCBA and founder of Behavior School. Professional training for school-based ABA, BCBA certification prep, and evidence-based practice.",
   robots: {
     index: true,
     follow: true,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "About Behavior School | BCBA-Led Training for School Behavior Analysts",
-    description: "Meet Rob Spain, BCBA and founder of Behavior School. Helping 1000+ behavior analysts master school-based ABA and BCBA certification prep.",
+    description: "Meet Rob Spain, BCBA and founder of Behavior School. Professional training for school-based ABA and BCBA certification prep.",
     type: "website",
     url: "https://behaviorschool.com/about",
     images: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "About Behavior School | BCBA-Led Training",
-    description: "Meet Rob Spain, BCBA and founder helping 1000+ behavior analysts succeed in schools.",
+    description: "Meet Rob Spain, BCBA and founder providing professional training for school behavior analysts.",
     images: ["https://behaviorschool.com/optimized/og-image.webp"]
   },
   alternates: {

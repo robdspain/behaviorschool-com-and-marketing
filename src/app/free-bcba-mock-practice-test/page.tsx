@@ -6,7 +6,7 @@ import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, 
 
 export const metadata: Metadata = {
   title: "🎯 FREE BCBA Practice Test | 185 Questions + Instant Scoring | Start Now!",
-  description: "★ #1 FREE BCBA mock exam! 185 questions, immediate results, study tips included. 9 out of 10 users pass on first try. No registration - start practicing now!",
+  description: "Professional FREE BCBA mock exam! 185 questions, immediate results, study tips included. Comprehensive practice test for BCBA certification. No registration - start practicing now!",
   robots: {
     index: true,
     follow: true,
