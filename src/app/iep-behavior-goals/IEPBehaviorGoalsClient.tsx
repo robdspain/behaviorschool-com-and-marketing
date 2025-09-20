@@ -110,7 +110,7 @@ export function IEPBehaviorGoalsClient() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white w-full max-w-full overflow-x-hidden">
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -126,7 +126,7 @@ export function IEPBehaviorGoalsClient() {
       />
 
       {/* Breadcrumbs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Breadcrumbs
           items={[
             { label: "Products", href: "/products" },
@@ -137,8 +137,8 @@ export function IEPBehaviorGoalsClient() {
       </div>
 
       {/* Hero Section */}
-      <section className="pt-12 pb-20">
-        <div className="max-w-md mx-auto px-4 sm:max-w-lg md:max-w-2xl lg:max-w-5xl">
+      <section className="pt-12 pb-20 w-full">
+        <div className="w-full max-w-md mx-auto px-4 sm:max-w-lg md:max-w-2xl lg:max-w-5xl">
           {/* Premium Card Layout */}
           <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
             {/* Top CTA Bar */}

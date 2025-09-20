@@ -51,11 +51,11 @@ export function AnimatedSections() {
   // Social proof based on actual waitlist data and research foundation
 
   return (
-    <main>
+    <main className="w-full max-w-full overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative pt-16 pb-8 lg:pt-20 lg:pb-12 bg-white">
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-16 pb-8 lg:pt-20 lg:pb-12 bg-white w-full">
+
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -111,9 +111,9 @@ export function AnimatedSections() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              className="relative w-full max-w-full"
             >
-              <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-3 sm:p-4">
+              <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-3 sm:p-4 w-full max-w-full overflow-hidden">
                 <iframe
                   src="https://school-behavior-goals.netlify.app/"
                   width="100%"
@@ -121,7 +121,8 @@ export function AnimatedSections() {
                   frameBorder="0"
                   allowFullScreen
                   title="IEP Goal Writer Widget"
-                  className="rounded-lg"
+                  className="rounded-lg w-full max-w-full"
+                  style={{ maxWidth: '100%', width: '100%' }}
                 ></iframe>
               </div>
 

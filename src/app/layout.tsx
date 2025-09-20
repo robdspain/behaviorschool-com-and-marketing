@@ -61,6 +61,9 @@ export const metadata: Metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -310,11 +313,11 @@ export default function RootLayout({
         <link rel="icon" type="image/webp" sizes="192x192" href="/Logos/Logo.webp" />
         <link rel="icon" type="image/webp" sizes="512x512" href="/Logos/Logo.webp" />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased mobile-optimized prevent-horizontal-scroll">
         <ToastProvider>
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen flex flex-col w-full max-w-full">
             <ConditionalNavBar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 w-full max-w-full">{children}</main>
             <Footer />
           </div>
         </ToastProvider>
