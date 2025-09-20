@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
-  description: "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
+  title: "Free BCBA Mock Exam | 185 Questions + Full Analytics | Pass Your BCBA Exam",
+  description: "Take the #1 Free BCBA Mock Exam: 185 realistic questions, 4-hour simulation, instant feedback, and detailed analytics. No signup required - start your practice test now!",
   robots: {
     index: true,
     follow: true,
@@ -19,20 +19,28 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
+    "free bcba mock exam",
+    "bcba mock exam free",
+    "bcba free mock exam",
+    "mock bcba exam",
     "bcba mock practice test free",
     "free bcba practice test",
+    "best bcba mock exams",
     "bcba exam simulation",
-    "bcba mock exam",
     "bcba practice questions free",
     "bcba test prep",
-    "bcba exam prep"
+    "bcba exam prep",
+    "bcba mock exam questions free",
+    "free bcba exam prep",
+    "bcba practice exam free",
+    "mock exams bcba"
   ],
   alternates: {
     canonical: "https://behaviorschool.com/free-bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
-    description: "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
+    title: "Free BCBA Mock Exam | 185 Questions + Full Analytics | Pass Your BCBA Exam",
+    description: "Take the #1 Free BCBA Mock Exam: 185 realistic questions, 4-hour simulation, instant feedback, and detailed analytics. No signup required - start your practice test now!",
     url: "https://behaviorschool.com/free-bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -48,8 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Mock Practice Test: The Ultimate Tool for Exam Success",
-    description: "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
+    title: "Free BCBA Mock Exam | 185 Questions + Analytics",
+    description: "Take the #1 Free BCBA Mock Exam: 185 realistic questions, 4-hour simulation, instant feedback. No signup required - start now!",
     images: ["/optimized/og-image.webp"],
   },
 };

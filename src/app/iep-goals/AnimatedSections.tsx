@@ -4,11 +4,26 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
-import { IEPGoalWriter } from "@/components/IEPGoalWriter";
+import { useRouter } from "next/navigation";
 
 export function AnimatedSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const router = useRouter();
+
+  const handleSignupSuccess = () => {
+    console.log('IEP Goals: handleSignupSuccess called');
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('hasSignedUpForIEPWidget', 'true');
+      console.log('IEP Goals: localStorage flag set');
+    }
+    setIsSignupOpen(false);
+    console.log('IEP Goals: Redirecting to widget page...');
+    // Use setTimeout to ensure the popup closes before redirecting
+    setTimeout(() => {
+      router.push("/iep-behavior-goals/widget");
+    }, 100);
+  };
 
   const faqs = [
     {
@@ -98,7 +113,17 @@ export function AnimatedSections() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <IEPGoalWriter />
+              <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-3 sm:p-4">
+                <iframe
+                  src="https://school-behavior-goals.netlify.app/"
+                  width="100%"
+                  height="600px"
+                  frameBorder="0"
+                  allowFullScreen
+                  title="IEP Goal Writer Widget"
+                  className="rounded-lg"
+                ></iframe>
+              </div>
 
               <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full opacity-20 animate-pulse"></div>
               <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-20 animate-pulse delay-1000"></div>
@@ -938,9 +963,13 @@ export function AnimatedSections() {
       <EmailSignupPopup
         isOpen={isSignupOpen}
         onClose={() => setIsSignupOpen(false)}
-        title="Join the Waitlist"
-        description="Be the first to know when the IEP Goal Writer launches."
+        title="Generate Your IEP Goals"
+        description="Enter your email to access the IEP Goal Generator and start creating compliant, measurable goals instantly."
         pageSource="/iep-goals"
+        showNameField={true}
+        buttonText="Access Generator"
+        successMessage="Thanks! Redirecting you to the IEP Goal Generator..."
+        onSuccess={handleSignupSuccess}
       />
     </main>
   );
