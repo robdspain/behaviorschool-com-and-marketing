@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { IEPBehaviorGoalsClient } from "./IEPBehaviorGoalsClient";
 
 export const metadata: Metadata = {
-  title: "Free IEP Behavior Goals Generator | Create Measurable Behavior Goals in Minutes | Behavior School",
-  description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized tool for creating measurable, compliant behavior goals. No registration required - start creating now.",
+  title: "🎯 FREE IEP Behavior Goals Writer | Create Professional Goals in 5 Minutes!",
+  description: "Generate compliant IEP behavior goals instantly! FREE tool creates measurable, legal goals in 5 minutes. Used by 500+ teachers and BCBAs. No signup - start now!",
   robots: {
     index: true,
     follow: true,

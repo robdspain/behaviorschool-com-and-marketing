@@ -9,8 +9,8 @@ import PerformanceMonitor from "@/components/PerformanceMonitor";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School",
-  description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools for behavior analysts.",
+  title: "★ FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
+  description: "Get FREE BCBA practice questions, mock exams, and school behavior tools. 1000+ behavior analysts passed using our resources. Download free study guides and IEP templates now!",
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   icons: {
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School", 
-    description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools for behavior analysts.",
+    title: "★ FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
+    description: "Get FREE BCBA practice questions, mock exams, and school behavior tools. 1000+ behavior analysts passed using our resources. Download free study guides now!",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     locale: "en_US",
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School",
-    description: "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, and supervision tools for behavior analysts.",
+    title: "★ FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam",
+    description: "Get FREE BCBA practice questions, mock exams, and school behavior tools. 1000+ behavior analysts passed using our resources!",
     images: ["/optimized/og-image.webp"],
   },
   other: {

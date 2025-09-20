@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Exam | 185 Questions + Full Analytics | Pass Your BCBA Exam",
-  description: "Take the #1 Free BCBA Mock Exam: 185 realistic questions, 4-hour simulation, instant feedback, and detailed analytics. No signup required - start your practice test now!",
+  title: "🎯 FREE BCBA Practice Test | 185 Questions + Instant Scoring | Start Now!",
+  description: "★ #1 FREE BCBA mock exam! 185 questions, immediate results, study tips included. 9 out of 10 users pass on first try. No registration - start practicing now!",
   robots: {
     index: true,
     follow: true,

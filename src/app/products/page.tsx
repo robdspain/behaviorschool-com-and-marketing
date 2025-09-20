@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { ProductsClient } from "./ProductsClient";
 
 export const metadata: Metadata = {
-  title: "BCBA Training Products & Tools | Behavior School Professional Resources",
-  description: "Comprehensive BCBA certification prep, exam tools, IEP goal writers, behavior planning resources, and professional development programs for behavior analysts and educators.",
+  title: "★ FREE BCBA Tools & Training | Mock Exams + IEP Writers + Behavior Plans",
+  description: "Get FREE professional BCBA tools: mock exams, IEP goal writers, behavior planning templates, and certification prep. Trusted by 1000+ behavior analysts. Start free now!",
   robots: {
     index: true,
     follow: true,
