@@ -95,6 +95,48 @@ const nextConfig: NextConfig = {
         destination: '/school-based-behavior-support',
         permanent: true,
       },
+      // Additional 404 fixes
+      {
+        source: '/unauthorized/:path*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/test-forms/:path*',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/posts/:path*',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/feed.json',
+        destination: '/feed.xml',
+        permanent: true,
+      },
+      // Fix common trailing slash issues
+      {
+        source: '/products/',
+        destination: '/products',
+        permanent: true,
+      },
+      {
+        source: '/about/',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/contact/',
+        destination: '/contact',
+        permanent: true,
+      },
+      {
+        source: '/community/',
+        destination: '/community',
+        permanent: true,
+      },
       // Block Ghost CMS URLs with redirects to proper pages
       {
         source: '/tag/:tag/ghost',

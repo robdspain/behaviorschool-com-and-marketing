@@ -25,16 +25,21 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-# Block admin and internal areas  
+# Block admin and internal areas
 User-agent: *
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/
+Disallow: /test/
 Disallow: /test-forms/
 Disallow: /unauthorized/
 Disallow: /*.json$
 Disallow: /feed.json
 Disallow: /posts/
+Disallow: /*?*
+Disallow: /*.php$
+Disallow: /*.asp$
+Disallow: /*.aspx$
 
 # Block Ghost CMS URLs causing 404 errors
 Disallow: /*ghost
