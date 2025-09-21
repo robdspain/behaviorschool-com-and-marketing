@@ -156,21 +156,13 @@ export function BCBAStudyToolsClient() {
 
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex justify-center"
             >
               <Link
-                href="https://study.behaviorschool.com/free-practice"
-                className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-700 to-emerald-800 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <span className="relative">Start Free Practice</span>
-                <ExternalLink className="relative ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
                 href="/bcba-mock-practice-test"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold border-2 border-emerald-600 text-emerald-600 rounded-xl hover:bg-emerald-50 hover:border-emerald-700 hover:text-emerald-700 transition-all duration-200 bg-white/80 backdrop-blur-sm"
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
               >
-                Full Mock Exam
+                Start Free Mock Exam
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </motion.div>
