@@ -14,8 +14,12 @@ export const metadata: Metadata = {
   keywords: ["behavior change", "leadership", "productivity", "burnout prevention"],
   authors: [{ name: "Behavior School" }],
   icons: {
-    icon: "/Logos/Logo.webp",
-    shortcut: "/Logos/Logo.webp",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/Logos/Logo.webp", type: "image/webp", sizes: "32x32" },
+    ],
+    shortcut: "/favicon.ico",
     apple: "/Logos/Logo.webp",
   },
   robots: {
@@ -308,6 +312,8 @@ export default function RootLayout({
         <meta name="indexnow" content="D6F638D35C42D071C62B47907C2CD0CC" />
         
         {/* Additional favicon formats for better compatibility */}
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/webp" sizes="32x32" href="/Logos/Logo.webp" />
         <link rel="icon" type="image/webp" sizes="16x16" href="/Logos/Logo.webp" />
         <link rel="icon" type="image/webp" sizes="192x192" href="/Logos/Logo.webp" />
