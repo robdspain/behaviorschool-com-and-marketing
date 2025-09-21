@@ -27,27 +27,63 @@ export default function BehaviorStudyToolsPage() {
   const faqData = [
     {
       question: "What are Behavior Study Tools?",
-      answer: "Behavior Study Tools provide an AI-powered platform for BCBA exam preparation, offering unlimited practice questions, adaptive learning, and performance tracking to help you master concepts and pass your exam."
+      answer: "Behavior Study Tools provide an AI-powered platform for BCBA exam preparation, offering unlimited practice questions, adaptive learning, and performance tracking to help you master concepts and pass your exam. The platform is designed specifically for behavior analysts who need efficient, science-based study methods that adapt to their learning pace and schedule."
     },
     {
       question: "How do these tools help me pass the BCBA exam?",
-      answer: "Our platform uses an adaptive learning system that adjusts question difficulty based on your performance, provides clear explanations for every answer, and tracks your progress across all content domains, ensuring efficient and effective study."
+      answer: "Our platform uses an adaptive learning system that adjusts question difficulty based on your performance, provides clear explanations for every answer, and tracks your progress across all content domains, ensuring efficient and effective study. The AI continuously analyzes your strengths and weaknesses, focusing practice time on areas where you need the most improvement."
     },
     {
       question: "Are the practice questions aligned with the BACB Task List?",
-      answer: "Yes, all AI-generated practice questions are aligned with the BACB® 6th Edition Task List, ensuring you're studying the most relevant and up-to-date content."
+      answer: "Yes, all AI-generated practice questions are aligned with the BACB® 6th Edition Task List, ensuring you're studying the most relevant and up-to-date content. Each question is tagged with specific Task List items, allowing you to target your study efforts to particular domains or skill areas."
     },
     {
       question: "Can I track my study progress?",
-      answer: "Absolutely. The platform includes performance tracking with daily, 7-day, and 30-day score graphs, allowing you to monitor your progress and identify areas for improvement at a glance."
+      answer: "Absolutely. The platform includes comprehensive performance tracking with daily, 7-day, and 30-day score graphs, allowing you to monitor your progress and identify areas for improvement at a glance. You can view detailed analytics by domain, subdomain, and individual Task List items to understand exactly where you stand in your preparation."
     },
     {
       question: "Do you offer a free BCBA practice exam?",
-      answer: "Yes. Create a free account to try sample BCBA practice questions and a short mock test with full rationales. You’ll see your accuracy by domain and can continue with adaptive drills anytime."
+      answer: "Yes. Create a free account to try sample BCBA practice questions and a short mock test with full rationales. You'll see your accuracy by domain and can continue with adaptive drills anytime. The free version gives you a taste of the platform's capabilities without any commitment."
     },
     {
       question: "Are these BCBA mock exams similar to the real exam?",
-      answer: "Our mock tests mirror the structure and difficulty of the BACB® exam, include scenario-based items with clear rationales, and emphasize Task List alignment so you build real test-taking fluency."
+      answer: "Our mock tests mirror the structure and difficulty of the BACB® exam, include scenario-based items with clear rationales, and emphasize Task List alignment so you build real test-taking fluency. The questions are designed to match the cognitive load and complexity you'll encounter on the actual examination."
+    },
+    {
+      question: "How is this different from other BCBA study materials?",
+      answer: "Unlike static flashcards or outdated test banks, Behavior Study Tools uses AI to generate fresh questions tailored to your learning needs. The platform combines adaptive learning technology with evidence-based study methods, providing personalized explanations and real-time progress tracking that traditional study materials can't offer."
+    },
+    {
+      question: "What topics and domains are covered in the practice questions?",
+      answer: "The platform covers all six domains of the BACB® 6th Edition Task List: Concepts and Principles, Measurement, Assessment, Experimental Design, Ethics, and Supervision. Within each domain, questions span all subdomains and individual Task List items, ensuring comprehensive coverage of the exam content."
+    },
+    {
+      question: "How often are new practice questions added?",
+      answer: "With AI-powered question generation, the platform creates fresh practice questions continuously. You'll never run out of new material or worry about memorizing answers from a limited question bank. Each study session can include completely new questions while maintaining alignment with the Task List."
+    },
+    {
+      question: "Can I use Behavior Study Tools on mobile devices?",
+      answer: "Yes, the platform is fully responsive and works seamlessly on desktop computers, tablets, and smartphones. You can study anywhere, anytime, and your progress syncs across all devices so you never lose your place."
+    },
+    {
+      question: "What happens after I pass the BCBA exam?",
+      answer: "After passing your BCBA exam, you can continue your professional development through our supervision tools and advanced training programs. The platform grows with your career, offering resources for ongoing competency development and specialization in school-based behavior analysis."
+    },
+    {
+      question: "How much time should I spend studying with these tools daily?",
+      answer: "Most users find success with 30-60 minutes of focused practice per day. The adaptive system is designed to maximize learning efficiency, so quality study time is more important than quantity. The platform will help you identify optimal study patterns based on your performance data."
+    },
+    {
+      question: "Do the explanations help with understanding, not just memorization?",
+      answer: "Absolutely. Each answer explanation is designed to build conceptual understanding rather than rote memorization. The rationales connect theoretical principles to practical applications, helping you develop the analytical thinking skills needed for both the exam and professional practice."
+    },
+    {
+      question: "Is there customer support if I have technical issues?",
+      answer: "Yes, we provide comprehensive technical support to ensure your study experience is smooth and uninterrupted. Our support team understands the unique needs of behavior analysts and can help resolve any platform-related questions quickly."
+    },
+    {
+      question: "Can I see which specific Task List items I need to study more?",
+      answer: "Yes, the platform provides detailed breakdowns of your performance by specific Task List items, domains, and subdomains. This granular analysis helps you identify exactly which concepts need more attention, making your study time more targeted and efficient."
     }
   ];
   return (
@@ -219,7 +255,7 @@ export default function BehaviorStudyToolsPage() {
             <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-white shadow-xl">
               <h3 className="text-2xl font-bold mb-4">Ready to Experience Smarter BCBA Prep?</h3>
               <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
-                Join hundreds of behavior analysts who&apos;ve improved their study efficiency with our AI-powered system. Start with unlimited practice questions today.
+                Join others who are using this tool to prepare for the BCBA exam. Start with unlimited practice questions today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
@@ -464,7 +500,7 @@ export default function BehaviorStudyToolsPage() {
               Ready to Transform Your BCBA Journey?
             </h2>
             <p className="text-xl text-emerald-100 max-w-2xl mx-auto">
-              Join behavior analysts who are already using Behavior Study Tools to master the BCBA exam and advance their careers.
+              Join behavior analysts using Behavior Study Tools to prepare for the BCBA exam and advance their careers.
             </p>
             <motion.div
               whileHover={{ scale: 1.05 }}

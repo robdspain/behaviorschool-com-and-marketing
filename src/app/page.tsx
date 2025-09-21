@@ -163,11 +163,13 @@ export default function Home() {
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Supervision Tools</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Track BCBA fieldwork hours, competencies, and streamline your supervision practice.</p>
                   <div className="mt-auto">
-                    <Link 
-                      href="/supervisors"
+                    <Link
+                      href="https://study.behaviorschool.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      BCBA Supervision Details
+                      Access Supervision Platform
                     </Link>
                   </div>
                 </div>
@@ -182,11 +184,11 @@ export default function Home() {
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">IEP Goal Writer</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Write measurable IEP behavior goals and SMART IEP goals for students.</p>
                   <div className="mt-auto">
-                    <Link 
-                      href="/iep-goals"
+                    <Link
+                      href="/iep-behavior-goals"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      IEP Goal Writer Details
+                      Free Behavior Goal Writer
                     </Link>
                   </div>
                 </div>
