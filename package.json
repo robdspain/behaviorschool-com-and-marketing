@@ -24,7 +24,9 @@
     "universal-indexing:schedule": "node scripts/universal-indexing-scheduler.js --smart",
     "universal-indexing:schedule:daily": "node scripts/universal-indexing-scheduler.js --daily",
     "universal-indexing:schedule:weekly": "node scripts/universal-indexing-scheduler.js --weekly",
-    "universal-indexing:schedule:status": "node scripts/universal-indexing-scheduler.js --status"
+    "universal-indexing:schedule:status": "node scripts/universal-indexing-scheduler.js --status",
+    "audit:content": "node scripts/content-authenticity-audit.js",
+    "audit:monthly": "node scripts/content-authenticity-audit.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",

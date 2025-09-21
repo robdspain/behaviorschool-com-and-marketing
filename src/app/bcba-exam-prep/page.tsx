@@ -543,16 +543,26 @@ export default function BCBAExamPrepPage() {
             Get Started with Behavior Study Tools
           </h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-            Access unlimited practice questions, adaptive learning technology, and comprehensive analytics. Start your BCBA certification success today with our AI-powered study platform.
+            Access unlimited practice questions, adaptive learning technology, and comprehensive analytics. Explore our complete toolkit of BCBA study resources.
           </p>
-          <div className="flex justify-center">
-            <Button 
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
               size="lg"
               asChild
               className="bg-yellow-500 text-slate-900 hover:bg-yellow-400 px-8 py-4 text-lg font-semibold"
             >
               <Link href="https://study.behaviorschool.com/product-tour/Welcome" target="_blank" rel="noopener noreferrer">
                 Start Free Practice Questions
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </Button>
+            <Button
+              size="lg"
+              asChild
+              className="bg-white text-emerald-700 hover:bg-emerald-50 px-8 py-4 text-lg font-semibold border-2 border-white"
+            >
+              <Link href="/bcba-study-tools">
+                View All Study Tools
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>

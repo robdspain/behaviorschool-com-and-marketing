@@ -922,9 +922,20 @@ export default function BCBAPracticeExamPage() {
         <section className="py-12">
           <div className="bg-slate-100 rounded-2xl p-8">
             <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">Related BCBA Resources</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Link 
-                href="/school-based-bcba" 
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Link
+                href="/bcba-study-tools"
+                className="flex items-center justify-center px-6 py-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl hover:bg-emerald-100 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <Brain className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">BCBA Study Tools</div>
+                  <div className="text-sm text-slate-600">Complete toolkit</div>
+                </div>
+              </Link>
+
+              <Link
+                href="/school-based-bcba"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -933,9 +944,9 @@ export default function BCBAPracticeExamPage() {
                   <div className="text-sm text-slate-600">Career pathway guide</div>
                 </div>
               </Link>
-              
-              <Link 
-                href="/bcba-mock-practice-test" 
+
+              <Link
+                href="/bcba-mock-practice-test"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -944,9 +955,9 @@ export default function BCBAPracticeExamPage() {
                   <div className="text-sm text-slate-600">Free BCBA practice</div>
                 </div>
               </Link>
-              
-              <Link 
-                href="/behavior-study-tools" 
+
+              <Link
+                href="/behavior-study-tools"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
