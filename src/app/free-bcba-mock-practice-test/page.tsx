@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "FREE BCBA Mock Exam | 185 Questions + FREE Analytics",
-    description: "Take the #1 FREE BCBA Mock Exam: 185 realistic questions, 4-hour simulation, FREE instant feedback. No signup required - start now!"
+    description: "Take the #1 FREE BCBA Mock Exam: 185 realistic questions, 4-hour simulation, FREE instant feedback. No signup required - start now!",
     images: ["/optimized/og-image.webp"],
   },
 };
