@@ -7,6 +7,7 @@
   PNPM_VERSION = "9.12.3"
   ENABLE_EXPERIMENTAL_COREPACK = "1"
   NPM_FLAGS = "--prefer-offline --no-audit"
+  PNPM_FLAGS = "--no-frozen-lockfile"
   SECRETS_SCAN_ENABLED = "false"
 
 [[plugins]]
