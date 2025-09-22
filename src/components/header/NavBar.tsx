@@ -16,7 +16,7 @@ export function NavBar() {
     <nav
       role="navigation"
       aria-label="Primary"
-      className="fixed top-0 left-0 right-0 w-full z-[100] bg-[#1F4D3F]"
+      className="fixed top-0 left-0 right-0 w-full z-[100] bg-white/95 backdrop-blur-sm border-b border-slate-200"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
@@ -26,8 +26,8 @@ export function NavBar() {
             transition={{ duration: 0.2 }}
           >
             <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-              <TrendingUp className="h-8 w-8 text-white" />
-              <span className="text-white text-xl font-bold">Behavior School</span>
+              <TrendingUp className="h-8 w-8 text-emerald-700" />
+              <span className="text-emerald-700 text-xl font-bold">Behavior School</span>
             </Link>
           </motion.div>
 
@@ -38,7 +38,7 @@ export function NavBar() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="text-white hover:text-white/90 p-2"
+              className="text-emerald-700 hover:text-emerald-800 p-2"
               aria-label="Toggle menu"
               aria-expanded={isMobileOpen}
             >
@@ -79,5 +79,4 @@ export function NavBar() {
     </nav>
   );
 }
-
 

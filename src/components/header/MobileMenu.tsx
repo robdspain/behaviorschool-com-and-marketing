@@ -15,7 +15,7 @@ type Props = {
 export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
   if (!isOpen) return null;
   return (
-    <div className="md:hidden border-top" style={{ backgroundColor: 'transparent', borderColor: '#16372D' }}>
+    <div className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-sm">
       <div className="px-2 py-3 space-y-1 sm:px-3">
         {menuSections.map((section) => {
           const key = section.label.toLowerCase();
@@ -25,7 +25,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             return (
               <div key={key}>
                 <button
-                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-white hover:text-white/90"
+                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-emerald-800 hover:text-emerald-900"
                   onClick={() => onToggleKey(key)}
                   aria-expanded={expanded}
                 >
@@ -40,7 +40,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="block px-3 py-2 text-black hover:text-black hover:bg-black/10"
+                        className="block px-3 py-2 text-emerald-800 hover:text-emerald-900 hover:bg-emerald-50 rounded-md"
                         onClick={onClose}
                         target={child.external ? "_blank" : undefined}
                         rel={child.external ? "noreferrer noopener" : undefined}
@@ -57,7 +57,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             <Link
               key={key}
               href={section.href ?? "#"}
-              className="block px-3 py-2 text-lg font-medium text-white hover:text-white hover:bg-white/10"
+              className="block px-3 py-2 text-lg font-medium text-emerald-800 hover:text-emerald-900 hover:bg-emerald-50 rounded-md"
               onClick={onClose}
               target={section.href?.startsWith("http") ? "_blank" : undefined}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
@@ -67,7 +67,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
           );
         })}
         <div className="px-3 pt-1">
-          <Button asChild className="w-full bg-[#E3B23C] text-slate-900 hover:bg-[#d9a42f]">
+          <Button asChild className="w-full border border-emerald-600 text-emerald-700 hover:bg-emerald-50 bg-white">
             <Link href="/subscribe" onClick={onClose}>Subscribe</Link>
           </Button>
         </div>
@@ -75,5 +75,4 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
     </div>
   );
 }
-
 

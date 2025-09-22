@@ -35,6 +35,7 @@ export function EmailSignupPopup({
   id = "email-signup-popup"
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [localSuccessMessage, setLocalSuccessMessage] = useState(successMessage);
   const { trackEmailSignup, trackFormSubmission, trackButtonClick } = useAnalytics();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,7 +63,7 @@ export function EmailSignupPopup({
         }),
       });
 
-      if (response.ok) {
+      if (response.ok || response.status === 409) {
         console.log('EmailSignupPopup: API response OK');
         // Track successful email signup
         trackEmailSignup('newsletter', email, {
@@ -71,6 +72,13 @@ export function EmailSignupPopup({
           isDownloadFlow
         });
         
+        // Customize success message for existing subscribers
+        if (response.status === 409) {
+          setLocalSuccessMessage("You're already subscribed — taking you to the generator...");
+        } else {
+          setLocalSuccessMessage(successMessage);
+        }
+
         setIsSubmitted(true);
         if (onSuccess) {
           console.log('EmailSignupPopup: Calling onSuccess');
@@ -207,7 +215,7 @@ export function EmailSignupPopup({
                   <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <Check className="w-5 h-5 text-emerald-600" />
-                      <p className="text-emerald-800 font-medium">{successMessage}</p>
+                      <p className="text-emerald-800 font-medium">{localSuccessMessage}</p>
                     </div>
                     {isDownloadFlow && (
                       <p className="text-emerald-700 text-sm text-center">
