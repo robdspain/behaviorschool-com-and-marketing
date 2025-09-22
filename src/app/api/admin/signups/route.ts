@@ -1,20 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
-// import { verifyAdminSession } from '@/lib/admin-auth'; // TODO: Re-enable when cookie auth is fixed
+import { isAuthorizedAdmin } from '@/lib/admin-config';
 
 export async function GET() {
   try {
     const supabase = await createClient();
-    
-    // TODO: Re-enable authentication once cookie handling is fixed
-    // Verify admin authentication
-    // const adminUser = await verifyAdminSession(request);
-    // if (!adminUser) {
-    //   return NextResponse.json(
-    //     { success: false, message: 'Unauthorized access' },
-    //     { status: 401 }
-    //   );
-    // }
+    // Enforce admin session
+    const { data: { user } } = await supabase.auth.getUser();
+    const email = user?.email?.toLowerCase() || null;
+    if (!email || !isAuthorizedAdmin(email)) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized access' },
+        { status: 401 }
+      );
+    }
     
     const { data: signups, error } = await supabase
       .from('signup_submissions')
@@ -62,16 +61,14 @@ export async function GET() {
 export async function PUT(request: NextRequest) {
   try {
     const supabase = await createClient();
-    
-    // TODO: Re-enable authentication once cookie handling is fixed
-    // Verify admin authentication
-    // const adminUser = await verifyAdminSession(request);
-    // if (!adminUser) {
-    //   return NextResponse.json(
-    //     { success: false, message: 'Unauthorized access' },
-    //     { status: 401 }
-    //   );
-    // }
+    const { data: { user } } = await supabase.auth.getUser();
+    const email = user?.email?.toLowerCase() || null;
+    if (!email || !isAuthorizedAdmin(email)) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized access' },
+        { status: 401 }
+      );
+    }
     const body = await request.json();
     const { id, status, notes } = body;
 
@@ -134,16 +131,14 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const supabase = await createClient();
-    
-    // TODO: Re-enable authentication once cookie handling is fixed
-    // Verify admin authentication
-    // const adminUser = await verifyAdminSession(request);
-    // if (!adminUser) {
-    //   return NextResponse.json(
-    //     { success: false, message: 'Unauthorized access' },
-    //     { status: 401 }
-    //   );
-    // }
+    const { data: { user } } = await supabase.auth.getUser();
+    const email = user?.email?.toLowerCase() || null;
+    if (!email || !isAuthorizedAdmin(email)) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized access' },
+        { status: 401 }
+      );
+    }
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
