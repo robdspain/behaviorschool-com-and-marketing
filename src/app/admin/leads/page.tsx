@@ -46,8 +46,8 @@ export default function AdminLeadsPage() {
         const json = await res.json()
         setDownloads(json.downloads || [])
         setSubscribers(json.subscribers || [])
-      } catch (e: any) {
-        setError(e?.message || 'Failed to load leads')
+      } catch (e: unknown) {
+        setError(e instanceof Error ? e.message : 'Failed to load leads')
       } finally {
         setLoading(false)
       }
@@ -210,4 +210,3 @@ export default function AdminLeadsPage() {
     </div>
   )
 }
-

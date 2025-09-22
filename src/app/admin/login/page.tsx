@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase-client'
-import { SIMPLE_AUTH_CONFIG, isAuthorizedAdmin } from '@/lib/admin-config'
+// import { isAuthorizedAdmin } from '@/lib/admin-config'
 import { Button } from '@/components/ui/button'
 import { Shield, LogIn, Loader2 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,7 +15,7 @@ function LoginPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const supabase = createClient()
-  const useSimpleAuth = false // Always require Google (Supabase) auth for admin
+  // Google-only auth for admin
 
   useEffect(() => {
     // Check for error in URL params

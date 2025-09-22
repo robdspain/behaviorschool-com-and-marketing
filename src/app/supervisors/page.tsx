@@ -260,7 +260,7 @@ export default function SupervisorsPage() {
               </span>
             </h2>
             <p className="text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
-              Monitor your supervisees' BCBA exam preparation and competency development with real-time analytics and progress tracking.
+              Monitor your supervisees&#39; BCBA exam preparation and competency development with real-time analytics and progress tracking.
             </p>
           </motion.div>
 

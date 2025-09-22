@@ -40,7 +40,13 @@ export async function GET(request: NextRequest) {
       .select('id,email,name,status,source,tags,subscribed_at')
       .order('subscribed_at', { ascending: false })
 
-    const payload: any = { success: true, downloads: downloads || [], subscribers: subscribers || [] }
+    const payload = { success: true, downloads: downloads || [], subscribers: subscribers || [] } as {
+      success: true;
+      downloads: NonNullable<typeof downloads>;
+      subscribers: NonNullable<typeof subscribers>;
+      downloadsError?: string;
+      subscribersError?: string;
+    }
     if (downloadsError) payload.downloadsError = downloadsError.message
     if (subscribersError) payload.subscribersError = subscribersError.message
 
@@ -50,4 +56,3 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ success: false, message: 'Failed to fetch leads' }, { status: 500 })
   }
 }
-
