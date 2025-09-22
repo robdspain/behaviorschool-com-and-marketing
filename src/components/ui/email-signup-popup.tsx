@@ -17,6 +17,7 @@ interface EmailSignupPopupProps {
   showNameField?: boolean; // New prop to control name field visibility
   isDownloadFlow?: boolean; // When true, show download-specific disclaimer/messages
   onSuccess?: () => void; // New prop for success callback
+  id?: string; // Accessibility: id for aria-controls
 }
 
 export function EmailSignupPopup({
@@ -30,7 +31,8 @@ export function EmailSignupPopup({
   className = "",
   showNameField = false,
   isDownloadFlow = false,
-  onSuccess // Destructure onSuccess prop
+  onSuccess, // Destructure onSuccess prop
+  id = "email-signup-popup"
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { trackEmailSignup, trackFormSubmission, trackButtonClick } = useAnalytics();
@@ -129,6 +131,11 @@ export function EmailSignupPopup({
             exit={{ scale: 0.95, opacity: 0 }}
             className={`bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl ${className}`}
             onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`${id}-title`}
+            aria-describedby={`${id}-desc`}
+            id={id}
           >
             <div className="flex justify-between items-start mb-6">
               <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
@@ -137,14 +144,15 @@ export function EmailSignupPopup({
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+                aria-label="Close sign up dialog"
               >
                 <X className="w-5 h-5 text-slate-500" />
               </button>
             </div>
 
             <div className="text-center space-y-4">
-              <h3 className="text-2xl font-bold text-slate-900">{title}</h3>
-              <p className="text-slate-600">{description}</p>
+              <h3 id={`${id}-title`} className="text-2xl font-bold text-slate-900">{title}</h3>
+              <p id={`${id}-desc`} className="text-slate-600">{description}</p>
 
               {!isSubmitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -188,7 +196,7 @@ export function EmailSignupPopup({
                       buttonText,
                       isDownloadFlow
                     })}
-                    className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                    className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-700 to-orange-600 hover:from-orange-800 hover:to-orange-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     <Bell className="w-4 h-4 mr-2" />
                     {buttonText}

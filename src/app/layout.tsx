@@ -7,6 +7,7 @@ import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyComplia
 import PerformanceOptimizer from "@/components/PerformanceOptimizer";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 import Script from "next/script";
+import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 
 export const metadata: Metadata = {
   title: "★ FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
@@ -321,10 +322,15 @@ export default function RootLayout({
         <link rel="icon" type="image/webp" sizes="512x512" href="/Logos/Logo.webp" />
       </head>
       <body className="font-sans antialiased mobile-optimized prevent-horizontal-scroll">
+        {/* Skip link for keyboard users */}
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded focus:shadow">
+          Skip to content
+        </a>
         <ToastProvider>
           <div className="min-h-screen flex flex-col w-full max-w-full">
             <ConditionalNavBar />
-            <main className="flex-1 w-full max-w-full">{children}</main>
+            <ScrollProgressBar />
+            <main id="main-content" role="main" aria-label="Main Content" className="flex-1 w-full max-w-full">{children}</main>
             <Footer />
           </div>
         </ToastProvider>

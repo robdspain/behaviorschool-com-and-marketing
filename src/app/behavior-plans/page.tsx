@@ -123,14 +123,14 @@ export default function BehaviorPlansPage() {
                    </div>
                    <button
                      type="submit"
-                     className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                     className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-700 to-orange-600 hover:from-orange-800 hover:to-orange-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
                    >
                      <Mail className="w-4 h-4 mr-2" />
                      Notify Me
                    </button>
                  </form>
                  <p className="text-sm text-slate-500">
-                   No spam, unsubscribe anytime. Join 500+ educators waiting for launch.
+                   No spam, unsubscribe anytime. Join fellow educators interested in early access.
                  </p>
                </motion.div>
             </motion.div>
@@ -149,12 +149,39 @@ export default function BehaviorPlansPage() {
                   height={400}
                   className="w-full h-auto rounded-2xl shadow-2xl"
                   loading="eager"
+                  priority
                 />
               </div>
               <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-orange-200 to-orange-100 opacity-80 animate-pulse" />
               <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-gradient-to-br from-red-200 to-red-100 opacity-60" />
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Related Resources Section */}
+      <section className="py-16 lg:py-20 bg-slate-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Related Resources</h2>
+            <p className="text-slate-600">Strengthen your behavior support systems with these resources:</p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Link href="/iep-goals" className="group block p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-600 transition-colors">
+                <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700">IEP Goal Writing Tools</h3>
+                <p className="text-sm text-slate-600">Build measurable behavior goals and progress monitoring plans.</p>
+              </Link>
+              <Link href="/transformation-program" className="group block p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-600 transition-colors">
+                <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700">School BCBA Transformation Program</h3>
+                <p className="text-sm text-slate-600">Lead with systems, not firefighting. Cohort-based training.</p>
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -517,7 +544,7 @@ export default function BehaviorPlansPage() {
               Be the First to Know When BIP Writer Launches
             </h2>
             <p className="text-xl text-orange-100 max-w-2xl mx-auto">
-              Join 500+ BCBAs and educators who want to transform how they create behavior intervention plans.
+              Join other BCBAs and educators who want to transform how they create behavior intervention plans.
             </p>
             
             <motion.div
@@ -526,6 +553,9 @@ export default function BehaviorPlansPage() {
             >
               <button 
                 onClick={() => setShowPopup(true)}
+                aria-haspopup="dialog"
+                aria-expanded={showPopup}
+                aria-controls="email-signup-popup"
                 className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-orange-600 hover:bg-slate-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 <Bell className="w-5 h-5 mr-2" />
@@ -556,6 +586,7 @@ export default function BehaviorPlansPage() {
         pageSource="behavior-plans"
         buttonText="Join Waitlist"
         successMessage="Thanks! We'll notify you when BIP Writer launches."
+        className=""
       />
 
       {/* Structured Data */}
@@ -593,10 +624,41 @@ export default function BehaviorPlansPage() {
             },
           ],
         } as const;
+        const faqJsonLd = {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is a Behavior Intervention Plan (BIP)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A BIP is a proactive plan that outlines specific strategies, supports, and data collection methods to reduce challenging behavior and teach replacement skills based on functional assessment."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Who uses BIP Writer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "School BCBAs, school psychologists, and special education teams use BIP Writer to produce consistent, evidence‑based plans with clear implementation steps."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Will BIP Writer include progress monitoring?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. The tool includes data collection options and review schedules to help teams monitor implementation fidelity and student outcomes over time."
+              }
+            }
+          ]
+        } as const;
         return (
           <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
           </>
         );
       })()}

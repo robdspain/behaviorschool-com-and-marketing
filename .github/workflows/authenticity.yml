@@ -1,0 +1,20 @@
+name: Authenticity Check
+
+on:
+  pull_request:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  authenticity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run authenticity check
+        run: node scripts/ci-authenticity-check.js
+

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "authenticity:check": "node scripts/ci-authenticity-check.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
