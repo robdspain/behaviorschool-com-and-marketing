@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, PlayCircle, Calendar } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "🔥 FREE BCBA Mock Exam (2025) | 185 Questions | Pass Your Exam Fast!",
-  description: "Take a comprehensive free BCBA mock exam! 185 realistic questions, instant results, detailed explanations. Professional practice test for BCBA certification. Start your FREE practice now!",
+  title: "🆓 FREE BCBA Mock Exam 2025 | 185 Questions + FREE Results | Start Now!",
+  description: "Take the #1 FREE BCBA mock exam! 185 realistic questions, FREE instant scoring, FREE detailed explanations. Professional practice test for BCBA certification. Start your FREE practice now!",
   robots: {
     index: true,
     follow: true,
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Best BCBA Mock Exam Free | 185 Questions + Instant Results | 2025 Practice",
-    description: "★ #1 Free BCBA Mock Exam ★ 185 real exam questions, 4-hour timed practice, instant scoring, detailed explanations. Start your FREE practice test now!",
+    title: "FREE BCBA Mock Exam | 185 Questions + FREE Analytics | 2025 Practice",
+    description: "★ #1 FREE BCBA Mock Exam ★ 185 real exam questions, 4-hour timed practice, FREE instant scoring, FREE detailed explanations. Start your FREE practice test now!",
     url: "https://behaviorschool.com/bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -59,8 +59,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best BCBA Mock Exam Free | 185 Questions",
-    description: "★ #1 Free BCBA Mock Exam ★ 185 real exam questions, instant scoring, detailed explanations. Start FREE practice now!",
+    title: "FREE BCBA Mock Exam | 185 Questions + FREE Analytics",
+    description: "★ #1 FREE BCBA Mock Exam ★ 185 real exam questions, FREE instant scoring, FREE detailed explanations. Start FREE practice now!"
     images: ["/optimized/og-image.webp"],
   },
 };

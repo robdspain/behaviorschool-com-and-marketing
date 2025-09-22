@@ -15,11 +15,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Behavior School" }],
   icons: {
     icon: [
+      { url: "/Logos/Logo.webp", sizes: "16x16", type: "image/webp" },
+      { url: "/Logos/Logo.webp", sizes: "32x32", type: "image/webp" },
+      { url: "/Logos/Logo.webp", sizes: "48x48", type: "image/webp" },
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/Logos/Logo.webp", type: "image/webp", sizes: "32x32" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/Logos/Logo.webp",
     apple: "/Logos/Logo.webp",
   },
   robots: {

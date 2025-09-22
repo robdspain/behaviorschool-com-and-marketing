@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "🎯 FREE BCBA Practice Test | 185 Questions + Instant Scoring | Start Now!",
-  description: "Professional FREE BCBA mock exam! 185 questions, immediate results, study tips included. Comprehensive practice test for BCBA certification. No registration - start practicing now!",
+  title: "🆓 FREE BCBA Practice Test 2025 | 185 Questions + FREE Analytics | Start Now!",
+  description: "Professional FREE BCBA mock exam! 185 questions, FREE immediate results, FREE study tips included. Comprehensive FREE practice test for BCBA certification. No registration - start practicing now!",
   robots: {
     index: true,
     follow: true,
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/free-bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Free BCBA Mock Exam | 185 Questions + Full Analytics | Pass Your BCBA Exam",
-    description: "Take the #1 Free BCBA Mock Exam: 185 realistic questions, 4-hour simulation, instant feedback, and detailed analytics. No signup required - start your practice test now!",
+    title: "FREE BCBA Mock Exam | 185 Questions + FREE Analytics | Pass Your BCBA Exam",
+    description: "Take the #1 FREE BCBA Mock Exam: 185 realistic questions, 4-hour simulation, FREE instant feedback, and FREE detailed analytics. No signup required - start your FREE practice test now!",
     url: "https://behaviorschool.com/free-bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -56,8 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Mock Exam | 185 Questions + Analytics",
-    description: "Take the #1 Free BCBA Mock Exam: 185 realistic questions, 4-hour simulation, instant feedback. No signup required - start now!",
+    title: "FREE BCBA Mock Exam | 185 Questions + FREE Analytics",
+    description: "Take the #1 FREE BCBA Mock Exam: 185 realistic questions, 4-hour simulation, FREE instant feedback. No signup required - start now!"
     images: ["/optimized/og-image.webp"],
   },
 };

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,33 +17,61 @@ import {
   AcademicCapIcon,
   CheckBadgeIcon,
   ArrowUpRightIcon,
-  SparklesIcon
+  SparklesIcon,
+  ClockIcon,
+  DocumentCheckIcon,
+  ShieldCheckIcon,
+  StarIcon,
+  PlayCircleIcon,
+  ArrowRightIcon
 } from "@heroicons/react/24/outline";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
 
 export default function SupervisorsPage() {
   const [showPopup, setShowPopup] = useState(false);
+  const heroRef = useRef(null);
+  const isHeroInView = useInView(heroRef, { once: true });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-slate-100">
-      {/* Floating Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50/30">
+      {/* Sophisticated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-emerald-600/20 rounded-full blur-3xl"
+          className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-emerald-400/10 to-blue-500/10 rounded-full blur-3xl"
           animate={{
-            scale: [1, 1.1, 1],
-            rotate: [0, 90, 0],
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 0],
           }}
           transition={{
-            duration: 20,
+            duration: 30,
             repeat: Infinity,
             ease: "linear"
           }}
         />
         <motion.div
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl"
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-400/10 to-emerald-500/10 rounded-full blur-3xl"
           animate={{
             scale: [1.1, 1, 1.1],
-            rotate: [0, -90, 0],
+            rotate: [0, -180, 0],
           }}
           transition={{
             duration: 25,
@@ -51,10 +79,22 @@ export default function SupervisorsPage() {
             ease: "linear"
           }}
         />
+        <motion.div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-emerald-300/5 to-blue-400/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
       </div>
 
       {/* Breadcrumbs */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumbs
           items={[
             { label: "Tools", href: "/products" },
@@ -63,20 +103,41 @@ export default function SupervisorsPage() {
         />
       </div>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800">
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/50 to-transparent" />
+      {/* Hero Section - Premium Design */}
+      <section ref={heroRef} className="relative overflow-hidden">
+        {/* Premium Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-blue-800" />
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/30 via-transparent to-blue-900/30" />
+
+        {/* Animated Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 25% 25%, rgba(255,255,255,0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(34,197,94,0.3) 0%, transparent 50%)`
+            }}
+            animate={{
+              backgroundPosition: ["0% 0%", "100% 100%"],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "linear"
+            }}
+          />
+        </div>
 
         {/* Floating Elements */}
         <motion.div
           className="absolute top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl"
           animate={{
-            y: [0, -20, 0],
+            y: [0, -30, 0],
+            x: [0, 20, 0],
             opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
-            duration: 4,
+            duration: 6,
             repeat: Infinity,
             ease: "easeInOut"
           }}
@@ -84,173 +145,270 @@ export default function SupervisorsPage() {
         <motion.div
           className="absolute bottom-20 right-20 w-40 h-40 bg-emerald-400/20 rounded-full blur-2xl"
           animate={{
-            y: [0, 20, 0],
+            y: [0, 30, 0],
+            x: [0, -15, 0],
             opacity: [0.4, 0.7, 0.4],
           }}
           transition={{
-            duration: 5,
+            duration: 8,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center justify-center gap-2 mb-6"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex items-center justify-center gap-3 mb-8"
           >
-            <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-4 py-2">
-              <SparklesIcon className="w-4 h-4 mr-2" />
-              Premium Supervision Platform
+            <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-6 py-3 text-lg font-medium">
+              <SparklesIcon className="w-5 h-5 mr-2" />
+              Premium BCBA Supervision Platform
             </Badge>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-6xl font-bold text-white mb-6"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-none"
           >
-            Professional BCBA
-            <span className="block bg-gradient-to-r from-emerald-200 to-emerald-100 bg-clip-text text-transparent">
-              Supervision Tools
+            Transform Your
+            <span className="block bg-gradient-to-r from-emerald-200 via-white to-emerald-100 bg-clip-text text-transparent">
+              Supervision Practice
             </span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-emerald-100 max-w-3xl mx-auto mb-8 leading-relaxed"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            className="text-2xl text-emerald-50 max-w-4xl mx-auto mb-12 leading-relaxed font-medium"
           >
-            Streamline your supervision process with our integrated platform. Track competencies, manage hours, and monitor supervisee progress all in one place.
+            Streamline BCBA supervision with digital competency tracking, automated workflows, and BACB-compliant documentation. Start with progress monitoring today.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 40 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12"
           >
             <Link
               href="https://study.behaviorschool.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-white text-emerald-700 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 group"
+              className="group inline-flex items-center justify-center px-10 py-5 text-xl font-bold bg-white text-emerald-700 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
             >
-              Access Study Platform
-              <ArrowUpRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <PlayCircleIcon className="w-6 h-6 mr-3" />
+              Start Progress Monitoring
+              <ArrowUpRightIcon className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
             <Button
               size="lg"
               variant="outline"
-              className="bg-white/10 text-white border-white/30 backdrop-blur-sm hover:bg-white/20 px-8 py-4 text-lg"
+              className="bg-white/20 text-white border-white/50 backdrop-blur-md hover:bg-white/30 px-10 py-5 text-xl font-bold rounded-2xl"
               onClick={() => setShowPopup(true)}
             >
               Join Premium Waitlist
+              <ArrowRightIcon className="w-5 h-5 ml-2" />
             </Button>
           </motion.div>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-emerald-100/80 text-sm mt-6"
+            animate={isHeroInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex items-center justify-center space-x-8 text-emerald-100/80 text-lg"
           >
-            Currently available on our study platform • Enhanced supervision tools coming soon
-          </motion.p>
+            <div className="flex items-center space-x-2">
+              <CheckBadgeIcon className="h-6 w-6 text-emerald-300" />
+              <span>Available Now</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <ClockIcon className="h-6 w-6 text-emerald-300" />
+              <span>Quick Setup</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <ShieldCheckIcon className="h-6 w-6 text-emerald-300" />
+              <span>BACB Compliant</span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Current Platform Integration */}
-      <section className="py-20 bg-gradient-to-br from-white to-emerald-50/30 relative">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* Current Platform Integration - Enhanced Design */}
+      <section className="py-32 bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/30 relative">
+        <div className="max-w-7xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-              Available Now on Study Platform
+            <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full text-lg font-medium mb-8">
+              <DocumentCheckIcon className="w-5 h-5 mr-2" />
+              Available Now
+            </div>
+            <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
+              Supervisee Progress
+              <span className="block bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
+                Monitoring Platform
+              </span>
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              Start tracking supervisee progress today with our integrated study platform. Monitor competency development and engagement metrics in real-time.
+            <p className="text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+              Monitor your supervisees' BCBA exam preparation and competency development with real-time analytics and progress tracking.
             </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-emerald-100/50 backdrop-blur-sm"
+            className="bg-white rounded-3xl p-12 md:p-16 shadow-2xl border border-emerald-100/50 backdrop-blur-sm overflow-hidden relative"
           >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
-                    <ChartBarIcon className="w-6 h-6 text-white" />
+            {/* Background decoration */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-50 to-transparent rounded-full -translate-y-48 translate-x-48" />
+
+            <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
+              <div className="space-y-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <ChartBarIcon className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-slate-900">Progress Monitoring</h3>
-                    <p className="text-emerald-600 font-medium">Real-time supervisee tracking</p>
+                    <h3 className="text-3xl font-bold text-slate-900">Real-Time Analytics</h3>
+                    <p className="text-emerald-600 font-semibold text-lg">Comprehensive supervisee insights</p>
                   </div>
                 </div>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Your supervisees can share their study progress, practice exam scores, and competency development directly through the study platform. Perfect for tracking BCBA exam preparation and professional development.
+
+                <p className="text-xl text-slate-600 leading-relaxed">
+                  Your supervisees can share their study progress, practice exam scores, and competency development directly through our study platform. Perfect for tracking BCBA exam preparation and professional development milestones.
                 </p>
-                <div className="space-y-3">
+
+                <div className="grid gap-4">
                   {[
-                    "View supervisee study analytics and progress trends",
+                    "View detailed study analytics and progress trends",
                     "Monitor BCBA exam preparation milestones",
                     "Track competency development across Task List domains",
                     "Generate professional development reports"
                   ].map((item, index) => (
-                    <div key={index} className="flex items-center gap-3">
-                      <CheckBadgeIcon className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                      <span className="text-slate-700">{item}</span>
-                    </div>
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex items-center gap-4 p-4 rounded-xl bg-emerald-50/50 border border-emerald-100"
+                    >
+                      <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <CheckBadgeIcon className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="text-slate-700 font-medium">{item}</span>
+                    </motion.div>
                   ))}
+                </div>
+
+                <div className="pt-4">
+                  <Link
+                    href="https://study.behaviorschool.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:bg-emerald-700 transform hover:-translate-y-1 transition-all duration-300"
+                  >
+                    Access Platform
+                    <ArrowUpRightIcon className="w-5 h-5 ml-2" />
+                  </Link>
                 </div>
               </div>
 
               <div className="relative">
-                <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden"
+                >
+                  {/* Dashboard mockup */}
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-lg font-semibold">Supervisee Dashboard</h4>
-                      <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                      <h4 className="text-xl font-bold">Supervisee Dashboard</h4>
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-medium">Live</span>
+                      </div>
                     </div>
+
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                        <span className="text-emerald-100">Study Streak</span>
-                        <span className="font-bold">14 days</span>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                        <span className="text-emerald-100">Practice Accuracy</span>
-                        <span className="font-bold">82%</span>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                        <span className="text-emerald-100">Hours This Week</span>
-                        <span className="font-bold">12.5h</span>
+                      <motion.div
+                        className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <span className="text-emerald-100 font-medium">Study Streak</span>
+                        <span className="font-bold text-xl">21 days</span>
+                      </motion.div>
+
+                      <motion.div
+                        className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <span className="text-emerald-100 font-medium">Practice Accuracy</span>
+                        <span className="font-bold text-xl">87%</span>
+                      </motion.div>
+
+                      <motion.div
+                        className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <span className="text-emerald-100 font-medium">Hours This Week</span>
+                        <span className="font-bold text-xl">15.5h</span>
+                      </motion.div>
+
+                      <div className="grid grid-cols-2 gap-3 mt-6">
+                        <div className="text-center p-3 bg-white/10 rounded-lg">
+                          <div className="font-bold text-lg">Domain A</div>
+                          <div className="text-emerald-200 text-sm">92% Ready</div>
+                        </div>
+                        <div className="text-center p-3 bg-white/10 rounded-lg">
+                          <div className="font-bold text-lg">Domain G</div>
+                          <div className="text-emerald-200 text-sm">85% Ready</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Floating elements */}
+                  {/* Floating decoration */}
+                  <motion.div
+                    className="absolute -top-4 -right-4 w-20 h-20 bg-emerald-200/20 rounded-full blur-xl"
+                    animate={{
+                      scale: [1, 1.3, 1],
+                      opacity: [0.3, 0.6, 0.3],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </motion.div>
+
+                {/* Additional floating elements */}
                 <motion.div
-                  className="absolute -top-4 -right-4 w-16 h-16 bg-emerald-200/30 rounded-full blur-xl"
+                  className="absolute -bottom-6 -left-6 w-24 h-24 bg-blue-200/20 rounded-full blur-2xl"
                   animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.3, 0.6, 0.3],
+                    scale: [1.2, 1, 1.2],
+                    opacity: [0.2, 0.4, 0.2],
                   }}
                   transition={{
-                    duration: 3,
+                    duration: 5,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
@@ -261,114 +419,142 @@ export default function SupervisorsPage() {
         </div>
       </section>
 
-      {/* Premium Features Coming Soon */}
-      <section className="py-20 bg-slate-900 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 25% 25%, #10b981 0%, transparent 50%), radial-gradient(circle at 75% 75%, #3b82f6 0%, transparent 50%)`
-          }} />
+      {/* Premium Features Coming Soon - Enhanced */}
+      <section className="py-32 bg-slate-900 relative overflow-hidden">
+        {/* Premium Background */}
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `radial-gradient(circle at 20% 50%, rgba(34, 197, 94, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%)`
+            }}
+            animate={{
+              backgroundPosition: ["0% 0%", "100% 100%"],
+            }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "linear"
+            }}
+          />
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Enhanced Supervision Tools
-              <span className="block text-emerald-400">Coming Soon</span>
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 text-emerald-300 rounded-full text-lg font-medium mb-8 backdrop-blur-sm border border-emerald-500/30">
+              <StarIcon className="w-5 h-5 mr-2" />
+              Premium Features
+            </div>
+
+            <h2 className="text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
+              Complete Supervision
+              <span className="block bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Management System
+              </span>
             </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Complete supervision management system with digital documentation, automated workflows, and compliance tracking.
+
+            <p className="text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
+              Advanced supervision tools with digital documentation, automated workflows, and comprehensive compliance tracking.
             </p>
           </motion.div>
 
           <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={{
-              animate: {
-                transition: {
-                  staggerChildren: 0.1
-                }
-              }
-            }}
-            initial="initial"
-            whileInView="animate"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
           >
             {[
               {
                 icon: ClipboardDocumentListIcon,
                 title: 'Digital Competency Matrix',
-                desc: 'Interactive competency tracking with evidence attachment, progress visualization, and automated verification workflows.',
+                desc: 'Interactive competency tracking with evidence attachment, progress visualization, and automated verification workflows for streamlined oversight.',
                 color: 'emerald',
-                highlight: true
+                highlight: true,
+                gradient: 'from-emerald-500 to-emerald-400'
               },
               {
                 icon: CheckBadgeIcon,
                 title: 'Smart Hours Tracking',
                 desc: 'Automated time logging with restricted/unrestricted classification, digital signatures, and BACB-compliant export formats.',
-                color: 'blue'
+                color: 'blue',
+                gradient: 'from-blue-500 to-blue-400'
               },
               {
                 icon: UsersIcon,
                 title: 'Session Management',
-                desc: 'Customizable supervision templates, goal setting frameworks, and structured feedback systems for consistent quality.',
-                color: 'purple'
+                desc: 'Customizable supervision templates, goal setting frameworks, and structured feedback systems for consistent quality supervision.',
+                color: 'purple',
+                gradient: 'from-purple-500 to-purple-400'
               },
               {
                 icon: ChartBarIcon,
                 title: 'Analytics Dashboard',
-                desc: 'Comprehensive insights into supervision effectiveness, competency progression, and compliance risk indicators.',
-                color: 'orange'
+                desc: 'Comprehensive insights into supervision effectiveness, competency progression, and compliance risk indicators with predictive analytics.',
+                color: 'orange',
+                gradient: 'from-orange-500 to-orange-400'
               },
               {
                 icon: CogIcon,
                 title: 'Workflow Automation',
-                desc: 'Intelligent reminders, document generation, and task management to eliminate administrative overhead.',
-                color: 'cyan'
+                desc: 'Intelligent reminders, document generation, and task management to eliminate administrative overhead and ensure compliance.',
+                color: 'cyan',
+                gradient: 'from-cyan-500 to-cyan-400'
               },
               {
                 icon: AcademicCapIcon,
                 title: 'Professional Development',
-                desc: 'Integrated career planning, continuing education tracking, and specialization pathway guidance.',
+                desc: 'Integrated career planning, continuing education tracking, and specialization pathway guidance for comprehensive growth.',
                 color: 'pink',
-                highlight: true
+                highlight: true,
+                gradient: 'from-pink-500 to-pink-400'
               }
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                className={`group relative ${feature.highlight ? 'md:col-span-1 lg:col-span-1' : ''}`}
-                variants={{
-                  initial: { opacity: 0, y: 20 },
-                  animate: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+                className={`group relative ${feature.highlight ? 'lg:col-span-1' : ''}`}
+                variants={itemVariants}
+                whileHover={{
+                  y: -12,
+                  transition: {
+                    duration: 0.3,
+                    type: "spring",
+                    stiffness: 300
+                  }
                 }}
-                whileHover={{ y: -8, transition: { duration: 0.2 } }}
               >
-                <div className={`h-full bg-gradient-to-br ${feature.highlight
-                  ? 'from-white to-emerald-50 border-2 border-emerald-200'
-                  : 'from-slate-800 to-slate-700 border border-slate-600'
-                } rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300`}>
+                <div className={`h-full relative overflow-hidden ${
+                  feature.highlight
+                    ? 'bg-gradient-to-br from-white to-emerald-50 border-2 border-emerald-200'
+                    : 'bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600'
+                } rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500`}>
 
-                  <div className={`w-14 h-14 bg-gradient-to-br from-${feature.color}-500 to-${feature.color}-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="w-7 h-7 text-white" />
+                  {/* Background decoration */}
+                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${feature.gradient} opacity-10 rounded-full -translate-y-16 translate-x-16`} />
+
+                  <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <feature.icon className="w-8 h-8 text-white" />
                   </div>
 
-                  <h3 className={`text-xl font-bold mb-4 ${feature.highlight ? 'text-slate-900' : 'text-white'}`}>
+                  <h3 className={`text-2xl font-bold mb-4 ${feature.highlight ? 'text-slate-900' : 'text-white'}`}>
                     {feature.title}
                   </h3>
 
-                  <p className={`leading-relaxed ${feature.highlight ? 'text-slate-600' : 'text-slate-300'}`}>
+                  <p className={`leading-relaxed text-lg ${feature.highlight ? 'text-slate-600' : 'text-slate-300'}`}>
                     {feature.desc}
                   </p>
 
                   {feature.highlight && (
-                    <div className="absolute -top-2 -right-2">
-                      <div className="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                    <div className="absolute -top-3 -right-3">
+                      <div className="bg-gradient-to-r from-emerald-500 to-emerald-400 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg">
                         Premium
                       </div>
                     </div>
@@ -380,18 +566,18 @@ export default function SupervisorsPage() {
         </div>
       </section>
 
-      {/* Premium CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800 relative overflow-hidden">
-        {/* Background Elements */}
+      {/* Premium CTA Section - Enhanced */}
+      <section className="py-32 bg-gradient-to-br from-emerald-600 via-emerald-700 to-blue-800 relative overflow-hidden">
+        {/* Advanced Background Elements */}
         <div className="absolute inset-0">
           <motion.div
             className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"
             animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.1, 0.2, 0.1],
+              scale: [1, 1.3, 1],
+              opacity: [0.1, 0.3, 0.1],
             }}
             transition={{
-              duration: 8,
+              duration: 12,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -399,33 +585,34 @@ export default function SupervisorsPage() {
           <motion.div
             className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-emerald-400/20 rounded-full blur-2xl"
             animate={{
-              scale: [1.1, 1, 1.1],
-              opacity: [0.2, 0.3, 0.2],
+              scale: [1.2, 1, 1.2],
+              opacity: [0.2, 0.4, 0.2],
             }}
             transition={{
-              duration: 6,
+              duration: 10,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to Transform Your
-              <span className="block bg-gradient-to-r from-emerald-200 to-white bg-clip-text text-transparent">
-                Supervision Practice?
+            <h2 className="text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
+              Ready to Revolutionize
+              <span className="block bg-gradient-to-r from-emerald-200 via-white to-blue-200 bg-clip-text text-transparent">
+                Your Supervision Practice?
               </span>
             </h2>
-            <p className="text-xl text-emerald-100 max-w-2xl mx-auto leading-relaxed">
-              Start with our study platform today for supervisee progress tracking, then join the waitlist for our complete supervision management system.
+
+            <p className="text-2xl text-emerald-100 max-w-3xl mx-auto leading-relaxed">
+              Start with supervisee progress monitoring today, then join our exclusive waitlist for the complete supervision management platform.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
@@ -433,130 +620,120 @@ export default function SupervisorsPage() {
                 href="https://study.behaviorschool.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-white text-emerald-700 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                className="group inline-flex items-center justify-center px-10 py-5 text-xl font-bold bg-white text-emerald-700 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
               >
-                Access Study Platform Now
-                <ArrowUpRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <PlayCircleIcon className="w-6 h-6 mr-3" />
+                Start Progress Monitoring
+                <ArrowUpRightIcon className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
+
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-white/10 text-white border-white/30 backdrop-blur-sm hover:bg-white/20 px-8 py-4 text-lg font-semibold"
+                className="bg-white/20 text-white border-white/50 backdrop-blur-md hover:bg-white/30 px-10 py-5 text-xl font-bold rounded-2xl"
                 onClick={() => setShowPopup(true)}
               >
+                <StarIcon className="w-5 h-5 mr-2" />
                 Join Premium Waitlist
               </Button>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/20">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">Available Now</div>
-                <div className="text-emerald-200">Progress Monitoring</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">Early 2025</div>
-                <div className="text-emerald-200">Enhanced Tools Beta</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">BACB Compliant</div>
-                <div className="text-emerald-200">Full Documentation</div>
-              </div>
+            <div className="grid md:grid-cols-3 gap-8 mt-16 pt-12 border-t border-white/20">
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="text-3xl font-black text-white mb-2">Available Now</div>
+                <div className="text-emerald-200 text-lg">Progress Monitoring</div>
+              </motion.div>
+
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="text-3xl font-black text-white mb-2">Early 2025</div>
+                <div className="text-emerald-200 text-lg">Enhanced Tools Beta</div>
+              </motion.div>
+
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <div className="text-3xl font-black text-white mb-2">BACB Compliant</div>
+                <div className="text-emerald-200 text-lg">Full Documentation</div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
+      {/* FAQ - Enhanced */}
+      <section className="py-32 bg-gradient-to-br from-white to-slate-50">
+        <div className="max-w-5xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-slate-600">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Everything you need to know about our supervision tools and platform integration.
             </p>
           </motion.div>
 
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            <AccordionItem value="q1" className="bg-slate-50 rounded-lg border-0 px-6">
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-slate-900">When will enhanced supervision tools be available?</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 text-slate-600">
-                We are opening early access in waves starting early 2025. Current study platform users get priority access. Join the waitlist to secure your spot for premium supervision features.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="q2" className="bg-slate-50 rounded-lg border-0 px-6">
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-slate-900">What supervision features are available right now?</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 text-slate-600">
-                Currently, you can monitor supervisee progress through our study platform, including study analytics, practice exam scores, and competency development tracking. This provides real-time insights into BCBA exam preparation and professional development.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="q3" className="bg-slate-50 rounded-lg border-0 px-6">
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-slate-900">Can I import existing hours or competency records?</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 text-slate-600">
-                Yes. The enhanced platform will support CSV import and bulk evidence uploads for fast migration of existing supervision records. This ensures seamless transition from your current documentation system.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="q4" className="bg-slate-50 rounded-lg border-0 px-6">
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-slate-900">Are the exported supervision records BACB audit-ready?</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 text-slate-600">
-                Yes. All supervision documentation will include detailed timestamps, digital signatures, role attestations, and compliance documentation specifically designed for BACB audits. Our export formats meet professional standards and regulatory requirements.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="q5" className="bg-slate-50 rounded-lg border-0 px-6">
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-slate-900">Does the platform support both RBT and BCaBA supervision?</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 text-slate-600">
-                Yes. Our supervision platform is designed for all levels of behavior analyst supervision, including RBT supervision by BCBAs, BCaBA supervision, and BCBA-to-BCBA mentoring relationships with appropriate competency frameworks for each level.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="q6" className="bg-slate-50 rounded-lg border-0 px-6">
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-slate-900">How does the digital signature feature work for supervision documentation?</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 text-slate-600">
-                Our digital signature system uses secure, legally-binding electronic signatures that meet industry standards. Both supervisors and supervisees can sign documents remotely, with automatic timestamp and identity verification for complete audit trails.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="q7" className="bg-slate-50 rounded-lg border-0 px-6">
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-slate-900">How does supervisee progress monitoring work with the study platform?</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 text-slate-600">
-                Supervisees can grant access to their study dashboard, allowing you to view real-time analytics including study streaks, practice accuracy, domain mastery, and time invested. This creates transparency and accountability in the supervision relationship.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="q8" className="bg-slate-50 rounded-lg border-0 px-6">
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="font-semibold text-slate-900">Will there be automated reminders and workflow management?</span>
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 text-slate-600">
-                Yes. The enhanced platform will include intelligent automation for supervision scheduling, document requests, competency deadlines, and progress check-ins. This reduces administrative overhead while ensuring compliance requirements are met.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <Accordion type="single" collapsible className="w-full space-y-6">
+              {[
+                {
+                  q: "When will enhanced supervision tools be available?",
+                  a: "We are opening early access in waves starting early 2025. Current study platform users get priority access. Join the waitlist to secure your spot for premium supervision features."
+                },
+                {
+                  q: "What supervision features are available right now?",
+                  a: "Currently, you can monitor supervisee progress through our study platform, including study analytics, practice exam scores, and competency development tracking. This provides real-time insights into BCBA exam preparation and professional development."
+                },
+                {
+                  q: "Can I import existing hours or competency records?",
+                  a: "Yes. The enhanced platform will support CSV import and bulk evidence uploads for fast migration of existing supervision records. This ensures seamless transition from your current documentation system."
+                },
+                {
+                  q: "Are the exported supervision records BACB audit-ready?",
+                  a: "Yes. All supervision documentation will include detailed timestamps, digital signatures, role attestations, and compliance documentation specifically designed for BACB audits. Our export formats meet professional standards and regulatory requirements."
+                },
+                {
+                  q: "Does the platform support both RBT and BCaBA supervision?",
+                  a: "Yes. Our supervision platform is designed for all levels of behavior analyst supervision, including RBT supervision by BCBAs, BCaBA supervision, and BCBA-to-BCBA mentoring relationships with appropriate competency frameworks for each level."
+                }
+              ].map((item, index) => (
+                <AccordionItem key={index} value={`q${index + 1}`} className="bg-white rounded-2xl border-0 px-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <AccordionTrigger className="text-left hover:no-underline py-8 text-lg">
+                    <span className="font-bold text-slate-900">{item.q}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-8 text-slate-600 text-lg leading-relaxed">
+                    {item.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
         </div>
       </section>
 
@@ -564,12 +741,10 @@ export default function SupervisorsPage() {
       <EmailSignupPopup
         isOpen={showPopup}
         onClose={() => setShowPopup(false)}
-        title="Join the Supervision Tools Waitlist"
-        description="Be the first to know when our comprehensive BCBA supervision platform launches. Get early access and priority onboarding."
+        title="Join the Premium Supervision Tools Waitlist"
+        description="Be the first to access our comprehensive BCBA supervision platform. Get early access, priority onboarding, and exclusive launch pricing."
         pageSource="supervisors"
       />
     </div>
   );
 }
-
-

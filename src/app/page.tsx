@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 export const metadata: Metadata = {
-  title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School",
+  title: "Behavior School | FREE BCBA Exam Prep & School Behavior Tools for BCBAs",
   description:
-    "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, supervision tools, and training programs for behavior analysts.",
+    "Behavior School: FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, supervision tools, and training programs for behavior analysts.",
   keywords: "Behavior School, school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, behavior school platform",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
     type: "website",
-    title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School",
+    title: "Behavior School | FREE BCBA Exam Prep & School Behavior Tools for BCBAs",
     description:
-      "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, supervision tools, and training programs for behavior analysts.",
+      "Behavior School: FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, supervision tools, and training programs for behavior analysts.",
     url: "/",
     siteName: "Behavior School",
     locale: "en_US",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FREE BCBA Exam Prep & School Behavior Tools | Behavior School",
+    title: "Behavior School | FREE BCBA Exam Prep & School Behavior Tools for BCBAs",
     description:
-      "FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, supervision tools, and training programs for behavior analysts.",
+      "Behavior School: FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, supervision tools, and training programs for behavior analysts.",
     images: ["/og-image.webp"],
     creator: "@BehaviorSchool",
   },
