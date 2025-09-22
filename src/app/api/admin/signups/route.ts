@@ -2,12 +2,28 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
 import { isAuthorizedAdmin } from '@/lib/admin-config';
 
-export async function GET() {
+async function getAuthorizedEmailFromRequest(): Promise<string | null> {
+  const supabase = await createClient();
+  // Try cookie-based session first
+  const { data: { user } } = await supabase.auth.getUser();
+  const cookieEmail = user?.email?.toLowerCase() || null;
+  if (cookieEmail) return cookieEmail;
+
+  return null;
+}
+
+export async function GET(request: Request) {
   try {
     const supabase = await createClient();
-    // Enforce admin session
-    const { data: { user } } = await supabase.auth.getUser();
-    const email = user?.email?.toLowerCase() || null;
+    // Enforce admin session (cookie or bearer)
+    let email = await getAuthorizedEmailFromRequest();
+    if (!email) {
+      const auth = (request.headers.get('authorization') || '').replace('Bearer ', '').trim();
+      if (auth) {
+        const { data: { user: tokenUser } } = await supabase.auth.getUser(auth);
+        email = tokenUser?.email?.toLowerCase() || null;
+      }
+    }
     if (!email || !isAuthorizedAdmin(email)) {
       return NextResponse.json(
         { success: false, message: 'Unauthorized access' },
@@ -61,8 +77,17 @@ export async function GET() {
 export async function PUT(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    const email = user?.email?.toLowerCase() || null;
+    // Check cookie or bearer
+    let email: string | null = null;
+    const cookieCheck = await supabase.auth.getUser();
+    email = cookieCheck.data.user?.email?.toLowerCase() || null;
+    if (!email) {
+      const auth = (request.headers.get('authorization') || '').replace('Bearer ', '').trim();
+      if (auth) {
+        const { data: { user: tokenUser } } = await supabase.auth.getUser(auth);
+        email = tokenUser?.email?.toLowerCase() || null;
+      }
+    }
     if (!email || !isAuthorizedAdmin(email)) {
       return NextResponse.json(
         { success: false, message: 'Unauthorized access' },
@@ -131,8 +156,17 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    const email = user?.email?.toLowerCase() || null;
+    // Check cookie or bearer
+    let email: string | null = null;
+    const cookieCheck = await supabase.auth.getUser();
+    email = cookieCheck.data.user?.email?.toLowerCase() || null;
+    if (!email) {
+      const auth = (request.headers.get('authorization') || '').replace('Bearer ', '').trim();
+      if (auth) {
+        const { data: { user: tokenUser } } = await supabase.auth.getUser(auth);
+        email = tokenUser?.email?.toLowerCase() || null;
+      }
+    }
     if (!email || !isAuthorizedAdmin(email)) {
       return NextResponse.json(
         { success: false, message: 'Unauthorized access' },

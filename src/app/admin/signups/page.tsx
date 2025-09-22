@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { createClient } from '@/lib/supabase-client';
 import { Loader2, Eye, Clock, Mail, CheckCircle, AlertCircle, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -28,7 +29,13 @@ export default function AdminSignupsPage() {
   useEffect(() => {
     const fetchSignups = async () => {
       try {
-        const response = await fetch('/api/admin/signups');
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        const token = session?.access_token;
+        const response = await fetch('/api/admin/signups', {
+          headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+          credentials: 'include',
+        });
         
         if (!response.ok) {
           throw new Error('Failed to fetch signup submissions');
