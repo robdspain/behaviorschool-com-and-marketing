@@ -294,7 +294,7 @@ export default function AdminDashboardPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6"
+        className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6"
       >
         <Link
           href="/admin/signups"
@@ -307,6 +307,21 @@ export default function AdminDashboardPage() {
             <div>
               <h3 className="font-semibold text-slate-900">Manage Signups</h3>
               <p className="text-sm text-slate-600">View and manage all applications</p>
+            </div>
+          </div>
+        </Link>
+
+        <Link
+          href="/admin/leads"
+          className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-emerald-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900">Leads</h3>
+              <p className="text-sm text-slate-600">Lead magnets & email captures</p>
             </div>
           </div>
         </Link>
@@ -344,5 +359,4 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
-
 

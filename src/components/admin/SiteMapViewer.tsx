@@ -163,6 +163,7 @@ export default function SiteMapViewer() {
         { path: "/admin", title: "Admin Dashboard", description: "Main admin dashboard", status: "live", cluster: "Admin", priority: "high" },
         { path: "/admin/analytics", title: "Analytics Dashboard", description: "Site analytics and metrics", status: "live", cluster: "Admin", priority: "high" },
         { path: "/admin/signups", title: "Signups Management", description: "Manage user signups", status: "live", cluster: "Admin", priority: "high" },
+        { path: "/admin/leads", title: "Leads", description: "Lead magnets & email captures", status: "live", cluster: "Admin", priority: "high" },
         { path: "/admin/users", title: "User Management", description: "Manage user accounts", status: "live", cluster: "Admin", priority: "high" },
         { path: "/admin/blog", title: "Blog Management", description: "Manage blog posts", status: "live", cluster: "Admin", priority: "medium" },
         { path: "/admin/blog/editor", title: "Blog Editor", description: "Create and edit blog posts", status: "live", cluster: "Admin", priority: "medium" },
