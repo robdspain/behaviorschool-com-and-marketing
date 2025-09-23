@@ -510,10 +510,74 @@ export default function ACTMatrixFrameworkPage() {
               </div>
             </section>
 
+            {/* ACT Matrix Resource Collection */}
+            <section className="mb-12">
+              <h2 className="text-3xl font-bold text-slate-900 mb-8">Complete ACT Matrix Resource Collection</h2>
+
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-8 mb-8">
+                <div className="text-center">
+                  <h3 className="text-2xl font-semibold text-emerald-800 mb-4">ACT Matrix Main Resource Hub</h3>
+                  <p className="text-emerald-700 mb-6">
+                    Access our comprehensive ACT Matrix guide with free PDF downloads, examples, and step-by-step implementation instructions.
+                  </p>
+                  <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                    <Link href="/act-matrix">
+                      View Main ACT Matrix Guide
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                  <h4 className="text-lg font-semibold text-slate-900 mb-3">ACT Implementation Hub</h4>
+                  <p className="text-slate-600 mb-4">
+                    Central resource hub with implementation guides, research, and practical tools for schools.
+                  </p>
+                  <Button variant="outline" asChild>
+                    <Link href="/act-matrix-schools-hub">Visit Hub</Link>
+                  </Button>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                  <h4 className="text-lg font-semibold text-slate-900 mb-3">K-12 ACT Activities</h4>
+                  <p className="text-slate-600 mb-4">
+                    Classroom-ready ACT activities organized by grade level with implementation guides.
+                  </p>
+                  <Button variant="outline" asChild>
+                    <Link href="/act-activities-k12-students">View Activities</Link>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Age-Appropriate ACT Metaphors</h4>
+                  <p className="text-slate-600 mb-4">
+                    Developmental guide to using ACT metaphors effectively with children and adolescents.
+                  </p>
+                  <Button variant="outline" asChild>
+                    <Link href="/age-appropriate-act-metaphors">Explore Metaphors</Link>
+                  </Button>
+                </div>
+
+                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Implementation Challenges & Solutions</h4>
+                  <p className="text-slate-600 mb-4">
+                    Evidence-based solutions to common ACT implementation challenges in school settings.
+                  </p>
+                  <Button variant="outline" asChild>
+                    <Link href="/act-implementation-challenges-solutions">Find Solutions</Link>
+                  </Button>
+                </div>
+              </div>
+            </section>
+
             {/* Related Articles */}
             <section className="mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-8">Continue Learning</h2>
-              
+              <h2 className="text-3xl font-bold text-slate-900 mb-8">Related School-Based Resources</h2>
+
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
                   <h4 className="text-lg font-semibold text-slate-900 mb-3">Values-Based IEP Goals</h4>
@@ -524,7 +588,7 @@ export default function ACTMatrixFrameworkPage() {
                     <Link href="/iep-goals">Read More</Link>
                   </Button>
                 </div>
-                
+
                 <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
                   <h4 className="text-lg font-semibold text-slate-900 mb-3">School BCBA Supervision</h4>
                   <p className="text-slate-600 mb-4">
@@ -534,7 +598,7 @@ export default function ACTMatrixFrameworkPage() {
                     <Link href="/supervisors">Read More</Link>
                   </Button>
                 </div>
-                
+
                 <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
                   <h4 className="text-lg font-semibold text-slate-900 mb-3">Behavior Support Systems</h4>
                   <p className="text-slate-600 mb-4">

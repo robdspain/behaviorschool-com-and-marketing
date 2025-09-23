@@ -133,6 +133,65 @@ export function AnimatedSections() {
         </div>
       </section>
 
+      {/* Tool Status Section */}
+      <section className="py-8 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-emerald-50 border border-emerald-200 rounded-xl p-6"
+            >
+              <div className="flex items-center mb-4">
+                <CheckCircle className="w-6 h-6 text-emerald-600 mr-3" />
+                <h3 className="text-xl font-bold text-emerald-800">Available Now: IEP Behavior Goals</h3>
+              </div>
+              <p className="text-emerald-700 mb-4">
+                Use our <strong>free IEP behavior goal writer</strong> right now! Create compliant behavior goals in minutes with no registration required.
+              </p>
+              <ul className="text-sm text-emerald-600 space-y-2">
+                <li>• Behavior-specific goal generation</li>
+                <li>• SMART goal compliance</li>
+                <li>• Instant copy/download</li>
+                <li>• Privacy-first (no data stored)</li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-blue-50 border border-blue-200 rounded-xl p-6"
+            >
+              <div className="flex items-center mb-4">
+                <Beaker className="w-6 h-6 text-blue-600 mr-3" />
+                <h3 className="text-xl font-bold text-blue-800">Coming Soon: Full IEP Goal Writer</h3>
+              </div>
+              <p className="text-blue-700 mb-4">
+                We're developing a <strong>comprehensive IEP goal writer</strong> with advanced features for all goal types and enhanced functionality.
+              </p>
+              <ul className="text-sm text-blue-600 space-y-2">
+                <li>• Academic, social, communication goals</li>
+                <li>• Advanced customization options</li>
+                <li>• Goal bank integration</li>
+                <li>• Team collaboration features</li>
+              </ul>
+              <div className="mt-4">
+                <button
+                  onClick={() => setIsSignupOpen(true)}
+                  className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
+                >
+                  Get notified when ready <ArrowRight className="ml-2 w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Value Summary Section - NEW */}
       <section className="py-12 lg:py-16 bg-gradient-to-r from-emerald-50 to-blue-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

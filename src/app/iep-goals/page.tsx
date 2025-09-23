@@ -3,8 +3,8 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { AnimatedSections } from "./AnimatedSections";
 
 export const metadata: Metadata = {
-  title: "Free IEP Behavior Goal Generator | Create Compliant Goals in Minutes | Behavior School",
-  description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized tool for increasing positive behaviors and decreasing problem behaviors. No registration required.",
+  title: "🆓 FREE IEP Behavior Goal Writer | Full Goal Writer Coming Soon | Behavior School",
+  description: "🎯 Use our FREE IEP behavior goal writer now! Create compliant behavior goals in minutes. Full IEP goal writer with academic & social goals coming soon. No registration required.",
   robots: {
     index: true,
     follow: true,

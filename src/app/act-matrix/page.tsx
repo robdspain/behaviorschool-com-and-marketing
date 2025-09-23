@@ -6,8 +6,8 @@ import Link from "next/link";
 import SimpleDownloadButton from "@/components/SimpleDownloadButton";
 
 export const metadata: Metadata = {
-  title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
-  description: "Download free ACT Matrix PDF with step-by-step examples for school behavior analysts. Learn how to use the ACT Matrix with students.",
+  title: "📖 FREE ACT Matrix PDF + Examples | School BCBAs | Download Now",
+  description: "🆓 FREE ACT Matrix PDF download! Step-by-step examples, activities & implementation guide for school behavior analysts. Proven framework used by 1000+ professionals.",
   robots: {
     index: true,
     follow: true,
@@ -944,6 +944,84 @@ export default function ACTMatrixPage() {
           </div>
         </section>
 
+        {/* ACT Resources Section */}
+        <section className="py-16 bg-slate-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Complete ACT Matrix Resource Collection
+              </h2>
+              <p className="text-lg text-slate-600">
+                Everything you need to implement the ACT Matrix effectively in your school setting
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-6">
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">ACT Framework for BCBAs</h3>
+                <p className="text-slate-600 mb-4">
+                  Comprehensive guide on implementing the ACT Matrix framework in school-based BCBA practice with real case examples.
+                </p>
+                <Button variant="outline" asChild>
+                  <Link href="/the-act-matrix-a-framework-for-school-based-bcbas">
+                    Read Complete Guide
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-6">
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">ACT Implementation Hub</h3>
+                <p className="text-slate-600 mb-4">
+                  Central resource hub with implementation guides, research, and practical tools for schools.
+                </p>
+                <Button variant="outline" asChild>
+                  <Link href="/act-matrix-schools-hub">
+                    Visit Resource Hub
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-6 text-center">
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">K-12 ACT Activities</h3>
+                <p className="text-slate-600 mb-4">
+                  Classroom-ready ACT activities organized by grade level with step-by-step implementation guides.
+                </p>
+                <Button variant="outline" asChild>
+                  <Link href="/act-activities-k12-students">
+                    View Activities
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-6 text-center">
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">Age-Appropriate Metaphors</h3>
+                <p className="text-slate-600 mb-4">
+                  Developmental guide to using ACT metaphors effectively with children and adolescents.
+                </p>
+                <Button variant="outline" asChild>
+                  <Link href="/age-appropriate-act-metaphors">
+                    Explore Metaphors
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-6 text-center">
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">Implementation Challenges</h3>
+                <p className="text-slate-600 mb-4">
+                  Solutions to common ACT implementation challenges in school settings with evidence-based strategies.
+                </p>
+                <Button variant="outline" asChild>
+                  <Link href="/act-implementation-challenges-solutions">
+                    Find Solutions
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Related Resources Section */}
         <section className="py-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -955,7 +1033,7 @@ export default function ACTMatrixPage() {
                 Additional tools and guides to complement your ACT Matrix implementation
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-6 text-center">
                 <h3 className="text-xl font-semibold text-slate-900 mb-3">Values-Based IEP Goals</h3>
@@ -968,7 +1046,7 @@ export default function ACTMatrixPage() {
                   </Link>
                 </Button>
               </div>
-              
+
               <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-6 text-center">
                 <h3 className="text-xl font-semibold text-slate-900 mb-3">School-Based Behavior Support</h3>
                 <p className="text-slate-600 mb-4">
@@ -980,7 +1058,7 @@ export default function ACTMatrixPage() {
                   </Link>
                 </Button>
               </div>
-              
+
               <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-6 text-center">
                 <h3 className="text-xl font-semibold text-slate-900 mb-3">BCBA Exam Prep</h3>
                 <p className="text-slate-600 mb-4">
