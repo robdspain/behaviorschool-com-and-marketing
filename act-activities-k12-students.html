@@ -347,6 +347,134 @@
                 font-size: 2em;
             }
         }
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+                line-height: 1.2;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .grade-group,
+            .intro-section,
+            .implementation-tips,
+            .references {
+                margin: 20px 0;
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            .grade-group h2,
+            .intro-section h2,
+            .implementation-tips h2,
+            .references h2 {
+                font-size: 1.4em;
+            }
+
+            .activity-card {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            .activity-title {
+                font-size: 1.1em;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .focus-badge {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+
+            .instructions-section,
+            .materials-section,
+            .research-highlight,
+            .tip-item {
+                padding: 15px;
+            }
+
+            .table-of-contents {
+                padding: 15px;
+            }
+
+            .table-of-contents h3 {
+                font-size: 1.2em;
+            }
+
+            .table-of-contents a {
+                font-size: 0.95em;
+            }
+
+            .process-list {
+                grid-template-columns: 1fr;
+            }
+
+            .models-section,
+            .core-processes {
+                padding: 15px;
+            }
+
+            /* Fix text overflow */
+            * {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Improve touch targets */
+            a, button {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                padding: 8px 12px;
+            }
+        }
+
+        /* Additional small screen adjustments */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.2em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .activity-title {
+                font-size: 1em;
+            }
+
+            .grade-group h2,
+            .intro-section h2,
+            .implementation-tips h2 {
+                font-size: 1.2em;
+            }
+        }
+
+        /* Ensure proper viewport behavior */
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        /* Prevent horizontal scrolling */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
     </style>
 </head>
 <body>

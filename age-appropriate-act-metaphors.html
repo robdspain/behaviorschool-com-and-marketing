@@ -174,6 +174,136 @@
         .table-of-contents a:hover {
             text-decoration: underline;
         }
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+                line-height: 1.2;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .age-group,
+            .citations,
+            .intro-section,
+            .implementation-guide {
+                margin: 20px 0;
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            .age-group h2,
+            .citations h2,
+            .intro-section h2,
+            .implementation-guide h2 {
+                font-size: 1.4em;
+            }
+
+            .metaphor-card {
+                padding: 15px;
+                margin: 10px 0;
+            }
+
+            .metaphor-title {
+                font-size: 1em;
+            }
+
+            .developmental-stage,
+            .implementation-tip,
+            .research-highlight,
+            .warning,
+            .key-principle {
+                padding: 12px;
+                margin: 10px 0;
+            }
+
+            .table-of-contents {
+                padding: 15px;
+            }
+
+            .table-of-contents h3 {
+                font-size: 1.2em;
+            }
+
+            .table-of-contents a {
+                font-size: 0.95em;
+            }
+
+            .implementation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Fix text overflow */
+            * {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Improve touch targets */
+            a, button {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                padding: 8px 12px;
+            }
+
+            /* Adjust font sizes for better readability */
+            p, li {
+                font-size: 0.95em;
+            }
+
+            .citation {
+                font-size: 0.85em;
+            }
+        }
+
+        /* Additional small screen adjustments */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.2em;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .age-group h2,
+            .citations h2 {
+                font-size: 1.2em;
+            }
+
+            .metaphor-title {
+                font-size: 0.95em;
+            }
+
+            p, li {
+                font-size: 0.9em;
+            }
+        }
+
+        /* Ensure proper viewport behavior */
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        /* Prevent horizontal scrolling */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
     </style>
 </head>
 <body>
