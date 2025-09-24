@@ -140,7 +140,7 @@ export default function BCBAMockPracticeTestPage() {
       questions: "8-35 questions",
       ideal: "Focused practice",
       ctaText: "Start Domain Practice",
-      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      ctaUrl: "https://study.behaviorschool.com/",
       popular: false,
       features: ["Domain A: 8 questions", "Domain G: 35 questions", "All 9 domains available", "Free with detailed analytics"]
     },
@@ -151,7 +151,7 @@ export default function BCBAMockPracticeTestPage() {
       questions: "185 questions",
       ideal: "Complete assessment",
       ctaText: "Take Full Mock Exam",
-      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      ctaUrl: "https://study.behaviorschool.com/",
       popular: true,
       features: ["One free complete exam", "Exact BACB question distribution", "Comprehensive performance analytics", "Detailed explanations included"]
     },
@@ -162,7 +162,7 @@ export default function BCBAMockPracticeTestPage() {
       questions: "10 questions daily (free)",
       ideal: "Daily habit building",
       ctaText: "Start Daily Practice",
-      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      ctaUrl: "https://study.behaviorschool.com/",
       popular: false,
       features: ["10 free questions per day", "Choose specific domains", "Adaptive difficulty", "Progress tracking included"]
     }
@@ -313,7 +313,7 @@ export default function BCBAMockPracticeTestPage() {
                 size="lg" 
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
-                <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                <a href="https://study.behaviorschool.com/" target="_blank" rel="noopener noreferrer">
                   <PlayCircle className="mr-2 h-5 w-5" />
                   Start Free Mock Test
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -593,7 +593,7 @@ export default function BCBAMockPracticeTestPage() {
                   size="lg" 
                   className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
                 >
-                  <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                  <a href="https://study.behaviorschool.com/" target="_blank" rel="noopener noreferrer">
                     <PlayCircle className="mr-2 h-5 w-5" />
                     Take Your First Mock Test
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -880,7 +880,7 @@ export default function BCBAMockPracticeTestPage() {
                 size="lg" 
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
-                <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                <a href="https://study.behaviorschool.com/" target="_blank" rel="noopener noreferrer">
                   <Zap className="mr-2 h-5 w-5" />
                   Start Free Practice
                   <ArrowRight className="ml-2 h-5 w-5" />
