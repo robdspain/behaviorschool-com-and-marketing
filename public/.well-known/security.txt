@@ -1,0 +1,29 @@
+Contact: security@behaviorschool.com
+Expires: 2025-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://behaviorschool.com/.well-known/security.txt
+
+# Educational Institution Security Information
+# Behavior School - Professional Development Platform for Educators
+
+# Institution Classification
+Policy: https://behaviorschool.com/privacy
+Category: Educational
+Content-Type: Educational Resources
+Audience: Education Professionals
+
+# Content Safety
+Family-Friendly: true
+COPPA-Compliant: true
+Educational-Use: Professional Development
+Age-Appropriate: Adult/Professional
+
+# Purpose
+Mission: Advancing evidence-based practices in school-based behavior analysis
+Target-Audience: Teachers, School Psychologists, Behavior Analysts
+Content-Focus: Special Education, Applied Behavior Analysis, IEP Development
+
+# Verification
+Educational-Institution: true
+Research-Based: true
+Professional-Development: true

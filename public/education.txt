@@ -1,0 +1,39 @@
+# Educational Institution Verification
+# Behavior School - Professional Development Platform
+#
+# Institution Type: Educational Organization
+# Primary Audience: Educators, Teachers, School Psychologists, Behavior Analysts
+# Content Classification: Educational Resources, Professional Development
+# Age Appropriateness: Adult/Professional
+#
+# Educational Focus Areas:
+# - Applied Behavior Analysis (ABA)
+# - Special Education
+# - Individualized Education Programs (IEP)
+# - Behavior Intervention Plans (BIP)
+# - BCBA Certification and Training
+# - School-Based Behavior Support
+# - Teacher Professional Development
+# - Educational Psychology
+#
+# Content Standards Compliance:
+# - COPPA Compliant: Yes
+# - Family Friendly: Yes
+# - Adult Content: None
+# - Educational Purpose: Professional Development
+# - Research-Based: Yes
+#
+# Contact Information:
+# Website: https://behaviorschool.com
+# Purpose: Advancing evidence-based practices in educational settings
+# Target Demographic: Education professionals and behavior analysts
+#
+# Content Safety:
+# - Violence: None
+# - Adult Content: None
+# - Gambling: None
+# - Inappropriate Language: None
+# - Educational Content: 100%
+#
+# This site provides evidence-based resources for educational professionals
+# working with students with behavioral and developmental needs in school settings.

@@ -1,6 +1,13 @@
+# Educational Institution - Behavior School
+# Professional development resources for educators
 # Allow all search engines and AI crawlers
 User-agent: *
 Allow: /
+
+# Educational Content Classification
+# Content-Type: Educational Resources
+# Audience: Educators, Teachers, School Staff
+# Subject: Special Education, Applied Behavior Analysis
 
 # Specifically allow major search engines
 User-agent: Googlebot
