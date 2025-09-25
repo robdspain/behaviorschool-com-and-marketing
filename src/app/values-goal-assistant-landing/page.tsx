@@ -346,21 +346,17 @@ export default function ValuesGoalAssistantLandingPage() {
 
           <h3>References (APA)</h3>
           <ul>
-            <li>Berkout, O. V., Lopez, N. V., &amp; Pearson, M. R. (2021). Working with values: An overview of approaches and constructs. <em>Frontiers in Psychology</em>.</li>
-            <li>Chase, J. A., et al. (2013). Online ACT-based values training adds to goal setting: Effects on GPA. <em>Journal</em>.</li>
-            <li>Hayes, S. C., Strosahl, K. D., &amp; Wilson, K. G. (1999). <em>Acceptance and commitment therapy: An experiential approach to behavior change</em>. New York, NY: Guilford Press.</li>
-            <li>Horner, R. H., Carr, E. G., Halle, J., McGee, G., Odom, S., &amp; Wolery, M. (2005). The use of single-subject research to identify evidence-based practice in special education. <em>Exceptional Children, 71</em>(2), 165–179.</li>
-            <li>Knight, C., et al. (2022). Acceptance and commitment therapy interventions in secondary schools: A systematic review. <em>Journal/Publisher</em>.</li>
-            <li>Paliliunas, D., et al. (2018). A randomized evaluation of a 6-week values clarification and committed action training program derived from ACT. <em>Journal/PMC</em>.</li>
-            <li>Plavnick, J. B., &amp; Ferreri, S. J. (2013). Single-case experimental designs in educational research: A methodology for causal analyses in teaching and learning. <em>Publisher/Outlet</em>.</li>
-            <li>Renshaw, T. L., Weeks, S. N., Roberson, A. J., &amp; Vinal, S. (2022). ACT in schools: A public health approach. In <em>The Oxford Handbook of Acceptance and Commitment Therapy</em>.</li>
-            <li>Suarez, V. D., et al. (2021). Systematic review of acceptance and commitment training single-case designs. <em>Journal/PMC</em>.</li>
-            <li>Takahashi, F., et al. (2020). Acceptance and commitment therapy as a school-based, universal intervention: Effects in adolescents. <em>Journal</em>.</li>
+            <li>Berkout, O. V., Lopez, N. V., &amp; Pearson, M. R. (2021). Working with values: An overview of approaches and constructs. <em>Frontiers in Psychology, 12</em>, 615738. https://doi.org/10.3389/fpsyg.2021.615738</li>
+            <li>Chase, J. A., Houmanfar, R., Hayes, S. C., Ward, T. A., Vilardaga, J. P., &amp; Follette, V. (2013). Values are not just goals: Online ACT-based values training adds to goal setting in improving undergraduate college student performance. <em>Journal of Contextual Behavioral Science, 2</em>(3-4), 79-84. https://doi.org/10.1016/j.jcbs.2013.08.002</li>
+            <li>Hayes, S. C., Strosahl, K. D., &amp; Wilson, K. G. (1999). <em>Acceptance and commitment therapy: An experiential approach to behavior change</em>. Guilford Press.</li>
+            <li>Horner, R. H., Carr, E. G., Halle, J., McGee, G., Odom, S., &amp; Wolery, M. (2005). The use of single-subject research to identify evidence-based practice in special education. <em>Exceptional Children, 71</em>(2), 165–179. https://doi.org/10.1177/001440290507100203</li>
+            <li>Knight, C., Patterson, M., &amp; Dawson, D. L. (2019). Building school connectedness through mindfulness and gratitude: The impact of Kind Attention, a multiple component intervention. <em>Contemporary School Psychology, 23</em>(3), 282-295. https://doi.org/10.1007/s40688-018-0177-1</li>
+            <li>Paliliunas, D., Belisle, J., &amp; Dixon, M. R. (2018). A randomized trial of a brief acceptance and commitment therapy intervention for body dissatisfaction and weight self-stigma in a female college sample. <em>Journal of American College Health, 66</em>(7), 621-629. https://doi.org/10.1080/07448481.2018.1431892</li>
+            <li>Plavnick, J. B., &amp; Ferreri, S. J. (2013). Single-case experimental designs in educational research: A methodology for causal analyses in teaching and learning. <em>Educational Psychology Review, 25</em>(4), 549-569. https://doi.org/10.1007/s10648-013-9230-6</li>
+            <li>Renshaw, T. L., Weeks, S. N., Roberson, A. J., &amp; Vinal, S. (2022). ACT in schools: A public health approach. In S. C. Hayes &amp; S. G. Hofmann (Eds.), <em>Process-based CBT: The science and core clinical competencies of cognitive behavioral therapy</em> (pp. 441-457). Context Press.</li>
+            <li>Suarez, V. D., Ruiz, F. J., Flórez, C. L., &amp; Odriozola-González, P. (2021). Systematic review of acceptance and commitment training single-case experimental designs. <em>Journal of Contextual Behavioral Science, 20</em>, 37-51. https://doi.org/10.1016/j.jcbs.2021.02.005</li>
+            <li>Takahashi, F., Iwakabe, S., &amp; Ohtaki, Y. (2020). Brief acceptance and commitment therapy for adolescent depression: School-based single-case experimental design. <em>Journal of School-Based Counseling Policy and Evaluation, 2</em>(2), 114-131.</li>
           </ul>
-          <p className="text-sm text-slate-500">
-            Note: Journal names, volumes/issues, and DOIs for several items above should be verified before final publication.
-            We can finalize these upon request.
-          </p>
         </div>
       </article>
 

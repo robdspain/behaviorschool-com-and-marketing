@@ -171,7 +171,7 @@ export function AnimatedSections() {
                 <h3 className="text-xl font-bold text-blue-800">Coming Soon: Full IEP Goal Writer</h3>
               </div>
               <p className="text-blue-700 mb-4">
-                We're developing a <strong>comprehensive IEP goal writer</strong> with advanced features for all goal types and enhanced functionality.
+                We&apos;re developing a <strong>comprehensive IEP goal writer</strong> with advanced features for all goal types and enhanced functionality.
               </p>
               <ul className="text-sm text-blue-600 space-y-2">
                 <li>• Academic, social, communication goals</li>

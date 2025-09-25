@@ -9,7 +9,7 @@ const SubscribeSchema = z.object({
 });
 
 // Fallback function for when Supabase is unavailable
-async function handleMailgunOnlySignup(email: string, name: string, source: string) {
+async function handleMailgunOnlySignup(email: string, name: string, _source: string) {
   console.log('API: Using Mailgun-only fallback signup');
 
   // Send welcome email if Mailgun is configured
@@ -124,7 +124,7 @@ export async function POST(req: NextRequest) {
     console.log('API: Supabase client created.');
 
     // Test Supabase connection first
-    const { data: testData, error: testError } = await supabase
+    const { data: _testData, error: testError } = await supabase
       .from('subscribers')
       .select('count', { count: 'exact' })
       .limit(1);

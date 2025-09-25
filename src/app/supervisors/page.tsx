@@ -3,28 +3,27 @@
 import { useState, useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import {
-  ClipboardDocumentListIcon,
-  ChartBarIcon,
-  CogIcon,
-  UsersIcon,
-  AcademicCapIcon,
-  CheckBadgeIcon,
-  ArrowUpRightIcon,
-  SparklesIcon,
-  ClockIcon,
-  DocumentCheckIcon,
-  ShieldCheckIcon,
-  StarIcon,
-  PlayCircleIcon,
-  ArrowRightIcon
-} from "@heroicons/react/24/outline";
+  ClipboardList,
+  BarChart3,
+  Settings,
+  Users,
+  GraduationCap,
+  CheckCircle,
+  ExternalLink,
+  Sparkles,
+  Clock,
+  FileCheck,
+  Shield,
+  Star,
+  PlayCircle,
+  ArrowRight
+} from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -164,7 +163,7 @@ export default function SupervisorsPage() {
             className="flex items-center justify-center gap-3 mb-8"
           >
             <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-6 py-3 text-lg font-medium">
-              <SparklesIcon className="w-5 h-5 mr-2" />
+              <Sparkles className="w-5 h-5 mr-2" />
               Premium BCBA Supervision Platform
             </Badge>
           </motion.div>
@@ -202,9 +201,9 @@ export default function SupervisorsPage() {
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center px-10 py-5 text-xl font-bold bg-white text-emerald-700 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
             >
-              <PlayCircleIcon className="w-6 h-6 mr-3" />
+              <PlayCircle className="w-6 h-6 mr-3" />
               Start Progress Monitoring
-              <ArrowUpRightIcon className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <ExternalLink className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
             <Button
               size="lg"
@@ -213,7 +212,7 @@ export default function SupervisorsPage() {
               onClick={() => setShowPopup(true)}
             >
               Join Premium Waitlist
-              <ArrowRightIcon className="w-5 h-5 ml-2" />
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </motion.div>
 
@@ -224,15 +223,15 @@ export default function SupervisorsPage() {
             className="flex items-center justify-center space-x-8 text-emerald-100/80 text-lg"
           >
             <div className="flex items-center space-x-2">
-              <CheckBadgeIcon className="h-6 w-6 text-emerald-300" />
+              <CheckCircle className="h-6 w-6 text-emerald-300" />
               <span>Available Now</span>
             </div>
             <div className="flex items-center space-x-2">
-              <ClockIcon className="h-6 w-6 text-emerald-300" />
+              <Clock className="h-6 w-6 text-emerald-300" />
               <span>Quick Setup</span>
             </div>
             <div className="flex items-center space-x-2">
-              <ShieldCheckIcon className="h-6 w-6 text-emerald-300" />
+              <Shield className="h-6 w-6 text-emerald-300" />
               <span>BACB Compliant</span>
             </div>
           </motion.div>
@@ -250,7 +249,7 @@ export default function SupervisorsPage() {
             className="text-center mb-20"
           >
             <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full text-lg font-medium mb-8">
-              <DocumentCheckIcon className="w-5 h-5 mr-2" />
+              <FileCheck className="w-5 h-5 mr-2" />
               Available Now
             </div>
             <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
@@ -278,7 +277,7 @@ export default function SupervisorsPage() {
               <div className="space-y-8">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-                    <ChartBarIcon className="w-8 h-8 text-white" />
+                    <BarChart3 className="w-8 h-8 text-white" />
                   </div>
                   <div>
                     <h3 className="text-3xl font-bold text-slate-900">Real-Time Analytics</h3>
@@ -306,7 +305,7 @@ export default function SupervisorsPage() {
                       className="flex items-center gap-4 p-4 rounded-xl bg-emerald-50/50 border border-emerald-100"
                     >
                       <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <CheckBadgeIcon className="w-5 h-5 text-white" />
+                        <CheckCircle className="w-5 h-5 text-white" />
                       </div>
                       <span className="text-slate-700 font-medium">{item}</span>
                     </motion.div>
@@ -321,7 +320,7 @@ export default function SupervisorsPage() {
                     className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:bg-emerald-700 transform hover:-translate-y-1 transition-all duration-300"
                   >
                     Access Platform
-                    <ArrowUpRightIcon className="w-5 h-5 ml-2" />
+                    <ExternalLink className="w-5 h-5 ml-2" />
                   </Link>
                 </div>
               </div>
@@ -449,7 +448,7 @@ export default function SupervisorsPage() {
             className="text-center mb-20"
           >
             <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 text-emerald-300 rounded-full text-lg font-medium mb-8 backdrop-blur-sm border border-emerald-500/30">
-              <StarIcon className="w-5 h-5 mr-2" />
+              <Star className="w-5 h-5 mr-2" />
               Premium Features
             </div>
 
@@ -474,7 +473,7 @@ export default function SupervisorsPage() {
           >
             {[
               {
-                icon: ClipboardDocumentListIcon,
+                icon: ClipboardList,
                 title: 'Digital Competency Matrix',
                 desc: 'Interactive competency tracking with evidence attachment, progress visualization, and automated verification workflows for streamlined oversight.',
                 color: 'emerald',
@@ -482,35 +481,35 @@ export default function SupervisorsPage() {
                 gradient: 'from-emerald-500 to-emerald-400'
               },
               {
-                icon: CheckBadgeIcon,
+                icon: CheckCircle,
                 title: 'Smart Hours Tracking',
                 desc: 'Automated time logging with restricted/unrestricted classification, digital signatures, and BACB-compliant export formats.',
                 color: 'blue',
                 gradient: 'from-blue-500 to-blue-400'
               },
               {
-                icon: UsersIcon,
+                icon: Users,
                 title: 'Session Management',
                 desc: 'Customizable supervision templates, goal setting frameworks, and structured feedback systems for consistent quality supervision.',
                 color: 'purple',
                 gradient: 'from-purple-500 to-purple-400'
               },
               {
-                icon: ChartBarIcon,
+                icon: BarChart3,
                 title: 'Analytics Dashboard',
                 desc: 'Comprehensive insights into supervision effectiveness, competency progression, and compliance risk indicators with predictive analytics.',
                 color: 'orange',
                 gradient: 'from-orange-500 to-orange-400'
               },
               {
-                icon: CogIcon,
+                icon: Settings,
                 title: 'Workflow Automation',
                 desc: 'Intelligent reminders, document generation, and task management to eliminate administrative overhead and ensure compliance.',
                 color: 'cyan',
                 gradient: 'from-cyan-500 to-cyan-400'
               },
               {
-                icon: AcademicCapIcon,
+                icon: GraduationCap,
                 title: 'Professional Development',
                 desc: 'Integrated career planning, continuing education tracking, and specialization pathway guidance for comprehensive growth.',
                 color: 'pink',
@@ -622,9 +621,9 @@ export default function SupervisorsPage() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center px-10 py-5 text-xl font-bold bg-white text-emerald-700 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
               >
-                <PlayCircleIcon className="w-6 h-6 mr-3" />
+                <PlayCircle className="w-6 h-6 mr-3" />
                 Start Progress Monitoring
-                <ArrowUpRightIcon className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <ExternalLink className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
 
               <Button
@@ -633,7 +632,7 @@ export default function SupervisorsPage() {
                 className="bg-white/20 text-white border-white/50 backdrop-blur-md hover:bg-white/30 px-10 py-5 text-xl font-bold rounded-2xl"
                 onClick={() => setShowPopup(true)}
               >
-                <StarIcon className="w-5 h-5 mr-2" />
+                <Star className="w-5 h-5 mr-2" />
                 Join Premium Waitlist
               </Button>
             </div>

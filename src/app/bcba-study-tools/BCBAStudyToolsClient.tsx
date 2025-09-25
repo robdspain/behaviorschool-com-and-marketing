@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen, PlayCircle, BarChart3, Clock, Star, ChevronRight, ExternalLink, GraduationCap, Shield } from "lucide-react";
+import { ArrowRight, Check, Brain, Users, Target, BookOpen, BarChart3, Star, ChevronRight, ExternalLink, GraduationCap, Shield } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {
