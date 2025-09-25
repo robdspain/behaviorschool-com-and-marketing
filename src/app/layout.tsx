@@ -16,13 +16,16 @@ export const metadata: Metadata = {
   authors: [{ name: "Behavior School" }],
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
       { url: "/Logos/Logo.webp", sizes: "16x16", type: "image/webp" },
       { url: "/Logos/Logo.webp", sizes: "32x32", type: "image/webp" },
       { url: "/Logos/Logo.webp", sizes: "48x48", type: "image/webp" },
-      { url: "/favicon.ico", sizes: "any" },
     ],
-    shortcut: "/Logos/Logo.webp",
-    apple: "/Logos/Logo.webp",
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/Logos/Logo.webp", sizes: "180x180", type: "image/webp" },
+    ],
   },
   robots: {
     index: true,
@@ -299,27 +302,18 @@ export default function RootLayout({
         
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
-        <link rel="apple-touch-icon" href="/Logos/Logo.webp" />
-        
         {/* Logo meta tags for Google search results */}
         <meta name="logo" content="https://behaviorschool.com/Logos/Logo.webp" />
         <link rel="image_src" href="https://behaviorschool.com/Logos/Logo.webp" />
-        
+
         {/* Bing-specific meta tags */}
         <meta name="msvalidate.01" content="D6F638D35C42D071C62B47907C2CD0CC" />
         <meta name="msapplication-TileColor" content="#1F4D3F" />
+        <meta name="msapplication-TileImage" content="/Logos/Logo.webp" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
-        
+
         {/* IndexNow API key for instant indexing */}
         <meta name="indexnow" content="D6F638D35C42D071C62B47907C2CD0CC" />
-        
-        {/* Additional favicon formats for better compatibility */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" type="image/webp" sizes="32x32" href="/Logos/Logo.webp" />
-        <link rel="icon" type="image/webp" sizes="16x16" href="/Logos/Logo.webp" />
-        <link rel="icon" type="image/webp" sizes="192x192" href="/Logos/Logo.webp" />
-        <link rel="icon" type="image/webp" sizes="512x512" href="/Logos/Logo.webp" />
       </head>
       <body className="font-sans antialiased mobile-optimized prevent-horizontal-scroll">
         {/* Skip link for keyboard users */}
