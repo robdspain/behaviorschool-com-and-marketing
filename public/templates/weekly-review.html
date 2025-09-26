@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weekly Review</title>
+    <style>
+      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; }
+      html, body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; color:var(--ink); }
+      .wrap { max-width: 800px; margin: 2rem auto; padding: 1.25rem; }
+      h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
+      .card { border:1px solid var(--line); border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+      label { display:block; font-weight: 600; margin: 0.25rem 0; }
+      input, textarea { width: 100%; border:1px solid var(--line); border-radius:8px; padding: 0.5rem; font-size: 1rem; }
+      .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      @media print { .noprint { display:none; } body { margin: 0.5in; } .card { break-inside: avoid; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Weekly Review</h1>
+      <div class="card">
+        <div class="grid">
+          <div>
+            <label>Barrier(s) that showed up</label>
+            <textarea rows="4" placeholder="Thoughts, feelings, urges, setting events…"></textarea>
+          </div>
+          <div>
+            <label>Micro-routine used</label>
+            <textarea rows="4" placeholder="e.g., Notice → Open → Choose → Do"></textarea>
+          </div>
+        </div>
+        <div class="grid">
+          <div>
+            <label>Adjustment needed</label>
+            <textarea rows="4" placeholder="Supports to add/fade; cue timing; reinforcement"></textarea>
+          </div>
+          <div>
+            <label>Next target</label>
+            <textarea rows="4" placeholder="Increase criterion, fade prompt, generalize to new setting"></textarea>
+          </div>
+        </div>
+      </div>
+      <button class="noprint" onclick="window.print()">Print</button>
+    </div>
+  </body>
+  </html>

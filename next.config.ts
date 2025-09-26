@@ -157,6 +157,28 @@ const nextConfig: NextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      // Fix specific failing tag URLs
+      {
+        source: '/tag/free-practice-test',
+        destination: '/free-bcba-mock-practice-test',
+        permanent: true,
+      },
+      {
+        source: '/tag/bcba-certification',
+        destination: '/bcba-exam-prep',
+        permanent: true,
+      },
+      {
+        source: '/tag/bcba-exam-prep',
+        destination: '/bcba-exam-prep',
+        permanent: true,
+      },
+      // General tag redirect fallback
+      {
+        source: '/tag/:tag*',
+        destination: '/blog',
+        permanent: true,
+      },
       {
         source: '/author/:author/ghost',
         destination: '/about',

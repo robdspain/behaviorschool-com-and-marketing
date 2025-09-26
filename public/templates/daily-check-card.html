@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daily Check Card</title>
+    <style>
+      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; }
+      html, body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; color:var(--ink); }
+      .wrap { max-width: 700px; margin: 2rem auto; padding: 1.25rem; }
+      h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
+      .card { border:1px solid var(--line); border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+      label { display:block; font-weight: 600; margin: 0.25rem 0; }
+      input, textarea { width: 100%; border:1px solid var(--line); border-radius:8px; padding: 0.5rem; font-size: 1rem; }
+      .row { margin: 0.5rem 0; }
+      .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .check { display:flex; gap:0.5rem; align-items:center; }
+      .boxes { display:flex; gap:0.5rem; }
+      .box { width: 18px; height: 18px; border: 1px solid var(--line); border-radius: 3px; }
+      @media print { .noprint { display:none; } body { margin: 0.5in; } .card { break-inside: avoid; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Daily Check Card</h1>
+      <div class="card">
+        <div class="row">
+          <label>Toward move for today</label>
+          <input type="text" placeholder="e.g., Raise help card within 30s when stuck" />
+        </div>
+        <div class="row">
+          <label>Times I did it</label>
+          <div class="boxes" aria-label="opportunities">
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+          </div>
+        </div>
+        <div class="row grid">
+          <div class="check"><input type="checkbox" /> Prompt used?</div>
+          <div class="check"><input type="checkbox" /> Value match?</div>
+        </div>
+        <div class="row">
+          <label>Notes</label>
+          <textarea rows="3" placeholder="Barriers, wins, plan for tomorrow…"></textarea>
+        </div>
+      </div>
+      <button class="noprint" onclick="window.print()">Print</button>
+    </div>
+  </body>
+  </html>

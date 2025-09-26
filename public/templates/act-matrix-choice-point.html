@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ACT Matrix / Choice-Point (School)</title>
+    <style>
+      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --bg:#f8fafc; }
+      html, body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; color:var(--ink); }
+      .wrap { max-width: 900px; margin: 2rem auto; padding: 1.25rem; }
+      h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
+      .grid { display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.75rem; margin-top: 1rem; }
+      .cell { border:1px solid var(--line); border-radius: 10px; padding: 1rem; background: #fff; min-height: 180px; }
+      .title { font-weight: 700; margin-bottom: 0.25rem; }
+      .muted { color: var(--muted); font-size: 0.9rem; }
+      textarea { width: 100%; border:1px solid var(--line); border-radius:8px; padding: 0.5rem; min-height: 80px; }
+      .tips { background: var(--bg); border:1px dashed var(--line); padding: 0.75rem; border-radius: 8px; margin-top: 1rem; }
+      @media print { .noprint { display:none; } body { margin: 0.5in; } .cell { break-inside: avoid; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>ACT Matrix / Choice-Point (Student)</h1>
+      <div class="grid">
+        <div class="cell">
+          <div class="title">Top Right: Values / Who I Want To Be</div>
+          <textarea placeholder="Kind / Brave / Helpful / Curious / Reliable…"></textarea>
+        </div>
+        <div class="cell">
+          <div class="title">Top Left: Tiny Toward Moves</div>
+          <textarea placeholder="Small actions I can try today…"></textarea>
+        </div>
+        <div class="cell">
+          <div class="title">Bottom Left: Yucky Stuff (Thoughts / Feelings / Urges)</div>
+          <textarea placeholder="What shows up inside that’s hard…"></textarea>
+        </div>
+        <div class="cell">
+          <div class="title">Bottom Right: Away Moves I Often Do</div>
+          <textarea placeholder="Things I do that pull me away…"></textarea>
+        </div>
+      </div>
+      <div class="tips">
+        <div class="title">Tips</div>
+        <div class="muted">Keep this visible (desk card). Use it to choose a toward move when yucky stuff shows up.</div>
+      </div>
+      <button class="noprint" onclick="window.print()">Print</button>
+    </div>
+  </body>
+  </html>

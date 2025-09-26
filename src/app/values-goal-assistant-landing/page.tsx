@@ -282,56 +282,81 @@ export default function ValuesGoalAssistantLandingPage() {
             using a changing-criterion design.
           </p>
 
-          <h3>Using Single-Subject/Single-Case Designs to Evaluate</h3>
-          <p>
-            Single-subject (single-case) experimental designs (SCEDs) fit perfectly when you work with individual students or
-            small groups. They enable each student to serve as their own control and support causal inference with replication
-            and clear phase changes (Horner et al., 2005; Plavnick &amp; Ferreri, 2013).
-          </p>
-          <ul>
-            <li><strong>Multiple baseline</strong> (across students, settings, behaviors): Stagger starts to show replication.</li>
-            <li><strong>Changing criterion</strong>: Step up the goal as performance stabilizes (for example, 1 greeting → 2 → 3).</li>
-            <li><strong>Withdrawal (ABAB)/reversal</strong>: When ethical, remove/restore an element (for example, value reminders) to test control.</li>
-            <li><strong>Alternating treatments</strong>: Compare prompts or ACT micro-routines (for example, matrix vs. choice point).</li>
-          </ul>
-          <p>
-            Ensure stable baselines, clear operational definitions, ≥5 data points per phase when feasible, minimal overlap, and
-            replication for internal validity. Measure both the committed action (toward behavior) and generalization across
-            settings. For methods guidance, see Horner et al. (2005) and Plavnick &amp; Ferreri (2013).
-          </p>
-          <div className="border rounded-lg p-4 bg-slate-50">
-            <p className="font-semibold !mb-2">Example SCED Plan (Single Student)</p>
-            <ul>
-              <li><strong>Baseline (A):</strong> 7–10 days; record toward moves per opportunity (for example, help-requests).</li>
-              <li><strong>Intervention (B):</strong> Introduce values-goal package (matrix + prompt + reinforcement). Continue daily data.</li>
-              <li><strong>Shaping within B:</strong> After stability, raise the criterion (for example, from 5 help-requests/day to 7).</li>
-              <li><strong>Replication:</strong> Apply to another student or setting (multiple baseline).</li>
-              <li><strong>Optional ABAB:</strong> Brief withdrawal/return to test reversibility when appropriate.</li>
+          <details className="mt-8 border rounded-lg open:bg-slate-50">
+            <summary className="cursor-pointer px-4 py-3 font-semibold text-slate-800">Using Single-Subject/Single-Case Designs to Evaluate</summary>
+            <div className="px-4 pb-4 pt-2">
+              <p>
+                Single-subject (single-case) experimental designs (SCEDs) fit perfectly when you work with individual students or
+                small groups. They enable each student to serve as their own control and support causal inference with replication
+                and clear phase changes (Horner et al., 2005; Plavnick &amp; Ferreri, 2013).
+              </p>
+              <ul>
+                <li><strong>Multiple baseline</strong> (across students, settings, behaviors): Stagger starts to show replication.</li>
+                <li><strong>Changing criterion</strong>: Step up the goal as performance stabilizes (for example, 1 greeting → 2 → 3).</li>
+                <li><strong>Withdrawal (ABAB)/reversal</strong>: When ethical, remove/restore an element (for example, value reminders) to test control.</li>
+                <li><strong>Alternating treatments</strong>: Compare prompts or ACT micro-routines (for example, matrix vs. choice point).</li>
+              </ul>
+              <p>
+                Ensure stable baselines, clear operational definitions, ≥5 data points per phase when feasible, minimal overlap, and
+                replication for internal validity. Measure both the committed action (toward behavior) and generalization across
+                settings. For methods guidance, see Horner et al. (2005) and Plavnick &amp; Ferreri (2013).
+              </p>
+              <div className="border rounded-lg p-4 bg-white">
+                <p className="font-semibold !mb-2">Example SCED Plan (Single Student)</p>
+                <ul>
+                  <li><strong>Baseline (A):</strong> 7–10 days; record toward moves per opportunity (for example, help-requests).</li>
+                  <li><strong>Intervention (B):</strong> Introduce values-goal package (matrix + prompt + reinforcement). Continue daily data.</li>
+                  <li><strong>Shaping within B:</strong> After stability, raise the criterion (for example, from 5 help-requests/day to 7).</li>
+                  <li><strong>Replication:</strong> Apply to another student or setting (multiple baseline).</li>
+                  <li><strong>Optional ABAB:</strong> Brief withdrawal/return to test reversibility when appropriate.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details className="mt-8 border rounded-lg open:bg-slate-50">
+            <summary className="cursor-pointer px-4 py-3 font-semibold text-slate-800">Implementation Tips &amp; Troubleshooting</summary>
+            <div className="px-4 pb-4 pt-2">
+              <ol>
+                <li><strong>Use visuals &amp; scaffolds.</strong> Icons, colored charts, or “value-icon tokens” anchor abstractions.</li>
+                <li><strong>Begin small.</strong> Tiny toward moves (30 seconds or one unit) reduce threat and build momentum.</li>
+                <li><strong>Pre-correct &amp; prompt early, then fade.</strong> Cue before transitions; plan fading steps.</li>
+                <li><strong>Embed value-matched reinforcement.</strong> Leadership roles, peer praise, or reliability-linked privileges.</li>
+                <li><strong>Drill micro-routines.</strong> Overlearn “Notice → Open → Choose → Do.”</li>
+                <li><strong>Normalize setbacks.</strong> Values work is about returning to what matters after lapses.</li>
+                <li><strong>Probe generalization.</strong> Try toward moves in another class or context early.</li>
+                <li><strong>Collect and graph daily data.</strong> Keep visuals simple so students and staff can see trends.</li>
+                <li><strong>Iterate.</strong> If progress stalls, revisit values alignment or adjust supports/criteria.</li>
+                <li><strong>Train staff in ACT language.</strong> Phrases like “Which value are you working toward?” keep the scaffold alive.</li>
+              </ol>
+            </div>
+          </details>
+
+          <details className="mt-8 border rounded-lg open:bg-slate-50">
+            <summary className="cursor-pointer px-4 py-3 font-semibold text-slate-800">Limitations &amp; Considerations</summary>
+            <div className="px-4 pb-4 pt-2">
+              <ul>
+                <li>Many school ACT studies emphasize psychological or well-being outcomes more than overt academic/behavior goals; translation into behaviorally specific, values-anchored goals is still emerging (Knight et al., 2022).</li>
+                <li>Universal, low-dose ACT shows modest effects; more rigorous trials are needed (Takahashi et al., 2020).</li>
+                <li>Implementation fidelity matters. Without consistent cueing, data, and supports, values-linked goals risk becoming tokenistic.</li>
+                <li>Not every student connects with “values” language; scaffold and co-create using simple visuals and examples.</li>
+                <li>For SCEDs, ensure stable baselines and replication to support causal claims; weak designs reduce internal validity (Horner et al., 2005).</li>
+              </ul>
+            </div>
+          </details>
+
+          <div className="mt-8 border rounded-lg p-4 bg-slate-50">
+            <p className="font-semibold !mb-2">Downloadable Templates</p>
+            <ul className="list-disc pl-5">
+              <li><Link href="/templates/values-interview.html" target="_blank">Values Interview (printable)</Link></li>
+              <li><Link href="/templates/act-matrix-choice-point.html" target="_blank">ACT Matrix / Choice-Point (printable)</Link></li>
+              <li><Link href="/templates/goal-builder.html" target="_blank">Goal Builder (printable)</Link></li>
+              <li><Link href="/templates/daily-check-card.html" target="_blank">Daily Check Card (printable)</Link></li>
+              <li><Link href="/templates/weekly-review.html" target="_blank">Weekly Review (printable)</Link></li>
+              <li><Link href="/templates/staff-fidelity-check.html" target="_blank">Staff Fidelity Quick-Check (printable)</Link></li>
             </ul>
+            <p className="text-sm text-slate-500 mt-2">We can export these to PDF and style with your branding on request.</p>
           </div>
-
-          <h3>Implementation Tips &amp; Troubleshooting</h3>
-          <ol>
-            <li><strong>Use visuals &amp; scaffolds.</strong> Icons, colored charts, or “value-icon tokens” anchor abstractions.</li>
-            <li><strong>Begin small.</strong> Tiny toward moves (30 seconds or one unit) reduce threat and build momentum.</li>
-            <li><strong>Pre-correct &amp; prompt early, then fade.</strong> Cue before transitions; plan fading steps.</li>
-            <li><strong>Embed value-matched reinforcement.</strong> Leadership roles, peer praise, or reliability-linked privileges.</li>
-            <li><strong>Drill micro-routines.</strong> Overlearn “Notice → Open → Choose → Do.”</li>
-            <li><strong>Normalize setbacks.</strong> Values work is about returning to what matters after lapses.</li>
-            <li><strong>Probe generalization.</strong> Try toward moves in another class or context early.</li>
-            <li><strong>Collect and graph daily data.</strong> Keep visuals simple so students and staff can see trends.</li>
-            <li><strong>Iterate.</strong> If progress stalls, revisit values alignment or adjust supports/criteria.</li>
-            <li><strong>Train staff in ACT language.</strong> Phrases like “Which value are you working toward?” keep the scaffold alive.</li>
-          </ol>
-
-          <h3>Limitations &amp; Considerations</h3>
-          <ul>
-            <li>Many school ACT studies emphasize psychological or well-being outcomes more than overt academic/behavior goals; translation into behaviorally specific, values-anchored goals is still emerging (Knight et al., 2022).</li>
-            <li>Universal, low-dose ACT shows modest effects; more rigorous trials are needed (Takahashi et al., 2020).</li>
-            <li>Implementation fidelity matters. Without consistent cueing, data, and supports, values-linked goals risk becoming tokenistic.</li>
-            <li>Not every student connects with “values” language; scaffold and co-create using simple visuals and examples.</li>
-            <li>For SCEDs, ensure stable baselines and replication to support causal claims; weak designs reduce internal validity (Horner et al., 2005).</li>
-          </ul>
 
           <h3>Summary &amp; Next Steps</h3>
           <p>

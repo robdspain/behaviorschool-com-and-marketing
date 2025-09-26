@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Goal Builder (Values-Aligned)</title>
+    <style>
+      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; }
+      html, body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; color:var(--ink); }
+      .wrap { max-width: 850px; margin: 2rem auto; padding: 1.25rem; }
+      h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
+      .card { border:1px solid var(--line); border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+      label { display:block; font-weight: 600; margin: 0.25rem 0; }
+      input, textarea, select { width: 100%; border:1px solid var(--line); border-radius:8px; padding: 0.5rem; font-size: 1rem; }
+      .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      @media print { .noprint { display:none; } body { margin: 0.5in; } .card { break-inside: avoid; } }
+      .muted { color: var(--muted); font-size: 0.9rem; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Goal Builder (Values-Aligned)</h1>
+      <p class="muted">Template: Given [class/setting], when [cue/situation], Student will [behavior aligned to value] to support [value/outcome], with [criterion], across [time/opportunities], as measured by [data method].</p>
+
+      <div class="card">
+        <div class="grid">
+          <div>
+            <label>Class / Setting</label>
+            <input type="text" placeholder="e.g., Independent work in math" />
+          </div>
+          <div>
+            <label>Cue / Situation</label>
+            <input type="text" placeholder="e.g., When feeling stuck or confused" />
+          </div>
+        </div>
+        <div class="grid">
+          <div>
+            <label>Behavior (Aligned to Value)</label>
+            <input type="text" placeholder="e.g., Raise help card or ask for assistance" />
+          </div>
+          <div>
+            <label>Value Domain</label>
+            <input type="text" placeholder="e.g., Learning / Perseverance" />
+          </div>
+        </div>
+        <div class="grid">
+          <div>
+            <label>Criterion</label>
+            <input type="text" placeholder="e.g., within 30 seconds; 80% of opportunities" />
+          </div>
+          <div>
+            <label>Time / Opportunities</label>
+            <input type="text" placeholder="e.g., Across 3 sessions/day for 2 weeks" />
+          </div>
+        </div>
+        <div class="grid">
+          <div>
+            <label>Measurement Method</label>
+            <input type="text" placeholder="e.g., Event count; latency" />
+          </div>
+          <div>
+            <label>Prompting &amp; Supports</label>
+            <input type="text" placeholder="e.g., Visual cue; ≤1 prompt; fade plan" />
+          </div>
+        </div>
+      </div>
+
+      <button class="noprint" onclick="window.print()">Print</button>
+    </div>
+  </body>
+  </html>

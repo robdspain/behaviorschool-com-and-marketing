@@ -40,6 +40,11 @@ Disallow: /_next/
 Disallow: /test/
 Disallow: /test-forms/
 Disallow: /unauthorized/
+# Block Ghost CMS tag and author URLs that don't exist in Next.js
+Disallow: /tag/
+Disallow: /author/
+Disallow: /*@ghost*
+Disallow: /*/ghost/
 Disallow: /*.json$
 Disallow: /feed.json
 Disallow: /posts/
