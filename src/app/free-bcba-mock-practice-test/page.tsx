@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "🆓 FREE BCBA Practice Exam 2025 | Mock Test + Analytics | Start Now!",
-  description: "★ FREE BCBA practice exam with 185 real questions! FREE instant results, detailed explanations, mock test simulation. No signup required - start your FREE BCBA practice test now!",
+  title: "FREE BCBA Practice Exam (185 Questions) | Instant Results | No Signup ✅",
+  description: "🎯 Professional BCBA practice exam with 185 realistic questions! Instant scoring, detailed explanations for every answer. Complete exam simulation - start immediately, no email required!",
   robots: {
     index: true,
     follow: true,
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/free-bcba-mock-practice-test"
   },
   openGraph: {
-    title: "FREE BCBA Practice Exam | 185 Questions + Analytics | Mock Test 2025",
-    description: "★ #1 FREE BCBA Practice Exam ★ 185 real questions, mock test simulation, FREE instant results, detailed analytics. No signup - start your FREE BCBA practice exam now!",
+    title: "FREE BCBA Practice Exam (185 Questions) | Instant Results | No Signup",
+    description: "🎯 Professional BCBA practice exam with 185 realistic questions! Instant scoring, detailed explanations for every answer. Complete exam simulation - start immediately.",
     url: "https://behaviorschool.com/free-bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FREE BCBA Mock Exam | 185 Questions + FREE Analytics",
-    description: "Take the #1 FREE BCBA Mock Exam: 185 realistic questions, 4-hour simulation, FREE instant feedback. No signup required - start now!",
+    title: "FREE BCBA Practice Exam | Instant Results | No Signup",
+    description: "🎯 Professional BCBA practice exam with 185 realistic questions! Instant scoring, detailed explanations for every answer.",
     images: ["/optimized/og-image.webp"],
   },
 };
