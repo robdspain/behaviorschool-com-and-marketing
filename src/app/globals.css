@@ -214,4 +214,33 @@
       color: #000000 !important;
     }
   }
+
+  /* High-quality image rendering */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: crisp-edges;
+    image-rendering: optimizeQuality;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Next.js Image component optimization - prevent pixelation */
+  img[data-nimg] {
+    image-rendering: auto;
+    transition: opacity 0.2s ease-in-out;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* Prevent image pixelation on zoom */
+  img[data-nimg="fill"] {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Ensure proper image aspect ratios */
+  .aspect-preserve {
+    aspect-ratio: attr(width) / attr(height);
+  }
 }
