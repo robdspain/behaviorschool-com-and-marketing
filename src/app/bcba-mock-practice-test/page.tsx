@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, PlayCircle, Calendar } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Best BCBA Mock Exam (FREE) | 185 Questions | Instant Results ⭐ 2025",
-  description: "🏆 Professional BCBA mock exam with 185 realistic questions! Complete 4-hour simulation, instant results, detailed explanations. No signup required - start now!",
+  title: "Best BCBA Mock Exam (FREE) | 185 Questions | Instant Results | 2025",
+  description: "Professional BCBA mock exam with 185 realistic questions. Complete 4-hour simulation, instant results, detailed explanations. No signup required - start now.",
   robots: {
     index: true,
     follow: true,
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Best BCBA Mock Exam (FREE) | 185 Questions | Instant Results ⭐",
-    description: "🏆 Professional BCBA mock exam with 185 realistic questions! Complete 4-hour simulation, instant results, detailed explanations. Start now!",
+    title: "Best BCBA Mock Exam (FREE) | 185 Questions | Instant Results",
+    description: "Professional BCBA mock exam with 185 realistic questions. Complete 4-hour simulation, instant results, detailed explanations. Start now.",
     url: "https://behaviorschool.com/bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Best BCBA Mock Exam (FREE) | Instant Results | Start Now",
-    description: "🏆 Professional BCBA mock exam with 185 realistic questions! Complete 4-hour simulation, instant results, detailed explanations.",
+    description: "Professional BCBA mock exam with 185 realistic questions. Complete 4-hour simulation, instant results, detailed explanations.",
     images: ["/optimized/og-image.webp"],
   },
 };
