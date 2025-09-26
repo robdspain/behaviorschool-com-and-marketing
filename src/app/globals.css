@@ -243,4 +243,59 @@
   .aspect-preserve {
     aspect-ratio: attr(width) / attr(height);
   }
+
+  /* Accessibility: Fix contrast ratio issues */
+  .bg-emerald-600 {
+    /* WCAG AA compliant emerald that works with white text (contrast ratio 4.5:1) */
+    background-color: #047857 !important; /* emerald-700 equivalent */
+  }
+
+  .hover\:bg-emerald-700:hover {
+    /* Darker shade for hover state */
+    background-color: #065f46 !important; /* emerald-800 equivalent */
+  }
+
+  .focus\:bg-emerald-700:focus {
+    /* Same as hover for consistency */
+    background-color: #065f46 !important; /* emerald-800 equivalent */
+  }
+
+  /* Ensure sufficient contrast for emerald text on light backgrounds */
+  .text-emerald-600 {
+    color: #047857 !important; /* Use darker emerald-700 instead */
+  }
+
+  /* Fix any other emerald contrast issues */
+  .border-emerald-600 {
+    border-color: #047857 !important;
+  }
+
+  .ring-emerald-600 {
+    --tw-ring-color: #047857 !important;
+  }
+
+  /* Enhanced focus states for better accessibility */
+  .focus\:ring-emerald-600:focus {
+    --tw-ring-color: #047857 !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color) !important;
+  }
+
+  /* Ensure all emerald buttons meet contrast requirements */
+  button.bg-emerald-600,
+  a.bg-emerald-600 {
+    background-color: #047857 !important;
+    color: white !important;
+  }
+
+  button.bg-emerald-600:hover,
+  a.bg-emerald-600:hover {
+    background-color: #065f46 !important;
+  }
+
+  button.bg-emerald-600:focus,
+  a.bg-emerald-600:focus {
+    background-color: #065f46 !important;
+    outline: 2px solid #047857 !important;
+    outline-offset: 2px !important;
+  }
 }
