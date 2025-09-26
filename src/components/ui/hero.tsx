@@ -109,6 +109,7 @@ export function Hero({
                 className="w-full h-auto rounded-2xl shadow-2xl"
                 loading="eager"
                 priority={true}
+                fetchPriority="high"
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 576px"
               />
             </div>

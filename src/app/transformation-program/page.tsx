@@ -271,12 +271,13 @@ export default function TransformationProgramPage() {
                 {/* Professional Education Image */}
                 <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/Hero/Hero-group1.webp"
+                    src="/optimized/Hero/Hero-group1-optimized.webp"
                     alt="Professional education team collaborating - confident leaders working together with systems and clarity"
                     width={800}
                     height={600}
                     className="w-full h-full object-cover"
-                    loading="eager"
+                    loading="lazy"
+                    fetchPriority="auto"
                   />
                   
                   {/* Professional Overlay with Gradient */}

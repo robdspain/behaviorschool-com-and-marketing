@@ -1,0 +1,10 @@
+# Browsers that we support
+
+> 0.5%
+last 2 versions
+Firefox ESR
+not dead
+not ie 11
+not chrome < 60
+not safari < 12
+not ios_saf < 12

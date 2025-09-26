@@ -23,10 +23,11 @@ const nextConfig: NextConfig = {
   },
   // Performance optimizations
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react', 'framer-motion', '@radix-ui/react-accordion', '@radix-ui/react-avatar', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-label', '@radix-ui/react-slot', '@radix-ui/react-tabs'],
     webVitalsAttribution: ['CLS', 'LCP'],
     optimizeCss: true,
     scrollRestoration: true,
+    inlineCss: true,
   },
   // Compiler optimizations
   compiler: {
