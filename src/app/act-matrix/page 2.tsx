@@ -902,7 +902,7 @@ export default function ACTMatrixPage() {
             </Button>
             
             <div className="mt-4 text-emerald-100 text-sm">
-              Instant download • No spam • Used by 1000+ school professionals
+              Instant download • No spam • Professional resource
             </div>
           </div>
         </section>

@@ -4,7 +4,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: "🏆 Behavior School | #1 FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA",
   description:
-    "🎯 #1 FREE BCBA practice questions + mock exams! Professional behavior tools for school BCBAs. Download free study guides, IEP templates & supervision tools. Join 1000+ passing BCBAs!",
+    "🎯 #1 FREE BCBA practice questions + mock exams! Professional behavior tools for school BCBAs. Download free study guides, IEP templates & supervision tools. Start your free practice today!",
   keywords: "Behavior School, school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, behavior school platform",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {

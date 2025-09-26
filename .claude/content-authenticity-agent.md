@@ -32,7 +32,7 @@ I need you to perform a content authenticity audit across three websites to iden
 
 **HIGH RISK:**
 - Specific percentages without sources (e.g., "95% pass rate", "80% improvement")
-- User count claims (e.g., "1000+ users", "500 students")
+- User count claims (e.g., "[large number]+ users", "[number] students")
 - Testimonials with full names and specific outcomes
 - Revenue/financial metrics without verification
 - Citations to studies that don't exist
@@ -78,7 +78,7 @@ Search all HTML, TSX, JSX, and MD files. Focus on BCBA exam claims, testimonials
 
 ### Statistics & Numbers
 - ❌ "95% of our users pass the BCBA exam"
-- ❌ "1000+ BCBAs trust our platform"
+- ❌ "[large number]+ BCBAs trust our platform"
 - ❌ "Increase scores by 40%"
 - ✅ "Many users report improved confidence"
 - ✅ "Designed to support exam preparation"

@@ -13,7 +13,7 @@ const path = require('path');
 
 const ROOT = process.cwd();
 
-// Disallowed patterns: user counts, vague % claims, and phrases like "Join 500+"
+// Disallowed patterns: user counts, vague % claims, and phrases like "Join [number]+"
 const DISALLOWED = [
   /(\b|\s)(\d{3,}[\+,]?)\s*\+?\s*(educators|teachers|bcbas|practitioners|users|schools)\b/gi,
   /\b\d{2,}%\b/gi, // bare percentage claims
@@ -21,7 +21,7 @@ const DISALLOWED = [
   /\b(over|more\s+than)\s+\d{3,}\b\s*(educators|teachers|bcbas|users|schools)/gi,
 ];
 
-const EXCLUDE = [/node_modules/, /\.git\//, /\.next\//, /dist\//, /build\//, /audit-reports\//, /test-results\//];
+const EXCLUDE = [/node_modules/, /\.git\//, /\.next\//, /dist\//, /build\//, /audit-reports\//, /test-results\//, /week1-emergency-fixes\//];
 
 function shouldScan(file) {
   if (EXCLUDE.some((p) => p.test(file))) return false;

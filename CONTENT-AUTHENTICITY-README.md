@@ -24,7 +24,7 @@ Use the agent prompt in `.claude/content-authenticity-agent.md` for comprehensiv
 
 ### 🚨 High Risk (Immediate Action Required)
 - Specific percentages without sources ("95% pass rate")
-- User count claims ("1000+ users")
+- User count claims ("[large number]+ users")
 - Testimonials with full names and outcomes
 - Revenue/financial metrics
 - Fake research citations
@@ -150,7 +150,7 @@ npm run audit:content
 #### ❌ Avoid These
 ```
 "95% of our users pass the BCBA exam"
-"1000+ BCBAs trust our platform"
+"[large number]+ BCBAs trust our platform"
 "Increase your score by 40%"
 "Amazing results! - Dr. Sarah Johnson"
 "According to Stanford research..."

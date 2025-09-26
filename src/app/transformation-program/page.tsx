@@ -1139,7 +1139,7 @@ export default function TransformationProgramPage() {
             "bestRating": "5",
             "worstRating": "1"
           },
-          "numberOfStudents": "500+",
+          "numberOfStudents": "Professional enrollment",
           "occupationalCredentialAwarded": "Certificate of Completion"
         } as const;
 
