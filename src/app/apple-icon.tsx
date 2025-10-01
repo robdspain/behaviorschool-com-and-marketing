@@ -14,36 +14,94 @@ export const contentType = 'image/png'
 export default function AppleIcon() {
   return new ImageResponse(
     (
-      // ImageResponse JSX element
+      // Apple icon with logo-inspired design
       <div
         style={{
-          fontSize: 72,
-          background: 'linear-gradient(135deg, #1F4D3F 0%, #2D7A6B 50%, #3A9B7A 100%)',
+          background: 'linear-gradient(135deg, #1F4D3F 0%, #2D7A6B 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
-          borderRadius: '22px',
-          fontWeight: 'bold',
-          fontFamily: 'system-ui, -apple-system, sans-serif',
-          textAlign: 'center',
-          boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.1)',
+          position: 'relative',
+          borderRadius: '32px',
         }}
       >
+        {/* Grid lines background */}
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '4px',
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            background: `
+              linear-gradient(90deg, rgba(255,255,255,0.08) 2px, transparent 2px),
+              linear-gradient(0deg, rgba(255,255,255,0.08) 2px, transparent 2px)
+            `,
+            backgroundSize: '24px 24px',
+            borderRadius: '32px',
           }}
-        >
-          <div style={{ fontSize: '64px', lineHeight: '1' }}>BS</div>
-          <div style={{ fontSize: '16px', opacity: 0.9, fontWeight: 500 }}>Behavior School</div>
-        </div>
+        />
+        {/* Upward trending arrow - larger for Apple icon */}
+        <div
+          style={{
+            width: '0',
+            height: '0',
+            borderLeft: '28px solid transparent',
+            borderRight: '28px solid transparent',
+            borderBottom: '42px solid #F7F7F7',
+            position: 'absolute',
+            top: '30px',
+            right: '30px',
+            transform: 'rotate(45deg)',
+          }}
+        />
+        {/* Data point circles - larger for Apple icon */}
+        <div
+          style={{
+            width: '16px',
+            height: '16px',
+            borderRadius: '50%',
+            background: '#F7F7F7',
+            position: 'absolute',
+            top: '40px',
+            left: '40px',
+          }}
+        />
+        <div
+          style={{
+            width: '12px',
+            height: '12px',
+            borderRadius: '50%',
+            background: '#F7F7F7',
+            position: 'absolute',
+            bottom: '60px',
+            left: '60px',
+          }}
+        />
+        <div
+          style={{
+            width: '14px',
+            height: '14px',
+            borderRadius: '50%',
+            background: '#F7F7F7',
+            position: 'absolute',
+            bottom: '40px',
+            right: '80px',
+          }}
+        />
+        {/* Simple chart line */}
+        <div
+          style={{
+            position: 'absolute',
+            width: '80px',
+            height: '4px',
+            background: '#F7F7F7',
+            bottom: '50px',
+            left: '50px',
+            transform: 'rotate(15deg)',
+            borderRadius: '2px',
+          }}
+        />
       </div>
     ),
     // ImageResponse options

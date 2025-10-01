@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Practice Exam | 10 Hard Questions with Answers",
-  description: "Try a free BCBA practice exam with 10 hard questions and detailed explanations. Includes mock test style items aligned to the BACB Task List, with rationales and a link to more practice.",
+  title: "Free BCBA Exam Questions | 10 Practice Questions with Detailed Answers",
+  description: "Free BCBA exam questions with detailed explanations. Practice 10 challenging questions aligned to the BACB Task List with answer rationales. Perfect for BCBA exam prep.",
   keywords: [
     "free bcba practice exam",
     "bcba mock exam",

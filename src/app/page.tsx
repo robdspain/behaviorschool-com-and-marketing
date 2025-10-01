@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 export const metadata: Metadata = {
-  title: "🏆 Behavior School | #1 FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA",
+  title: "Behavior School | Free BCBA Exam Prep + Practice Questions for School BCBAs",
   description:
-    "🎯 #1 FREE BCBA practice questions + mock exams! Professional behavior tools for school BCBAs. Download free study guides, IEP templates & supervision tools. Start your free practice today!",
+    "Free BCBA practice questions, exam prep tools, and professional resources for school-based behavior analysts. Access study guides, IEP templates, supervision tools, and behavior support resources.",
   keywords: "Behavior School, school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, behavior school platform",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
@@ -136,20 +136,18 @@ export default function Home() {
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Exam Prep & Practice Tests</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Master the BCBA exam with AI-powered practice questions and BCBA study materials.</p>
                   <div className="space-y-2 mt-auto">
-                    <Link 
-                      href="/behavior-study-tools"
+                    <Link
+                      href="/free-bcba-practice-exam"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      BCBA Exam Prep Details
+                      Free BCBA Exam Questions
                     </Link>
-                    <a 
-                      href="https://behaviorstudytools.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/bcba-exam-prep"
                       className="block w-full border border-emerald-700 text-emerald-700 hover:bg-emerald-50 py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      Try Free BCBA Practice Test
-                    </a>
+                      BCBA Exam Prep Guide
+                    </Link>
                   </div>
                 </div>
               </div>

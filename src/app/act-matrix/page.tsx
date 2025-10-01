@@ -878,12 +878,12 @@ export default function ACTMatrixPage() {
               </div>
             </div>
             
-            <SimpleDownloadButton 
+            <SimpleDownloadButton
               resource="act-matrix"
               fileName="ACT-Matrix-for-Schools-Guide.pdf"
               title="ACT Matrix for Schools Guide"
               buttonText="Download Free ACT Matrix PDF Pack"
-              className="bg-yellow-500 text-slate-900 hover:bg-yellow-400 text-lg font-semibold px-8 py-4"
+              className="bg-white text-emerald-700 hover:bg-emerald-50 text-lg font-semibold px-8 py-4 shadow-xl"
             />
             
             <div className="mt-4 text-emerald-100 text-sm">

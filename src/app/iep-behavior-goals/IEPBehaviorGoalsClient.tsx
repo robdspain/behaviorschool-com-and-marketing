@@ -167,11 +167,26 @@ export function IEPBehaviorGoalsClient() {
               {/* Main CTA Button */}
               <button
                 onClick={() => setIsSignupOpen(true)}
-                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 w-full md:w-auto text-base group relative overflow-hidden"
+                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 w-full md:w-auto text-base group relative overflow-hidden mb-8"
               >
                 <span className="relative z-10">Start Creating Goals Now</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
+
+              {/* Widget Preview Image */}
+              <div className="mt-8">
+                <div className="relative max-w-4xl mx-auto">
+                  <div className="bg-white rounded-lg border border-slate-200 shadow-lg overflow-hidden">
+                    <img
+                      src="/images/iep-behavior-goals-widget-preview.png"
+                      alt="IEP Behavior Goals Generator Widget Preview - Shows the step-by-step interface for creating behavior goals"
+                      className="w-full h-auto"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10 pointer-events-none"></div>
+                </div>
+              </div>
             </div>
 
             {/* Trust Indicators */}

@@ -97,31 +97,7 @@ export default function BCBAMockPracticeTestPage() {
     { label: "BCBA Resources", href: "/bcba-exam-prep" },
     { label: "Mock Practice Test", href: "/bcba-mock-practice-test" },
   ];
-    {
-      title: "Realistic Exam Practice",
-      description: "Practice with exam-style questions and timing based on the official BCBA exam structure outlined in the BCBA Handbook.",
-      icon: Target,
-      highlight: "4-hour timed sessions"
-    },
-    {
-      title: "Instant Detailed Feedback",
-      description: "Get immediate explanations for every question, including why answers are correct or incorrect.",
-      icon: Brain,
-      highlight: "Learn from every question"
-    },
-    {
-      title: "Comprehensive Analytics",
-      description: "Track your performance across all content areas and identify exactly where to focus your studies.",
-      icon: BarChart3,
-      highlight: "Data-driven insights"
-    },
-    {
-      title: "Adaptive Difficulty",
-      description: "Questions adjust to your skill level, ensuring you&apos;re always challenged at the right level.",
-      icon: TrendingUp,
-      highlight: "Personalized experience"
-    }
-  ];
+  // NOTE: Removed stray array literal that caused parse errors during linting/build
 
   const testBenefits = [
     {

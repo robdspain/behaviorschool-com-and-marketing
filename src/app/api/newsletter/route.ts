@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { createClient } from "@/lib/supabase-server";
+import { createSupabaseAdminClient } from "@/lib/supabase-admin";
 
 const SubscribeSchema = z.object({
   email: z.string().email(),
@@ -120,8 +120,9 @@ export async function POST(req: NextRequest) {
   const tags = source === "/iep-goals" ? ["IEPgoals"] : ["general"];
 
   try {
-    const supabase = await createClient();
-    console.log('API: Supabase client created.');
+    // Use admin client so RLS can remain strict on subscribers-related tables
+    const supabase = createSupabaseAdminClient();
+    console.log('API: Supabase admin client created.');
 
     // Test Supabase connection first
     const { data: _testData, error: testError } = await supabase

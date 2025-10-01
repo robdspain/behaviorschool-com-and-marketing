@@ -23,20 +23,12 @@ import {
 
 import { mockTestFeatures, testBenefits, practiceOptions } from './data';
 
-// Lazy load below-the-fold content for better performance
-const BelowFoldContent = dynamic(() => import('./below-fold-content'), {
-  loading: () => <div className="animate-pulse bg-gray-100 h-96 rounded-lg" />,
-  ssr: false
-});
+// Below-the-fold content temporarily disabled to ensure stable build
 
 // Lazy load structured data
-const StructuredData = dynamic(() => import('./structured-data').then(mod => ({ default: mod.CourseStructuredData })), {
-  ssr: false
-});
+const StructuredData = dynamic(() => import('./structured-data').then(mod => ({ default: mod.CourseStructuredData })));
 
-const FAQData = dynamic(() => import('./structured-data').then(mod => ({ default: mod.FAQStructuredData })), {
-  ssr: false
-});
+const FAQData = dynamic(() => import('./structured-data').then(mod => ({ default: mod.FAQStructuredData })));
 
 export const metadata: Metadata = {
   title: "Best BCBA Mock Exam (FREE) | 185 Questions | Instant Results | 2025",
@@ -240,10 +232,7 @@ export default function BCBAMockPracticeTestPage() {
         </section>
       </div>
 
-      {/* Below-the-fold content lazy loaded for performance */}
-      <Suspense fallback={<div className="animate-pulse bg-gray-100 h-96" />}>
-        <BelowFoldContent />
-      </Suspense>
+      {/* Below-the-fold content disabled temporarily */}
     </div>
   );
 }

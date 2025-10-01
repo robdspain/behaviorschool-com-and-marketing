@@ -192,6 +192,7 @@ export default function BCBAExamPrepPage() {
     "@type": "Product",
     "name": "BCBA Exam Study Package",
     "description": "Complete BCBA certification exam study package including practice test, study guides, and reference materials designed for school-based behavior analysts",
+    "image": "https://behaviorschool.com/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp",
     "brand": {
       "@type": "Brand",
       "name": "Behavior School"
@@ -221,14 +222,14 @@ export default function BCBAExamPrepPage() {
         "learningResourceType": "Practice Test"
       },
       {
-        "@type": "CreativeWork", 
+        "@type": "CreativeWork",
         "name": "School-Based BCBA Study Guide",
         "description": "Comprehensive guide focused on education settings",
         "learningResourceType": "Study Guide"
       },
       {
         "@type": "CreativeWork",
-        "name": "Ethics in Schools Quick Reference", 
+        "name": "Ethics in Schools Quick Reference",
         "description": "Essential ethics scenarios for school-based BCBAs",
         "learningResourceType": "Reference Guide"
       }
@@ -549,7 +550,7 @@ export default function BCBAExamPrepPage() {
             <Button
               size="lg"
               asChild
-              className="bg-yellow-500 text-slate-900 hover:bg-yellow-400 px-8 py-4 text-lg font-semibold"
+              className="bg-white text-emerald-700 hover:bg-emerald-50 px-8 py-4 text-lg font-semibold border-2 border-white shadow-lg"
             >
               <Link href="https://study.behaviorschool.com/product-tour/Welcome" target="_blank" rel="noopener noreferrer">
                 Start Free Practice Questions
@@ -578,10 +579,13 @@ export default function BCBAExamPrepPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              AI-Powered BCBA Practice Questions
+              Free BCBA Exam Practice Questions
             </h2>
-            <p className="text-lg text-slate-600">
-              Get unlimited practice with adaptive questions designed specifically for the BCBA exam
+            <p className="text-lg text-slate-600 mb-4">
+              Get unlimited free BCBA practice questions with adaptive difficulty and instant feedback
+            </p>
+            <p className="text-base text-slate-700 max-w-3xl mx-auto leading-relaxed">
+              Start with our <Link href="/free-bcba-practice-exam" className="text-emerald-700 hover:text-emerald-800 font-semibold underline">free 10-question practice exam</Link> or access unlimited AI-powered questions that adapt to your knowledge level across all 9 content domains.
             </p>
           </div>
           
@@ -742,10 +746,10 @@ export default function BCBAExamPrepPage() {
           <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
             Join hundreds of successful school-based BCBAs who started their journey with our comprehensive exam prep program.
           </p>
-          <Button 
+          <Button
             size="lg"
             asChild
-            className="bg-yellow-500 text-slate-900 hover:bg-yellow-400"
+            className="bg-white text-emerald-700 hover:bg-emerald-50 shadow-xl font-semibold"
           >
             <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
               Start Practice Questions →

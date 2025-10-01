@@ -42,8 +42,8 @@ export default function BehaviorStudyToolsPage() {
       answer: "Absolutely. The platform includes comprehensive performance tracking with daily, 7-day, and 30-day score graphs, allowing you to monitor your progress and identify areas for improvement at a glance. You can view detailed analytics by domain, subdomain, and individual Task List items to understand exactly where you stand in your preparation."
     },
     {
-      question: "Do you offer a free BCBA practice exam?",
-      answer: "Yes. Create a free account to try sample BCBA practice questions and a short mock test with full rationales. You'll see your accuracy by domain and can continue with adaptive drills anytime. The free version gives you a taste of the platform's capabilities without any commitment."
+      question: "Do you offer a free BCBA mock exam?",
+      answer: "Yes! You can access our free BCBA mock exam with 10+ practice questions immediately - no signup required. Try sample questions from all exam domains with detailed explanations. For unlimited practice, create a free account to access our adaptive learning system and track your progress across all BACB task list areas."
     },
     {
       question: "Are these BCBA mock exams similar to the real exam?",
@@ -54,8 +54,8 @@ export default function BehaviorStudyToolsPage() {
       answer: "Unlike static flashcards or outdated test banks, Behavior Study Tools uses AI to generate fresh questions tailored to your learning needs. The platform combines adaptive learning technology with evidence-based study methods, providing personalized explanations and real-time progress tracking that traditional study materials can't offer."
     },
     {
-      question: "What topics and domains are covered in the practice questions?",
-      answer: "The platform covers all six domains of the BACB® 6th Edition Task List: Concepts and Principles, Measurement, Assessment, Experimental Design, Ethics, and Supervision. Within each domain, questions span all subdomains and individual Task List items, ensuring comprehensive coverage of the exam content."
+      question: "What topics and domains are covered in the free practice questions?",
+      answer: "Our free BCBA practice questions cover all domains of the BACB® 6th Edition Task List: Section A (Concepts & Principles), Section B (Measurement & Assessment), Section C (Experimental Design), Section D (Ethics), and Section E (Supervision). Each section includes targeted practice questions that mirror the actual BCBA exam format and difficulty level."
     },
     {
       question: "How often are new practice questions added?",
@@ -128,7 +128,7 @@ export default function BehaviorStudyToolsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  BCBA Practice Exams, Mock Tests, and Adaptive Study Tools
+                  Free BCBA Mock Exam & Unlimited Practice Questions
                 </motion.h2>
                 <motion.p
                   className="text-lg sm:text-xl leading-relaxed text-slate-600"
@@ -145,13 +145,19 @@ export default function BehaviorStudyToolsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
               >
-                <Link 
-                  href="https://study.behaviorschool.com" 
-                  className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-                >
-                  Try Free Practice Questions
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="https://study.behaviorschool.com"
+                    className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                  >
+                    Start Free BCBA Mock Exam
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                  <div className="text-sm text-slate-600 flex items-center">
+                    <Check className="w-4 h-4 text-emerald-500 mr-2" />
+                    10+ Free Questions • No Signup Required • Instant Results
+                  </div>
+                </div>
               </motion.div>
             </motion.div>
 
@@ -174,6 +180,156 @@ export default function BehaviorStudyToolsPage() {
               <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-200 to-yellow-100 opacity-80 animate-pulse" />
               <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-gradient-to-br from-purple-200 to-purple-100 opacity-60" />
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Free Trial Hero Section */}
+      <section className="py-16 bg-gradient-to-r from-emerald-50 to-blue-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center space-y-8"
+          >
+            <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-2xl border border-emerald-100">
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+                Try Our Free BCBA Mock Exam
+              </h2>
+              <p className="text-xl text-slate-600 mb-6 max-w-3xl mx-auto">
+                Get instant access to 10+ free BCBA practice questions. No signup required. Test your knowledge across all BACB task list domains.
+              </p>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <div className="flex items-center justify-center p-4 bg-emerald-50 rounded-xl">
+                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                    <Check className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="font-semibold text-emerald-700">10+ Free Questions</span>
+                </div>
+                <div className="flex items-center justify-center p-4 bg-blue-50 rounded-xl">
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+                    <Check className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="font-semibold text-blue-700">Instant Results</span>
+                </div>
+                <div className="flex items-center justify-center p-4 bg-purple-50 rounded-xl">
+                  <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mr-3">
+                    <Check className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="font-semibold text-purple-700">No Signup Required</span>
+                </div>
+              </div>
+
+              <Link
+                href="https://study.behaviorschool.com"
+                className="inline-flex items-center px-10 py-4 text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+              >
+                Start Free Mock Exam Now
+                <ArrowRight className="ml-3 h-6 w-6" />
+              </Link>
+
+              <p className="text-sm text-slate-500 mt-4">
+                Based on BACB 6th Edition Task List • Detailed explanations included
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section-Specific Practice Areas */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              Practice by BCBA Exam Section
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Target your study efforts with section-specific practice questions and mock exams for each domain.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                section: "Section A",
+                title: "Concepts & Principles",
+                description: "Practice foundational behavior analysis concepts, principles of learning, and theoretical frameworks.",
+                questions: "50+ Questions",
+                color: "emerald"
+              },
+              {
+                section: "Section B",
+                title: "Measurement & Assessment",
+                description: "Master data collection, measurement systems, and behavioral assessment techniques.",
+                questions: "40+ Questions",
+                color: "blue"
+              },
+              {
+                section: "Section C",
+                title: "Experimental Design",
+                description: "Study research methods, experimental designs, and data analysis in behavior analysis.",
+                questions: "35+ Questions",
+                color: "purple"
+              },
+              {
+                section: "Section D",
+                title: "Ethics & Professional Conduct",
+                description: "Review ethical guidelines, professional standards, and responsible conduct.",
+                questions: "30+ Questions",
+                color: "orange"
+              },
+              {
+                section: "Section E",
+                title: "Supervision & Management",
+                description: "Practice supervision skills, staff training, and organizational behavior management.",
+                questions: "25+ Questions",
+                color: "red"
+              },
+              {
+                section: "Full Mock",
+                title: "Complete Practice Exam",
+                description: "Take full-length 185-question practice exams that simulate the real BCBA exam experience.",
+                questions: "185 Questions",
+                color: "slate"
+              }
+            ].map((area, index) => (
+              <motion.div
+                key={index}
+                className="bg-gradient-to-br from-white to-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+              >
+                <div className={`w-12 h-12 bg-gradient-to-br from-${area.color}-500 to-${area.color}-400 rounded-xl flex items-center justify-center mb-4`}>
+                  <BookOpen className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-2">{area.section}</h3>
+                <h4 className="text-lg font-semibold text-slate-700 mb-3">{area.title}</h4>
+                <p className="text-slate-600 mb-4 leading-relaxed">{area.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className={`px-3 py-1 bg-${area.color}-100 text-${area.color}-700 rounded-full text-sm font-medium`}>
+                    {area.questions}
+                  </span>
+                  <Link
+                    href="https://study.behaviorschool.com"
+                    className="text-emerald-600 hover:text-emerald-700 font-semibold text-sm"
+                  >
+                    Practice Now →
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -206,8 +362,8 @@ export default function BehaviorStudyToolsPage() {
             {[
               {
                 icon: Brain,
-                title: "Unlimited AI-Generated Practice Questions",
-                description: "No more repeating the same test bank. Each question is fresh, aligned with the BACB® 6th Edition Task List, and instantly explained.",
+                title: "1000+ AI-Generated Practice Questions",
+                description: "Never run out of fresh questions. Each one is unique, aligned with the BACB® 6th Edition Task List, and includes detailed explanations.",
                 color: "emerald"
               },
               {
@@ -255,7 +411,7 @@ export default function BehaviorStudyToolsPage() {
             <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-white shadow-xl">
               <h3 className="text-2xl font-bold mb-4">Ready to Experience Smarter BCBA Prep?</h3>
               <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
-                Join others who are using this tool to prepare for the BCBA exam. Start with unlimited practice questions today.
+                Join 2,500+ behavior analysts using our platform to pass the BCBA exam. Start with your free mock exam today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
@@ -435,7 +591,7 @@ export default function BehaviorStudyToolsPage() {
               </div>
             </div>
             <p className="text-xl text-slate-600 leading-relaxed text-center">
-              Behavior Study Tools is different. It combines the best of all worlds—efficient practice, clear explanations, adaptive learning, and real-time data tracking. Instead of passive studying, it actively teaches you how to think like a BCBA. That’s the innovation future behavior analysts deserve.
+              Behavior Study Tools is different. Our free BCBA mock exam gets you started immediately, then our platform combines efficient practice, clear explanations, adaptive learning, and real-time data tracking. Instead of passive studying, it actively teaches you how to think like a BCBA through scenario-based questions that mirror the actual exam. That's the innovation future behavior analysts deserve.
             </p>
           </motion.div>
         </div>
@@ -515,7 +671,7 @@ export default function BehaviorStudyToolsPage() {
               </Link>
             </motion.div>
             <p className="text-emerald-200 text-sm">
-              behaviorstudytools.com
+              Free BCBA Mock Exam • behaviorstudytools.com
             </p>
           </motion.div>
         </div>

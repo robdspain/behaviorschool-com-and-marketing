@@ -29,15 +29,23 @@ export const metadata: Metadata = {
   authors: [{ name: "Behavior School" }],
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.ico", sizes: "16x16 32x32", type: "image/x-icon" },
       { url: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
       { url: "/Logos/Logo.webp", sizes: "16x16", type: "image/webp" },
       { url: "/Logos/Logo.webp", sizes: "32x32", type: "image/webp" },
       { url: "/Logos/Logo.webp", sizes: "48x48", type: "image/webp" },
+      { url: "/Logos/Logo.webp", sizes: "192x192", type: "image/webp" },
     ],
     shortcut: "/favicon.ico",
     apple: [
       { url: "/Logos/Logo.webp", sizes: "180x180", type: "image/webp" },
+    ],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/favicon.svg",
+        color: "#1F4D3F",
+      },
     ],
   },
   robots: {

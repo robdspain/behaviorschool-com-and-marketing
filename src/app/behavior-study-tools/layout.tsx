@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BCBA Practice Exams, Mock Tests & Free Practice Questions | Behavior Study Tools",
-  description: "BCBA practice exams and full-length mock tests with clear rationales. Try free BCBA practice questions, adaptive drills, and progress tracking designed for future BCBAs.",
-  keywords: "free bcba practice exam, bcba practice exam, bcba mock exam, bcba exam practice tests, practice bcba exam questions, bcba exam questions free, behavior analysis study tools, adaptive learning, BACB exam preparation",
+  title: "Free BCBA Mock Exam & Practice Questions | Unlimited AI-Powered Tests | Behavior Study Tools",
+  description: "Free BCBA mock exam with 10+ practice questions. No signup required. Full-length BCBA practice exams, adaptive learning, and progress tracking for Board Certified Behavior Analyst certification.",
+  keywords: "free bcba mock exam, free bcba practice questions, bcba exam prep free, bcba practice test online free, bcba mock test, free section b mock exam, board certified behavior analyst practice exam, bcba exam questions free, behavior analysis study tools, adaptive learning, BACB exam preparation",
   alternates: { canonical: "/behavior-study-tools" },
   openGraph: {
     type: "website",
-    title: "BCBA Practice Exams, Mock Tests & Free Questions",
-    description: "Full-length BCBA mock tests and free practice questions with adaptive learning and progress tracking.",
+    title: "Free BCBA Mock Exam & Practice Questions - Unlimited Tests",
+    description: "Free BCBA mock exam + unlimited practice questions. AI-powered adaptive learning for Board Certified Behavior Analyst certification.",
     url: "/behavior-study-tools",
     images: [
       {
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BCBA Practice Exams, Mock Tests & Free Questions",
-    description: "Full-length BCBA mock tests plus free practice questions with adaptive learning.",
+    title: "Free BCBA Mock Exam & Practice Questions - Unlimited Tests",
+    description: "Free BCBA mock exam + unlimited practice questions. AI-powered adaptive learning for certification.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },

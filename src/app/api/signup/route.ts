@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
 export async function POST(request: NextRequest) {
   try {
-    // Lazily create the admin client at request time to avoid build-time env lookups
-    const supabase = await createClient();
+    // Use Supabase admin client so RLS can remain strict on public tables
+    const supabase = createSupabaseAdminClient();
     const body = await request.json();
     const { firstName, lastName, email, role, currentChallenges } = body;
 
