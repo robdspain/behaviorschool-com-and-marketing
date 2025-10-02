@@ -276,15 +276,19 @@ export default function RobSpainPage() {
                 <h3 className="text-lg font-semibold text-slate-900 mb-4">At a Glance</h3>
                 <div className="space-y-3 text-sm">
                   <div>
-                    <div className="font-semibold text-emerald-900">Experience</div>
-                    <div className="text-slate-700">14+ years as BCBA</div>
+                    <div className="font-semibold text-emerald-900">Education Experience</div>
+                    <div className="text-slate-700">20+ years in education</div>
                   </div>
                   <div>
-                    <div className="font-semibold text-emerald-900">BCBA Since</div>
-                    <div className="text-slate-700">September 2011</div>
+                    <div className="font-semibold text-emerald-900">BCBA Experience</div>
+                    <div className="text-slate-700">14+ years as BCBA (since 2011)</div>
                   </div>
                   <div>
-                    <div className="font-semibold text-emerald-900">Credential ID</div>
+                    <div className="font-semibold text-emerald-900">Current Roles</div>
+                    <div className="text-slate-700">4 organizations</div>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-emerald-900">BCBA Credential</div>
                     <div className="text-slate-700">1-11-9398</div>
                   </div>
                   <div>
