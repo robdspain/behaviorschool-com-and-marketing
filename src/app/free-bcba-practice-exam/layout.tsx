@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "bcba exam questions free",
     "BACB task list",
   ],
-  alternates: { canonical: "/free-bcba-practice-exam" },
+  alternates: { canonical: "https://behaviorschool.com/bcba-exam-prep" },
   openGraph: {
     type: "article",
     title: "Free BCBA Practice Exam (10 Hard Questions)",

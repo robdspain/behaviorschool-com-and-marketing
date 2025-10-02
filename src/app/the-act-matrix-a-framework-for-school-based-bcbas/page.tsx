@@ -69,9 +69,11 @@ const articleStructuredData = {
   "description": "Comprehensive guide to implementing the ACT Matrix framework in school-based behavior analysis practice, with real-world examples and practical strategies.",
   "image": "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp",
   "author": {
-    "@type": "Organization",
-    "name": "Behavior School",
-    "url": "https://behaviorschool.com"
+    "@type": "Person",
+    "name": "Rob Spain",
+    "jobTitle": "Board Certified Behavior Analyst (BCBA)",
+    "url": "https://robspain.com",
+    "sameAs": ["https://www.linkedin.com/in/robspain/", "https://behaviorschool.com/about"]
   },
   "publisher": {
     "@type": "Organization", 

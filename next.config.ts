@@ -90,6 +90,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/coming-soon',
+        destination: '/',
+        permanent: true,
+      },
+      {
         source: '/coming-soon/:path*',
         destination: '/',
         permanent: true,

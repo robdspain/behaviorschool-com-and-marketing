@@ -49,11 +49,15 @@ export default function BCBAExamPrepPage() {
     },
     {
       question: "How many hours should I study for the BCBA exam?",
-      answer: "Many candidates plan ~200–500 hours over 3–6 months; adjust based on baseline skills. Consider 2–3 focused hours/day, with an intensified final month. (This is guidance from exam prep providers and candidate experience, not an official BACB recommendation.)"
+      answer: "Most BCBA candidates study 300-500 hours over 3-6 months. Create a BCBA exam study schedule with 2-3 focused hours daily, then intensify in the final month. Adjust based on your baseline ABA knowledge and learning pace. Consistent daily practice with adaptive questions helps maximize retention more than marathon cramming sessions."
+    },
+    {
+      question: "What is the best BCBA exam study schedule?",
+      answer: "An effective BCBA study schedule breaks down 300-500 hours across 3-6 months: Month 1-2 (Foundation): Cover all 9 content domains with 2 hours/day. Month 3-4 (Depth): Focus on weak areas identified through practice tests, 2-3 hours/day. Month 5 (Integration): Full-length mock exams weekly. Final month: Daily practice with mixed questions and timed tests. Track your progress across domains to adjust your schedule and ensure comprehensive coverage."
     },
     {
       question: "What are the hardest sections of the BCBA exam?",
-      answer: "The most heavily weighted and conceptually demanding sections are typically: 1) Experimental Design (7% of exam) - requires strong research methodology knowledge, 2) Measurement, Data Display, and Interpretation (12% of exam) - technical statistical concepts, and 3) Ethical & Professional Issues (13%), Behavior Assessment (13%) - complex scenario-based questions requiring nuanced understanding of the BACB ethics code and assessment procedures."
+      answer: "The hardest BCBA exam sections are: 1) Experimental Design (7% of exam) - requires strong research methodology knowledge, 2) Measurement, Data Display, and Interpretation (12%) - technical statistical concepts, and 3) Ethical & Professional Issues (13%) and Behavior Assessment (13%) - complex scenario-based questions requiring nuanced understanding. These sections have the lowest average scores and require the most study time."
     },
     {
       question: "How long is the BCBA certification exam?",
@@ -65,7 +69,11 @@ export default function BCBAExamPrepPage() {
     },
     {
       question: "How can school-based BCBAs prepare differently?",
-      answer: "Prioritize Experimental Design, Measurement & data interpretation, and high-impact procedures (e.g., FCT, token economies, discrete-trial/other trial-based procedures)—all emphasized in the TCO. These areas may receive less emphasis in typical school-based practice but are explicitly represented in the Task Content Outline."
+      answer: "School-based BCBAs should prioritize Experimental Design, Measurement & data interpretation, and procedures less common in schools (e.g., FCT, token economies, discrete-trial training). Study school-specific scenarios for ethics questions and practice translating clinical ABA terminology to educational settings. Our platform includes school-focused practice questions that bridge this gap."
+    },
+    {
+      question: "Where can I find free BCBA practice exam questions?",
+      answer: "Behavior School offers unlimited free BCBA practice questions with detailed explanations across all 9 content domains. Our AI-powered question bank adapts to your knowledge level and provides instant feedback. Start with our free 10-question diagnostic exam, then access the full adaptive practice platform at no cost."
     }
   ];
 
@@ -186,7 +194,7 @@ export default function BCBAExamPrepPage() {
     }
   };
 
-  // Product schema for BCBA Study Package
+  // Product schema for BCBA Study Package (removed fake aggregateRating)
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -203,11 +211,6 @@ export default function BCBAExamPrepPage() {
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock",
       "url": "https://behaviorschool.com/bcba-exam-prep"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "127"
     },
     "category": "Educational Material",
     "audience": {
@@ -282,11 +285,11 @@ export default function BCBAExamPrepPage() {
               </h1>
               
               <h2 className="text-2xl text-slate-700 mb-4 font-medium">
-                AI-powered practice questions and analytics designed to help school-based BCBAs pass the exam on the first attempt.
+                Unlimited free BCBA practice questions with adaptive difficulty, detailed analytics, and a proven study schedule to help you pass on the first attempt.
               </h2>
-              
+
               <p className="text-xl text-slate-600 mb-8">
-                The profession is growing rapidly—but passing the exam is the biggest hurdle. Get comprehensive study materials, practice tests, and proven strategies designed specifically for school-based behavior analysts.
+                With only 54% of candidates passing in 2024, you need more than generic test prep. Get AI-powered practice exams, a customized BCBA exam study schedule (300-500 hours over 3-6 months), and school-specific scenarios designed for behavior analysts in education.
               </p>
               
               <div className="flex justify-center lg:justify-start">
@@ -345,7 +348,7 @@ export default function BCBAExamPrepPage() {
               Official BACB statistics reveal the true challenge
             </p>
             <p className="text-base text-slate-700 max-w-4xl mx-auto leading-relaxed">
-              Understanding BCBA exam pass rates 2024 is crucial for your preparation strategy. The first-time BCBA exam pass rate has declined significantly, with only 54% of candidates passing on their initial attempt. The retake pass rate remains even lower at just 25%, making thorough preparation for your first attempt essential. These official BACB statistics highlight why strategic study planning and comprehensive practice are critical for BCBA certification success.
+              Understanding BCBA exam pass rates 2024 is crucial for your study schedule planning. The first-time BCBA exam pass rate has declined to 54% (down from 66% in 2020), with only 25% of retakers passing. These hardest-ever BCBA exam statistics from official BACB data show why you need 300-500 focused study hours, adaptive practice questions across all 9 content domains, and a proven BCBA exam study schedule to pass on your first attempt.
             </p>
           </div>
           
@@ -490,40 +493,41 @@ export default function BCBAExamPrepPage() {
             </div>
           </div>
 
-          {/* Social Proof Section */}
+          {/* Founder Message Section */}
           <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">Why School-Based BCBAs Choose Behavior Study Tools</h2>
-              <p className="text-lg text-slate-600">Study smarter with data-driven insights and personalized learning designed for BCBA exam success</p>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Why I Built These BCBA Study Tools</h2>
+              <p className="text-lg text-slate-600 italic">"After 20 years as a school-based BCBA, I saw too many talented candidates struggle with generic exam prep that didn't address our unique challenges."</p>
+              <p className="text-sm text-slate-500 mt-2">— Rob Spain, BCBA, Founder of Behavior School</p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="text-center p-4">
                 <div className="text-3xl font-bold text-emerald-600 mb-2">Focused</div>
-                <div className="text-slate-600">Candidates reduce study time by knowing exactly where they stand on each topic and content domain</div>
+                <div className="text-slate-600">Know exactly where you stand on each topic and content domain to reduce wasted study time</div>
               </div>
-              
+
               <div className="text-center p-4">
                 <div className="text-3xl font-bold text-emerald-600 mb-2">Flexible</div>
-                <div className="text-slate-600">School-based BCBAs appreciate 24/7 access across all devices to study around their demanding schedules</div>
+                <div className="text-slate-600">Study 24/7 across all devices around your demanding school schedule</div>
               </div>
-              
+
               <div className="text-center p-4">
                 <div className="text-3xl font-bold text-emerald-600 mb-2">Results</div>
-                <div className="text-slate-600">Users see measurable improvement in their first week with immediate feedback and comprehensive progress tracking</div>
+                <div className="text-slate-600">Track measurable improvement from day one with immediate feedback and comprehensive analytics</div>
               </div>
             </div>
 
             <div className="mt-8 text-center">
               <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 mb-6">
-                <p className="text-emerald-800 font-medium">✓ Designed by practicing BCBAs who understand the exam demands</p>
-                <p className="text-emerald-700 text-sm">✓ Risk-free start with comprehensive free access before upgrading</p>
+                <p className="text-emerald-800 font-medium">✓ Created by a practicing school BCBA with 20+ years experience</p>
+                <p className="text-emerald-700 text-sm">✓ Start completely free with unlimited practice questions</p>
               </div>
-              
-              <Button 
+
+              <Button
                 size="lg"
                 asChild
-                className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700 
+                className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700
                            transform hover:scale-105 transition-all duration-300 ease-out
                            hover:shadow-xl shadow-lg text-lg font-semibold px-8 py-4"
               >

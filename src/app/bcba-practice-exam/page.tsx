@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "bcba practice exam pdf"
   ],
   alternates: {
-    canonical: "https://behaviorschool.com/bcba-practice-exam"
+    canonical: "https://behaviorschool.com/bcba-exam-prep"
   },
   openGraph: {
     title: "Revolutionary Non-Repetitive BCBA Study Fluency System",

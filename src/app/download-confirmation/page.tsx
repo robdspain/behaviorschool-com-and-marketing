@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 function DownloadConfirmationContent() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white flex items-center justify-center p-4 pt-20">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white flex items-center justify-center p-4 pt-24">
       <div className="max-w-2xl mx-auto text-center">
         {/* Success Icon */}
         <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
