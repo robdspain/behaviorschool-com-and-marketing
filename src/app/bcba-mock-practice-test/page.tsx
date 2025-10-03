@@ -31,8 +31,8 @@ const StructuredData = dynamic(() => import('./structured-data').then(mod => ({ 
 const FAQData = dynamic(() => import('./structured-data').then(mod => ({ default: mod.FAQStructuredData })));
 
 export const metadata: Metadata = {
-  title: "Best BCBA Mock Exam (FREE) | 185 Questions | Instant Results | 2025",
-  description: "Professional BCBA mock exam with 185 realistic questions. Complete 4-hour simulation, instant results, detailed explanations. No signup required - start now.",
+  title: "🏆 FREE BCBA Mock Exam (185 Questions) | Pass Your BCBA Exam 2025",
+  description: "Take the best FREE BCBA mock exam with 185 real exam-style questions. Get instant results, detailed explanations & personalized study plan. No signup - start your 4-hour BCBA practice test now!",
   robots: {
     index: true,
     follow: true,
@@ -232,7 +232,167 @@ export default function BCBAMockPracticeTestPage() {
         </section>
       </div>
 
-      {/* Below-the-fold content disabled temporarily */}
+      {/* FAQ Section for Mock Exam Queries */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              BCBA Mock Exam Questions - Answered
+            </h2>
+            <p className="text-lg text-slate-600">
+              Everything you need to know about BCBA mock exams and practice tests
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {/* FAQ 1 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                What is a BCBA mock exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                A BCBA mock exam is a full-length practice test designed to simulate the actual BCBA certification exam. It contains 185 questions (just like the real exam), covers all 9 content areas from the BACB Task List, and has a 4-hour time limit. Mock exams help you identify knowledge gaps, practice time management, and build confidence before your actual exam date.
+              </p>
+            </div>
+
+            {/* FAQ 2 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                How many BCBA mock exams should I take?
+              </h3>
+              <p className="text-slate-700 leading-relaxed mb-3">
+                Most successful BCBA candidates take <strong>3-5 full mock exams</strong> during their study period. Here's the recommended schedule:
+              </p>
+              <ul className="space-y-2 text-slate-700">
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold mt-1">→</span>
+                  <span><strong>Baseline Mock (Week 1):</strong> Identify your starting point and weak areas</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold mt-1">→</span>
+                  <span><strong>Mid-Study Mocks (Weeks 8-12):</strong> Take 2-3 exams to track progress</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold mt-1">→</span>
+                  <span><strong>Final Mock (1 week before exam):</strong> Confirm readiness and fine-tune</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* FAQ 3 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                Are BCBA mock exams harder than the real exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                Quality BCBA mock exams should be <strong>slightly harder</strong> than the actual exam. This "over-preparation" strategy ensures you're ready for any difficulty level. Our mock exams include challenging scenario-based questions that require application of knowledge (not just memorization), mirroring the real exam's emphasis on practical application. If you consistently score 70%+ on mock exams, you're likely ready for the actual BCBA exam.
+              </p>
+            </div>
+
+            {/* FAQ 4 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                What's the difference between BCBA practice questions and mock exams?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                <strong>BCBA Practice Questions:</strong> Short quizzes (10-50 questions) focused on specific content areas or task list items. Great for daily study and targeting weak areas. No time pressure.<br/><br/>
+                <strong>BCBA Mock Exams:</strong> Full 185-question tests covering all content areas with a 4-hour time limit. Simulates the actual exam experience including stamina, pacing, and decision-making under pressure. Use these to assess overall readiness.
+              </p>
+            </div>
+
+            {/* FAQ 5 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                Where can I find free BCBA mock exams?
+              </h3>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                Behavior School offers <strong>completely free BCBA mock exams</strong> with no signup required. Our platform includes:
+              </p>
+              <ul className="space-y-2 text-slate-700 mb-4">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span>Full 185-question mock exams</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span>Instant scoring and performance analytics</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span>Detailed explanations for every question</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span>Performance breakdown by content area</span>
+                </li>
+              </ul>
+              <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-semibold">
+                Start Your Free BCBA Mock Exam →
+              </Link>
+            </div>
+
+            {/* FAQ 6 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                What score do I need on a BCBA mock exam to pass the real exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                While the BACB doesn't publish an exact passing score, research and historical data suggest the passing threshold is around <strong>65-70%</strong>. On mock exams, aim for <strong>75%+ consistently</strong> to account for test-day anxiety and variation. If you're scoring below 70% on mock exams, focus on your weakest content areas before scheduling your actual exam. Remember: the 2024 first-time pass rate is only 54%, so thorough preparation is essential.
+              </p>
+            </div>
+
+            {/* FAQ 7 */}
+            <div className="bg-white rounded-xl p-6 shadow-sm">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                Best BCBA mock exams: What should I look for?
+              </h3>
+              <p className="text-slate-700 leading-relaxed mb-3">
+                The best BCBA mock exams have these characteristics:
+              </p>
+              <ul className="space-y-2 text-slate-700">
+                <li className="flex items-start gap-2">
+                  <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <span><strong>185 questions</strong> matching real exam length</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <span><strong>BACB Task List alignment</strong> with proper content distribution</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <span><strong>Detailed explanations</strong> for correct and incorrect answers</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <span><strong>Performance analytics</strong> showing strengths and weaknesses</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <span><strong>Scenario-based questions</strong> requiring application, not memorization</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Star className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <span><strong>Created by BCBAs</strong> with exam writing experience</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="mt-12 text-center bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-white">
+            <h3 className="text-2xl font-bold mb-4">Ready to Test Your BCBA Knowledge?</h3>
+            <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
+              Take a free BCBA mock exam now and get instant feedback on your readiness. No signup required.
+            </p>
+            <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-slate-100">
+              <Link href="/behavior-study-tools">
+                Start Free Mock Exam
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
