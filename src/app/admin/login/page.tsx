@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase-client'
-// import { isAuthorizedAdmin } from '@/lib/admin-config'
+import { isAuthorizedAdmin } from '@/lib/admin-config'
 import { Button } from '@/components/ui/button'
 import { Shield, LogIn, Loader2 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -29,14 +29,9 @@ function LoginPageContent() {
     // Check if user is already logged in
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      
-      const AUTHORIZED_ADMIN_EMAILS = [
-        'rob@behaviorschool.com',
-        // Add more authorized emails here as needed
-      ]
-      
+
       if (session && session.user?.email) {
-        if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+        if (isAuthorizedAdmin(session.user.email)) {
           router.push('/admin')
           return
         } else {
@@ -53,12 +48,7 @@ function LoginPageContent() {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session && session.user?.email) {
-        const AUTHORIZED_ADMIN_EMAILS = [
-          'rob@behaviorschool.com',
-          // Add more authorized emails here as needed
-        ]
-        
-        if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+        if (isAuthorizedAdmin(session.user.email)) {
           router.push('/admin')
         } else {
           setError('Access denied. Only authorized administrators can access this panel.')
