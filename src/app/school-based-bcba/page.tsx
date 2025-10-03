@@ -82,7 +82,7 @@ export default function SchoolBasedBCBAPage() {
   return (
     <main className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-6 pt-24 pb-4">
         <Breadcrumbs items={breadcrumbItems} />
       </div>
 

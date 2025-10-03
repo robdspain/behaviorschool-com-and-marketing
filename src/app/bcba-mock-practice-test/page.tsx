@@ -101,7 +101,7 @@ export default function BCBAMockPracticeTestPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs */}
-        <div className="pt-8 pb-4">
+        <div className="pt-24 pb-4">
           <Breadcrumbs items={breadcrumbItems} />
         </div>
 

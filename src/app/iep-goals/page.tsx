@@ -262,7 +262,7 @@ export default function IEPGoalsPage() {
       
       <div className="min-h-screen bg-bs-background">
         {/* Breadcrumbs */}
-        <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
           <Breadcrumbs 
             items={[
               { label: "Products", href: "/products" },

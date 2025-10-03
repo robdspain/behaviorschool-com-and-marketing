@@ -88,7 +88,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-bs-background">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
           <div className="flex items-center justify-between">
             <Breadcrumbs 
               items={[
