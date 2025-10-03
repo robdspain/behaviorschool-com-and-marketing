@@ -11,8 +11,11 @@ import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 
 export const metadata: Metadata = {
   title: "★ FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
-  description: "Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides and IEP templates now!",
+  description: "Behavior School: Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides and IEP templates now!",
   keywords: [
+    "Behavior School",
+    "behavior school platform",
+    "behavior school BCBA",
     "education",
     "special education",
     "behavior analysis",
@@ -106,9 +109,11 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": ["Organization", "EducationalOrganization", "ProfessionalService"],
     name: "Behavior School",
-    alternateName: "Professional Development for School-Based Behavior Analysts",
+    legalName: "Behavior School LLC",
+    alternateName: ["Behavior School", "Professional Development for School-Based Behavior Analysts", "BehaviorSchool.com"],
     url: SITE_URL,
     logo: `${SITE_URL}/Logos/Logo.webp`,
+    slogan: "Tools, Training, and Community for School-Based Behavior Analysts",
     description: "Educational institution providing professional development, certification training, and research-based resources for school-based behavior analysts, special education teachers, and educational professionals in applied behavior analysis.",
     educationalCredentialAwarded: ["Continuing Education Units", "Professional Development Certificates"],
     hasEducationalUse: "Professional Development",
@@ -343,9 +348,15 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Behavior School",
-    alternateName: "Behavior School - BCBA Training & Exam Prep",
+    alternateName: ["Behavior School", "Behavior School - BCBA Training & Exam Prep", "BehaviorSchool.com"],
     url: SITE_URL,
-    description: "Professional development platform for school-based BCBAs and behavior analysts in education. BCBA exam prep, supervision tools, IEP goals, behavior plans, and training programs.",
+    inLanguage: "en-US",
+    description: "Behavior School: Professional development platform for school-based BCBAs and behavior analysts in education. BCBA exam prep, supervision tools, IEP goals, behavior plans, and training programs.",
+    about: {
+      "@type": "Thing",
+      name: "Applied Behavior Analysis in Schools",
+      description: "School-based behavior analysis, BCBA training, and professional development for educators"
+    },
     publisher: {
       "@type": "Organization",
       name: "Behavior School",
