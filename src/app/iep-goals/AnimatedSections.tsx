@@ -11,24 +11,43 @@ export function AnimatedSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [hasSignedUp, setHasSignedUp] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
+    // Check if user has already signed up
+    if (typeof window !== 'undefined') {
+      const signedUp = localStorage.getItem('hasSignedUpForIEPWidget') === 'true';
+      setHasSignedUp(signedUp);
+      console.log('IEP Goals: hasSignedUp status:', signedUp);
+    }
   }, []);
+
+  const handleCTAClick = () => {
+    console.log('IEP Goals: CTA clicked, hasSignedUp:', hasSignedUp);
+    if (hasSignedUp) {
+      // User has already signed up, go directly to widget
+      console.log('IEP Goals: Redirecting to widget (already signed up)');
+      router.push("/iep-behavior-goals/widget");
+    } else {
+      // Show signup popup
+      console.log('IEP Goals: Opening signup popup');
+      setIsSignupOpen(true);
+    }
+  };
 
   const handleSignupSuccess = () => {
     console.log('IEP Goals: handleSignupSuccess called');
     if (typeof window !== 'undefined') {
       localStorage.setItem('hasSignedUpForIEPWidget', 'true');
+      setHasSignedUp(true);
       console.log('IEP Goals: localStorage flag set');
     }
-    setIsSignupOpen(false);
+
     console.log('IEP Goals: Redirecting to widget page...');
-    // Use setTimeout to ensure the popup closes before redirecting
-    setTimeout(() => {
-      router.push("/iep-behavior-goals/widget");
-    }, 100);
+    // Redirect immediately, no setTimeout needed
+    router.push("/iep-behavior-goals/widget");
   };
 
   const faqs = [
@@ -88,7 +107,7 @@ export function AnimatedSections() {
                 className="space-y-4"
               >
                                  <button
-                   onClick={() => setIsSignupOpen(true)}
+                   onClick={handleCTAClick}
                    className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
                  >
                    <Zap className="mr-3 h-6 w-6" />
@@ -186,7 +205,7 @@ export function AnimatedSections() {
               </ul>
               <div className="mt-4">
                 <button
-                  onClick={() => setIsSignupOpen(true)}
+                  onClick={handleCTAClick}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
                 >
                   Get notified when ready <ArrowRight className="ml-2 w-4 h-4" />
@@ -257,7 +276,7 @@ export function AnimatedSections() {
 
             <div className="text-center pt-4">
               <button 
-                onClick={() => setIsSignupOpen(true)}
+                onClick={handleCTAClick}
                 className="inline-flex items-center px-10 py-5 text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
                 Get Early Access Now
@@ -544,7 +563,7 @@ export function AnimatedSections() {
 
             <div className="text-center">
               <button 
-                onClick={() => setIsSignupOpen(true)}
+                onClick={handleCTAClick}
                 className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
               >
                 Start Writing Goals
@@ -929,7 +948,7 @@ export function AnimatedSections() {
 
               <div className="text-center">
                 <button 
-                  onClick={() => setIsSignupOpen(true)}
+                  onClick={handleCTAClick}
                   className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
                 >
                   Join Waitlist Now
@@ -995,7 +1014,7 @@ export function AnimatedSections() {
 
             <div className="text-center pt-8">
               <button 
-                onClick={() => setIsSignupOpen(true)}
+                onClick={handleCTAClick}
                 className="inline-flex items-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200"
               >
                 Yes, I Want Better Goals
@@ -1015,7 +1034,7 @@ export function AnimatedSections() {
               <span className="text-sm sm:text-lg font-semibold text-slate-900">Join the Waitlist for the Free IEP Goal Generator</span>
             </div>
             <button 
-              onClick={() => setIsSignupOpen(true)}
+              onClick={handleCTAClick}
               className="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
             >
               Generate My First Goal Now

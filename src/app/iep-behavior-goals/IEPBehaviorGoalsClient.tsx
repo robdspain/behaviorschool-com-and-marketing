@@ -6,20 +6,37 @@ import { useRouter } from "next/navigation";
 
 export function IEPBehaviorGoalsClient() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [hasSignedUp, setHasSignedUp] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     console.log('IEPBehaviorGoalsPage: useEffect triggered');
-    if (typeof window !== 'undefined' && localStorage.getItem('hasSignedUpForIEPWidget')) {
-      console.log('IEPBehaviorGoalsPage: localStorage flag found, redirecting...');
-      router.replace('/iep-behavior-goals/widget');
+    // Check if user has already signed up (but DON'T auto-redirect)
+    if (typeof window !== 'undefined') {
+      const signedUp = localStorage.getItem('hasSignedUpForIEPWidget') === 'true';
+      setHasSignedUp(signedUp);
+      console.log('IEPBehaviorGoalsPage: hasSignedUp status:', signedUp);
     }
   }, [router]);
+
+  const handleCTAClick = () => {
+    console.log('IEPBehaviorGoalsPage: CTA clicked, hasSignedUp:', hasSignedUp);
+    if (hasSignedUp) {
+      // User has already signed up, go directly to widget
+      console.log('IEPBehaviorGoalsPage: Redirecting to widget (already signed up)');
+      router.push("/iep-behavior-goals/widget");
+    } else {
+      // Show signup popup
+      console.log('IEPBehaviorGoalsPage: Opening signup popup');
+      setIsSignupOpen(true);
+    }
+  };
 
   const handleSignupSuccess = () => {
     console.log('IEPBehaviorGoalsPage: handleSignupSuccess called');
     if (typeof window !== 'undefined') {
       localStorage.setItem('hasSignedUpForIEPWidget', 'true');
+      setHasSignedUp(true);
       console.log('IEPBehaviorGoalsPage: localStorage flag set');
     }
     setIsSignupOpen(false);
@@ -166,7 +183,7 @@ export function IEPBehaviorGoalsClient() {
 
               {/* Main CTA Button */}
               <button
-                onClick={() => setIsSignupOpen(true)}
+                onClick={handleCTAClick}
                 className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 w-full md:w-auto text-base group relative overflow-hidden mb-8"
               >
                 <span className="relative z-10">Start Creating Goals Now</span>
@@ -344,7 +361,7 @@ export function IEPBehaviorGoalsClient() {
             This free behavior goals generator is just a sample of our comprehensive <a href="/iep-goals" className="text-white hover:text-emerald-100 underline font-semibold">IEP Goal Writer</a> that creates goals for all areas, not just behavior.
           </p>
           <button
-            onClick={() => setIsSignupOpen(true)}
+            onClick={handleCTAClick}
             className="bg-white hover:bg-slate-50 text-emerald-600 font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-lg group relative overflow-hidden"
           >
             <span className="relative z-10">Get Started Now - It&apos;s Free</span>
