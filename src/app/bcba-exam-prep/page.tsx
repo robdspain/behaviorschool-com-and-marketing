@@ -324,12 +324,12 @@ export default function BCBAExamPrepPage() {
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
                 <Image
-                  src="/BehaviorStudyTools/before-after-behaviorstudytools.jpeg"
+                  src="/BehaviorStudyTools/before-after-behaviorstudytools.webp"
                   alt="Before and after using Behavior Study Tools - BCBA exam prep transformation showing improved pass rates and confidence"
                   className="w-full max-w-lg h-auto rounded-2xl shadow-2xl"
                   loading="eager"
-                  width={1536}
-                  height={1024}
+                  width={1184}
+                  height={864}
                 />
               </div>
             </div>
