@@ -227,10 +227,12 @@ export default function RootLayout({
         {
           "@type": "Offer",
           name: "BCBA Exam Prep & Practice Tests",
+          image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
           itemOffered: {
             "@type": "Service",
             name: "BCBA Exam Prep & Practice Tests",
             description: "Comprehensive BCBA exam preparation with AI-powered practice questions, study materials, and mock exams designed specifically for behavior analysts.",
+            image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
             provider: {
               "@type": "Organization",
               name: "Behavior School"
@@ -247,10 +249,12 @@ export default function RootLayout({
         {
           "@type": "Offer",
           name: "BCBA Supervision Tools & Training",
+          image: `${SITE_URL}/Supervision/Supervision1.webp`,
           itemOffered: {
-            "@type": "Service", 
+            "@type": "Service",
             name: "BCBA Supervision Tools & Training",
             description: "Digital tools and training for BCBA supervisors including fieldwork tracking, competency assessments, and supervision workflows for behavior analysts.",
+            image: `${SITE_URL}/Supervision/Supervision1.webp`,
             provider: {
               "@type": "Organization",
               name: "Behavior School"
@@ -267,10 +271,12 @@ export default function RootLayout({
         {
           "@type": "Offer",
           name: "School BCBA Transformation Program",
+          image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
           itemOffered: {
             "@type": "Course",
             name: "School BCBA Transformation Program",
             description: "8-week intensive training program for school-based BCBAs to master ethical leadership, crisis management, teacher collaboration, and school-wide behavior support implementation.",
+            image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
             provider: {
               "@type": "Organization",
               name: "Behavior School"
@@ -289,10 +295,12 @@ export default function RootLayout({
         {
           "@type": "Offer",
           name: "IEP Goal Writing Tools",
+          image: `${SITE_URL}/IEP-Goal/IEP-Goal-Writing.webp`,
           itemOffered: {
             "@type": "Service",
             name: "IEP Goal Writing Tools",
             description: "Professional tools for writing measurable IEP goals, behavior goals, and SMART IEP objectives for students with behavioral needs in educational settings.",
+            image: `${SITE_URL}/IEP-Goal/IEP-Goal-Writing.webp`,
             provider: {
               "@type": "Organization",
               name: "Behavior School"
@@ -309,10 +317,12 @@ export default function RootLayout({
         {
           "@type": "Offer",
           name: "Behavior Intervention Plan Development",
+          image: `${SITE_URL}/optimized/BIP-Writer/BIP-Writer-Team.webp`,
           itemOffered: {
             "@type": "Service",
             name: "Behavior Intervention Plan Development",
             description: "Templates, tools, and training for developing comprehensive behavior intervention plans (BIPs) based on functional behavior assessments in school settings.",
+            image: `${SITE_URL}/optimized/BIP-Writer/BIP-Writer-Team.webp`,
             provider: {
               "@type": "Organization",
               name: "Behavior School"
