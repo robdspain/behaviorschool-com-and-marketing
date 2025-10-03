@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export function AnimatedSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -118,26 +119,16 @@ export function AnimatedSections() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative w-full max-w-full"
             >
-              <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-3 sm:p-4 w-full max-w-full overflow-hidden">
-                {isMounted ? (
-                  <iframe
-                    src="https://school-behavior-goals.netlify.app/"
-                    width="100%"
-                    height="600px"
-                    frameBorder="0"
-                    allowFullScreen
-                    title="IEP Goal Writer Widget"
-                    className="rounded-lg w-full max-w-full"
-                    style={{ maxWidth: '100%', width: '100%' }}
-                    onError={(e) => {
-                      console.error('Iframe failed to load:', e);
-                    }}
-                  />
-                ) : (
-                  <div className="w-full h-[600px] flex items-center justify-center bg-slate-50 rounded-lg">
-                    <p className="text-slate-600">Loading IEP Goal Writer...</p>
-                  </div>
-                )}
+              <div className="relative rounded-xl shadow-2xl overflow-hidden">
+                <Image
+                  src="/IEP-Goal/behavior-goal-writer-hero.webp"
+                  alt="IEP Behavior Goal Writer - Professional goal generation tool showing student behavior goals interface"
+                  width={1056}
+                  height={992}
+                  priority
+                  className="w-full h-auto rounded-xl"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                />
               </div>
 
               <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full opacity-20 animate-pulse"></div>
