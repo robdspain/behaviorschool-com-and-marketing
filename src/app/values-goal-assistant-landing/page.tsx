@@ -10,7 +10,7 @@ export default function ValuesGoalAssistantLandingPage() {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-bs-background">
       {/* Hero Section */}
       <section className="relative pt-20 md:pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">

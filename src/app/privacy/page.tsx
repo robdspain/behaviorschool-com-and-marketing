@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-bs-background">
       {/* Header */}
       <div className="bg-gradient-to-br from-slate-50 to-emerald-50 py-16 lg:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

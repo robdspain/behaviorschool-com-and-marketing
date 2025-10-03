@@ -92,7 +92,7 @@ export default function BCBAMockPracticeTestPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50">
+    <div className="min-h-screen bg-bs-background">
       {/* Structured Data - Lazy Loaded */}
       <Suspense fallback={null}>
         <StructuredData />

@@ -14,7 +14,7 @@ const iframeStyles = `
 
 export default function WidgetContent() {
   return (
-    <div className="min-h-screen bg-white pt-16 w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-bs-background pt-16 w-full max-w-full overflow-x-hidden">
       {/* Inject custom styles */}
       <style dangerouslySetInnerHTML={{ __html: iframeStyles }} />
       {/* Breadcrumbs */}

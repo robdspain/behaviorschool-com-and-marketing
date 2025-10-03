@@ -151,7 +151,7 @@ export default function ACTMatrixFrameworkPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-bs-background">
         {/* Breadcrumbs */}
         <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Breadcrumbs 

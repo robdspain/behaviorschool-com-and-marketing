@@ -107,7 +107,7 @@ export default function BCBAsInSchoolsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       
-      <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-slate-50">
+      <div className="min-h-screen bg-bs-background">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-green-700 to-emerald-800 text-white">
           <div className="absolute inset-0 bg-black/10"></div>

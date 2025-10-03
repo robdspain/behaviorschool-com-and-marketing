@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-slate-50">
+    <div className="min-h-screen flex items-center justify-center bg-bs-background">
       <div className="text-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto">
           <div className="text-8xl font-bold text-emerald-600 mb-4">404</div>

@@ -88,7 +88,7 @@ const aceProviderSchema = {
 
 export default function BACBACEProviderPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
+    <div className="min-h-screen bg-bs-background">
       {/* Structured Data */}
       <script
         type="application/ld+json"

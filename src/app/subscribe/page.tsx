@@ -8,7 +8,7 @@ export default function SubscribePage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
+    <div className="min-h-screen bg-bs-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-16">
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-700 to-emerald-400 rounded-2xl mb-6">

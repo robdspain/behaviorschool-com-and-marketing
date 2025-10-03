@@ -110,7 +110,7 @@ export function IEPBehaviorGoalsClient() {
   };
 
   return (
-    <div className="min-h-screen bg-white w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-bs-background w-full max-w-full overflow-x-hidden">
       {/* Structured Data */}
       <script
         type="application/ld+json"

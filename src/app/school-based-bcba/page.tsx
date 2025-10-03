@@ -80,7 +80,7 @@ const breadcrumbItems = [
 
 export default function SchoolBasedBCBAPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50/50 to-white">
+    <main className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
       <div className="container mx-auto px-6 py-4">
         <Breadcrumbs items={breadcrumbItems} />
