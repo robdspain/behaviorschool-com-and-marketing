@@ -7,15 +7,16 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname || '';
 
   // Admin route protection - redirect to login if not authenticated
-  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
-    // Check for auth session cookie
-    const sessionCookie = request.cookies.get('next-auth.session-token') ||
-                         request.cookies.get('__Secure-next-auth.session-token');
+  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
+    // Check for Supabase auth session cookies
+    const supabaseAuthToken = request.cookies.get('sb-dugolglucuzolzvuqxmi-auth-token');
+    const supabaseAccessToken = request.cookies.get('sb-access-token');
+    const supabaseRefreshToken = request.cookies.get('sb-refresh-token');
 
-    if (!sessionCookie) {
-      // Redirect to login page with callback URL
+    // If no Supabase auth cookies found, redirect to login
+    if (!supabaseAuthToken && !supabaseAccessToken && !supabaseRefreshToken) {
       const loginUrl = new URL('/admin/login', request.url);
-      loginUrl.searchParams.set('callbackUrl', pathname);
+      loginUrl.searchParams.set('error', 'unauthorized');
       return NextResponse.redirect(loginUrl);
     }
   }

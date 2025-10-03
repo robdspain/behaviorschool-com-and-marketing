@@ -26,14 +26,18 @@ function LoginPageContent() {
       supabase.auth.signOut()
     }
 
-    // Check if user is already logged in
+    // Check if user is already logged in (but not if coming from unauthorized redirect)
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
 
       if (session && session.user?.email) {
         if (isAuthorizedAdmin(session.user.email)) {
-          router.push('/admin')
-          return
+          // Only redirect if not coming from an error
+          const errorParam = searchParams.get('error')
+          if (!errorParam) {
+            router.push('/admin')
+            return
+          }
         } else {
           // Authenticated but not authorized
           setError('Access denied. Only authorized administrators can access this panel.')
