@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { Linkedin, Twitter, Instagram, Facebook, Mail, ExternalLink, Award, GraduationCap, Briefcase, Users } from "lucide-react";
+import { Linkedin, Twitter, ExternalLink, Award, GraduationCap, Briefcase, Users } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Rob Spain, M.S., BCBA, IBA | Board Certified Behavior Analyst & Founder",
@@ -311,7 +311,7 @@ export default function RobSpainPage() {
 
                 <div className="prose prose-slate max-w-none">
                   <p className="text-lg leading-relaxed text-slate-700">
-                    Rob Spain, M.S., BCBA, IBA, is a school-based behavior analyst and founder of <Link href="/" className="text-emerald-700 hover:text-emerald-800 font-semibold">Behavior School</Link>, where he builds systems, training, and communities that help educators deliver high-fidelity, data-driven supports. He serves as President of CalABA's Behavior Analysts in Education SIG and as a Behavior Intervention Specialist in a California school district while teaching graduate ABA courses at Fresno Pacific University. His work pairs practical tools with measurable outcomes, reducing repeat intensive services and scaling effective practices across schools.
+                    Rob Spain, M.S., BCBA, IBA, is a school-based behavior analyst and founder of <Link href="/" className="text-emerald-700 hover:text-emerald-800 font-semibold">Behavior School</Link>, where he builds systems, training, and communities that help educators deliver high-fidelity, data-driven supports. He serves as President of CalABA&apos;s Behavior Analysts in Education SIG and as a Behavior Intervention Specialist in a California school district while teaching graduate ABA courses at Fresno Pacific University. His work pairs practical tools with measurable outcomes, reducing repeat intensive services and scaling effective practices across schools.
                   </p>
                 </div>
               </div>
@@ -402,7 +402,7 @@ export default function RobSpainPage() {
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-2">Conference Presentations</h3>
                     <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-200">
-                      <p className="font-medium text-slate-900">"BCBAs in PBIS: How to support all levels, systemically"</p>
+                      <p className="font-medium text-slate-900">&ldquo;BCBAs in PBIS: How to support all levels, systemically&rdquo;</p>
                       <p className="text-slate-600">California PBIS Conference 2025</p>
                       <p className="text-sm text-slate-500">Co-presenters: Megan Caluza & Katie Turner, Ed.D., BCBA</p>
                     </div>
@@ -465,7 +465,7 @@ export default function RobSpainPage() {
               <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-xl p-8 text-center text-white">
                 <h2 className="text-2xl font-bold mb-4">Work with Rob</h2>
                 <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
-                  Access Rob's training programs, supervision tools, and BCBA exam prep resources through Behavior School.
+                  Access Rob&apos;s training programs, supervision tools, and BCBA exam prep resources through Behavior School.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button asChild size="lg" className="bg-white text-emerald-600 hover:bg-slate-100">

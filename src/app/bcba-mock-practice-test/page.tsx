@@ -8,20 +8,13 @@ import {
   CheckCircle,
   Clock,
   Target,
-  TrendingUp,
-  Zap,
   BarChart3,
-  Brain,
-  Shield,
   ArrowRight,
   Star,
-  Award,
-  Users,
-  BookOpen,
   PlayCircle
 } from "lucide-react";
 
-import { mockTestFeatures, testBenefits, practiceOptions } from './data';
+import { practiceOptions } from './data';
 
 // Below-the-fold content temporarily disabled to ensure stable build
 
@@ -285,14 +278,14 @@ export default function BCBAMockPracticeTestPage() {
                 Are BCBA mock exams harder than the real exam?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                Quality BCBA mock exams should be <strong>slightly harder</strong> than the actual exam. This "over-preparation" strategy ensures you're ready for any difficulty level. Our mock exams include challenging scenario-based questions that require application of knowledge (not just memorization), mirroring the real exam's emphasis on practical application. If you consistently score 70%+ on mock exams, you're likely ready for the actual BCBA exam.
+                Quality BCBA mock exams should be <strong>slightly harder</strong> than the actual exam. This &ldquo;over-preparation&rdquo; strategy ensures you&apos;re ready for any difficulty level. Our mock exams include challenging scenario-based questions that require application of knowledge (not just memorization), mirroring the real exam&apos;s emphasis on practical application. If you consistently score 70%+ on mock exams, you&apos;re likely ready for the actual BCBA exam.
               </p>
             </div>
 
             {/* FAQ 4 */}
             <div className="bg-white rounded-xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-slate-900 mb-3">
-                What's the difference between BCBA practice questions and mock exams?
+                What&apos;s the difference between BCBA practice questions and mock exams?
               </h3>
               <p className="text-slate-700 leading-relaxed">
                 <strong>BCBA Practice Questions:</strong> Short quizzes (10-50 questions) focused on specific content areas or task list items. Great for daily study and targeting weak areas. No time pressure.<br/><br/>

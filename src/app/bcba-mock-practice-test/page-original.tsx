@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -18,11 +17,11 @@ import {
   Award,
   Users,
   BookOpen,
-  PlayCircle
+  PlayCircle,
+  Calendar
 } from "lucide-react";
 
-import { mockTestFeatures, testBenefits, practiceOptions } from './data';
-import { CourseStructuredData, FAQStructuredData } from './structured-data';
+import { practiceOptions } from './data';
 
 // Lazy load below-the-fold sections
 const LazyContent = dynamic(() => import('./below-fold-content'), {

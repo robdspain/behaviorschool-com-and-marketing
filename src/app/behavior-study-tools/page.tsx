@@ -591,7 +591,7 @@ export default function BehaviorStudyToolsPage() {
               </div>
             </div>
             <p className="text-xl text-slate-600 leading-relaxed text-center">
-              Behavior Study Tools is different. Our free BCBA mock exam gets you started immediately, then our platform combines efficient practice, clear explanations, adaptive learning, and real-time data tracking. Instead of passive studying, it actively teaches you how to think like a BCBA through scenario-based questions that mirror the actual exam. That's the innovation future behavior analysts deserve.
+              Behavior Study Tools is different. Our free BCBA mock exam gets you started immediately, then our platform combines efficient practice, clear explanations, adaptive learning, and real-time data tracking. Instead of passive studying, it actively teaches you how to think like a BCBA through scenario-based questions that mirror the actual exam. That&apos;s the innovation future behavior analysts deserve.
             </p>
           </motion.div>
         </div>

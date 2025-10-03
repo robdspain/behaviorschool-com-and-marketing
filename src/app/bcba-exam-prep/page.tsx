@@ -497,7 +497,7 @@ export default function BCBAExamPrepPage() {
           <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Why I Built These BCBA Study Tools</h2>
-              <p className="text-lg text-slate-600 italic">"After 20 years as a school-based BCBA, I saw too many talented candidates struggle with generic exam prep that didn't address our unique challenges."</p>
+              <p className="text-lg text-slate-600 italic">&ldquo;After 20 years as a school-based BCBA, I saw too many talented candidates struggle with generic exam prep that didn&apos;t address our unique challenges.&rdquo;</p>
               <p className="text-sm text-slate-500 mt-2">— Rob Spain, BCBA, Founder of Behavior School</p>
             </div>
 
