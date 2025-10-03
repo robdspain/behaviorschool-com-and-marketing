@@ -383,11 +383,6 @@ export default function RootLayout({
     mainEntity: {
       "@type": "Organization",
       name: "Behavior School"
-    },
-    about: {
-      "@type": "Thing",
-      name: "Applied Behavior Analysis Education",
-      description: "Training and professional development for behavior analysts, BCBAs, and education professionals in school-based applied behavior analysis practices."
     }
   } as const;
   return (
