@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,12 @@ import { useRouter } from "next/navigation";
 export function AnimatedSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSignupSuccess = () => {
     console.log('IEP Goals: handleSignupSuccess called');
@@ -114,16 +119,25 @@ export function AnimatedSections() {
               className="relative w-full max-w-full"
             >
               <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-3 sm:p-4 w-full max-w-full overflow-hidden">
-                <iframe
-                  src="https://school-behavior-goals.netlify.app/"
-                  width="100%"
-                  height="600px"
-                  frameBorder="0"
-                  allowFullScreen
-                  title="IEP Goal Writer Widget"
-                  className="rounded-lg w-full max-w-full"
-                  style={{ maxWidth: '100%', width: '100%' }}
-                ></iframe>
+                {isMounted ? (
+                  <iframe
+                    src="https://school-behavior-goals.netlify.app/"
+                    width="100%"
+                    height="600px"
+                    frameBorder="0"
+                    allowFullScreen
+                    title="IEP Goal Writer Widget"
+                    className="rounded-lg w-full max-w-full"
+                    style={{ maxWidth: '100%', width: '100%' }}
+                    onError={(e) => {
+                      console.error('Iframe failed to load:', e);
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-[600px] flex items-center justify-center bg-slate-50 rounded-lg">
+                    <p className="text-slate-600">Loading IEP Goal Writer...</p>
+                  </div>
+                )}
               </div>
 
               <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-emerald-400 to-green-400 rounded-full opacity-20 animate-pulse"></div>
