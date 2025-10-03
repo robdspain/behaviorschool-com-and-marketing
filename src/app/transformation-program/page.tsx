@@ -161,11 +161,17 @@ export default function TransformationProgramPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-full shadow-sm"
+                  className="flex flex-col sm:flex-row gap-2"
                 >
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-slate-700">Cohort-Based Program</span>
-                  <span className="text-xs text-slate-500"> • Classes forming now - Secure your spot today!</span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-full shadow-sm">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm font-medium text-slate-700">Cohort-Based Program</span>
+                    <span className="text-xs text-slate-500"> • Classes forming now</span>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full shadow-sm">
+                    <Award className="w-4 h-4 text-emerald-600" />
+                    <span className="text-sm font-semibold text-emerald-700">16 BACB CEUs • Supervision & Ethics</span>
+                  </div>
                 </motion.div>
 
                 {/* Enhanced Headline with Professional Typography */}
@@ -950,6 +956,7 @@ export default function TransformationProgramPage() {
             viewport={{ once: true }}
           >
             {[
+              "16 BACB CEUs for BCBAs (Including Supervision & Ethics CEUs)",
               "A District-Ready Behavior Operating System (you can use immediately)",
               "Confidence to Protect Your Ethics and Lead with Integrity (no more impossible positions)",
               "Tools That Build Teacher and Admin Partnerships (strong collaborative relationships)",
@@ -1022,9 +1029,19 @@ export default function TransformationProgramPage() {
             <p className="text-xl text-slate-700 mb-8 max-w-3xl mx-auto">
               The Ethical Leadership Framework isn&apos;t just another training program. It&apos;s your blueprint for navigating district chaos while maintaining professional integrity.
             </p>
-            
+
             <div className="bg-white rounded-2xl p-6 md:p-8 max-w-lg mx-auto mb-8 border-2 border-red-200 shadow-xl">
               <div className="text-slate-900">
+                {/* CEU Badge */}
+                <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-4 mb-6">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <Award className="w-6 h-6 text-emerald-600" />
+                    <span className="text-2xl font-bold text-emerald-700">16 BACB CEUs</span>
+                  </div>
+                  <p className="text-sm text-emerald-700 text-center">Including Supervision & Ethics CEUs</p>
+                  <p className="text-xs text-slate-600 text-center mt-1">BACB ACE Provider: OP-25-11420</p>
+                </div>
+
                 <div className="text-lg font-semibold mb-2">Investment:</div>
                 <div className="text-3xl md:text-4xl font-bold text-red-600 mb-2">$2,497</div>
                 <div className="text-slate-600 mb-4 text-sm md:text-base">(or 3 payments of $897)</div>
@@ -1133,6 +1150,15 @@ export default function TransformationProgramPage() {
             "School district collaboration strategies",
             "Trauma-informed practices"
           ],
+          "educationalCredentialAwarded": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "16 BACB Continuing Education Units (CEUs)",
+            "credentialCategory": "BACB Authorized Continuing Education",
+            "recognizedBy": {
+              "@type": "Organization",
+              "name": "Behavior Analyst Certification Board (BACB)"
+            }
+          },
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
