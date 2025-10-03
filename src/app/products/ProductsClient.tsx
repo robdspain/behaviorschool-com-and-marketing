@@ -91,14 +91,32 @@ export function ProductsClient() {
                   </Link>
                 </motion.div>
 
-                <div className="mt-2">
-                  <Link 
+                <div className="mt-2 space-y-2">
+                  <Link
                     href="/free-bcba-practice-exam"
                     className="inline-flex items-center text-emerald-700 hover:text-emerald-800 font-semibold"
                   >
                     Free BCBA Practice Exam (10 Questions)
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
+                  <div>
+                    <Link
+                      href="/bcba-exam-prep"
+                      className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-medium text-sm"
+                    >
+                      Complete BCBA Exam Prep Guide
+                      <ArrowRight className="ml-1 h-3 w-3" />
+                    </Link>
+                  </div>
+                  <div>
+                    <Link
+                      href="/about/rob-spain"
+                      className="inline-flex items-center text-slate-600 hover:text-slate-700 font-medium text-sm"
+                    >
+                      Meet Rob Spain, BCBA - Founder
+                      <ArrowRight className="ml-1 h-3 w-3" />
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="relative">
@@ -168,14 +186,23 @@ export function ProductsClient() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link 
-                    href="/supervision" 
+                  <Link
+                    href="/supervisors"
                     className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold group"
                   >
                     Learn more about Supervision Tools
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
+                <div className="mt-2">
+                  <Link
+                    href="/about/rob-spain"
+                    className="inline-flex items-center text-slate-600 hover:text-slate-700 font-medium text-sm"
+                  >
+                    Developed by Rob Spain, BCBA with 20+ years experience
+                    <ArrowRight className="ml-1 h-3 w-3" />
+                  </Link>
+                </div>
               </div>
             </motion.div>
 

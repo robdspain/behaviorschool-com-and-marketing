@@ -5,6 +5,7 @@ import { Section } from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Join the Behavior School Community | Support for School-Based BCBAs",
@@ -59,10 +60,10 @@ export default function CommunityPage() {
               </p>
             </div>
             
-            <div className="pt-4">
-              <Button 
-                asChild 
-                size="lg" 
+            <div className="pt-4 space-y-4">
+              <Button
+                asChild
+                size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto min-w-[250px]"
               >
                 <a href="https://community.behaviorschool.com" target="_blank" rel="noopener noreferrer">
@@ -70,6 +71,36 @@ export default function CommunityPage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
+
+              <div className="space-y-2 pt-2">
+                <p className="text-sm text-slate-600 font-medium">Community members also get access to:</p>
+                <div className="space-y-1">
+                  <Link
+                    href="/supervisors"
+                    className="block text-emerald-700 hover:text-emerald-800 font-medium text-sm hover:underline"
+                  >
+                    → BCBA Supervision Tools & Training
+                  </Link>
+                  <Link
+                    href="/bcba-exam-prep"
+                    className="block text-emerald-700 hover:text-emerald-800 font-medium text-sm hover:underline"
+                  >
+                    → Free BCBA Exam Prep & Study Guides
+                  </Link>
+                  <Link
+                    href="/behavior-study-tools"
+                    className="block text-emerald-700 hover:text-emerald-800 font-medium text-sm hover:underline"
+                  >
+                    → AI-Powered BCBA Practice Questions
+                  </Link>
+                  <Link
+                    href="/about/rob-spain"
+                    className="block text-slate-600 hover:text-slate-700 font-medium text-sm hover:underline"
+                  >
+                    → Meet Rob Spain, BCBA - Founder
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
 
