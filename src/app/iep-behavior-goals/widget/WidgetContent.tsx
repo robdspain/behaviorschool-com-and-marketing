@@ -14,11 +14,11 @@ const iframeStyles = `
 
 export default function WidgetContent() {
   return (
-    <div className="min-h-screen bg-bs-background pt-16 w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-bs-background w-full max-w-full overflow-x-hidden">
       {/* Inject custom styles */}
       <style dangerouslySetInnerHTML={{ __html: iframeStyles }} />
       {/* Breadcrumbs */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
         <Breadcrumbs
           items={[
             { label: "Products", href: "/products" },

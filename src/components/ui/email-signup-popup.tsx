@@ -82,12 +82,13 @@ export function EmailSignupPopup({
         setIsSubmitted(true);
         if (onSuccess) {
           console.log('EmailSignupPopup: Calling onSuccess');
-          onSuccess(); // Call onSuccess callback
-          // Close popup after a short delay to allow onSuccess to handle navigation
+          // Call onSuccess callback immediately (handles redirect)
+          onSuccess();
+          // Give the redirect a moment to initiate, then close popup
           setTimeout(() => {
             onClose();
             setIsSubmitted(false);
-          }, 2000);
+          }, 500); // Reduced from 2000ms to 500ms for faster redirect
         } else {
           // Close popup after 3 seconds if no custom success handler
           setTimeout(() => {
