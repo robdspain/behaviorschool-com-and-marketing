@@ -120,7 +120,7 @@ export default function TransformationProgramPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-bs-background relative">
       {/* Sticky Mobile CTA */}
       <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white border-t-2 border-red-200 shadow-2xl md:hidden">
         <Link 

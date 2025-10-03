@@ -87,7 +87,7 @@ export default function BehaviorStudyToolsPage() {
     }
   ];
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Breadcrumbs 
@@ -147,7 +147,7 @@ export default function BehaviorStudyToolsPage() {
               >
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="https://study.behaviorschool.com"
+                    href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Start Free BCBA Mock Exam
@@ -224,7 +224,7 @@ export default function BehaviorStudyToolsPage() {
               </div>
 
               <Link
-                href="https://study.behaviorschool.com"
+                href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
                 className="inline-flex items-center px-10 py-4 text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
               >
                 Start Free Mock Exam Now
@@ -322,7 +322,7 @@ export default function BehaviorStudyToolsPage() {
                     {area.questions}
                   </span>
                   <Link
-                    href="https://study.behaviorschool.com"
+                    href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
                     className="text-emerald-600 hover:text-emerald-700 font-semibold text-sm"
                   >
                     Practice Now →
@@ -414,8 +414,8 @@ export default function BehaviorStudyToolsPage() {
                 Join 2,500+ behavior analysts using our platform to pass the BCBA exam. Start with your free mock exam today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="https://study.behaviorschool.com" 
+                <Link
+                  href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
                   className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-slate-50 transition-colors"
                 >
                   Start Free Trial
@@ -541,8 +541,8 @@ export default function BehaviorStudyToolsPage() {
                 Ready to develop true behavioral fluency? After you pass your BCBA exam, continue building expertise with our comprehensive school-based training.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="https://study.behaviorschool.com" 
+                <Link
+                  href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
                   className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
                 >
                   Start BCBA Prep Now
@@ -662,8 +662,8 @@ export default function BehaviorStudyToolsPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link 
-                href="https://study.behaviorschool.com" 
+              <Link
+                href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
                 className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 hover:bg-slate-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 Explore Behavior Study Tools

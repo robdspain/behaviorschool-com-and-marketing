@@ -23,7 +23,7 @@ const staggerContainer = {
 
 export function ProductsClient() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Breadcrumbs 
@@ -34,7 +34,7 @@ export function ProductsClient() {
       </div>
       
       {/* Products Section */}
-      <section id="products" className="pt-36 pb-16 lg:pb-20 bg-white">
+      <section id="products" className="pt-36 pb-16 lg:pb-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="grid gap-16 lg:gap-20"

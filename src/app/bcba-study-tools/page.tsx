@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { BCBAStudyToolsClient } from "./BCBAStudyToolsClient";
 
 export const metadata: Metadata = {
-  title: "🎯 BCBA Study Tools | Free Practice Tests + Exam Prep | Behavior School",
-  description: "Complete BCBA study toolkit: free practice tests, domain mini-exams, study guides, and interactive tools. Everything you need to pass your BCBA exam in one place!",
+  title: "FREE BCBA Study Tools 2025 | AI Practice Tests + Adaptive Learning | Behavior School",
+  description: "FREE AI-powered BCBA study tools. Unlimited practice questions, adaptive learning, performance analytics. Join BCBAs preparing for their exam. Start free today!",
   robots: {
     index: true,
     follow: true,
@@ -16,25 +16,25 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "BCBA study tools",
-    "BCBA exam prep tools",
-    "BCBA practice tests",
-    "behavior analyst study guide",
-    "BCBA certification prep",
-    "applied behavior analysis study tools",
-    "BCBA exam practice",
-    "behavior analysis exam prep",
-    "BCBA test preparation",
-    "free BCBA study resources",
-    "BCBA domain practice",
-    "behavior analyst exam tools",
-    "BCBA study guide",
-    "BCBA exam simulator",
-    "behavior analysis practice questions"
+    "BCBA study tools 2025",
+    "free BCBA exam prep",
+    "BCBA practice tests free",
+    "best BCBA study materials",
+    "BCBA exam pass rate 2025",
+    "AI BCBA practice questions",
+    "BCBA exam prep 6th edition",
+    "adaptive BCBA study tools",
+    "BCBA mock exam free",
+    "Pass The Big ABA Exam alternative",
+    "Study Notes ABA alternative",
+    "BCBA exam questions free",
+    "behavior analyst certification prep",
+    "BCBA study schedule 2025",
+    "first-time BCBA pass rate"
   ],
   openGraph: {
-    title: "🎯 BCBA Study Tools | Free Practice Tests + Exam Prep | Behavior School",
-    description: "Complete BCBA study toolkit: free practice tests, domain mini-exams, study guides, and interactive tools. Everything you need to pass your BCBA exam!",
+    title: "FREE BCBA Study Tools 2025 | AI Practice Tests + Adaptive Learning | Behavior School",
+    description: "FREE AI-powered BCBA study tools. Unlimited practice questions, adaptive learning, performance analytics. Start free today!",
     type: "website",
     url: "https://behaviorschool.com/bcba-study-tools",
     images: [
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "🎯 BCBA Study Tools | Free Practice Tests + Exam Prep",
-    description: "Complete BCBA study toolkit with practice tests, study guides, and interactive tools to pass your exam!",
+    title: "FREE BCBA Study Tools 2025 | AI Practice Tests + Adaptive Learning",
+    description: "FREE AI-powered BCBA study tools. Unlimited practice questions, adaptive learning. Start free today!",
     images: ["https://behaviorschool.com/optimized/og-image.webp"]
   },
   alternates: {

@@ -52,6 +52,19 @@
     --ring: 160 100% 20%; /* Darker ring color for better focus visibility */
     --radius: 0.5rem;
     
+    /* Brand Color System - Option 1: Subtle & Warm Neutrals */
+    --bs-section-odd: #F8F4E9;    /* Warm beige/aged paper for alternating sections */
+    --bs-section-even: #FFFFFF;   /* Pure white for alternating sections */
+    --bs-section-even-alt: #FAFAFA; /* Very light grey alternative */
+    
+    /* Behavior School Brand Colors */
+    --bs-primary: #1E3A34;        /* Chalkboard green */
+    --bs-primary-dark: #152825;   /* Darker chalkboard green */
+    --bs-accent: #E3B23C;         /* Vintage golden yellow */
+    --bs-background: #FAF3E0;     /* Cream paper (body default) */
+    --bs-text: #1A1A1A;           /* Primary text color */
+    --bs-text-light: #6B7280;     /* Secondary text color */
+    
     /* Behavior Study Tools variables */
     --quiz-background: #FAFBFC;
     --quiz-primary: #2E7D5A;

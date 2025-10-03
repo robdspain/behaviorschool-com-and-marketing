@@ -24,38 +24,42 @@ export function BCBAStudyToolsClient() {
     {
       title: "Free BCBA Practice Tests",
       description: "185-question practice exams with instant scoring and detailed explanations",
-      features: ["4-hour simulation", "Instant feedback", "Performance analytics", "Free access"],
-      link: "/bcba-mock-practice-test",
-      external: false,
+      features: ["4-hour simulation", "Instant feedback", "Performance analytics", "100% FREE"],
+      link: "https://study.behaviorschool.com?source=behaviorschool&page=bcba-study-tools&cta=practice-tests",
+      external: true,
       icon: Target,
-      color: "emerald"
+      color: "emerald",
+      badge: "FREE"
     },
     {
       title: "Interactive Study Platform",
       description: "Full-featured study app with progress tracking and personalized recommendations",
-      features: ["Domain mini-exams", "Study sessions", "Progress tracking", "Mobile app"],
-      link: "https://study.behaviorschool.com",
+      features: ["Domain mini-exams", "Study sessions", "Progress tracking", "Mobile optimized"],
+      link: "https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page",
       external: true,
       icon: Brain,
-      color: "blue"
+      color: "blue",
+      badge: "FREE"
     },
     {
       title: "Domain-Specific Practice",
       description: "Targeted practice for each BCBA exam domain with focused question sets",
       features: ["Ethics practice", "Behavior assessment", "Intervention design", "Implementation"],
-      link: "https://study.behaviorschool.com/domain-mini-exams",
+      link: "https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page",
       external: true,
       icon: BookOpen,
-      color: "purple"
+      color: "purple",
+      badge: "FREE"
     },
     {
       title: "Performance Analytics",
       description: "Detailed analytics to identify strengths and areas for improvement",
       features: ["Score tracking", "Domain breakdown", "Study recommendations", "Progress reports"],
-      link: "https://study.behaviorschool.com/dashboard",
+      link: "https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page",
       external: true,
       icon: BarChart3,
-      color: "orange"
+      color: "orange",
+      badge: "FREE"
     }
   ];
 
@@ -78,7 +82,7 @@ export function BCBAStudyToolsClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Breadcrumbs
@@ -88,6 +92,32 @@ export function BCBAStudyToolsClient() {
           ]}
         />
       </div>
+
+      {/* Gateway Banner - High Visibility CTA */}
+      <section className="bg-gradient-to-r from-emerald-600 to-emerald-500 border-b-4 border-emerald-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center space-x-4">
+              <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                <ExternalLink className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-white">Ready to Start Practicing?</h2>
+                <p className="text-emerald-50 text-sm">All study tools are available at study.behaviorschool.com</p>
+              </div>
+            </div>
+            <Link
+              href="https://study.behaviorschool.com?source=behaviorschool&page=bcba-study-tools&cta=gateway-banner"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-8 py-4 bg-white text-emerald-600 font-bold rounded-xl hover:bg-emerald-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap"
+            >
+              Launch Study Platform
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden">
@@ -452,7 +482,7 @@ export function BCBAStudyToolsClient() {
       </section>
 
       {/* Related Resources Section */}
-      <section className="py-16 lg:py-24 bg-slate-50">
+      <section className="py-16 lg:py-24 bg-bs-section-odd">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -522,7 +552,7 @@ export function BCBAStudyToolsClient() {
             Join thousands of behavior analysts who have used our study tools to achieve BCBA certification success.
           </p>
           <Link
-            href="https://study.behaviorschool.com"
+            href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page"
             className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 rounded-xl hover:bg-slate-50 transition-colors group"
           >
             Access Full Study Platform

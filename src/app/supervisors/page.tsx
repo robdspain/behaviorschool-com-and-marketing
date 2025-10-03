@@ -51,7 +51,7 @@ export default function SupervisorsPage() {
   const isHeroInView = useInView(heroRef, { once: true });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50/30">
+    <div className="min-h-screen bg-bs-background">
       {/* Sophisticated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <motion.div

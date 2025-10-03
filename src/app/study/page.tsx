@@ -12,8 +12,8 @@ export const metadata = {
 
 export default function StudyPage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#FAF3E0' }}>
-      <section className="relative overflow-hidden" style={{ backgroundColor: '#1F4D3F' }}>
+    <div className="min-h-screen bg-bs-background">
+      <section className="relative overflow-hidden bg-bs-primary">
         <ContainerScroll
           titleComponent={(
             <div className="text-center">
@@ -22,7 +22,7 @@ export default function StudyPage() {
               <p className="mt-4 text-lg text-slate-200 max-w-2xl mx-auto">Adaptive practice tests, targeted feedback, and precision learning to help you pass—faster.</p>
               <div className="mt-8 flex items-center justify-center">
                 <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
+                  <Link href="https://study.behaviorschool.com/auth?mode=signup&source=study-page" target="_blank" rel="noopener noreferrer">Start Free Trial</Link>
                 </Button>
               </div>
             </div>
@@ -50,12 +50,12 @@ export default function StudyPage() {
       </section>
 
       {/* Product tour highlights */}
-      <section className="py-16" style={{ backgroundColor: '#FFF8EA' }}>
+      <section className="py-16 bg-bs-section-odd">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-baseline justify-between mb-8">
             <h2 className="text-3xl font-bold text-slate-900">Product Tour</h2>
             <Button asChild variant="outline">
-              <Link href="https://study.behaviorschool.com/product-tour" target="_blank" rel="noopener noreferrer">Open full tour</Link>
+              <Link href="https://study.behaviorschool.com/auth?mode=signup&source=study-page" target="_blank" rel="noopener noreferrer">Open full tour</Link>
             </Button>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -77,17 +77,17 @@ export default function StudyPage() {
             ))}
           </div>
           <div className="mt-8 flex gap-3">
-            <Button asChild size="lg" className="bg-[#E3B23C] hover:bg-[#d9a42f] text-slate-900">
-              <Link href="https://study.behaviorschool.com/product-tour" target="_blank" rel="noopener noreferrer">View interactive tour</Link>
+            <Button asChild size="lg" className="bg-bs-accent hover:bg-[#d9a42f] text-slate-900">
+              <Link href="https://study.behaviorschool.com/auth?mode=signup&source=study-page" target="_blank" rel="noopener noreferrer">View interactive tour</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">Start free trial</Link>
+              <Link href="https://study.behaviorschool.com/auth?mode=signup&source=study-page" target="_blank" rel="noopener noreferrer">Start free trial</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-bs-section-even">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-slate-900 mb-6">FAQs</h2>
           <Accordion type="single" collapsible className="w-full">

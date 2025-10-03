@@ -25,6 +25,10 @@ const config: Config = {
         'bs-background': '#FAF3E0', // cream paper
         'bs-text': '#1A1A1A',
         'bs-text-light': '#6B7280',
+        // Brand section backgrounds - Option 1: Subtle & Warm Neutrals
+        'bs-section-odd': '#F8F4E9', // warm beige/aged paper
+        'bs-section-even': '#FFFFFF', // pure white
+        'bs-section-even-alt': '#FAFAFA', // very light grey alternative
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

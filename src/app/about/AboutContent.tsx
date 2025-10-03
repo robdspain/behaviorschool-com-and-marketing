@@ -34,7 +34,7 @@ const staggerContainer = {
 
 export default function AboutContent() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-bs-background">
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-blue-50" />
@@ -62,7 +62,7 @@ export default function AboutContent() {
       </section>
 
       {/* Founder Story Section */}
-      <section className="py-16 lg:py-20 bg-white">
+      <section className="py-16 lg:py-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
@@ -187,7 +187,7 @@ export default function AboutContent() {
       </section>
 
       {/* Mission & Values Section */}
-      <section className="py-16 lg:py-20 bg-gradient-to-br from-slate-50 to-emerald-50">
+      <section className="py-16 lg:py-20 bg-bs-section-odd">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -251,7 +251,7 @@ export default function AboutContent() {
       </section>
 
       {/* What We Offer Section */}
-      <section className="py-16 lg:py-20 bg-white">
+      <section className="py-16 lg:py-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <motion.div
@@ -376,7 +376,7 @@ export default function AboutContent() {
       </section>
 
       {/* Who We Serve Section */}
-      <section className="py-16 lg:py-20 bg-slate-50">
+      <section className="py-16 lg:py-20 bg-bs-section-odd">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -444,7 +444,7 @@ export default function AboutContent() {
       </section>
 
       {/* Why We Exist Section */}
-      <section className="py-16 lg:py-20 bg-white">
+      <section className="py-16 lg:py-20 bg-bs-section-even">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -57,7 +57,7 @@ export default function Home() {
       />
 
       {/* AI-Friendly Summary for LLM Indexing */}
-      <section className="py-8 bg-slate-50 border-b border-slate-200">
+      <section className="py-8 bg-bs-section-odd border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="sr-only">About Behavior School</h2>
@@ -69,7 +69,7 @@ export default function Home() {
       </section>
 
       {/* Section 1 – Join the Community */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Content Column */}
@@ -118,7 +118,7 @@ export default function Home() {
       </section>
 
       {/* Products Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-odd">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4 leading-tight">School BCBA Tools & Resources</h2>
@@ -132,21 +132,22 @@ export default function Home() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 active:scale-95 flex flex-col h-full">
               <div className="p-4 sm:p-6 flex flex-col h-full">
                 <div className="text-center flex-grow flex flex-col">
+                  <div className="bg-emerald-50 rounded-lg px-2 py-1 text-xs font-semibold text-emerald-700 mb-2 inline-block mx-auto">100% FREE</div>
                   <Image src="/thumbnails/hero-thumb.webp" alt="BCBA exam prep practice questions and study tools for behavior analysts" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width={128} height={128} loading="lazy" />
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Exam Prep & Practice Tests</h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Master the BCBA exam with AI-powered practice questions and BCBA study materials.</p>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">FREE unlimited AI-powered practice questions and BCBA study materials.</p>
                   <div className="space-y-2 mt-auto">
                     <Link
-                      href="/free-bcba-practice-exam"
+                      href="/bcba-study-tools"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      Free BCBA Exam Questions
+                      Start FREE Practice Questions
                     </Link>
                     <Link
                       href="/bcba-exam-prep"
                       className="block w-full border border-emerald-700 text-emerald-700 hover:bg-emerald-50 py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      BCBA Exam Prep Guide
+                      View Study Guide
                     </Link>
                   </div>
                 </div>
@@ -162,12 +163,10 @@ export default function Home() {
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Track BCBA fieldwork hours, competencies, and streamline your supervision practice.</p>
                   <div className="mt-auto">
                     <Link
-                      href="https://study.behaviorschool.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/supervisors"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      Access Supervision Platform
+                      Explore Supervision Tools
                     </Link>
                   </div>
                 </div>
@@ -216,7 +215,7 @@ export default function Home() {
       </section>
 
       {/* Personal Operating Systems Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4 leading-tight">From School BCBA Burnout and Crisis Management</h2>
@@ -229,7 +228,7 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
             {/* Pain Points */}
-            <div className="bg-slate-50 rounded-xl p-4 sm:p-6 shadow-lg">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
               <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">⚠️</span>
               </div>
@@ -244,7 +243,7 @@ export default function Home() {
             </div>
 
             {/* Solution */}
-            <div className="bg-slate-50 rounded-xl p-4 sm:p-6 shadow-lg">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
               <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">🎯</span>
               </div>
@@ -259,7 +258,7 @@ export default function Home() {
             </div>
 
             {/* Transformation */}
-            <div className="bg-slate-50 rounded-xl p-4 sm:p-6 shadow-lg">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                 <span className="text-2xl">🚀</span>
               </div>

@@ -26,7 +26,7 @@ export default function BehaviorPlansPage() {
   const [showPopup, setShowPopup] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Breadcrumbs 
@@ -160,7 +160,7 @@ export default function BehaviorPlansPage() {
       </section>
 
       {/* Related Resources Section */}
-      <section className="py-16 lg:py-20 bg-slate-50">
+      <section className="py-16 lg:py-20 bg-bs-section-odd">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

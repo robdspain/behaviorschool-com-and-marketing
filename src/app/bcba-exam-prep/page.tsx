@@ -99,7 +99,7 @@ export default function BCBAExamPrepPage() {
     "alternateName": "Behavior School",
     "url": "https://behaviorschool.com",
     "logo": "https://behaviorschool.com/Logos/logo-gold-transparent.webp",
-    "description": "Leading provider of behavior analysis training and BCBA exam preparation for school-based professionals",
+    "description": "Leading provider of FREE AI-powered BCBA exam preparation, practice questions, and adaptive study tools for school-based behavior analysts.",
     "foundingDate": "2020",
     "address": {
       "@type": "PostalAddress",
@@ -240,7 +240,7 @@ export default function BCBAExamPrepPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-slate-50">
+    <div className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Breadcrumbs 
@@ -285,11 +285,11 @@ export default function BCBAExamPrepPage() {
               </h1>
               
               <h2 className="text-2xl text-slate-700 mb-4 font-medium">
-                Unlimited free BCBA practice questions with adaptive difficulty, detailed analytics, and a proven study schedule to help you pass on the first attempt.
+                <strong>100% FREE</strong> unlimited BCBA practice questions with AI-adaptive difficulty, detailed analytics, and a proven study schedule.
               </h2>
 
               <p className="text-xl text-slate-600 mb-8">
-                With only 54% of candidates passing in 2024, you need more than generic test prep. Get AI-powered practice exams, a customized BCBA exam study schedule (300-500 hours over 3-6 months), and school-specific scenarios designed for behavior analysts in education.
+                With only 54% passing in 2024, you need smarter prep. Get FREE AI-powered practice exams, customized study schedule (300-500 hours over 3-6 months), and school-specific scenarios designed for behavior analysts in education.
               </p>
               
               <div className="flex justify-center lg:justify-start">
@@ -301,9 +301,9 @@ export default function BCBAExamPrepPage() {
                              hover:shadow-xl shadow-lg
                              text-lg font-semibold px-8 py-4"
                 >
-                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                    <span className="hidden sm:inline text-lg">Start BCBA Practice Questions – Pass Faster</span>
-                    <span className="sm:hidden text-lg">Start Practice Questions</span>
+                  <Link href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-exam-prep-page" target="_blank" rel="noopener noreferrer">
+                    <span className="hidden sm:inline text-lg">🎯 Start FREE Practice Questions – No Credit Card</span>
+                    <span className="sm:hidden text-lg">Start FREE Now</span>
                     <ArrowRight className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
                   </Link>
                 </Button>
@@ -531,7 +531,7 @@ export default function BCBAExamPrepPage() {
                            transform hover:scale-105 transition-all duration-300 ease-out
                            hover:shadow-xl shadow-lg text-lg font-semibold px-8 py-4"
               >
-                <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                <Link href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-exam-prep-page" target="_blank" rel="noopener noreferrer">
                   Start Free BCBA Practice Questions Now
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
@@ -625,7 +625,7 @@ export default function BCBAExamPrepPage() {
               asChild
               className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700"
             >
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+              <Link href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-exam-prep-page" target="_blank" rel="noopener noreferrer">
                 Start Practice Questions Now
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
@@ -732,7 +732,7 @@ export default function BCBAExamPrepPage() {
                          hover:shadow-xl shadow-lg
                          text-lg font-semibold px-8 py-4"
             >
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+              <Link href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-exam-prep-page" target="_blank" rel="noopener noreferrer">
                 Start BCBA Practice Questions
                 <ArrowRight className="ml-3 w-6 h-6 transition-transform hover:translate-x-1" />
               </Link>
@@ -755,7 +755,7 @@ export default function BCBAExamPrepPage() {
             asChild
             className="bg-white text-emerald-700 hover:bg-emerald-50 shadow-xl font-semibold"
           >
-            <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-exam-prep-page" target="_blank" rel="noopener noreferrer">
               Start Practice Questions →
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
