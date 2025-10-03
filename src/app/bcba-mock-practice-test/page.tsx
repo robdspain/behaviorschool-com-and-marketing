@@ -254,7 +254,7 @@ export default function BCBAMockPracticeTestPage() {
                 How many BCBA mock exams should I take?
               </h3>
               <p className="text-slate-700 leading-relaxed mb-3">
-                Most successful BCBA candidates take <strong>3-5 full mock exams</strong> during their study period. Here's the recommended schedule:
+                Most successful BCBA candidates take <strong>3-5 full mock exams</strong> during their study period. Here&apos;s the recommended schedule:
               </p>
               <ul className="space-y-2 text-slate-700">
                 <li className="flex items-start gap-2">
@@ -330,7 +330,7 @@ export default function BCBAMockPracticeTestPage() {
                 What score do I need on a BCBA mock exam to pass the real exam?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                While the BACB doesn't publish an exact passing score, research and historical data suggest the passing threshold is around <strong>65-70%</strong>. On mock exams, aim for <strong>75%+ consistently</strong> to account for test-day anxiety and variation. If you're scoring below 70% on mock exams, focus on your weakest content areas before scheduling your actual exam. Remember: the 2024 first-time pass rate is only 54%, so thorough preparation is essential.
+                While the BACB doesn&apos;t publish an exact passing score, research and historical data suggest the passing threshold is around <strong>65-70%</strong>. On mock exams, aim for <strong>75%+ consistently</strong> to account for test-day anxiety and variation. If you&apos;re scoring below 70% on mock exams, focus on your weakest content areas before scheduling your actual exam. Remember: the 2024 first-time pass rate is only 54%, so thorough preparation is essential.
               </p>
             </div>
 

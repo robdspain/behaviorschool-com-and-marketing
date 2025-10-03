@@ -21,13 +21,7 @@ import {
   Calendar
 } from "lucide-react";
 
-import { practiceOptions } from './data';
-
-// Lazy load below-the-fold sections
-const LazyContent = dynamic(() => import('./below-fold-content'), {
-  loading: () => <div className="animate-pulse bg-gray-100 h-96 rounded-lg" />,
-  ssr: false
-});
+// Unused imports removed - data imported in components that use it
 
 export const metadata: Metadata = {
   title: "Best BCBA Mock Exam (FREE) | 185 Questions | Instant Results | 2025",
