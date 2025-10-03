@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { ProductsClient } from "./ProductsClient";
 
 export const metadata: Metadata = {
-  title: "★ FREE BCBA Tools & Training | Mock Exams + IEP Writers + Behavior Plans",
+  title: "FREE BCBA Tools & Training | Mock Exams + IEP Writers + Behavior Plans",
   description: "Get FREE professional BCBA tools: mock exams, IEP goal writers, behavior planning templates, and certification prep. Professional resources for behavior analysts. Start free now!",
   robots: {
     index: true,

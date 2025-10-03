@@ -10,7 +10,7 @@ import Script from "next/script";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 
 export const metadata: Metadata = {
-  title: "★ FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
+  title: "FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
   description: "Behavior School: Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides and IEP templates now!",
   keywords: [
     "Behavior School",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "★ FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
+    title: "FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
     description: "Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides now!",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "★ FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam",
+    title: "FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam",
     description: "Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts!",
     images: ["/optimized/og-image.webp"],
   },

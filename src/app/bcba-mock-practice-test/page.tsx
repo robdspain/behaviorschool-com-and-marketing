@@ -24,7 +24,7 @@ const StructuredData = dynamic(() => import('./structured-data').then(mod => ({ 
 const FAQData = dynamic(() => import('./structured-data').then(mod => ({ default: mod.FAQStructuredData })));
 
 export const metadata: Metadata = {
-  title: "🏆 FREE BCBA Mock Exam (185 Questions) | Pass Your BCBA Exam 2025",
+  title: "FREE BCBA Mock Exam (185 Questions) | Pass Your BCBA Exam 2025",
   description: "Take the best FREE BCBA mock exam with 185 real exam-style questions. Get instant results, detailed explanations & personalized study plan. No signup - start your 4-hour BCBA practice test now!",
   robots: {
     index: true,
