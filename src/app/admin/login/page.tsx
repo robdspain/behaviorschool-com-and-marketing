@@ -26,33 +26,30 @@ function LoginPageContent() {
       supabase.auth.signOut()
     }
 
-    // Check if user is already logged in (but not if coming from unauthorized redirect)
+    // Check if user is already logged in
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
 
       if (session && session.user?.email) {
-        if (isAuthorizedAdmin(session.user.email)) {
-          // Only redirect if not coming from an error
-          const errorParam = searchParams.get('error')
-          if (!errorParam) {
-            router.push('/admin')
-            return
-          }
-        } else {
-          // Authenticated but not authorized
+        if (!isAuthorizedAdmin(session.user.email)) {
+          // Authenticated but not authorized - sign them out
           setError('Access denied. Only authorized administrators can access this panel.')
           supabase.auth.signOut()
         }
+        // If authorized, don't auto-redirect - let user click the button
+        // This prevents redirect loops
       }
       setCheckingAuth(false)
     }
 
     checkSession()
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    // Listen for auth changes - redirect after OAuth callback
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session && session.user?.email) {
         if (isAuthorizedAdmin(session.user.email)) {
+          // Wait a bit for cookies to be set
+          await new Promise(resolve => setTimeout(resolve, 500))
           router.push('/admin')
         } else {
           setError('Access denied. Only authorized administrators can access this panel.')

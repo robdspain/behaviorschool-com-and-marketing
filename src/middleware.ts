@@ -7,14 +7,19 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname || '';
 
   // Admin route protection - redirect to login if not authenticated
-  if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
-    // Check for Supabase auth session cookies
-    const supabaseAuthToken = request.cookies.get('sb-dugolglucuzolzvuqxmi-auth-token');
-    const supabaseAccessToken = request.cookies.get('sb-access-token');
-    const supabaseRefreshToken = request.cookies.get('sb-refresh-token');
+  // Exclude /admin/login and /api/auth routes from protection
+  if (pathname.startsWith('/admin') && 
+      !pathname.startsWith('/admin/login') && 
+      !pathname.startsWith('/api/auth')) {
+    
+    // Check for any Supabase auth cookies (they follow pattern sb-{project-ref}-auth-token*)
+    const cookies = request.cookies.getAll();
+    const hasSupabaseAuth = cookies.some(cookie => 
+      cookie.name.startsWith('sb-') && cookie.name.includes('auth-token')
+    );
 
     // If no Supabase auth cookies found, redirect to login
-    if (!supabaseAuthToken && !supabaseAccessToken && !supabaseRefreshToken) {
+    if (!hasSupabaseAuth) {
       const loginUrl = new URL('/admin/login', request.url);
       loginUrl.searchParams.set('error', 'unauthorized');
       return NextResponse.redirect(loginUrl);
