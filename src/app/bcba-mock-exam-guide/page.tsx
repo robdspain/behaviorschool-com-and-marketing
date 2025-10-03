@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BookOpen, Clock, Target, TrendingUp, AlertCircle, Award, FileText, Calendar, Users } from "lucide-react";
+import { CheckCircle, BookOpen, Clock, Target, TrendingUp, AlertCircle, Award, FileText, Calendar } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "BCBA Mock Exam Guide 2025 | How to Use Practice Tests to Pass Your BCBA",
@@ -290,7 +290,7 @@ export default function BCBAMockExamGuidePage() {
               1. Why BCBA Mock Exams Are Essential
             </h2>
             <p className="text-lg text-slate-700 leading-relaxed mb-6">
-              With the 2024 first-time BCBA pass rate at just 54% and retake rates at 25%, strategic preparation is no longer optional—it's essential. Mock exams are your most powerful diagnostic tool for exam readiness.
+              With the 2024 first-time BCBA pass rate at just 54% and retake rates at 25%, strategic preparation is no longer optional—it&apos;s essential. Mock exams are your most powerful diagnostic tool for exam readiness.
             </p>
 
             <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -356,7 +356,7 @@ export default function BCBAMockExamGuidePage() {
             <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
               <p className="text-slate-800 font-semibold mb-2">💡 Expert Insight from Rob Spain, BCBA</p>
               <p className="text-slate-700 italic">
-                "In 20 years of preparing school BCBAs for certification, I've found that candidates who take 3+ strategically-timed mock exams pass at nearly 2x the rate of those who skip this step. Mock exams aren't just practice—they're your roadmap to targeted improvement."
+                &ldquo;In 20 years of preparing school BCBAs for certification, I&apos;ve found that candidates who take 3+ strategically-timed mock exams pass at nearly 2x the rate of those who skip this step. Mock exams aren&apos;t just practice—they&apos;re your roadmap to targeted improvement.&rdquo;
               </p>
             </div>
           </section>
@@ -392,12 +392,12 @@ export default function BCBAMockExamGuidePage() {
                         </ul>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-red-700 mb-2">✗ DON'T</h4>
+                        <h4 className="font-semibold text-red-700 mb-2">✗ DON&apos;T</h4>
                         <ul className="text-sm text-slate-600 space-y-1">
                           <li>• Take before content review is complete</li>
                           <li>• Split across multiple days</li>
                           <li>• Look up answers during the exam</li>
-                          <li>• Stress about a low score—it's diagnostic</li>
+                          <li>• Stress about a low score—it&apos;s diagnostic</li>
                         </ul>
                       </div>
                     </div>
@@ -429,7 +429,7 @@ export default function BCBAMockExamGuidePage() {
                         </ul>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-red-700 mb-2">✗ DON'T</h4>
+                        <h4 className="font-semibold text-red-700 mb-2">✗ DON&apos;T</h4>
                         <ul className="text-sm text-slate-600 space-y-1">
                           <li>• Retake the same exam (memorization risk)</li>
                           <li>• Skip if baseline score was high</li>
@@ -466,7 +466,7 @@ export default function BCBAMockExamGuidePage() {
                         </ul>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-red-700 mb-2">✗ DON'T</h4>
+                        <h4 className="font-semibold text-red-700 mb-2">✗ DON&apos;T</h4>
                         <ul className="text-sm text-slate-600 space-y-1">
                           <li>• Take within 3 days of test (causes stress)</li>
                           <li>• Panic if one domain is weak—review it</li>
@@ -544,7 +544,7 @@ export default function BCBAMockExamGuidePage() {
             <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg">
               <p className="text-slate-800 font-semibold mb-2">⚠️ Critical Timing Strategy</p>
               <p className="text-slate-700">
-                Aim for <strong>1.3 minutes per question</strong> (185 questions ÷ 240 minutes = 1.3 min/question). This leaves 15-20 minutes to review flagged questions. If you're spending 2+ minutes per question, you'll run out of time.
+                Aim for <strong>1.3 minutes per question</strong> (185 questions ÷ 240 minutes = 1.3 min/question). This leaves 15-20 minutes to review flagged questions. If you&apos;re spending 2+ minutes per question, you&apos;ll run out of time.
               </p>
             </div>
           </section>
@@ -610,7 +610,7 @@ export default function BCBAMockExamGuidePage() {
                 </h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-semibold text-slate-900 mb-3">Question Types You're Missing:</h4>
+                    <h4 className="font-semibold text-slate-900 mb-3">Question Types You&apos;re Missing:</h4>
                     <ul className="space-y-2 text-slate-700">
                       <li className="flex items-start gap-2">
                         <span className="text-red-600 font-bold">•</span>
@@ -786,14 +786,14 @@ export default function BCBAMockExamGuidePage() {
                     <span className="text-red-600 font-bold text-xl">✗</span>
                     <div>
                       <strong>Taking mock exams too early</strong>
-                      <p className="text-sm text-slate-600">Wait until you've reviewed all 9 domains first</p>
+                      <p className="text-sm text-slate-600">Wait until you&apos;ve reviewed all 9 domains first</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-red-600 font-bold text-xl">✗</span>
                     <div>
                       <strong>Retaking the same exam</strong>
-                      <p className="text-sm text-slate-600">You'll memorize answers, not learn concepts</p>
+                      <p className="text-sm text-slate-600">You&apos;ll memorize answers, not learn concepts</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-2">
@@ -807,7 +807,7 @@ export default function BCBAMockExamGuidePage() {
                     <span className="text-red-600 font-bold text-xl">✗</span>
                     <div>
                       <strong>Ignoring domain breakdowns</strong>
-                      <p className="text-sm text-slate-600">Overall score doesn't tell the full story</p>
+                      <p className="text-sm text-slate-600">Overall score doesn&apos;t tell the full story</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-2">
@@ -932,7 +932,7 @@ export default function BCBAMockExamGuidePage() {
               <ul className="space-y-2 text-slate-700">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span><strong>185 questions</strong> matching actual exam length (not 50-100 question "mini" exams)</span>
+                  <span><strong>185 questions</strong> matching actual exam length (not 50-100 question &ldquo;mini&rdquo; exams)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
@@ -944,7 +944,7 @@ export default function BCBAMockExamGuidePage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span><strong>Scenario-based questions</strong> matching BACB's application-focused style</span>
+                  <span><strong>Scenario-based questions</strong> matching BACB&apos;s application-focused style</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
@@ -970,7 +970,7 @@ export default function BCBAMockExamGuidePage() {
                   When should I take my first BCBA mock exam?
                 </h3>
                 <p className="text-slate-700">
-                  Take your first mock exam 8-12 weeks before your test date, after you've completed initial content review of all 9 domains. This baseline exam identifies your weaknesses early enough to address them thoroughly. Avoid taking it too early (before content review) or too late (less than 6 weeks out).
+                  Take your first mock exam 8-12 weeks before your test date, after you&apos;ve completed initial content review of all 9 domains. This baseline exam identifies your weaknesses early enough to address them thoroughly. Avoid taking it too early (before content review) or too late (less than 6 weeks out).
                 </p>
               </div>
 
@@ -997,7 +997,7 @@ export default function BCBAMockExamGuidePage() {
                   How do I analyze my BCBA mock exam results?
                 </h3>
                 <p className="text-slate-700">
-                  Break down scores by content domain, identify question types you're missing (scenario-based vs. definition-based), note if errors are from knowledge gaps or misreading questions, and track patterns across multiple exams. Prioritize domains scoring below 70% and question types with consistent errors.
+                  Break down scores by content domain, identify question types you&apos;re missing (scenario-based vs. definition-based), note if errors are from knowledge gaps or misreading questions, and track patterns across multiple exams. Prioritize domains scoring below 70% and question types with consistent errors.
                 </p>
               </div>
 
@@ -1006,7 +1006,7 @@ export default function BCBAMockExamGuidePage() {
                   Should I retake the same BCBA mock exam?
                 </h3>
                 <p className="text-slate-700">
-                  No, don't retake identical exams as you'll memorize answers rather than learn concepts. Use different mock exams or randomized question banks each time. If using the same platform, ensure questions are randomized and not repeated.
+                  No, don&apos;t retake identical exams as you&apos;ll memorize answers rather than learn concepts. Use different mock exams or randomized question banks each time. If using the same platform, ensure questions are randomized and not repeated.
                 </p>
               </div>
 
