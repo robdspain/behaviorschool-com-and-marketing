@@ -324,8 +324,8 @@ export default function BCBAExamPrepPage() {
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
                 <Image
-                  src="/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp"
-                  alt="BCBA exam statistics showing declining pass rates - first-time candidates struggling with certification requirements"
+                  src="/BehaviorStudyTools/before-after-behaviorstudytools.jpeg"
+                  alt="Before and after using Behavior Study Tools - BCBA exam prep transformation showing improved pass rates and confidence"
                   className="w-full max-w-lg h-auto rounded-2xl shadow-2xl"
                   loading="eager"
                   width={1536}
