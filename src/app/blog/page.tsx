@@ -20,8 +20,8 @@ export default async function BlogPage() {
     : (await getPosts({ limit: 24, order: "published_at DESC", include: "tags,authors" })).posts;
 
   return (
-    <div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
+    <div className="min-h-screen bg-bs-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
         <Breadcrumbs 
           items={[
             { label: "Blog" }

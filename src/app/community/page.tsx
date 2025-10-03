@@ -37,8 +37,9 @@ export const metadata: Metadata = {
 
 export default function CommunityPage() {
   return (
-    <Section className="pt-40 md:pt-48 lg:pt-56 pb-16 md:pb-24">
-      <Container className="max-w-6xl">
+    <div className="min-h-screen bg-bs-background">
+      <Section className="pt-40 md:pt-48 lg:pt-56 pb-16 md:pb-24">
+        <Container className="max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content Column */}
           <div className="space-y-8">
@@ -121,7 +122,8 @@ export default function CommunityPage() {
             <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-100 rounded-full opacity-40 -z-10"></div>
           </div>
         </div>
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </div>
   );
 }
