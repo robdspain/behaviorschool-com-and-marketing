@@ -133,20 +133,14 @@ export default function BACBACEProviderPage() {
 
           {/* ACE Badge */}
           <div className="flex justify-center my-12">
-            <div className="relative w-64 h-64">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-2xl">
-                <div className="text-center text-white">
-                  <div className="text-sm font-semibold uppercase tracking-wider mb-2">
-                    Behavior Analyst Certification Board
-                  </div>
-                  <div className="text-6xl font-bold mb-2">ACE</div>
-                  <div className="text-sm uppercase tracking-wider">
-                    Authorized Continuing Education Provider
-                  </div>
-                </div>
-              </div>
-              <div className="absolute inset-4 border-4 border-white rounded-full"></div>
-            </div>
+            <Image
+              src="/BACB-ACE/BACB_ACE-Logo-1.jpg"
+              alt="BACB ACE Provider Logo - Behavior School"
+              width={300}
+              height={300}
+              className="rounded-lg shadow-xl"
+              priority
+            />
           </div>
 
           {/* Provider Information */}

@@ -78,15 +78,13 @@ export function Footer() {
         {/* ACE Provider Information */}
         <div className="text-center mt-4">
           <div className="flex justify-center items-center space-x-4">
-            <Link 
-              href="/BACB-ACE/BACB_ACE-Logo-1.jpg"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="BACB ACE Provider Image"
+            <Link
+              href="/bacb-ace-provider"
+              aria-label="BACB ACE Provider Information"
             >
               <Image
                 src="/BACB-ACE/BACB_ACE-Logo-1.jpg"
-                alt="BACB ACE Provider Logo"
+                alt="BACB ACE Provider Logo - Behavior School"
                 width={100}
                 height={100}
                 className="hover:opacity-80 transition-opacity cursor-pointer"
@@ -94,7 +92,9 @@ export function Footer() {
             </Link>
             <div>
               <p className="text-gray-600 text-sm font-bold">
-                Behavior School LLC
+                <Link href="/bacb-ace-provider" className="hover:text-emerald-700 transition-colors">
+                  Behavior School LLC
+                </Link>
               </p>
               <p className="text-gray-600 text-sm">
                 ACE Provider Number: OP-25-11420
