@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

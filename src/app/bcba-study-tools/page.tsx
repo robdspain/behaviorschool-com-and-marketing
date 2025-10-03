@@ -4,9 +4,6 @@ import { BCBAStudyToolsClient } from "./BCBAStudyToolsClient";
 export const metadata: Metadata = {
   title: "🎯 BCBA Study Tools | Free Practice Tests + Exam Prep | Behavior School",
   description: "Complete BCBA study toolkit: free practice tests, domain mini-exams, study guides, and interactive tools. Everything you need to pass your BCBA exam in one place!",
-  alternates: {
-    canonical: "https://behaviorschool.com/behavior-study-tools"
-  },
   robots: {
     index: true,
     follow: true,
