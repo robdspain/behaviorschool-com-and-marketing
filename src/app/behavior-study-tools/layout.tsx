@@ -100,13 +100,22 @@ export default function BehaviorStudyToolsLayout({
     "@type": "Product",
     name: "Behavior Study Tools",
     description: "Comprehensive BCBA exam preparation platform featuring AI-powered practice questions, adaptive learning algorithms, and detailed performance analytics for behavior analyst certification success.",
+    image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
     brand: {
       "@type": "Brand",
       name: "Behavior School"
     },
     manufacturer: {
-      "@type": "Organization", 
+      "@type": "Organization",
       name: "Behavior School"
+    },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: `${SITE_URL}/behavior-study-tools`,
+      priceValidUntil: "2026-12-31"
     },
     category: "Educational Software",
     audience: {
