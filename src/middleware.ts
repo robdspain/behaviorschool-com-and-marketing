@@ -7,13 +7,15 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname || '';
 
   // Admin route protection - redirect to login if not authenticated
-  // Exclude /admin/login, /api/auth, and callback routes from protection
-  const isLoginPage = pathname === '/admin/login' || pathname.startsWith('/admin/login/');
+  // IMPORTANT: Check exclusions BEFORE checking if it's an admin route
   const isAuthRoute = pathname.startsWith('/api/auth');
+  const isLoginPage = pathname.includes('/login'); // More permissive - catches any login path
   const hasAuthCallback = request.nextUrl.searchParams.has('code'); // OAuth callback
-  const isAdminRoute = pathname.startsWith('/admin');
 
-  if (isAdminRoute && !isLoginPage && !isAuthRoute && !hasAuthCallback) {
+  // Only protect admin routes that are NOT login/auth/callback
+  const needsAuth = pathname.startsWith('/admin') && !isLoginPage && !isAuthRoute && !hasAuthCallback;
+
+  if (needsAuth) {
     // Check for any Supabase auth cookies (they follow pattern sb-{project-ref}-auth-token*)
     const cookies = request.cookies.getAll();
     const hasSupabaseAuth = cookies.some(cookie =>
