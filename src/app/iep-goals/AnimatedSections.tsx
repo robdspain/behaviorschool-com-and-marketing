@@ -10,12 +10,10 @@ import Image from "next/image";
 export function AnimatedSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    setIsMounted(true);
     // Check if user has already signed up
     if (typeof window !== 'undefined') {
       const signedUp = localStorage.getItem('hasSignedUpForIEPWidget') === 'true';

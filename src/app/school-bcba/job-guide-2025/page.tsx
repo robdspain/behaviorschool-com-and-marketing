@@ -57,13 +57,13 @@ export default function Page() {
 
           <h3>2025 Interview Questions (Be Ready)</h3>
           <ul>
-            <li>"Walk us through a complex FBA and how you translated findings into a feasible, classroom-ready BIP."</li>
-            <li>"How do you align function-based ABA with district PBIS/MTSS frameworks without diluting behavioral science?"</li>
-            <li>"Demonstrate your approach to coaching a new teacher through a challenging student routine."</li>
-            <li>"Show how you write and monitor behavior goals that are measurable, achievable, and meet 90-100% mastery criteria."</li>
-            <li>"What does your 90‑day implementation plan look like for a new district or building?"</li>
-            <li>"How do you ensure cultural responsiveness and trauma-informed practice in your interventions?"</li>
-            <li>"Describe your data systems and how you make them sustainable through staff turnover."</li>
+            <li>&ldquo;Walk us through a complex FBA and how you translated findings into a feasible, classroom-ready BIP.&rdquo;</li>
+            <li>&ldquo;How do you align function-based ABA with district PBIS/MTSS frameworks without diluting behavioral science?&rdquo;</li>
+            <li>&ldquo;Demonstrate your approach to coaching a new teacher through a challenging student routine.&rdquo;</li>
+            <li>&ldquo;Show how you write and monitor behavior goals that are measurable, achievable, and meet 90-100% mastery criteria.&rdquo;</li>
+            <li>&ldquo;What does your 90‑day implementation plan look like for a new district or building?&rdquo;</li>
+            <li>&ldquo;How do you ensure cultural responsiveness and trauma-informed practice in your interventions?&rdquo;</li>
+            <li>&ldquo;Describe your data systems and how you make them sustainable through staff turnover.&rdquo;</li>
           </ul>
 
           <h3>Resume Keywords for 2025 ATS Systems</h3>

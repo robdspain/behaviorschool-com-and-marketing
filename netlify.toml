@@ -13,6 +13,13 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Auto-submit sitemap to search engines after successful publish
+[[plugins]]
+  package = "netlify-plugin-submit-sitemap"
+  [plugins.inputs]
+    sitemapUrl = "https://behaviorschool.com/sitemap.xml"
+    providers = ["google", "bing"]
+
 # Next.js handles routing, only redirect specific cases
 [[redirects]]
   from = "/www/*"

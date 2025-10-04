@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -41,6 +42,7 @@ interface ClusterInfo {
 
 export default function SiteMapViewer() {
   const [expandedClusters, setExpandedClusters] = useState<Set<string>>(new Set());
+  const [copiedPath, setCopiedPath] = useState<string | null>(null);
 
   const clusters: ClusterInfo[] = [
     {
@@ -268,6 +270,52 @@ export default function SiteMapViewer() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Manual GSC Submission */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Manual GSC Submission</CardTitle>
+          <CardDescription>
+            Quick links to copy URLs and open Google Search Console’s URL Inspection for manual indexing.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {[
+            { path: '/iep-goal-qualitychecker', label: 'IEP Goal Quality Checker' },
+            { path: '/school-bcba', label: 'School BCBA Hub' },
+            { path: '/school-bcba/vs-school-based-bcba', label: 'VS: School vs School-Based BCBA' },
+            { path: '/school-bcba/job-guide', label: 'School BCBA Job Guide' },
+            { path: '/school-bcba/salary-by-state', label: 'Salary by State' },
+            { path: '/school-bcba/how-to-become', label: 'How to Become a School BCBA' },
+          ].map(({ path, label }) => {
+            const full = `https://behaviorschool.com${path}`;
+            const gsc = `https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent('https://behaviorschool.com')}&url=${encodeURIComponent(full)}`;
+            const copied = copiedPath === path;
+            return (
+              <div key={path} className="flex items-center justify-between gap-3 border border-slate-200 rounded-lg p-3">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium text-slate-900 truncate">{label}</div>
+                  <div className="text-xs text-slate-600 truncate">{full}</div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      navigator.clipboard.writeText(full).then(() => setCopiedPath(path));
+                      setTimeout(() => setCopiedPath(null), 1500);
+                    }}
+                  >
+                    {copied ? 'Copied' : 'Copy URL'}
+                  </Button>
+                  <a href={full} target="_blank" rel="noopener" className="text-xs px-3 py-2 border border-slate-200 rounded-md hover:bg-slate-50">Open</a>
+                  <a href={gsc} target="_blank" rel="noopener" className="text-xs px-3 py-2 border border-emerald-200 text-emerald-700 rounded-md hover:bg-emerald-50">Open in GSC</a>
+                </div>
+              </div>
+            );
+          })}
+        </CardContent>
+      </Card>
 
       {/* Topic Clusters */}
       <div className="space-y-4">

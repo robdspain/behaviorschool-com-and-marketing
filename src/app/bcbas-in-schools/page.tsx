@@ -609,6 +609,11 @@ export default function BCBAsInSchoolsPage() {
                     Join Our Community
                   </Button>
                 </Link>
+                <Link href="/school-bcba">
+                  <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10 text-lg px-8 py-4">
+                    Explore School BCBA Hub
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

@@ -189,6 +189,11 @@ export function IEPBehaviorGoalsClient() {
                 <span className="relative z-10">Start Creating Goals Now</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
+              <div className="mt-2">
+                <a href="/iep-goal-qualitychecker" className="text-emerald-700 underline text-sm">
+                  Already have a goal? Check quality →
+                </a>
+              </div>
 
               {/* Widget Preview Image */}
               <div className="mt-8">
