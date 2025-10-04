@@ -346,7 +346,8 @@ function buildHTMLForPrint(txt: string, findings: Finding[], score: number) {
 }
 
 function escapeHtml(s: string) {
-  return s.replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'} as any)[c] || c);
+  const htmlEntities: Record<string, string> = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'};
+  return s.replace(/[&<>"']/g, (c) => htmlEntities[c] || c);
 }
 
 function generateDraftGoal(txt: string, findings: Finding[]) {
@@ -354,14 +355,13 @@ function generateDraftGoal(txt: string, findings: Finding[]) {
   const map = new Map(findings.map(f => [f.label, f.ok] as const));
 
   const condition = map.get('Includes clear condition (Given/With/During)') ? '' : 'Given a visual schedule and first/then board, ';
-  const behaviorPresent = map.get('Identifies observable target behavior');
   const supports = map.get('Lists supports/accommodations') ? '' : '';
   const measurement = map.get('Specifies measurement method') ? '' : 'as measured by event recording ';
   const criteria = map.get('Includes mastery criteria') ? '' : 'in 90% of opportunities across three consecutive days ';
   const timeframe = map.get('Has timeframe/end date') ? '' : `by ${futureDate(12)} `;
   const observer = map.get('States who is measuring/observing') ? '' : 'by teacher using a data sheet ';
 
-  let base = t || 'the student will request a break using a break card or vocal request ';
+  const base = t || 'the student will request a break using a break card or vocal request ';
   const sentence = `${condition}${base}`
     .replace(/\s+/g, ' ')
     .trim()
