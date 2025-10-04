@@ -1,19 +1,10 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { useAnalytics } from "@/hooks/useAnalytics";
-
-export const metadata: Metadata = {
-  title: "IEP Behavior Goal Quality Checker | Free Tool",
-  description:
-    "Paste any IEP behavior goal and get instant, rule-based feedback on measurability, conditions, criteria (90–100%), and monitoring.",
-  alternates: { canonical: "https://behaviorschool.com/iep-goal-qualitychecker" },
-  robots: { index: true, follow: true },
-};
 
 type Finding = { label: string; ok: boolean; hint?: string };
 
