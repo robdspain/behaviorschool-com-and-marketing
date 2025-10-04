@@ -17,7 +17,8 @@
 [[plugins]]
   package = "netlify-plugin-submit-sitemap"
   [plugins.inputs]
-    sitemapUrl = "https://behaviorschool.com/sitemap.xml"
+    baseUrl = "https://behaviorschool.com"
+    sitemapPath = "/sitemap.xml"
     providers = ["google", "bing"]
 
 # Next.js handles routing, only redirect specific cases
