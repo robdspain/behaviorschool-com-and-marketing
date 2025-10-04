@@ -274,9 +274,9 @@ export default function SiteMapViewer() {
       {/* Manual GSC Submission */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Manual GSC Submission</CardTitle>
+          <CardTitle className="text-lg font-bold text-slate-900">Manual GSC Submission</CardTitle>
           <CardDescription>
-            Quick links to copy URLs and open Google Search Console’s URL Inspection for manual indexing.
+            Quick links to copy URLs and open Google Search Console&apos;s URL Inspection for manual indexing.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
@@ -292,7 +292,7 @@ export default function SiteMapViewer() {
             const gsc = `https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent('https://behaviorschool.com')}&url=${encodeURIComponent(full)}`;
             const copied = copiedPath === path;
             return (
-              <div key={path} className="flex items-center justify-between gap-3 border border-slate-200 rounded-lg p-3">
+              <div key={path} className="flex items-center justify-between gap-3 border border-slate-200 rounded-lg p-3 hover:border-slate-300 transition-colors">
                 <div className="min-w-0">
                   <div className="text-sm font-medium text-slate-900 truncate">{label}</div>
                   <div className="text-xs text-slate-600 truncate">{full}</div>
@@ -305,11 +305,12 @@ export default function SiteMapViewer() {
                       navigator.clipboard.writeText(full).then(() => setCopiedPath(path));
                       setTimeout(() => setCopiedPath(null), 1500);
                     }}
+                    className="hover:bg-slate-50 transition-colors"
                   >
                     {copied ? 'Copied' : 'Copy URL'}
                   </Button>
-                  <a href={full} target="_blank" rel="noopener" className="text-xs px-3 py-2 border border-slate-200 rounded-md hover:bg-slate-50">Open</a>
-                  <a href={gsc} target="_blank" rel="noopener" className="text-xs px-3 py-2 border border-emerald-200 text-emerald-700 rounded-md hover:bg-emerald-50">Open in GSC</a>
+                  <a href={full} target="_blank" rel="noopener" className="text-xs px-3 py-2 border border-slate-200 text-slate-700 rounded-md hover:bg-slate-50 transition-colors font-medium">Open</a>
+                  <a href={gsc} target="_blank" rel="noopener" className="text-xs px-3 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors font-semibold">Open in GSC</a>
                 </div>
               </div>
             );
