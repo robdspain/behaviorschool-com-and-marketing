@@ -8,10 +8,10 @@ export async function middleware(request: NextRequest) {
 
   // Admin route protection - redirect to login if not authenticated
   // Exclude /admin/login, /api/auth, and callback routes from protection
-  const isAdminRoute = pathname.startsWith('/admin');
-  const isLoginPage = pathname === '/admin/login';
+  const isLoginPage = pathname === '/admin/login' || pathname.startsWith('/admin/login/');
   const isAuthRoute = pathname.startsWith('/api/auth');
   const hasAuthCallback = request.nextUrl.searchParams.has('code'); // OAuth callback
+  const isAdminRoute = pathname.startsWith('/admin');
 
   if (isAdminRoute && !isLoginPage && !isAuthRoute && !hasAuthCallback) {
     // Check for any Supabase auth cookies (they follow pattern sb-{project-ref}-auth-token*)
