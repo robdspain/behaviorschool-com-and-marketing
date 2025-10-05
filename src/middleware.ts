@@ -10,20 +10,16 @@ export async function middleware(request: NextRequest) {
   // IMPORTANT: Check exclusions BEFORE checking if it's an admin route
   const isAuthRoute = pathname.startsWith('/api/auth');
   const isLoginPage = pathname.includes('/login'); // More permissive - catches any login path
-  const hasAuthCallback = request.nextUrl.searchParams.has('code'); // OAuth callback
 
-  // Only protect admin routes that are NOT login/auth/callback
-  const needsAuth = pathname.startsWith('/admin') && !isLoginPage && !isAuthRoute && !hasAuthCallback;
+  // Only protect admin routes that are NOT login/auth
+  const needsAuth = pathname.startsWith('/admin') && !isLoginPage && !isAuthRoute;
 
   if (needsAuth) {
-    // Check for any Supabase auth cookies (they follow pattern sb-{project-ref}-auth-token*)
-    const cookies = request.cookies.getAll();
-    const hasSupabaseAuth = cookies.some(cookie =>
-      cookie.name.startsWith('sb-') && cookie.name.includes('auth-token')
-    );
+    // Check for admin session cookie (set by Google Identity Services)
+    const adminSession = request.cookies.get('admin_session');
 
-    // If no Supabase auth cookies found, redirect to login
-    if (!hasSupabaseAuth) {
+    // If no admin session found, redirect to login
+    if (!adminSession) {
       const loginUrl = new URL('/admin/login', request.url);
       loginUrl.searchParams.set('error', 'unauthorized');
       return NextResponse.redirect(loginUrl);
