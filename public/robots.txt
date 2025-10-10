@@ -48,6 +48,8 @@ Disallow: /*/ghost/
 Disallow: /*.json$
 Disallow: /feed.json
 Disallow: /posts/
+Disallow: /featured/
+Disallow: /featured
 Disallow: /*?*
 Disallow: /*.php$
 Disallow: /*.asp$
