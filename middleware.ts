@@ -98,6 +98,12 @@ export async function middleware(request: NextRequest) {
     // For all other admin routes, check admin_session cookie
     const adminSessionCookie = request.cookies.get('admin_session')?.value
 
+    console.log('[Admin Auth] Checking route access:', {
+      path: request.nextUrl.pathname,
+      hasCookie: !!adminSessionCookie,
+      cookiePreview: adminSessionCookie?.substring(0, 50)
+    })
+
     if (!adminSessionCookie) {
       console.log('[Admin Auth] No admin session, redirecting to login')
       return NextResponse.redirect(new URL('/admin/login', request.url))
@@ -111,11 +117,15 @@ export async function middleware(request: NextRequest) {
       console.log('[Admin Auth] Route access check:', {
         path: request.nextUrl.pathname,
         email: userEmail,
-        isAuthorized
+        isAuthorized,
+        sessionData: JSON.stringify(sessionData).substring(0, 100)
       })
 
       if (!isAuthorized) {
-        console.log('[Admin Auth] Unauthorized access attempt:', userEmail)
+        console.log('[Admin Auth] UNAUTHORIZED - Email not in allowed list:', {
+          email: userEmail,
+          allowedEmails: AUTHORIZED_ADMIN_EMAILS
+        })
         const signOutUrl = new URL('/admin/login', request.url)
         signOutUrl.searchParams.set('error', 'unauthorized')
         const signOutResponse = NextResponse.redirect(signOutUrl)

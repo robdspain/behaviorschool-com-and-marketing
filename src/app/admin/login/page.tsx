@@ -48,12 +48,18 @@ function LoginPageContent() {
   useEffect(() => {
     // Check for error in URL params
     const errorParam = searchParams.get('error')
+
+    // Debug: log all cookies
+    console.log('[Login Page] All cookies:', document.cookie)
+    console.log('[Login Page] Error param:', errorParam)
+
     if (errorParam === 'unauthorized') {
       setError('Access denied. Only authorized administrators can access this panel.')
 
       // Clear all Supabase session data to prevent redirect loop
       fetch('/api/admin/auth/logout', { method: 'POST' })
         .then(() => {
+          console.log('[Login Page] Logout complete')
           // Also clear any client-side storage
           if (typeof window !== 'undefined') {
             localStorage.clear()
@@ -62,6 +68,7 @@ function LoginPageContent() {
             document.cookie.split(";").forEach((c) => {
               document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
             });
+            console.log('[Login Page] All storage cleared')
           }
         })
         .catch(err => console.error('Logout error:', err))
