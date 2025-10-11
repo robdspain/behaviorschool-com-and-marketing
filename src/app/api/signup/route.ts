@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     const renderTemplate = (template: string, data: Record<string, string>) => {
       let rendered = template;
       for (const key in data) {
-        rendered = rendered.replace(new RegExp(`\$\{${key}\}`, 'g'), data[key]);
+        rendered = rendered.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), data[key]);
       }
       return rendered;
     };

@@ -57,10 +57,11 @@ export async function middleware(request: NextRequest) {
   // Refresh session if expired - required for Server Components
   const { data: { session }, error } = await supabase.auth.getSession()
 
-  // Whitelist of authorized admin emails
+  // Import the centralized authorized admin emails list
   const AUTHORIZED_ADMIN_EMAILS = [
-    'rob@behaviorschool.com',
-    // Add more authorized emails here as needed
+    'robspain@gmail.com',
+    'behaviorschoolcommunity@gmail.com',
+    'rob@behaviorschool.com'
   ]
 
   // Protect admin routes

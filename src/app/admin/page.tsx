@@ -294,15 +294,30 @@ export default function AdminDashboardPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6"
+        className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
       >
+        <Link
+          href="/admin/crm"
+          className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg shadow-md p-6 hover:shadow-lg transition-all transform hover:-translate-y-1"
+        >
+          <div className="flex items-center gap-4 text-white">
+            <div className="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+              <Users className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="font-semibold">CRM System</h3>
+              <p className="text-sm text-emerald-100">Manage contacts & pipeline</p>
+            </div>
+          </div>
+        </Link>
+
         <Link
           href="/admin/signups"
           className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-              <Users className="w-6 h-6 text-emerald-600" />
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <Users className="w-6 h-6 text-blue-600" />
             </div>
             <div>
               <h3 className="font-semibold text-slate-900">Manage Signups</h3>
@@ -316,8 +331,8 @@ export default function AdminDashboardPage() {
           className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-emerald-600" />
+            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-purple-600" />
             </div>
             <div>
               <h3 className="font-semibold text-slate-900">Leads</h3>
@@ -327,27 +342,12 @@ export default function AdminDashboardPage() {
         </Link>
 
         <Link
-          href="/admin/users"
-          className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow"
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <Users className="w-6 h-6 text-blue-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900">User Management</h3>
-              <p className="text-sm text-slate-600">Manage user accounts and permissions</p>
-            </div>
-          </div>
-        </Link>
-
-        <Link
           href="/admin/analytics"
           className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow"
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-purple-600" />
+            <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-orange-600" />
             </div>
             <div>
               <h3 className="font-semibold text-slate-900">Analytics</h3>
