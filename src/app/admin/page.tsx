@@ -1,13 +1,47 @@
-export default function AdminPage() {
+export const dynamic = 'force-dynamic'
+
+export default function AdminDashboard() {
+  console.log('[Admin Page] Rendering admin dashboard - AUTH DISABLED')
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">Admin Dashboard</h1>
-        <p className="text-slate-600">Authentication temporarily disabled for testing</p>
-        <div className="mt-8 p-6 bg-white rounded-lg shadow">
-          <p className="text-lg text-green-600">✓ You can access the admin panel!</p>
+    <html>
+      <head>
+        <title>Admin Dashboard</title>
+      </head>
+      <body>
+        <div style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#f8fafc',
+          fontFamily: 'system-ui, sans-serif',
+          padding: '20px'
+        }}>
+          <div style={{ textAlign: 'center', maxWidth: '600px' }}>
+            <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#0f172a', marginBottom: '1rem' }}>
+              ✓ Admin Dashboard
+            </h1>
+            <p style={{ fontSize: '1.25rem', color: '#64748b', marginBottom: '2rem' }}>
+              Authentication temporarily disabled for testing
+            </p>
+            <div style={{
+              marginTop: '2rem',
+              padding: '2rem',
+              backgroundColor: 'white',
+              borderRadius: '0.5rem',
+              boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1)'
+            }}>
+              <p style={{ fontSize: '1.125rem', color: '#10b981', fontWeight: '600' }}>
+                ✓ You successfully accessed the admin panel!
+              </p>
+              <p style={{ fontSize: '0.875rem', color: '#64748b', marginTop: '1rem' }}>
+                Route: /admin
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </body>
+    </html>
   )
 }
