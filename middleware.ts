@@ -70,13 +70,29 @@ export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname === '/admin/login') {
       // If already authenticated, check if user is authorized admin
       if (session && session.user?.email) {
-        if (AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+        const userEmail = session.user.email.toLowerCase().trim()
+        const isAuthorized = AUTHORIZED_ADMIN_EMAILS.includes(userEmail)
+
+        // Debug logging
+        console.log('[Admin Auth] Login page check:', {
+          email: userEmail,
+          isAuthorized,
+          authorizedEmails: AUTHORIZED_ADMIN_EMAILS
+        })
+
+        if (isAuthorized) {
           return NextResponse.redirect(new URL('/admin', request.url))
         } else {
-          // Authenticated but not authorized - sign them out and show error
+          // Authenticated but not authorized - sign them out
+          console.log('[Admin Auth] Unauthorized email, signing out:', userEmail)
+          await supabase.auth.signOut()
           const signOutUrl = new URL('/admin/login', request.url)
           signOutUrl.searchParams.set('error', 'unauthorized')
-          return NextResponse.redirect(signOutUrl)
+          const signOutResponse = NextResponse.redirect(signOutUrl)
+          // Clear all auth cookies
+          signOutResponse.cookies.delete('sb-access-token')
+          signOutResponse.cookies.delete('sb-refresh-token')
+          return signOutResponse
         }
       }
       return response
@@ -84,14 +100,30 @@ export async function middleware(request: NextRequest) {
 
     // For all other admin routes, require authentication and authorization
     if (!session || !session.user?.email) {
+      console.log('[Admin Auth] No session, redirecting to login')
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
 
     // Check if user is authorized admin
-    if (!AUTHORIZED_ADMIN_EMAILS.includes(session.user.email)) {
+    const userEmail = session.user.email.toLowerCase().trim()
+    const isAuthorized = AUTHORIZED_ADMIN_EMAILS.includes(userEmail)
+
+    console.log('[Admin Auth] Route access check:', {
+      path: request.nextUrl.pathname,
+      email: userEmail,
+      isAuthorized
+    })
+
+    if (!isAuthorized) {
+      console.log('[Admin Auth] Unauthorized access attempt, signing out:', userEmail)
+      await supabase.auth.signOut()
       const signOutUrl = new URL('/admin/login', request.url)
       signOutUrl.searchParams.set('error', 'unauthorized')
-      return NextResponse.redirect(signOutUrl)
+      const signOutResponse = NextResponse.redirect(signOutUrl)
+      // Clear all auth cookies
+      signOutResponse.cookies.delete('sb-access-token')
+      signOutResponse.cookies.delete('sb-refresh-token')
+      return signOutResponse
     }
   }
 
