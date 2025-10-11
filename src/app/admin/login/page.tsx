@@ -50,6 +50,21 @@ function LoginPageContent() {
     const errorParam = searchParams.get('error')
     if (errorParam === 'unauthorized') {
       setError('Access denied. Only authorized administrators can access this panel.')
+
+      // Clear all Supabase session data to prevent redirect loop
+      fetch('/api/admin/auth/logout', { method: 'POST' })
+        .then(() => {
+          // Also clear any client-side storage
+          if (typeof window !== 'undefined') {
+            localStorage.clear()
+            sessionStorage.clear()
+            // Clear all cookies
+            document.cookie.split(";").forEach((c) => {
+              document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+          }
+        })
+        .catch(err => console.error('Logout error:', err))
     }
     setCheckingAuth(false)
   }, [searchParams])
