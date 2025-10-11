@@ -68,6 +68,20 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/admin')) {
     // Allow access to login page
     if (request.nextUrl.pathname === '/admin/login') {
+      // If there's an error parameter, always show the login page (prevents redirect loop)
+      if (request.nextUrl.searchParams.has('error')) {
+        // Clear any existing session to ensure clean login
+        if (session) {
+          await supabase.auth.signOut()
+        }
+        const cleanResponse = NextResponse.next({
+          request: { headers: request.headers }
+        })
+        cleanResponse.cookies.delete('sb-access-token')
+        cleanResponse.cookies.delete('sb-refresh-token')
+        return cleanResponse
+      }
+
       // If already authenticated, check if user is authorized admin
       if (session && session.user?.email) {
         const userEmail = session.user.email.toLowerCase().trim()
