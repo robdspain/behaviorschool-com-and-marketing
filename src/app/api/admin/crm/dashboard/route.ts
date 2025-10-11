@@ -68,12 +68,17 @@ export async function GET() {
     });
 
     // Format activities with contact names
-    const recentActivities = activities?.map((activity: any) => ({
-      ...activity,
-      contact_name: activity.crm_contacts
-        ? `${activity.crm_contacts.first_name} ${activity.crm_contacts.last_name}`
-        : 'Unknown Contact'
-    })) || [];
+    const recentActivities = activities?.map((activity) => {
+      const contact = Array.isArray(activity.crm_contacts) && activity.crm_contacts.length > 0
+        ? activity.crm_contacts[0]
+        : activity.crm_contacts;
+      return {
+        ...activity,
+        contact_name: contact && typeof contact === 'object' && 'first_name' in contact && 'last_name' in contact
+          ? `${contact.first_name} ${contact.last_name}`
+          : 'Unknown Contact'
+      };
+    }) || [];
 
     // Get contact names for tasks
     const taskContactIds = tasks?.map(t => t.contact_id).filter(Boolean) || [];

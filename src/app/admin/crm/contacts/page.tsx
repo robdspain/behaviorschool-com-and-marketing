@@ -11,12 +11,8 @@ import {
   Mail,
   Building2,
   Tag,
-  MoreVertical,
   Eye,
   Edit,
-  Trash2,
-  Star,
-  StarOff,
   X
 } from 'lucide-react';
 
@@ -43,29 +39,6 @@ export default function ContactsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
-  const [showAddModal, setShowAddModal] = useState(false);
-
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
-  useEffect(() => {
-    filterContacts();
-  }, [contacts, searchQuery, statusFilter]);
-
-  const fetchContacts = async () => {
-    try {
-      const response = await fetch('/api/admin/crm/contacts');
-      if (response.ok) {
-        const data = await response.json();
-        setContacts(data);
-      }
-    } catch (error) {
-      console.error('Error fetching contacts:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const filterContacts = () => {
     let filtered = contacts;
@@ -88,6 +61,29 @@ export default function ContactsPage() {
     }
 
     setFilteredContacts(filtered);
+  };
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
+  useEffect(() => {
+    filterContacts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contacts, searchQuery, statusFilter]);
+
+  const fetchContacts = async () => {
+    try {
+      const response = await fetch('/api/admin/crm/contacts');
+      if (response.ok) {
+        const data = await response.json();
+        setContacts(data);
+      }
+    } catch (error) {
+      console.error('Error fetching contacts:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -132,7 +128,6 @@ export default function ContactsPage() {
           <p className="text-slate-600">{filteredContacts.length} total contacts</p>
         </div>
         <button
-          onClick={() => setShowAddModal(true)}
           className="flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition-colors"
         >
           <Plus className="w-5 h-5" />
@@ -188,7 +183,6 @@ export default function ContactsPage() {
             </p>
             {contacts.length === 0 && (
               <button
-                onClick={() => setShowAddModal(true)}
                 className="inline-flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700"
               >
                 <Plus className="w-5 h-5" />

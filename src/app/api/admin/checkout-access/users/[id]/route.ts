@@ -4,12 +4,12 @@ import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 // PATCH - Update user
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createSupabaseAdminClient();
     const body = await request.json();
-    const { id } = params;
+    const { id } = await params;
 
     const { data, error } = await supabase
       .from('checkout_access')
@@ -39,11 +39,11 @@ export async function PATCH(
 // DELETE - Remove user
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createSupabaseAdminClient();
-    const { id } = params;
+    const { id } = await params;
 
     const { error } = await supabase
       .from('checkout_access')

@@ -11,12 +11,27 @@ import {
   Phone,
   Mail,
   Calendar,
-  AlertCircle,
   Target,
   Activity,
   Plus
 } from 'lucide-react';
 import Link from 'next/link';
+
+interface Activity {
+  id: string;
+  activity_type: string;
+  subject: string;
+  contact_name: string;
+  activity_date: string;
+}
+
+interface Task {
+  id: string;
+  title: string;
+  contact_name: string;
+  priority: string;
+  due_date: string;
+}
 
 interface CRMStats {
   totalContacts: number;
@@ -25,8 +40,8 @@ interface CRMStats {
   pendingTasks: number;
   contactsByStatus: { [key: string]: number };
   dealsByStage: { [key: string]: number };
-  recentActivities: any[];
-  upcomingTasks: any[];
+  recentActivities: Activity[];
+  upcomingTasks: Task[];
 }
 
 export default function CRMDashboard() {
@@ -237,7 +252,7 @@ export default function CRMDashboard() {
           </div>
           <div className="divide-y divide-slate-200">
             {stats.recentActivities.length > 0 ? (
-              stats.recentActivities.slice(0, 5).map((activity: any) => (
+              stats.recentActivities.slice(0, 5).map((activity) => (
                 <div key={activity.id} className="p-4 hover:bg-slate-50">
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -288,7 +303,7 @@ export default function CRMDashboard() {
           </div>
           <div className="divide-y divide-slate-200">
             {stats.upcomingTasks.length > 0 ? (
-              stats.upcomingTasks.slice(0, 5).map((task: any) => (
+              stats.upcomingTasks.slice(0, 5).map((task) => (
                 <div key={task.id} className="p-4 hover:bg-slate-50">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">
