@@ -1,20 +1,29 @@
 import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase-server'
+import { cookies } from 'next/headers'
 import { isAuthorizedAdmin } from '@/lib/admin-config'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // Check admin_session cookie (Google Identity Services auth)
+  const cookieStore = await cookies()
+  const adminSessionCookie = cookieStore.get('admin_session')?.value
 
-  const email = user?.email?.toLowerCase() || null
+  if (!adminSessionCookie) {
+    redirect('/admin/login')
+  }
 
-  if (!email || !isAuthorizedAdmin(email)) {
-    redirect('/admin/login?error=unauthorized')
+  try {
+    const sessionData = JSON.parse(adminSessionCookie)
+    const email = sessionData.email?.toLowerCase()
+
+    if (!email || !isAuthorizedAdmin(email)) {
+      redirect('/admin/login?error=unauthorized')
+    }
+  } catch (e) {
+    console.error('[AdminLayout] Invalid session cookie:', e)
+    redirect('/admin/login')
   }
 
   return <>{children}</>
