@@ -29,14 +29,7 @@ export const LazyConversionTrackingDashboard = dynamic(
   }
 );
 
-// Lazy load admin components
-export const LazyAdminAnalytics = dynamic(
-  () => import('@/app/admin/analytics/page'),
-  { 
-    ssr: false,
-    loading: () => <div className="animate-pulse bg-slate-200 rounded-lg h-64 w-full" />
-  }
-);
+// Admin components removed during auth rebuild
 
 // Lazy load heavy UI components
 export const LazyMotionDiv = dynamic(
