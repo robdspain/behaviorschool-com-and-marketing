@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckCircle, XCircle, ArrowRight, RefreshCw, Loader2 } from "lucide-react";
+import { CheckCircle, XCircle, ArrowRight, RefreshCw, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import confetti from "canvas-confetti";
 
 interface QuizQuestion {
   id: string;
@@ -24,9 +25,7 @@ interface FreeQuizWidgetProps {
 
 export function FreeQuizWidget({
   questions,
-  title = "Take the Practice Quiz",
   ctaUrl = "https://study.behaviorschool.com",
-  ctaText = "Continue with Full Adaptive Practice"
 }: FreeQuizWidgetProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -34,15 +33,66 @@ export function FreeQuizWidget({
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [startTime, setStartTime] = useState<number>(Date.now());
-  const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now());
   const [isComplete, setIsComplete] = useState(false);
+  const [attemptsToday, setAttemptsToday] = useState(0);
+  const [dailyLimitReached, setDailyLimitReached] = useState(false);
+  const [timeUntilReset, setTimeUntilReset] = useState("");
 
   const currentQuestion = questions[currentQuestionIndex];
   const progress = ((answeredQuestions.size) / questions.length) * 100;
 
+  // Daily limit tracking
   useEffect(() => {
-    setQuestionStartTime(Date.now());
-  }, [currentQuestionIndex]);
+    const checkDailyLimit = () => {
+      const today = new Date().toDateString();
+      const storedData = localStorage.getItem('quiz_attempts');
+      
+      if (storedData) {
+        const { date, attempts } = JSON.parse(storedData);
+        
+        if (date === today) {
+          setAttemptsToday(attempts);
+          if (attempts >= 3) {
+            setDailyLimitReached(true);
+          }
+        } else {
+          // New day, reset
+          localStorage.setItem('quiz_attempts', JSON.stringify({ date: today, attempts: 0 }));
+          setAttemptsToday(0);
+          setDailyLimitReached(false);
+        }
+      } else {
+        // First time
+        localStorage.setItem('quiz_attempts', JSON.stringify({ date: today, attempts: 0 }));
+        setAttemptsToday(0);
+      }
+    };
+
+    checkDailyLimit();
+  }, []);
+
+  // Calculate time until reset
+  useEffect(() => {
+    if (!dailyLimitReached) return;
+
+    const updateTimeUntilReset = () => {
+      const now = new Date();
+      const tomorrow = new Date(now);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+      
+      const diff = tomorrow.getTime() - now.getTime();
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      
+      setTimeUntilReset(`${hours}h ${minutes}m`);
+    };
+
+    updateTimeUntilReset();
+    const interval = setInterval(updateTimeUntilReset, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, [dailyLimitReached]);
 
   const handleAnswerSelect = (answer: string) => {
     if (showExplanation) return;
@@ -69,10 +119,66 @@ export function FreeQuizWidget({
       setShowExplanation(false);
     } else {
       setIsComplete(true);
+      // Trigger confetti if perfect score
+      if (correctAnswers + (selectedAnswer === currentQuestion.answer ? 1 : 0) === questions.length) {
+        triggerPerfectScoreConfetti();
+      }
     }
   };
 
+  const triggerPerfectScoreConfetti = () => {
+    const duration = 3000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+    const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+    const interval = window.setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+      });
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+      });
+    }, 250);
+  };
+
   const handleRestart = () => {
+    // Check and increment daily attempts
+    const today = new Date().toDateString();
+    const storedData = localStorage.getItem('quiz_attempts');
+    
+    if (storedData) {
+      const { date, attempts } = JSON.parse(storedData);
+      
+      if (date === today) {
+        const newAttempts = attempts + 1;
+        localStorage.setItem('quiz_attempts', JSON.stringify({ date: today, attempts: newAttempts }));
+        setAttemptsToday(newAttempts);
+        
+        if (newAttempts >= 3) {
+          setDailyLimitReached(true);
+          return; // Don't restart if limit reached
+        }
+      } else {
+        // New day
+        localStorage.setItem('quiz_attempts', JSON.stringify({ date: today, attempts: 1 }));
+        setAttemptsToday(1);
+      }
+    }
+
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setShowExplanation(false);
@@ -91,19 +197,33 @@ export function FreeQuizWidget({
     const totalTime = Math.floor((Date.now() - startTime) / 1000);
     const minutes = Math.floor(totalTime / 60);
     const seconds = totalTime % 60;
+    const isPerfectScore = correctAnswers === questions.length;
+
+    // Build context URL for study app
+    const studyAuthUrl = `${ctaUrl}/auth?source=free-quiz&score=${correctAnswers}&total=${questions.length}&time=${totalTime}&action=signup`;
 
     return (
       <div className="w-full max-w-4xl mx-auto">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900 mb-4">
-              <CheckCircle className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${
+              isPerfectScore
+                ? 'bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900 dark:to-amber-900'
+                : 'bg-emerald-100 dark:bg-emerald-900'
+            }`}>
+              {isPerfectScore ? (
+                <span className="text-4xl">🏆</span>
+              ) : (
+                <CheckCircle className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+              )}
             </div>
             <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-              Quiz Complete!
+              {isPerfectScore ? '🎉 Perfect Score!' : 'Quiz Complete!'}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              Great job completing the practice quiz
+              {isPerfectScore
+                ? 'Outstanding! You aced all 10 questions!'
+                : 'Great job completing the practice quiz'}
             </p>
           </div>
 
@@ -134,21 +254,96 @@ export function FreeQuizWidget({
             </div>
           </div>
 
+          {/* Daily Limit Warning */}
+          {dailyLimitReached && (
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-lg">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <span className="text-2xl">🔒</span>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-red-900 dark:text-red-100 mb-1">
+                    Daily Practice Limit Reached
+                  </p>
+                  <p className="text-xs text-red-800 dark:text-red-200 mb-2">
+                    You&apos;ve completed 3 free quizzes today. Reset in {timeUntilReset}
+                  </p>
+                  <p className="text-xs font-semibold text-red-900 dark:text-red-100">
+                    Create a free account for unlimited practice questions!
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Progress Warning */}
+          {!isPerfectScore && !dailyLimitReached && (
+            <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <span className="text-2xl">⚠️</span>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-amber-900 dark:text-amber-100 mb-1">
+                    Your progress isn&apos;t saved
+                  </p>
+                  <p className="text-xs text-amber-800 dark:text-amber-200">
+                    Create a free account to save your score and track improvement over time
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Attempts Counter */}
+          {!dailyLimitReached && attemptsToday > 0 && (
+            <div className="mb-6 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+              <p className="text-xs text-center text-blue-800 dark:text-blue-200">
+                📊 Quiz attempts today: {attemptsToday}/3 free attempts · <span className="font-semibold">Create account for unlimited</span>
+              </p>
+            </div>
+          )}
+
+          {isPerfectScore && (
+            <div className="mb-6 p-4 bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <span className="text-3xl">🎯</span>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-yellow-900 dark:text-yellow-100 mb-1">
+                    Perfect Score Achievement Unlocked! 🏆
+                  </p>
+                  <p className="text-xs text-yellow-800 dark:text-yellow-200">
+                    You&apos;re in the top 5% of quiz takers! Save your perfect score and unlock more achievements.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="space-y-4">
-            <Link href={ctaUrl} className="block">
-              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg py-6">
-                {ctaText}
-                <ArrowRight className="ml-2 h-5 w-5" />
+            <Link href={studyAuthUrl} className="block">
+              <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg py-6 shadow-lg hover:shadow-xl transition-all">
+                <Save className="mr-2 h-5 w-5" />
+                Save My Progress & Continue
+                <div className="ml-2 px-2 py-0.5 bg-white/20 rounded text-xs font-semibold">
+                  Free Forever
+                </div>
               </Button>
             </Link>
             <Button
               onClick={handleRestart}
               variant="outline"
               className="w-full text-lg py-6"
+              disabled={dailyLimitReached}
             >
               <RefreshCw className="mr-2 h-5 w-5" />
-              Restart Quiz
+              {dailyLimitReached ? `Reset in ${timeUntilReset}` : 'Try Again as Guest'}
             </Button>
+            <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+              Already have an account? <Link href={`${ctaUrl}/auth?action=login`} className="text-emerald-600 hover:text-emerald-700 font-medium">Sign in</Link>
+            </p>
           </div>
         </div>
       </div>
