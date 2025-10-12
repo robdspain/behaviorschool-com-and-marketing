@@ -16,8 +16,8 @@ export async function GET(request: NextRequest) {
 
   console.log('[Auth Callback] Processing OAuth code')
 
-  // Create response object first
-  let response = NextResponse.redirect(new URL(next, request.url))
+  // Create response object first (will be modified by cookie operations)
+  const response = NextResponse.redirect(new URL(next, request.url))
 
   const cookieStore = await cookies()
   const supabase = createServerClient(
