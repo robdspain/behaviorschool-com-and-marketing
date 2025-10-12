@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
     // Use Supabase admin client so RLS can remain strict on public tables
     const supabase = createSupabaseAdminClient();
     const body = await request.json();
-    const { firstName, lastName, email, role, currentChallenges } = body;
+    const { firstName, lastName, email, phone, role, currentChallenges } = body;
 
     // Validate required fields
     if (!firstName || !lastName || !email || !role) {
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
           first_name: firstName,
           last_name: lastName,
           email: email,
-          phone: null,
+          phone: phone || null,
           organization: 'Not collected',
           role: role,
           caseload_size: null,
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       firstName,
       lastName,
       email,
-      phone: 'Not collected',
+      phone: phone || 'Not provided',
       organization: 'Not collected',
       role,
       caseloadSize: 'Not collected',
@@ -97,10 +97,11 @@ export async function POST(request: NextRequest) {
     console.log('🎯 NEW SIGNUP NOTIFICATION:', {
       name: `${firstName} ${lastName}`,
       email: email,
+      phone: phone || 'Not provided',
       role: role,
       challenges: currentChallenges,
       timestamp: new Date().toLocaleString(),
-      actionRequired: 'Follow up within 24 hours!'
+      actionRequired: phone ? '📞 CALL PREFERRED - Phone provided!' : 'Follow up within 24 hours!'
     });
 
     // Send admin notification email (if configured and template found)

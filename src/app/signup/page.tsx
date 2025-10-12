@@ -11,6 +11,7 @@ export default function SignupPage() {
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
     role: "",
     currentChallenges: ""
   });
@@ -19,10 +20,29 @@ export default function SignupPage() {
   const [error, setError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+
+    // Auto-format phone number as user types
+    if (name === 'phone') {
+      const cleaned = value.replace(/\D/g, '');
+      let formatted = cleaned;
+
+      if (cleaned.length >= 6) {
+        formatted = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+      } else if (cleaned.length >= 3) {
+        formatted = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+      }
+
+      setFormData({
+        ...formData,
+        [name]: formatted
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -180,6 +200,23 @@ export default function SignupPage() {
                 </div>
               </div>
 
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
+                  Phone Number <span className="text-emerald-600 text-xs font-semibold">(Preferred for fastest response)</span>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  placeholder="(555) 123-4567"
+                />
+                <p className="text-xs text-slate-500 mt-1">
+                  💬 Optional but recommended - we can reach you 2-3x faster with a quick call to discuss your goals!
+                </p>
+              </div>
 
               <div>
                 <label htmlFor="role" className="block text-sm font-medium text-slate-700 mb-2">
@@ -207,18 +244,20 @@ export default function SignupPage() {
 
               <div>
                 <label htmlFor="currentChallenges" className="block text-sm font-medium text-slate-700 mb-2">
-                  Would you like to share your biggest current challenge? <span className="text-slate-500 text-sm">(Optional)</span>
+                  What&apos;s your biggest current challenge? <span className="text-slate-500 text-sm">(Optional but helps us prepare)</span>
                 </label>
                 <textarea
                   id="currentChallenges"
                   name="currentChallenges"
                   value={formData.currentChallenges}
                   onChange={handleInputChange}
-                  rows={3}
+                  rows={4}
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  placeholder="Feel free to share what&apos;s your biggest challenge right now - this helps us better support you! (e.g., teacher resistance, data collection, crisis management, etc.)"
+                  placeholder="Examples: struggling with teacher buy-in, overwhelmed by documentation, need better crisis protocols, can&apos;t show measurable outcomes, etc."
                 />
-                <p className="text-xs text-slate-500 mt-1">This is completely optional and helps us understand how to better serve you.</p>
+                <p className="text-xs text-slate-500 mt-1">
+                  Sharing this helps us tailor our consultation call specifically to your needs and show you relevant solutions right away.
+                </p>
               </div>
 
               <button
