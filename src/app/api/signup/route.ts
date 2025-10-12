@@ -180,12 +180,12 @@ I just saw your application for the School BCBA Transformation System come throu
 
 I know what it's like to feel overwhelmed by the demands of a school BCBA role—the endless FBAs, the pressure to show measurable results, and the challenge of getting buy-in from teachers and administrators. That's exactly why I created this system.
 
-I'd love to jump on a quick call with you to:
+If you haven't already booked your consultation call, I'd love to jump on a quick call with you to:
 → Understand your specific challenges and goals
 → Show you exactly how the system can transform your practice
 → Answer any questions you have about the program
 
-Book a time that works for you here:
+If you haven't already scheduled, book a time that works for you here:
 https://calendly.com/robspain/behavior-school-transformation-system-phone-call
 
 These spots fill up quickly, so grab a time while they're available.
@@ -224,7 +224,7 @@ Behavior School`;
 
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I know what it's like to feel overwhelmed by the demands of a school BCBA role—the endless FBAs, the pressure to show measurable results, and the challenge of getting buy-in from teachers and administrators. <strong>That's exactly why I created this system.</strong></p>
 
-              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">I'd love to jump on a quick call with you to:</p>
+              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">If you haven't already booked your consultation call, I'd love to jump on a quick call with you to:</p>
 
               <ul style="margin: 0 0 24px; padding-left: 20px; color: #334155;">
                 <li style="margin-bottom: 8px; font-size: 16px;">Understand your specific challenges and goals</li>
@@ -241,7 +241,7 @@ Behavior School`;
                 </tr>
               </table>
 
-              <p style="margin: 24px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>These spots fill up quickly, so grab a time while they're available.</em></p>
+              <p style="margin: 24px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>If you haven't already scheduled, these spots fill up quickly, so grab a time while they're available.</em></p>
             </td>
           </tr>
 
