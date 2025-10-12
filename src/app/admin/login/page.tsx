@@ -16,17 +16,14 @@ function LoginContent() {
       // Clear any existing auth state before starting new flow
       await supabase.auth.signOut({ scope: 'local' });
       
-      const origin = window.location.origin;
-      
-      console.log('[Login] Starting OAuth flow with origin:', origin);
+      console.log('[Login] Starting OAuth flow with implicit grant');
       
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${origin}/auth/callback?next=/admin`,
+          redirectTo: `${window.location.origin}/admin`,
           skipBrowserRedirect: false,
           queryParams: {
-            access_type: 'offline',
             prompt: 'select_account',
           }
         },
@@ -36,7 +33,7 @@ function LoginContent() {
         console.error('[Login] OAuth error:', error);
         alert(`Authentication failed: ${error.message}`);
       } else {
-        console.log('[Login] OAuth initiated successfully:', data);
+        console.log('[Login] OAuth initiated successfully');
       }
     } catch (err) {
       console.error('[Login] OAuth exception:', err);

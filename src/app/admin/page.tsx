@@ -2,10 +2,49 @@
 
 import Link from 'next/link'
 import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase-client'
+import { useRouter } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
 export default function AdminDashboard() {
+  const [loading, setLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const supabase = createClient()
+  const router = useRouter()
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      console.log('[Admin Dashboard] Session check:', session ? 'authenticated' : 'not authenticated')
+      
+      if (!session) {
+        console.log('[Admin Dashboard] No session, redirecting to login')
+        router.push('/admin/login')
+      } else {
+        setIsAuthenticated(true)
+      }
+      setLoading(false)
+    }
+
+    checkAuth()
+  }, [supabase, router])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading admin dashboard...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return null
+  }
   const adminSections = [
     {
       title: 'Form Submissions',
