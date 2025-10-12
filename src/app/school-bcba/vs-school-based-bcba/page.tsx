@@ -46,7 +46,9 @@ export default function Page() {
           <ul>
             <li>Use both phrases across your resume and portfolio to match recruiter searches.</li>
             <li>Create artifacts that map to district needs: 90-day plan, BIP sample, coaching cycle, progress monitoring templates.</li>
-            <li>Link to role-aligned tools: <Link href="/iep-goals" className="text-emerald-700 underline">IEP Goal Writer</Link>, <Link href="/behavior-plans" className="text-emerald-700 underline">Behavior Plan Writer</Link>, and the <Link href="/iep-goal-qualitychecker" className="text-emerald-700 underline">IEP Goal Quality Checker</Link>.</li>
+            <li>Link to role-aligned tools: <Link href="/iep-behavior-goals" className="text-emerald-700 underline">IEP Goal Writer</Link>, <Link href="/behavior-plans" className="text-emerald-700 underline">Behavior Plan Writer</Link>, and the <Link href="/iep-goal-qualitychecker" className="text-emerald-700 underline">IEP Goal Quality Checker</Link>.</li>
+            <li>Review salary expectations by state with our <Link href="/school-bcba/salary-by-state" className="text-emerald-700 underline">comprehensive salary guide</Link>.</li>
+            <li>Prepare for interviews using our <Link href="/school-bcba/job-guide-2025" className="text-emerald-700 underline">2025 job guide</Link> with real questions and scoring rubrics.</li>
           </ul>
 
           <h3>SEO Considerations for Districts</h3>
@@ -57,20 +59,46 @@ export default function Page() {
           </ul>
 
           <h3>FAQs</h3>
-          <p><strong>Is a “School BCBA” different from a “School-Based BCBA”?</strong> No. Both refer to a BCBA practicing in K–12 settings. The difference is language preference and search behavior.</p>
-          <p><strong>Which title should I use?</strong> Use both. Lead with “School BCBA” for job search visibility, and include “school-based BCBA” in long-form materials.</p>
+          <p><strong>Is a "School BCBA" different from a "School-Based BCBA"?</strong> No. Both refer to a BCBA practicing in K–12 settings. The difference is language preference and search behavior.</p>
+          <p><strong>Which title should I use?</strong> Use both. Lead with "School BCBA" for job search visibility, and include "school-based BCBA" in long-form materials.</p>
           <p><strong>How should I showcase impact?</strong> Provide a 90-day plan, staff coaching cycle, sample BIP, and progress monitoring visuals with clear outcomes.</p>
+          
+          <h3>Getting Started Resources</h3>
+          <p>Whether you're just entering the field or positioning yourself for a new role:</p>
+          <ul>
+            <li><strong>New to School-Based Work:</strong> Start with our <Link href="/school-bcba/how-to-become" className="text-emerald-700 underline">complete pathway guide</Link> covering credentials, fieldwork, and competencies.</li>
+            <li><strong>Already Certified:</strong> Review our <Link href="/school-bcba/job-guide-2025" className="text-emerald-700 underline">job guide</Link> for interview prep, resume keywords, and portfolio examples.</li>
+            <li><strong>Comparing Offers:</strong> Use our <Link href="/school-bcba/salary-by-state" className="text-emerald-700 underline">salary benchmarks</Link> to evaluate compensation packages.</li>
+            <li><strong>Building Your Practice:</strong> Explore the <Link href="/school-based-behavior-support" className="text-emerald-700 underline">school-based behavior support framework</Link> and <Link href="/the-act-matrix-a-framework-for-school-based-bcbas" className="text-emerald-700 underline">ACT Matrix for schools</Link>.</li>
+          </ul>
         </article>
 
         <aside className="md:col-span-1 space-y-4">
           <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <h3 className="font-semibold mb-2">Related Guides</h3>
-            <ul className="space-y-1 text-sm">
-              <li><Link className="text-emerald-700 hover:underline" href="/school-bcba">School BCBA Hub</Link></li>
-              <li><Link className="text-emerald-700 hover:underline" href="/school-bcba/job-guide">School BCBA Job Guide</Link></li>
-              <li><Link className="text-emerald-700 hover:underline" href="/school-bcba/salary-by-state">Salary by State</Link></li>
-              <li><Link className="text-emerald-700 hover:underline" href="/school-bcba/how-to-become">How to Become</Link></li>
+            <h3 className="font-semibold mb-3">Related Guides</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link className="text-emerald-700 hover:underline flex items-center" href="/school-bcba">🏠 School BCBA Hub</Link></li>
+              <li><Link className="text-emerald-700 hover:underline flex items-center" href="/school-bcba/job-guide-2025">📋 Job Guide 2025</Link></li>
+              <li><Link className="text-emerald-700 hover:underline flex items-center" href="/school-bcba/salary-by-state">💰 Salary by State</Link></li>
+              <li><Link className="text-emerald-700 hover:underline flex items-center" href="/school-bcba/how-to-become">🎓 How to Become</Link></li>
             </ul>
+          </div>
+
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+            <h3 className="font-semibold mb-3 text-emerald-900">Free Tools</h3>
+            <ul className="space-y-2 text-sm text-emerald-900">
+              <li><Link className="hover:underline" href="/iep-behavior-goals">IEP Goals Generator →</Link></li>
+              <li><Link className="hover:underline" href="/behavior-plans">Behavior Plan Writer →</Link></li>
+              <li><Link className="hover:underline" href="/iep-goal-qualitychecker">Goal Quality Checker →</Link></li>
+            </ul>
+          </div>
+
+          <div className="rounded-xl border border-blue-200 bg-blue-50 p-5">
+            <h3 className="font-semibold mb-2 text-blue-900 text-sm">Training Programs</h3>
+            <p className="text-xs text-blue-800 mb-3">Comprehensive training for school-based BCBAs</p>
+            <Link href="/school-based-bcba" className="text-blue-700 hover:underline text-sm font-medium">
+              Explore Program →
+            </Link>
           </div>
         </aside>
       </section>
