@@ -14,10 +14,19 @@ interface AnalyticsData {
   activeTemplates: number
 }
 
+interface TopResource {
+  name: string
+  views: number
+  downloads: number
+  originalKey: string
+}
+
 export default function AnalyticsPage() {
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [data, setData] = useState<AnalyticsData | null>(null)
+  const [topResources, setTopResources] = useState<TopResource[]>([])
+  const [resourcesLoading, setResourcesLoading] = useState(true)
   const supabase = createClient()
   const router = useRouter()
 
@@ -59,6 +68,27 @@ export default function AnalyticsPage() {
       console.error('Error fetching analytics:', error)
     }
   }
+
+  const fetchTopResources = async () => {
+    try {
+      const response = await fetch('/api/admin/top-resources')
+      const result = await response.json()
+      
+      if (result.success) {
+        setTopResources(result.resources)
+      }
+    } catch (error) {
+      console.error('Error fetching top resources:', error)
+    } finally {
+      setResourcesLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchTopResources()
+    }
+  }, [isAuthenticated])
 
   if (loading) {
     return (
@@ -213,30 +243,47 @@ export default function AnalyticsPage() {
         {/* Top Resources */}
         <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-8">
           <h3 className="text-xl font-bold text-slate-900 mb-6">Top Resources</h3>
-          <div className="space-y-4">
-            {[
-              { name: 'IEP Behavior Goals Generator', views: 1240, downloads: 856 },
-              { name: 'Behavior Plan Writer', views: 987, downloads: 654 },
-              { name: 'School BCBA Hub', views: 743, downloads: 432 },
-              { name: 'Free BCBA Practice Exam', views: 1532, downloads: 1203 }
-            ].map((resource, index) => (
-              <div key={index} className="flex items-center justify-between p-4 rounded-lg hover:bg-slate-50 transition-colors">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
-                    <Eye className="w-5 h-5 text-slate-600" />
+          {resourcesLoading ? (
+            <div className="space-y-4">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="flex items-center justify-between p-4 rounded-lg">
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="w-10 h-10 bg-slate-100 rounded-lg animate-pulse"></div>
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-slate-100 rounded animate-pulse w-3/4"></div>
+                      <div className="h-3 bg-slate-100 rounded animate-pulse w-1/2"></div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-slate-900">{resource.name}</p>
-                    <p className="text-sm text-slate-600">{resource.views.toLocaleString()} views</p>
+                  <div className="w-16 h-8 bg-slate-100 rounded animate-pulse"></div>
+                </div>
+              ))}
+            </div>
+          ) : topResources.length > 0 ? (
+            <div className="space-y-4">
+              {topResources.map((resource, index) => (
+                <div key={index} className="flex items-center justify-between p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+                      <Eye className="w-5 h-5 text-slate-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">{resource.name}</p>
+                      <p className="text-sm text-slate-600">{resource.views.toLocaleString()} estimated views</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold text-emerald-600">{resource.downloads.toLocaleString()}</p>
+                    <p className="text-sm text-slate-500">downloads</p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="font-semibold text-emerald-600">{resource.downloads.toLocaleString()}</p>
-                  <p className="text-sm text-slate-500">downloads</p>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-slate-500">
+              <Eye className="w-12 h-12 text-slate-400 mx-auto mb-3" />
+              <p>No download data available yet</p>
+            </div>
+          )}
         </div>
 
         {/* Coming Soon Notice */}
