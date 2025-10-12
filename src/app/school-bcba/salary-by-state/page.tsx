@@ -144,6 +144,78 @@ export default function Page() {
           </div>
         </aside>
       </section>
+
+      {/* Structured Data - FAQPage Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is the average School BCBA salary?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "School BCBA salaries vary significantly by state and district. Ranges include: California $90k-$125k+, Texas $70k-$95k, Florida $65k-$90k, New York $80k-$115k, Washington $85k-$115k, and Massachusetts $85k-$120k. Always verify with local district HR schedules."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What factors affect School BCBA salary?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Salary depends on: district step/column placement, years of experience, education level (Master's vs. Doctorate), geographic location, district size, stipends (bilingual, high-need sites), and total compensation package including benefits."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How can I negotiate a higher School BCBA salary?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Bring evidence of systems-level impact: 90-day implementation plan, sample IEP goals, behavior intervention plans, staff coaching cycles, and progress monitoring data. Demonstrate competencies in MTSS/PBIS alignment and data-driven decision making."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is included in School BCBA total compensation?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Beyond base salary: step/column increases (2-5% annually), education differentials, stipends for bilingual or high-need schools, extended year contracts (200+ days vs 180), professional development funds ($500-$2000/year), health benefits, retirement matching, and paid time off."
+                }
+              }
+            ]
+          })
+        }}
+      />
+
+      {/* Structured Data - Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "School BCBA Salary by State: 2025 Overview",
+            "description": "Comprehensive salary benchmarks for School BCBA positions across all 50 states with notes on cost of living, district factors, and compensation negotiation strategies.",
+            "author": {
+              "@type": "Organization",
+              "name": "Behavior School"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Behavior School",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://behaviorschool.com/optimized/og-image.webp"
+              }
+            },
+            "datePublished": "2025-01-15",
+            "dateModified": new Date().toISOString().split('T')[0]
+          })
+        }}
+      />
     </main>
   );
 }

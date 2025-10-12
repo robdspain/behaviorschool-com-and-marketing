@@ -102,6 +102,78 @@ export default function Page() {
           </div>
         </aside>
       </section>
+
+      {/* Structured Data - FAQPage Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Is a School BCBA different from a School-Based BCBA?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Both terms refer to a BCBA practicing in K-12 settings. The difference is language preference and search behavior. School BCBA tends to match how candidates search, while school-based BCBA appears more often in long-form content and training resources."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which title should I use: School BCBA or School-Based BCBA?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Use both. Lead with School BCBA for job search visibility and LinkedIn profiles, and include school-based BCBA in long-form materials, articles, and training descriptions. This maximizes discoverability across different search contexts."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How should I showcase my impact as a School BCBA?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Provide concrete artifacts: 90-day implementation plan, staff coaching cycle documentation, sample behavior intervention plans (BIPs), IEP goal quality examples, and progress monitoring visuals with clear outcome data. Demonstrate systems-level impact aligned with MTSS/PBIS frameworks."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What are the core responsibilities of a School BCBA?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Core responsibilities include: conducting functional behavior assessments (FBAs), developing behavior intervention plans (BIPs), collaborating on IEPs, aligning interventions with MTSS/PBIS frameworks, coaching staff, implementing systems-level supports, and using data-driven decision making."
+                }
+              }
+            ]
+          })
+        }}
+      />
+
+      {/* Structured Data - Article Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "School BCBA vs School-Based BCBA: What's the Difference?",
+            "description": "Clarity on titles, roles, and search intent: how School BCBA differs from School-Based BCBA and why the wording matters for districts and candidates.",
+            "author": {
+              "@type": "Organization",
+              "name": "Behavior School"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Behavior School",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://behaviorschool.com/optimized/og-image.webp"
+              }
+            },
+            "datePublished": "2025-01-15",
+            "dateModified": new Date().toISOString().split('T')[0]
+          })
+        }}
+      />
     </main>
   );
 }

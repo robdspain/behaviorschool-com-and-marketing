@@ -128,6 +128,67 @@ export default function SchoolBCBAHub() {
           />
         </div>
       </section>
+
+      {/* Structured Data - WebPage + BreadcrumbList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "School BCBA Hub: Tools, Guides, Jobs, and Training",
+            "description": "School BCBA hub with tools, job guides, salary insights, and step-by-step training. Build authority in schools with practical systems, IEP goal tools, and MTSS-aligned resources.",
+            "url": "https://behaviorschool.com/school-bcba",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://behaviorschool.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "School BCBA",
+                  "item": "https://behaviorschool.com/school-bcba"
+                }
+              ]
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "School BCBA Resources",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "School BCBA vs School-Based BCBA",
+                  "url": "https://behaviorschool.com/school-bcba/vs-school-based-bcba"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "School BCBA Job Guide",
+                  "url": "https://behaviorschool.com/school-bcba/job-guide"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "School BCBA Salary by State",
+                  "url": "https://behaviorschool.com/school-bcba/salary-by-state"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "How to Become a School BCBA",
+                  "url": "https://behaviorschool.com/school-bcba/how-to-become"
+                }
+              ]
+            }
+          })
+        }}
+      />
     </main>
   );
 }
