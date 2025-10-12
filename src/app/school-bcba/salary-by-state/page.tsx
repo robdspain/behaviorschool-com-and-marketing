@@ -60,7 +60,7 @@ export default function Page() {
             <div className="space-y-3 text-sm text-emerald-900">
               <p><strong>Bring Evidence of Impact:</strong> When negotiating, bring a 90-day systems plan and sample artifacts (<Link href="/iep-behavior-goals" className="underline hover:text-emerald-700">IEP goals</Link>, <Link href="/behavior-plans" className="underline hover:text-emerald-700">BIP</Link>, coaching plan). Demonstrating systems impact often improves offers.</p>
               <p><strong>Understand the Job Market:</strong> Research the specific <Link href="/school-bcba/job-guide" className="underline hover:text-emerald-700">job requirements</Link> and expectations for your target district.</p>
-              <p><strong>Highlight Credentials:</strong> If you're still pursuing certification, review our <Link href="/school-bcba/how-to-become" className="underline hover:text-emerald-700">complete pathway guide</Link> to understand the full qualification process.</p>
+              <p><strong>Highlight Credentials:</strong> If you&apos;re still pursuing certification, review our <Link href="/school-bcba/how-to-become" className="underline hover:text-emerald-700">complete pathway guide</Link> to understand the full qualification process.</p>
             </div>
           </div>
 
@@ -70,7 +70,7 @@ export default function Page() {
               <p><strong>Total Compensation Includes:</strong></p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Step/column increases (typically 2-5% annually)</li>
-                <li>Education differentials (Master's vs. Doctorate)</li>
+                <li>Education differentials (Master&apos;s vs. Doctorate)</li>
                 <li>Stipends (bilingual, high-need schools, department chair)</li>
                 <li>Extended year contracts (200+ days vs. 180)</li>
                 <li>Professional development funds ($500-$2000/year)</li>
