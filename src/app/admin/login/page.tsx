@@ -53,14 +53,23 @@ function LoginContent() {
 
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+            <div className="mb-6 p-4 bg-red-50 border-2 border-red-300 rounded-xl flex items-start gap-3">
               <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
               <div className="flex-1">
-                <p className="text-sm font-medium text-red-800">Authentication Error</p>
-                <p className="text-sm text-red-700 mt-1">
+                <p className="text-sm font-bold text-red-900 mb-1">Authentication Error</p>
+                <p className="text-sm text-red-800 mb-2">
                   {error === 'unauthorized' && 'You need to sign in to access this page.'}
                   {error === 'missing_code' && 'OAuth code was missing from the callback.'}
-                  {error !== 'unauthorized' && error !== 'missing_code' && decodeURIComponent(error)}
+                  {(error.includes('code verifier') || error.includes('invalid request')) && (
+                    <>
+                      Auth configuration issue detected. Try clearing your browser cache or{' '}
+                      <a href="/admin/clear-auth" className="font-semibold underline hover:text-red-700">
+                        click here to reset
+                      </a>
+                      .
+                    </>
+                  )}
+                  {error !== 'unauthorized' && error !== 'missing_code' && !error.includes('code verifier') && !error.includes('invalid request') && decodeURIComponent(error)}
                 </p>
               </div>
             </div>

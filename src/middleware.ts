@@ -59,8 +59,14 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   const isAdmin = pathname.startsWith('/admin')
   const isLogin = pathname === '/admin/login' || pathname.startsWith('/admin/login/')
+  const isAuthCallback = pathname.startsWith('/auth/callback')
 
-  if (!user && isAdmin && !isLogin) {
+  // Allow auth callback and login page without authentication
+  if (isAuthCallback || isLogin) {
+    return response
+  }
+
+  if (!user && isAdmin) {
     return NextResponse.redirect(new URL('/admin/login', request.url))
   }
 
@@ -70,5 +76,6 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/admin/:path*',
+    '/auth/callback',
   ],
 }
