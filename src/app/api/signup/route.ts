@@ -186,7 +186,7 @@ I'd love to jump on a quick call with you to:
 → Answer any questions you have about the program
 
 Book a time that works for you here:
-https://calendly.com/robspain/behavior-blueprint-phone-call-connection
+https://calendly.com/robspain/behavior-school-transformation-system-phone-call?month=2025-10
 
 These spots fill up quickly, so grab a time while they're available.
 
@@ -236,7 +236,7 @@ Behavior School`;
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
                 <tr>
                   <td align="center">
-                    <a href="https://calendly.com/robspain/behavior-blueprint-phone-call-connection" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">📅 Book Your Call Now</a>
+                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call?month=2025-10" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">📅 Book Your Call Now</a>
                   </td>
                 </tr>
               </table>
