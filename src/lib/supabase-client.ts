@@ -10,8 +10,10 @@ export function createClient() {
         flowType: 'pkce',
         detectSessionInUrl: true,
         persistSession: true,
+        autoRefreshToken: true,
         storage: typeof window !== 'undefined' ? window.localStorage : undefined,
-        storageKey: 'sb-auth-token',
+        storageKey: 'supabase.auth.token',
+        debug: process.env.NODE_ENV === 'development',
       }
     }
   )

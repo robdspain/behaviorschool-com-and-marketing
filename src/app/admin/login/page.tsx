@@ -13,7 +13,13 @@ function LoginContent() {
 
   const handleGoogleLogin = async () => {
     try {
+      // Clear any existing auth state before starting new flow
+      await supabase.auth.signOut({ scope: 'local' });
+      
       const origin = window.location.origin;
+      
+      console.log('[Login] Starting OAuth flow with origin:', origin);
+      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -21,17 +27,19 @@ function LoginContent() {
           skipBrowserRedirect: false,
           queryParams: {
             access_type: 'offline',
-            prompt: 'consent',
+            prompt: 'select_account',
           }
         },
       });
 
       if (error) {
-        console.error('OAuth error:', error);
+        console.error('[Login] OAuth error:', error);
         alert(`Authentication failed: ${error.message}`);
+      } else {
+        console.log('[Login] OAuth initiated successfully:', data);
       }
     } catch (err) {
-      console.error('OAuth exception:', err);
+      console.error('[Login] OAuth exception:', err);
       alert('An unexpected error occurred during authentication');
     }
   };
