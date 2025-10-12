@@ -129,7 +129,7 @@ export default function AdminDashboard() {
       href: '/admin/submissions',
       icon: Users,
       color: 'emerald',
-      stats: '24 new'
+      stats: statsLoading ? '...' : `${stats?.totalSubmissions || 0} total`
     },
     {
       title: 'Email Templates',
@@ -137,7 +137,7 @@ export default function AdminDashboard() {
       href: '/admin/email-templates',
       icon: Mail,
       color: 'blue',
-      stats: '8 active'
+      stats: statsLoading ? '...' : `${stats?.activeTemplates || 0} active`
     },
     {
       title: 'Analytics',
