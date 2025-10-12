@@ -1,33 +1,74 @@
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
 
-// Add X-Robots-Tag for non-primary hosts and admin routes
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+
 export async function middleware(request: NextRequest) {
-  const host = request.headers.get('host')?.toLowerCase() || '';
-  const pathname = request.nextUrl.pathname || '';
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  })
 
-  // Remove admin auth redirect: allow /admin without forcing login
-  const res = NextResponse.next();
-  const allowedHosts = new Set(['behaviorschool.com', 'www.behaviorschool.com']);
-  let shouldNoIndex = false;
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return request.cookies.get(name)?.value
+        },
+        set(name: string, value: string, options: CookieOptions) {
+          request.cookies.set({
+            name,
+            value,
+            ...options,
+          })
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
+          response.cookies.set({
+            name,
+            value,
+            ...options,
+          })
+        },
+        remove(name: string, options: CookieOptions) {
+          request.cookies.set({
+            name,
+            value: '',
+            ...options,
+          })
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
+          response.cookies.set({
+            name,
+            value: '',
+            ...options,
+          })
+        },
+      },
+    }
+  )
 
-  // Noindex all non-primary hosts (e.g., staging, ghost subdomain if ever proxied)
-  if (!allowedHosts.has(host)) {
-    shouldNoIndex = true;
+  const { data: { user } } = await supabase.auth.getUser()
+  const pathname = request.nextUrl.pathname
+  const isAdmin = pathname.startsWith('/admin')
+  const isLogin = pathname === '/admin/login' || pathname.startsWith('/admin/login/')
+
+  if (!user && isAdmin && !isLogin) {
+    return NextResponse.redirect(new URL('/admin/login', request.url))
   }
 
-  // Noindex admin routes and related API endpoints
-  if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin')) {
-    shouldNoIndex = true;
-  }
-
-  if (shouldNoIndex) {
-    res.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-  }
-
-  return res;
+  return response
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|sw.js).*)'],
-};
+  matcher: [
+    '/admin/:path*',
+  ],
+}
