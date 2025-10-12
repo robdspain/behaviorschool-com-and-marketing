@@ -12,22 +12,27 @@ function LoginContent() {
   const error = searchParams?.get('error');
 
   const handleGoogleLogin = async () => {
-    const origin = window.location.origin;
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${origin}/auth/callback?next=/admin`,
-        skipBrowserRedirect: false,
-        queryParams: {
-          access_type: 'offline',
-          prompt: 'consent',
-        }
-      },
-    });
+    try {
+      const origin = window.location.origin;
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${origin}/auth/callback?next=/admin`,
+          skipBrowserRedirect: false,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        },
+      });
 
-    if (error) {
-      console.error('OAuth error:', error);
-      alert(`Authentication failed: ${error.message}`);
+      if (error) {
+        console.error('OAuth error:', error);
+        alert(`Authentication failed: ${error.message}`);
+      }
+    } catch (err) {
+      console.error('OAuth exception:', err);
+      alert('An unexpected error occurred during authentication');
     }
   };
 
