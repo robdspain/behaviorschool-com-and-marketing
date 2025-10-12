@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
 // GET - Fetch a single email template by ID
 export async function GET(
@@ -13,6 +8,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+    const supabase = createSupabaseAdminClient();
     const { data, error } = await supabase
       .from('email_templates')
       .select('*')
@@ -49,6 +45,7 @@ export async function PUT(
     }
 
     const { id } = await params;
+    const supabase = createSupabaseAdminClient();
     const { data, error } = await supabase
       .from('email_templates')
       .update({
@@ -84,6 +81,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    const supabase = createSupabaseAdminClient();
     const { error } = await supabase
       .from('email_templates')
       .delete()

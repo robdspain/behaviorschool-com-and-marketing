@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
 // GET - Fetch all email templates
 export async function GET() {
   try {
+    const supabase = createSupabaseAdminClient();
     const { data, error } = await supabase
       .from('email_templates')
       .select('*')
@@ -37,6 +33,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name and subject are required' }, { status: 400 });
     }
 
+    const supabase = createSupabaseAdminClient();
     const { data, error } = await supabase
       .from('email_templates')
       .insert({
