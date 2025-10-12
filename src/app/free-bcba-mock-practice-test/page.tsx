@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "FREE BCBA Practice Exam (185 Questions) | Instant Results | No Signup Required",
-  description: "Professional BCBA practice exam with 185 realistic questions. Instant scoring, detailed explanations for every answer. Complete exam simulation - start immediately, no email required.",
+  title: "Free BCBA Practice Exam → 185 Questions | No Email Required | Start Now",
+  description: "FREE BCBA practice exam with 185 questions. Instant results + detailed explanations. No signup, no email. Comprehensive exam preparation - start immediately!",
   robots: {
     index: true,
     follow: true,
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/free-bcba-mock-practice-test"
   },
   openGraph: {
-    title: "FREE BCBA Practice Exam (185 Questions) | Instant Results | No Signup Required",
-    description: "Professional BCBA practice exam with 185 realistic questions. Instant scoring, detailed explanations for every answer. Complete exam simulation - start immediately.",
+    title: "Free BCBA Practice Exam → 185 Questions | No Email Required",
+    description: "FREE BCBA practice exam with 185 questions. Instant results + detailed explanations. No signup required. Start immediately!",
     url: "https://behaviorschool.com/free-bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [

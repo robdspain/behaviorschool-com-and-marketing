@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Transform Your School Practice in 8 Weeks | School BCBA Transformation System | Behavior School",
-  description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. 8-week cohort program with proven strategies for school behavior support.",
+  title: "School BCBA Training Program",
+  description: "School BCBA training: 8-week program to reduce burnout, build systems, and lead with confidence. Transform from crisis manager to ethical leader. Join next cohort.",
   keywords: "school BCBA training, behavior analyst burnout solution, special education leadership, school psychology systems, BCBA ethics training, crisis management schools, staff training protocols, behavior support systems, school transformation program, cohort-based BCBA course",
   alternates: { canonical: "https://behaviorschool.com/transformation-program" },
   openGraph: {
     type: "website",
-    title: "Transform Your School Practice in 8 Weeks | School BCBA Transformation System",
-    description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. Proven 8-week program with immediate results.",
+    title: "School BCBA Training Program",
+    description: "School BCBA training: 8-week program to reduce burnout and build systems. Transform from crisis manager to leader.",
     url: "/transformation-program",
     siteName: "Behavior School",
     locale: "en_US",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Transform Your School Practice in 8 Weeks | School BCBA Transformation System",
-    description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. Proven results.",
+    title: "School BCBA Training Program",
+    description: "School BCBA training: 8-week program to reduce burnout, build systems, lead with confidence.",
     images: ["/hero-chaos-to-confidence.jpg"],
     creator: "@BehaviorSchool",
   },

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ABA Supervision Tools & Free BCBA Supervision Curriculum | Behavior School",
-  description: "ABA supervision tools for BCBAs: competency matrix, hours & signatures, templates, and audit‑ready exports. Includes guidance and a free supervision curriculum framework for mentoring.",
+  title: "BCBA Supervision Tools",
+  description: "BCBA supervision tools for tracking fieldwork hours, competencies, and signatures. Free templates with audit-ready exports. Start organizing supervision now.",
   keywords: "aba supervision tools, bcba supervision tools, bcba supervision curriculum, bcba supervision curriculum free, fieldwork tracking, supervision documentation, BACB compliance, behavior analyst training",
   alternates: { canonical: "https://behaviorschool.com/supervisors" },
   openGraph: {
     type: "website",
-    title: "ABA Supervision Tools & BCBA Supervision Curriculum",
-    description: "Deliver compliant ABA supervision with tools, templates, and a free supervision curriculum framework.",
+    title: "BCBA Supervision Tools",
+    description: "BCBA supervision tools: track fieldwork hours, competencies, signatures. Free templates. Start now.",
     url: "/supervisors",
     siteName: "Behavior School",
     images: [
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ABA Supervision Tools & BCBA Supervision Curriculum",
-    description: "Compliant ABA supervision tools with templates, automations, and a free curriculum framework.",
+    title: "BCBA Supervision Tools",
+    description: "BCBA supervision tools: track fieldwork, competencies, signatures. Free templates.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },

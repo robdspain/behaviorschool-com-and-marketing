@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 export const metadata: Metadata = {
-  title: "Behavior School | Free BCBA Exam Prep + Practice Questions for School BCBAs",
+  title: "Free BCBA Exam Prep & Mock Tests → Boost Your Certification Prep | Behavior School",
   description:
-    "Behavior School: FREE BCBA exam prep with AI-powered practice questions, mock exams & study guides for school-based behavior analysts. Get supervision tools, IEP templates & behavior plans. Join 1000+ BCBAs!",
+    "Get instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools to help you prepare confidently for your BCBA certification exam.",
   keywords: "Behavior School, school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, behavior school platform",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
     type: "website",
-    title: "Behavior School | FREE BCBA Exam Prep & School Behavior Tools for BCBAs",
+    title: "Free BCBA Exam Prep & Mock Tests → Boost Your Certification Prep",
     description:
-      "Behavior School: FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, supervision tools, and training programs for behavior analysts.",
+      "Instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools for BCBA certification preparation.",
     url: "/",
     siteName: "Behavior School",
     locale: "en_US",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School | FREE BCBA Exam Prep & School Behavior Tools for BCBAs",
+    title: "Free BCBA Exam Prep & Mock Tests → Boost Your Certification Prep",
     description:
-      "Behavior School: FREE BCBA practice questions, exam prep tools, and school behavior resources. Download free study guides, IEP templates, supervision tools, and training programs for behavior analysts.",
+      "Instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Start preparing now!",
     images: ["/og-image.webp"],
     creator: "@BehaviorSchool",
   },
@@ -62,7 +62,7 @@ export default function Home() {
           <div className="text-center">
             <h2 className="sr-only">About Behavior School</h2>
             <p className="text-lg font-medium text-slate-800 leading-relaxed">
-              <strong>Behavior School is a comprehensive ecosystem of digital tools, training programs, and professional community designed specifically for the unique challenges facing behavior analysts in K-12 educational environments.</strong> Our platform integrates <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">certification preparation</Link>, <Link href="/bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">best BCBA mock exams</Link>, <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">practice assessment tools</Link>, <Link href="/supervisors" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">clinical supervision frameworks</Link>, <Link href="/iep-goals" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">compliant documentation systems</Link>, and <Link href="/behavior-plans" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">evidence-based intervention protocols</Link> to help school-based teams achieve sustainable practice excellence while maintaining student-centered outcomes. Founded by <a href="https://robspain.com" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-800 font-semibold link-distinguishable">Rob Spain, BCBA</a>, our platform offers AI-powered BCBA study tools, supervision workflows, behavior plan writers, and <Link href="/transformation-program" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">8-week transformation program</Link> for school behavior professionals practicing applied behavior analysis in schools.
+              <strong>Behavior School is a comprehensive ecosystem of digital tools, training programs, and professional community designed specifically for the unique challenges facing behavior analysts in K-12 educational environments.</strong> Our platform integrates <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA exam prep</Link>, <Link href="/bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">free BCBA mock exams</Link>, <Link href="/free-bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA practice tests</Link>, <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA study tools</Link>, <Link href="/supervisors" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA supervision tools</Link>, <Link href="/iep-goals" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">IEP goal writing</Link>, and <Link href="/behavior-plans" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">behavior intervention plans</Link> to help school-based teams achieve sustainable practice excellence while maintaining student-centered outcomes. Founded by <a href="/about" className="text-emerald-700 hover:text-emerald-800 font-semibold link-distinguishable">Rob Spain, M.S., BCBA, IBA</a> — a Board Certified Behavior Analyst with 14+ years of school-based experience, President of CalABA&apos;s Behavior Analysts in Education SIG, and Adjunct Professor at Fresno Pacific University — our platform offers evidence-based BCBA study tools, supervision workflows, and training programs for behavior analysts preparing for certification.
             </p>
           </div>
         </div>
@@ -121,9 +121,9 @@ export default function Home() {
       <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-odd">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4 leading-tight">School BCBA Tools & Resources</h2>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4 leading-tight">Free BCBA Exam Prep & School-Based Tools</h2>
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              BCBA exam prep, supervision tools, IEP goal writing, and behavior intervention plan templates designed to streamline your school-based practice and improve student outcomes.
+              Free <Link href="/bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-semibold link-distinguishable">BCBA mock exams</Link>, <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-semibold link-distinguishable">exam prep guides</Link>, supervision tools, and behavior intervention templates designed to help you pass the BCBA exam and streamline your school-based practice.
             </p>
           </div>
 
@@ -134,20 +134,20 @@ export default function Home() {
                 <div className="text-center flex-grow flex flex-col">
                   <div className="bg-emerald-50 rounded-lg px-2 py-1 text-xs font-semibold text-emerald-700 mb-2 inline-block mx-auto">100% FREE</div>
                   <Image src="/thumbnails/hero-thumb.webp" alt="BCBA exam prep practice questions and study tools for behavior analysts" className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4" width={128} height={128} loading="lazy" />
-                  <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Exam Prep & Practice Tests</h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">FREE unlimited AI-powered practice questions and BCBA study materials.</p>
+                  <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">BCBA Exam Prep & Mock Exams</h3>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">FREE 185-question mock exams, unlimited practice questions, and comprehensive study guides to help you prepare thoroughly for certification.</p>
                   <div className="space-y-2 mt-auto">
                     <Link
-                      href="/bcba-study-tools"
+                      href="/bcba-mock-practice-test"
                       className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      Start FREE Practice Questions
+                      Take Free Mock Exam (185 Q&apos;s)
                     </Link>
                     <Link
                       href="/bcba-exam-prep"
                       className="block w-full border border-emerald-700 text-emerald-700 hover:bg-emerald-50 py-2 px-4 rounded-lg text-sm font-medium transition-colors"
                     >
-                      View Study Guide
+                      View Exam Prep Guide
                     </Link>
                   </div>
                 </div>

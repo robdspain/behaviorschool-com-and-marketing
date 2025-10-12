@@ -8,13 +8,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Join the Behavior School Community | Support for School-Based BCBAs",
-  description: "Connect with school-based behavior analysts in our focused, distraction-free community. Get support, swap resources, and collaborate on MTSS, Functional Analysis, ACT, and practical data tools.",
+  title: "School BCBA Community",
+  description: "School BCBA community for behavior analysts working in education. Connect with peers, share resources, get support. Free to join. No distractions.",
   keywords: "BCBA community, school-based behavior analysts, MTSS, functional analysis, behavior support, special education community",
   alternates: { canonical: "https://behaviorschool.com/community" },
   openGraph: {
-    title: "Join the Behavior School Community",
-    description: "Connect with school-based behavior analysts in our focused, distraction-free community. Get support, swap resources, and collaborate with peers who understand real classrooms.",
+    title: "School BCBA Community",
+    description: "School BCBA community: connect with behavior analysts in education. Share resources, get support. Free.",
     type: "website",
     url: "https://behaviorschool.com/community",
     images: [
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Join the Behavior School Community",
-    description: "Connect with school-based behavior analysts in our focused, distraction-free community.",
+    title: "School BCBA Community",
+    description: "School BCBA community: connect with behavior analysts in education. Free to join.",
     images: ["/optimized/Community/community1.webp"],
   },
   robots: { index: true, follow: true },

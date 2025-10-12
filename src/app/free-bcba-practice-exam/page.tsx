@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ArrowRight, Target, Clock, Brain } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { FreeQuizWidget } from "@/components/quiz/FreeQuizWidget";
 
 export default function FreeBCBAPracticeExamPage() {
   const questions = [
@@ -171,64 +171,100 @@ export default function FreeBCBAPracticeExamPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">Free BCBA Practice Exam</h1>
           <p className="mt-4 text-lg sm:text-xl text-slate-600">
-            10 hard questions with detailed explanations. Try them below, then continue with adaptive practice and full-length mock tests.
+            Interactive 10-question practice quiz with instant feedback and detailed explanations
           </p>
-          <div className="mt-8 inline-flex justify-center">
-            <Link
-              href="https://study.behaviorschool.com"
-              className="inline-flex items-center px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              Start Full Mock Exam
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+
+          {/* Feature Pills */}
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
+              <Target className="w-4 h-4 text-emerald-600" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">BACB Task List Aligned</span>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
+              <Clock className="w-4 h-4 text-emerald-600" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Instant Feedback</span>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
+              <Brain className="w-4 h-4 text-emerald-600" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Detailed Explanations</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-8 sm:py-12">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-slate max-w-none">
-            <p className="text-slate-600">
-              These BCBA practice questions are aligned with the BACB® task list domains and include brief rationales. Use them to check fluency, then deepen your practice with adaptive drills and detailed analytics.
-            </p>
-          </div>
+      <section className="py-12 sm:py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FreeQuizWidget
+            questions={questions}
+            ctaUrl="https://study.behaviorschool.com"
+            ctaText="Continue with Full Adaptive Practice"
+          />
+        </div>
+      </section>
 
-          <div className="mt-6">
-            <Accordion type="multiple" className="w-full">
-              {questions.map((q, i) => (
-                <AccordionItem key={q.id} value={q.id} className="border border-slate-200 rounded-xl mb-4">
-                  <AccordionTrigger className="px-4 sm:px-6 py-3 sm:py-4 text-left">
-                    <div className="text-left">
-                      <div className="text-sm text-emerald-700 font-medium">Question {i + 1} • {q.tag}</div>
-                      <div className="mt-1 text-slate-900 font-semibold">{q.stem}</div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-4 sm:px-6 pb-4 sm:pb-6">
-                    <ol className="list-upper-alpha ml-6 space-y-1 text-slate-800">
-                      {q.choices.map((c, idx) => (
-                        <li key={idx}>{c}</li>
-                      ))}
-                    </ol>
-                    <div className="mt-4 p-4 rounded-lg bg-emerald-50 border border-emerald-100">
-                      <p className="font-semibold text-emerald-800">Correct Answer: {q.letter}. {q.answer}</p>
-                      <p className="mt-2 text-slate-700">{q.explanation}</p>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+      {/* Why Practice Section */}
+      <section className="py-12 sm:py-16 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-gray-100 mb-8">
+            Why Practice with BCBA Mock Questions?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center mb-4">
+                <Target className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                Exam-Aligned Content
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Questions mapped to BACB task list domains with realistic difficulty and format matching the actual BCBA exam.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+                <Brain className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              </div>
+              <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                Learn from Mistakes
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Detailed explanations for every question help you understand why answers are correct or incorrect, reinforcing key concepts.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              </div>
+              <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                Build Confidence
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Regular practice reduces test anxiety and builds the speed and accuracy needed to excel on exam day.
+              </p>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-8 sm:mt-10 text-center">
-            <Link
-              href="https://study.behaviorschool.com"
-              className="inline-flex items-center px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              Continue with More Free Questions
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-            <p className="mt-3 text-sm text-slate-500">No credit card required. Start practicing in minutes.</p>
-          </div>
+      {/* CTA Section */}
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-emerald-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Ready for More Practice?
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
+            Get unlimited adaptive practice questions, full 185-question mock exams, and personalized study analytics — all free, no credit card required.
+          </p>
+          <Link
+            href="https://study.behaviorschool.com"
+            className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+          >
+            Start Full Practice Platform
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+            Join 1,000+ behavior analysts preparing for certification
+          </p>
         </div>
       </section>
 

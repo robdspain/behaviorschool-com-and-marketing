@@ -1,10 +1,18 @@
-# Browsers that we support
+# Modern browsers only for reduced bundle size
+# Reduces JavaScript polyfills and CSS prefixes
 
+# Production environments
 > 0.5%
 last 2 versions
-Firefox ESR
 not dead
-not ie 11
-not chrome < 60
-not safari < 12
-not ios_saf < 12
+not op_mini all
+
+# Explicitly target modern browsers
+Chrome >= 90
+Firefox >= 88
+Safari >= 14
+Edge >= 90
+
+# Exclude legacy browsers to reduce bundle size
+not IE 11
+not IE_Mob 11
