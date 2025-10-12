@@ -6,9 +6,16 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE!
 );
 
+interface Activity {
+  type: string
+  title: string
+  description: string
+  timestamp: string
+}
+
 export async function GET() {
   try {
-    const activities: any[] = [];
+    const activities: Activity[] = [];
 
     // Get recent submissions (last 10)
     const { data: submissions, error: submissionsError } = await supabase
