@@ -6,7 +6,11 @@
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE || process.env.SUPABASE_SECRECT_KEY;
+// Support multiple env var names to accommodate different deployments
+const supabaseServiceKey =
+  process.env.SUPABASE_SERVICE_ROLE ||
+  process.env.SUPABASE_SECRECT_KEY ||
+  process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl || !supabaseServiceKey) {
   console.warn('Supabase admin client not configured - missing URL or service key');
