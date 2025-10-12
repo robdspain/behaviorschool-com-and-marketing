@@ -59,12 +59,12 @@ export default function Page() {
           </ul>
 
           <h3>FAQs</h3>
-          <p><strong>Is a "School BCBA" different from a "School-Based BCBA"?</strong> No. Both refer to a BCBA practicing in K–12 settings. The difference is language preference and search behavior.</p>
-          <p><strong>Which title should I use?</strong> Use both. Lead with "School BCBA" for job search visibility, and include "school-based BCBA" in long-form materials.</p>
+          <p><strong>Is a &quot;School BCBA&quot; different from a &quot;School-Based BCBA&quot;?</strong> No. Both refer to a BCBA practicing in K-12 settings. The difference is language preference and search behavior.</p>
+          <p><strong>Which title should I use?</strong> Use both. Lead with &quot;School BCBA&quot; for job search visibility, and include &quot;school-based BCBA&quot; in long-form materials.</p>
           <p><strong>How should I showcase impact?</strong> Provide a 90-day plan, staff coaching cycle, sample BIP, and progress monitoring visuals with clear outcomes.</p>
           
           <h3>Getting Started Resources</h3>
-          <p>Whether you're just entering the field or positioning yourself for a new role:</p>
+          <p>Whether you&apos;re just entering the field or positioning yourself for a new role:</p>
           <ul>
             <li><strong>New to School-Based Work:</strong> Start with our <Link href="/school-bcba/how-to-become" className="text-emerald-700 underline">complete pathway guide</Link> covering credentials, fieldwork, and competencies.</li>
             <li><strong>Already Certified:</strong> Review our <Link href="/school-bcba/job-guide-2025" className="text-emerald-700 underline">job guide</Link> for interview prep, resume keywords, and portfolio examples.</li>

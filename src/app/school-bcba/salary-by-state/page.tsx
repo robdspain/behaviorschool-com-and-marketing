@@ -58,7 +58,7 @@ export default function Page() {
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
             <h3 className="font-semibold text-emerald-900 mb-3">💡 Salary Negotiation Tips</h3>
             <div className="space-y-3 text-sm text-emerald-900">
-              <p><strong>Bring Evidence of Impact:</strong> When negotiating, bring a 90‑day systems plan and sample artifacts (<Link href="/iep-behavior-goals" className="underline hover:text-emerald-700">IEP goals</Link>, <Link href="/behavior-plans" className="underline hover:text-emerald-700">BIP</Link>, coaching plan). Demonstrating systems impact often improves offers.</p>
+              <p><strong>Bring Evidence of Impact:</strong> When negotiating, bring a 90-day systems plan and sample artifacts (<Link href="/iep-behavior-goals" className="underline hover:text-emerald-700">IEP goals</Link>, <Link href="/behavior-plans" className="underline hover:text-emerald-700">BIP</Link>, coaching plan). Demonstrating systems impact often improves offers.</p>
               <p><strong>Understand the Job Market:</strong> Research the specific <Link href="/school-bcba/job-guide" className="underline hover:text-emerald-700">job requirements</Link> and expectations for your target district.</p>
               <p><strong>Highlight Credentials:</strong> If you're still pursuing certification, review our <Link href="/school-bcba/how-to-become" className="underline hover:text-emerald-700">complete pathway guide</Link> to understand the full qualification process.</p>
             </div>
@@ -76,7 +76,7 @@ export default function Page() {
                 <li>Professional development funds ($500-$2000/year)</li>
                 <li>Health benefits and retirement matching</li>
               </ul>
-              <p className="mt-4"><strong>Hidden Value:</strong> Compare two offers holistically—a $75k offer with full benefits and 15 PTO days may exceed an $85k offer with minimal benefits.</p>
+              <p className="mt-4"><strong>Hidden Value:</strong> Compare two offers holistically - a $75k offer with full benefits and 15 PTO days may exceed an $85k offer with minimal benefits.</p>
             </div>
           </div>
 
