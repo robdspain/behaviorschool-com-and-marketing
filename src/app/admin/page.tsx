@@ -25,6 +25,23 @@ export default function AdminDashboard() {
             <p style={{ fontSize: '1.25rem', color: '#64748b', marginBottom: '2rem' }}>
               Authentication temporarily disabled for testing
             </p>
+            <div style={{ marginBottom: '1rem' }}>
+              {/* Client sign-out via server route */}
+              <a
+                href="/auth/signout"
+                style={{
+                  display: 'inline-block',
+                  padding: '0.5rem 0.75rem',
+                  border: '1px solid #cbd5e1',
+                  borderRadius: '0.375rem',
+                  color: '#334155',
+                  background: '#ffffff',
+                  textDecoration: 'none'
+                }}
+              >
+                Sign out
+              </a>
+            </div>
             <div style={{
               marginTop: '2rem',
               padding: '2rem',

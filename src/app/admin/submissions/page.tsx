@@ -3,12 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Mail, Phone, Briefcase, Calendar, Search } from "lucide-react";
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import SignOutButton from "@/components/SignOutButton";
 
 interface Submission {
   id: string;
@@ -35,16 +30,14 @@ export default function SubmissionsPage() {
   const fetchSubmissions = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('signup_submissions')
-        .select('*')
-        .order('submitted_at', { ascending: false });
-
-      if (error) {
-        console.error('Error fetching submissions:', error);
-      } else {
-        setSubmissions(data || []);
+      const res = await fetch('/api/admin/submissions', { credentials: 'include' });
+      if (!res.ok) {
+        console.error('Failed to load submissions', await res.text());
+        setSubmissions([]);
+        return;
       }
+      const json = await res.json();
+      setSubmissions(json.submissions || []);
     } catch (err) {
       console.error('Exception fetching submissions:', err);
     } finally {
@@ -113,6 +106,9 @@ export default function SubmissionsPage() {
               <p className="text-slate-600 mt-1">
                 {submissions.length} total application{submissions.length !== 1 ? 's' : ''}
               </p>
+            </div>
+            <div>
+              <SignOutButton />
             </div>
           </div>
         </div>
