@@ -8,9 +8,29 @@ import { useRouter } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
+interface DashboardStats {
+  totalSubmissions: number
+  weekSubmissions: number
+  totalTemplates: number
+  activeTemplates: number
+  draftTemplates: number
+  totalDownloads: number
+}
+
+interface Activity {
+  type: 'submission' | 'template' | 'download'
+  title: string
+  description: string
+  timestamp: string
+}
+
 export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [stats, setStats] = useState<DashboardStats | null>(null)
+  const [statsLoading, setStatsLoading] = useState(true)
+  const [activities, setActivities] = useState<Activity[]>([])
+  const [activitiesLoading, setActivitiesLoading] = useState(true)
   const supabase = createClient()
   const router = useRouter()
 
@@ -24,12 +44,54 @@ export default function AdminDashboard() {
         router.push('/admin/login')
       } else {
         setIsAuthenticated(true)
+        // Fetch dashboard stats
+        fetchStats()
       }
       setLoading(false)
     }
 
     checkAuth()
   }, [supabase, router])
+
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('/api/admin/dashboard-stats')
+      const data = await response.json()
+      
+      if (data.success) {
+        setStats(data.stats)
+      } else {
+        console.error('Failed to fetch stats:', data.error)
+      }
+    } catch (error) {
+      console.error('Error fetching dashboard stats:', error)
+    } finally {
+      setStatsLoading(false)
+    }
+  }
+
+  const fetchActivity = async () => {
+    try {
+      const response = await fetch('/api/admin/recent-activity')
+      const data = await response.json()
+      
+      if (data.success) {
+        setActivities(data.activities)
+      } else {
+        console.error('Failed to fetch activity:', data.error)
+      }
+    } catch (error) {
+      console.error('Error fetching recent activity:', error)
+    } finally {
+      setActivitiesLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchActivity()
+    }
+  }, [isAuthenticated])
 
   if (loading) {
     return (
@@ -45,6 +107,21 @@ export default function AdminDashboard() {
   if (!isAuthenticated) {
     return null
   }
+
+  const getTimeAgo = (timestamp: string) => {
+    const now = new Date()
+    const then = new Date(timestamp)
+    const diffMs = now.getTime() - then.getTime()
+    const diffMins = Math.floor(diffMs / 60000)
+    const diffHours = Math.floor(diffMs / 3600000)
+    const diffDays = Math.floor(diffMs / 86400000)
+
+    if (diffMins < 1) return 'Just now'
+    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`
+    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
+  }
+
   const adminSections = [
     {
       title: 'Form Submissions',
@@ -118,8 +195,14 @@ export default function AdminDashboard() {
               <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Total Submissions</h3>
               <Users className="w-5 h-5 text-emerald-600" />
             </div>
-            <p className="text-3xl font-bold text-slate-900">142</p>
-            <p className="text-sm text-emerald-600 mt-1">+24 this week</p>
+            {statsLoading ? (
+              <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
+            ) : (
+              <>
+                <p className="text-3xl font-bold text-slate-900">{stats?.totalSubmissions || 0}</p>
+                <p className="text-sm text-emerald-600 mt-1">+{stats?.weekSubmissions || 0} this week</p>
+              </>
+            )}
           </div>
 
           <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
@@ -127,26 +210,44 @@ export default function AdminDashboard() {
               <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Active Templates</h3>
               <Mail className="w-5 h-5 text-blue-600" />
             </div>
-            <p className="text-3xl font-bold text-slate-900">8</p>
-            <p className="text-sm text-slate-600 mt-1">2 draft</p>
+            {statsLoading ? (
+              <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
+            ) : (
+              <>
+                <p className="text-3xl font-bold text-slate-900">{stats?.activeTemplates || 0}</p>
+                <p className="text-sm text-slate-600 mt-1">{stats?.draftTemplates || 0} draft</p>
+              </>
+            )}
           </div>
 
           <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Page Views</h3>
+              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Downloads</h3>
               <BarChart3 className="w-5 h-5 text-purple-600" />
             </div>
-            <p className="text-3xl font-bold text-slate-900">12.4K</p>
-            <p className="text-sm text-emerald-600 mt-1">+18% vs last month</p>
+            {statsLoading ? (
+              <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
+            ) : (
+              <>
+                <p className="text-3xl font-bold text-slate-900">{stats?.totalDownloads || 0}</p>
+                <p className="text-sm text-slate-600 mt-1">Lead magnets</p>
+              </>
+            )}
           </div>
 
           <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Content Items</h3>
+              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Total Templates</h3>
               <FileText className="w-5 h-5 text-orange-600" />
             </div>
-            <p className="text-3xl font-bold text-slate-900">64</p>
-            <p className="text-sm text-slate-600 mt-1">3 pending review</p>
+            {statsLoading ? (
+              <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
+            ) : (
+              <>
+                <p className="text-3xl font-bold text-slate-900">{stats?.totalTemplates || 0}</p>
+                <p className="text-sm text-slate-600 mt-1">Email templates</p>
+              </>
+            )}
           </div>
         </div>
 
@@ -224,40 +325,57 @@ export default function AdminDashboard() {
         {/* Recent Activity */}
         <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
           <h3 className="text-xl font-bold text-slate-900 mb-6">Recent Activity</h3>
-          <div className="space-y-4">
-            <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
-              <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                <Users className="w-5 h-5 text-emerald-600" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-slate-900">New submission received</p>
-                <p className="text-sm text-slate-600">John Doe submitted the signup form</p>
-                <p className="text-xs text-slate-500 mt-1">2 hours ago</p>
-              </div>
+          {activitiesLoading ? (
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-start gap-4 p-4">
+                  <div className="flex-shrink-0 w-10 h-10 bg-slate-100 rounded-full animate-pulse"></div>
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-slate-100 rounded animate-pulse w-3/4"></div>
+                    <div className="h-3 bg-slate-100 rounded animate-pulse w-1/2"></div>
+                  </div>
+                </div>
+              ))}
             </div>
+          ) : activities.length > 0 ? (
+            <div className="space-y-4">
+              {activities.map((activity, index) => {
+                const getIconConfig = (type: string) => {
+                  switch (type) {
+                    case 'submission':
+                      return { icon: Users, bg: 'bg-emerald-100', color: 'text-emerald-600' }
+                    case 'template':
+                      return { icon: Mail, bg: 'bg-blue-100', color: 'text-blue-600' }
+                    case 'download':
+                      return { icon: TrendingUp, bg: 'bg-purple-100', color: 'text-purple-600' }
+                    default:
+                      return { icon: FileText, bg: 'bg-slate-100', color: 'text-slate-600' }
+                  }
+                }
 
-            <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
-              <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                <Mail className="w-5 h-5 text-blue-600" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-slate-900">Email template updated</p>
-                <p className="text-sm text-slate-600">Welcome email template was modified</p>
-                <p className="text-xs text-slate-500 mt-1">5 hours ago</p>
-              </div>
-            </div>
+                const iconConfig = getIconConfig(activity.type)
+                const Icon = iconConfig.icon
+                const timeAgo = getTimeAgo(activity.timestamp)
 
-            <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
-              <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-purple-600" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-slate-900">Analytics spike detected</p>
-                <p className="text-sm text-slate-600">Traffic increased by 45% today</p>
-                <p className="text-xs text-slate-500 mt-1">1 day ago</p>
-              </div>
+                return (
+                  <div key={index} className="flex items-start gap-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                    <div className={`flex-shrink-0 w-10 h-10 ${iconConfig.bg} rounded-full flex items-center justify-center`}>
+                      <Icon className={`w-5 h-5 ${iconConfig.color}`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-slate-900">{activity.title}</p>
+                      <p className="text-sm text-slate-600">{activity.description}</p>
+                      <p className="text-xs text-slate-500 mt-1">{timeAgo}</p>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-          </div>
+          ) : (
+            <div className="text-center py-8 text-slate-500">
+              <p>No recent activity</p>
+            </div>
+          )}
         </div>
       </main>
     </div>
