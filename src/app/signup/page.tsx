@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, ArrowLeft, Mail } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
+import Script from "next/script";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -72,35 +73,101 @@ export default function SignupPage() {
     }
   };
 
+  // Load Calendly widget after submission
+  useEffect(() => {
+    if (isSubmitted && typeof window !== 'undefined') {
+      // Initialize Calendly widget
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      document.body.appendChild(script);
+
+      return () => {
+        // Cleanup script on unmount
+        if (document.body.contains(script)) {
+          document.body.removeChild(script);
+        }
+      };
+    }
+  }, [isSubmitted]);
+
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-bs-background flex items-center justify-center px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center"
-        >
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-8 h-8 text-green-600" />
+      <>
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.css"
+          strategy="afterInteractive"
+        />
+        <div className="min-h-screen bg-bs-background py-12 px-4">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-2xl shadow-xl p-8 mb-8 text-center"
+            >
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-8 h-8 text-green-600" />
+              </div>
+              <h1 className="text-3xl font-bold text-slate-900 mb-4">Application Submitted Successfully! 🎉</h1>
+              <p className="text-lg text-slate-700 mb-4">
+                Thank you for your interest in the <strong>School BCBA Transformation System</strong>.
+              </p>
+              <p className="text-slate-600 mb-6">
+                Let&apos;s get you scheduled for a consultation call right now! Pick a time that works best for you below.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-2xl shadow-xl p-8"
+            >
+              <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
+                📅 Schedule Your Consultation Call
+              </h2>
+
+              <div
+                className="calendly-inline-widget"
+                data-url="https://calendly.com/robspain/behavior-school-transformation-system-phone-call?hide_gdpr_banner=1&primary_color=10b981"
+                style={{ minWidth: '320px', height: '700px' }}
+              />
+
+              <div className="mt-8 pt-6 border-t border-slate-200">
+                <h3 className="font-semibold text-slate-900 mb-3">What to expect on the call:</h3>
+                <ul className="space-y-2 text-slate-600 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>We&apos;ll discuss your specific challenges and goals</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>You&apos;ll see exactly how the system can transform your practice</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>Get answers to all your questions about the program</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <span>No pressure - just a conversation about what&apos;s possible</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-6 text-center">
+                <Link
+                  href="/transformation-program"
+                  className="inline-flex items-center text-slate-600 hover:text-slate-900 text-sm"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back to Program Details
+                </Link>
+              </div>
+            </motion.div>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">Application Submitted!</h1>
-          <p className="text-slate-600 mb-6">
-            Thank you for your interest in the School BCBA Transformation System. We&apos;ll review your application and get back to you within 24 hours.
-          </p>
-          <div className="space-y-3 text-sm text-slate-600">
-            <p>✅ You&apos;ll receive a confirmation email shortly</p>
-            <p>✅ We&apos;ll schedule a brief consultation call</p>
-            <p>✅ You&apos;ll get access to our exclusive resources</p>
-          </div>
-          <Link
-            href="/transformation-program"
-            className="inline-flex items-center mt-6 px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Program Details
-          </Link>
-        </motion.div>
-      </div>
+        </div>
+      </>
     );
   }
 
