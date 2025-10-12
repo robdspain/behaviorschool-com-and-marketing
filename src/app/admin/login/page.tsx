@@ -4,12 +4,17 @@ import { createClient } from '@/lib/supabase-client';
 import { useSearchParams } from 'next/navigation';
 import { FcGoogle } from 'react-icons/fc';
 import { AlertCircle } from 'lucide-react';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 function LoginContent() {
   const supabase = createClient();
   const searchParams = useSearchParams();
   const error = searchParams?.get('error');
+
+  useEffect(() => {
+    // Set page title
+    document.title = 'Admin Login | Behavior School'
+  }, []);
 
   const handleGoogleLogin = async () => {
     try {

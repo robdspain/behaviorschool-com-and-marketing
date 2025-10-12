@@ -39,6 +39,9 @@ export default function EmailTemplatesPage() {
   });
 
   useEffect(() => {
+    // Set page title
+    document.title = 'Email Templates | Behavior School Admin'
+    
     fetchTemplates();
   }, []);
 
