@@ -183,7 +183,7 @@ export default function BACBACEProviderPage() {
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Transformation Program */}
+              {/* School BCBA Transformation System */}
               <div className="bg-white border-2 border-slate-200 rounded-xl p-6 hover:border-emerald-500 transition-colors">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -191,7 +191,7 @@ export default function BACBACEProviderPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-slate-900 mb-2">
-                      School BCBA Transformation Program
+                      School BCBA Transformation System
                     </h3>
                     <p className="text-slate-600 mb-3">
                       8-week intensive training program for school-based BCBAs

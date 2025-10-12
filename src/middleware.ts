@@ -6,26 +6,7 @@ export async function middleware(request: NextRequest) {
   const host = request.headers.get('host')?.toLowerCase() || '';
   const pathname = request.nextUrl.pathname || '';
 
-  // Admin route protection - redirect to login if not authenticated
-  // IMPORTANT: Check exclusions BEFORE checking if it's an admin route
-  const isAuthRoute = pathname.startsWith('/api/auth');
-  const isLoginPage = pathname.includes('/login'); // More permissive - catches any login path
-
-  // Only protect admin routes that are NOT login/auth
-  const needsAuth = pathname.startsWith('/admin') && !isLoginPage && !isAuthRoute;
-
-  if (needsAuth) {
-    // Check for admin session cookie (set by Google Identity Services)
-    const adminSession = request.cookies.get('admin_session');
-
-    // If no admin session found, redirect to login
-    if (!adminSession) {
-      const loginUrl = new URL('/admin/login', request.url);
-      loginUrl.searchParams.set('error', 'unauthorized');
-      return NextResponse.redirect(loginUrl);
-    }
-  }
-
+  // Remove admin auth redirect: allow /admin without forcing login
   const res = NextResponse.next();
   const allowedHosts = new Set(['behaviorschool.com', 'www.behaviorschool.com']);
   let shouldNoIndex = false;
@@ -50,4 +31,3 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|sw.js).*)'],
 };
-

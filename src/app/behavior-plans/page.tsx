@@ -177,7 +177,7 @@ export default function BehaviorPlansPage() {
                 <p className="text-sm text-slate-600">Build measurable behavior goals and progress monitoring plans.</p>
               </Link>
               <Link href="/transformation-program" className="group block p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-600 transition-colors">
-                <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700">School BCBA Transformation Program</h3>
+                <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700">School BCBA Transformation System</h3>
                 <p className="text-sm text-slate-600">Lead with systems, not firefighting. Cohort-based training.</p>
               </Link>
             </div>

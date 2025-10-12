@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Transform Your School Practice in 8 Weeks | BCBA Operating System | Behavior School",
+  title: "Transform Your School Practice in 8 Weeks | School BCBA Transformation System | Behavior School",
   description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. 8-week cohort program with proven strategies for school behavior support.",
   keywords: "school BCBA training, behavior analyst burnout solution, special education leadership, school psychology systems, BCBA ethics training, crisis management schools, staff training protocols, behavior support systems, school transformation program, cohort-based BCBA course",
   alternates: { canonical: "https://behaviorschool.com/transformation-program" },
   openGraph: {
     type: "website",
-    title: "Transform Your School Practice in 8 Weeks | BCBA Operating System",
+    title: "Transform Your School Practice in 8 Weeks | School BCBA Transformation System",
     description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. Proven 8-week program with immediate results.",
     url: "/transformation-program",
     siteName: "Behavior School",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Transform Your School Practice in 8 Weeks | BCBA Operating System",
+    title: "Transform Your School Practice in 8 Weeks | School BCBA Transformation System",
     description: "Transform chaos into confidence as a school-based BCBA. Stop firefighting, build ethical systems, reduce burnout. Proven results.",
     images: ["/hero-chaos-to-confidence.jpg"],
     creator: "@BehaviorSchool",
@@ -44,8 +44,8 @@ export default function TransformationProgramLayout({
   const courseJsonLd = {
     "@context": "https://schema.org",
     "@type": "Course",
-    name: "School BCBA Transformation Program",
-    alternateName: "BCBA Operating System for Schools",
+    name: "School BCBA Transformation System",
+    alternateName: "School BCBA Transformation System for Schools",
     description: "Intensive 8-week cohort-based training program designed to transform overwhelmed school-based BCBAs into ethical leaders who master crisis management, build teacher buy-in, and implement school-wide behavior support systems.",
     provider: {
       "@type": "EducationalOrganization",
@@ -125,7 +125,7 @@ export default function TransformationProgramLayout({
   const programJsonLd = {
     "@context": "https://schema.org",
     "@type": "EducationalProgram",
-    name: "School BCBA Transformation Program",
+    name: "School BCBA Transformation System",
     description: "Comprehensive 8-week training program transforming school-based behavior analysts from overwhelmed practitioners to confident ethical leaders with systematic approaches to crisis management and behavior support.",
     provider: {
       "@type": "EducationalOrganization", 

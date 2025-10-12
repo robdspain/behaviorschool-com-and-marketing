@@ -105,7 +105,7 @@ export const GA4_CONVERSION_GOALS = {
 export const GA4_ECOMMERCE_ITEMS = {
   TRANSFORMATION_PROGRAM: {
     item_id: 'transformation_program',
-    item_name: 'Behavior School Operating System - Transformation Program',
+    item_name: 'School BCBA Transformation System - Transformation Program',
     category: 'Professional Development',
     price: 997,
     currency: 'USD'

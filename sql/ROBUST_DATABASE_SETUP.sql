@@ -142,5 +142,5 @@ CREATE INDEX IF NOT EXISTS idx_download_submissions_created_at ON download_submi
 
 -- Add comments
 COMMENT ON TABLE downloads IS 'Track PDF downloads for analytics and user access history';
-COMMENT ON TABLE signup_submissions IS 'Store applications for the Behavior School Operating System program';
+COMMENT ON TABLE signup_submissions IS 'Store applications for the School BCBA Transformation System';
 COMMENT ON TABLE download_submissions IS 'Store information about users who download lead magnet resources';

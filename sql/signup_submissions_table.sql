@@ -1,4 +1,4 @@
--- Create signup_submissions table for Behavior School Operating System applications
+-- Create signup_submissions table for School BCBA Transformation System applications
 -- Run this in your Supabase SQL editor
 
 CREATE TABLE IF NOT EXISTS signup_submissions (
@@ -50,4 +50,4 @@ CREATE TRIGGER update_signup_submissions_updated_at
     EXECUTE FUNCTION update_updated_at_column();
 
 -- Comment on table
-COMMENT ON TABLE signup_submissions IS 'Store applications for the Behavior School Operating System program';
+COMMENT ON TABLE signup_submissions IS 'Store applications for the School BCBA Transformation System';

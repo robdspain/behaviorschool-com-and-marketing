@@ -458,7 +458,7 @@ export default function BCBAsInSchoolsPage() {
                 <Card className="text-left border-blue-200">
                   <CardHeader>
                     <Brain className="h-8 w-8 text-blue-600 mb-2" />
-                    <CardTitle>8-Week Transformation Program</CardTitle>
+                    <CardTitle>8-Week School BCBA Transformation System</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2 text-sm text-slate-600 mb-4">

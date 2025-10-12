@@ -65,7 +65,7 @@ export default function SignupPage() {
           </div>
           <h1 className="text-2xl font-bold text-slate-900 mb-4">Application Submitted!</h1>
           <p className="text-slate-600 mb-6">
-            Thank you for your interest in the Behavior School Operating System. We&apos;ll review your application and get back to you within 24 hours.
+            Thank you for your interest in the School BCBA Transformation System. We&apos;ll review your application and get back to you within 24 hours.
           </p>
           <div className="space-y-3 text-sm text-slate-600">
             <p>✅ You&apos;ll receive a confirmation email shortly</p>
@@ -92,7 +92,7 @@ export default function SignupPage() {
           <div className="flex items-center justify-between">
             <Breadcrumbs 
               items={[
-                { label: "Transformation Program", href: "/transformation-program" },
+                { label: "School BCBA Transformation System", href: "/transformation-program" },
                 { label: "Registration" }
               ]}
             />
@@ -114,7 +114,7 @@ export default function SignupPage() {
           >
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-slate-900 mb-4">
-                Secure Your Spot in the Behavior School Operating System
+                Secure Your Spot in the School BCBA Transformation System
               </h1>
               <p className="text-slate-600">
                 Join the 8-week program that transforms overwhelmed BCBAs into confident district leaders.
@@ -230,7 +230,7 @@ export default function SignupPage() {
               </button>
 
               <p className="text-xs text-slate-500 text-center">
-                By submitting this form, you agree to receive communications about the Behavior School Operating System. 
+                By submitting this form, you agree to receive communications about the School BCBA Transformation System. 
                 We respect your privacy and will never share your information.
               </p>
             </form>

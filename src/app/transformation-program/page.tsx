@@ -134,7 +134,7 @@ export default function TransformationProgramPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
         <Breadcrumbs 
           items={[
-            { label: "Transformation Program" }
+            { label: "School BCBA Transformation System" }
           ]}
         />
       </div>
@@ -198,7 +198,7 @@ export default function TransformationProgramPage() {
                   transition={{ delay: 0.4 }}
                   className="text-base sm:text-lg md:text-xl text-slate-600 max-w-[58ch] leading-relaxed"
                 >
-                  The Behavior School Operating System equips School BCBAs, Psychologists, and Special Education Leaders to stop firefighting and lead with clarity, systems, and results.
+                  The School BCBA Transformation System equips School BCBAs, Psychologists, and Special Education Leaders to stop firefighting and lead with clarity, systems, and results.
                 </motion.p>
 
                 {/* Professional CTA Group */}
@@ -334,7 +334,7 @@ export default function TransformationProgramPage() {
               Most school BCBAs, psychologists, and special education leaders are caught in what I call the &quot;Reactive Firefighter Trap&quot; – working hard to maintain ethical standards while feeling unsupported, managing complex team dynamics around implementation, navigating frequent staff transitions, and operating in high-need environments where crisis response takes priority.
             </p>
             <p className="text-base sm:text-lg text-slate-600 mt-4 sm:mt-6">
-              Meanwhile, the top 1% have learned to build district-ready systems that work even in the most challenging environments. They&apos;re not working harder or compromising ethics. They have a complete <strong>Behavior School Operating System</strong> that transforms their entire practice and proves their value.
+              Meanwhile, the top 1% have learned to build district-ready systems that work even in the most challenging environments. They&apos;re not working harder or compromising ethics. They have the complete <strong>School BCBA Transformation System</strong> that transforms their entire practice and proves their value.
             </p>
           </motion.div>
           <motion.div
@@ -348,7 +348,7 @@ export default function TransformationProgramPage() {
             <div className="w-full max-w-4xl mx-auto">
               <Image
                 src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
-                alt="BCBA working at desk with stressed expression, symbolizing the overwhelm that the Behavior School Operating System solves"
+                alt="BCBA working at desk with stressed expression, symbolizing the overwhelm that the School BCBA Transformation System solves"
                 width={1536}
                 height={1024}
                 className="w-full h-auto rounded-lg shadow-lg"
@@ -400,7 +400,7 @@ export default function TransformationProgramPage() {
                   <ul className="text-xs sm:text-sm text-slate-700 space-y-1 sm:space-y-2">
                     <li>• Create referral systems and tiered supports</li>
                     <li>• Build clear SOPs that bring order to chaos</li>
-                    <li>• Complete Behavior Operating System Playbook</li>
+                    <li>• Complete School BCBA Transformation System Playbook</li>
                   </ul>
                 </div>
                 <div className="bg-white rounded-lg p-3 sm:p-4">
@@ -554,7 +554,7 @@ export default function TransformationProgramPage() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              The Behavior School Operating System
+              The School BCBA Transformation System
             </h2>
             <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-6 sm:mb-8">
               Your Blueprint to BCBA Mastery
@@ -917,7 +917,7 @@ export default function TransformationProgramPage() {
                 <div className="text-red-500 text-2xl">❌</div>
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">Other Programs Leave You Hanging. I Give You Everything.</h3>
-                  <p className="text-slate-600">You get the complete Operating System – not just concepts, but ready-to-implement tools you can use Monday morning.</p>
+                  <p className="text-slate-600">You get the complete School BCBA Transformation System – not just concepts, but ready-to-implement tools you can use Monday morning.</p>
                 </div>
               </div>
             </motion.div>
@@ -957,7 +957,7 @@ export default function TransformationProgramPage() {
           >
             {[
               "16 BACB CEUs for BCBAs (Including Supervision & Ethics CEUs)",
-              "A District-Ready Behavior Operating System (you can use immediately)",
+              "A District-Ready School BCBA Transformation System (you can use immediately)",
               "Confidence to Protect Your Ethics and Lead with Integrity (no more impossible positions)",
               "Tools That Build Teacher and Admin Partnerships (strong collaborative relationships)",
               "Sustainable Systems That Work Even Through Turnover (stop retraining endlessly)",
@@ -1092,7 +1092,7 @@ export default function TransformationProgramPage() {
       <EmailSignupPopup
         isOpen={showEmailPopup}
         onClose={() => setShowEmailPopup(false)}
-        title="Join the Transformation Program Waitlist"
+        title="Join the School BCBA Transformation System Waitlist"
         description="This cohort is full, but we'll notify you when the next one opens. Get early access and special pricing."
         pageSource="transformation-program"
         buttonText="Join Waitlist"
@@ -1105,7 +1105,7 @@ export default function TransformationProgramPage() {
         const courseJsonLd = {
           "@context": "https://schema.org",
           "@type": "Course",
-          "name": "Behavior School Operating System - Transformation Program",
+          "name": "School BCBA Transformation System",
           "description": "8-week cohort-based program for School BCBAs, Psychologists, and Special Education Leaders to replace firefighting with systems that reduce burnout and drive school-wide impact. Learn ethical leadership, crisis management, staff training, and data-driven systems.",
           "provider": {
             "@type": "Organization",

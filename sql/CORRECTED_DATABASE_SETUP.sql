@@ -167,7 +167,7 @@ GRANT INSERT ON signup_submissions TO anon;
 -- ========================================
 
 COMMENT ON TABLE download_submissions IS 'Tracks lead magnet downloads with email capture for conversion analytics';
-COMMENT ON TABLE signup_submissions IS 'Stores applications for the Behavior School Operating System program';
+COMMENT ON TABLE signup_submissions IS 'Stores applications for the School BCBA Transformation System';
 COMMENT ON TABLE downloads IS 'Optional: Track authenticated user download history';
 
 -- ========================================

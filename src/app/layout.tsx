@@ -270,11 +270,11 @@ export default function RootLayout({
         },
         {
           "@type": "Offer",
-          name: "School BCBA Transformation Program",
+          name: "School BCBA Transformation System",
           image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
           itemOffered: {
             "@type": "Course",
-            name: "School BCBA Transformation Program",
+            name: "School BCBA Transformation System",
             description: "8-week intensive training program for school-based BCBAs to master ethical leadership, crisis management, teacher collaboration, and school-wide behavior support implementation.",
             image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
             provider: {

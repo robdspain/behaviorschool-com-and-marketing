@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "School-Based BCBA Operating System: From Crisis Manager to Systems Leader",
+  title: "School-Based School BCBA Transformation System: From Crisis Manager to Systems Leader",
   description: "School behavior doesn't have to feel overwhelming. Transform from crisis manager to systems leader with practical, ethical tools built for real classrooms. 8-week program + AI tools.",
   robots: {
     index: true,
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     "school behavior analyst certification"
   ],
   openGraph: {
-    title: "School-Based BCBA Operating System: From Crisis Manager to Systems Leader",
+    title: "School-Based School BCBA Transformation System: From Crisis Manager to Systems Leader",
     description: "School behavior doesn't have to feel overwhelming. Transform from crisis manager to systems leader with practical, ethical tools built for real classrooms.",
     url: "https://behaviorschool.com/school-based-bcba",
     siteName: "Behavior School",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
         url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "School-Based BCBA Operating System",
+        alt: "School-Based School BCBA Transformation System",
       },
     ],
     locale: "en_US",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "School-Based BCBA Operating System: From Crisis Manager to Systems Leader",
+    title: "School-Based School BCBA Transformation System: From Crisis Manager to Systems Leader",
     description: "School behavior doesn't have to feel overwhelming. Transform from crisis manager to systems leader with practical, ethical tools built for real classrooms.",
     images: ["/optimized/og-image.webp"],
   },
@@ -90,7 +90,7 @@ export default function SchoolBasedBCBAPage() {
       <section className="container mx-auto px-6 py-16 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            School-Based BCBA Operating System: <span className="text-blue-600">From Crisis Manager to Systems Leader</span>
+            School-Based School BCBA Transformation System: <span className="text-blue-600">From Crisis Manager to Systems Leader</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-600 mb-8">
@@ -109,7 +109,7 @@ export default function SchoolBasedBCBAPage() {
               <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                 <CheckCircle className="w-4 h-4 text-green-600" />
               </div>
-              <span className="text-gray-700 font-medium">8-week Transformation Program for School-Based BCBAs</span>
+              <span className="text-gray-700 font-medium">8-week School BCBA Transformation System for School-Based BCBAs</span>
             </div>
             <div className="flex items-start space-x-3">
               <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -129,7 +129,7 @@ export default function SchoolBasedBCBAPage() {
           <Button size="lg" className="text-lg px-8 py-6 bg-blue-600 hover:bg-blue-700" asChild>
             <Link href="/transformation-program">
               <PlayCircle className="w-5 h-5 mr-2" />
-              Start Your Transformation Program
+              Start Your School BCBA Transformation System
               <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>
@@ -320,12 +320,12 @@ export default function SchoolBasedBCBAPage() {
         </div>
       </section>
 
-      {/* Transformation Program */}
+      {/* School BCBA Transformation System */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-              Our Transformation Program
+              Our School BCBA Transformation System
             </h2>
             
             <p className="text-xl text-gray-600 mb-12">
@@ -368,7 +368,7 @@ export default function SchoolBasedBCBAPage() {
 
             <Button size="lg" className="text-lg px-8 py-6 bg-purple-600 hover:bg-purple-700" asChild>
               <Link href="/transformation-program">
-                Learn More About the Transformation Program
+                Learn More About the School BCBA Transformation System
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
@@ -457,7 +457,7 @@ export default function SchoolBasedBCBAPage() {
                 asChild
               >
                 <Link href="/transformation-program">
-                  Join the 8-Week Transformation Program
+                  Join the 8-Week School BCBA Transformation System
                 </Link>
               </Button>
               
@@ -529,7 +529,7 @@ export default function SchoolBasedBCBAPage() {
 
               <div className="border-l-4 border-orange-600 pl-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  How does the Transformation Program help?
+                  How does the School BCBA Transformation System help?
                 </h3>
                 <p className="text-gray-700">
                   It provides tools, leadership strategies, and stress resilience skills for sustainable school impact.
@@ -565,7 +565,7 @@ export default function SchoolBasedBCBAPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "School-Based BCBA Operating System",
+            "name": "School-Based School BCBA Transformation System",
             "description": "School behavior doesn't have to feel overwhelming. Transform from crisis manager to systems leader with practical, ethical tools built for real classrooms.",
             "url": "https://behaviorschool.com/school-based-bcba",
             "mainEntity": {
@@ -597,7 +597,7 @@ export default function SchoolBasedBCBAPage() {
                 },
                 {
                   "@type": "Question",
-                  "name": "How does the Transformation Program help?",
+                  "name": "How does the School BCBA Transformation System help?",
                   "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "It provides tools, leadership strategies, and stress resilience skills for sustainable school impact."
