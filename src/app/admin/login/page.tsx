@@ -17,6 +17,7 @@ function LoginContent() {
       provider: 'google',
       options: {
         redirectTo: `${origin}/auth/callback?next=/admin`,
+        skipBrowserRedirect: false,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
