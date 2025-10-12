@@ -165,6 +165,141 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Schedule follow-up email for 10 minutes later with Calendly booking link
+    if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY) {
+      // Calculate delivery time (10 minutes from now)
+      const deliveryTime = new Date(Date.now() + 10 * 60 * 1000);
+      const rfc2822Time = deliveryTime.toUTCString();
+
+      // Personal follow-up email content
+      const followUpSubject = `${firstName}, let's get your School BCBA transformation started`;
+      const followUpText = `Hi ${firstName},
+
+I just saw your application for the School BCBA Transformation System come through, and I wanted to reach out personally.
+
+I know what it's like to feel overwhelmed by the demands of a school BCBA role—the endless FBAs, the pressure to show measurable results, and the challenge of getting buy-in from teachers and administrators. That's exactly why I created this system.
+
+I'd love to jump on a quick call with you to:
+→ Understand your specific challenges and goals
+→ Show you exactly how the system can transform your practice
+→ Answer any questions you have about the program
+
+Book a time that works for you here:
+https://calendly.com/robspain/behavior-blueprint-phone-call-connection
+
+These spots fill up quickly, so grab a time while they're available.
+
+Looking forward to connecting,
+Rob Spain
+Creator, School BCBA Transformation System
+Behavior School`;
+
+      const followUpHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #1e293b;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8fafc; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+
+          <!-- Header -->
+          <tr>
+            <td style="padding: 40px 40px 20px; text-align: center; border-bottom: 3px solid #10b981;">
+              <h1 style="margin: 0; font-size: 24px; color: #0f172a; font-weight: 700;">Behavior School</h1>
+            </td>
+          </tr>
+
+          <!-- Main Content -->
+          <tr>
+            <td style="padding: 40px;">
+              <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
+
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I just saw your application for the <strong>School BCBA Transformation System</strong> come through, and I wanted to reach out personally.</p>
+
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I know what it's like to feel overwhelmed by the demands of a school BCBA role—the endless FBAs, the pressure to show measurable results, and the challenge of getting buy-in from teachers and administrators. <strong>That's exactly why I created this system.</strong></p>
+
+              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">I'd love to jump on a quick call with you to:</p>
+
+              <ul style="margin: 0 0 24px; padding-left: 20px; color: #334155;">
+                <li style="margin-bottom: 8px; font-size: 16px;">Understand your specific challenges and goals</li>
+                <li style="margin-bottom: 8px; font-size: 16px;">Show you exactly how the system can transform your practice</li>
+                <li style="margin-bottom: 8px; font-size: 16px;">Answer any questions you have about the program</li>
+              </ul>
+
+              <!-- CTA Button -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
+                <tr>
+                  <td align="center">
+                    <a href="https://calendly.com/robspain/behavior-blueprint-phone-call-connection" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">📅 Book Your Call Now</a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin: 24px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>These spots fill up quickly, so grab a time while they're available.</em></p>
+            </td>
+          </tr>
+
+          <!-- Signature -->
+          <tr>
+            <td style="padding: 0 40px 40px;">
+              <div style="border-top: 1px solid #e2e8f0; padding-top: 24px;">
+                <p style="margin: 0 0 8px; font-size: 16px; color: #0f172a; font-weight: 600;">Looking forward to connecting,</p>
+                <p style="margin: 0 0 4px; font-size: 16px; color: #0f172a; font-weight: 600;">Rob Spain</p>
+                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Transformation System<br>Behavior School</p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 20px 40px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; border-radius: 0 0 8px 8px;">
+              <p style="margin: 0; font-size: 12px; color: #94a3b8; text-align: center;">
+                Behavior School | Empowering BCBAs in Schools
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+      const followUpResponse = await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Basic ${Buffer.from(`api:${process.env.MAILGUN_API_KEY}`).toString('base64')}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          from: `Rob Spain - Behavior School <robspain@${process.env.MAILGUN_DOMAIN}>`,
+          to: email,
+          subject: followUpSubject,
+          text: followUpText,
+          html: followUpHtml,
+          'o:deliverytime': rfc2822Time,
+        }),
+      });
+
+      if (!followUpResponse.ok) {
+        const errorText = await followUpResponse.text();
+        console.error('Mailgun follow-up email scheduling error:', {
+          status: followUpResponse.status,
+          statusText: followUpResponse.statusText,
+          error: errorText,
+          scheduledFor: rfc2822Time
+        });
+      } else {
+        console.log('✅ Follow-up email scheduled for:', rfc2822Time, `(10 minutes from now for ${email})`);
+      }
+    }
+
     return NextResponse.json(
       { message: 'Application submitted successfully' },
       { status: 200 }
