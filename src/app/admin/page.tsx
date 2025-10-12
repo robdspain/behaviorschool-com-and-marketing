@@ -35,6 +35,9 @@ export default function AdminDashboard() {
   const router = useRouter()
 
   useEffect(() => {
+    // Set page title
+    document.title = 'Dashboard | Behavior School Admin'
+    
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession()
       console.log('[Admin Dashboard] Session check:', session ? 'authenticated' : 'not authenticated')

@@ -24,6 +24,9 @@ export default function SubmissionsPage() {
   const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
+    // Set page title
+    document.title = 'Form Submissions | Behavior School Admin'
+    
     fetchSubmissions();
   }, []);
 
