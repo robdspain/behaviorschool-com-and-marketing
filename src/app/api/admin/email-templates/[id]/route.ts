@@ -9,13 +9,14 @@ const supabase = createClient(
 // GET - Fetch a single email template by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { data, error } = await supabase
       .from('email_templates')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', id)
       .single();
 
     if (error) {
@@ -36,7 +37,7 @@ export async function GET(
 // PUT - Update an email template
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json();
@@ -47,6 +48,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Name and subject are required' }, { status: 400 });
     }
 
+    const { id } = await params;
     const { data, error } = await supabase
       .from('email_templates')
       .update({
@@ -60,7 +62,7 @@ export async function PUT(
         is_active,
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single();
 
@@ -78,13 +80,14 @@ export async function PUT(
 // DELETE - Delete an email template
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { error } = await supabase
       .from('email_templates')
       .delete()
-      .eq('id', params.id);
+      .eq('id', id);
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
