@@ -53,23 +53,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch email templates
-    const { data: adminTemplate, error: adminTemplateError } = await supabase
+    // Fetch all email templates for the signup sequence
+    const { data: emailTemplates, error: templatesError } = await supabase
+      .from('email_templates')
+      .select('*')
+      .eq('category', 'signup')
+      .eq('is_active', true)
+      .order('send_delay_minutes', { ascending: true });
+
+    if (templatesError) {
+      console.error('Error fetching email templates:', templatesError);
+    }
+
+    // Fetch admin notification template separately
+    const { data: adminTemplate } = await supabase
       .from('email_templates')
       .select('*')
       .eq('name', 'signup_admin_notification')
       .single();
-
-    const { data: userTemplate, error: userTemplateError } = await supabase
-      .from('email_templates')
-      .select('*')
-      .eq('name', 'signup_confirmation')
-      .single();
-
-    if (adminTemplateError || userTemplateError) {
-      console.error('Error fetching email templates:', adminTemplateError || userTemplateError);
-      // Proceed without sending emails if templates are not found, or handle as an error
-    }
 
     // Prepare data for templates
     const templateData = {
@@ -135,8 +136,55 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Send immediate confirmation email to applicant
-    if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY) {
+    // Send all emails from database templates
+    if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && emailTemplates) {
+      for (const template of emailTemplates) {
+        const deliveryTime = template.send_delay_minutes === 0
+          ? new Date()
+          : new Date(Date.now() + template.send_delay_minutes * 60 * 1000);
+        const rfc2822Time = deliveryTime.toUTCString();
+
+        const emailSubject = renderTemplate(template.subject, templateData);
+        const emailText = template.body_text ? renderTemplate(template.body_text, templateData) : '';
+        const emailHtml = template.body_html ? renderTemplate(template.body_html, templateData) : '';
+
+        const emailParams: Record<string, string> = {
+          from: `Rob Spain - Behavior School <robspain@${process.env.MAILGUN_DOMAIN}>`,
+          to: email,
+          subject: emailSubject,
+          text: emailText,
+          html: emailHtml,
+        };
+
+        // Only add deliverytime if it's not immediate
+        if (template.send_delay_minutes > 0) {
+          emailParams['o:deliverytime'] = rfc2822Time;
+        }
+
+        const emailResponse = await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Basic ${Buffer.from(`api:${process.env.MAILGUN_API_KEY}`).toString('base64')}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams(emailParams),
+        });
+
+        if (!emailResponse.ok) {
+          const errorText = await emailResponse.text();
+          console.error(`Mailgun error for template ${template.name}:`, {
+            status: emailResponse.status,
+            error: errorText,
+            scheduledFor: template.send_delay_minutes > 0 ? rfc2822Time : 'immediate'
+          });
+        } else {
+          console.log(`✅ Email sent: ${template.name} (delay: ${template.send_delay_minutes} min)`);
+        }
+      }
+    }
+
+    // Keep legacy hardcoded immediate confirmation as fallback
+    if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && (!emailTemplates || emailTemplates.length === 0)) {
       const confirmSubject = `${firstName}, your application has been received!`;
       const confirmText = `Hi ${firstName},
 
