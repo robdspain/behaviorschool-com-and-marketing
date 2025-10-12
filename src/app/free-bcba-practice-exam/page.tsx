@@ -163,36 +163,48 @@ export default function FreeBCBAPracticeExamPage() {
 
   return (
     <div className="min-h-screen bg-bs-background">
+      {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
         <Breadcrumbs items={[{ label: "BCBA Exam Prep", href: "/bcba-exam-prep" }, { label: "Free Practice Exam" }]} />
       </div>
 
-      <section className="pt-24 pb-12 sm:pt-32 sm:pb-16 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">Free BCBA Practice Exam</h1>
-          <p className="mt-4 text-lg sm:text-xl text-slate-600">
-            Interactive 10-question practice quiz with instant feedback and detailed explanations
-          </p>
+      {/* Hero Section */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-even">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header Content */}
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 text-sm font-semibold rounded-full mb-6">
+              <Target className="w-4 h-4 mr-2" />
+              Free Practice Exam
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight mb-6">
+              BCBA Practice Questions with Instant Feedback
+            </h1>
+            <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
+              Master the BCBA exam with 10 challenging practice questions aligned to the BACB task list. Get detailed explanations and build confidence for exam day.
+            </p>
+          </div>
 
-          {/* Feature Pills */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
-              <Target className="w-4 h-4 text-emerald-600" />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">BACB Task List Aligned</span>
+          {/* Feature Pills - Clean Badges */}
+          <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+            <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
+              <Target className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+              <span className="text-sm font-semibold text-slate-900">BACB Task List Aligned</span>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
-              <Clock className="w-4 h-4 text-emerald-600" />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Instant Feedback</span>
+            <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
+              <Clock className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+              <span className="text-sm font-semibold text-slate-900">Instant Feedback</span>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700">
-              <Brain className="w-4 h-4 text-emerald-600" />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Detailed Explanations</span>
+            <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
+              <Brain className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+              <span className="text-sm font-semibold text-slate-900">Detailed Explanations</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 bg-white dark:bg-gray-900">
+      {/* Quiz Section */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-odd">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <FreeQuizWidget
             questions={questions}
@@ -203,66 +215,99 @@ export default function FreeBCBAPracticeExamPage() {
       </section>
 
       {/* Why Practice Section */}
-      <section className="py-12 sm:py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-gray-100 mb-8">
-            Why Practice with BCBA Mock Questions?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center mb-4">
-                <Target className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+      <section className="py-16 lg:py-20 bg-bs-section-even">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+              Why Practice with Mock Questions?
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Strategic practice is the key to BCBA exam success. Here&apos;s how our questions help you prepare.
+            </p>
+          </div>
+
+          {/* Feature Grid */}
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
+            {/* Feature 1 */}
+            <div className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-emerald-600 transition-all duration-300 hover:shadow-lg">
+              <div className="w-16 h-16 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                <Target className="w-8 h-8 text-emerald-600" />
               </div>
-              <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">
                 Exam-Aligned Content
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <p className="text-slate-700 leading-relaxed">
                 Questions mapped to BACB task list domains with realistic difficulty and format matching the actual BCBA exam.
               </p>
             </div>
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
-                <Brain className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+
+            {/* Feature 2 */}
+            <div className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-emerald-600 transition-all duration-300 hover:shadow-lg">
+              <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                <Brain className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">
                 Learn from Mistakes
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <p className="text-slate-700 leading-relaxed">
                 Detailed explanations for every question help you understand why answers are correct or incorrect, reinforcing key concepts.
               </p>
             </div>
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
-                <Clock className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+
+            {/* Feature 3 */}
+            <div className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-emerald-600 transition-all duration-300 hover:shadow-lg">
+              <div className="w-16 h-16 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                <Clock className="w-8 h-8 text-emerald-600" />
               </div>
-              <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">
                 Build Confidence
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <p className="text-slate-700 leading-relaxed">
                 Regular practice reduces test anxiety and builds the speed and accuracy needed to excel on exam day.
               </p>
+            </div>
+          </div>
+
+          {/* Stats Row */}
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center p-6 bg-white rounded-xl border-2 border-slate-200">
+              <div className="text-4xl font-bold text-emerald-600 mb-2">10</div>
+              <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Questions</div>
+            </div>
+            <div className="text-center p-6 bg-white rounded-xl border-2 border-slate-200">
+              <div className="text-4xl font-bold text-emerald-600 mb-2">185</div>
+              <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Full Exam Size</div>
+            </div>
+            <div className="text-center p-6 bg-white rounded-xl border-2 border-slate-200">
+              <div className="text-4xl font-bold text-emerald-600 mb-2">100%</div>
+              <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Free Forever</div>
+            </div>
+            <div className="text-center p-6 bg-white rounded-xl border-2 border-slate-200">
+              <div className="text-4xl font-bold text-emerald-600 mb-2">1,000+</div>
+              <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Students</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 bg-gradient-to-br from-emerald-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
+      <section className="py-16 lg:py-20 bg-emerald-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Ready for More Practice?
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+            Ready for Unlimited Practice?
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-            Get unlimited adaptive practice questions, full 185-question mock exams, and personalized study analytics — all free, no credit card required.
+          <p className="text-xl text-emerald-50 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Get access to unlimited adaptive practice questions, full 185-question mock exams, and personalized study analytics — all completely free, no credit card required.
           </p>
           <Link
             href="https://study.behaviorschool.com"
-            className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+            className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 rounded-xl shadow-xl hover:shadow-2xl hover:bg-emerald-50 transition-all duration-200 transform hover:-translate-y-1"
           >
             Start Full Practice Platform
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
-          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-6 text-emerald-100 text-sm font-medium">
             Join 1,000+ behavior analysts preparing for certification
           </p>
         </div>
