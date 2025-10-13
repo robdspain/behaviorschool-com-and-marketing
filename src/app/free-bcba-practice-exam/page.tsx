@@ -178,10 +178,10 @@ export default function FreeBCBAPracticeExamPage() {
               Free Practice Exam
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight mb-6">
-              BCBA Practice Questions with Instant Feedback
+              Quick BCBA Practice Test with Instant Feedback
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
-              Master the BCBA exam with 10 challenging practice questions aligned to the BACB task list. Get detailed explanations and build confidence for exam day.
+              Take a quick BCBA practice test designed for efficient exam prep. This free BCBA practice test includes 10 challenging questions aligned to the BACB task list with detailed explanations to build your confidence for exam day.
             </p>
           </div>
 
@@ -220,10 +220,10 @@ export default function FreeBCBAPracticeExamPage() {
           {/* Section Header */}
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Why Practice with Mock Questions?
+              Why Take a BCBA Practice Test?
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Strategic practice is the key to BCBA exam success. Here&apos;s how our questions help you prepare.
+              Strategic BCBA practice test preparation is the key to exam success. Here&apos;s how our quick practice test helps you prepare efficiently.
             </p>
           </div>
 
@@ -235,10 +235,10 @@ export default function FreeBCBAPracticeExamPage() {
                 <Target className="w-8 h-8 text-emerald-600" />
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                Exam-Aligned Content
+                Quick & Exam-Aligned
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                Questions mapped to BACB task list domains with realistic difficulty and format matching the actual BCBA exam.
+                Our quick BCBA practice test features questions mapped to BACB task list domains with realistic difficulty matching the actual exam format.
               </p>
             </div>
 
@@ -326,9 +326,9 @@ export default function FreeBCBAPracticeExamPage() {
         const webPageJsonLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Free BCBA Practice Exam (10 Hard Questions)",
+          name: "Quick BCBA Practice Test (Free 10-Question Exam)",
           url: `${SITE_URL}/free-bcba-practice-exam`,
-          description: "A free BCBA practice exam with 10 challenging questions and detailed answers.",
+          description: "Take a quick BCBA practice test with 10 challenging questions and detailed answers. Free BCBA practice test for efficient exam prep.",
           isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Behavior School" },
         } as const;
         return (

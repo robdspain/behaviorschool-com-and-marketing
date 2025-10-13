@@ -80,7 +80,7 @@ export default function CommunityPage() {
                     href="/supervisors"
                     className="block text-emerald-700 hover:text-emerald-800 font-medium text-sm hover:underline"
                   >
-                    → BCBA Supervision Tools & Training
+                    → BCBA Training Tools & Resources
                   </Link>
                   <Link
                     href="/bcba-exam-prep"
@@ -92,7 +92,7 @@ export default function CommunityPage() {
                     href="/behavior-study-tools"
                     className="block text-emerald-700 hover:text-emerald-800 font-medium text-sm hover:underline"
                   >
-                    → AI-Powered BCBA Practice Questions
+                    → BCBA Practice Questions
                   </Link>
                   <Link
                     href="/about/rob-spain"
