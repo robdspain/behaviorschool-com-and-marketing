@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Mail, Phone, Briefcase, Calendar, Search } from "lucide-react";
+import { ArrowLeft, Mail, Phone, Briefcase, Calendar, Search, Archive, ArchiveRestore } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
 interface Submission {
@@ -15,6 +15,9 @@ interface Submission {
   current_challenges: string | null;
   status: string;
   submitted_at: string;
+  archived: boolean;
+  archived_at: string | null;
+  archived_by: string | null;
 }
 
 export default function SubmissionsPage() {
@@ -22,18 +25,21 @@ export default function SubmissionsPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [showArchived, setShowArchived] = useState(false);
+  const [archivingId, setArchivingId] = useState<string | null>(null);
 
   useEffect(() => {
     // Set page title
     document.title = 'Form Submissions | Behavior School Admin'
-    
+
     fetchSubmissions();
-  }, []);
+  }, [showArchived]);
 
   const fetchSubmissions = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/admin/submissions', { credentials: 'include' });
+      const url = `/api/admin/submissions?show_archived=${showArchived}`;
+      const res = await fetch(url, { credentials: 'include' });
       if (!res.ok) {
         console.error('Failed to load submissions', await res.text());
         setSubmissions([]);
@@ -45,6 +51,34 @@ export default function SubmissionsPage() {
       console.error('Exception fetching submissions:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const toggleArchive = async (id: string, currentlyArchived: boolean) => {
+    if (!confirm(currentlyArchived ? 'Restore this submission from archive?' : 'Archive this submission?')) {
+      return;
+    }
+
+    setArchivingId(id);
+    try {
+      const res = await fetch('/api/admin/submissions', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ id, archived: !currentlyArchived }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to update submission');
+      }
+
+      // Refresh submissions list
+      await fetchSubmissions();
+    } catch (err) {
+      console.error('Error archiving submission:', err);
+      alert('Failed to update submission. Please try again.');
+    } finally {
+      setArchivingId(null);
     }
   };
 
@@ -131,6 +165,17 @@ export default function SubmissionsPage() {
               <option value="enrolled">Enrolled</option>
               <option value="rejected">Rejected</option>
             </select>
+            <button
+              onClick={() => setShowArchived(!showArchived)}
+              className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+                showArchived
+                  ? 'bg-orange-100 text-orange-700 border-2 border-orange-300'
+                  : 'bg-slate-100 text-slate-700 border-2 border-slate-300 hover:bg-slate-200'
+              }`}
+            >
+              <Archive className="w-4 h-4" />
+              {showArchived ? 'Viewing Archived' : 'Show Archived'}
+            </button>
           </div>
         </div>
 
@@ -185,6 +230,36 @@ export default function SubmissionsPage() {
                     <p className="text-sm text-slate-600">{submission.current_challenges}</p>
                   </div>
                 )}
+
+                {/* Archive Button */}
+                <div className="mt-4 flex justify-end">
+                  <button
+                    onClick={() => toggleArchive(submission.id, submission.archived)}
+                    disabled={archivingId === submission.id}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                      submission.archived
+                        ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-2 border-emerald-300'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-2 border-slate-300'
+                    } disabled:opacity-50 disabled:cursor-not-allowed`}
+                  >
+                    {archivingId === submission.id ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                        <span>Processing...</span>
+                      </>
+                    ) : submission.archived ? (
+                      <>
+                        <ArchiveRestore className="w-4 h-4" />
+                        <span>Restore from Archive</span>
+                      </>
+                    ) : (
+                      <>
+                        <Archive className="w-4 h-4" />
+                        <span>Archive</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
             ))}
           </div>

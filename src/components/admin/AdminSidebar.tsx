@@ -2,17 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  Users, 
-  Mail, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Users,
+  Mail,
+  Settings,
   FileText,
   BarChart3,
   Menu,
   X,
   LogOut,
-  ChevronRight
+  ChevronRight,
+  Lock
 } from "lucide-react";
 import { useState } from "react";
 
@@ -27,6 +28,7 @@ const navigation: NavItem[] = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Submissions", href: "/admin/submissions", icon: Users },
   { name: "Email Templates", href: "/admin/email-templates", icon: Mail },
+  { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Content", href: "/admin/content", icon: FileText },
   { name: "Settings", href: "/admin/settings", icon: Settings },
