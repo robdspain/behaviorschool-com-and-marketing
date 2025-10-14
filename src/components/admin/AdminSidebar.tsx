@@ -13,7 +13,8 @@ import {
   X,
   LogOut,
   ChevronRight,
-  Lock
+  Lock,
+  CreditCard
 } from "lucide-react";
 import { useState } from "react";
 
@@ -29,6 +30,7 @@ const navigation: NavItem[] = [
   { name: "Submissions", href: "/admin/submissions", icon: Users },
   { name: "Email Templates", href: "/admin/email-templates", icon: Mail },
   { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
+  { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Content", href: "/admin/content", icon: FileText },
   { name: "Settings", href: "/admin/settings", icon: Settings },

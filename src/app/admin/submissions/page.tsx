@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Mail, Phone, Briefcase, Calendar, Search, Archive, ArchiveRestore } from "lucide-react";
+import { ArrowLeft, Mail, Phone, Briefcase, Calendar, Search, Archive, ArchiveRestore, Send, Clock } from "lucide-react";
 import SignOutButton from "@/components/SignOutButton";
 
 interface Submission {
@@ -20,6 +20,15 @@ interface Submission {
   archived_by: string | null;
 }
 
+interface EmailLog {
+  id: string;
+  template_name: string;
+  subject: string;
+  status: string;
+  sent_at: string;
+  error_message: string | null;
+}
+
 export default function SubmissionsPage() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,6 +36,9 @@ export default function SubmissionsPage() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [showArchived, setShowArchived] = useState(false);
   const [archivingId, setArchivingId] = useState<string | null>(null);
+  const [sendingPaymentLinkId, setSendingPaymentLinkId] = useState<string | null>(null);
+  const [emailLogs, setEmailLogs] = useState<Record<string, EmailLog[]>>({});
+  const [expandedSubmissionId, setExpandedSubmissionId] = useState<string | null>(null);
 
   useEffect(() => {
     // Set page title
@@ -46,7 +58,27 @@ export default function SubmissionsPage() {
         return;
       }
       const json = await res.json();
-      setSubmissions(json.submissions || []);
+      const submissionList = json.submissions || [];
+      setSubmissions(submissionList);
+
+      // Fetch email logs for all submissions
+      const logsMap: Record<string, EmailLog[]> = {};
+      await Promise.all(
+        submissionList.map(async (sub: Submission) => {
+          try {
+            const logsRes = await fetch(`/api/admin/email-logs?email=${encodeURIComponent(sub.email)}`, {
+              credentials: 'include'
+            });
+            if (logsRes.ok) {
+              const logsData = await logsRes.json();
+              logsMap[sub.email] = logsData.logs || [];
+            }
+          } catch (err) {
+            console.error(`Error fetching logs for ${sub.email}:`, err);
+          }
+        })
+      );
+      setEmailLogs(logsMap);
     } catch (err) {
       console.error('Exception fetching submissions:', err);
     } finally {
@@ -80,6 +112,50 @@ export default function SubmissionsPage() {
     } finally {
       setArchivingId(null);
     }
+  };
+
+  const sendPaymentLink = async (submission: Submission) => {
+    if (!confirm(`Send payment link to ${submission.first_name} ${submission.last_name} (${submission.email})?`)) {
+      return;
+    }
+
+    setSendingPaymentLinkId(submission.id);
+    try {
+      const res = await fetch('/api/admin/send-payment-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          email: submission.email,
+          firstName: submission.first_name,
+          lastName: submission.last_name,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to send payment link');
+      }
+
+      alert('Payment link sent successfully!');
+      // Refresh email logs for this submission
+      await fetchSubmissions();
+    } catch (err) {
+      console.error('Error sending payment link:', err);
+      alert(err instanceof Error ? err.message : 'Failed to send payment link. Please try again.');
+    } finally {
+      setSendingPaymentLinkId(null);
+    }
+  };
+
+  const formatDateTime = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit'
+    });
   };
 
   const filteredSubmissions = submissions.filter(sub => {
@@ -231,14 +307,75 @@ export default function SubmissionsPage() {
                   </div>
                 )}
 
-                {/* Archive Button */}
-                <div className="mt-4 flex justify-end">
+                {/* Email History */}
+                {emailLogs[submission.email] && emailLogs[submission.email].length > 0 && (
+                  <div className="mt-4">
+                    <button
+                      onClick={() => setExpandedSubmissionId(expandedSubmissionId === submission.id ? null : submission.id)}
+                      className="flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-emerald-600 transition-colors"
+                    >
+                      <Clock className="w-4 h-4" />
+                      Email History ({emailLogs[submission.email].length})
+                      <span className="text-xs text-slate-500">
+                        {expandedSubmissionId === submission.id ? '▼' : '▶'}
+                      </span>
+                    </button>
+
+                    {expandedSubmissionId === submission.id && (
+                      <div className="mt-3 space-y-2">
+                        {emailLogs[submission.email]
+                          .filter(log => log.template_name === 'transformation_payment_link')
+                          .map((log) => (
+                            <div key={log.id} className="flex items-start gap-3 p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                              <Mail className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-emerald-900">Payment Link Sent</p>
+                                <p className="text-xs text-emerald-700 mt-1">
+                                  {formatDateTime(log.sent_at)}
+                                </p>
+                                {log.error_message && (
+                                  <p className="text-xs text-red-600 mt-1">Error: {log.error_message}</p>
+                                )}
+                              </div>
+                              <span className={`text-xs font-semibold px-2 py-1 rounded ${
+                                log.status === 'sent'
+                                  ? 'bg-emerald-100 text-emerald-700'
+                                  : 'bg-red-100 text-red-700'
+                              }`}>
+                                {log.status}
+                              </span>
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Action Buttons */}
+                <div className="mt-4 flex justify-end gap-3">
+                  <button
+                    onClick={() => sendPaymentLink(submission)}
+                    disabled={sendingPaymentLinkId === submission.id}
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-2 border-emerald-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {sendingPaymentLinkId === submission.id ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>Send Payment Link</span>
+                      </>
+                    )}
+                  </button>
                   <button
                     onClick={() => toggleArchive(submission.id, submission.archived)}
                     disabled={archivingId === submission.id}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                       submission.archived
-                        ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 border-2 border-emerald-300'
+                        ? 'bg-orange-100 text-orange-700 hover:bg-orange-200 border-2 border-orange-300'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-2 border-slate-300'
                     } disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
