@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 export const metadata: Metadata = {
-  title: "Free BCBA Exam Prep & Mock Tests → Boost Your Certification Prep | Behavior School",
+  title: "School BCBA Transformation Program | Behavior School",
   description:
     "Get instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools to help you prepare confidently for your BCBA certification exam.",
   keywords: "Behavior School, school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, behavior school platform",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
     type: "website",
-    title: "Free BCBA Exam Prep & Mock Tests → Boost Your Certification Prep",
+    title: "School BCBA Transformation Program",
     description:
       "Instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools for BCBA certification preparation.",
     url: "/",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Exam Prep & Mock Tests → Boost Your Certification Prep",
+    title: "School BCBA Transformation Program",
     description:
       "Instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Start preparing now!",
     images: ["/og-image.webp"],
