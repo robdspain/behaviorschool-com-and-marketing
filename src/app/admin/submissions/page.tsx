@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { ArrowLeft, Mail, Phone, Briefcase, Calendar, Search, Archive, ArchiveRestore, Send, Clock } from "lucide-react";
-import SignOutButton from "@/components/SignOutButton";
+import { Mail, Phone, Briefcase, Calendar, Search, Archive, ArchiveRestore, Send, Clock } from "lucide-react";
 
 interface Submission {
   id: string;
@@ -45,6 +43,7 @@ export default function SubmissionsPage() {
     document.title = 'Form Submissions | Behavior School Admin'
 
     fetchSubmissions();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showArchived]);
 
   const fetchSubmissions = async () => {

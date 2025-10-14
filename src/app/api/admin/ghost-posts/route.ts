@@ -32,9 +32,9 @@ export async function GET() {
     }
 
     const data = await response.json();
-    
+
     // Map Ghost posts to our format
-    const posts = data.posts?.map((post: any) => ({
+    const posts = data.posts?.map((post: { id: string; title: string; slug: string; html: string; feature_image: string; published_at: string; updated_at: string; excerpt?: string; custom_excerpt?: string; tags?: unknown[] }) => ({
       id: post.id,
       title: post.title,
       slug: post.slug,

@@ -50,7 +50,7 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 })
     }
 
-    const updateData: any = {
+    const updateData: { archived: boolean; archived_at: string | null; archived_by: string } = {
       archived,
       archived_at: archived ? new Date().toISOString() : null,
       archived_by: 'Admin' // You can enhance this to use actual admin user info
