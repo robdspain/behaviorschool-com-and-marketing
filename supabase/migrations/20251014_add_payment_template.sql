@@ -17,7 +17,11 @@ Next Steps:
 - Complete your secure payment through Stripe
 - Get immediate access to the program materials
 
-Important: This link grants you exclusive access to enroll in the program. If you have any questions before proceeding, feel free to reach out!
+Questions Before You Proceed?
+If you have any questions or want to discuss anything before enrolling, feel free to schedule another call with us:
+https://calendly.com/robspain/behavior-school-transformation-system-phone-call
+
+Important: This link grants you exclusive access to enroll in the program. We''re here to support you every step of the way!
 
 We can''t wait to support you on your journey!
 
@@ -83,8 +87,24 @@ Questions? Reply to this email or visit behaviorschool.com',
                 </ul>
               </div>
 
+              <div style="margin: 30px 0; padding: 20px; background-color: #fef3c7; border-radius: 8px; border: 1px solid #fde68a;">
+                <h3 style="margin: 0 0 10px; color: #92400e; font-size: 16px;">Questions Before You Proceed?</h3>
+                <p style="margin: 0 0 16px; color: #78350f; font-size: 14px; line-height: 1.6;">
+                  If you have any questions or want to discuss anything before enrolling, feel free to schedule another call with us:
+                </p>
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td align="center">
+                      <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 12px 24px; background-color: #f59e0b; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px;">
+                        📅 Schedule a Call
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
               <p style="margin: 30px 0 20px; color: #64748b; font-size: 14px; line-height: 1.6; padding: 20px; background-color: #f1f5f9; border-radius: 8px; border-left: 4px solid #10b981;">
-                <strong style="color: #334155;">Important:</strong> This link grants you exclusive access to enroll in the program. If you have any questions before proceeding, feel free to reach out!
+                <strong style="color: #334155;">Important:</strong> This link grants you exclusive access to enroll in the program. We''re here to support you every step of the way!
               </p>
 
               <p style="margin: 30px 0 0; color: #334155; font-size: 16px; line-height: 1.6;">
