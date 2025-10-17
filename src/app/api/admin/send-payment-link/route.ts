@@ -48,12 +48,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Fetch checkout password
+    const { data: passwordData } = await adminClient
+      .from('checkout_settings')
+      .select('setting_value')
+      .eq('setting_key', 'checkout_password')
+      .single();
+
+    const checkoutPassword = passwordData?.setting_value || 'SchoolBCBA2025';
+
     // Replace template variables
     const replaceVariables = (text: string) => {
       return text
         .replace(/\$\{firstName\}/g, firstName || '')
         .replace(/\$\{lastName\}/g, lastName || '')
-        .replace(/\$\{email\}/g, email);
+        .replace(/\$\{email\}/g, email)
+        .replace(/\$\{password\}/g, checkoutPassword);
     };
 
     const subject = replaceVariables(template.subject);
