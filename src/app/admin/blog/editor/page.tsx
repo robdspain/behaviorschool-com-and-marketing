@@ -3,7 +3,13 @@
 import { useEffect, useState, Suspense } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin } from 'lucide-react'
+import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X } from 'lucide-react'
+
+interface GhostTag {
+  id: string
+  name: string
+  slug: string
+}
 
 interface Post {
   id?: string
@@ -12,6 +18,7 @@ interface Post {
   excerpt: string
   feature_image: string
   status: 'draft' | 'published'
+  published_at?: string | null
   meta_title: string
   meta_description: string
   twitter_title?: string
@@ -20,6 +27,9 @@ interface Post {
   og_title?: string
   og_description?: string
   og_image?: string
+  tags?: Array<{ id: string; name: string; slug: string }>
+  codeinjection_head?: string
+  codeinjection_foot?: string
   updated_at?: string
 }
 
@@ -38,6 +48,7 @@ function BlogEditorContent() {
     excerpt: '',
     feature_image: '',
     status: 'draft',
+    published_at: null,
     meta_title: '',
     meta_description: '',
     twitter_title: '',
@@ -45,7 +56,10 @@ function BlogEditorContent() {
     twitter_image: '',
     og_title: '',
     og_description: '',
-    og_image: ''
+    og_image: '',
+    tags: [],
+    codeinjection_head: '',
+    codeinjection_foot: ''
   })
 
   const [showSocialPreview, setShowSocialPreview] = useState(false)
@@ -54,6 +68,20 @@ function BlogEditorContent() {
     facebook: false,
     linkedin: false
   })
+
+  // Tag management
+  const [availableTags, setAvailableTags] = useState<GhostTag[]>([])
+  const [showTagModal, setShowTagModal] = useState(false)
+  const [newTagName, setNewTagName] = useState('')
+  const [newTagSlug, setNewTagSlug] = useState('')
+
+  // Image upload
+  const [uploading, setUploading] = useState(false)
+
+
+  // Scheduling
+  const [scheduleDate, setScheduleDate] = useState('')
+  const [scheduleTime, setScheduleTime] = useState('')
 
   useEffect(() => {
     document.title = postId ? 'Edit Post | Admin' : 'New Post | Admin'
@@ -65,6 +93,7 @@ function BlogEditorContent() {
         router.push('/admin/login')
       } else {
         setIsAuthenticated(true)
+        fetchTags()
         if (postId) {
           fetchPost(postId)
         } else {
@@ -75,6 +104,91 @@ function BlogEditorContent() {
 
     checkAuth()
   }, [postId, supabase, router])
+
+  const fetchTags = async () => {
+    try {
+      const response = await fetch('/api/admin/blog/tags')
+      const result = await response.json()
+      if (result.success) {
+        setAvailableTags(result.tags)
+      }
+    } catch (error) {
+      console.error('Error fetching tags:', error)
+    }
+  }
+
+  const createTag = async () => {
+    if (!newTagName.trim()) return
+
+    try {
+      const slug = newTagSlug.trim() || newTagName.toLowerCase().replace(/\s+/g, '-')
+      const response = await fetch('/api/admin/blog/tags', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newTagName,
+          slug: slug
+        })
+      })
+
+      const result = await response.json()
+      if (result.success && result.tag) {
+        setAvailableTags([...availableTags, result.tag])
+        setPost({ ...post, tags: [...(post.tags || []), result.tag] })
+        setNewTagName('')
+        setNewTagSlug('')
+        setShowTagModal(false)
+      }
+    } catch (error) {
+      console.error('Error creating tag:', error)
+      alert('Failed to create tag')
+    }
+  }
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const response = await fetch('/api/admin/blog/images', {
+        method: 'POST',
+        body: formData
+      })
+
+      const result = await response.json()
+      if (result.success && result.images && result.images[0]) {
+        setPost({ ...post, feature_image: result.images[0].url })
+      } else {
+        alert('Failed to upload image')
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error)
+      alert('Failed to upload image')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const insertHtmlTag = (tag: string, closing?: string) => {
+    const textarea = document.getElementById('html-editor') as HTMLTextAreaElement
+    if (!textarea) return
+
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    const selectedText = post.html.substring(start, end)
+    const beforeText = post.html.substring(0, start)
+    const afterText = post.html.substring(end)
+
+    const newText = closing
+      ? `${beforeText}${tag}${selectedText}${closing}${afterText}`
+      : `${beforeText}${selectedText}${tag}${afterText}`
+
+    setPost({ ...post, html: newText })
+  }
 
   const fetchPost = async (id: string) => {
     try {
@@ -89,6 +203,7 @@ function BlogEditorContent() {
           excerpt: result.post.excerpt || '',
           feature_image: result.post.feature_image || '',
           status: result.post.status || 'draft',
+          published_at: result.post.published_at || null,
           meta_title: result.post.meta_title || '',
           meta_description: result.post.meta_description || '',
           twitter_title: result.post.twitter_title || '',
@@ -97,8 +212,20 @@ function BlogEditorContent() {
           og_title: result.post.og_title || '',
           og_description: result.post.og_description || '',
           og_image: result.post.og_image || '',
+          tags: result.post.tags || [],
+          codeinjection_head: result.post.codeinjection_head || '',
+          codeinjection_foot: result.post.codeinjection_foot || '',
           updated_at: result.post.updated_at
         })
+
+        // Set schedule if published_at is in future
+        if (result.post.published_at) {
+          const pubDate = new Date(result.post.published_at)
+          if (pubDate > new Date()) {
+            setScheduleDate(pubDate.toISOString().split('T')[0])
+            setScheduleTime(pubDate.toTimeString().substring(0, 5))
+          }
+        }
       }
     } catch (error) {
       console.error('Error fetching post:', error)
@@ -118,6 +245,14 @@ function BlogEditorContent() {
     try {
       const statusToSave = newStatus || post.status
 
+      // Handle scheduling
+      let publishedAt = post.published_at
+      if (scheduleDate && scheduleTime && statusToSave === 'published') {
+        publishedAt = new Date(`${scheduleDate}T${scheduleTime}`).toISOString()
+      } else if (statusToSave === 'published' && !publishedAt) {
+        publishedAt = new Date().toISOString()
+      }
+
       const response = await fetch(
         postId ? `/api/admin/blog/posts/${postId}` : '/api/admin/blog/posts',
         {
@@ -125,7 +260,9 @@ function BlogEditorContent() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             ...post,
-            status: statusToSave
+            status: statusToSave,
+            published_at: publishedAt,
+            tags: post.tags?.map(t => ({ id: t.id, name: t.name, slug: t.slug }))
           })
         }
       )
@@ -257,20 +394,78 @@ function BlogEditorContent() {
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-2">
               <ImageIcon className="w-4 h-4 inline mr-2" />
-              Feature Image URL
+              Feature Image
             </label>
-            <input
-              type="url"
-              placeholder="https://example.com/image.jpg"
-              value={post.feature_image}
-              onChange={(e) => setPost({ ...post, feature_image: e.target.value })}
-              className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
-            />
+            <div className="flex gap-3">
+              <input
+                type="url"
+                placeholder="https://example.com/image.jpg"
+                value={post.feature_image}
+                onChange={(e) => setPost({ ...post, feature_image: e.target.value })}
+                className="flex-1 px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+              />
+              <label className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors cursor-pointer flex items-center gap-2">
+                <Upload className="w-4 h-4" />
+                {uploading ? 'Uploading...' : 'Upload'}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={uploading}
+                  className="hidden"
+                />
+              </label>
+            </div>
             {post.feature_image && (
               <div className="mt-4">
                 <img src={post.feature_image} alt="Preview" className="max-w-full h-auto rounded-lg" />
               </div>
             )}
+          </div>
+
+          {/* Tags */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <Tag className="w-4 h-4 inline mr-2" />
+              Tags
+            </label>
+            <div className="flex flex-wrap gap-2 mb-3">
+              {post.tags?.map((tag) => (
+                <span key={tag.id} className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm">
+                  {tag.name}
+                  <button
+                    onClick={() => setPost({ ...post, tags: post.tags?.filter(t => t.id !== tag.id) })}
+                    className="hover:text-emerald-900"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <select
+                onChange={(e) => {
+                  const selectedTag = availableTags.find(t => t.id === e.target.value)
+                  if (selectedTag && !post.tags?.find(t => t.id === selectedTag.id)) {
+                    setPost({ ...post, tags: [...(post.tags || []), selectedTag] })
+                  }
+                  e.target.value = ''
+                }}
+                className="flex-1 px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+              >
+                <option value="">Select existing tag...</option>
+                {availableTags.filter(t => !post.tags?.find(pt => pt.id === t.id)).map((tag) => (
+                  <option key={tag.id} value={tag.id}>{tag.name}</option>
+                ))}
+              </select>
+              <button
+                onClick={() => setShowTagModal(true)}
+                className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors flex items-center gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                New Tag
+              </button>
+            </div>
           </div>
 
           {/* Excerpt */}
@@ -292,13 +487,159 @@ function BlogEditorContent() {
             <label className="block text-sm font-semibold text-slate-700 mb-2">
               Content (HTML)
             </label>
+            {/* Rich Text Toolbar */}
+            <div className="mb-2 p-2 bg-slate-100 rounded-lg flex flex-wrap gap-1">
+              <button
+                onClick={() => insertHtmlTag('<p>', '</p>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm font-medium"
+                title="Paragraph"
+              >
+                P
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<h2>', '</h2>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm font-bold"
+                title="Heading 2"
+              >
+                H2
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<h3>', '</h3>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm font-bold"
+                title="Heading 3"
+              >
+                H3
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<strong>', '</strong>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm font-bold"
+                title="Bold"
+              >
+                B
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<em>', '</em>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm italic"
+                title="Italic"
+              >
+                I
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<a href="">', '</a>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm text-blue-600"
+                title="Link"
+              >
+                Link
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<ul>\n  <li>', '</li>\n</ul>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm"
+                title="Bulleted List"
+              >
+                • List
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<ol>\n  <li>', '</li>\n</ol>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm"
+                title="Numbered List"
+              >
+                1. List
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<blockquote>', '</blockquote>')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm"
+                title="Blockquote"
+              >
+                &ldquo; Quote
+              </button>
+              <button
+                onClick={() => insertHtmlTag('<img src="" alt="">')}
+                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm"
+                title="Image"
+              >
+                🖼️ Img
+              </button>
+            </div>
             <textarea
+              id="html-editor"
               placeholder="Write your post content here (HTML supported)..."
               value={post.html}
               onChange={(e) => setPost({ ...post, html: e.target.value })}
               rows={20}
               className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500 font-mono text-sm"
             />
+          </div>
+
+          {/* Scheduling */}
+          <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
+            <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <Calendar className="w-5 h-5" />
+              Schedule Publication
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Date
+                </label>
+                <input
+                  type="date"
+                  value={scheduleDate}
+                  onChange={(e) => setScheduleDate(e.target.value)}
+                  min={new Date().toISOString().split('T')[0]}
+                  className="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Time
+                </label>
+                <input
+                  type="time"
+                  value={scheduleTime}
+                  onChange={(e) => setScheduleTime(e.target.value)}
+                  className="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+            </div>
+            <p className="text-sm text-slate-600 mt-3">
+              {scheduleDate && scheduleTime
+                ? `Post will be published on ${new Date(`${scheduleDate}T${scheduleTime}`).toLocaleString()}`
+                : 'Leave empty to publish immediately'}
+            </p>
+          </div>
+
+          {/* Code Injection */}
+          <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
+            <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <Code className="w-5 h-5" />
+              Code Injection
+            </h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Post Header (injected into {'<head>'}for this post only)
+                </label>
+                <textarea
+                  placeholder="<!-- Custom CSS, meta tags, etc. -->"
+                  value={post.codeinjection_head}
+                  onChange={(e) => setPost({ ...post, codeinjection_head: e.target.value })}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 font-mono text-xs"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Post Footer (injected before {'</body>'} for this post only)
+                </label>
+                <textarea
+                  placeholder="<!-- Custom JavaScript, analytics, etc. -->"
+                  value={post.codeinjection_foot}
+                  onChange={(e) => setPost({ ...post, codeinjection_foot: e.target.value })}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 font-mono text-xs"
+                />
+              </div>
+            </div>
           </div>
 
           {/* SEO Settings */}
@@ -541,6 +882,57 @@ function BlogEditorContent() {
           </div>
         </div>
       </main>
+
+      {/* Tag Creation Modal */}
+      {showTagModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowTagModal(false)}>
+          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-xl font-bold text-slate-900 mb-4">Create New Tag</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Tag Name
+                </label>
+                <input
+                  type="text"
+                  value={newTagName}
+                  onChange={(e) => setNewTagName(e.target.value)}
+                  placeholder="e.g. BCBA Exam Prep"
+                  className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Slug (optional)
+                </label>
+                <input
+                  type="text"
+                  value={newTagSlug}
+                  onChange={(e) => setNewTagSlug(e.target.value)}
+                  placeholder="e.g. bcba-exam-prep"
+                  className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                />
+                <p className="text-xs text-slate-500 mt-1">Leave empty to auto-generate from name</p>
+              </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => setShowTagModal(false)}
+                className="flex-1 px-4 py-2 border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={createTag}
+                disabled={!newTagName.trim()}
+                className="flex-1 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50"
+              >
+                Create Tag
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

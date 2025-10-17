@@ -83,6 +83,7 @@ export async function PUT(
           title: body.title,
           html: body.html,
           status: body.status,
+          published_at: body.published_at,
           feature_image: body.feature_image,
           tags: body.tags,
           excerpt: body.excerpt,
@@ -94,6 +95,8 @@ export async function PUT(
           og_title: body.og_title,
           og_description: body.og_description,
           og_image: body.og_image,
+          codeinjection_head: body.codeinjection_head,
+          codeinjection_foot: body.codeinjection_foot,
           updated_at: body.updated_at, // Required for updates
         }]
       }),

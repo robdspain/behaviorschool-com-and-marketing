@@ -21,14 +21,11 @@ function getGhostToken() {
   return token;
 }
 
-// GET - Fetch all posts
-export async function GET(request: NextRequest) {
+// GET - Fetch all tags
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url);
-    const status = searchParams.get('status') || 'all';
-
     const token = getGhostToken();
-    const url = `${GHOST_URL}/ghost/api/admin/posts/?include=tags,authors&formats=mobiledoc,html&limit=all${status !== 'all' ? `&filter=status:${status}` : ''}`;
+    const url = `${GHOST_URL}/ghost/api/admin/tags/?limit=all`;
 
     const response = await fetch(url, {
       headers: {
@@ -50,48 +47,34 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      posts: data.posts || []
+      tags: data.tags || []
     });
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    console.error('Error fetching tags:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch posts' },
+      { success: false, error: 'Failed to fetch tags' },
       { status: 500 }
     );
   }
 }
 
-// POST - Create new post
+// POST - Create new tag
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const token = getGhostToken();
 
-    const response = await fetch(`${GHOST_URL}/ghost/api/admin/posts/`, {
+    const response = await fetch(`${GHOST_URL}/ghost/api/admin/tags/`, {
       method: 'POST',
       headers: {
         Authorization: `Ghost ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        posts: [{
-          title: body.title,
-          html: body.html,
-          status: body.status || 'draft',
-          published_at: body.published_at,
-          feature_image: body.feature_image,
-          tags: body.tags,
-          excerpt: body.excerpt,
-          meta_title: body.meta_title,
-          meta_description: body.meta_description,
-          twitter_title: body.twitter_title,
-          twitter_description: body.twitter_description,
-          twitter_image: body.twitter_image,
-          og_title: body.og_title,
-          og_description: body.og_description,
-          og_image: body.og_image,
-          codeinjection_head: body.codeinjection_head,
-          codeinjection_foot: body.codeinjection_foot,
+        tags: [{
+          name: body.name,
+          slug: body.slug,
+          description: body.description,
         }]
       }),
     });
@@ -101,7 +84,7 @@ export async function POST(request: NextRequest) {
       console.error('Ghost API error:', error);
       return NextResponse.json({
         success: false,
-        error: `Failed to create post: ${response.status}`
+        error: `Failed to create tag: ${response.status}`
       }, { status: response.status });
     }
 
@@ -109,12 +92,12 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      post: data.posts?.[0]
+      tag: data.tags?.[0]
     });
   } catch (error) {
-    console.error('Error creating post:', error);
+    console.error('Error creating tag:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to create post' },
+      { success: false, error: 'Failed to create tag' },
       { status: 500 }
     );
   }
