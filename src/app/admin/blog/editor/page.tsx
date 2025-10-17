@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Save, Eye, ArrowLeft, Image as ImageIcon } from 'lucide-react'
+import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin } from 'lucide-react'
 
 interface Post {
   id?: string
@@ -14,6 +14,12 @@ interface Post {
   status: 'draft' | 'published'
   meta_title: string
   meta_description: string
+  twitter_title?: string
+  twitter_description?: string
+  twitter_image?: string
+  og_title?: string
+  og_description?: string
+  og_image?: string
   updated_at?: string
 }
 
@@ -33,7 +39,20 @@ function BlogEditorContent() {
     feature_image: '',
     status: 'draft',
     meta_title: '',
-    meta_description: ''
+    meta_description: '',
+    twitter_title: '',
+    twitter_description: '',
+    twitter_image: '',
+    og_title: '',
+    og_description: '',
+    og_image: ''
+  })
+
+  const [showSocialPreview, setShowSocialPreview] = useState(false)
+  const [autoPostSocial, setAutoPostSocial] = useState({
+    twitter: false,
+    facebook: false,
+    linkedin: false
   })
 
   useEffect(() => {
@@ -72,6 +91,12 @@ function BlogEditorContent() {
           status: result.post.status || 'draft',
           meta_title: result.post.meta_title || '',
           meta_description: result.post.meta_description || '',
+          twitter_title: result.post.twitter_title || '',
+          twitter_description: result.post.twitter_description || '',
+          twitter_image: result.post.twitter_image || '',
+          og_title: result.post.og_title || '',
+          og_description: result.post.og_description || '',
+          og_image: result.post.og_image || '',
           updated_at: result.post.updated_at
         })
       }
@@ -108,6 +133,27 @@ function BlogEditorContent() {
       const result = await response.json()
 
       if (result.success) {
+        // If publishing and auto-post is enabled, trigger social media posting
+        if (statusToSave === 'published' && (autoPostSocial.twitter || autoPostSocial.facebook || autoPostSocial.linkedin)) {
+          try {
+            const postUrl = `https://behaviorschool.com/blog/${result.post?.slug || ''}`
+            await fetch('/api/admin/blog/social-post', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                postUrl,
+                title: post.twitter_title || post.title,
+                description: post.twitter_description || post.excerpt,
+                image: post.twitter_image || post.feature_image,
+                platforms: autoPostSocial
+              })
+            })
+          } catch (error) {
+            console.error('Error posting to social media:', error)
+            // Don't fail the save if social posting fails
+          }
+        }
+
         alert(`Post ${postId ? 'updated' : 'created'} successfully!`)
         if (!postId && result.post?.id) {
           router.push(`/admin/blog/editor?id=${result.post.id}`)
@@ -284,6 +330,214 @@ function BlogEditorContent() {
                 />
               </div>
             </div>
+          </div>
+
+          {/* Social Media Cards */}
+          <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Share2 className="w-5 h-5" />
+                Social Media Cards
+              </h3>
+              <button
+                onClick={() => setShowSocialPreview(!showSocialPreview)}
+                className="text-sm text-emerald-600 hover:text-emerald-700 font-semibold"
+              >
+                {showSocialPreview ? 'Hide' : 'Show'} Preview
+              </button>
+            </div>
+
+            {/* Twitter/X Card */}
+            <div className="mb-6 pb-6 border-b border-slate-200">
+              <h4 className="text-md font-semibold text-slate-800 mb-3 flex items-center gap-2">
+                <Twitter className="w-4 h-4" />
+                Twitter / X Card
+              </h4>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Twitter Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Defaults to post title (max 70 chars)"
+                    value={post.twitter_title}
+                    onChange={(e) => setPost({ ...post, twitter_title: e.target.value })}
+                    maxLength={70}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 text-sm"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">{post.twitter_title?.length || 0}/70 characters</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Twitter Description
+                  </label>
+                  <textarea
+                    placeholder="Defaults to excerpt (max 200 chars)"
+                    value={post.twitter_description}
+                    onChange={(e) => setPost({ ...post, twitter_description: e.target.value })}
+                    maxLength={200}
+                    rows={2}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 text-sm"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">{post.twitter_description?.length || 0}/200 characters</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Twitter Image URL
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="Defaults to feature image (1200x628px recommended)"
+                    value={post.twitter_image}
+                    onChange={(e) => setPost({ ...post, twitter_image: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Facebook / Open Graph Card */}
+            <div className="mb-6 pb-6 border-b border-slate-200">
+              <h4 className="text-md font-semibold text-slate-800 mb-3 flex items-center gap-2">
+                <Facebook className="w-4 h-4" />
+                Facebook / Open Graph
+              </h4>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    OG Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Defaults to post title"
+                    value={post.og_title}
+                    onChange={(e) => setPost({ ...post, og_title: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    OG Description
+                  </label>
+                  <textarea
+                    placeholder="Defaults to excerpt"
+                    value={post.og_description}
+                    onChange={(e) => setPost({ ...post, og_description: e.target.value })}
+                    rows={2}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    OG Image URL
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="Defaults to feature image (1200x630px recommended)"
+                    value={post.og_image}
+                    onChange={(e) => setPost({ ...post, og_image: e.target.value })}
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Auto-Post to Social Media */}
+            <div>
+              <h4 className="text-md font-semibold text-slate-800 mb-3">
+                Auto-Post on Publish
+              </h4>
+              <div className="space-y-2">
+                <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={autoPostSocial.twitter}
+                    onChange={(e) => setAutoPostSocial({ ...autoPostSocial, twitter: e.target.checked })}
+                    className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500"
+                  />
+                  <Twitter className="w-4 h-4 text-blue-400" />
+                  <span className="text-sm font-medium text-slate-700">Post to Twitter/X when published</span>
+                </label>
+                <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={autoPostSocial.facebook}
+                    onChange={(e) => setAutoPostSocial({ ...autoPostSocial, facebook: e.target.checked })}
+                    className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500"
+                  />
+                  <Facebook className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm font-medium text-slate-700">Post to Facebook when published</span>
+                </label>
+                <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={autoPostSocial.linkedin}
+                    onChange={(e) => setAutoPostSocial({ ...autoPostSocial, linkedin: e.target.checked })}
+                    className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500"
+                  />
+                  <Linkedin className="w-4 h-4 text-blue-700" />
+                  <span className="text-sm font-medium text-slate-700">Post to LinkedIn when published</span>
+                </label>
+              </div>
+              <p className="text-xs text-slate-500 mt-3">
+                Note: Social media API keys must be configured in settings for auto-posting to work.
+              </p>
+            </div>
+
+            {/* Social Preview */}
+            {showSocialPreview && (
+              <div className="mt-6 pt-6 border-t border-slate-200">
+                <h4 className="text-md font-semibold text-slate-800 mb-4">Preview</h4>
+                <div className="space-y-4">
+                  {/* Twitter Preview */}
+                  <div className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                    <p className="text-xs font-semibold text-slate-600 mb-2">TWITTER / X</p>
+                    <div className="bg-white border border-slate-300 rounded-xl overflow-hidden">
+                      {(post.twitter_image || post.feature_image) && (
+                        <img
+                          src={post.twitter_image || post.feature_image}
+                          alt="Twitter preview"
+                          className="w-full h-48 object-cover"
+                        />
+                      )}
+                      <div className="p-3">
+                        <p className="font-semibold text-sm text-slate-900 line-clamp-1">
+                          {post.twitter_title || post.title || 'Post Title'}
+                        </p>
+                        <p className="text-xs text-slate-600 mt-1 line-clamp-2">
+                          {post.twitter_description || post.excerpt || 'Post description...'}
+                        </p>
+                        <p className="text-xs text-slate-400 mt-1">behaviorschool.com</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Facebook Preview */}
+                  <div className="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                    <p className="text-xs font-semibold text-slate-600 mb-2">FACEBOOK</p>
+                    <div className="bg-white border border-slate-300 rounded-lg overflow-hidden">
+                      {(post.og_image || post.feature_image) && (
+                        <img
+                          src={post.og_image || post.feature_image}
+                          alt="Facebook preview"
+                          className="w-full h-52 object-cover"
+                        />
+                      )}
+                      <div className="p-3 bg-slate-100">
+                        <p className="text-xs text-slate-500 uppercase">behaviorschool.com</p>
+                        <p className="font-semibold text-sm text-slate-900 mt-1">
+                          {post.og_title || post.title || 'Post Title'}
+                        </p>
+                        <p className="text-xs text-slate-600 mt-1 line-clamp-2">
+                          {post.og_description || post.excerpt || 'Post description...'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>

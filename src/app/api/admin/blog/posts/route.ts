@@ -83,6 +83,12 @@ export async function POST(request: NextRequest) {
           excerpt: body.excerpt,
           meta_title: body.meta_title,
           meta_description: body.meta_description,
+          twitter_title: body.twitter_title,
+          twitter_description: body.twitter_description,
+          twitter_image: body.twitter_image,
+          og_title: body.og_title,
+          og_description: body.og_description,
+          og_image: body.og_image,
         }]
       }),
     });
