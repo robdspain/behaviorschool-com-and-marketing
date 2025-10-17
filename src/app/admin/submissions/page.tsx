@@ -37,6 +37,7 @@ export default function SubmissionsPage() {
   const [sendingPaymentLinkId, setSendingPaymentLinkId] = useState<string | null>(null);
   const [emailLogs, setEmailLogs] = useState<Record<string, EmailLog[]>>({});
   const [expandedSubmissionId, setExpandedSubmissionId] = useState<string | null>(null);
+  const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
 
   useEffect(() => {
     // Set page title
@@ -118,6 +119,32 @@ export default function SubmissionsPage() {
       alert('Failed to update submission. Please try again.');
     } finally {
       setArchivingId(null);
+    }
+  };
+
+  const updateStatus = async (id: string, newStatus: string) => {
+    setUpdatingStatusId(id);
+    try {
+      const res = await fetch('/api/admin/submissions', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ id, status: newStatus }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to update status');
+      }
+
+      // Update local state
+      setSubmissions(prev =>
+        prev.map(sub => sub.id === id ? { ...sub, status: newStatus } : sub)
+      );
+    } catch (err) {
+      console.error('Error updating status:', err);
+      alert('Failed to update status. Please try again.');
+    } finally {
+      setUpdatingStatusId(null);
     }
   };
 
@@ -297,9 +324,18 @@ export default function SubmissionsPage() {
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(submission.status)}`}>
-                      {submission.status}
-                    </span>
+                    <select
+                      value={submission.status}
+                      onChange={(e) => updateStatus(submission.id, e.target.value)}
+                      disabled={updatingStatusId === submission.id}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold border-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${getStatusColor(submission.status)}`}
+                    >
+                      <option value="new">new</option>
+                      <option value="contacted">contacted</option>
+                      <option value="qualified">qualified</option>
+                      <option value="enrolled">enrolled</option>
+                      <option value="rejected">rejected</option>
+                    </select>
                     <span className="flex items-center gap-1 text-xs text-slate-500">
                       <Calendar className="w-3 h-3" />
                       {formatDate(submission.submitted_at)}

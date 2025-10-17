@@ -44,16 +44,23 @@ export async function PATCH(request: NextRequest) {
     )
 
     const body = await request.json()
-    const { id, archived } = body
+    const { id, archived, status } = body
 
     if (!id) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 })
     }
 
-    const updateData: { archived: boolean; archived_at: string | null; archived_by: string } = {
-      archived,
-      archived_at: archived ? new Date().toISOString() : null,
-      archived_by: 'Admin' // You can enhance this to use actual admin user info
+    // Build update object based on what's being updated
+    const updateData: Record<string, unknown> = {}
+
+    if (archived !== undefined) {
+      updateData.archived = archived
+      updateData.archived_at = archived ? new Date().toISOString() : null
+      updateData.archived_by = 'Admin' // You can enhance this to use actual admin user info
+    }
+
+    if (status !== undefined) {
+      updateData.status = status
     }
 
     const { data, error } = await supabase
