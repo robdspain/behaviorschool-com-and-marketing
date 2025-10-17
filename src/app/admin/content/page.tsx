@@ -50,7 +50,7 @@ export default function ContentPage() {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/admin/ghost-posts')
+      const response = await fetch('/api/admin/blog/posts')
       const result = await response.json()
       
       if (result.success) {
