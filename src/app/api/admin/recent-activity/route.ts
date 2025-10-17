@@ -17,62 +17,80 @@ export async function GET() {
   try {
     const activities: Activity[] = [];
 
+    // Get archived activity IDs to filter them out
+    const { data: archivedData } = await supabase
+      .from('archived_activities')
+      .select('activity_type, activity_id');
+
+    const archivedSet = new Set(
+      archivedData?.map(a => `${a.activity_type}:${a.activity_id}`) || []
+    );
+
     // Get recent submissions (last 10)
     const { data: submissions, error: submissionsError } = await supabase
       .from('signup_submissions')
-      .select('first_name, last_name, submitted_at')
+      .select('id, first_name, last_name, submitted_at')
       .order('submitted_at', { ascending: false })
-      .limit(5);
+      .limit(10);
 
     if (!submissionsError && submissions) {
       submissions.forEach(sub => {
-        activities.push({
-          type: 'submission',
-          title: 'New submission received',
-          description: `${sub.first_name} ${sub.last_name} submitted the signup form`,
-          timestamp: sub.submitted_at,
-        });
+        const activityId = `submission:${sub.id}`;
+        if (!archivedSet.has(activityId)) {
+          activities.push({
+            type: 'submission',
+            title: 'New submission received',
+            description: `${sub.first_name} ${sub.last_name} submitted the signup form`,
+            timestamp: sub.submitted_at,
+          });
+        }
       });
     }
 
     // Get recent email template updates (last 5)
     const { data: templates, error: templatesError } = await supabase
       .from('email_templates')
-      .select('name, updated_at')
+      .select('id, name, updated_at')
       .order('updated_at', { ascending: false })
-      .limit(3);
+      .limit(5);
 
     if (!templatesError && templates) {
       templates.forEach(template => {
-        activities.push({
-          type: 'template',
-          title: 'Email template updated',
-          description: `${template.name} template was modified`,
-          timestamp: template.updated_at,
-        });
+        const activityId = `template:${template.id}`;
+        if (!archivedSet.has(activityId)) {
+          activities.push({
+            type: 'template',
+            title: 'Email template updated',
+            description: `${template.name} template was modified`,
+            timestamp: template.updated_at,
+          });
+        }
       });
     }
 
     // Get recent downloads (last 5)
     const { data: downloads, error: downloadsError } = await supabase
       .from('download_submissions')
-      .select('resource, created_at')
+      .select('id, resource, created_at')
       .order('created_at', { ascending: false })
-      .limit(3);
+      .limit(5);
 
     if (!downloadsError && downloads) {
       downloads.forEach(download => {
-        activities.push({
-          type: 'download',
-          title: 'Resource downloaded',
-          description: `${download.resource} was downloaded`,
-          timestamp: download.created_at,
-        });
+        const activityId = `download:${download.id}`;
+        if (!archivedSet.has(activityId)) {
+          activities.push({
+            type: 'download',
+            title: 'Resource downloaded',
+            description: `${download.resource} was downloaded`,
+            timestamp: download.created_at,
+          });
+        }
       });
     }
 
     // Sort all activities by timestamp (most recent first)
-    activities.sort((a, b) => 
+    activities.sort((a, b) =>
       new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     );
 

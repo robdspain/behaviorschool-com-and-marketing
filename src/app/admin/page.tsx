@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight } from 'lucide-react'
+import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
@@ -18,10 +18,14 @@ interface DashboardStats {
 }
 
 interface Activity {
+  id?: string
   type: 'submission' | 'template' | 'download'
   title: string
   description: string
   timestamp: string
+  activity_type?: string
+  activity_id?: string
+  original_timestamp?: string
 }
 
 export default function AdminDashboard() {
@@ -31,6 +35,9 @@ export default function AdminDashboard() {
   const [statsLoading, setStatsLoading] = useState(true)
   const [activities, setActivities] = useState<Activity[]>([])
   const [activitiesLoading, setActivitiesLoading] = useState(true)
+  const [archivedActivities, setArchivedActivities] = useState<Activity[]>([])
+  const [archivedLoading, setArchivedLoading] = useState(false)
+  const [showArchived, setShowArchived] = useState(false)
   const supabase = createClient()
   const router = useRouter()
 
@@ -95,6 +102,90 @@ export default function AdminDashboard() {
       fetchActivity()
     }
   }, [isAuthenticated])
+
+  const fetchArchivedActivity = async () => {
+    setArchivedLoading(true)
+    try {
+      const response = await fetch('/api/admin/archived-activities')
+      const data = await response.json()
+
+      if (data.success) {
+        setArchivedActivities(data.activities)
+      } else {
+        console.error('Failed to fetch archived activity:', data.error)
+      }
+    } catch (error) {
+      console.error('Error fetching archived activity:', error)
+    } finally {
+      setArchivedLoading(false)
+    }
+  }
+
+  const handleArchive = async (activity: Activity, index: number) => {
+    try {
+      const activityId = `${activity.type}:${index}`
+
+      const response = await fetch('/api/admin/archive-activity', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          activityType: activity.type,
+          activityId: activityId,
+          title: activity.title,
+          description: activity.description,
+          timestamp: activity.timestamp,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        // Remove from current activities
+        setActivities(activities.filter((_, i) => i !== index))
+        // Refresh archived list if showing
+        if (showArchived) {
+          fetchArchivedActivity()
+        }
+      } else {
+        console.error('Failed to archive activity:', data.error)
+        alert('Failed to archive activity')
+      }
+    } catch (error) {
+      console.error('Error archiving activity:', error)
+      alert('Failed to archive activity')
+    }
+  }
+
+  const handleUnarchive = async (activityId: string) => {
+    try {
+      const response = await fetch(`/api/admin/archive-activity?id=${activityId}`, {
+        method: 'DELETE',
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        // Remove from archived list
+        setArchivedActivities(archivedActivities.filter(a => a.id !== activityId))
+        // Refresh main activities
+        fetchActivity()
+      } else {
+        console.error('Failed to unarchive activity:', data.error)
+        alert('Failed to unarchive activity')
+      }
+    } catch (error) {
+      console.error('Error unarchiving activity:', error)
+      alert('Failed to unarchive activity')
+    }
+  }
+
+  useEffect(() => {
+    if (showArchived && archivedActivities.length === 0) {
+      fetchArchivedActivity()
+    }
+  }, [showArchived])
 
   if (loading) {
     return (
@@ -327,57 +418,142 @@ export default function AdminDashboard() {
 
         {/* Recent Activity */}
         <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
-          <h3 className="text-xl font-bold text-slate-900 mb-6">Recent Activity</h3>
-          {activitiesLoading ? (
-            <div className="space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-start gap-4 p-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-slate-100 rounded-full animate-pulse"></div>
-                  <div className="flex-1 space-y-2">
-                    <div className="h-4 bg-slate-100 rounded animate-pulse w-3/4"></div>
-                    <div className="h-3 bg-slate-100 rounded animate-pulse w-1/2"></div>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-bold text-slate-900">Recent Activity</h3>
+            <button
+              onClick={() => setShowArchived(!showArchived)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
+                showArchived
+                  ? 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              <Archive className="w-4 h-4" />
+              {showArchived ? 'Hide Archived' : 'View Archived'}
+            </button>
+          </div>
+
+          {showArchived ? (
+            // Archived Activities View
+            archivedLoading ? (
+              <div className="space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="flex items-start gap-4 p-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-slate-100 rounded-full animate-pulse"></div>
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-slate-100 rounded animate-pulse w-3/4"></div>
+                      <div className="h-3 bg-slate-100 rounded animate-pulse w-1/2"></div>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          ) : activities.length > 0 ? (
-            <div className="space-y-4">
-              {activities.map((activity, index) => {
-                const getIconConfig = (type: string) => {
-                  switch (type) {
-                    case 'submission':
-                      return { icon: Users, bg: 'bg-emerald-100', color: 'text-emerald-600' }
-                    case 'template':
-                      return { icon: Mail, bg: 'bg-blue-100', color: 'text-blue-600' }
-                    case 'download':
-                      return { icon: TrendingUp, bg: 'bg-purple-100', color: 'text-purple-600' }
-                    default:
-                      return { icon: FileText, bg: 'bg-slate-100', color: 'text-slate-600' }
+                ))}
+              </div>
+            ) : archivedActivities.length > 0 ? (
+              <div className="space-y-4">
+                {archivedActivities.map((activity) => {
+                  const getIconConfig = (type: string) => {
+                    switch (type) {
+                      case 'submission':
+                        return { icon: Users, bg: 'bg-emerald-100', color: 'text-emerald-600' }
+                      case 'template':
+                        return { icon: Mail, bg: 'bg-blue-100', color: 'text-blue-600' }
+                      case 'download':
+                        return { icon: TrendingUp, bg: 'bg-purple-100', color: 'text-purple-600' }
+                      default:
+                        return { icon: FileText, bg: 'bg-slate-100', color: 'text-slate-600' }
+                    }
                   }
-                }
 
-                const iconConfig = getIconConfig(activity.type)
-                const Icon = iconConfig.icon
-                const timeAgo = getTimeAgo(activity.timestamp)
+                  const iconConfig = getIconConfig(activity.activity_type || activity.type)
+                  const Icon = iconConfig.icon
+                  const timeAgo = getTimeAgo(activity.original_timestamp || activity.timestamp)
 
-                return (
-                  <div key={index} className="flex items-start gap-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
-                    <div className={`flex-shrink-0 w-10 h-10 ${iconConfig.bg} rounded-full flex items-center justify-center`}>
-                      <Icon className={`w-5 h-5 ${iconConfig.color}`} />
+                  return (
+                    <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg bg-slate-50 border border-slate-200">
+                      <div className={`flex-shrink-0 w-10 h-10 ${iconConfig.bg} rounded-full flex items-center justify-center`}>
+                        <Icon className={`w-5 h-5 ${iconConfig.color}`} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-slate-900">{activity.title}</p>
+                        <p className="text-sm text-slate-600">{activity.description}</p>
+                        <p className="text-xs text-slate-500 mt-1">{timeAgo}</p>
+                      </div>
+                      <button
+                        onClick={() => handleUnarchive(activity.id!)}
+                        className="flex-shrink-0 p-2 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                        title="Unarchive"
+                      >
+                        <ArchiveX className="w-5 h-5" />
+                      </button>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-slate-900">{activity.title}</p>
-                      <p className="text-sm text-slate-600">{activity.description}</p>
-                      <p className="text-xs text-slate-500 mt-1">{timeAgo}</p>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-slate-500">
+                <Archive className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                <p>No archived activities</p>
+              </div>
+            )
+          ) : (
+            // Current Activities View
+            activitiesLoading ? (
+              <div className="space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="flex items-start gap-4 p-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-slate-100 rounded-full animate-pulse"></div>
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-slate-100 rounded animate-pulse w-3/4"></div>
+                      <div className="h-3 bg-slate-100 rounded animate-pulse w-1/2"></div>
                     </div>
                   </div>
-                )
-              })}
-            </div>
-          ) : (
-            <div className="text-center py-8 text-slate-500">
-              <p>No recent activity</p>
-            </div>
+                ))}
+              </div>
+            ) : activities.length > 0 ? (
+              <div className="space-y-4">
+                {activities.map((activity, index) => {
+                  const getIconConfig = (type: string) => {
+                    switch (type) {
+                      case 'submission':
+                        return { icon: Users, bg: 'bg-emerald-100', color: 'text-emerald-600' }
+                      case 'template':
+                        return { icon: Mail, bg: 'bg-blue-100', color: 'text-blue-600' }
+                      case 'download':
+                        return { icon: TrendingUp, bg: 'bg-purple-100', color: 'text-purple-600' }
+                      default:
+                        return { icon: FileText, bg: 'bg-slate-100', color: 'text-slate-600' }
+                    }
+                  }
+
+                  const iconConfig = getIconConfig(activity.type)
+                  const Icon = iconConfig.icon
+                  const timeAgo = getTimeAgo(activity.timestamp)
+
+                  return (
+                    <div key={index} className="flex items-start gap-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                      <div className={`flex-shrink-0 w-10 h-10 ${iconConfig.bg} rounded-full flex items-center justify-center`}>
+                        <Icon className={`w-5 h-5 ${iconConfig.color}`} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-slate-900">{activity.title}</p>
+                        <p className="text-sm text-slate-600">{activity.description}</p>
+                        <p className="text-xs text-slate-500 mt-1">{timeAgo}</p>
+                      </div>
+                      <button
+                        onClick={() => handleArchive(activity, index)}
+                        className="flex-shrink-0 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                        title="Archive"
+                      >
+                        <Archive className="w-5 h-5" />
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-slate-500">
+                <p>No recent activity</p>
+              </div>
+            )
           )}
         </div>
       </main>

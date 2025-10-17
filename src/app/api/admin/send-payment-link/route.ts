@@ -13,7 +13,7 @@ const mg = mailgun.client({
 export async function POST(request: NextRequest) {
   try {
     // Verify admin authentication
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: { session } } = await supabase.auth.getSession();
 
     if (!session) {
@@ -110,15 +110,16 @@ export async function POST(request: NextRequest) {
 
     // Log the failure
     try {
-      const supabase = createClient();
+      const supabase = await createClient();
       const { data: { session } } = await supabase.auth.getSession();
       const adminClient = createSupabaseAdminClient();
+      const { email: recipientEmail } = await request.json();
 
       await adminClient
         .from('email_logs')
         .insert({
           template_name: 'transformation_payment_link',
-          recipient_email: email,
+          recipient_email: recipientEmail,
           subject: '🎉 Your Payment Link for the Transformation Program',
           status: 'failed',
           error_message: error instanceof Error ? error.message : 'Unknown error',
