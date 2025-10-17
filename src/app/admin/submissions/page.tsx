@@ -219,6 +219,7 @@ export default function SubmissionsPage() {
       case 'contacted': return 'bg-yellow-100 text-yellow-800';
       case 'qualified': return 'bg-green-100 text-green-800';
       case 'enrolled': return 'bg-emerald-100 text-emerald-800';
+      case 'archived': return 'bg-orange-100 text-orange-800';
       case 'rejected': return 'bg-red-100 text-red-800';
       default: return 'bg-slate-100 text-slate-800';
     }
@@ -273,6 +274,7 @@ export default function SubmissionsPage() {
               <option value="contacted">Contacted</option>
               <option value="qualified">Qualified</option>
               <option value="enrolled">Enrolled</option>
+              <option value="archived">Archived</option>
               <option value="rejected">Rejected</option>
             </select>
             <button
@@ -334,6 +336,7 @@ export default function SubmissionsPage() {
                       <option value="contacted">contacted</option>
                       <option value="qualified">qualified</option>
                       <option value="enrolled">enrolled</option>
+                      <option value="archived">archived</option>
                       <option value="rejected">rejected</option>
                     </select>
                     <span className="flex items-center gap-1 text-xs text-slate-500">
