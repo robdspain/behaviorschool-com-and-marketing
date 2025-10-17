@@ -103,8 +103,16 @@ export default function SubmissionsPage() {
         throw new Error('Failed to update submission');
       }
 
-      // Refresh submissions list
-      await fetchSubmissions();
+      // If archiving and not showing archived, remove from list immediately
+      if (!currentlyArchived && !showArchived) {
+        setSubmissions(prev => prev.filter(sub => sub.id !== id));
+      } else if (currentlyArchived && showArchived) {
+        // If unarchiving while showing archived, remove from list immediately
+        setSubmissions(prev => prev.filter(sub => sub.id !== id));
+      } else {
+        // Otherwise refresh the list
+        await fetchSubmissions();
+      }
     } catch (err) {
       console.error('Error archiving submission:', err);
       alert('Failed to update submission. Please try again.');
