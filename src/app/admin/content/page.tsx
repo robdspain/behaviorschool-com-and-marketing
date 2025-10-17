@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { FileText, Plus, Edit, Trash2, Eye, Calendar, Tag, Search, ExternalLink } from 'lucide-react'
 
 interface GhostPost {
@@ -111,16 +112,13 @@ export default function ContentPage() {
                 {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
               </p>
             </div>
-            <a
-              href={`${ghostAdminUrl}/ghost/#/editor/post`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/admin/blog/editor"
               className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
             >
               <Plus className="w-5 h-5" />
-              New Post in Ghost
-              <ExternalLink className="w-4 h-4" />
-            </a>
+              New Post
+            </Link>
           </div>
         </div>
       </header>
@@ -230,15 +228,13 @@ export default function ContentPage() {
                         <Eye className="w-4 h-4" />
                         View
                       </a>
-                      <a
-                        href={`${ghostAdminUrl}/ghost/#/editor/post/${post.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href={`/admin/blog/editor?id=${post.id}`}
                         className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-100 text-emerald-700 font-medium rounded-lg hover:bg-emerald-200 transition-colors text-sm"
                       >
                         <Edit className="w-4 h-4" />
-                        Edit in Ghost
-                      </a>
+                        Edit Post
+                      </Link>
                     </div>
                   </div>
                 </div>
