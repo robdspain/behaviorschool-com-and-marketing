@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Mail, Edit, Trash2, Plus, Save, X, Clock, Power, FileText } from "lucide-react";
+import { Mail, Edit, Archive, ArchiveRestore, Plus, Save, X, Clock, Power, FileText } from "lucide-react";
 
 interface EmailTemplate {
   id: string;
@@ -14,6 +14,9 @@ interface EmailTemplate {
   category: string;
   is_active: boolean;
   send_delay_minutes: number;
+  archived: boolean;
+  archived_at: string | null;
+  archived_by: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -25,6 +28,8 @@ export default function EmailTemplatesPage() {
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [showArchived, setShowArchived] = useState(false);
+  const [archivingId, setArchivingId] = useState<string | null>(null);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -41,14 +46,15 @@ export default function EmailTemplatesPage() {
   useEffect(() => {
     // Set page title
     document.title = 'Email Templates | Behavior School Admin'
-    
+
     fetchTemplates();
-  }, []);
+  }, [showArchived]);
 
   const fetchTemplates = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/admin/email-templates');
+      const url = `/api/admin/email-templates?show_archived=${showArchived}`;
+      const response = await fetch(url);
       const data = await response.json();
 
       if (response.ok) {
@@ -151,24 +157,37 @@ export default function EmailTemplatesPage() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this template?')) return;
+  const handleArchive = async (id: string, currentlyArchived: boolean) => {
+    if (!confirm(currentlyArchived ? 'Restore this template from archive?' : 'Archive this template?')) return;
 
+    setArchivingId(id);
     try {
       setError(null);
       const response = await fetch(`/api/admin/email-templates/${id}`, {
-        method: 'DELETE'
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ archived: !currentlyArchived })
       });
 
       if (response.ok) {
-        setSuccess('Template deleted successfully');
-        fetchTemplates();
+        setSuccess(currentlyArchived ? 'Template restored successfully' : 'Template archived successfully');
+
+        // Remove from list immediately
+        if (!currentlyArchived && !showArchived) {
+          setTemplates(prev => prev.filter(t => t.id !== id));
+        } else if (currentlyArchived && showArchived) {
+          setTemplates(prev => prev.filter(t => t.id !== id));
+        } else {
+          fetchTemplates();
+        }
       } else {
         const data = await response.json();
-        setError(data.error || 'Failed to delete template');
+        setError(data.error || 'Failed to archive template');
       }
     } catch (err) {
-      setError('Network error deleting template');
+      setError('Network error archiving template');
+    } finally {
+      setArchivingId(null);
     }
   };
 
@@ -196,12 +215,25 @@ export default function EmailTemplatesPage() {
     <div className="min-h-screen bg-slate-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900 mb-2 flex items-center gap-3">
-            <Mail className="w-10 h-10 text-emerald-600" />
-            Email Templates
-          </h1>
-          <p className="text-slate-600">Manage automated email sequences for signup flow</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-slate-900 mb-2 flex items-center gap-3">
+              <Mail className="w-10 h-10 text-emerald-600" />
+              Email Templates
+            </h1>
+            <p className="text-slate-600">Manage automated email sequences for signup flow</p>
+          </div>
+          <button
+            onClick={() => setShowArchived(!showArchived)}
+            className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+              showArchived
+                ? 'bg-orange-100 text-orange-700 border-2 border-orange-300'
+                : 'bg-slate-100 text-slate-700 border-2 border-slate-300 hover:bg-slate-200'
+            }`}
+          >
+            <Archive className="w-4 h-4" />
+            {showArchived ? 'Viewing Archived' : 'Show Archived'}
+          </button>
         </div>
 
         {/* Alerts */}
@@ -472,11 +504,20 @@ export default function EmailTemplatesPage() {
                       <Edit className="w-5 h-5" />
                     </button>
                     <button
-                      onClick={() => handleDelete(template.id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      title="Delete template"
+                      onClick={() => handleArchive(template.id, template.archived)}
+                      disabled={archivingId === template.id}
+                      className={`p-2 rounded-lg transition-colors ${
+                        template.archived
+                          ? 'text-orange-600 hover:bg-orange-50'
+                          : 'text-slate-600 hover:bg-slate-100'
+                      } disabled:opacity-50`}
+                      title={template.archived ? "Restore from archive" : "Archive template"}
                     >
-                      <Trash2 className="w-5 h-5" />
+                      {template.archived ? (
+                        <ArchiveRestore className="w-5 h-5" />
+                      ) : (
+                        <Archive className="w-5 h-5" />
+                      )}
                     </button>
                   </div>
                 </div>

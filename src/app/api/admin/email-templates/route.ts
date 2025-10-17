@@ -2,12 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
 // GET - Fetch all email templates
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const showArchived = searchParams.get('show_archived') === 'true';
+
     const supabase = createSupabaseAdminClient();
-    const { data, error } = await supabase
+    let query = supabase
       .from('email_templates')
-      .select('*')
+      .select('*');
+
+    // Filter by archived status
+    if (!showArchived) {
+      query = query.eq('archived', false);
+    }
+
+    const { data, error } = await query
       .order('category', { ascending: true })
       .order('send_delay_minutes', { ascending: true });
 
