@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Mail, Edit, Archive, ArchiveRestore, Plus, Save, X, Clock, Power, FileText } from "lucide-react";
+import { Mail, Edit, Archive, ArchiveRestore, Plus, Save, X, Clock, Power, FileText, Eye } from "lucide-react";
 
 interface EmailTemplate {
   id: string;
@@ -30,6 +30,7 @@ export default function EmailTemplatesPage() {
   const [success, setSuccess] = useState<string | null>(null);
   const [showArchived, setShowArchived] = useState(false);
   const [archivingId, setArchivingId] = useState<string | null>(null);
+  const [previewTemplate, setPreviewTemplate] = useState<EmailTemplate | null>(null);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -497,6 +498,13 @@ export default function EmailTemplatesPage() {
 
                   <div className="flex gap-2 ml-4">
                     <button
+                      onClick={() => setPreviewTemplate(template)}
+                      className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                      title="Preview email"
+                    >
+                      <Eye className="w-5 h-5" />
+                    </button>
+                    <button
                       onClick={() => handleEdit(template)}
                       className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                       title="Edit template"
@@ -526,6 +534,97 @@ export default function EmailTemplatesPage() {
           )}
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {previewTemplate && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          onClick={() => setPreviewTemplate(null)}
+        >
+          <div
+            className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="border-b border-slate-200 p-6 flex items-center justify-between">
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                  <Eye className="w-6 h-6 text-emerald-600" />
+                  Email Preview
+                </h3>
+                <p className="text-sm text-slate-600 mt-1">{previewTemplate.name}</p>
+              </div>
+              <button
+                onClick={() => setPreviewTemplate(null)}
+                className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+              >
+                <X className="w-6 h-6 text-slate-600" />
+              </button>
+            </div>
+
+            {/* Subject Line */}
+            <div className="px-6 py-4 bg-slate-50 border-b border-slate-200">
+              <div className="flex items-start gap-2">
+                <Mail className="w-4 h-4 text-slate-500 mt-1" />
+                <div className="flex-1">
+                  <p className="text-xs font-semibold text-slate-500 uppercase">Subject</p>
+                  <p className="text-slate-900 font-medium">{previewTemplate.subject}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Email Content */}
+            <div className="flex-1 overflow-auto p-6">
+              {previewTemplate.body_html ? (
+                <div className="bg-white border border-slate-200 rounded-lg p-4">
+                  <div className="mb-4 pb-4 border-b border-slate-200">
+                    <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
+                      HTML Preview
+                    </span>
+                  </div>
+                  <iframe
+                    srcDoc={previewTemplate.body_html}
+                    className="w-full min-h-[500px] border-0"
+                    title="Email HTML Preview"
+                    sandbox="allow-same-origin"
+                  />
+                </div>
+              ) : (
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-6">
+                  <div className="mb-4 pb-4 border-b border-slate-200">
+                    <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-2 py-1 rounded">
+                      Text Preview
+                    </span>
+                  </div>
+                  <pre className="text-sm text-slate-700 whitespace-pre-wrap font-sans">
+                    {previewTemplate.body_text || 'No content'}
+                  </pre>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="border-t border-slate-200 p-4 flex justify-end gap-3">
+              <button
+                onClick={() => setPreviewTemplate(null)}
+                className="px-4 py-2 border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-colors"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  handleEdit(previewTemplate);
+                  setPreviewTemplate(null);
+                }}
+                className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              >
+                <Edit className="w-4 h-4" />
+                Edit Template
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
