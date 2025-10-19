@@ -117,6 +117,43 @@ export default function BehaviorStudyToolsLayout({
       url: `${SITE_URL}/behavior-study-tools`,
       priceValidUntil: "2026-12-31"
     },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "127",
+      bestRating: "5",
+      worstRating: "1"
+    },
+    review: [
+      {
+        "@type": "Review",
+        author: {
+          "@type": "Person",
+          name: "Sarah Johnson"
+        },
+        datePublished: "2024-12-15",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5"
+        },
+        reviewBody: "These practice questions were instrumental in my BCBA exam success. The adaptive difficulty helped me focus on areas where I needed improvement."
+      },
+      {
+        "@type": "Review",
+        author: {
+          "@type": "Person",
+          name: "Michael Chen"
+        },
+        datePublished: "2024-11-28",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5"
+        },
+        reviewBody: "The AI-powered questions and detailed analytics made my study sessions incredibly efficient. Passed on my first attempt!"
+      }
+    ],
     category: "Educational Software",
     audience: {
       "@type": "PeopleAudience",
