@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 
-const GHOST_URL = process.env.GHOST_ADMIN_URL || process.env.GHOST_CONTENT_URL?.replace('/ghost/api/content', '') || 'https://ghost.behaviorschool.com';
+// Ghost URL should be just the base domain (https://ghost.behaviorschool.com)
+const GHOST_URL = process.env.GHOST_ADMIN_URL || process.env.GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com';
 const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
+
+console.log('Ghost URL:', GHOST_URL); // Debug log
+console.log('Ghost Admin Key exists:', !!GHOST_ADMIN_KEY); // Debug log
 
 function getGhostToken() {
   if (!GHOST_ADMIN_KEY) {
@@ -29,6 +33,8 @@ export async function GET(request: NextRequest) {
 
     const token = getGhostToken();
     const url = `${GHOST_URL}/ghost/api/admin/posts/?include=tags,authors&formats=mobiledoc,html&limit=all${status !== 'all' ? `&filter=status:${status}` : ''}`;
+
+    console.log('Fetching from URL:', url); // Debug log
 
     const response = await fetch(url, {
       headers: {
