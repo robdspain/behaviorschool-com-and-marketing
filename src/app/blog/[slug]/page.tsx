@@ -10,9 +10,33 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   const ghostBase = (process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com').replace(/\/$/, '');
   const ghostContentPrefix = `${ghostBase}/content/images/`;
-  const normalizeHtml = (html: string): string => {
+  
+  const normalizeHtml = (html: string, featureImage?: string): string => {
     if (!html) return '';
     let out = html;
+    
+    // Remove the first occurrence of the feature image to prevent duplication
+    // since we're displaying it separately in the header
+    if (featureImage) {
+      // Create regex to match the first img tag with the feature image
+      const featureImagePath = featureImage.replace(/^https?:\/\/[^/]+/, ''); // Get path only
+      const escapedPath = featureImagePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      
+      // Try to match various formats of the image in HTML
+      const patterns = [
+        new RegExp(`<figure[^>]*>\\s*<img[^>]*src=["'][^"']*${escapedPath}[^"']*["'][^>]*>\\s*</figure>`, 'i'),
+        new RegExp(`<p[^>]*>\\s*<img[^>]*src=["'][^"']*${escapedPath}[^"']*["'][^>]*>\\s*</p>`, 'i'),
+        new RegExp(`<img[^>]*src=["'][^"']*${escapedPath}[^"']*["'][^>]*>`, 'i'),
+      ];
+      
+      for (const pattern of patterns) {
+        if (pattern.test(out)) {
+          out = out.replace(pattern, '');
+          break; // Only remove the first occurrence
+        }
+      }
+    }
+    
     // Protocol-relative to https
     out = out.replace(/src=\"\/\/([^\"]+)\"/g, 'src="https://$1"');
     // Force https for any http Ghost URL
@@ -78,7 +102,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       {post.html ? (
         <div 
           className="mt-8 prose prose-slate prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-ul:text-slate-700 prose-ol:text-slate-700 prose-blockquote:text-slate-600 prose-blockquote:border-l-emerald-500 prose-img:rounded-lg prose-img:shadow-md"
-          dangerouslySetInnerHTML={{ __html: normalizeHtml(post.html) }}
+          dangerouslySetInnerHTML={{ __html: normalizeHtml(post.html, post.feature_image as string) }}
         />
       ) : null}
     </article>
