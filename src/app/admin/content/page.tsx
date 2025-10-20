@@ -102,6 +102,37 @@ export default function ContentPage() {
 
   const ghostAdminUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL?.replace('/ghost/api/content', '') || 'https://ghost.behaviorschool.com'
 
+  // Transform Ghost image URLs to use our proxy
+  const transformImageUrl = (url: string | null): string | null => {
+    if (!url) return null;
+    
+    const ghostBase = ghostAdminUrl.replace(/\/$/, '');
+    const ghostContentPrefix = `${ghostBase}/content/images/`;
+    
+    let transformed = url;
+    
+    // Handle protocol-relative URLs
+    if (transformed.startsWith('//')) {
+      transformed = 'https:' + transformed;
+    }
+    
+    // Force https
+    if (transformed.startsWith('http://')) {
+      transformed = transformed.replace(/^http:/, 'https:');
+    }
+    
+    // Transform Ghost content images to proxy path
+    if (transformed.startsWith(ghostContentPrefix)) {
+      transformed = transformed.replace(ghostBase, '');
+    }
+    
+    if (transformed.startsWith('/content/images/')) {
+      transformed = '/media/ghost' + transformed;
+    }
+    
+    return transformed;
+  };
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
@@ -174,12 +205,16 @@ export default function ContentPage() {
               <div key={post.id} className="bg-white border-2 border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start gap-6">
                   {/* Feature Image */}
-                  {post.feature_image && (
+                  {post.feature_image && transformImageUrl(post.feature_image) && (
                     <div className="flex-shrink-0 w-32 h-32 rounded-lg overflow-hidden bg-slate-100">
                       <img 
-                        src={post.feature_image} 
+                        src={transformImageUrl(post.feature_image) || ''} 
                         alt={post.title}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // Hide image on error
+                          e.currentTarget.style.display = 'none';
+                        }}
                       />
                     </div>
                   )}
