@@ -164,26 +164,39 @@ function BlogEditorContent() {
 
       const result = await response.json()
       if (result.success && result.images && result.images[0]) {
-        // Update the feature image
-        setPost({ ...post, feature_image: result.images[0].url })
+        const imageUrl = result.images[0].url
         
-        // If editing an existing post, refetch it to get the updated timestamp
-        // This prevents 409 conflicts when saving after image upload
+        // If editing an existing post, we need to refetch to get the latest updated_at
+        // Ghost updates the post internally when an image is uploaded
         if (postId) {
           try {
+            // Small delay to ensure Ghost has processed the image upload
+            await new Promise(resolve => setTimeout(resolve, 300))
+            
             const refetchResponse = await fetch(`/api/admin/blog/posts/${postId}`)
             const refetchResult = await refetchResponse.json()
+            
             if (refetchResult.success && refetchResult.post) {
-              // Update the updated_at timestamp to prevent 409 conflicts
+              // Update the entire post with fresh data from Ghost
+              // but preserve any local edits the user might have made
               setPost(prev => ({
                 ...prev,
-                updated_at: refetchResult.post.updated_at
+                feature_image: imageUrl, // Use the new image
+                updated_at: refetchResult.post.updated_at, // Fresh timestamp from Ghost
+                id: refetchResult.post.id, // Ensure ID is current
               }))
+            } else {
+              // Fallback: just update the image without timestamp
+              setPost(prev => ({ ...prev, feature_image: imageUrl }))
             }
           } catch (refetchError) {
-            console.error('Error refetching post timestamp:', refetchError)
-            // Continue anyway - the save might still work
+            console.error('Error refetching post after image upload:', refetchError)
+            // Fallback: just update the image
+            setPost(prev => ({ ...prev, feature_image: imageUrl }))
           }
+        } else {
+          // New post - just update the image
+          setPost(prev => ({ ...prev, feature_image: imageUrl }))
         }
       } else {
         alert('Failed to upload image')

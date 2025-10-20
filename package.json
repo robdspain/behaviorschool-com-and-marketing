@@ -48,6 +48,7 @@
     "@tiptap/extension-image": "^3.7.2",
     "@tiptap/extension-link": "^3.7.2",
     "@tiptap/extension-placeholder": "^3.7.2",
+    "@tiptap/extension-text-align": "^3.7.2",
     "@tiptap/react": "^3.7.2",
     "@tiptap/starter-kit": "^3.7.2",
     "canvas-confetti": "^1.9.3",
