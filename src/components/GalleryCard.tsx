@@ -1,7 +1,7 @@
 'use client';
 
 import { Node } from '@tiptap/core';
-import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
+import { ReactNodeViewRenderer, NodeViewWrapper, NodeViewProps } from '@tiptap/react';
 import { useState } from 'react';
 import { X, Upload } from 'lucide-react';
 
@@ -59,18 +59,12 @@ interface GalleryImage {
   alt: string;
 }
 
-interface GalleryViewProps {
-  node: {
-    attrs: {
-      images: GalleryImage[];
-      columns: number;
-    };
-  };
-  updateAttributes: (attrs: { images: GalleryImage[]; columns: number }) => void;
-  deleteNode: () => void;
+interface GalleryAttrs {
+  images: GalleryImage[];
+  columns: number;
 }
 
-function GalleryView({ node, updateAttributes, deleteNode }: GalleryViewProps) {
+function GalleryView({ node, updateAttributes, deleteNode }: NodeViewProps) {
   const [images, setImages] = useState<GalleryImage[]>(node.attrs.images || []);
   const [columns, setColumns] = useState(node.attrs.columns || 3);
   const [uploading, setUploading] = useState(false);

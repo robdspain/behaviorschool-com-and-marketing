@@ -234,6 +234,14 @@ export default function AdminDashboard() {
       stats: statsLoading ? '...' : `${stats?.activeTemplates || 0} active`
     },
     {
+      title: 'Newsletter (Listmonk)',
+      description: 'Manage lists and campaigns',
+      href: '/admin/listmonk',
+      icon: Mail,
+      color: 'blue',
+      stats: 'Newsletter'
+    },
+    {
       title: 'Analytics',
       description: 'View site performance and user metrics',
       href: '/admin/analytics',

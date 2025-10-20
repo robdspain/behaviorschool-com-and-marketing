@@ -1,7 +1,7 @@
 'use client';
 
 import { Node, mergeAttributes } from '@tiptap/core';
-import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
+import { ReactNodeViewRenderer, NodeViewWrapper, NodeViewProps } from '@tiptap/react';
 import { useState } from 'react';
 import { X, Settings } from 'lucide-react';
 
@@ -62,21 +62,7 @@ export const ImageWithCaption = Node.create({
   },
 });
 
-interface ImageWithCaptionViewProps {
-  node: {
-    attrs: {
-      src: string;
-      alt: string | null;
-      title: string | null;
-      caption: string | null;
-      width: string;
-    };
-  };
-  updateAttributes: (attrs: { caption: string; alt: string; width: string }) => void;
-  deleteNode: () => void;
-}
-
-function ImageWithCaptionView({ node, updateAttributes, deleteNode }: ImageWithCaptionViewProps) {
+function ImageWithCaptionView({ node, updateAttributes, deleteNode }: NodeViewProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [caption, setCaption] = useState(node.attrs.caption || '');
   const [alt, setAlt] = useState(node.attrs.alt || '');
