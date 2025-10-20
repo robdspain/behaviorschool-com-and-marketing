@@ -3,8 +3,9 @@
 import { useEffect, useState, Suspense } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X } from 'lucide-react'
+import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X, Star } from 'lucide-react'
 import { RichTextEditor } from '@/components/RichTextEditor'
+import { SEOPanel } from '@/components/SEOPanel'
 
 interface GhostTag {
   id: string
@@ -15,9 +16,11 @@ interface GhostTag {
 interface Post {
   id?: string
   title: string
+  slug?: string
   html: string
   excerpt: string
   feature_image: string
+  featured?: boolean
   status: 'draft' | 'published'
   published_at?: string | null
   meta_title: string
@@ -45,9 +48,11 @@ function BlogEditorContent() {
 
   const [post, setPost] = useState<Post>({
     title: '',
+    slug: '',
     html: '',
     excerpt: '',
     feature_image: '',
+    featured: false,
     status: 'draft',
     published_at: null,
     meta_title: '',
@@ -85,6 +90,9 @@ function BlogEditorContent() {
   // Scheduling
   const [scheduleDate, setScheduleDate] = useState('')
   const [scheduleTime, setScheduleTime] = useState('')
+
+  // SEO Panel visibility
+  const [showSEOPanel, setShowSEOPanel] = useState(false)
 
   useEffect(() => {
     document.title = postId ? 'Edit Post | Admin' : 'New Post | Admin'
@@ -235,9 +243,11 @@ function BlogEditorContent() {
         setPost({
           id: result.post.id,
           title: result.post.title || '',
+          slug: result.post.slug || '',
           html: result.post.html || '',
           excerpt: result.post.excerpt || '',
           feature_image: result.post.feature_image || '',
+          featured: result.post.featured || false,
           status: result.post.status || 'draft',
           published_at: result.post.published_at || null,
           meta_title: result.post.meta_title || '',
@@ -476,6 +486,30 @@ function BlogEditorContent() {
             )}
           </div>
 
+          {/* Featured Post Toggle */}
+          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-200 rounded-xl">
+            <div className="flex items-center gap-3">
+              <Star className={`w-5 h-5 ${post.featured ? 'text-yellow-500 fill-yellow-500' : 'text-slate-400'}`} />
+              <div>
+                <label className="font-semibold text-slate-900 block">
+                  Feature this post
+                </label>
+                <p className="text-xs text-slate-600">
+                  Featured posts appear prominently on the blog homepage
+                </p>
+              </div>
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={post.featured}
+                onChange={(e) => setPost({ ...post, featured: e.target.checked })}
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
+            </label>
+          </div>
+
           {/* Tags */}
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-2">
@@ -658,35 +692,57 @@ function BlogEditorContent() {
             </div>
           </div>
 
-          {/* SEO Settings */}
+          {/* SEO Panel */}
           <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
-            <h3 className="text-lg font-bold text-slate-900 mb-4">SEO Settings</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Meta Title
-                </label>
-                <input
-                  type="text"
-                  placeholder="SEO title (defaults to post title)"
-                  value={post.meta_title}
-                  onChange={(e) => setPost({ ...post, meta_title: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
-                  Meta Description
-                </label>
-                <textarea
-                  placeholder="SEO description (defaults to excerpt)"
-                  value={post.meta_description}
-                  onChange={(e) => setPost({ ...post, meta_description: e.target.value })}
-                  rows={3}
-                  className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
-                />
-              </div>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-slate-900">SEO & Optimization</h3>
+              <button
+                onClick={() => setShowSEOPanel(!showSEOPanel)}
+                className="text-sm text-emerald-600 hover:text-emerald-700 font-semibold"
+              >
+                {showSEOPanel ? 'Hide' : 'Show'} Details
+              </button>
             </div>
+            
+            {showSEOPanel && (
+              <SEOPanel
+                title={post.title}
+                slug={post.slug || ''}
+                excerpt={post.excerpt}
+                content={post.html}
+                onSlugChange={(newSlug) => setPost({ ...post, slug: newSlug })}
+                onExcerptChange={(newExcerpt) => setPost({ ...post, excerpt: newExcerpt })}
+              />
+            )}
+            
+            {!showSEOPanel && (
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Meta Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="SEO title (defaults to post title)"
+                    value={post.meta_title}
+                    onChange={(e) => setPost({ ...post, meta_title: e.target.value })}
+                    className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Meta Description
+                  </label>
+                  <textarea
+                    placeholder="SEO description (defaults to excerpt)"
+                    value={post.meta_description}
+                    onChange={(e) => setPost({ ...post, meta_description: e.target.value })}
+                    rows={3}
+                    className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Social Media Cards */}

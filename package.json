@@ -49,6 +49,7 @@
     "@tiptap/extension-code-block-lowlight": "^3.7.2",
     "@tiptap/extension-image": "^3.7.2",
     "@tiptap/extension-link": "^3.7.2",
+    "@tiptap/extension-mention": "^3.7.2",
     "@tiptap/extension-placeholder": "^3.7.2",
     "@tiptap/extension-strike": "^3.7.2",
     "@tiptap/extension-table": "^3.7.2",
@@ -60,6 +61,7 @@
     "@tiptap/extension-youtube": "^3.7.2",
     "@tiptap/react": "^3.7.2",
     "@tiptap/starter-kit": "^3.7.2",
+    "@tiptap/suggestion": "^3.7.2",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -82,6 +84,7 @@
     "sharp": "^0.34.3",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
+    "tippy.js": "^6.3.7",
     "zod": "^4.0.17"
   },
   "devDependencies": {
