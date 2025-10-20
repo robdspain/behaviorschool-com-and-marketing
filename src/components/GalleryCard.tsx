@@ -59,11 +59,6 @@ interface GalleryImage {
   alt: string;
 }
 
-interface GalleryAttrs {
-  images: GalleryImage[];
-  columns: number;
-}
-
 function GalleryView({ node, updateAttributes, deleteNode }: NodeViewProps) {
   const [images, setImages] = useState<GalleryImage[]>(node.attrs.images || []);
   const [columns, setColumns] = useState(node.attrs.columns || 3);

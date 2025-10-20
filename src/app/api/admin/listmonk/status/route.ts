@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getListmonkConfig, listmonkFetch } from '@/lib/listmonk'
 
-function extractTotal(json: any): number | null {
+interface ListmonkResponse {
+  total?: number;
+  data?: {
+    total?: number;
+    results?: unknown[];
+  } | unknown[];
+  results?: unknown[];
+}
+
+function extractTotal(json: ListmonkResponse | unknown[] | null): number | null {
   try {
     if (!json) return null;
     if (typeof json.total === 'number') return json.total;
@@ -16,7 +25,7 @@ function extractTotal(json: any): number | null {
   return null;
 }
 
-export async function GET(_req: NextRequest) {
+export async function GET() {
   const cfg = getListmonkConfig();
 
   if (!cfg) {
