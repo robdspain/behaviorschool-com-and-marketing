@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm install --no-frozen-lockfile && pnpm run build"
+  command = "rm -f tsconfig.tsbuildinfo && pnpm install --no-frozen-lockfile && pnpm run build"
   publish = ".next"
 
 [build.environment]
