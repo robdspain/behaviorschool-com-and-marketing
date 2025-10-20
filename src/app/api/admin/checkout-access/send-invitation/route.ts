@@ -173,8 +173,29 @@ Questions? Reply to this email or visit behaviorschool.com
     });
   } catch (error) {
     console.error('Error sending invitation email:', error);
+    
+    // Provide more detailed error message
+    let errorMessage = 'Failed to send invitation email';
+    if (error instanceof Error) {
+      errorMessage += ': ' + error.message;
+    }
+    
+    // Check for common Mailgun errors
+    if (error && typeof error === 'object' && 'status' in error) {
+      const mgError = error as { status?: number; message?: string };
+      if (mgError.status === 401) {
+        errorMessage = 'Mailgun authentication failed. Please check MAILGUN_API_KEY in environment variables.';
+      } else if (mgError.status === 404) {
+        errorMessage = 'Mailgun domain not found. Please check MAILGUN_DOMAIN in environment variables.';
+      }
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to send invitation email' },
+      { 
+        error: errorMessage,
+        details: error instanceof Error ? error.message : 'Unknown error',
+        hint: 'Check Netlify environment variables: MAILGUN_API_KEY, MAILGUN_DOMAIN, MAILGUN_FROM_EMAIL'
+      },
       { status: 500 }
     );
   }
