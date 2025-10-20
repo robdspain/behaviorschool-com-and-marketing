@@ -354,15 +354,53 @@ function BlogEditorContent() {
           }
         }
 
+        // Always refetch the complete post after save to get the latest updated_at from Ghost
+        // This prevents 409 conflicts on subsequent saves
+        if (result.post?.id) {
+          try {
+            const refetchResponse = await fetch(`/api/admin/blog/posts/${result.post.id}`)
+            const refetchResult = await refetchResponse.json()
+            if (refetchResult.success && refetchResult.post) {
+              // Update the entire post state with fresh data from Ghost
+              setPost({
+                id: refetchResult.post.id,
+                title: refetchResult.post.title || '',
+                slug: refetchResult.post.slug || '',
+                html: refetchResult.post.html || '',
+                excerpt: refetchResult.post.excerpt || '',
+                feature_image: refetchResult.post.feature_image || '',
+                featured: refetchResult.post.featured || false,
+                status: refetchResult.post.status || 'draft',
+                published_at: refetchResult.post.published_at || null,
+                meta_title: refetchResult.post.meta_title || '',
+                meta_description: refetchResult.post.meta_description || '',
+                twitter_title: refetchResult.post.twitter_title || '',
+                twitter_description: refetchResult.post.twitter_description || '',
+                twitter_image: refetchResult.post.twitter_image || '',
+                og_title: refetchResult.post.og_title || '',
+                og_description: refetchResult.post.og_description || '',
+                og_image: refetchResult.post.og_image || '',
+                tags: refetchResult.post.tags || [],
+                codeinjection_head: refetchResult.post.codeinjection_head || '',
+                codeinjection_foot: refetchResult.post.codeinjection_foot || '',
+                updated_at: refetchResult.post.updated_at
+              })
+              console.log('Post state refreshed with latest data from Ghost')
+            }
+          } catch (refetchError) {
+            console.error('Error refetching post after save:', refetchError)
+            // Fallback to using the returned data
+            setPost(prev => ({
+              ...prev,
+              id: result.post.id,
+              updated_at: result.post.updated_at
+            }))
+          }
+        }
+
         alert(`Post ${postId ? 'updated' : 'created'} successfully!`)
         if (!postId && result.post?.id) {
           router.push(`/admin/blog/editor?id=${result.post.id}`)
-        } else if (result.post) {
-          setPost(prev => ({
-            ...prev,
-            id: result.post.id,
-            updated_at: result.post.updated_at
-          }))
         }
       } else {
         alert(`Failed to ${postId ? 'update' : 'create'} post: ${result.error}`)
