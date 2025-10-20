@@ -35,7 +35,6 @@ export interface SlashCommandMenuRef {
 export const SlashCommandMenu = forwardRef<SlashCommandMenuRef, SlashCommandMenuProps>(
   ({ editor, onInsertGallery, onAddCTA, onAddContact }, ref) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const [query, setQuery] = useState('');
 
     const commands: CommandItem[] = [
       {
@@ -131,11 +130,7 @@ export const SlashCommandMenu = forwardRef<SlashCommandMenuRef, SlashCommandMenu
       },
     ];
 
-    const filteredCommands = commands.filter(
-      (item) =>
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.description.toLowerCase().includes(query.toLowerCase())
-    );
+    const filteredCommands = commands;
 
     const selectItem = (index: number) => {
       const item = filteredCommands[index];
@@ -155,10 +150,6 @@ export const SlashCommandMenu = forwardRef<SlashCommandMenuRef, SlashCommandMenu
     const enterHandler = () => {
       selectItem(selectedIndex);
     };
-
-    useEffect(() => {
-      setSelectedIndex(0);
-    }, [query]);
 
     useImperativeHandle(ref, () => ({
       onKeyDown: ({ event }) => {

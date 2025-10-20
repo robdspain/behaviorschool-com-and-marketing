@@ -62,7 +62,21 @@ export const ImageWithCaption = Node.create({
   },
 });
 
-function ImageWithCaptionView({ node, updateAttributes, deleteNode }: any) {
+interface ImageWithCaptionViewProps {
+  node: {
+    attrs: {
+      src: string;
+      alt: string | null;
+      title: string | null;
+      caption: string | null;
+      width: string;
+    };
+  };
+  updateAttributes: (attrs: { caption: string; alt: string; width: string }) => void;
+  deleteNode: () => void;
+}
+
+function ImageWithCaptionView({ node, updateAttributes, deleteNode }: ImageWithCaptionViewProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [caption, setCaption] = useState(node.attrs.caption || '');
   const [alt, setAlt] = useState(node.attrs.alt || '');

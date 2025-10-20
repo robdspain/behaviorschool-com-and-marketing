@@ -1,9 +1,9 @@
 'use client';
 
-import { Node, mergeAttributes } from '@tiptap/core';
+import { Node } from '@tiptap/core';
 import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
 import { useState } from 'react';
-import { X, Plus, Upload } from 'lucide-react';
+import { X, Upload } from 'lucide-react';
 
 export const GalleryCard = Node.create({
   name: 'gallery',
@@ -38,7 +38,7 @@ export const GalleryCard = Node.create({
     return [
       'div',
       { 'data-type': 'gallery', class: `gallery-grid grid-cols-${columns}` },
-      ...images.map((img: any) => [
+      ...images.map((img: { src: string; alt: string }) => [
         'img',
         {
           src: img.src,
@@ -54,8 +54,24 @@ export const GalleryCard = Node.create({
   },
 });
 
-function GalleryView({ node, updateAttributes, deleteNode }: any) {
-  const [images, setImages] = useState<any[]>(node.attrs.images || []);
+interface GalleryImage {
+  src: string;
+  alt: string;
+}
+
+interface GalleryViewProps {
+  node: {
+    attrs: {
+      images: GalleryImage[];
+      columns: number;
+    };
+  };
+  updateAttributes: (attrs: { images: GalleryImage[]; columns: number }) => void;
+  deleteNode: () => void;
+}
+
+function GalleryView({ node, updateAttributes, deleteNode }: GalleryViewProps) {
+  const [images, setImages] = useState<GalleryImage[]>(node.attrs.images || []);
   const [columns, setColumns] = useState(node.attrs.columns || 3);
   const [uploading, setUploading] = useState(false);
 
