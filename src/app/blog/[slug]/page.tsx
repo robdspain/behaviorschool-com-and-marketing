@@ -2,6 +2,98 @@ export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/ghost-hybrid";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+// Generate metadata for SEO and social sharing
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  
+  if (!post) {
+    return {
+      title: "Post Not Found | Behavior School",
+      description: "The requested blog post could not be found."
+    };
+  }
+
+  const ghostBase = (process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com').replace(/\/$/, '');
+  
+  // Transform Ghost image URL to use proxy
+  const transformImageUrl = (url: string | null | undefined): string => {
+    if (!url) return '/optimized/og-image.webp';
+    
+    let transformed = url;
+    const ghostContentPrefix = `${ghostBase}/content/images/`;
+    
+    // Handle protocol-relative URLs
+    if (transformed.startsWith('//')) {
+      transformed = 'https:' + transformed;
+    }
+    
+    // Force https
+    if (transformed.startsWith('http://')) {
+      transformed = transformed.replace(/^http:/, 'https:');
+    }
+    
+    // Transform Ghost content images to proxy path
+    if (transformed.startsWith(ghostContentPrefix)) {
+      transformed = transformed.replace(ghostBase, '');
+    }
+    
+    if (transformed.startsWith('/content/images/')) {
+      transformed = '/media/ghost' + transformed;
+    }
+    
+    // Convert to absolute URL for social sharing
+    if (transformed.startsWith('/')) {
+      transformed = `https://behaviorschool.com${transformed}`;
+    }
+    
+    return transformed;
+  };
+
+  const featureImage = transformImageUrl(post.feature_image as string | undefined);
+  const title = post.meta_title || post.title || "Blog Post";
+  const description = post.meta_description || post.excerpt || post.title || "";
+
+  return {
+    title: `${title} | Behavior School`,
+    description: description,
+    keywords: post.tags?.map(t => t.name).join(', '),
+    alternates: {
+      canonical: `https://behaviorschool.com/blog/${slug}`
+    },
+    openGraph: {
+      type: "article",
+      title: post.og_title || title,
+      description: post.og_description || description,
+      url: `/blog/${slug}`,
+      siteName: "Behavior School",
+      publishedTime: post.published_at || undefined,
+      modifiedTime: post.updated_at || undefined,
+      authors: ['Behavior School'],
+      images: [
+        {
+          url: post.og_image ? transformImageUrl(post.og_image as string) : featureImage,
+          width: 1200,
+          height: 630,
+          alt: post.title || "Blog post image",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.twitter_title || title,
+      description: post.twitter_description || description,
+      images: [post.twitter_image ? transformImageUrl(post.twitter_image as string) : featureImage],
+      creator: "@BehaviorSchool",
+    },
+    robots: {
+      index: post.status === 'published',
+      follow: post.status === 'published',
+    },
+  };
+}
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
