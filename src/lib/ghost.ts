@@ -30,12 +30,23 @@ export interface Post {
   excerpt?: string | null;
   feature_image?: string | null;
   published_at?: string | null;
+  updated_at?: string | null;
+  status?: 'draft' | 'published';
   tags?: Tag[];
   authors?: Author[];
   primary_tag?: Tag | null;
   primary_author?: Author | null;
   html?: string | null;
   plaintext?: string | null;
+  // SEO metadata fields
+  meta_title?: string | null;
+  meta_description?: string | null;
+  og_title?: string | null;
+  og_description?: string | null;
+  og_image?: string | null;
+  twitter_title?: string | null;
+  twitter_description?: string | null;
+  twitter_image?: string | null;
 }
 
 export interface PaginationMeta {
