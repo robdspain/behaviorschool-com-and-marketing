@@ -315,18 +315,41 @@ function BlogEditorContent() {
         publishedAt = new Date().toISOString()
       }
 
+      // Build the payload carefully - only include fields Ghost expects
+      const payload: Record<string, unknown> = {
+        title: post.title,
+        slug: post.slug,
+        html: post.html,
+        excerpt: post.excerpt,
+        feature_image: post.feature_image,
+        featured: post.featured,
+        status: statusToSave,
+        published_at: publishedAt,
+        meta_title: post.meta_title,
+        meta_description: post.meta_description,
+        twitter_title: post.twitter_title,
+        twitter_description: post.twitter_description,
+        twitter_image: post.twitter_image,
+        og_title: post.og_title,
+        og_description: post.og_description,
+        og_image: post.og_image,
+        codeinjection_head: post.codeinjection_head,
+        codeinjection_foot: post.codeinjection_foot,
+        tags: post.tags?.map(t => ({ id: t.id, name: t.name, slug: t.slug }))
+      };
+
+      // Only include updated_at for updates (PUT requests)
+      if (postId && latestUpdatedAt) {
+        payload.updated_at = latestUpdatedAt;
+        console.log('Sending updated_at:', latestUpdatedAt);
+      }
+
       const response = await fetch(
         postId ? `/api/admin/blog/posts/${postId}` : '/api/admin/blog/posts',
         {
           method: postId ? 'PUT' : 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...post,
-            updated_at: latestUpdatedAt, // Use the freshest timestamp
-            status: statusToSave,
-            published_at: publishedAt,
-            tags: post.tags?.map(t => ({ id: t.id, name: t.name, slug: t.slug }))
-          })
+          body: JSON.stringify(payload)
         }
       )
 

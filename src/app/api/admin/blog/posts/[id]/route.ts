@@ -72,6 +72,9 @@ export async function PUT(
     const body = await request.json();
     const token = getGhostToken();
 
+    // Log the updated_at being sent for debugging
+    console.log('Updating post with updated_at:', body.updated_at);
+
     const response = await fetch(`${GHOST_URL}/ghost/api/admin/posts/${id}/`, {
       method: 'PUT',
       headers: {
@@ -81,10 +84,12 @@ export async function PUT(
       body: JSON.stringify({
         posts: [{
           title: body.title,
+          slug: body.slug,
           html: body.html,
           status: body.status,
           published_at: body.published_at,
           feature_image: body.feature_image,
+          featured: body.featured,
           tags: body.tags,
           excerpt: body.excerpt,
           meta_title: body.meta_title,
@@ -97,17 +102,22 @@ export async function PUT(
           og_image: body.og_image,
           codeinjection_head: body.codeinjection_head,
           codeinjection_foot: body.codeinjection_foot,
-          updated_at: body.updated_at, // Required for updates
+          updated_at: body.updated_at, // Required for updates - MUST be the latest from Ghost
         }]
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
-      console.error('Ghost API error:', error);
+      console.error('Ghost API PUT error:', {
+        status: response.status,
+        error,
+        updated_at_sent: body.updated_at
+      });
       return NextResponse.json({
         success: false,
-        error: `Failed to update post: ${response.status}`
+        error: `Failed to update post: ${response.status}`,
+        details: error
       }, { status: response.status });
     }
 
