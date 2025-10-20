@@ -40,40 +40,25 @@ Disallow: /_next/
 Disallow: /test/
 Disallow: /test-forms/
 Disallow: /unauthorized/
-# Block Ghost CMS tag and author URLs that don't exist in Next.js
-Disallow: /tag/
-Disallow: /author/
+
+# Block Ghost CMS artifacts only (not all tags)
 Disallow: /*@ghost*
 Disallow: /*/ghost/
-Disallow: /*.json$
-Disallow: /feed.json
-Disallow: /posts/
-Disallow: /featured/
-Disallow: /featured
-Disallow: /*?*
-Disallow: /*.php$
-Disallow: /*.asp$
-Disallow: /*.aspx$
-
-# Block Ghost CMS URLs causing 404 errors
 Disallow: /*ghost
-Disallow: /*@ghost
 Disallow: /tag/*/ghost
 Disallow: /tag/*/@ghost
 Disallow: /author/*/ghost
 Disallow: /author/*/@ghost
 
-# Block thin content tag pages
-Disallow: /tag/resources/
-Disallow: /tag/product/
-Disallow: /tag/home-cta/
-Disallow: /category/uncategorized/
+# Block file extensions that don't exist
+Disallow: /*.json$
+Disallow: /*.php$
+Disallow: /*.asp$
+Disallow: /*.aspx$
 
-# Block old/moved pages
-Disallow: /home/
-Disallow: /welcome
-Disallow: /coming-soon/
-Disallow: /second-call-to-action/
+# Note: Removed broad blocks for /tag/, /author/, /posts/, /featured/
+# These now redirect via next.config.ts instead of being blocked
+# This prevents "Page with redirect" errors in Google Search Console
 
 # Sitemap and feed locations
 Sitemap: https://behaviorschool.com/sitemap.xml

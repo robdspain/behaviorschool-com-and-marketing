@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Exam & Practice Questions | Unlimited AI-Powered Tests | Behavior Study Tools",
-  description: "Free BCBA mock exam with 10+ practice questions. No signup required. Full-length BCBA practice exams, adaptive learning, and progress tracking for Board Certified Behavior Analyst certification.",
+  title: "Free Behavior Study Tools 2025 | BCBA Exam Prep Resources",
+  description: "Free study tools for BCBA exam prep: unlimited practice questions, study guides, and adaptive learning. School-based scenarios and ABA ethics included.",
   keywords: "free bcba mock exam, free bcba practice questions, bcba exam prep free, bcba practice test online free, bcba mock test, free section b mock exam, board certified behavior analyst practice exam, bcba exam questions free, behavior analysis study tools, adaptive learning, BACB exam preparation",
   alternates: { canonical: "/behavior-study-tools" },
   openGraph: {
     type: "website",
-    title: "Free BCBA Mock Exam & Practice Questions - Unlimited Tests",
-    description: "Free BCBA mock exam + unlimited practice questions. AI-powered adaptive learning for Board Certified Behavior Analyst certification.",
+    title: "Free Behavior Study Tools 2025 | BCBA Exam Prep Resources",
+    description: "Free study tools for BCBA exam prep: unlimited practice questions, study guides, and adaptive learning. School-based scenarios and ABA ethics included.",
     url: "/behavior-study-tools",
     images: [
       {
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Mock Exam & Practice Questions - Unlimited Tests",
-    description: "Free BCBA mock exam + unlimited practice questions. AI-powered adaptive learning for certification.",
+    title: "Free Behavior Study Tools 2025 | BCBA Exam Prep Resources",
+    description: "Free study tools for BCBA exam prep: unlimited practice questions, study guides, and adaptive learning. School-based scenarios and ABA ethics included.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },
@@ -117,43 +117,6 @@ export default function BehaviorStudyToolsLayout({
       url: `${SITE_URL}/behavior-study-tools`,
       priceValidUntil: "2026-12-31"
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      reviewCount: "127",
-      bestRating: "5",
-      worstRating: "1"
-    },
-    review: [
-      {
-        "@type": "Review",
-        author: {
-          "@type": "Person",
-          name: "Sarah Johnson"
-        },
-        datePublished: "2024-12-15",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5"
-        },
-        reviewBody: "These practice questions were instrumental in my BCBA exam success. The adaptive difficulty helped me focus on areas where I needed improvement."
-      },
-      {
-        "@type": "Review",
-        author: {
-          "@type": "Person",
-          name: "Michael Chen"
-        },
-        datePublished: "2024-11-28",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5"
-        },
-        reviewBody: "The AI-powered questions and detailed analytics made my study sessions incredibly efficient. Passed on my first attempt!"
-      }
-    ],
     category: "Educational Software",
     audience: {
       "@type": "PeopleAudience",

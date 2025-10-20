@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Zap, Target, TrendingUp, Clock, BarChart3, Brain, Lightbulb, ArrowRight, Star, Award, Users, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Practice Exam & Questions - Unlimited Adaptive Tests",
-  description: "Take unlimited BCBA practice exams with AI-generated questions. Never see the same question twice! Free practice tests, domain quizzes, and detailed explanations. Better than Quizlet.",
+  title: "BCBA Practice Exam Free 2025 | Unlimited Questions + Scoring",
+  description: "Free unlimited BCBA practice exams with instant scoring. Adaptive difficulty, detailed explanations, and performance tracking. Start practicing today.",
   robots: {
     index: true,
     follow: true,
