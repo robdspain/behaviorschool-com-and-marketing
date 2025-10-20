@@ -10,6 +10,28 @@ const mg = mailgun.client({
 
 export async function POST(request: NextRequest) {
   try {
+    // Check environment variables first
+    if (!process.env.MAILGUN_API_KEY) {
+      return NextResponse.json(
+        { error: 'MAILGUN_API_KEY is not configured. Please add it to Netlify environment variables.' },
+        { status: 500 }
+      );
+    }
+
+    if (!process.env.MAILGUN_DOMAIN) {
+      return NextResponse.json(
+        { error: 'MAILGUN_DOMAIN is not configured. Please add it to Netlify environment variables.' },
+        { status: 500 }
+      );
+    }
+
+    if (!process.env.MAILGUN_FROM_EMAIL) {
+      return NextResponse.json(
+        { error: 'MAILGUN_FROM_EMAIL is not configured. Please add it to Netlify environment variables (e.g., support@robspain.com).' },
+        { status: 500 }
+      );
+    }
+
     const { email, first_name, last_name } = await request.json();
 
     if (!email) {
