@@ -14,7 +14,7 @@ export async function GET() {
     if (error) {
       console.error('Error fetching logs:', error);
       return NextResponse.json(
-        { error: 'Failed to fetch logs' },
+        { error: 'Failed to fetch logs', details: error.message, code: error.code },
         { status: 500 }
       );
     }
@@ -22,8 +22,9 @@ export async function GET() {
     return NextResponse.json({ logs: data || [] });
   } catch (error) {
     console.error('Error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: errorMessage, details: String(error) },
       { status: 500 }
     );
   }

@@ -13,7 +13,7 @@ export async function GET() {
     if (error) {
       console.error('Error fetching users:', error);
       return NextResponse.json(
-        { error: 'Failed to fetch users' },
+        { error: 'Failed to fetch users', details: error.message, code: error.code },
         { status: 500 }
       );
     }
@@ -21,8 +21,9 @@ export async function GET() {
     return NextResponse.json({ users: data || [] });
   } catch (error) {
     console.error('Error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: errorMessage, details: String(error) },
       { status: 500 }
     );
   }

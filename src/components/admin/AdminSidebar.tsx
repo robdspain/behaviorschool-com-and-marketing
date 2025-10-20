@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   Users,
   Mail,
-  Settings,
   FileText,
   BarChart3,
   Menu,
@@ -33,7 +32,6 @@ const navigation: NavItem[] = [
   { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Content", href: "/admin/content", icon: FileText },
-  { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
 export function AdminSidebar() {

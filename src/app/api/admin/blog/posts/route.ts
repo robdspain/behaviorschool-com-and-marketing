@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 
 // Ghost URL should be just the base domain (https://ghost.behaviorschool.com)
-const GHOST_URL = process.env.GHOST_ADMIN_URL || process.env.GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com';
+const GHOST_URL = process.env.GHOST_ADMIN_URL || (process.env.GHOST_CONTENT_URL?.replace('/ghost/api/content', '')) || 'https://ghost.behaviorschool.com';
 const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
 
 console.log('Ghost URL:', GHOST_URL); // Debug log
@@ -61,8 +61,9 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error fetching posts:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Failed to fetch posts';
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch posts' },
+      { success: false, error: errorMessage, details: String(error) },
       { status: 500 }
     );
   }
@@ -120,8 +121,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error creating post:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Failed to create post';
     return NextResponse.json(
-      { success: false, error: 'Failed to create post' },
+      { success: false, error: errorMessage, details: String(error) },
       { status: 500 }
     );
   }
