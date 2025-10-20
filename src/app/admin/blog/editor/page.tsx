@@ -234,7 +234,8 @@ function BlogEditorContent() {
     setPost({ ...post, html: newText })
   }
 
-  const fetchPost = async (id: string) => {
+  const fetchPost = async (id: string, silent = false) => {
+    if (!silent) setLoading(true)
     try {
       const response = await fetch(`/api/admin/blog/posts/${id}`)
       const result = await response.json()
@@ -272,12 +273,18 @@ function BlogEditorContent() {
             setScheduleTime(pubDate.toTimeString().substring(0, 5))
           }
         }
+        
+        if (!silent) {
+          console.log('Post data refreshed with updated_at:', result.post.updated_at)
+        }
       }
     } catch (error) {
       console.error('Error fetching post:', error)
-      alert('Failed to load post')
+      if (!silent) {
+        alert('Failed to load post')
+      }
     } finally {
-      setLoading(false)
+      if (!silent) setLoading(false)
     }
   }
 
