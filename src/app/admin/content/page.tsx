@@ -52,7 +52,9 @@ export default function ContentPage() {
     try {
       const response = await fetch('/api/admin/blog/posts')
       const result = await response.json()
-      
+
+      console.log('Fetch posts result:', result) // Debug log
+
       if (result.success) {
         setPosts(result.posts)
       } else {

@@ -42,11 +42,12 @@ export async function GET(request: NextRequest) {
       console.error('Ghost API error:', error);
       return NextResponse.json({
         success: false,
-        error: `Ghost API returned ${response.status}`
+        error: `Ghost API returned ${response.status}: ${error}`
       }, { status: response.status });
     }
 
     const data = await response.json();
+    console.log(`Fetched ${data.posts?.length || 0} posts from Ghost`); // Debug log
 
     return NextResponse.json({
       success: true,
