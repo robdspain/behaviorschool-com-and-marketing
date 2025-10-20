@@ -161,7 +161,27 @@ function BlogEditorContent() {
 
       const result = await response.json()
       if (result.success && result.images && result.images[0]) {
+        // Update the feature image
         setPost({ ...post, feature_image: result.images[0].url })
+        
+        // If editing an existing post, refetch it to get the updated timestamp
+        // This prevents 409 conflicts when saving after image upload
+        if (postId) {
+          try {
+            const refetchResponse = await fetch(`/api/admin/blog/posts/${postId}`)
+            const refetchResult = await refetchResponse.json()
+            if (refetchResult.success && refetchResult.post) {
+              // Update the updated_at timestamp to prevent 409 conflicts
+              setPost(prev => ({
+                ...prev,
+                updated_at: refetchResult.post.updated_at
+              }))
+            }
+          } catch (refetchError) {
+            console.error('Error refetching post timestamp:', refetchError)
+            // Continue anyway - the save might still work
+          }
+        }
       } else {
         alert('Failed to upload image')
       }
