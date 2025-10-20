@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X } from 'lucide-react'
+import { RichTextEditor } from '@/components/RichTextEditor'
 
 interface GhostTag {
   id: string
@@ -78,6 +79,8 @@ function BlogEditorContent() {
   // Image upload
   const [uploading, setUploading] = useState(false)
 
+  // Editor mode
+  const [editorMode, setEditorMode] = useState<'visual' | 'html'>('visual')
 
   // Scheduling
   const [scheduleDate, setScheduleDate] = useState('')
@@ -504,90 +507,53 @@ function BlogEditorContent() {
 
           {/* Content */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Content (HTML)
-            </label>
-            {/* Rich Text Toolbar */}
-            <div className="mb-2 p-2 bg-slate-100 rounded-lg flex flex-wrap gap-1">
-              <button
-                onClick={() => insertHtmlTag('<p>', '</p>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm font-medium"
-                title="Paragraph"
-              >
-                P
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<h2>', '</h2>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm font-bold"
-                title="Heading 2"
-              >
-                H2
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<h3>', '</h3>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm font-bold"
-                title="Heading 3"
-              >
-                H3
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<strong>', '</strong>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm font-bold"
-                title="Bold"
-              >
-                B
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<em>', '</em>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm italic"
-                title="Italic"
-              >
-                I
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<a href="">', '</a>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm text-blue-600"
-                title="Link"
-              >
-                Link
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<ul>\n  <li>', '</li>\n</ul>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm"
-                title="Bulleted List"
-              >
-                • List
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<ol>\n  <li>', '</li>\n</ol>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm"
-                title="Numbered List"
-              >
-                1. List
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<blockquote>', '</blockquote>')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm"
-                title="Blockquote"
-              >
-                &ldquo; Quote
-              </button>
-              <button
-                onClick={() => insertHtmlTag('<img src="" alt="">')}
-                className="px-3 py-1 bg-white hover:bg-slate-200 rounded text-sm"
-                title="Image"
-              >
-                🖼️ Img
-              </button>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-semibold text-slate-700">
+                Content
+              </label>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setEditorMode('visual')}
+                  className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+                    editorMode === 'visual'
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                  }`}
+                >
+                  Visual
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setEditorMode('html')}
+                  className={`px-3 py-1 rounded text-sm font-medium transition-colors flex items-center gap-1 ${
+                    editorMode === 'html'
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                  }`}
+                >
+                  <Code className="w-4 h-4" />
+                  HTML
+                </button>
+              </div>
             </div>
-            <textarea
-              id="html-editor"
-              placeholder="Write your post content here (HTML supported)..."
-              value={post.html}
-              onChange={(e) => setPost({ ...post, html: e.target.value })}
-              rows={20}
-              className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500 font-mono text-sm"
-            />
+
+            {editorMode === 'visual' ? (
+              <RichTextEditor
+                content={post.html}
+                onChange={(html) => setPost({ ...post, html })}
+                placeholder="Start writing your post..."
+              />
+            ) : (
+              <textarea
+                id="html-editor"
+                placeholder="Write your post content here (HTML)..."
+                value={post.html}
+                onChange={(e) => setPost({ ...post, html: e.target.value })}
+                rows={20}
+                className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500 font-mono text-sm"
+              />
+            )}
           </div>
 
           {/* Scheduling */}
