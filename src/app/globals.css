@@ -369,4 +369,63 @@
   .ProseMirror img {
     @apply max-w-full h-auto rounded-lg my-4;
   }
+
+  /* YouTube embeds */
+  .ProseMirror iframe {
+    @apply w-full aspect-video rounded-lg my-4;
+  }
+
+  /* Tables */
+  .ProseMirror table {
+    @apply border-collapse table-auto w-full my-4;
+  }
+
+  .ProseMirror th {
+    @apply border border-slate-300 px-4 py-2 bg-slate-100 font-bold text-left;
+  }
+
+  .ProseMirror td {
+    @apply border border-slate-300 px-4 py-2;
+  }
+
+  /* Horizontal rule */
+  .ProseMirror hr {
+    @apply my-8 border-t-2 border-slate-200;
+  }
+
+  /* Underline and strikethrough */
+  .ProseMirror u {
+    @apply underline;
+  }
+
+  .ProseMirror s {
+    @apply line-through;
+  }
+
+  /* Code blocks with syntax highlighting */
+  .ProseMirror pre {
+    @apply bg-slate-900 text-white p-4 rounded-lg my-4 overflow-x-auto font-mono text-sm;
+  }
+
+  .ProseMirror pre code {
+    @apply bg-transparent p-0 text-white;
+  }
+
+  /* Inline code */
+  .ProseMirror code {
+    @apply bg-slate-100 text-slate-800 px-2 py-1 rounded text-sm font-mono;
+  }
+
+  /* Text alignment */
+  .ProseMirror [style*="text-align: center"] {
+    @apply text-center;
+  }
+
+  .ProseMirror [style*="text-align: right"] {
+    @apply text-right;
+  }
+
+  .ProseMirror [style*="text-align: left"] {
+    @apply text-left;
+  }
 }

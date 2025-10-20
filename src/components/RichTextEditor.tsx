@@ -6,21 +6,42 @@ import Link from '@tiptap/extension-link'
 import Image from '@tiptap/extension-image'
 import Placeholder from '@tiptap/extension-placeholder'
 import TextAlign from '@tiptap/extension-text-align'
+import Underline from '@tiptap/extension-underline'
+import Strike from '@tiptap/extension-strike'
+import CodeBlock from '@tiptap/extension-code-block-lowlight'
+import Youtube from '@tiptap/extension-youtube'
+import { Table } from '@tiptap/extension-table'
+import { TableRow } from '@tiptap/extension-table-row'
+import { TableCell } from '@tiptap/extension-table-cell'
+import { TableHeader } from '@tiptap/extension-table-header'
+import { common, createLowlight } from 'lowlight'
 import { 
   Bold, 
   Italic, 
+  Underline as UnderlineIcon,
+  Strikethrough,
   List, 
   ListOrdered, 
   Quote, 
-  Heading2, 
+  Heading2,
+  Heading3,
   Link as LinkIcon,
   Image as ImageIcon,
+  Code,
+  Youtube as YoutubeIcon,
+  Table as TableIcon,
+  Minus,
   Undo,
   Redo,
   MousePointerClick,
-  Mail
+  Mail,
+  AlignLeft,
+  AlignCenter,
+  AlignRight
 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+const lowlight = createLowlight(common)
 
 interface RichTextEditorProps {
   content: string
@@ -33,12 +54,47 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
   const [ctaText, setCtaText] = useState('')
   const [ctaUrl, setCtaUrl] = useState('')
   const [ctaStyle, setCtaStyle] = useState<'primary' | 'secondary'>('primary')
+  const [wordCount, setWordCount] = useState(0)
+  const [readingTime, setReadingTime] = useState(0)
 
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
         heading: {
           levels: [2, 3],
+        },
+        codeBlock: false, // Disable default code block to use lowlight version
+      }),
+      Underline,
+      Strike,
+      CodeBlock.configure({
+        lowlight,
+        HTMLAttributes: {
+          class: 'bg-slate-900 text-white p-4 rounded-lg my-4 overflow-x-auto',
+        },
+      }),
+      Youtube.configure({
+        width: 640,
+        height: 360,
+        HTMLAttributes: {
+          class: 'w-full aspect-video rounded-lg my-4',
+        },
+      }),
+      Table.configure({
+        resizable: true,
+        HTMLAttributes: {
+          class: 'border-collapse table-auto w-full my-4',
+        },
+      }),
+      TableRow,
+      TableCell.configure({
+        HTMLAttributes: {
+          class: 'border border-slate-300 px-4 py-2',
+        },
+      }),
+      TableHeader.configure({
+        HTMLAttributes: {
+          class: 'border border-slate-300 px-4 py-2 bg-slate-100 font-bold',
         },
       }),
       Link.configure({
@@ -67,8 +123,24 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
     },
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML())
+      updateStats(editor)
     },
   })
+
+  useEffect(() => {
+    if (editor) {
+      updateStats(editor)
+    }
+  }, [editor])
+
+  const updateStats = (editorInstance: typeof editor) => {
+    if (!editorInstance) return
+    const text = editorInstance.getText()
+    const words = text.trim().split(/\s+/).filter((word: string) => word.length > 0).length
+    setWordCount(words)
+    // Average reading speed: 200 words per minute
+    setReadingTime(Math.ceil(words / 200))
+  }
 
   const addLink = () => {
     const url = window.prompt('Enter URL:')
@@ -81,6 +153,33 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
     const url = window.prompt('Enter image URL:')
     if (url && editor) {
       editor.chain().focus().setImage({ src: url }).run()
+    }
+  }
+
+  const addYoutube = () => {
+    const url = window.prompt('Enter YouTube URL:')
+    if (url && editor) {
+      editor.commands.setYoutubeVideo({
+        src: url,
+      })
+    }
+  }
+
+  const insertTable = () => {
+    if (editor) {
+      editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+    }
+  }
+
+  const insertDivider = () => {
+    if (editor) {
+      editor.chain().focus().setHorizontalRule().run()
+    }
+  }
+
+  const insertCodeBlock = () => {
+    if (editor) {
+      editor.chain().focus().setCodeBlock().run()
     }
   }
 
@@ -122,6 +221,7 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
     <div className="border-2 border-slate-200 rounded-lg overflow-hidden">
       {/* Toolbar */}
       <div className="bg-slate-50 border-b-2 border-slate-200 p-2 flex flex-wrap gap-1">
+        {/* Text Formatting */}
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={`p-2 rounded hover:bg-slate-200 transition-colors ${
@@ -144,8 +244,31 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
           <Italic className="w-4 h-4" />
         </button>
 
+        <button
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          className={`p-2 rounded hover:bg-slate-200 transition-colors ${
+            editor.isActive('underline') ? 'bg-slate-200 text-emerald-600' : 'text-slate-700'
+          }`}
+          title="Underline"
+          type="button"
+        >
+          <UnderlineIcon className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          className={`p-2 rounded hover:bg-slate-200 transition-colors ${
+            editor.isActive('strike') ? 'bg-slate-200 text-emerald-600' : 'text-slate-700'
+          }`}
+          title="Strikethrough"
+          type="button"
+        >
+          <Strikethrough className="w-4 h-4" />
+        </button>
+
         <div className="w-px bg-slate-300 mx-1" />
 
+        {/* Headings */}
         <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           className={`p-2 rounded hover:bg-slate-200 transition-colors ${
@@ -157,8 +280,56 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
           <Heading2 className="w-4 h-4" />
         </button>
 
+        <button
+          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          className={`p-2 rounded hover:bg-slate-200 transition-colors ${
+            editor.isActive('heading', { level: 3 }) ? 'bg-slate-200 text-emerald-600' : 'text-slate-700'
+          }`}
+          title="Heading 3"
+          type="button"
+        >
+          <Heading3 className="w-4 h-4" />
+        </button>
+
         <div className="w-px bg-slate-300 mx-1" />
 
+        {/* Alignment */}
+        <button
+          onClick={() => editor.chain().focus().setTextAlign('left').run()}
+          className={`p-2 rounded hover:bg-slate-200 transition-colors ${
+            editor.isActive({ textAlign: 'left' }) ? 'bg-slate-200 text-emerald-600' : 'text-slate-700'
+          }`}
+          title="Align Left"
+          type="button"
+        >
+          <AlignLeft className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={() => editor.chain().focus().setTextAlign('center').run()}
+          className={`p-2 rounded hover:bg-slate-200 transition-colors ${
+            editor.isActive({ textAlign: 'center' }) ? 'bg-slate-200 text-emerald-600' : 'text-slate-700'
+          }`}
+          title="Align Center"
+          type="button"
+        >
+          <AlignCenter className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={() => editor.chain().focus().setTextAlign('right').run()}
+          className={`p-2 rounded hover:bg-slate-200 transition-colors ${
+            editor.isActive({ textAlign: 'right' }) ? 'bg-slate-200 text-emerald-600' : 'text-slate-700'
+          }`}
+          title="Align Right"
+          type="button"
+        >
+          <AlignRight className="w-4 h-4" />
+        </button>
+
+        <div className="w-px bg-slate-300 mx-1" />
+
+        {/* Lists */}
         <button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={`p-2 rounded hover:bg-slate-200 transition-colors ${
@@ -194,6 +365,7 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
 
         <div className="w-px bg-slate-300 mx-1" />
 
+        {/* Insert Content */}
         <button
           onClick={addLink}
           className={`p-2 rounded hover:bg-slate-200 transition-colors ${
@@ -212,6 +384,46 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
           type="button"
         >
           <ImageIcon className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={addYoutube}
+          className="p-2 rounded hover:bg-slate-200 transition-colors text-red-600"
+          title="Embed YouTube"
+          type="button"
+        >
+          <YoutubeIcon className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={insertCodeBlock}
+          className={`p-2 rounded hover:bg-slate-200 transition-colors ${
+            editor.isActive('codeBlock') ? 'bg-slate-200 text-emerald-600' : 'text-slate-700'
+          }`}
+          title="Code Block"
+          type="button"
+        >
+          <Code className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={insertTable}
+          className={`p-2 rounded hover:bg-slate-200 transition-colors ${
+            editor.isActive('table') ? 'bg-slate-200 text-emerald-600' : 'text-slate-700'
+          }`}
+          title="Insert Table"
+          type="button"
+        >
+          <TableIcon className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={insertDivider}
+          className="p-2 rounded hover:bg-slate-200 transition-colors text-slate-700"
+          title="Horizontal Divider"
+          type="button"
+        >
+          <Minus className="w-4 h-4" />
         </button>
 
         <div className="w-px bg-slate-300 mx-1" />
@@ -262,6 +474,22 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
       {/* Editor */}
       <div className="bg-white">
         <EditorContent editor={editor} />
+      </div>
+
+      {/* Stats Bar */}
+      <div className="bg-slate-50 border-t-2 border-slate-200 px-4 py-2 flex items-center justify-between text-sm text-slate-600">
+        <div className="flex items-center gap-4">
+          <span>
+            {wordCount} {wordCount === 1 ? 'word' : 'words'}
+          </span>
+          <span className="text-slate-400">•</span>
+          <span>
+            {readingTime} min read
+          </span>
+        </div>
+        <div className="text-xs text-slate-500">
+          Markdown shortcuts: ## H2, * List, &gt; Quote
+        </div>
       </div>
 
       {/* CTA Modal */}
