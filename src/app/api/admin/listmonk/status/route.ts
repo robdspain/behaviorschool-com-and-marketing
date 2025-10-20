@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { getListmonkConfig, listmonkFetch } from '@/lib/listmonk'
 
 interface ListmonkResponse {
@@ -13,14 +13,26 @@ interface ListmonkResponse {
 function extractTotal(json: ListmonkResponse | unknown[] | null): number | null {
   try {
     if (!json) return null;
-    if (typeof json.total === 'number') return json.total;
-    if (json.data) {
-      if (typeof json.data.total === 'number') return json.data.total;
-      if (Array.isArray(json.data.results)) return json.data.results.length;
-      if (Array.isArray(json.data)) return json.data.length;
-    }
-    if (Array.isArray(json.results)) return json.results.length;
+    
+    // Type guard for array
     if (Array.isArray(json)) return json.length;
+    
+    // Type guard for object with properties
+    if (typeof json === 'object' && json !== null) {
+      const obj = json as ListmonkResponse;
+      
+      if (typeof obj.total === 'number') return obj.total;
+      
+      if (obj.data) {
+        if (typeof obj.data === 'object' && !Array.isArray(obj.data)) {
+          if (typeof obj.data.total === 'number') return obj.data.total;
+          if (Array.isArray(obj.data.results)) return obj.data.results.length;
+        }
+        if (Array.isArray(obj.data)) return obj.data.length;
+      }
+      
+      if (Array.isArray(obj.results)) return obj.results.length;
+    }
   } catch {}
   return null;
 }
