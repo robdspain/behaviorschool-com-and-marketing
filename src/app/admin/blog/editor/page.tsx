@@ -279,6 +279,22 @@ function BlogEditorContent() {
 
     setSaving(true)
     try {
+      // If editing an existing post, fetch the latest version first to get current updated_at
+      let latestUpdatedAt = post.updated_at
+      if (postId) {
+        try {
+          const fetchResponse = await fetch(`/api/admin/blog/posts/${postId}`)
+          const fetchResult = await fetchResponse.json()
+          if (fetchResult.success && fetchResult.post) {
+            latestUpdatedAt = fetchResult.post.updated_at
+            console.log('Fetched latest updated_at before save:', latestUpdatedAt)
+          }
+        } catch (fetchError) {
+          console.error('Error fetching latest post data:', fetchError)
+          // Continue with existing updated_at if fetch fails
+        }
+      }
+
       const statusToSave = newStatus || post.status
 
       // Handle scheduling
@@ -296,6 +312,7 @@ function BlogEditorContent() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             ...post,
+            updated_at: latestUpdatedAt, // Use the freshest timestamp
             status: statusToSave,
             published_at: publishedAt,
             tags: post.tags?.map(t => ({ id: t.id, name: t.name, slug: t.slug }))
