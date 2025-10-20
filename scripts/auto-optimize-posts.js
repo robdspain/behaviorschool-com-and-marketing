@@ -18,8 +18,12 @@
 const fs = require('fs');
 const path = require('path');
 
+// Load environment variables
+require('dotenv').config({ path: '.env.local' });
+
 // Configuration
-const GHOST_ADMIN_API_URL = process.env.GHOST_URL?.replace('/ghost/api/content', '/ghost/api/admin');
+const GHOST_CONTENT_URL = process.env.GHOST_CONTENT_URL || process.env.NEXT_PUBLIC_GHOST_CONTENT_URL;
+const GHOST_ADMIN_API_URL = GHOST_CONTENT_URL?.replace('/ghost/api/content', '/ghost/api/admin') || GHOST_CONTENT_URL;
 const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
 const SITE_URL = 'https://behaviorschool.com';
 
@@ -117,7 +121,7 @@ const PILLAR_PAGES = {
 
 // Smart internal link insertion
 function addInternalLinks(html, postTitle) {
-  if (!html) return html;
+  if (!html) return { html: '', links: [] };
   
   let modifiedHtml = html;
   const addedLinks = [];
@@ -291,7 +295,7 @@ async function analyzePost(post) {
   
   // Check internal links
   const linkResult = addInternalLinks(post.html, post.title);
-  if (linkResult.links.length > 0) {
+  if (linkResult && linkResult.links && linkResult.links.length > 0) {
     optimizations.changes.push({
       type: 'internal_links',
       links: linkResult.links,
@@ -321,9 +325,11 @@ async function main() {
   
   console.log('🚀 Blog Post SEO Auto-Optimizer\n');
   
-  if (!GHOST_ADMIN_API_URL || !GHOST_ADMIN_KEY) {
-    console.error('❌ Missing GHOST_URL or GHOST_ADMIN_KEY environment variables');
-    console.error('   Please ensure these are set in your .env file');
+  if (!GHOST_CONTENT_URL || !GHOST_ADMIN_KEY) {
+    console.error('❌ Missing GHOST_CONTENT_URL or GHOST_ADMIN_KEY environment variables');
+    console.error('   Please ensure these are set in your .env.local file');
+    console.error(`   GHOST_CONTENT_URL: ${GHOST_CONTENT_URL || '(not set)'}`);
+    console.error(`   GHOST_ADMIN_KEY: ${GHOST_ADMIN_KEY ? '(set)' : '(not set)'}`);
     process.exit(1);
   }
   

@@ -101,6 +101,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.2",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
     "mysql2": "^3.14.5",
