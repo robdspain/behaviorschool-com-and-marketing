@@ -50,21 +50,37 @@ export function IEPBehaviorGoalsClient() {
   // FAQ data for structured data
   const faqData = [
     {
+      question: "What are IEP behavior goals?",
+      answer: "IEP behavior goals are measurable objectives written into a student's Individualized Education Program (IEP) to address specific behavioral challenges that interfere with learning. These goals must include baseline data, target behaviors, measurement criteria, and expected progress within a specific timeframe. Effective behavior goals focus on replacement behaviors, not just reducing problem behaviors."
+    },
+    {
+      question: "How do I write a behavior goal for an IEP?",
+      answer: "To write an effective IEP behavior goal: (1) Identify the target behavior with clear, observable terms, (2) Establish baseline data showing current performance, (3) Define measurable criteria for success, (4) Set a realistic timeframe, (5) Specify how progress will be measured, and (6) Include conditions and supports needed. Use our free IEP Behavior Goals generator to create compliant goals in minutes."
+    },
+    {
+      question: "What makes a good IEP behavior goal?",
+      answer: "A good IEP behavior goal is SMART: Specific (clearly defined behavior), Measurable (quantifiable progress), Achievable (realistic for the student), Relevant (addresses educational needs), and Time-bound (specific deadline). It should focus on positive replacement behaviors, include baseline data, specify measurement methods, and align with functional behavior assessment findings."
+    },
+    {
+      question: "What is the difference between behavior IEP goals and academic IEP goals?",
+      answer: "Behavior IEP goals target social-emotional, behavioral, or adaptive skills that interfere with learning (e.g., staying on-task, following directions, managing emotions), while academic IEP goals address specific subject areas like reading or math. Behavior goals often require different measurement strategies, such as frequency counts, duration recording, or interval sampling, rather than standardized assessments."
+    },
+    {
       question: "What is the IEP Goal Writer Widget?",
-      answer: "The IEP Goal Writer Widget is a specialized tool designed for special education professionals, behavior specialists, and IEP teams to quickly and efficiently generate compliant and measurable behavior goals."
+      answer: "The IEP Goal Writer Widget is a free specialized tool designed for special education professionals, behavior specialists, and IEP teams to quickly and efficiently generate compliant and measurable behavior goals. The 6-step guided wizard ensures all critical components are addressed while maintaining complete privacy - everything stays in your browser."
     },
     {
-      question: "How does the 6-Step Guided Wizard work?",
-      answer: "The 6-Step Guided Wizard walks users through a structured process: Student & Behavior → Baseline → Context & Supports → Goal and Measurement → Advanced Options → Review & Generate, ensuring all critical components of an IEP goal are addressed."
+      question: "How long should IEP behavior goals last?",
+      answer: "IEP behavior goals typically last one year, corresponding to the annual IEP review cycle. However, progress should be monitored and reported quarterly or per district requirements. Goals can be modified during the year through IEP amendments if the student masters the goal early or if data shows the goal needs adjustment."
     },
     {
-      question: "What is the Quality Assessment Meter?",
-      answer: "The Quality Assessment Meter provides a 5-level hierarchy system (1-5) with a visual progress indicator and descriptive labels, helping users understand and improve the quality of their generated IEP goals."
+      question: "Do IEP behavior goals require a Functional Behavior Assessment (FBA)?",
+      answer: "An FBA is required when developing a Behavior Intervention Plan (BIP) for serious or persistent behaviors, but not all IEP behavior goals require an FBA. However, FBA data significantly improves behavior goal quality by identifying function, antecedents, and consequences. Best practice is to conduct an FBA for any behavior goal targeting replacement behaviors."
     },
     {
-      question: "Is the IEP Goal Writer Widget secure and private?",
-      answer: "Yes, the widget is 100% client-side, meaning no data is transmitted or stored externally. Everything stays within your browser, ensuring complete privacy and security. It also has no external dependencies and works offline."
-    },
+      question: "Can parents request behavior goals in an IEP?",
+      answer: "Yes, parents can and should request behavior goals if their child's behavior interferes with learning. During IEP meetings, parents can present documentation of behavioral concerns, request evaluations including FBAs, and advocate for specific behavioral supports and measurable goals. Schools must consider parent input and data when determining IEP goals and services."
+    }
   ];
 
   // Structured data for FAQ

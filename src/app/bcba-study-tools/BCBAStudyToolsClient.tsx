@@ -65,7 +65,7 @@ export function BCBAStudyToolsClient() {
 
   const freeResources = [
     {
-      title: "IEP Goal Writer",
+      title: "IEP Behavior Goals",
       description: "Create professional IEP behavior goals in minutes",
       link: "/iep-behavior-goals"
     },
@@ -75,7 +75,7 @@ export function BCBAStudyToolsClient() {
       link: "/behavior-plans"
     },
     {
-      title: "Study Guides",
+      title: "BCBA Exam Prep Free",
       description: "Comprehensive guides for BCBA exam preparation",
       link: "/bcba-exam-prep"
     }

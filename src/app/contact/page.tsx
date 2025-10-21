@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "contact behavior school",
+    "contact Behavior School",
     "BCBA training support",
     "behavior analysis consultation",
     "school behavior support",

@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   description: "Behavior School: Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides and IEP templates now!",
   keywords: [
     "Behavior School",
-    "behavior school platform",
-    "behavior school BCBA",
+    "Behavior School platform",
+    "Behavior School BCBA",
     "education",
     "special education",
     "behavior analysis",

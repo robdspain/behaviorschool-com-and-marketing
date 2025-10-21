@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Supervision Resources 2025 | School-Based Tools",
+  title: "BCBA Supervision Curriculum Free | Behavior School",
   description: "Free BCBA supervision resources for school-based behavior analysts. Documentation guides, supervision strategies, and BACB compliance templates.",
   keywords: "aba supervision tools, bcba supervision tools, bcba supervision curriculum, bcba supervision curriculum free, fieldwork tracking, supervision documentation, BACB compliance, behavior analyst training",
   alternates: { canonical: "https://behaviorschool.com/supervisors" },
   openGraph: {
     type: "website",
-    title: "Free BCBA Supervision Resources 2025 | School-Based Tools",
+    title: "BCBA Supervision Curriculum Free | Behavior School",
     description: "Free BCBA supervision resources for school-based behavior analysts. Documentation guides, supervision strategies, and BACB compliance templates.",
     url: "/supervisors",
     siteName: "Behavior School",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Supervision Resources 2025 | School-Based Tools",
+    title: "BCBA Supervision Curriculum Free | Behavior School",
     description: "Free BCBA supervision resources for school-based behavior analysts. Documentation guides, supervision strategies, and BACB compliance templates.",
     images: ["/optimized/og-image.webp"],
   },

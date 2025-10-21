@@ -24,7 +24,7 @@ const StructuredData = dynamic(() => import('./structured-data').then(mod => ({ 
 const FAQData = dynamic(() => import('./structured-data').then(mod => ({ default: mod.FAQStructuredData })));
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Exam → 185 Questions + Instant Results | Prep Confidently",
+  title: "Free BCBA Mock Exam | Behavior School",
   description: "FREE full-length BCBA mock exam with 185 questions. Instant scoring + detailed explanations. No signup required - start practicing now and build your exam confidence!",
   robots: {
     index: true,
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Free BCBA Mock Exam → 185 Questions + Instant Results",
+    title: "Free BCBA Mock Exam | Behavior School",
     description: "FREE full-length BCBA mock exam. Instant scoring + detailed explanations. Comprehensive practice for behavior analysts preparing for certification.",
     url: "https://behaviorschool.com/bcba-mock-practice-test",
     siteName: "Behavior School",
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best BCBA Mock Exam (FREE) | Instant Results | Start Now",
+    title: "Free BCBA Mock Exam | Behavior School",
     description: "Professional BCBA mock exam with 185 realistic questions. Complete 4-hour simulation, instant results, detailed explanations.",
     images: ["/optimized/og-image.webp"],
   },

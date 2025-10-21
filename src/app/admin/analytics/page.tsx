@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
 import { BarChart3, TrendingUp, Users, Download, Mail, Eye, ArrowUpRight, ArrowDownRight } from 'lucide-react'
+import ConversionTrackingDashboard from '@/components/admin/ConversionTrackingDashboard'
 
 interface AnalyticsData {
   totalSubmissions: number
@@ -284,6 +285,11 @@ export default function AnalyticsPage() {
               <p>No download data available yet</p>
             </div>
           )}
+        </div>
+
+        {/* Conversion Tracking Section */}
+        <div className="mb-8">
+          <ConversionTrackingDashboard />
         </div>
 
         {/* Coming Soon Notice */}

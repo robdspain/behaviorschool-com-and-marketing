@@ -80,6 +80,32 @@ export const trackConversion = (event: ConversionEvent): void => {
 };
 
 /**
+ * Save event to database via API
+ */
+const saveEventToDatabase = async (event: {
+  event_type: string;
+  event_name: string;
+  source_page: string;
+  user_email?: string;
+  resource_name?: string;
+  value: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  additional_data?: Record<string, any>;
+}): Promise<void> => {
+  try {
+    await fetch('/api/admin/analytics/conversions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(event),
+    });
+  } catch (error) {
+    console.error('Error saving event to database:', error);
+  }
+};
+
+/**
  * Track lead generation events
  */
 export const trackLead = (event: LeadEvent): void => {
@@ -95,6 +121,17 @@ export const trackLead = (event: LeadEvent): void => {
       resource_name: event.resource_name,
       timestamp: new Date().toISOString(),
     },
+  });
+
+  // Also save to database
+  saveEventToDatabase({
+    event_type: event.lead_type,
+    event_name: event.event_name,
+    source_page: event.source_page,
+    user_email: event.user_email,
+    resource_name: event.resource_name,
+    value: getLeadValue(event.lead_type),
+    additional_data: event.custom_parameters,
   });
 };
 
@@ -157,6 +194,19 @@ export const trackToolUsage = (
       tool_name,
       action,
       source_page,
+      ...additional_data,
+    },
+  });
+
+  // Also save to database
+  saveEventToDatabase({
+    event_type: 'tool_usage',
+    event_name: `${tool_name} - ${action}`,
+    source_page,
+    value: getLeadValue('tool_usage'),
+    additional_data: {
+      tool_name,
+      action,
       ...additional_data,
     },
   });

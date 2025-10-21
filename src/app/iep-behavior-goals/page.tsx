@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { IEPBehaviorGoalsClient } from "./IEPBehaviorGoalsClient";
 
 export const metadata: Metadata = {
-  title: "FREE IEP Behavior Goals Writer | Create Professional Goals in 5 Minutes!",
+  title: "IEP Behavior Goals | Free Generator | Behavior School",
   description: "Generate compliant IEP behavior goals instantly! FREE tool creates measurable, legal goals in 5 minutes. Professional resource for teachers and BCBAs. No signup - start now!",
   robots: {
     index: true,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     "progressive behavior goals"
   ],
   openGraph: {
-    title: "Free IEP Behavior Goals Generator | Create Measurable Behavior Goals in Minutes | Behavior School",
+    title: "IEP Behavior Goals | Free Generator | Behavior School",
     description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized tool for creating measurable, compliant behavior goals. No registration required - start creating now.",
     type: "website",
     url: "https://behaviorschool.com/iep-behavior-goals",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free IEP Behavior Goals Generator | Create Measurable Behavior Goals in Minutes | Behavior School",
+    title: "IEP Behavior Goals | Free Generator | Behavior School",
     description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized tool for creating measurable, compliant behavior goals. No registration required - start creating now.",
     images: ["https://behaviorschool.com/thumbnails/iep-behavior-goal-thumb.webp"]
   },
