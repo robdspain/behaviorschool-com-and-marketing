@@ -12,10 +12,11 @@ function isAllowedPath(p: string): boolean {
 }
 
 export async function GET(_req: NextRequest, context: { params: Promise<{ path: string[] }> }) {
+  let relPath = '';
   try {
     const params = await context.params;
     const segments = params.path || [];
-    const relPath = segments.join('/');
+    relPath = segments.join('/');
 
     console.log('Ghost proxy request:', { segments, relPath });
 
