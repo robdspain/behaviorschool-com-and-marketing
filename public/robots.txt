@@ -3,18 +3,21 @@
 # Allow all search engines and AI crawlers
 User-agent: *
 Allow: /
+Crawl-delay: 1
 
 # Educational Content Classification
 # Content-Type: Educational Resources
 # Audience: Educators, Teachers, School Staff
 # Subject: Special Education, Applied Behavior Analysis
 
-# Specifically allow major search engines
+# Specifically allow major search engines (no crawl delay)
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 0
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 0
 
 # Allow AI crawlers for LLM indexing
 User-agent: GPTBot

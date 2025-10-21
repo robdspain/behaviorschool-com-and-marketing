@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Check authentication
     const { data: { session } } = await supabase.auth.getSession();
@@ -130,7 +130,7 @@ export async function GET(request: NextRequest) {
 // POST endpoint to track new conversion events
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Parse request body
     const body = await request.json();

@@ -29,11 +29,18 @@ export async function GET(_req: NextRequest, context: { params: Promise<{ path: 
 
     console.log('Fetching from upstream:', upstream);
 
+    // Add timeout controller to prevent hanging requests
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
     const upstreamRes = await fetch(upstream, {
       headers: {
         'User-Agent': 'BehaviorSchool-Proxy/1.0'
-      }
+      },
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     console.log('Upstream response status:', upstreamRes.status);
 
@@ -61,6 +68,11 @@ export async function GET(_req: NextRequest, context: { params: Promise<{ path: 
       headers,
     });
   } catch (error) {
+    // Handle timeout errors specifically
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.error('Ghost proxy timeout:', relPath);
+      return new NextResponse('Gateway Timeout', { status: 504 });
+    }
     console.error('Ghost proxy error:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
