@@ -419,6 +419,13 @@ export default function RootLayout({
             gtag('config', 'AW-17439907778');
           `}
         </Script>
+
+        {/* Ahrefs Analytics */}
+        <Script 
+          src="https://analytics.ahrefs.com/analytics.js" 
+          data-key="qFMnKEdLIrHbuzIcuxBlmw"
+          strategy="lazyOnload"
+        />
         
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
