@@ -26,7 +26,7 @@ const staggerContainer = {
 export default function TransformationProgramPage() {
   // Cohort management state
   const [cohortStatus, setCohortStatus] = React.useState<'available' | 'full' | 'unknown'>('available');
-  const [cohortDate, setCohortDate] = React.useState<string | null>('March 15');
+  const [cohortDate, setCohortDate] = React.useState<string | null>('March 15, 2025');
   const [showEmailPopup, setShowEmailPopup] = React.useState(false);
 
   // Dynamic cohort logic
@@ -36,11 +36,11 @@ export default function TransformationProgramPage() {
     const checkCohortStatus = () => {
       // Example logic - replace with actual API call
       const isAvailable = true; // Replace with actual availability check
-      const nextDate = '2024-03-15'; // Replace with actual date from backend
-      
+      const nextDate = '2025-03-15'; // Replace with actual date from backend
+
       if (isAvailable && nextDate) {
         setCohortStatus('available');
-        setCohortDate('March 15');
+        setCohortDate('March 15, 2025');
       } else if (!isAvailable) {
         setCohortStatus('full');
       } else {
@@ -78,7 +78,7 @@ export default function TransformationProgramPage() {
   // Track hero impression on mount
   React.useEffect(() => {
     trackEvent('hero_impression', {
-      cohortStartDate: '2024-03-15',
+      cohortStartDate: '2025-03-15',
       variantId: 'hero-opt1'
     });
   }, []);
@@ -121,13 +121,15 @@ export default function TransformationProgramPage() {
 
   return (
     <div className="min-h-screen bg-bs-background relative">
-      {/* Sticky Mobile CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white border-t-2 border-red-200 shadow-2xl md:hidden">
-        <Link 
-          href="/signup" 
-          className="flex items-center justify-center w-full px-6 py-3 text-lg font-bold bg-red-600 hover:bg-red-700 text-white rounded-xl shadow-lg transition-all duration-200"
+      {/* Sticky Mobile CTA - Premium Design */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-gradient-to-t from-white via-white to-white/95 backdrop-blur-md border-t border-slate-200/60 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:hidden">
+        <Link
+          href="/signup"
+          className="group flex items-center justify-center w-full px-6 py-4 text-base font-bold bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
         >
-          👉 Secure Your Spot - $500 Off Today!
+          <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+          Secure Your Spot — Save $500
+          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
       {/* Breadcrumbs */}
@@ -138,13 +140,13 @@ export default function TransformationProgramPage() {
           ]}
         />
       </div>
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
-        {/* Professional Background with Subtle Patterns */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-emerald-50/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-50/20 via-transparent to-transparent" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-100/20 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-red-100/20 to-transparent rounded-full blur-3xl" />
+      {/* Hero Section - Premium Design */}
+      <section className="relative py-20 sm:py-24 md:py-28 lg:py-32 overflow-hidden">
+        {/* Premium Background with Sophisticated Gradients */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-emerald-50/40" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-50/30 via-transparent to-transparent" />
+        <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-gradient-to-bl from-emerald-100/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-gradient-to-tr from-red-100/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s' }} />
         
         <div className="relative max-w-[1200px] px-4 md:px-6 mx-auto">
           <div className="md:grid md:grid-cols-12 md:gap-12 items-center">
@@ -274,21 +276,21 @@ export default function TransformationProgramPage() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="relative"
               >
-                {/* Professional Education Image */}
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
+                {/* Premium Education Image with Enhanced Shadow */}
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.2)] transition-shadow duration-500">
                   <Image
                     src="/optimized/Hero/Hero-group1-optimized.webp"
                     alt="Professional education team collaborating - confident leaders working together with systems and clarity"
                     width={800}
                     height={600}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    fetchPriority="auto"
+                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                    priority
+                    quality={95}
                   />
-                  
-                  {/* Professional Overlay with Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
-                  
+
+                  {/* Sophisticated Overlay with Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-slate-900/5 to-transparent" />
+                  <div className="absolute inset-0 ring-1 ring-inset ring-slate-900/10 rounded-3xl" />
 
                 </div>
 
@@ -386,10 +388,10 @@ export default function TransformationProgramPage() {
           >
             {/* Pain Point 1 */}
             <motion.div
-              className="bg-red-50 border border-red-200 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12"
+              className="bg-red-50 border-2 border-red-200 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300"
               variants={fadeInUp}
             >
-              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold text-red-700 mb-3 sm:mb-4">1. Systemic Chaos &amp; Lack of Structure</h3>
                   <p className="text-sm sm:text-base text-slate-700 mb-3 sm:mb-4">You&apos;re stuck in reactive mode, with no referral process, no SOPs, and constant &quot;putting out fires.&quot;</p>
@@ -412,10 +414,10 @@ export default function TransformationProgramPage() {
 
             {/* Pain Point 2 */}
             <motion.div
-              className="bg-orange-50 border border-orange-200 rounded-2xl p-8 lg:p-12"
+              className="bg-orange-50 border-2 border-orange-200 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300"
               variants={fadeInUp}
             >
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
                 <div>
                   <h3 className="text-xl font-bold text-orange-700 mb-4">2. Ethical Conflicts with District Demands</h3>
                   <p className="text-slate-700 mb-4">You&apos;re pressured to compromise ethics (e.g., working without consent, misusing RBTs).</p>
@@ -438,10 +440,10 @@ export default function TransformationProgramPage() {
 
             {/* Pain Point 3 */}
             <motion.div
-              className="bg-blue-50 border border-blue-200 rounded-2xl p-8 lg:p-12"
+              className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300"
               variants={fadeInUp}
             >
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
                 <div>
                   <h3 className="text-xl font-bold text-blue-700 mb-4">3. Staff Engagement &amp; Collaboration Challenges</h3>
                   <p className="text-slate-700 mb-4">Building consistent implementation and engagement across all team members.</p>
@@ -464,10 +466,10 @@ export default function TransformationProgramPage() {
 
             {/* Pain Point 4 */}
             <motion.div
-              className="bg-purple-50 border border-purple-200 rounded-2xl p-8 lg:p-12"
+              className="bg-purple-50 border-2 border-purple-200 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300"
               variants={fadeInUp}
             >
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
                 <div>
                   <h3 className="text-xl font-bold text-purple-700 mb-4">4. Staff Turnover &amp; Training Fatigue</h3>
                   <p className="text-slate-700 mb-4">High turnover makes it feel like you&apos;re retraining endlessly.</p>
@@ -490,10 +492,10 @@ export default function TransformationProgramPage() {
 
             {/* Pain Point 5 */}
             <motion.div
-              className="bg-emerald-50 border border-emerald-200 rounded-2xl p-8 lg:p-12"
+              className="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300"
               variants={fadeInUp}
             >
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
                 <div>
                   <h3 className="text-xl font-bold text-emerald-700 mb-4">5. Chaotic Classrooms &amp; Crisis Management</h3>
                   <p className="text-slate-700 mb-4">Classrooms with high-need students feel unmanageable, with no time for pre-briefs or debriefs.</p>
@@ -516,10 +518,10 @@ export default function TransformationProgramPage() {
 
             {/* Pain Point 6 */}
             <motion.div
-              className="bg-slate-50 border border-slate-200 rounded-2xl p-8 lg:p-12"
+              className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300"
               variants={fadeInUp}
             >
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
                 <div>
                   <h3 className="text-xl font-bold text-slate-700 mb-4">6. Demonstrating Impact &amp; Value</h3>
                   <p className="text-slate-700 mb-4">Clearly showing progress and effectively communicating your professional contributions.</p>
@@ -610,20 +612,20 @@ export default function TransformationProgramPage() {
 
             {/* Week 2 */}
             <motion.div
-              className="bg-white rounded-2xl p-8 lg:p-12 shadow-lg border border-slate-200"
+              className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl border-2 border-slate-200 transition-all duration-300"
               variants={fadeInUp}
             >
-              <div className="flex items-start gap-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl shadow-lg">
                     2
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-3 sm:mb-4">
                     Week 2: Creating a Strong Operating Framework
                   </h3>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Problem:</h4>
                       <p className="text-slate-600">Everything feels random - no referral systems, tiered supports, or consistent procedures</p>
@@ -647,20 +649,20 @@ export default function TransformationProgramPage() {
 
             {/* Week 3 */}
             <motion.div
-              className="bg-slate-50 rounded-2xl p-8 lg:p-12 shadow-lg border border-slate-200"
+              className="bg-slate-50 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl border-2 border-slate-200 transition-all duration-300"
               variants={fadeInUp}
             >
-              <div className="flex items-start gap-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl shadow-lg">
                     3
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-3 sm:mb-4">
                     Week 3: Data That Drives Buy-In
                   </h3>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Problem:</h4>
                       <p className="text-slate-600">Subjective disagreements about student progress with no shared evidence to align staff</p>
@@ -684,20 +686,20 @@ export default function TransformationProgramPage() {
 
             {/* Week 4 */}
             <motion.div
-              className="bg-white rounded-2xl p-8 lg:p-12 shadow-lg border border-slate-200"
+              className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl border-2 border-slate-200 transition-all duration-300"
               variants={fadeInUp}
             >
-              <div className="flex items-start gap-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl shadow-lg">
                     4
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-3 sm:mb-4">
                     Week 4: Teacher &amp; Staff Buy-In Blueprint
                   </h3>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Problem:</h4>
                       <p className="text-slate-600">Struggling to build collaborative relationships and consistent plan implementation across diverse team members</p>
@@ -721,20 +723,20 @@ export default function TransformationProgramPage() {
 
             {/* Week 5 */}
             <motion.div
-              className="bg-slate-50 rounded-2xl p-8 lg:p-12 shadow-lg border border-slate-200"
+              className="bg-slate-50 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl border-2 border-slate-200 transition-all duration-300"
               variants={fadeInUp}
             >
-              <div className="flex items-start gap-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl shadow-lg">
                     5
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-3 sm:mb-4">
                     Week 5: Leading with Collaboration, Not Control
                   </h3>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Problem:</h4>
                       <p className="text-slate-600">Staff view ABA as rigid and compliance-driven rather than supportive and collaborative</p>
@@ -758,20 +760,20 @@ export default function TransformationProgramPage() {
 
             {/* Week 6 */}
             <motion.div
-              className="bg-white rounded-2xl p-8 lg:p-12 shadow-lg border border-slate-200"
+              className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl border-2 border-slate-200 transition-all duration-300"
               variants={fadeInUp}
             >
-              <div className="flex items-start gap-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl shadow-lg">
                     6
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-3 sm:mb-4">
                     Week 6: Crisis Response Systems in Any Setting
                   </h3>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Problem:</h4>
                       <p className="text-slate-600">Operating in chaotic classrooms where crisis response takes over and real teaching never begins</p>
@@ -795,20 +797,20 @@ export default function TransformationProgramPage() {
 
             {/* Week 7 */}
             <motion.div
-              className="bg-slate-50 rounded-2xl p-8 lg:p-12 shadow-lg border border-slate-200"
+              className="bg-slate-50 rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl border-2 border-slate-200 transition-all duration-300"
               variants={fadeInUp}
             >
-              <div className="flex items-start gap-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl shadow-lg">
                     7
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-3 sm:mb-4">
                     Week 7: Scaling Through Supervision &amp; Staff Turnover
                   </h3>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Problem:</h4>
                       <p className="text-slate-600">Struggling with constant staff turnover, making training and fidelity feel impossible - retraining endlessly</p>
@@ -832,20 +834,20 @@ export default function TransformationProgramPage() {
 
             {/* Week 8 */}
             <motion.div
-              className="bg-white rounded-2xl p-8 lg:p-12 shadow-lg border border-slate-200"
+              className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-lg hover:shadow-xl border-2 border-slate-200 transition-all duration-300"
               variants={fadeInUp}
             >
-              <div className="flex items-start gap-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl shadow-lg">
                     8
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-3 sm:mb-4">
                     Week 8: Your District or School Playbook
                   </h3>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                  <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Problem:</h4>
                       <p className="text-slate-600">Need to clearly demonstrate professional effectiveness when working within complex systems and limited resources</p>
@@ -1011,8 +1013,8 @@ export default function TransformationProgramPage() {
         </div>
       </section>
 
-      {/* Final CTA with Pricing */}
-      <section id="enroll" className="py-16 lg:py-20 bg-gradient-to-br from-slate-50 to-white">
+      {/* Final CTA with Pricing - Premium Design */}
+      <section id="enroll" className="py-20 sm:py-24 lg:py-28 bg-gradient-to-br from-slate-50 via-white to-emerald-50/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1020,17 +1022,24 @@ export default function TransformationProgramPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-red-600 text-white rounded-full px-6 py-2 inline-block font-bold mb-6">
-              🔥 LIMITED TIME OFFER
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Ready to Lead with Ethical Confidence?
+            <motion.div
+              initial={{ scale: 0.9 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-full px-6 py-3 font-bold mb-8 shadow-lg"
+            >
+              <Zap className="w-5 h-5" />
+              LIMITED TIME OFFER
+            </motion.div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+              Ready to Lead with<br />Ethical Confidence?
             </h2>
-            <p className="text-xl text-slate-700 mb-8 max-w-3xl mx-auto">
-              The Ethical Leadership Framework isn&apos;t just another training program. It&apos;s your blueprint for navigating district chaos while maintaining professional integrity.
+            <p className="text-lg sm:text-xl md:text-2xl text-slate-700 mb-12 max-w-3xl mx-auto leading-relaxed">
+              The School BCBA Transformation System isn&apos;t just another training program—it&apos;s your complete blueprint for navigating district chaos while maintaining professional integrity.
             </p>
 
-            <div className="bg-white rounded-2xl p-6 md:p-8 max-w-lg mx-auto mb-8 border-2 border-red-200 shadow-xl">
+            <div className="bg-white rounded-3xl p-8 md:p-10 lg:p-12 max-w-2xl mx-auto mb-12 border-2 border-red-200 shadow-[0_20px_60px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.2)] transition-all duration-500 transform hover:scale-[1.02]">
               <div className="text-slate-900">
                 {/* CEU Badge */}
                 <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-4 mb-6">
@@ -1055,15 +1064,20 @@ export default function TransformationProgramPage() {
               </div>
             </div>
 
-            <div className="mb-8">
-              <Link 
-                href="/signup" 
-                className="inline-flex items-center px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl font-bold bg-red-600 hover:bg-red-700 text-white rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-200 transform hover:scale-105"
+            <motion.div
+              className="mb-10"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link
+                href="/signup"
+                className="group inline-flex items-center px-10 md:px-14 py-5 md:py-7 text-xl md:text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white rounded-2xl shadow-[0_20px_60px_rgba(220,38,38,0.4)] hover:shadow-[0_25px_70px_rgba(220,38,38,0.5)] transition-all duration-300 transform"
               >
-                👉 SECURE YOUR SPOT NOW
-                <ArrowRight className="ml-3 h-5 w-5 md:h-6 md:w-6" />
+                <Zap className="mr-3 h-6 w-6 md:h-7 md:w-7 group-hover:animate-pulse" />
+                SECURE YOUR SPOT NOW
+                <ArrowRight className="ml-3 h-6 w-6 md:h-7 md:w-7 group-hover:translate-x-2 transition-transform" />
               </Link>
-            </div>
+            </motion.div>
 
             <div className="text-slate-900 font-semibold mb-6 text-base sm:text-lg">
               ⏰ Only 20 spots available. When they&apos;re gone, they&apos;re gone.
@@ -1123,7 +1137,7 @@ export default function TransformationProgramPage() {
           "hasCourseInstance": {
             "@type": "CourseInstance",
             "courseMode": "cohort",
-            "startDate": "2024-03-15",
+            "startDate": "2025-03-15",
             "duration": "P8W",
             "instructor": {
               "@type": "Organization",
@@ -1136,8 +1150,8 @@ export default function TransformationProgramPage() {
             "availability": "https://schema.org/LimitedAvailability",
             "price": "2497",
             "priceCurrency": "USD",
-            "validFrom": "2024-01-01",
-            "validThrough": "2024-12-31",
+            "validFrom": "2025-01-01",
+            "validThrough": "2025-12-31",
             "url": `${SITE_URL}/signup`
           },
           "teaches": [
