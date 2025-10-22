@@ -133,15 +133,15 @@ export default function TransformationProgramPage() {
         </Link>
       </div>
       {/* Breadcrumbs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
-        <Breadcrumbs 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
+        <Breadcrumbs
           items={[
             { label: "School BCBA Transformation System" }
           ]}
         />
       </div>
       {/* Hero Section - Premium Design */}
-      <section className="relative py-20 sm:py-24 md:py-28 lg:py-32 overflow-hidden">
+      <section className="relative py-12 sm:py-14 md:py-16 lg:py-20 overflow-hidden">
         {/* Premium Background with Sophisticated Gradients */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-emerald-50/40" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-50/30 via-transparent to-transparent" />
@@ -163,13 +163,7 @@ export default function TransformationProgramPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="flex flex-col sm:flex-row gap-2"
                 >
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-full shadow-sm">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium text-slate-700">Cohort-Based Program</span>
-                    <span className="text-xs text-slate-500"> • Classes forming now</span>
-                  </div>
                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full shadow-sm">
                     <Award className="w-4 h-4 text-emerald-600" />
                     <span className="text-sm font-semibold text-emerald-700">16 BACB CEUs • Supervision & Ethics</span>
