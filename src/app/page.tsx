@@ -49,26 +49,138 @@ export default function Home() {
     <div className="min-h-screen bg-[var(--bs-background,#FAF3E0)]">
       <Hero
         variant="brand"
-        eyebrow="Welcome to"
-        title="Behavior School"
-        highlight="Platform for School-Based BCBAs & Behavior Analysts"
-        subtitle="Tools, training, and community for school-based behavior analysts and educators — from BCBA exam prep to supervision systems that work in real classrooms."
-        primaryCta={{ href: "/community", label: "Join Our Free Community" }}
+        eyebrow="For School-Based BCBAs"
+        title="Stop Managing Crises."
+        highlight="Start Building Systems That Work."
+        subtitle="Join 500+ school BCBAs who transformed from overwhelmed crisis managers to confident behavior leaders through our 8-week program + free tools and community."
+        primaryCta={{ href: "/transformation-program", label: "See the Program" }}
       />
 
-      {/* AI-Friendly Summary for LLM Indexing */}
-      <section className="py-8 bg-bs-section-odd border-b border-slate-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="sr-only">About Behavior School</h2>
-            <p className="text-lg font-medium text-slate-800 leading-relaxed">
-              <strong>Behavior School is a comprehensive platform of digital tools, training programs, and professional community designed for behavior analysts in K-12 educational environments.</strong> Our platform integrates <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA exam prep free</Link>, <Link href="/bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">free BCBA mock exam</Link>, <Link href="/supervisors" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA supervision curriculum free</Link>, <Link href="/iep-behavior-goals" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">IEP behavior goals</Link>, and <Link href="/behavior-plans" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">behavior intervention plans</Link> to help school-based teams achieve sustainable practice excellence. Founded by <a href="/about" className="text-emerald-700 hover:text-emerald-800 font-semibold link-distinguishable">Rob Spain, M.S., BCBA, IBA</a> — a Board Certified Behavior Analyst with 14+ years of experience, President of CalABA&apos;s Behavior Analysts in Education SIG, and Adjunct Professor at Fresno Pacific University — Behavior School offers evidence-based tools and training for behavior analysts in schools.
+      {/* Two-Tier CTA Bar - Segment by readiness */}
+      <section className="py-6 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
+            <p className="text-slate-700 font-medium text-sm sm:text-base">
+              Not ready for the program?
             </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild size="default" variant="outline" className="border-emerald-600 text-emerald-700 hover:bg-emerald-50">
+                <a href="https://community.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                  Join Free Community
+                </a>
+              </Button>
+              <Button asChild size="default" variant="outline" className="border-emerald-600 text-emerald-700 hover:bg-emerald-50">
+                <Link href="/bcba-mock-practice-test">
+                  Try Free BCBA Exam Prep
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 1 – Join the Community */}
+      {/* PRIMARY CONVERSION SECTION - Transformation Program */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-odd">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-100 text-red-800 text-sm font-semibold mb-4">
+              <span className="w-2 h-2 bg-red-600 rounded-full mr-2 animate-pulse"></span>
+              8-Week Transformation Program for School BCBAs
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4 leading-tight">From School BCBA Burnout and Crisis Management</h2>
+            <p className="text-xl sm:text-2xl font-bold text-emerald-600 mb-3 sm:mb-4">↓</p>
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">To Confidence, School-Wide Behavior Support, and Ethical Leadership</h3>
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              The 8-week transformation program that turns overwhelmed school BCBAs into ethical leaders who master crisis management in schools, build teacher buy-in for behavior plans, and drive measurable change through school-wide behavior systems.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
+            {/* Pain Points */}
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
+              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-2xl">⚠️</span>
+              </div>
+              <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Current Reality</h4>
+              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
+                <li>• Ethical challenges in schools with admin demands</li>
+                <li>• Difficulty getting teacher buy-in for behavior plans</li>
+                <li>• School BCBA burnout from overwhelming caseloads</li>
+                <li>• Constant school behavior crisis management</li>
+                <li>• Lack of school-wide behavior support systems</li>
+              </ul>
+            </div>
+
+            {/* Solution */}
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
+              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-2xl">🎯</span>
+              </div>
+              <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Our Solution</h4>
+              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
+                <li>• Ethical leadership framework for school BCBAs</li>
+                <li>• Training teachers in behavior support strategies</li>
+                <li>• Applied behavior analysis in schools workflows</li>
+                <li>• Crisis management in schools protocols</li>
+                <li>• MTSS behavior support implementation</li>
+              </ul>
+            </div>
+
+            {/* Transformation */}
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <span className="text-2xl">🚀</span>
+              </div>
+              <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Your Future</h4>
+              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
+                <li>• Confident ethical leadership as a school BCBA</li>
+                <li>• Engaged teachers implementing behavior plans</li>
+                <li>• Streamlined school-wide behavior support</li>
+                <li>• Measurable student behavior outcomes</li>
+                <li>• District-wide MTSS behavior support impact</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
+            <div className="space-y-4 sm:space-y-6 text-slate-700 order-2 md:order-1">
+              <p className="text-base sm:text-lg font-medium leading-relaxed">
+                Stop surviving your role and start transforming your entire district.
+              </p>
+              <p className="text-base sm:text-lg leading-relaxed">
+                This isn&apos;t just another course—it&apos;s a complete operating system that addresses the 6 universal pain points every school BCBA faces, with practical tools, scripts, and systems you can implement immediately.
+              </p>
+              <div className="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg">
+                <p className="text-emerald-800 font-medium text-sm sm:text-base leading-relaxed">
+                  &ldquo;Finally, a program that gets what school BCBAs actually deal with — the ethics conflicts, crisis management, and getting teacher buy-in.&rdquo;
+                </p>
+              </div>
+              <div className="pt-2">
+                <Link 
+                  href="/transformation-program" 
+                  className="inline-flex items-center bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold group transition-colors text-sm sm:text-base w-full sm:w-auto justify-center min-w-[280px] text-center"
+                >
+                  Get the Full Program Details →
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+            <div className="relative order-1 md:order-2">
+              <Image 
+                src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp" 
+                alt="BCBA training program dashboard showing school-based behavior support tools and operating system"
+                className="rounded-xl shadow-lg w-full h-auto"
+                width={592}
+                height={395}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 2 – Free Community (lead magnet for those not ready to buy) */}
       <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -214,104 +326,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Personal Operating Systems Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-even">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4 leading-tight">From School BCBA Burnout and Crisis Management</h2>
-            <p className="text-xl sm:text-2xl font-bold text-emerald-600 mb-3 sm:mb-4">↓</p>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">To Confidence, School-Wide Behavior Support, and Ethical Leadership</h3>
-            <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              The 8-week transformation program that turns overwhelmed school BCBAs into ethical leaders who master crisis management in schools, build teacher buy-in for behavior plans, and drive measurable change through school-wide behavior systems.
+      {/* AI-Friendly Summary for SEO & LLM Indexing */}
+      <section className="py-8 bg-white border-y border-slate-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="sr-only">About Behavior School</h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              <strong>Behavior School</strong> is a comprehensive platform for school-based BCBAs and behavior analysts in K-12 education. Founded by <a href="/about" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">Rob Spain, M.S., BCBA, IBA</a> — President of CalABA&apos;s Behavior Analysts in Education SIG and Adjunct Professor at Fresno Pacific University — we offer the <Link href="/transformation-program" className="text-emerald-700 hover:text-emerald-800 font-semibold link-distinguishable">8-week transformation program</Link>, <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA exam prep free</Link>, <Link href="/bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">free BCBA mock exam</Link>, <Link href="/supervisors" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">BCBA supervision curriculum</Link>, <Link href="/iep-behavior-goals" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">IEP behavior goals</Link>, and <Link href="/behavior-plans" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">behavior intervention plans</Link> to help school-based teams achieve sustainable practice excellence.
             </p>
-          </div>
-
-          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
-            {/* Pain Points */}
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">⚠️</span>
-              </div>
-              <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Current Reality</h4>
-              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
-                <li>• Ethical challenges in schools with admin demands</li>
-                <li>• Difficulty getting teacher buy-in for behavior plans</li>
-                <li>• School BCBA burnout from overwhelming caseloads</li>
-                <li>• Constant school behavior crisis management</li>
-                <li>• Lack of school-wide behavior support systems</li>
-              </ul>
-            </div>
-
-            {/* Solution */}
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
-              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">🎯</span>
-              </div>
-              <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Our Solution</h4>
-              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
-                <li>• Ethical leadership framework for school BCBAs</li>
-                <li>• Training teachers in behavior support strategies</li>
-                <li>• Applied behavior analysis in schools workflows</li>
-                <li>• Crisis management in schools protocols</li>
-                <li>• MTSS behavior support implementation</li>
-              </ul>
-            </div>
-
-            {/* Transformation */}
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-2xl">🚀</span>
-              </div>
-              <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Your Future</h4>
-              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
-                <li>• Confident ethical leadership as a school BCBA</li>
-                <li>• Engaged teachers implementing behavior plans</li>
-                <li>• Streamlined school-wide behavior support</li>
-                <li>• Measurable student behavior outcomes</li>
-                <li>• District-wide MTSS behavior support impact</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
-            <div className="space-y-4 sm:space-y-6 text-slate-700 order-2 md:order-1">
-              <p className="text-base sm:text-lg font-medium leading-relaxed">
-                Stop surviving your role and start transforming your entire district.
-              </p>
-              <p className="text-base sm:text-lg leading-relaxed">
-                This isn&apos;t just another course—it&apos;s a complete operating system that addresses the 6 universal pain points every school BCBA faces, with practical tools, scripts, and systems you can implement immediately. Learn how to conduct functional behavior assessments in schools, write effective <Link href="/iep-behavior-goals" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">IEP behavior goals</Link> and behavior intervention plans, and reduce BCBA burnout. Get support from our <Link href="/community" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">school BCBA community</Link> and enhance your skills with our <Link href="/bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-medium link-distinguishable">free BCBA mock exam</Link>.
-              </p>
-              <div className="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-lg">
-                <p className="text-emerald-800 font-medium text-sm sm:text-base leading-relaxed">
-                  &ldquo;Finally, a program that gets what school BCBAs actually deal with — the ethics conflicts, crisis management, and getting teacher buy-in.&rdquo;
-                </p>
-              </div>
-              <div className="pt-2">
-                <Link 
-                  href="/transformation-program" 
-                  className="inline-flex items-center bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold group transition-colors text-sm sm:text-base w-full sm:w-auto justify-center min-w-[280px]"
-                >
-                  Stop BCBA Burnout - Get the Full Program
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
-            <div className="relative order-1 md:order-2">
-              <Image 
-                src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp" 
-                alt="BCBA training program dashboard showing school-based behavior support tools and operating system"
-                className="rounded-xl shadow-lg w-full h-auto"
-                width={592}
-                height={395}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 592px"
-              />
-            </div>
           </div>
         </div>
       </section>
-
-      {/* Light CTA simplified is integrated into Section 1 above */}
       
       {/* Comprehensive Structured Data for AI Indexing */}
       {(() => {
