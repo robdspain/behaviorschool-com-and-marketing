@@ -388,14 +388,14 @@ export default function TransformationProgramPage() {
               <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold text-red-700 mb-3 sm:mb-4">1. Systemic Chaos &amp; Lack of Structure</h3>
-                  <p className="text-sm sm:text-base text-slate-700 mb-3 sm:mb-4">You&apos;re stuck in reactive mode, with no referral process, no SOPs, and constant &quot;putting out fires.&quot;</p>
+                  <p className="text-sm sm:text-base text-slate-700 mb-3 sm:mb-4">You&apos;re stuck in reactive mode, with no referral process, no standard operating procedures, and constant &quot;putting out fires.&quot;</p>
                   <div className="text-sm sm:text-base text-red-600 font-semibold">👉 Solved in Weeks 2 &amp; 8</div>
                 </div>
                 <div>
                   <h4 className="text-sm sm:text-base font-semibold text-slate-900 mb-2">The Solution:</h4>
                   <ul className="text-xs sm:text-sm text-slate-700 space-y-1 sm:space-y-2">
                     <li>• Create referral systems and tiered supports</li>
-                    <li>• Build clear SOPs that bring order to chaos</li>
+                    <li>• Build clear standard operating procedures that bring order to chaos</li>
                     <li>• Complete School BCBA Transformation System Playbook</li>
                   </ul>
                 </div>
@@ -626,7 +626,7 @@ export default function TransformationProgramPage() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Solution:</h4>
-                      <p className="text-slate-600">Design referral systems, tiered supports, and SOPs that bring structure where none exists</p>
+                      <p className="text-slate-600">Design referral systems, tiered supports, and standard operating procedures that bring structure where none exists</p>
                     </div>
                     <div>
                       <h4 className="font-semibold text-slate-900 mb-2">The Transformation:</h4>
@@ -635,7 +635,7 @@ export default function TransformationProgramPage() {
                   </div>
                   <div className="flex items-center text-blue-600 font-semibold">
                     <CheckCircle className="w-5 h-5 mr-2" />
-                    What You Get: Referral system templates + tiered support frameworks + essential SOPs for consistency
+                    What You Get: Referral system templates + tiered support frameworks + essential standard operating procedures for consistency
                   </div>
                 </div>
               </div>
