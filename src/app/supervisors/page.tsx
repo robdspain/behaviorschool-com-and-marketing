@@ -186,7 +186,7 @@ export default function SupervisorsPage() {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             className="text-2xl text-emerald-50 max-w-4xl mx-auto mb-12 leading-relaxed font-medium"
           >
-            Streamline BCBA supervision with digital competency tracking, automated workflows, and BACB-compliant documentation. Start with progress monitoring today.
+            Streamline BCBA supervision with digital competency tracking, automated workflows, and BACB-compliant documentation. Track supervisee progress, monitor competencies, and maintain compliance effortlessly.
           </motion.p>
 
           <motion.div
@@ -200,10 +200,11 @@ export default function SupervisorsPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center px-10 py-5 text-xl font-bold bg-white text-emerald-700 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
+              aria-label="Start free BCBA supervision progress monitoring"
             >
-              <PlayCircle className="w-6 h-6 mr-3" />
-              Start Progress Monitoring
-              <ExternalLink className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <PlayCircle className="w-6 h-6 mr-3" aria-hidden="true" />
+              Track Supervisee Progress Now
+              <ExternalLink className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" aria-hidden="true" />
             </Link>
             <Button
               size="lg"
@@ -253,9 +254,9 @@ export default function SupervisorsPage() {
               Available Now
             </div>
             <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
-              Supervisee Progress
+              Supervisee Progress Monitoring Platform
               <span className="block bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                Monitoring Platform
+                Available Now
               </span>
             </h2>
             <p className="text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
@@ -276,8 +277,8 @@ export default function SupervisorsPage() {
             <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
               <div className="space-y-8">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-                    <BarChart3 className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg" role="img" aria-label="Icon representing real-time analytics dashboard for BCBA supervision">
+                    <BarChart3 className="w-8 h-8 text-white" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="text-3xl font-bold text-slate-900">Real-Time Analytics</h3>
@@ -318,9 +319,10 @@ export default function SupervisorsPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:bg-emerald-700 transform hover:-translate-y-1 transition-all duration-300"
+                    aria-label="Access BCBA supervision progress monitoring platform"
                   >
-                    Access Platform
-                    <ExternalLink className="w-5 h-5 ml-2" />
+                    Try Progress Monitoring Free
+                    <ExternalLink className="w-5 h-5 ml-2" aria-hidden="true" />
                   </Link>
                 </div>
               </div>
@@ -620,10 +622,11 @@ export default function SupervisorsPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center px-10 py-5 text-xl font-bold bg-white text-emerald-700 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
+                aria-label="Start free BCBA supervision progress monitoring"
               >
-                <PlayCircle className="w-6 h-6 mr-3" />
-                Start Progress Monitoring
-                <ExternalLink className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <PlayCircle className="w-6 h-6 mr-3" aria-hidden="true" />
+                Track Supervisee Progress Now
+                <ExternalLink className="w-6 h-6 ml-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" aria-hidden="true" />
               </Link>
 
               <Button
@@ -743,6 +746,59 @@ export default function SupervisorsPage() {
         title="Join the Premium Supervision Tools Waitlist"
         description="Be the first to access our comprehensive BCBA supervision platform. Get early access, priority onboarding, and exclusive launch pricing."
         pageSource="supervisors"
+      />
+
+      {/* FAQ Schema Markup for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "When will enhanced supervision tools be available?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We are opening early access in waves starting early 2025. Current study platform users get priority access. Join the waitlist to secure your spot for premium supervision features."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What supervision features are available right now?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Currently, you can monitor supervisee progress through our study platform, including study analytics, practice exam scores, and competency development tracking. This provides real-time insights into BCBA exam preparation and professional development."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I import existing hours or competency records?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. The enhanced platform will support CSV import and bulk evidence uploads for fast migration of existing supervision records. This ensures seamless transition from your current documentation system."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are the exported supervision records BACB audit-ready?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. All supervision documentation will include detailed timestamps, digital signatures, role attestations, and compliance documentation specifically designed for BACB audits. Our export formats meet professional standards and regulatory requirements."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does the platform support both RBT and BCaBA supervision?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Our supervision platform is designed for all levels of behavior analyst supervision, including RBT supervision by BCBAs, BCaBA supervision, and BCBA-to-BCBA mentoring relationships with appropriate competency frameworks for each level."
+                }
+              }
+            ]
+          }),
+        }}
       />
     </div>
   );
