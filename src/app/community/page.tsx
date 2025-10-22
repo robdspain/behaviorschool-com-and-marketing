@@ -74,25 +74,16 @@ export default function CommunityPage() {
               </Button>
 
               <div className="space-y-2 pt-2">
-                <p className="text-sm text-slate-600 font-medium">Community members also get access to:</p>
+                <p className="text-sm text-slate-600 font-medium">Community members get access to:</p>
                 <div className="space-y-1">
+                  <p className="text-emerald-700 font-medium text-sm">
+                    → A growing community of school BCBAs
+                  </p>
                   <Link
                     href="/supervisors"
                     className="block text-emerald-700 hover:text-emerald-800 font-medium text-sm hover:underline"
                   >
                     → BCBA Training Tools & Resources
-                  </Link>
-                  <Link
-                    href="/bcba-exam-prep"
-                    className="block text-emerald-700 hover:text-emerald-800 font-medium text-sm hover:underline"
-                  >
-                    → Free BCBA Exam Prep & Study Guides
-                  </Link>
-                  <Link
-                    href="/behavior-study-tools"
-                    className="block text-emerald-700 hover:text-emerald-800 font-medium text-sm hover:underline"
-                  >
-                    → BCBA Practice Questions
                   </Link>
                   <Link
                     href="/about/rob-spain"
