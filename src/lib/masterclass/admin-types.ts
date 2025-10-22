@@ -95,7 +95,7 @@ export interface CertificateConfigFormData {
 // API Response Types
 // ============================================================================
 
-export interface AdminApiResponse<T = any> {
+export interface AdminApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;

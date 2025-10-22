@@ -100,7 +100,7 @@ export function VideoSection({
                 Watched the video?
               </h3>
               <p className="text-sm text-slate-600 mb-4">
-                Mark this video as complete to unlock the quiz. Make sure you've watched the entire video to get the most out of this section.
+                Mark this video as complete to unlock the quiz. Make sure you&apos;ve watched the entire video to get the most out of this section.
               </p>
               <Button
                 onClick={handleMarkComplete}

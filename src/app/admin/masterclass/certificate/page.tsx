@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Award, Edit, Check, X, Loader2, Save } from 'lucide-react';
+import { ArrowLeft, Award, Edit, X, Loader2, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { MasterclassCertificateConfig, CertificateConfigFormData } from '@/lib/masterclass/admin-types';
 

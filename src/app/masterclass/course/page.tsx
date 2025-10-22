@@ -297,7 +297,7 @@ export default function CoursePage() {
                   🎉 Congratulations!
                 </h2>
                 <p className="text-xl mb-6">
-                  You've completed all sections. Download your CEU certificate now!
+                  You&apos;ve completed all sections. Download your CEU certificate now!
                 </p>
                 <Button
                   onClick={() => router.push('/masterclass/certificate')}

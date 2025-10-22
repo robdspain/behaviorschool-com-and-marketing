@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Alert } from '@/components/ui/alert';
 import { CheckCircle, XCircle, AlertCircle, Loader2, ArrowRight, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { QuizQuestion, QuizResult } from '@/lib/masterclass/types';
@@ -90,7 +89,7 @@ export function QuizSection({
                 Quiz Passed!
               </h3>
               <p className="text-emerald-700 mb-4">
-                You've successfully completed this section. Great work!
+                You&apos;ve successfully completed this section. Great work!
               </p>
               {onNextSection && (
                 <Button
@@ -304,7 +303,7 @@ export function QuizSection({
             {result.passed ? (
               <>
                 <p className="text-emerald-800 mb-6">
-                  Great work! You've successfully completed this section.
+                  Great work! You&apos;ve successfully completed this section.
                 </p>
                 {onNextSection && (
                   <Button

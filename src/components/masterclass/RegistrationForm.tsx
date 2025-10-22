@@ -192,7 +192,7 @@ export function RegistrationForm({ onSuccess, onExistingUser }: RegistrationForm
               <p className="text-sm text-red-600 mt-1">{fieldErrors.email}</p>
             )}
             <p className="text-xs text-slate-500">
-              We'll email your certificate here
+              We&apos;ll email your certificate here
             </p>
           </div>
 
@@ -221,7 +221,7 @@ export function RegistrationForm({ onSuccess, onExistingUser }: RegistrationForm
 
           {/* Benefits */}
           <div className="bg-emerald-50 rounded-xl p-6 space-y-3">
-            <h3 className="font-semibold text-slate-900 text-sm mb-3">What You'll Get:</h3>
+            <h3 className="font-semibold text-slate-900 text-sm mb-3">What You&apos;ll Get:</h3>
             <div className="space-y-2">
               {[
                 'Instant access to all 4 video sections',
