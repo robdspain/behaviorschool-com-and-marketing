@@ -1,0 +1,148 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { CheckCircle, Play, Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+interface VideoSectionProps {
+  sectionNumber: number;
+  title: string;
+  description: string;
+  videoUrl: string;
+  isCompleted: boolean;
+  onMarkComplete: () => Promise<void>;
+}
+
+export function VideoSection({
+  sectionNumber,
+  title,
+  description,
+  videoUrl,
+  isCompleted,
+  onMarkComplete,
+}: VideoSectionProps) {
+  const [isMarking, setIsMarking] = useState(false);
+
+  // Extract Vimeo video ID from URL
+  const getVimeoId = (url: string): string => {
+    const match = url.match(/vimeo\.com\/(\d+)/);
+    return match ? match[1] : '';
+  };
+
+  const vimeoId = getVimeoId(videoUrl);
+
+  const handleMarkComplete = async () => {
+    setIsMarking(true);
+    try {
+      await onMarkComplete();
+    } finally {
+      setIsMarking(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Section Header */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center text-white font-bold">
+            {sectionNumber}
+          </div>
+          <div className="flex-1">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">{title}</h2>
+          </div>
+          {isCompleted && (
+            <div className="flex items-center gap-2 px-3 py-1 bg-emerald-100 border border-emerald-300 rounded-full">
+              <CheckCircle className="w-4 h-4 text-emerald-600" />
+              <span className="text-sm font-semibold text-emerald-700">Complete</span>
+            </div>
+          )}
+        </div>
+        <p className="text-slate-600 leading-relaxed">{description}</p>
+      </div>
+
+      {/* Video Player */}
+      <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl">
+        {vimeoId ? (
+          <div className="relative" style={{ paddingBottom: '56.25%' }}>
+            <iframe
+              src={`https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=58479`}
+              className="absolute top-0 left-0 w-full h-full"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              title={title}
+            />
+          </div>
+        ) : (
+          // Placeholder for invalid video URL
+          <div className="aspect-video flex items-center justify-center bg-slate-800">
+            <div className="text-center text-slate-400">
+              <Play className="w-16 h-16 mx-auto mb-3" />
+              <p className="text-sm">Video will be loaded here</p>
+              <p className="text-xs mt-1">Configure video URL in course settings</p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Mark Complete Button */}
+      {!isCompleted && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6"
+        >
+          <div className="flex items-start gap-4">
+            <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-1" />
+            <div className="flex-1">
+              <h3 className="font-semibold text-slate-900 mb-2">
+                Watched the video?
+              </h3>
+              <p className="text-sm text-slate-600 mb-4">
+                Mark this video as complete to unlock the quiz. Make sure you've watched the entire video to get the most out of this section.
+              </p>
+              <Button
+                onClick={handleMarkComplete}
+                disabled={isMarking}
+                className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white"
+              >
+                {isMarking ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Marking Complete...
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Mark Video as Complete
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {isCompleted && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-emerald-100 border-2 border-emerald-300 rounded-xl p-6"
+        >
+          <div className="flex items-center gap-3">
+            <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0" />
+            <div>
+              <h3 className="font-semibold text-emerald-900 mb-1">
+                Video Complete!
+              </h3>
+              <p className="text-sm text-emerald-700">
+                Great work! Now scroll down to take the quiz for this section.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,306 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { SidebarNavigation } from '@/components/masterclass/SidebarNavigation';
+import { ProgressBar } from '@/components/masterclass/ProgressBar';
+import { VideoSection } from '@/components/masterclass/VideoSection';
+import { QuizSection } from '@/components/masterclass/QuizSection';
+import { MASTERCLASS_COURSE } from '@/lib/masterclass/config';
+import { Loader2, AlertCircle, Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import type { MasterclassProgress } from '@/lib/masterclass/types';
+
+export default function CoursePage() {
+  const router = useRouter();
+  const [enrollmentId, setEnrollmentId] = useState<string | null>(null);
+  const [currentSection, setCurrentSection] = useState(1);
+  const [progress, setProgress] = useState<MasterclassProgress[]>([]);
+  const [overallProgress, setOverallProgress] = useState(0);
+  const [canGenerateCertificate, setCanGenerateCertificate] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Load enrollment from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem('masterclass_enrollment');
+    if (!stored) {
+      // No enrollment found, redirect to registration
+      router.push('/masterclass');
+      return;
+    }
+
+    try {
+      const data = JSON.parse(stored);
+      setEnrollmentId(data.enrollmentId);
+    } catch (err) {
+      console.error('Failed to parse enrollment data:', err);
+      router.push('/masterclass');
+    }
+  }, [router]);
+
+  // Fetch progress when enrollment is loaded
+  useEffect(() => {
+    if (!enrollmentId) return;
+
+    const fetchProgress = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(`/api/masterclass/progress?enrollmentId=${enrollmentId}`);
+        const data = await response.json();
+
+        if (data.success) {
+          setProgress(data.data.sections);
+          setOverallProgress(data.data.overallProgress);
+          setCanGenerateCertificate(data.data.canGenerateCertificate);
+        } else {
+          setError('Failed to load progress');
+        }
+      } catch (err) {
+        console.error('Failed to fetch progress:', err);
+        setError('Failed to load course data');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProgress();
+  }, [enrollmentId]);
+
+  // Mark video as complete
+  const handleMarkVideoComplete = async () => {
+    if (!enrollmentId) return;
+
+    try {
+      const response = await fetch('/api/masterclass/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          enrollmentId,
+          sectionNumber: currentSection,
+          type: 'video',
+        }),
+      });
+
+      if (response.ok) {
+        // Refresh progress
+        const progressResponse = await fetch(`/api/masterclass/progress?enrollmentId=${enrollmentId}`);
+        const progressData = await progressResponse.json();
+        setProgress(progressData.data.sections);
+        setOverallProgress(progressData.data.overallProgress);
+      }
+    } catch (err) {
+      console.error('Failed to mark video complete:', err);
+    }
+  };
+
+  // Submit quiz
+  const handleQuizSubmit = async (answers: number[]) => {
+    if (!enrollmentId) throw new Error('No enrollment found');
+
+    const response = await fetch('/api/masterclass/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        enrollmentId,
+        sectionNumber: currentSection,
+        type: 'quiz',
+        data: { answers },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.error || 'Failed to submit quiz');
+    }
+
+    // Refresh progress
+    const progressResponse = await fetch(`/api/masterclass/progress?enrollmentId=${enrollmentId}`);
+    const progressData = await progressResponse.json();
+    setProgress(progressData.data.sections);
+    setOverallProgress(progressData.data.overallProgress);
+    setCanGenerateCertificate(progressData.data.canGenerateCertificate);
+
+    return {
+      score: data.data.score,
+      total: data.data.total,
+      passed: data.data.passed,
+      results: data.data.results,
+    };
+  };
+
+  // Navigate to section
+  const handleSectionClick = (sectionId: number) => {
+    setCurrentSection(sectionId);
+    setSidebarOpen(false); // Close sidebar on mobile
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Go to next section
+  const handleNextSection = () => {
+    if (currentSection < MASTERCLASS_COURSE.sections.length) {
+      setCurrentSection(currentSection + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // All sections complete, go to certificate
+      router.push('/masterclass/certificate');
+    }
+  };
+
+  // Build section status for sidebar
+  const sectionStatuses = MASTERCLASS_COURSE.sections.map((section, index) => {
+    const sectionProgress = progress.find(p => p.section_number === section.id);
+    const prevSectionProgress = index > 0 ? progress.find(p => p.section_number === index) : null;
+
+    // Section is locked if previous section quiz hasn't been passed
+    const isLocked = index > 0 && (!prevSectionProgress || !prevSectionProgress.quiz_passed);
+
+    return {
+      id: section.id,
+      title: section.title,
+      videoCompleted: sectionProgress?.video_completed || false,
+      quizPassed: sectionProgress?.quiz_passed || false,
+      isLocked,
+      isCurrent: currentSection === section.id,
+    };
+  });
+
+  const currentSectionConfig = MASTERCLASS_COURSE.sections.find(s => s.id === currentSection);
+  const currentSectionProgress = progress.find(p => p.section_number === currentSection);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 text-emerald-600 animate-spin mx-auto mb-4" />
+          <p className="text-slate-600 font-medium">Loading your course...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <div className="max-w-md text-center">
+          <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Something Went Wrong</h2>
+          <p className="text-slate-600 mb-6">{error}</p>
+          <Button onClick={() => router.push('/masterclass')}>
+            Back to Home
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentSectionConfig) {
+    return null;
+  }
+
+  const sectionsCompleted = progress.filter(p => p.video_completed && p.quiz_passed).length;
+
+  return (
+    <div className="h-screen flex flex-col bg-slate-50">
+      {/* Progress Bar */}
+      <ProgressBar
+        progress={overallProgress}
+        sectionsCompleted={sectionsCompleted}
+        totalSections={MASTERCLASS_COURSE.sections.length}
+        canGenerateCertificate={canGenerateCertificate}
+      />
+
+      {/* Main Layout */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Sidebar - Desktop */}
+        <div className="hidden lg:block w-80 flex-shrink-0 overflow-y-auto">
+          <SidebarNavigation
+            currentSection={currentSection}
+            sections={sectionStatuses}
+            progress={overallProgress}
+            onSectionClick={handleSectionClick}
+          />
+        </div>
+
+        {/* Mobile Sidebar Overlay */}
+        {sidebarOpen && (
+          <div className="lg:hidden fixed inset-0 z-50">
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setSidebarOpen(false)}
+            />
+            <div className="absolute left-0 top-0 bottom-0 w-80 max-w-[90vw]">
+              <SidebarNavigation
+                currentSection={currentSection}
+                sections={sectionStatuses}
+                progress={overallProgress}
+                onSectionClick={handleSectionClick}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Main Content */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden sticky top-0 z-40 bg-white border-b border-slate-200 px-4 py-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="gap-2"
+            >
+              {sidebarOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              Course Sections
+            </Button>
+          </div>
+
+          {/* Content */}
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+            {/* Video Section */}
+            <VideoSection
+              sectionNumber={currentSection}
+              title={currentSectionConfig.title}
+              description={currentSectionConfig.description}
+              videoUrl={currentSectionConfig.videoUrl}
+              isCompleted={currentSectionProgress?.video_completed || false}
+              onMarkComplete={handleMarkVideoComplete}
+            />
+
+            {/* Quiz Section */}
+            <QuizSection
+              sectionNumber={currentSection}
+              questions={currentSectionConfig.quiz}
+              isLocked={!currentSectionProgress?.video_completed}
+              isPassed={currentSectionProgress?.quiz_passed || false}
+              attemptNumber={currentSectionProgress?.quiz_attempts || 0}
+              onSubmit={handleQuizSubmit}
+              onNextSection={currentSection < MASTERCLASS_COURSE.sections.length ? handleNextSection : undefined}
+            />
+
+            {/* Certificate CTA */}
+            {canGenerateCertificate && (
+              <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-center text-white">
+                <h2 className="text-3xl font-bold mb-4">
+                  🎉 Congratulations!
+                </h2>
+                <p className="text-xl mb-6">
+                  You've completed all sections. Download your CEU certificate now!
+                </p>
+                <Button
+                  onClick={() => router.push('/masterclass/certificate')}
+                  className="bg-white text-emerald-600 hover:bg-emerald-50"
+                  size="lg"
+                >
+                  Download Certificate
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
