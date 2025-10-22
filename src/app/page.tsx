@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 export const metadata: Metadata = {
-  title: "Behavior School | Platform for School-Based BCBAs & Behavior Analysts",
+  title: "Behavior School: BCBA Training & Certification Platform for School Behavior Analysts",
   description:
-    "Get instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools to help you prepare confidently for your BCBA certification exam.",
-  keywords: "Behavior School, school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, Behavior School platform",
+    "Professional development platform for school-based BCBAs and behavior analysts. Get FREE BCBA exam prep, 185-question mock exams, supervision tools, and the 8-week transformation program for school behavior leaders.",
+  keywords: "Behavior School, school BCBA training, BCBA professional development, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, BCBA certification",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
     type: "website",
-    title: "Behavior School | Platform for School-Based BCBAs & Behavior Analysts",
+    title: "Behavior School: BCBA Training & Professional Development for School Behavior Analysts",
     description:
-      "Instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools for BCBA certification preparation.",
+      "Professional development platform for school-based BCBAs. FREE BCBA exam prep, 185-question mock exams, supervision tools, and 8-week transformation program.",
     url: "/",
     siteName: "Behavior School",
     locale: "en_US",
@@ -20,15 +20,15 @@ export const metadata: Metadata = {
         url: "/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "Behavior School - Tools and training for school-based BCBAs and behavior analysts in education",
+        alt: "Behavior School - BCBA training and professional development platform for school-based behavior analysts",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School | Platform for School-Based BCBAs & Behavior Analysts",
+    title: "Behavior School: BCBA Training for School Behavior Analysts",
     description:
-      "Instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Start preparing now!",
+      "Professional development platform for school BCBAs. FREE exam prep, supervision tools, and 8-week transformation program. Start now!",
     images: ["/og-image.webp"],
     creator: "@BehaviorSchool",
   },
