@@ -14,7 +14,8 @@ import {
   ChevronRight,
   Lock,
   CreditCard,
-  Send
+  Send,
+  GraduationCap
 } from "lucide-react";
 import { useState } from "react";
 
@@ -27,6 +28,7 @@ interface NavItem {
 
 const navigation: NavItem[] = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Masterclass", href: "/admin/masterclass", icon: GraduationCap },
   { name: "Submissions", href: "/admin/submissions", icon: Users },
   { name: "Email Templates", href: "/admin/email-templates", icon: Mail },
   { name: "Newsletter (Listmonk)", href: "/admin/listmonk", icon: Send },

@@ -6,10 +6,9 @@ import { SidebarNavigation } from '@/components/masterclass/SidebarNavigation';
 import { ProgressBar } from '@/components/masterclass/ProgressBar';
 import { VideoSection } from '@/components/masterclass/VideoSection';
 import { QuizSection } from '@/components/masterclass/QuizSection';
-import { MASTERCLASS_COURSE } from '@/lib/masterclass/config';
 import { Loader2, AlertCircle, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import type { MasterclassProgress } from '@/lib/masterclass/types';
+import type { MasterclassProgress, CourseSection } from '@/lib/masterclass/types';
 
 export default function CoursePage() {
   const router = useRouter();
@@ -21,6 +20,7 @@ export default function CoursePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [courseSections, setCourseSections] = useState<CourseSection[]>([]);
 
   // Load enrollment from localStorage
   useEffect(() => {
@@ -40,32 +40,42 @@ export default function CoursePage() {
     }
   }, [router]);
 
-  // Fetch progress when enrollment is loaded
+  // Fetch course content and progress when enrollment is loaded
   useEffect(() => {
     if (!enrollmentId) return;
 
-    const fetchProgress = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`/api/masterclass/progress?enrollmentId=${enrollmentId}`);
-        const data = await response.json();
+        // Fetch course content and progress in parallel
+        const [courseResponse, progressResponse] = await Promise.all([
+          fetch('/api/masterclass/course'),
+          fetch(`/api/masterclass/progress?enrollmentId=${enrollmentId}`),
+        ]);
 
-        if (data.success) {
-          setProgress(data.data.sections);
-          setOverallProgress(data.data.overallProgress);
-          setCanGenerateCertificate(data.data.canGenerateCertificate);
+        const courseData = await courseResponse.json();
+        const progressData = await progressResponse.json();
+
+        if (courseData.success) {
+          setCourseSections(courseData.data.sections);
+        }
+
+        if (progressData.success) {
+          setProgress(progressData.data.sections);
+          setOverallProgress(progressData.data.overallProgress);
+          setCanGenerateCertificate(progressData.data.canGenerateCertificate);
         } else {
           setError('Failed to load progress');
         }
       } catch (err) {
-        console.error('Failed to fetch progress:', err);
+        console.error('Failed to fetch data:', err);
         setError('Failed to load course data');
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchProgress();
+    fetchData();
   }, [enrollmentId]);
 
   // Mark video as complete
@@ -140,7 +150,7 @@ export default function CoursePage() {
 
   // Go to next section
   const handleNextSection = () => {
-    if (currentSection < MASTERCLASS_COURSE.sections.length) {
+    if (currentSection < courseSections.length) {
       setCurrentSection(currentSection + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -150,7 +160,7 @@ export default function CoursePage() {
   };
 
   // Build section status for sidebar
-  const sectionStatuses = MASTERCLASS_COURSE.sections.map((section, index) => {
+  const sectionStatuses = courseSections.map((section, index) => {
     const sectionProgress = progress.find(p => p.section_number === section.id);
     const prevSectionProgress = index > 0 ? progress.find(p => p.section_number === index) : null;
 
@@ -167,7 +177,7 @@ export default function CoursePage() {
     };
   });
 
-  const currentSectionConfig = MASTERCLASS_COURSE.sections.find(s => s.id === currentSection);
+  const currentSectionConfig = courseSections.find(s => s.id === currentSection);
   const currentSectionProgress = progress.find(p => p.section_number === currentSection);
 
   if (isLoading) {
@@ -208,7 +218,7 @@ export default function CoursePage() {
       <ProgressBar
         progress={overallProgress}
         sectionsCompleted={sectionsCompleted}
-        totalSections={MASTERCLASS_COURSE.sections.length}
+        totalSections={courseSections.length}
         canGenerateCertificate={canGenerateCertificate}
       />
 
@@ -277,7 +287,7 @@ export default function CoursePage() {
               isPassed={currentSectionProgress?.quiz_passed || false}
               attemptNumber={currentSectionProgress?.quiz_attempts || 0}
               onSubmit={handleQuizSubmit}
-              onNextSection={currentSection < MASTERCLASS_COURSE.sections.length ? handleNextSection : undefined}
+              onNextSection={currentSection < courseSections.length ? handleNextSection : undefined}
             />
 
             {/* Certificate CTA */}
