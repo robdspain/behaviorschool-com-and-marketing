@@ -52,7 +52,7 @@ export default function Home() {
         eyebrow="For School-Based BCBAs"
         title="Stop Managing Crises."
         highlight="Start Building Systems That Work."
-        subtitle="Join 500+ school BCBAs who transformed from overwhelmed crisis managers to confident behavior leaders through our 8-week program + free tools and community."
+        subtitle="Transform from overwhelmed crisis manager to confident behavior leader with our 8-week program, plus access to free BCBA exam prep tools and a community of school-based behavior analysts."
         primaryCta={{ href: "/transformation-program", label: "See the Program" }}
       />
 
