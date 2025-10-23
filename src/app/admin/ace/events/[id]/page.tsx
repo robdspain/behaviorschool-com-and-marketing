@@ -16,6 +16,8 @@ import {
   XCircle,
   Download,
   Edit,
+  Award,
+  FileText,
 } from 'lucide-react';
 import type { AceEvent, AceUser } from '@/lib/ace/types';
 
@@ -35,12 +37,15 @@ export default function EventDetailPage() {
 
   const [event, setEvent] = useState<AceEvent | null>(null);
   const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
+  const [certificates, setCertificates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [savingAttendance, setSavingAttendance] = useState<string | null>(null);
+  const [generatingCert, setGeneratingCert] = useState<string | null>(null);
 
   useEffect(() => {
     fetchEventDetails();
     fetchAttendance();
+    fetchCertificates();
   }, [eventId]);
 
   const fetchEventDetails = async () => {
@@ -66,6 +71,18 @@ export default function EventDetailPage() {
       console.error('Error fetching attendance:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchCertificates = async () => {
+    try {
+      const response = await fetch(`/api/admin/ace/certificates?event_id=${eventId}`);
+      const data = await response.json();
+      if (data.data) {
+        setCertificates(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching certificates:', error);
     }
   };
 
@@ -131,17 +148,98 @@ export default function EventDetailPage() {
     }
   };
 
+  const handleGenerateCertificate = async (participantId: string) => {
+    setGeneratingCert(participantId);
+
+    try {
+      const response = await fetch('/api/admin/ace/certificates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_id: eventId,
+          participant_id: participantId,
+        }),
+      });
+
+      if (response.ok) {
+        await fetchCertificates();
+        alert('Certificate generated successfully!');
+      } else {
+        const error = await response.json();
+        alert(error.error || 'Failed to generate certificate');
+      }
+    } catch (error) {
+      console.error('Error generating certificate:', error);
+      alert('Failed to generate certificate');
+    } finally {
+      setGeneratingCert(null);
+    }
+  };
+
+  const handleGenerateAllCertificates = async () => {
+    if (!confirm('Generate certificates for all attendees who don\'t have one yet?')) return;
+
+    setGeneratingCert('all');
+
+    try {
+      const attendedWithoutCert = attendance.filter(a => {
+        const hasCert = certificates.some(c => c.participant_id === a.participant_id);
+        return a.verified && !hasCert;
+      });
+
+      const promises = attendedWithoutCert.map(a =>
+        fetch('/api/admin/ace/certificates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_id: eventId,
+            participant_id: a.participant_id,
+          }),
+        })
+      );
+
+      await Promise.all(promises);
+      await fetchCertificates();
+      alert(`Generated ${attendedWithoutCert.length} certificates!`);
+    } catch (error) {
+      console.error('Error generating certificates:', error);
+      alert('Failed to generate some certificates');
+    } finally {
+      setGeneratingCert(null);
+    }
+  };
+
+  const handleViewCertificate = (participantId: string) => {
+    // Import certificate generator functions
+    import('@/lib/ace/certificate-generator').then(({ generateCertificateHTML, prepareCertificateData, previewCertificate }) => {
+      if (!event) return;
+      
+      const participant = attendance.find(a => a.participant_id === participantId)?.participant;
+      if (!participant) return;
+
+      const certData = prepareCertificateData(
+        event,
+        participant,
+        'Behavior School'
+      );
+
+      const html = generateCertificateHTML(certData);
+      previewCertificate(html);
+    });
+  };
+
   const exportAttendance = () => {
     if (!event) return;
 
     const csv = [
-      ['Name', 'Email', 'BACB ID', 'Attended', 'Check-in Time'].join(','),
+      ['Name', 'Email', 'BACB ID', 'Attended', 'Check-in Time', 'Certificate'].join(','),
       ...attendance.map(a => [
         `${a.participant.first_name} ${a.participant.last_name}`,
         a.participant.email,
         a.participant.bacb_id || 'N/A',
         a.verified ? 'Yes' : 'No',
         a.sign_in_timestamp ? new Date(a.sign_in_timestamp).toLocaleString() : 'N/A',
+        certificates.some(c => c.participant_id === a.participant_id) ? 'Issued' : 'Not Issued',
       ].join(','))
     ].join('\n');
 
@@ -170,6 +268,7 @@ export default function EventDetailPage() {
   const attendanceRate = attendance.length > 0
     ? Math.round((attendedCount / attendance.length) * 100)
     : 0;
+  const certificatesIssued = certificates.length;
 
   return (
     <div className="min-h-screen bg-slate-50 p-8">
@@ -291,7 +390,7 @@ export default function EventDetailPage() {
         </Card>
 
         {/* Attendance Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-5 gap-6 mb-8">
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -327,6 +426,16 @@ export default function EventDetailPage() {
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
+                <p className="text-sm text-slate-600">Certificates</p>
+                <p className="text-3xl font-bold text-purple-600">{certificatesIssued}</p>
+              </div>
+              <Award className="w-10 h-10 text-purple-600" />
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
                 <p className="text-sm text-slate-600">Attendance Rate</p>
                 <p className="text-3xl font-bold text-slate-900">{attendanceRate}%</p>
               </div>
@@ -349,6 +458,15 @@ export default function EventDetailPage() {
               >
                 <Download className="w-4 h-4 mr-2" />
                 Export CSV
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleGenerateAllCertificates}
+                disabled={generatingCert === 'all' || attendedCount === 0}
+                className="border-purple-600 text-purple-700 hover:bg-purple-50"
+              >
+                <Award className="w-4 h-4 mr-2" />
+                Generate All Certificates
               </Button>
               <Button
                 onClick={handleCheckInAll}
@@ -416,26 +534,55 @@ export default function EventDetailPage() {
                     </div>
                   </div>
 
-                  <Button
-                    variant={record.verified ? 'outline' : 'default'}
-                    onClick={() => handleToggleAttendance(record.participant_id, record.verified)}
-                    disabled={savingAttendance === record.participant_id}
-                    className={record.verified ? '' : 'bg-emerald-600 hover:bg-emerald-700'}
-                  >
-                    {savingAttendance === record.participant_id ? (
-                      'Saving...'
-                    ) : record.verified ? (
+                  <div className="flex gap-2">
+                    {record.verified && (
                       <>
-                        <XCircle className="w-4 h-4 mr-2" />
-                        Mark Absent
-                      </>
-                    ) : (
-                      <>
-                        <CheckCircle className="w-4 h-4 mr-2" />
-                        Mark Attended
+                        {certificates.some(c => c.participant_id === record.participant_id) ? (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleViewCertificate(record.participant_id)}
+                            className="border-purple-600 text-purple-700 hover:bg-purple-50"
+                          >
+                            <FileText className="w-4 h-4 mr-2" />
+                            View Certificate
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleGenerateCertificate(record.participant_id)}
+                            disabled={generatingCert === record.participant_id}
+                            className="border-purple-600 text-purple-700 hover:bg-purple-50"
+                          >
+                            <Award className="w-4 h-4 mr-2" />
+                            {generatingCert === record.participant_id ? 'Generating...' : 'Generate Certificate'}
+                          </Button>
+                        )}
                       </>
                     )}
-                  </Button>
+                    <Button
+                      variant={record.verified ? 'outline' : 'default'}
+                      size="sm"
+                      onClick={() => handleToggleAttendance(record.participant_id, record.verified)}
+                      disabled={savingAttendance === record.participant_id}
+                      className={record.verified ? '' : 'bg-emerald-600 hover:bg-emerald-700'}
+                    >
+                      {savingAttendance === record.participant_id ? (
+                        'Saving...'
+                      ) : record.verified ? (
+                        <>
+                          <XCircle className="w-4 h-4 mr-2" />
+                          Mark Absent
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle className="w-4 h-4 mr-2" />
+                          Mark Attended
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>

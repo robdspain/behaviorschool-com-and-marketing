@@ -13,7 +13,7 @@ import type {
   CourseSectionWithQuestionCount,
 } from './admin-types';
 
-const supabase = createClient();
+
 
 // ============================================================================
 // Course Sections
@@ -23,6 +23,7 @@ const supabase = createClient();
  * Get all course sections with question counts
  */
 export async function getAllSections(): Promise<CourseSectionWithQuestionCount[]> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_admin_course_overview')
     .select('*')
@@ -36,6 +37,7 @@ export async function getAllSections(): Promise<CourseSectionWithQuestionCount[]
  * Get active course sections for public display
  */
 export async function getActiveSections(): Promise<MasterclassCourseSection[]> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_course_sections')
     .select('*')
@@ -50,6 +52,7 @@ export async function getActiveSections(): Promise<MasterclassCourseSection[]> {
  * Get section by ID
  */
 export async function getSectionById(id: number): Promise<MasterclassCourseSection | null> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_course_sections')
     .select('*')
@@ -66,6 +69,7 @@ export async function getSectionById(id: number): Promise<MasterclassCourseSecti
  * Get section by section number
  */
 export async function getSectionByNumber(sectionNumber: number): Promise<MasterclassCourseSection | null> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_course_sections')
     .select('*')
@@ -82,6 +86,7 @@ export async function getSectionByNumber(sectionNumber: number): Promise<Masterc
  * Create new course section
  */
 export async function createSection(sectionData: CourseSectionFormData): Promise<MasterclassCourseSection> {
+  const supabase = await createClient();
   // Get next section number if not provided
   if (!sectionData.section_number) {
     const { data: maxSection } = await supabase
@@ -131,6 +136,7 @@ export async function updateSection(
   id: number,
   sectionData: Partial<CourseSectionFormData>
 ): Promise<MasterclassCourseSection> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_course_sections')
     .update({
@@ -153,6 +159,7 @@ export async function updateSection(
  * Delete course section (soft delete by setting is_active = false)
  */
 export async function deleteSection(id: number): Promise<void> {
+  const supabase = await createClient();
   const { error } = await supabase
     .from('masterclass_course_sections')
     .update({ is_active: false })
@@ -165,6 +172,7 @@ export async function deleteSection(id: number): Promise<void> {
  * Reorder sections
  */
 export async function reorderSections(sectionIds: number[]): Promise<void> {
+  const supabase = await createClient();
   const updates = sectionIds.map((id, index) => ({
     id,
     order_index: index + 1,
@@ -186,6 +194,7 @@ export async function reorderSections(sectionIds: number[]): Promise<void> {
  * Get all questions for a section
  */
 export async function getQuestionsBySection(sectionNumber: number): Promise<MasterclassQuizQuestion[]> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_quiz_questions')
     .select('*')
@@ -201,6 +210,7 @@ export async function getQuestionsBySection(sectionNumber: number): Promise<Mast
  * Get all active questions (for course display)
  */
 export async function getAllActiveQuestions(): Promise<MasterclassQuizQuestion[]> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_quiz_questions')
     .select('*')
@@ -215,6 +225,7 @@ export async function getAllActiveQuestions(): Promise<MasterclassQuizQuestion[]
  * Get question by ID
  */
 export async function getQuestionById(id: number): Promise<MasterclassQuizQuestion | null> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_quiz_questions')
     .select('*')
@@ -231,6 +242,7 @@ export async function getQuestionById(id: number): Promise<MasterclassQuizQuesti
  * Create new quiz question
  */
 export async function createQuestion(questionData: QuizQuestionFormData): Promise<MasterclassQuizQuestion> {
+  const supabase = await createClient();
   // Get next question number if not provided
   if (!questionData.question_number) {
     const { data: maxQuestion } = await supabase
@@ -272,6 +284,7 @@ export async function updateQuestion(
   id: number,
   questionData: Partial<QuizQuestionFormData>
 ): Promise<MasterclassQuizQuestion> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_quiz_questions')
     .update({
@@ -296,6 +309,7 @@ export async function updateQuestion(
  * Delete quiz question (soft delete)
  */
 export async function deleteQuestion(id: number): Promise<void> {
+  const supabase = await createClient();
   const { error } = await supabase
     .from('masterclass_quiz_questions')
     .update({ is_active: false })
@@ -308,6 +322,7 @@ export async function deleteQuestion(id: number): Promise<void> {
  * Reorder questions within a section
  */
 export async function reorderQuestions(questionIds: number[]): Promise<void> {
+  const supabase = await createClient();
   const updates = questionIds.map((id, index) => ({
     id,
     question_number: index + 1,
@@ -329,6 +344,7 @@ export async function reorderQuestions(questionIds: number[]): Promise<void> {
  * Get active certificate configuration
  */
 export async function getActiveCertificateConfig(): Promise<MasterclassCertificateConfig | null> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_certificate_config')
     .select('*')
@@ -347,6 +363,7 @@ export async function getActiveCertificateConfig(): Promise<MasterclassCertifica
  * Get certificate configuration by ID
  */
 export async function getCertificateConfigById(id: number): Promise<MasterclassCertificateConfig | null> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_certificate_config')
     .select('*')
@@ -365,6 +382,7 @@ export async function getCertificateConfigById(id: number): Promise<MasterclassC
 export async function createCertificateConfig(
   configData: CertificateConfigFormData
 ): Promise<MasterclassCertificateConfig> {
+  const supabase = await createClient();
   // Deactivate all existing configs
   await supabase
     .from('masterclass_certificate_config')
@@ -400,6 +418,7 @@ export async function updateCertificateConfig(
   id: number,
   configData: Partial<CertificateConfigFormData>
 ): Promise<MasterclassCertificateConfig> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('masterclass_certificate_config')
     .update({

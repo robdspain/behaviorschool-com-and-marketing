@@ -377,7 +377,7 @@ function CreateEventModal({ onClose, onSuccess }: { onClose: () => void; onSucce
               </label>
               <select
                 value={formData.ce_category}
-                onChange={e => setFormData({ ...formData, ce_category: e.target.value as any })}
+                onChange={e => setFormData({ ...formData, ce_category: e.target.value as 'learning' | 'ethics' | 'supervision' | 'teaching' })}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               >
                 <option value="learning">General Learning</option>
@@ -393,7 +393,7 @@ function CreateEventModal({ onClose, onSuccess }: { onClose: () => void; onSucce
               </label>
               <select
                 value={formData.modality}
-                onChange={e => setFormData({ ...formData, modality: e.target.value as any })}
+                onChange={e => setFormData({ ...formData, modality: e.target.value as 'in_person' | 'synchronous' | 'asynchronous' })}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               >
                 <option value="zoom_live">Live (Zoom)</option>

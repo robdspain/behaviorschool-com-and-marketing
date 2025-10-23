@@ -231,7 +231,7 @@ export default function EventQuizPage({ params }: { params: Promise<{ id: string
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     value={questionType}
-                    onChange={(e) => setQuestionType(e.target.value as any)}
+                    onChange={(e) => setQuestionType(e.target.value as 'multiple_choice' | 'multiple_select' | 'true_false')}
                   >
                     <option value="multiple_choice">Multiple Choice (Single)</option>
                     <option value="multiple_select">Multiple Select</option>
