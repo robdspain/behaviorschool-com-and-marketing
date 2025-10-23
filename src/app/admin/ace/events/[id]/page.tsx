@@ -38,6 +38,7 @@ export default function EventDetailPage() {
   const [event, setEvent] = useState<AceEvent | null>(null);
   const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
   const [certificates, setCertificates] = useState<any[]>([]);
+  const [quizQuestionCount, setQuizQuestionCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [savingAttendance, setSavingAttendance] = useState<string | null>(null);
   const [generatingCert, setGeneratingCert] = useState<string | null>(null);
@@ -46,7 +47,8 @@ export default function EventDetailPage() {
     fetchEventDetails();
     fetchAttendance();
     fetchCertificates();
-  }, [eventId]);
+    fetchQuizQuestions();
+  }, [eventId, fetchEventDetails, fetchAttendance, fetchCertificates]);
 
   const fetchEventDetails = async () => {
     try {
@@ -83,6 +85,18 @@ export default function EventDetailPage() {
       }
     } catch (error) {
       console.error('Error fetching certificates:', error);
+    }
+  };
+
+  const fetchQuizQuestions = async () => {
+    try {
+      const response = await fetch(`/api/admin/ace/events/${eventId}/quiz/questions`);
+      const data = await response.json();
+      if (data.data) {
+        setQuizQuestionCount(data.data.length);
+      }
+    } catch (error) {
+      console.error('Error fetching quiz questions:', error);
     }
   };
 
@@ -270,6 +284,13 @@ export default function EventDetailPage() {
     : 0;
   const certificatesIssued = certificates.length;
 
+  // Calculate minimum required questions for async CE events
+  const minimumQuestionsRequired = 
+    event.modality === 'asynchronous' && event.event_type === 'ce'
+      ? Math.floor(event.total_ceus) * 3
+      : 0;
+  const isQuizCompliant = minimumQuestionsRequired === 0 || quizQuestionCount >= minimumQuestionsRequired;
+
   return (
     <div className="min-h-screen bg-slate-50 p-8">
       <div className="max-w-7xl mx-auto">
@@ -445,6 +466,71 @@ export default function EventDetailPage() {
             </div>
           </Card>
         </div>
+
+        {/* Quiz Compliance Warning for Async CE Events */}
+        {minimumQuestionsRequired > 0 && !isQuizCompliant && (
+          <Card className="p-6 mb-8 bg-red-50 border-red-200">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-red-100 rounded-lg">
+                <XCircle className="w-6 h-6 text-red-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-red-900 text-lg mb-2">
+                  ⚠️ Quiz Non-Compliant with 2026 BACB Requirements
+                </h3>
+                <p className="text-red-800 mb-3">
+                  This asynchronous CE event requires <strong>{minimumQuestionsRequired} quiz questions</strong> (3 per CEU),
+                  but currently has only <strong>{quizQuestionCount} question{quizQuestionCount !== 1 ? 's' : ''}</strong>.
+                </p>
+                <div className="flex items-center gap-4">
+                  <Badge variant="outline" className="bg-white border-red-300 text-red-900">
+                    {event.total_ceus} CEUs × 3 = {minimumQuestionsRequired} questions required
+                  </Badge>
+                  <Badge variant="outline" className="bg-white border-red-300 text-red-900">
+                    {minimumQuestionsRequired - quizQuestionCount} questions needed
+                  </Badge>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => router.push(`/admin/ace/events/${eventId}/quiz`)}
+                    className="ml-auto bg-white hover:bg-red-50 border-red-300 text-red-900"
+                  >
+                    <FileText className="w-4 h-4 mr-2" />
+                    Add Quiz Questions
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Card>
+        )}
+
+        {minimumQuestionsRequired > 0 && isQuizCompliant && (
+          <Card className="p-6 mb-8 bg-green-50 border-green-200">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-green-100 rounded-lg">
+                <CheckCircle className="w-6 h-6 text-green-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-green-900 text-lg mb-2">
+                  ✓ Quiz Compliant with 2026 BACB Requirements
+                </h3>
+                <p className="text-green-800 mb-2">
+                  This asynchronous CE event has <strong>{quizQuestionCount} quiz questions</strong>,
+                  meeting the requirement of {minimumQuestionsRequired} questions (3 per CEU).
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => router.push(`/admin/ace/events/${eventId}/quiz`)}
+                  className="bg-white hover:bg-green-50 border-green-300 text-green-900"
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  Manage Quiz
+                </Button>
+              </div>
+            </div>
+          </Card>
+        )}
 
         {/* Attendance List */}
         <Card className="p-6">

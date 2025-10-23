@@ -276,6 +276,12 @@ function CreateEventModal({ onClose, onSuccess }: { onClose: () => void; onSucce
   });
   const [saving, setSaving] = useState(false);
 
+  // Calculate minimum questions required for async CE events
+  const minimumQuestionsRequired = 
+    formData.modality === 'asynchronous' && formData.event_type === 'ce'
+      ? Math.floor(formData.total_ceus) * 3
+      : 0;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -428,6 +434,33 @@ function CreateEventModal({ onClose, onSuccess }: { onClose: () => void; onSucce
               </select>
             </div>
           </div>
+
+          {/* Async CE Question Requirement Warning */}
+          {minimumQuestionsRequired > 0 && (
+            <Card className="p-4 bg-amber-50 border-amber-200">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-amber-100 rounded-lg">
+                  <FileText className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-amber-900 mb-1">
+                    Quiz Required for Asynchronous CE
+                  </h4>
+                  <p className="text-sm text-amber-800 mb-2">
+                    2026 BACB Requirement: Asynchronous CE events must include <strong>3 questions per CEU</strong>.
+                  </p>
+                  <div className="flex items-center gap-2 text-sm">
+                    <Badge variant="outline" className="bg-white border-amber-300 text-amber-900">
+                      {formData.total_ceus} CEUs × 3 = {minimumQuestionsRequired} questions minimum
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-amber-700 mt-2">
+                    After creating this event, navigate to Quiz Management to add the required questions.
+                  </p>
+                </div>
+              </div>
+            </Card>
+          )}
 
           {/* Zoom Link and Max Participants */}
           <div className="grid md:grid-cols-2 gap-4">
