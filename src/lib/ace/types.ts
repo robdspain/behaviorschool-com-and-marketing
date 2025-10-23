@@ -15,11 +15,22 @@ export type AceUserRole =
   | 'ace_coordinator'
   | 'admin';
 
+export type AceCredentialType =
+  | 'bcba'
+  | 'bcaba'
+  | 'rbt'
+  | 'other'
+  | 'pending';
+
 export type AceProviderType = 'individual' | 'organization';
 
 export type AceEventCategory = 'learning' | 'ethics' | 'supervision' | 'teaching';
 
 export type AceEventModality = 'in_person' | 'synchronous' | 'asynchronous';
+
+export type AceEventType = 'ce' | 'pd';
+
+export type AceEventSubtype = 'standard' | 'journal_club' | 'podcast';
 
 export type AceEventStatus =
   | 'draft'
@@ -74,6 +85,11 @@ export interface AceUser {
   email: string;
   bacb_id?: string;
   role: AceUserRole;
+  credential_type?: AceCredentialType;
+  credential_number?: string;
+  credential_verified?: boolean;
+  credential_verified_at?: string;
+  credential_expires_at?: string;
   is_active: boolean;
   phone?: string;
   organization?: string;

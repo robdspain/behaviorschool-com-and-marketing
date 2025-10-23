@@ -189,12 +189,18 @@ export default function AceEventsPage() {
                       <p className="text-slate-600 mb-4 line-clamp-2">{event.description}</p>
                     )}
                     
-                    <div className="grid md:grid-cols-4 gap-4 text-sm">
+                    <div className="grid md:grid-cols-5 gap-4 text-sm">
                       <div>
                         <p className="text-slate-500">Date</p>
                         <p className="font-medium text-slate-900">
                           {new Date(event.start_date).toLocaleDateString()}
                         </p>
+                      </div>
+                      <div>
+                        <p className="text-slate-500">Type</p>
+                        <Badge variant={event.event_type === 'ce' ? 'default' : 'secondary'}>
+                          {event.event_type === 'ce' ? 'CE (BCBA)' : 'PD (RBT)'}
+                        </Badge>
                       </div>
                       <div>
                         <p className="text-slate-500">CEUs</p>
@@ -367,6 +373,26 @@ function CreateEventModal({ onClose, onSuccess }: { onClose: () => void; onSucce
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               />
             </div>
+          </div>
+
+          {/* Event Type */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Event Type *
+            </label>
+            <select
+              value={formData.event_type}
+              onChange={e => setFormData({ ...formData, event_type: e.target.value as 'ce' | 'pd' })}
+              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            >
+              <option value="ce">CE - Continuing Education (for BCBAs, BCaBAs)</option>
+              <option value="pd">PD - Professional Development (for RBTs only)</option>
+            </select>
+            <p className="mt-1 text-sm text-slate-500">
+              {formData.event_type === 'ce' 
+                ? 'BCBAs and BCaBAs can register for this event' 
+                : 'Only RBTs can register for this event'}
+            </p>
           </div>
 
           {/* Category and Modality */}
