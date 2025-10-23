@@ -1,346 +1,446 @@
-'use client';
+"use client";
 
-import { use, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import type { AceEvent } from '@/lib/ace/types';
+import { useState, useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  MapPin,
+  Users,
+  Video,
+  CheckCircle,
+  XCircle,
+  Download,
+  Edit,
+} from 'lucide-react';
+import type { AceEvent, AceUser } from '@/lib/ace/types';
 
-export default function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+interface AttendanceRecord {
+  id: string;
+  participant_id: string;
+  verified: boolean;
+  sign_in_timestamp?: string;
+  sign_out_timestamp?: string;
+  participant: AceUser;
+}
+
+export default function EventDetailPage() {
+  const params = useParams();
   const router = useRouter();
+  const eventId = params.id as string;
+
   const [event, setEvent] = useState<AceEvent | null>(null);
+  const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [savingAttendance, setSavingAttendance] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchEvent();
-  }, [id]);
+    fetchEventDetails();
+    fetchAttendance();
+  }, [eventId]);
 
-  const fetchEvent = async () => {
-    setLoading(true);
+  const fetchEventDetails = async () => {
     try {
-      const res = await fetch(`/api/ace/events/${id}`);
-      const data = await res.json();
-      if (data.success) {
+      const response = await fetch(`/api/admin/ace/events?id=${eventId}`);
+      const data = await response.json();
+      if (data.data) {
         setEvent(data.data);
-      } else {
-        setError(data.error || 'Failed to load event');
       }
-    } catch (err) {
-      setError('An error occurred while loading the event');
+    } catch (error) {
+      console.error('Error fetching event:', error);
+    }
+  };
+
+  const fetchAttendance = async () => {
+    try {
+      const response = await fetch(`/api/admin/ace/attendance?event_id=${eventId}`);
+      const data = await response.json();
+      if (data.data) {
+        setAttendance(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching attendance:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSubmitForApproval = async () => {
-    if (!confirm('Submit this event for coordinator approval?')) return;
+  const handleToggleAttendance = async (participantId: string, currentStatus: boolean) => {
+    setSavingAttendance(participantId);
 
     try {
-      const res = await fetch(`/api/ace/events/${id}/submit`, {
-        method: 'POST',
-      });
-      const data = await res.json();
-      if (data.success) {
-        fetchEvent();
-        alert('Event submitted for approval');
-      } else {
-        alert(data.error || 'Failed to submit event');
-      }
-    } catch (err) {
-      alert('An error occurred');
-    }
-  };
-
-  const handleApprove = async () => {
-    if (!confirm('Approve this event?')) return;
-
-    try {
-      const res = await fetch(`/api/ace/events/${id}/approve`, {
+      const response = await fetch('/api/admin/ace/attendance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ approvedBy: 'current-user-id' }), // Replace with actual user ID
+        body: JSON.stringify({
+          event_id: eventId,
+          participant_id: participantId,
+          verified: !currentStatus,
+          sign_in_timestamp: !currentStatus ? new Date().toISOString() : null,
+        }),
       });
-      const data = await res.json();
-      if (data.success) {
-        fetchEvent();
-        alert('Event approved!');
-      } else {
-        alert(data.error || 'Failed to approve event');
+
+      if (response.ok) {
+        // Update local state
+        setAttendance(attendance.map(a =>
+          a.participant_id === participantId
+            ? { ...a, verified: !currentStatus, sign_in_timestamp: !currentStatus ? new Date().toISOString() : undefined }
+            : a
+        ));
       }
-    } catch (err) {
-      alert('An error occurred');
+    } catch (error) {
+      console.error('Error updating attendance:', error);
+      alert('Failed to update attendance');
+    } finally {
+      setSavingAttendance(null);
     }
   };
 
-  const handleReject = async () => {
-    const reason = prompt('Reason for rejection:');
-    if (!reason) return;
+  const handleCheckInAll = async () => {
+    if (!confirm('Mark all participants as attended?')) return;
+
+    setSavingAttendance('all');
 
     try {
-      const res = await fetch(`/api/ace/events/${id}/reject`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reason }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        fetchEvent();
-        alert('Event rejected');
-      } else {
-        alert(data.error || 'Failed to reject event');
-      }
-    } catch (err) {
-      alert('An error occurred');
+      const promises = attendance
+        .filter(a => !a.verified)
+        .map(a =>
+          fetch('/api/admin/ace/attendance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              event_id: eventId,
+              participant_id: a.participant_id,
+              verified: true,
+              sign_in_timestamp: new Date().toISOString(),
+            }),
+          })
+        );
+
+      await Promise.all(promises);
+      await fetchAttendance();
+    } catch (error) {
+      console.error('Error checking in all:', error);
+      alert('Failed to check in all participants');
+    } finally {
+      setSavingAttendance(null);
     }
   };
 
-  const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this event? This will archive the event.')) {
-      return;
-    }
+  const exportAttendance = () => {
+    if (!event) return;
 
-    try {
-      const res = await fetch(`/api/ace/events/${id}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success) {
-        router.push('/admin/ace/events');
-      } else {
-        alert(data.error || 'Failed to delete event');
-      }
-    } catch (err) {
-      alert('An error occurred');
-    }
+    const csv = [
+      ['Name', 'Email', 'BACB ID', 'Attended', 'Check-in Time'].join(','),
+      ...attendance.map(a => [
+        `${a.participant.first_name} ${a.participant.last_name}`,
+        a.participant.email,
+        a.participant.bacb_id || 'N/A',
+        a.verified ? 'Yes' : 'No',
+        a.sign_in_timestamp ? new Date(a.sign_in_timestamp).toLocaleString() : 'N/A',
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${event.title.replace(/\s+/g, '-')}-attendance.csv`;
+    a.click();
   };
 
-  if (loading) {
+  if (loading || !event) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center py-12">
-            <p className="text-gray-500">Loading event...</p>
+      <div className="min-h-screen bg-slate-50 p-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="animate-pulse">
+            <div className="h-8 bg-slate-200 rounded w-64 mb-8"></div>
+            <div className="h-96 bg-slate-200 rounded-lg"></div>
           </div>
         </div>
       </div>
     );
   }
 
-  if (error || !event) {
-    return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center py-12 bg-white rounded-lg shadow">
-            <p className="text-red-600">{error || 'Event not found'}</p>
-            <Link
-              href="/admin/ace/events"
-              className="mt-4 inline-block text-blue-600 hover:text-blue-800"
-            >
-              ← Back to Events
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const getStatusColor = (status: string) => {
-    const colors: Record<string, string> = {
-      draft: 'bg-gray-100 text-gray-800',
-      pending_approval: 'bg-yellow-100 text-yellow-800',
-      approved: 'bg-green-100 text-green-800',
-      in_progress: 'bg-blue-100 text-blue-800',
-      completed: 'bg-purple-100 text-purple-800',
-      archived: 'bg-gray-100 text-gray-500',
-    };
-    return colors[status] || '';
-  };
+  const attendedCount = attendance.filter(a => a.verified).length;
+  const attendanceRate = attendance.length > 0
+    ? Math.round((attendedCount / attendance.length) * 100)
+    : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <Link href="/admin/ace/events" className="text-blue-600 hover:text-blue-800 mb-4 inline-block">
-            ← Back to Events
-          </Link>
-          <div className="flex justify-between items-start">
+    <div className="min-h-screen bg-slate-50 p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Back Button */}
+        <Button
+          variant="outline"
+          onClick={() => router.push('/admin/ace/events')}
+          className="mb-6"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Events
+        </Button>
+
+        {/* Event Header */}
+        <Card className="p-8 mb-8">
+          <div className="flex items-start justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">{event.title}</h1>
-              <div className="mt-2">
-                <span className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(event.status)}`}>
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-3xl font-bold text-slate-900">{event.title}</h1>
+                <Badge className={
+                  event.status === 'completed' ? 'bg-green-100 text-green-800' :
+                  event.status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
+                  'bg-yellow-100 text-yellow-800'
+                }>
                   {event.status.replace('_', ' ')}
-                </span>
+                </Badge>
+                {event.event_type && (
+                  <Badge className="bg-purple-100 text-purple-800">
+                    {event.event_type.toUpperCase()}
+                  </Badge>
+                )}
+              </div>
+              {event.description && (
+                <p className="text-slate-600 text-lg">{event.description}</p>
+              )}
+            </div>
+            <Button
+              variant="outline"
+              onClick={() => router.push(`/admin/ace/events/${eventId}/edit`)}
+            >
+              <Edit className="w-4 h-4 mr-2" />
+              Edit Event
+            </Button>
+          </div>
+
+          {/* Event Details Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="flex items-start gap-3">
+              <Calendar className="w-5 h-5 text-emerald-600 mt-1" />
+              <div>
+                <p className="text-sm text-slate-500">Date</p>
+                <p className="font-medium text-slate-900">
+                  {new Date(event.start_date).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </p>
+                <p className="text-sm text-slate-600">
+                  {new Date(event.start_date).toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                  })}
+                </p>
               </div>
             </div>
-            <div className="flex gap-2">
-              {event.status === 'draft' && (
-                <button
-                  onClick={handleSubmitForApproval}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                >
-                  Submit for Approval
-                </button>
+
+            <div className="flex items-start gap-3">
+              <Clock className="w-5 h-5 text-emerald-600 mt-1" />
+              <div>
+                <p className="text-sm text-slate-500">CEUs</p>
+                <p className="font-medium text-slate-900">{event.total_ceus} CEUs</p>
+                <p className="text-sm text-slate-600 capitalize">
+                  {event.ce_category}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              {event.modality === 'in_person' ? (
+                <MapPin className="w-5 h-5 text-emerald-600 mt-1" />
+              ) : (
+                <Video className="w-5 h-5 text-emerald-600 mt-1" />
               )}
-              {event.status === 'pending_approval' && (
-                <>
-                  <button
-                    onClick={handleApprove}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+              <div>
+                <p className="text-sm text-slate-500">Modality</p>
+                <p className="font-medium text-slate-900 capitalize">
+                  {event.modality.replace('_', ' ')}
+                </p>
+                {event.online_meeting_url && (
+                  <a
+                    href={event.online_meeting_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-emerald-600 hover:underline"
                   >
-                    Approve
-                  </button>
-                  <button
-                    onClick={handleReject}
-                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
-                  >
-                    Reject
-                  </button>
-                </>
-              )}
-              <button
-                onClick={handleDelete}
-                className="px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition"
+                    Join Meeting
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <Users className="w-5 h-5 text-emerald-600 mt-1" />
+              <div>
+                <p className="text-sm text-slate-500">Participants</p>
+                <p className="font-medium text-slate-900">
+                  {event.current_participants || 0}
+                  {event.max_participants && ` / ${event.max_participants}`}
+                </p>
+                <p className="text-sm text-slate-600">
+                  {attendedCount} attended
+                </p>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Attendance Stats */}
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Total Registered</p>
+                <p className="text-3xl font-bold text-slate-900">{attendance.length}</p>
+              </div>
+              <Users className="w-10 h-10 text-blue-600" />
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Attended</p>
+                <p className="text-3xl font-bold text-green-600">{attendedCount}</p>
+              </div>
+              <CheckCircle className="w-10 h-10 text-green-600" />
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Absent</p>
+                <p className="text-3xl font-bold text-red-600">
+                  {attendance.length - attendedCount}
+                </p>
+              </div>
+              <XCircle className="w-10 h-10 text-red-600" />
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Attendance Rate</p>
+                <p className="text-3xl font-bold text-slate-900">{attendanceRate}%</p>
+              </div>
+              <div className="w-10 h-10 flex items-center justify-center bg-emerald-100 rounded-full">
+                <span className="text-emerald-600 font-bold text-sm">{attendanceRate}%</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Attendance List */}
+        <Card className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-slate-900">Attendance List</h2>
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={exportAttendance}
+                disabled={attendance.length === 0}
               >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Event Details */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Event Details</h2>
-              <dl className="space-y-4">
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Description</dt>
-                  <dd className="mt-1 text-gray-900">{event.description}</dd>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Category</dt>
-                    <dd className="mt-1 text-gray-900 capitalize">{event.category}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Modality</dt>
-                    <dd className="mt-1 text-gray-900 capitalize">{event.modality.replace('_', ' ')}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Duration</dt>
-                    <dd className="mt-1 text-gray-900">{event.duration_minutes} minutes</dd>
-                  </div>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">CEUs Offered</dt>
-                    <dd className="mt-1 text-gray-900 font-semibold">{event.ceus_offered}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Start Date</dt>
-                    <dd className="mt-1 text-gray-900">
-                      {new Date(event.start_date).toLocaleString()}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">End Date</dt>
-                    <dd className="mt-1 text-gray-900">
-                      {new Date(event.end_date).toLocaleString()}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Timezone</dt>
-                    <dd className="mt-1 text-gray-900">{event.timezone}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Fee</dt>
-                    <dd className="mt-1 text-gray-900">
-                      {event.is_free ? 'Free' : `$${event.fee.toFixed(2)}`}
-                    </dd>
-                  </div>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500">Learning Objectives</dt>
-                  <dd className="mt-1">
-                    <ul className="list-disc list-inside space-y-1 text-gray-900">
-                      {event.learning_objectives.map((obj, i) => (
-                        <li key={i}>{obj}</li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              </dl>
-            </div>
-
-            {/* Verification & Assessment */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Verification & Assessment</h2>
-              <dl className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Verification Method</dt>
-                    <dd className="mt-1 text-gray-900 capitalize">
-                      {event.verification_method.replace('_', ' ')}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-sm font-medium text-gray-500">Passing Score</dt>
-                    <dd className="mt-1 text-gray-900">{event.passing_score_percentage}%</dd>
-                  </div>
-                </div>
-              </dl>
+                <Download className="w-4 h-4 mr-2" />
+                Export CSV
+              </Button>
+              <Button
+                onClick={handleCheckInAll}
+                disabled={savingAttendance === 'all' || attendedCount === attendance.length}
+                className="bg-emerald-600 hover:bg-emerald-700"
+              >
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Check In All
+              </Button>
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Stats */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Statistics</h2>
-              <div className="space-y-4">
-                <div>
-                  <div className="text-sm text-gray-500">Participants</div>
-                  <div className="text-2xl font-bold text-gray-900">
-                    {event.current_participants}
-                    {event.max_participants && ` / ${event.max_participants}`}
+          {attendance.length === 0 ? (
+            <div className="text-center py-12">
+              <Users className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+              <p className="text-slate-600">No participants registered yet</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {attendance.map((record) => (
+                <div
+                  key={record.id}
+                  className={`flex items-center justify-between p-4 rounded-lg border-2 transition-all ${
+                    record.verified
+                      ? 'border-green-200 bg-green-50'
+                      : 'border-slate-200 bg-white hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${
+                      record.verified ? 'bg-green-600 text-white' : 'bg-slate-200 text-slate-600'
+                    }`}>
+                      {record.participant.first_name[0]}{record.participant.last_name[0]}
+                    </div>
+                    
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3">
+                        <p className="font-semibold text-slate-900">
+                          {record.participant.first_name} {record.participant.last_name}
+                        </p>
+                        {record.verified && (
+                          <Badge className="bg-green-100 text-green-800">
+                            <CheckCircle className="w-3 h-3 mr-1" />
+                            Attended
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-4 mt-1 text-sm text-slate-600">
+                        <span>{record.participant.email}</span>
+                        {record.participant.bacb_id && (
+                          <>
+                            <span>•</span>
+                            <span>BACB: {record.participant.bacb_id}</span>
+                          </>
+                        )}
+                        {record.sign_in_timestamp && (
+                          <>
+                            <span>•</span>
+                            <span>
+                              Checked in: {new Date(record.sign_in_timestamp).toLocaleTimeString()}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
 
-            {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-              <div className="space-y-2">
-                <Link
-                  href={`/admin/ace/events/${id}/quiz`}
-                  className="block w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-center"
-                >
-                  Manage Quiz
-                </Link>
-                <Link
-                  href={`/admin/ace/events/${id}/materials`}
-                  className="block w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-center"
-                >
-                  Manage Materials
-                </Link>
-                <Link
-                  href={`/admin/ace/events/${id}/registrations`}
-                  className="block w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-center"
-                >
-                  View Registrations
-                </Link>
-                <Link
-                  href={`/admin/ace/events/${id}/certificates`}
-                  className="block w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-center"
-                >
-                  Issue Certificates
-                </Link>
-              </div>
+                  <Button
+                    variant={record.verified ? 'outline' : 'default'}
+                    onClick={() => handleToggleAttendance(record.participant_id, record.verified)}
+                    disabled={savingAttendance === record.participant_id}
+                    className={record.verified ? '' : 'bg-emerald-600 hover:bg-emerald-700'}
+                  >
+                    {savingAttendance === record.participant_id ? (
+                      'Saving...'
+                    ) : record.verified ? (
+                      <>
+                        <XCircle className="w-4 h-4 mr-2" />
+                        Mark Absent
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle className="w-4 h-4 mr-2" />
+                        Mark Attended
+                      </>
+                    )}
+                  </Button>
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
+          )}
+        </Card>
       </div>
     </div>
   );
