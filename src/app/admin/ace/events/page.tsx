@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Calendar, Users, Download, Edit, Trash2 } from 'lucide-react';
+import { Plus, Calendar, Users, Download, Edit, Trash2, FileText } from 'lucide-react';
 import type { AceEvent } from '@/lib/ace/types';
 
 export default function AceEventsPage() {

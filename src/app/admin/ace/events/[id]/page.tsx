@@ -37,7 +37,7 @@ export default function EventDetailPage() {
 
   const [event, setEvent] = useState<AceEvent | null>(null);
   const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
-  const [certificates, setCertificates] = useState<any[]>([]);
+  const [certificates, setCertificates] = useState<Array<{id: string; participant_id: string}>>([]);
   const [quizQuestionCount, setQuizQuestionCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [savingAttendance, setSavingAttendance] = useState<string | null>(null);
@@ -48,7 +48,7 @@ export default function EventDetailPage() {
     fetchAttendance();
     fetchCertificates();
     fetchQuizQuestions();
-  }, [eventId, fetchEventDetails, fetchAttendance, fetchCertificates]);
+  }, [eventId]);
 
   const fetchEventDetails = async () => {
     try {
