@@ -287,13 +287,12 @@ function CreateEventModal({ onClose, onSuccess }: { onClose: () => void; onSucce
     setSaving(true);
 
     try {
-      // You'll need to get the provider_id - for now using a placeholder
+      // Provider ID is automatically added by the API from the authenticated user
       const response = await fetch('/api/admin/ace/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          provider_id: 'YOUR_PROVIDER_ID', // TODO: Get from auth/session
           status: 'draft',
         }),
       });

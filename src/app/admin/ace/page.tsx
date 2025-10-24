@@ -9,10 +9,8 @@ export default function AdminAceDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // TODO: Replace with actual provider ID from auth context
-    const providerId = 'mock-provider-id';
-
-    fetch(`/api/ace/providers/${providerId}/stats`)
+    // Fetch stats for the current user's provider
+    fetch('/api/ace/providers/stats')
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

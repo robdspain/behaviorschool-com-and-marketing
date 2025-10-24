@@ -16,6 +16,50 @@ import type {
 } from './types';
 
 // ============================================================================
+// AUTH & USER QUERIES
+// ============================================================================
+
+/**
+ * Get the provider ID for the currently authenticated user
+ * This looks up the ace_users record and finds their associated provider
+ */
+export async function getCurrentUserProviderId(): Promise<string | null> {
+  const supabase = await createClient();
+
+  // Get the authenticated user
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return null;
+  }
+
+  // Find the ace_user record for this Supabase user
+  const { data: aceUser, error: userError } = await supabase
+    .from('ace_users')
+    .select('id')
+    .eq('supabase_user_id', user.id)
+    .single();
+
+  if (userError || !aceUser) {
+    return null;
+  }
+
+  // Find the provider where this user is the coordinator
+  const { data: provider, error: providerError } = await supabase
+    .from('ace_providers')
+    .select('id')
+    .eq('coordinator_id', aceUser.id)
+    .eq('is_active', true)
+    .single();
+
+  if (providerError || !provider) {
+    return null;
+  }
+
+  return provider.id;
+}
+
+// ============================================================================
 // PROVIDER QUERIES
 // ============================================================================
 
