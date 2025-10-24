@@ -749,3 +749,10 @@ export interface CoordinatorCertificationAlert {
   days_until_expiration: number;
   severity: 'critical' | 'warning' | 'info';
 }
+
+export interface AceProviderDashboard {
+  total_events: number;
+  active_events: number;
+  total_registrations: number;
+  total_certificates_issued: number;
+}
