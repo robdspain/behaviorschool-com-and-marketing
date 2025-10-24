@@ -399,6 +399,26 @@ export interface AceQuiz {
   updated_at: string;
 }
 
+// Form data type for event creation
+export interface AceEventFormData {
+  title: string;
+  description?: string;
+  category: AceEventCategory;
+  modality: AceEventModality;
+  event_type?: AceEventType;
+  total_ceus: number;
+  start_date: string;
+  end_date?: string;
+  location?: string;
+  online_meeting_url?: string;
+  max_participants?: number;
+  fee?: number;
+  verification_method: AceVerificationMethod;
+  passing_score_percentage?: number;
+  learning_objectives?: string[];
+  instructor_ids?: string[];
+}
+
 export interface AceFeedbackResponse {
   id: string;
   event_id: string;
