@@ -266,9 +266,9 @@ function CreateEventModal({ onClose, onSuccess }: { onClose: () => void; onSucce
     title: '',
     description: '',
     total_ceus: 0,
-    ce_category: 'learning' as const,
-    modality: 'zoom_live' as const,
-    event_type: 'ce' as const,
+    ce_category: 'learning',
+    modality: 'synchronous' as 'in_person' | 'synchronous' | 'asynchronous',
+    event_type: 'ce',
     start_date: '',
     max_participants: 20,
     online_meeting_url: '',
@@ -428,7 +428,7 @@ function CreateEventModal({ onClose, onSuccess }: { onClose: () => void; onSucce
                 onChange={e => setFormData({ ...formData, modality: e.target.value as 'in_person' | 'synchronous' | 'asynchronous' })}
                 className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               >
-                <option value="zoom_live">Live (Zoom)</option>
+                <option value="synchronous">Live (Zoom)</option>
                 <option value="in_person">In Person</option>
                 <option value="asynchronous">Asynchronous</option>
               </select>
