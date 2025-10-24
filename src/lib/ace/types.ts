@@ -410,6 +410,7 @@ export interface AceEventFormData {
   start_date: string;
   end_date?: string;
   duration_minutes?: number;
+  timezone?: string;
   location?: string;
   online_meeting_url?: string;
   max_participants?: number;
