@@ -362,6 +362,43 @@ export interface AceAttendanceRecord {
   updated_at: string;
 }
 
+// Quiz types
+export interface QuizOption {
+  id: string;
+  text: string;
+}
+
+export interface AceQuizQuestion {
+  id: string;
+  quiz_id: string;
+  question_text: string;
+  question_type: 'multiple_choice' | 'true_false' | 'multiple_select';
+  options: QuizOption[];
+  correct_answers: string[];
+  explanation?: string;
+  points: number;
+  order_index?: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AceQuiz {
+  id: string;
+  event_id: string;
+  title: string;
+  description?: string;
+  passing_score_percentage: number;
+  max_attempts?: number;
+  time_limit_minutes?: number;
+  shuffle_questions: boolean;
+  show_correct_answers: boolean;
+  is_required: boolean;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface AceFeedbackResponse {
   id: string;
   event_id: string;
