@@ -56,10 +56,6 @@ export type AceComplaintStatus =
 export type AceCertificateStatus = 'pending' | 'issued' | 'revoked';
 
 // 2026 New Enums
-export type AceEventType = 'ce' | 'pd';
-
-export type AceEventSubtype = 'standard' | 'journal_club' | 'podcast';
-
 export type AceInstructorQualificationPath =
   | 'active_bcba'
   | 'doctorate_behavior_analysis'
