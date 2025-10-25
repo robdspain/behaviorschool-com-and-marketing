@@ -388,17 +388,6 @@ export default function CoordinatorCertificationPage() {
                         )}
                       </Button>
                     )}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        setSelectedCoordinator(coordinator);
-                        setShowUpdateModal(true);
-                      }}
-                    >
-                      <Calendar className="w-4 h-4 mr-2" />
-                      Update
-                    </Button>
                   </div>
                 </div>
               </Card>
