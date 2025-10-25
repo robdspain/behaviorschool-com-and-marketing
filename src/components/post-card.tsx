@@ -4,12 +4,14 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
+import { useEffect, useState } from "react";
 
 import type { Post } from "@/lib/ghost-hybrid";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { createClient } from "@/lib/supabase-client";
 
 function formatDate(iso?: string | null): string {
   if (!iso) return "";
@@ -25,6 +27,20 @@ export interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl = false, ...props }: PostCardProps) {
+  const [isAuthed, setIsAuthed] = useState(false);
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { session } } = await supabase.auth.getSession();
+        setIsAuthed(!!session);
+      } catch {
+        setIsAuthed(false);
+      }
+    };
+    run();
+  }, []);
+
   const href = `${hrefBase}/${post.slug}`;
   const primaryTag = post.primary_tag ?? (post.tags && post.tags.length > 0 ? post.tags[0] : null);
   const imageSrc = React.useMemo(() => {
@@ -82,7 +98,7 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
           <p className="text-sm text-muted-foreground line-clamp-3">{post.excerpt}</p>
         ) : null}
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex items-center justify-between">
         {useExternalUrl && post.url ? (
           <a
             href={post.url}
@@ -102,6 +118,15 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
             Read <ArrowRight className="size-4" />
           </Link>
         )}
+        {isAuthed ? (
+          <Link
+            href={`/admin/blog/editor?id=${encodeURIComponent(post.id as string)}`}
+            className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-4"
+            aria-label={`Edit ${post.title}`}
+          >
+            Edit
+          </Link>
+        ) : null}
       </CardFooter>
     </Card>
   );
