@@ -74,6 +74,7 @@ export default function CertificatesPage() {
                 <p className="text-sm font-medium text-slate-600">Issued This Month</p>
                 <p className="text-2xl font-bold text-slate-900">
                   {certificates.filter(c => {
+                    if (!c.issued_at) return false;
                     const issued = new Date(c.issued_at);
                     const now = new Date();
                     return issued.getMonth() === now.getMonth() && issued.getFullYear() === now.getFullYear();
@@ -149,7 +150,7 @@ export default function CertificatesPage() {
                       <div>
                         <p className="text-sm text-slate-600">Issued</p>
                         <p className="font-medium text-slate-900">
-                          {new Date(certificate.issued_at).toLocaleDateString()}
+                          {certificate.issued_at ? new Date(certificate.issued_at).toLocaleDateString() : 'N/A'}
                         </p>
                       </div>
                     </div>

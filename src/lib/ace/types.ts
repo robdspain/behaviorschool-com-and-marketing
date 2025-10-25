@@ -252,7 +252,11 @@ export interface AceEvent {
   // Location/Access
   location?: string;
   online_meeting_url?: string;
-  
+
+  // Verification
+  verification_method?: AceVerificationMethod;
+  passing_score_percentage?: number;
+
   // Status
   status: AceEventStatus;
   
@@ -284,18 +288,23 @@ export interface AceCertificate {
   id: string;
   event_id: string;
   participant_id: string;
-  
+
   // Certificate Details
   certificate_number: string;
   participant_name: string;
   participant_email: string;
   participant_bacb_id?: string;
-  
+
   // Event Details
   event_title: string;
   event_date: string;
   instructor_name: string;
-  
+  instructor_names?: string[]; // Array of instructor names
+
+  // Provider Details
+  provider_name?: string;
+  provider_number?: string;
+
   // CE Details
   total_ceus: number;
   ce_category: AceEventCategory;

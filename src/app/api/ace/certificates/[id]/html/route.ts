@@ -39,12 +39,12 @@ export async function GET(
       eventTitle: certificate.event_title,
       eventDate: certificate.event_date,
       instructorName: certificate.instructor_name,
-      instructorCredentials: certificate.instructor_credentials,
+      instructorCredentials: '', // Not stored in database
       totalCeus: certificate.total_ceus,
       ceCategory: certificate.ce_category.charAt(0).toUpperCase() + certificate.ce_category.slice(1),
-      providerName: certificate.provider_name,
-      providerNumber: certificate.provider_number,
-      issuedDate: certificate.issued_at,
+      providerName: certificate.provider_name || 'Unknown Provider',
+      providerNumber: certificate.provider_number || '',
+      issuedDate: certificate.issued_at || new Date().toISOString(),
     });
 
     // Return HTML
