@@ -158,9 +158,11 @@ export default function ContentPage() {
 
       {/* Main Content */}
       <main className="px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filters */}
+        {/* Quick Edit by URL/Slug + Filters */}
         <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Edit by URL/Slug */}
+            <EditBySlug />
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -328,3 +330,57 @@ export default function ContentPage() {
   )
 }
 
+function EditBySlug() {
+  const [value, setValue] = useState("")
+  const router = useRouter()
+  const placeholder = "Paste blog URL or type slug (e.g. act-matrix...)"
+
+  function extractSlug(input: string): string | null {
+    try {
+      const trimmed = input.trim()
+      if (!trimmed) return null
+      // If full URL, parse and take pathname
+      if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+        const u = new URL(trimmed)
+        const parts = u.pathname.split("/").filter(Boolean)
+        // Expect /blog/{slug}
+        if (parts[0] === 'blog' && parts[1]) return parts[1]
+        return parts[parts.length - 1] || null
+      }
+      // If starts with /, treat as path
+      if (trimmed.startsWith('/')) {
+        const parts = trimmed.split('/').filter(Boolean)
+        if (parts[0] === 'blog' && parts[1]) return parts[1]
+        return parts[parts.length - 1] || null
+      }
+      // Otherwise treat as slug
+      return trimmed
+    } catch {
+      return null
+    }
+  }
+
+  function go() {
+    const slug = extractSlug(value)
+    if (!slug) return alert('Please enter a valid blog URL or slug')
+    router.push(`/admin/blog/editor?slug=${encodeURIComponent(slug)}`)
+  }
+
+  return (
+    <div className="flex gap-2">
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder={placeholder}
+        className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+      />
+      <button
+        onClick={go}
+        className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
+      >
+        Edit
+      </button>
+    </div>
+  )
+}

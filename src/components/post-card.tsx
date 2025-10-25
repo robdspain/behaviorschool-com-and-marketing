@@ -120,7 +120,7 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
         )}
         {isAuthed ? (
           <Link
-            href={`/admin/blog/editor?id=${encodeURIComponent(post.id as string)}`}
+            href={`/admin/blog/editor?slug=${encodeURIComponent(post.slug)}`}
             className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-4"
             aria-label={`Edit ${post.title}`}
           >

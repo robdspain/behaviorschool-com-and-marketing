@@ -29,7 +29,7 @@ export function EditPostButton({ ghostId, slug }: { ghostId: string; slug: strin
     <div className="fixed bottom-6 right-6 z-50">
       <div className="flex flex-col gap-2">
         <Link
-          href={`/admin/blog/editor?id=${encodeURIComponent(ghostId)}`}
+          href={`/admin/blog/editor?slug=${encodeURIComponent(slug)}`}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full shadow-lg border-2 border-emerald-200 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition-colors"
           title="Edit this post in Admin"
         >

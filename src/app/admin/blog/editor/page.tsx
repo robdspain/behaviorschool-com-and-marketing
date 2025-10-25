@@ -44,6 +44,7 @@ function BlogEditorContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const postId = searchParams.get('id')
+  const postSlugParam = searchParams.get('slug')
   const supabase = createClient()
 
   const [post, setPost] = useState<Post>({
@@ -107,6 +108,27 @@ function BlogEditorContent() {
         fetchTags()
         if (postId) {
           fetchPost(postId)
+        } else if (postSlugParam) {
+          // Lookup by slug and then load by ID for full edit capabilities
+          try {
+            const lookupResp = await fetch(`/api/admin/blog/posts/by-slug/${encodeURIComponent(postSlugParam)}`)
+            const lookupJson = await lookupResp.json()
+            if (lookupJson.success && lookupJson.post?.id) {
+              await fetchPost(lookupJson.post.id)
+              // Update URL to include id for stability
+              const url = new URL(window.location.href)
+              url.searchParams.set('id', lookupJson.post.id)
+              window.history.replaceState({}, '', url.toString())
+            } else {
+              console.error('Post not found by slug:', lookupJson.error)
+              setLoading(false)
+              alert('Could not find a post with that slug')
+            }
+          } catch (e) {
+            console.error('Error looking up post by slug', e)
+            setLoading(false)
+            alert('Failed to look up post by slug')
+          }
         } else {
           setLoading(false)
         }
@@ -114,7 +136,7 @@ function BlogEditorContent() {
     }
 
     checkAuth()
-  }, [postId, supabase, router])
+  }, [postId, postSlugParam, supabase, router])
 
   const fetchTags = async () => {
     try {
