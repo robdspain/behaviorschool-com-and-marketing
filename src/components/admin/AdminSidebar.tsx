@@ -15,7 +15,8 @@ import {
   Lock,
   CreditCard,
   Send,
-  GraduationCap
+  GraduationCap,
+  Layers
 } from "lucide-react";
 import { useState } from "react";
 
@@ -36,6 +37,8 @@ const navigation: NavItem[] = [
   { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Content", href: "/admin/content", icon: FileText },
+  { name: "Blog Editor", href: "/admin/blog/editor", icon: FileText },
+  { name: "Sitemap", href: "/admin/sitemap", icon: Layers },
 ];
 
 export function AdminSidebar() {
@@ -146,4 +149,3 @@ export function AdminSidebar() {
     </>
   );
 }
-

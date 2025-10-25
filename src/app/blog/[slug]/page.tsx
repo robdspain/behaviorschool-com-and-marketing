@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/ghost-hybrid";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { EditPostButton } from "@/components/admin/EditPostButton";
 
 // Generate metadata for SEO and social sharing
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -159,6 +160,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   };
 
   return (
+    <>
     <article className="mx-auto max-w-3xl px-6 lg:px-8 pt-20 pb-12">
       <header>
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">{post.title}</h1>
@@ -198,5 +200,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         />
       ) : null}
     </article>
+    <EditPostButton ghostId={post.id as string} slug={slug} />
+    </>
   );
 }
