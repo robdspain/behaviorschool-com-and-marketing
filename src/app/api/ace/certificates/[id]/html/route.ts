@@ -9,7 +9,7 @@ import { generateCertificateHTML } from '@/lib/ace/certificate-generator';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -20,7 +20,8 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const certificateId = params.id;
+    const { id } = await params;
+    const certificateId = id;
 
     // Get certificate from database
     const certificate = await getCertificateById(certificateId);
