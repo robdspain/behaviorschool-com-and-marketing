@@ -34,6 +34,27 @@ export function VideoSection({
       };
     }
 
+    // Wistia
+    // Supports: https://fast.wistia.net/embed/iframe/VIDEO_ID
+    // or: https://ACCOUNT.wistia.com/medias/VIDEO_ID
+    const wistiaMatch = url.match(/(?:wistia\.(?:com|net)\/(?:medias|embed\/iframe)\/)([a-zA-Z0-9]+)/);
+    if (wistiaMatch || url.includes('wistia')) {
+      let videoId = wistiaMatch?.[1];
+
+      // If no match but contains wistia, try to extract from different formats
+      if (!videoId && url.includes('wistia')) {
+        const altMatch = url.match(/([a-zA-Z0-9]{10,})/);
+        videoId = altMatch?.[1];
+      }
+
+      if (videoId) {
+        return {
+          platform: 'wistia',
+          embedUrl: `https://fast.wistia.net/embed/iframe/${videoId}`,
+        };
+      }
+    }
+
     // YouTube (works for both public and unlisted)
     const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/);
     if (youtubeMatch) {
