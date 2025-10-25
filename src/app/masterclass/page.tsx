@@ -36,56 +36,128 @@ export default function MasterclassPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-100/20 to-transparent rounded-full blur-3xl" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
+          {/* Header Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
             <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-full mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-full"
             >
               <Award className="w-5 h-5" />
               <span className="text-sm font-bold">FREE MASTERCLASS • 1 BACB CEU</span>
             </motion.div>
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
-              School BCBA Mastery<br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>Fundamentals
-            </h1>
-
-            <p className="text-lg sm:text-xl md:text-2xl text-slate-700 max-w-3xl mx-auto mb-8">
-              Master the essential skills every school-based BCBA needs to lead with confidence, build collaborative teams, and create sustainable systems.
-            </p>
-
-            {/* Stats */}
-            <div className="flex flex-wrap justify-center gap-8 text-slate-600">
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-emerald-600" />
-                <span className="text-sm font-medium">1 Hour Total</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Video className="w-5 h-5 text-emerald-600" />
-                <span className="text-sm font-medium">4 Video Sections</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-emerald-600" />
-                <span className="text-sm font-medium">1.0 CEU Credits</span>
-              </div>
-            </div>
           </motion.div>
 
-          {/* Registration Form */}
-          {showForm && (
-            <RegistrationForm
-              onSuccess={handleEnrollmentSuccess}
-              onExistingUser={handleExistingUser}
-            />
-          )}
+          {/* Two Column Layout: Video Left, Form Right */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            {/* Left Side - Video & Info */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-6"
+            >
+              <div>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
+                  School BCBA Mastery Fundamentals
+                </h1>
+
+                <p className="text-lg sm:text-xl text-slate-700 mb-6">
+                  Master the essential skills every school-based BCBA needs to lead with confidence, build collaborative teams, and create sustainable systems.
+                </p>
+
+                {/* Stats */}
+                <div className="flex flex-wrap gap-6 text-slate-600 mb-8">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-emerald-600" />
+                    <span className="text-sm font-medium">1 Hour Total</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Video className="w-5 h-5 text-emerald-600" />
+                    <span className="text-sm font-medium">4 Video Sections</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Award className="w-5 h-5 text-emerald-600" />
+                    <span className="text-sm font-medium">1.0 CEU Credits</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Video Player */}
+              <div className="relative aspect-video bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border-4 border-slate-200">
+                {/* Placeholder for video - replace with actual video embed */}
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+                  <div className="text-center text-white p-8">
+                    <Video className="w-16 h-16 mx-auto mb-4 text-emerald-400" />
+                    <h3 className="text-xl font-bold mb-2">Introduction Video</h3>
+                    <p className="text-slate-300 mb-4">Register to watch the full masterclass</p>
+
+                    {/* Sample Video Embed - Replace with your actual video */}
+                    {/* Example using YouTube:
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+                      title="Masterclass Introduction"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                    */}
+
+                    {/* Example using Vimeo:
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src="https://player.vimeo.com/video/YOUR_VIDEO_ID"
+                      title="Masterclass Introduction"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                    />
+                    */}
+                  </div>
+                </div>
+              </div>
+
+              {/* Key Benefits */}
+              <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-200">
+                <h3 className="text-lg font-bold text-slate-900 mb-4">What You&apos;ll Gain:</h3>
+                <ul className="space-y-3">
+                  {[
+                    'Navigate ethical dilemmas with confidence',
+                    'Build authentic teacher collaboration',
+                    'Create sustainable data systems',
+                    'Develop trauma-informed crisis protocols'
+                  ].map((benefit, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center mt-0.5">
+                        <div className="w-2 h-2 rounded-full bg-emerald-600"></div>
+                      </div>
+                      <span className="text-slate-700">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+
+            {/* Right Side - Registration Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:sticky lg:top-24"
+            >
+              {showForm && (
+                <RegistrationForm
+                  onSuccess={handleEnrollmentSuccess}
+                  onExistingUser={handleExistingUser}
+                />
+              )}
+            </motion.div>
+          </div>
         </div>
       </section>
 
