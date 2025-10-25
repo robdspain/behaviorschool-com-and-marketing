@@ -10,7 +10,8 @@ import {
   CheckCircle, 
   Calendar,
   Lock,
-  Unlock
+  Unlock,
+  XCircle
 } from 'lucide-react';
 
 interface CoordinatorCertification {
