@@ -9,12 +9,8 @@ import {
   AlertTriangle, 
   CheckCircle, 
   Calendar,
-  Upload,
-  FileText,
   Lock,
-  Unlock,
-  RefreshCw,
-  XCircle
+  Unlock
 } from 'lucide-react';
 
 interface CoordinatorCertification {
@@ -36,8 +32,6 @@ interface CoordinatorCertification {
 export default function CoordinatorCertificationPage() {
   const [coordinators, setCoordinators] = useState<CoordinatorCertification[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCoordinator, setSelectedCoordinator] = useState<CoordinatorCertification | null>(null);
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   useEffect(() => {
     fetchCoordinators();
@@ -348,7 +342,7 @@ export default function CoordinatorCertificationPage() {
                     {isExpired && (
                       <div className="mt-4 p-3 bg-red-100 border border-red-300 rounded-lg">
                         <p className="text-sm text-red-900 font-medium">
-                          ⚠️ This coordinator's certification has expired. All operations are automatically blocked until certification is renewed.
+                          ⚠️ This coordinator&apos;s certification has expired. All operations are automatically blocked until certification is renewed.
                         </p>
                       </div>
                     )}

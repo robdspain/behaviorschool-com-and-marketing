@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Download, CheckCircle, XCircle, FileText, Award } from 'lucide-react';
+import { Download, CheckCircle, FileText, Award } from 'lucide-react';
 import type { AceCertificate } from '@/lib/ace/types';
 
 export default function CertificatesPage() {
