@@ -30,7 +30,7 @@ export function SidebarNavigation({
   return (
     <div className="h-full flex flex-col bg-slate-50 border-r border-slate-200">
       {/* Header */}
-      <div className="p-6 border-b border-slate-200 bg-white">
+      <div className="p-4 sm:p-6 border-b border-slate-200 bg-white">
         <div className="flex items-center gap-2 mb-3">
           <Award className="w-5 h-5 text-emerald-600" />
           <h2 className="font-bold text-slate-900 text-sm">School BCBA Mastery</h2>
@@ -54,7 +54,7 @@ export function SidebarNavigation({
       </div>
 
       {/* Section List */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2">
         {sections.map((section, index) => {
           const sectionConfig = MASTERCLASS_COURSE.sections.find(s => s.id === section.id);
           const isComplete = section.videoCompleted && section.quizPassed;
@@ -65,7 +65,7 @@ export function SidebarNavigation({
               onClick={() => !section.isLocked && onSectionClick(section.id)}
               disabled={section.isLocked}
               className={`
-                w-full text-left p-4 rounded-xl transition-all duration-200
+                w-full text-left p-3 sm:p-4 rounded-xl transition-all duration-200
                 ${section.isCurrent
                   ? 'bg-emerald-100 border-2 border-emerald-500 shadow-md'
                   : section.isLocked

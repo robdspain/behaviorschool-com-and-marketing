@@ -19,13 +19,13 @@ export function ProgressBar({
 }: ProgressBarProps) {
   return (
     <div className="bg-white border-b border-slate-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6">
           {/* Progress Info */}
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-3">
-                <h3 className="text-sm font-semibold text-slate-900">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                <h3 className="text-xs sm:text-sm font-semibold text-slate-900">
                   Course Progress
                 </h3>
                 <span className="text-xs text-slate-500">
@@ -33,7 +33,7 @@ export function ProgressBar({
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-emerald-600">
+                <span className="text-xl sm:text-2xl font-bold text-emerald-600">
                   {Math.round(progress)}%
                 </span>
               </div>
@@ -66,17 +66,17 @@ export function ProgressBar({
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', stiffness: 200 }}
-              className="flex items-center gap-2 px-4 py-2 bg-emerald-100 border-2 border-emerald-500 rounded-full"
+              className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-emerald-100 border-2 border-emerald-500 rounded-full w-full sm:w-auto justify-center"
             >
-              <CheckCircle className="w-5 h-5 text-emerald-600" />
-              <span className="text-sm font-bold text-emerald-700">
+              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+              <span className="text-xs sm:text-sm font-bold text-emerald-700">
                 Certificate Ready!
               </span>
             </motion.div>
           ) : (
-            <div className="flex items-center gap-2 px-4 py-2 bg-slate-100 border border-slate-200 rounded-full">
-              <Award className="w-5 h-5 text-slate-400" />
-              <span className="text-sm font-medium text-slate-600">
+            <div className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-100 border border-slate-200 rounded-full w-full sm:w-auto justify-center">
+              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
+              <span className="text-xs sm:text-sm font-medium text-slate-600">
                 Complete all sections
               </span>
             </div>

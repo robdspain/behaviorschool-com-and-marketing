@@ -268,7 +268,7 @@ export default function CoursePage() {
           </div>
 
           {/* Content */}
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 sm:space-y-12">
             {/* Video Section */}
             <VideoSection
               sectionNumber={currentSection}
@@ -292,11 +292,11 @@ export default function CoursePage() {
 
             {/* Certificate CTA */}
             {canGenerateCertificate && (
-              <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-center text-white">
-                <h2 className="text-3xl font-bold mb-4">
+              <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-xl sm:rounded-2xl p-6 sm:p-8 text-center text-white">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
                   🎉 Congratulations!
                 </h2>
-                <p className="text-xl mb-6">
+                <p className="text-lg sm:text-xl mb-4 sm:mb-6">
                   You&apos;ve completed all sections. Download your CEU certificate now!
                 </p>
                 <Button

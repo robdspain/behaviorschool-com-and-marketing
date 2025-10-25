@@ -113,9 +113,9 @@ export function RegistrationForm({ onSuccess, onExistingUser }: RegistrationForm
       transition={{ duration: 0.6 }}
       className="w-full max-w-2xl mx-auto"
     >
-      <div className="bg-white rounded-3xl shadow-2xl border-2 border-slate-200 p-8 md:p-10 lg:p-12">
+      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl border-2 border-slate-200 p-6 sm:p-8 md:p-10 lg:p-12">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -220,8 +220,8 @@ export function RegistrationForm({ onSuccess, onExistingUser }: RegistrationForm
           </div>
 
           {/* Benefits */}
-          <div className="bg-emerald-50 rounded-xl p-6 space-y-3">
-            <h3 className="font-semibold text-slate-900 text-sm mb-3">What You&apos;ll Get:</h3>
+          <div className="bg-emerald-50 rounded-xl p-4 sm:p-6 space-y-3">
+            <h3 className="font-semibold text-slate-900 text-xs sm:text-sm mb-3">What You&apos;ll Get:</h3>
             <div className="space-y-2">
               {[
                 'Instant access to all 4 video sections',

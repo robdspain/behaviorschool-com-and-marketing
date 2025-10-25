@@ -66,11 +66,11 @@ export function QuizSection({
 
   if (isLocked) {
     return (
-      <div className="bg-slate-100 border-2 border-slate-200 rounded-2xl p-8 text-center">
+      <div className="bg-slate-100 border-2 border-slate-200 rounded-2xl p-6 sm:p-8 text-center">
         <div className="max-w-md mx-auto">
           <AlertCircle className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-slate-700 mb-2">Quiz Locked</h3>
-          <p className="text-slate-600">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-700 mb-2">Quiz Locked</h3>
+          <p className="text-sm sm:text-base text-slate-600">
             Complete the video above to unlock the quiz for this section.
           </p>
         </div>
@@ -80,15 +80,15 @@ export function QuizSection({
 
   if (isPassed && !showResults) {
     return (
-      <div className="bg-emerald-100 border-2 border-emerald-300 rounded-2xl p-8">
+      <div className="bg-emerald-100 border-2 border-emerald-300 rounded-2xl p-6 sm:p-8">
         <div className="max-w-2xl mx-auto">
-          <div className="flex items-start gap-4">
-            <CheckCircle className="w-8 h-8 text-emerald-600 flex-shrink-0" />
+          <div className="flex items-start gap-3 sm:gap-4">
+            <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-600 flex-shrink-0" />
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-emerald-900 mb-2">
+              <h3 className="text-lg sm:text-xl font-bold text-emerald-900 mb-2">
                 Quiz Passed!
               </h3>
-              <p className="text-emerald-700 mb-4">
+              <p className="text-sm sm:text-base text-emerald-700 mb-4">
                 You&apos;ve successfully completed this section. Great work!
               </p>
               {onNextSection && (
@@ -110,13 +110,13 @@ export function QuizSection({
   return (
     <div className="space-y-6">
       {/* Quiz Header */}
-      <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
+      <div className="bg-white border-2 border-slate-200 rounded-xl p-4 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">
               Section {sectionNumber} Quiz
             </h3>
-            <p className="text-slate-600">
+            <p className="text-sm sm:text-base text-slate-600">
               Answer all questions correctly to pass this section. You can retake the quiz as many times as needed.
             </p>
           </div>
@@ -144,7 +144,7 @@ export function QuizSection({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: qIndex * 0.1 }}
               className={`
-                bg-white border-2 rounded-xl p-6
+                bg-white border-2 rounded-xl p-4 sm:p-6
                 ${showFeedback
                   ? resultForQuestion.isCorrect
                     ? 'border-emerald-300 bg-emerald-50'
@@ -154,9 +154,9 @@ export function QuizSection({
               `}
             >
               {/* Question */}
-              <div className="flex items-start gap-3 mb-4">
+              <div className="flex items-start gap-2 sm:gap-3 mb-4">
                 <div className={`
-                  w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0
+                  w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm flex-shrink-0
                   ${showFeedback
                     ? resultForQuestion.isCorrect
                       ? 'bg-emerald-500 text-white'
@@ -166,21 +166,21 @@ export function QuizSection({
                 `}>
                   {showFeedback ? (
                     resultForQuestion.isCorrect ? (
-                      <CheckCircle className="w-5 h-5" />
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                     ) : (
-                      <XCircle className="w-5 h-5" />
+                      <XCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                     )
                   ) : (
                     qIndex + 1
                   )}
                 </div>
-                <p className="text-lg font-semibold text-slate-900 leading-relaxed">
+                <p className="text-base sm:text-lg font-semibold text-slate-900 leading-relaxed">
                   {question.question}
                 </p>
               </div>
 
               {/* Answer Options */}
-              <div className="space-y-3 ml-11">
+              <div className="space-y-3 ml-9 sm:ml-11">
                 {question.options.map((option, optIndex) => {
                   const isSelected = userAnswer === optIndex;
                   const isCorrect = optIndex === question.correctAnswer;
@@ -193,7 +193,7 @@ export function QuizSection({
                       onClick={() => !showResults && handleAnswerSelect(qIndex, optIndex)}
                       disabled={showResults}
                       className={`
-                        w-full text-left p-4 rounded-lg border-2 transition-all duration-200
+                        w-full text-left p-3 sm:p-4 rounded-lg border-2 transition-all duration-200
                         ${showCorrect
                           ? 'border-emerald-500 bg-emerald-100'
                           : showIncorrect
@@ -205,9 +205,9 @@ export function QuizSection({
                         ${showResults ? 'cursor-default' : 'cursor-pointer'}
                       `}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 sm:gap-3">
                         <div className={`
-                          w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0
+                          w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0
                           ${showCorrect
                             ? 'border-emerald-500 bg-emerald-500'
                             : showIncorrect

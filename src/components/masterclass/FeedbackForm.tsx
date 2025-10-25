@@ -51,16 +51,16 @@ export function FeedbackForm({ enrollmentId, onSuccess }: FeedbackFormProps) {
   const StarRating = ({ value, onChange, label }: { value: number; onChange: (v: number) => void; label: string }) => (
     <div className="space-y-2">
       <Label className="text-sm font-medium text-slate-700">{label}</Label>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
             type="button"
             onClick={() => onChange(star)}
-            className="focus:outline-none transition-transform hover:scale-110"
+            className="focus:outline-none transition-transform hover:scale-110 active:scale-95 p-1"
           >
             <Star
-              className={`w-8 h-8 ${
+              className={`w-7 h-7 sm:w-8 sm:h-8 ${
                 star <= value
                   ? 'fill-yellow-400 text-yellow-400'
                   : 'text-slate-300'
@@ -69,7 +69,7 @@ export function FeedbackForm({ enrollmentId, onSuccess }: FeedbackFormProps) {
           </button>
         ))}
         {value > 0 && (
-          <span className="ml-2 text-sm font-medium text-slate-600">
+          <span className="w-full sm:w-auto sm:ml-2 text-xs sm:text-sm font-medium text-slate-600">
             {value === 5 ? 'Excellent' : value === 4 ? 'Very Good' : value === 3 ? 'Good' : value === 2 ? 'Fair' : 'Needs Improvement'}
           </span>
         )}
@@ -114,11 +114,11 @@ export function FeedbackForm({ enrollmentId, onSuccess }: FeedbackFormProps) {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200 p-12 text-center"
+        className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200 p-6 sm:p-8 md:p-12 text-center"
       >
-        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Thank You!</h2>
-        <p className="text-slate-600">
+        <CheckCircle className="w-12 h-12 sm:w-16 sm:h-16 text-green-500 mx-auto mb-4" />
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Thank You!</h2>
+        <p className="text-sm sm:text-base text-slate-600">
           Your feedback has been submitted successfully. It helps us improve future courses.
         </p>
       </motion.div>
@@ -126,18 +126,18 @@ export function FeedbackForm({ enrollmentId, onSuccess }: FeedbackFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-slate-900 mb-2">Course Evaluation</h2>
-        <p className="text-slate-600">
+    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200 p-4 sm:p-6 md:p-8">
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Course Evaluation</h2>
+        <p className="text-sm sm:text-base text-slate-600">
           Your feedback helps us improve. Please take a moment to share your experience.
         </p>
       </div>
 
       <div className="space-y-8">
         {/* Overall Ratings */}
-        <div className="space-y-6">
-          <h3 className="text-xl font-bold text-slate-900 border-b pb-2">Overall Experience</h3>
+        <div className="space-y-4 sm:space-y-6">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 border-b pb-2">Overall Experience</h3>
 
           <StarRating
             label="Overall Satisfaction"
@@ -171,8 +171,8 @@ export function FeedbackForm({ enrollmentId, onSuccess }: FeedbackFormProps) {
         </div>
 
         {/* Section Ratings */}
-        <div className="space-y-6">
-          <h3 className="text-xl font-bold text-slate-900 border-b pb-2">Section Ratings</h3>
+        <div className="space-y-4 sm:space-y-6">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 border-b pb-2">Section Ratings</h3>
 
           <StarRating
             label="Section 1: Ethics in School-Based Practice"
@@ -201,7 +201,7 @@ export function FeedbackForm({ enrollmentId, onSuccess }: FeedbackFormProps) {
 
         {/* Learning Objectives */}
         <div className="space-y-4">
-          <h3 className="text-xl font-bold text-slate-900 border-b pb-2">Learning Objectives Achieved</h3>
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 border-b pb-2">Learning Objectives Achieved</h3>
           <p className="text-sm text-slate-600 mb-4">Select all that apply:</p>
 
           {[
@@ -224,7 +224,7 @@ export function FeedbackForm({ enrollmentId, onSuccess }: FeedbackFormProps) {
 
         {/* Application to Practice */}
         <div className="space-y-4">
-          <h3 className="text-xl font-bold text-slate-900 border-b pb-2">Application to Practice</h3>
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 border-b pb-2">Application to Practice</h3>
 
           {[
             { key: 'will_apply_immediately', label: 'I plan to apply what I learned immediately' },
@@ -244,8 +244,8 @@ export function FeedbackForm({ enrollmentId, onSuccess }: FeedbackFormProps) {
         </div>
 
         {/* Open-Ended Questions */}
-        <div className="space-y-6">
-          <h3 className="text-xl font-bold text-slate-900 border-b pb-2">Additional Feedback</h3>
+        <div className="space-y-4 sm:space-y-6">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 border-b pb-2">Additional Feedback</h3>
 
           <div>
             <Label htmlFor="most_valuable" className="text-sm font-medium text-slate-700 mb-2 block">

@@ -128,15 +128,15 @@ export function VideoSection({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-emerald-100 border-2 border-emerald-300 rounded-xl p-6"
+          className="bg-emerald-100 border-2 border-emerald-300 rounded-xl p-4 sm:p-6"
         >
           <div className="flex items-center gap-3">
-            <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0" />
+            <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
             <div>
-              <h3 className="font-semibold text-emerald-900 mb-1">
+              <h3 className="text-sm sm:text-base font-semibold text-emerald-900 mb-1">
                 Video Complete!
               </h3>
-              <p className="text-sm text-emerald-700">
+              <p className="text-xs sm:text-sm text-emerald-700">
                 Great work! Now scroll down to take the quiz for this section.
               </p>
             </div>
