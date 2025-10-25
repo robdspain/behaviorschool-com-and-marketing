@@ -174,6 +174,10 @@ const section4Quiz: QuizQuestion[] = [
 ];
 
 // Course sections configuration
+// VIDEO URL FORMATS SUPPORTED:
+// - Vimeo: https://vimeo.com/1050191710
+// - YouTube (public or unlisted): https://www.youtube.com/watch?v=dQw4w9WgXcQ or https://youtu.be/dQw4w9WgXcQ
+// - Descript: https://share.descript.com/view/pRq7F7QZWQC
 export const MASTERCLASS_COURSE: MasterclassCourse = {
   title: COURSE_METADATA.title,
   description: COURSE_METADATA.description,
@@ -185,7 +189,7 @@ export const MASTERCLASS_COURSE: MasterclassCourse = {
       id: 1,
       title: 'Ethics in School-Based Practice',
       description: 'Navigate ethical challenges while maintaining BACB compliance and building strong relationships with school administrators and staff.',
-      videoUrl: 'https://vimeo.com/1050191710', // Replace with your actual video URL
+      videoUrl: 'https://vimeo.com/1050191710', // Replace with Vimeo, YouTube, or Descript URL
       duration: '15 min',
       quiz: section1Quiz,
     },
@@ -193,7 +197,7 @@ export const MASTERCLASS_COURSE: MasterclassCourse = {
       id: 2,
       title: 'Building Teacher Buy-In',
       description: 'Master proven strategies to gain teacher collaboration, overcome resistance, and create a culture of shared ownership in behavior support.',
-      videoUrl: 'https://vimeo.com/1050191710', // Replace with your actual video URL
+      videoUrl: 'https://vimeo.com/1050191710', // Replace with Vimeo, YouTube, or Descript URL
       duration: '15 min',
       quiz: section2Quiz,
     },
@@ -201,7 +205,7 @@ export const MASTERCLASS_COURSE: MasterclassCourse = {
       id: 3,
       title: 'Data-Driven Decision Making',
       description: 'Implement simple, sustainable data systems that inform instruction and demonstrate student progress without overwhelming staff.',
-      videoUrl: 'https://vimeo.com/1050191710', // Replace with your actual video URL
+      videoUrl: 'https://vimeo.com/1050191710', // Replace with Vimeo, YouTube, or Descript URL
       duration: '15 min',
       quiz: section3Quiz,
     },
@@ -209,7 +213,7 @@ export const MASTERCLASS_COURSE: MasterclassCourse = {
       id: 4,
       title: 'Crisis Management Protocols',
       description: 'Develop clear, trauma-informed crisis response protocols that keep students and staff safe while maintaining dignity and learning opportunities.',
-      videoUrl: 'https://vimeo.com/1050191710', // Replace with your actual video URL
+      videoUrl: 'https://vimeo.com/1050191710', // Replace with Vimeo, YouTube, or Descript URL
       duration: '15 min',
       quiz: section4Quiz,
     },

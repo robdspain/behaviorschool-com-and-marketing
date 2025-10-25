@@ -24,13 +24,38 @@ export function VideoSection({
 }: VideoSectionProps) {
   const [isMarking, setIsMarking] = useState(false);
 
-  // Extract Vimeo video ID from URL
-  const getVimeoId = (url: string): string => {
-    const match = url.match(/vimeo\.com\/(\d+)/);
-    return match ? match[1] : '';
+  // Detect video platform and extract relevant info
+  const getVideoEmbedInfo = (url: string) => {
+    // Descript share links
+    if (url.includes('share.descript.com')) {
+      return {
+        platform: 'descript',
+        embedUrl: url,
+      };
+    }
+
+    // YouTube (works for both public and unlisted)
+    const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/);
+    if (youtubeMatch) {
+      return {
+        platform: 'youtube',
+        embedUrl: `https://www.youtube.com/embed/${youtubeMatch[1]}`,
+      };
+    }
+
+    // Vimeo
+    const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+    if (vimeoMatch) {
+      return {
+        platform: 'vimeo',
+        embedUrl: `https://player.vimeo.com/video/${vimeoMatch[1]}?badge=0&autopause=0&player_id=0&app_id=58479`,
+      };
+    }
+
+    return null;
   };
 
-  const vimeoId = getVimeoId(videoUrl);
+  const videoInfo = getVideoEmbedInfo(videoUrl);
 
   const handleMarkComplete = async () => {
     setIsMarking(true);
@@ -64,13 +89,14 @@ export function VideoSection({
 
       {/* Video Player */}
       <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl">
-        {vimeoId ? (
+        {videoInfo ? (
           <div className="relative" style={{ paddingBottom: '56.25%' }}>
             <iframe
-              src={`https://player.vimeo.com/video/${vimeoId}?badge=0&autopause=0&player_id=0&app_id=58479`}
+              src={videoInfo.embedUrl}
               className="absolute top-0 left-0 w-full h-full"
               frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+              allowFullScreen
               title={title}
             />
           </div>
@@ -80,7 +106,7 @@ export function VideoSection({
             <div className="text-center text-slate-400">
               <Play className="w-16 h-16 mx-auto mb-3" />
               <p className="text-sm">Video will be loaded here</p>
-              <p className="text-xs mt-1">Configure video URL in course settings</p>
+              <p className="text-xs mt-1">Supported: Vimeo, YouTube, or Descript share links</p>
             </div>
           </div>
         )}
