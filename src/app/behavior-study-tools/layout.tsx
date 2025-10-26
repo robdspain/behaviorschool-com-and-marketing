@@ -115,14 +115,30 @@ export default function BehaviorStudyToolsLayout({
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
       url: `${SITE_URL}/behavior-study-tools`,
-      priceValidUntil: "2026-12-31"
+      priceValidUntil: "2026-12-31",
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "US",
+        "returnPolicyCategory": "https://schema.org/NoReturns"
+      },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "USD"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "US"
+        },
+        "doesNotShip": true
+      }
     },
     category: "Educational Software",
     audience: {
       "@type": "PeopleAudience",
-      suggestedMinAge: 22,
-      requiredGender: null,
-      suggestedGender: null
+      suggestedMinAge: 22
     },
     isRelatedTo: {
       "@type": "Course",

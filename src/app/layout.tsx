@@ -226,24 +226,34 @@ export default function RootLayout({
       itemListElement: [
         {
           "@type": "Offer",
-          name: "BCBA Exam Prep & Practice Tests",
-          image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
           itemOffered: {
-            "@type": "Service",
+            "@type": "Product",
             name: "BCBA Exam Prep & Practice Tests",
-            description: "Comprehensive BCBA exam preparation with AI-powered practice questions, study materials, and mock exams designed specifically for behavior analysts.",
-            image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
+            description: "AI-powered BCBA exam preparation, BCBA practice exams, BCBA study materials, and free BCBA practice tests",
+            url: `${SITE_URL}/behavior-study-tools`,
+            image: `${SITE_URL}/optimized/hero-thumb.webp`, // Generic image
             provider: {
               "@type": "Organization",
               name: "Behavior School"
-            },
-            areaServed: "Worldwide",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/behavior-study-tools`,
-              serviceSmsNumber: null,
-              servicePhone: null
             }
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "US",
+            "returnPolicyCategory": "https://schema.org/NoReturns"
+          },
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0",
+              "currency": "USD"
+            },
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "US"
+            },
+            "doesNotShip": true
           }
         },
         {
@@ -251,45 +261,65 @@ export default function RootLayout({
           name: "BCBA Supervision Tools & Training",
           image: `${SITE_URL}/Supervision/Supervision1.webp`,
           itemOffered: {
-            "@type": "Service",
-            name: "BCBA Supervision Tools & Training",
-            description: "Digital tools and training for BCBA supervisors including fieldwork tracking, competency assessments, and supervision workflows for behavior analysts.",
-            image: `${SITE_URL}/Supervision/Supervision1.webp`,
+            "@type": "Product",
+            name: "BCBA Supervision Tools",
+            description: "Track BCBA fieldwork hours, BCBA supervision log, competency assessments, and supervision workflows",
+            url: `${SITE_URL}/supervisors`,
+            image: `${SITE_URL}/thumbnails/supervision-thumb.webp`, // Generic image
             provider: {
               "@type": "Organization",
               name: "Behavior School"
-            },
-            areaServed: "Worldwide",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/supervisors`,
-              serviceSmsNumber: null,
-              servicePhone: null
             }
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "US",
+            "returnPolicyCategory": "https://schema.org/NoReturns"
+          },
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0",
+              "currency": "USD"
+            },
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "US"
+            },
+            "doesNotShip": true
           }
         },
         {
           "@type": "Offer",
-          name: "School BCBA Transformation System",
-          image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
           itemOffered: {
-            "@type": "Course",
-            name: "School BCBA Transformation System",
-            description: "8-week intensive training program for school-based BCBAs to master ethical leadership, crisis management, teacher collaboration, and school-wide behavior support implementation.",
-            image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
+            "@type": "Product",
+            name: "School BCBA Training Program",
+            description: "8-week cohort-based program for school BCBAs to reduce burnout, master crisis management in schools, build teacher buy-in for behavior plans, and implement school-wide behavior support systems",
+            url: `${SITE_URL}/transformation-program`,
+            image: `${SITE_URL}/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp`, // Generic image
             provider: {
               "@type": "Organization",
               name: "Behavior School"
-            },
-            courseMode: "online",
-            educationalCredentialAwarded: "Certificate of Completion",
-            timeRequired: "P8W",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/transformation-program`,
-              serviceSmsNumber: null,
-              servicePhone: null
             }
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "US",
+            "returnPolicyCategory": "https://schema.org/NoReturns"
+          },
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0",
+              "currency": "USD"
+            },
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "US"
+            },
+            "doesNotShip": true
           }
         },
         {
@@ -297,43 +327,65 @@ export default function RootLayout({
           name: "IEP Goal Writing Tools",
           image: `${SITE_URL}/IEP-Goal/IEP-Goal-Writing.webp`,
           itemOffered: {
-            "@type": "Service",
-            name: "IEP Goal Writing Tools",
-            description: "Professional tools for writing measurable IEP goals, behavior goals, and SMART IEP objectives for students with behavioral needs in educational settings.",
-            image: `${SITE_URL}/IEP-Goal/IEP-Goal-Writing.webp`,
+            "@type": "Product",
+            name: "IEP Goal Writing",
+            description: "Write measurable IEP goals, behavior IEP goals, and SMART IEP goals for students with autism, ADHD, and behavioral challenges",
+            url: `${SITE_URL}/iep-goals`,
+            image: `${SITE_URL}/thumbnails/iep-goal-thumb.webp`, // Generic image
             provider: {
               "@type": "Organization",
               name: "Behavior School"
-            },
-            areaServed: "United States",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/iep-goals`,
-              serviceSmsNumber: null,
-              servicePhone: null
             }
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "US",
+            "returnPolicyCategory": "https://schema.org/NoReturns"
+          },
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0",
+              "currency": "USD"
+            },
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "US"
+            },
+            "doesNotShip": true
           }
         },
         {
           "@type": "Offer",
-          name: "Behavior Intervention Plan Development",
-          image: `${SITE_URL}/optimized/BIP-Writer/BIP-Writer-Team.webp`,
           itemOffered: {
-            "@type": "Service",
-            name: "Behavior Intervention Plan Development",
-            description: "Templates, tools, and training for developing comprehensive behavior intervention plans (BIPs) based on functional behavior assessments in school settings.",
-            image: `${SITE_URL}/optimized/BIP-Writer/BIP-Writer-Team.webp`,
+            "@type": "Product",
+            name: "Behavior Intervention Plans",
+            description: "Behavior intervention plan templates, behavior support plans, and tools to write BIPs from functional behavior assessments in schools",
+            url: `${SITE_URL}/behavior-plans`,
+            image: `${SITE_URL}/thumbnails/bip-writer-thumb.webp`, // Generic image
             provider: {
               "@type": "Organization",
               name: "Behavior School"
-            },
-            areaServed: "United States",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/behavior-plans`,
-              serviceSmsNumber: null,
-              servicePhone: null
             }
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "US",
+            "returnPolicyCategory": "https://schema.org/NoReturns"
+          },
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0",
+              "currency": "USD"
+            },
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "US"
+            },
+            "doesNotShip": true
           }
         }
       ]
