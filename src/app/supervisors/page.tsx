@@ -659,7 +659,7 @@ export default function SupervisorsPage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <div className="text-3xl font-black text-white mb-2">Early 2025</div>
+                <div className="text-3xl font-black text-white mb-2">Early 2026</div>
                 <div className="text-emerald-200 text-lg">Enhanced Tools Beta</div>
               </motion.div>
 
@@ -706,7 +706,7 @@ export default function SupervisorsPage() {
               {[
                 {
                   q: "When will enhanced supervision tools be available?",
-                  a: "We are opening early access in waves starting early 2025. Current study platform users get priority access. Join the waitlist to secure your spot for premium supervision features."
+                  a: "We are opening early access in waves starting early 2026. Current study platform users get priority access. Join the waitlist to secure your spot for premium supervision features."
                 },
                 {
                   q: "What supervision features are available right now?",
@@ -722,7 +722,7 @@ export default function SupervisorsPage() {
                 },
                 {
                   q: "Does the platform support both RBT and BCaBA supervision?",
-                  a: "Yes. Our supervision platform is designed for all levels of behavior analyst supervision, including RBT supervision by BCBAs, BCaBA supervision, and BCBA-to-BCBA mentoring relationships with appropriate competency frameworks for each level."
+                  a: "Not yet. Support for both RBT and BCaBA supervision is coming soon. Our supervision platform will be designed for all levels of behavior analyst supervision, including RBT supervision by BCBAs, BCaBA supervision, and BCBA-to-BCBA mentoring relationships with appropriate competency frameworks for each level."
                 }
               ].map((item, index) => (
                 <AccordionItem key={index} value={`q${index + 1}`} className="bg-white rounded-2xl border-0 px-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -761,7 +761,7 @@ export default function SupervisorsPage() {
                 "name": "When will enhanced supervision tools be available?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "We are opening early access in waves starting early 2025. Current study platform users get priority access. Join the waitlist to secure your spot for premium supervision features."
+                  "text": "We are opening early access in waves starting early 2026. Current study platform users get priority access. Join the waitlist to secure your spot for premium supervision features."
                 }
               },
               {
@@ -793,7 +793,7 @@ export default function SupervisorsPage() {
                 "name": "Does the platform support both RBT and BCaBA supervision?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. Our supervision platform is designed for all levels of behavior analyst supervision, including RBT supervision by BCBAs, BCaBA supervision, and BCBA-to-BCBA mentoring relationships with appropriate competency frameworks for each level."
+                  "text": "Not yet. Support for both RBT and BCaBA supervision is coming soon. Our supervision platform will be designed for all levels of behavior analyst supervision, including RBT supervision by BCBAs, BCaBA supervision, and BCBA-to-BCBA mentoring relationships with appropriate competency frameworks for each level."
                 }
               }
             ]

@@ -37,7 +37,7 @@ export default function AdminSitemapPage() {
   const router = useRouter()
 
   useEffect(() => {
-    document.title = 'Admin Sitemap | Behavior School Admin'
+    document.title = 'Site Map | Behavior School Admin'
 
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession()
@@ -55,96 +55,239 @@ export default function AdminSitemapPage() {
 
   const sections: PageSection[] = [
     {
-      title: 'Overview',
+      title: 'Core Pages',
       icon: <LayoutDashboard className="w-6 h-6" />,
       pages: [
         {
-          name: 'Dashboard',
-          path: '/admin',
-          description: 'Main dashboard with recent activity, stats, and quick actions'
+          name: 'Homepage',
+          path: '/',
+          description: 'Main landing page for Behavior School'
         },
         {
-          name: 'Analytics',
-          path: '/admin/analytics',
-          description: 'Traffic, conversion metrics, and performance analytics'
+          name: 'Products',
+          path: '/products',
+          description: 'Overview of all products and services'
+        },
+        {
+          name: 'Community',
+          path: '/community',
+          description: 'Community and connection resources'
+        },
+        {
+          name: 'About',
+          path: '/about',
+          description: 'About Behavior School and our mission'
+        },
+        {
+          name: 'Contact',
+          path: '/contact',
+          description: 'Contact form and information'
         }
       ]
     },
     {
-      title: 'User Management',
+      title: 'BCBA Study & Exam Prep',
+      icon: <BarChart3 className="w-6 h-6" />,
+      pages: [
+        {
+          name: 'BCBA Exam Prep',
+          path: '/bcba-exam-prep',
+          description: 'Comprehensive BCBA exam preparation resources'
+        },
+        {
+          name: 'BCBA Study Tools',
+          path: '/bcba-study-tools',
+          description: 'Study tools and resources for BCBA candidates'
+        },
+        {
+          name: 'Behavior Study Tools',
+          path: '/behavior-study-tools',
+          description: 'Interactive study tools platform'
+        },
+        {
+          name: 'BCBA Practice Exam',
+          path: '/bcba-practice-exam',
+          description: 'Full-length BCBA practice examination'
+        },
+        {
+          name: 'Free BCBA Practice Exam',
+          path: '/free-bcba-practice-exam',
+          description: 'Free practice exam for BCBA candidates'
+        },
+        {
+          name: 'BCBA Mock Practice Test',
+          path: '/bcba-mock-practice-test',
+          description: 'Realistic mock practice test'
+        },
+        {
+          name: 'Free Mock Practice Test',
+          path: '/free-bcba-mock-practice-test',
+          description: 'Free mock practice test for BCBA exam'
+        },
+        {
+          name: 'Study Platform',
+          path: '/study',
+          description: 'Main study platform and tools hub'
+        }
+      ]
+    },
+    {
+      title: 'School-Based BCBA',
       icon: <Users className="w-6 h-6" />,
       pages: [
         {
-          name: 'Signup Submissions',
-          path: '/admin/submissions',
-          description: 'View and manage transformation program signup submissions'
+          name: 'School BCBA Hub',
+          path: '/school-bcba',
+          description: 'Main hub for school-based BCBA resources'
         },
         {
-          name: 'Checkout Access',
-          path: '/admin/checkout-access',
-          description: 'Manage checkout page access and passwords'
-        }
-      ]
-    },
-    {
-      title: 'Email & Communications',
-      icon: <Mail className="w-6 h-6" />,
-      pages: [
+          name: 'School BCBA vs School-Based BCBA',
+          path: '/school-bcba/vs-school-based-bcba',
+          description: 'Understanding the difference between roles'
+        },
         {
-          name: 'Email Templates',
-          path: '/admin/email-templates',
-          description: 'Create and edit automated email templates'
+          name: 'School BCBA Job Guide',
+          path: '/school-bcba/job-guide',
+          description: 'Complete guide to school BCBA positions'
+        },
+        {
+          name: 'School BCBA Job Guide 2025',
+          path: '/school-bcba/job-guide-2025',
+          description: 'Updated 2025 school BCBA job guide'
+        },
+        {
+          name: 'School BCBA Salary by State',
+          path: '/school-bcba/salary-by-state',
+          description: 'State-by-state salary information'
+        },
+        {
+          name: 'How to Become a School BCBA',
+          path: '/school-bcba/how-to-become',
+          description: 'Step-by-step guide to becoming a school BCBA'
+        },
+        {
+          name: 'School-Based BCBA',
+          path: '/school-based-bcba',
+          description: 'Resources for school-based BCBAs'
+        },
+        {
+          name: 'School-Based Behavior Support',
+          path: '/school-based-behavior-support',
+          description: 'Behavior support strategies for schools'
         }
       ]
     },
     {
-      title: 'Content Management',
+      title: 'IEP & Behavior Tools',
       icon: <FileText className="w-6 h-6" />,
       pages: [
         {
-          name: 'Blog Posts',
-          path: '/admin/content',
-          description: 'View all blog posts from Ghost CMS'
+          name: 'IEP Goals',
+          path: '/iep-goals',
+          description: 'IEP goal writing tools and resources'
         },
         {
-          name: 'Blog Editor',
-          path: '/admin/blog/editor',
-          description: 'Create and edit blog posts with Ghost Admin API'
+          name: 'IEP Behavior Goals',
+          path: '/iep-behavior-goals',
+          description: 'Behavior-specific IEP goal tools'
+        },
+        {
+          name: 'IEP Goal Quality Checker',
+          path: '/iep-goal-qualitychecker',
+          description: 'Tool to check quality of IEP goals'
+        },
+        {
+          name: 'Behavior Plans',
+          path: '/behavior-plans',
+          description: 'Behavior intervention plan resources'
         }
       ]
     },
     {
-      title: 'Settings',
-      icon: <Settings className="w-6 h-6" />,
+      title: 'ACT Matrix & Resources',
+      icon: <Layers className="w-6 h-6" />,
       pages: [
         {
-          name: 'Payment Page',
-          path: '/admin/payment-page',
-          description: 'Configure payment page settings'
+          name: 'ACT Matrix',
+          path: '/act-matrix',
+          description: 'ACT Matrix tool and resources'
+        },
+        {
+          name: 'ACT Matrix Framework for BCBAs',
+          path: '/the-act-matrix-a-framework-for-school-based-bcbas',
+          description: 'Detailed framework guide for school-based BCBAs'
+        },
+        {
+          name: 'ACT Matrix Schools Hub',
+          path: '/act-matrix-schools-hub',
+          description: 'Hub for school-focused ACT Matrix resources'
+        },
+        {
+          name: 'ACT Activities for K-12',
+          path: '/act-activities-k12-students',
+          description: 'K-12 student ACT activities'
+        },
+        {
+          name: 'ACT Implementation Challenges',
+          path: '/act-implementation-challenges-solutions',
+          description: 'Solutions to common implementation challenges'
+        },
+        {
+          name: 'Age-Appropriate ACT Metaphors',
+          path: '/age-appropriate-act-metaphors',
+          description: 'Age-appropriate metaphors for ACT concepts'
+        },
+        {
+          name: 'Resources',
+          path: '/resources',
+          description: 'General resources and downloads'
         }
       ]
     },
     {
-      title: 'External Resources',
-      icon: <ExternalLink className="w-6 h-6" />,
+      title: 'Programs & Content',
+      icon: <Mail className="w-6 h-6" />,
       pages: [
         {
-          name: 'Ghost CMS Admin',
-          path: 'https://ghost.behaviorschool.com/ghost/',
-          description: 'Access Ghost CMS admin interface directly',
-          external: true
+          name: 'Transformation Program',
+          path: '/transformation-program',
+          description: 'Professional transformation program'
         },
         {
-          name: 'Supabase Dashboard',
-          path: 'https://supabase.com/dashboard',
-          description: 'Manage database, authentication, and storage',
-          external: true
+          name: 'Supervisors',
+          path: '/supervisors',
+          description: 'BCBA supervision platform and tools'
         },
         {
-          name: 'Netlify Dashboard',
-          path: 'https://app.netlify.com',
-          description: 'View deployments and site configuration',
-          external: true
+          name: 'Blog',
+          path: '/blog',
+          description: 'Blog posts and articles'
+        },
+        {
+          name: 'Signup',
+          path: '/signup',
+          description: 'Signup form for programs'
+        },
+        {
+          name: 'Subscribe',
+          path: '/subscribe',
+          description: 'Newsletter subscription'
+        }
+      ]
+    },
+    {
+      title: 'Legal & Policies',
+      icon: <Lock className="w-6 h-6" />,
+      pages: [
+        {
+          name: 'Privacy Policy',
+          path: '/privacy',
+          description: 'Privacy policy and data protection information'
+        },
+        {
+          name: 'Terms of Service',
+          path: '/terms',
+          description: 'Terms of service and usage policies'
         }
       ]
     }
@@ -174,10 +317,10 @@ export default function AdminSitemapPage() {
             <div>
               <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
                 <Layers className="w-8 h-8 text-emerald-600" />
-                Admin Sitemap
+                Site Map
               </h1>
               <p className="text-base text-slate-600 mt-1">
-                Quick access to all admin pages
+                Quick access to all user-facing pages
               </p>
             </div>
             <Link

@@ -36,8 +36,7 @@ const navigation: NavItem[] = [
   { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
   { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-  { name: "Content", href: "/admin/content", icon: FileText },
-  { name: "Blog Editor", href: "/admin/blog/editor", icon: FileText },
+  { name: "Blog", href: "/admin/content", icon: FileText },
   { name: "Sitemap", href: "/admin/sitemap", icon: Layers },
 ];
 
