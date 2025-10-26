@@ -373,6 +373,8 @@ FROM masterclass_enrollments e
 LEFT JOIN masterclass_progress p ON e.id = p.enrollment_id
 GROUP BY e.id;
 
+ALTER VIEW masterclass_enrollment_overview SET (security_invoker = true);
+
 -- View: Quiz performance by section
 CREATE OR REPLACE VIEW masterclass_quiz_performance AS
 SELECT
@@ -385,6 +387,8 @@ FROM masterclass_progress
 WHERE quiz_total IS NOT NULL
 GROUP BY section_number
 ORDER BY section_number;
+
+ALTER VIEW masterclass_quiz_performance SET (security_invoker = true);
 
 -- ============================================================================
 -- COMMENTS: Add descriptions to tables and columns
