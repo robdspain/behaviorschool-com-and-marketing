@@ -93,12 +93,21 @@ export function ProductsClient() {
 
                 <div className="mt-2 space-y-2">
                   <Link
-                    href="/free-bcba-practice-exam"
+                    href="/free-bcba-mock-practice-test"
                     className="inline-flex items-center text-emerald-700 hover:text-emerald-800 font-semibold"
                   >
-                    Free BCBA Practice Exam (10 Questions)
+                    Free BCBA Mock Exam (185 Questions)
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
+                  <div>
+                    <Link
+                      href="/study"
+                      className="inline-flex items-center text-emerald-700 hover:text-emerald-800 font-semibold"
+                    >
+                      AI-Powered Study Platform
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </div>
                   <div>
                     <Link
                       href="/bcba-exam-prep"

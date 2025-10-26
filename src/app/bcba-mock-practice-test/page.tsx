@@ -299,7 +299,7 @@ export default function BCBAMockPracticeTestPage() {
                 Where can I find free BCBA mock exams?
               </h3>
               <p className="text-slate-700 leading-relaxed mb-4">
-                Behavior School offers <strong>completely free BCBA mock exams</strong> with no signup required. Our platform includes:
+                Behavior School offers <Link href="https://ghost.behaviorschool.com/free-bcba-practice-test-ai-powered-exam-prep" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-800 font-semibold">completely free BCBA mock exams</Link> with no signup required. Our platform includes:
               </p>
               <ul className="space-y-2 text-slate-700 mb-4">
                 <li className="flex items-start gap-2">
