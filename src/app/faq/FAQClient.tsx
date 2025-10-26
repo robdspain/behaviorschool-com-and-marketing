@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 interface FAQItem {
   question: string;
-  answer: string | JSX.Element;
+  answer: string | ReactNode;
 }
 
 interface FAQCategory {
