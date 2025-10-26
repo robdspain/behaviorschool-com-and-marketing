@@ -381,6 +381,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/author/robspain/behavior-study-tools',
+        destination: '/behavior-study-tools',
+        permanent: true,
+      },
+      {
         source: '/:slug/ghost',
         destination: '/blog/:slug',
         permanent: true,
