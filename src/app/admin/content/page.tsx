@@ -161,8 +161,10 @@ export default function ContentPage() {
         {/* Quick Edit by URL/Slug + Filters */}
         <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Edit by URL/Slug */}
-            <EditBySlug />
+            {/* Quick Edit prominent across full row */}
+            <div className="md:col-span-3">
+              <EditBySlug />
+            </div>
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -333,7 +335,7 @@ export default function ContentPage() {
 function EditBySlug() {
   const [value, setValue] = useState("")
   const router = useRouter()
-  const placeholder = "Paste blog URL or type slug (e.g. act-matrix...)"
+  const placeholder = "Paste blog URL or enter slug (e.g., act-matrix...)"
 
   function extractSlug(input: string): string | null {
     try {
@@ -367,20 +369,23 @@ function EditBySlug() {
   }
 
   return (
-    <div className="flex gap-2">
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder={placeholder}
-        className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
-      />
-      <button
-        onClick={go}
-        className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
-      >
-        Edit
-      </button>
+    <div>
+      <label className="block text-sm font-semibold text-slate-700 mb-2">Quick Edit by URL/Slug</label>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
+          className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+        />
+        <button
+          onClick={go}
+          className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors whitespace-nowrap"
+        >
+          Open Editor
+        </button>
+      </div>
     </div>
   )
 }
