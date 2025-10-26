@@ -50,20 +50,12 @@ export default function MasterclassAdminPage() {
 
   const managementCards = [
     {
-      title: 'Course Sections',
-      description: 'Manage section titles, descriptions, and video URLs',
+      title: 'Design Course',
+      description: 'Organize sections and questions with drag & drop',
       icon: Video,
-      href: '/admin/masterclass/sections',
+      href: '/admin/masterclass/design',
       color: 'emerald',
-      stat: stats ? `${stats.totalSections} sections` : '...',
-    },
-    {
-      title: 'Quiz Questions',
-      description: 'Create and edit quiz questions for each section',
-      icon: HelpCircle,
-      href: '/admin/masterclass/questions',
-      color: 'blue',
-      stat: stats ? `${stats.totalQuestions} questions` : '...',
+      stat: stats ? `${stats.totalSections} sections, ${stats.totalQuestions} questions` : '...',
     },
     {
       title: 'Certificate Settings',
@@ -188,7 +180,7 @@ export default function MasterclassAdminPage() {
         {/* Management Cards */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Manage Course Content</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {managementCards.map((card) => {
               const Icon = card.icon;
               const colorClasses = {
@@ -256,17 +248,11 @@ export default function MasterclassAdminPage() {
         {/* Quick Actions */}
         <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
           <h3 className="text-xl font-bold text-slate-900 mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link href="/admin/masterclass/sections">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link href="/admin/masterclass/design">
               <Button variant="outline" className="w-full justify-start">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Section
-              </Button>
-            </Link>
-            <Link href="/admin/masterclass/questions">
-              <Button variant="outline" className="w-full justify-start">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Question
+                <Video className="w-4 h-4 mr-2" />
+                Design Course
               </Button>
             </Link>
             <Link href="/admin/masterclass/certificate">
