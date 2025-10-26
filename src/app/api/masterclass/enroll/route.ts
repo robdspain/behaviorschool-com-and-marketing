@@ -1,176 +1,126 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createEnrollment, getEnrollmentByEmail } from '@/lib/masterclass/queries';
-import type { EnrollmentFormData } from '@/lib/masterclass/types';
+import { createClient } from '@/lib/supabase-server';
 
 /**
  * POST /api/masterclass/enroll
  *
- * Creates a new masterclass enrollment or returns existing enrollment
+ * Creates a new masterclass enrollment for authenticated user
  */
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json() as EnrollmentFormData;
+    const supabase = await createClient();
 
-    // Validate required fields
-    if (!body.email || !body.name || !body.bacbCertNumber) {
+    // Get authenticated user
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
       return NextResponse.json(
-        {
-          success: false,
-          error: 'Missing required fields: email, name, and BACB certification number are required',
-        },
+        { error: 'Unauthorized. Please sign in first.' },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json();
+    const { name, bacbCertNumber } = body;
+
+    // Validation
+    if (!name || !name.trim() || name.trim().length < 2) {
+      return NextResponse.json(
+        { error: 'Full name is required' },
         { status: 400 }
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    if (!emailRegex.test(body.email)) {
+    if (!bacbCertNumber || !bacbCertNumber.trim() || bacbCertNumber.trim().length < 3) {
       return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid email address format',
-        },
+        { error: 'Valid BACB certification number is required' },
         { status: 400 }
       );
     }
 
-    // Sanitize inputs
-    const enrollmentData: EnrollmentFormData = {
-      email: body.email.toLowerCase().trim(),
-      name: body.name.trim(),
-      bacbCertNumber: body.bacbCertNumber.trim(),
-    };
-
-    // Check if user already exists
-    const existingEnrollment = await getEnrollmentByEmail(enrollmentData.email);
+    // Check if user already enrolled
+    const { data: existingEnrollment } = await supabase
+      .from('masterclass_enrollments')
+      .select('id')
+      .eq('user_id', user.id)
+      .single();
 
     if (existingEnrollment) {
-      // User already enrolled, return their enrollment ID
-      // Frontend can redirect them to continue their course
       return NextResponse.json(
         {
           success: true,
-          message: 'Welcome back! Redirecting to your course...',
-          data: {
-            enrollmentId: existingEnrollment.id,
-            email: existingEnrollment.email,
-            name: existingEnrollment.name,
-            existing: true,
-          },
-        },
-        { status: 409 } // 409 Conflict - user exists
-      );
-    }
-
-    // Create new enrollment
-    const enrollment = await createEnrollment(enrollmentData);
-
-    // Return success with enrollment ID
-    return NextResponse.json(
-      {
-        success: true,
-        message: 'Enrollment successful! Welcome to the masterclass.',
-        data: {
-          enrollmentId: enrollment.id,
-          email: enrollment.email,
-          name: enrollment.name,
-          existing: false,
-        },
-      },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error('Enrollment API error:', error);
-
-    // Handle specific error types
-    if (error instanceof Error) {
-      if (error.message.includes('already exists')) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'An account with this email already exists. Please use the login option.',
-          },
-          { status: 409 }
-        );
-      }
-
-      if (error.message.includes('database')) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'Database error. Please try again later.',
-          },
-          { status: 500 }
-        );
-      }
-    }
-
-    // Generic error response
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'An unexpected error occurred. Please try again.',
-      },
-      { status: 500 }
-    );
-  }
-}
-
-/**
- * GET /api/masterclass/enroll?email=xxx
- *
- * Check if an email is already enrolled
- */
-export async function GET(request: NextRequest) {
-  try {
-    const searchParams = request.nextUrl.searchParams;
-    const email = searchParams.get('email');
-
-    if (!email) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Email parameter is required',
-        },
-        { status: 400 }
-      );
-    }
-
-    const enrollment = await getEnrollmentByEmail(email);
-
-    if (!enrollment) {
-      return NextResponse.json(
-        {
-          success: true,
-          data: {
-            enrolled: false,
-          },
+          enrollmentId: existingEnrollment.id,
+          message: 'Already enrolled',
         },
         { status: 200 }
       );
     }
 
-    return NextResponse.json(
-      {
-        success: true,
-        data: {
-          enrolled: true,
-          enrollmentId: enrollment.id,
-          name: enrollment.name,
-          createdAt: enrollment.created_at,
-          completed: !!enrollment.completed_at,
+    // Create new enrollment
+    const { data: enrollment, error: enrollmentError } = await supabase
+      .from('masterclass_enrollments')
+      .insert({
+        user_id: user.id,
+        email: user.email!,
+        name: name.trim(),
+        bacb_cert_number: bacbCertNumber.trim(),
+        created_at: new Date().toISOString(),
+        last_accessed_at: new Date().toISOString(),
+      })
+      .select('id')
+      .single();
+
+    if (enrollmentError) {
+      console.error('Enrollment error:', enrollmentError);
+      return NextResponse.json(
+        { error: 'Failed to create enrollment' },
+        { status: 500 }
+      );
+    }
+
+    // Initialize progress records for all 4 sections
+    const progressRecords = [1, 2, 3, 4].map(section => ({
+      enrollment_id: enrollment.id,
+      section_number: section,
+      video_completed: false,
+      video_watched_percentage: 0,
+      quiz_attempts: 0,
+      quiz_passed: false,
+    }));
+
+    const { error: progressError } = await supabase
+      .from('masterclass_progress')
+      .insert(progressRecords);
+
+    if (progressError) {
+      console.error('Progress initialization error:', progressError);
+      // Continue anyway, progress can be created on-demand
+    }
+
+    // Log analytics event
+    await supabase
+      .from('masterclass_analytics_events')
+      .insert({
+        enrollment_id: enrollment.id,
+        event_type: 'enrollment_complete',
+        event_data: {
+          user_id: user.id,
+          email: user.email,
         },
-      },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Enrollment check API error:', error);
+      });
 
     return NextResponse.json(
       {
-        success: false,
-        error: 'Failed to check enrollment status',
+        success: true,
+        enrollmentId: enrollment.id,
+        message: 'Enrollment successful',
       },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error('Enrollment API error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }
