@@ -47,6 +47,38 @@ function BlogEditorContent() {
   const postSlugParam = searchParams.get('slug')
   const supabase = createClient()
 
+  // Helper function to transform Ghost URLs to use our media proxy
+  const transformGhostImageUrl = (url: string | null | undefined): string => {
+    if (!url) return '';
+
+    // If it's a Ghost-hosted image, transform to use our proxy
+    // Ghost returns: https://ghost.behaviorschool.com/content/images/...
+    // We need: /media/ghost/content/images/...
+    if (url.includes('/content/images/')) {
+      const pathMatch = url.match(/\/content\/images\/.+$/);
+      if (pathMatch) {
+        return `/media/ghost${pathMatch[0]}`;
+      }
+    }
+
+    return url;
+  }
+
+  // Helper function to transform proxy URLs back to Ghost URLs for saving
+  const transformToGhostUrl = (url: string | null | undefined): string => {
+    if (!url) return '';
+
+    // If it's our proxy URL, transform it back to Ghost URL
+    // We have: /media/ghost/content/images/...
+    // Ghost needs: https://ghost.behaviorschool.com/content/images/...
+    if (url.startsWith('/media/ghost/content/images/')) {
+      const ghostBase = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL?.replace('/ghost/api/content', '') || 'https://ghost.behaviorschool.com';
+      return url.replace('/media/ghost', ghostBase);
+    }
+
+    return url;
+  }
+
   const [post, setPost] = useState<Post>({
     title: '',
     slug: '',
@@ -194,8 +226,8 @@ function BlogEditorContent() {
 
       const result = await response.json()
       if (result.success && result.images && result.images[0]) {
-        const imageUrl = result.images[0].url
-        
+        const imageUrl = transformGhostImageUrl(result.images[0].url)
+
         // If editing an existing post, we need to refetch to get the latest updated_at
         // Ghost updates the post internally when an image is uploaded
         if (postId) {
@@ -269,7 +301,7 @@ function BlogEditorContent() {
           slug: result.post.slug || '',
           html: result.post.html || '',
           excerpt: result.post.excerpt || '',
-          feature_image: result.post.feature_image || '',
+          feature_image: transformGhostImageUrl(result.post.feature_image),
           featured: result.post.featured || false,
           status: result.post.status || 'draft',
           published_at: result.post.published_at || null,
@@ -277,10 +309,10 @@ function BlogEditorContent() {
           meta_description: result.post.meta_description || '',
           twitter_title: result.post.twitter_title || '',
           twitter_description: result.post.twitter_description || '',
-          twitter_image: result.post.twitter_image || '',
+          twitter_image: transformGhostImageUrl(result.post.twitter_image),
           og_title: result.post.og_title || '',
           og_description: result.post.og_description || '',
-          og_image: result.post.og_image || '',
+          og_image: transformGhostImageUrl(result.post.og_image),
           tags: result.post.tags || [],
           codeinjection_head: result.post.codeinjection_head || '',
           codeinjection_foot: result.post.codeinjection_foot || '',
@@ -345,12 +377,13 @@ function BlogEditorContent() {
       }
 
       // Build the payload carefully - only include fields Ghost expects
+      // Transform proxy URLs back to Ghost URLs before saving
       const payload: Record<string, unknown> = {
         title: post.title,
         slug: post.slug,
         html: post.html,
         excerpt: post.excerpt,
-        feature_image: post.feature_image,
+        feature_image: transformToGhostUrl(post.feature_image),
         featured: post.featured,
         status: statusToSave,
         published_at: publishedAt,
@@ -358,10 +391,10 @@ function BlogEditorContent() {
         meta_description: post.meta_description,
         twitter_title: post.twitter_title,
         twitter_description: post.twitter_description,
-        twitter_image: post.twitter_image,
+        twitter_image: transformToGhostUrl(post.twitter_image),
         og_title: post.og_title,
         og_description: post.og_description,
-        og_image: post.og_image,
+        og_image: transformToGhostUrl(post.og_image),
         codeinjection_head: post.codeinjection_head,
         codeinjection_foot: post.codeinjection_foot,
         tags: post.tags?.map(t => ({ id: t.id, name: t.name, slug: t.slug }))
