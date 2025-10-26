@@ -21,6 +21,10 @@ import {
 } from 'lucide-react';
 import type { AceEvent, AceUser } from '@/lib/ace/types';
 
+const ACE_PROVIDER_NAME = 'Behavior School';
+const ACE_PROVIDER_NUMBER = 'OP-25-11420';
+const ACE_COORDINATOR_NAME = 'Rob Spain, M.S., BCBA, IBA';
+
 interface AttendanceRecord {
   id: string;
   participant_id: string;
@@ -234,7 +238,9 @@ export default function EventDetailPage() {
       const certData = prepareCertificateData(
         event,
         participant,
-        'Behavior School'
+        ACE_PROVIDER_NAME,
+        ACE_PROVIDER_NUMBER,
+        { aceCoordinator: ACE_COORDINATOR_NAME }
       );
 
       const html = generateCertificateHTML(certData);

@@ -17,6 +17,8 @@ export interface CertificateData {
   ceCategory: string;
   providerName: string;
   providerNumber?: string;
+  eventModality: string;
+  aceCoordinator?: string;
   issuedDate: string;
 }
 
@@ -34,6 +36,28 @@ export function generateCertificateNumber(): string {
  * Generate certificate HTML for PDF conversion or display
  */
 export function generateCertificateHTML(data: CertificateData): string {
+  const eventDateDisplay = new Date(data.eventDate).toLocaleString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+  const issuedDateDisplay = new Date(data.issuedDate).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+  const bacbNumberDisplay = data.bacbNumber || 'Not provided';
+  const instructorDisplay = data.instructorCredentials
+    ? `${data.instructorName}${data.instructorCredentials ? `, ${data.instructorCredentials}` : ''}`
+    : data.instructorName;
+  const earnedCeusDisplay = `${data.totalCeus.toFixed(1)} CEUs`;
+  const ceuTypeDisplay = data.ceCategory;
+  const providerNumberDisplay = data.providerNumber || 'Not provided';
+  const coordinatorDisplay = data.aceCoordinator || 'Not assigned';
+  const eventModalityDisplay = data.eventModality || 'Not specified';
+
   return `
 <!DOCTYPE html>
 <html>
@@ -131,6 +155,44 @@ export function generateCertificateHTML(data: CertificateData): string {
     .participant-container {
       text-align: center;
       margin: 20px 0;
+    }
+    
+    .detail-grid {
+      margin-top: 30px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px 28px;
+      background: #fffdf8;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+    
+    .detail-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    
+    .detail-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    .detail-label {
+      flex: 0 0 220px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #1F4D3F;
+      font-weight: 700;
+    }
+    
+    .detail-value {
+      flex: 1;
+      font-size: 16px;
+      color: #111827;
+      font-weight: 600;
+      line-height: 1.5;
+      word-break: break-word;
     }
     
     .completion-text {
@@ -289,6 +351,49 @@ export function generateCertificateHTML(data: CertificateData): string {
           </div>
         </div>
         
+        <div class="detail-grid">
+          <div class="detail-row">
+            <span class="detail-label">Date:</span>
+            <span class="detail-value">${eventDateDisplay}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Participant:</span>
+            <span class="detail-value">${data.participantName}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">BCBA Certification Number:</span>
+            <span class="detail-value">${bacbNumberDisplay}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Event Title:</span>
+            <span class="detail-value">${data.eventTitle}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Instructor:</span>
+            <span class="detail-value">${instructorDisplay}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Earned CEUs:</span>
+            <span class="detail-value">${earnedCeusDisplay}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">CEU Type:</span>
+            <span class="detail-value">${ceuTypeDisplay}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Event Modality:</span>
+            <span class="detail-value">${eventModalityDisplay}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">ACE Provider Number:</span>
+            <span class="detail-value">${providerNumberDisplay}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">ACE Coordinator:</span>
+            <span class="detail-value">${coordinatorDisplay}</span>
+          </div>
+        </div>
+        
         <div class="signatures">
           <div class="signature-block">
             <div class="signature-line">
@@ -300,11 +405,7 @@ export function generateCertificateHTML(data: CertificateData): string {
           
           <div class="signature-block">
             <div class="signature-line">
-              <div class="signature-name">${new Date(data.issuedDate).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}</div>
+              <div class="signature-name">${issuedDateDisplay}</div>
               <div class="signature-title">Date Issued</div>
             </div>
           </div>
@@ -340,7 +441,12 @@ export function prepareCertificateData(
   event: AceEvent,
   participant: AceUser,
   providerName: string,
-  providerNumber?: string
+  providerNumber?: string,
+  options?: {
+    aceCoordinator?: string;
+    instructorName?: string;
+    instructorCredentials?: string;
+  }
 ): CertificateData {
   return {
     certificateNumber: generateCertificateNumber(),
@@ -349,14 +455,29 @@ export function prepareCertificateData(
     bacbNumber: participant.bacb_id,
     eventTitle: event.title,
     eventDate: event.start_date,
-    instructorName: 'Rob Spain, M.S., BCBA, IBA',
-    instructorCredentials: 'Board Certified Behavior Analyst',
+    instructorName: options?.instructorName || 'Rob Spain, M.S., BCBA, IBA',
+    instructorCredentials: options?.instructorCredentials || 'Board Certified Behavior Analyst',
     totalCeus: event.total_ceus,
     ceCategory: event.ce_category.charAt(0).toUpperCase() + event.ce_category.slice(1),
     providerName,
     providerNumber,
+    eventModality: formatEventModality(event.modality),
+    aceCoordinator: options?.aceCoordinator || 'Rob Spain, M.S., BCBA, IBA',
     issuedDate: new Date().toISOString(),
   };
+}
+
+export function formatEventModality(modality?: AceEvent['modality']): string {
+  switch (modality) {
+    case 'in_person':
+      return 'In Person';
+    case 'synchronous':
+      return 'Online (Live)';
+    case 'asynchronous':
+      return 'Online (On-Demand)';
+    default:
+      return 'Not specified';
+  }
 }
 
 /**
@@ -387,4 +508,3 @@ export function previewCertificate(html: string) {
     previewWindow.document.close();
   }
 }
-

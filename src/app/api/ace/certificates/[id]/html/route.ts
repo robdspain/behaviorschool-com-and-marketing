@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
 import { getCertificateById } from '@/lib/ace/queries';
-import { generateCertificateHTML } from '@/lib/ace/certificate-generator';
+import { generateCertificateHTML, formatEventModality } from '@/lib/ace/certificate-generator';
+import type { AceEvent } from '@/lib/ace/types';
 
 /**
  * GET /api/ace/certificates/[id]/html
@@ -30,6 +31,17 @@ export async function GET(
       return NextResponse.json({ error: 'Certificate not found' }, { status: 404 });
     }
 
+    const { data: eventDetails } = await supabase
+      .from('ace_events')
+      .select('modality')
+      .eq('id', certificate.event_id)
+      .maybeSingle();
+
+    const providerName = certificate.provider_name || 'Behavior School';
+    const providerNumber = certificate.provider_number || 'OP-25-11420';
+    const aceCoordinator = 'Rob Spain, M.S., BCBA, IBA';
+    const eventModality = formatEventModality(eventDetails?.modality as AceEvent['modality']);
+
     // Generate HTML
     const html = generateCertificateHTML({
       certificateNumber: certificate.certificate_number,
@@ -42,8 +54,10 @@ export async function GET(
       instructorCredentials: '', // Not stored in database
       totalCeus: certificate.total_ceus,
       ceCategory: certificate.ce_category.charAt(0).toUpperCase() + certificate.ce_category.slice(1),
-      providerName: certificate.provider_name || 'Unknown Provider',
-      providerNumber: certificate.provider_number || '',
+      providerName,
+      providerNumber,
+      eventModality,
+      aceCoordinator,
       issuedDate: certificate.issued_at || new Date().toISOString(),
     });
 

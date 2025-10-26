@@ -10,6 +10,7 @@ import {
   markEnrollmentComplete,
 } from '@/lib/masterclass/queries';
 import { getQuizForSection } from '@/lib/masterclass/config';
+import { issueCertificateForEnrollment } from '@/lib/masterclass/certificate-service';
 
 /**
  * GET /api/masterclass/progress?enrollmentId=xxx
@@ -147,6 +148,7 @@ export async function POST(request: NextRequest) {
         const canGenerate = await canGenerateCertificate(enrollmentId);
         if (canGenerate) {
           await markEnrollmentComplete(enrollmentId);
+          await issueCertificateForEnrollment(enrollmentId);
         }
       }
 

@@ -23,17 +23,24 @@ import { useState } from "react";
 interface NavItem {
   name: string;
   href: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon?: React.ComponentType<{ className?: string }>;
   badge?: string;
+  children?: NavItem[];
 }
 
 const navigation: NavItem[] = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Masterclass", href: "/admin/masterclass", icon: GraduationCap },
-  { name: "Submissions", href: "/admin/submissions", icon: Users },
+  {
+    name: "Submissions",
+    href: "/admin/submissions",
+    icon: Users,
+    children: [
+      { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
+    ],
+  },
   { name: "Email Templates", href: "/admin/email-templates", icon: Mail },
   { name: "Newsletter (Listmonk)", href: "/admin/listmonk", icon: Send },
-  { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
   { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Blog", href: "/admin/content", icon: FileText },
@@ -103,31 +110,68 @@ export function AdminSidebar() {
                 const active = isActive(item.href);
 
                 return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`
-                      flex items-center gap-3 px-4 py-3 rounded-xl
-                      font-medium transition-all duration-200
-                      ${
-                        active
-                          ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200"
-                          : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
-                      }
-                    `}
-                  >
-                    <Icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
-                    <span className="flex-1">{item.name}</span>
-                    {item.badge && (
-                      <span className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-700 rounded-full">
-                        {item.badge}
-                      </span>
+                  <div key={item.name}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`
+                        flex items-center gap-3 px-4 py-3 rounded-xl
+                        font-medium transition-all duration-200
+                        ${
+                          active
+                            ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200"
+                            : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
+                        }
+                      `}
+                    >
+                      {Icon && (
+                        <Icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
+                      )}
+                      <span className="flex-1">{item.name}</span>
+                      {item.badge && (
+                        <span className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-700 rounded-full">
+                          {item.badge}
+                        </span>
+                      )}
+                      {active && (
+                        <ChevronRight className="w-4 h-4 text-emerald-600" />
+                      )}
+                    </Link>
+
+                    {item.children && (
+                      <div className="ml-10 mt-1 space-y-1">
+                        {item.children.map((child) => {
+                          const ChildIcon = child.icon;
+                          const childActive = isActive(child.href);
+
+                          return (
+                            <Link
+                              key={child.name}
+                              href={child.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className={`
+                                flex items-center gap-2 px-4 py-2 rounded-lg text-sm
+                                font-medium transition-all duration-200
+                                ${
+                                  childActive
+                                    ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200"
+                                    : "text-slate-600 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
+                                }
+                              `}
+                            >
+                              {ChildIcon && (
+                                <ChildIcon className={`w-4 h-4 flex-shrink-0 ${childActive ? "text-emerald-600" : "text-slate-500"}`} />
+                              )}
+                              <span className="flex-1">{child.name}</span>
+                              {childActive && (
+                                <ChevronRight className="w-4 h-4 text-emerald-600" />
+                              )}
+                            </Link>
+                          );
+                        })}
+                      </div>
                     )}
-                    {active && (
-                      <ChevronRight className="w-4 h-4 text-emerald-600" />
-                    )}
-                  </Link>
+                  </div>
                 );
               })}
             </div>

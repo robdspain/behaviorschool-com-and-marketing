@@ -125,6 +125,25 @@ export async function markEnrollmentComplete(enrollmentId: string): Promise<void
   }
 }
 
+/**
+ * Mark certificate email status for an enrollment
+ */
+export async function markCertificateEmailed(
+  enrollmentId: string
+): Promise<void> {
+  const { error } = await supabase
+    .from('masterclass_enrollments')
+    .update({
+      certificate_emailed: true,
+      certificate_emailed_at: new Date().toISOString(),
+    })
+    .eq('id', enrollmentId);
+
+  if (error) {
+    throw new Error(`Failed to update certificate email status: ${error.message}`);
+  }
+}
+
 // ============================================================================
 // PROGRESS OPERATIONS
 // ============================================================================

@@ -1,104 +1,91 @@
 import { NextRequest, NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
 
-// This endpoint will handle auto-posting to social media platforms
-// API keys should be configured in environment variables
+const GHOST_URL =
+  process.env.GHOST_ADMIN_URL ||
+  process.env.GHOST_CONTENT_URL?.replace('/ghost/api/content', '') ||
+  'https://ghost.behaviorschool.com';
+const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
+
+function getGhostToken() {
+  if (!GHOST_ADMIN_KEY) {
+    throw new Error('Ghost Admin API key not configured');
+  }
+
+  const [id, secret] = GHOST_ADMIN_KEY.split(':');
+
+  return jwt.sign({}, Buffer.from(secret, 'hex'), {
+    keyid: id,
+    algorithm: 'HS256',
+    expiresIn: '5m',
+    audience: '/admin/'
+  });
+}
+
+const SUPPORTED_PLATFORMS = ['twitter', 'facebook', 'linkedin', 'instagram'] as const;
+type Platform = typeof SUPPORTED_PLATFORMS[number];
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { postUrl, title, description, image, platforms } = body;
+    const { postId, platforms } = body as {
+      postId?: string;
+      platforms: Record<Platform, boolean>;
+    };
 
-    const results = {
+    if (!postId) {
+      return NextResponse.json(
+        { success: false, error: 'postId is required for social sharing' },
+        { status: 400 }
+      );
+    }
+
+    const token = getGhostToken();
+    const results: Record<Platform, { success: boolean; message: string }> = {
       twitter: { success: false, message: '' },
       facebook: { success: false, message: '' },
       linkedin: { success: false, message: '' },
+      instagram: { success: false, message: '' },
     };
 
-    // Twitter/X Posting
-    if (platforms.twitter) {
-      const twitterApiKey = process.env.TWITTER_API_KEY;
-      const twitterApiSecret = process.env.TWITTER_API_SECRET;
-      const twitterAccessToken = process.env.TWITTER_ACCESS_TOKEN;
-      const twitterAccessSecret = process.env.TWITTER_ACCESS_SECRET;
+    const headers = {
+      Authorization: `Ghost ${token}`,
+      'Content-Type': 'application/json',
+    };
 
-      if (twitterApiKey && twitterApiSecret && twitterAccessToken && twitterAccessSecret) {
+    await Promise.all(
+      SUPPORTED_PLATFORMS.map(async (platform) => {
+        if (!platforms?.[platform]) {
+          results[platform] = { success: false, message: 'Not selected' };
+          return;
+        }
+
         try {
-          // Twitter API v2 implementation would go here
-          // For now, we'll return a placeholder response
-          results.twitter = {
-            success: true,
-            message: 'Twitter API integration ready. Configure credentials to enable posting.'
-          };
+          const url = new URL(`${GHOST_URL}/ghost/api/admin/posts/${postId}/share/`);
+          url.searchParams.set('platform', platform);
+
+          const response = await fetch(url.toString(), {
+            method: 'POST',
+            headers,
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Ghost returned ${response.status}: ${errorText}`);
+          }
+
+          results[platform] = { success: true, message: 'Shared via Ghost' };
         } catch (error) {
-          results.twitter = {
+          console.error(`Ghost share error (${platform}):`, error);
+          results[platform] = {
             success: false,
-            message: error instanceof Error ? error.message : 'Failed to post to Twitter'
+            message: error instanceof Error ? error.message : 'Failed to share',
           };
         }
-      } else {
-        results.twitter = {
-          success: false,
-          message: 'Twitter API credentials not configured'
-        };
-      }
-    }
+      })
+    );
 
-    // Facebook Posting
-    if (platforms.facebook) {
-      const facebookPageId = process.env.FACEBOOK_PAGE_ID;
-      const facebookAccessToken = process.env.FACEBOOK_ACCESS_TOKEN;
-
-      if (facebookPageId && facebookAccessToken) {
-        try {
-          // Facebook Graph API implementation would go here
-          results.facebook = {
-            success: true,
-            message: 'Facebook API integration ready. Configure credentials to enable posting.'
-          };
-        } catch (error) {
-          results.facebook = {
-            success: false,
-            message: error instanceof Error ? error.message : 'Failed to post to Facebook'
-          };
-        }
-      } else {
-        results.facebook = {
-          success: false,
-          message: 'Facebook API credentials not configured'
-        };
-      }
-    }
-
-    // LinkedIn Posting
-    if (platforms.linkedin) {
-      const linkedinAccessToken = process.env.LINKEDIN_ACCESS_TOKEN;
-      const linkedinOrganizationId = process.env.LINKEDIN_ORGANIZATION_ID;
-
-      if (linkedinAccessToken && linkedinOrganizationId) {
-        try {
-          // LinkedIn API implementation would go here
-          results.linkedin = {
-            success: true,
-            message: 'LinkedIn API integration ready. Configure credentials to enable posting.'
-          };
-        } catch (error) {
-          results.linkedin = {
-            success: false,
-            message: error instanceof Error ? error.message : 'Failed to post to LinkedIn'
-          };
-        }
-      } else {
-        results.linkedin = {
-          success: false,
-          message: 'LinkedIn API credentials not configured'
-        };
-      }
-    }
-
-    return NextResponse.json({
-      success: true,
-      results
-    });
+    return NextResponse.json({ success: true, results });
   } catch (error) {
     console.error('Error posting to social media:', error);
     return NextResponse.json(

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { FileText, Plus, Edit, Trash2, Eye, Calendar, Tag, Search, ExternalLink } from 'lucide-react'
+import { FileText, Plus, Edit, Trash2, Eye, Calendar, Tag, Search, ExternalLink, RefreshCw } from 'lucide-react'
 
 interface GhostPost {
   id: string
@@ -19,6 +19,13 @@ interface GhostPost {
   status: 'published' | 'draft'
 }
 
+interface GhostTag {
+  id: string
+  name: string
+  slug: string
+  description?: string | null
+}
+
 export default function ContentPage() {
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -26,6 +33,12 @@ export default function ContentPage() {
   const [postsLoading, setPostsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState<'all' | 'published' | 'draft'>('all')
+  const [showTagManager, setShowTagManager] = useState(false)
+  const [tagsLoading, setTagsLoading] = useState(false)
+  const [tagActionLoading, setTagActionLoading] = useState(false)
+  const [tagList, setTagList] = useState<GhostTag[]>([])
+  const [newTagName, setNewTagName] = useState('')
+  const [newTagSlug, setNewTagSlug] = useState('')
   const supabase = createClient()
   const router = useRouter()
 
@@ -66,6 +79,12 @@ export default function ContentPage() {
       setPostsLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (showTagManager) {
+      loadTags()
+    }
+  }, [showTagManager])
 
   if (loading) {
     return (
@@ -124,6 +143,9 @@ export default function ContentPage() {
     // Transform Ghost content images to proxy path
     if (transformed.startsWith(ghostContentPrefix)) {
       transformed = transformed.replace(ghostBase, '');
+      if (!transformed.startsWith('/')) {
+        transformed = '/' + transformed;
+      }
     }
     
     if (transformed.startsWith('/content/images/')) {
@@ -132,6 +154,83 @@ export default function ContentPage() {
     
     return transformed;
   };
+
+  const slugify = (value: string) => {
+    return value
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || `tag-${Date.now()}`
+  }
+
+  const loadTags = async () => {
+    setTagsLoading(true)
+    try {
+      const response = await fetch('/api/admin/blog/tags')
+      const result = await response.json()
+      if (result.success) {
+        setTagList(result.tags || [])
+      } else {
+        console.error('Failed to fetch tags:', result.error)
+        alert('Failed to load tags')
+      }
+    } catch (error) {
+      console.error('Error fetching tags:', error)
+      alert('Failed to load tags')
+    } finally {
+      setTagsLoading(false)
+    }
+  }
+
+  const handleAddTag = async () => {
+    if (!newTagName.trim()) return
+    setTagActionLoading(true)
+    try {
+      const payload = {
+        name: newTagName.trim(),
+        slug: (newTagSlug || slugify(newTagName)).trim(),
+      }
+      const response = await fetch('/api/admin/blog/tags', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const result = await response.json()
+      if (result.success && result.tag) {
+        setTagList(prev => [result.tag, ...prev.filter(t => t.id !== result.tag.id)])
+        setNewTagName('')
+        setNewTagSlug('')
+      } else {
+        alert(result.error || 'Failed to create tag')
+      }
+    } catch (error) {
+      console.error('Error creating tag:', error)
+      alert('Failed to create tag')
+    } finally {
+      setTagActionLoading(false)
+    }
+  }
+
+  const handleDeleteTag = async (id: string, name: string) => {
+    if (!confirm(`Delete the tag "${name}"? This cannot be undone.`)) return
+    setTagActionLoading(true)
+    try {
+      const response = await fetch(`/api/admin/blog/tags?id=${id}`, {
+        method: 'DELETE',
+      })
+      const result = await response.json()
+      if (result.success) {
+        setTagList(prev => prev.filter(tag => tag.id !== id))
+      } else {
+        alert(result.error || 'Failed to delete tag')
+      }
+    } catch (error) {
+      console.error('Error deleting tag:', error)
+      alert('Failed to delete tag')
+    } finally {
+      setTagActionLoading(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -145,13 +244,22 @@ export default function ContentPage() {
                 {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
               </p>
             </div>
-            <Link
-              href="/admin/blog/editor"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
-            >
-              <Plus className="w-5 h-5" />
-              New Post
-            </Link>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowTagManager(true)}
+                className="inline-flex items-center gap-2 px-4 py-2 border-2 border-emerald-200 text-emerald-700 font-semibold rounded-lg hover:bg-emerald-50 transition-colors"
+              >
+                <Tag className="w-5 h-5" />
+                Edit Tags
+              </button>
+              <Link
+                href="/admin/blog/editor"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
+              >
+                <Plus className="w-5 h-5" />
+                New Post
+              </Link>
+            </div>
           </div>
         </div>
       </header>
@@ -328,6 +436,96 @@ export default function ContentPage() {
           </div>
         </div>
       </main>
+
+      {showTagManager && (
+        <div
+          className="fixed inset-0 bg-slate-900/60 flex items-center justify-center z-50 px-4"
+          onClick={() => setShowTagManager(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-900">Manage Tags</h2>
+                <p className="text-sm text-slate-600">Add new tags or remove outdated ones.</p>
+              </div>
+              <button
+                onClick={loadTags}
+                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
+              >
+                <RefreshCw className={`w-4 h-4 ${tagsLoading ? 'animate-spin' : ''}`} />
+                Refresh
+              </button>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <label className="text-sm font-medium text-slate-700">Tag Name</label>
+                <input
+                  value={newTagName}
+                  onChange={(e) => setNewTagName(e.target.value)}
+                  placeholder="e.g. IEP Strategies"
+                  className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                />
+                <label className="text-sm font-medium text-slate-700">Slug (optional)</label>
+                <input
+                  value={newTagSlug}
+                  onChange={(e) => setNewTagSlug(e.target.value)}
+                  placeholder="iep-strategies"
+                  className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                />
+                <p className="text-xs text-slate-500">Slug defaults to a URL-friendly version of the name.</p>
+                <button
+                  onClick={handleAddTag}
+                  disabled={!newTagName.trim() || tagActionLoading}
+                  className="w-full px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                >
+                  {tagActionLoading ? 'Saving...' : 'Add Tag'}
+                </button>
+              </div>
+
+              <div className="border border-slate-200 rounded-xl max-h-72 overflow-y-auto">
+                {tagsLoading ? (
+                  <div className="flex items-center justify-center h-full py-12 text-slate-500">
+                    Loading tags...
+                  </div>
+                ) : tagList.length === 0 ? (
+                  <div className="p-4 text-center text-slate-500">No tags found.</div>
+                ) : (
+                  <ul className="divide-y divide-slate-100">
+                    {tagList.map((tag) => (
+                      <li key={tag.id} className="flex items-center justify-between px-4 py-3">
+                        <div>
+                          <p className="font-semibold text-slate-900">{tag.name}</p>
+                          <p className="text-xs text-slate-500">Slug: {tag.slug}</p>
+                        </div>
+                        <button
+                          onClick={() => handleDeleteTag(tag.id, tag.name)}
+                          className="text-red-600 hover:text-red-700 p-2 rounded-full hover:bg-red-50"
+                          title="Delete tag"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowTagManager(false)}
+                className="px-4 py-2 border-2 border-slate-200 rounded-lg text-slate-700 font-semibold hover:bg-slate-50"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
