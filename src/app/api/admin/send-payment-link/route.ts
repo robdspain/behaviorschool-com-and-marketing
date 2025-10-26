@@ -14,7 +14,12 @@ export async function POST(request: NextRequest) {
   try {
     // Verify admin authentication
     const supabase = await createClient();
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+    console.log('[send-payment-link] Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+    console.log('[send-payment-link] Supabase Anon Key:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'Set' : 'Not Set');
+    console.log('[send-payment-link] Session:', session);
+    console.log('[send-payment-link] Session Error:', sessionError);
 
     if (!session) {
       return NextResponse.json(

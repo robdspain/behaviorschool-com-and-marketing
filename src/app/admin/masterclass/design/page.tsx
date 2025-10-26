@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -33,14 +33,17 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { createClient } from '@/lib/supabase-client';
 import type {
   MasterclassCourseSection,
   MasterclassQuizQuestion,
   CourseSectionWithQuestionCount,
+  MasterclassCertificateConfig,
 } from '@/lib/masterclass/admin-types';
 
 interface SectionWithQuestions extends CourseSectionWithQuestionCount {
   questions: MasterclassQuizQuestion[];
+  resources: any[];
   isExpanded?: boolean;
 }
 
@@ -110,12 +113,13 @@ function SortableQuestion({ question, sectionNumber, onEdit, onDelete }: {
   );
 }
 
-function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuestion, onEditQuestion, onDeleteQuestion }: {
+function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuestion, onAddResource, onEditQuestion, onDeleteQuestion }: {
   section: SectionWithQuestions;
   onEdit: () => void;
   onDelete: () => void;
   onToggleExpand: () => void;
   onAddQuestion: () => void;
+  onAddResource: () => void;
   onEditQuestion: (question: MasterclassQuizQuestion) => void;
   onDeleteQuestion: (questionId: number) => void;
 }) {
@@ -230,6 +234,15 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
               <Plus className="w-4 h-4 mr-1" />
               Add Question
             </Button>
+            <Button
+              onClick={onAddResource}
+              size="sm"
+              variant="outline"
+              className="text-green-600 border-green-200 hover:bg-green-50"
+            >
+              <Plus className="w-4 h-4 mr-1" />
+              Add Resource
+            </Button>
           </div>
 
           {section.questions.length > 0 ? (
@@ -262,6 +275,40 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
           )}
         </div>
       )}
+
+      {/* Resources (when expanded) */}
+      {section.isExpanded && (
+        <div className="px-6 pb-6 space-y-3">
+          <div className="flex items-center justify-between mb-3">
+            <h4 className="text-sm font-semibold text-slate-700">Resources</h4>
+          </div>
+
+          {section.resources.length > 0 ? (
+            <div className="space-y-3">
+              {section.resources.map((resource) => (
+                <div key={resource.id} className="flex items-start gap-3 p-4 bg-white border-2 border-slate-200 rounded-lg">
+                  <div className="flex-1 min-w-0">
+                    <a href={resource.url} target="_blank" rel="noopener noreferrer" className="text-sm text-slate-900 font-medium hover:text-blue-600">
+                      {resource.name}
+                    </a>
+                  </div>
+                  {/* <button
+                    onClick={() => onDeleteResource(resource.id)}
+                    className="text-slate-600 hover:text-red-600 transition-colors"
+                    title="Delete resource"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button> */}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-slate-500 text-sm">
+              No resources yet. Add your first resource!
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -270,6 +317,17 @@ export default function DesignCoursePage() {
   const [sections, setSections] = useState<SectionWithQuestions[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [introVideoUrl, setIntroVideoUrl] = useState('');
+  const [certificateConfig, setCertificateConfig] = useState<MasterclassCertificateConfig | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [resourceSectionId, setResourceSectionId] = useState<number | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAddResource = (sectionId: number) => {
+    setResourceSectionId(sectionId);
+    fileInputRef.current?.click();
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -280,7 +338,21 @@ export default function DesignCoursePage() {
 
   useEffect(() => {
     fetchSectionsWithQuestions();
+    fetchCertificateConfig();
   }, []);
+
+  const fetchCertificateConfig = async () => {
+    try {
+      const response = await fetch('/api/admin/masterclass/certificate');
+      const data = await response.json();
+      if (data.success) {
+        setCertificateConfig(data.data);
+        setIntroVideoUrl(data.data.introduction_video_url || '');
+      }
+    } catch (error) {
+      console.error('Failed to fetch certificate config:', error);
+    }
+  };
 
   const fetchSectionsWithQuestions = async () => {
     try {
@@ -297,9 +369,15 @@ export default function DesignCoursePage() {
             );
             const questionsData = await questionsResponse.json();
 
+            const resourcesResponse = await fetch(
+              `/api/admin/masterclass/resources?section_id=${section.id}`
+            );
+            const resourcesData = await resourcesResponse.json();
+
             return {
               ...section,
               questions: questionsData.success ? questionsData.data : [],
+              resources: resourcesData.success ? resourcesData.data : [],
               isExpanded: false,
             };
           })
@@ -334,6 +412,80 @@ export default function DesignCoursePage() {
     setSections(sections.map(s =>
       s.id === sectionId ? { ...s, isExpanded: !s.isExpanded } : s
     ));
+  };
+
+  const handleSaveIntroVideo = async () => {
+    if (!certificateConfig) return;
+
+    setSaving(true);
+    try {
+      const response = await fetch('/api/admin/masterclass/certificate', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: certificateConfig.id,
+          introduction_video_url: introVideoUrl,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save intro video URL');
+      }
+    } catch (error) {
+      console.error('Failed to save intro video URL:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleUploadResource = async (sectionId: number, file: File) => {
+    setUploading(true);
+    try {
+      const supabase = createClient();
+      const bucketName = 'masterclass-resources';
+      const filePath = `public/${sectionId}/${Date.now()}-${file.name}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from(bucketName)
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false,
+        });
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      const { data: publicUrlData } = supabase.storage.from(bucketName).getPublicUrl(filePath);
+
+      const response = await fetch('/api/admin/masterclass/resources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          section_id: sectionId,
+          name: file.name,
+          url: publicUrlData.publicUrl,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save resource to database');
+      }
+
+      alert('Resource uploaded successfully!');
+      // Refresh resources for the section
+      // I will implement this later.
+
+    } catch (error) {
+      console.error('Error uploading resource:', error);
+      alert('Error uploading resource.');
+    } finally {
+      setUploading(false);
+      setResourceSectionId(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   const saveOrder = async () => {
@@ -402,6 +554,45 @@ export default function DesignCoursePage() {
 
       {/* Main Content */}
       <main className="px-4 sm:px-6 lg:px-8 py-8 max-w-6xl mx-auto">
+        {/* Course Settings */}
+        <div className="mb-6 bg-white border-2 border-slate-200 rounded-xl p-6">
+          <h3 className="text-xl font-bold text-slate-900 mb-4">Course Settings</h3>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
+              Introduction Video URL (Optional)
+            </label>
+            <input
+              type="url"
+              value={introVideoUrl}
+              onChange={(e) => setIntroVideoUrl(e.target.value)}
+              className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-emerald-500 focus:outline-none"
+              placeholder="https://fast.wistia.net/embed/iframe/..."
+            />
+            <p className="text-xs text-slate-500 mt-1">
+              Wistia embed URL for the course introduction video
+            </p>
+          </div>
+          <div className="mt-4">
+            <Button
+              onClick={handleSaveIntroVideo}
+              disabled={saving}
+              className="bg-emerald-600 hover:bg-emerald-700"
+            >
+              {saving ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  Save Intro Video
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+
         {/* Add Section Button */}
         <div className="mb-6">
           <Link href="/admin/masterclass/sections">
@@ -440,6 +631,7 @@ export default function DesignCoursePage() {
                     onAddQuestion={() => {
                       window.location.href = `/admin/masterclass/questions?section=${section.section_number}`;
                     }}
+                    onAddResource={() => handleAddResource(section.id)}
                     onEditQuestion={(question) => {
                       window.location.href = `/admin/masterclass/questions?edit=${question.id}`;
                     }}
@@ -467,6 +659,16 @@ export default function DesignCoursePage() {
           </div>
         )}
       </main>
+      <input
+        type="file"
+        ref={fileInputRef}
+        className="hidden"
+        onChange={(e) => {
+          if (e.target.files && e.target.files[0] && resourceSectionId) {
+            handleUploadResource(resourceSectionId, e.target.files[0]);
+          }
+        }}
+      />
     </div>
   );
 }

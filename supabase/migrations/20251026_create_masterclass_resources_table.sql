@@ -1,0 +1,7 @@
+CREATE TABLE masterclass_resources (
+  id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  section_id BIGINT REFERENCES masterclass_sections(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  url TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
