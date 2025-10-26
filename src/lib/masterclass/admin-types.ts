@@ -46,6 +46,7 @@ export interface MasterclassCertificateConfig {
   signature_title: string | null;
   organization_name: string;
   organization_website: string;
+  introduction_video_url: string | null;
   template_version: number;
   is_active: boolean;
   created_at: string;
@@ -89,6 +90,7 @@ export interface CertificateConfigFormData {
   signature_title?: string;
   organization_name: string;
   organization_website: string;
+  introduction_video_url?: string;
 }
 
 // ============================================================================

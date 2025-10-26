@@ -431,6 +431,7 @@ export async function updateCertificateConfig(
       signature_title: configData.signature_title,
       organization_name: configData.organization_name,
       organization_website: configData.organization_website,
+      introduction_video_url: configData.introduction_video_url,
     })
     .eq('id', id)
     .select()
