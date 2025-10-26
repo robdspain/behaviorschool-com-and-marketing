@@ -586,7 +586,7 @@ export default function EmailTemplatesPage() {
                     srcDoc={previewTemplate.body_html}
                     className="w-full min-h-[500px] border-0"
                     title="Email HTML Preview"
-                    sandbox="allow-same-origin"
+                    sandbox="allow-same-origin allow-top-navigation"
                   />
                 </div>
               ) : (
