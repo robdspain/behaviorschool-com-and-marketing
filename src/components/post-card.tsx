@@ -20,6 +20,43 @@ function formatDate(iso?: string | null): string {
   return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
+function decodeHtmlEntities(text: string): string {
+  if (typeof window === 'undefined') {
+    // Server-side: use a basic regex replacement for common entities
+    return text
+      .replace(/&apos;/g, "'")
+      .replace(/&#x27;/g, "'")
+      .replace(/&#39;/g, "'")
+      .replace(/&quot;/g, '"')
+      .replace(/&#x22;/g, '"')
+      .replace(/&#34;/g, '"')
+      .replace(/&amp;/g, '&')
+      .replace(/&#x26;/g, '&')
+      .replace(/&#38;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&#x3C;/g, '<')
+      .replace(/&#60;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&#x3E;/g, '>')
+      .replace(/&#62;/g, '>')
+      .replace(/&#x2014;/g, '—') // em dash
+      .replace(/&#8212;/g, '—')
+      .replace(/&#x2013;/g, '–') // en dash
+      .replace(/&#8211;/g, '–')
+      .replace(/&#x2019;/g, ''') // right single quote
+      .replace(/&#8217;/g, ''')
+      .replace(/&#x201C;/g, '"') // left double quote
+      .replace(/&#8220;/g, '"')
+      .replace(/&#x201D;/g, '"') // right double quote
+      .replace(/&#8221;/g, '"');
+  }
+
+  // Client-side: use DOM parser for complete decoding
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = text;
+  return textarea.value;
+}
+
 export interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
   post: Post;
   hrefBase?: string;
@@ -95,7 +132,7 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
       </CardHeader>
       <CardContent className="flex-1">
         {post.excerpt ? (
-          <p className="text-sm text-muted-foreground line-clamp-3">{post.excerpt}</p>
+          <p className="text-sm text-muted-foreground line-clamp-3">{decodeHtmlEntities(post.excerpt)}</p>
         ) : null}
       </CardContent>
       <CardFooter className="flex items-center justify-between">

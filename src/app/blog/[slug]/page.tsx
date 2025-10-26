@@ -5,11 +5,43 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { EditPostButton } from "@/components/admin/EditPostButton";
 
+// Decode HTML entities in text
+function decodeHtmlEntities(text: string): string {
+  if (!text) return text;
+
+  return text
+    .replace(/&apos;/g, "'")
+    .replace(/&#x27;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&#x22;/g, '"')
+    .replace(/&#34;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&#x26;/g, '&')
+    .replace(/&#38;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&#x3C;/g, '<')
+    .replace(/&#60;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#x3E;/g, '>')
+    .replace(/&#62;/g, '>')
+    .replace(/&#x2014;/g, '—') // em dash
+    .replace(/&#8212;/g, '—')
+    .replace(/&#x2013;/g, '–') // en dash
+    .replace(/&#8211;/g, '–')
+    .replace(/&#x2019;/g, ''') // right single quote
+    .replace(/&#8217;/g, ''')
+    .replace(/&#x201C;/g, '"') // left double quote
+    .replace(/&#8220;/g, '"')
+    .replace(/&#x201D;/g, '"') // right double quote
+    .replace(/&#8221;/g, '"');
+}
+
 // Generate metadata for SEO and social sharing
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  
+
   if (!post) {
     return {
       title: "Post Not Found | Behavior School",
@@ -54,8 +86,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 
   const featureImage = transformImageUrl(post.feature_image as string | undefined);
-  const title = post.meta_title || post.title || "Blog Post";
-  const description = post.meta_description || post.excerpt || post.title || "";
+  const title = decodeHtmlEntities(post.meta_title || post.title || "Blog Post");
+  const description = decodeHtmlEntities(post.meta_description || post.excerpt || post.title || "");
 
   return {
     title: `${title} | Behavior School`,
@@ -66,8 +98,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     openGraph: {
       type: "article",
-      title: post.og_title || title,
-      description: post.og_description || description,
+      title: decodeHtmlEntities(post.og_title || '') || title,
+      description: decodeHtmlEntities(post.og_description || '') || description,
       url: `/blog/${slug}`,
       siteName: "Behavior School",
       publishedTime: post.published_at || undefined,
@@ -78,14 +110,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
           url: post.og_image ? transformImageUrl(post.og_image as string) : featureImage,
           width: 1200,
           height: 630,
-          alt: post.title || "Blog post image",
+          alt: decodeHtmlEntities(post.title || "Blog post image"),
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.twitter_title || title,
-      description: post.twitter_description || description,
+      title: decodeHtmlEntities(post.twitter_title || '') || title,
+      description: decodeHtmlEntities(post.twitter_description || '') || description,
       images: [post.twitter_image ? transformImageUrl(post.twitter_image as string) : featureImage],
       creator: "@BehaviorSchool",
     },
