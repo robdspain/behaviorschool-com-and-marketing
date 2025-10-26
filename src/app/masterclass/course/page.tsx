@@ -13,6 +13,7 @@ import type { MasterclassProgress, CourseSection } from '@/lib/masterclass/types
 export default function CoursePage() {
   const router = useRouter();
   const [enrollmentId, setEnrollmentId] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [currentSection, setCurrentSection] = useState(1);
   const [progress, setProgress] = useState<MasterclassProgress[]>([]);
   const [overallProgress, setOverallProgress] = useState(0);
@@ -22,50 +23,66 @@ export default function CoursePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [courseSections, setCourseSections] = useState<CourseSection[]>([]);
 
-  // Load enrollment from localStorage
+  // Check access (admin or enrolled user)
   useEffect(() => {
-    const stored = localStorage.getItem('masterclass_enrollment');
-    if (!stored) {
-      // No enrollment found, redirect to registration
-      router.push('/masterclass');
-      return;
-    }
+    const checkAccess = async () => {
+      try {
+        const response = await fetch('/api/masterclass/check-access');
+        const data = await response.json();
 
-    try {
-      const data = JSON.parse(stored);
-      setEnrollmentId(data.enrollmentId);
-    } catch (err) {
-      console.error('Failed to parse enrollment data:', err);
-      router.push('/masterclass');
-    }
+        if (!response.ok || !data.hasAccess) {
+          // No access, redirect to masterclass landing
+          router.push('/masterclass');
+          return;
+        }
+
+        setIsAdmin(data.isAdmin);
+        if (!data.isAdmin && data.enrollmentId) {
+          setEnrollmentId(data.enrollmentId);
+        }
+      } catch (err) {
+        console.error('Failed to check access:', err);
+        router.push('/masterclass');
+      }
+    };
+
+    checkAccess();
   }, [router]);
 
-  // Fetch course content and progress when enrollment is loaded
+  // Fetch course content and progress when access is confirmed
   useEffect(() => {
-    if (!enrollmentId) return;
+    // Skip if still checking access
+    if (!isAdmin && !enrollmentId) return;
 
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // Fetch course content and progress in parallel
-        const [courseResponse, progressResponse] = await Promise.all([
-          fetch('/api/masterclass/course'),
-          fetch(`/api/masterclass/progress?enrollmentId=${enrollmentId}`),
-        ]);
-
+        // Always fetch course content
+        const courseResponse = await fetch('/api/masterclass/course');
         const courseData = await courseResponse.json();
-        const progressData = await progressResponse.json();
 
         if (courseData.success) {
           setCourseSections(courseData.data.sections);
         }
 
-        if (progressData.success) {
-          setProgress(progressData.data.sections);
-          setOverallProgress(progressData.data.overallProgress);
-          setCanGenerateCertificate(progressData.data.canGenerateCertificate);
-        } else {
-          setError('Failed to load progress');
+        // Only fetch progress if user is enrolled (not admin)
+        if (!isAdmin && enrollmentId) {
+          const progressResponse = await fetch(`/api/masterclass/progress?enrollmentId=${enrollmentId}`);
+          const progressData = await progressResponse.json();
+
+          if (progressData.success) {
+            setProgress(progressData.data.sections);
+            setOverallProgress(progressData.data.overallProgress);
+            setCanGenerateCertificate(progressData.data.canGenerateCertificate);
+          } else {
+            setError('Failed to load progress');
+          }
+        } else if (isAdmin) {
+          // Admin viewing mode - no progress tracking
+          // Initialize empty progress for all sections
+          setProgress([]);
+          setOverallProgress(0);
+          setCanGenerateCertificate(false);
         }
       } catch (err) {
         console.error('Failed to fetch data:', err);
@@ -76,7 +93,7 @@ export default function CoursePage() {
     };
 
     fetchData();
-  }, [enrollmentId]);
+  }, [enrollmentId, isAdmin]);
 
   // Mark video as complete
   const handleMarkVideoComplete = async () => {
@@ -165,7 +182,8 @@ export default function CoursePage() {
     const prevSectionProgress = index > 0 ? progress.find(p => p.section_number === index) : null;
 
     // Section is locked if previous section quiz hasn't been passed
-    const isLocked = index > 0 && (!prevSectionProgress || !prevSectionProgress.quiz_passed);
+    // Admins can access all sections (no locking)
+    const isLocked = !isAdmin && index > 0 && (!prevSectionProgress || !prevSectionProgress.quiz_passed);
 
     return {
       id: section.id,
@@ -221,6 +239,18 @@ export default function CoursePage() {
         totalSections={courseSections.length}
         canGenerateCertificate={canGenerateCertificate}
       />
+
+      {/* Admin Preview Banner */}
+      {isAdmin && (
+        <div className="bg-yellow-50 border-b border-yellow-200 px-4 py-2">
+          <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
+            <AlertCircle className="w-4 h-4 text-yellow-600" />
+            <p className="text-sm font-medium text-yellow-800">
+              Admin Preview Mode - Progress is not being tracked
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Main Layout */}
       <div className="flex-1 flex overflow-hidden">

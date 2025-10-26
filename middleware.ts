@@ -1,5 +1,6 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { isAuthorizedAdmin } from '@/lib/admin-config'
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
@@ -66,18 +67,24 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(redirectUrl)
     }
 
-    // Check if user is enrolled
-    const { data: enrollment } = await supabase
-      .from('masterclass_enrollments')
-      .select('id')
-      .eq('user_id', user.id)
-      .single()
+    // Check if user is an authorized admin - admins can access without enrollment
+    const isAdmin = isAuthorizedAdmin(user.email)
 
-    if (!enrollment && request.nextUrl.pathname !== '/masterclass/enroll') {
-      // Not enrolled, redirect to enrollment
-      const redirectUrl = new URL('/masterclass/enroll', request.url)
-      return NextResponse.redirect(redirectUrl)
+    if (!isAdmin) {
+      // Not an admin, check if user is enrolled
+      const { data: enrollment } = await supabase
+        .from('masterclass_enrollments')
+        .select('id')
+        .eq('user_id', user.id)
+        .single()
+
+      if (!enrollment && request.nextUrl.pathname !== '/masterclass/enroll') {
+        // Not enrolled, redirect to enrollment
+        const redirectUrl = new URL('/masterclass/enroll', request.url)
+        return NextResponse.redirect(redirectUrl)
+      }
     }
+    // Admins bypass enrollment check and can access directly
   }
 
   return response
