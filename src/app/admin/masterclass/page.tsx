@@ -65,6 +65,14 @@ export default function MasterclassAdminPage() {
       color: 'purple',
       stat: 'Template config',
     },
+    {
+      title: 'Preview Course',
+      description: 'View the masterclass course as a student',
+      icon: Video, // Using Video icon for now, can be changed
+      href: '/masterclass',
+      color: 'blue',
+      stat: 'Live Preview',
+    },
   ];
 
   return (

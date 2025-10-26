@@ -113,6 +113,74 @@ function SortableQuestion({ question, sectionNumber, onEdit, onDelete }: {
   );
 }
 
+function SortableResource({ resource, sectionId, onEdit, onDelete }: {
+  resource: any; // TODO: Define proper type for resource
+  sectionId: number;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: `resource-${resource.id}` });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="flex items-start gap-3 p-4 bg-white border-2 border-slate-200 rounded-lg hover:border-blue-300 transition-colors"
+    >
+      <button
+        {...attributes}
+        {...listeners}
+        className="mt-1 text-slate-400 hover:text-slate-600 cursor-grab active:cursor-grabbing"
+      >
+        <GripVertical className="w-5 h-5" />
+      </button>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <div className="flex items-center gap-2">
+            <HelpCircle className="w-4 h-4 text-blue-600 flex-shrink-0" /> {/* TODO: Change icon */}
+            <span className="text-xs font-semibold text-slate-500">Resource</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onEdit}
+              className="text-slate-600 hover:text-emerald-600 transition-colors"
+              title="Edit resource"
+            >
+              <Edit className="w-4 h-4" />
+            </button>
+            <button
+              onClick={onDelete}
+              className="text-slate-600 hover:text-red-600 transition-colors"
+              title="Delete resource"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+        <p className="text-sm text-slate-900 font-medium line-clamp-2">{resource.name}</p>
+        <div className="mt-2 text-xs text-slate-500">
+          <a href={resource.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+            View Resource
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuestion, onAddResource, onEditQuestion, onDeleteQuestion }: {
   section: SectionWithQuestions;
   onEdit: () => void;
@@ -123,21 +191,6 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
   onEditQuestion: (question: MasterclassQuizQuestion) => void;
   onDeleteQuestion: (questionId: number) => void;
 }) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: `section-${section.id}` });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-  };
-
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -159,6 +212,21 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
       }
     }
   };
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: `section-${section.id}` });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
 
   return (
     <div
@@ -284,24 +352,28 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
           </div>
 
           {section.resources.length > 0 ? (
-            <div className="space-y-3">
-              {section.resources.map((resource) => (
-                <div key={resource.id} className="flex items-start gap-3 p-4 bg-white border-2 border-slate-200 rounded-lg">
-                  <div className="flex-1 min-w-0">
-                    <a href={resource.url} target="_blank" rel="noopener noreferrer" className="text-sm text-slate-900 font-medium hover:text-blue-600">
-                      {resource.name}
-                    </a>
-                  </div>
-                  {/* <button
-                    onClick={() => onDeleteResource(resource.id)}
-                    className="text-slate-600 hover:text-red-600 transition-colors"
-                    title="Delete resource"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button> */}
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={section.resources.map((r: any) => `resource-${r.id}`)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-3">
+                  {section.resources.map((resource) => (
+                    <SortableResource
+                      key={resource.id}
+                      resource={resource}
+                      sectionId={section.id}
+                      onEdit={() => { /* TODO: Implement edit resource */ }}
+                      onDelete={() => { /* TODO: Implement delete resource */ }}
+                    />
+                  ))}
                 </div>
-              ))}
-            </div>
+              </SortableContext>
+            </DndContext>
           ) : (
             <div className="text-center py-8 text-slate-500 text-sm">
               No resources yet. Add your first resource!
@@ -368,11 +440,13 @@ export default function DesignCoursePage() {
               `/api/admin/masterclass/questions?section=${section.section_number}`
             );
             const questionsData = await questionsResponse.json();
+            console.log(`[DesignCoursePage] Questions for section ${section.section_number}:`, questionsData);
 
             const resourcesResponse = await fetch(
               `/api/admin/masterclass/resources?section_id=${section.id}`
             );
             const resourcesData = await resourcesResponse.json();
+            console.log(`[DesignCoursePage] Resources for section ${section.id}:`, resourcesData);
 
             return {
               ...section,
@@ -395,16 +469,102 @@ export default function DesignCoursePage() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (over && active.id !== over.id) {
-      setSections((items) => {
-        const oldIndex = items.findIndex(s => `section-${s.id}` === active.id);
-        const newIndex = items.findIndex(s => `section-${s.id}` === over.id);
+    if (!over) return;
 
+    const activeId = String(active.id);
+    const overId = String(over.id);
+
+    // Handle section reordering
+    if (activeId.startsWith('section-') && overId.startsWith('section-')) {
+      setSections((items) => {
+        const oldIndex = items.findIndex(s => `section-${s.id}` === activeId);
+        const newIndex = items.findIndex(s => `section-${s.id}` === overId);
         if (oldIndex !== -1 && newIndex !== -1) {
+          // TODO: Implement API call to save section order
           return arrayMove(items, oldIndex, newIndex);
         }
         return items;
       });
+    }
+
+    // Handle question reordering within a section or moving between sections
+    if (activeId.startsWith('question-')) {
+      const activeQuestionId = parseInt(activeId.replace('question-', ''));
+      const activeSectionId = sections.find(s => s.questions.some(q => q.id === activeQuestionId))?.id;
+
+      if (overId.startsWith('question-')) {
+        // Reordering question within the same section
+        const overQuestionId = parseInt(overId.replace('question-', ''));
+        const overSectionId = sections.find(s => s.questions.some(q => q.id === overQuestionId))?.id;
+
+        if (activeSectionId === overSectionId) {
+          setSections(prevSections =>
+            prevSections.map(section => {
+              if (section.id === activeSectionId) {
+                const oldIndex = section.questions.findIndex(q => q.id === activeQuestionId);
+                const newIndex = section.questions.findIndex(q => q.id === overQuestionId);
+                if (oldIndex !== -1 && newIndex !== -1) {
+                  // TODO: Implement API call to save question order within section
+                  return { ...section, questions: arrayMove(section.questions, oldIndex, newIndex) };
+                }
+              }
+              return section;
+            })
+          );
+        } else {
+          // Moving question to a different section (onto another question)
+          const targetSection = sections.find(s => s.id === overSectionId);
+          if (targetSection) {
+            // TODO: Implement API call to move question between sections
+            console.log(`Move question ${activeQuestionId} from section ${activeSectionId} to section ${overSectionId}`);
+          }
+        }
+      } else if (overId.startsWith('section-')) {
+        // Moving question to an empty section
+        const targetSectionId = parseInt(overId.replace('section-', ''));
+        // TODO: Implement API call to move question to an empty section
+        console.log(`Move question ${activeQuestionId} to empty section ${targetSectionId}`);
+      }
+    }
+
+    // Handle resource reordering within a section or moving between sections
+    if (activeId.startsWith('resource-')) {
+      const activeResourceId = parseInt(activeId.replace('resource-', ''));
+      const activeSectionId = sections.find(s => s.resources.some((r: any) => r.id === activeResourceId))?.id;
+
+      if (overId.startsWith('resource-')) {
+        // Reordering resource within the same section
+        const overResourceId = parseInt(overId.replace('resource-', ''));
+        const overSectionId = sections.find(s => s.resources.some((r: any) => r.id === overResourceId))?.id;
+
+        if (activeSectionId === overSectionId) {
+          setSections(prevSections =>
+            prevSections.map(section => {
+              if (section.id === activeSectionId) {
+                const oldIndex = section.resources.findIndex((r: any) => r.id === activeResourceId);
+                const newIndex = section.resources.findIndex((r: any) => r.id === overResourceId);
+                if (oldIndex !== -1 && newIndex !== -1) {
+                  // TODO: Implement API call to save resource order within section
+                  return { ...section, resources: arrayMove(section.resources, oldIndex, newIndex) };
+                }
+              }
+              return section;
+            })
+          );
+        } else {
+          // Moving resource to a different section (onto another resource)
+          const targetSection = sections.find(s => s.id === overSectionId);
+          if (targetSection) {
+            // TODO: Implement API call to move resource between sections
+            console.log(`Move resource ${activeResourceId} from section ${activeSectionId} to section ${overSectionId}`);
+          }
+        }
+      } else if (overId.startsWith('section-')) {
+        // Moving resource to an empty section
+        const targetSectionId = parseInt(overId.replace('section-', ''));
+        // TODO: Implement API call to move resource to an empty section
+        console.log(`Move resource ${activeResourceId} to empty section ${targetSectionId}`);
+      }
     }
   };
 
