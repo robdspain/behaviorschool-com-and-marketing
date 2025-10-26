@@ -39,16 +39,16 @@ function decodeHtmlEntities(text: string): string {
       .replace(/&gt;/g, '>')
       .replace(/&#x3E;/g, '>')
       .replace(/&#62;/g, '>')
-      .replace(/&#x2014;/g, '—') // em dash
-      .replace(/&#8212;/g, '—')
-      .replace(/&#x2013;/g, '–') // en dash
-      .replace(/&#8211;/g, '–')
-      .replace(/&#x2019;/g, ''') // right single quote
-      .replace(/&#8217;/g, ''')
-      .replace(/&#x201C;/g, '"') // left double quote
-      .replace(/&#8220;/g, '"')
-      .replace(/&#x201D;/g, '"') // right double quote
-      .replace(/&#8221;/g, '"');
+      .replace(/&#x2014;/g, '\u2014') // em dash
+      .replace(/&#8212;/g, '\u2014')
+      .replace(/&#x2013;/g, '\u2013') // en dash
+      .replace(/&#8211;/g, '\u2013')
+      .replace(/&#x2019;/g, '\u2019') // right single quote
+      .replace(/&#8217;/g, '\u2019')
+      .replace(/&#x201C;/g, '\u201C') // left double quote
+      .replace(/&#8220;/g, '\u201C')
+      .replace(/&#x201D;/g, '\u201D') // right double quote
+      .replace(/&#8221;/g, '\u201D');
   }
 
   // Client-side: use DOM parser for complete decoding
