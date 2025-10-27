@@ -302,26 +302,103 @@
             opacity: 0.95;
         }
         
+        /* Practice Options Section */
+        .practice-options {
+            background: white;
+            padding: 60px 0;
+        }
+
+        .practice-options h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #1f2937;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .option-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .option-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+
+        .option-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .option-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .option-card:hover .option-link {
+            background: #5568d3;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 1.8rem;
             }
-            
+
             .hero-subtitle {
                 font-size: 1rem;
             }
-            
+
             .cta-button {
                 padding: 15px 30px;
                 font-size: 1.1rem;
             }
-            
+
             .specs-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .features-list {
+                grid-template-columns: 1fr;
+            }
+
+            .options-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -481,7 +558,36 @@
             </p>
         </div>
     </section>
-    
+
+    <!-- More Practice Options -->
+    <section class="practice-options">
+        <div class="container">
+            <h2>Choose Your Practice Method</h2>
+            <div class="options-grid">
+                <a href="/domain-mini-exams" class="option-card">
+                    <div class="option-icon">📚</div>
+                    <h3>Domain Mini-Exams</h3>
+                    <p>Focus on specific content areas with targeted mini-exams. Perfect for strengthening weak domains.</p>
+                    <span class="option-link">Start Domain Exams →</span>
+                </a>
+
+                <a href="/free-bcba-practice-test" class="option-card">
+                    <div class="option-icon">📝</div>
+                    <h3>Full Mock Exam</h3>
+                    <p>Take a complete 160-question practice exam that simulates the real BCBA certification test.</p>
+                    <span class="option-link">Take Full Exam →</span>
+                </a>
+
+                <a href="/free-practice" class="option-card">
+                    <div class="option-icon">⚡</div>
+                    <h3>Daily Practice</h3>
+                    <p>Build consistency with daily practice questions. Quick sessions to keep your knowledge sharp.</p>
+                    <span class="option-link">Practice Daily →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer CTA -->
     <section class="footer-cta" id="start-test">
         <div class="container">
