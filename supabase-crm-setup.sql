@@ -299,8 +299,10 @@ ORDER BY
     WHEN 'proposal_sent' THEN 4
     WHEN 'negotiation' THEN 5
     WHEN 'closed_won' THEN 6
-    WHEN 'closed_lost' THEN 7
+  WHEN 'closed_lost' THEN 7
   END;
+
+ALTER VIEW crm_pipeline_summary SET (security_invoker = true);
 
 -- Contact Activity Summary
 CREATE OR REPLACE VIEW crm_contact_activity_summary AS
@@ -320,3 +322,5 @@ LEFT JOIN crm_deals d ON c.id = d.contact_id
 LEFT JOIN crm_tasks t ON c.id = t.contact_id
 WHERE c.is_archived = false
 GROUP BY c.id, c.first_name, c.last_name, c.email, c.status;
+
+ALTER VIEW crm_contact_activity_summary SET (security_invoker = true);

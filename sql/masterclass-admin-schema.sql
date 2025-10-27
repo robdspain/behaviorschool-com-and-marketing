@@ -224,6 +224,8 @@ LEFT JOIN masterclass_quiz_questions q ON s.section_number = q.section_number AN
 GROUP BY s.id, s.section_number, s.title, s.description, s.video_url, s.duration, s.order_index, s.is_active, s.updated_at
 ORDER BY s.order_index;
 
+ALTER VIEW masterclass_admin_course_overview SET (security_invoker = true);
+
 -- ============================================================================
 -- End of Admin Schema
 -- ============================================================================

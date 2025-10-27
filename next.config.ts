@@ -126,7 +126,17 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/act-activities-k12-students.html',
+        destination: '/act-matrix',
+        permanent: true,
+      },
+      {
         source: '/age-appropriate-act-metaphors',
+        destination: '/act-matrix',
+        permanent: true,
+      },
+      {
+        source: '/age-appropriate-act-metaphors.html',
         destination: '/act-matrix',
         permanent: true,
       },
@@ -136,7 +146,17 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/act-matrix-schools-hub.html',
+        destination: '/act-matrix',
+        permanent: true,
+      },
+      {
         source: '/act-implementation-challenges-solutions',
+        destination: '/act-matrix',
+        permanent: true,
+      },
+      {
+        source: '/act-implementation-challenges-solutions.html',
         destination: '/act-matrix',
         permanent: true,
       },

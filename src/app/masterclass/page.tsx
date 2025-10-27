@@ -1,30 +1,48 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { RegistrationForm } from '@/components/masterclass/RegistrationForm';
-import { Award, Video, FileCheck, Download, Clock, Users } from 'lucide-react';
+import { MasterclassAuth } from '@/components/masterclass/MasterclassAuth';
+import { createClient } from '@/lib/supabase-client';
+import { Award, Video, FileCheck, Download, Clock, Users, Loader2 } from 'lucide-react';
 
 export default function MasterclassPage() {
   const router = useRouter();
-  const [showForm, setShowForm] = useState(true);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const supabase = createClient();
 
-  const handleEnrollmentSuccess = (enrollmentId: string, email: string) => {
-    // Store enrollment info in localStorage for persistence
-    localStorage.setItem('masterclass_enrollment', JSON.stringify({
-      enrollmentId,
-      email,
-      timestamp: new Date().toISOString(),
-    }));
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
 
-    // Redirect to course interface
-    router.push('/masterclass/course');
-  };
+  const checkAuthStatus = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
 
-  const handleExistingUser = (email: string) => {
-    // Redirect existing users to course
-    router.push('/masterclass/course');
+      if (user) {
+        // User is authenticated, check if enrolled
+        const { data: enrollment } = await supabase
+          .from('masterclass_enrollments')
+          .select('id')
+          .eq('user_id', user.id)
+          .single();
+
+        if (enrollment) {
+          // Already enrolled, redirect to course
+          router.push('/masterclass/course');
+          return;
+        } else {
+          // Authenticated but not enrolled, redirect to enrollment
+          router.push('/masterclass/enroll');
+          return;
+        }
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+    } finally {
+      setIsCheckingAuth(false);
+    }
   };
 
   return (
@@ -150,11 +168,15 @@ export default function MasterclassPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="lg:sticky lg:top-24"
             >
-              {showForm && (
-                <RegistrationForm
-                  onSuccess={handleEnrollmentSuccess}
-                  onExistingUser={handleExistingUser}
-                />
+              {isCheckingAuth ? (
+                <div className="bg-white rounded-2xl shadow-xl p-8 border-2 border-emerald-100 flex items-center justify-center min-h-[400px]">
+                  <div className="text-center">
+                    <Loader2 className="w-12 h-12 animate-spin text-emerald-600 mx-auto mb-4" />
+                    <p className="text-slate-600">Checking your account...</p>
+                  </div>
+                </div>
+              ) : (
+                <MasterclassAuth />
               )}
             </motion.div>
           </div>

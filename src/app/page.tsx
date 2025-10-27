@@ -70,8 +70,13 @@ export default function Home() {
                 </a>
               </Button>
               <Button asChild size="default" variant="outline" className="border-emerald-600 text-emerald-700 hover:bg-emerald-50">
-                <Link href="/bcba-mock-practice-test">
-                  Try Free BCBA Exam Prep
+                <Link href="/free-bcba-mock-practice-test">
+                  Try Free BCBA Mock Exam
+                </Link>
+              </Button>
+              <Button asChild size="default" variant="outline" className="border-emerald-600 text-emerald-700 hover:bg-emerald-50">
+                <Link href="/study">
+                  AI Study Platform
                 </Link>
               </Button>
             </div>
