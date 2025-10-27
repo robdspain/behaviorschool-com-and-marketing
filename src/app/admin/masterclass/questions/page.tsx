@@ -276,18 +276,15 @@ export default function QuestionsAdminPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1">
-                  Hint (Optional)
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  Explanation (Optional)
                 </label>
-                <p className="text-xs text-slate-500 mb-2">
-                  Give viewers a quick clue or timestamp so they can revisit the lesson and find the answer.
-                </p>
                 <textarea
                   value={formData.explanation}
                   onChange={(e) => setFormData({ ...formData, explanation: e.target.value })}
                   rows={2}
                   className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-emerald-500 focus:outline-none"
-                  placeholder="Share a short hint or timestamp that points back to the lesson..."
+                  placeholder="Explain why this is the correct answer..."
                 />
               </div>
 

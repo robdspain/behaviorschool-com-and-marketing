@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Mail, Phone, Briefcase, Calendar, Search, Archive, ArchiveRestore, Send, Clock, Key, CheckCircle, AlertTriangle } from "lucide-react";
+import { Mail, Phone, Briefcase, Calendar, Search, Archive, ArchiveRestore, Send, Clock } from "lucide-react";
 
 interface Submission {
   id: string;
@@ -38,8 +38,6 @@ export default function SubmissionsPage() {
   const [emailLogs, setEmailLogs] = useState<Record<string, EmailLog[]>>({});
   const [expandedSubmissionId, setExpandedSubmissionId] = useState<string | null>(null);
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
-  const [verifyingAccessId, setVerifyingAccessId] = useState<string | null>(null);
-  const [checkoutAccessResults, setCheckoutAccessResults] = useState<Record<string, { status: 'granted' | 'denied' | 'error'; message: string }>>({});
 
   useEffect(() => {
     // Set page title
@@ -85,54 +83,6 @@ export default function SubmissionsPage() {
       console.error('Exception fetching submissions:', err);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const verifyCheckoutAccess = async (submission: Submission) => {
-    setVerifyingAccessId(submission.id);
-    try {
-      const res = await fetch('/api/verify-checkout-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email: submission.email }),
-      });
-
-      let data: { message?: string } = {};
-      try {
-        data = await res.json();
-      } catch {
-        data = {};
-      }
-
-      if (res.ok) {
-        setCheckoutAccessResults(prev => ({
-          ...prev,
-          [submission.id]: {
-            status: 'granted',
-            message: 'Checkout access already granted for this lead.',
-          },
-        }));
-      } else {
-        setCheckoutAccessResults(prev => ({
-          ...prev,
-          [submission.id]: {
-            status: 'denied',
-            message: data.message || 'Checkout access not set up yet.',
-          },
-        }));
-      }
-    } catch (err) {
-      console.error('Error verifying checkout access:', err);
-      setCheckoutAccessResults(prev => ({
-        ...prev,
-        [submission.id]: {
-          status: 'error',
-          message: 'Unable to verify checkout access. Please try again.',
-        },
-      }));
-    } finally {
-      setVerifyingAccessId(null);
     }
   };
 
@@ -348,15 +298,12 @@ export default function SubmissionsPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {filteredSubmissions.map((submission) => {
-              const accessResult = checkoutAccessResults[submission.id];
-
-              return (
-                <div
-                  key={submission.id}
-                  className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
-                >
-                  <div className="flex items-start justify-between mb-4">
+            {filteredSubmissions.map((submission) => (
+              <div
+                key={submission.id}
+                className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start justify-between mb-4">
                   <div>
                     <h3 className="text-xl font-bold text-slate-900">
                       {submission.first_name} {submission.last_name}
@@ -451,24 +398,7 @@ export default function SubmissionsPage() {
                 )}
 
                 {/* Action Buttons */}
-                <div className="mt-4 flex flex-wrap justify-end gap-3">
-                  <button
-                    onClick={() => verifyCheckoutAccess(submission)}
-                    disabled={verifyingAccessId === submission.id}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all bg-blue-50 text-blue-700 hover:bg-blue-100 border-2 border-blue-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {verifyingAccessId === submission.id ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                        <span>Verifying...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Key className="w-4 h-4" />
-                        <span>Verify Checkout Access</span>
-                      </>
-                    )}
-                  </button>
+                <div className="mt-4 flex justify-end gap-3">
                   <button
                     onClick={() => sendPaymentLink(submission)}
                     disabled={sendingPaymentLinkId === submission.id}
@@ -513,27 +443,8 @@ export default function SubmissionsPage() {
                     )}
                   </button>
                 </div>
-                {accessResult && (
-                  <div
-                    className={`mt-3 flex items-center gap-2 text-sm font-semibold ${
-                      accessResult.status === 'granted'
-                        ? 'text-emerald-700'
-                        : accessResult.status === 'denied'
-                        ? 'text-slate-600'
-                        : 'text-red-600'
-                    }`}
-                  >
-                    {accessResult.status === 'granted' ? (
-                      <CheckCircle className="w-4 h-4" />
-                    ) : (
-                      <AlertTriangle className="w-4 h-4" />
-                    )}
-                    <span>{accessResult.message}</span>
-                  </div>
-                )}
               </div>
-              );
-            })}
+            ))}
           </div>
         )}
       </div>

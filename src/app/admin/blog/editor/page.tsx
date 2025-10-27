@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Instagram, Tag, Upload, Code, Calendar, Plus, X, Star } from 'lucide-react'
+import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X, Star } from 'lucide-react'
 import { RichTextEditor } from '@/components/RichTextEditor'
 import { SEOPanel } from '@/components/SEOPanel'
 
@@ -105,8 +105,7 @@ function BlogEditorContent() {
   const [autoPostSocial, setAutoPostSocial] = useState({
     twitter: false,
     facebook: false,
-    linkedin: false,
-    instagram: false
+    linkedin: false
   })
 
   // Tag management
@@ -114,8 +113,6 @@ function BlogEditorContent() {
   const [showTagModal, setShowTagModal] = useState(false)
   const [newTagName, setNewTagName] = useState('')
   const [newTagSlug, setNewTagSlug] = useState('')
-  const [inlineTagInput, setInlineTagInput] = useState('')
-  const [creatingInlineTag, setCreatingInlineTag] = useState(false)
 
   // Image upload
   const [uploading, setUploading] = useState(false)
@@ -185,88 +182,31 @@ function BlogEditorContent() {
     }
   }
 
-  const slugifyTag = (value: string) => {
-    return value
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '') || `tag-${Date.now()}`
-  }
-
-  const createGhostTag = async (name: string, slug?: string) => {
-    const payload = {
-      name,
-      slug: (slug && slug.trim()) || slugifyTag(name),
-    }
-
-    const response = await fetch('/api/admin/blog/tags', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    })
-
-    const result = await response.json()
-    if (!result.success || !result.tag) {
-      throw new Error(result.error || 'Failed to create tag')
-    }
-
-    setAvailableTags(prev => {
-      if (prev.find(tag => tag.id === result.tag.id)) {
-        return prev
-      }
-      return [...prev, result.tag]
-    })
-
-    return result.tag as GhostTag
-  }
-
-  const handleModalCreateTag = async () => {
+  const createTag = async () => {
     if (!newTagName.trim()) return
 
     try {
-      const tag = await createGhostTag(newTagName.trim(), newTagSlug.trim())
-      setPost(prev => ({
-        ...prev,
-        tags: [...(prev.tags || []), tag]
-      }))
-      setNewTagName('')
-      setNewTagSlug('')
-      setShowTagModal(false)
-    } catch (error) {
-      console.error('Error creating tag:', error)
-      alert(error instanceof Error ? error.message : 'Failed to create tag')
-    }
-  }
+      const slug = newTagSlug.trim() || newTagName.toLowerCase().replace(/\s+/g, '-')
+      const response = await fetch('/api/admin/blog/tags', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newTagName,
+          slug: slug
+        })
+      })
 
-  const handleQuickAddTag = async () => {
-    const value = inlineTagInput.trim()
-    if (!value) return
-
-    const existing = availableTags.find(tag => tag.name.toLowerCase() === value.toLowerCase())
-    if (existing) {
-      if (!post.tags?.some(t => t.id === existing.id)) {
-        setPost(prev => ({
-          ...prev,
-          tags: [...(prev.tags || []), existing]
-        }))
+      const result = await response.json()
+      if (result.success && result.tag) {
+        setAvailableTags([...availableTags, result.tag])
+        setPost({ ...post, tags: [...(post.tags || []), result.tag] })
+        setNewTagName('')
+        setNewTagSlug('')
+        setShowTagModal(false)
       }
-      setInlineTagInput('')
-      return
-    }
-
-    try {
-      setCreatingInlineTag(true)
-      const newTag = await createGhostTag(value)
-      setPost(prev => ({
-        ...prev,
-        tags: [...(prev.tags || []), newTag]
-      }))
-      setInlineTagInput('')
     } catch (error) {
       console.error('Error creating tag:', error)
-      alert(error instanceof Error ? error.message : 'Failed to create tag')
-    } finally {
-      setCreatingInlineTag(false)
+      alert('Failed to create tag')
     }
   }
 
@@ -478,21 +418,24 @@ function BlogEditorContent() {
       const result = await response.json()
 
       if (result.success) {
-        // If publishing and auto-post is enabled, trigger Ghost social sharing
-        const hasShareSelection = Object.values(autoPostSocial).some(Boolean)
-        if (statusToSave === 'published' && hasShareSelection && result.post?.id) {
+        // If publishing and auto-post is enabled, trigger social media posting
+        if (statusToSave === 'published' && (autoPostSocial.twitter || autoPostSocial.facebook || autoPostSocial.linkedin)) {
           try {
+            const postUrl = `https://behaviorschool.com/blog/${result.post?.slug || ''}`
             await fetch('/api/admin/blog/social-post', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                postId: result.post.id,
-                platforms: autoPostSocial,
+                postUrl,
+                title: post.twitter_title || post.title,
+                description: post.twitter_description || post.excerpt,
+                image: post.twitter_image || post.feature_image,
+                platforms: autoPostSocial
               })
             })
           } catch (error) {
-            console.error('Error triggering social share:', error)
-            // Do not block publishing if sharing fails
+            console.error('Error posting to social media:', error)
+            // Don't fail the save if social posting fails
           }
         }
 
@@ -709,53 +652,29 @@ function BlogEditorContent() {
                 </span>
               ))}
             </div>
-            <div className="space-y-3">
-              <div className="flex gap-2">
-                <select
-                  onChange={(e) => {
-                    const selectedTag = availableTags.find(t => t.id === e.target.value)
-                    if (selectedTag && !post.tags?.find(t => t.id === selectedTag.id)) {
-                      setPost({ ...post, tags: [...(post.tags || []), selectedTag] })
-                    }
-                    e.target.value = ''
-                  }}
-                  className="flex-1 px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
-                >
-                  <option value="">Select existing tag...</option>
-                  {availableTags.filter(t => !post.tags?.find(pt => pt.id === t.id)).map((tag) => (
-                    <option key={tag.id} value={tag.id}>{tag.name}</option>
-                  ))}
-                </select>
-                <button
-                  onClick={() => setShowTagModal(true)}
-                  className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors flex items-center gap-2"
-                >
-                  <Plus className="w-4 h-4" />
-                  New Tag
-                </button>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={inlineTagInput}
-                  onChange={(e) => setInlineTagInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault()
-                      handleQuickAddTag()
-                    }
-                  }}
-                  placeholder="Type a new tag name..."
-                  className="flex-1 px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
-                />
-                <button
-                  onClick={handleQuickAddTag}
-                  disabled={!inlineTagInput.trim() || creatingInlineTag}
-                  className="px-4 py-2 border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 disabled:opacity-50"
-                >
-                  {creatingInlineTag ? 'Adding...' : 'Add Tag'}
-                </button>
-              </div>
+            <div className="flex gap-2">
+              <select
+                onChange={(e) => {
+                  const selectedTag = availableTags.find(t => t.id === e.target.value)
+                  if (selectedTag && !post.tags?.find(t => t.id === selectedTag.id)) {
+                    setPost({ ...post, tags: [...(post.tags || []), selectedTag] })
+                  }
+                  e.target.value = ''
+                }}
+                className="flex-1 px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+              >
+                <option value="">Select existing tag...</option>
+                {availableTags.filter(t => !post.tags?.find(pt => pt.id === t.id)).map((tag) => (
+                  <option key={tag.id} value={tag.id}>{tag.name}</option>
+                ))}
+              </select>
+              <button
+                onClick={() => setShowTagModal(true)}
+                className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors flex items-center gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                New Tag
+              </button>
             </div>
           </div>
 
@@ -1096,19 +1015,9 @@ function BlogEditorContent() {
                   <Linkedin className="w-4 h-4 text-blue-700" />
                   <span className="text-sm font-medium text-slate-700">Post to LinkedIn when published</span>
                 </label>
-                <label className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={autoPostSocial.instagram}
-                    onChange={(e) => setAutoPostSocial({ ...autoPostSocial, instagram: e.target.checked })}
-                    className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500"
-                  />
-                  <Instagram className="w-4 h-4 text-pink-500" />
-                  <span className="text-sm font-medium text-slate-700">Post to Instagram when published</span>
-                </label>
               </div>
               <p className="text-xs text-slate-500 mt-3">
-                Note: These toggles mirror Ghost’s built-in sharing flow. Make sure the networks are enabled inside Ghost Admin → Settings → Integrations.
+                Note: Social media API keys must be configured in settings for auto-posting to work.
               </p>
             </div>
 
@@ -1209,7 +1118,7 @@ function BlogEditorContent() {
                 Cancel
               </button>
               <button
-                onClick={handleModalCreateTag}
+                onClick={createTag}
                 disabled={!newTagName.trim()}
                 className="flex-1 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50"
               >

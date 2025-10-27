@@ -84,8 +84,7 @@ export async function POST(request: NextRequest) {
       console.error('Ghost API error:', error);
       return NextResponse.json({
         success: false,
-        error: `Failed to create tag: ${response.status}`,
-        details: error,
+        error: `Failed to create tag: ${response.status}`
       }, { status: response.status });
     }
 
@@ -99,47 +98,6 @@ export async function POST(request: NextRequest) {
     console.error('Error creating tag:', error);
     return NextResponse.json(
       { success: false, error: 'Failed to create tag' },
-      { status: 500 }
-    );
-  }
-}
-
-// DELETE - Remove tag by ID
-export async function DELETE(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-
-    if (!id) {
-      return NextResponse.json(
-        { success: false, error: 'Tag id is required' },
-        { status: 400 }
-      );
-    }
-
-    const token = getGhostToken();
-    const response = await fetch(`${GHOST_URL}/ghost/api/admin/tags/${id}/`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Ghost ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Ghost API error:', error);
-      return NextResponse.json(
-        { success: false, error: `Failed to delete tag: ${response.status}`, details: error },
-        { status: response.status }
-      );
-    }
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Error deleting tag:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to delete tag' },
       { status: 500 }
     );
   }

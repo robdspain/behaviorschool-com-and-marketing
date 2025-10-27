@@ -368,7 +368,58 @@ export default function Home() {
             "https://www.linkedin.com/company/behavior-school",
             "https://x.com/behaviorschool"
           ],
-          offers: []
+          offers: [
+            {
+              "@type": "Service",
+              name: "BCBA Exam Prep & Practice Tests",
+              description: "AI-powered BCBA exam preparation, BCBA practice exams, BCBA study materials, and free BCBA practice tests",
+              url: `${SITE_URL}/behavior-study-tools`,
+              provider: {
+                "@type": "Organization",
+                name: "Behavior School"
+              }
+            },
+            {
+              "@type": "Service", 
+              name: "BCBA Supervision Tools",
+              description: "Track BCBA fieldwork hours, BCBA supervision log, competency assessments, and supervision workflows",
+              url: `${SITE_URL}/supervisors`,
+              provider: {
+                "@type": "Organization",
+                name: "Behavior School"
+              }
+            },
+            {
+              "@type": "Service",
+              name: "School BCBA Training Program",
+              description: "8-week cohort-based program for school BCBAs to reduce burnout, master crisis management in schools, build teacher buy-in for behavior plans, and implement school-wide behavior support systems",
+              url: `${SITE_URL}/transformation-program`,
+              provider: {
+                "@type": "Organization",
+                name: "Behavior School"
+              }
+            },
+            {
+              "@type": "Service",
+              name: "IEP Goal Writing",
+              description: "Write measurable IEP goals, behavior IEP goals, and SMART IEP goals for students with autism, ADHD, and behavioral challenges",
+              url: `${SITE_URL}/iep-goals`,
+              provider: {
+                "@type": "Organization",
+                name: "Behavior School"
+              }
+            },
+            {
+              "@type": "Service",
+              name: "Behavior Intervention Plans",
+              description: "Behavior intervention plan templates, behavior support plans, and tools to write BIPs from functional behavior assessments in schools",
+              url: `${SITE_URL}/behavior-plans`,
+              provider: {
+                "@type": "Organization",
+                name: "Behavior School"
+              }
+            }
+          ]
         } as const;
 
         const webSiteJsonLd = {

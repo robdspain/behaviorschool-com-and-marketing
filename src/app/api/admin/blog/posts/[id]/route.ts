@@ -75,33 +75,6 @@ export async function PUT(
     // Log the updated_at being sent for debugging
     console.log('Updating post with updated_at:', body.updated_at);
 
-    const postPayload: Record<string, unknown> = {
-      id,
-      title: body.title,
-      slug: body.slug,
-      html: body.html,
-      status: body.status,
-      published_at: body.published_at,
-      feature_image: body.feature_image,
-      featured: body.featured,
-      tags: body.tags,
-      excerpt: body.excerpt,
-      meta_title: body.meta_title,
-      meta_description: body.meta_description,
-      twitter_title: body.twitter_title,
-      twitter_description: body.twitter_description,
-      twitter_image: body.twitter_image,
-      og_title: body.og_title,
-      og_description: body.og_description,
-      og_image: body.og_image,
-      codeinjection_head: body.codeinjection_head,
-      codeinjection_foot: body.codeinjection_foot,
-    };
-
-    if (body.updated_at) {
-      postPayload.updated_at = body.updated_at;
-    }
-
     const response = await fetch(`${GHOST_URL}/ghost/api/admin/posts/${id}/`, {
       method: 'PUT',
       headers: {
@@ -109,7 +82,28 @@ export async function PUT(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        posts: [postPayload]
+        posts: [{
+          title: body.title,
+          slug: body.slug,
+          html: body.html,
+          status: body.status,
+          published_at: body.published_at,
+          feature_image: body.feature_image,
+          featured: body.featured,
+          tags: body.tags,
+          excerpt: body.excerpt,
+          meta_title: body.meta_title,
+          meta_description: body.meta_description,
+          twitter_title: body.twitter_title,
+          twitter_description: body.twitter_description,
+          twitter_image: body.twitter_image,
+          og_title: body.og_title,
+          og_description: body.og_description,
+          og_image: body.og_image,
+          codeinjection_head: body.codeinjection_head,
+          codeinjection_foot: body.codeinjection_foot,
+          updated_at: body.updated_at, // Required for updates - MUST be the latest from Ghost
+        }]
       }),
     });
 

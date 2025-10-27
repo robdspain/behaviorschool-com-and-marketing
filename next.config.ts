@@ -95,11 +95,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/coming-soon/',
-        destination: '/',
-        permanent: true,
-      },
-      {
         source: '/coming-soon/:path*',
         destination: '/',
         permanent: true,
@@ -172,11 +167,6 @@ const nextConfig: NextConfig = {
       {
         source: '/terms-of-service/behavior-study-tools',
         destination: '/terms-of-service',
-        permanent: true,
-      },
-      {
-        source: '/terms-of-service',
-        destination: '/terms',
         permanent: true,
       },
       {
@@ -254,17 +244,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/tag/free-practice-test/',
-        destination: '/free-bcba-mock-practice-test',
-        permanent: true,
-      },
-      {
         source: '/tag/bcba-certification',
-        destination: '/bcba-exam-prep',
-        permanent: true,
-      },
-      {
-        source: '/tag/bcba-certification/',
         destination: '/bcba-exam-prep',
         permanent: true,
       },
@@ -345,11 +325,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/tag/resource/',
-        destination: '/blog',
-        permanent: true,
-      },
-      {
         source: '/tag/resources',
         destination: '/blog',
         permanent: true,
@@ -403,16 +378,6 @@ const nextConfig: NextConfig = {
       {
         source: '/author/:author/@ghost',
         destination: '/about',
-        permanent: true,
-      },
-      {
-        source: '/author/robspain/behavior-study-tools',
-        destination: '/behavior-study-tools',
-        permanent: true,
-      },
-      {
-        source: '/the-role-of-language-in-connection',
-        destination: '/blog',
         permanent: true,
       },
       {

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   robots: {
@@ -8,5 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function TagPage() {
-  return null;
+  // Redirect all tag pages to blog
+  redirect("/blog");
 }

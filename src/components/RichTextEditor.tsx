@@ -56,7 +56,6 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
   const [ctaStyle, setCtaStyle] = useState<'primary' | 'secondary'>('primary')
   const [wordCount, setWordCount] = useState(0)
   const [readingTime, setReadingTime] = useState(0)
-  const [isUploadingImage, setIsUploadingImage] = useState(false)
 
   const editor = useEditor({
     extensions: [
@@ -150,65 +149,9 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
     }
   }
 
-  const uploadImageFile = async (file: File) => {
-    const formData = new FormData()
-    formData.append('file', file)
-
-    setIsUploadingImage(true)
-    try {
-      const response = await fetch('/api/admin/blog/images', {
-        method: 'POST',
-        body: formData,
-      })
-
-      const result = await response.json()
-      if (result.success && result.images && result.images[0]) {
-        const uploadedUrl = result.images[0].url
-        editor?.chain().focus().setImage({ src: uploadedUrl }).run()
-      } else {
-        alert('Failed to upload image. Please try again.')
-      }
-    } catch (error) {
-      console.error('Error uploading inline image:', error)
-      alert('Failed to upload image. Please try again.')
-    } finally {
-      setIsUploadingImage(false)
-    }
-  }
-
   const addImage = () => {
-    if (!editor) return
-
-    const useUpload = window.confirm(
-      'Click "OK" to upload an image from your computer.\nClick "Cancel" to paste an image URL.'
-    )
-
-    if (useUpload) {
-      if (isUploadingImage) {
-        alert('Image upload already in progress. Please wait.')
-        return
-      }
-
-      const input = document.createElement('input')
-      input.type = 'file'
-      input.accept = 'image/*'
-      input.style.display = 'none'
-      document.body.appendChild(input)
-
-      input.onchange = () => {
-        const file = input.files?.[0]
-        if (file) {
-          uploadImageFile(file)
-        }
-        document.body.removeChild(input)
-      }
-
-      input.click()
-      return
-    }
-
-    const url = window.prompt('Paste image URL:')
-    if (url) {
+    const url = window.prompt('Enter image URL:')
+    if (url && editor) {
       editor.chain().focus().setImage({ src: url }).run()
     }
   }
@@ -660,3 +603,4 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
     </div>
   )
 }
+

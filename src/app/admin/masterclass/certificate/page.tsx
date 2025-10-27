@@ -20,6 +20,7 @@ export default function CertificateAdminPage() {
     signature_title: '',
     organization_name: '',
     organization_website: '',
+    introduction_video_url: '',
   });
   const [saving, setSaving] = useState(false);
 
@@ -44,6 +45,7 @@ export default function CertificateAdminPage() {
           signature_title: data.data.signature_title || '',
           organization_name: data.data.organization_name,
           organization_website: data.data.organization_website,
+          introduction_video_url: data.data.introduction_video_url || '',
         });
       }
     } catch (error) {
@@ -69,6 +71,7 @@ export default function CertificateAdminPage() {
         signature_title: config.signature_title || '',
         organization_name: config.organization_name,
         organization_website: config.organization_website,
+        introduction_video_url: config.introduction_video_url || '',
       });
     }
     setIsEditing(false);
@@ -278,6 +281,24 @@ export default function CertificateAdminPage() {
                   className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-emerald-500 focus:outline-none disabled:bg-slate-50 disabled:text-slate-600"
                   placeholder="This certificate verifies successful completion..."
                 />
+              </div>
+
+              {/* Introduction Video URL */}
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  Introduction Video URL (Optional)
+                </label>
+                <input
+                  type="url"
+                  value={formData.introduction_video_url}
+                  onChange={(e) => setFormData({ ...formData, introduction_video_url: e.target.value })}
+                  disabled={!isEditing}
+                  className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-emerald-500 focus:outline-none disabled:bg-slate-50 disabled:text-slate-600"
+                  placeholder="https://fast.wistia.net/embed/iframe/..."
+                />
+                <p className="text-xs text-slate-500 mt-1">
+                  Wistia embed URL for the course introduction video
+                </p>
               </div>
 
               {/* Signature */}
