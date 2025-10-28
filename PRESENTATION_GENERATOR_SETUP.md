@@ -1,53 +1,42 @@
 # AI Presentation Generator Setup
 
-The AI Presentation Generator has been integrated directly into your admin panel. It runs on your server without Docker and uses Google Gemini AI to generate professional presentations.
+The AI Presentation Generator has been integrated directly into your admin panel using Presenton's API service.
 
 ## Features
 
-- **AI-Powered Content**: Uses Google Gemini AI to generate presentation content
+- **AI-Powered Content**: Uses Presenton AI to generate professional presentations
 - **Multiple Templates**: Choose from Modern, Professional, or Elegant designs
 - **Customizable**: Select slide count, tone, and style
 - **Instant Download**: Generates PowerPoint (.pptx) files ready to use
-- **No Docker Required**: Runs directly on your Next.js server
+- **Cloud-Based**: Uses Presenton's hosted API service
 
 ## Setup Instructions
 
-### 1. Install Dependencies
+### 1. Get a Presenton API Key
 
-```bash
-pnpm install
-```
+1. Go to: https://presenton.ai
+2. Create an account or sign in
+3. Navigate to your account settings/API section
+4. Create a new API key
+5. Copy the key (starts with `sk-presenton-`)
 
-This will install the required packages:
-- `pptxgenjs` - PowerPoint generation
-- `@google/generative-ai` - Google Gemini AI integration
+### 2. Configure in Admin Panel
 
-### 2. Add Your Gemini API Key
+1. Navigate to: `/admin/presentations`
+2. Find the **API Configuration** section at the top
+3. Enter your Presenton API key
+4. Click **Save**
 
-1. Get your API key from: https://aistudio.google.com/app/apikey
-2. Open `.env.local` and update:
-
-```bash
-GEMINI_API_KEY=your_actual_api_key_here
-```
-
-### 3. Restart Your Development Server
-
-```bash
-pnpm dev
-```
-
-### 4. Access the Presentation Generator
-
-Navigate to: `https://behaviorschool.com/admin/presentations`
+The API key is stored in your browser's localStorage and sent with each generation request.
 
 ## How to Use
 
-1. **Enter Topic**: Describe what you want your presentation to be about
-2. **Select Slides**: Choose number of slides (3-20)
-3. **Pick Template**: Modern, Professional, or Elegant
-4. **Choose Tone**: Professional, Casual, Educational, Inspirational, or Technical
-5. **Generate**: Click "Generate Presentation" and download your file
+1. **Configure API Key**: Enter and save your Presenton API key in the settings
+2. **Enter Topic**: Describe what you want your presentation to be about
+3. **Select Slides**: Choose number of slides (3-20)
+4. **Pick Template**: Modern, Professional, or Elegant
+5. **Choose Tone**: Professional, Casual, Educational, Inspirational, or Technical
+6. **Generate**: Click "Generate Presentation" and download your file
 
 ## Templates
 
@@ -86,22 +75,25 @@ The generator uses the following API endpoint:
 
 ## Technical Details
 
-- **AI Model**: Google Gemini 1.5 Flash
+- **Service**: Presenton API (https://api.presenton.ai)
 - **File Format**: PowerPoint 2007+ (.pptx)
-- **Slide Structure**: Title slide + content slides with bullet points + speaker notes
+- **Templates**: Modern, General (Professional), Swift (Elegant)
+- **API Endpoint**: `/api/v1/ppt/presentation/generate`
 
-## Files Created
+## Files
 
-- `/src/app/api/admin/presentations/generate/route.ts` - API endpoint
+- `/src/app/api/admin/presentations/generate/route.ts` - API proxy endpoint
 - `/src/components/admin/PresentationGenerator.tsx` - UI component
-- `/src/app/admin/presentations/page.tsx` - Admin page (updated)
+- `/src/components/admin/PresentationSettings.tsx` - API key configuration
+- `/src/app/admin/presentations/page.tsx` - Admin page
 
 ## Troubleshooting
 
 ### "Failed to generate presentation"
-- Check that your `GEMINI_API_KEY` is set correctly in `.env.local`
-- Ensure your API key is valid and active at https://aistudio.google.com/
-- Restart your development server after adding the API key
+- Check that your Presenton API key is entered correctly
+- Verify your API key is active at https://presenton.ai
+- Ensure you have credits in your Presenton account
+- Check browser console for specific error messages
 
 ### "Download not starting"
 - Check browser console for errors
@@ -112,11 +104,11 @@ The generator uses the following API endpoint:
 - Run `pnpm install` to ensure all dependencies are installed
 - Restart your IDE/editor
 
-## Cost Estimation
+## Cost
 
-- Google Gemini 1.5 Flash has a generous free tier
-- Free tier includes 15 requests per minute
-- Essentially free for most use cases
+- Presenton operates on a credit-based system
+- Check https://presenton.ai for current pricing
+- Credits are consumed per presentation generated
 
 ## Future Enhancements
 

@@ -29,10 +29,10 @@ export default function PresentationGenerator() {
 
     try {
       // Get API key from localStorage
-      const apiKey = localStorage.getItem("gemini_api_key");
+      const apiKey = localStorage.getItem("presenton_api_key");
 
       if (!apiKey) {
-        throw new Error("Please configure your Gemini API key in the settings above");
+        throw new Error("Please configure your Presenton API key in the settings above");
       }
 
       const response = await fetch("/api/admin/presentations/generate", {
@@ -263,7 +263,7 @@ export default function PresentationGenerator() {
           </button>
 
           <p className="text-center text-sm text-slate-500">
-            Powered by Google Gemini AI • Generate professional presentations in seconds
+            Powered by Presenton AI • Generate professional presentations in seconds
           </p>
         </form>
       </div>

@@ -11,7 +11,7 @@ export default function PresentationSettings() {
 
   useEffect(() => {
     // Load API key from localStorage on mount
-    const savedKey = localStorage.getItem("gemini_api_key");
+    const savedKey = localStorage.getItem("presenton_api_key");
     if (savedKey) {
       setApiKey(savedKey);
       setIsSaved(true);
@@ -26,14 +26,14 @@ export default function PresentationSettings() {
     }
 
     // Save to localStorage
-    localStorage.setItem("gemini_api_key", apiKey);
+    localStorage.setItem("presenton_api_key", apiKey);
     setIsSaved(true);
     setMessage({ type: 'success', text: 'API key saved successfully!' });
     setTimeout(() => setMessage(null), 3000);
   };
 
   const handleClear = () => {
-    localStorage.removeItem("gemini_api_key");
+    localStorage.removeItem("presenton_api_key");
     setApiKey("");
     setIsSaved(false);
     setMessage({ type: 'success', text: 'API key cleared' });
@@ -53,7 +53,7 @@ export default function PresentationSettings() {
             htmlFor="apiKey"
             className="block text-sm font-bold text-slate-900 mb-2"
           >
-            Google Gemini API Key
+            Presenton API Key
           </label>
           <div className="flex gap-2">
             <div className="relative flex-1">
@@ -62,7 +62,7 @@ export default function PresentationSettings() {
                 type={showKey ? "text" : "password"}
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
-                placeholder="Enter your Gemini API key"
+                placeholder="sk-presenton-..."
                 className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors pr-12"
               />
               <button
@@ -117,14 +117,14 @@ export default function PresentationSettings() {
         <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
           <h3 className="font-bold text-blue-900 mb-2">How to get your API key:</h3>
           <ol className="list-decimal list-inside space-y-1 text-blue-800 text-sm">
-            <li>Visit <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="underline font-medium">Google AI Studio</a></li>
-            <li>Sign in with your Google account</li>
-            <li>Click &quot;Create API key&quot;</li>
-            <li>Copy and paste the key above</li>
-            <li>Click &quot;Save&quot;</li>
+            <li>Visit <a href="https://presenton.ai" target="_blank" rel="noopener noreferrer" className="underline font-medium">Presenton.ai</a> and create an account</li>
+            <li>Go to your account settings</li>
+            <li>Create a new API key</li>
+            <li>Copy the key (starts with &quot;sk-presenton-&quot;)</li>
+            <li>Paste it above and click &quot;Save&quot;</li>
           </ol>
           <p className="mt-3 text-blue-800 text-sm">
-            <strong>Note:</strong> Your API key is stored locally in your browser and is only sent to the server when generating presentations.
+            <strong>Note:</strong> Your API key is stored locally in your browser and is only sent when generating presentations.
           </p>
         </div>
       </div>
