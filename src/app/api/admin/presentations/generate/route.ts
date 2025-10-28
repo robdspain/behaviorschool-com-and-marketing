@@ -64,7 +64,8 @@ async function generatePresentationContent(
   tone: string,
   apiKey: string
 ): Promise<PresentationData> {
-  const prompt = `Create a professional ${slideCount}-slide presentation about "${topic}".
+  try {
+    const prompt = `Create a professional ${slideCount}-slide presentation about "${topic}".
 
 The tone should be ${tone}. The presentation should be educational and engaging.
 
@@ -90,23 +91,41 @@ Guidelines:
 
 Return ONLY the JSON, no additional text.`;
 
-  // Initialize Gemini client with the provided API key
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    // Initialize Gemini client with the provided API key
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-  // Generate content
-  const result = await model.generateContent(prompt);
-  const response = result.response;
-  const text = response.text();
+    // Generate content
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const text = response.text();
 
-  // Parse the JSON response
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    throw new Error('Could not extract JSON from Gemini response');
+    console.log('Gemini response:', text);
+
+    // Parse the JSON response
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error('Could not extract JSON from Gemini response. Response: ' + text.substring(0, 200));
+    }
+
+    const presentationData = JSON.parse(jsonMatch[0]);
+    return presentationData;
+  } catch (error) {
+    console.error('Error in generatePresentationContent:', error);
+    if (error instanceof Error) {
+      // Check for common Gemini API errors
+      if (error.message.includes('API_KEY_INVALID') || error.message.includes('invalid API key')) {
+        throw new Error('Invalid API key. Please check your Gemini API key and try again.');
+      }
+      if (error.message.includes('PERMISSION_DENIED')) {
+        throw new Error('API key does not have permission. Make sure your Gemini API key is active.');
+      }
+      if (error.message.includes('RESOURCE_EXHAUSTED')) {
+        throw new Error('API quota exceeded. Please check your Gemini API usage limits.');
+      }
+    }
+    throw error;
   }
-
-  const presentationData = JSON.parse(jsonMatch[0]);
-  return presentationData;
 }
 
 interface ThemeConfig {
