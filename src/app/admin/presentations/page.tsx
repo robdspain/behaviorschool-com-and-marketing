@@ -1,6 +1,7 @@
 "use client";
 
 import { Presentation } from "lucide-react";
+import PresentationSettings from "@/components/admin/PresentationSettings";
 import PresentationGenerator from "@/components/admin/PresentationGenerator";
 
 export default function PresentationsPage() {
@@ -17,6 +18,9 @@ export default function PresentationsPage() {
             Create AI-powered presentations instantly with Google Gemini AI
           </p>
         </div>
+
+        {/* API Key Settings */}
+        <PresentationSettings />
 
         {/* Presentation Generator */}
         <PresentationGenerator />

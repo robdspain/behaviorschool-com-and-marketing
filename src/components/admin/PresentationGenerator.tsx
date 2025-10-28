@@ -28,12 +28,22 @@ export default function PresentationGenerator() {
     setIsGenerating(true);
 
     try {
+      // Get API key from localStorage
+      const apiKey = localStorage.getItem("gemini_api_key");
+
+      if (!apiKey) {
+        throw new Error("Please configure your Gemini API key in the settings above");
+      }
+
       const response = await fetch("/api/admin/presentations/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          apiKey,
+        }),
       });
 
       if (!response.ok) {

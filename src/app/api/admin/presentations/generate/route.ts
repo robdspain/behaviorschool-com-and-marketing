@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import PptxGenJS from 'pptxgenjs';
 
-// Initialize Gemini client
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-
 interface SlideContent {
   title: string;
   content: string[];
@@ -19,7 +16,7 @@ interface PresentationData {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { topic, slideCount = 5, template = 'modern', tone = 'professional' } = body;
+    const { topic, slideCount = 5, template = 'modern', tone = 'professional', apiKey } = body;
 
     if (!topic) {
       return NextResponse.json(
@@ -28,8 +25,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate presentation content using Claude
-    const presentationData = await generatePresentationContent(topic, slideCount, tone);
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'API key is required. Please configure your Gemini API key in the settings above.' },
+        { status: 400 }
+      );
+    }
+
+    // Generate presentation content using Gemini
+    const presentationData = await generatePresentationContent(topic, slideCount, tone, apiKey);
 
     // Create PowerPoint presentation
     const pptxBuffer = await createPowerPoint(presentationData, template);
@@ -57,7 +61,8 @@ export async function POST(request: NextRequest) {
 async function generatePresentationContent(
   topic: string,
   slideCount: number,
-  tone: string
+  tone: string,
+  apiKey: string
 ): Promise<PresentationData> {
   const prompt = `Create a professional ${slideCount}-slide presentation about "${topic}".
 
@@ -85,7 +90,8 @@ Guidelines:
 
 Return ONLY the JSON, no additional text.`;
 
-  // Get the generative model
+  // Initialize Gemini client with the provided API key
+  const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
   // Generate content
