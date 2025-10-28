@@ -36,8 +36,11 @@ export async function POST(request: NextRequest) {
     // Create PowerPoint presentation
     const pptxBuffer = await createPowerPoint(presentationData, template);
 
+    // Convert Buffer to Uint8Array for NextResponse
+    const uint8Array = new Uint8Array(pptxBuffer);
+
     // Return the file
-    return new NextResponse(pptxBuffer, {
+    return new NextResponse(uint8Array, {
       status: 200,
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
