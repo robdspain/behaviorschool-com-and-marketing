@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  presenton:
+    image: ghcr.io/presenton/presenton:latest
+    container_name: presenton
+    ports:
+      - "5000:80"
+    volumes:
+      - ./presenton_data:/app_data
+    environment:
+      # Add your API keys here
+      # OPENAI_API_KEY: your_openai_key
+      # ANTHROPIC_API_KEY: your_anthropic_key
+      # GOOGLE_API_KEY: your_google_key
+    restart: unless-stopped

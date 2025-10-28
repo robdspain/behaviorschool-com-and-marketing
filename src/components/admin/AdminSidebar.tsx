@@ -16,7 +16,8 @@ import {
   CreditCard,
   Send,
   GraduationCap,
-  Layers
+  Layers,
+  Presentation
 } from "lucide-react";
 import { useState } from "react";
 
@@ -37,6 +38,7 @@ const navigation: NavItem[] = [
   { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Blog", href: "/admin/content", icon: FileText },
+  { name: "Presentations", href: "/admin/presentations", icon: Presentation },
   { name: "Sitemap", href: "/admin/sitemap", icon: Layers },
 ];
 
