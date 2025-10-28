@@ -119,9 +119,9 @@ export default function PresentationSettings() {
           <ol className="list-decimal list-inside space-y-1 text-blue-800 text-sm">
             <li>Visit <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="underline font-medium">Google AI Studio</a></li>
             <li>Sign in with your Google account</li>
-            <li>Click "Create API key"</li>
+            <li>Click &quot;Create API key&quot;</li>
             <li>Copy and paste the key above</li>
-            <li>Click "Save"</li>
+            <li>Click &quot;Save&quot;</li>
           </ol>
           <p className="mt-3 text-blue-800 text-sm">
             <strong>Note:</strong> Your API key is stored locally in your browser and is only sent to the server when generating presentations.
