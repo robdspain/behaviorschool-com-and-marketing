@@ -194,6 +194,95 @@
     font-size: clamp(1.5rem, 5vw, 3rem);
     line-height: 1.2;
   }
+
+  /* Mobile-specific fixes */
+  @media (max-width: 768px) {
+    /* Fix container widths on mobile */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Ensure images don't overflow */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Fix grid layouts on mobile */
+    .grid {
+      gap: 1rem;
+    }
+
+    /* Adjust button sizes for mobile */
+    button, .btn, [role="button"] {
+      min-height: 44px;
+      padding: 0.75rem 1rem;
+    }
+
+    /* Fix text truncation */
+    .truncate {
+      max-width: calc(100vw - 2rem);
+    }
+
+    /* Ensure modals/popups are mobile-friendly */
+    [role="dialog"], .modal, .popup {
+      max-width: calc(100vw - 2rem);
+      max-height: calc(100vh - 4rem);
+      overflow-y: auto;
+    }
+
+    /* Fix table responsiveness */
+    table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Adjust spacing for mobile */
+    section {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    /* Fix flex layouts */
+    .flex-col-mobile {
+      flex-direction: column;
+    }
+
+    /* Ensure forms are mobile-friendly */
+    input, textarea, select {
+      font-size: 16px; /* Prevents zoom on iOS */
+      width: 100%;
+    }
+  }
+
+  /* Small mobile screens */
+  @media (max-width: 480px) {
+    /* Further reduce padding on very small screens */
+    .container {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    /* Adjust font sizes */
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    /* Stack columns on small screens */
+    .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+      grid-template-columns: 1fr;
+    }
+  }
   
   /* Accessibility improvements */
   .link-distinguishable {
