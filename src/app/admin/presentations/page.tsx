@@ -14,7 +14,7 @@ export default function PresentationsPage() {
             <h1 className="text-3xl font-bold text-slate-900">Presentations</h1>
           </div>
           <p className="text-slate-600">
-            Create AI-powered presentations instantly with Claude AI
+            Create AI-powered presentations instantly with Google Gemini AI
           </p>
         </div>
 

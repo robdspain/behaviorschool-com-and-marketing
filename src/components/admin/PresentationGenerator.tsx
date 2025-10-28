@@ -253,7 +253,7 @@ export default function PresentationGenerator() {
           </button>
 
           <p className="text-center text-sm text-slate-500">
-            Powered by Claude AI • Generate professional presentations in seconds
+            Powered by Google Gemini AI • Generate professional presentations in seconds
           </p>
         </form>
       </div>

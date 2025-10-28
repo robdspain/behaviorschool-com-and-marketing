@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import PptxGenJS from 'pptxgenjs';
 
-// Initialize Anthropic client
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY || '',
-});
+// Initialize Gemini client
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 interface SlideContent {
   title: string;
@@ -87,27 +85,18 @@ Guidelines:
 
 Return ONLY the JSON, no additional text.`;
 
-  const message = await anthropic.messages.create({
-    model: 'claude-3-5-sonnet-20241022',
-    max_tokens: 4096,
-    messages: [
-      {
-        role: 'user',
-        content: prompt,
-      },
-    ],
-  });
+  // Get the generative model
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-  // Extract the text content from the response
-  const content = message.content[0];
-  if (content.type !== 'text') {
-    throw new Error('Unexpected response format from Claude');
-  }
+  // Generate content
+  const result = await model.generateContent(prompt);
+  const response = result.response;
+  const text = response.text();
 
   // Parse the JSON response
-  const jsonMatch = content.text.match(/\{[\s\S]*\}/);
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
-    throw new Error('Could not extract JSON from Claude response');
+    throw new Error('Could not extract JSON from Gemini response');
   }
 
   const presentationData = JSON.parse(jsonMatch[0]);

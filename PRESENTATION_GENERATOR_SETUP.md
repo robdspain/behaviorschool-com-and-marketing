@@ -1,10 +1,10 @@
 # AI Presentation Generator Setup
 
-The AI Presentation Generator has been integrated directly into your admin panel. It runs on your server without Docker and uses Claude AI to generate professional presentations.
+The AI Presentation Generator has been integrated directly into your admin panel. It runs on your server without Docker and uses Google Gemini AI to generate professional presentations.
 
 ## Features
 
-- **AI-Powered Content**: Uses Claude AI (Anthropic) to generate presentation content
+- **AI-Powered Content**: Uses Google Gemini AI to generate presentation content
 - **Multiple Templates**: Choose from Modern, Professional, or Elegant designs
 - **Customizable**: Select slide count, tone, and style
 - **Instant Download**: Generates PowerPoint (.pptx) files ready to use
@@ -20,15 +20,15 @@ pnpm install
 
 This will install the required packages:
 - `pptxgenjs` - PowerPoint generation
-- `@anthropic-ai/sdk` - Claude AI integration
+- `@google/generative-ai` - Google Gemini AI integration
 
-### 2. Add Your Anthropic API Key
+### 2. Add Your Gemini API Key
 
-1. Get your API key from: https://console.anthropic.com/
+1. Get your API key from: https://aistudio.google.com/app/apikey
 2. Open `.env.local` and update:
 
 ```bash
-ANTHROPIC_API_KEY=your_actual_api_key_here
+GEMINI_API_KEY=your_actual_api_key_here
 ```
 
 ### 3. Restart Your Development Server
@@ -86,9 +86,8 @@ The generator uses the following API endpoint:
 
 ## Technical Details
 
-- **AI Model**: Claude 3.5 Sonnet (latest)
+- **AI Model**: Google Gemini 1.5 Flash
 - **File Format**: PowerPoint 2007+ (.pptx)
-- **Max Tokens**: 4096 per generation
 - **Slide Structure**: Title slide + content slides with bullet points + speaker notes
 
 ## Files Created
@@ -100,8 +99,8 @@ The generator uses the following API endpoint:
 ## Troubleshooting
 
 ### "Failed to generate presentation"
-- Check that your `ANTHROPIC_API_KEY` is set correctly in `.env.local`
-- Ensure you have API credits in your Anthropic account
+- Check that your `GEMINI_API_KEY` is set correctly in `.env.local`
+- Ensure your API key is valid and active at https://aistudio.google.com/
 - Restart your development server after adding the API key
 
 ### "Download not starting"
@@ -115,9 +114,9 @@ The generator uses the following API endpoint:
 
 ## Cost Estimation
 
-- Each presentation generation uses approximately 2,000-4,000 tokens
-- With Claude 3.5 Sonnet pricing (~$3 per million input tokens, ~$15 per million output tokens)
-- Estimated cost: $0.05-$0.10 per presentation
+- Google Gemini 1.5 Flash has a generous free tier
+- Free tier includes 15 requests per minute
+- Essentially free for most use cases
 
 ## Future Enhancements
 
