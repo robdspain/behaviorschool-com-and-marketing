@@ -97,7 +97,7 @@ export function MasterclassAuth({ onSuccess }: MasterclassAuthProps) {
           </h3>
 
           <p className="text-slate-600 mb-6">
-            We've sent a magic link to <span className="font-semibold">{email}</span>
+            We&apos;ve sent a magic link to <span className="font-semibold">{email}</span>
           </p>
 
           <div className="bg-slate-50 rounded-lg p-4 mb-6 text-sm text-slate-700">
@@ -119,7 +119,7 @@ export function MasterclassAuth({ onSuccess }: MasterclassAuthProps) {
           </div>
 
           <p className="text-sm text-slate-500 mb-4">
-            Didn't receive it? Check your spam folder or{' '}
+            Didn&apos;t receive it? Check your spam folder or{' '}
             <button
               onClick={() => {
                 setMagicLinkSent(false);

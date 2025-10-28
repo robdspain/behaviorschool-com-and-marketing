@@ -98,7 +98,7 @@ const faqData: FAQCategory[] = [
         question: "How do I enroll in the program?",
         answer: (
           <>
-            You can apply through our <Link href="/signup" className="text-emerald-600 hover:text-emerald-700 underline">application page</Link>. After submitting your application, we'll review it and schedule a brief call to ensure the program is the right fit for your needs and goals.
+            You can apply through our <Link href="/signup" className="text-emerald-600 hover:text-emerald-700 underline">application page</Link>. After submitting your application, we&apos;ll review it and schedule a brief call to ensure the program is the right fit for your needs and goals.
           </>
         )
       },
@@ -159,7 +159,7 @@ const faqData: FAQCategory[] = [
         question: "How can I learn more or get in touch?",
         answer: (
           <>
-            You can reach us through our <Link href="/contact" className="text-emerald-600 hover:text-emerald-700 underline">contact page</Link>. We're happy to answer questions about the transformation program, discuss whether it's right for you, or provide more information about what's included.
+            You can reach us through our <Link href="/contact" className="text-emerald-600 hover:text-emerald-700 underline">contact page</Link>. We&apos;re happy to answer questions about the transformation program, discuss whether it&apos;s right for you, or provide more information about what&apos;s included.
           </>
         )
       },
@@ -236,7 +236,7 @@ export function FAQClient() {
             Still have questions?
           </h2>
           <p className="text-gray-700 mb-6">
-            Can't find the answer you're looking for? We're here to help!
+            Can&apos;t find the answer you&apos;re looking for? We&apos;re here to help!
           </p>
           <Link
             href="/contact"

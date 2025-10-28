@@ -9,11 +9,12 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, ArrowRight, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { User } from '@supabase/supabase-js';
 
 export default function MasterclassEnrollPage() {
   const router = useRouter();
   const supabase = createClient();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -108,9 +109,9 @@ export default function MasterclassEnrollPage() {
 
       // Success! Redirect to course
       router.push('/masterclass/course');
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Enrollment error:', err);
-      setError(err.message || 'Failed to complete enrollment. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to complete enrollment. Please try again.');
       setIsSubmitting(false);
     }
   };
