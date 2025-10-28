@@ -111,6 +111,14 @@ Return ONLY the JSON, no additional text.`;
   return presentationData;
 }
 
+interface ThemeConfig {
+  titleBg: string;
+  titleColor: string;
+  contentBg: string;
+  contentColor: string;
+  accentColor: string;
+}
+
 async function createPowerPoint(data: PresentationData, template: string): Promise<Buffer> {
   const pptx = new PptxGenJS();
 
@@ -120,7 +128,7 @@ async function createPowerPoint(data: PresentationData, template: string): Promi
   pptx.title = data.title;
 
   // Theme configurations
-  const themes: Record<string, any> = {
+  const themes: Record<string, ThemeConfig> = {
     modern: {
       titleBg: '1e3a8a', // Navy blue
       titleColor: 'FFFFFF',
