@@ -39,10 +39,7 @@ import type {
   CourseSectionWithQuestionCount,
 } from '@/lib/masterclass/admin-types';
 
-interface SectionWithQuestions extends CourseSectionWithQuestionCount {
-  questions: MasterclassQuizQuestion[];
-  isExpanded?: boolean;
-}
+
 
 function SortableQuestion({ question, sectionNumber, onEdit, onDelete }: {
   question: MasterclassQuizQuestion;
@@ -110,8 +107,9 @@ function SortableQuestion({ question, sectionNumber, onEdit, onDelete }: {
   );
 }
 
-function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuestion, onEditQuestion, onDeleteQuestion }: {
-  section: SectionWithQuestions;
+function SortableSection({ section, allQuestions, onEdit, onDelete, onToggleExpand, onAddQuestion, onEditQuestion, onDeleteQuestion }: {
+  section: MasterclassCourseSection;
+  allQuestions: MasterclassQuizQuestion[];
   onEdit: () => void;
   onDelete: () => void;
   onToggleExpand: () => void;
@@ -134,27 +132,7 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
     opacity: isDragging ? 0.5 : 1,
   };
 
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
-    if (over && active.id !== over.id) {
-      // Handle question reordering within this section
-      const oldIndex = section.questions.findIndex(q => `question-${q.id}` === active.id);
-      const newIndex = section.questions.findIndex(q => `question-${q.id}` === over.id);
-
-      if (oldIndex !== -1 && newIndex !== -1) {
-        // TODO: Implement question reordering API call
-        console.log('Reorder questions:', oldIndex, newIndex);
-      }
-    }
-  };
+  const sectionQuestions = section.questionIds.map(qId => allQuestions.find(q => q.id === qId)).filter(Boolean) as MasterclassQuizQuestion[];
 
   return (
     <div
@@ -211,7 +189,7 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
           <div className="mt-2 flex items-center gap-4 text-xs text-slate-500">
             <span>{section.duration}</span>
             <span>•</span>
-            <span>{section.question_count} questions</span>
+            <span>{sectionQuestions.length} questions</span>
           </div>
         </div>
       </div>
@@ -232,29 +210,18 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
             </Button>
           </div>
 
-          {section.questions.length > 0 ? (
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-            >
-              <SortableContext
-                items={section.questions.map(q => `question-${q.id}`)}
-                strategy={verticalListSortingStrategy}
-              >
-                <div className="space-y-3">
-                  {section.questions.map((question) => (
-                    <SortableQuestion
-                      key={question.id}
-                      question={question}
-                      sectionNumber={section.section_number}
-                      onEdit={() => onEditQuestion(question)}
-                      onDelete={() => onDeleteQuestion(question.id)}
-                    />
-                  ))}
-                </div>
-              </SortableContext>
-            </DndContext>
+          {sectionQuestions.length > 0 ? (
+            <div className="space-y-3">
+              {sectionQuestions.map((question) => (
+                <SortableQuestion
+                  key={question.id}
+                  question={question}
+                  sectionNumber={section.section_number}
+                  onEdit={() => onEditQuestion(question)}
+                  onDelete={() => onDeleteQuestion(question.id)}
+                />
+              ))}
+            </div>
           ) : (
             <div className="text-center py-8 text-slate-500 text-sm">
               No questions yet. Add your first question!
@@ -267,7 +234,8 @@ function SortableSection({ section, onEdit, onDelete, onToggleExpand, onAddQuest
 }
 
 export default function DesignCoursePage() {
-  const [sections, setSections] = useState<SectionWithQuestions[]>([]);
+  const [sections, setSections] = useState<MasterclassCourseSection[]>([]);
+  const [questions, setQuestions] = useState<MasterclassQuizQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -289,23 +257,28 @@ export default function DesignCoursePage() {
       const sectionsData = await sectionsResponse.json();
 
       if (sectionsData.success) {
-        // Fetch questions for each section
-        const sectionsWithQuestions = await Promise.all(
-          sectionsData.data.map(async (section: CourseSectionWithQuestionCount) => {
+        let allQuestions: MasterclassQuizQuestion[] = [];
+        const sectionsWithQuestionIds = await Promise.all(
+          sectionsData.data.map(async (section: MasterclassCourseSection) => {
             const questionsResponse = await fetch(
               `/api/admin/masterclass/questions?section=${section.section_number}`
             );
             const questionsData = await questionsResponse.json();
 
+            if (questionsData.success) {
+              allQuestions = [...allQuestions, ...questionsData.data];
+            }
+
             return {
               ...section,
-              questions: questionsData.success ? questionsData.data : [],
+              questionIds: questionsData.success ? questionsData.data.map((q: MasterclassQuizQuestion) => q.id) : [],
               isExpanded: false,
             };
           })
         );
 
-        setSections(sectionsWithQuestions);
+        setSections(sectionsWithQuestionIds);
+        setQuestions(allQuestions);
       }
     } catch (error) {
       console.error('Failed to fetch course data:', error);
@@ -317,7 +290,10 @@ export default function DesignCoursePage() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (over && active.id !== over.id) {
+    if (!over) return;
+
+    // Dragging a section
+    if (active.id.toString().startsWith('section-') && over.id.toString().startsWith('section-')) {
       setSections((items) => {
         const oldIndex = items.findIndex(s => `section-${s.id}` === active.id);
         const newIndex = items.findIndex(s => `section-${s.id}` === over.id);
@@ -327,6 +303,102 @@ export default function DesignCoursePage() {
         }
         return items;
       });
+    }
+
+    // Dragging a question
+    if (active.id.toString().startsWith('question-')) {
+      const activeQuestionId = parseInt(active.id.toString().replace('question-', ''));
+      const overId = over.id.toString();
+
+      // Dragging a question to another question (reordering within or between sections)
+      if (overId.startsWith('question-')) {
+        const overQuestionId = parseInt(overId.replace('question-', ''));
+
+        setSections(prevSections => {
+          const newSections = prevSections.map(section => ({ ...section, questionIds: [...section.questionIds] }));
+
+          let activeSectionId: number | undefined;
+          let overSectionId: number | undefined;
+
+          // Find the section of the active question
+          for (const section of newSections) {
+            if (section.questionIds.includes(activeQuestionId)) {
+              activeSectionId = section.id;
+              break;
+            }
+          }
+
+          // Find the section of the over question
+          for (const section of newSections) {
+            if (section.questionIds.includes(overQuestionId)) {
+              overSectionId = section.id;
+              break;
+            }
+          }
+
+          if (activeSectionId === undefined || overSectionId === undefined) {
+            return prevSections; // Should not happen
+          }
+
+          // If dragging within the same section
+          if (activeSectionId === overSectionId) {
+            const sectionIndex = newSections.findIndex(s => s.id === activeSectionId);
+            const oldIndex = newSections[sectionIndex].questionIds.indexOf(activeQuestionId);
+            const newIndex = newSections[sectionIndex].questionIds.indexOf(overQuestionId);
+            newSections[sectionIndex].questionIds = arrayMove(newSections[sectionIndex].questionIds, oldIndex, newIndex);
+          } else {
+            // If dragging to a different section
+            const oldSectionIndex = newSections.findIndex(s => s.id === activeSectionId);
+            const newSectionIndex = newSections.findIndex(s => s.id === overSectionId);
+
+            // Remove from old section
+            newSections[oldSectionIndex].questionIds = newSections[oldSectionIndex].questionIds.filter(id => id !== activeQuestionId);
+
+            // Add to new section at the correct position
+            const newIndex = newSections[newSectionIndex].questionIds.indexOf(overQuestionId);
+            newSections[newSectionIndex].questionIds.splice(newIndex, 0, activeQuestionId);
+          }
+
+          return newSections;
+        });
+      }
+
+      // Dragging a question to a section (empty or not) - add to end of section
+      else if (overId.startsWith('section-')) {
+        const overSectionId = parseInt(overId.replace('section-', ''));
+
+        setSections(prevSections => {
+          const newSections = prevSections.map(section => ({ ...section, questionIds: [...section.questionIds] }));
+
+          let activeSectionId: number | undefined;
+
+          // Find the section of the active question
+          for (const section of newSections) {
+            if (section.questionIds.includes(activeQuestionId)) {
+              activeSectionId = section.id;
+              break;
+            }
+          }
+
+          if (activeSectionId === undefined) {
+            return prevSections; // Should not happen
+          }
+
+          // Remove from old section if it's not the same as the target section
+          if (activeSectionId !== overSectionId) {
+            const oldSectionIndex = newSections.findIndex(s => s.id === activeSectionId);
+            newSections[oldSectionIndex].questionIds = newSections[oldSectionIndex].questionIds.filter(id => id !== activeQuestionId);
+          }
+
+          // Add to the end of the new section if it's not already there
+          const newSectionIndex = newSections.findIndex(s => s.id === overSectionId);
+          if (!newSections[newSectionIndex].questionIds.includes(activeQuestionId)) {
+            newSections[newSectionIndex].questionIds.push(activeQuestionId);
+          }
+
+          return newSections;
+        });
+      }
     }
   };
 
@@ -420,7 +492,10 @@ export default function DesignCoursePage() {
             onDragEnd={handleDragEnd}
           >
             <SortableContext
-              items={sections.map(s => `section-${s.id}`)}
+              items={[
+                ...sections.map(s => `section-${s.id}`),
+                ...questions.map(q => `question-${q.id}`),
+              ]}
               strategy={verticalListSortingStrategy}
             >
               <div className="space-y-4">
@@ -428,6 +503,7 @@ export default function DesignCoursePage() {
                   <SortableSection
                     key={section.id}
                     section={section}
+                    allQuestions={questions}
                     onEdit={() => {
                       window.location.href = `/admin/masterclass/sections?edit=${section.id}`;
                     }}

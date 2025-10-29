@@ -17,6 +17,8 @@ export interface MasterclassCourseSection {
   is_active: boolean;
   created_at: string;
   updated_at: string;
+  questionIds: number[]; // Added for DND
+  isExpanded?: boolean; // Added for UI state
 }
 
 export interface MasterclassQuizQuestion {
@@ -31,6 +33,17 @@ export interface MasterclassQuizQuestion {
   correct_answer: number; // 0-3
   explanation: string | null;
   is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MasterclassResource {
+  id: number;
+  section_id: number | null; // Null if it's a standalone resource
+  name: string;
+  url: string;
+  file_type: string; // e.g., 'pdf', 'doc', 'link', 'image'
+  order_index: number;
   created_at: string;
   updated_at: string;
 }
@@ -104,9 +117,7 @@ export interface AdminApiResponse<T = unknown> {
   message?: string;
 }
 
-export interface CourseSectionWithQuestionCount extends MasterclassCourseSection {
-  question_count: number;
-}
+
 
 export interface QuizQuestionWithSection extends MasterclassQuizQuestion {
   section_title?: string;

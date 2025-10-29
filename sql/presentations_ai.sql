@@ -47,3 +47,43 @@ create policy "images admin write" on public.presentations_ai_images for insert 
 drop policy if exists "images admin delete" on public.presentations_ai_images;
 create policy "images admin delete" on public.presentations_ai_images for delete using (true);
 
+-- JSON-based presentations (full slides, charts, etc.)
+create table if not exists public.presentations_ai_docs (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  template text not null default 'modern',
+  data jsonb not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.presentations_ai_docs enable row level security;
+drop policy if exists "docs admin read" on public.presentations_ai_docs;
+create policy "docs admin read" on public.presentations_ai_docs for select using (true);
+drop policy if exists "docs admin write" on public.presentations_ai_docs;
+create policy "docs admin write" on public.presentations_ai_docs for insert with check (true);
+drop policy if exists "docs admin update" on public.presentations_ai_docs;
+create policy "docs admin update" on public.presentations_ai_docs for update using (true) with check (true);
+drop policy if exists "docs admin delete" on public.presentations_ai_docs;
+create policy "docs admin delete" on public.presentations_ai_docs for delete using (true);
+
+-- Async jobs for generation
+create table if not exists public.presentations_ai_jobs (
+  id uuid primary key default gen_random_uuid(),
+  status text not null default 'queued',
+  progress integer not null default 0,
+  format text not null default 'pptx',
+  topic text,
+  result_path text,
+  error text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.presentations_ai_jobs enable row level security;
+drop policy if exists "jobs admin read" on public.presentations_ai_jobs;
+create policy "jobs admin read" on public.presentations_ai_jobs for select using (true);
+drop policy if exists "jobs admin write" on public.presentations_ai_jobs;
+create policy "jobs admin write" on public.presentations_ai_jobs for insert with check (true);
+drop policy if exists "jobs admin update" on public.presentations_ai_jobs;
+create policy "jobs admin update" on public.presentations_ai_jobs for update using (true) with check (true);

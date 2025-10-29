@@ -22,29 +22,118 @@ import { useState } from "react";
 
 interface NavItem {
   name: string;
-  href: string;
+  href?: string;
   icon: React.ComponentType<{ className?: string }>;
   badge?: string;
+  children?: NavItem[];
 }
 
 const navigation: NavItem[] = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Masterclass", href: "/admin/masterclass", icon: GraduationCap },
-  { name: "Submissions", href: "/admin/submissions", icon: Users },
+  { 
+    name: "Masterclass", 
+    href: "/admin/masterclass", 
+    icon: GraduationCap,
+    children: [
+      { name: "Design Course", href: "/admin/masterclass/design", icon: GraduationCap },
+      { name: "Resources", href: "/admin/masterclass/resources/design", icon: FileText },
+    ]
+  },
+  { 
+    name: "Leads", 
+    icon: Users,
+    children: [
+      { name: "Submissions", href: "/admin/submissions", icon: Users },
+      { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
+      { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
+    ]
+  },
   { name: "Email Templates", href: "/admin/email-templates", icon: Mail },
   { name: "Newsletter (Listmonk)", href: "/admin/listmonk", icon: Send },
-  { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
-  { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
   { name: "Blog", href: "/admin/content", icon: FileText },
   { name: "Presentations", href: "/admin/presentations", icon: Presentation },
   { name: "Sitemap", href: "/admin/sitemap", icon: Layers },
 ];
 
+function SidebarNavItem({ item, isActive, onClick }: { item: NavItem; isActive: (href: string | undefined) => boolean; onClick: () => void }) {
+  const initiallyOpen = item.children?.some(child => isActive(child.href)) || false;
+  const [isOpen, setIsOpen] = useState(initiallyOpen);
+  const hasChildren = item.children && item.children.length > 0;
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const active = hasChildren
+    ? item.children?.some(child => isActive(child.href))
+    : isActive(item.href);
+
+  if (hasChildren) {
+    return (
+      <div>
+        <button
+          onClick={handleToggle}
+          className={`
+            flex items-center justify-between w-full gap-3 px-4 py-3 rounded-xl
+            font-medium transition-all duration-200
+            ${
+              active
+                ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200"
+                : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
+            }
+          `}
+        >
+          <div className="flex items-center gap-3">
+            <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
+            <span className="flex-1 text-left">{item.name}</span>
+          </div>
+          <ChevronRight className={`w-4 h-4 transition-transform ${isOpen ? 'transform rotate-90' : ''}`} />
+        </button>
+        {isOpen && (
+          <div className="pl-8 pt-2 space-y-1">
+            {item.children?.map(child => (
+              <SidebarNavItem key={child.name} item={child} isActive={isActive} onClick={onClick} />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={item.href!}
+      onClick={onClick}
+      className={`
+        flex items-center gap-3 px-4 py-3 rounded-xl
+        font-medium transition-all duration-200
+        ${
+          active
+            ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200"
+            : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
+        }
+      `}
+    >
+      <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
+      <span className="flex-1">{item.name}</span>
+      {item.badge && (
+        <span className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-700 rounded-full">
+          {item.badge}
+        </span>
+      )}
+      {active && (
+        <ChevronRight className="w-4 h-4 text-emerald-600" />
+      )}
+    </Link>
+  );
+}
+
 export function AdminSidebar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const isActive = (href: string) => {
+  const isActive = (href: string | undefined) => {
+    if (!href) return false;
     if (href === "/admin") {
       return pathname === "/admin";
     }
@@ -98,38 +187,14 @@ export function AdminSidebar() {
           {/* Navigation */}
           <nav className="flex-1 p-4 overflow-y-auto">
             <div className="space-y-1">
-              {navigation.map((item) => {
-                const Icon = item.icon;
-                const active = isActive(item.href);
-
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`
-                      flex items-center gap-3 px-4 py-3 rounded-xl
-                      font-medium transition-all duration-200
-                      ${
-                        active
-                          ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200"
-                          : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
-                      }
-                    `}
-                  >
-                    <Icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
-                    <span className="flex-1">{item.name}</span>
-                    {item.badge && (
-                      <span className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-700 rounded-full">
-                        {item.badge}
-                      </span>
-                    )}
-                    {active && (
-                      <ChevronRight className="w-4 h-4 text-emerald-600" />
-                    )}
-                  </Link>
-                );
-              })}
+              {navigation.map((item) => (
+                <SidebarNavItem
+                  key={item.name}
+                  item={item}
+                  isActive={isActive}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                />
+              ))}
             </div>
           </nav>
 

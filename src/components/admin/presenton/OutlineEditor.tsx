@@ -4,6 +4,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { ListOrdered, Plus, Trash2, ArrowUp, ArrowDown, Loader2, FileDown } from 'lucide-react';
 import LayoutPreview from './LayoutPreview';
 import ChartEditor from './ChartEditor';
+import PresentationDocsLibrary from './PresentationDocsLibrary';
+import TemplateSettings from './TemplateSettings';
+import SlideRichEditor from './SlideRichEditor';
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import { arrayMove, SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 type Slide = { title: string; content: string[]; imageUrl?: string; icons?: string[]; layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left' };
 
@@ -27,6 +33,13 @@ export default function OutlineEditor() {
   const [layoutBrowserIndex, setLayoutBrowserIndex] = useState<number | null>(null);
   const [galleryTemplate, setGalleryTemplate] = useState<string | null>(null);
   const [chartEditorIndex, setChartEditorIndex] = useState<number | null>(null);
+  const [saveId, setSaveId] = useState<string | null>(null);
+  const [showDocs, setShowDocs] = useState(false);
+  const [showTemplateSettings, setShowTemplateSettings] = useState(false);
+  const [templateFonts, setTemplateFonts] = useState<{ titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string }>({});
+  const [richEditIndex, setRichEditIndex] = useState<number | null>(null);
+  const [asyncMsg, setAsyncMsg] = useState<string | null>(null);
+  const [asyncRunning, setAsyncRunning] = useState(false);
 
   const provider = useMemo(() => {
     const googleKey = localStorage.getItem('google_api_key');
@@ -168,12 +181,22 @@ export default function OutlineEditor() {
     setSlides(copy);
   };
 
+  function SortableSlide({ id, children }: { id: string; children: React.ReactNode }) {
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+    const style = { transform: CSS.Transform.toString(transform), transition } as React.CSSProperties;
+    return (
+      <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        {children}
+      </div>
+    );
+  }
+
   const createPresentation = async () => {
     setLoading(true); setError(null);
     try {
       const resp = await fetch('/api/admin/presentations/generate', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic: title, template, tone, language, exportAs: exportFormat, slides })
+        body: JSON.stringify({ topic: title, template, tone, language, exportAs: exportFormat, slides, templateFonts })
       });
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
@@ -237,16 +260,43 @@ export default function OutlineEditor() {
         <button onClick={addSlide} className="px-4 py-2 border-2 border-slate-200 rounded-lg font-medium flex items-center gap-2">
           <Plus className="w-4 h-4" /> Add Slide
         </button>
+        <button onClick={()=> setShowTemplateSettings(true)} className="px-4 py-2 border-2 border-slate-200 rounded-lg font-medium">Template Settings</button>
+        <button onClick={async ()=>{
+          const payload = { id: saveId, title, template, data: { title, language, tone, template, slides, templateFonts } };
+          const res = await fetch('/api/admin/presentations/docs', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+          const out = await res.json(); if (out?.id) setSaveId(out.id);
+          alert(res.ok ? 'Saved!' : ('Save failed: '+(out.error||'unknown')));
+        }} className="px-4 py-2 border-2 border-emerald-200 rounded-lg font-medium">{saveId ? 'Save' : 'Save As New'}</button>
+        <button onClick={()=> setShowDocs(true)} className="px-4 py-2 border-2 border-slate-200 rounded-lg font-medium">Load From Library</button>
         <button onClick={createPresentation} className="ml-auto px-4 py-2 bg-teal-600 text-white rounded-lg font-medium flex items-center gap-2" disabled={loading || slides.length===0}>
           <FileDown className="w-4 h-4" /> Create Presentation
         </button>
+        <button onClick={async ()=>{
+          setAsyncMsg('Starting...'); setAsyncRunning(true);
+          const resp = await fetch('/api/admin/presentations/generate/async', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ topic: title, template, tone, language, exportAs: exportFormat, slides, templateFonts }) });
+          if (!resp.ok) { setAsyncMsg('Failed to start'); setAsyncRunning(false); return; }
+          const { id } = await resp.json();
+          try {
+            const ev = new EventSource(`/api/admin/presentations/generate/stream/${id}`);
+            ev.onmessage = (e)=>{ try { const d = JSON.parse(e.data); if (d.progress!==undefined) setAsyncMsg(`${d.step||'working'} ${d.progress}%`);} catch{} };
+            ev.addEventListener('status', (e: any)=>{ try { const d = JSON.parse(e.data); setAsyncMsg(`${d.step} ${d.progress}%`);} catch{} });
+            ev.addEventListener('complete', (e: any)=>{ setAsyncMsg('Completed'); setAsyncRunning(false); ev.close(); });
+          } catch { setAsyncMsg('Running...'); }
+        }} className="px-4 py-2 border-2 border-teal-200 rounded-lg font-medium" disabled={asyncRunning || slides.length===0}>Generate (Async)</button>
       </div>
 
       {error && <div className="px-4 py-3 border-2 border-red-200 rounded-lg bg-red-50 text-red-700">{error}</div>}
+      {asyncMsg && <div className="px-4 py-3 border-2 border-emerald-200 rounded-lg bg-emerald-50 text-emerald-800">{asyncMsg}</div>}
 
+      <DndContext collisionDetection={closestCenter} onDragEnd={({active, over})=>{
+        if (!over) return; const from = Number(active.id); const to = Number(over.id); if (from===to) return;
+        setSlides((prev)=> arrayMove(prev, from, to));
+      }}>
+        <SortableContext items={slides.map((_,i)=> String(i))} strategy={verticalListSortingStrategy}>
       <div className="space-y-4">
         {slides.map((s, i) => (
-          <div key={i} className="border-2 border-slate-200 rounded-lg p-4">
+          <SortableSlide key={i} id={String(i)}>
+          <div className="border-2 border-slate-200 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-3">
               <input value={s.title} onChange={(e)=>updateTitle(i, e.target.value)} className="flex-1 px-3 py-2 border-2 border-slate-200 rounded" />
               <select value={s.layout || 'auto'} onChange={(e)=>{ const copy = slides.slice(); copy[i] = { ...copy[i], layout: e.target.value as any }; setSlides(copy); }} className="px-2 py-2 border-2 border-slate-200 rounded text-sm">
@@ -285,6 +335,9 @@ export default function OutlineEditor() {
                 </div>
               ))}
               <button onClick={() => addBullet(i)} className="mt-1 text-sm text-emerald-700">+ Add bullet</button>
+              <div>
+                <button onClick={()=> setRichEditIndex(i)} className="mt-1 text-sm text-slate-700 underline">Rich edit</button>
+              </div>
               <div className="mt-3">
                 <label className="block text-sm font-bold text-slate-900 mb-1">Image URL (optional)</label>
                 <div className="flex gap-2">
@@ -361,8 +414,11 @@ export default function OutlineEditor() {
               </div>
             </div>
           </div>
+          </SortableSlide>
         ))}
       </div>
+        </SortableContext>
+      </DndContext>
 
       {/* Layout Browser Overlay */}
       {layoutBrowserIndex !== null && (
@@ -432,6 +488,44 @@ export default function OutlineEditor() {
             setChartEditorIndex(null);
           }}
           onClose={()=> setChartEditorIndex(null)}
+          template={template as any}
+        />
+      )}
+
+      {/* Docs Library */}
+      {showDocs && (
+        <PresentationDocsLibrary
+          onLoad={(doc)=>{
+            setTitle(doc.title);
+            setSaveId(doc.id);
+            setGalleryTemplate(null);
+            setTemplate(doc.template || 'modern');
+            try {
+              setLanguage(doc.data?.language || 'English');
+              setTone(doc.data?.tone || 'professional');
+              setSlides(doc.data?.slides || []);
+              setTemplateFonts(doc.data?.templateFonts || {});
+            } catch { /* ignore */ }
+            setShowDocs(false);
+          }}
+          onClose={()=> setShowDocs(false)}
+        />
+      )}
+
+      {showTemplateSettings && (
+        <TemplateSettings
+          initial={templateFonts}
+          onSave={(tf)=> { setTemplateFonts(tf); setShowTemplateSettings(false); }}
+          onClose={()=> setShowTemplateSettings(false)}
+        />
+      )}
+
+      {richEditIndex !== null && (
+        <SlideRichEditor
+          title={slides[richEditIndex].title}
+          initialBullets={slides[richEditIndex].content}
+          onSave={(bullets)=> { const copy = slides.slice(); copy[richEditIndex!] = { ...copy[richEditIndex!], content: bullets }; setSlides(copy); setRichEditIndex(null); }}
+          onClose={()=> setRichEditIndex(null)}
         />
       )}
     </div>
