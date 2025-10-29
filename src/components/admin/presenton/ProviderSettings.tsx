@@ -25,7 +25,8 @@ export default function ProviderSettings() {
   useEffect(() => {
     // Load saved config from localStorage
     const saved: Partial<ProviderConfig> = {};
-    Object.keys(config).forEach((key) => {
+    const initialKeys = ["presenton_api_key", "openai_api_key", "anthropic_api_key", "google_api_key", "ollama_endpoint"];
+    initialKeys.forEach((key) => {
       const value = localStorage.getItem(key);
       if (value) saved[key as keyof ProviderConfig] = value;
     });
@@ -34,15 +35,18 @@ export default function ProviderSettings() {
 
   const handleSave = () => {
     // Save all non-empty fields to localStorage
+    const saved: string[] = [];
     Object.entries(config).forEach(([key, value]) => {
       if (value) {
         localStorage.setItem(key, value);
+        saved.push(key);
       } else {
         localStorage.removeItem(key);
       }
     });
 
-    setMessage({ type: 'success', text: 'Settings saved successfully!' });
+    console.log("Saved API keys to localStorage:", saved);
+    setMessage({ type: 'success', text: `Settings saved successfully! (${saved.length} key${saved.length !== 1 ? 's' : ''} saved)` });
     setTimeout(() => setMessage(null), 3000);
   };
 

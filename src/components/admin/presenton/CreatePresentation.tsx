@@ -47,7 +47,16 @@ export default function CreatePresentation() {
       const apiKey = localStorage.getItem("presenton_api_key");
 
       if (!apiKey) {
-        throw new Error("Please configure your Presenton API key in the Settings tab");
+        // Debug: Show what keys are actually in localStorage
+        const allKeys = {
+          presenton: localStorage.getItem("presenton_api_key"),
+          openai: localStorage.getItem("openai_api_key"),
+          anthropic: localStorage.getItem("anthropic_api_key"),
+          google: localStorage.getItem("google_api_key"),
+          ollama: localStorage.getItem("ollama_endpoint"),
+        };
+        console.log("LocalStorage API Keys:", allKeys);
+        throw new Error("Please configure your Presenton API key in the Settings tab (first field marked with *)");
       }
 
       const response = await fetch("/api/admin/presentations/generate", {
