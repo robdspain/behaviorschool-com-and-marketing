@@ -74,7 +74,8 @@ export default function CreatePresentation() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to generate presentation");
+        console.error("Generation error:", errorData);
+        throw new Error(errorData.details || errorData.error || "Failed to generate presentation");
       }
 
       // Download the file

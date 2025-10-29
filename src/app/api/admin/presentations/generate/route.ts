@@ -7,6 +7,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', provider = 'google', apiKey } = body;
 
+    console.log('Generate request:', { topic, slideCount, template, tone, language, provider, hasApiKey: !!apiKey });
+
     if (!topic) {
       return NextResponse.json(
         { error: 'Topic is required' },
@@ -137,10 +139,12 @@ async function generateWithGemini(
   tone: string,
   language: string
 ): Promise<Array<{ title: string; content: string[] }>> {
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  try {
+    console.log('Initializing Gemini with model: gemini-1.5-flash');
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-  const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
+    const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
 The tone should be ${tone}.
 
 For each slide (excluding the title slide), provide:
@@ -157,17 +161,30 @@ Format your response as a JSON array of objects with this structure:
 
 Generate ${slideCount - 1} content slides (the title slide will be added automatically).`;
 
-  const result = await model.generateContent(prompt);
-  const response = result.response;
-  const text = response.text();
+    console.log('Calling Gemini API...');
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const text = response.text();
 
-  // Extract JSON from the response
-  const jsonMatch = text.match(/\[[\s\S]*\]/);
-  if (!jsonMatch) {
-    throw new Error('Failed to parse AI response');
+    console.log('Gemini response received, length:', text.length);
+
+    // Extract JSON from the response
+    const jsonMatch = text.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) {
+      console.error('Failed to parse JSON from response:', text.substring(0, 500));
+      throw new Error('Failed to parse AI response. Response format was invalid.');
+    }
+
+    const parsed = JSON.parse(jsonMatch[0]);
+    console.log(`Successfully parsed ${parsed.length} slides`);
+    return parsed;
+  } catch (error) {
+    console.error('Gemini generation error:', error);
+    if (error instanceof Error) {
+      throw new Error(`Gemini API error: ${error.message}`);
+    }
+    throw error;
   }
-
-  return JSON.parse(jsonMatch[0]);
 }
 
 function getTemplateConfig(template: string) {
