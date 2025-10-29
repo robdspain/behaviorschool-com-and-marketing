@@ -3,6 +3,7 @@ import { createSupabaseAdminClient, withSupabaseAdmin } from '@/lib/supabase-adm
 
 async function ensureImagesBucket() {
   await withSupabaseAdmin(async (client) => {
+    if (!client) return;
     const { data: buckets } = await client.storage.listBuckets();
     const has = (buckets || []).some((b) => b.name === 'presentations-images');
     if (!has) {

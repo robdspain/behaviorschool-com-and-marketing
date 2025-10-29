@@ -2,7 +2,20 @@
 
 import { useState } from 'react';
 
-type ChartData = { type: 'bar'|'line'|'pie'|'doughnut', categories: string[], series: Array<{ name: string; values: number[] }> };
+type ChartData = {
+  type: 'bar'|'line'|'pie'|'doughnut';
+  categories: string[];
+  series: Array<{ name: string; values: number[] }>;
+  stacked?: boolean;
+  showLegend?: boolean;
+  xLabel?: string;
+  yLabel?: string;
+  seriesColors?: string[];
+  legendPosition?: 'top-right'|'bottom'|'right'|'left';
+  yFormat?: 'auto'|'number'|'currency'|'percent';
+  labelStyle?: 'auto'|'inside'|'above';
+  showStackPercent?: boolean;
+};
 
 export default function ChartEditor({ initial, onSave, onClose, template = 'modern' }: { initial?: ChartData; onSave: (data: ChartData) => void; onClose: () => void; template?: 'modern'|'general'|'swift'|'minimal'|'corporate'|string; }) {
   const [type, setType] = useState<ChartData['type']>(initial?.type || 'bar');
@@ -15,8 +28,10 @@ export default function ChartEditor({ initial, onSave, onClose, template = 'mode
   const [xLabel, setXLabel] = useState<string>(initial?.xLabel || '');
   const [yLabel, setYLabel] = useState<string>(initial?.yLabel || '');
   const [seriesColors, setSeriesColors] = useState<string>((initial?.seriesColors || []).join(', '));
-  const [legendPosition, setLegendPosition] = useState<'top-right'|'bottom'|'right'>(initial?.legendPosition || 'top-right');
+  const [legendPosition, setLegendPosition] = useState<'top-right'|'bottom'|'right'|'left'>(initial?.legendPosition || 'top-right');
   const [yFormat, setYFormat] = useState<'auto'|'number'|'currency'|'percent'>(initial?.yFormat || 'auto');
+  const [labelStyle, setLabelStyle] = useState<'auto'|'inside'|'above'>(initial?.labelStyle || 'auto');
+  const [showStackPercent, setShowStackPercent] = useState<boolean>(!!initial?.showStackPercent);
   const [csv, setCsv] = useState<string>('');
 
   const addSeries = () => setSeries(arr => [...arr, { name: `Series ${arr.length+1}`, values: '' }]);
@@ -27,7 +42,7 @@ export default function ChartEditor({ initial, onSave, onClose, template = 'mode
     const cats = categories.split(',').map(s => s.trim()).filter(Boolean);
     const ser = series.map(s => ({ name: s.name.trim() || 'Series', values: s.values.split(',').map(v => parseFloat(v.trim())).filter(v => !isNaN(v)) }));
     const colors = seriesColors.split(',').map(s => s.trim()).filter(Boolean);
-    onSave({ type, categories: cats, series: ser, stacked, showLegend, xLabel: xLabel || undefined, yLabel: yLabel || undefined, seriesColors: colors.length ? colors : undefined, legendPosition, yFormat });
+    onSave({ type, categories: cats, series: ser, stacked, showLegend, xLabel: xLabel || undefined, yLabel: yLabel || undefined, seriesColors: colors.length ? colors : undefined, legendPosition, yFormat, labelStyle, showStackPercent });
   };
 
   const parseCsv = () => {
@@ -114,11 +129,12 @@ export default function ChartEditor({ initial, onSave, onClose, template = 'mode
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-900 mb-1">Legend Position</label>
-                <select value={legendPosition} onChange={(e)=> setLegendPosition(e.target.value as any)} className="w-full px-3 py-2 border-2 border-slate-200 rounded">
-                  <option value="top-right">Top Right</option>
-                  <option value="bottom">Bottom</option>
-                  <option value="right">Right</option>
-                </select>
+              <select value={legendPosition} onChange={(e)=> setLegendPosition(e.target.value as any)} className="w-full px-3 py-2 border-2 border-slate-200 rounded">
+                <option value="top-right">Top Right</option>
+                <option value="bottom">Bottom</option>
+                <option value="right">Right</option>
+                <option value="left">Left</option>
+              </select>
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-900 mb-1">Y Format</label>
@@ -127,6 +143,21 @@ export default function ChartEditor({ initial, onSave, onClose, template = 'mode
                   <option value="number">Number</option>
                   <option value="currency">Currency</option>
                   <option value="percent">Percent</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-900 mb-1">Label Style</label>
+                <select value={labelStyle} onChange={(e)=> setLabelStyle(e.target.value as any)} className="w-full px-3 py-2 border-2 border-slate-200 rounded">
+                  <option value="auto">Auto</option>
+                  <option value="inside">Inside</option>
+                  <option value="above">Above</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-900 mb-1">Stacked % Labels</label>
+                <select value={showStackPercent ? 'yes':'no'} onChange={(e)=> setShowStackPercent(e.target.value==='yes')} className="w-full px-3 py-2 border-2 border-slate-200 rounded">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
                 </select>
               </div>
             </div>
@@ -201,7 +232,7 @@ function ChartPreview({
   categories: string[],
   series: Array<{ name: string; values: number[] }>,
   stacked?: boolean,
-  legendPosition?: 'top-right'|'bottom'|'right',
+  legendPosition?: 'top-right'|'bottom'|'right'|'left',
   yFormat?: 'auto'|'number'|'currency'|'percent',
   template?: string,
   seriesColors?: string[],

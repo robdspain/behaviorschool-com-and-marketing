@@ -15,39 +15,20 @@ export async function POST(request: NextRequest) {
 
     if (provider === 'google') {
       try {
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const models = await genAI.listModels();
-
-        // Filter to only models that support generateContent
-        const availableModels = models
-          .filter((model) =>
-            model.supportedGenerationMethods?.includes('generateContent')
-          )
-          .map((model) => ({
-            name: model.name.replace('models/', ''),
-            displayName: model.displayName || model.name,
-            description: model.description,
-          }))
-          // Sort models: prioritize latest versions (2.0, exp models, then 1.5)
-          .sort((a, b) => {
-            // Priority order for model prefixes
-            const getPriority = (name: string) => {
-              if (name.includes('2.0')) return 1;
-              if (name.includes('exp')) return 2;
-              if (name.includes('1.5-pro')) return 3;
-              if (name.includes('1.5-flash')) return 4;
-              if (name.includes('1.5')) return 5;
-              if (name.includes('1.0')) return 6;
-              return 7;
-            };
-
-            return getPriority(a.name) - getPriority(b.name);
-          });
+        // Google AI SDK doesn't expose listModels in the current version
+        // Return a curated list of known working models
+        const availableModels = [
+          { name: 'gemini-2.0-flash-exp', displayName: 'Gemini 2.0 Flash (Experimental)', description: 'Latest experimental model' },
+          { name: 'gemini-exp-1206', displayName: 'Gemini Experimental 1206', description: 'Experimental model from Dec 6' },
+          { name: 'gemini-1.5-pro-latest', displayName: 'Gemini 1.5 Pro (Latest)', description: 'Most capable 1.5 model' },
+          { name: 'gemini-1.5-flash-latest', displayName: 'Gemini 1.5 Flash (Latest)', description: 'Fast and efficient' },
+          { name: 'gemini-1.5-pro', displayName: 'Gemini 1.5 Pro', description: 'Stable pro model' },
+          { name: 'gemini-1.5-flash', displayName: 'Gemini 1.5 Flash', description: 'Stable flash model' },
+          { name: 'gemini-pro', displayName: 'Gemini Pro', description: 'Legacy pro model' },
+        ];
 
         console.log('Available Gemini models:', availableModels.length);
-        if (availableModels.length > 0) {
-          console.log('Default model (first):', availableModels[0].name);
-        }
+        console.log('Default model (first):', availableModels[0].name);
 
         return NextResponse.json({ models: availableModels });
       } catch (error) {

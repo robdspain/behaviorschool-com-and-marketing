@@ -11,7 +11,22 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-type Slide = { title: string; content: string[]; imageUrl?: string; icons?: string[]; layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left' };
+type ChartData = {
+  type: 'bar'|'line'|'pie'|'doughnut';
+  categories: string[];
+  series: Array<{ name: string; values: number[] }>;
+  stacked?: boolean;
+  showLegend?: boolean;
+  xLabel?: string;
+  yLabel?: string;
+  seriesColors?: string[];
+  legendPosition?: 'top-right'|'bottom'|'right'|'left';
+  yFormat?: 'auto'|'number'|'currency'|'percent';
+  labelStyle?: 'auto'|'inside'|'above';
+  showStackPercent?: boolean;
+};
+
+type Slide = { title: string; content: string[]; imageUrl?: string; icons?: string[]; chart?: ChartData; layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left' };
 
 export default function OutlineEditor() {
   const [title, setTitle] = useState('Untitled Presentation');
@@ -181,12 +196,12 @@ export default function OutlineEditor() {
     setSlides(copy);
   };
 
-  function SortableSlide({ id, children }: { id: string; children: React.ReactNode }) {
+  function SortableSlide({ id, children }: { id: string; children: (handleProps: any)=>React.ReactNode }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
     const style = { transform: CSS.Transform.toString(transform), transition } as React.CSSProperties;
     return (
-      <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-        {children}
+      <div ref={setNodeRef} style={style}>
+        {children({ ...attributes, ...listeners })}
       </div>
     );
   }
@@ -296,7 +311,8 @@ export default function OutlineEditor() {
       <div className="space-y-4">
         {slides.map((s, i) => (
           <SortableSlide key={i} id={String(i)}>
-          <div className="border-2 border-slate-200 rounded-lg p-4">
+            {(handleProps) => (
+          <div className="border-2 border-slate-200 rounded-lg p-4" {...handleProps}>
             <div className="flex items-center gap-2 mb-3">
               <input value={s.title} onChange={(e)=>updateTitle(i, e.target.value)} className="flex-1 px-3 py-2 border-2 border-slate-200 rounded" />
               <select value={s.layout || 'auto'} onChange={(e)=>{ const copy = slides.slice(); copy[i] = { ...copy[i], layout: e.target.value as any }; setSlides(copy); }} className="px-2 py-2 border-2 border-slate-200 rounded text-sm">
@@ -414,6 +430,7 @@ export default function OutlineEditor() {
               </div>
             </div>
           </div>
+            )}
           </SortableSlide>
         ))}
       </div>

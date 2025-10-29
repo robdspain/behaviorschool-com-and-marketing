@@ -1,7 +1,7 @@
 "use client";
 
 interface Props {
-  layout: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full';
+  layout: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left';
   imageUrl?: string;
   titleText?: string;
   content?: string[];

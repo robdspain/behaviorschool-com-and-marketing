@@ -14,11 +14,11 @@ function extractCount(json: any): number | null {
   return null
 }
 
-export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const admin = await verifyAdminSession()
   if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!getListmonkConfig()) return NextResponse.json({ error: 'Listmonk not configured' }, { status: 200 })
-  const id = params.id
+  const { id } = await params
   try {
     const [viewsRes, clicksRes, bouncesRes, linksRes] = await Promise.all([
       listmonkFetch(`/api/campaigns/analytics/views?campaign_id=${id}`),

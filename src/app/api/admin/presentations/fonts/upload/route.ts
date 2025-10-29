@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
     const path = `fonts/${id}.${ext}`;
     const supabase = createSupabaseAdminClient();
     await withSupabaseAdmin(async (client)=>{
+      if (!client) return;
       const { data: buckets } = await client.storage.listBuckets();
       if (!(buckets || []).some(b=> b.name==='presentations-fonts')) {
         await client.storage.createBucket('presentations-fonts', { public: true });

@@ -49,11 +49,18 @@ export async function POST(request: NextRequest) {
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
     });
 
-    if (!resp.response.candidates.length) {
+    if (!resp.response.candidates || !resp.response.candidates.length) {
         return NextResponse.json({ success: false, error: 'No image generated' }, { status: 500 });
     }
 
-    const imageBase64 = resp.response.candidates[0].content.parts[0].fileData.data;
+    const firstCandidate = resp.response.candidates[0];
+    const firstPart = firstCandidate?.content?.parts?.[0];
+    const fileData = firstPart && 'fileData' in firstPart ? firstPart.fileData : null;
+    const imageBase64 = (fileData as any)?.mimeType?.startsWith('image/') ? (fileData as any).fileUri : null;
+
+    if (!imageBase64) {
+        return NextResponse.json({ success: false, error: 'No valid image data in response' }, { status: 500 });
+    }
     const imageBuffer = Buffer.from(imageBase64, 'base64');
 
     const formData = new FormData();

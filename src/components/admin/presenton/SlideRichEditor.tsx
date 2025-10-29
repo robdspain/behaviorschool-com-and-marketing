@@ -11,7 +11,7 @@ export default function SlideRichEditor({ title, initialBullets, onSave, onClose
     content: `<h2>${escapeHtml(title)}</h2><ul>${initialBullets.map(b=>`<li>${escapeHtml(b)}</li>`).join('')}</ul>`,
   });
 
-  useEffect(()=>{ setContent(initialBullets.join('\n')); }, [initialBullets.join('|')]);
+  useEffect(()=>{ setContent(initialBullets.join('\n')); }, [JSON.stringify(initialBullets)]);
 
   const save = () => {
     try {
@@ -41,11 +41,21 @@ export default function SlideRichEditor({ title, initialBullets, onSave, onClose
             <h4 className="text-lg font-bold text-slate-900">Edit Slide Content</h4>
             <button onClick={onClose} className="px-3 py-1 border-2 border-slate-200 rounded">Close</button>
           </div>
-          <div className="p-4">
+          <div className="p-4 space-y-3">
             {editor ? (
-              <div className="border-2 border-slate-200 rounded p-2">
-                <EditorContent editor={editor} />
-              </div>
+              <>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <button onClick={()=> editor.chain().focus().toggleBold().run()} className="px-2 py-1 border-2 border-slate-200 rounded text-sm">Bold</button>
+                  <button onClick={()=> editor.chain().focus().toggleItalic().run()} className="px-2 py-1 border-2 border-slate-200 rounded text-sm">Italic</button>
+                  <button onClick={()=> editor.chain().focus().toggleBulletList().run()} className="px-2 py-1 border-2 border-slate-200 rounded text-sm">• List</button>
+                  <button onClick={()=> editor.chain().focus().toggleOrderedList().run()} className="px-2 py-1 border-2 border-slate-200 rounded text-sm">1. List</button>
+                  <button onClick={()=> editor.chain().focus().undo().run()} className="px-2 py-1 border-2 border-slate-200 rounded text-sm">Undo</button>
+                  <button onClick={()=> editor.chain().focus().redo().run()} className="px-2 py-1 border-2 border-slate-200 rounded text-sm">Redo</button>
+                </div>
+                <div className="border-2 border-slate-200 rounded p-2">
+                  <EditorContent editor={editor} />
+                </div>
+              </>
             ) : (
               <textarea value={content} onChange={(e)=> setContent(e.target.value)} rows={10} className="w-full px-3 py-2 border-2 border-slate-200 rounded" />
             )}
@@ -63,4 +73,3 @@ export default function SlideRichEditor({ title, initialBullets, onSave, onClose
 function escapeHtml(s: string) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-

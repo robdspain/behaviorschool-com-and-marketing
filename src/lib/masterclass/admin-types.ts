@@ -21,6 +21,10 @@ export interface MasterclassCourseSection {
   isExpanded?: boolean; // Added for UI state
 }
 
+export interface CourseSectionWithQuestionCount extends MasterclassCourseSection {
+  question_count: number;
+}
+
 export interface MasterclassQuizQuestion {
   id: number;
   section_number: number;
