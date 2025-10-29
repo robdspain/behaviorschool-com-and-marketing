@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FileUp, Loader2, Download, Eye, Sparkles, FileText, Upload } from "lucide-react";
 
 interface PresentationForm {
@@ -11,6 +11,13 @@ interface PresentationForm {
   language: string;
   template: string;
   tone: string;
+  model: string;
+}
+
+interface AIModel {
+  name: string;
+  displayName: string;
+  description?: string;
 }
 
 export default function CreatePresentation() {
@@ -22,6 +29,7 @@ export default function CreatePresentation() {
     language: "English",
     template: "modern",
     tone: "professional",
+    model: "gemini-1.5-pro",
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +38,57 @@ export default function CreatePresentation() {
     path: string;
     editPath: string;
   } | null>(null);
+  const [availableModels, setAvailableModels] = useState<AIModel[]>([]);
+  const [isLoadingModels, setIsLoadingModels] = useState(false);
+  const [modelsError, setModelsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchAvailableModels();
+  }, []);
+
+  const fetchAvailableModels = async () => {
+    setIsLoadingModels(true);
+    setModelsError(null);
+
+    try {
+      const googleKey = localStorage.getItem("google_api_key");
+      const openaiKey = localStorage.getItem("openai_api_key");
+      const anthropicKey = localStorage.getItem("anthropic_api_key");
+
+      if (!googleKey && !openaiKey && !anthropicKey) {
+        setModelsError("Please configure an AI provider key in Settings first");
+        setIsLoadingModels(false);
+        return;
+      }
+
+      const provider = googleKey ? "google" : openaiKey ? "openai" : "anthropic";
+      const apiKey = googleKey || openaiKey || anthropicKey;
+
+      const response = await fetch("/api/admin/presentations/models", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ apiKey, provider }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.details || errorData.error || "Failed to fetch models");
+      }
+
+      const data = await response.json();
+      setAvailableModels(data.models || []);
+
+      // Set default model if available
+      if (data.models && data.models.length > 0 && !form.model) {
+        setForm({ ...form, model: data.models[0].name });
+      }
+    } catch (err) {
+      console.error("Error fetching models:", err);
+      setModelsError(err instanceof Error ? err.message : "Failed to fetch models");
+    } finally {
+      setIsLoadingModels(false);
+    }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -67,6 +126,7 @@ export default function CreatePresentation() {
           template: form.template,
           tone: form.tone,
           language: form.language,
+          model: form.model,
           provider,
           apiKey,
         }),
@@ -261,6 +321,45 @@ export default function CreatePresentation() {
             <option value="inspirational">Inspirational</option>
             <option value="technical">Technical</option>
           </select>
+        </div>
+
+        {/* AI Model */}
+        <div className="md:col-span-2">
+          <label className="block text-sm font-bold text-slate-900 mb-2">
+            AI Model
+          </label>
+          {isLoadingModels ? (
+            <div className="px-4 py-3 border-2 border-slate-200 rounded-lg bg-slate-50 text-slate-600 flex items-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Loading available models...
+            </div>
+          ) : modelsError ? (
+            <div className="px-4 py-3 border-2 border-red-200 rounded-lg bg-red-50 text-red-700">
+              {modelsError}
+              <button
+                onClick={fetchAvailableModels}
+                className="ml-2 text-sm underline hover:no-underline"
+              >
+                Retry
+              </button>
+            </div>
+          ) : availableModels.length > 0 ? (
+            <select
+              value={form.model}
+              onChange={(e) => setForm({ ...form, model: e.target.value })}
+              className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            >
+              {availableModels.map((model) => (
+                <option key={model.name} value={model.name}>
+                  {model.displayName} {model.description ? `- ${model.description}` : ''}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <div className="px-4 py-3 border-2 border-yellow-200 rounded-lg bg-yellow-50 text-yellow-800">
+              No models available. Please check your API key in Settings.
+            </div>
+          )}
         </div>
       </div>
 

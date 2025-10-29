@@ -5,9 +5,9 @@ import PptxGenJS from 'pptxgenjs';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', provider = 'google', apiKey } = body;
+    const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', model = 'gemini-1.5-pro', provider = 'google', apiKey } = body;
 
-    console.log('Generate request:', { topic, slideCount, template, tone, language, provider, hasApiKey: !!apiKey });
+    console.log('Generate request:', { topic, slideCount, template, tone, language, model, provider, hasApiKey: !!apiKey });
 
     if (!topic) {
       return NextResponse.json(
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     let slideContent: Array<{ title: string; content: string[] }>;
 
     if (provider === 'google') {
-      slideContent = await generateWithGemini(apiKey, topic, slideCount, tone, language);
+      slideContent = await generateWithGemini(apiKey, topic, slideCount, tone, language, model);
     } else if (provider === 'openai') {
       return NextResponse.json(
         { error: 'OpenAI provider not yet implemented. Please use Google AI.' },
@@ -137,12 +137,13 @@ async function generateWithGemini(
   topic: string,
   slideCount: number,
   tone: string,
-  language: string
+  language: string,
+  modelName: string
 ): Promise<Array<{ title: string; content: string[] }>> {
   try {
-    console.log('Initializing Gemini with model: gemini-1.5-flash');
+    console.log('Initializing Gemini with model:', modelName);
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: modelName });
 
     const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
 The tone should be ${tone}.
