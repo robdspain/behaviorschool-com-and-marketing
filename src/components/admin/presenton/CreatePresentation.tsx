@@ -43,21 +43,18 @@ export default function CreatePresentation() {
     setGeneratedPresentation(null);
 
     try {
-      // Get API key from localStorage
-      const apiKey = localStorage.getItem("presenton_api_key");
+      // Get API keys from localStorage - try Google AI first, then others
+      const googleKey = localStorage.getItem("google_api_key");
+      const openaiKey = localStorage.getItem("openai_api_key");
+      const anthropicKey = localStorage.getItem("anthropic_api_key");
 
-      if (!apiKey) {
-        // Debug: Show what keys are actually in localStorage
-        const allKeys = {
-          presenton: localStorage.getItem("presenton_api_key"),
-          openai: localStorage.getItem("openai_api_key"),
-          anthropic: localStorage.getItem("anthropic_api_key"),
-          google: localStorage.getItem("google_api_key"),
-          ollama: localStorage.getItem("ollama_endpoint"),
-        };
-        console.log("LocalStorage API Keys:", allKeys);
-        throw new Error("Please configure your Presenton API key in the Settings tab (first field marked with *)");
+      if (!googleKey && !openaiKey && !anthropicKey) {
+        throw new Error("Please configure at least one AI provider key in the Settings tab");
       }
+
+      // Prefer Google AI for presentation generation
+      const apiKey = googleKey || openaiKey || anthropicKey;
+      const provider = googleKey ? "google" : openaiKey ? "openai" : "anthropic";
 
       const response = await fetch("/api/admin/presentations/generate", {
         method: "POST",
@@ -69,6 +66,8 @@ export default function CreatePresentation() {
           slideCount: form.slideCount,
           template: form.template,
           tone: form.tone,
+          language: form.language,
+          provider,
           apiKey,
         }),
       });

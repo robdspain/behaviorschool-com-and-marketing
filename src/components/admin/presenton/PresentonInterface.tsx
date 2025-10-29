@@ -25,8 +25,8 @@ export default function PresentonInterface() {
           <div className="flex items-center gap-3">
             <Presentation className="w-8 h-8 text-white" />
             <div>
-              <h2 className="text-2xl font-bold text-white">Presenton AI</h2>
-              <p className="text-emerald-50 text-sm">Create stunning presentations with AI</p>
+              <h2 className="text-2xl font-bold text-white">AI Presentation Generator</h2>
+              <p className="text-emerald-50 text-sm">Self-hosted presentation generation with your own AI keys</p>
             </div>
           </div>
         </div>

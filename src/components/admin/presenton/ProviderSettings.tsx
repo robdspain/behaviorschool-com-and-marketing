@@ -4,19 +4,17 @@ import { useState, useEffect } from "react";
 import { Settings, Eye, EyeOff, Check, AlertCircle, Key } from "lucide-react";
 
 interface ProviderConfig {
-  presenton_api_key: string;
+  google_api_key: string;
   openai_api_key: string;
   anthropic_api_key: string;
-  google_api_key: string;
   ollama_endpoint: string;
 }
 
 export default function ProviderSettings() {
   const [config, setConfig] = useState<ProviderConfig>({
-    presenton_api_key: "",
+    google_api_key: "",
     openai_api_key: "",
     anthropic_api_key: "",
-    google_api_key: "",
     ollama_endpoint: "",
   });
   const [showKeys, setShowKeys] = useState<Record<string, boolean>>({});
@@ -25,7 +23,7 @@ export default function ProviderSettings() {
   useEffect(() => {
     // Load saved config from localStorage
     const saved: Partial<ProviderConfig> = {};
-    const initialKeys = ["presenton_api_key", "openai_api_key", "anthropic_api_key", "google_api_key", "ollama_endpoint"];
+    const initialKeys = ["google_api_key", "openai_api_key", "anthropic_api_key", "ollama_endpoint"];
     initialKeys.forEach((key) => {
       const value = localStorage.getItem(key);
       if (value) saved[key as keyof ProviderConfig] = value;
@@ -52,11 +50,11 @@ export default function ProviderSettings() {
 
   const providers = [
     {
-      key: "presenton_api_key" as keyof ProviderConfig,
-      label: "Presenton API Key",
-      description: "Primary API key for Presenton service",
-      placeholder: "sk-presenton-...",
-      link: "https://presenton.ai",
+      key: "google_api_key" as keyof ProviderConfig,
+      label: "Google AI API Key",
+      description: "For Gemini models (recommended for presentation generation)",
+      placeholder: "AIza...",
+      link: "https://aistudio.google.com/app/apikey",
       required: true,
     },
     {
@@ -73,14 +71,6 @@ export default function ProviderSettings() {
       description: "For Claude models",
       placeholder: "sk-ant-...",
       link: "https://console.anthropic.com/",
-      required: false,
-    },
-    {
-      key: "google_api_key" as keyof ProviderConfig,
-      label: "Google AI API Key",
-      description: "For Gemini models",
-      placeholder: "AIza...",
-      link: "https://aistudio.google.com/app/apikey",
       required: false,
     },
     {
@@ -186,10 +176,11 @@ export default function ProviderSettings() {
         <h4 className="font-bold text-blue-900 mb-2">About API Keys</h4>
         <ul className="space-y-1 text-blue-800 text-sm">
           <li>• All API keys are stored locally in your browser</li>
-          <li>• Keys are only sent when generating presentations</li>
-          <li>• At minimum, you need the Presenton API key</li>
-          <li>• Additional provider keys enable more AI model options</li>
+          <li>• Keys are sent to your server when generating presentations</li>
+          <li>• At minimum, you need one AI provider key (Google AI recommended)</li>
+          <li>• Additional provider keys enable fallback options</li>
           <li>• Ollama endpoint allows using local AI models</li>
+          <li>• No Presenton subscription required - this is self-hosted</li>
         </ul>
       </div>
     </div>
