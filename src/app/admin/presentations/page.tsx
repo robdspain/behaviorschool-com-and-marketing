@@ -1,8 +1,7 @@
 "use client";
 
 import { Presentation } from "lucide-react";
-import PresentationSettings from "@/components/admin/PresentationSettings";
-import PresentationGenerator from "@/components/admin/PresentationGenerator";
+import PresentonInterface from "@/components/admin/presenton/PresentonInterface";
 
 export default function PresentationsPage() {
   return (
@@ -12,18 +11,15 @@ export default function PresentationsPage() {
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <Presentation className="w-8 h-8 text-emerald-600" />
-            <h1 className="text-3xl font-bold text-slate-900">Presentations</h1>
+            <h1 className="text-3xl font-bold text-slate-900">AI Presentations</h1>
           </div>
           <p className="text-slate-600">
-            Create AI-powered presentations instantly with Presenton AI
+            Create professional presentations with AI-powered content generation
           </p>
         </div>
 
-        {/* API Key Settings */}
-        <PresentationSettings />
-
-        {/* Presentation Generator */}
-        <PresentationGenerator />
+        {/* Presenton Interface */}
+        <PresentonInterface />
       </div>
     </div>
   );
