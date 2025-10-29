@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X, Star } from 'lucide-react'
+import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X, Star, Sparkles } from 'lucide-react'
 import { RichTextEditor } from '@/components/RichTextEditor'
 import { SEOPanel } from '@/components/SEOPanel'
 
@@ -126,6 +126,10 @@ function BlogEditorContent() {
 
   // SEO Panel visibility
   const [showSEOPanel, setShowSEOPanel] = useState(false)
+  const [showImageGenerator, setShowImageGenerator] = useState(false)
+  const [imagePrompt, setImagePrompt] = useState('')
+  const [generatingImage, setGeneratingImage] = useState(false)
+  const [generatedImageUrl, setGeneratedImageUrl] = useState('')
 
   useEffect(() => {
     document.title = postId ? 'Edit Post | Admin' : 'New Post | Admin'
@@ -268,6 +272,33 @@ function BlogEditorContent() {
       alert('Failed to upload image')
     } finally {
       setUploading(false)
+    }
+  }
+
+  const handleGenerateImage = async () => {
+    if (!imagePrompt.trim()) return
+
+    setGeneratingImage(true)
+    setGeneratedImageUrl('')
+    try {
+      const response = await fetch('/api/admin/blog/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: imagePrompt })
+      })
+
+      const result = await response.json()
+
+      if (result.success && result.imageUrl) {
+        setGeneratedImageUrl(result.imageUrl)
+      } else {
+        alert('Failed to generate image: ' + result.error)
+      }
+    } catch (error) {
+      console.error('Error generating image:', error)
+      alert('An error occurred while generating the image.')
+    } finally {
+      setGeneratingImage(false)
     }
   }
 
@@ -601,6 +632,14 @@ function BlogEditorContent() {
                   className="hidden"
                 />
               </label>
+              <button
+                type="button"
+                onClick={() => setShowImageGenerator(true)}
+                className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors flex items-center gap-2"
+              >
+                <Sparkles className="w-4 h-4" />
+                Generate
+              </button>
             </div>
             {post.feature_image && (
               <div className="mt-4">
@@ -1077,6 +1116,63 @@ function BlogEditorContent() {
           </div>
         </div>
       </main>
+
+      {/* Image Generation Modal */}
+      {showImageGenerator && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowImageGenerator(false)}>
+          <div className="bg-white rounded-xl p-6 max-w-lg w-full mx-4" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-xl font-bold text-slate-900 mb-4">Generate Feature Image</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Image Prompt
+                </label>
+                <textarea
+                  value={imagePrompt}
+                  onChange={(e) => setImagePrompt(e.target.value)}
+                  placeholder="e.g. A futuristic cityscape with flying cars"
+                  rows={3}
+                  className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+              {generatedImageUrl && (
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Generated Image
+                  </label>
+                  <img src={generatedImageUrl} alt="Generated image" className="max-w-full h-auto rounded-lg" />
+                </div>
+              )}
+            </div>
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => setShowImageGenerator(false)}
+                className="flex-1 px-4 py-2 border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleGenerateImage}
+                disabled={!imagePrompt.trim() || generatingImage}
+                className="flex-1 px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+              >
+                {generatingImage ? 'Generating...' : 'Generate'}
+              </button>
+              {generatedImageUrl && (
+                <button
+                  onClick={() => {
+                    setPost({ ...post, feature_image: generatedImageUrl });
+                    setShowImageGenerator(false);
+                  }}
+                  className="flex-1 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
+                >
+                  Use Image
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Tag Creation Modal */}
       {showTagModal && (

@@ -12,6 +12,7 @@ interface PresentationForm {
   template: string;
   tone: string;
   model: string;
+  exportFormat: 'pptx' | 'pdf' | 'pdf_hifi';
 }
 
 interface AIModel {
@@ -30,6 +31,7 @@ export default function CreatePresentation() {
     template: "modern",
     tone: "professional",
     model: "", // Will be set from API
+    exportFormat: 'pptx',
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,20 +56,21 @@ export default function CreatePresentation() {
       const googleKey = localStorage.getItem("google_api_key");
       const openaiKey = localStorage.getItem("openai_api_key");
       const anthropicKey = localStorage.getItem("anthropic_api_key");
+      const ollamaEndpoint = localStorage.getItem("ollama_endpoint");
 
-      if (!googleKey && !openaiKey && !anthropicKey) {
+      if (!googleKey && !openaiKey && !anthropicKey && !ollamaEndpoint) {
         setModelsError("Please configure an AI provider key in Settings first");
         setIsLoadingModels(false);
         return;
       }
 
-      const provider = googleKey ? "google" : openaiKey ? "openai" : "anthropic";
-      const apiKey = googleKey || openaiKey || anthropicKey;
+      const provider = googleKey ? "google" : openaiKey ? "openai" : anthropicKey ? "anthropic" : "ollama";
+      const apiKey = googleKey || openaiKey || anthropicKey || "";
 
       const response = await fetch("/api/admin/presentations/models", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ apiKey, provider }),
+        body: JSON.stringify({ apiKey, provider, ollamaEndpoint }),
       });
 
       if (!response.ok) {
@@ -80,6 +83,7 @@ export default function CreatePresentation() {
 
       // Set default model if available
       if (data.models && data.models.length > 0 && !form.model) {
+        console.log(`[Presenton] Defaulting to model: ${data.models[0].name}`);
         setForm({ ...form, model: data.models[0].name });
       }
     } catch (err) {
@@ -106,14 +110,35 @@ export default function CreatePresentation() {
       const googleKey = localStorage.getItem("google_api_key");
       const openaiKey = localStorage.getItem("openai_api_key");
       const anthropicKey = localStorage.getItem("anthropic_api_key");
+      const ollamaEndpoint = localStorage.getItem("ollama_endpoint");
 
-      if (!googleKey && !openaiKey && !anthropicKey) {
-        throw new Error("Please configure at least one AI provider key in the Settings tab");
+      if (!googleKey && !openaiKey && !anthropicKey && !ollamaEndpoint) {
+        throw new Error("Please configure at least one AI provider in the Settings tab (Google, OpenAI, Anthropic, or Ollama endpoint)");
       }
 
       // Prefer Google AI for presentation generation
-      const apiKey = googleKey || openaiKey || anthropicKey;
-      const provider = googleKey ? "google" : openaiKey ? "openai" : "anthropic";
+      const apiKey = googleKey || openaiKey || anthropicKey || "";
+      const provider = googleKey ? "google" : openaiKey ? "openai" : anthropicKey ? "anthropic" : "ollama";
+      console.log(`[Presenton] Generating with provider=${provider} model=${form.model} format=${form.exportFormat}`);
+
+      // If using file input and we have a plaintext file, read it client-side
+      let topicContent = form.content;
+      if (form.inputType === 'file' && form.file) {
+        const ext = form.file.name.toLowerCase().split('.').pop();
+        if (ext === 'txt' || ext === 'csv') {
+          topicContent = await form.file.text();
+        } else {
+          const fd = new FormData();
+          fd.append('file', form.file);
+          const extractResp = await fetch('/api/admin/presentations/files/extract', { method: 'POST', body: fd });
+          if (!extractResp.ok) {
+            const errJson = await extractResp.json().catch(() => ({}));
+            throw new Error(errJson.error || 'Failed to extract text from document');
+          }
+          const { text } = await extractResp.json();
+          topicContent = text;
+        }
+      }
 
       const response = await fetch("/api/admin/presentations/generate", {
         method: "POST",
@@ -121,7 +146,7 @@ export default function CreatePresentation() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          topic: form.content,
+          topic: topicContent,
           slideCount: form.slideCount,
           template: form.template,
           tone: form.tone,
@@ -129,6 +154,8 @@ export default function CreatePresentation() {
           model: form.model,
           provider,
           apiKey,
+          exportAs: form.exportFormat,
+          ollamaEndpoint,
         }),
       });
 
@@ -143,7 +170,8 @@ export default function CreatePresentation() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${form.content.substring(0, 30).replace(/[^a-z0-9]/gi, "_")}.pptx`;
+      const baseName = (topicContent || form.content).substring(0, 30).replace(/[^a-z0-9]/gi, "_");
+      a.download = `${baseName}.${form.exportFormat}`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -153,7 +181,7 @@ export default function CreatePresentation() {
       const history = JSON.parse(localStorage.getItem("presenton_history") || "[]");
       history.unshift({
         id: Date.now().toString(),
-        topic: form.content,
+        topic: (topicContent || form.content).slice(0, 200),
         slideCount: form.slideCount,
         template: form.template,
         createdAt: new Date().toISOString(),
@@ -360,6 +388,20 @@ export default function CreatePresentation() {
               No models available. Please check your API key in Settings.
             </div>
           )}
+        </div>
+
+        {/* Export Format */}
+        <div>
+          <label className="block text-sm font-bold text-slate-900 mb-2">Export Format</label>
+          <select
+            value={form.exportFormat}
+            onChange={(e) => setForm({ ...form, exportFormat: e.target.value as 'pptx' | 'pdf' })}
+            className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+          >
+            <option value="pptx">PowerPoint (.pptx)</option>
+            <option value="pdf">PDF (.pdf)</option>
+            <option value="pdf_hifi">PDF (Hi‑Fi)</option>
+          </select>
         </div>
       </div>
 

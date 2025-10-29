@@ -7,7 +7,6 @@ import {
   Users,
   Mail,
   FileText,
-  BarChart3,
   Menu,
   X,
   LogOut,

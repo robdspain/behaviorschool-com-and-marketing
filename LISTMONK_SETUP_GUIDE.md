@@ -169,6 +169,12 @@ LISTMONK_PASSWORD=your-listmonk-admin-password
 
 # Optional: Public embed URL (if you want to embed Listmonk in admin)
 NEXT_PUBLIC_LISTMONK_EMBED_URL=https://newsletter.behaviorschool.com
+
+# Optional: Default list IDs used by app APIs
+# Main newsletter list ID
+LISTMONK_DEFAULT_LIST_ID=1
+# Download/lead magnet list ID (used by /api/download-subscribe)
+LISTMONK_DOWNLOAD_LIST_ID=2
 ```
 
 **To add in Netlify:**
@@ -367,4 +373,3 @@ If you need help with Listmonk setup, you can:
 ---
 
 **Happy Email Marketing! 📧**
-

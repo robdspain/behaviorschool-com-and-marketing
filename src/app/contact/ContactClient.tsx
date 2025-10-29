@@ -17,11 +17,11 @@ export function ContactClient() {
     e.preventDefault();
     setState((s) => ({ ...s, submitting: true }));
     try {
-      // Reuse subscribe endpoint for simple contact capture
-      const res = await fetch("/api/subscribe", {
+      // Reuse newsletter endpoint for simple contact capture
+      const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: state.email, name: state.name, message: state.message, company: "" }),
+        body: JSON.stringify({ email: state.email, name: state.name, source: "/contact" }),
       });
       if (!res.ok) throw new Error(await res.text());
       setState((s) => ({ ...s, submitting: false, submitted: true, name: "", email: "", message: "" }));

@@ -1,0 +1,25 @@
+services:
+  # listmonk app
+  app:
+    image: listmonk/listmonk:latest
+    container_name: listmonk_app
+    restart: unless-stopped
+    ports:
+      - "9000:9000"                                           # To change the externally exposed port, change to: $custom_port:9000
+    networks:
+      - listmonk
+    hostname: listmonk.example.com                            # Recommend using FQDN for hostname
+    command: [sh, -c, "./listmonk --install --idempotent --yes --config '' && ./listmonk --upgrade --yes --config '' && ./listmonk --config ''"]
+                                                              # --config (file) param is set to empty so that listmonk only uses the env vars (below) for config.
+                                                              # --install --idempotent ensures that DB installation happens only once on an empty DB, on the first ever start.
+                                                              # --upgrade automatically runs any DB migrations when a new image is pulled.
+
+    env_file:
+      - .env
+    volumes:
+      - ./uploads:/listmonk/uploads:rw                        # Mount an uploads directory on the host to /listmonk/uploads inside the container.
+                                                              # To use this, change directory path in Admin -> Settings -> Media to /listmonk/uploads
+
+networks:
+  listmonk:
+

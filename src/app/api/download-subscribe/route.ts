@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { upsertListmonkSubscriber, getListmonkConfig } from '@/lib/listmonk';
 
 export async function POST(request: NextRequest) {
   try {
@@ -63,8 +64,24 @@ export async function POST(request: NextRequest) {
       message: 'User subscribed for download access'
     });
 
-    // Here you can integrate with your email service
-    // For example, add to Mailgun mailing list, ConvertKit, etc.
+    // Try to add to Listmonk as well (non-blocking)
+    try {
+      if (getListmonkConfig()) {
+        const listId = Number(process.env.LISTMONK_DOWNLOAD_LIST_ID || process.env.LISTMONK_DEFAULT_LIST_ID || 1);
+        const lmRes = await upsertListmonkSubscriber({
+          email,
+          name: name || '',
+          lists: [listId],
+          attribs: { source, resource },
+          preconfirm: true,
+        });
+        if (!lmRes.ok) {
+          console.warn('Download-Subscribe: Listmonk upsert failed or skipped:', lmRes.status, lmRes.body);
+        }
+      }
+    } catch (lmErr) {
+      console.warn('Download-Subscribe: Listmonk integration error:', lmErr);
+    }
 
     return NextResponse.json({
       success: true,

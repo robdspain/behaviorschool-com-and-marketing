@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseAdminClient } from "@/lib/supabase-admin";
+import { upsertListmonkSubscriber, getListmonkConfig } from "@/lib/listmonk";
 
 const SubscribeSchema = z.object({
   email: z.string().email(),
@@ -192,6 +193,25 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Failed to subscribe. Please try again." }, { status: 500 });
       }
       console.log('API: New subscriber created.');
+    }
+
+    // Attempt to upsert subscriber in Listmonk (non-blocking)
+    try {
+      const lmListId = Number(process.env.LISTMONK_DEFAULT_LIST_ID || 1);
+      if (getListmonkConfig()) {
+        const lmRes = await upsertListmonkSubscriber({
+          email,
+          name,
+          lists: [lmListId],
+          attribs: { source },
+          preconfirm: true,
+        });
+        if (!lmRes.ok) {
+          console.warn('API: Listmonk upsert failed or skipped:', lmRes.status, lmRes.body);
+        }
+      }
+    } catch (lmErr) {
+      console.warn('API: Listmonk integration error:', lmErr);
     }
 
     // Send welcome email if Mailgun is configured

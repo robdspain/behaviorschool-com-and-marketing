@@ -1,20 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { Presentation, FileText, Settings as SettingsIcon, History, Sparkles } from "lucide-react";
+import { Presentation, FileText, Settings as SettingsIcon, History, Sparkles, Database, ListOrdered, ImagePlus } from "lucide-react";
 import CreatePresentation from "./CreatePresentation";
 import ProviderSettings from "./ProviderSettings";
 import PresentationHistory from "./PresentationHistory";
+import PresentationLibrary from "./PresentationLibrary";
+import OutlineEditor from "./OutlineEditor";
+import ImageCreator from "./ImageCreator";
 
-type Tab = "create" | "settings" | "history";
+type Tab = "create" | "settings" | "history" | "library" | "outline" | "images";
 
 export default function PresentonInterface() {
   const [activeTab, setActiveTab] = useState<Tab>("create");
 
   const tabs = [
     { id: "create" as Tab, label: "Create", icon: Sparkles },
+    { id: "outline" as Tab, label: "Outline", icon: ListOrdered },
+    { id: "images" as Tab, label: "Images", icon: ImagePlus },
     { id: "settings" as Tab, label: "Settings", icon: SettingsIcon },
     { id: "history" as Tab, label: "History", icon: History },
+    { id: "library" as Tab, label: "Library", icon: Database },
   ];
 
   return (
@@ -55,6 +61,9 @@ export default function PresentonInterface() {
         {activeTab === "create" && <CreatePresentation />}
         {activeTab === "settings" && <ProviderSettings />}
         {activeTab === "history" && <PresentationHistory />}
+        {activeTab === "library" && <PresentationLibrary />}
+        {activeTab === "outline" && <OutlineEditor />}
+        {activeTab === "images" && <ImageCreator />}
       </div>
     </div>
   );
