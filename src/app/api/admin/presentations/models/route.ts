@@ -27,9 +27,27 @@ export async function POST(request: NextRequest) {
             name: model.name.replace('models/', ''),
             displayName: model.displayName || model.name,
             description: model.description,
-          }));
+          }))
+          // Sort models: prioritize latest versions (2.0, exp models, then 1.5)
+          .sort((a, b) => {
+            // Priority order for model prefixes
+            const getPriority = (name: string) => {
+              if (name.includes('2.0')) return 1;
+              if (name.includes('exp')) return 2;
+              if (name.includes('1.5-pro')) return 3;
+              if (name.includes('1.5-flash')) return 4;
+              if (name.includes('1.5')) return 5;
+              if (name.includes('1.0')) return 6;
+              return 7;
+            };
+
+            return getPriority(a.name) - getPriority(b.name);
+          });
 
         console.log('Available Gemini models:', availableModels.length);
+        if (availableModels.length > 0) {
+          console.log('Default model (first):', availableModels[0].name);
+        }
 
         return NextResponse.json({ models: availableModels });
       } catch (error) {

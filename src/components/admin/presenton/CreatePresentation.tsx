@@ -29,7 +29,7 @@ export default function CreatePresentation() {
     language: "English",
     template: "modern",
     tone: "professional",
-    model: "gemini-1.5-pro",
+    model: "", // Will be set from API
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);

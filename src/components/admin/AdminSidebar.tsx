@@ -36,7 +36,6 @@ const navigation: NavItem[] = [
   { name: "Newsletter (Listmonk)", href: "/admin/listmonk", icon: Send },
   { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
   { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
-  { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Blog", href: "/admin/content", icon: FileText },
   { name: "Presentations", href: "/admin/presentations", icon: Presentation },
   { name: "Sitemap", href: "/admin/sitemap", icon: Layers },

@@ -242,14 +242,6 @@ export default function AdminDashboard() {
       stats: 'Newsletter'
     },
     {
-      title: 'Analytics',
-      description: 'View site performance and user metrics',
-      href: '/admin/analytics',
-      icon: BarChart3,
-      color: 'purple',
-      stats: 'Coming soon'
-    },
-    {
       title: 'Content',
       description: 'Manage pages, posts, and site content',
       href: '/admin/content',

@@ -590,14 +590,43 @@ export default function RootLayout({
         />
         <Script id="sw-register" strategy="afterInteractive">
           {`
+            // Avoid registering the Service Worker on admin pages to prevent
+            // stale HTML/JS caching that can break the Editor and dashboard.
             if ('serviceWorker' in navigator) {
-              window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(registration => {
-                  console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, err => {
-                  console.log('ServiceWorker registration failed: ', err);
+              const isAdminPath = () => {
+                try {
+                  return location.pathname.startsWith('/admin');
+                } catch (_) {
+                  return false;
+                }
+              };
+
+              // Also avoid SW in Next.js preview/draft mode via search params
+              const isPreview = () => {
+                try {
+                  const qs = location.search || '';
+                  return qs.includes('preview') || qs.includes('draft');
+                } catch (_) {
+                  return false;
+                }
+              };
+
+              if (!isAdminPath() && !isPreview()) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                  }, err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                  });
                 });
-              });
+              } else {
+                // If a SW is already controlling this scope, unregister it on admin
+                if (navigator.serviceWorker.controller) {
+                  navigator.serviceWorker.getRegistrations().then(rs => {
+                    rs.forEach(r => r.unregister());
+                  });
+                }
+              }
             }
           `}
         </Script>
