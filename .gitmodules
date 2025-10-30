@@ -1,0 +1,3 @@
+[submodule "listmonk"]
+  path = listmonk
+  url = https://github.com/knadh/listmonk.git
