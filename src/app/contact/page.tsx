@@ -3,7 +3,7 @@ import { ContactClient } from "./ContactClient";
 
 export const metadata: Metadata = {
   title: "Contact Behavior School | Get Help with BCBA Training & School Behavior Support",
-  description: "Contact our BCBA experts for personalized guidance on certification prep, school-based behavior analysis, IEP goals, and behavior intervention planning. Get the support you need.",
+  description: "Contact our BCBA experts for personalized guidance on certification prep, school-based behavior analysis, IEP goals & behavior intervention planning support.",
   robots: {
     index: true,
     follow: true,

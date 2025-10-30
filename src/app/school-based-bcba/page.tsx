@@ -23,7 +23,7 @@ import {
 
 export const metadata: Metadata = {
   title: "School-Based BCBA Transformation System | Behavior School",
-  description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 8-week BCBA transformation program. Free tools for IEP goals, BIPs, and supervision.",
+  description: "Lead behavior systems, reduce burnout & scale MTSS/PBIS supports with our 8-week BCBA transformation program. Free tools for IEP goals, BIPs & supervision included.",
   robots: {
     index: true,
     follow: true,

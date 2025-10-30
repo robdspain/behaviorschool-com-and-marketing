@@ -4,7 +4,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: "Behavior School | Platform for School-Based BCBAs & Behavior Analysts",
   description:
-    "Get instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools to help you prepare confidently for your BCBA certification exam.",
+    "FREE BCBA practice questions & 185-question mock exams. No signup required. Comprehensive study tools, IEP generators & community for school-based behavior analysts.",
   keywords: "Behavior School, school BCBA, school-based BCBA, behavior analyst in schools, BCBA exam prep, BCBA practice exam, IEP goal writing, behavior intervention plan, BCBA supervision tools, applied behavior analysis schools, school-wide behavior support, MTSS behavior support, Behavior School platform",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: "Behavior School | Platform for School-Based BCBAs & Behavior Analysts",
     description:
       "Instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools for BCBA certification preparation.",
-    url: "/",
+    url: "https://behaviorschool.com/",
     siteName: "Behavior School",
     locale: "en_US",
     images: [

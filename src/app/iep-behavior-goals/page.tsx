@@ -3,7 +3,7 @@ import { IEPBehaviorGoalsClient } from "./IEPBehaviorGoalsClient";
 
 export const metadata: Metadata = {
   title: "IEP Behavior Goals | Free Generator | Behavior School",
-  description: "Generate compliant IEP behavior goals instantly! FREE tool creates measurable, legal goals in 5 minutes. Professional resource for teachers and BCBAs. No signup - start now!",
+  description: "Generate compliant IEP behavior goals instantly! FREE tool creates measurable, legal goals in 5 minutes. Professional resource for teachers & BCBAs. Start now!",
   robots: {
     index: true,
     follow: true,

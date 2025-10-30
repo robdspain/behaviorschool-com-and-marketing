@@ -25,7 +25,7 @@ const FAQData = dynamic(() => import('./structured-data').then(mod => ({ default
 
 export const metadata: Metadata = {
   title: "Free BCBA Mock Exam | Behavior School",
-  description: "FREE full-length BCBA mock exam with 185 questions. Instant scoring + detailed explanations. No signup required - start practicing now and build your exam confidence!",
+  description: "FREE full-length BCBA mock exam with 185 questions. Instant scoring, detailed explanations & performance analytics. No signup required - start practicing now!",
   robots: {
     index: true,
     follow: true,

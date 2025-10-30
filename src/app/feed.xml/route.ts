@@ -29,7 +29,7 @@ export async function GET() {
     }).join('');
 
     const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom">
   <channel>
     <title>Behavior School Blog</title>
     <description>Tools, training, and community to help school-based BCBAs thrive — from functional assessments to supervision systems that work in real classrooms.</description>
@@ -63,7 +63,7 @@ export async function GET() {
     
     // Return a basic RSS feed if there's an error with Ghost CMS
     const basicRssXml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom">
   <channel>
     <title>Behavior School Blog</title>
     <description>Tools, training, and community to help school-based BCBAs thrive — from functional assessments to supervision systems that work in real classrooms.</description>

@@ -7,7 +7,7 @@ import { CheckCircle, BookOpen, Clock, Target, TrendingUp, AlertCircle, Award, F
 
 export const metadata: Metadata = {
   title: "BCBA Mock Exam Guide 2025 | How to Use Practice Tests to Pass Your BCBA",
-  description: "Complete guide to BCBA mock exams: when to take them, how to analyze results, and study strategies that work. Learn the proven 3-phase approach that helps school BCBAs pass on their first attempt.",
+  description: "Master BCBA mock exams with our complete guide. Learn when to take them, how to analyze results & proven 3-phase study strategies to pass your first attempt.",
   keywords: [
     "BCBA mock exam guide",
     "how to use BCBA practice tests",

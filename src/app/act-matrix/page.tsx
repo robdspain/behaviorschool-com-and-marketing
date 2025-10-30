@@ -7,7 +7,7 @@ import SimpleDownloadButton from "@/components/SimpleDownloadButton";
 
 export const metadata: Metadata = {
   title: "📖 FREE ACT Matrix PDF + Examples | School BCBAs | Download Now",
-  description: "🆓 FREE ACT Matrix PDF download! Step-by-step examples, activities & implementation guide for school behavior analysts. Proven framework for professional practice.",
+  description: "FREE ACT Matrix PDF download with examples & implementation guide for school behavior analysts. Proven values-based framework for professional practice.",
   robots: {
     index: true,
     follow: true,

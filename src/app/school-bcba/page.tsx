@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "School BCBA: Tools, Guides, Jobs, and Training | Behavior School",
   description:
-    "School BCBA hub with tools, job guides, salary insights, and step-by-step training. Build authority in schools with practical systems, IEP goal tools, and MTSS-aligned resources.",
+    "School BCBA hub: tools, job guides, salary insights & training. Build authority with practical systems, IEP generators & MTSS-aligned resources for school behavior analysts.",
   keywords: [
     "School BCBA",
     "school bcba jobs",

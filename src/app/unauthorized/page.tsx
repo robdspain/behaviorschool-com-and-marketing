@@ -38,13 +38,28 @@ function UnauthorizedContent() {
               <ArrowLeft className="w-4 h-4" />
               Return to Behavior School
             </Link>
-            
+
             <Link
               href="/contact"
               className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Contact Support
             </Link>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <p className="text-sm text-gray-600 mb-3 font-medium">Explore our free resources:</p>
+            <div className="space-y-2">
+              <Link href="/iep-behavior-goals" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">
+                IEP Behavior Goals Generator
+              </Link>
+              <Link href="/bcba-exam-prep" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">
+                BCBA Exam Prep Tools
+              </Link>
+              <Link href="/blog" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">
+                Blog & Resources
+              </Link>
+            </div>
           </div>
         </div>
 

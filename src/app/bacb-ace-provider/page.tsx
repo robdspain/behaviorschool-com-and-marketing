@@ -7,7 +7,7 @@ import { CheckCircle, Award, Calendar, Users, BookOpen, ExternalLink } from "luc
 
 export const metadata: Metadata = {
   title: "BACB Authorized Continuing Education (ACE) Provider | Behavior School",
-  description: "Behavior School is a BACB Authorized Continuing Education (ACE) Provider (OP-25-11420). Get BACB-approved CEUs for BCBA and BCaBA certificants through our training programs, webinars, and professional development courses.",
+  description: "BACB Authorized Continuing Education (ACE) Provider OP-25-11420. Get BACB-approved CEUs for BCBA/BCaBA through training programs, webinars & professional development.",
   keywords: [
     "BACB ACE Provider",
     "BACB Authorized Continuing Education",

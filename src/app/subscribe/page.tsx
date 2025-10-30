@@ -73,11 +73,34 @@ export default function SubscribePage() {
               </div>
             </div>
           </div>
-          
+
           <div className="text-center pt-6 border-t border-slate-200">
             <p className="text-sm text-slate-500">
               No spam, ever. Unsubscribe anytime. We respect your privacy and will never share your information.
             </p>
+          </div>
+        </div>
+
+        <div className="mt-12 bg-slate-50 rounded-2xl border border-slate-200 p-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">Explore Our Free Tools While You&apos;re Here</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <a href="/iep-behavior-goals" className="block p-4 bg-white border border-slate-200 rounded-lg hover:border-emerald-500 hover:shadow-md transition-all">
+              <h3 className="font-semibold text-slate-900 mb-2">IEP Goals Generator</h3>
+              <p className="text-sm text-slate-600">Create compliant, measurable behavior goals</p>
+            </a>
+            <a href="/bcba-exam-prep" className="block p-4 bg-white border border-slate-200 rounded-lg hover:border-emerald-500 hover:shadow-md transition-all">
+              <h3 className="font-semibold text-slate-900 mb-2">BCBA Exam Prep</h3>
+              <p className="text-sm text-slate-600">Free practice exams and study materials</p>
+            </a>
+            <a href="/blog" className="block p-4 bg-white border border-slate-200 rounded-lg hover:border-emerald-500 hover:shadow-md transition-all">
+              <h3 className="font-semibold text-slate-900 mb-2">Blog & Resources</h3>
+              <p className="text-sm text-slate-600">Latest insights on school-based ABA</p>
+            </a>
+          </div>
+          <div className="mt-6 text-center">
+            <a href="/products" className="inline-block text-emerald-700 hover:text-emerald-800 font-medium hover:underline">
+              View all products and tools →
+            </a>
           </div>
         </div>
       </div>

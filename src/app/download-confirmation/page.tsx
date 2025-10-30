@@ -80,7 +80,7 @@ function DownloadConfirmationContent() {
           <p className="text-emerald-700 mb-4">
             Now that you have your ACT Matrix guide, explore more free resources and tools for school-based behavior analysts.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
               <Link href="/resources">
@@ -88,12 +88,37 @@ function DownloadConfirmationContent() {
                 Explore More Resources
               </Link>
             </Button>
-            
+
             <Button variant="outline" asChild>
               <Link href="/iep-goals">
                 Values-Based IEP Goals
               </Link>
             </Button>
+          </div>
+        </div>
+
+        {/* Additional Resources Section */}
+        <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 mb-8">
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">
+            More Free Tools for BCBAs
+          </h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Link href="/iep-behavior-goals" className="p-4 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+              <h3 className="font-semibold text-slate-900 mb-2">IEP Behavior Goals Generator</h3>
+              <p className="text-sm text-slate-600">Create compliant, measurable IEP behavior goals in minutes</p>
+            </Link>
+            <Link href="/bcba-exam-prep" className="p-4 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+              <h3 className="font-semibold text-slate-900 mb-2">BCBA Exam Prep</h3>
+              <p className="text-sm text-slate-600">Free practice exams and study tools for BCBA certification</p>
+            </Link>
+            <Link href="/school-bcba" className="p-4 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+              <h3 className="font-semibold text-slate-900 mb-2">School BCBA Career Guide</h3>
+              <p className="text-sm text-slate-600">Complete guide to becoming a school-based BCBA</p>
+            </Link>
+            <Link href="/behavior-plans" className="p-4 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+              <h3 className="font-semibold text-slate-900 mb-2">Behavior Support Plans</h3>
+              <p className="text-sm text-slate-600">Templates and guides for creating effective BSPs</p>
+            </Link>
           </div>
         </div>
 
