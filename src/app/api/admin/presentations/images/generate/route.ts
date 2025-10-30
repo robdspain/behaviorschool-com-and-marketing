@@ -49,7 +49,15 @@ export async function POST(req: NextRequest) {
 
     if (provider === 'gemini') {
       if (!apiKey) return NextResponse.json({ error: 'apiKey is required for Gemini' }, { status: 400 });
-      const mdl = model || 'gemini-2.0-flash';
+      const normalize = (name?: string) => {
+        const n = (name || '').trim();
+        if (!n) return 'gemini-2.0-flash-exp';
+        if (n === 'gemini-1.5-pro') return 'gemini-1.5-pro-latest';
+        if (n === 'gemini-1.5-flash') return 'gemini-1.5-flash-latest';
+        if (n === 'gemini-pro') return 'gemini-1.5-flash-latest';
+        return n;
+      };
+      const mdl = normalize(model);
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(mdl)}:generateContent?key=${encodeURIComponent(apiKey)}`;
       const bodyJson = {
         contents: [{ role: 'user', parts: [{ text: prompt }]}],

@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { topic, slideCount = 10, tone = 'professional', language = 'English', model = 'gemini-1.5-pro', provider = 'google', apiKey, ollamaEndpoint } = body;
+    const { topic, slideCount = 10, tone = 'professional', language = 'English', model = 'gemini-1.5-pro-latest', provider = 'google', apiKey, ollamaEndpoint } = body;
 
     if (!apiKey && provider !== 'ollama') {
       return NextResponse.json({ error: 'API key is required' }, { status: 400 });
@@ -30,6 +30,15 @@ export async function POST(request: NextRequest) {
   }
 }
 
+function normalizeGeminiModel(name?: string) {
+  const n = (name || '').trim();
+  if (!n) return 'gemini-1.5-pro-latest';
+  if (n === 'gemini-1.5-pro') return 'gemini-1.5-pro-latest';
+  if (n === 'gemini-1.5-flash') return 'gemini-1.5-flash-latest';
+  if (n === 'gemini-pro') return 'gemini-1.5-flash-latest';
+  return n;
+}
+
 async function generateWithGemini(
   apiKey: string,
   topic: string,
@@ -39,7 +48,7 @@ async function generateWithGemini(
   modelName: string
 ) {
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: modelName });
+  const model = genAI.getGenerativeModel({ model: normalizeGeminiModel(modelName) });
   const prompt = basePrompt(topic, slideCount, tone, language);
   const result = await model.generateContent(prompt);
   const text = result.response.text();
@@ -129,4 +138,3 @@ Output only a JSON array of objects with this structure:
 
 Generate ${slideCount - 1} content slides (the title slide will be added automatically).`;
 }
-

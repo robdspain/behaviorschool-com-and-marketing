@@ -7,7 +7,7 @@ import { createSupabaseAdminClient, withSupabaseAdmin } from '@/lib/supabase-adm
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', model = 'gemini-1.5-pro', provider = 'google', apiKey, exportAs = 'pptx', ollamaEndpoint, slides, templateFonts } = body;
+    const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', model = 'gemini-1.5-pro-latest', provider = 'google', apiKey, exportAs = 'pptx', ollamaEndpoint, slides, templateFonts } = body;
 
     console.log('Generate request:', { topic, slideCount, template, tone, language, model, provider, hasApiKey: !!apiKey });
 
@@ -133,6 +133,15 @@ export async function POST(request: NextRequest) {
   }
 }
 
+function normalizeGeminiModel(name?: string) {
+  const n = (name || '').trim();
+  if (!n) return 'gemini-1.5-pro-latest';
+  if (n === 'gemini-1.5-pro') return 'gemini-1.5-pro-latest';
+  if (n === 'gemini-1.5-flash') return 'gemini-1.5-flash-latest';
+  if (n === 'gemini-pro') return 'gemini-1.5-flash-latest';
+  return n;
+}
+
 async function generateWithGemini(
   apiKey: string,
   topic: string,
@@ -144,7 +153,7 @@ async function generateWithGemini(
   try {
     console.log('Initializing Gemini with model:', modelName);
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: modelName });
+    const model = genAI.getGenerativeModel({ model: normalizeGeminiModel(modelName) });
 
     const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
 The tone should be ${tone}.
@@ -183,7 +192,8 @@ Generate ${slideCount - 1} content slides (the title slide will be added automat
   } catch (error) {
     console.error('Gemini generation error:', error);
     if (error instanceof Error) {
-      throw new Error(`Gemini API error: ${error.message}`);
+      const hint = ' If you set model to gemini-1.5-pro, try gemini-1.5-pro-latest or gemini-1.5-flash-latest.';
+      throw new Error(`Gemini API error: ${error.message}${hint}`);
     }
     throw error;
   }
