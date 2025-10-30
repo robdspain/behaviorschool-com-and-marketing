@@ -48,14 +48,6 @@ const nextConfig: NextConfig = {
         tls: false,
       };
     }
-    // Ensure single React instance to avoid invalid hook call errors
-    config.resolve.alias = {
-      ...(config.resolve.alias || {}),
-      react: require.resolve('react'),
-      'react-dom': require.resolve('react-dom'),
-      'react/jsx-runtime': require.resolve('react/jsx-runtime'),
-      'react/jsx-dev-runtime': require.resolve('react/jsx-dev-runtime'),
-    };
 
     // Ignore the vendored listmonk app from bundling
     config.ignoreWarnings = [{ module: /listmonk\// }];
