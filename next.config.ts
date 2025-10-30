@@ -53,8 +53,8 @@ const nextConfig: NextConfig = {
       ...(config.resolve.alias || {}),
       react: require.resolve('react'),
       'react-dom': require.resolve('react-dom'),
-      'react/jsx-runtime': require.resolve('react/jsx-runtime.js'),
-      'react/jsx-dev-runtime': require.resolve('react/jsx-dev-runtime.js'),
+      'react/jsx-runtime': require.resolve('react/jsx-runtime'),
+      'react/jsx-dev-runtime': require.resolve('react/jsx-dev-runtime'),
     };
 
     // Ignore the vendored listmonk app from bundling
