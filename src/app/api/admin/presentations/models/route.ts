@@ -15,16 +15,15 @@ export async function POST(request: NextRequest) {
 
     if (provider === 'google') {
       try {
-        // Google AI SDK doesn't expose listModels in the current version
-        // Return a curated list of known working models
+        // Curated list: prefer 2.5 models, include 2.0 and 1.5 as fallbacks
         const availableModels = [
-          { name: 'gemini-2.0-flash-exp', displayName: 'Gemini 2.0 Flash (Experimental)', description: 'Latest experimental model' },
-          { name: 'gemini-exp-1206', displayName: 'Gemini Experimental 1206', description: 'Experimental model from Dec 6' },
+          { name: 'gemini-2.5-pro', displayName: 'Gemini 2.5 Pro', description: 'State-of-the-art reasoning model' },
+          { name: 'gemini-2.5-flash', displayName: 'Gemini 2.5 Flash', description: 'Best price-performance, fast thinking' },
+          { name: 'gemini-2.5-flash-lite', displayName: 'Gemini 2.5 Flash-Lite', description: 'Ultra fast, cost efficient' },
+          { name: 'gemini-2.0-flash', displayName: 'Gemini 2.0 Flash', description: 'Second generation workhorse (1M context)' },
+          { name: 'gemini-2.0-flash-lite', displayName: 'Gemini 2.0 Flash-Lite', description: 'Second gen small workhorse' },
           { name: 'gemini-1.5-pro-latest', displayName: 'Gemini 1.5 Pro (Latest)', description: 'Most capable 1.5 model' },
-          { name: 'gemini-1.5-flash-latest', displayName: 'Gemini 1.5 Flash (Latest)', description: 'Fast and efficient' },
-          { name: 'gemini-1.5-pro', displayName: 'Gemini 1.5 Pro', description: 'Stable pro model' },
-          { name: 'gemini-1.5-flash', displayName: 'Gemini 1.5 Flash', description: 'Stable flash model' },
-          { name: 'gemini-pro', displayName: 'Gemini Pro', description: 'Legacy pro model' },
+          { name: 'gemini-1.5-flash-latest', displayName: 'Gemini 1.5 Flash (Latest)', description: 'Fast and efficient (1.5)' },
         ];
 
         console.log('Available Gemini models:', availableModels.length);

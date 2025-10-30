@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { topic, slideCount = 10, tone = 'professional', language = 'English', model = 'gemini-1.5-pro-latest', provider = 'google', apiKey, ollamaEndpoint } = body;
+    const { topic, slideCount = 10, tone = 'professional', language = 'English', model = 'gemini-2.5-flash', provider = 'google', apiKey, ollamaEndpoint } = body;
 
     if (!apiKey && provider !== 'ollama') {
       return NextResponse.json({ error: 'API key is required' }, { status: 400 });
@@ -32,6 +32,11 @@ export async function POST(request: NextRequest) {
 
 function normalizeGeminiModel(name?: string) {
   const n = (name || '').trim();
+  // Prefer 2.5 family
+  if (!n) return 'gemini-2.5-flash';
+  if (n === 'gemini-2.5') return 'gemini-2.5-flash';
+  if (n === 'gemini-2.5-pro-latest') return 'gemini-2.5-pro';
+  if (n === 'gemini-2.5-flash-latest') return 'gemini-2.5-flash';
   if (!n) return 'gemini-1.5-pro-latest';
   if (n === 'gemini-1.5-pro') return 'gemini-1.5-pro-latest';
   if (n === 'gemini-1.5-flash') return 'gemini-1.5-flash-latest';

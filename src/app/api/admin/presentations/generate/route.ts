@@ -7,7 +7,7 @@ import { createSupabaseAdminClient, withSupabaseAdmin } from '@/lib/supabase-adm
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', model = 'gemini-1.5-pro-latest', provider = 'google', apiKey, exportAs = 'pptx', ollamaEndpoint, slides, templateFonts } = body;
+    const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', model = 'gemini-2.5-flash', provider = 'google', apiKey, exportAs = 'pptx', ollamaEndpoint, slides, templateFonts } = body;
 
     console.log('Generate request:', { topic, slideCount, template, tone, language, model, provider, hasApiKey: !!apiKey });
 
@@ -135,7 +135,11 @@ export async function POST(request: NextRequest) {
 
 function normalizeGeminiModel(name?: string) {
   const n = (name || '').trim();
-  if (!n) return 'gemini-1.5-pro-latest';
+  // Prefer 2.5 family
+  if (!n) return 'gemini-2.5-flash';
+  if (n === 'gemini-2.5') return 'gemini-2.5-flash';
+  if (n === 'gemini-2.5-pro-latest') return 'gemini-2.5-pro';
+  if (n === 'gemini-2.5-flash-latest') return 'gemini-2.5-flash';
   if (n === 'gemini-1.5-pro') return 'gemini-1.5-pro-latest';
   if (n === 'gemini-1.5-flash') return 'gemini-1.5-flash-latest';
   if (n === 'gemini-pro') return 'gemini-1.5-flash-latest';
