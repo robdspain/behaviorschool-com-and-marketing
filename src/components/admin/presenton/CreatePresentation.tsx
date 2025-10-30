@@ -372,17 +372,27 @@ export default function CreatePresentation() {
               </button>
             </div>
           ) : availableModels.length > 0 ? (
-            <select
-              value={form.model}
-              onChange={(e) => setForm({ ...form, model: e.target.value })}
-              className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-            >
-              {availableModels.map((model) => (
-                <option key={model.name} value={model.name}>
-                  {model.displayName} {model.description ? `- ${model.description}` : ''}
-                </option>
-              ))}
-            </select>
+            <>
+              <select
+                value={form.model}
+                onChange={(e) => setForm({ ...form, model: e.target.value })}
+                className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              >
+                {availableModels.map((model) => (
+                  <option key={model.name} value={model.name}>
+                    {model.displayName} {model.description ? `- ${model.description}` : ''}
+                  </option>
+                ))}
+              </select>
+              <div className="mt-2 text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-md p-3 leading-relaxed">
+                <div className="font-semibold text-slate-800 mb-1">Model guidance</div>
+                <ul className="list-disc ml-4 space-y-1">
+                  <li><span className="font-medium">Gemini 2.5 Pro</span>: best for complex reasoning (code/math/STEM), long-context docs, and nuanced slide writing.</li>
+                  <li><span className="font-medium">Gemini 2.5 Flash</span>: recommended default — strong quality with low latency and great price-performance.</li>
+                  <li><span className="font-medium">Gemini 2.5 Flash‑Lite</span>: ultra fast and cost‑efficient for bulk or quick drafts.</li>
+                </ul>
+              </div>
+            </>
           ) : (
             <div className="px-4 py-3 border-2 border-yellow-200 rounded-lg bg-yellow-50 text-yellow-800">
               No models available. Please check your API key in Settings.
