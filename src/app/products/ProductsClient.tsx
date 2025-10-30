@@ -36,7 +36,15 @@ export function ProductsClient() {
       {/* Products Section */}
       <section id="products" className="pt-36 pb-16 lg:pb-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+              FREE BCBA Tools & Training
+            </h1>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              Professional resources for BCBA certification, behavior analysis, and school-based support
+            </p>
+          </div>
+          <motion.div
             className="grid gap-16 lg:gap-20"
             variants={staggerContainer}
             initial="initial"

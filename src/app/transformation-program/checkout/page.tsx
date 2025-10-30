@@ -137,9 +137,9 @@ export default function CheckoutPage() {
         variants={fadeInUp}
       >
         <CheckCircle className="w-24 h-24 mx-auto text-emerald-500 mb-8" />
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6">
           Congratulations & Welcome!
-        </h1>
+        </h2>
         <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-12">
           You&apos;ve made a fantastic decision to join the School BCBA Transformation System. We are thrilled to have you on board and can&apos;t wait to see you achieve amazing results.
         </p>

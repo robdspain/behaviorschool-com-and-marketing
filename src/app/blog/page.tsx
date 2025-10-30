@@ -32,7 +32,8 @@ export default async function BlogPage() {
       <Section>
         <Container>
           <div className="mb-8">
-            {/* Removed Blog heading and description while maintaining spacing */}
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Blog</h1>
+            <p className="text-lg text-slate-600">Articles and resources from Behavior School</p>
           </div>
         {posts.length > 0 ? (
           <PostList posts={posts} columns={3} useExternalUrl={false} />

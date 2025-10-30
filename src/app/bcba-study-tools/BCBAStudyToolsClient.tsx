@@ -204,9 +204,9 @@ export function BCBAStudyToolsClient() {
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Complete Study Toolkit
-            </h2>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+              FREE BCBA Study Tools
+            </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               From basic practice to advanced analytics, we have everything you need to succeed on your BCBA exam.
             </p>

@@ -1,0 +1,1066 @@
+{
+  "metaDescription": {
+    "tooLong": [
+      {
+        "file": "src/app/act-matrix/page.tsx",
+        "len": 163,
+        "desc": "🆓 FREE ACT Matrix PDF download! Step-by-step examples, activities & implementation guide for school behavior analysts. Proven framework for professional practice."
+      },
+      {
+        "file": "src/app/bacb-ace-provider/page.tsx",
+        "len": 221,
+        "desc": "Behavior School is a BACB Authorized Continuing Education (ACE) Provider (OP-25-11420). Get BACB-approved CEUs for BCBA and BCaBA certificants through our training programs, webinars, and professional development courses."
+      },
+      {
+        "file": "src/app/bcba-mock-exam-guide/page.tsx",
+        "len": 196,
+        "desc": "Complete guide to BCBA mock exams: when to take them, how to analyze results, and study strategies that work. Learn the proven 3-phase approach that helps school BCBAs pass on their first attempt."
+      },
+      {
+        "file": "src/app/bcba-mock-practice-test/page.tsx",
+        "len": 166,
+        "desc": "FREE full-length BCBA mock exam with 185 questions. Instant scoring + detailed explanations. No signup required - start practicing now and build your exam confidence!"
+      },
+      {
+        "file": "src/app/bcba-study-fluency/page.tsx",
+        "len": 217,
+        "desc": "Track your BCBA exam fluency with millisecond precision. Our app measures response times, thinking patterns, and builds behavioral fluency through RESA-based progression (Retention, Endurance, Stability, Application)."
+      },
+      {
+        "file": "src/app/bcbas-in-schools/page.tsx",
+        "len": 171,
+        "desc": "Complete guide to BCBAs in schools. Discover roles, responsibilities, common challenges, and proven solutions for school-based behavior analysts working in K-12 education."
+      },
+      {
+        "file": "src/app/contact/page.tsx",
+        "len": 178,
+        "desc": "Contact our BCBA experts for personalized guidance on certification prep, school-based behavior analysis, IEP goals, and behavior intervention planning. Get the support you need."
+      },
+      {
+        "file": "src/app/iep-behavior-goals/page.tsx",
+        "len": 173,
+        "desc": "Generate compliant IEP behavior goals instantly! FREE tool creates measurable, legal goals in 5 minutes. Professional resource for teachers and BCBAs. No signup - start now!"
+      },
+      {
+        "file": "src/app/iep-behavior-goals/widget/page.tsx",
+        "len": 172,
+        "desc": "Generate evidence-based IEP behavior goals instantly. Free tool for special education teachers and behavior analysts. Create measurable, standards-aligned goals in seconds."
+      },
+      {
+        "file": "src/app/iep-goals/page.tsx",
+        "len": 175,
+        "desc": "Use our FREE IEP behavior goal writer now! Create compliant behavior goals in minutes. Full IEP goal writer with academic & social goals coming soon. No registration required."
+      },
+      {
+        "file": "src/app/page.tsx",
+        "len": 189,
+        "desc": "Get instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools to help you prepare confidently for your BCBA certification exam."
+      },
+      {
+        "file": "src/app/products/page.tsx",
+        "len": 178,
+        "desc": "Get FREE professional BCBA tools: mock exams, IEP goal writers, behavior planning templates, and certification prep. Professional resources for behavior analysts. Start free now!"
+      },
+      {
+        "file": "src/app/school-based-bcba/page.tsx",
+        "len": 176,
+        "desc": "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 8-week BCBA transformation program. Free tools for IEP goals, BIPs, and supervision."
+      },
+      {
+        "file": "src/app/school-bcba/page.tsx",
+        "len": 178,
+        "desc": "School BCBA hub with tools, job guides, salary insights, and step-by-step training. Build authority in schools with practical systems, IEP goal tools, and MTSS-aligned resources."
+      },
+      {
+        "file": "src/app/the-act-matrix-a-framework-for-school-based-bcbas/page.tsx",
+        "len": 187,
+        "desc": "Learn how the ACT Matrix framework transforms school-based BCBA practice. Complete guide with examples, implementation strategies, and free PDF resources for behavior analysts in schools."
+      }
+    ],
+    "tooShort": [
+      {
+        "file": "src/app/admin/ace/events/page.tsx",
+        "len": 30,
+        "desc": "', total_ceus: 0, ce_category:"
+      },
+      {
+        "file": "src/app/admin/blog/editor/page.tsx",
+        "len": 17,
+        "desc": "', twitter_title:"
+      },
+      {
+        "file": "src/app/admin/email-templates/page.tsx",
+        "len": 11,
+        "desc": "\", subject:"
+      },
+      {
+        "file": "src/app/admin/masterclass/page.tsx",
+        "len": 48,
+        "desc": "Organize sections and questions with drag & drop"
+      },
+      {
+        "file": "src/app/admin/masterclass/sections/page.tsx",
+        "len": 13,
+        "desc": "', video_url:"
+      },
+      {
+        "file": "src/app/admin/page.tsx",
+        "len": 39,
+        "desc": "View and manage signup form submissions"
+      },
+      {
+        "file": "src/app/admin/sitemap/page.tsx",
+        "len": 37,
+        "desc": "Main landing page for Behavior School"
+      },
+      {
+        "file": "src/app/bcba-exam-prep/page.tsx",
+        "len": 35,
+        "desc": "2024 BCBA exam first-time pass rate"
+      },
+      {
+        "file": "src/app/behavior-plans/page.tsx",
+        "len": 92,
+        "desc": "Built on proven behavioral interventions that work across different age groups and settings."
+      },
+      {
+        "file": "src/app/behavior-study-tools/page.tsx",
+        "len": 101,
+        "desc": "Practice foundational behavior analysis concepts, principles of learning, and theoretical frameworks."
+      },
+      {
+        "file": "src/app/blog/[slug]/page.tsx",
+        "len": 43,
+        "desc": "The requested blog post could not be found."
+      },
+      {
+        "file": "src/app/blog/page.tsx",
+        "len": 44,
+        "desc": "Articles and resources from Behavior School."
+      },
+      {
+        "file": "src/app/download-confirmation/page.tsx",
+        "len": 109,
+        "desc": "Your free PDF has been downloaded successfully. Find your file and explore more resources at Behavior School."
+      },
+      {
+        "file": "src/app/iep-goal-qualitychecker/page.tsx",
+        "len": 88,
+        "desc": "Instant, rule-based quality checks for IEP behavior goals with export and copy features."
+      },
+      {
+        "file": "src/app/school-based-behavior-support/page.tsx",
+        "len": 81,
+        "desc": "Complete Positive Behavioral Interventions and Supports framework for your school"
+      },
+      {
+        "file": "src/app/school-bcba/vs-school-based-bcba/page.tsx",
+        "len": 48,
+        "desc": "Clarity on titles, roles, and search intent: how"
+      },
+      {
+        "file": "src/app/study/page.tsx",
+        "len": 77,
+        "desc": "AI-powered BCBA exam prep with adaptive practice tests and smart study tools."
+      }
+    ],
+    "missing": [
+      {
+        "file": "src/app/admin/ace/certificates/page.tsx"
+      },
+      {
+        "file": "src/app/admin/ace/coordinator/page.tsx"
+      },
+      {
+        "file": "src/app/admin/ace/events/[id]/page.tsx"
+      },
+      {
+        "file": "src/app/admin/ace/events/[id]/quiz/page.tsx"
+      },
+      {
+        "file": "src/app/admin/ace/events/new/page.tsx"
+      },
+      {
+        "file": "src/app/admin/ace/page.tsx"
+      },
+      {
+        "file": "src/app/admin/ace/participants/page.tsx"
+      },
+      {
+        "file": "src/app/admin/checkout-access/page.tsx"
+      },
+      {
+        "file": "src/app/admin/clear-auth/page.tsx"
+      },
+      {
+        "file": "src/app/admin/content/page.tsx"
+      },
+      {
+        "file": "src/app/admin/listmonk/page.tsx"
+      },
+      {
+        "file": "src/app/admin/login/page.tsx"
+      },
+      {
+        "file": "src/app/admin/masterclass/certificate/page.tsx"
+      },
+      {
+        "file": "src/app/admin/masterclass/design/page.tsx"
+      },
+      {
+        "file": "src/app/admin/masterclass/questions/page.tsx"
+      },
+      {
+        "file": "src/app/admin/masterclass/resources/design/page.tsx"
+      },
+      {
+        "file": "src/app/admin/presentations/page.tsx"
+      },
+      {
+        "file": "src/app/admin/submissions/page.tsx"
+      },
+      {
+        "file": "src/app/masterclass/course/page.tsx"
+      },
+      {
+        "file": "src/app/masterclass/enroll/page.tsx"
+      },
+      {
+        "file": "src/app/posts/[slug]/page.tsx"
+      },
+      {
+        "file": "src/app/privacy/page.tsx"
+      },
+      {
+        "file": "src/app/resources/page.tsx"
+      },
+      {
+        "file": "src/app/signup/page.tsx"
+      },
+      {
+        "file": "src/app/subscribe/page.tsx"
+      },
+      {
+        "file": "src/app/supervisors/page.tsx"
+      },
+      {
+        "file": "src/app/tag/[slug]/page.tsx"
+      },
+      {
+        "file": "src/app/terms/page.tsx"
+      },
+      {
+        "file": "src/app/test/[slug]/page.tsx"
+      },
+      {
+        "file": "src/app/transformation-program/checkout/page.tsx"
+      },
+      {
+        "file": "src/app/transformation-program/page.tsx"
+      },
+      {
+        "file": "src/app/unauthorized/page.tsx"
+      },
+      {
+        "file": "src/app/values-goal-assistant-landing/page.tsx"
+      }
+    ]
+  },
+  "title": {
+    "tooLong": [
+      {
+        "file": "src/app/about/rob-spain/page.tsx",
+        "len": 71,
+        "title": "Rob Spain, M.S., BCBA, IBA | Board Certified Behavior Analyst & Founder"
+      },
+      {
+        "file": "src/app/bcba-mock-exam-guide/page.tsx",
+        "len": 71,
+        "title": "BCBA Mock Exam Guide 2025 | How to Use Practice Tests to Pass Your BCBA"
+      },
+      {
+        "file": "src/app/bcba-study-tools/page.tsx",
+        "len": 84,
+        "title": "FREE BCBA Study Tools 2025 | AI Practice Tests + Adaptive Learning | Behavior School"
+      },
+      {
+        "file": "src/app/bcbas-in-schools/page.tsx",
+        "len": 82,
+        "title": "BCBAs in Schools: Roles, Challenges & Solutions for School-Based Behavior Analysts"
+      },
+      {
+        "file": "src/app/contact/page.tsx",
+        "len": 79,
+        "title": "Contact Behavior School | Get Help with BCBA Training & School Behavior Support"
+      },
+      {
+        "file": "src/app/iep-goals/page.tsx",
+        "len": 78,
+        "title": "FREE IEP Behavior Goal Writer | Full Goal Writer Coming Soon | Behavior School"
+      }
+    ],
+    "tooShort": [
+      {
+        "file": "src/app/admin/ace/events/[id]/quiz/page.tsx",
+        "len": 16,
+        "title": "Event Assessment"
+      },
+      {
+        "file": "src/app/admin/masterclass/page.tsx",
+        "len": 13,
+        "title": "Design Course"
+      },
+      {
+        "file": "src/app/admin/page.tsx",
+        "len": 16,
+        "title": "Form Submissions"
+      },
+      {
+        "file": "src/app/admin/sitemap/page.tsx",
+        "len": 10,
+        "title": "Core Pages"
+      },
+      {
+        "file": "src/app/behavior-plans/page.tsx",
+        "len": 24,
+        "title": "Evidence-Based Templates"
+      },
+      {
+        "file": "src/app/behavior-study-tools/page.tsx",
+        "len": 21,
+        "title": "Concepts & Principles"
+      },
+      {
+        "file": "src/app/blog/page.tsx",
+        "len": 22,
+        "title": "Blog | Behavior School"
+      },
+      {
+        "file": "src/app/community/page.tsx",
+        "len": 21,
+        "title": "School BCBA Community"
+      },
+      {
+        "file": "src/app/school-based-behavior-support/page.tsx",
+        "len": 19,
+        "title": "PBIS Implementation"
+      },
+      {
+        "file": "src/app/supervisors/page.tsx",
+        "len": 25,
+        "title": "Digital Competency Matrix"
+      }
+    ]
+  },
+  "h1": {
+    "missing": [
+      {
+        "file": "src/app/about/page.tsx"
+      },
+      {
+        "file": "src/app/bcba-study-tools/page.tsx"
+      },
+      {
+        "file": "src/app/blog/page.tsx"
+      },
+      {
+        "file": "src/app/contact/page.tsx"
+      },
+      {
+        "file": "src/app/faq/page.tsx"
+      },
+      {
+        "file": "src/app/iep-behavior-goals/page.tsx"
+      },
+      {
+        "file": "src/app/iep-behavior-goals/widget/page.tsx"
+      },
+      {
+        "file": "src/app/iep-goals/page.tsx"
+      },
+      {
+        "file": "src/app/masterclass/course/page.tsx"
+      },
+      {
+        "file": "src/app/page.tsx"
+      },
+      {
+        "file": "src/app/products/page.tsx"
+      },
+      {
+        "file": "src/app/supervisors/page.tsx"
+      },
+      {
+        "file": "src/app/tag/[slug]/page.tsx"
+      }
+    ],
+    "multiple": [
+      {
+        "file": "src/app/admin/clear-auth/page.tsx",
+        "count": 3
+      },
+      {
+        "file": "src/app/admin/listmonk/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "src/app/iep-goal-qualitychecker/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "src/app/signup/page.tsx",
+        "count": 2
+      },
+      {
+        "file": "src/app/transformation-program/checkout/page.tsx",
+        "count": 2
+      }
+    ]
+  },
+  "openGraph": {
+    "incomplete": [
+      {
+        "file": "src/app/admin/ace/certificates/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/ace/coordinator/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/ace/events/[id]/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/ace/events/[id]/quiz/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/ace/events/new/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/ace/events/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/ace/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/ace/participants/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/blog/editor/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/checkout-access/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/clear-auth/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/content/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/email-templates/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/listmonk/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/login/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/masterclass/certificate/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/masterclass/design/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/masterclass/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/masterclass/questions/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/masterclass/resources/design/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/masterclass/sections/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/presentations/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/sitemap/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/admin/submissions/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/bcba-exam-prep/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/bcba-mock-practice-test/page.tsx",
+        "missing": {
+          "title": false,
+          "description": false,
+          "image": false,
+          "url": false,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/bcba-practice-exam/page.tsx",
+        "missing": {
+          "title": false,
+          "description": false,
+          "image": false,
+          "url": false,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/bcba-study-fluency/page.tsx",
+        "missing": {
+          "title": false,
+          "description": false,
+          "image": false,
+          "url": false,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/bcbas-in-schools/page.tsx",
+        "missing": {
+          "title": false,
+          "description": false,
+          "image": true,
+          "url": false,
+          "type": false
+        }
+      },
+      {
+        "file": "src/app/behavior-plans/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/behavior-study-tools/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/blog/[slug]/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": false
+        }
+      },
+      {
+        "file": "src/app/blog/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/download-confirmation/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/free-bcba-mock-practice-test/page.tsx",
+        "missing": {
+          "title": false,
+          "description": false,
+          "image": false,
+          "url": false,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/free-bcba-practice-exam/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/iep-goal-qualitychecker/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/masterclass/course/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/masterclass/enroll/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/masterclass/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/posts/[slug]/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/privacy/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/resources/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/school-based-bcba/page.tsx",
+        "missing": {
+          "title": false,
+          "description": false,
+          "image": false,
+          "url": false,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/school-based-behavior-support/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/school-bcba/how-to-become/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/school-bcba/job-guide/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/school-bcba/job-guide-2025/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/school-bcba/page.tsx",
+        "missing": {
+          "title": false,
+          "description": false,
+          "image": false,
+          "url": false,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/school-bcba/salary-by-state/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/school-bcba/vs-school-based-bcba/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/signup/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/study/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/subscribe/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/supervisors/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/tag/[slug]/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/terms/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/test/[slug]/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/transformation-program/checkout/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/transformation-program/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/unauthorized/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      },
+      {
+        "file": "src/app/values-goal-assistant-landing/page.tsx",
+        "missing": {
+          "title": true,
+          "description": true,
+          "image": true,
+          "url": true,
+          "type": true
+        }
+      }
+    ],
+    "urlMismatch": [
+      {
+        "file": "src/app/bcba-practice-exam/page.tsx",
+        "ogUrl": "https://behaviorschool.com/bcba-practice-exam",
+        "canonical": "https://behaviorschool.com/bcba-exam-prep"
+      },
+      {
+        "file": "src/app/page.tsx",
+        "ogUrl": "/",
+        "canonical": "https://behaviorschool.com/"
+      }
+    ]
+  }
+}

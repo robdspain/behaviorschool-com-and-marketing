@@ -408,7 +408,7 @@ LISTMONK_PASSWORD=your-password`}
       <div className="h-14 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-between px-6 border-b border-blue-700">
         <div className="flex items-center gap-3">
           <Mail className="w-5 h-5 text-white" />
-          <h1 className="text-lg font-bold text-white">Newsletter Management</h1>
+          <h2 className="text-lg font-bold text-white">Newsletter Management</h2>
         </div>
         <div className="flex items-center gap-2 text-sm text-blue-100">
           <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
