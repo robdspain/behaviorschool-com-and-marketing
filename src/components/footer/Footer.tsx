@@ -83,7 +83,7 @@ export function Footer() {
               aria-label="BACB ACE Provider Information"
             >
               <Image
-                src="/BACB-ACE/BACB_ACE-Logo-1.jpg"
+                src="/BACB-ACE/BACB_ACE-Logo-1.webp"
                 alt="BACB ACE Provider Logo - Behavior School"
                 width={100}
                 height={100}

@@ -134,7 +134,7 @@ export default function BACBACEProviderPage() {
           {/* ACE Badge */}
           <div className="flex justify-center my-12">
             <Image
-              src="/BACB-ACE/BACB_ACE-Logo-1.jpg"
+              src="/BACB-ACE/BACB_ACE-Logo-1.webp"
               alt="BACB ACE Provider Logo - Behavior School"
               width={300}
               height={300}
