@@ -132,7 +132,9 @@ export default function ListmonkAdminPage() {
         setServerCfg({ from_email: cfgData.from_email || cfgData.fromEmail, messengers: cfgData.messengers || [] })
         // Prefill from_email if empty
         setCampForm(f => ({ ...f, fromEmail: f.fromEmail || cfgData.from_email || cfgData.fromEmail || '' }))
-      } catch {}
+      } catch (e) {
+        console.error('Failed to load initial listmonk data', e)
+      }
     }
     if (status?.configured) loadData()
   }, [status?.configured])
