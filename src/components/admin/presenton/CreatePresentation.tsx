@@ -222,7 +222,9 @@ export default function CreatePresentation() {
       setEditor({ id, title: topicContent || form.content, template: form.template, slides });
 
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      // Surface which step failed
+      const msg = err instanceof Error ? err.message : 'An error occurred';
+      setError(msg);
     } finally {
       setIsGenerating(false);
       setProgress(null);
