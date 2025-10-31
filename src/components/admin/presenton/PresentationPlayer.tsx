@@ -295,7 +295,7 @@ export default function PresentationPlayer({
           {saving && (
             <div className="flex items-center gap-2 text-sm text-emerald-600 mr-2">
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Saving...</span>
+              <span>Saving changes…</span>
             </div>
           )}
           {enriching && (
@@ -376,11 +376,11 @@ export default function PresentationPlayer({
                 const origin = typeof window !== 'undefined' ? window.location.origin : '';
                 const link = `${origin}/presentations/view/${presentationId}?token=${encodeURIComponent(tok)}`;
                 await navigator.clipboard.writeText(link);
-                setShareMsg('Link copied'); setTimeout(()=> setShareMsg(null), 1200);
+                setShareMsg('Share link copied'); setTimeout(()=> setShareMsg(null), 1200);
               } catch { alert('Failed to copy'); }
             }}
             className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
-            title="Copy share link"
+            title="Copy a private view-only link"
           >
             Share
           </button>

@@ -168,7 +168,7 @@ export default function CreatePresentation() {
       }
 
       // 1) Generate an outline (slides JSON) for editor
-      setProgress('Generating outline...');
+      setProgress('Drafting slide outline...');
       const outlineResp = await fetch('/api/admin/presentations/generate-outline', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: topicContent, slideCount: form.slideCount, tone: form.tone, language: form.language, model: form.model, provider, apiKey, ollamaEndpoint, webGrounding: !!form.webGrounding, webResults: form.webResults, webQuery: form.webQuery || topicContent })
@@ -186,7 +186,7 @@ export default function CreatePresentation() {
       const imgProvider = useGemini ? 'gemini' : 'openai';
       const imgApiKey = useGemini ? localStorage.getItem('google_api_key') : localStorage.getItem('openai_api_key');
       if (imgApiKey && slides.length) {
-        setProgress('Generating images...');
+        setProgress('Adding images to slides...');
         const enriched: any[] = [];
         for (let i = 0; i < slides.length; i++) {
           const s = slides[i];
@@ -412,7 +412,7 @@ export default function CreatePresentation() {
                 ))}
               </select>
               <div className="mt-2 text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-md p-3 leading-relaxed">
-                <div className="font-semibold text-slate-800 mb-1">Model guidance</div>
+                <div className="font-semibold text-slate-800 mb-1">Model tips</div>
                 <ul className="list-disc ml-4 space-y-1">
                   <li><span className="font-medium">Gemini 2.5 Pro</span>: best for complex reasoning (code/math/STEM), long-context docs, and nuanced slide writing.</li>
                   <li><span className="font-medium">Gemini 2.5 Flash</span>: recommended default — strong quality with low latency and great price-performance.</li>
@@ -421,15 +421,13 @@ export default function CreatePresentation() {
               </div>
             </>
           ) : (
-            <div className="px-4 py-3 border-2 border-yellow-200 rounded-lg bg-yellow-50 text-yellow-800">
-              No models available. Please check your API key in Settings.
-            </div>
+            <div className="px-4 py-3 border-2 border-yellow-200 rounded-lg bg-yellow-50 text-yellow-800">No AI models available. Add a provider key in Settings.</div>
           )}
         </div>
 
         {/* Export Format */}
         <div>
-          <label className="block text-sm font-bold text-slate-900 mb-2">Export Format</label>
+          <label className="block text-sm font-bold text-slate-900 mb-2">Export format</label>
           <select
             value={form.exportFormat}
             onChange={(e) => setForm({ ...form, exportFormat: e.target.value as 'pptx' | 'pdf' })}
@@ -445,7 +443,7 @@ export default function CreatePresentation() {
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
             <input id="wg" type="checkbox" checked={!!form.webGrounding} onChange={(e)=> setForm({ ...form, webGrounding: e.target.checked })} />
-            <label htmlFor="wg" className="text-sm font-bold text-slate-900">Use web search grounding (Google Programmable Search)</label>
+            <label htmlFor="wg" className="text-sm font-bold text-slate-900">Use web search grounding</label>
           </div>
           {form.webGrounding && (
             <div className="mt-2 grid md:grid-cols-2 gap-3">
@@ -480,7 +478,7 @@ export default function CreatePresentation() {
         {isGenerating ? (
           <>
             <Loader2 className="w-6 h-6 animate-spin" />
-            {progress || 'Preparing Editor...'}
+            {progress || 'Preparing editor…'}
           </>
         ) : (
           <>
