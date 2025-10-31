@@ -24,7 +24,7 @@ type LMTemplate = { id: number; name: string }
 
 export default function ListmonkAdminPage() {
   const router = useRouter()
-  const supabase = createClient()
+  const [envError, setEnvError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [status, setStatus] = useState<StatusResponse | null>(null)
@@ -45,20 +45,25 @@ export default function ListmonkAdminPage() {
 
   useEffect(() => {
     document.title = 'Newsletter (Listmonk) | Admin'
-
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) {
-        router.push('/admin/login')
+      try {
+        const sup = createClient()
+        const { data: { session } } = await sup.auth.getSession()
+        if (!session) {
+          router.push('/admin/login')
+          setLoading(false)
+          return
+        }
+        setIsAuthenticated(true)
         setLoading(false)
-        return
+      } catch (e) {
+        console.error('Supabase init/auth error:', e)
+        setEnvError('Authentication client is not configured. Check NEXT_PUBLIC_SUPABASE_URL/NEXT_PUBLIC_SUPABASE_ANON_KEY.')
+        setLoading(false)
       }
-      setIsAuthenticated(true)
-      setLoading(false)
     }
-
     checkAuth()
-  }, [supabase, router])
+  }, [router])
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -74,6 +79,18 @@ export default function ListmonkAdminPage() {
     }
     if (isAuthenticated) fetchStatus()
   }, [isAuthenticated])
+
+  if (envError) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-center max-w-lg">
+          <div className="w-16 h-16 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-700 font-semibold mb-2">Listmonk admin unavailable</p>
+          <p className="text-slate-600 text-sm">{envError}</p>
+        </div>
+      </div>
+    )
+  }
 
   if (loading || !isAuthenticated) {
     return (
