@@ -223,6 +223,18 @@ export default function PresentationPlayer({
     })();
   }, [presentationId]);
 
+  // Close dropdowns on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowImageMenu(false);
+        setShowMoreMenu(false);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, []);
+
   // moved lower to after saveToDatabase declaration
 
   // Navigation functions
@@ -479,7 +491,7 @@ export default function PresentationPlayer({
         </div>
 
         {/* Control Bar: Layout, Template, Image Controls */}
-        <div className="flex items-center gap-3 px-4 py-2 border-t border-slate-100 bg-slate-50 overflow-x-auto">
+        <div className="flex items-center gap-3 px-4 py-2 border-t border-slate-100 bg-slate-50 overflow-x-auto overflow-y-visible">
           {/* Layout & Template Group */}
           <div className="flex items-center gap-2 shrink-0 border-r border-slate-200 pr-3">
             <div className="flex items-center gap-2">
@@ -526,9 +538,12 @@ export default function PresentationPlayer({
 
           {/* Image Controls Group */}
           <div className="flex items-center gap-2 shrink-0 border-r border-slate-200 pr-3">
-            <div className="relative">
+            <div className="relative z-[60]">
               <button
-                onClick={() => setShowImageMenu(!showImageMenu)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowImageMenu(!showImageMenu);
+                }}
                 className="flex items-center gap-1.5 px-3 py-1.5 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50 text-sm whitespace-nowrap"
               >
                 <ImageIcon className="w-4 h-4" />
@@ -538,8 +553,15 @@ export default function PresentationPlayer({
               
               {showImageMenu && (
                 <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowImageMenu(false)}></div>
-                  <div className="absolute top-full left-0 mt-1 bg-white border-2 border-slate-200 rounded-lg shadow-xl z-50 min-w-[200px] py-1">
+                  <div 
+                    className="fixed inset-0 z-[55]" 
+                    onClick={() => setShowImageMenu(false)}
+                    style={{ backgroundColor: 'transparent' }}
+                  ></div>
+                  <div 
+                    className="absolute top-full left-0 mt-1 bg-white border-2 border-slate-200 rounded-lg shadow-2xl z-[60] min-w-[200px] py-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <button
                       onClick={async ()=>{
                         try {
@@ -754,9 +776,12 @@ export default function PresentationPlayer({
 
           {/* More Actions */}
           <div className="flex items-center gap-2 shrink-0">
-            <div className="relative">
+            <div className="relative z-[60]">
               <button
-                onClick={() => setShowMoreMenu(!showMoreMenu)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMoreMenu(!showMoreMenu);
+                }}
                 className="flex items-center gap-1.5 px-3 py-1.5 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 text-sm whitespace-nowrap"
               >
                 <MoreVertical className="w-4 h-4" />
@@ -766,8 +791,15 @@ export default function PresentationPlayer({
               
               {showMoreMenu && (
                 <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowMoreMenu(false)}></div>
-                  <div className="absolute top-full right-0 mt-1 bg-white border-2 border-slate-200 rounded-lg shadow-xl z-50 min-w-[200px] py-1">
+                  <div 
+                    className="fixed inset-0 z-[55]" 
+                    onClick={() => setShowMoreMenu(false)}
+                    style={{ backgroundColor: 'transparent' }}
+                  ></div>
+                  <div 
+                    className="absolute top-full right-0 mt-1 bg-white border-2 border-slate-200 rounded-lg shadow-2xl z-[60] min-w-[200px] py-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <button
                       onClick={()=> { setShowRedesign(true); setShowMoreMenu(false); }}
                       className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
