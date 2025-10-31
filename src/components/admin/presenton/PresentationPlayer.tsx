@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState, useCallback } from 'react';
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { ChevronLeft, ChevronRight, Edit, X, Maximize2, Minimize2, Loader2 } from 'lucide-react';
 import SlideRichEditor from './SlideRichEditor';
 
@@ -176,6 +179,32 @@ export default function PresentationPlayer({
 
   const currentSlideData = slides[currentSlide];
 
+  // Drag-and-drop thumbnails
+  function SortableThumb({ id, children }: { id: string; children: (bind: any)=>React.ReactNode }) {
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+    const style = { transform: CSS.Transform.toString(transform), transition } as React.CSSProperties;
+    return (
+      <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        {children({})}
+      </div>
+    );
+  }
+  const onDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (!over) return;
+    const from = Number(active.id);
+    const to = Number(over.id);
+    if (from === to) return;
+    setSlides((prev) => {
+      const next = arrayMove(prev, from, to);
+      if (currentSlide === from) setCurrentSlide(to);
+      else if (from < currentSlide && to >= currentSlide) setCurrentSlide((v)=> v-1);
+      else if (from > currentSlide && to <= currentSlide) setCurrentSlide((v)=> v+1);
+      setTimeout(() => saveToDatabase(), 100);
+      return next;
+    });
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-white flex flex-col">
       {/* Header */}
@@ -217,33 +246,40 @@ export default function PresentationPlayer({
       <div className="flex-1 flex overflow-hidden">
         {/* Thumbnail Sidebar */}
         <div className="w-64 border-r-2 border-slate-200 overflow-y-auto bg-slate-50">
-          <div className="p-3 space-y-2">
-            {slides.map((slide, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
-                  index === currentSlide
-                    ? 'border-emerald-500 bg-emerald-50 shadow-md'
-                    : 'border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50'
-                }`}
-              >
-                <div className="flex items-start gap-2">
-                  <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-xs font-bold text-slate-600 bg-slate-200 rounded">
-                    {index + 1}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-semibold text-slate-900 truncate mb-1">
-                      {slide.title}
-                    </div>
-                    <div className="text-xs text-slate-600">
-                      {slide.content.length} bullet{slide.content.length !== 1 ? 's' : ''}
-                    </div>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
+          <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+            <SortableContext items={slides.map((_,i)=> String(i))} strategy={verticalListSortingStrategy}>
+              <div className="p-3 space-y-2">
+                {slides.map((slide, index) => (
+                  <SortableThumb key={index} id={String(index)}>
+                    {() => (
+                      <button
+                        onClick={() => goToSlide(index)}
+                        className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
+                          index === currentSlide
+                            ? 'border-emerald-500 bg-emerald-50 shadow-md'
+                            : 'border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50'
+                        }`}
+                      >
+                        <div className="flex items-start gap-2">
+                          <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-xs font-bold text-slate-600 bg-slate-200 rounded">
+                            {index + 1}
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-semibold text-slate-900 truncate mb-1">
+                              {slide.title}
+                            </div>
+                            <div className="text-xs text-slate-600">
+                              {slide.content.length} bullet{slide.content.length !== 1 ? 's' : ''}
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    )}
+                  </SortableThumb>
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
         </div>
 
         {/* Slide Display Area */}

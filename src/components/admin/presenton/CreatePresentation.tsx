@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FileUp, Loader2, Download, Eye, Sparkles, FileText, Upload } from "lucide-react";
+import { FileUp, Loader2, Sparkles, FileText, Upload } from "lucide-react";
+import PresentationPlayer from "./PresentationPlayer";
 
 interface PresentationForm {
   inputType: "text" | "file";
@@ -50,6 +51,8 @@ export default function CreatePresentation() {
   const [availableModels, setAvailableModels] = useState<AIModel[]>([]);
   const [isLoadingModels, setIsLoadingModels] = useState(false);
   const [modelsError, setModelsError] = useState<string | null>(null);
+  const [editor, setEditor] = useState<{ id: string; title: string; template: string; slides: any[] } | null>(null);
+  const [progress, setProgress] = useState<string | null>(null);
 
   useEffect(() => {
     fetchAvailableModels();
@@ -127,7 +130,7 @@ export default function CreatePresentation() {
       // Prefer Google AI for presentation generation
       const apiKey = googleKey || openaiKey || anthropicKey || "";
       const provider = googleKey ? "google" : openaiKey ? "openai" : anthropicKey ? "anthropic" : "ollama";
-      console.log(`[Presenton] Generating with provider=${provider} model=${form.model} format=${form.exportFormat}`);
+      console.log(`[Presenton] Generating outline for editor with provider=${provider} model=${form.model}`);
 
       // If using file input and we have a plaintext file, read it client-side
       let topicContent = form.content;
@@ -159,61 +162,65 @@ export default function CreatePresentation() {
         if (ext === 'txt' || ext === 'csv') topicContent = await form.file.text();
       }
 
-      const response = await fetch("/api/admin/presentations/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          topic: topicContent,
-          slideCount: form.slideCount,
-          template: form.template,
-          tone: form.tone,
-          language: form.language,
-          model: form.model,
-          provider,
-          apiKey,
-          exportAs: form.exportFormat,
-          ollamaEndpoint,
-          webGrounding: !!form.webGrounding,
-          webResults: form.webResults,
-          webQuery: form.webQuery || topicContent,
-        }),
+      // 1) Generate an outline (slides JSON) for editor
+      setProgress('Generating outline...');
+      const outlineResp = await fetch('/api/admin/presentations/generate-outline', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic: topicContent, slideCount: form.slideCount, tone: form.tone, language: form.language, model: form.model, provider, apiKey, ollamaEndpoint, webGrounding: !!form.webGrounding, webResults: form.webResults, webQuery: form.webQuery || topicContent })
       });
+      if (!outlineResp.ok) {
+        const err = await outlineResp.json().catch(()=>({}));
+        throw new Error(err.error || 'Failed to generate outline');
+      }
+      const { slides: outlineSlides } = await outlineResp.json();
+      let slides = outlineSlides || [];
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Generation error:", errorData);
-        throw new Error(errorData.details || errorData.error || "Failed to generate presentation");
+      // 2) Include images by default
+      const useGemini = !!localStorage.getItem('google_api_key');
+      const useOpenAI = !!localStorage.getItem('openai_api_key');
+      const imgProvider = useGemini ? 'gemini' : 'openai';
+      const imgApiKey = useGemini ? localStorage.getItem('google_api_key') : localStorage.getItem('openai_api_key');
+      if (imgApiKey && slides.length) {
+        setProgress('Generating images...');
+        const enriched: any[] = [];
+        for (let i = 0; i < slides.length; i++) {
+          const s = slides[i];
+          try {
+            const ir = await fetch('/api/admin/presentations/images/generate', {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ prompt: `${topicContent}: ${s.title}`, provider: imgProvider, apiKey: imgApiKey, size: '1024x1024' })
+            });
+            if (ir.ok) {
+              const j = await ir.json();
+              enriched.push({ ...s, imageUrl: j.url });
+            } else {
+              enriched.push(s);
+            }
+          } catch {
+            enriched.push(s);
+          }
+        }
+        slides = enriched;
       }
 
-      // Download the file
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      const baseName = (topicContent || form.content).substring(0, 30).replace(/[^a-z0-9]/gi, "_");
-      a.download = `${baseName}.${form.exportFormat}`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-
-      // Save to history
-      const history = JSON.parse(localStorage.getItem("presenton_history") || "[]");
-      history.unshift({
-        id: Date.now().toString(),
-        topic: (topicContent || form.content).slice(0, 200),
-        slideCount: form.slideCount,
-        template: form.template,
-        createdAt: new Date().toISOString(),
+      // 3) Create a draft row in DB so the editor can persist
+      setProgress('Preparing editor...');
+      const draftResp = await fetch('/api/admin/presentations/create-draft', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic: topicContent, template: form.template, tone: form.tone, language: form.language, provider, model: form.model, slides })
       });
-      localStorage.setItem("presenton_history", JSON.stringify(history.slice(0, 20)));
+      if (!draftResp.ok) {
+        const err = await draftResp.json().catch(()=>({}));
+        throw new Error(err.error || 'Failed to create draft');
+      }
+      const { id } = await draftResp.json();
+      setEditor({ id, title: topicContent || form.content, template: form.template, slides });
 
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setIsGenerating(false);
+      setProgress(null);
     }
   };
 
@@ -476,15 +483,28 @@ export default function CreatePresentation() {
         {isGenerating ? (
           <>
             <Loader2 className="w-6 h-6 animate-spin" />
-            Generating Your Presentation...
+            {progress || 'Preparing Editor...'}
           </>
         ) : (
           <>
             <Sparkles className="w-6 h-6" />
-            Generate Presentation
+            Generate & Edit
           </>
         )}
       </button>
+
+      {/* Inline Editor */}
+      {editor && (
+        <div className="mt-6 border-2 border-slate-200 rounded-xl overflow-hidden">
+          <PresentationPlayer
+            presentationId={editor.id}
+            initialSlides={editor.slides as any}
+            presentationTitle={editor.title}
+            template={editor.template}
+            onClose={()=> setEditor(null)}
+          />
+        </div>
+      )}
     </div>
   );
 }

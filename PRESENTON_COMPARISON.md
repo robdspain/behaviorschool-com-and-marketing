@@ -413,6 +413,9 @@
 3. ✅ Implement web search grounding (Google Search API)
 4. ✅ Add batch file upload (multiple documents)
 5. ✅ Improve template designer (full customization)
+6. ✅ Default to Create flow with inline editor (no immediate download)
+7. ⚠️ Slide editor drag-and-drop enhancements (in progress)
+8. ✅ Auto-generate images for slides by default
 
 ### Short-term Enhancements
 1. Add more slide layouts (target: 25-30 total)
