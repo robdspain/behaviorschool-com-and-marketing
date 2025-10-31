@@ -1,5 +1,7 @@
 "use client";
 
+import { TEMPLATE_COLORS } from './templates';
+
 interface Props {
   layout: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left'|'table';
   imageUrl?: string;
@@ -182,23 +184,8 @@ function hexToRgba(hex: string, alpha = 1) {
 }
 
 function getTemplateColors(template: string) {
-  const map: Record<string, { primary: string; bg: string; title: string; text: string; border: string }> = {
-    modern:   { primary: '#10B981', bg: '#FFFFFF', title: '#1F2937', text: '#374151', border: '#D1D5DB' },
-    general:  { primary: '#3B82F6', bg: '#FFFFFF', title: '#1E40AF', text: '#1F2937', border: '#D1D5DB' },
-    swift:    { primary: '#8B5CF6', bg: '#FFFFFF', title: '#5B21B6', text: '#4C1D95', border: '#D1D5DB' },
-    minimal:  { primary: '#000000', bg: '#FFFFFF', title: '#000000', text: '#374151', border: '#D1D5DB' },
-    corporate:{ primary: '#1F2937', bg: '#F9FAFB', title: '#111827', text: '#374151', border: '#D1D5DB' },
-  };
-  const c = map[template] || map.modern;
-  return {
-    primary: c.primary,
-    previewBg: c.bg,
-    title: c.title,
-    text: c.text,
-    textDim: hexToRgba(c.text, 0.5),
-    image: hexToRgba(c.primary, 0.25),
-    border: c.border,
-  };
+  const c = TEMPLATE_COLORS[template] || TEMPLATE_COLORS['modern'];
+  return { primary: c.primary, previewBg: c.bg, title: c.title, text: c.text, textDim: hexToRgba(c.text, 0.5), image: hexToRgba(c.primary, 0.25), border: c.border };
 }
 
 function getSizes(variant: 'small'|'large') {

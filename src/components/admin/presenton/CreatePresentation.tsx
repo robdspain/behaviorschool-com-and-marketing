@@ -351,19 +351,9 @@ export default function CreatePresentation() {
 
         {/* Template */}
         <div>
-          <label className="block text-sm font-bold text-slate-900 mb-2">
-            Template
-          </label>
-          <select
-            value={form.template}
-            onChange={(e) => setForm({ ...form, template: e.target.value })}
-            className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-          >
-            <option value="modern">Modern</option>
-            <option value="general">General</option>
-            <option value="swift">Swift</option>
-            <option value="minimal">Minimal</option>
-            <option value="corporate">Corporate</option>
+          <label className="block text-sm font-bold text-slate-900 mb-2">Template</label>
+          <select value={form.template} onChange={(e) => setForm({ ...form, template: e.target.value })} className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+            {require('./templates').TEMPLATE_OPTIONS.map((opt: any) => (<option key={opt.id} value={opt.id}>{opt.label}</option>))}
           </select>
         </div>
 

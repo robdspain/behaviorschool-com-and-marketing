@@ -6,6 +6,7 @@ import LayoutPreview from './LayoutPreview';
 import ChartEditor from './ChartEditor';
 import PresentationDocsLibrary from './PresentationDocsLibrary';
 import TemplateSettings from './TemplateSettings';
+import { TEMPLATE_OPTIONS } from './templates';
 import SlideRichEditor from './SlideRichEditor';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
@@ -261,7 +262,7 @@ export default function OutlineEditor() {
         <div>
           <label className="block text-sm font-bold text-slate-900 mb-2">Template</label>
           <select value={template} onChange={(e) => setTemplate(e.target.value)} className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg">
-            {['modern','general','swift','minimal','corporate'].map((t)=> <option key={t} value={t}>{t}</option>)}
+            {TEMPLATE_OPTIONS.map(opt => <option key={opt.id} value={opt.id}>{opt.label}</option>)}
           </select>
         </div>
         <div>
