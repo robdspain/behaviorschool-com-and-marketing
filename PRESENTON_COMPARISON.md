@@ -420,19 +420,35 @@
 
 ### Short-term Enhancements
 1. Add more slide layouts (target: 25-30 total)
-2. Implement PPTX upload and processing
-3. Add direct image upload (in addition to generation)
-4. Enhance chart editor (more customization options)
-5. Add presentation analytics
-6. Implement webhook notifications
+2. Implement PPTX upload and processing (import + convert to editable deck)
+3. Brand kit/theme import (fonts, logos, colors) + one‑click redesign
+4. Web‑native presentation mode + shareable link (viewer)
+5. Smart layout suggestions (auto‑redesign within existing slides)
+6. Export integration: Google Slides (and plan Keynote)
+7. Add direct image upload (in addition to generation)
+8. Enhance chart editor (more customization options)
+9. Implement webhook notifications
 
 ### Long-term Advanced Features
-1. Advanced AI features (tool calls, extended reasoning)
-2. Vector database integration (ChromaDB for RAG)
-3. Document intelligence and smart summarization
-4. Multi-user collaboration
-5. Version control for presentations
-6. Export to additional formats (Google Slides, Keynote)
+1. Real‑time collaboration (multi‑user), presence, and version history
+2. Analytics/engagement module (per‑slide views, time on slide, click tracking)
+3. Advanced AI features (tool calls, extended reasoning)
+4. Vector database integration (ChromaDB for RAG)
+5. Document intelligence and smart summarization
+6. Credit/usage model (quotas, metering) for AI and exports
+7. Version control for presentations
+
+---
+
+## Competitive Roadmap (Gamma Parity)
+
+- PPTX import + conversion: Planned (Short‑term #2)
+- Brand kit + one‑click redesign: Planned (Short‑term #3)
+- Real‑time collaboration + version history: Planned (Long‑term #1)
+- Web‑native shareable presentations: Planned (Short‑term #4)
+- Detailed analytics/engagement: Planned (Long‑term #2)
+- Larger template library + smart layouts: Planned (Short‑term #1 + #5)
+- Export to Google Slides/Keynote: Planned (Short‑term #6)
 
 ---
 
