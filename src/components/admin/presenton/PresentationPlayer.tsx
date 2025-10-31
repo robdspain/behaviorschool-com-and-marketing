@@ -32,6 +32,9 @@ type Slide = {
   chart?: ChartData;
   layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left'|'table';
   imageScale?: number; // 0.5 - 1.5 (default 1)
+  imageWidthPct?: number; // 20..150
+  imageOffsetXPct?: number; // 0..100 (center anchor)
+  imageOffsetYPct?: number; // 0..100 (center anchor)
 };
 
 type PresentationPlayerProps = {
@@ -133,6 +136,48 @@ export default function PresentationPlayer({
       window.removeEventListener('mouseup', onUp);
     };
   }, [resizing, dragStartX, startWidth]);
+
+  // Image on-canvas edit overlay (drag/resize)
+  const [imgEditMode, setImgEditMode] = useState<boolean>(false);
+  const [imgDragging, setImgDragging] = useState<boolean>(false);
+  const [imgResizing, setImgResizing] = useState<boolean>(false);
+  const [imgStart, setImgStart] = useState<{x: number; y: number} | null>(null);
+  const [imgOrig, setImgOrig] = useState<{xPct: number; yPct: number; wPct: number}>({ xPct: 50, yPct: 50, wPct: 80 });
+  const imgContainerRef = (useState<any>(null))[0] as React.MutableRefObject<HTMLDivElement | null>;
+
+  useEffect(() => {
+    if (!imgDragging && !imgResizing) return;
+    const onMove = (e: MouseEvent) => {
+      if (!imgContainerRef || !imgContainerRef.current || !imgStart) return;
+      const rect = imgContainerRef.current.getBoundingClientRect();
+      const dx = e.clientX - imgStart.x;
+      const dy = e.clientY - imgStart.y;
+      const cur = slides[currentSlide];
+      const x0 = (cur.imageOffsetXPct ?? imgOrig.xPct);
+      const y0 = (cur.imageOffsetYPct ?? imgOrig.yPct);
+      const w0 = (cur.imageWidthPct ?? imgOrig.wPct);
+      if (imgDragging) {
+        const nx = Math.max(0, Math.min(100, x0 + (dx / Math.max(1, rect.width)) * 100));
+        const ny = Math.max(0, Math.min(100, y0 + (dy / Math.max(1, rect.height)) * 100));
+        const updated = [...slides];
+        updated[currentSlide] = { ...cur, imageOffsetXPct: nx, imageOffsetYPct: ny } as any;
+        setSlides(updated);
+      } else if (imgResizing) {
+        const dw = (dx / Math.max(1, rect.width)) * 100;
+        const nw = Math.max(20, Math.min(150, w0 + dw));
+        const updated = [...slides];
+        updated[currentSlide] = { ...cur, imageWidthPct: nw } as any;
+        setSlides(updated);
+      }
+    };
+    const onUp = () => {
+      setImgDragging(false); setImgResizing(false); setImgStart(null);
+      setTimeout(()=> saveToDatabase(), 120);
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    return () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
+  }, [imgDragging, imgResizing, imgStart, slides, currentSlide, saveToDatabase]);
 
   useEffect(() => {
     (async () => {
@@ -532,6 +577,15 @@ export default function PresentationPlayer({
             Redesign
           </button>
           {slides[currentSlide]?.imageUrl && (
+            <button
+              onClick={()=> setImgEditMode(v => !v)}
+              className={`px-3 py-2 border-2 rounded-lg ${imgEditMode ? 'border-emerald-400 text-emerald-700 bg-emerald-50' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}
+              title="Drag to move image; use handle to resize"
+            >
+              {imgEditMode ? 'Finish image edit' : 'Edit image'}
+            </button>
+          )}
+          {slides[currentSlide]?.imageUrl && (
             <>
               <label className="text-sm font-semibold text-slate-700 ml-2">Image position</label>
               <select
@@ -834,9 +888,46 @@ export default function PresentationPlayer({
                       )}
                     </div>
                     <div className="flex items-center justify-center">
-                      {currentSlideData.imageUrl && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full rounded-lg shadow-lg border-2 border-slate-200 object-contain" style={{ maxHeight: `${Math.round(384 * (currentSlideData.imageScale || 1))}px` }} />
+                      {currentSlide === currentSlide && currentSlideData.imageUrl && imgEditMode ? (
+                        <div ref={el => { (imgContainerRef as any).current = el }} className="relative w-full" style={{ height: `${Math.round(384 * (currentSlideData.imageScale || 1))}px` }}>
+                          {/* Draggable/Resizable Image */}
+                          {(() => {
+                            const x = currentSlideData.imageOffsetXPct ?? 50;
+                            const y = currentSlideData.imageOffsetYPct ?? 50;
+                            const w = currentSlideData.imageWidthPct ?? 80;
+                            return (
+                              <>
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={currentSlideData.imageUrl!}
+                                  alt={currentSlideData.title}
+                                  className="absolute top-0 left-0 rounded-lg border-2 border-slate-200 shadow-lg select-none cursor-move"
+                                  style={{
+                                    width: `${w}%`,
+                                    maxWidth: 'none',
+                                    maxHeight: 'none',
+                                    transform: `translate(-50%, -50%)`,
+                                    left: `${x}%`,
+                                    top: `${y}%`,
+                                  }}
+                                  onMouseDown={(e)=>{ setImgDragging(true); setImgResizing(false); setImgStart({ x: e.clientX, y: e.clientY }); const s = slides[currentSlide]; setImgOrig({ xPct: s.imageOffsetXPct ?? 50, yPct: s.imageOffsetYPct ?? 50, wPct: s.imageWidthPct ?? 80 }); e.preventDefault(); }}
+                                  draggable={false}
+                                />
+                                <div
+                                  className="absolute bg-white border-2 border-emerald-500 rounded-sm shadow cursor-nwse-resize"
+                                  style={{ left: `${x}%`, top: `${y}%`, transform: `translate(calc(${w/2}% - 8px), calc(${w/2}% - 8px))`, width: '16px', height: '16px' }}
+                                  onMouseDown={(e)=>{ setImgResizing(true); setImgDragging(false); setImgStart({ x: e.clientX, y: e.clientY }); const s = slides[currentSlide]; setImgOrig({ xPct: s.imageOffsetXPct ?? 50, yPct: s.imageOffsetYPct ?? 50, wPct: s.imageWidthPct ?? 80 }); e.preventDefault(); }}
+                                  title="Drag to resize"
+                                />
+                              </>
+                            );
+                          })()}
+                        </div>
+                      ) : (
+                        currentSlideData.imageUrl && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full rounded-lg shadow-lg border-2 border-slate-200 object-contain" style={{ maxHeight: `${Math.round(384 * (currentSlideData.imageScale || 1))}px` }} />
+                        )
                       )}
                     </div>
                   </div>
