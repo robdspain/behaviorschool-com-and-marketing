@@ -77,6 +77,14 @@ export default function PresentationPlayer({
   const [resizing, setResizing] = useState(false);
   const [dragStartX, setDragStartX] = useState<number | null>(null);
   const [startWidth, setStartWidth] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return window.innerWidth < 768;
+  });
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true;
+    return window.innerWidth >= 768; // open by default on desktop
+  });
 
   useEffect(() => {
     try { localStorage.setItem('presenton_allow_openai_fallback', String(allowFallback)); } catch {}
@@ -85,6 +93,23 @@ export default function PresentationPlayer({
   useEffect(() => {
     try { localStorage.setItem('presenton_sidebar_width', String(sidebarWidth)); } catch {}
   }, [sidebarWidth]);
+
+  // Track mobile/desktop and default sidebar visibility
+  useEffect(() => {
+    const onResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile && sidebarOpen) {
+        // keep state, do not force close
+      } else if (!mobile && !sidebarOpen) {
+        // open sidebar when switching to desktop
+        setSidebarOpen(true);
+      }
+    };
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [sidebarOpen]);
 
   // Sidebar resize listeners
   useEffect(() => {
@@ -335,6 +360,15 @@ export default function PresentationPlayer({
         </h1>
 
         <div className="flex items-center gap-2 flex-wrap">
+          {isMobile && (
+            <button
+              onClick={()=> setSidebarOpen(true)}
+              className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+              title="Show slides"
+            >
+              Slides
+            </button>
+          )}
           {saveError && (
             <span className="text-sm text-red-600 mr-2">{saveError}</span>
           )}
@@ -575,9 +609,57 @@ export default function PresentationPlayer({
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex overflow-hidden select-none">
-        {/* Thumbnail Sidebar (resizable) */}
-        <div className="border-r-2 border-slate-200 overflow-y-auto bg-slate-50" style={{ width: sidebarWidth }}>
+      <div className="flex-1 flex overflow-hidden select-none relative">
+        {/* Mobile overlay sidebar */}
+        {isMobile && sidebarOpen && (
+          <div className="fixed inset-0 z-40 flex">
+            <div className="w-4/5 max-w-sm h-full overflow-y-auto bg-slate-50 border-r-2 border-slate-200">
+              <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+                <SortableContext items={slides.map((_,i)=> String(i))} strategy={verticalListSortingStrategy}>
+                  <div className="p-3 space-y-2">
+                    {slides.map((slide, index) => (
+                      <SortableThumb key={index} id={String(index)}>
+                        {({ attributes, listeners, setNodeRef, style }) => (
+                          <div ref={setNodeRef} style={style} className={`flex items-center gap-2 group`}>
+                            <button
+                              onClick={() => { goToSlide(index); setSidebarOpen(false); }}
+                              className={`flex-1 text-left p-3 rounded-lg border-2 transition-all ${
+                                index === currentSlide
+                                  ? 'border-emerald-500 bg-emerald-50 shadow-md'
+                                  : 'border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50'
+                              }`}
+                            >
+                              <div className="flex items-start gap-2">
+                                <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-xs font-bold text-slate-600 bg-slate-200 rounded">
+                                  {index + 1}
+                                </span>
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-sm font-semibold text-slate-900 truncate mb-1">
+                                    {slide.title}
+                                  </div>
+                                  <div className="text-xs text-slate-600">
+                                    {slide.content.length} bullet{slide.content.length !== 1 ? 's' : ''}
+                                  </div>
+                                </div>
+                              </div>
+                            </button>
+                            <button className="p-1 text-slate-400 hover:text-slate-600 cursor-grab active:cursor-grabbing" aria-label="Drag to reorder" {...attributes} {...listeners}>
+                              <GripVertical className="w-4 h-4" />
+                            </button>
+                          </div>
+                        )}
+                      </SortableThumb>
+                    ))}
+                  </div>
+                </SortableContext>
+              </DndContext>
+            </div>
+            <div className="flex-1 h-full bg-black/30" onClick={()=> setSidebarOpen(false)} />
+          </div>
+        )}
+        {/* Desktop thumbnail Sidebar (resizable) */}
+        {!isMobile && sidebarOpen && (
+          <div className="border-r-2 border-slate-200 overflow-y-auto bg-slate-50" style={{ width: sidebarWidth }}>
           <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
             <SortableContext items={slides.map((_,i)=> String(i))} strategy={verticalListSortingStrategy}>
               <div className="p-3 space-y-2">
@@ -618,7 +700,9 @@ export default function PresentationPlayer({
             </SortableContext>
           </DndContext>
         </div>
-        {/* Resizer handle */}
+        )}
+        {/* Resizer handle (desktop only) */}
+        {!isMobile && sidebarOpen && (
         <div
           role="separator"
           aria-orientation="vertical"
@@ -640,6 +724,7 @@ export default function PresentationPlayer({
             height: 'auto'
           }}
         />
+        )}
 
         {/* Slide Display Area */}
         <div className="flex-1 flex flex-col">

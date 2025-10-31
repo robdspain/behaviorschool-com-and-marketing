@@ -92,6 +92,7 @@
 - ✅ Image embedding (PPTX and PDF)
 - ✅ Custom fonts in export (font upload + embed)
 - ✅ Chart rendering (bar, line, pie, doughnut)
+- ❌ No Recharts for charts (custom chart + pptxgenjs)
 - ✅ Icon embedding
 - ✅ Metrics layouts with value parsing
 - ❌ Client-side export option (currently server-side only)
@@ -330,7 +331,7 @@
 2. ✅ Custom fonts in presentations
 3. ✅ Chart editor (visual configuration)
 it 5. ❌ Webhook support
-6. ❌ PPTX processing (upload existing files)
+
 7. ❌ Advanced AI features (tool calls, extended reasoning)
 8. ❌ Analytics integration
 9. ❌ Web search grounding
