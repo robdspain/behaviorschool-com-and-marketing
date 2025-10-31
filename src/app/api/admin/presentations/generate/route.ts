@@ -58,6 +58,7 @@ export async function POST(request: NextRequest) {
         provider,
         model,
         exportAs,
+        slides: slideContent,
       });
       return new NextResponse(Buffer.from(pdf), {
         status: 200,
@@ -80,6 +81,7 @@ export async function POST(request: NextRequest) {
           provider,
           model,
           exportAs: 'pdf',
+          slides: slideContent,
         });
         return new NextResponse(Buffer.from(pdf), {
           status: 200,
@@ -113,6 +115,7 @@ export async function POST(request: NextRequest) {
       provider,
       model,
       exportAs,
+      slides: slideContent,
     });
     return new NextResponse(pptBuffer, {
       status: 200,
@@ -1136,6 +1139,7 @@ async function persistPresentation(params: {
   provider: string;
   model: string;
   exportAs: 'pptx' | 'pdf';
+  slides?: any[];
 }) {
   try {
     const supabase = createSupabaseAdminClient();
@@ -1165,6 +1169,7 @@ async function persistPresentation(params: {
       model: params.model,
       export_format: params.exportAs,
       storage_path: storagePath,
+      slides: params.slides || null,
     });
     if (insErr) throw insErr;
   } catch (e) {

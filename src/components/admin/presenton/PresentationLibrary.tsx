@@ -1,7 +1,17 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { Download, Trash2, FileText, Clock, Database } from 'lucide-react';
+import { Download, Trash2, FileText, Clock, Database, Eye } from 'lucide-react';
+import PresentationPlayer from './PresentationPlayer';
+
+type Slide = {
+  title: string;
+  content: string[];
+  imageUrl?: string;
+  icons?: string[];
+  chart?: any;
+  layout?: string;
+};
 
 type Item = {
   id: string;
@@ -15,12 +25,14 @@ type Item = {
   export_format: 'pptx' | 'pdf';
   storage_path: string;
   created_at: string;
+  slides?: Slide[];
 };
 
 export default function PresentationLibrary() {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [viewingPresentation, setViewingPresentation] = useState<{ id: string; slides: Slide[]; title: string; template: string } | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -49,6 +61,34 @@ export default function PresentationLibrary() {
     window.location.href = `/api/admin/presentations/download/${id}`;
   };
 
+  const onView = async (item: Item) => {
+    try {
+      // Fetch full presentation data including slides
+      const res = await fetch(`/api/admin/presentations/${item.id}`);
+      if (!res.ok) {
+        alert('Failed to load presentation data');
+        return;
+      }
+      const data = await res.json();
+
+      // If no slides in database, create default slides from metadata
+      const slides = data.slides || [{
+        title: item.topic,
+        content: ['No slide content available', 'This presentation was created before slide data was stored'],
+        layout: 'text'
+      }];
+
+      setViewingPresentation({
+        id: item.id,
+        slides: slides,
+        title: item.topic,
+        template: item.template
+      });
+    } catch (err) {
+      alert('Error loading presentation: ' + (err instanceof Error ? err.message : 'Unknown error'));
+    }
+  };
+
   if (loading) {
     return <div className="px-4 py-3 border-2 border-slate-200 rounded-lg bg-slate-50 text-slate-600">Loading...</div>;
   }
@@ -63,6 +103,19 @@ export default function PresentationLibrary() {
         <p className="text-slate-600">Generate a presentation to see it here.</p>
         <button onClick={load} className="mt-4 px-4 py-2 bg-emerald-600 text-white rounded-lg">Refresh</button>
       </div>
+    );
+  }
+
+  // If viewing a presentation, show the player
+  if (viewingPresentation) {
+    return (
+      <PresentationPlayer
+        presentationId={viewingPresentation.id}
+        initialSlides={viewingPresentation.slides}
+        presentationTitle={viewingPresentation.title}
+        template={viewingPresentation.template}
+        onClose={() => setViewingPresentation(null)}
+      />
     );
   }
 
@@ -90,6 +143,9 @@ export default function PresentationLibrary() {
               </div>
             </div>
             <div className="flex gap-2 ml-4">
+              <button onClick={() => onView(it)} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="View">
+                <Eye className="w-4 h-4" />
+              </button>
               <button onClick={() => onDownload(it.id)} className="p-2 text-emerald-700 hover:bg-emerald-50 rounded-lg" title="Download">
                 <Download className="w-4 h-4" />
               </button>

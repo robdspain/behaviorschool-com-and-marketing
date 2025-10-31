@@ -183,10 +183,10 @@ importers:
         specifier: ^23.4.1
         version: 23.11.1(typescript@5.9.2)
       react:
-        specifier: 19.1.1
+        specifier: ^19.1.1
         version: 19.1.1
       react-dom:
-        specifier: 19.1.1
+        specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
       react-hook-form:
         specifier: ^7.62.0
@@ -238,10 +238,10 @@ importers:
         specifier: ^20
         version: 20.19.11
       '@types/react':
-        specifier: ^19
+        specifier: ^19.1.1
         version: 19.1.11
       '@types/react-dom':
-        specifier: ^19
+        specifier: ^19.1.1
         version: 19.1.7(@types/react@19.1.11)
       bcryptjs:
         specifier: ^3.0.2
