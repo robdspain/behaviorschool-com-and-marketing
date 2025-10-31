@@ -69,10 +69,44 @@ export default function PresentationPlayer({
     if (typeof window === 'undefined') return false;
     try { return localStorage.getItem('presenton_allow_openai_fallback') === 'true'; } catch { return false; }
   });
+  const [sidebarWidth, setSidebarWidth] = useState<number>(() => {
+    if (typeof window === 'undefined') return 256;
+    const v = Number(localStorage.getItem('presenton_sidebar_width'));
+    return Number.isFinite(v) && v >= 140 ? v : 256;
+  });
+  const [resizing, setResizing] = useState(false);
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [startWidth, setStartWidth] = useState<number>(0);
 
   useEffect(() => {
     try { localStorage.setItem('presenton_allow_openai_fallback', String(allowFallback)); } catch {}
   }, [allowFallback]);
+
+  useEffect(() => {
+    try { localStorage.setItem('presenton_sidebar_width', String(sidebarWidth)); } catch {}
+  }, [sidebarWidth]);
+
+  // Sidebar resize listeners
+  useEffect(() => {
+    if (!resizing) return;
+    const onMove = (e: MouseEvent) => {
+      const x = e.clientX;
+      if (dragStartX == null) return;
+      const delta = x - dragStartX;
+      const vw = typeof window !== 'undefined' ? window.innerWidth : 1200;
+      const minW = vw < 640 ? 140 : 180;
+      const maxW = Math.max(minW + 40, Math.min(480, Math.floor(vw * 0.45)));
+      const next = Math.max(minW, Math.min(maxW, startWidth + delta));
+      setSidebarWidth(next);
+    };
+    const onUp = () => { setResizing(false); setDragStartX(null); };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+  }, [resizing, dragStartX, startWidth]);
 
   useEffect(() => {
     (async () => {
@@ -541,9 +575,9 @@ export default function PresentationPlayer({
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Thumbnail Sidebar */}
-        <div className="w-64 border-r-2 border-slate-200 overflow-y-auto bg-slate-50">
+      <div className="flex-1 flex overflow-hidden select-none">
+        {/* Thumbnail Sidebar (resizable) */}
+        <div className="border-r-2 border-slate-200 overflow-y-auto bg-slate-50" style={{ width: sidebarWidth }}>
           <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
             <SortableContext items={slides.map((_,i)=> String(i))} strategy={verticalListSortingStrategy}>
               <div className="p-3 space-y-2">
@@ -584,6 +618,28 @@ export default function PresentationPlayer({
             </SortableContext>
           </DndContext>
         </div>
+        {/* Resizer handle */}
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          title="Drag to resize sidebar"
+          onMouseDown={(e)=>{ setResizing(true); setDragStartX(e.clientX); setStartWidth(sidebarWidth); }}
+          onDoubleClick={()=>{ setSidebarWidth(256); }}
+          onTouchStart={(e)=>{ const t=e.touches?.[0]; if (t){ setResizing(true); setDragStartX(t.clientX); setStartWidth(sidebarWidth);} }}
+          onTouchMove={(e)=>{
+            if (!resizing) return; const t=e.touches?.[0]; if (!t || dragStartX==null) return;
+            const vw = typeof window !== 'undefined' ? window.innerWidth : 1200;
+            const minW = vw < 640 ? 140 : 180; const maxW = Math.max(minW+40, Math.min(480, Math.floor(vw*0.45)));
+            const next = Math.max(minW, Math.min(maxW, startWidth + (t.clientX - dragStartX)));
+            setSidebarWidth(next);
+          }}
+          onTouchEnd={()=>{ setResizing(false); setDragStartX(null); }}
+          className={"w-2 cursor-col-resize bg-transparent hover:bg-slate-200 active:bg-slate-300"}
+          style={{
+            // Make handle full height of content area
+            height: 'auto'
+          }}
+        />
 
         {/* Slide Display Area */}
         <div className="flex-1 flex flex-col">

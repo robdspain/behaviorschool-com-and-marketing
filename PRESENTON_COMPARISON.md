@@ -405,7 +405,7 @@ it 5. ❌ Webhook support
 - ⚠️ Limited Radix UI usage (plan to adopt gradually for a11y primitives)
 - ✅ Tiptap rich text editor (blog-grade editor; used for slides modal editor)
 - ✅ @dnd-kit drag-and-drop (thumbnail reordering and outline editor)
-- ❌ No Recharts for charts (custom chart + pptxgenjs)
+
 - ❌ No testing infrastructure
 
 ---
