@@ -301,7 +301,7 @@ export default function PresentationPlayer({
           {enriching && (
             <div className="flex items-center gap-2 text-sm text-emerald-700 mr-2">
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span>{enrichMsg || 'Enriching images...'}</span>
+              <span>{enrichMsg || 'Putting images on slides...'}</span>
             </div>
           )}
           {/* Moved slide controls into header */}
@@ -405,7 +405,8 @@ export default function PresentationPlayer({
                   if (s.imageUrl) continue;
                   setEnrichMsg(`Slide ${i+1}/${total}…`);
                   try {
-                    const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
+                    const textSnippet = (s.content || []).join(' • ').slice(0, 500);
+                    const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
                     const resp = await fetch('/api/admin/presentations/images/generate', {
                       method: 'POST', headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024' })
@@ -430,9 +431,9 @@ export default function PresentationPlayer({
               }
             }}
             className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
-            title="Generate and attach images for slides without images"
+            title="Put images on slides that match the text"
           >
-            Enrich Images
+            Put images on slides
           </button>
           <button
             onClick={toggleFullscreen}
