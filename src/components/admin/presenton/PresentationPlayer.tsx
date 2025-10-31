@@ -241,6 +241,14 @@ export default function PresentationPlayer({
   const primaryColor = `#${theme?.primaryColor || base.primary.replace('#','')}`;
   const bgColor = `#${theme?.backgroundColor || base.bg.replace('#','')}`;
 
+  // Determine effective layout based on slide settings and presence of image
+  const effectiveLayout = (() => {
+    const hasImage = !!currentSlideData?.imageUrl;
+    const chosen = currentSlideData?.layout || 'auto';
+    if (chosen === 'auto') return hasImage ? 'image-right' : 'text';
+    return chosen;
+  })();
+
   // Drag-and-drop thumbnails
   function SortableThumb({ id, children }: { id: string; children: (bind: { attributes: any; listeners: any; setNodeRef: (el: any)=>void; style: React.CSSProperties })=>React.ReactNode }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
@@ -485,29 +493,99 @@ export default function PresentationPlayer({
 
               {/* Slide controls moved to top menu bar */}
 
-              {/* Slide Content */}
+              {/* Slide Content (layout-aware) */}
               <div className="flex-1 flex flex-col gap-6">
-                {(currentSlideData.content.length > 0) && (
-                  <ul className="space-y-4">
-                    {currentSlideData.content.map((bullet, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <span className="flex-shrink-0 w-2 h-2 rounded-full mt-2" style={{ background: primaryColor }} />
-                        <span className="text-xl leading-relaxed" style={{ color: textColor }}>{sanitizePlain(bullet)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {/* Image Display */}
-                {currentSlideData.imageUrl && (
-                  <div className="mt-auto">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={currentSlideData.imageUrl}
-                      alt={currentSlideData.title}
-                      className="max-w-full max-h-96 rounded-lg shadow-lg border-2 border-slate-200 object-contain"
-                    />
+                {effectiveLayout === 'two-column' ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div>
+                      {currentSlideData.content?.length > 0 && (
+                        <ul className="space-y-4">
+                          {currentSlideData.content.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-3">
+                              <span className="flex-shrink-0 w-2 h-2 rounded-full mt-2" style={{ background: primaryColor }} />
+                              <span className="text-xl leading-relaxed" style={{ color: textColor }}>{sanitizePlain(bullet)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-center">
+                      {currentSlideData.imageUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full max-h-96 rounded-lg shadow-lg border-2 border-slate-200 object-contain" />
+                      ) : (
+                        <div className="text-slate-400 italic">No image</div>
+                      )}
+                    </div>
                   </div>
+                ) : effectiveLayout === 'image-right' ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div>
+                      {currentSlideData.content?.length > 0 && (
+                        <ul className="space-y-4">
+                          {currentSlideData.content.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-3">
+                              <span className="flex-shrink-0 w-2 h-2 rounded-full mt-2" style={{ background: primaryColor }} />
+                              <span className="text-xl leading-relaxed" style={{ color: textColor }}>{sanitizePlain(bullet)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-center">
+                      {currentSlideData.imageUrl && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full max-h-96 rounded-lg shadow-lg border-2 border-slate-200 object-contain" />
+                      )}
+                    </div>
+                  </div>
+                ) : effectiveLayout === 'image-left' ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div className="flex items-center justify-center order-last md:order-first">
+                      {currentSlideData.imageUrl && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full max-h-96 rounded-lg shadow-lg border-2 border-slate-200 object-contain" />
+                      )}
+                    </div>
+                    <div className="order-first md:order-last">
+                      {currentSlideData.content?.length > 0 && (
+                        <ul className="space-y-4">
+                          {currentSlideData.content.map((bullet, idx) => (
+                            <li key={idx} className="flex items-start gap-3">
+                              <span className="flex-shrink-0 w-2 h-2 rounded-full mt-2" style={{ background: primaryColor }} />
+                              <span className="text-xl leading-relaxed" style={{ color: textColor }}>{sanitizePlain(bullet)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                ) : effectiveLayout === 'image-full' ? (
+                  <div className="flex items-center justify-center flex-1">
+                    {currentSlideData.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full max-h-[520px] rounded-xl shadow-2xl border-2 border-slate-200 object-contain" />
+                    ) : (
+                      <div className="text-slate-400 italic">No image</div>
+                    )}
+                  </div>
+                ) : (
+                  // Text-only or fallback
+                  <>
+                    {currentSlideData.content?.length > 0 && (
+                      <ul className="space-y-4">
+                        {currentSlideData.content.map((bullet, idx) => (
+                          <li key={idx} className="flex items-start gap-3">
+                            <span className="flex-shrink-0 w-2 h-2 rounded-full mt-2" style={{ background: primaryColor }} />
+                            <span className="text-xl leading-relaxed" style={{ color: textColor }}>{sanitizePlain(bullet)}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {effectiveLayout === 'text' && currentSlideData.imageUrl && (
+                      <div className="text-xs text-slate-500">Image present but layout is set to text</div>
+                    )}
+                  </>
                 )}
 
                 {/* Icons Display */}
