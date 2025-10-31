@@ -62,6 +62,14 @@ export default function PresentationPlayer({
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
   const [autoEnriched, setAutoEnriched] = useState(false);
+  const [allowFallback, setAllowFallback] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    try { return localStorage.getItem('presenton_allow_openai_fallback') === 'true'; } catch { return false; }
+  });
+
+  useEffect(() => {
+    try { localStorage.setItem('presenton_allow_openai_fallback', String(allowFallback)); } catch {}
+  }, [allowFallback]);
 
   useEffect(() => {
     (async () => {
@@ -335,6 +343,10 @@ export default function PresentationPlayer({
           >
             {TEMPLATE_OPTIONS.map(opt => (<option key={opt.id} value={opt.id}>{opt.label}</option>))}
           </select>
+          <div className="flex items-center gap-2 ml-2">
+            <input id="allowFallback" type="checkbox" checked={allowFallback} onChange={(e)=> setAllowFallback(e.target.checked)} />
+            <label htmlFor="allowFallback" className="text-sm text-slate-700" title="If Gemini fails, allow fallback to OpenAI (requires verified org)">Allow OpenAI fallback</label>
+          </div>
           <button
             onClick={async ()=>{
               try {
@@ -344,7 +356,7 @@ export default function PresentationPlayer({
                 const s = slides[currentSlide];
                 const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
                 setEnriching(true); setEnrichMsg('Generating image…');
-                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024' }) });
+                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024', allowFallback }) });
                 const j = await resp.json();
                 if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
                 const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
@@ -410,7 +422,7 @@ export default function PresentationPlayer({
                     const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
                     const resp = await fetch('/api/admin/presentations/images/generate', {
                       method: 'POST', headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024' })
+                      body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback })
                     });
                     if (resp.ok) {
                       const j = await resp.json();

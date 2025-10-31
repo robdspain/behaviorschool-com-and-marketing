@@ -186,6 +186,7 @@ export default function CreatePresentation() {
       const useOpenAI = !!localStorage.getItem('openai_api_key');
       const imgProvider = useGemini ? 'gemini' : 'openai';
       const imgApiKey = useGemini ? localStorage.getItem('google_api_key') : localStorage.getItem('openai_api_key');
+      const allowFallbackPref = (localStorage.getItem('presenton_allow_openai_fallback') === 'true');
       if (imgApiKey && slides.length) {
         setProgress('Adding images to slides...');
         const enriched: any[] = [];
@@ -194,7 +195,7 @@ export default function CreatePresentation() {
           try {
             const ir = await fetch('/api/admin/presentations/images/generate', {
               method: 'POST', headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ prompt: `${topicContent}: ${s.title}`, provider: imgProvider, apiKey: imgApiKey, size: '1024x1024' })
+              body: JSON.stringify({ prompt: `${topicContent}: ${s.title}`, provider: imgProvider, apiKey: imgApiKey, size: '1024x1024', allowFallback: allowFallbackPref })
             });
             if (ir.ok) {
               const j = await ir.json();
