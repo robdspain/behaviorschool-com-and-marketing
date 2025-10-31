@@ -143,6 +143,7 @@ export default function PresentationPlayer({
   const [imgResizing, setImgResizing] = useState<boolean>(false);
   const [imgStart, setImgStart] = useState<{x: number; y: number} | null>(null);
   const [imgOrig, setImgOrig] = useState<{xPct: number; yPct: number; wPct: number}>({ xPct: 50, yPct: 50, wPct: 80 });
+  const [imgSnap, setImgSnap] = useState<boolean>(true);
   const imgContainerRef = (useState<any>(null))[0] as React.MutableRefObject<HTMLDivElement | null>;
 
   useEffect(() => {
@@ -157,14 +158,18 @@ export default function PresentationPlayer({
       const y0 = (cur.imageOffsetYPct ?? imgOrig.yPct);
       const w0 = (cur.imageWidthPct ?? imgOrig.wPct);
       if (imgDragging) {
-        const nx = Math.max(0, Math.min(100, x0 + (dx / Math.max(1, rect.width)) * 100));
-        const ny = Math.max(0, Math.min(100, y0 + (dy / Math.max(1, rect.height)) * 100));
+        let nx = Math.max(0, Math.min(100, x0 + (dx / Math.max(1, rect.width)) * 100));
+        let ny = Math.max(0, Math.min(100, y0 + (dy / Math.max(1, rect.height)) * 100));
+        if (imgSnap) {
+          const step = 5; nx = Math.round(nx/step)*step; ny = Math.round(ny/step)*step;
+        }
         const updated = [...slides];
         updated[currentSlide] = { ...cur, imageOffsetXPct: nx, imageOffsetYPct: ny } as any;
         setSlides(updated);
       } else if (imgResizing) {
         const dw = (dx / Math.max(1, rect.width)) * 100;
-        const nw = Math.max(20, Math.min(150, w0 + dw));
+        let nw = Math.max(20, Math.min(150, w0 + dw));
+        if (imgSnap) { const step = 5; nw = Math.round(nw/step)*step; }
         const updated = [...slides];
         updated[currentSlide] = { ...cur, imageWidthPct: nw } as any;
         setSlides(updated);
@@ -177,7 +182,7 @@ export default function PresentationPlayer({
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup', onUp);
     return () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
-  }, [imgDragging, imgResizing, imgStart, slides, currentSlide, saveToDatabase]);
+  }, [imgDragging, imgResizing, imgStart, slides, currentSlide, saveToDatabase, imgSnap]);
 
   useEffect(() => {
     (async () => {
@@ -584,6 +589,26 @@ export default function PresentationPlayer({
             >
               {imgEditMode ? 'Finish image edit' : 'Edit image'}
             </button>
+          )}
+          {imgEditMode && slides[currentSlide]?.imageUrl && (
+            <>
+              <label className="ml-2 text-sm text-slate-700 flex items-center gap-2" title="Snap drag/resize to 5% grid">
+                <input type="checkbox" checked={imgSnap} onChange={(e)=> setImgSnap(e.target.checked)} /> Snap to grid
+              </label>
+              <button
+                onClick={()=>{
+                  const updated = [...slides];
+                  const s = updated[currentSlide];
+                  updated[currentSlide] = { ...s, imageWidthPct: 80, imageOffsetXPct: 50, imageOffsetYPct: 50, imageScale: 1 } as any;
+                  setSlides(updated);
+                  setTimeout(()=> saveToDatabase(), 100);
+                }}
+                className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+                title="Reset image position and size"
+              >
+                Reset image
+              </button>
+            </>
           )}
           {slides[currentSlide]?.imageUrl && (
             <>
