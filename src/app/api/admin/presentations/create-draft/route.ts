@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
         language,
         provider,
         model,
-        export_format: 'draft',
+        export_format: 'pptx',
         storage_path: storagePath,
         slides,
       })
@@ -48,7 +48,9 @@ export async function POST(req: NextRequest) {
     if (error) throw error;
     return NextResponse.json({ ok: true, id: data?.id });
   } catch (e) {
-    console.error('Create draft error:', e);
-    return NextResponse.json({ error: e instanceof Error ? e.message : 'Failed to create draft' }, { status: 500 });
+    const anyErr: any = e;
+    const msg = anyErr?.message || (typeof anyErr === 'string' ? anyErr : JSON.stringify(anyErr));
+    console.error('Create draft error:', msg);
+    return NextResponse.json({ error: msg || 'Failed to create draft' }, { status: 500 });
   }
 }
