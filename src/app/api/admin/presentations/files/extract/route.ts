@@ -65,7 +65,11 @@ export async function POST(request: NextRequest) {
     }
 
     if (!texts.length) {
-      return NextResponse.json({ error: 'Unsupported file type. Supported: PDF, DOCX, TXT, CSV' }, { status: 400 });
+      const names = files.map(f => (f.name||'').toLowerCase());
+      if (names.some(n => n.endsWith('.pptx'))) {
+        return NextResponse.json({ error: 'PPTX processing requires an additional module and is not enabled in this environment yet.' }, { status: 501 });
+      }
+      return NextResponse.json({ error: 'Unsupported file type. Supported: PDF, DOCX, TXT, CSV, PPTX (coming soon)' }, { status: 400 });
     }
     const combined = texts.join('\n\n');
     return NextResponse.json({ ok: true, text: combined, parts: texts.length });

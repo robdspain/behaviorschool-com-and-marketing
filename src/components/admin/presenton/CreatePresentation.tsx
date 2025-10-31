@@ -302,7 +302,7 @@ export default function CreatePresentation() {
               type="file"
               multiple
               onChange={handleFileChange}
-              accept=".pdf,.doc,.docx,.txt"
+              accept=".pdf,.doc,.docx,.txt,.pptx"
               className="hidden"
               id="file-upload"
             />

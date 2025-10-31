@@ -369,6 +369,15 @@ export default function PresentationPlayer({
               Slides
             </button>
           )}
+          {!isMobile && (
+            <button
+              onClick={()=> setSidebarOpen((v)=> !v)}
+              className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+              title={sidebarOpen ? 'Hide slides' : 'Show slides'}
+            >
+              {sidebarOpen ? 'Hide slides' : 'Slides'}
+            </button>
+          )}
           {saveError && (
             <span className="text-sm text-red-600 mr-2">{saveError}</span>
           )}
