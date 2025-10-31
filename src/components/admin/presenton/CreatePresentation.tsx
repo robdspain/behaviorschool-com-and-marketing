@@ -89,12 +89,16 @@ export default function CreatePresentation() {
       }
 
       const data = await response.json();
-      setAvailableModels(data.models || []);
+      const models: AIModel[] = data.models || [];
+      setAvailableModels(models);
 
-      // Set default model if available
-      if (data.models && data.models.length > 0 && !form.model) {
-        console.log(`[Presenton] Defaulting to model: ${data.models[0].name}`);
-        setForm({ ...form, model: data.models[0].name });
+      // Set default model preference: Gemini 2.5 Flash‑Lite when provider is Google
+      if (models.length > 0 && !form.model) {
+        const preferred = models.find(m => /gemini-2\.5-flash-lite/.test(m.name))
+          || models.find(m => /gemini-2\.5-flash/.test(m.name))
+          || models[0];
+        console.log(`[Presenton] Defaulting to model: ${preferred.name}`);
+        setForm({ ...form, model: preferred.name });
       }
     } catch (err) {
       console.error("Error fetching models:", err);
