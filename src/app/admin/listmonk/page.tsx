@@ -365,6 +365,17 @@ export default function ListmonkAdminPage() {
       <div className="min-h-screen bg-slate-50 p-8">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white border-2 border-slate-200 rounded-xl p-8">
+            {status?.message && (
+              <div className="mb-6 bg-red-50 border-2 border-red-200 text-red-800 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 mt-0.5" />
+                  <div>
+                    <div className="font-semibold">Listmonk not configured</div>
+                    <div className="text-sm mt-1">{status.message}</div>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="flex items-start gap-4 mb-6">
               <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
                 <Mail className="w-8 h-8 text-blue-600" />
@@ -427,13 +438,46 @@ LISTMONK_PASSWORD=your-password`}
           <Mail className="w-5 h-5 text-white" />
           <h2 className="text-lg font-bold text-white">Newsletter Management</h2>
         </div>
-        <div className="flex items-center gap-2 text-sm text-blue-100">
-          <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-          Connected
+        <div className="flex items-center gap-3 text-sm text-blue-100">
+          {!statusLoading && status?.configured && status?.raw && (status as any).raw.listsOk && (status as any).raw.subsOk && (status as any).raw.campOk ? (
+            <>
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              Connected
+            </>
+          ) : !statusLoading && status?.configured ? (
+            <>
+              <span className="w-2 h-2 bg-yellow-300 rounded-full animate-pulse"></span>
+              Partial connectivity
+            </>
+          ) : (
+            <>
+              <span className="w-2 h-2 bg-red-300 rounded-full animate-pulse"></span>
+              Not configured
+            </>
+          )}
         </div>
       </div>
 
       <div className="p-6 space-y-6">
+        {/* Health banner when issues detected */}
+        {!statusLoading && status?.configured && status?.raw && (
+          (!((status as any).raw.listsOk && (status as any).raw.subsOk && (status as any).raw.campOk)) && (
+            <div className="bg-yellow-50 border-2 border-yellow-200 text-yellow-900 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 mt-0.5" />
+                <div>
+                  <div className="font-semibold">Listmonk health check: partial connectivity</div>
+                  <div className="text-sm mt-1">Some endpoints failed to respond. Verify LISTMONK_URL and credentials.</div>
+                  <div className="text-xs mt-2">
+                    <span className="mr-3">lists: {String((status as any).raw.listsOk)}</span>
+                    <span className="mr-3">subscribers: {String((status as any).raw.subsOk)}</span>
+                    <span className="mr-3">campaigns: {String((status as any).raw.campOk)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        )}
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white rounded-xl border p-4">
