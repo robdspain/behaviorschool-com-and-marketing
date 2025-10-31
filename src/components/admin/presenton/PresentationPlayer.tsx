@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { ChevronLeft, ChevronRight, Edit, X, Maximize2, Minimize2, Loader2, GripVertical } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Edit, X, Maximize2, Minimize2, Loader2, GripVertical, Image as ImageIcon, Settings, MoreVertical, ChevronDown } from 'lucide-react';
 import SlideRichEditor from './SlideRichEditor';
 import { TEMPLATE_COLORS, TEMPLATE_OPTIONS } from './templates';
 import TemplateSettings from './TemplateSettings';
@@ -89,6 +89,8 @@ export default function PresentationPlayer({
     if (typeof window === 'undefined') return true;
     return window.innerWidth >= 768; // open by default on desktop
   });
+  const [showImageMenu, setShowImageMenu] = useState(false);
+  const [showMoreMenu, setShowMoreMenu] = useState(false);
 
   useEffect(() => {
     try { localStorage.setItem('presenton_allow_openai_fallback', String(allowFallback)); } catch {}
@@ -136,6 +138,29 @@ export default function PresentationPlayer({
       window.removeEventListener('mouseup', onUp);
     };
   }, [resizing, dragStartX, startWidth]);
+
+  // Auto-save to database
+  const saveToDatabase = useCallback(async () => {
+    setSaving(true);
+    setSaveError(null);
+    try {
+      const response = await fetch(`/api/admin/presentations/${presentationId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slides })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Save failed' }));
+        throw new Error(errorData.error || 'Failed to save presentation');
+      }
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Save failed');
+      console.error('Save error:', error);
+    } finally {
+      setSaving(false);
+    }
+  }, [presentationId, slides]);
 
   // Image on-canvas edit overlay (drag/resize)
   const [imgEditMode, setImgEditMode] = useState<boolean>(false);
@@ -212,29 +237,6 @@ export default function PresentationPlayer({
   const goToSlide = useCallback((index: number) => {
     setCurrentSlide(index);
   }, []);
-
-  // Auto-save to database
-  const saveToDatabase = useCallback(async () => {
-    setSaving(true);
-    setSaveError(null);
-    try {
-      const response = await fetch(`/api/admin/presentations/${presentationId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slides })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Save failed' }));
-        throw new Error(errorData.error || 'Failed to save presentation');
-      }
-    } catch (error) {
-      setSaveError(error instanceof Error ? error.message : 'Save failed');
-      console.error('Save error:', error);
-    } finally {
-      setSaving(false);
-    }
-  }, [presentationId, slides]);
 
   // Auto-enrich missing images once if API keys present
   useEffect(() => {
@@ -396,355 +398,397 @@ export default function PresentationPlayer({
   return (
     <div className={overlay ? "fixed inset-0 z-50 bg-white flex flex-col" : "relative flex flex-col border-2 border-slate-200 rounded-xl overflow-hidden"} style={{ background: bgColor }}>
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b-2 border-slate-200 bg-white">
-        <button
-          onClick={onClose}
-          className="flex items-center gap-2 px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
-          title="Close player (Esc)"
-        >
-          <X className="w-5 h-5" />
-          <span className="font-medium">Close</span>
-        </button>
-
-        <h1 className="text-xl font-bold text-slate-900 truncate max-w-md">
-          {presentationTitle}
-        </h1>
-
-        <div className="flex items-center gap-2 flex-wrap">
-          {isMobile && (
+      <div className="border-b-2 border-slate-200 bg-white">
+        {/* Top Row: Close, Title, Status, Actions */}
+        <div className="flex items-center justify-between px-4 py-3 gap-4">
+          {/* Left: Close & Title */}
+          <div className="flex items-center gap-3 flex-1 min-w-0">
             <button
-              onClick={()=> setSidebarOpen(true)}
-              className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
-              title="Show slides"
+              onClick={onClose}
+              className="flex items-center gap-2 px-3 py-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors shrink-0"
+              title="Close player (Esc)"
             >
-              Slides
+              <X className="w-5 h-5" />
+              <span className="hidden sm:inline font-medium">Close</span>
             </button>
-          )}
-          {!isMobile && (
-            <button
-              onClick={()=> setSidebarOpen((v)=> !v)}
-              className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
-              title={sidebarOpen ? 'Hide slides' : 'Show slides'}
-            >
-              {sidebarOpen ? 'Hide slides' : 'Slides'}
-            </button>
-          )}
-          {saveError && (
-            <span className="text-sm text-red-600 mr-2">{saveError}</span>
-          )}
-          {saving && (
-            <div className="flex items-center gap-2 text-sm text-emerald-600 mr-2">
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Saving changes…</span>
-            </div>
-          )}
-          {enriching && (
-            <div className="flex items-center gap-2 text-sm text-emerald-700 mr-2">
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>{enrichMsg || 'Putting images on slides...'}</span>
-            </div>
-          )}
-          {/* Moved slide controls into header */}
-          <label className="text-sm font-semibold text-slate-700 ml-2">Layout</label>
-          <select
-            value={currentSlideData.layout || 'auto'}
-            onChange={(e)=>{
-              const val = e.target.value as Slide['layout'];
-              const updated = [...slides];
-              updated[currentSlide] = { ...updated[currentSlide], layout: val };
-              setSlides(updated);
-              setTimeout(()=> saveToDatabase(), 100);
-            }}
-            className="px-2 py-1 border-2 border-slate-200 rounded"
-          >
-            {(['auto','text','image-right','image-left','two-column','quote','title-only','image-full','metrics-3','chart-right','chart-left','table'] as const).map(opt => (
-              <option key={opt} value={opt}>{opt}</option>
-            ))}
-          </select>
-          <label className="text-sm font-semibold text-slate-700 ml-2">Template</label>
-          <select
-            value={currentTemplate}
-            onChange={async (e)=>{
-              const val = e.target.value;
-              setCurrentTemplate(val);
-              try {
-                await fetch(`/api/admin/presentations/${presentationId}`, { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ slides, template: val }) });
-              } catch {}
-            }}
-            className="px-2 py-1 border-2 border-slate-200 rounded"
-          >
-            {TEMPLATE_OPTIONS.map(opt => (<option key={opt.id} value={opt.id}>{opt.label}</option>))}
-          </select>
-          <div className="flex items-center gap-2 ml-2">
-            <input id="allowFallback" type="checkbox" checked={allowFallback} onChange={(e)=> setAllowFallback(e.target.checked)} />
-            <label htmlFor="allowFallback" className="text-sm text-slate-700" title="If Gemini fails, allow fallback to OpenAI (requires verified org)">Allow OpenAI fallback</label>
+            <h1 className="text-lg sm:text-xl font-bold text-slate-900 truncate">
+              {presentationTitle}
+            </h1>
+            {saveError && (
+              <span className="text-sm text-red-600 shrink-0">{saveError}</span>
+            )}
+            {saving && (
+              <div className="flex items-center gap-2 text-sm text-emerald-600 shrink-0">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="hidden sm:inline">Saving…</span>
+              </div>
+            )}
+            {enriching && (
+              <div className="flex items-center gap-2 text-sm text-emerald-700 shrink-0">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="hidden sm:inline">{enrichMsg || 'Processing...'}</span>
+              </div>
+            )}
           </div>
-          <button
-            onClick={async ()=>{
-              try {
-                const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
-                const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
-                const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
-                const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
-                const fallbackKey = allowFallback ? (localStorage.getItem('openai_api_key') || undefined) : undefined;
-                if (!provider || !apiKey) { alert('Add a Google or OpenAI key in Settings to put an image on the slide.'); return; }
-                const s = slides[currentSlide];
-                const textSnippet = (s.content || []).join(' • ').slice(0, 500);
-                const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
-                setEnriching(true); setEnrichMsg('Generating image…');
-                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback, openaiKey: fallbackKey }) });
-                const j = await resp.json();
-                if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
-                const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
-                setSlides(updated);
-                setTimeout(()=> saveToDatabase(), 100);
-              } catch (e) {
-                const msg = e instanceof Error ? e.message : 'Couldn’t create an image. Check your Google AI key or Imagen access.';
-                alert(msg);
-              } finally { setEnriching(false); setEnrichMsg(null); }
-            }}
-            className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
-            title="Put image on this slide"
-          >
-            Put image on this slide
-          </button>
-          <button
-            onClick={async ()=>{
-              try {
-                const s = slides[currentSlide];
-                const updated = [...slides];
-                const nextLayout = (s.layout === 'image-right' || s.layout === 'image-left' || s.layout === 'two-column' || s.layout === 'image-full') ? 'text' as const : (s.layout || 'auto');
-                updated[currentSlide] = { ...s, imageUrl: undefined, layout: nextLayout };
-                setSlides(updated);
-                setTimeout(()=> saveToDatabase(), 50);
-              } catch {}
-            }}
-            className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 disabled:opacity-50"
-            title="Remove the image from this slide"
-            disabled={!slides[currentSlide]?.imageUrl}
-          >
-            Remove image
-          </button>
-          <button
-            onClick={async ()=>{
-              try {
-                const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
-                const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : '';
-                if (!apiKey) { alert('Set your Google API key in Settings to generate with Gemini.'); return; }
-                const s = slides[currentSlide];
-                const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
-                setEnriching(true); setEnrichMsg('Regenerating image…');
-                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024', allowFallback }) });
-                const j = await resp.json();
-                if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
-                const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
-                setSlides(updated);
-                setTimeout(()=> saveToDatabase(), 100);
-              } catch (e) {
-                const msg = e instanceof Error ? e.message : 'Couldn’t create an image. Check your Google AI key or Imagen access.';
-                alert(msg);
-              } finally { setEnriching(false); setEnrichMsg(null); }
-            }}
-            className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
-            title="Regenerate the image for this slide"
-          >
-            Regenerate image
-          </button>
-          <label className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 cursor-pointer">
-            Upload image
-            <input type="file" accept="image/*" className="hidden" onChange={async (e)=>{
-              const file = e.target.files?.[0]; if (!file) return;
-              setEnriching(true); setEnrichMsg('Uploading image…');
-              try {
-                const fd = new FormData(); fd.append('file', file);
-                const resp = await fetch('/api/admin/presentations/images/upload', { method: 'POST', body: fd });
-                const j = await resp.json();
-                if (!resp.ok) throw new Error(j.error || 'Upload failed');
-                const updated = [...slides]; const s = updated[currentSlide];
-                updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
-                setSlides(updated);
-                setTimeout(()=> saveToDatabase(), 100);
-              } catch (e) {
-                alert(e instanceof Error ? e.message : 'Upload failed');
-              } finally {
-                setEnriching(false); setEnrichMsg(null);
-                // clear input
-                if (e.target) (e.target as HTMLInputElement).value = '';
-              }
-            }} />
-          </label>
 
-          <button
-            onClick={() => setShowRedesign(true)}
-            className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
-            title="Redesign (Brand Kit)"
-          >
-            Redesign
-          </button>
-          {slides[currentSlide]?.imageUrl && (
-            <button
-              onClick={()=> setImgEditMode(v => !v)}
-              className={`px-3 py-2 border-2 rounded-lg ${imgEditMode ? 'border-emerald-400 text-emerald-700 bg-emerald-50' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}
-              title="Drag to move image; use handle to resize"
-            >
-              {imgEditMode ? 'Finish image edit' : 'Edit image'}
-            </button>
-          )}
-          {imgEditMode && slides[currentSlide]?.imageUrl && (
-            <>
-              <label className="ml-2 text-sm text-slate-700 flex items-center gap-2" title="Snap drag/resize to 5% grid">
-                <input type="checkbox" checked={imgSnap} onChange={(e)=> setImgSnap(e.target.checked)} /> Snap to grid
-              </label>
+          {/* Right: Quick Actions */}
+          <div className="flex items-center gap-2 shrink-0">
+            {isMobile ? (
               <button
-                onClick={()=>{
+                onClick={()=> setSidebarOpen(true)}
+                className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+                title="Show slides"
+              >
+                Slides
+              </button>
+            ) : (
+              <button
+                onClick={()=> setSidebarOpen((v)=> !v)}
+                className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+                title={sidebarOpen ? 'Hide slides' : 'Show slides'}
+              >
+                {sidebarOpen ? 'Hide slides' : 'Slides'}
+              </button>
+            )}
+            <button
+              onClick={async ()=>{
+                try {
+                  const tok = shareToken;
+                  if (!tok) { alert('Share token not available for this draft. Save once and retry.'); return; }
+                  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+                  const link = `${origin}/presentations/view/${presentationId}?token=${encodeURIComponent(tok)}`;
+                  await navigator.clipboard.writeText(link);
+                  setShareMsg('Share link copied'); setTimeout(()=> setShareMsg(null), 1200);
+                } catch { alert('Failed to copy'); }
+              }}
+              className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+              title="Copy a private view-only link"
+            >
+              <span className="hidden sm:inline">Share</span>
+              <span className="sm:hidden">🔗</span>
+            </button>
+            {shareMsg && <span className="text-sm text-emerald-700">{shareMsg}</span>}
+            <button
+              onClick={toggleFullscreen}
+              className="p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+              title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
+            >
+              {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Control Bar: Layout, Template, Image Controls */}
+        <div className="flex items-center gap-3 px-4 py-2 border-t border-slate-100 bg-slate-50 overflow-x-auto">
+          {/* Layout & Template Group */}
+          <div className="flex items-center gap-2 shrink-0 border-r border-slate-200 pr-3">
+            <div className="flex items-center gap-2">
+              <label className="text-xs font-semibold text-slate-600 whitespace-nowrap">Layout:</label>
+              <select
+                value={currentSlideData.layout || 'auto'}
+                onChange={(e)=>{
+                  const val = e.target.value as Slide['layout'];
                   const updated = [...slides];
-                  const s = updated[currentSlide];
-                  updated[currentSlide] = { ...s, imageWidthPct: 80, imageOffsetXPct: 50, imageOffsetYPct: 50, imageScale: 1 } as any;
+                  updated[currentSlide] = { ...updated[currentSlide], layout: val };
                   setSlides(updated);
                   setTimeout(()=> saveToDatabase(), 100);
                 }}
-                className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
-                title="Reset image position and size"
+                className="px-2 py-1 text-sm border-2 border-slate-200 rounded focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
               >
-                Reset image
-              </button>
-            </>
-          )}
-          {slides[currentSlide]?.imageUrl && (
-            <>
-              <label className="text-sm font-semibold text-slate-700 ml-2">Image position</label>
-              <select
-                value={(() => {
-                  const lay = slides[currentSlide]?.layout || 'auto';
-                  if (lay === 'image-left') return 'left';
-                  if (lay === 'image-right' || lay === 'auto') return 'right';
-                  if (lay === 'image-full') return 'center';
-                  if (lay === 'two-column') return 'right';
-                  return 'right';
-                })()}
-                onChange={(e)=>{
-                  const v = e.target.value as 'left'|'right'|'center';
-                  const updated = [...slides];
-                  const s = updated[currentSlide];
-                  const nextLayout = v === 'left' ? 'image-left' : v === 'right' ? 'image-right' : 'image-full';
-                  updated[currentSlide] = { ...s, layout: nextLayout } as any;
-                  setSlides(updated);
-                  setTimeout(()=> saveToDatabase(), 80);
-                }}
-                className="px-2 py-1 border-2 border-slate-200 rounded"
-              >
-                <option value="left">Left</option>
-                <option value="right">Right</option>
-                <option value="center">Center</option>
+                {(['auto','text','image-right','image-left','two-column','quote','title-only','image-full','metrics-3','chart-right','chart-left','table'] as const).map(opt => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
               </select>
-
-              <label className="text-sm font-semibold text-slate-700 ml-2">Image size</label>
-              <input
-                type="range"
-                min={50}
-                max={150}
-                step={5}
-                value={Math.round(((slides[currentSlide]?.imageScale || 1) * 100))}
-                onChange={(e)=>{
-                  const pct = Number(e.target.value);
-                  const scale = Math.max(0.5, Math.min(1.5, pct/100));
-                  const updated = [...slides];
-                  updated[currentSlide] = { ...updated[currentSlide], imageScale: scale } as any;
-                  setSlides(updated);
-                }}
-                onMouseUp={()=> setTimeout(()=> saveToDatabase(), 100)}
-                onTouchEnd={()=> setTimeout(()=> saveToDatabase(), 100)}
-                className="align-middle"
-              />
-            </>
-          )}
-          <button
-            onClick={()=> setShowTemplateSettings(true)}
-            className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
-            title="Template settings (fonts + colors)"
-          >
-            Template settings
-          </button>
-          <button
-            onClick={async ()=>{
-              try {
-                const tok = shareToken;
-                if (!tok) { alert('Share token not available for this draft. Save once and retry.'); return; }
-                const origin = typeof window !== 'undefined' ? window.location.origin : '';
-                const link = `${origin}/presentations/view/${presentationId}?token=${encodeURIComponent(tok)}`;
-                await navigator.clipboard.writeText(link);
-                setShareMsg('Share link copied'); setTimeout(()=> setShareMsg(null), 1200);
-              } catch { alert('Failed to copy'); }
-            }}
-            className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
-            title="Copy a private view-only link"
-          >
-            Share
-          </button>
-          {shareMsg && <span className="text-sm text-emerald-700">{shareMsg}</span>}
-          <button
-            onClick={async ()=>{
-              if (enriching) return;
-              setEnriching(true);
-              try {
-                const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
-                const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
-                const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
-                const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
-                if (!provider || !apiKey) {
-                  alert('Set a Google or OpenAI API key in Settings to generate images.');
-                  setEnriching(false);
-                  return;
-                }
-                let updated = [...slides];
-                const total = updated.length;
-                let added = 0;
-                for (let i = 0; i < total; i++) {
-                  const s = updated[i];
-                  if (s.imageUrl) continue;
-                  setEnrichMsg(`Slide ${i+1}/${total}…`);
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-xs font-semibold text-slate-600 whitespace-nowrap">Template:</label>
+              <select
+                value={currentTemplate}
+                onChange={async (e)=>{
+                  const val = e.target.value;
+                  setCurrentTemplate(val);
                   try {
-                    const textSnippet = (s.content || []).join(' • ').slice(0, 500);
-                    const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
-                    const resp = await fetch('/api/admin/presentations/images/generate', {
-                      method: 'POST', headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback, openaiKey: fallbackKey })
-                    });
-                    if (resp.ok) {
-                      const j = await resp.json();
-                      const nextLayout = (s.layout === 'text' || !s.layout || s.layout === 'auto') ? 'image-right' : s.layout;
-                      updated[i] = { ...s, imageUrl: j.url, layout: nextLayout };
-                      setSlides(updated);
-                      added += 1;
-                      // persist incrementally
-                      setTimeout(() => saveToDatabase(), 10);
-                    } else {
-                      const j = await resp.json().catch(()=>({}));
-                      const msg = j.details || j.error || 'Gemini image generation failed';
-                      console.warn('[Presenton] Image generation error:', msg);
-                    }
+                    await fetch(`/api/admin/presentations/${presentationId}`, { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ slides, template: val }) });
                   } catch {}
-                }
-                setEnrichMsg(`Added images to ${added}/${total}`);
-                setTimeout(()=> setEnrichMsg(null), 1200);
-              } finally {
-                setEnriching(false);
-              }
-            }}
-            className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
-            title="Put images on slides that match the text"
-          >
-            Put images on slides
-          </button>
-          <button
-            onClick={toggleFullscreen}
-            className="p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
-            title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
-          >
-            {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
-          </button>
+                }}
+                className="px-2 py-1 text-sm border-2 border-slate-200 rounded focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              >
+                {TEMPLATE_OPTIONS.map(opt => (<option key={opt.id} value={opt.id}>{opt.label}</option>))}
+              </select>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <input id="allowFallback" type="checkbox" checked={allowFallback} onChange={(e)=> setAllowFallback(e.target.checked)} className="w-4 h-4" />
+              <label htmlFor="allowFallback" className="text-xs text-slate-600 whitespace-nowrap cursor-pointer" title="If Gemini fails, allow fallback to OpenAI">
+                OpenAI fallback
+              </label>
+            </div>
+          </div>
+
+          {/* Image Controls Group */}
+          <div className="flex items-center gap-2 shrink-0 border-r border-slate-200 pr-3">
+            <div className="relative">
+              <button
+                onClick={() => setShowImageMenu(!showImageMenu)}
+                className="flex items-center gap-1.5 px-3 py-1.5 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50 text-sm whitespace-nowrap"
+              >
+                <ImageIcon className="w-4 h-4" />
+                <span className="hidden sm:inline">Images</span>
+                <ChevronDown className={`w-3 h-3 transition-transform ${showImageMenu ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {showImageMenu && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowImageMenu(false)}></div>
+                  <div className="absolute top-full left-0 mt-1 bg-white border-2 border-slate-200 rounded-lg shadow-xl z-50 min-w-[200px] py-1">
+                    <button
+                      onClick={async ()=>{
+                        try {
+                          const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
+                          const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
+                          const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
+                          const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
+                          const fallbackKey = allowFallback ? (localStorage.getItem('openai_api_key') || undefined) : undefined;
+                          if (!provider || !apiKey) { alert('Add a Google or OpenAI key in Settings to put an image on the slide.'); return; }
+                          const s = slides[currentSlide];
+                          const textSnippet = (s.content || []).join(' • ').slice(0, 500);
+                          const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
+                          setEnriching(true); setEnrichMsg('Generating image…');
+                          setShowImageMenu(false);
+                          const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback, openaiKey: fallbackKey }) });
+                          const j = await resp.json();
+                          if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
+                          const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
+                          setSlides(updated);
+                          setTimeout(()=> saveToDatabase(), 100);
+                        } catch (e) {
+                          const msg = e instanceof Error ? e.message : "Couldn't create an image. Check your Google AI key or Imagen access.";
+                          alert(msg);
+                        } finally { setEnriching(false); setEnrichMsg(null); }
+                      }}
+                      className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                    >
+                      <ImageIcon className="w-4 h-4" />
+                      Put image on this slide
+                    </button>
+                    <button
+                      onClick={async ()=>{
+                        if (enriching) return;
+                        setEnriching(true);
+                        setShowImageMenu(false);
+                        try {
+                          const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
+                          const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
+                          const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
+                          const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
+                          const fallbackKey = allowFallback ? (localStorage.getItem('openai_api_key') || undefined) : undefined;
+                          if (!provider || !apiKey) {
+                            alert('Set a Google or OpenAI API key in Settings to generate images.');
+                            setEnriching(false);
+                            return;
+                          }
+                          let updated = [...slides];
+                          const total = updated.length;
+                          let added = 0;
+                          for (let i = 0; i < total; i++) {
+                            const s = updated[i];
+                            if (s.imageUrl) continue;
+                            setEnrichMsg(`Slide ${i+1}/${total}…`);
+                            try {
+                              const textSnippet = (s.content || []).join(' • ').slice(0, 500);
+                              const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
+                              const resp = await fetch('/api/admin/presentations/images/generate', {
+                                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback, openaiKey: fallbackKey })
+                              });
+                              if (resp.ok) {
+                                const j = await resp.json();
+                                const nextLayout = (s.layout === 'text' || !s.layout || s.layout === 'auto') ? 'image-right' : s.layout;
+                                updated[i] = { ...s, imageUrl: j.url, layout: nextLayout };
+                                setSlides(updated);
+                                added += 1;
+                                setTimeout(() => saveToDatabase(), 10);
+                              }
+                            } catch {}
+                          }
+                          setEnrichMsg(`Added images to ${added}/${total}`);
+                          setTimeout(()=> setEnrichMsg(null), 1200);
+                        } finally {
+                          setEnriching(false);
+                        }
+                      }}
+                      className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                    >
+                      Put images on all slides
+                    </button>
+                    {slides[currentSlide]?.imageUrl && (
+                      <>
+                        <div className="border-t border-slate-200 my-1"></div>
+                        <button
+                          onClick={async ()=>{
+                            try {
+                              const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
+                              const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : '';
+                              if (!apiKey) { alert('Set your Google API key in Settings to generate with Gemini.'); return; }
+                              const s = slides[currentSlide];
+                              const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
+                              setEnriching(true); setEnrichMsg('Regenerating image…');
+                              setShowImageMenu(false);
+                              const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024', allowFallback }) });
+                              const j = await resp.json();
+                              if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
+                              const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
+                              setSlides(updated);
+                              setTimeout(()=> saveToDatabase(), 100);
+                            } catch (e) {
+                              const msg = e instanceof Error ? e.message : "Couldn't create an image. Check your Google AI key or Imagen access.";
+                              alert(msg);
+                            } finally { setEnriching(false); setEnrichMsg(null); }
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                        >
+                          Regenerate image
+                        </button>
+                        <label className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
+                          <input type="file" accept="image/*" className="hidden" onChange={async (e)=>{
+                            const file = e.target.files?.[0]; if (!file) return;
+                            setEnriching(true); setEnrichMsg('Uploading image…');
+                            setShowImageMenu(false);
+                            try {
+                              const fd = new FormData(); fd.append('file', file);
+                              const resp = await fetch('/api/admin/presentations/images/upload', { method: 'POST', body: fd });
+                              const j = await resp.json();
+                              if (!resp.ok) throw new Error(j.error || 'Upload failed');
+                              const updated = [...slides]; const s = updated[currentSlide];
+                              updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
+                              setSlides(updated);
+                              setTimeout(()=> saveToDatabase(), 100);
+                            } catch (e) {
+                              alert(e instanceof Error ? e.message : 'Upload failed');
+                            } finally {
+                              setEnriching(false); setEnrichMsg(null);
+                              if (e.target) (e.target as HTMLInputElement).value = '';
+                            }
+                          }} />
+                          Upload image
+                        </label>
+                        <button
+                          onClick={async ()=>{
+                            try {
+                              const s = slides[currentSlide];
+                              const updated = [...slides];
+                              const nextLayout = (s.layout === 'image-right' || s.layout === 'image-left' || s.layout === 'two-column' || s.layout === 'image-full') ? 'text' as const : (s.layout || 'auto');
+                              updated[currentSlide] = { ...s, imageUrl: undefined, layout: nextLayout };
+                              setSlides(updated);
+                              setTimeout(()=> saveToDatabase(), 50);
+                              setShowImageMenu(false);
+                            } catch {}
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                        >
+                          Remove image
+                        </button>
+                        <button
+                          onClick={()=> { setImgEditMode(v => !v); setShowImageMenu(false); }}
+                          className={`w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center gap-2 ${imgEditMode ? 'text-emerald-700 bg-emerald-50' : 'text-slate-700'}`}
+                        >
+                          {imgEditMode ? 'Finish editing image' : 'Edit image position'}
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+
+            {slides[currentSlide]?.imageUrl && !showImageMenu && (
+              <>
+                <div className="flex items-center gap-2">
+                  <label className="text-xs font-semibold text-slate-600 whitespace-nowrap">Position:</label>
+                  <select
+                    value={(() => {
+                      const lay = slides[currentSlide]?.layout || 'auto';
+                      if (lay === 'image-left') return 'left';
+                      if (lay === 'image-right' || lay === 'auto') return 'right';
+                      if (lay === 'image-full') return 'center';
+                      return 'right';
+                    })()}
+                    onChange={(e)=>{
+                      const v = e.target.value as 'left'|'right'|'center';
+                      const updated = [...slides];
+                      const s = updated[currentSlide];
+                      const nextLayout = v === 'left' ? 'image-left' : v === 'right' ? 'image-right' : 'image-full';
+                      updated[currentSlide] = { ...s, layout: nextLayout } as any;
+                      setSlides(updated);
+                      setTimeout(()=> saveToDatabase(), 80);
+                    }}
+                    className="px-2 py-1 text-sm border-2 border-slate-200 rounded"
+                  >
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                    <option value="center">Center</option>
+                  </select>
+                </div>
+                {imgEditMode && (
+                  <>
+                    <label className="text-xs text-slate-600 flex items-center gap-1.5">
+                      <input type="checkbox" checked={imgSnap} onChange={(e)=> setImgSnap(e.target.checked)} className="w-3.5 h-3.5" />
+                      Snap to grid
+                    </label>
+                    <button
+                      onClick={()=>{
+                        const updated = [...slides];
+                        const s = updated[currentSlide];
+                        updated[currentSlide] = { ...s, imageWidthPct: 80, imageOffsetXPct: 50, imageOffsetYPct: 50, imageScale: 1 } as any;
+                        setSlides(updated);
+                        setTimeout(()=> saveToDatabase(), 100);
+                      }}
+                      className="px-2 py-1 text-xs border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+                    >
+                      Reset
+                    </button>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+
+          {/* More Actions */}
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="relative">
+              <button
+                onClick={() => setShowMoreMenu(!showMoreMenu)}
+                className="flex items-center gap-1.5 px-3 py-1.5 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 text-sm whitespace-nowrap"
+              >
+                <MoreVertical className="w-4 h-4" />
+                <span className="hidden sm:inline">More</span>
+                <ChevronDown className={`w-3 h-3 transition-transform ${showMoreMenu ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {showMoreMenu && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowMoreMenu(false)}></div>
+                  <div className="absolute top-full right-0 mt-1 bg-white border-2 border-slate-200 rounded-lg shadow-xl z-50 min-w-[200px] py-1">
+                    <button
+                      onClick={()=> { setShowRedesign(true); setShowMoreMenu(false); }}
+                      className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                    >
+                      Redesign (Brand Kit)
+                    </button>
+                    <button
+                      onClick={()=> { setShowTemplateSettings(true); setShowMoreMenu(false); }}
+                      className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                    >
+                      <Settings className="w-4 h-4" />
+                      Template settings
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
+
 
       {/* Main Content Area */}
       <div className="flex-1 flex overflow-hidden select-none relative">
