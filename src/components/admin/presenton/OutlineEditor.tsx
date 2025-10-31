@@ -26,7 +26,8 @@ type ChartData = {
   showStackPercent?: boolean;
 };
 
-type Slide = { title: string; content: string[]; imageUrl?: string; icons?: string[]; chart?: ChartData; layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left' };
+type TableData = { headers: string[]; rows: Array<Array<string|number>> };
+type Slide = { title: string; content: string[]; imageUrl?: string; icons?: string[]; chart?: ChartData; table?: TableData; layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left'|'table' };
 
 export default function OutlineEditor() {
   const [title, setTitle] = useState('Untitled Presentation');
@@ -51,10 +52,14 @@ export default function OutlineEditor() {
   const [saveId, setSaveId] = useState<string | null>(null);
   const [showDocs, setShowDocs] = useState(false);
   const [showTemplateSettings, setShowTemplateSettings] = useState(false);
-  const [templateFonts, setTemplateFonts] = useState<{ titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string }>({});
+  const [templateFonts, setTemplateFonts] = useState<{ titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string; theme?: any }>({});
+  const [templateTheme, setTemplateTheme] = useState<{ primaryColor?: string; backgroundColor?: string; titleColor?: string; subtitleColor?: string; textColor?: string }>({});
   const [richEditIndex, setRichEditIndex] = useState<number | null>(null);
   const [asyncMsg, setAsyncMsg] = useState<string | null>(null);
   const [asyncRunning, setAsyncRunning] = useState(false);
+  const [webGrounding, setWebGrounding] = useState(false);
+  const [webResults, setWebResults] = useState(5);
+  const [webQuery, setWebQuery] = useState('');
 
   const provider = useMemo(() => {
     const googleKey = localStorage.getItem('google_api_key');
@@ -73,7 +78,7 @@ export default function OutlineEditor() {
       if (!provider) throw new Error('Configure an AI provider in Settings first');
       const resp = await fetch('/api/admin/presentations/generate-outline', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic: title, slideCount, tone, language, model: '', provider, apiKey, ollamaEndpoint })
+        body: JSON.stringify({ topic: title, slideCount, tone, language, model: '', provider, apiKey, ollamaEndpoint, webGrounding, webResults, webQuery: webQuery || title })
       });
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
@@ -211,7 +216,7 @@ export default function OutlineEditor() {
     try {
       const resp = await fetch('/api/admin/presentations/generate', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic: title, template, tone, language, exportAs: exportFormat, slides, templateFonts })
+        body: JSON.stringify({ topic: title, template, tone, language, exportAs: exportFormat, slides, templateFonts, templateTheme, webGrounding, webResults, webQuery: webQuery || title })
       });
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
@@ -267,6 +272,28 @@ export default function OutlineEditor() {
         </div>
       </div>
 
+      {/* Web Search Grounding */}
+      <div className="grid md:grid-cols-3 gap-4">
+        <div className="flex items-center gap-3">
+          <input id="owg" type="checkbox" checked={webGrounding} onChange={(e)=> setWebGrounding(e.target.checked)} />
+          <label htmlFor="owg" className="text-sm font-bold text-slate-900">Use web grounding</label>
+        </div>
+        {webGrounding && (
+          <>
+            <div>
+              <label className="block text-sm font-bold text-slate-900 mb-2">Search query</label>
+              <input value={webQuery} onChange={(e)=> setWebQuery(e.target.value)} className="w-full px-3 py-2 border-2 border-slate-200 rounded" placeholder="Defaults to title" />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-900 mb-2">Results</label>
+              <select value={webResults} onChange={(e)=> setWebResults(parseInt(e.target.value))} className="w-full px-3 py-2 border-2 border-slate-200 rounded">
+                {[3,5,7,10].map(n=> <option key={n} value={n}>{n}</option>)}
+              </select>
+            </div>
+          </>
+        )}
+      </div>
+
       <div className="flex gap-3">
         <button onClick={genOutline} className="px-4 py-2 bg-emerald-600 text-white rounded-lg font-medium flex items-center gap-2" disabled={loading}>
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ListOrdered className="w-4 h-4" />}
@@ -277,7 +304,7 @@ export default function OutlineEditor() {
         </button>
         <button onClick={()=> setShowTemplateSettings(true)} className="px-4 py-2 border-2 border-slate-200 rounded-lg font-medium">Template Settings</button>
         <button onClick={async ()=>{
-          const payload = { id: saveId, title, template, data: { title, language, tone, template, slides, templateFonts } };
+          const payload = { id: saveId, title, template, data: { title, language, tone, template, slides, templateFonts, templateTheme } };
           const res = await fetch('/api/admin/presentations/docs', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
           const out = await res.json(); if (out?.id) setSaveId(out.id);
           alert(res.ok ? 'Saved!' : ('Save failed: '+(out.error||'unknown')));
@@ -288,7 +315,7 @@ export default function OutlineEditor() {
         </button>
         <button onClick={async ()=>{
           setAsyncMsg('Starting...'); setAsyncRunning(true);
-          const resp = await fetch('/api/admin/presentations/generate/async', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ topic: title, template, tone, language, exportAs: exportFormat, slides, templateFonts }) });
+          const resp = await fetch('/api/admin/presentations/generate/async', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ topic: title, template, tone, language, exportAs: exportFormat, slides, templateFonts, templateTheme, webGrounding, webResults, webQuery: webQuery || title }) });
           if (!resp.ok) { setAsyncMsg('Failed to start'); setAsyncRunning(false); return; }
           const { id } = await resp.json();
           try {
@@ -327,6 +354,7 @@ export default function OutlineEditor() {
                 <option value="metrics-3">Metrics (3)</option>
                 <option value="chart-right">Chart Right</option>
                 <option value="chart-left">Chart Left</option>
+                <option value="table">Table</option>
               </select>
               <button onClick={() => setLayoutBrowserIndex(i)} className="px-3 py-2 border-2 border-slate-200 rounded text-sm">Browse layouts</button>
               <button onClick={() => move(i, -1)} className="p-2 hover:bg-slate-50 rounded" title="Move up"><ArrowUp className="w-4 h-4"/></button>
@@ -401,6 +429,28 @@ export default function OutlineEditor() {
                   </div>
                 </div>
               )}
+              {s.layout === 'table' && (
+                <div className="mt-3">
+                  <label className="block text-sm font-bold text-slate-900 mb-1">Table (paste CSV)</label>
+                  <textarea
+                    rows={5}
+                    placeholder="Header 1,Header 2,Header 3\nRow 1 Col 1,Row 1 Col 2,Row 1 Col 3\nRow 2 Col 1,Row 2 Col 2,Row 2 Col 3"
+                    className="w-full px-3 py-2 border-2 border-slate-200 rounded"
+                    onChange={(e)=>{
+                      const lines = e.target.value.split(/\r?\n/).filter(l=>l.trim().length>0);
+                      const parsed = lines.map(line => line.split(/,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/).map(c => c.replace(/^\"|\"$/g, '')));
+                      const headers = parsed[0] || [];
+                      const rows = parsed.slice(1) as Array<Array<string|number>>;
+                      const copy = slides.slice();
+                      copy[i] = { ...copy[i], table: { headers, rows } };
+                      setSlides(copy);
+                    }}
+                  />
+                  {s.table && (
+                    <div className="text-xs text-slate-600 mt-1">{s.table.headers.length} columns • {s.table.rows.length} rows</div>
+                  )}
+                </div>
+              )}
               <div className="mt-3">
                 <label className="block text-sm font-bold text-slate-900 mb-1">Icons (optional)</label>
                 <div className="flex gap-2">
@@ -460,7 +510,7 @@ export default function OutlineEditor() {
               </div>
               <div className="p-4 overflow-auto">
                 <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
-                  {(['auto','text','image-right','image-left','two-column','quote','title-only','image-full','metrics-3','chart-right','chart-left'] as const).map((lt) => (
+                  {(['auto','text','image-right','image-left','two-column','quote','title-only','image-full','metrics-3','chart-right','chart-left','table'] as const).map((lt) => (
                     <button
                       key={lt}
                       onClick={() => {
@@ -522,6 +572,7 @@ export default function OutlineEditor() {
               setTone(doc.data?.tone || 'professional');
               setSlides(doc.data?.slides || []);
               setTemplateFonts(doc.data?.templateFonts || {});
+              setTemplateTheme(doc.data?.templateTheme || {});
             } catch { /* ignore */ }
             setShowDocs(false);
           }}
@@ -531,8 +582,8 @@ export default function OutlineEditor() {
 
       {showTemplateSettings && (
         <TemplateSettings
-          initial={templateFonts}
-          onSave={(tf)=> { setTemplateFonts(tf); setShowTemplateSettings(false); }}
+          initial={{ ...templateFonts, theme: templateTheme }}
+          onSave={(tf)=> { setTemplateFonts({ titleFontUrl: tf.titleFontUrl, bodyFontUrl: tf.bodyFontUrl, titleFontName: tf.titleFontName, bodyFontName: tf.bodyFontName }); setTemplateTheme(tf.theme || {}); setShowTemplateSettings(false); }}
           onClose={()=> setShowTemplateSettings(false)}
         />
       )}
@@ -559,6 +610,7 @@ function labelForLayout(l: string) {
     case 'quote': return 'Quote';
     case 'title-only': return 'Title Only';
     case 'image-full': return 'Image Full';
+    case 'table': return 'Table';
     default: return l;
   }
 }

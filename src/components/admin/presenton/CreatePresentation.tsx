@@ -6,13 +6,17 @@ import { FileUp, Loader2, Download, Eye, Sparkles, FileText, Upload } from "luci
 interface PresentationForm {
   inputType: "text" | "file";
   content: string;
-  file: File | null;
+  file: File | null; // legacy single
+  files?: File[];
   slideCount: number;
   language: string;
   template: string;
   tone: string;
   model: string;
   exportFormat: 'pptx' | 'pdf' | 'pdf_hifi';
+  webGrounding?: boolean;
+  webResults?: number;
+  webQuery?: string;
 }
 
 interface AIModel {
@@ -26,12 +30,15 @@ export default function CreatePresentation() {
     inputType: "text",
     content: "",
     file: null,
+    files: [],
     slideCount: 10,
     language: "English",
     template: "modern",
     tone: "professional",
     model: "", // Will be set from API
     exportFormat: 'pptx',
+    webGrounding: false,
+    webResults: 5,
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -95,8 +102,9 @@ export default function CreatePresentation() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setForm({ ...form, file: e.target.files[0] });
+    const list = e.target.files ? Array.from(e.target.files) : [];
+    if (list.length) {
+      setForm({ ...form, file: list[0], files: list });
     }
   };
 
@@ -123,21 +131,32 @@ export default function CreatePresentation() {
 
       // If using file input and we have a plaintext file, read it client-side
       let topicContent = form.content;
-      if (form.inputType === 'file' && form.file) {
-        const ext = form.file.name.toLowerCase().split('.').pop();
-        if (ext === 'txt' || ext === 'csv') {
-          topicContent = await form.file.text();
-        } else {
+      if (form.inputType === 'file' && (form.files && form.files.length)) {
+        const simpleTexts: string[] = [];
+        const toUpload: File[] = [];
+        for (const f of form.files) {
+          const ext = f.name.toLowerCase().split('.').pop();
+          if (ext === 'txt' || ext === 'csv') {
+            simpleTexts.push(await f.text());
+          } else {
+            toUpload.push(f);
+          }
+        }
+        if (toUpload.length) {
           const fd = new FormData();
-          fd.append('file', form.file);
+          for (const f of toUpload) fd.append('file', f);
           const extractResp = await fetch('/api/admin/presentations/files/extract', { method: 'POST', body: fd });
           if (!extractResp.ok) {
             const errJson = await extractResp.json().catch(() => ({}));
-            throw new Error(errJson.error || 'Failed to extract text from document');
+            throw new Error(errJson.error || 'Failed to extract text from document(s)');
           }
           const { text } = await extractResp.json();
-          topicContent = text;
+          simpleTexts.push(text);
         }
+        topicContent = simpleTexts.join('\n\n');
+      } else if (form.inputType === 'file' && form.file) {
+        const ext = form.file.name.toLowerCase().split('.').pop();
+        if (ext === 'txt' || ext === 'csv') topicContent = await form.file.text();
       }
 
       const response = await fetch("/api/admin/presentations/generate", {
@@ -156,6 +175,9 @@ export default function CreatePresentation() {
           apiKey,
           exportAs: form.exportFormat,
           ollamaEndpoint,
+          webGrounding: !!form.webGrounding,
+          webResults: form.webResults,
+          webQuery: form.webQuery || topicContent,
         }),
       });
 
@@ -260,6 +282,7 @@ export default function CreatePresentation() {
             <FileUp className="w-12 h-12 mx-auto mb-3 text-slate-400" />
             <input
               type="file"
+              multiple
               onChange={handleFileChange}
               accept=".pdf,.doc,.docx,.txt"
               className="hidden"
@@ -272,7 +295,7 @@ export default function CreatePresentation() {
               Click to upload
             </label>
             <p className="text-slate-600 text-sm mt-1">
-              {form.file ? form.file.name : "Supports PDF, DOC, DOCX, TXT"}
+              {form.files && form.files.length ? `${form.files.length} file(s) selected` : "Supports PDF, DOC, DOCX, TXT (multiple)"}
             </p>
           </div>
         </div>
@@ -412,6 +435,28 @@ export default function CreatePresentation() {
             <option value="pdf">PDF (.pdf)</option>
             <option value="pdf_hifi">PDF (Hi‑Fi)</option>
           </select>
+        </div>
+
+        {/* Web Grounding */}
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-3">
+            <input id="wg" type="checkbox" checked={!!form.webGrounding} onChange={(e)=> setForm({ ...form, webGrounding: e.target.checked })} />
+            <label htmlFor="wg" className="text-sm font-bold text-slate-900">Use web search grounding (Google Programmable Search)</label>
+          </div>
+          {form.webGrounding && (
+            <div className="mt-2 grid md:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-bold text-slate-900 mb-1">Search query (optional)</label>
+                <input value={form.webQuery || ''} onChange={(e)=> setForm({ ...form, webQuery: e.target.value })} className="w-full px-3 py-2 border-2 border-slate-200 rounded" placeholder="Defaults to your topic" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-900 mb-1">Results</label>
+                <select value={form.webResults} onChange={(e)=> setForm({ ...form, webResults: parseInt(e.target.value) })} className="w-full px-3 py-2 border-2 border-slate-200 rounded">
+                  {[3,5,7,10].map(n=> <option key={n} value={n}>{n}</option>)}
+                </select>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

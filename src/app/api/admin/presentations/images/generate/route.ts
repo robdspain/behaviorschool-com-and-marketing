@@ -60,34 +60,29 @@ export async function POST(req: NextRequest) {
         if (n === 'gemini-pro') return 'gemini-1.5-flash-latest';
         return n;
       };
-      const tryModels = [normalize(model), 'gemini-2.0-flash', 'gemini-1.5-flash-latest'];
-      const bodyJson = {
-        contents: [{ role: 'user', parts: [{ text: prompt }]}],
-        generationConfig: { response_mime_type: 'image/png', temperature: 0.8 },
-      } as any;
-
-      let lastErrText = '';
-      for (const mdl of tryModels) {
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(mdl)}:generateContent?key=${encodeURIComponent(apiKey)}`;
-        const resp = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(bodyJson) });
-        if (!resp.ok) { lastErrText = `${resp.status}: ${await resp.text()}`; continue; }
-        const data = await resp.json();
-        const inlineData = data?.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData)?.inlineData;
-        const b64 = inlineData?.data;
-        const mime = inlineData?.mimeType || 'image/png';
-        if (!b64) { lastErrText = 'No image data'; continue; }
-        const ext = mime.includes('png') ? 'png' : mime.includes('jpeg') || mime.includes('jpg') ? 'jpg' : 'png';
-        const bytes = Buffer.from(b64, 'base64');
-        const id = crypto.randomUUID();
-        const path = `generated/${id}.${ext}`;
-        const { error: upErr } = await supabase.storage.from('presentations-images').upload(path, bytes, { contentType: mime, upsert: false });
-        if (upErr) throw upErr;
-        const { data: pub } = supabase.storage.from('presentations-images').getPublicUrl(path);
-        const url = pub?.publicUrl;
-        await supabase.from('presentations_ai_images').insert({ prompt, provider: 'gemini', model: mdl, url, storage_path: path });
-        return NextResponse.json({ url, path, provider: 'gemini' });
+      // Gemini text models do not return images via generateContent in current API.
+      // Fallback to OpenAI image generation when Gemini is selected.
+      const openaiKey = process.env.OPENAI_API_KEY || body.openaiKey;
+      if (!openaiKey) {
+        return NextResponse.json({ error: 'Gemini image generation is not supported via this API. Set OPENAI_API_KEY to fallback to OpenAI.' }, { status: 400 });
       }
-      return NextResponse.json({ error: `Gemini image error: ${lastErrText}` }, { status: 502 });
+      const dalle = await fetch('https://api.openai.com/v1/images/generations', {
+        method: 'POST', headers: { 'Authorization': `Bearer ${openaiKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'gpt-image-1', prompt, size, response_format: 'b64_json' })
+      });
+      if (!dalle.ok) throw new Error(`OpenAI image fallback error ${dalle.status}: ${await dalle.text()}`);
+      const dj = await dalle.json();
+      const b64 = dj?.data?.[0]?.b64_json;
+      if (!b64) return NextResponse.json({ error: 'No image generated' }, { status: 500 });
+      const bytes = Buffer.from(b64, 'base64');
+      const id = crypto.randomUUID();
+      const path = `generated/${id}.png`;
+      const { error: upErr2 } = await supabase.storage.from('presentations-images').upload(path, bytes, { contentType: 'image/png', upsert: false });
+      if (upErr2) throw upErr2;
+      const { data: pub2 } = supabase.storage.from('presentations-images').getPublicUrl(path);
+      const url2 = pub2?.publicUrl;
+      await supabase.from('presentations_ai_images').insert({ prompt, provider: 'openai', model: 'gpt-image-1', url: url2, storage_path: path });
+      return NextResponse.json({ url: url2, path, provider: 'openai' });
     }
 
     return NextResponse.json({ error: 'Unsupported provider' }, { status: 400 });

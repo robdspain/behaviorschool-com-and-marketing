@@ -10,7 +10,7 @@ type Slide = {
   imageUrl?: string;
   icons?: string[];
   chart?: any;
-  layout?: string;
+  layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left'|'table';
 };
 
 type Item = {
@@ -159,4 +159,3 @@ export default function PresentationLibrary() {
     </div>
   );
 }
-

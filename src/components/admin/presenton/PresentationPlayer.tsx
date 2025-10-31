@@ -25,7 +25,7 @@ type Slide = {
   imageUrl?: string;
   icons?: string[];
   chart?: ChartData;
-  layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left';
+  layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left'|'table';
 };
 
 type PresentationPlayerProps = {

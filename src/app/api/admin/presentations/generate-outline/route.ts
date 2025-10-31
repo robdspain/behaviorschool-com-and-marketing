@@ -4,21 +4,30 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { topic, slideCount = 10, tone = 'professional', language = 'English', model = 'gemini-2.5-flash', provider = 'google', apiKey, ollamaEndpoint } = body;
+    const { topic, slideCount = 10, tone = 'professional', language = 'English', model = 'gemini-2.5-flash', provider = 'google', apiKey, ollamaEndpoint, webGrounding = false, webResults = 5, webQuery } = body;
 
     if (!apiKey && provider !== 'ollama') {
       return NextResponse.json({ error: 'API key is required' }, { status: 400 });
     }
 
+    // Optional grounding
+    let webContext: string | undefined = undefined;
+    if (webGrounding) {
+      try {
+        const q = (webQuery || topic || '').slice(0, 200);
+        if (q) webContext = await fetchWebContext(q, Math.max(1, Math.min(10, Number(webResults) || 5)));
+      } catch {}
+    }
+
     let slides: Array<{ title: string; content: string[] }> = [];
     if (provider === 'google') {
-      slides = await generateWithGemini(apiKey, topic, slideCount, tone, language, model);
+      slides = await generateWithGemini(apiKey, topic, slideCount, tone, language, model, webContext);
     } else if (provider === 'openai') {
-      slides = await generateWithOpenAI(apiKey, topic, slideCount, tone, language, model);
+      slides = await generateWithOpenAI(apiKey, topic, slideCount, tone, language, model, webContext);
     } else if (provider === 'anthropic') {
-      slides = await generateWithAnthropic(apiKey, topic, slideCount, tone, language, model);
+      slides = await generateWithAnthropic(apiKey, topic, slideCount, tone, language, model, webContext);
     } else if (provider === 'ollama') {
-      slides = await generateWithOllama(ollamaEndpoint, topic, slideCount, tone, language, model);
+      slides = await generateWithOllama(ollamaEndpoint, topic, slideCount, tone, language, model, webContext);
     } else {
       return NextResponse.json({ error: 'Invalid provider' }, { status: 400 });
     }
@@ -50,11 +59,12 @@ async function generateWithGemini(
   slideCount: number,
   tone: string,
   language: string,
-  modelName: string
+  modelName: string,
+  webContext?: string
 ) {
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: normalizeGeminiModel(modelName) });
-  const prompt = basePrompt(topic, slideCount, tone, language);
+  const prompt = basePrompt(topic, slideCount, tone, language, webContext);
   const result = await model.generateContent(prompt);
   const text = result.response.text();
   const m = text.match(/\[[\s\S]*\]/);
@@ -68,9 +78,10 @@ async function generateWithOpenAI(
   slideCount: number,
   tone: string,
   language: string,
-  modelName: string
+  modelName: string,
+  webContext?: string
 ) {
-  const prompt = basePrompt(topic, slideCount, tone, language);
+  const prompt = basePrompt(topic, slideCount, tone, language, webContext);
   const resp = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
@@ -90,9 +101,10 @@ async function generateWithAnthropic(
   slideCount: number,
   tone: string,
   language: string,
-  modelName: string
+  modelName: string,
+  webContext?: string
 ) {
-  const prompt = basePrompt(topic, slideCount, tone, language);
+  const prompt = basePrompt(topic, slideCount, tone, language, webContext);
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
@@ -112,10 +124,11 @@ async function generateWithOllama(
   slideCount: number,
   tone: string,
   language: string,
-  modelName: string
+  modelName: string,
+  webContext?: string
 ) {
   if (!endpoint) throw new Error('Ollama endpoint required');
-  const prompt = basePrompt(topic, slideCount, tone, language);
+  const prompt = basePrompt(topic, slideCount, tone, language, webContext);
   const resp = await fetch(`${endpoint.replace(/\/$/, '')}/api/generate`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ model: modelName || 'llama3.1', prompt, stream: false, options: { temperature: 0.7 } })
@@ -128,9 +141,28 @@ async function generateWithOllama(
   return JSON.parse(m[0]);
 }
 
-function basePrompt(topic: string, slideCount: number, tone: string, language: string) {
+async function fetchWebContext(query: string, numResults: number) {
+  const key = process.env.GOOGLE_SEARCH_API_KEY;
+  const cx = process.env.GOOGLE_SEARCH_CX;
+  if (!key || !cx) throw new Error('Missing GOOGLE_SEARCH_API_KEY or GOOGLE_SEARCH_CX');
+  const url = new URL('https://www.googleapis.com/customsearch/v1');
+  url.searchParams.set('key', key);
+  url.searchParams.set('cx', cx);
+  url.searchParams.set('q', query);
+  url.searchParams.set('num', String(Math.max(1, Math.min(10, Number(numResults) || 5))));
+  const resp = await fetch(url.toString());
+  if (!resp.ok) throw new Error(`Google Search HTTP ${resp.status}`);
+  const data = await resp.json();
+  const items: Array<{ title?: string; link?: string; snippet?: string; displayLink?: string }> = data.items || [];
+  const lines = items.map((it, idx) => `(${idx+1}) ${it.title || ''} — ${it.snippet || ''} [${it.displayLink || it.link || ''}]`);
+  return lines.join('\n');
+}
+
+function basePrompt(topic: string, slideCount: number, tone: string, language: string, webContext?: string) {
   return `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
 The tone should be ${tone}.
+
+${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
 
 For each slide (excluding the title slide), provide:
 1. A clear, concise title

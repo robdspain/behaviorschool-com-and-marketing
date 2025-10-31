@@ -7,7 +7,7 @@ import { createSupabaseAdminClient, withSupabaseAdmin } from '@/lib/supabase-adm
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', model = 'gemini-2.5-flash', provider = 'google', apiKey, exportAs = 'pptx', ollamaEndpoint, slides, templateFonts } = body;
+    const { topic, slideCount = 10, template = 'modern', tone = 'professional', language = 'English', model = 'gemini-2.5-flash', provider = 'google', apiKey, exportAs = 'pptx', ollamaEndpoint, slides, templateFonts, templateTheme, webGrounding = false, webResults = 5, webQuery } = body;
 
     console.log('Generate request:', { topic, slideCount, template, tone, language, model, provider, hasApiKey: !!apiKey });
 
@@ -25,19 +25,30 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Optional: fetch grounding via Google Search
+    let webContext: string | undefined = undefined;
+    if (webGrounding) {
+      try {
+        const q = (webQuery || topic || '').slice(0, 200);
+        if (q) webContext = await fetchWebContext(q, Math.max(1, Math.min(10, Number(webResults) || 5)));
+      } catch (e) {
+        console.warn('Web grounding failed:', (e as Error)?.message);
+      }
+    }
+
     // Generate presentation content using AI
     let slideContent: Array<{ title: string; content: string[] }>;
 
     if (Array.isArray(slides) && slides.length) {
       slideContent = slides;
     } else if (provider === 'google') {
-      slideContent = await generateWithGemini(apiKey, topic, slideCount, tone, language, model);
+      slideContent = await generateWithGemini(apiKey, topic, slideCount, tone, language, model, webContext);
     } else if (provider === 'openai') {
-      slideContent = await generateWithOpenAI(apiKey, topic, slideCount, tone, language, model);
+      slideContent = await generateWithOpenAI(apiKey, topic, slideCount, tone, language, model, webContext);
     } else if (provider === 'anthropic') {
-      slideContent = await generateWithAnthropic(apiKey, topic, slideCount, tone, language, model);
+      slideContent = await generateWithAnthropic(apiKey, topic, slideCount, tone, language, model, webContext);
     } else if (provider === 'ollama') {
-      slideContent = await generateWithOllama(ollamaEndpoint, topic, slideCount, tone, language, model);
+      slideContent = await generateWithOllama(ollamaEndpoint, topic, slideCount, tone, language, model, webContext);
     } else {
       return NextResponse.json(
         { error: 'Invalid provider' },
@@ -47,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     if (exportAs === 'pdf') {
       // Build a simple PDF (title page + slides)
-      const pdf = await buildPdfFromSlides(topic, slideContent, template);
+      const pdf = await buildPdfFromSlides(topic, slideContent, template, templateTheme);
       await persistPresentation({
         buffer: pdf,
         topic,
@@ -69,7 +80,7 @@ export async function POST(request: NextRequest) {
       });
     } else if (exportAs === 'pdf_hifi') {
       try {
-        const html = await buildHtmlFromSlides(topic, slideContent as any, template, templateFonts);
+        const html = await buildHtmlFromSlides(topic, slideContent as any, template, templateFonts, templateTheme);
         const pdf = await buildHiFiPdf(html);
         await persistPresentation({
           buffer: pdf,
@@ -104,7 +115,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Default: Create PowerPoint using pptxgenjs
-    const pptBuffer = await buildPptxFromSlides(topic, slideContent, template, templateFonts);
+    const pptBuffer = await buildPptxFromSlides(topic, slideContent, template, templateFonts, templateTheme);
     await persistPresentation({
       buffer: pptBuffer,
       topic,
@@ -136,6 +147,23 @@ export async function POST(request: NextRequest) {
   }
 }
 
+async function fetchWebContext(query: string, numResults: number): Promise<string> {
+  const key = process.env.GOOGLE_SEARCH_API_KEY;
+  const cx = process.env.GOOGLE_SEARCH_CX;
+  if (!key || !cx) throw new Error('Missing GOOGLE_SEARCH_API_KEY or GOOGLE_SEARCH_CX');
+  const url = new URL('https://www.googleapis.com/customsearch/v1');
+  url.searchParams.set('key', key);
+  url.searchParams.set('cx', cx);
+  url.searchParams.set('q', query);
+  url.searchParams.set('num', String(Math.max(1, Math.min(10, numResults))));
+  const resp = await fetch(url.toString());
+  if (!resp.ok) throw new Error(`Google Search HTTP ${resp.status}`);
+  const data = await resp.json();
+  const items: Array<{ title?: string; link?: string; snippet?: string; displayLink?: string }> = data.items || [];
+  const lines = items.map((it, idx) => `(${idx+1}) ${it.title || ''} — ${it.snippet || ''} [${it.displayLink || it.link || ''}]`);
+  return lines.join('\n');
+}
+
 function normalizeGeminiModel(name?: string) {
   const n = (name || '').trim();
   // Prefer 2.5 family
@@ -155,7 +183,8 @@ async function generateWithGemini(
   slideCount: number,
   tone: string,
   language: string,
-  modelName: string
+  modelName: string,
+  webContext?: string
 ): Promise<Array<{ title: string; content: string[] }>> {
   try {
     console.log('Initializing Gemini with model:', modelName);
@@ -164,6 +193,8 @@ async function generateWithGemini(
 
     const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
 The tone should be ${tone}.
+
+${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
 
 For each slide (excluding the title slide), provide:
 1. A clear, concise title
@@ -212,11 +243,14 @@ async function generateWithOpenAI(
   slideCount: number,
   tone: string,
   language: string,
-  modelName: string
+  modelName: string,
+  webContext?: string
 ): Promise<Array<{ title: string; content: string[] }>> {
   try {
     const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
 The tone should be ${tone}.
+
+${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
 
 For each slide (excluding the title slide), provide:
 1. A clear, concise title
@@ -267,11 +301,14 @@ async function generateWithAnthropic(
   slideCount: number,
   tone: string,
   language: string,
-  modelName: string
+  modelName: string,
+  webContext?: string
 ): Promise<Array<{ title: string; content: string[] }>> {
   try {
     const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
 The tone should be ${tone}.
+
+${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
 
 For each slide (excluding the title slide), provide:
 1. A clear, concise title
@@ -330,16 +367,19 @@ type ChartData = {
   labelStyle?: 'auto'|'inside'|'above',
   showStackPercent?: boolean,
 }
-type SlideInput = { title: string; content: string[]; imageUrl?: string; icons?: string[]; chart?: ChartData; layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left' };
+type TableData = { headers: string[]; rows: Array<Array<string|number>>; columnWidths?: number[] };
+type SlideInput = { title: string; content: string[]; imageUrl?: string; icons?: string[]; chart?: ChartData; table?: TableData; layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left'|'table' };
 
 async function buildPptxFromSlides(
   topic: string,
   slideContent: SlideInput[],
   template: string,
-  templateFonts?: { titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string }
+  templateFonts?: { titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string },
+  templateTheme?: { primaryColor?: string; backgroundColor?: string; titleColor?: string; subtitleColor?: string; textColor?: string }
 ) {
   const pptx = new PptxGenJS();
-  const templateConfig = getTemplateConfig(template);
+  const base = getTemplateConfig(template);
+  const templateConfig = { ...base, ...(templateTheme || {}) };
   const titleFontFace = templateFonts?.titleFontName || 'Arial';
   const bodyFontFace = templateFonts?.bodyFontName || 'Arial';
 
@@ -365,26 +405,29 @@ async function buildPptxFromSlides(
     // Title
     contentSlide.addText(slide.title, { x: 0.5, y: 0.5, w: '90%', h: 0.75, fontSize: 32, bold: true, color: templateConfig.titleColor, fontFace: titleFontFace });
 
-    const bullets = slide.content.map((point) => ({ text: point, options: { bullet: true } }));
+    const { items: bulletItems, numbered } = normalizeBullets(slide.content);
+    const bulletStrings: string[] = bulletItems;
+    const bulletTextProps = bulletStrings.map((t) => ({ text: t }));
+    const bulletType: 'number' | 'bullet' = numbered ? 'number' : 'bullet';
 
     if (resolveLayout === 'text') {
-      contentSlide.addText(bullets, { x: 0.5, y: 1.5, w: '90%', h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: 'bullet' }, valign: 'top', fontFace: bodyFontFace });
+      contentSlide.addText(bulletTextProps, { x: 0.5, y: 1.5, w: '90%', h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: bulletType }, valign: 'top', fontFace: bodyFontFace });
     } else if (resolveLayout === 'image-right') {
       if (slide.imageUrl) {
         try { const { dataUrl } = await fetchImageAsDataUrl(slide.imageUrl); contentSlide.addImage({ data: dataUrl, x: 6.0, y: 1.5, w: 4.5, h: 3.0 }); } catch (_) {}
       }
-      contentSlide.addText(bullets, { x: 0.5, y: 1.5, w: 5.0, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: 'bullet' }, valign: 'top', fontFace: bodyFontFace });
+      contentSlide.addText(bulletTextProps, { x: 0.5, y: 1.5, w: 5.0, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: bulletType }, valign: 'top', fontFace: bodyFontFace });
     } else if (resolveLayout === 'image-left') {
       if (slide.imageUrl) {
         try { const { dataUrl } = await fetchImageAsDataUrl(slide.imageUrl); contentSlide.addImage({ data: dataUrl, x: 0.5, y: 1.5, w: 4.5, h: 3.0 }); } catch (_) {}
       }
-      contentSlide.addText(bullets, { x: 5.3, y: 1.5, w: 4.5, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: 'bullet' }, valign: 'top', fontFace: bodyFontFace });
+      contentSlide.addText(bulletTextProps, { x: 5.3, y: 1.5, w: 4.5, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: bulletType }, valign: 'top', fontFace: bodyFontFace });
     } else if (resolveLayout === 'two-column') {
-      const mid = Math.ceil(bullets.length / 2);
-      const left = bullets.slice(0, mid);
-      const right = bullets.slice(mid);
-      contentSlide.addText(left, { x: 0.5, y: 1.5, w: 4.5, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: 'bullet' }, valign: 'top', fontFace: bodyFontFace });
-      contentSlide.addText(right, { x: 5.3, y: 1.5, w: 4.5, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: 'bullet' }, valign: 'top', fontFace: bodyFontFace });
+      const mid = Math.ceil(bulletStrings.length / 2);
+      const left = bulletStrings.slice(0, mid).map((t)=>({ text: t }));
+      const right = bulletStrings.slice(mid).map((t)=>({ text: t }));
+      contentSlide.addText(left, { x: 0.5, y: 1.5, w: 4.5, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: bulletType }, valign: 'top', fontFace: bodyFontFace });
+      contentSlide.addText(right, { x: 5.3, y: 1.5, w: 4.5, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: bulletType }, valign: 'top', fontFace: bodyFontFace });
     } else if (resolveLayout === 'quote') {
       const quote = slide.content[0] || '';
       contentSlide.addText(`“${quote}”`, { x: 0.7, y: 1.8, w: 8.6, h: 3.0, fontSize: 28, italic: true, color: templateConfig.textColor, align: 'center', fontFace: bodyFontFace });
@@ -461,7 +504,30 @@ async function buildPptxFromSlides(
           });
         }
       }
-      contentSlide.addText(bullets, { x: textX, y: 1.5, w: 4.8, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: 'bullet' }, valign: 'top', fontFace: bodyFontFace });
+      contentSlide.addText(bulletTextProps, { x: textX, y: 1.5, w: 4.8, h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: bulletType }, valign: 'top', fontFace: bodyFontFace });
+    } else if (resolveLayout === 'table') {
+      // Render a table using pptxgenjs
+      const headers = slide.table?.headers || [];
+      const rows = slide.table?.rows || [];
+      const hasHeader = headers.length > 0;
+      const data = [
+        ...(hasHeader ? [headers.map((h) => ({ text: String(h), options: { bold: true } }))] : []),
+        ...rows.map((r) => r.map((c) => ({ text: String(c) })))
+      ];
+      const colW = slide.table?.columnWidths && slide.table.columnWidths.length ? slide.table.columnWidths : new Array(Math.max(headers.length, rows[0]?.length || 0)).fill(1.5);
+      try {
+        contentSlide.addTable(data as any, {
+          x: 0.5, y: 1.4, w: 9.0,
+          colW,
+          border: { type: 'solid', color: templateConfig.textColor, pt: 1 },
+          fill: { color: 'FFFFFF' },
+          fontFace: bodyFontFace,
+          color: templateConfig.textColor,
+        } as any);
+      } catch {
+        // Fallback: show as bullets if addTable unavailable
+        contentSlide.addText(['[Table could not be rendered]'].concat(slide.content).map((t)=>({text:t, options:{bullet:true}})), { x: 0.5, y: 1.5, w: '90%', h: 4.0, fontSize: 18, color: templateConfig.textColor, bullet: { type: 'bullet' }, valign: 'top', fontFace: bodyFontFace });
+      }
     }
 
     // Render icons row at bottom if provided
@@ -484,13 +550,15 @@ async function buildPptxFromSlides(
 async function buildPdfFromSlides(
   topic: string,
   slideContent: SlideInput[],
-  template: string
+  template: string,
+  templateTheme?: { primaryColor?: string; backgroundColor?: string; titleColor?: string; subtitleColor?: string; textColor?: string }
 ) {
   const pdfDoc = await PDFDocument.create();
   const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
   const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
-  const templateConfig = getTemplateConfig(template);
+  const base = getTemplateConfig(template);
+  const templateConfig = { ...base, ...(templateTheme || {}) };
 
   // Title page
   let page = pdfDoc.addPage([612, 792]); // Letter size
@@ -641,17 +709,46 @@ async function buildPdfFromSlides(
           });
         }
       }
-      for (const line of slide.content) {
-        page.drawText(`• ${line}`, { x: textX0 + 10, y, size: 12, font: helvetica, color: hexToRgb(templateConfig.textColor), maxWidth: 240 });
-        y -= 20;
-        if (y < 60) { y = 690; page = pdfDoc.addPage([612, 792]); }
+      {
+        const nb2 = normalizeBullets(slide.content);
+        nb2.items.forEach((line, idx) => {
+          const b = nb2.numbered ? `${idx+1}.` : '•';
+          page.drawText(`${b} ${line}`, { x: textX0 + 10, y, size: 12, font: helvetica, color: hexToRgb(templateConfig.textColor), maxWidth: 240 });
+          y -= 20;
+          if (y < 60) { y = 690; page = pdfDoc.addPage([612, 792]); }
+        });
       }
+    } else if (resolveLayout === 'table') {
+      // Simple table rendering in PDF
+      const headers = slide.table?.headers || [];
+      const rows = slide.table?.rows || [];
+      const startX = 60; const startY = 650; const rowH = 22; const colCount = Math.max(headers.length, rows[0]?.length || 0);
+      const tableW = 500; const colW = tableW / Math.max(1, colCount);
+      // Header
+      if (headers.length) {
+        for (let ci = 0; ci < headers.length; ci++) {
+          page.drawRectangle({ x: startX + ci*colW, y: startY, width: colW, height: rowH, color: hexToRgb(templateConfig.backgroundColor), borderColor: hexToRgb(templateConfig.textColor) });
+          page.drawText(String(headers[ci]), { x: startX + ci*colW + 6, y: startY + 6, size: 12, font: helveticaBold, color: hexToRgb(templateConfig.titleColor), maxWidth: colW - 12 });
+        }
+      }
+      // Rows
+      let yRow = startY - (headers.length ? rowH : 0) - 2;
+      rows.forEach((r) => {
+        for (let ci = 0; ci < colCount; ci++) {
+          const cell = r[ci] !== undefined ? String(r[ci]) : '';
+          page.drawRectangle({ x: startX + ci*colW, y: yRow, width: colW, height: rowH, color: hexToRgb('#FFFFFF'), borderColor: hexToRgb(templateConfig.textColor) });
+          page.drawText(cell, { x: startX + ci*colW + 6, y: yRow + 6, size: 10, font: helvetica, color: hexToRgb(templateConfig.textColor), maxWidth: colW - 12 });
+        }
+        yRow -= rowH;
+      });
     } else if (y > 0) {
-      for (const line of slide.content) {
-        page.drawText(`• ${line}`, { x: textX + 10, y, size: 12, font: helvetica, color: hexToRgb(templateConfig.textColor), maxWidth: textW });
+      const nb3 = normalizeBullets(slide.content);
+      nb3.items.forEach((line, idx) => {
+        const b = nb3.numbered ? `${idx+1}.` : '•';
+        page.drawText(`${b} ${line}`, { x: textX + 10, y, size: 12, font: helvetica, color: hexToRgb(templateConfig.textColor), maxWidth: textW });
         y -= 20;
         if (y < 60) { y = 690; page = pdfDoc.addPage([612, 792]); }
-      }
+      });
     }
 
     // Icons row at bottom
@@ -676,7 +773,8 @@ async function generateWithOllama(
   slideCount: number,
   tone: string,
   language: string,
-  modelName: string
+  modelName: string,
+  webContext?: string
 ): Promise<Array<{ title: string; content: string[] }>> {
   if (!endpoint) throw new Error('Ollama endpoint is required');
   const url = `${endpoint.replace(/\/$/, '')}/api/generate`;
@@ -693,13 +791,14 @@ Output only a JSON array of objects with this structure:
 ]
 
 Generate ${slideCount - 1} content slides (the title slide will be added automatically).`;
+  const finalPrompt = webContext ? `${prompt}\n\nUse this web research as grounding:\n${webContext}` : prompt;
 
   const resp = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: modelName || 'llama3.1',
-      prompt,
+      prompt: finalPrompt,
       stream: false,
       options: { temperature: 0.7 },
     }),
@@ -761,6 +860,24 @@ function getTemplateConfig(template: string) {
   };
 
   return templates[template] || templates.modern;
+}
+
+function normalizeBullets(content: string[]): { items: string[]; numbered: boolean } {
+  const lines = content
+    .flatMap((s) => String(s).split(/\r?\n/))
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+  const reNum = /^\s*\d+[\.)]\s+/;
+  const reBul = /^\s*[-*•]\s+/;
+  const numCount = lines.filter((l) => reNum.test(l)).length;
+  const bulCount = lines.filter((l) => reBul.test(l)).length;
+  const numbered = numCount > bulCount && numCount >= Math.ceil(lines.length * 0.5);
+  const cleaned = lines.map((l) => {
+    if (reNum.test(l)) return l.replace(/^\s*\d+[\.)]\s+/, '');
+    if (reBul.test(l)) return l.replace(/^\s*[-*•]\s+/, '');
+    return l;
+  });
+  return { items: cleaned, numbered };
 }
 
 function sanitizeFilename(filename: string): string {
@@ -904,9 +1021,11 @@ async function buildHtmlFromSlides(
   topic: string,
   slides: SlideInput[],
   template: string,
-  templateFonts?: { titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string }
+  templateFonts?: { titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string },
+  templateTheme?: { primaryColor?: string; backgroundColor?: string; titleColor?: string; subtitleColor?: string; textColor?: string }
 ): Promise<string> {
-  const colors = getTemplateConfig(template);
+  const base = getTemplateConfig(template);
+  const colors = { ...base, ...(templateTheme || {}) };
   const titleFontName = templateFonts?.titleFontName || 'CustomTitle';
   const bodyFontName = templateFonts?.bodyFontName || 'CustomBody';
   const titleFace = templateFonts?.titleFontUrl ? `@font-face{font-family:'${titleFontName}';src:url('${templateFonts.titleFontUrl}') format('woff2');font-weight:normal;font-style:normal;font-display:swap;}` : '';
@@ -914,9 +1033,18 @@ async function buildHtmlFromSlides(
   const esc = (s: string) => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const slideHtml = slides.map(s => {
     const layout = s.layout || (s.imageUrl ? 'image-right' : 'text');
-    const bullets = s.content.map(c => `<li>${esc(c)}</li>`).join('');
+    const nb = normalizeBullets(s.content);
+    const bullets = nb.items.map(c => `<li>${esc(c)}</li>`).join('');
     const icons = (s.icons || []).map(u => `<img src="${esc(u)}" style="width:18px;height:18px;object-fit:contain;margin-right:6px;"/>`).join('');
     const img = s.imageUrl ? `<img src="${esc(s.imageUrl)}" class="img"/>` : `<div class="img ph"></div>`;
+    const tableHtml = (() => {
+      if (layout !== 'table') return '';
+      const headers = s.table?.headers || [];
+      const rows = s.table?.rows || [];
+      const thead = headers.length ? `<thead><tr>${headers.map(h=>`<th>${esc(String(h))}</th>`).join('')}</tr></thead>` : '';
+      const tbody = `<tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${esc(String(c ?? ''))}</td>`).join('')}</tr>`).join('')}</tbody>`;
+      return `<table class="datatable">${thead}${tbody}</table>`;
+    })();
     const chart = (() => {
       if (s.chart && s.chart.categories?.length && s.chart.series?.length) {
         const cat = s.chart.categories;
@@ -1048,15 +1176,16 @@ async function buildHtmlFromSlides(
     return `
     <section class="slide ${layout}">
       <h2 class="title">${esc(s.title)}</h2>
-      ${layout === 'text' ? `<ul class="bullets">${bullets}</ul>` : ''}
-      ${layout === 'image-right' ? `<div class="left"><ul class="bullets">${bullets}</ul></div><div class="right">${img}</div>` : ''}
-      ${layout === 'image-left' ? `<div class="left">${img}</div><div class="right"><ul class="bullets">${bullets}</ul></div>` : ''}
-      ${layout === 'two-column' ? (()=>{ const mid=Math.ceil(s.content.length/2); const left = s.content.slice(0,mid).map(c=>`<li>${esc(c)}</li>`).join(''); const right=s.content.slice(mid).map(c=>`<li>${esc(c)}</li>`).join(''); return `<div class="left"><ul class="bullets">${left}</ul></div><div class="right"><ul class="bullets">${right}</ul></div>` })() : ''}
+      ${layout === 'text' ? (nb.numbered ? `<ol class="bullets">${bullets}</ol>` : `<ul class="bullets">${bullets}</ul>`) : ''}
+      ${layout === 'image-right' ? `<div class="left">${nb.numbered ? `<ol class=\"bullets\">${bullets}</ol>` : `<ul class=\"bullets\">${bullets}</ul>`}</div><div class="right">${img}</div>` : ''}
+      ${layout === 'image-left' ? `<div class="left">${img}</div><div class="right">${nb.numbered ? `<ol class=\"bullets\">${bullets}</ol>` : `<ul class=\"bullets\">${bullets}</ul>`}</div>` : ''}
+      ${layout === 'two-column' ? (()=>{ const arr = nb.items; const mid=Math.ceil(arr.length/2); const left = arr.slice(0,mid).map(c=>`<li>${esc(c)}</li>`).join(''); const right=arr.slice(mid).map(c=>`<li>${esc(c)}</li>`).join(''); const wrap = nb.numbered ? ['<ol class="bullets">','</ol>'] : ['<ul class="bullets">','</ul>']; return `<div class="left">${wrap[0]}${left}${wrap[1]}</div><div class="right">${wrap[0]}${right}${wrap[1]}</div>` })() : ''}
       ${layout === 'quote' ? `<blockquote>“${esc(s.content[0] || '')}”</blockquote>` : ''}
       ${layout === 'title-only' ? `<div class="spacer"></div>` : ''}
       ${layout === 'image-full' ? `<div class="full">${img}</div>` : ''}
       ${layout === 'metrics-3' ? metrics : ''}
       ${layout === 'chart-right' || layout === 'chart-left' ? `<div class="${layout==='chart-right'?'left':'right'}"><ul class="bullets">${bullets}</ul></div><div class="${layout==='chart-right'?'right':'left'}">${chart}</div>` : ''}
+      ${layout === 'table' ? `${tableHtml}` : ''}
       <div class="icons">${icons}</div>
     </section>`;
   }).join('\n');
@@ -1110,6 +1239,9 @@ async function buildHtmlFromSlides(
     .svgchart{ padding:8px; }
     .pie .legend{ position:static; margin-top:8px; display:flex; flex-direction:row; gap:12px; flex-wrap:wrap; }
     .slide:after{ content:""; display:block; clear:both; }
+    table.datatable{ width:100%; border-collapse:collapse; border:2px solid #${colors.titleColor}20; border-radius:8px; overflow:hidden; }
+    table.datatable th, table.datatable td{ border:1px solid #${colors.titleColor}20; padding:10px; font-size:16px; color:#${colors.textColor}; text-align:left; background:#fff; }
+    table.datatable thead th{ background:#${colors.primaryColor}22; color:#${colors.titleColor}; font-weight:800; }
   </style></head><body>
   <section class="slide" style="background:#${colors.primaryColor}"><h1 style="color:#${colors.subtitleColor};font-size:44px;margin:220px 40px 0;text-align:center">${esc(topic)}</h1></section>
   ${slideHtml}

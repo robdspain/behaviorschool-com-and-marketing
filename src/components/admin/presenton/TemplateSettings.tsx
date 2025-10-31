@@ -2,11 +2,20 @@
 
 import { useState } from 'react';
 
-export default function TemplateSettings({ initial, onSave, onClose }: { initial?: { titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string }, onSave: (tf: any)=>void, onClose: ()=>void }) {
+type Theme = { primaryColor?: string; backgroundColor?: string; titleColor?: string; subtitleColor?: string; textColor?: string };
+
+export default function TemplateSettings({ initial, onSave, onClose }: { initial?: { titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string; theme?: Theme }, onSave: (tf: any)=>void, onClose: ()=>void }) {
   const [titleFontUrl, setTitleFontUrl] = useState(initial?.titleFontUrl || '');
   const [bodyFontUrl, setBodyFontUrl] = useState(initial?.bodyFontUrl || '');
   const [titleFontName, setTitleFontName] = useState(initial?.titleFontName || 'CustomTitle');
   const [bodyFontName, setBodyFontName] = useState(initial?.bodyFontName || 'CustomBody');
+  const [theme, setTheme] = useState<Theme>({
+    primaryColor: initial?.theme?.primaryColor || '',
+    backgroundColor: initial?.theme?.backgroundColor || '',
+    titleColor: initial?.theme?.titleColor || '',
+    subtitleColor: initial?.theme?.subtitleColor || '',
+    textColor: initial?.theme?.textColor || '',
+  });
 
   const uploadFont = async (file: File, setUrl: (s:string)=>void) => {
     const fd = new FormData(); fd.append('file', file);
@@ -39,15 +48,40 @@ export default function TemplateSettings({ initial, onSave, onClose }: { initial
               <label className="block text-xs text-slate-600 mt-1">Font Family Name</label>
               <input value={bodyFontName} onChange={(e)=> setBodyFontName(e.target.value)} className="w-full px-3 py-2 border-2 border-slate-200 rounded" />
             </div>
+            <div>
+              <div className="text-sm font-bold text-slate-900 mb-2">Theme Colors</div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Primary</label>
+                  <input type="color" value={theme.primaryColor || '#10B981'} onChange={(e)=> setTheme({ ...theme, primaryColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Background</label>
+                  <input type="color" value={'#'+(theme.backgroundColor || 'FFFFFF')} onChange={(e)=> setTheme({ ...theme, backgroundColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Title</label>
+                  <input type="color" value={'#'+(theme.titleColor || '1F2937')} onChange={(e)=> setTheme({ ...theme, titleColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Subtitle</label>
+                  <input type="color" value={'#'+(theme.subtitleColor || 'FFFFFF')} onChange={(e)=> setTheme({ ...theme, subtitleColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Text</label>
+                  <input type="color" value={'#'+(theme.textColor || '374151')} onChange={(e)=> setTheme({ ...theme, textColor: e.target.value.replace('#','') })} />
+                </div>
+              </div>
+              <div className="text-xs text-slate-600 mt-1">Colors are applied to PPTX/PDF and Hi‑Fi PDF exports.</div>
+            </div>
             <div className="text-sm text-slate-600">These fonts will be used in Hi‑Fi PDF exports and previews.</div>
           </div>
           <div className="px-4 py-3 border-t-2 border-slate-200 flex items-center justify-end gap-2">
             <button onClick={onClose} className="px-4 py-2 border-2 border-slate-200 rounded">Cancel</button>
-            <button onClick={()=> onSave({ titleFontUrl, bodyFontUrl, titleFontName, bodyFontName })} className="px-4 py-2 bg-emerald-600 text-white rounded">Save</button>
+            <button onClick={()=> onSave({ titleFontUrl, bodyFontUrl, titleFontName, bodyFontName, theme })} className="px-4 py-2 bg-emerald-600 text-white rounded">Save</button>
           </div>
         </div>
       </div>
     </div>
   );
 }
-

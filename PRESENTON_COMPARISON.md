@@ -26,10 +26,10 @@
 10. ✅ **Custom Fonts** - Upload and use custom fonts in presentations
 
 ### What's Missing (Phase 4 - Advanced)
-- ❌ Web search grounding (Google Search API integration)
-- ❌ Table layouts for data presentation
-- ❌ Batch file upload (currently single file)
-- ❌ Full template designer (basic customization available)
+- ✅ Web search grounding (Google Search API integration)
+- ✅ Table layouts for data presentation
+- ✅ Batch file upload (multiple documents)
+- ✅ Template designer: fonts + full theme colors
 - ❌ PPTX upload and processing
 - ❌ Advanced AI features (tool calls, extended reasoning)
 - ❌ Webhook notifications
@@ -215,9 +215,10 @@
    - ✅ Layout auto-detection based on content
    - ✅ Chart layouts (bar, line, pie, doughnut)
    - ✅ Metrics layouts with value parsing
+   - ✅ Table layout (CSV/structured data)
    - ✅ Visual layout browser
    - ❌ All 50+ layouts from original (22% coverage)
-   - ❌ Table layouts
+   - ✅ Table layouts
 
 ### P2 - Nice to Have (65% Complete)
 1. ✅ **Presentation Editor** - FULLY IMPLEMENTED
@@ -231,9 +232,10 @@
 2. ⚠️ **Custom Templates** - PARTIALLY IMPLEMENTED
    - ✅ Font upload and management
    - ✅ Custom fonts in presentations
+   - ✅ Theme color overrides (primary/background/title/subtitle/text)
    - ✅ Layout persistence in saved docs
-   - ⚠️ Template settings UI (basic customization)
-   - ❌ Full template designer
+   - ⚠️ Template settings UI (fonts + colors)
+   - ❌ Advanced designer (spacing, grids, per-layout tuning)
    - ❌ Custom layout creation (11 built-in layouts)
 
 3. ⚠️ **Advanced Features** - PARTIALLY IMPLEMENTED
@@ -241,7 +243,7 @@
    - ✅ Async generation
    - ✅ Streaming with SSE
    - ❌ Webhook notifications
-   - ❌ Web search grounding
+   - ✅ Web search grounding
    - ❌ Extended reasoning
    - ❌ Tool calls
    - ❌ PPTX processing (upload existing presentations)
@@ -300,8 +302,8 @@
 5. ✅ Streaming generation (SSE with real-time progress)
 6. ✅ Ollama support (local models)
 7. ✅ Chart layouts (bar, line, pie, doughnut)
-8. ❌ Web search grounding (not yet implemented)
-9. ❌ Table layouts (not yet implemented)
+8. ✅ Web search grounding
+9. ✅ Table layouts
 
 ### Phase 3: Advanced Editing ✅ COMPLETE
 **Status**: 90% Complete
@@ -321,7 +323,7 @@
 1. ✅ Font upload & management
 2. ✅ Custom fonts in presentations
 3. ✅ Chart editor (visual configuration)
-4. ⚠️ Custom template designer (basic settings available)
+4. ⚠️ Custom template designer (fonts + theme colors)
 5. ❌ Webhook support
 6. ❌ PPTX processing (upload existing files)
 7. ❌ Advanced AI features (tool calls, extended reasoning)
@@ -407,10 +409,10 @@
 
 ### Immediate Actions (Priority)
 1. ✅ All P0 features complete - PRODUCTION READY
-2. ⚠️ Add table layouts for data-heavy presentations
-3. ⚠️ Implement web search grounding (Google Search API)
-4. ⚠️ Add batch file upload (multiple documents)
-5. ⚠️ Improve template designer (full customization)
+2. ✅ Add table layouts for data-heavy presentations
+3. ✅ Implement web search grounding (Google Search API)
+4. ✅ Add batch file upload (multiple documents)
+5. ✅ Improve template designer (full customization)
 
 ### Short-term Enhancements
 1. Add more slide layouts (target: 25-30 total)

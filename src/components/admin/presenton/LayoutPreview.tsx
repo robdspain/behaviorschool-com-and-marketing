@@ -1,7 +1,7 @@
 "use client";
 
 interface Props {
-  layout: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left';
+  layout: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left'|'table';
   imageUrl?: string;
   titleText?: string;
   content?: string[];
@@ -143,6 +143,28 @@ function renderBody({ layout, hasImage, colors, titleText, content, imageUrl, si
       <div className="absolute left-6 right-6 flex items-center justify-center" style={{ top: sizes.quoteTop, bottom: sizes.quoteBottom }}>
         <div className="text-center" style={{ color: colors.text, fontSize: sizes.quote, fontStyle: 'italic' }}>
           “{(content && content[0]) || 'A concise, compelling quote goes here.'}”
+        </div>
+      </div>
+    );
+  }
+
+  if (layout === 'table') {
+    const rows = 4; const cols = 4;
+    return (
+      <div className="absolute left-3 right-3" style={{ top: sizes.bodyTop, bottom: sizes.bodyBottom }}>
+        <div className="w-full h-full border rounded overflow-hidden" style={{ borderColor: colors.border }}>
+          <div className="grid" style={{ display:'grid', gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+            {[...Array(cols)].map((_, i) => (
+              <div key={i} className="px-2 py-1 font-semibold" style={{ borderRight: `1px solid ${colors.border}`, background: hexToRgba(colors.primary, 0.12), color: colors.title, fontSize: sizes.bullet }}>
+                {content?.[i] || `Header ${i+1}`}
+              </div>
+            ))}
+            {[...Array(rows*cols)].map((_, idx) => (
+              <div key={idx} className="px-2 py-1" style={{ borderTop: `1px solid ${colors.border}`, borderRight: `1px solid ${colors.border}`, fontSize: sizes.bullet, color: colors.text }}>
+                
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
