@@ -376,6 +376,48 @@ export default function PresentationPlayer({
           >
             Put image on this slide
           </button>
+          <button
+            onClick={async ()=>{
+              try {
+                const s = slides[currentSlide];
+                const updated = [...slides];
+                const nextLayout = (s.layout === 'image-right' || s.layout === 'image-left' || s.layout === 'two-column' || s.layout === 'image-full') ? 'text' as const : (s.layout || 'auto');
+                updated[currentSlide] = { ...s, imageUrl: undefined, layout: nextLayout };
+                setSlides(updated);
+                setTimeout(()=> saveToDatabase(), 50);
+              } catch {}
+            }}
+            className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+            title="Remove the image from this slide"
+            disabled={!slides[currentSlide]?.imageUrl}
+          >
+            Remove image
+          </button>
+          <button
+            onClick={async ()=>{
+              try {
+                const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
+                const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : '';
+                if (!apiKey) { alert('Set your Google API key in Settings to generate with Gemini.'); return; }
+                const s = slides[currentSlide];
+                const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
+                setEnriching(true); setEnrichMsg('Regenerating image…');
+                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024', allowFallback }) });
+                const j = await resp.json();
+                if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
+                const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
+                setSlides(updated);
+                setTimeout(()=> saveToDatabase(), 100);
+              } catch (e) {
+                const msg = e instanceof Error ? e.message : 'Couldn’t create an image. Check your Google AI key or Imagen access.';
+                alert(msg);
+              } finally { setEnriching(false); setEnrichMsg(null); }
+            }}
+            className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
+            title="Regenerate the image for this slide"
+          >
+            Regenerate image
+          </button>
           <label className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 cursor-pointer">
             Upload image
             <input type="file" accept="image/*" className="hidden" onChange={async (e)=>{
