@@ -8,9 +8,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'topic and slides are required' }, { status: 400 });
     }
     const supabase = createSupabaseAdminClient();
+    const id = crypto.randomUUID();
+    const storagePath = `drafts/${id}.json`;
+    // Upload a lightweight draft record so storage_path is non-null
+    const bytes = Buffer.from(JSON.stringify({ topic, template, tone, language, provider, model, slides }, null, 2), 'utf8');
+    const { error: upErr } = await supabase.storage.from('presentations').upload(storagePath, bytes, { contentType: 'application/json', upsert: false });
+    if (upErr) throw upErr;
+
     const { data, error } = await supabase
       .from('presentations_ai')
       .insert({
+        id,
         topic: String(topic).slice(0, 1000),
         slide_count: slides.length,
         template,
@@ -18,8 +26,8 @@ export async function POST(req: NextRequest) {
         language,
         provider,
         model,
-        export_format: 'pptx',
-        storage_path: null,
+        export_format: 'draft',
+        storage_path: storagePath,
         slides,
       })
       .select('id')
@@ -31,4 +39,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to create draft' }, { status: 500 });
   }
 }
-

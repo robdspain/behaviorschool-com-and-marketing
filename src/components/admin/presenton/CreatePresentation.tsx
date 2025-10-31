@@ -210,8 +210,8 @@ export default function CreatePresentation() {
         body: JSON.stringify({ topic: topicContent, template: form.template, tone: form.tone, language: form.language, provider, model: form.model, slides })
       });
       if (!draftResp.ok) {
-        const err = await draftResp.json().catch(()=>({}));
-        throw new Error(err.error || 'Failed to create draft');
+        const errTxt = await draftResp.text().catch(()=> '');
+        try { const j = JSON.parse(errTxt); throw new Error(j.error || 'Failed to create draft'); } catch { throw new Error(errTxt || 'Failed to create draft'); }
       }
       const { id } = await draftResp.json();
       setEditor({ id, title: topicContent || form.content, template: form.template, slides });
