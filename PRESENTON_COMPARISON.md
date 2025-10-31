@@ -414,8 +414,9 @@
 4. ✅ Add batch file upload (multiple documents)
 5. ✅ Improve template designer (full customization)
 6. ✅ Default to Create flow with inline editor (no immediate download)
-7. ⚠️ Slide editor drag-and-drop enhancements (in progress)
-8. ✅ Auto-generate images for slides by default
+7. ✅ Slide editor drag-and-drop thumbnails (reorder + save)
+8. ⚠️ WYSIWYG slide editor parity with blog (enhanced toolbar, embeds)
+9. ⚠️ Post‑generation image enrichment (generate/attach images) — next up
 
 ### Short-term Enhancements
 1. Add more slide layouts (target: 25-30 total)
