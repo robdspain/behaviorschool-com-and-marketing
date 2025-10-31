@@ -70,7 +70,7 @@ export default function CreatePresentation() {
       const ollamaEndpoint = localStorage.getItem("ollama_endpoint");
 
       if (!googleKey && !openaiKey && !anthropicKey && !ollamaEndpoint) {
-        setModelsError("Please configure an AI provider key in Settings first");
+        setModelsError("Add a provider key in Settings first.");
         setIsLoadingModels(false);
         return;
       }
@@ -175,7 +175,8 @@ export default function CreatePresentation() {
       });
       if (!outlineResp.ok) {
         const err = await outlineResp.json().catch(()=>({}));
-        throw new Error(err.details || err.error || 'Failed to generate outline');
+        const details = err.details || err.error || '';
+        throw new Error(details ? `Couldn’t draft slides: ${details}` : 'Couldn’t draft slides. Check AI key/model or try again.');
       }
       const { slides: outlineSlides } = await outlineResp.json();
       let slides = outlineSlides || [];
@@ -209,7 +210,7 @@ export default function CreatePresentation() {
       }
 
       // 3) Create a draft row in DB so the editor can persist
-      setProgress('Preparing editor...');
+      setProgress('Preparing editor…');
       const draftResp = await fetch('/api/admin/presentations/create-draft', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: topicContent, template: form.template, tone: form.tone, language: form.language, provider, model: form.model, slides })
@@ -222,8 +223,9 @@ export default function CreatePresentation() {
       setEditor({ id, title: topicContent || form.content, template: form.template, slides });
 
     } catch (err) {
-      // Surface which step failed
-      const msg = err instanceof Error ? err.message : 'An error occurred';
+      // Friendlier error copy
+      const raw = err instanceof Error ? err.message : '';
+      const msg = raw || 'Couldn’t draft slides. Check AI key/model or try again.';
       setError(msg);
     } finally {
       setIsGenerating(false);
@@ -386,7 +388,7 @@ export default function CreatePresentation() {
           {isLoadingModels ? (
             <div className="px-4 py-3 border-2 border-slate-200 rounded-lg bg-slate-50 text-slate-600 flex items-center gap-2">
               <Loader2 className="w-4 h-4 animate-spin" />
-              Loading available models...
+              Finding available AI models…
             </div>
           ) : modelsError ? (
             <div className="px-4 py-3 border-2 border-red-200 rounded-lg bg-red-50 text-red-700">

@@ -351,7 +351,7 @@ export default function PresentationPlayer({
                 setSlides(updated);
                 setTimeout(()=> saveToDatabase(), 100);
               } catch (e) {
-                const msg = e instanceof Error ? e.message : 'Image generation failed';
+                const msg = e instanceof Error ? e.message : 'Couldn’t create an image. Check your Google AI key or Imagen access.';
                 alert(msg);
               } finally { setEnriching(false); setEnrichMsg(null); }
             }}
