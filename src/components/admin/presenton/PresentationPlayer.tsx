@@ -435,12 +435,13 @@ export default function PresentationPlayer({
                 const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
                 const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
                 const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
+                const fallbackKey = allowFallback ? (localStorage.getItem('openai_api_key') || undefined) : undefined;
                 if (!provider || !apiKey) { alert('Add a Google or OpenAI key in Settings to put an image on the slide.'); return; }
                 const s = slides[currentSlide];
                 const textSnippet = (s.content || []).join(' • ').slice(0, 500);
                 const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
                 setEnriching(true); setEnrichMsg('Generating image…');
-                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback }) });
+                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback, openaiKey: fallbackKey }) });
                 const j = await resp.json();
                 if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
                 const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
@@ -579,7 +580,7 @@ export default function PresentationPlayer({
                     const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
                     const resp = await fetch('/api/admin/presentations/images/generate', {
                       method: 'POST', headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback })
+                      body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback, openaiKey: fallbackKey })
                     });
                     if (resp.ok) {
                       const j = await resp.json();
