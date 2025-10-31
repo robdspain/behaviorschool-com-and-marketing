@@ -24,6 +24,10 @@
 8. ✅ **Image & Icon Management** - AI generation + stock photo search + icon finder
 9. ✅ **Async & Streaming** - Background processing with SSE progress tracking
 10. ✅ **Custom Fonts** - Upload and use custom fonts in presentations
+11. ✅ **Template Settings UI** - Fonts + theme colors editable in-app
+12. ✅ **Direct Image Upload** - Upload local images to slides
+13. ✅ **Image Actions** - Put/Remove/Regenerate image per slide
+14. ✅ **Fallback Control** - Toggle OpenAI fallback for image gen
 
 ### What's Missing (Phase 4 - Advanced)
 - ✅ Web search grounding (Google Search API integration)
@@ -125,17 +129,19 @@
 - ❌ Markdown editor (using rich text instead)
 - ❌ Full template designer (basic customization available)
 
-### Image & Icon Management (85% Complete)
-- ✅ Image generation (OpenAI DALL-E and Gemini Imagen)
+### Image & Icon Management (95% Complete)
+- ✅ Image generation (OpenAI DALL‑E and Gemini Imagen)
 - ✅ Stock photo search (Pexels and Pixabay integration)
 - ✅ Icon search (integrated icon finder)
 - ✅ Image library management (Supabase storage)
 - ✅ Image picker component
 - ✅ Image size selection (512x512, 1024x1024, 2048x2048)
 - ✅ Provider selection (OpenAI/Gemini for generation)
+- ✅ Fallback toggle (allow OpenAI fallback when Gemini fails)
+- ✅ Direct image upload (file picker)
+- ✅ Per‑slide actions: Put image, Remove image, Regenerate image
 - ✅ Image embedding in slides
-- ❌ Direct image upload (using URL or generation)
-- ❌ Image editor component (crop/resize)
+- ⚠️ Image editor component (created; crop/resize pending)
 
 ### Advanced Features (50% Complete)
 - ✅ Font upload and management (custom fonts in templates)
@@ -193,7 +199,7 @@
    - ✅ AI-generated images (OpenAI DALL-E and Gemini Imagen)
    - ✅ Stock photo search (Pexels and Pixabay)
    - ✅ Image library (Supabase storage)
-   - ❌ Direct image upload (URL-based only)
+   - ✅ Direct image upload (URL + file upload)
 
 2. ✅ **Icon Search** - FULLY IMPLEMENTED
    - ✅ Icon finder integration
@@ -234,7 +240,7 @@
    - ✅ Custom fonts in presentations
    - ✅ Theme color overrides (primary/background/title/subtitle/text)
    - ✅ Layout persistence in saved docs
-   - ⚠️ Template settings UI (fonts + colors)
+   - ✅ Template settings UI (fonts + colors)
    - ❌ Advanced designer (spacing, grids, per-layout tuning)
    - ❌ Custom layout creation (11 built-in layouts)
 
