@@ -394,13 +394,13 @@
 
 ### Differences
 - ❌ No FastAPI backend (using Next.js API routes only)
-- ❌ No database (using localStorage only)
+- ✅ Database via Supabase (replaces localStorage-only)
 - ❌ No Docker deployment
-- ❌ No Redux state management
-- ❌ No Radix UI components
-- ❌ No Tiptap rich text editor
-- ❌ No @dnd-kit drag-and-drop
-- ❌ No Recharts for charts
+- ⚠️ No Redux state management (React state is sufficient so far; can add Redux Toolkit for complex flows)
+- ⚠️ Limited Radix UI usage (plan to adopt gradually for a11y primitives)
+- ✅ Tiptap rich text editor (blog-grade editor; used for slides modal editor)
+- ✅ @dnd-kit drag-and-drop (thumbnail reordering and outline editor)
+- ❌ No Recharts for charts (custom chart + pptxgenjs)
 - ❌ No testing infrastructure
 
 ---

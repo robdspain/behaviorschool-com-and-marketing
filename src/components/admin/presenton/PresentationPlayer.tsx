@@ -54,6 +54,8 @@ export default function PresentationPlayer({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [enriching, setEnriching] = useState(false);
+  const [enrichMsg, setEnrichMsg] = useState<string | null>(null);
 
   // Navigation functions
   const nextSlide = useCallback(() => {
@@ -230,6 +232,58 @@ export default function PresentationPlayer({
               <span>Saving...</span>
             </div>
           )}
+          {enriching && (
+            <div className="flex items-center gap-2 text-sm text-emerald-700 mr-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>{enrichMsg || 'Enriching images...'}</span>
+            </div>
+          )}
+          <button
+            onClick={async ()=>{
+              if (enriching) return;
+              setEnriching(true);
+              try {
+                const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
+                const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
+                const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
+                const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
+                if (!provider || !apiKey) {
+                  alert('Set a Google or OpenAI API key in Settings to generate images.');
+                  setEnriching(false);
+                  return;
+                }
+                let updated = [...slides];
+                const total = updated.length;
+                for (let i = 0; i < total; i++) {
+                  const s = updated[i];
+                  if (s.imageUrl) continue;
+                  setEnrichMsg(`Slide ${i+1}/${total}…`);
+                  try {
+                    const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
+                    const resp = await fetch('/api/admin/presentations/images/generate', {
+                      method: 'POST', headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024' })
+                    });
+                    if (resp.ok) {
+                      const j = await resp.json();
+                      updated[i] = { ...s, imageUrl: j.url };
+                      setSlides(updated);
+                      // persist incrementally
+                      setTimeout(() => saveToDatabase(), 10);
+                    }
+                  } catch {}
+                }
+                setEnrichMsg('Done');
+                setTimeout(()=> setEnrichMsg(null), 1200);
+              } finally {
+                setEnriching(false);
+              }
+            }}
+            className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
+            title="Generate and attach images for slides without images"
+          >
+            Enrich Images
+          </button>
           <button
             onClick={toggleFullscreen}
             className="p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
