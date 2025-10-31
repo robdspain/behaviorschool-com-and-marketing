@@ -208,12 +208,12 @@ async function generateWithGemini(
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: normalizeGeminiModel(modelName) });
 
-    const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
+    const prompt = `Create exactly ${slideCount} content slides about "${topic}" in ${language}.
 The tone should be ${tone}.
 
 ${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
 
-For each slide (excluding the title slide), provide:
+For each slide, provide:
 1. A clear, concise title
 2. 3-5 bullet points with key information
 
@@ -224,8 +224,7 @@ Format your response as a JSON array of objects with this structure:
     "content": ["Bullet point 1", "Bullet point 2", "Bullet point 3"]
   }
 ]
-
-Generate ${slideCount - 1} content slides (the title slide will be added automatically).`;
+`;
 
     console.log('Calling Gemini API...');
     const result = await model.generateContent(prompt);
@@ -264,12 +263,12 @@ async function generateWithOpenAI(
   webContext?: string
 ): Promise<Array<{ title: string; content: string[] }>> {
   try {
-    const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
+    const prompt = `Create exactly ${slideCount} content slides about "${topic}" in ${language}.
 The tone should be ${tone}.
 
 ${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
 
-For each slide (excluding the title slide), provide:
+For each slide, provide:
 1. A clear, concise title
 2. 3-5 bullet points with key information
 
@@ -322,12 +321,12 @@ async function generateWithAnthropic(
   webContext?: string
 ): Promise<Array<{ title: string; content: string[] }>> {
   try {
-    const prompt = `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
+    const prompt = `Create exactly ${slideCount} content slides about "${topic}" in ${language}.
 The tone should be ${tone}.
 
 ${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
 
-For each slide (excluding the title slide), provide:
+For each slide, provide:
 1. A clear, concise title
 2. 3-5 bullet points with key information
 

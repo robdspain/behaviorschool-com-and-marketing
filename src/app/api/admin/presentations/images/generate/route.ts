@@ -57,22 +57,44 @@ export async function POST(req: NextRequest) {
 
     if (provider === 'gemini') {
       if (!apiKey) return NextResponse.json({ error: 'apiKey is required for Gemini' }, { status: 400 });
-      const normalize = (name?: string) => {
-        const n = (name || '').trim();
-        if (!n) return 'gemini-2.5-flash';
-        if (n === 'gemini-2.5') return 'gemini-2.5-flash';
-        if (n === 'gemini-2.5-pro-latest') return 'gemini-2.5-pro';
-        if (n === 'gemini-2.5-flash-latest') return 'gemini-2.5-flash';
-        if (n === 'gemini-1.5-pro') return 'gemini-1.5-pro-latest';
-        if (n === 'gemini-1.5-flash') return 'gemini-1.5-flash-latest';
-        if (n === 'gemini-pro') return 'gemini-1.5-flash-latest';
-        return n;
-      };
-      // Gemini text models do not return images via generateContent in current API.
-      // Fallback to OpenAI image generation when Gemini is selected.
+      // Attempt Google Imagen 3.0 endpoint
+      try {
+        const imagenEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0:generateImage?key=${encodeURIComponent(apiKey)}`;
+        const imResp = await fetch(imagenEndpoint, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt: { text: String(prompt).slice(0, 800) },
+            size: size || '1024x1024'
+          })
+        });
+        if (imResp.ok) {
+          const imj = await imResp.json();
+          // Try to locate base64 image data or URL
+          const b64 = imj?.images?.[0]?.base64 || imj?.candidates?.[0]?.image?.base64 || imj?.candidates?.[0]?.content?.parts?.find((p: any)=> p.inlineData)?.inlineData?.data;
+          let bytes3: Buffer | null = null;
+          if (b64) {
+            bytes3 = Buffer.from(b64, 'base64');
+          } else if (imj?.images?.[0]?.url) {
+            const r = await fetch(imj.images[0].url); const arr = new Uint8Array(await r.arrayBuffer()); bytes3 = Buffer.from(arr);
+          } else {
+            throw new Error('No image returned');
+          }
+          const id = crypto.randomUUID();
+          const path = `generated/${id}.png`;
+          const { error: upErr3 } = await supabase.storage.from('presentations-images').upload(path, bytes3, { contentType: 'image/png', upsert: false });
+          if (upErr3) throw upErr3;
+          const { data: pub3 } = supabase.storage.from('presentations-images').getPublicUrl(path);
+          const url3 = pub3?.publicUrl;
+          await supabase.from('presentations_ai_images').insert({ prompt, provider: 'gemini', model: 'imagen-3.0', url: url3, storage_path: path });
+          return NextResponse.json({ url: url3, path, provider: 'gemini' });
+        }
+      } catch (e) {
+        // fall through to OpenAI only if required
+      }
+      // Fallback to OpenAI if Imagen request fails
       const openaiKey = process.env.OPENAI_API_KEY || body.openaiKey;
       if (!openaiKey) {
-        return NextResponse.json({ error: 'Gemini image generation is not supported via this API. Set OPENAI_API_KEY to fallback to OpenAI.' }, { status: 400 });
+        return NextResponse.json({ error: 'Gemini image generation failed and no OpenAI fallback key set.' }, { status: 502 });
       }
       const dalle = await fetch('https://api.openai.com/v1/images/generations', { method: 'POST', headers: { 'Authorization': `Bearer ${openaiKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'gpt-image-1', prompt, size }) });
       if (!dalle.ok) throw new Error(`OpenAI image fallback error ${dalle.status}: ${await dalle.text()}`);

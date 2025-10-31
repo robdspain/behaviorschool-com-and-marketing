@@ -171,19 +171,17 @@ async function fetchWebContext(query: string, numResults: number) {
 }
 
 function basePrompt(topic: string, slideCount: number, tone: string, language: string, webContext?: string) {
-  return `Create a ${slideCount}-slide presentation about "${topic}" in ${language}.
+  return `Create exactly ${slideCount} content slides about "${topic}" in ${language}.
 The tone should be ${tone}.
 
 ${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
 
-For each slide (excluding the title slide), provide:
+For each slide, provide:
 1. A clear, concise title
 2. 3-5 bullet points with key information
 
 Output only a JSON array of objects with this structure:
 [
   { "title": "Slide Title", "content": ["Bullet 1", "Bullet 2", "Bullet 3"] }
-]
-
-Generate ${slideCount - 1} content slides (the title slide will be added automatically).`;
+]`;
 }

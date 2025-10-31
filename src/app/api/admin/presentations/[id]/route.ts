@@ -89,6 +89,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
         .update({
           // @ts-ignore might not exist
           slides: slides,
+          template: body.template,
           updated_at: new Date().toISOString()
         })
         .eq('id', id);
@@ -97,7 +98,10 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       dbErr = e;
     }
     if (dbErr && row?.storage_path) {
-      await writeSlidesToStorage(row.storage_path, slides, templateTheme ? { templateTheme } : undefined);
+      const meta: any = {};
+      if (templateTheme) meta.templateTheme = templateTheme;
+      if (body.template) meta.template = body.template;
+      await writeSlidesToStorage(row.storage_path, slides, meta);
     } else if (dbErr) {
       throw dbErr;
     }

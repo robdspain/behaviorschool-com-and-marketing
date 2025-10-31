@@ -6,6 +6,7 @@ import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } 
 import { CSS } from '@dnd-kit/utilities';
 import { ChevronLeft, ChevronRight, Edit, X, Maximize2, Minimize2, Loader2, GripVertical } from 'lucide-react';
 import SlideRichEditor from './SlideRichEditor';
+import { TEMPLATE_COLORS, TEMPLATE_OPTIONS } from './templates';
 
 type ChartData = {
   type: 'bar'|'line'|'pie'|'doughnut';
@@ -233,10 +234,12 @@ export default function PresentationPlayer({
   }, []);
 
   const currentSlideData = slides[currentSlide];
-  const titleColor = theme?.titleColor ? `#${theme.titleColor}` : undefined;
-  const textColor = theme?.textColor ? `#${theme.textColor}` : undefined;
-  const primaryColor = theme?.primaryColor ? `#${theme.primaryColor}` : undefined;
-  const bgColor = theme?.backgroundColor ? `#${theme.backgroundColor}` : undefined;
+  const [currentTemplate, setCurrentTemplate] = useState<string>(template || 'modern');
+  const base = TEMPLATE_COLORS[currentTemplate] || TEMPLATE_COLORS['modern'];
+  const titleColor = `#${theme?.titleColor || base.title.replace('#','')}`;
+  const textColor = `#${theme?.textColor || base.text.replace('#','')}`;
+  const primaryColor = `#${theme?.primaryColor || base.primary.replace('#','')}`;
+  const bgColor = `#${theme?.backgroundColor || base.bg.replace('#','')}`;
 
   // Drag-and-drop thumbnails
   function SortableThumb({ id, children }: { id: string; children: (bind: { attributes: any; listeners: any; setNodeRef: (el: any)=>void; style: React.CSSProperties })=>React.ReactNode }) {
@@ -261,7 +264,7 @@ export default function PresentationPlayer({
   };
 
   return (
-    <div className={overlay ? "fixed inset-0 z-50 bg-white flex flex-col" : "relative flex flex-col border-2 border-slate-200 rounded-xl overflow-hidden"} style={bgColor ? { background: bgColor } : undefined}>
+    <div className={overlay ? "fixed inset-0 z-50 bg-white flex flex-col" : "relative flex flex-col border-2 border-slate-200 rounded-xl overflow-hidden"} style={{ background: bgColor }}>
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b-2 border-slate-200 bg-white">
         <button
@@ -421,12 +424,12 @@ export default function PresentationPlayer({
         {/* Slide Display Area */}
         <div className="flex-1 flex flex-col">
           <div className="flex-1 overflow-auto p-8 bg-gradient-to-br from-slate-50 to-slate-100">
-            <div className="max-w-5xl mx-auto rounded-2xl shadow-2xl border-2 border-slate-200 p-12 min-h-[600px] flex flex-col" style={bgColor ? { background: bgColor } : { background: '#fff' }}>
+            <div className="max-w-5xl mx-auto rounded-2xl shadow-2xl border-2 border-slate-200 p-12 min-h-[600px] flex flex-col" style={{ background: bgColor }}>
               {/* Slide Title */}
-              <h2 className="text-4xl font-bold mb-8 pb-4 border-b-4" style={{ color: titleColor || '#0f172a', borderBottomColor: primaryColor || '#10b981' }}>{currentSlideData.title}</h2>
+              <h2 className="text-4xl font-bold mb-8 pb-4 border-b-4" style={{ color: titleColor, borderBottomColor: primaryColor }}>{currentSlideData.title}</h2>
 
-              {/* Layout + Generate Image controls */}
-              <div className="flex items-center gap-3 mb-6">
+              {/* Layout + Template + Generate Image controls */}
+              <div className="flex items-center gap-3 mb-6 flex-wrap">
                 <label className="text-sm font-semibold text-slate-700">Layout</label>
                 <select
                   value={currentSlideData.layout || 'auto'}
@@ -443,21 +446,33 @@ export default function PresentationPlayer({
                     <option key={opt} value={opt}>{opt}</option>
                   ))}
                 </select>
+                <label className="text-sm font-semibold text-slate-700 ml-4">Template</label>
+                <select
+                  value={currentTemplate}
+                  onChange={async (e)=>{
+                    const val = e.target.value;
+                    setCurrentTemplate(val);
+                    try {
+                      await fetch(`/api/admin/presentations/${presentationId}`, { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ slides, template: val }) });
+                    } catch {}
+                  }}
+                  className="px-2 py-1 border-2 border-slate-200 rounded"
+                >
+                  {TEMPLATE_OPTIONS.map(opt => (<option key={opt.id} value={opt.id}>{opt.label}</option>))}
+                </select>
                 <button
                   onClick={async ()=>{
                     try {
                       const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
-                      const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
-                      const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
-                      const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
-                      if (!provider || !apiKey) { alert('Set a Google or OpenAI API key in Settings.'); return; }
+                      const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : '';
+                      if (!apiKey) { alert('Set your Google API key in Settings to generate with Gemini.'); return; }
                       const s = slides[currentSlide];
                       const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
                       setEnriching(true); setEnrichMsg('Generating image…');
-                      const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024' }) });
+                      const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024' }) });
                       const j = await resp.json();
                       if (!resp.ok) throw new Error(j.error || 'Failed');
-                      const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url };
+                      const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
                       setSlides(updated);
                       setTimeout(()=> saveToDatabase(), 100);
                     } catch (e) {
@@ -474,8 +489,8 @@ export default function PresentationPlayer({
                   <ul className="space-y-4">
                     {currentSlideData.content.map((bullet, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <span className="flex-shrink-0 w-2 h-2 rounded-full mt-2" style={{ background: primaryColor || '#10b981' }} />
-                        <span className="text-xl leading-relaxed" style={{ color: textColor || '#334155' }}>{sanitizePlain(bullet)}</span>
+                        <span className="flex-shrink-0 w-2 h-2 rounded-full mt-2" style={{ background: primaryColor }} />
+                        <span className="text-xl leading-relaxed" style={{ color: textColor }}>{sanitizePlain(bullet)}</span>
                       </li>
                     ))}
                   </ul>

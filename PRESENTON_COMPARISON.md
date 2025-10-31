@@ -323,8 +323,7 @@
 1. ✅ Font upload & management
 2. ✅ Custom fonts in presentations
 3. ✅ Chart editor (visual configuration)
-4. ⚠️ Custom template designer (fonts + theme colors)
-5. ❌ Webhook support
+it 5. ❌ Webhook support
 6. ❌ PPTX processing (upload existing files)
 7. ❌ Advanced AI features (tool calls, extended reasoning)
 8. ❌ Analytics integration
