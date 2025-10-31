@@ -37,6 +37,7 @@ type PresentationPlayerProps = {
   presentationTitle: string;
   template: string;
   onClose: () => void;
+  overlay?: boolean;
 };
 
 export default function PresentationPlayer({
@@ -44,7 +45,8 @@ export default function PresentationPlayer({
   initialSlides,
   presentationTitle,
   template,
-  onClose
+  onClose,
+  overlay = true
 }: PresentationPlayerProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slides, setSlides] = useState<Slide[]>(initialSlides);
@@ -206,7 +208,7 @@ export default function PresentationPlayer({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-white flex flex-col">
+    <div className={overlay ? "fixed inset-0 z-50 bg-white flex flex-col" : "relative bg-white flex flex-col border-2 border-slate-200 rounded-xl overflow-hidden"}>
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b-2 border-slate-200 bg-white">
         <button

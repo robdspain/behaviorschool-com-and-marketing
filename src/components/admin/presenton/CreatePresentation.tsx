@@ -499,13 +499,14 @@ export default function CreatePresentation() {
 
       {/* Inline Editor */}
       {editor && (
-        <div className="mt-6 border-2 border-slate-200 rounded-xl overflow-hidden">
+        <div className="mt-6">
           <PresentationPlayer
             presentationId={editor.id}
             initialSlides={editor.slides as any}
             presentationTitle={editor.title}
             template={editor.template}
             onClose={()=> setEditor(null)}
+            overlay={false}
           />
         </div>
       )}
