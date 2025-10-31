@@ -24,7 +24,8 @@ export async function POST(req: NextRequest) {
     const id = crypto.randomUUID();
     const storagePath = `drafts/${id}.json`;
     // Upload a lightweight draft record so storage_path is non-null
-    const bytes = Buffer.from(JSON.stringify({ topic, template, tone, language, provider, model, slides }, null, 2), 'utf8');
+    const share_token = crypto.randomUUID();
+    const bytes = Buffer.from(JSON.stringify({ topic, template, tone, language, provider, model, slides, share_token }, null, 2), 'utf8');
     const { error: upErr } = await supabase.storage.from('presentations').upload(storagePath, bytes, { contentType: 'application/json', upsert: false });
     if (upErr) throw upErr;
 

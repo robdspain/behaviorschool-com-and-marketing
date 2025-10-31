@@ -30,13 +30,21 @@ export async function POST(req: NextRequest) {
       const resp = await fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model: model || 'gpt-image-1', prompt, size, response_format: 'b64_json' }),
+        body: JSON.stringify({ model: model || 'gpt-image-1', prompt, size }),
       });
       if (!resp.ok) throw new Error(`OpenAI image error ${resp.status}: ${await resp.text()}`);
       const data = await resp.json();
-      const b64 = data?.data?.[0]?.b64_json;
-      if (!b64) throw new Error('No image returned');
-      const bytes = Buffer.from(b64, 'base64');
+      const url = data?.data?.[0]?.url;
+      let bytes: Buffer | null = null;
+      if (!url) {
+        const b64 = data?.data?.[0]?.b64_json;
+        if (!b64) throw new Error('No image returned');
+        bytes = Buffer.from(b64, 'base64');
+      } else {
+        const imgResp = await fetch(url);
+        const arr = new Uint8Array(await imgResp.arrayBuffer());
+        bytes = Buffer.from(arr);
+      }
       const id = crypto.randomUUID();
       const path = `generated/${id}.png`;
       const { error: upErr } = await supabase.storage.from('presentations-images').upload(path, bytes, { contentType: 'image/png', upsert: false });
@@ -66,18 +74,20 @@ export async function POST(req: NextRequest) {
       if (!openaiKey) {
         return NextResponse.json({ error: 'Gemini image generation is not supported via this API. Set OPENAI_API_KEY to fallback to OpenAI.' }, { status: 400 });
       }
-      const dalle = await fetch('https://api.openai.com/v1/images/generations', {
-        method: 'POST', headers: { 'Authorization': `Bearer ${openaiKey}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model: 'gpt-image-1', prompt, size, response_format: 'b64_json' })
-      });
+      const dalle = await fetch('https://api.openai.com/v1/images/generations', { method: 'POST', headers: { 'Authorization': `Bearer ${openaiKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'gpt-image-1', prompt, size }) });
       if (!dalle.ok) throw new Error(`OpenAI image fallback error ${dalle.status}: ${await dalle.text()}`);
       const dj = await dalle.json();
-      const b64 = dj?.data?.[0]?.b64_json;
-      if (!b64) return NextResponse.json({ error: 'No image generated' }, { status: 500 });
-      const bytes = Buffer.from(b64, 'base64');
+      const urlOut = dj?.data?.[0]?.url;
+      let bytes2: Buffer | null = null;
+      if (urlOut) {
+        const r = await fetch(urlOut); const arr = new Uint8Array(await r.arrayBuffer()); bytes2 = Buffer.from(arr);
+      } else {
+        const b64 = dj?.data?.[0]?.b64_json; if (!b64) return NextResponse.json({ error: 'No image generated' }, { status: 500 });
+        bytes2 = Buffer.from(b64, 'base64');
+      }
       const id = crypto.randomUUID();
       const path = `generated/${id}.png`;
-      const { error: upErr2 } = await supabase.storage.from('presentations-images').upload(path, bytes, { contentType: 'image/png', upsert: false });
+      const { error: upErr2 } = await supabase.storage.from('presentations-images').upload(path, bytes2, { contentType: 'image/png', upsert: false });
       if (upErr2) throw upErr2;
       const { data: pub2 } = supabase.storage.from('presentations-images').getPublicUrl(path);
       const url2 = pub2?.publicUrl;

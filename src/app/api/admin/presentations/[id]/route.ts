@@ -10,7 +10,7 @@ async function readSlidesFromStorage(path?: string) {
   try { const json = JSON.parse(text); return json.slides || null; } catch { return null; }
 }
 
-async function writeSlidesToStorage(path: string, slides: any) {
+async function writeSlidesToStorage(path: string, slides: any, meta?: Record<string, any>) {
   const supabase = createSupabaseAdminClient();
   const { data } = await supabase.storage.from('presentations').download(path);
   let base: any = {};
@@ -18,6 +18,9 @@ async function writeSlidesToStorage(path: string, slides: any) {
     try { base = JSON.parse(await data.text()); } catch { base = {}; }
   }
   base.slides = slides;
+  if (meta && typeof meta === 'object') {
+    for (const [k,v] of Object.entries(meta)) base[k] = v;
+  }
   const bytes = Buffer.from(JSON.stringify(base, null, 2), 'utf8');
   // Upsert by removing then uploading or using upsert: true if allowed
   // Supabase storage supports upsert option; here we use upsert true if available
@@ -71,6 +74,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     // Try DB update first; if column doesn't exist, fallback to storage
     const { data: row } = await supabase.from('presentations_ai').select('storage_path').eq('id', id).single();
     let dbErr: any = null;
+    const templateTheme = body.templateTheme;
     try {
       const { error: updateErr } = await supabase
         .from('presentations_ai')
@@ -85,7 +89,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       dbErr = e;
     }
     if (dbErr && row?.storage_path) {
-      await writeSlidesToStorage(row.storage_path, slides);
+      await writeSlidesToStorage(row.storage_path, slides, templateTheme ? { templateTheme } : undefined);
     } else if (dbErr) {
       throw dbErr;
     }
