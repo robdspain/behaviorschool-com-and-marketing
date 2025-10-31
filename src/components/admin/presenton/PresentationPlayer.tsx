@@ -31,6 +31,7 @@ type Slide = {
   icons?: string[];
   chart?: ChartData;
   layout?: 'auto'|'text'|'image-right'|'image-left'|'two-column'|'quote'|'title-only'|'image-full'|'metrics-3'|'chart-right'|'chart-left'|'table';
+  imageScale?: number; // 0.5 - 1.5 (default 1)
 };
 
 type PresentationPlayerProps = {
@@ -530,6 +531,54 @@ export default function PresentationPlayer({
           >
             Redesign
           </button>
+          {slides[currentSlide]?.imageUrl && (
+            <>
+              <label className="text-sm font-semibold text-slate-700 ml-2">Image position</label>
+              <select
+                value={(() => {
+                  const lay = slides[currentSlide]?.layout || 'auto';
+                  if (lay === 'image-left') return 'left';
+                  if (lay === 'image-right' || lay === 'auto') return 'right';
+                  if (lay === 'image-full') return 'center';
+                  if (lay === 'two-column') return 'right';
+                  return 'right';
+                })()}
+                onChange={(e)=>{
+                  const v = e.target.value as 'left'|'right'|'center';
+                  const updated = [...slides];
+                  const s = updated[currentSlide];
+                  const nextLayout = v === 'left' ? 'image-left' : v === 'right' ? 'image-right' : 'image-full';
+                  updated[currentSlide] = { ...s, layout: nextLayout } as any;
+                  setSlides(updated);
+                  setTimeout(()=> saveToDatabase(), 80);
+                }}
+                className="px-2 py-1 border-2 border-slate-200 rounded"
+              >
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+                <option value="center">Center</option>
+              </select>
+
+              <label className="text-sm font-semibold text-slate-700 ml-2">Image size</label>
+              <input
+                type="range"
+                min={50}
+                max={150}
+                step={5}
+                value={Math.round(((slides[currentSlide]?.imageScale || 1) * 100))}
+                onChange={(e)=>{
+                  const pct = Number(e.target.value);
+                  const scale = Math.max(0.5, Math.min(1.5, pct/100));
+                  const updated = [...slides];
+                  updated[currentSlide] = { ...updated[currentSlide], imageScale: scale } as any;
+                  setSlides(updated);
+                }}
+                onMouseUp={()=> setTimeout(()=> saveToDatabase(), 100)}
+                onTouchEnd={()=> setTimeout(()=> saveToDatabase(), 100)}
+                className="align-middle"
+              />
+            </>
+          )}
           <button
             onClick={()=> setShowTemplateSettings(true)}
             className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
@@ -762,10 +811,10 @@ export default function PresentationPlayer({
                       )}
                     </div>
                     <div className="flex items-center justify-center">
-                      {currentSlideData.imageUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full max-h-96 rounded-lg shadow-lg border-2 border-slate-200 object-contain" />
-                      ) : (
+                {currentSlideData.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full rounded-lg shadow-lg border-2 border-slate-200 object-contain" style={{ maxHeight: `${Math.round(384 * (currentSlideData.imageScale || 1))}px` }} />
+                  ) : (
                         <div className="text-slate-400 italic">No image</div>
                       )}
                     </div>
@@ -787,7 +836,7 @@ export default function PresentationPlayer({
                     <div className="flex items-center justify-center">
                       {currentSlideData.imageUrl && (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full max-h-96 rounded-lg shadow-lg border-2 border-slate-200 object-contain" />
+                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full rounded-lg shadow-lg border-2 border-slate-200 object-contain" style={{ maxHeight: `${Math.round(384 * (currentSlideData.imageScale || 1))}px` }} />
                       )}
                     </div>
                   </div>
@@ -796,7 +845,7 @@ export default function PresentationPlayer({
                     <div className="flex items-center justify-center order-last md:order-first">
                       {currentSlideData.imageUrl && (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full max-h-96 rounded-lg shadow-lg border-2 border-slate-200 object-contain" />
+                        <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full rounded-lg shadow-lg border-2 border-slate-200 object-contain" style={{ maxHeight: `${Math.round(384 * (currentSlideData.imageScale || 1))}px` }} />
                       )}
                     </div>
                     <div className="order-first md:order-last">
@@ -816,7 +865,7 @@ export default function PresentationPlayer({
                   <div className="flex items-center justify-center flex-1">
                     {currentSlideData.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full max-h-[520px] rounded-xl shadow-2xl border-2 border-slate-200 object-contain" />
+                      <img src={currentSlideData.imageUrl} alt={currentSlideData.title} className="max-w-full rounded-xl shadow-2xl border-2 border-slate-200 object-contain" style={{ maxHeight: `${Math.round(520 * (currentSlideData.imageScale || 1))}px` }} />
                     ) : (
                       <div className="text-slate-400 italic">No image</div>
                     )}
