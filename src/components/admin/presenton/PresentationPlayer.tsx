@@ -410,7 +410,7 @@ export default function PresentationPlayer({
   return (
     <div className={overlay ? "fixed inset-0 z-50 bg-white flex flex-col" : "relative flex flex-col border-2 border-slate-200 rounded-xl overflow-hidden"} style={{ background: bgColor }}>
       {/* Header */}
-      <div className="border-b-2 border-slate-200 bg-white">
+      <div className="border-b-2 border-slate-200 bg-white relative z-[100] overflow-visible">
         {/* Top Row: Close, Title, Status, Actions */}
         <div className="flex items-center justify-between px-4 py-3 gap-4">
           {/* Left: Close & Title */}
@@ -491,7 +491,7 @@ export default function PresentationPlayer({
         </div>
 
         {/* Control Bar: Layout, Template, Image Controls */}
-        <div className="flex items-center gap-3 px-4 py-2 border-t border-slate-100 bg-slate-50 overflow-x-auto overflow-y-visible">
+        <div className="flex items-center gap-3 px-4 py-2 border-t border-slate-100 bg-slate-50 overflow-x-auto overflow-y-visible relative z-[100]">
           {/* Layout & Template Group */}
           <div className="flex items-center gap-2 shrink-0 border-r border-slate-200 pr-3">
             <div className="flex items-center gap-2">
