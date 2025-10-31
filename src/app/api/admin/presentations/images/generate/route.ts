@@ -57,6 +57,8 @@ export async function POST(req: NextRequest) {
 
     if (provider === 'gemini') {
       if (!apiKey) return NextResponse.json({ error: 'apiKey is required for Gemini' }, { status: 400 });
+      const allowFallback = Boolean(body?.allowFallback);
+      let lastError: string | undefined;
       // Attempt Google Imagen 3.0 endpoint
       try {
         const imagenEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0:generateImage?key=${encodeURIComponent(apiKey)}`;
@@ -87,11 +89,17 @@ export async function POST(req: NextRequest) {
           const url3 = pub3?.publicUrl;
           await supabase.from('presentations_ai_images').insert({ prompt, provider: 'gemini', model: 'imagen-3.0', url: url3, storage_path: path });
           return NextResponse.json({ url: url3, path, provider: 'gemini' });
+        } else {
+          lastError = await imResp.text();
         }
-      } catch (e) {
-        // fall through to OpenAI only if required
+      } catch (e: any) {
+        lastError = e?.message || String(e);
       }
-      // Fallback to OpenAI if Imagen request fails
+      // If Gemini failed and fallback not allowed, return a clear error
+      if (!allowFallback) {
+        return NextResponse.json({ error: 'Gemini image generation failed', details: lastError }, { status: 502 });
+      }
+      // Optional fallback to OpenAI if enabled by caller
       const openaiKey = process.env.OPENAI_API_KEY || body.openaiKey;
       if (!openaiKey) {
         return NextResponse.json({ error: 'Gemini image generation failed and no OpenAI fallback key set.' }, { status: 502 });
