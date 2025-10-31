@@ -34,14 +34,14 @@ export async function POST(req: NextRequest) {
       });
       if (!resp.ok) throw new Error(`OpenAI image error ${resp.status}: ${await resp.text()}`);
       const data = await resp.json();
-      const url = data?.data?.[0]?.url;
+      const urlOut1 = data?.data?.[0]?.url;
       let bytes: Buffer | null = null;
-      if (!url) {
+      if (!urlOut1) {
         const b64 = data?.data?.[0]?.b64_json;
         if (!b64) throw new Error('No image returned');
         bytes = Buffer.from(b64, 'base64');
       } else {
-        const imgResp = await fetch(url);
+        const imgResp = await fetch(urlOut1);
         const arr = new Uint8Array(await imgResp.arrayBuffer());
         bytes = Buffer.from(arr);
       }
@@ -50,9 +50,9 @@ export async function POST(req: NextRequest) {
       const { error: upErr } = await supabase.storage.from('presentations-images').upload(path, bytes, { contentType: 'image/png', upsert: false });
       if (upErr) throw upErr;
       const { data: pub } = supabase.storage.from('presentations-images').getPublicUrl(path);
-      const url = pub?.publicUrl;
-      await supabase.from('presentations_ai_images').insert({ prompt, provider: 'openai', model: model || 'gpt-image-1', url, storage_path: path });
-      return NextResponse.json({ url, path, provider: 'openai' });
+      const publicUrl1 = pub?.publicUrl;
+      await supabase.from('presentations_ai_images').insert({ prompt, provider: 'openai', model: model || 'gpt-image-1', url: publicUrl1, storage_path: path });
+      return NextResponse.json({ url: publicUrl1, path, provider: 'openai' });
     }
 
     if (provider === 'gemini') {

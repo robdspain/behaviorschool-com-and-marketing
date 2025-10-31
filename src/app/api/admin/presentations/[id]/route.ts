@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
 async function readSlidesFromStorage(path?: string) {
-  if (!path) return null;
+  if (!path) return null as any;
   const supabase = createSupabaseAdminClient();
   const { data } = await supabase.storage.from('presentations').download(path);
-  if (!data) return null;
+  if (!data) return null as any;
   const text = await data.text();
-  try { const json = JSON.parse(text); return json.slides || null; } catch { return null; }
+  try { const json = JSON.parse(text); return { slides: json.slides || null, templateTheme: json.templateTheme || null }; } catch { return null as any; }
 }
 
 async function writeSlidesToStorage(path: string, slides: any, meta?: Record<string, any>) {
@@ -46,10 +46,15 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
       return NextResponse.json({ error: 'Presentation not found' }, { status: 404 });
     }
 
-    // Attempt to augment with slides from storage if not present
-    if (!('slides' in presentation) || presentation.slides == null) {
-      const fromStorage = await readSlidesFromStorage(presentation.storage_path);
-      if (fromStorage) (presentation as any).slides = fromStorage;
+    // Attempt to augment with slides/theme from storage if not present
+    const fromStorage = await readSlidesFromStorage(presentation.storage_path);
+    if (fromStorage) {
+      if ((!('slides' in presentation)) || presentation.slides == null) {
+        (presentation as any).slides = (fromStorage as any).slides || [];
+      }
+      if ((fromStorage as any).templateTheme) {
+        (presentation as any).templateTheme = (fromStorage as any).templateTheme;
+      }
     }
 
     return NextResponse.json(presentation);

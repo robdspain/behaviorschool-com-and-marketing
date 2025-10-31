@@ -56,6 +56,18 @@ export default function PresentationPlayer({
   const [saveError, setSaveError] = useState<string | null>(null);
   const [enriching, setEnriching] = useState(false);
   const [enrichMsg, setEnrichMsg] = useState<string | null>(null);
+  const [showRedesign, setShowRedesign] = useState(false);
+  const [theme, setTheme] = useState<{ primaryColor?: string; backgroundColor?: string; titleColor?: string; subtitleColor?: string; textColor?: string } | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const resp = await fetch(`/api/admin/presentations/${presentationId}`);
+        const j = await resp.json();
+        if (resp.ok && j?.templateTheme) setTheme(j.templateTheme);
+      } catch {}
+    })();
+  }, [presentationId]);
 
   // Navigation functions
   const nextSlide = useCallback(() => {
@@ -238,6 +250,13 @@ export default function PresentationPlayer({
               <span>{enrichMsg || 'Enriching images...'}</span>
             </div>
           )}
+          <button
+            onClick={() => setShowRedesign(true)}
+            className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+            title="Redesign (Brand Kit)"
+          >
+            Redesign
+          </button>
           <button
             onClick={async ()=>{
               if (enriching) return;
@@ -439,6 +458,78 @@ export default function PresentationPlayer({
           onSave={saveSlideChanges}
           onClose={() => setEditingIndex(null)}
         />
+      )}
+
+      {/* Redesign (Brand Kit) Modal */}
+      {showRedesign && (
+        <div className="fixed inset-0 z-50">
+          <div className="absolute inset-0 bg-slate-900/50" onClick={()=> setShowRedesign(false)} />
+          <div className="absolute inset-0 flex items-center justify-center p-4">
+            <div className="bg-white rounded-xl shadow-2xl border-2 border-slate-200 max-w-xl w-full overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b-2 border-slate-200">
+                <h4 className="text-lg font-bold text-slate-900">Redesign (Brand Kit)</h4>
+                <button onClick={()=> setShowRedesign(false)} className="px-3 py-1 border-2 border-slate-200 rounded">Close</button>
+              </div>
+              <div className="p-4 grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-1">Primary Color</label>
+                  <input type="color" value={'#'+((theme?.primaryColor)||'10B981')} onChange={(e)=> setTheme({ ...(theme||{}), primaryColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-1">Background Color</label>
+                  <input type="color" value={'#'+((theme?.backgroundColor)||'FFFFFF')} onChange={(e)=> setTheme({ ...(theme||{}), backgroundColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-1">Title Color</label>
+                  <input type="color" value={'#'+((theme?.titleColor)||'1F2937')} onChange={(e)=> setTheme({ ...(theme||{}), titleColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-1">Subtitle Color</label>
+                  <input type="color" value={'#'+((theme?.subtitleColor)||'FFFFFF')} onChange={(e)=> setTheme({ ...(theme||{}), subtitleColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-1">Text Color</label>
+                  <input type="color" value={'#'+((theme?.textColor)||'374151')} onChange={(e)=> setTheme({ ...(theme||{}), textColor: e.target.value.replace('#','') })} />
+                </div>
+                <div>
+                  <div className="text-sm text-slate-600">Preview</div>
+                  <div className="rounded border overflow-hidden" style={{ borderColor: '#d1d5db' }}>
+                    <div className="p-3" style={{ background: '#'+((theme?.primaryColor)||'10B981') }}>
+                      <div className="font-bold" style={{ color: '#'+((theme?.subtitleColor)||'FFFFFF') }}>Title</div>
+                    </div>
+                    <div className="p-3" style={{ background: '#'+((theme?.backgroundColor)||'FFFFFF'), color: '#'+((theme?.textColor)||'374151') }}>
+                      Lorem ipsum dolor sit amet
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="px-4 py-3 border-t-2 border-slate-200 flex items-center justify-end gap-2">
+                <button onClick={()=> setShowRedesign(false)} className="px-4 py-2 border-2 border-slate-200 rounded">Cancel</button>
+                <button
+                  onClick={async ()=>{
+                    try {
+                      setSaving(true);
+                      setSaveError(null);
+                      const resp = await fetch(`/api/admin/presentations/${presentationId}`, {
+                        method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ slides, templateTheme: theme || {} })
+                      });
+                      if (!resp.ok) {
+                        const j = await resp.json().catch(()=>({})); throw new Error(j.error || 'Failed to save theme');
+                      }
+                      setShowRedesign(false);
+                    } catch (e) {
+                      setSaveError(e instanceof Error ? e.message : 'Failed to save');
+                    } finally { setSaving(false); }
+                  }}
+                  className="px-4 py-2 bg-emerald-600 text-white rounded"
+                >
+                  Save Theme
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
