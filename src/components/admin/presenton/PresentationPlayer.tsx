@@ -280,7 +280,7 @@ export default function PresentationPlayer({
           {presentationTitle}
         </h1>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {saveError && (
             <span className="text-sm text-red-600 mr-2">{saveError}</span>
           )}
@@ -296,6 +296,61 @@ export default function PresentationPlayer({
               <span>{enrichMsg || 'Enriching images...'}</span>
             </div>
           )}
+          {/* Moved slide controls into header */}
+          <label className="text-sm font-semibold text-slate-700 ml-2">Layout</label>
+          <select
+            value={currentSlideData.layout || 'auto'}
+            onChange={(e)=>{
+              const val = e.target.value as Slide['layout'];
+              const updated = [...slides];
+              updated[currentSlide] = { ...updated[currentSlide], layout: val };
+              setSlides(updated);
+              setTimeout(()=> saveToDatabase(), 100);
+            }}
+            className="px-2 py-1 border-2 border-slate-200 rounded"
+          >
+            {(['auto','text','image-right','image-left','two-column','quote','title-only','image-full','metrics-3','chart-right','chart-left','table'] as const).map(opt => (
+              <option key={opt} value={opt}>{opt}</option>
+            ))}
+          </select>
+          <label className="text-sm font-semibold text-slate-700 ml-2">Template</label>
+          <select
+            value={currentTemplate}
+            onChange={async (e)=>{
+              const val = e.target.value;
+              setCurrentTemplate(val);
+              try {
+                await fetch(`/api/admin/presentations/${presentationId}`, { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ slides, template: val }) });
+              } catch {}
+            }}
+            className="px-2 py-1 border-2 border-slate-200 rounded"
+          >
+            {TEMPLATE_OPTIONS.map(opt => (<option key={opt.id} value={opt.id}>{opt.label}</option>))}
+          </select>
+          <button
+            onClick={async ()=>{
+              try {
+                const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
+                const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : '';
+                if (!apiKey) { alert('Set your Google API key in Settings to generate with Gemini.'); return; }
+                const s = slides[currentSlide];
+                const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
+                setEnriching(true); setEnrichMsg('Generating image…');
+                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024' }) });
+                const j = await resp.json();
+                if (!resp.ok) throw new Error(j.error || 'Failed');
+                const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
+                setSlides(updated);
+                setTimeout(()=> saveToDatabase(), 100);
+              } catch (e) {
+                alert(e instanceof Error ? e.message : 'Image generation failed');
+              } finally { setEnriching(false); setEnrichMsg(null); }
+            }}
+            className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
+          >
+            Generate Image
+          </button>
+
           <button
             onClick={() => setShowRedesign(true)}
             className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
@@ -428,60 +483,7 @@ export default function PresentationPlayer({
               {/* Slide Title */}
               <h2 className="text-4xl font-bold mb-8 pb-4 border-b-4" style={{ color: titleColor, borderBottomColor: primaryColor }}>{currentSlideData.title}</h2>
 
-              {/* Layout + Template + Generate Image controls */}
-              <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <label className="text-sm font-semibold text-slate-700">Layout</label>
-                <select
-                  value={currentSlideData.layout || 'auto'}
-                  onChange={(e)=>{
-                    const val = e.target.value as Slide['layout'];
-                    const updated = [...slides];
-                    updated[currentSlide] = { ...updated[currentSlide], layout: val };
-                    setSlides(updated);
-                    setTimeout(()=> saveToDatabase(), 100);
-                  }}
-                  className="px-2 py-1 border-2 border-slate-200 rounded"
-                >
-                  {(['auto','text','image-right','image-left','two-column','quote','title-only','image-full','metrics-3','chart-right','chart-left','table'] as const).map(opt => (
-                    <option key={opt} value={opt}>{opt}</option>
-                  ))}
-                </select>
-                <label className="text-sm font-semibold text-slate-700 ml-4">Template</label>
-                <select
-                  value={currentTemplate}
-                  onChange={async (e)=>{
-                    const val = e.target.value;
-                    setCurrentTemplate(val);
-                    try {
-                      await fetch(`/api/admin/presentations/${presentationId}`, { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ slides, template: val }) });
-                    } catch {}
-                  }}
-                  className="px-2 py-1 border-2 border-slate-200 rounded"
-                >
-                  {TEMPLATE_OPTIONS.map(opt => (<option key={opt.id} value={opt.id}>{opt.label}</option>))}
-                </select>
-                <button
-                  onClick={async ()=>{
-                    try {
-                      const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
-                      const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : '';
-                      if (!apiKey) { alert('Set your Google API key in Settings to generate with Gemini.'); return; }
-                      const s = slides[currentSlide];
-                      const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
-                      setEnriching(true); setEnrichMsg('Generating image…');
-                      const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024' }) });
-                      const j = await resp.json();
-                      if (!resp.ok) throw new Error(j.error || 'Failed');
-                      const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
-                      setSlides(updated);
-                      setTimeout(()=> saveToDatabase(), 100);
-                    } catch (e) {
-                      alert(e instanceof Error ? e.message : 'Image generation failed');
-                    } finally { setEnriching(false); setEnrichMsg(null); }
-                  }}
-                  className="px-3 py-1 border-2 border-emerald-200 rounded text-emerald-700 hover:bg-emerald-50"
-                >Generate Image</button>
-              </div>
+              {/* Slide controls moved to top menu bar */}
 
               {/* Slide Content */}
               <div className="flex-1 flex flex-col gap-6">
