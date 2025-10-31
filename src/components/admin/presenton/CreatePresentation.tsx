@@ -175,7 +175,7 @@ export default function CreatePresentation() {
       });
       if (!outlineResp.ok) {
         const err = await outlineResp.json().catch(()=>({}));
-        throw new Error(err.error || 'Failed to generate outline');
+        throw new Error(err.details || err.error || 'Failed to generate outline');
       }
       const { slides: outlineSlides } = await outlineResp.json();
       let slides = outlineSlides || [];

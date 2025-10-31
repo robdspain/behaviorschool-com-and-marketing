@@ -46,8 +46,9 @@ export async function POST(request: NextRequest) {
     }));
     return NextResponse.json({ slides: sanitized });
   } catch (error) {
+    const msg = error instanceof Error ? error.message : 'Unknown error';
     console.error('Generate outline error:', error);
-    return NextResponse.json({ error: 'Failed to generate outline' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to generate outline', details: msg }, { status: 500 });
   }
 }
 
@@ -56,6 +57,7 @@ function normalizeGeminiModel(name?: string) {
   // Prefer 2.5 family
   if (!n) return 'gemini-2.5-flash';
   if (n === 'gemini-2.5') return 'gemini-2.5-flash';
+  if (n === 'gemini-2.5-flash-lite') return 'gemini-2.5-flash';
   if (n === 'gemini-2.5-pro-latest') return 'gemini-2.5-pro';
   if (n === 'gemini-2.5-flash-latest') return 'gemini-2.5-flash';
   if (!n) return 'gemini-1.5-pro-latest';
@@ -75,13 +77,34 @@ async function generateWithGemini(
   webContext?: string
 ) {
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: normalizeGeminiModel(modelName) });
   const prompt = basePrompt(topic, slideCount, tone, language, webContext);
-  const result = await model.generateContent(prompt);
-  const text = result.response.text();
+  const candidates = [normalizeGeminiModel(modelName), 'gemini-2.0-flash-lite', 'gemini-2.0-flash', 'gemini-1.5-flash-latest', 'gemini-1.5-pro-latest'];
+  let text = '';
+  let lastErr: any;
+  for (const m of candidates) {
+    try {
+      const model = genAI.getGenerativeModel({ model: m, generationConfig: { temperature: 0.7, responseMimeType: 'application/json' } } as any);
+      const result = await model.generateContent(prompt as any);
+      text = (result as any)?.response?.text?.() ?? '';
+      if (text) { break; }
+    } catch (e) { lastErr = e; }
+  }
+  if (!text) throw lastErr || new Error('No response from Gemini');
+  // Try strict JSON first
+  try {
+    return JSON.parse(text);
+  } catch {}
+  // Try fenced code block
+  const code = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  if (code && code[1]) {
+    return JSON.parse(code[1]);
+  }
+  // Try array slice fallback
   const m = text.match(/\[[\s\S]*\]/);
-  if (!m) throw new Error('Parse error');
-  return JSON.parse(m[0]);
+  if (m) {
+    return JSON.parse(m[0]);
+  }
+  throw new Error('Parse error');
 }
 
 async function generateWithOpenAI(
