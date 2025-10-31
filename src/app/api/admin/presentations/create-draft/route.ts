@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
+export const runtime = 'nodejs';
+
 export async function POST(req: NextRequest) {
   try {
     const { topic, template = 'modern', tone = 'professional', language = 'English', provider = 'google', model = '', slides } = await req.json();
@@ -8,6 +10,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'topic and slides are required' }, { status: 400 });
     }
     const supabase = createSupabaseAdminClient();
+
+    // Ensure storage bucket exists
+    try {
+      const { data: buckets } = await supabase.storage.listBuckets();
+      const has = (buckets || []).some((b) => b.name === 'presentations');
+      if (!has) {
+        await supabase.storage.createBucket('presentations', { public: false });
+      }
+    } catch (e) {
+      // proceed; if creation fails later upload will surface error
+    }
     const id = crypto.randomUUID();
     const storagePath = `drafts/${id}.json`;
     // Upload a lightweight draft record so storage_path is non-null
@@ -36,6 +49,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, id: data?.id });
   } catch (e) {
     console.error('Create draft error:', e);
-    return NextResponse.json({ error: 'Failed to create draft' }, { status: 500 });
+    return NextResponse.json({ error: e instanceof Error ? e.message : 'Failed to create draft' }, { status: 500 });
   }
 }
