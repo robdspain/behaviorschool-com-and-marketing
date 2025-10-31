@@ -58,13 +58,18 @@ export default function PresentationPlayer({
   const [enrichMsg, setEnrichMsg] = useState<string | null>(null);
   const [showRedesign, setShowRedesign] = useState(false);
   const [theme, setTheme] = useState<{ primaryColor?: string; backgroundColor?: string; titleColor?: string; subtitleColor?: string; textColor?: string } | null>(null);
+  const [shareToken, setShareToken] = useState<string | null>(null);
+  const [shareMsg, setShareMsg] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
       try {
         const resp = await fetch(`/api/admin/presentations/${presentationId}`);
         const j = await resp.json();
-        if (resp.ok && j?.templateTheme) setTheme(j.templateTheme);
+        if (resp.ok) {
+          if (j?.templateTheme) setTheme(j.templateTheme);
+          if (j?.shareToken) setShareToken(j.shareToken);
+        }
       } catch {}
     })();
   }, [presentationId]);
@@ -257,6 +262,23 @@ export default function PresentationPlayer({
           >
             Redesign
           </button>
+          <button
+            onClick={async ()=>{
+              try {
+                const tok = shareToken;
+                if (!tok) { alert('Share token not available for this draft. Save once and retry.'); return; }
+                const origin = typeof window !== 'undefined' ? window.location.origin : '';
+                const link = `${origin}/presentations/view/${presentationId}?token=${encodeURIComponent(tok)}`;
+                await navigator.clipboard.writeText(link);
+                setShareMsg('Link copied'); setTimeout(()=> setShareMsg(null), 1200);
+              } catch { alert('Failed to copy'); }
+            }}
+            className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+            title="Copy share link"
+          >
+            Share
+          </button>
+          {shareMsg && <span className="text-sm text-emerald-700">{shareMsg}</span>}
           <button
             onClick={async ()=>{
               if (enriching) return;

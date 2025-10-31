@@ -7,7 +7,7 @@ async function readSlidesFromStorage(path?: string) {
   const { data } = await supabase.storage.from('presentations').download(path);
   if (!data) return null as any;
   const text = await data.text();
-  try { const json = JSON.parse(text); return { slides: json.slides || null, templateTheme: json.templateTheme || null }; } catch { return null as any; }
+  try { const json = JSON.parse(text); return { slides: json.slides || null, templateTheme: json.templateTheme || null, shareToken: json.share_token || null }; } catch { return null as any; }
 }
 
 async function writeSlidesToStorage(path: string, slides: any, meta?: Record<string, any>) {
@@ -54,6 +54,9 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
       }
       if ((fromStorage as any).templateTheme) {
         (presentation as any).templateTheme = (fromStorage as any).templateTheme;
+      }
+      if ((fromStorage as any).shareToken) {
+        (presentation as any).shareToken = (fromStorage as any).shareToken;
       }
     }
 

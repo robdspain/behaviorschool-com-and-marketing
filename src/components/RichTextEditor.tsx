@@ -68,6 +68,7 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
   })
   const [imgSize, setImgSize] = useState<'512x512'|'1024x1024'|'2048x2048'>('1024x1024')
   const [imgLoading, setImgLoading] = useState(false)
+  const [imgCrop, setImgCrop] = useState<boolean>(true)
 
   const editor = useEditor({
     extensions: [
@@ -632,6 +633,10 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
                 <div>
                   <label className="block text-sm font-bold text-slate-900 mb-1">Image URL</label>
                   <input value={imgUrl} onChange={(e)=> setImgUrl(e.target.value)} className="w-full px-3 py-2 border-2 border-slate-200 rounded" placeholder="https://..." />
+                  <div className="mt-2 flex items-center gap-2 text-sm text-slate-700">
+                    <input id="cropToSquare" type="checkbox" checked={imgCrop} onChange={(e)=> setImgCrop(e.target.checked)} />
+                    <label htmlFor="cropToSquare">Center-crop to square</label>
+                  </div>
                 </div>
               ) : (
                 <>
@@ -676,7 +681,17 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
                       src = j.url
                     }
                     if (src && editor) {
-                      editor.chain().focus().setImage({ src }).run()
+                      if (imgCrop) {
+                        try {
+                          const dim = parseInt(imgSize.split('x')[0]) || 1024
+                          const cropped = await cropToSquare(src, dim)
+                          editor.chain().focus().setImage({ src: cropped }).run()
+                        } catch {
+                          editor.chain().focus().setImage({ src }).run()
+                        }
+                      } else {
+                        editor.chain().focus().setImage({ src }).run()
+                      }
                     }
                     setShowImageModal(false)
                   } catch (e) {
@@ -694,4 +709,26 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
     )}
     </>
   )
+}
+
+async function cropToSquare(src: string, size: number): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const ImgCtor: any = (typeof window !== 'undefined' && (window as any).Image) ? (window as any).Image : null;
+    const img = ImgCtor ? new ImgCtor() : ({} as any);
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const s = Math.min(img.width, img.height);
+        const sx = Math.max(0, Math.floor((img.width - s) / 2));
+        const sy = Math.max(0, Math.floor((img.height - s) / 2));
+        const canvas = document.createElement('canvas');
+        canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(img, sx, sy, s, s, 0, 0, size, size);
+        resolve(canvas.toDataURL('image/png'));
+      } catch (e) { reject(e); }
+    };
+    img.onerror = reject;
+    img.src = src;
+  });
 }
