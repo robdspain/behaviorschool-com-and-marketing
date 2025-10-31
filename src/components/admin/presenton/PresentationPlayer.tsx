@@ -346,12 +346,13 @@ export default function PresentationPlayer({
                 setEnriching(true); setEnrichMsg('Generating image…');
                 const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024' }) });
                 const j = await resp.json();
-                if (!resp.ok) throw new Error(j.error || 'Failed');
+                if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
                 const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
                 setSlides(updated);
                 setTimeout(()=> saveToDatabase(), 100);
               } catch (e) {
-                alert(e instanceof Error ? e.message : 'Image generation failed');
+                const msg = e instanceof Error ? e.message : 'Image generation failed';
+                alert(msg);
               } finally { setEnriching(false); setEnrichMsg(null); }
             }}
             className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
@@ -415,6 +416,10 @@ export default function PresentationPlayer({
                       setSlides(updated);
                       // persist incrementally
                       setTimeout(() => saveToDatabase(), 10);
+                    } else {
+                      const j = await resp.json().catch(()=>({}));
+                      const msg = j.details || j.error || 'Gemini image generation failed';
+                      console.warn('[Presenton] Image generation error:', msg);
                     }
                   } catch {}
                 }
