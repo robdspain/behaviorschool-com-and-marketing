@@ -32,7 +32,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid provider' }, { status: 400 });
     }
 
-    return NextResponse.json({ slides });
+    // Sanitize basic Markdown/formatting from titles and bullets
+    const clean = (s: string) => s
+      .replace(/\r/g, '')
+      .replace(/^\s*[-*•]\s+/g, '')           // leading bullet
+      .replace(/^\s*\d+[\.)]\s+/g, '')       // leading number.
+      .replace(/\*\*|__|\*|_|`/g, '')        // bold/italic/code marks
+      .replace(/\s+/g, ' ')
+      .trim();
+    const sanitized = (slides || []).map((sl) => ({
+      title: clean(sl.title || ''),
+      content: (sl.content || []).map((c: string) => clean(String(c || ''))).filter(Boolean),
+    }));
+    return NextResponse.json({ slides: sanitized });
   } catch (error) {
     console.error('Generate outline error:', error);
     return NextResponse.json({ error: 'Failed to generate outline' }, { status: 500 });

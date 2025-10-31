@@ -60,6 +60,7 @@ export default function PresentationPlayer({
   const [theme, setTheme] = useState<{ primaryColor?: string; backgroundColor?: string; titleColor?: string; subtitleColor?: string; textColor?: string } | null>(null);
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
+  const [autoEnriched, setAutoEnriched] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -73,6 +74,8 @@ export default function PresentationPlayer({
       } catch {}
     })();
   }, [presentationId]);
+
+  // moved lower to after saveToDatabase declaration
 
   // Navigation functions
   const nextSlide = useCallback(() => {
@@ -109,6 +112,37 @@ export default function PresentationPlayer({
       setSaving(false);
     }
   }, [presentationId, slides]);
+
+  // Auto-enrich missing images once if API keys present
+  useEffect(() => {
+    if (autoEnriched) return;
+    const anyMissing = slides.some(s => !s.imageUrl);
+    if (!anyMissing) return;
+    const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
+    const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
+    if (!hasGoogle && !hasOpenAI) return;
+    setAutoEnriched(true);
+    (async () => {
+      const provider = hasGoogle ? 'gemini' : 'openai';
+      const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : localStorage.getItem('openai_api_key');
+      if (!apiKey) return;
+      let updated = [...slides];
+      const total = updated.length;
+      for (let i = 0; i < total; i++) {
+        const s = updated[i]; if (s.imageUrl) continue;
+        try {
+          const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
+          const resp = await fetch('/api/admin/presentations/images/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024' }) });
+          if (resp.ok) {
+            const j = await resp.json();
+            updated[i] = { ...s, imageUrl: j.url };
+            setSlides(updated);
+          }
+        } catch {}
+      }
+      setTimeout(() => saveToDatabase(), 100);
+    })();
+  }, [slides, autoEnriched, presentationTitle, saveToDatabase]);
 
   // Edit mode handlers
   const openEditor = useCallback(() => {
@@ -199,6 +233,10 @@ export default function PresentationPlayer({
   }, []);
 
   const currentSlideData = slides[currentSlide];
+  const titleColor = theme?.titleColor ? `#${theme.titleColor}` : undefined;
+  const textColor = theme?.textColor ? `#${theme.textColor}` : undefined;
+  const primaryColor = theme?.primaryColor ? `#${theme.primaryColor}` : undefined;
+  const bgColor = theme?.backgroundColor ? `#${theme.backgroundColor}` : undefined;
 
   // Drag-and-drop thumbnails
   function SortableThumb({ id, children }: { id: string; children: (bind: { attributes: any; listeners: any; setNodeRef: (el: any)=>void; style: React.CSSProperties })=>React.ReactNode }) {
@@ -223,7 +261,7 @@ export default function PresentationPlayer({
   };
 
   return (
-    <div className={overlay ? "fixed inset-0 z-50 bg-white flex flex-col" : "relative bg-white flex flex-col border-2 border-slate-200 rounded-xl overflow-hidden"}>
+    <div className={overlay ? "fixed inset-0 z-50 bg-white flex flex-col" : "relative flex flex-col border-2 border-slate-200 rounded-xl overflow-hidden"} style={bgColor ? { background: bgColor } : undefined}>
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b-2 border-slate-200 bg-white">
         <button
@@ -383,20 +421,61 @@ export default function PresentationPlayer({
         {/* Slide Display Area */}
         <div className="flex-1 flex flex-col">
           <div className="flex-1 overflow-auto p-8 bg-gradient-to-br from-slate-50 to-slate-100">
-            <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl border-2 border-slate-200 p-12 min-h-[600px] flex flex-col">
+            <div className="max-w-5xl mx-auto rounded-2xl shadow-2xl border-2 border-slate-200 p-12 min-h-[600px] flex flex-col" style={bgColor ? { background: bgColor } : { background: '#fff' }}>
               {/* Slide Title */}
-              <h2 className="text-4xl font-bold text-slate-900 mb-8 pb-4 border-b-4 border-emerald-500">
-                {currentSlideData.title}
-              </h2>
+              <h2 className="text-4xl font-bold mb-8 pb-4 border-b-4" style={{ color: titleColor || '#0f172a', borderBottomColor: primaryColor || '#10b981' }}>{currentSlideData.title}</h2>
+
+              {/* Layout + Generate Image controls */}
+              <div className="flex items-center gap-3 mb-6">
+                <label className="text-sm font-semibold text-slate-700">Layout</label>
+                <select
+                  value={currentSlideData.layout || 'auto'}
+                  onChange={(e)=>{
+                    const val = e.target.value as Slide['layout'];
+                    const updated = [...slides];
+                    updated[currentSlide] = { ...updated[currentSlide], layout: val };
+                    setSlides(updated);
+                    setTimeout(()=> saveToDatabase(), 100);
+                  }}
+                  className="px-2 py-1 border-2 border-slate-200 rounded"
+                >
+                  {(['auto','text','image-right','image-left','two-column','quote','title-only','image-full','metrics-3','chart-right','chart-left','table'] as const).map(opt => (
+                    <option key={opt} value={opt}>{opt}</option>
+                  ))}
+                </select>
+                <button
+                  onClick={async ()=>{
+                    try {
+                      const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
+                      const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
+                      const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
+                      const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
+                      if (!provider || !apiKey) { alert('Set a Google or OpenAI API key in Settings.'); return; }
+                      const s = slides[currentSlide];
+                      const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
+                      setEnriching(true); setEnrichMsg('Generating image…');
+                      const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024' }) });
+                      const j = await resp.json();
+                      if (!resp.ok) throw new Error(j.error || 'Failed');
+                      const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url };
+                      setSlides(updated);
+                      setTimeout(()=> saveToDatabase(), 100);
+                    } catch (e) {
+                      alert(e instanceof Error ? e.message : 'Image generation failed');
+                    } finally { setEnriching(false); setEnrichMsg(null); }
+                  }}
+                  className="px-3 py-1 border-2 border-emerald-200 rounded text-emerald-700 hover:bg-emerald-50"
+                >Generate Image</button>
+              </div>
 
               {/* Slide Content */}
               <div className="flex-1 flex flex-col gap-6">
-                {currentSlideData.content.length > 0 && (
+                {(currentSlideData.content.length > 0) && (
                   <ul className="space-y-4">
                     {currentSlideData.content.map((bullet, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <span className="flex-shrink-0 w-2 h-2 bg-emerald-500 rounded-full mt-2" />
-                        <span className="text-xl text-slate-700 leading-relaxed">{bullet}</span>
+                        <span className="flex-shrink-0 w-2 h-2 rounded-full mt-2" style={{ background: primaryColor || '#10b981' }} />
+                        <span className="text-xl leading-relaxed" style={{ color: textColor || '#334155' }}>{sanitizePlain(bullet)}</span>
                       </li>
                     ))}
                   </ul>
@@ -529,6 +608,36 @@ export default function PresentationPlayer({
                 <button onClick={()=> setShowRedesign(false)} className="px-4 py-2 border-2 border-slate-200 rounded">Cancel</button>
                 <button
                   onClick={async ()=>{
+                    // One-click redesign: adjust layouts and persist theme
+                    try {
+                      setSaving(true);
+                      setSaveError(null);
+                      // Adjust slide layouts based on content/images
+                      const updated = [...slides].map((s) => {
+                        const current = s.layout || 'auto';
+                        if ((current === 'auto' || current === 'text') && s.imageUrl) return { ...s, layout: 'image-right' as const };
+                        if (!s.imageUrl && (current === 'auto' || current === 'image-right')) return { ...s, layout: 'text' as const };
+                        return s;
+                      });
+                      setSlides(updated);
+                      const resp = await fetch(`/api/admin/presentations/${presentationId}`, {
+                        method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ slides: updated, templateTheme: theme || {} })
+                      });
+                      if (!resp.ok) {
+                        const j = await resp.json().catch(()=>({})); throw new Error(j.error || 'Failed to apply redesign');
+                      }
+                      setShowRedesign(false);
+                    } catch (e) {
+                      setSaveError(e instanceof Error ? e.message : 'Failed to save');
+                    } finally { setSaving(false); }
+                  }}
+                  className="px-4 py-2 border-2 border-emerald-200 text-emerald-700 rounded"
+                >
+                  Apply Theme Now
+                </button>
+                <button
+                  onClick={async ()=>{
                     try {
                       setSaving(true);
                       setSaveError(null);
@@ -555,4 +664,16 @@ export default function PresentationPlayer({
       )}
     </div>
   );
+}
+
+function sanitizePlain(s: string) {
+  try {
+    return String(s)
+      .replace(/\r/g, '')
+      .replace(/^\s*[-*•]\s+/, '')
+      .replace(/^\s*\d+[\.)]\s+/, '')
+      .replace(/\*\*|__|\*|_|`/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  } catch { return s as any; }
 }

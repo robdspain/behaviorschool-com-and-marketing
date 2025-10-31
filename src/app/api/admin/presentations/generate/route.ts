@@ -56,6 +56,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Sanitize markdown-like formatting from slide content
+    const clean = (s: string) => s
+      .replace(/\r/g, '')
+      .replace(/^\s*[-*•]\s+/g, '')
+      .replace(/^\s*\d+[\.)]\s+/g, '')
+      .replace(/\*\*|__|\*|_|`/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    slideContent = (slideContent || []).map((sl: any) => ({
+      title: clean(sl.title || ''),
+      content: (sl.content || []).map((c: string) => clean(String(c || ''))).filter(Boolean),
+      imageUrl: sl.imageUrl,
+      icons: sl.icons,
+      chart: sl.chart,
+      layout: sl.layout,
+    }));
+
     if (exportAs === 'pdf') {
       // Build a simple PDF (title page + slides)
       const pdf = await buildPdfFromSlides(topic, slideContent, template, templateTheme);
