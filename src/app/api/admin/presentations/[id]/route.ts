@@ -7,7 +7,16 @@ async function readSlidesFromStorage(path?: string) {
   const { data } = await supabase.storage.from('presentations').download(path);
   if (!data) return null as any;
   const text = await data.text();
-  try { const json = JSON.parse(text); return { slides: json.slides || null, templateTheme: json.templateTheme || null, shareToken: json.share_token || null }; } catch { return null as any; }
+  try {
+    const json = JSON.parse(text);
+    return {
+      slides: json.slides || null,
+      templateTheme: json.templateTheme || null,
+      templateFonts: json.templateFonts || null,
+      template: json.template || null,
+      shareToken: json.share_token || null
+    };
+  } catch { return null as any; }
 }
 
 async function writeSlidesToStorage(path: string, slides: any, meta?: Record<string, any>) {
@@ -55,6 +64,12 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
       if ((fromStorage as any).templateTheme) {
         (presentation as any).templateTheme = (fromStorage as any).templateTheme;
       }
+      if ((fromStorage as any).templateFonts) {
+        (presentation as any).templateFonts = (fromStorage as any).templateFonts;
+      }
+      if ((fromStorage as any).template) {
+        (presentation as any).template = (fromStorage as any).template;
+      }
       if ((fromStorage as any).shareToken) {
         (presentation as any).shareToken = (fromStorage as any).shareToken;
       }
@@ -83,6 +98,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     const { data: row } = await supabase.from('presentations_ai').select('storage_path').eq('id', id).single();
     let dbErr: any = null;
     const templateTheme = body.templateTheme;
+    const templateFonts = body.templateFonts;
     try {
       const { error: updateErr } = await supabase
         .from('presentations_ai')
@@ -100,6 +116,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     if (dbErr && row?.storage_path) {
       const meta: any = {};
       if (templateTheme) meta.templateTheme = templateTheme;
+      if (templateFonts) meta.templateFonts = templateFonts;
       if (body.template) meta.template = body.template;
       await writeSlidesToStorage(row.storage_path, slides, meta);
     } else if (dbErr) {

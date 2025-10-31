@@ -7,6 +7,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { ChevronLeft, ChevronRight, Edit, X, Maximize2, Minimize2, Loader2, GripVertical } from 'lucide-react';
 import SlideRichEditor from './SlideRichEditor';
 import { TEMPLATE_COLORS, TEMPLATE_OPTIONS } from './templates';
+import TemplateSettings from './TemplateSettings';
 
 type ChartData = {
   type: 'bar'|'line'|'pie'|'doughnut';
@@ -62,6 +63,8 @@ export default function PresentationPlayer({
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
   const [autoEnriched, setAutoEnriched] = useState(false);
+  const [showTemplateSettings, setShowTemplateSettings] = useState(false);
+  const [templateFonts, setTemplateFonts] = useState<{ titleFontUrl?: string; bodyFontUrl?: string; titleFontName?: string; bodyFontName?: string } | null>(null);
   const [allowFallback, setAllowFallback] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     try { return localStorage.getItem('presenton_allow_openai_fallback') === 'true'; } catch { return false; }
@@ -78,6 +81,7 @@ export default function PresentationPlayer({
         const j = await resp.json();
         if (resp.ok) {
           if (j?.templateTheme) setTheme(j.templateTheme);
+          if (j?.templateFonts) setTemplateFonts(j.templateFonts);
           if (j?.shareToken) setShareToken(j.shareToken);
         }
       } catch {}
@@ -372,6 +376,29 @@ export default function PresentationPlayer({
           >
             Put image on this slide
           </button>
+          <label className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 cursor-pointer">
+            Upload image
+            <input type="file" accept="image/*" className="hidden" onChange={async (e)=>{
+              const file = e.target.files?.[0]; if (!file) return;
+              setEnriching(true); setEnrichMsg('Uploading image…');
+              try {
+                const fd = new FormData(); fd.append('file', file);
+                const resp = await fetch('/api/admin/presentations/images/upload', { method: 'POST', body: fd });
+                const j = await resp.json();
+                if (!resp.ok) throw new Error(j.error || 'Upload failed');
+                const updated = [...slides]; const s = updated[currentSlide];
+                updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
+                setSlides(updated);
+                setTimeout(()=> saveToDatabase(), 100);
+              } catch (e) {
+                alert(e instanceof Error ? e.message : 'Upload failed');
+              } finally {
+                setEnriching(false); setEnrichMsg(null);
+                // clear input
+                if (e.target) (e.target as HTMLInputElement).value = '';
+              }
+            }} />
+          </label>
 
           <button
             onClick={() => setShowRedesign(true)}
@@ -379,6 +406,13 @@ export default function PresentationPlayer({
             title="Redesign (Brand Kit)"
           >
             Redesign
+          </button>
+          <button
+            onClick={()=> setShowTemplateSettings(true)}
+            className="px-3 py-2 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50"
+            title="Template settings (fonts + colors)"
+          >
+            Template settings
           </button>
           <button
             onClick={async ()=>{
@@ -672,6 +706,34 @@ export default function PresentationPlayer({
           initialBullets={slides[editingIndex].content}
           onSave={saveSlideChanges}
           onClose={() => setEditingIndex(null)}
+        />
+      )}
+      {showTemplateSettings && (
+        <TemplateSettings
+          initial={{
+            titleFontUrl: templateFonts?.titleFontUrl,
+            bodyFontUrl: templateFonts?.bodyFontUrl,
+            titleFontName: templateFonts?.titleFontName,
+            bodyFontName: templateFonts?.bodyFontName,
+            theme: theme || undefined
+          }}
+          onSave={async (tf: any)=>{
+            try {
+              setSaving(true); setSaveError(null);
+              await fetch(`/api/admin/presentations/${presentationId}`, {
+                method:'PATCH', headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({ slides, templateTheme: tf.theme, templateFonts: {
+                  titleFontUrl: tf.titleFontUrl, bodyFontUrl: tf.bodyFontUrl, titleFontName: tf.titleFontName, bodyFontName: tf.bodyFontName
+                } })
+              });
+              setTemplateFonts({ titleFontUrl: tf.titleFontUrl, bodyFontUrl: tf.bodyFontUrl, titleFontName: tf.titleFontName, bodyFontName: tf.bodyFontName });
+              setTheme(tf.theme || null);
+              setShowTemplateSettings(false);
+            } catch (e) {
+              setSaveError(e instanceof Error ? e.message : 'Failed to save');
+            } finally { setSaving(false); }
+          }}
+          onClose={()=> setShowTemplateSettings(false)}
         />
       )}
 
