@@ -199,7 +199,8 @@ export default function CreatePresentation() {
             });
             if (ir.ok) {
               const j = await ir.json();
-              enriched.push({ ...s, imageUrl: j.url });
+              const nextLayout = (s.layout === 'text' || !s.layout || s.layout === 'auto') ? 'image-right' : s.layout;
+              enriched.push({ ...s, imageUrl: j.url, layout: nextLayout });
             } else {
               enriched.push(s);
             }

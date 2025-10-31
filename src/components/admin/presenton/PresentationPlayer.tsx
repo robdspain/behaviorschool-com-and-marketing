@@ -355,12 +355,15 @@ export default function PresentationPlayer({
             onClick={async ()=>{
               try {
                 const hasGoogle = typeof window !== 'undefined' ? !!localStorage.getItem('google_api_key') : false;
-                const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : '';
-                if (!apiKey) { alert('Set your Google API key in Settings to generate with Gemini.'); return; }
+                const hasOpenAI = typeof window !== 'undefined' ? !!localStorage.getItem('openai_api_key') : false;
+                const provider = hasGoogle ? 'gemini' : (hasOpenAI ? 'openai' : '');
+                const apiKey = hasGoogle ? localStorage.getItem('google_api_key') : (hasOpenAI ? localStorage.getItem('openai_api_key') : '');
+                if (!provider || !apiKey) { alert('Add a Google or OpenAI key in Settings to put an image on the slide.'); return; }
                 const s = slides[currentSlide];
-                const prompt = `${presentationTitle}: ${s.title}${s.content?.length ? ' — ' + s.content[0] : ''}`.slice(0, 400);
+                const textSnippet = (s.content || []).join(' • ').slice(0, 500);
+                const prompt = `${presentationTitle}: ${s.title}${textSnippet ? ' — ' + textSnippet : ''}`.slice(0, 700);
                 setEnriching(true); setEnrichMsg('Generating image…');
-                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider: 'gemini', apiKey, size: '1024x1024', allowFallback }) });
+                const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt, provider, apiKey, size: '1024x1024', allowFallback }) });
                 const j = await resp.json();
                 if (!resp.ok) throw new Error(j.details || j.error || 'Gemini image generation failed');
                 const updated = [...slides]; updated[currentSlide] = { ...s, imageUrl: j.url, layout: 'image-right' };
@@ -489,6 +492,7 @@ export default function PresentationPlayer({
                 }
                 let updated = [...slides];
                 const total = updated.length;
+                let added = 0;
                 for (let i = 0; i < total; i++) {
                   const s = updated[i];
                   if (s.imageUrl) continue;
@@ -502,8 +506,10 @@ export default function PresentationPlayer({
                     });
                     if (resp.ok) {
                       const j = await resp.json();
-                      updated[i] = { ...s, imageUrl: j.url };
+                      const nextLayout = (s.layout === 'text' || !s.layout || s.layout === 'auto') ? 'image-right' : s.layout;
+                      updated[i] = { ...s, imageUrl: j.url, layout: nextLayout };
                       setSlides(updated);
+                      added += 1;
                       // persist incrementally
                       setTimeout(() => saveToDatabase(), 10);
                     } else {
@@ -513,7 +519,7 @@ export default function PresentationPlayer({
                     }
                   } catch {}
                 }
-                setEnrichMsg('Done');
+                setEnrichMsg(`Added images to ${added}/${total}`);
                 setTimeout(()=> setEnrichMsg(null), 1200);
               } finally {
                 setEnriching(false);
