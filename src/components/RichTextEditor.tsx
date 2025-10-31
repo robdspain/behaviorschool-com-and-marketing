@@ -56,6 +56,18 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
   const [ctaStyle, setCtaStyle] = useState<'primary' | 'secondary'>('primary')
   const [wordCount, setWordCount] = useState(0)
   const [readingTime, setReadingTime] = useState(0)
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [imgMode, setImgMode] = useState<'url'|'generate'>('generate')
+  const [imgUrl, setImgUrl] = useState('')
+  const [imgPrompt, setImgPrompt] = useState('')
+  const [imgProvider, setImgProvider] = useState<'gemini'|'openai'>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('google_api_key') ? 'gemini' : 'openai'
+    }
+    return 'openai'
+  })
+  const [imgSize, setImgSize] = useState<'512x512'|'1024x1024'|'2048x2048'>('1024x1024')
+  const [imgLoading, setImgLoading] = useState(false)
 
   const editor = useEditor({
     extensions: [
@@ -150,10 +162,10 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
   }
 
   const addImage = () => {
-    const url = window.prompt('Enter image URL:')
-    if (url && editor) {
-      editor.chain().focus().setImage({ src: url }).run()
-    }
+    setImgPrompt('')
+    setImgUrl('')
+    setImgMode('generate')
+    setShowImageModal(true)
   }
 
   const addYoutube = () => {
@@ -218,6 +230,7 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
   }
 
   return (
+    <>
     <div className="border-2 border-slate-200 rounded-lg overflow-hidden">
       {/* Toolbar */}
       <div className="bg-slate-50 border-b-2 border-slate-200 p-2 flex flex-wrap gap-1">
@@ -414,11 +427,11 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
           title="Insert Table"
           type="button"
         >
-          <TableIcon className="w-4 h-4" />
-        </button>
+      <TableIcon className="w-4 h-4" />
+    </button>
 
-        <button
-          onClick={insertDivider}
+    <button
+      onClick={insertDivider}
           className="p-2 rounded hover:bg-slate-200 transition-colors text-slate-700"
           title="Horizontal Divider"
           type="button"
@@ -601,6 +614,84 @@ export function RichTextEditor({ content, onChange, placeholder = 'Start writing
         </div>
       )}
     </div>
+    {showImageModal && (
+      <div className="fixed inset-0 z-50">
+        <div className="absolute inset-0 bg-slate-900/50" onClick={()=> setShowImageModal(false)} />
+        <div className="absolute inset-0 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl border-2 border-slate-200 max-w-lg w-full overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b-2 border-slate-200">
+              <h4 className="text-lg font-bold text-slate-900">Add Image</h4>
+              <button onClick={()=> setShowImageModal(false)} className="px-3 py-1 border-2 border-slate-200 rounded">Close</button>
+            </div>
+            <div className="p-4 space-y-3">
+              <div className="flex items-center gap-3 text-sm">
+                <label className="flex items-center gap-2"><input type="radio" checked={imgMode==='generate'} onChange={()=> setImgMode('generate')} /> Generate</label>
+                <label className="flex items-center gap-2"><input type="radio" checked={imgMode==='url'} onChange={()=> setImgMode('url')} /> From URL</label>
+              </div>
+              {imgMode === 'url' ? (
+                <div>
+                  <label className="block text-sm font-bold text-slate-900 mb-1">Image URL</label>
+                  <input value={imgUrl} onChange={(e)=> setImgUrl(e.target.value)} className="w-full px-3 py-2 border-2 border-slate-200 rounded" placeholder="https://..." />
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-900 mb-1">Prompt</label>
+                    <input value={imgPrompt} onChange={(e)=> setImgPrompt(e.target.value)} className="w-full px-3 py-2 border-2 border-slate-200 rounded" placeholder="Describe the image you want..." />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-bold text-slate-900 mb-1">Provider</label>
+                      <select value={imgProvider} onChange={(e)=> setImgProvider(e.target.value as any)} className="w-full px-3 py-2 border-2 border-slate-200 rounded">
+                        <option value="gemini" disabled={!localStorage.getItem('google_api_key')}>Gemini</option>
+                        <option value="openai" disabled={!localStorage.getItem('openai_api_key')}>OpenAI</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-slate-900 mb-1">Size</label>
+                      <select value={imgSize} onChange={(e)=> setImgSize(e.target.value as any)} className="w-full px-3 py-2 border-2 border-slate-200 rounded">
+                        <option value="512x512">512x512</option>
+                        <option value="1024x1024">1024x1024</option>
+                        <option value="2048x2048">2048x2048</option>
+                      </select>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="px-4 py-3 border-t-2 border-slate-200 flex items-center justify-end gap-2">
+              <button onClick={()=> setShowImageModal(false)} className="px-4 py-2 border-2 border-slate-200 rounded">Cancel</button>
+              <button
+                disabled={imgLoading || (imgMode==='url' ? !imgUrl : !imgPrompt)}
+                onClick={async ()=>{
+                  try {
+                    setImgLoading(true)
+                    let src = imgUrl
+                    if (imgMode === 'generate') {
+                      const apiKey = imgProvider === 'gemini' ? localStorage.getItem('google_api_key') : localStorage.getItem('openai_api_key')
+                      if (!apiKey) { alert('Set your API key in Settings first'); setImgLoading(false); return }
+                      const resp = await fetch('/api/admin/presentations/images/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ prompt: imgPrompt, provider: imgProvider, apiKey, size: imgSize }) })
+                      if (!resp.ok) { const j = await resp.json().catch(()=>({})); throw new Error(j.error || 'Generation failed') }
+                      const j = await resp.json()
+                      src = j.url
+                    }
+                    if (src && editor) {
+                      editor.chain().focus().setImage({ src }).run()
+                    }
+                    setShowImageModal(false)
+                  } catch (e) {
+                    alert(e instanceof Error ? e.message : 'Image insert failed')
+                  } finally { setImgLoading(false) }
+                }}
+                className="px-4 py-2 bg-emerald-600 text-white rounded disabled:opacity-50"
+              >
+                {imgLoading ? 'Working…' : (imgMode==='url' ? 'Insert' : 'Generate & Insert')}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   )
 }
-

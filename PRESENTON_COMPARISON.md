@@ -367,19 +367,19 @@
 - [ ] User configuration
 
 ### Missing UI Components
-- [ ] PresentationCard
+- [x] PresentationCard (basic)
 - [ ] PresentationGrid
-- [ ] PresentationListItem
-- [ ] OutlineEditor
-- [ ] OutlineItem
-- [ ] SlideEditor
-- [ ] SortableSlide
-- [ ] ImageEditor
-- [ ] IconsEditor
-- [ ] FontManager
-- [ ] TemplateDesigner
-- [ ] MarkdownEditor
-- [ ] TiptapEditor
+- [x] PresentationListItem (used in Library)
+- [x] OutlineEditor
+- [x] OutlineItem (implemented within OutlineEditor)
+- [x] SlideEditor (SlideRichEditor + PresentationPlayer)
+- [x] SortableSlide (via @dnd-kit in Outline/Player)
+- [ ] ImageEditor (crop/resize pending)
+- [x] IconsEditor (basic picker + search)
+- [x] FontManager (TemplateSettings font upload)
+- [x] TemplateDesigner (fonts + theme colors basics)
+- [x] MarkdownEditor (basic preview)
+- [x] TiptapEditor (RichTextEditor used in slides)
 
 ---
 
