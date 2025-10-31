@@ -41,7 +41,6 @@ export async function POST(req: NextRequest) {
         model,
         export_format: 'pptx',
         storage_path: storagePath,
-        slides,
       })
       .select('id')
       .single();
