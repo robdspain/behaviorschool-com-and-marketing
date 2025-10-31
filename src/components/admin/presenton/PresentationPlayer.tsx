@@ -356,8 +356,9 @@ export default function PresentationPlayer({
               } finally { setEnriching(false); setEnrichMsg(null); }
             }}
             className="px-3 py-2 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50"
+            title="Put image on this slide"
           >
-            Generate Image
+            Put image on this slide
           </button>
 
           <button
