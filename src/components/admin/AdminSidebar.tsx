@@ -18,7 +18,7 @@ import {
   Layers,
   Presentation
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface NavItem {
   name: string;
@@ -55,7 +55,7 @@ const navigation: NavItem[] = [
   { name: "Sitemap", href: "/admin/sitemap", icon: Layers },
 ];
 
-function SidebarNavItem({ item, isActive, onClick }: { item: NavItem; isActive: (href: string | undefined) => boolean; onClick: () => void }) {
+function SidebarNavItem({ item, isActive, onClick, collapsed }: { item: NavItem; isActive: (href: string | undefined) => boolean; onClick: () => void; collapsed: boolean }) {
   const initiallyOpen = item.children?.some(child => isActive(child.href)) || false;
   const [isOpen, setIsOpen] = useState(initiallyOpen);
   const hasChildren = item.children && item.children.length > 0;
@@ -67,6 +67,21 @@ function SidebarNavItem({ item, isActive, onClick }: { item: NavItem; isActive: 
   const active = hasChildren
     ? item.children?.some(child => isActive(child.href))
     : isActive(item.href);
+
+  if (collapsed) {
+    const target = hasChildren ? (item.children?.[0]?.href || item.href || '#') : (item.href || '#');
+    const active = isActive(target);
+    return (
+      <Link
+        href={target}
+        onClick={onClick}
+        className={`flex items-center justify-center w-10 h-10 rounded-lg mx-auto transition-colors ${active ? 'bg-emerald-50 text-emerald-700 border-2 border-emerald-200' : 'text-slate-600 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200'}`}
+        title={item.name}
+      >
+        <item.icon className={`w-5 h-5 ${active ? 'text-emerald-600' : 'text-slate-500'}`} />
+      </Link>
+    );
+  }
 
   if (hasChildren) {
     return (
@@ -82,6 +97,7 @@ function SidebarNavItem({ item, isActive, onClick }: { item: NavItem; isActive: 
                 : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
             }
           `}
+          title={item.name}
         >
           <div className="flex items-center gap-3">
             <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
@@ -92,7 +108,7 @@ function SidebarNavItem({ item, isActive, onClick }: { item: NavItem; isActive: 
         {isOpen && (
           <div className="pl-8 pt-2 space-y-1">
             {item.children?.map(child => (
-              <SidebarNavItem key={child.name} item={child} isActive={isActive} onClick={onClick} />
+              <SidebarNavItem key={child.name} item={child} isActive={isActive} onClick={onClick} collapsed={false} />
             ))}
           </div>
         )}
@@ -113,6 +129,7 @@ function SidebarNavItem({ item, isActive, onClick }: { item: NavItem; isActive: 
             : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
         }
       `}
+      title={item.name}
     >
       <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
       <span className="flex-1">{item.name}</span>
@@ -131,6 +148,16 @@ function SidebarNavItem({ item, isActive, onClick }: { item: NavItem; isActive: 
 export function AdminSidebar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('admin_sidebar_collapsed') === '1';
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem('admin_sidebar_collapsed', collapsed ? '1' : '0');
+    window.dispatchEvent(new CustomEvent('admin-sidebar-toggle', { detail: { collapsed } }));
+  }, [collapsed]);
 
   const isActive = (href: string | undefined) => {
     if (!href) return false;
@@ -166,7 +193,7 @@ export function AdminSidebar() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 z-40 h-screen w-72
+          fixed top-0 left-0 z-40 h-screen ${collapsed ? 'w-20' : 'w-72'}
           bg-white border-r-2 border-slate-200
           transition-transform duration-300 ease-in-out
           lg:translate-x-0
@@ -175,24 +202,36 @@ export function AdminSidebar() {
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="p-6 border-b-2 border-slate-200">
-            <Link href="/" className="block">
-              <h2 className="text-xl font-bold text-slate-900">
-                Behavior School
-              </h2>
-              <p className="text-sm text-slate-600 mt-1">Admin Dashboard</p>
+          <div className="p-4 border-b-2 border-slate-200 flex items-center justify-between">
+            <Link href="/" className="block truncate" title="Behavior School">
+              {!collapsed ? (
+                <>
+                  <h2 className="text-xl font-bold text-slate-900">Behavior School</h2>
+                  <p className="text-sm text-slate-600 mt-1">Admin Dashboard</p>
+                </>
+              ) : (
+                <div className="w-6 h-6 rounded bg-emerald-100 border border-emerald-200" />
+              )}
             </Link>
+            <button
+              onClick={() => setCollapsed(v => !v)}
+              className="hidden lg:inline-flex items-center justify-center w-9 h-9 rounded-lg border-2 border-slate-200 hover:bg-slate-50"
+              title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronRight className="w-5 h-5 rotate-180" />}
+            </button>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 overflow-y-auto">
-            <div className="space-y-1">
+          <nav className={`flex-1 overflow-y-auto ${collapsed ? 'px-2 py-4' : 'p-4'}`}>
+            <div className={`${collapsed ? 'flex flex-col items-center gap-3' : 'space-y-1'}`}>
               {navigation.map((item) => (
                 <SidebarNavItem
                   key={item.name}
                   item={item}
                   isActive={isActive}
                   onClick={() => setIsMobileMenuOpen(false)}
+                  collapsed={collapsed}
                 />
               ))}
             </div>
@@ -202,10 +241,11 @@ export function AdminSidebar() {
           <div className="p-4 border-t-2 border-slate-200">
             <Link
               href="/auth/signout"
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-red-50 hover:text-red-700 border-2 border-transparent hover:border-red-200 transition-all duration-200 font-medium"
+              className={`flex items-center ${collapsed ? 'justify-center' : 'gap-3 px-4'} py-3 rounded-xl text-slate-700 hover:bg-red-50 hover:text-red-700 border-2 border-transparent hover:border-red-200 transition-all duration-200 font-medium`}
+              title="Sign Out"
             >
               <LogOut className="w-5 h-5" />
-              <span>Sign Out</span>
+              {!collapsed && <span>Sign Out</span>}
             </Link>
           </div>
         </div>
