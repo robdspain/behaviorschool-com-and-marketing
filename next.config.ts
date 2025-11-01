@@ -379,6 +379,18 @@ const nextConfig: NextConfig = {
         destination: '/blog/:slug',
         permanent: true,
       },
+      // Redirect Ghost blog post URLs to Next.js blog routes
+      // This fixes canonical pointing to redirect issues
+      {
+        source: '/free-bcba-practice-test-ai-powered-exam-prep',
+        destination: '/blog/free-bcba-practice-test-ai-powered-exam-prep',
+        permanent: true,
+      },
+      {
+        source: '/free-bcba-practice-test-ai-powered-exam-prep/',
+        destination: '/blog/free-bcba-practice-test-ai-powered-exam-prep',
+        permanent: true,
+      },
       // Domain redirect for schoolbcba.com
       {
         source: '/(.*)',
