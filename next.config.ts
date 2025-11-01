@@ -391,6 +391,12 @@ const nextConfig: NextConfig = {
         destination: '/blog/free-bcba-practice-test-ai-powered-exam-prep',
         permanent: true,
       },
+      // Fix duplicate pages without canonical
+      {
+        source: '/act-matrix-schools-hub.html',
+        destination: '/act-matrix-schools-hub',
+        permanent: true,
+      },
       // Domain redirect for schoolbcba.com
       {
         source: '/(.*)',
