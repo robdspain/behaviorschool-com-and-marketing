@@ -64,12 +64,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/school-bcba/job-guide`,
       lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/school-bcba/job-guide-2025`,
-      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },

@@ -397,6 +397,12 @@ const nextConfig: NextConfig = {
         destination: '/act-matrix-schools-hub',
         permanent: true,
       },
+      // Remove redirecting URLs from sitemap - redirect to canonical version
+      {
+        source: '/school-bcba/job-guide-2025',
+        destination: '/school-bcba/job-guide',
+        permanent: true,
+      },
       // Domain redirect for schoolbcba.com
       {
         source: '/(.*)',
