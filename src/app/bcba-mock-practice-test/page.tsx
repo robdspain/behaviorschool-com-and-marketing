@@ -319,9 +319,14 @@ export default function BCBAMockPracticeTestPage() {
                   <span>Performance breakdown by content area</span>
                 </li>
               </ul>
-              <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-semibold">
-                Start Your Free BCBA Mock Exam →
-              </Link>
+              <div className="flex flex-col gap-2">
+                <Link href="/behavior-study-tools" className="text-emerald-700 hover:text-emerald-800 font-semibold">
+                  Start Your Free BCBA Mock Exam →
+                </Link>
+                <Link href="/bcba-mock-exam-guide" className="text-slate-600 hover:text-slate-800 text-sm">
+                  Learn how to use practice tests effectively →
+                </Link>
+              </div>
             </div>
 
             {/* FAQ 6 */}

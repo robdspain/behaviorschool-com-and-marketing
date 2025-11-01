@@ -660,6 +660,22 @@ export default function SchoolBasedBCBAPage() {
                 </div>
               ))}
             </div>
+            
+            {/* Related Resources */}
+            <div className="mt-12 pt-8 border-t border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-4 text-center">Related Resources</h3>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link href="/bcbas-in-schools" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
+                  BCBAs in Schools: Roles & Challenges →
+                </Link>
+                <Link href="/school-bcba" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
+                  School BCBA Hub →
+                </Link>
+                <Link href="/school-based-behavior-support" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
+                  School-Based Behavior Support →
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

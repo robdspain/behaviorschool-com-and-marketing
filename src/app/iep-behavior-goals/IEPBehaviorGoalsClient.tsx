@@ -356,6 +356,16 @@ export function IEPBehaviorGoalsClient() {
               </p>
             </a>
           </div>
+          
+          <div className="mt-8 pt-8 border-t border-slate-200">
+            <p className="text-center text-slate-600 mb-4">
+              Looking for values-aligned goal setting? Check out our{" "}
+              <a href="/values-goal-assistant-landing" className="text-emerald-700 hover:text-emerald-800 font-semibold underline">
+                Values Goal Assistant
+              </a>
+              {" "}for creating student-centered, values-driven IEP goals.
+            </p>
+          </div>
         </div>
       </section>
 

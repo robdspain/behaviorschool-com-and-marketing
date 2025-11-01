@@ -477,6 +477,11 @@ export default function BCBAExamPrepPage() {
             <p className="mt-6 text-emerald-100">
               Free access • Unlimited questions • Personalized study plans • Mobile optimized
             </p>
+            <p className="mt-4 text-emerald-100 text-sm">
+              <Link href="/bcba-mock-exam-guide" className="underline hover:text-white">
+                Learn how to use mock exams effectively →
+              </Link>
+            </p>
           </motion.div>
         </div>
       </section>

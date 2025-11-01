@@ -966,6 +966,16 @@ export default function BCBAPracticeExamPage() {
                   <div className="text-sm text-slate-600">Comprehensive prep</div>
                 </div>
               </Link>
+              <Link
+                href="/bcba-mock-exam-guide"
+                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <BookOpen className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">Mock Exam Guide</div>
+                  <div className="text-sm text-slate-600">How to use practice tests</div>
+                </div>
+              </Link>
             </div>
           </div>
         </section>

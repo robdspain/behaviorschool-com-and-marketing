@@ -101,6 +101,11 @@ export default function SchoolBCBAHub() {
             desc="Write stronger BIPs faster with guided workflows and exemplar language."
             href="/behavior-plans"
           />
+          <Card
+            title="BCBAs in Schools"
+            desc="Roles, challenges & solutions for school-based behavior analysts."
+            href="/bcbas-in-schools"
+          />
         </div>
       </section>
 
