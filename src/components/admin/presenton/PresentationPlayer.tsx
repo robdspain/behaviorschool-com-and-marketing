@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { ChevronLeft, ChevronRight, Edit, X, Maximize2, Minimize2, Loader2, GripVertical, Image as ImageIcon, Settings, MoreVertical, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Edit, X, Maximize2, Minimize2, Loader2, GripVertical, Image as ImageIcon, Settings, MoreVertical, ChevronDown, Play } from 'lucide-react';
 import SlideRichEditor from './SlideRichEditor';
 import { TEMPLATE_COLORS, TEMPLATE_OPTIONS } from './templates';
 import TemplateSettings from './TemplateSettings';
@@ -484,6 +484,20 @@ export default function PresentationPlayer({
               <span className="sm:hidden">🔗</span>
             </button>
             {shareMsg && <span className="text-sm text-emerald-700">{shareMsg}</span>}
+            <button
+              onClick={() => {
+                const origin = typeof window !== 'undefined' ? window.location.origin : '';
+                const url = shareToken
+                  ? `${origin}/presentations/present/${presentationId}?token=${encodeURIComponent(shareToken)}`
+                  : `${origin}/presentations/present/${presentationId}`;
+                window.open(url, '_blank', 'width=1280,height=720');
+              }}
+              className="px-3 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors flex items-center gap-2"
+              title="Open presentation mode in new window"
+            >
+              <Play className="w-4 h-4" />
+              <span className="hidden sm:inline">Present</span>
+            </button>
             <button
               onClick={toggleFullscreen}
               className="p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
