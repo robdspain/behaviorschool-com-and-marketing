@@ -54,14 +54,34 @@ export async function POST(request: NextRequest) {
     }
 
     const firstCandidate = resp.response.candidates[0];
-    const firstPart = firstCandidate?.content?.parts?.[0];
-    const fileData = firstPart && 'fileData' in firstPart ? firstPart.fileData : null;
-    const imageBase64 = (fileData as any)?.mimeType?.startsWith('image/') ? (fileData as any).fileUri : null;
+    const firstPart: any = firstCandidate?.content?.parts?.[0];
+    // Vertex may return inlineData.data (base64) or fileData.fileUri (http/gs/data URI)
+    let imageBuffer: Buffer | null = null;
+    const inlineDataB64: string | undefined = firstPart?.inlineData?.data;
+    const fileData = firstPart && 'fileData' in firstPart ? (firstPart.fileData as any) : null;
+    const fileUri: string | undefined = fileData?.fileUri;
 
-    if (!imageBase64) {
-        return NextResponse.json({ success: false, error: 'No valid image data in response' }, { status: 500 });
+    if (inlineDataB64) {
+      imageBuffer = Buffer.from(inlineDataB64, 'base64');
+    } else if (fileUri) {
+      if (fileUri.startsWith('data:image/')) {
+        const base64 = fileUri.split(',')[1];
+        imageBuffer = base64 ? Buffer.from(base64, 'base64') : null;
+      } else if (fileUri.startsWith('http')) {
+        const res = await fetch(fileUri);
+        if (!res.ok) {
+          return NextResponse.json({ success: false, error: `Failed to fetch generated image (${res.status})` }, { status: 502 });
+        }
+        const arr = await res.arrayBuffer();
+        imageBuffer = Buffer.from(arr);
+      } else {
+        return NextResponse.json({ success: false, error: 'Unsupported fileUri scheme from Vertex' }, { status: 502 });
+      }
     }
-    const imageBuffer = Buffer.from(imageBase64, 'base64');
+
+    if (!imageBuffer) {
+      return NextResponse.json({ success: false, error: 'No valid image data in response' }, { status: 500 });
+    }
 
     const formData = new FormData();
     formData.append('file', imageBuffer, {

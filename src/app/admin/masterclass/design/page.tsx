@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, type CSSProperties } from 'react';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -36,6 +36,7 @@ import { CSS } from '@dnd-kit/utilities';
 import type {
   MasterclassCourseSection,
   MasterclassQuizQuestion,
+  MasterclassResource,
   CourseSectionWithQuestionCount,
 } from '@/lib/masterclass/admin-types';
 
@@ -236,8 +237,10 @@ function SortableSection({ section, allQuestions, onEdit, onDelete, onToggleExpa
 export default function DesignCoursePage() {
   const [sections, setSections] = useState<MasterclassCourseSection[]>([]);
   const [questions, setQuestions] = useState<MasterclassQuizQuestion[]>([]);
+  const [resources, setResources] = useState<MasterclassResource[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [savingResources, setSavingResources] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -248,6 +251,7 @@ export default function DesignCoursePage() {
 
   useEffect(() => {
     fetchSectionsWithQuestions();
+    fetchResources();
   }, []);
 
   const fetchSectionsWithQuestions = async () => {
@@ -284,6 +288,18 @@ export default function DesignCoursePage() {
       console.error('Failed to fetch course data:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchResources = async () => {
+    try {
+      const res = await fetch('/api/admin/masterclass/resources');
+      const data = await res.json();
+      if (data.success) {
+        setResources(data.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch resources:', error);
     }
   };
 
@@ -402,6 +418,19 @@ export default function DesignCoursePage() {
     }
   };
 
+  const handleResourceDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over) return;
+    setResources((items) => {
+      const oldIndex = items.findIndex(r => `resource-${r.id}` === String(active.id));
+      const newIndex = items.findIndex(r => `resource-${r.id}` === String(over.id));
+      if (oldIndex !== -1 && newIndex !== -1) {
+        return arrayMove(items, oldIndex, newIndex);
+      }
+      return items;
+    });
+  };
+
   const toggleSection = (sectionId: number) => {
     setSections(sections.map(s =>
       s.id === sectionId ? { ...s, isExpanded: !s.isExpanded } : s
@@ -418,6 +447,60 @@ export default function DesignCoursePage() {
       console.error('Failed to save order:', error);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const saveResourcesOrder = async () => {
+    setSavingResources(true);
+    try {
+      const idsInOrder = resources.map(r => r.id);
+      const res = await fetch('/api/admin/masterclass/resources', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idsInOrder }),
+      });
+      if (!res.ok) {
+        console.error('Failed to save resource order');
+      }
+    } catch (error) {
+      console.error('Failed to save resource order:', error);
+    } finally {
+      setSavingResources(false);
+    }
+  };
+
+  const addResource = async () => {
+    const name = window.prompt('Resource name');
+    if (!name) return;
+    const url = window.prompt('Resource URL');
+    if (!url) return;
+    // Quick file_type inference
+    const ext = (url.split('.').pop() || '').toLowerCase();
+    const file_type = ['pdf','doc','docx','png','jpg','jpeg','webp'].includes(ext) ? ext : 'link';
+    try {
+      const res = await fetch('/api/admin/masterclass/resources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, url, file_type, section_id: null, order_index: (resources[resources.length-1]?.order_index || 0) + 1 }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setResources(prev => [...prev, data.data]);
+      }
+    } catch (error) {
+      console.error('Failed to add resource:', error);
+    }
+  };
+
+  const deleteResource = async (id: number) => {
+    if (!confirm('Delete this resource?')) return;
+    try {
+      const res = await fetch(`/api/admin/masterclass/resources?id=${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setResources(prev => prev.filter(r => r.id !== id));
+      }
+    } catch (error) {
+      console.error('Failed to delete resource:', error);
     }
   };
 
@@ -450,6 +533,19 @@ export default function DesignCoursePage() {
               </div>
             </div>
             <div className="flex items-center gap-3">
+              <Button variant="outline" onClick={addResource} className="gap-2">
+                <Plus className="w-4 h-4" /> Add Resource
+              </Button>
+              <Link href="/admin/masterclass/questions">
+                <Button variant="outline" className="gap-2">
+                  <Plus className="w-4 h-4" /> Add Quiz Questions
+                </Button>
+              </Link>
+              <Link href="/masterclass/course" prefetch={false}>
+                <Button variant="outline" className="gap-2">
+                  Preview Course
+                </Button>
+              </Link>
               <Button
                 onClick={saveOrder}
                 disabled={saving}
@@ -474,6 +570,52 @@ export default function DesignCoursePage() {
 
       {/* Main Content */}
       <main className="px-4 sm:px-6 lg:px-8 py-8 max-w-6xl mx-auto">
+        {/* Resources Blocks */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xl font-bold text-slate-900">Resources</h2>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" onClick={addResource} className="gap-2">
+                <Plus className="w-4 h-4" /> Add Resource
+              </Button>
+              <Button onClick={saveResourcesOrder} disabled={savingResources} className="gap-2">
+                {savingResources ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" /> Saving
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-4 h-4" /> Save Resources Order
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+
+          {resources.length > 0 ? (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleResourceDragEnd}
+            >
+              <SortableContext
+                items={resources.map(r => `resource-${r.id}`)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-3">
+                  {resources.map((r) => (
+                    <ResourceBlock key={r.id} resource={r} onDelete={() => deleteResource(r.id)} />
+                  ))}
+                </div>
+              </SortableContext>
+            </DndContext>
+          ) : (
+            <div className="text-center py-8 bg-white border-2 border-dashed border-slate-300 rounded-xl text-slate-500">
+              No resources yet. Click “Add Resource” to create one.
+            </div>
+          )}
+        </div>
+
         {/* Add Section Button */}
         <div className="mb-6">
           <Link href="/admin/masterclass/sections">
@@ -543,6 +685,53 @@ export default function DesignCoursePage() {
           </div>
         )}
       </main>
+    </div>
+  );
+}
+
+function ResourceBlock({ resource, onDelete }: { resource: MasterclassResource; onDelete: () => void }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: `resource-${resource.id}` });
+  const style: CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="flex items-start gap-3 p-4 bg-white border-2 border-slate-200 rounded-lg hover:border-emerald-300 transition-colors"
+    >
+      <button
+        {...attributes}
+        {...listeners}
+        className="mt-1 text-slate-400 hover:text-slate-600 cursor-grab active:cursor-grabbing"
+        title="Drag to reorder"
+      >
+        <GripVertical className="w-5 h-5" />
+      </button>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between gap-3 mb-1">
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">Resource</span>
+            <h4 className="text-sm font-semibold text-slate-900 truncate">{resource.name}</h4>
+          </div>
+          <div className="flex items-center gap-2">
+            <a href={resource.url} target="_blank" rel="noreferrer" className="text-slate-600 hover:text-emerald-700 text-sm underline">
+              Open
+            </a>
+            <button
+              onClick={onDelete}
+              className="text-slate-600 hover:text-red-600"
+              title="Delete resource"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+        <p className="text-xs text-slate-500 break-all">{resource.url}</p>
+      </div>
     </div>
   );
 }

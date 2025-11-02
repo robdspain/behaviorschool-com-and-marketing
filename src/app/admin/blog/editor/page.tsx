@@ -669,6 +669,17 @@ function BlogEditorContent() {
                           target.src = ghostUrl;
                           return;
                         }
+                      } else if (post.feature_image.includes('/content/images/') && !post.feature_image.startsWith('/media/ghost')) {
+                        // If using absolute Ghost URL first, try proxy fallback
+                        const pathMatch = post.feature_image.match(/\/content\/images\/.+$/);
+                        if (pathMatch) {
+                          const proxyUrl = `/media/ghost${pathMatch[0]}`;
+                          if (currentSrc !== proxyUrl && !target.dataset.triedProxy) {
+                            target.dataset.triedProxy = 'true';
+                            target.src = proxyUrl;
+                            return;
+                          }
+                        }
                       }
 
                       // Both attempts failed, show error

@@ -124,6 +124,32 @@ export default function CoursePage() {
 
   // Submit quiz
   const handleQuizSubmit = async (answers: number[]) => {
+    // Admin preview: simulate quiz submission without persistence
+    if (isAdmin) {
+      const section = courseSections.find((s) => s.id === currentSection);
+      const total = section?.quiz.length || 0;
+      let score = 0;
+      const results = (section?.quiz || []).map((q, idx) => {
+        const isCorrect = answers[idx] === q.correctAnswer;
+        if (isCorrect) score += 1;
+        return {
+          questionId: q.id,
+          questionNumber: idx + 1,
+          isCorrect,
+          correctAnswer: q.correctAnswer,
+          selectedAnswer: answers[idx],
+          explanation: q.explanation,
+        };
+      });
+
+      return {
+        score,
+        total,
+        passed: true,
+        results,
+      };
+    }
+
     if (!enrollmentId) throw new Error('No enrollment found');
 
     const response = await fetch('/api/masterclass/progress', {
@@ -183,7 +209,7 @@ export default function CoursePage() {
 
     // Section is locked if previous section quiz hasn't been passed
     // Admins can access all sections (no locking)
-    const isLocked = !isAdmin && index > 0 && (!prevSectionProgress || !prevSectionProgress.quiz_passed);
+    const isLocked = isAdmin ? false : index > 0 && (!prevSectionProgress || !prevSectionProgress.quiz_passed);
 
     return {
       id: section.id,
@@ -313,12 +339,40 @@ export default function CoursePage() {
             <QuizSection
               sectionNumber={currentSection}
               questions={currentSectionConfig.quiz}
-              isLocked={!currentSectionProgress?.video_completed}
+              isLocked={isAdmin ? false : !currentSectionProgress?.video_completed}
               isPassed={currentSectionProgress?.quiz_passed || false}
               attemptNumber={currentSectionProgress?.quiz_attempts || 0}
               onSubmit={handleQuizSubmit}
               onNextSection={currentSection < courseSections.length ? handleNextSection : undefined}
             />
+
+            {/* Admin Preview Navigation */}
+            {isAdmin && (
+              <div className="flex items-center justify-between border-t border-slate-200 pt-6">
+                <Button
+                  variant="outline"
+                  disabled={currentSection <= 1}
+                  onClick={() => handleSectionClick(Math.max(1, currentSection - 1))}
+                >
+                  Previous Section
+                </Button>
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="secondary"
+                    onClick={() => router.push('/admin/masterclass/design')}
+                  >
+                    Back to Design
+                  </Button>
+                  <Button
+                    onClick={handleNextSection}
+                    disabled={currentSection >= courseSections.length}
+                    className="bg-emerald-600 hover:bg-emerald-700"
+                  >
+                    {currentSection < courseSections.length ? 'Next Section' : 'All Sections Complete'}
+                  </Button>
+                </div>
+              </div>
+            )}
 
             {/* Certificate CTA */}
             {canGenerateCertificate && (

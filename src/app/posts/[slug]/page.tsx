@@ -37,7 +37,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <Image 
             src={normalizeImageSrc(post.feature_image) || '/thumbnails/hero-thumb.webp'} 
             alt={post.title} 
-            className="h-auto w-full object-cover" 
+            className="h-auto w-full object-contain" 
             fill={true} 
             sizes="(max-width: 768px) 100vw, 768px"
           />
@@ -49,4 +49,3 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     </article>
   );
 }
-

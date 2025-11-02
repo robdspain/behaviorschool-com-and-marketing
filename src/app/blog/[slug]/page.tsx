@@ -201,8 +201,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         ) : null}
       </header>
       {post.feature_image ? (
-        <div className="mt-6 overflow-hidden rounded-lg bg-slate-100 relative aspect-[16/9]">
-          <Image 
+        <div className="mt-6 overflow-hidden rounded-lg bg-slate-100">
+          <img
             src={(function(){
               let src = post.feature_image as string;
               if (src.startsWith('//')) src = 'https:' + src;
@@ -214,11 +214,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 src = '/media/ghost' + src;
               }
               return src;
-            })()} 
-            alt={post.title} 
-            fill 
-            sizes="(max-width: 768px) 100vw, 768px" 
-            className="object-cover" 
+            })()}
+            alt={post.title}
+            className="w-full h-auto object-contain"
           />
         </div>
       ) : null}

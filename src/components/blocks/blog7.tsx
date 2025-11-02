@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -95,17 +94,18 @@ const Blog7 = ({
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {posts.map((post) => (
             <Card key={post.id} className="grid grid-rows-[auto_auto_1fr_auto]">
-              <div className="aspect-[16/9] w-full">
+              <div className="w-full">
                 <a
                   href={post.url}
                   target="_blank"
                   className="transition-opacity duration-200 fade-in hover:opacity-70"
                 >
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={post.image}
                     alt={post.title}
-                    layout="fill"
-                    objectFit="cover"
+                    className="w-full h-auto object-contain bg-slate-50"
+                    loading="lazy"
                   />
                 </a>
               </div>

@@ -268,12 +268,29 @@ Format your response as a JSON array of objects with this structure:
 
             if (resp.response.candidates && resp.response.candidates.length > 0) {
               const firstCandidate = resp.response.candidates[0];
-              const firstPart = firstCandidate?.content?.parts?.[0];
-              const fileData = firstPart && 'fileData' in firstPart ? firstPart.fileData : null;
-              const imageBase64 = (fileData as any)?.mimeType?.startsWith('image/') ? (fileData as any).fileUri : null;
+              const firstPart: any = firstCandidate?.content?.parts?.[0];
+              // Support inlineData or fileData.fileUri
+              let imageBuffer: Buffer | null = null;
+              const inlineDataB64: string | undefined = firstPart?.inlineData?.data;
+              const fileData = firstPart && 'fileData' in firstPart ? (firstPart.fileData as any) : null;
+              const fileUri: string | undefined = fileData?.fileUri;
 
-              if (imageBase64) {
-                const imageBuffer = Buffer.from(imageBase64, 'base64');
+              if (inlineDataB64) {
+                imageBuffer = Buffer.from(inlineDataB64, 'base64');
+              } else if (fileUri) {
+                if (fileUri.startsWith('data:image/')) {
+                  const base64 = fileUri.split(',')[1];
+                  imageBuffer = base64 ? Buffer.from(base64, 'base64') : null;
+                } else if (fileUri.startsWith('http')) {
+                  const r = await fetch(fileUri);
+                  if (r.ok) {
+                    const arr = await r.arrayBuffer();
+                    imageBuffer = Buffer.from(arr);
+                  }
+                }
+              }
+
+              if (imageBuffer) {
                 const formData = new FormData();
                 formData.append('file', imageBuffer, {
                   contentType: 'image/png',
