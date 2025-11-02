@@ -809,52 +809,53 @@ function ResourceBlock({ resource, sections, onDelete, onUpdate }: { resource: M
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className="flex items-start gap-3 p-4 bg-white border-2 border-slate-200 rounded-lg hover:border-emerald-300 transition-colors"
-    >
-      <button
-        {...attributes}
-        {...listeners}
-        className="mt-1 text-slate-400 hover:text-slate-600 cursor-grab active:cursor-grabbing"
-        title="Drag to reorder"
+    <>
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="flex items-start gap-3 p-4 bg-white border-2 border-slate-200 rounded-lg hover:border-emerald-300 transition-colors"
       >
-        <GripVertical className="w-5 h-5" />
-      </button>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-3 mb-1">
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">Resource</span>
-            <h4 className="text-sm font-semibold text-slate-900 truncate">{resource.name}</h4>
+        <button
+          {...attributes}
+          {...listeners}
+          className="mt-1 text-slate-400 hover:text-slate-600 cursor-grab active:cursor-grabbing"
+          title="Drag to reorder"
+        >
+          <GripVertical className="w-5 h-5" />
+        </button>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-3 mb-1">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">Resource</span>
+              <h4 className="text-sm font-semibold text-slate-900 truncate">{resource.name}</h4>
+            </div>
+            <div className="flex items-center gap-2">
+              <a href={resource.url} target="_blank" rel="noreferrer" className="text-slate-600 hover:text-emerald-700 text-sm underline">
+                Open
+              </a>
+              <button
+                onClick={() => setOpen(true)}
+                className="text-slate-600 hover:text-emerald-700"
+                title="Edit resource"
+              >
+                <Edit className="w-4 h-4" />
+              </button>
+              <button
+                onClick={onDelete}
+                className="text-slate-600 hover:text-red-600"
+                title="Delete resource"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <a href={resource.url} target="_blank" rel="noreferrer" className="text-slate-600 hover:text-emerald-700 text-sm underline">
-              Open
-            </a>
-            <button
-              onClick={() => setOpen(true)}
-              className="text-slate-600 hover:text-emerald-700"
-              title="Edit resource"
-            >
-              <Edit className="w-4 h-4" />
-            </button>
-            <button
-              onClick={onDelete}
-              className="text-slate-600 hover:text-red-600"
-              title="Delete resource"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </div>
+          <p className="text-xs text-slate-500 break-all">{resource.url}</p>
+          {resource.section_id && (
+            <p className="mt-1 text-xs text-slate-500">Section: {sections.find(s => s.id === resource.section_id)?.title || '—'}</p>
+          )}
         </div>
-        <p className="text-xs text-slate-500 break-all">{resource.url}</p>
-        {resource.section_id && (
-          <p className="mt-1 text-xs text-slate-500">Section: {sections.find(s => s.id === resource.section_id)?.title || '—'}</p>
-        )}
       </div>
-    </div>
-    <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Resource</DialogTitle>
@@ -913,6 +914,7 @@ function ResourceBlock({ resource, sections, onDelete, onUpdate }: { resource: M
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    </>
   );
 }
 
