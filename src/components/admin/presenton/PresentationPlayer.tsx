@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -91,6 +91,10 @@ export default function PresentationPlayer({
   });
   const [showImageMenu, setShowImageMenu] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const imageMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const moreMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const [imageMenuPos, setImageMenuPos] = useState<{top: number, left: number} | null>(null);
+  const [moreMenuPos, setMoreMenuPos] = useState<{top: number, left: number} | null>(null);
 
   useEffect(() => {
     try { localStorage.setItem('presenton_allow_openai_fallback', String(allowFallback)); } catch {}
@@ -491,7 +495,7 @@ export default function PresentationPlayer({
         </div>
 
         {/* Control Bar: Layout, Template, Image Controls */}
-        <div className="flex items-center gap-3 px-4 py-2 border-t border-slate-100 bg-slate-50 overflow-x-auto overflow-y-visible relative z-[100]">
+        <div className="flex items-center gap-3 px-4 py-2 border-t border-slate-100 bg-slate-50 overflow-x-auto relative z-[10]">
           {/* Layout & Template Group */}
           <div className="flex items-center gap-2 shrink-0 border-r border-slate-200 pr-3">
             <div className="flex items-center gap-2">
@@ -538,10 +542,18 @@ export default function PresentationPlayer({
 
           {/* Image Controls Group */}
           <div className="flex items-center gap-2 shrink-0 border-r border-slate-200 pr-3">
-            <div className="relative z-[60]">
+            <div className="relative z-[100]">
               <button
+                ref={imageMenuButtonRef}
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (!showImageMenu && imageMenuButtonRef.current) {
+                    const rect = imageMenuButtonRef.current.getBoundingClientRect();
+                    setImageMenuPos({
+                      top: rect.bottom + 4,
+                      left: rect.left
+                    });
+                  }
                   setShowImageMenu(!showImageMenu);
                 }}
                 className="flex items-center gap-1.5 px-3 py-1.5 border-2 border-emerald-200 rounded-lg text-emerald-700 hover:bg-emerald-50 text-sm whitespace-nowrap"
@@ -550,16 +562,20 @@ export default function PresentationPlayer({
                 <span className="hidden sm:inline">Images</span>
                 <ChevronDown className={`w-3 h-3 transition-transform ${showImageMenu ? 'rotate-180' : ''}`} />
               </button>
-              
-              {showImageMenu && (
+
+              {showImageMenu && imageMenuPos && (
                 <>
-                  <div 
-                    className="fixed inset-0 z-[55]" 
+                  <div
+                    className="fixed inset-0 z-[90]"
                     onClick={() => setShowImageMenu(false)}
                     style={{ backgroundColor: 'transparent' }}
                   ></div>
-                  <div 
-                    className="absolute top-full left-0 mt-1 bg-white border-2 border-slate-200 rounded-lg shadow-2xl z-[60] min-w-[200px] py-1"
+                  <div
+                    className="fixed bg-white border-2 border-slate-200 rounded-lg shadow-2xl z-[100] min-w-[240px] max-h-[400px] overflow-y-auto py-1"
+                    style={{
+                      top: `${imageMenuPos.top}px`,
+                      left: `${imageMenuPos.left}px`
+                    }}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
@@ -776,10 +792,18 @@ export default function PresentationPlayer({
 
           {/* More Actions */}
           <div className="flex items-center gap-2 shrink-0">
-            <div className="relative z-[60]">
+            <div className="relative z-[100]">
               <button
+                ref={moreMenuButtonRef}
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (!showMoreMenu && moreMenuButtonRef.current) {
+                    const rect = moreMenuButtonRef.current.getBoundingClientRect();
+                    setMoreMenuPos({
+                      top: rect.bottom + 4,
+                      left: rect.right - 200 // Align right edge of menu with button
+                    });
+                  }
                   setShowMoreMenu(!showMoreMenu);
                 }}
                 className="flex items-center gap-1.5 px-3 py-1.5 border-2 border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 text-sm whitespace-nowrap"
@@ -788,16 +812,20 @@ export default function PresentationPlayer({
                 <span className="hidden sm:inline">More</span>
                 <ChevronDown className={`w-3 h-3 transition-transform ${showMoreMenu ? 'rotate-180' : ''}`} />
               </button>
-              
-              {showMoreMenu && (
+
+              {showMoreMenu && moreMenuPos && (
                 <>
-                  <div 
-                    className="fixed inset-0 z-[55]" 
+                  <div
+                    className="fixed inset-0 z-[90]"
                     onClick={() => setShowMoreMenu(false)}
                     style={{ backgroundColor: 'transparent' }}
                   ></div>
-                  <div 
-                    className="absolute top-full right-0 mt-1 bg-white border-2 border-slate-200 rounded-lg shadow-2xl z-[60] min-w-[200px] py-1"
+                  <div
+                    className="fixed bg-white border-2 border-slate-200 rounded-lg shadow-2xl z-[100] min-w-[200px] py-1"
+                    style={{
+                      top: `${moreMenuPos.top}px`,
+                      left: `${moreMenuPos.left}px`
+                    }}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
