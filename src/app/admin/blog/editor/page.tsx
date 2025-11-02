@@ -619,7 +619,7 @@ function BlogEditorContent() {
                 placeholder="https://example.com/image.jpg"
                 value={post.feature_image}
                 onChange={(e) => setPost({ ...post, feature_image: e.target.value })}
-                className="flex-1 px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+                className="flex-1 px-4 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500 font-mono text-sm"
               />
               <label className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors cursor-pointer flex items-center gap-2">
                 <Upload className="w-4 h-4" />
@@ -643,7 +643,51 @@ function BlogEditorContent() {
             </div>
             {post.feature_image && (
               <div className="mt-4">
-                <img src={post.feature_image} alt="Preview" className="max-w-full h-auto rounded-lg" />
+                <div className="mb-2 p-2 bg-slate-50 rounded border border-slate-200">
+                  <p className="text-xs text-slate-600 mb-1"><strong>Current URL:</strong></p>
+                  <p className="text-xs text-slate-600 font-mono break-all">{post.feature_image}</p>
+                  {post.feature_image.startsWith('/media/ghost') && (
+                    <p className="text-xs text-blue-600 font-mono break-all mt-1">
+                      <strong>Ghost URL:</strong> {transformToGhostUrl(post.feature_image)}
+                    </p>
+                  )}
+                </div>
+                <div className="relative">
+                  <img
+                    src={post.feature_image}
+                    alt="Feature image preview"
+                    className="max-w-full h-auto rounded-lg border-2 border-slate-200"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      const currentSrc = target.src;
+
+                      // If currently using proxy URL, try the original Ghost URL
+                      if (post.feature_image.startsWith('/media/ghost')) {
+                        const ghostUrl = transformToGhostUrl(post.feature_image);
+                        if (currentSrc !== ghostUrl && !target.dataset.triedGhost) {
+                          target.dataset.triedGhost = 'true';
+                          target.src = ghostUrl;
+                          return;
+                        }
+                      }
+
+                      // Both attempts failed, show error
+                      target.style.display = 'none';
+                      const errorDiv = document.createElement('div');
+                      errorDiv.className = 'p-4 bg-red-50 border-2 border-red-200 rounded-lg text-sm';
+                      errorDiv.innerHTML = `
+                        <p class="text-red-700 font-semibold mb-2">⚠️ Image failed to load</p>
+                        <p class="text-red-600 text-xs">The image URL may be incorrect, incomplete, or the image may not exist on the server.</p>
+                        <p class="text-red-600 text-xs mt-2"><strong>Tried:</strong></p>
+                        <ul class="text-red-600 text-xs list-disc ml-4 mt-1">
+                          <li class="font-mono break-all">${post.feature_image}</li>
+                          ${post.feature_image.startsWith('/media/ghost') ? `<li class="font-mono break-all">${transformToGhostUrl(post.feature_image)}</li>` : ''}
+                        </ul>
+                      `;
+                      target.parentElement?.appendChild(errorDiv);
+                    }}
+                  />
+                </div>
               </div>
             )}
           </div>
