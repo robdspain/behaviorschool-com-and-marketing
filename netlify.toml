@@ -43,3 +43,8 @@
 [functions]
   node_bundler = "esbuild"
   external_node_modules = []
+
+# Schedule newsletter worker every 5 minutes
+[[scheduled.functions]]
+  name = "nm-worker"
+  cron = "*/5 * * * *"

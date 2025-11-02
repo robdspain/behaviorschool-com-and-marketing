@@ -16,14 +16,18 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     // admin guard (server-side; UI should also be protected)
-    const admin = await isAuthorizedAdmin()
-    if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    const db = createSupabaseAdminClient()
+    const { data: { session } } = await db.auth.getSession()
+    const userEmail = session?.user?.email
+
+    if (!isAuthorizedAdmin(userEmail)) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
 
     const body = await req.json().catch(() => ({}))
     const { email, name, attributes, listIds } = body || {}
     if (!email) return NextResponse.json({ error: 'email is required' }, { status: 400 })
 
-    const db = createSupabaseAdminClient()
     const { data: sub, error } = await db.from('nm_subscribers').insert({ email, name, attributes: attributes || {} }).select('*').single()
     if (error) throw error
 

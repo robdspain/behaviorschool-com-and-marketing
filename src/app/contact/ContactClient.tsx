@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { Send } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
@@ -32,27 +33,31 @@ export function ContactClient() {
 
   return (
     <div className="min-h-screen bg-bs-background">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
+      {/* Breadcrumbs Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },
             { label: "Contact", href: "/contact" },
           ]}
         />
+      </div>
 
-        <div className="mt-8">
+      {/* Main Contact Section */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-slate-900 mb-4">
-              Get in Touch
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
+              Get in <span className="bg-gradient-to-r from-emerald-700 to-emerald-500 bg-clip-text text-transparent">Touch</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl sm:text-2xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
               Have questions about BCBA certification, behavior analysis training, or need help with school-based behavior support? We&apos;re here to help.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-white rounded-2xl shadow-xl p-8">
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-all duration-300">
               <h2 className="text-2xl font-bold text-slate-900 mb-6">Send us a message</h2>
 
               {state.submitted ? (
@@ -74,7 +79,7 @@ export function ContactClient() {
                       id="name"
                       value={state.name}
                       onChange={(e) => setState(s => ({ ...s, name: e.target.value }))}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-all duration-200"
                       required
                     />
                   </div>
@@ -88,7 +93,7 @@ export function ContactClient() {
                       id="email"
                       value={state.email}
                       onChange={(e) => setState(s => ({ ...s, email: e.target.value }))}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-all duration-200"
                       required
                     />
                   </div>
@@ -102,7 +107,7 @@ export function ContactClient() {
                       rows={5}
                       value={state.message}
                       onChange={(e) => setState(s => ({ ...s, message: e.target.value }))}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-all duration-200"
                       placeholder="Tell us how we can help you with BCBA training, certification prep, or behavior analysis..."
                       required
                     />
@@ -115,7 +120,7 @@ export function ContactClient() {
                   <button
                     type="submit"
                     disabled={state.submitting}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center disabled:opacity-50"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center disabled:opacity-50"
                   >
                     <Send className="mr-2 h-5 w-5" />
                     {state.submitting ? "Sending..." : "Send Message"}
@@ -126,29 +131,38 @@ export function ContactClient() {
 
             {/* Contact Info */}
             <div>
-              <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 mb-8 hover:shadow-xl transition-all duration-300">
                 <h2 className="text-2xl font-bold text-slate-900 mb-6">Let&apos;s Connect</h2>
 
                 <div className="space-y-6">
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-2">BCBA Training & Certification</h3>
-                    <p className="text-slate-600">
+                    <p className="text-slate-600 mb-3">
                       Get personalized guidance on exam prep, supervision requirements, and career development in applied behavior analysis.
                     </p>
+                    <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-semibold text-sm">
+                      Explore BCBA Exam Prep →
+                    </Link>
                   </div>
 
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-2">School-Based Behavior Support</h3>
-                    <p className="text-slate-600">
+                    <p className="text-slate-600 mb-3">
                       Expert consultation on IEP goals, behavior intervention plans, and implementing evidence-based practices in schools.
                     </p>
+                    <Link href="/school-based-bcba" className="text-emerald-700 hover:text-emerald-800 font-semibold text-sm">
+                      Learn about School-Based BCBA →
+                    </Link>
                   </div>
 
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-2">Professional Development</h3>
-                    <p className="text-slate-600">
+                    <p className="text-slate-600 mb-3">
                       Custom training programs for education teams, behavior analysts, and special education professionals.
                     </p>
+                    <Link href="/transformation-program" className="text-emerald-700 hover:text-emerald-800 font-semibold text-sm">
+                      View Training Programs →
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -162,7 +176,7 @@ export function ContactClient() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

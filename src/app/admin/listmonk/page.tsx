@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase-client'
 import { Mail, ExternalLink, AlertTriangle } from 'lucide-react'
+import { RichTextEditor } from '@/components/RichTextEditor'
 
 type StatusResponse = {
   success: boolean
@@ -16,6 +17,11 @@ type StatusResponse = {
   }
   error?: string
   message?: string
+  raw?: {
+    listsOk: boolean
+    subsOk: boolean
+    campOk: boolean
+  }
 }
 
 type LMList = { id: number; name: string; type: string; optin: string; subscribers?: number }
@@ -633,7 +639,9 @@ LISTMONK_PASSWORD=your-password`}
             </ul>
             <form onSubmit={createTemplate} className="space-y-3">
               <input type="text" placeholder="Template name" value={tmplForm.name} onChange={e => setTmplForm(f => ({ ...f, name: e.target.value }))} className="w-full px-3 py-2 border rounded-lg" required />
-              <textarea placeholder="HTML body" value={tmplForm.body} onChange={e => setTmplForm(f => ({ ...f, body: e.target.value }))} className="w-full px-3 py-2 border rounded-lg h-32" required />
+              <div className="border rounded">
+                <RichTextEditor content={tmplForm.body} onChange={(html) => setTmplForm(f => ({ ...f, body: html }))} placeholder="Template HTML (include {{content}} if needed)" />
+              </div>
               <button type="submit" disabled={tmplForm.submitting} className="w-full bg-emerald-600 text-white rounded-lg py-2 hover:bg-emerald-700 disabled:opacity-50">{tmplForm.submitting ? 'Creating...' : 'Create Template'}</button>
               {tmplForm.message && <div className="text-sm text-slate-600">{tmplForm.message}</div>}
             </form>
@@ -679,7 +687,9 @@ LISTMONK_PASSWORD=your-password`}
                 </div>
                 <div>
                   <label className="block text-sm text-slate-600 mb-1">Body (HTML)</label>
-                  <textarea value={campForm.body} onChange={e => setCampForm(f => ({ ...f, body: e.target.value }))} className="w-full px-3 py-2 border rounded-lg h-24" placeholder="Optional if template covers content" />
+                  <div className="border rounded">
+                    <RichTextEditor content={campForm.body} onChange={(html) => setCampForm(f => ({ ...f, body: html }))} placeholder="Optional if template covers content" />
+                  </div>
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -797,7 +807,9 @@ LISTMONK_PASSWORD=your-password`}
                     </div>
                     <div>
                       <label className="block text-sm text-slate-600 mb-1">Body (HTML)</label>
-                      <textarea value={editForm.body} onChange={e => setEditForm(f => ({ ...f, body: e.target.value }))} className="w-full px-3 py-2 border rounded-lg h-24" placeholder="Optional if template covers content" />
+                      <div className="border rounded">
+                        <RichTextEditor content={editForm.body} onChange={(html) => setEditForm(f => ({ ...f, body: html }))} placeholder="Optional if template covers content" />
+                      </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

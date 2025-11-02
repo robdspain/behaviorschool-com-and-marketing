@@ -38,6 +38,7 @@ export default function AdminDashboard() {
   const [archivedActivities, setArchivedActivities] = useState<Activity[]>([])
   const [archivedLoading, setArchivedLoading] = useState(false)
   const [showArchived, setShowArchived] = useState(false)
+  const [nlSummary, setNlSummary] = useState<{ totals: { opens: number; clicks: number }; daily: Array<{ date: string; opens: number; clicks: number }> } | null>(null)
   const supabase = createClient()
   const router = useRouter()
 
@@ -101,6 +102,17 @@ export default function AdminDashboard() {
     if (isAuthenticated) {
       fetchActivity()
     }
+  }, [isAuthenticated])
+
+  useEffect(() => {
+    const fetchNewsletterSummary = async () => {
+      try {
+        const res = await fetch('/api/nm/analytics/summary')
+        const data = await res.json()
+        if (data?.ok) setNlSummary({ totals: data.totals, daily: data.daily })
+      } catch {}
+    }
+    if (isAuthenticated) fetchNewsletterSummary()
   }, [isAuthenticated])
 
   const fetchArchivedActivity = async () => {
@@ -234,12 +246,12 @@ export default function AdminDashboard() {
       stats: statsLoading ? '...' : `${stats?.activeTemplates || 0} active`
     },
     {
-      title: 'Newsletter (Listmonk)',
-      description: 'Manage lists and campaigns',
-      href: '/admin/listmonk',
+      title: 'Newsletter',
+      description: 'Manage subscribers (Supabase)',
+      href: '/admin/newsletter',
       icon: Mail,
       color: 'blue',
-      stats: 'Newsletter'
+      stats: 'Supabase'
     },
     {
       title: 'Content',
@@ -342,6 +354,30 @@ export default function AdminDashboard() {
                 <p className="text-sm text-slate-600 mt-1">Email templates</p>
               </>
             )}
+          </div>
+        </div>
+
+        {/* Newsletter Performance (30d) */}
+        <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Newsletter Performance (30d)</h3>
+              <div className="text-slate-900 text-xl font-bold mt-1">Opens {nlSummary?.totals?.opens ?? 0} · Clicks {nlSummary?.totals?.clicks ?? 0}</div>
+            </div>
+            <Link href="/admin/newsletter" className="px-3 py-2 text-sm border rounded-lg hover:bg-slate-50">View newsletter</Link>
+          </div>
+          <div className="flex items-end gap-1 h-24 border border-slate-200 rounded-lg p-2">
+            {(() => {
+              const daily = nlSummary?.daily || []
+              if (!daily.length) return <div className="text-slate-500 text-sm">No recent events</div>
+              const max = Math.max(1, ...daily.map(d => Math.max(d.opens, d.clicks)))
+              return daily.slice(-30).map(d => (
+                <div key={d.date} className="flex flex-col items-center w-4">
+                  <div className="w-3 bg-emerald-500" style={{ height: `${(d.opens / max) * 100}%` }} title={`Opens ${d.opens}`}></div>
+                  <div className="w-3 bg-blue-500 mt-1" style={{ height: `${(d.clicks / max) * 100}%` }} title={`Clicks ${d.clicks}`}></div>
+                </div>
+              ))
+            })()}
           </div>
         </div>
 

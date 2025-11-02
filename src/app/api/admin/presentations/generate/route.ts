@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { VertexAI } from '@google-cloud/vertexai';
+import jwt from 'jsonwebtoken';
+import FormData from 'form-data';
+import fetch from 'node-fetch';
 import PptxGenJS from 'pptxgenjs';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import { createSupabaseAdminClient, withSupabaseAdmin } from '@/lib/supabase-admin';
@@ -202,7 +206,7 @@ async function generateWithGemini(
   language: string,
   modelName: string,
   webContext?: string
-): Promise<Array<{ title: string; content: string[] }>> {
+): Promise<Array<{ title: string; content: string[]; imageUrl?: string }>> {
   try {
     console.log('Initializing Gemini with model:', modelName);
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -211,17 +215,23 @@ async function generateWithGemini(
     const prompt = `Create exactly ${slideCount} content slides about "${topic}" in ${language}.
 The tone should be ${tone}.
 
-${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).\n\n${webContext}\n\n` : ''}
+${webContext ? `Use the following web research snippets as grounding. Prefer factual accuracy and cite sources inline in bullets when appropriate (short source name in parentheses).
+
+${webContext}
+
+` : ''}
 
 For each slide, provide:
 1. A clear, concise title
 2. 3-5 bullet points with key information
+3. A descriptive image prompt that can be used to generate a relevant image for the slide.
 
 Format your response as a JSON array of objects with this structure:
 [
   {
     "title": "Slide Title",
-    "content": ["Bullet point 1", "Bullet point 2", "Bullet point 3"]
+    "content": ["Bullet point 1", "Bullet point 2", "Bullet point 3"],
+    "image_prompt": "A descriptive image prompt"
   }
 ]
 `;
@@ -242,7 +252,59 @@ Format your response as a JSON array of objects with this structure:
 
     const parsed = JSON.parse(jsonMatch[0]);
     console.log(`Successfully parsed ${parsed.length} slides`);
-    return parsed;
+
+    // Generate images for each slide
+    const slidesWithImages = await Promise.all(
+      parsed.map(async (slide: any) => {
+        if (slide.image_prompt) {
+          try {
+            const vertexAI = new VertexAI({ project: process.env.GCP_PROJECT, location: process.env.GCP_LOCATION });
+            const generativeModel = vertexAI.getGenerativeModel({
+              model: 'imagegeneration@0.0.1',
+            });
+            const resp = await generativeModel.generateContent({
+              contents: [{ role: 'user', parts: [{ text: slide.image_prompt }] }],
+            });
+
+            if (resp.response.candidates && resp.response.candidates.length > 0) {
+              const firstCandidate = resp.response.candidates[0];
+              const firstPart = firstCandidate?.content?.parts?.[0];
+              const fileData = firstPart && 'fileData' in firstPart ? firstPart.fileData : null;
+              const imageBase64 = (fileData as any)?.mimeType?.startsWith('image/') ? (fileData as any).fileUri : null;
+
+              if (imageBase64) {
+                const imageBuffer = Buffer.from(imageBase64, 'base64');
+                const formData = new FormData();
+                formData.append('file', imageBuffer, {
+                  contentType: 'image/png',
+                  filename: 'generated-image.png'
+                });
+
+                const ghostToken = getGhostToken();
+                const ghostResponse = await fetch(`${GHOST_URL}/ghost/api/admin/images/upload/`, {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Ghost ${ghostToken}`,
+                    ...formData.getHeaders()
+                  },
+                  body: formData,
+                });
+
+                if (ghostResponse.ok) {
+                  const data = await ghostResponse.json();
+                  slide.imageUrl = data.images[0].url;
+                }
+              }
+            }
+          } catch (error) {
+            console.error('Image generation error:', error);
+          }
+        }
+        return slide;
+      })
+    );
+
+    return slidesWithImages;
   } catch (error) {
     console.error('Gemini generation error:', error);
     if (error instanceof Error) {
@@ -251,6 +313,26 @@ Format your response as a JSON array of objects with this structure:
     }
     throw error;
   }
+}
+
+const GHOST_URL = process.env.GHOST_ADMIN_URL || process.env.GHOST_CONTENT_URL?.replace('/ghost/api/content', '') || 'https://ghost.behaviorschool.com';
+const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
+
+function getGhostToken() {
+  if (!GHOST_ADMIN_KEY) {
+    throw new Error('Ghost Admin API key not configured');
+  }
+
+  const [id, secret] = GHOST_ADMIN_KEY.split(':');
+
+  const token = jwt.sign({}, Buffer.from(secret, 'hex'), {
+    keyid: id,
+    algorithm: 'HS256',
+    expiresIn: '5m',
+    audience: '/admin/'
+  });
+
+  return token;
 }
 
 async function generateWithOpenAI(
