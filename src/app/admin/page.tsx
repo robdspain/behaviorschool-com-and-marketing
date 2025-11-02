@@ -247,11 +247,11 @@ export default function AdminDashboard() {
     },
     {
       title: 'Newsletter',
-      description: 'Manage subscribers (Supabase)',
-      href: '/admin/newsletter',
+      description: 'Manage newsletter campaigns and subscribers',
+      href: '/admin/listmonk',
       icon: Mail,
       color: 'blue',
-      stats: 'Supabase'
+      stats: 'Listmonk'
     },
     {
       title: 'Content',
