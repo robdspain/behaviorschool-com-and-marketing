@@ -68,7 +68,7 @@ export default function ListmonkAdminPage() {
         setLoading(false)
       }
     }
-    checkAuth()
+    void checkAuth()
   }, [router])
 
   useEffect(() => {
@@ -83,7 +83,9 @@ export default function ListmonkAdminPage() {
         setStatusLoading(false)
       }
     }
-    if (isAuthenticated) fetchStatus()
+    if (isAuthenticated) {
+      void fetchStatus()
+    }
   }, [isAuthenticated])
 
   if (envError) {
@@ -142,7 +144,9 @@ export default function ListmonkAdminPage() {
         console.error('Failed to load initial listmonk data', e)
       }
     }
-    if (status?.configured) loadData()
+    if (status?.configured) {
+      void loadData()
+    }
   }, [status?.configured])
 
   const submitSubscriber = async (e: React.FormEvent) => {
