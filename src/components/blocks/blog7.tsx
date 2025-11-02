@@ -94,7 +94,7 @@ const Blog7 = ({
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {posts.map((post) => (
             <Card key={post.id} className="grid grid-rows-[auto_auto_1fr_auto]">
-              <div className="w-full">
+              <div className="w-full bg-slate-50 h-48 sm:h-56 lg:h-64 flex items-center justify-center overflow-hidden">
                 <a
                   href={post.url}
                   target="_blank"
@@ -104,7 +104,7 @@ const Blog7 = ({
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-auto object-contain bg-slate-50"
+                    className="max-w-full max-h-full object-contain"
                     loading="lazy"
                   />
                 </a>

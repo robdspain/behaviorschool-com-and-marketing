@@ -196,39 +196,19 @@ function SortableSection({ section, allQuestions, onEdit, onDelete, onToggleExpa
         </div>
       </div>
 
-      {/* Questions (when expanded) */}
+      {/* Quick actions instead of embedding quiz list */}
       {section.isExpanded && (
-        <div className="px-6 pb-6 space-y-3">
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="text-sm font-semibold text-slate-700">Quiz Questions</h4>
-            <Button
-              onClick={onAddQuestion}
-              size="sm"
-              variant="outline"
-              className="text-blue-600 border-blue-200 hover:bg-blue-50"
-            >
-              <Plus className="w-4 h-4 mr-1" />
-              Add Question
-            </Button>
+        <div className="px-6 pb-6">
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-slate-600">
+              {sectionQuestions.length} quiz question{sectionQuestions.length === 1 ? '' : 's'} in this section
+            </div>
+            <div className="flex items-center gap-2">
+              <Button onClick={onAddQuestion} size="sm" variant="outline" className="text-blue-600 border-blue-200 hover:bg-blue-50">
+                <Plus className="w-4 h-4 mr-1" /> Manage Questions
+              </Button>
+            </div>
           </div>
-
-          {sectionQuestions.length > 0 ? (
-            <div className="space-y-3">
-              {sectionQuestions.map((question) => (
-                <SortableQuestion
-                  key={question.id}
-                  question={question}
-                  sectionNumber={section.section_number}
-                  onEdit={() => onEditQuestion(question)}
-                  onDelete={() => onDeleteQuestion(question.id)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8 text-slate-500 text-sm">
-              No questions yet. Add your first question!
-            </div>
-          )}
         </div>
       )}
     </div>
@@ -242,6 +222,8 @@ export default function DesignCoursePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [savingResources, setSavingResources] = useState(false);
+  const [quizBlocks, setQuizBlocks] = useState<{ sectionId: number; section_number: number; title: string; questionCount: number }[]>([]);
+  const [savingQuizBlocks, setSavingQuizBlocks] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -284,6 +266,24 @@ export default function DesignCoursePage() {
 
         setSections(sectionsWithQuestionIds);
         setQuestions(allQuestions);
+
+        // Build quiz blocks separate from sections UI
+        const built = sectionsWithQuestionIds.map((s) => ({
+          sectionId: s.id,
+          section_number: s.section_number,
+          title: s.title,
+          questionCount: s.questionIds.length,
+        }));
+
+        // Apply saved order from localStorage if present
+        try {
+          const saved = localStorage.getItem('masterclass_quiz_block_order');
+          if (saved) {
+            const order = JSON.parse(saved) as number[]; // array of sectionId
+            built.sort((a, b) => order.indexOf(a.sectionId) - order.indexOf(b.sectionId));
+          }
+        } catch {}
+        setQuizBlocks(built);
       }
     } catch (error) {
       console.error('Failed to fetch course data:', error);
@@ -432,6 +432,19 @@ export default function DesignCoursePage() {
     });
   };
 
+  const handleQuizBlocksDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over) return;
+    setQuizBlocks((items) => {
+      const oldIndex = items.findIndex(q => `quiz-${q.sectionId}` === String(active.id));
+      const newIndex = items.findIndex(q => `quiz-${q.sectionId}` === String(over.id));
+      if (oldIndex !== -1 && newIndex !== -1) {
+        return arrayMove(items, oldIndex, newIndex);
+      }
+      return items;
+    });
+  };
+
   const toggleSection = (sectionId: number) => {
     setSections(sections.map(s =>
       s.id === sectionId ? { ...s, isExpanded: !s.isExpanded } : s
@@ -467,6 +480,18 @@ export default function DesignCoursePage() {
       console.error('Failed to save resource order:', error);
     } finally {
       setSavingResources(false);
+    }
+  };
+
+  const saveQuizBlocksOrder = async () => {
+    setSavingQuizBlocks(true);
+    try {
+      const order = quizBlocks.map(q => q.sectionId);
+      localStorage.setItem('masterclass_quiz_block_order', JSON.stringify(order));
+    } catch (e) {
+      console.error('Failed to save quiz blocks order:', e);
+    } finally {
+      setSavingQuizBlocks(false);
     }
   };
 
@@ -619,6 +644,58 @@ export default function DesignCoursePage() {
           ) : (
             <div className="text-center py-8 bg-white border-2 border-dashed border-slate-300 rounded-xl text-slate-500">
               No resources yet. Click “Add Resource” to create one.
+            </div>
+          )}
+        </div>
+
+        {/* Quiz Blocks */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xl font-bold text-slate-900">Quiz Questions</h2>
+            <div className="flex items-center gap-2">
+              <Link href="/admin/masterclass/questions">
+                <Button variant="outline" className="gap-2">
+                  <Plus className="w-4 h-4" /> Add Quiz Questions
+                </Button>
+              </Link>
+              <Button onClick={saveQuizBlocksOrder} disabled={savingQuizBlocks} className="gap-2">
+                {savingQuizBlocks ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" /> Saving
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-4 h-4" /> Save Quiz Order
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+
+          {quizBlocks.length > 0 ? (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleQuizBlocksDragEnd}
+            >
+              <SortableContext
+                items={quizBlocks.map(q => `quiz-${q.sectionId}`)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-3">
+                  {quizBlocks.map((q) => (
+                    <QuizBlock
+                      key={q.sectionId}
+                      block={q}
+                      onManage={() => { window.location.href = `/admin/masterclass/questions?section=${q.section_number}`; }}
+                    />
+                  ))}
+                </div>
+              </SortableContext>
+            </DndContext>
+          ) : (
+            <div className="text-center py-8 bg-white border-2 border-dashed border-slate-300 rounded-xl text-slate-500">
+              No quiz questions yet. Click “Add Quiz Questions” to create some.
             </div>
           )}
         </div>
@@ -836,5 +913,45 @@ function ResourceBlock({ resource, sections, onDelete, onUpdate }: { resource: M
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function QuizBlock({ block, onManage }: { block: { sectionId: number; section_number: number; title: string; questionCount: number }; onManage: () => void }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: `quiz-${block.sectionId}` });
+  const style: CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="flex items-start gap-3 p-4 bg-white border-2 border-slate-200 rounded-lg hover:border-blue-300 transition-colors"
+    >
+      <button
+        {...attributes}
+        {...listeners}
+        className="mt-1 text-slate-400 hover:text-slate-600 cursor-grab active:cursor-grabbing"
+        title="Drag to reorder"
+      >
+        <GripVertical className="w-5 h-5" />
+      </button>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between gap-3 mb-1">
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-800 border border-blue-200">Quiz</span>
+            <h4 className="text-sm font-semibold text-slate-900 truncate">Section {block.section_number}: {block.title}</h4>
+          </div>
+          <div className="flex items-center gap-2">
+            <button onClick={onManage} className="text-slate-600 hover:text-emerald-700" title="Manage questions">
+              <Edit className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+        <p className="text-xs text-slate-500">{block.questionCount} questions</p>
+      </div>
+    </div>
   );
 }

@@ -96,12 +96,12 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
   return (
     <Card className={cn("group overflow-hidden h-full flex flex-col", className)} {...props}>
       {imageSrc ? (
-        <div className="w-full overflow-hidden bg-slate-50">
+        <div className="w-full bg-slate-50 h-48 sm:h-56 lg:h-64 flex items-center justify-center overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={imageSrc}
             alt={post.title}
-            className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+            className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-[1.01]"
             loading="lazy"
           />
         </div>
