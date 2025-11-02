@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -16,6 +16,7 @@ import {
   File as FileIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import {
   DndContext,
   closestCenter,
@@ -33,12 +34,13 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { MasterclassResource } from '@/lib/masterclass/admin-types';
+import type { MasterclassResource, MasterclassCourseSection } from '@/lib/masterclass/admin-types';
 
 function getFileIcon(fileType: string) {
-  if (fileType.startsWith('image/')) return <ImageIcon className="w-5 h-5 text-blue-600" />;
-  if (fileType.includes('pdf')) return <FileIcon className="w-5 h-5 text-red-600" />;
-  if (fileType.includes('link')) return <LinkIcon className="w-5 h-5 text-purple-600" />;
+  const t = fileType.toLowerCase();
+  if (['png','jpg','jpeg','webp'].some(ext => t.includes(ext))) return <ImageIcon className="w-5 h-5 text-blue-600" />;
+  if (t.includes('pdf')) return <FileIcon className="w-5 h-5 text-red-600" />;
+  if (t.includes('link')) return <LinkIcon className="w-5 h-5 text-purple-600" />;
   return <FileIcon className="w-5 h-5 text-slate-600" />;
 }
 
@@ -114,8 +116,13 @@ function SortableResource({ resource, onEdit, onDelete }: {
 
 export default function DesignResourcesPage() {
   const [resources, setResources] = useState<MasterclassResource[]>([]);
+  const [sections, setSections] = useState<MasterclassCourseSection[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editing, setEditing] = useState<MasterclassResource | null>(null);
+  const [form, setForm] = useState<{ name: string; url: string; file_type: string; section_id: number | null }>({ name: '', url: '', file_type: 'link', section_id: null });
+  const [submitting, setSubmitting] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -126,6 +133,7 @@ export default function DesignResourcesPage() {
 
   useEffect(() => {
     fetchResources();
+    fetchSections();
   }, []);
 
   const fetchResources = async () => {
@@ -140,6 +148,18 @@ export default function DesignResourcesPage() {
       console.error('Failed to fetch resources:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchSections = async () => {
+    try {
+      const response = await fetch('/api/admin/masterclass/sections');
+      const data = await response.json();
+      if (data.success) {
+        setSections(data.data);
+      }
+    } catch (e) {
+      console.error('Failed to fetch sections:', e);
     }
   };
 
@@ -162,11 +182,13 @@ export default function DesignResourcesPage() {
   const saveOrder = async () => {
     setSaving(true);
     try {
-      const updatedResources = resources.map((r, i) => ({ ...r, order_index: i + 1 }));
-      // TODO: Implement API call to save resource order
-      console.log('Save resource order:', updatedResources.map(r => ({ id: r.id, order_index: r.order_index })));
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-      setResources(updatedResources); // Update state with new order_index
+      const idsInOrder = resources.map(r => r.id);
+      const res = await fetch('/api/admin/masterclass/resources', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idsInOrder }),
+      });
+      if (!res.ok) throw new Error('Failed to save resource order');
     } catch (error) {
       console.error('Failed to save order:', error);
     } finally {
@@ -175,23 +197,58 @@ export default function DesignResourcesPage() {
   };
 
   const handleAddResource = () => {
-    // TODO: Implement modal or new page for adding a resource
-    alert('Add Resource functionality not yet implemented.');
+    setEditing(null);
+    setForm({ name: '', url: '', file_type: 'link', section_id: null });
+    setModalOpen(true);
   };
 
   const handleEditResource = (resource: MasterclassResource) => {
-    // TODO: Implement modal or new page for editing a resource
-    alert(`Edit Resource ID: ${resource.id} functionality not yet implemented.`);
+    setEditing(resource);
+    setForm({ name: resource.name, url: resource.url, file_type: resource.file_type, section_id: resource.section_id });
+    setModalOpen(true);
   };
 
   const handleDeleteResource = async (resourceId: number) => {
     if (!confirm('Are you sure you want to delete this resource?')) {
       return;
     }
-    // TODO: Implement API call to delete resource
-    console.log('Delete resource ID:', resourceId);
-    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
-    setResources(prevResources => prevResources.filter(r => r.id !== resourceId));
+    try {
+      const res = await fetch(`/api/admin/masterclass/resources?id=${resourceId}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete');
+      setResources(prevResources => prevResources.filter(r => r.id !== resourceId));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const submitResource = async () => {
+    setSubmitting(true);
+    try {
+      if (editing) {
+        const res = await fetch('/api/admin/masterclass/resources', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: editing.id, ...form }),
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Failed to update');
+        setResources(prev => prev.map(r => (r.id === editing.id ? data.data : r)));
+      } else {
+        const res = await fetch('/api/admin/masterclass/resources', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...form, order_index: (resources[resources.length-1]?.order_index || 0) + 1 }),
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Failed to create');
+        setResources(prev => [...prev, data.data]);
+      }
+      setModalOpen(false);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
 
@@ -256,7 +313,7 @@ export default function DesignResourcesPage() {
           </Button>
         </div>
 
-        {/* Resources List */}
+        {/* Resources List */
         {resources.length > 0 ? (
           <DndContext
             sensors={sensors}
@@ -291,6 +348,70 @@ export default function DesignResourcesPage() {
           </div>
         )}
       </main>
+      <ResourceModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        form={form}
+        setForm={setForm}
+        onSubmit={submitResource}
+        submitting={submitting}
+        sections={sections}
+        editing={editing}
+      />
     </div>
+  );
+}
+
+// Modal for Add/Edit Resource
+// Placed at the end to keep component concise above
+export function ResourceModal({ open, onOpenChange, form, setForm, onSubmit, submitting, sections, editing }: {
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+  form: { name: string; url: string; file_type: string; section_id: number | null };
+  setForm: (v: { name: string; url: string; file_type: string; section_id: number | null }) => void;
+  onSubmit: () => void;
+  submitting: boolean;
+  sections: MasterclassCourseSection[];
+  editing: MasterclassResource | null;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{editing ? 'Edit Resource' : 'Add Resource'}</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Name</label>
+            <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full border rounded-md px-3 py-2" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">URL</label>
+            <input value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} className="w-full border rounded-md px-3 py-2" />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">File Type</label>
+              <input value={form.file_type} onChange={(e) => setForm({ ...form, file_type: e.target.value })} className="w-full border rounded-md px-3 py-2" placeholder="pdf, docx, link, ..." />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Attach to Section</label>
+              <select value={form.section_id ?? ''} onChange={(e) => setForm({ ...form, section_id: e.target.value ? Number(e.target.value) : null })} className="w-full border rounded-md px-3 py-2">
+                <option value="">Unassigned</option>
+                {sections.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.section_number}. {s.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+          <Button onClick={onSubmit} disabled={submitting} className="bg-emerald-600 hover:bg-emerald-700">{submitting ? 'Saving...' : 'Save'}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
