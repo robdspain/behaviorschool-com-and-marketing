@@ -103,6 +103,14 @@ export interface CourseSection {
   videoUrl: string;
   duration: string; // e.g., "15 min"
   quiz: QuizQuestion[];
+  resources?: CourseResource[];
+}
+
+export interface CourseResource {
+  id: number;
+  name: string;
+  url: string;
+  fileType: string;
 }
 
 export interface MasterclassCourse {

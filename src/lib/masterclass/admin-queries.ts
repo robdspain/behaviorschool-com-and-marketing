@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase-server';
 import type {
   MasterclassCourseSection,
   MasterclassQuizQuestion,
+  MasterclassResource,
   MasterclassCertificateConfig,
   CourseSectionFormData,
   QuizQuestionFormData,
@@ -334,6 +335,25 @@ export async function reorderQuestions(questionIds: number[]): Promise<void> {
       .update({ question_number: update.question_number })
       .eq('id', update.id);
   }
+}
+
+// ============================================================================
+// Resources
+// ============================================================================
+
+/**
+ * Get resources by section IDs (ordered)
+ */
+export async function getResourcesBySectionIds(sectionIds: number[]): Promise<MasterclassResource[]> {
+  if (!sectionIds.length) return [];
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('masterclass_resources')
+    .select('*')
+    .in('section_id', sectionIds)
+    .order('order_index');
+  if (error) throw new Error(`Failed to fetch resources: ${error.message}`);
+  return data || [];
 }
 
 // ============================================================================

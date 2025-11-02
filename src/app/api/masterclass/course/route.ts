@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import {
   getActiveSections,
   getAllActiveQuestions,
+  getResourcesBySectionIds,
 } from '@/lib/masterclass/admin-queries';
 import { dbSectionToCourseSection } from '@/lib/masterclass/admin-types';
 
@@ -17,10 +18,23 @@ export async function GET() {
       getAllActiveQuestions(),
     ]);
 
+    // Fetch resources for these sections
+    const sectionIds = sections.map(s => s.id);
+    const resources = await getResourcesBySectionIds(sectionIds);
+
     // Convert database format to course format
-    const courseSections = sections.map(section =>
-      dbSectionToCourseSection(section, questions)
-    );
+    const courseSections = sections.map(section => {
+      const base = dbSectionToCourseSection(section, questions);
+      const sectionResources = resources
+        .filter(r => r.section_id === section.id)
+        .map(r => ({
+          id: r.id,
+          name: r.name,
+          url: r.url,
+          fileType: r.file_type,
+        }));
+      return { ...base, resources: sectionResources };
+    });
 
     return NextResponse.json({
       success: true,

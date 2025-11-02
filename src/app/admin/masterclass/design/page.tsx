@@ -16,6 +16,7 @@ import {
   Save,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import {
   DndContext,
   closestCenter,
@@ -604,7 +605,13 @@ export default function DesignCoursePage() {
               >
                 <div className="space-y-3">
                   {resources.map((r) => (
-                    <ResourceBlock key={r.id} resource={r} onDelete={() => deleteResource(r.id)} />
+                    <ResourceBlock
+                      key={r.id}
+                      resource={r}
+                      sections={sections}
+                      onDelete={() => deleteResource(r.id)}
+                      onUpdate={(updated) => setResources(prev => prev.map(x => x.id === updated.id ? updated : x))}
+                    />
                   ))}
                 </div>
               </SortableContext>
@@ -689,12 +696,39 @@ export default function DesignCoursePage() {
   );
 }
 
-function ResourceBlock({ resource, onDelete }: { resource: MasterclassResource; onDelete: () => void }) {
+function ResourceBlock({ resource, sections, onDelete, onUpdate }: { resource: MasterclassResource; sections: MasterclassCourseSection[]; onDelete: () => void; onUpdate: (updated: MasterclassResource) => void }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: `resource-${resource.id}` });
   const style: CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+  };
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState({
+    name: resource.name,
+    url: resource.url,
+    file_type: resource.file_type,
+    section_id: resource.section_id ?? null as number | null,
+  });
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const res = await fetch('/api/admin/masterclass/resources', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: resource.id, ...form }),
+      });
+      const data = await res.json();
+      if (!data?.success) throw new Error(data?.error || 'Failed to update resource');
+      onUpdate(data.data);
+      setOpen(false);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -722,6 +756,13 @@ function ResourceBlock({ resource, onDelete }: { resource: MasterclassResource; 
               Open
             </a>
             <button
+              onClick={() => setOpen(true)}
+              className="text-slate-600 hover:text-emerald-700"
+              title="Edit resource"
+            >
+              <Edit className="w-4 h-4" />
+            </button>
+            <button
               onClick={onDelete}
               className="text-slate-600 hover:text-red-600"
               title="Delete resource"
@@ -731,7 +772,69 @@ function ResourceBlock({ resource, onDelete }: { resource: MasterclassResource; 
           </div>
         </div>
         <p className="text-xs text-slate-500 break-all">{resource.url}</p>
+        {resource.section_id && (
+          <p className="mt-1 text-xs text-slate-500">Section: {sections.find(s => s.id === resource.section_id)?.title || '—'}</p>
+        )}
       </div>
     </div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit Resource</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Name</label>
+            <input
+              value={form.name}
+              onChange={e => setForm({ ...form, name: e.target.value })}
+              className="w-full border rounded-md px-3 py-2"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">URL</label>
+            <input
+              value={form.url}
+              onChange={e => setForm({ ...form, url: e.target.value })}
+              className="w-full border rounded-md px-3 py-2"
+            />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">File Type</label>
+              <input
+                value={form.file_type}
+                onChange={e => setForm({ ...form, file_type: e.target.value })}
+                className="w-full border rounded-md px-3 py-2"
+                placeholder="pdf, docx, link, ..."
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Attach to Section</label>
+              <select
+                value={form.section_id ?? ''}
+                onChange={e => setForm({ ...form, section_id: e.target.value ? Number(e.target.value) : null })}
+                className="w-full border rounded-md px-3 py-2"
+              >
+                <option value="">Unassigned</option>
+                {sections.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.section_number}. {s.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button onClick={handleSave} disabled={saving} className="bg-emerald-600 hover:bg-emerald-700">
+            {saving ? 'Saving...' : 'Save'}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

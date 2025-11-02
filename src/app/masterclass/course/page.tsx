@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { SidebarNavigation } from '@/components/masterclass/SidebarNavigation';
 import { ProgressBar } from '@/components/masterclass/ProgressBar';
 import { VideoSection } from '@/components/masterclass/VideoSection';
+import { ResourcesList } from '@/components/masterclass/ResourcesList';
 import { QuizSection } from '@/components/masterclass/QuizSection';
 import { Loader2, AlertCircle, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -334,6 +335,11 @@ export default function CoursePage() {
               isCompleted={currentSectionProgress?.video_completed || false}
               onMarkComplete={handleMarkVideoComplete}
             />
+
+            {/* Resources */}
+            {currentSectionConfig.resources && currentSectionConfig.resources.length > 0 && (
+              <ResourcesList resources={currentSectionConfig.resources} />
+            )}
 
             {/* Quiz Section */}
             <QuizSection
