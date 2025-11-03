@@ -20,6 +20,7 @@ export function RangeChartBlock() {
   const [mode, setMode] = useState<"selected" | "sorted">("selected");
   const [items, setItems] = useState(fallback);
   const [noteYear, setNoteYear] = useState<number | null>(null);
+  const [fetchFailed, setFetchFailed] = useState(false);
 
   // Try to fetch published data if available
   useEffect(() => {
@@ -36,7 +37,10 @@ export function RangeChartBlock() {
         }
         if (typeof json.year === "number") setNoteYear(json.year);
       })
-      .catch(() => void 0);
+      .catch(() => {
+        // Use fallback and display message
+        setFetchFailed(true);
+      });
     return () => {
       active = false;
     };
@@ -72,6 +76,12 @@ export function RangeChartBlock() {
           Top by Max
         </button>
       </div>
+
+      {fetchFailed && (
+        <div className="mt-4 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-sm">
+          Could not load the latest salary benchmarks right now. Showing a fallback snapshot. Please check back later.
+        </div>
+      )}
 
       <RangeBarChart
         items={view}

@@ -48,3 +48,9 @@
 [[scheduled.functions]]
   name = "nm-worker"
   cron = "*/5 * * * *"
+
+# Fallback trigger to refresh salary data yearly (and ensure site rebuild)
+[[scheduled.functions]]
+  name = "salary-refresh"
+  # Run at 00:10 UTC on Jan 1 each year
+  cron = "10 0 1 1 *"
