@@ -16,6 +16,9 @@ import {
   Twitter,
   Instagram,
   Facebook,
+  ExternalLink,
+  Briefcase,
+  Award,
 } from "lucide-react";
 
 const fadeInUp = {
