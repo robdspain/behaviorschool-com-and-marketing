@@ -92,7 +92,7 @@ export function ProductsClient() {
                 >
                   <Link 
                     href="/behavior-study-tools" 
-                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    className="inline-flex items-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
                     aria-label="Learn more about Behavior Study Tools"
                   >
                     Learn more about Behavior Study Tools
@@ -206,7 +206,7 @@ export function ProductsClient() {
                 >
                   <Link
                     href="/supervisors"
-                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    className="inline-flex items-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
                     aria-label="Learn more about Supervision Tools"
                   >
                     Learn more about Supervision Tools
@@ -266,7 +266,7 @@ export function ProductsClient() {
                 >
                   <Link 
                     href="/iep-goals" 
-                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    className="inline-flex items-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
                     aria-label="Learn more about IEP Goal Writer"
                   >
                     Learn more about IEP Goal Writer
@@ -331,7 +331,7 @@ export function ProductsClient() {
                 >
                   <Link 
                     href="/act-matrix" 
-                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    className="inline-flex items-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
                     aria-label="Learn more about ACT Matrix Guide"
                   >
                     Learn more about ACT Matrix Guide
@@ -455,7 +455,7 @@ export function ProductsClient() {
                 >
                   <Link 
                     href="/behavior-plans" 
-                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    className="inline-flex items-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
                     aria-label="Learn more about Behavior Plan Writer"
                   >
                     Learn more about Behavior Plan Writer
