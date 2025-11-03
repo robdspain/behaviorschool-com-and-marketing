@@ -141,8 +141,8 @@ export default function BCBAMockPracticeTestPage() {
       duration: "4 hours",
       questions: "185 questions",
       ideal: "Complete assessment",
-      ctaText: "Start 10‑Question Guest Quiz",
-      ctaUrl: "https://study.behaviorschool.com/quiz/guest?limit=10",
+      ctaText: "Start Full 185‑Question Guest Quiz",
+      ctaUrl: "https://study.behaviorschool.com/quiz/guest?limit=185",
       popular: true,
       features: ["One free complete exam", "Exact BACB question distribution", "Comprehensive performance analytics", "Detailed explanations included"]
     },
@@ -311,19 +311,19 @@ export default function BCBAMockPracticeTestPage() {
               Build confidence, identify weak areas, and perfect your test-taking strategy with our comprehensive BCBA mock practice tests. Experience the real exam before exam day.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
-              >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105">
                 <a href="https://study.behaviorschool.com/quiz/guest?limit=10" target="_blank" rel="noopener noreferrer">
-                  <PlayCircle className="mr-2 h-5 w-5" />
-                  Start 10‑Question Guest Quiz
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <PlayCircle className="mr-2 h-5 w-5" /> Start 10‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-slate-300 text-slate-800 hover:bg-slate-100 px-8 py-4 rounded-2xl shadow-md hover:shadow-lg transition-all duration-200">
+                <a href="https://study.behaviorschool.com/quiz/guest?limit=185" target="_blank" rel="noopener noreferrer">
+                  <PlayCircle className="mr-2 h-5 w-5" /> Start Full 185‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
             </div>
+            <p className="text-sm text-slate-500 max-w-xl mx-auto">Guest mode lets you complete one mini (10) or one full (185) for free. Sign in afterward to view results, explanations, and analytics.</p>
 
             <div className="flex items-center justify-center space-x-8 text-sm text-slate-600">
               <div className="flex items-center space-x-2">
