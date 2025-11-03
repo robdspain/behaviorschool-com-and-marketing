@@ -194,17 +194,17 @@ export async function getPosts(
       `, postIds) as [TagRow[], FieldPacket[]];
 
       // Group tags by post
-      tagsResult.forEach((row: TagRow) => {
-        if (!tagsMap[row.post_id!]) {
-          tagsMap[row.post_id!] = [];
-        }
-        tagsMap[row.post_id!].push({
-          id: row.id,
-          name: row.name,
-          slug: row.slug,
-          url: `https://ghost.behaviorschool.com/tag/${row.slug}/`
+        tagsResult.forEach((row: TagRow) => {
+          if (!tagsMap[row.post_id!]) {
+            tagsMap[row.post_id!] = [];
+          }
+          tagsMap[row.post_id!].push({
+            id: row.id,
+            name: row.name,
+            slug: row.slug,
+            url: `https://behaviorschool.com/tag/${row.slug}`
+          });
         });
-      });
     }
 
     // Format posts
@@ -212,7 +212,7 @@ export async function getPosts(
       id: row.id,
       title: row.title,
       slug: row.slug,
-      url: `https://ghost.behaviorschool.com/${row.slug}/`,
+      url: `https://behaviorschool.com/blog/${row.slug}`,
       excerpt: row.excerpt,
       feature_image: row.feature_image,
       published_at: row.published_at ? new Date(row.published_at).toISOString() : null,
@@ -223,14 +223,14 @@ export async function getPosts(
         name: row.author_name!,
         slug: row.author_slug!,
         profile_image: row.author_profile_image,
-        url: `https://ghost.behaviorschool.com/author/${row.author_slug!}/`
+        url: `https://behaviorschool.com/about`
       }] : [],
       primary_author: row.author_id ? {
         id: row.author_id,
         name: row.author_name!,
         slug: row.author_slug!,
         profile_image: row.author_profile_image,
-        url: `https://ghost.behaviorschool.com/author/${row.author_slug!}/`
+        url: `https://behaviorschool.com/about`
       } : null,
       html: row.html,
       plaintext: row.plaintext
@@ -321,14 +321,14 @@ export async function getPostBySlug(
       id: row.id,
       name: row.name,
       slug: row.slug,
-      url: `https://ghost.behaviorschool.com/tag/${row.slug}/`
+      url: `https://behaviorschool.com/tag/${row.slug}`
     }));
 
     return {
       id: postRow.id,
       title: postRow.title,
       slug: postRow.slug,
-      url: `https://ghost.behaviorschool.com/${postRow.slug}/`,
+      url: `https://behaviorschool.com/blog/${postRow.slug}`,
       excerpt: postRow.excerpt,
       feature_image: postRow.feature_image,
       published_at: postRow.published_at ? new Date(postRow.published_at).toISOString() : null,
@@ -339,14 +339,14 @@ export async function getPostBySlug(
         name: postRow.author_name!,
         slug: postRow.author_slug!,
         profile_image: postRow.author_profile_image,
-        url: `https://ghost.behaviorschool.com/author/${postRow.author_slug!}/`
+        url: `https://behaviorschool.com/about`
       }] : [],
       primary_author: postRow.author_id ? {
         id: postRow.author_id,
         name: postRow.author_name!,
         slug: postRow.author_slug!,
         profile_image: postRow.author_profile_image,
-        url: `https://ghost.behaviorschool.com/author/${postRow.author_slug!}/`
+        url: `https://behaviorschool.com/about`
       } : null,
       html: postRow.html,
       plaintext: postRow.plaintext
@@ -378,7 +378,7 @@ export async function getTags(args: { limit?: number } = {}): Promise<Tag[]> {
       id: row.id,
       name: row.name,
       slug: row.slug,
-      url: `https://ghost.behaviorschool.com/tag/${row.slug}/`
+      url: `https://behaviorschool.com/tag/${row.slug}`
     }));
 
   } catch (error) {
@@ -405,7 +405,7 @@ export async function getAuthors(): Promise<Author[]> {
       name: row.name,
       slug: row.slug,
       profile_image: row.profile_image,
-      url: `https://ghost.behaviorschool.com/author/${row.slug}/`
+      url: `https://behaviorschool.com/about`
     }));
 
   } catch (error) {
