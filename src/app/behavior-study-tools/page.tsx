@@ -147,15 +147,15 @@ export default function BehaviorStudyToolsPage() {
               >
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
+                    href="https://study.behaviorschool.com/free-mock-exam"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
-                    Start Free BCBA Mock Exam
+                    Free Full Mock Exam
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <div className="text-sm text-slate-600 flex items-center">
                     <Check className="w-4 h-4 text-emerald-500 mr-2" />
-                    10+ Free Questions • No Signup Required • Instant Results
+                    185 Questions • No Signup Required • Instant Results
                   </div>
                 </div>
               </motion.div>
@@ -224,10 +224,10 @@ export default function BehaviorStudyToolsPage() {
               </div>
 
               <Link
-                href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
+                href="https://study.behaviorschool.com/free-mock-exam"
                 className="inline-flex items-center px-10 py-4 text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
               >
-                Start Free Mock Exam Now
+                Free Full Mock Exam (185 Questions)
                 <ArrowRight className="ml-3 h-6 w-6" />
               </Link>
 
@@ -322,7 +322,7 @@ export default function BehaviorStudyToolsPage() {
                     {area.questions}
                   </span>
                   <Link
-                    href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
+                    href="https://study.behaviorschool.com/free-mock-exam"
                     className="text-emerald-600 hover:text-emerald-700 font-semibold text-sm"
                   >
                     Practice Now →
@@ -415,14 +415,14 @@ export default function BehaviorStudyToolsPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
+                  href="https://study.behaviorschool.com/free-mock-exam"
                   className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-slate-50 transition-colors"
                 >
-                  Start Free Trial
+                  Free Full Mock Exam
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-                <Link 
-                  href="/transformation-program" 
+                <Link
+                  href="/transformation-program"
                   className="inline-flex items-center px-8 py-3 bg-emerald-700 text-white font-semibold rounded-xl hover:bg-emerald-800 transition-colors"
                 >
                   Get Complete School BCBA Training
@@ -542,14 +542,14 @@ export default function BehaviorStudyToolsPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
+                  href="https://study.behaviorschool.com/free-mock-exam"
                   className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
                 >
-                  Start BCBA Prep Now
+                  Free Mini Mock Exam
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-                <Link 
-                  href="/supervisors" 
+                <Link
+                  href="/supervisors"
                   className="inline-flex items-center px-8 py-3 border border-emerald-600 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition-colors"
                 >
                   Explore Supervision Tools
@@ -663,10 +663,10 @@ export default function BehaviorStudyToolsPage() {
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                href="https://study.behaviorschool.com/auth?mode=signup&source=behavior-study-tools-page"
+                href="https://study.behaviorschool.com/free-mock-exam"
                 className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 hover:bg-slate-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                Explore Behavior Study Tools
+                Take Free Full Mock Exam
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </motion.div>

@@ -56,34 +56,6 @@ export default function Home() {
         primaryCta={{ href: "/transformation-program", label: "See the Program" }}
       />
 
-      {/* Two-Tier CTA Bar - Segment by readiness */}
-      <section className="py-6 bg-slate-50 border-y border-slate-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
-            <p className="text-slate-700 font-medium text-sm sm:text-base">
-              Not ready for the program?
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button asChild size="default" variant="outline" className="border-emerald-600 text-emerald-700 hover:bg-emerald-50">
-                <a href="https://community.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                  Join Free Community
-                </a>
-              </Button>
-              <Button asChild size="default" variant="outline" className="border-emerald-600 text-emerald-700 hover:bg-emerald-50">
-                <Link href="/free-bcba-mock-practice-test">
-                  Try Free BCBA Mock Exam
-                </Link>
-              </Button>
-              <Button asChild size="default" variant="outline" className="border-emerald-600 text-emerald-700 hover:bg-emerald-50">
-                <Link href="/study">
-                  AI Study Platform
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* PRIMARY CONVERSION SECTION - Transformation Program */}
       <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-odd">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
