@@ -1,84 +1,38 @@
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server'
+
+export const dynamic = 'force-dynamic'
 
 function getGhostBase(): string {
-  const raw = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || process.env.GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com';
-  return raw.replace(/\/$/, '');
+  const raw = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com/ghost/api/content'
+  // Strip Ghost API suffix if present to get the site base (serves /content/images/...)
+  return raw.replace(/\/?ghost\/api\/content\/?$/, '').replace(/\/$/, '')
 }
 
-function isAllowedPath(p: string): boolean {
-  // Only allow serving Ghost content images
-  return p.startsWith('content/images/');
-}
-
-export async function GET(_req: NextRequest, context: { params: Promise<{ path: string[] }> }) {
-  let relPath = '';
+export async function GET(_req: NextRequest, { params }: { params: { path: string[] } }) {
   try {
-    const params = await context.params;
-    const segments = params.path || [];
-    relPath = segments.join('/');
+    const base = getGhostBase()
+    const restPath = (params.path || []).join('/')
 
-    console.log('Ghost proxy request:', { segments, relPath });
+    // Only proxy content images for safety
+    const safePath = restPath.startsWith('content/images/') ? restPath : `content/images/${restPath.replace(/^\/?/, '')}`
+    const targetUrl = `${base}/${safePath}`
 
-    if (!isAllowedPath(relPath)) {
-      console.log('Forbidden path:', relPath);
-      return new NextResponse('Forbidden', { status: 403 });
+    const upstream = await fetch(targetUrl, { cache: 'no-store' })
+    if (!upstream.ok) {
+      return new Response('Not found', { status: upstream.status })
     }
 
-    const ghostBase = getGhostBase();
-    const upstream = `${ghostBase}/${relPath}`;
+    // Copy headers but avoid hop-by-hop
+    const headers = new Headers()
+    const ct = upstream.headers.get('content-type') || 'application/octet-stream'
+    headers.set('Content-Type', ct)
+    headers.set('Cache-Control', 'public, max-age=604800, immutable')
 
-    console.log('Fetching from upstream:', upstream);
-
-    // Add timeout controller to prevent hanging requests
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-
-    const upstreamRes = await fetch(upstream, {
-      headers: {
-        'User-Agent': 'BehaviorSchool-Proxy/1.0'
-      },
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
-
-    console.log('Upstream response status:', upstreamRes.status);
-
-    if (!upstreamRes.ok) {
-      console.log('Upstream error:', upstreamRes.status, upstreamRes.statusText);
-      return new NextResponse('Not found', { status: 404 });
-    }
-
-    const headers = new Headers();
-
-    // Copy important headers
-    if (upstreamRes.headers.get('content-type')) {
-      headers.set('Content-Type', upstreamRes.headers.get('content-type')!);
-    }
-    if (upstreamRes.headers.get('content-length')) {
-      headers.set('Content-Length', upstreamRes.headers.get('content-length')!);
-    }
-
-    // Set cache headers
-    headers.set('Cache-Control', 'public, max-age=2592000, immutable');
-    headers.set('X-Robots-Tag', 'noindex');
-
-    return new NextResponse(upstreamRes.body, {
-      status: upstreamRes.status,
-      headers,
-    });
-  } catch (error) {
-    // Handle timeout errors specifically
-    if (error instanceof Error && error.name === 'AbortError') {
-      console.error('Ghost proxy timeout:', relPath);
-      return new NextResponse('Gateway Timeout', { status: 504 });
-    }
-    console.error('Ghost proxy error:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    const buf = await upstream.arrayBuffer()
+    return new Response(buf, { status: 200, headers })
+  } catch (e) {
+    console.error('[media/ghost] proxy error', e)
+    return new Response('Proxy error', { status: 500 })
   }
 }
-
-export const dynamic = 'force-dynamic';
-export const revalidate = false;
 
