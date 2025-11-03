@@ -33,6 +33,7 @@ interface PageSection {
 export default function AdminSitemapPage() {
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [linkStats, setLinkStats] = useState({ internalOk: 0, internalTotal: 0, externalOk: 0, externalTotal: 0 })
   const supabase = createClient()
   const router = useRouter()
 
@@ -52,6 +53,37 @@ export default function AdminSitemapPage() {
 
     checkAuth()
   }, [supabase, router])
+
+  // Compute and verify links once authenticated
+  useEffect(() => {
+    if (!isAuthenticated) return
+    const internal = sections.flatMap(s => s.pages.filter(p => !p.external))
+    const external = sections.flatMap(s => s.pages.filter(p => p.external))
+    setLinkStats(ls => ({ ...ls, internalTotal: internal.length, externalTotal: external.length }))
+
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://behaviorschool.com'
+    const checks: Array<Promise<void>> = []
+    const update = (key: 'internalOk' | 'externalOk') => setLinkStats(prev => ({ ...prev, [key]: prev[key] + 1 }))
+
+    const ping = async (url: string, key: 'internalOk' | 'externalOk') => {
+      try {
+        const q = new URLSearchParams({ url })
+        const res = await fetch(`/api/admin/links/check?${q.toString()}`)
+        const json = await res.json().catch(() => ({}))
+        if (json.ok || (json.status && Number(json.status) < 400)) update(key)
+      } catch {}
+    }
+
+    for (const p of internal) {
+      const u = p.path.startsWith('http') ? p.path : `${origin}${p.path}`
+      checks.push(ping(u, 'internalOk'))
+    }
+    for (const p of external) {
+      if (p.path.startsWith('http')) checks.push(ping(p.path, 'externalOk'))
+    }
+    Promise.allSettled(checks).catch(() => {})
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated])
 
   const sections: PageSection[] = [
     {
@@ -398,15 +430,15 @@ export default function AdminSitemapPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
                 <div className="text-3xl font-bold text-emerald-600">
-                  {sections.reduce((acc, section) => acc + section.pages.filter(p => !p.external).length, 0)}
+                  {linkStats.internalOk}/{sections.reduce((acc, section) => acc + section.pages.filter(p => !p.external).length, 0)}
                 </div>
-                <div className="text-sm text-emerald-700">Internal Pages</div>
+                <div className="text-sm text-emerald-700">Internal Pages OK</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-blue-600">
-                  {sections.reduce((acc, section) => acc + section.pages.filter(p => p.external).length, 0)}
+                  {linkStats.externalOk}/{sections.reduce((acc, section) => acc + section.pages.filter(p => p.external).length, 0)}
                 </div>
-                <div className="text-sm text-blue-700">External Links</div>
+                <div className="text-sm text-blue-700">External Links OK</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-purple-600">
@@ -421,6 +453,7 @@ export default function AdminSitemapPage() {
                 <div className="text-sm text-orange-700">Total Links</div>
               </div>
             </div>
+            <p className="mt-2 text-xs text-emerald-800">Counts reflect live HEAD checks via internal proxy (10s timeout). External sites must allow cross‑origin fetching.</p>
           </div>
         </div>
       </main>
