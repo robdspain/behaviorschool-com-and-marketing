@@ -144,12 +144,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/about/rob-spain`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
       url: `${baseUrl}/bacb-ace-provider`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

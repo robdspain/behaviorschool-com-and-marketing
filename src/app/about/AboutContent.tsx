@@ -61,6 +61,114 @@ export default function AboutContent() {
         </div>
       </section>
 
+      {/* Founder Profile (Expanded) */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-[300px_1fr] gap-8 md:gap-12 items-start">
+            {/* Profile card */}
+            <div className="space-y-6">
+              <div className="relative w-64 h-64 md:w-full md:h-auto md:aspect-square mx-auto rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/optimized/profile-Rob.webp"
+                  alt="Rob Spain, M.S., BCBA, IBA - Founder of Behavior School"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h3 className="text-lg font-semibold text-slate-900 mb-4">Connect</h3>
+                <div className="space-y-3">
+                  <a href="https://www.linkedin.com/in/robspain/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-700 hover:text-blue-700 transition-colors">
+                    <Linkedin className="w-5 h-5" />
+                    <span>LinkedIn</span>
+                  </a>
+                  <a href="https://x.com/robspainBCBA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-700 hover:text-slate-900 transition-colors">
+                    <Twitter className="w-5 h-5" />
+                    <span>X (Twitter)</span>
+                  </a>
+                  <a href="https://robspain.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-700 hover:text-emerald-700 transition-colors">
+                    <ExternalLink className="w-5 h-5" />
+                    <span>Personal Website</span>
+                  </a>
+                </div>
+              </div>
+              <div className="bg-emerald-50 rounded-xl p-6 border border-emerald-200">
+                <h3 className="text-lg font-semibold text-slate-900 mb-4">At a Glance</h3>
+                <ul className="list-disc list-inside text-left text-sm text-slate-700 space-y-2">
+                  <li>20+ years in education</li>
+                  <li>14+ years as BCBA (since 2011)</li>
+                  <li>Founder, Behavior School LLC</li>
+                  <li>President, CalABA BAE SIG</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Details */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">About the Founder</h2>
+                <p className="text-xl text-slate-600 mb-4">Rob Spain, M.S., BCBA, IBA</p>
+                <p className="text-lg text-slate-700 leading-relaxed">
+                  Rob is a school-based behavior analyst and founder of Behavior School. He builds systems, training, and
+                  communities that help educators deliver high-fidelity, data‑driven supports. He serves as President of CalABA’s Behavior Analysts in
+                  Education SIG, works as a Behavior Intervention Specialist in a California school district, and teaches graduate ABA courses at Fresno Pacific University.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white rounded-xl p-6 shadow">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Briefcase className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-lg font-semibold text-slate-900">Current Positions</h3>
+                  </div>
+                  <ul className="list-disc list-inside text-left text-slate-700 space-y-2 text-sm">
+                    <li>Founder — Behavior School (2024–Present)</li>
+                    <li>President — Behavior Analysts in Education (BAE) SIG, CalABA</li>
+                    <li>Behavior Intervention Specialist — California School District</li>
+                    <li>Adjunct Faculty — Fresno Pacific University</li>
+                  </ul>
+                </div>
+                <div className="bg-white rounded-xl p-6 shadow">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Award className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-lg font-semibold text-slate-900">Credentials</h3>
+                  </div>
+                  <ul className="list-disc list-inside text-left text-slate-700 space-y-2 text-sm">
+                    <li>BCBA — BACB Credential: 1‑11‑9398</li>
+                    <li>IBA — IBAO Credential: 103385847</li>
+                    <li>M.S., Special Education — National University</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-xl p-6 border border-emerald-200">
+                <h3 className="text-lg font-semibold text-slate-900 mb-4">Areas of Expertise</h3>
+                <div className="grid sm:grid-cols-2 gap-3 text-slate-700 text-sm">
+                  {[
+                    "School-Based ABA",
+                    "Functional Behavior Assessment (FBA)",
+                    "Behavior Intervention Planning (BIP)",
+                    "PBIS / MTSS",
+                    "IEP Development & Compliance",
+                    "BCBA Exam Preparation",
+                    "Acceptance and Commitment Training (ACT)",
+                    "Data-Driven Decision Making",
+                    "Teacher Training & Coaching",
+                    "System-Level Behavior Support",
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Founder Story Section */}
       <section className="py-16 lg:py-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -521,5 +629,4 @@ export default function AboutContent() {
     </div>
   );
 }
-
 

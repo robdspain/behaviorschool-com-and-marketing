@@ -86,7 +86,7 @@ export default function CommunityPage() {
                     → BCBA Training Tools & Resources
                   </Link>
                   <Link
-                    href="/about/rob-spain"
+                    href="/about"
                     className="block text-slate-600 hover:text-slate-700 font-medium text-sm hover:underline"
                   >
                     → Meet Rob Spain, BCBA - Founder

@@ -126,7 +126,7 @@ const articleSchema = {
     "@type": "Person",
     "name": "Rob Spain",
     "jobTitle": "Board Certified Behavior Analyst (BCBA)",
-    "url": "https://behaviorschool.com/about/rob-spain"
+    "url": "https://behaviorschool.com/about"
   },
   "publisher": {
     "@type": "Organization",

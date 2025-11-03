@@ -128,7 +128,7 @@ export function ProductsClient() {
                   </div>
                   <div>
                     <Link
-                      href="/about/rob-spain"
+                      href="/about"
                       className="inline-flex items-center text-slate-600 hover:text-slate-700 font-medium text-sm"
                     >
                       Meet Rob Spain, BCBA - Founder
@@ -215,7 +215,7 @@ export function ProductsClient() {
                 </motion.div>
                 <div className="mt-2">
                   <Link
-                    href="/about/rob-spain"
+                    href="/about"
                     className="inline-flex items-center text-slate-600 hover:text-slate-700 font-medium text-sm"
                   >
                     Developed by Rob Spain, BCBA with 20+ years experience

@@ -20,7 +20,7 @@ const robSpainPersonSchema = {
     "https://www.instagram.com/robdspain/",
     "https://www.facebook.com/profile.php?id=61572496964176",
     "https://behaviorschool.com/about",
-    "https://behaviorschool.com/about/rob-spain"
+    "https://behaviorschool.com/about"
   ],
   "alumniOf": [
     {

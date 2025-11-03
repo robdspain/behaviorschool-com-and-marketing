@@ -113,11 +113,6 @@ export default function AdminSitemapPage() {
           description: 'About Behavior School and our mission'
         },
         {
-          name: 'About: Rob Spain',
-          path: '/about/rob-spain',
-          description: 'Founder profile and background'
-        },
-        {
           name: 'Contact',
           path: '/contact',
           description: 'Contact form and information'
