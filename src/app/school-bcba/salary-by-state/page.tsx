@@ -13,7 +13,8 @@ import {
   Calendar,
   CheckCircle2
 } from "lucide-react";
-import { RangeBarChart } from "@/components/RangeBarChart";
+import { RangeChartBlock } from "@/components/RangeChartBlock";
+import { TrackableLink } from "@/components/TrackableLink";
 
 export const metadata: Metadata = {
   title: "School BCBA Salary by State 2025: Ranges & Benefits",
@@ -58,6 +59,18 @@ export default function Page() {
           <p className="text-xl text-slate-600 leading-relaxed max-w-3xl">
             State-by-state School BCBA salary benchmarks with a visual range chart, negotiation strategies, and total compensation insights. Benchmarks reflect public district postings and HR schedules; verify with local HR.
           </p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <TrackableLink
+              href="/transformation-program"
+              className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-3 rounded-xl transition-colors"
+              buttonName="Explore Transformation Program"
+              buttonLocation="salary-by-state hero CTA"
+              additionalData={{ placement: "hero" }}
+            >
+              Explore the Transformation Program →
+            </TrackableLink>
+          </div>
         </div>
       </section>
 
@@ -176,7 +189,7 @@ export default function Page() {
                 </div>
               </div>
 
-              {/* Range Chart */}
+              {/* Range Chart with Toggle */}
               <RangeChartBlock />
 
               <div className="mt-8 p-6 bg-slate-50 rounded-xl border-l-4 border-emerald-500">
@@ -531,17 +544,46 @@ export default function Page() {
                 <p className="text-emerald-100 text-sm mb-4 leading-relaxed">
                   Join our transformation program to master negotiation, systems leadership, and interview strategies.
                 </p>
-                <Link href="/transformation-program">
-                  <button className="w-full bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
-                    Explore the Program
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </Link>
+                <TrackableLink
+                  href="/transformation-program"
+                  className="w-full bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-center"
+                  buttonName="Explore Program (sidebar)"
+                  buttonLocation="salary-by-state sidebar CTA"
+                  additionalData={{ placement: "sidebar" }}
+                >
+                  Explore the Program
+                  <ChevronRight className="w-4 h-4" />
+                </TrackableLink>
               </div>
 
             </div>
           </aside>
 
+        </div>
+      </section>
+
+      {/* End-of-Article CTA */}
+      <section className="container mx-auto px-6 pb-16">
+        <div className="max-w-7xl mx-auto">
+          <div id="cta-transformation" className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 md:p-10 text-white shadow-xl">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold mb-2">Accelerate Your School BCBA Career</h2>
+                <p className="text-emerald-100 max-w-2xl">Join the Transformation Program—evidence-based coaching cycles, interview prep, and ready-to-use artifacts that align to PBIS/MTSS so you can make impact and negotiate confidently.</p>
+              </div>
+              <div className="flex-shrink-0">
+                <TrackableLink
+                  href="/transformation-program"
+                  className="inline-block bg-white text-emerald-700 hover:bg-emerald-50 py-3 px-5 rounded-xl font-semibold transition-colors"
+                  buttonName="Explore Transformation Program (footer)"
+                  buttonLocation="salary-by-state footer CTA"
+                  additionalData={{ placement: "footer" }}
+                >
+                  Explore the Transformation Program →
+                </TrackableLink>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -628,36 +670,4 @@ export default function Page() {
   );
 }
 
-function RangeChartBlock() {
-  const items = [
-    { label: "California", min: 90, max: 125 },
-    { label: "Texas", min: 70, max: 95 },
-    { label: "Florida", min: 65, max: 90 },
-    { label: "New York", min: 80, max: 115 },
-    { label: "Illinois", min: 72, max: 100 },
-    { label: "Arizona", min: 65, max: 90 },
-    { label: "Pennsylvania", min: 70, max: 95 },
-    { label: "Ohio", min: 68, max: 92 },
-    { label: "Washington", min: 85, max: 115 },
-    { label: "Massachusetts", min: 85, max: 120 },
-  ];
-
-  return (
-    <div className="mt-8">
-      <RangeBarChart
-        items={items}
-        title="Benchmark Salary Ranges (selected states)"
-        note={
-          "Plus (+) signs in some ranges indicate postings above the plotted max; chart uses a conservative cap for visualization."
-        }
-      />
-
-      {/* Second chart: sorted by upper range (max) */}
-      <RangeBarChart
-        items={[...items].sort((a, b) => b.max - a.max)}
-        title="Top States by Upper Range (sorted by max)"
-        note={"Sorted descending by max $k bound across selected states."}
-      />
-    </div>
-  );
-}
+// RangeChartBlock moved to client component in src/components/RangeChartBlock.tsx
