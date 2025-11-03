@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import EmailGateDownload from '@/components/EmailGateDownload'
 import {
   CheckCircle2,
   Users,
@@ -117,6 +118,17 @@ export default function BCBAsInSchoolsPage() {
                   </li>
                 ))}
               </ol>
+
+              <div className="mt-4 flex items-center gap-3 flex-wrap">
+                <EmailGateDownload
+                  title="PBIS‑aligned Tier 3 FBA→BIP Checklist (PDF)"
+                  buttonText="Download Checklist (PDF)"
+                  downloadUrl="/api/download/fba-bip-checklist"
+                  fileName="fba-bip-checklist.pdf"
+                  resourceName="fba-bip-checklist"
+                  variant="primary"
+                />
+              </div>
 
               <p className="mt-4 text-xs text-emerald-700">
                 Evidence: {" "}
