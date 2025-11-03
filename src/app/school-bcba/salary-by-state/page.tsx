@@ -16,6 +16,7 @@ import {
 import { RangeChartBlock } from "@/components/RangeChartBlock";
 import { TrackableLink } from "@/components/TrackableLink";
 import { OnThisPageTOC } from "@/components/OnThisPageTOC";
+import EmailGateDownload from "@/components/EmailGateDownload";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -200,24 +201,20 @@ export default function Page() {
 
               {/* Downloads */}
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <TrackableLink
-                  href="/api/salary-benchmarks?format=csv&download=1"
-                  className="inline-flex items-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-medium px-4 py-2 rounded-lg transition-colors"
-                  buttonName="Download Salary Data CSV"
-                  buttonLocation="salary-by-state downloads"
-                  additionalData={{ format: 'csv' }}
-                >
-                  Download CSV
-                </TrackableLink>
-                <TrackableLink
-                  href="/api/salary-benchmarks?format=json&download=1"
-                  className="inline-flex items-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-medium px-4 py-2 rounded-lg transition-colors"
-                  buttonName="Download Salary Data JSON"
-                  buttonLocation="salary-by-state downloads"
-                  additionalData={{ format: 'json' }}
-                >
-                  Download JSON
-                </TrackableLink>
+                <EmailGateDownload
+                  title="Salary Benchmarks (CSV)"
+                  buttonText="Download CSV"
+                  downloadUrl="/api/salary-benchmarks?format=csv&download=1"
+                  fileName={`school-bcba-salaries-${new Date().getFullYear()}.csv`}
+                  resourceName="salary-benchmarks-csv"
+                />
+                <EmailGateDownload
+                  title="Salary Benchmarks (JSON)"
+                  buttonText="Download JSON"
+                  downloadUrl="/api/salary-benchmarks?format=json&download=1"
+                  fileName={`school-bcba-salaries-${new Date().getFullYear()}.json`}
+                  resourceName="salary-benchmarks-json"
+                />
               </div>
 
               <div className="mt-8 p-6 bg-slate-50 rounded-xl border-l-4 border-emerald-500">
