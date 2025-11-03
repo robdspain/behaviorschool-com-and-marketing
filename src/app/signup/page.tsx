@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, ArrowLeft, Mail } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import Link from "next/link";
 import Script from "next/script";
 
 export default function SignupPage() {
+  const { trackFormSubmission, trackButtonClick, trackConversion } = useAnalytics();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -48,6 +50,7 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    trackButtonClick('signup_submit_click', 'signup form', { role: formData.role || 'unknown' });
     setIsSubmitting(true);
     setError("");
 
@@ -62,12 +65,16 @@ export default function SignupPage() {
 
       if (response.ok) {
         setIsSubmitted(true);
+        trackFormSubmission('signup', true, { role: formData.role || 'unknown' });
+        trackConversion({ event_name: 'signup_submitted', event_category: 'lead_generation', event_label: formData.role || 'unknown' });
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Something went wrong. Please try again.");
+        trackFormSubmission('signup', false, { role: formData.role || 'unknown', error: errorData.message || 'unknown' });
       }
     } catch {
       setError("Network error. Please check your connection and try again.");
+      trackFormSubmission('signup', false, { role: formData.role || 'unknown', error: 'network' });
     } finally {
       setIsSubmitting(false);
     }
@@ -94,6 +101,25 @@ export default function SignupPage() {
   if (isSubmitted) {
     return (
       <>
+        {/* ContactPage JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ContactPage",
+              name: "School BCBA Transformation System Signup",
+              description: "Apply for the School BCBA Transformation System and schedule a consultation call.",
+              url: "https://behaviorschool.com/signup",
+              inLanguage: "en",
+              isPartOf: {
+                "@type": "WebSite",
+                name: "Behavior School",
+                url: "https://behaviorschool.com"
+              }
+            })
+          }}
+        />
         <Script
           src="https://assets.calendly.com/assets/external/widget.css"
           strategy="afterInteractive"
@@ -173,6 +199,25 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-bs-background">
+      {/* ContactPage JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            name: "School BCBA Transformation System Signup",
+            description: "Apply for the School BCBA Transformation System and schedule a consultation call.",
+            url: "https://behaviorschool.com/signup",
+            inLanguage: "en",
+            isPartOf: {
+              "@type": "WebSite",
+              name: "Behavior School",
+              url: "https://behaviorschool.com"
+            }
+          })
+        }}
+      />
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">

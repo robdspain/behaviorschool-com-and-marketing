@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { RangeChartBlock } from "@/components/RangeChartBlock";
 import { TrackableLink } from "@/components/TrackableLink";
+import { OnThisPageTOC } from "@/components/OnThisPageTOC";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -87,7 +88,7 @@ export default function Page() {
           <article className="lg:col-span-2 space-y-8">
 
             {/* State Salary Ranges */}
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+            <div id="ranges" className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
                   <MapPin className="w-6 h-6 text-emerald-600" />
@@ -266,7 +267,7 @@ export default function Page() {
             </div>
 
             {/* Negotiation Tips */}
-            <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl shadow-lg border border-emerald-200 p-8">
+            <div id="negotiation" className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl shadow-lg border border-emerald-200 p-8 scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center">
                   <Target className="w-6 h-6 text-white" />
@@ -337,7 +338,7 @@ export default function Page() {
             </div>
 
             {/* Career Progression Timeline */}
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+            <div id="career" className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                   <Calendar className="w-6 h-6 text-blue-600" />
@@ -515,7 +516,7 @@ export default function Page() {
                 </div>
               </div>
 
-              <div className="mt-8 p-6 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border-l-4 border-amber-500">
+              <div id="compensation" className="mt-8 p-6 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border-l-4 border-amber-500 scroll-mt-24">
                 <h3 className="font-bold text-amber-900 mb-3 flex items-center gap-2">
                   <TrendingUp className="w-5 h-5" />
                   Hidden Value: Compare Offers Holistically
@@ -534,6 +535,16 @@ export default function Page() {
           {/* Sidebar */}
           <aside className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
+              {/* On This Page */}
+              <OnThisPageTOC
+                items={[
+                  { id: 'ranges', label: 'Salary ranges' },
+                  { id: 'negotiation', label: 'Negotiation tips' },
+                  { id: 'career', label: 'Career progression' },
+                  { id: 'compensation', label: 'Total compensation' },
+                  { id: 'cta-transformation', label: 'Transformation Program' },
+                ]}
+              />
 
               {/* Related Guides */}
               <div className="bg-white rounded-xl border border-slate-200 shadow-lg p-6">

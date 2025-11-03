@@ -20,6 +20,7 @@ export function RangeChartBlock() {
   const [mode, setMode] = useState<"selected" | "sorted">("selected");
   const [items, setItems] = useState(fallback);
   const [noteYear, setNoteYear] = useState<number | null>(null);
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
   const [fetchFailed, setFetchFailed] = useState(false);
 
   // Try to fetch published data if available
@@ -36,6 +37,7 @@ export function RangeChartBlock() {
           if (parsed.length > 0) setItems(parsed);
         }
         if (typeof json.year === "number") setNoteYear(json.year);
+        if (typeof json.updatedAt === "string") setUpdatedAt(json.updatedAt);
       })
       .catch(() => {
         // Use fallback and display message
@@ -51,30 +53,39 @@ export function RangeChartBlock() {
 
   return (
     <div className="mt-8">
-      {/* Toggle */}
-      <div className="inline-flex rounded-lg border border-slate-200 bg-white overflow-hidden">
-        <button
-          type="button"
-          onClick={() => setMode("selected")}
-          className={[
-            "px-3 py-1.5 text-sm font-medium transition-colors",
-            mode === "selected" ? "bg-emerald-600 text-white" : "text-slate-700 hover:bg-slate-50",
-          ].join(" ")}
-          aria-pressed={mode === "selected"}
-        >
-          Selected States
-        </button>
-        <button
-          type="button"
-          onClick={() => setMode("sorted")}
-          className={[
-            "px-3 py-1.5 text-sm font-medium transition-colors border-l border-slate-200",
-            mode === "sorted" ? "bg-emerald-600 text-white" : "text-slate-700 hover:bg-slate-50",
-          ].join(" ")}
-          aria-pressed={mode === "sorted"}
-        >
-          Top by Max
-        </button>
+      {/* Toggle + Last Updated */}
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="inline-flex rounded-lg border border-slate-200 bg-white overflow-hidden">
+          <button
+            type="button"
+            onClick={() => setMode("selected")}
+            className={[
+              "px-3 py-1.5 text-sm font-medium transition-colors",
+              mode === "selected" ? "bg-emerald-600 text-white" : "text-slate-700 hover:bg-slate-50",
+            ].join(" ")}
+            aria-pressed={mode === "selected"}
+          >
+            Selected States
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode("sorted")}
+            className={[
+              "px-3 py-1.5 text-sm font-medium transition-colors border-l border-slate-200",
+              mode === "sorted" ? "bg-emerald-600 text-white" : "text-slate-700 hover:bg-slate-50",
+            ].join(" ")}
+            aria-pressed={mode === "sorted"}
+          >
+            Top by Max
+          </button>
+        </div>
+
+        {updatedAt && (
+          <span className="inline-flex items-center gap-2 text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full border border-slate-200">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-600" />
+            Last updated: {updatedAt}
+          </span>
+        )}
       </div>
 
       {fetchFailed && (
