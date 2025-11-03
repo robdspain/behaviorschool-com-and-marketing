@@ -17,21 +17,25 @@ import { RangeChartBlock } from "@/components/RangeChartBlock";
 import { TrackableLink } from "@/components/TrackableLink";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-export const metadata: Metadata = {
-  title: "School BCBA Salary by State 2025: Ranges & Benefits",
-  description:
-    "2025 School BCBA salary ranges by state with a salary range chart, total compensation factors, and negotiation tips for K–12 districts.",
-  alternates: { canonical: "https://behaviorschool.com/school-bcba/salary-by-state" },
-  robots: { index: true, follow: true },
-  keywords: "school BCBA salary 2025, BCBA pay by state, K-12 behavior analyst salary, school BCBA ranges, benefits, negotiation",
-  openGraph: {
-    title: "School BCBA Salary by State 2025: Ranges & Benefits",
-    description: "State-by-state School BCBA salary ranges with a chart, benefits, and negotiation tips.",
-    type: "article",
-  }
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const year = new Date().getFullYear();
+  return {
+    title: `School BCBA Salary by State ${year}: Ranges & Benefits`,
+    description:
+      `${year} School BCBA salary ranges by state with a salary range chart, total compensation factors, and negotiation tips for K–12 districts.`,
+    alternates: { canonical: "https://behaviorschool.com/school-bcba/salary-by-state" },
+    robots: { index: true, follow: true },
+    keywords: "school BCBA salary, BCBA pay by state, K-12 behavior analyst salary, school BCBA ranges, benefits, negotiation",
+    openGraph: {
+      title: `School BCBA Salary by State ${year}: Ranges & Benefits`,
+      description: "State-by-state School BCBA salary ranges with a chart, benefits, and negotiation tips.",
+      type: "article",
+    },
+  };
+}
 
 export default function Page() {
+  const year = new Date().getFullYear();
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Breadcrumb */}
@@ -54,7 +58,7 @@ export default function Page() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-            School BCBA Salary by State: 2025 Overview
+            School BCBA Salary by State: {year} Overview
           </h1>
 
           <p className="text-xl text-slate-600 leading-relaxed max-w-3xl">

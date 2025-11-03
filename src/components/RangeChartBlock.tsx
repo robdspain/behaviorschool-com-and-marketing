@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RangeBarChart } from "@/components/RangeBarChart";
 
 export function RangeChartBlock() {
-  const items = [
+  const fallback = [
     { label: "California", min: 90, max: 125 },
     { label: "Texas", min: 70, max: 95 },
     { label: "Florida", min: 65, max: 90 },
@@ -18,6 +18,30 @@ export function RangeChartBlock() {
   ];
 
   const [mode, setMode] = useState<"selected" | "sorted">("selected");
+  const [items, setItems] = useState(fallback);
+  const [noteYear, setNoteYear] = useState<number | null>(null);
+
+  // Try to fetch published data if available
+  useEffect(() => {
+    let active = true;
+    fetch("/data/salary-benchmarks.json", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (!active || !json) return;
+        if (Array.isArray(json.items)) {
+          const parsed = json.items
+            .filter((d: any) => d && d.label && typeof d.min === "number" && typeof d.max === "number")
+            .map((d: any) => ({ label: String(d.label), min: d.min, max: d.max }));
+          if (parsed.length > 0) setItems(parsed);
+        }
+        if (typeof json.year === "number") setNoteYear(json.year);
+      })
+      .catch(() => void 0);
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const sorted = [...items].sort((a, b) => b.max - a.max);
   const view = mode === "selected" ? items : sorted;
 
@@ -54,11 +78,10 @@ export function RangeChartBlock() {
         title={mode === "selected" ? "Benchmark Salary Ranges (selected states)" : "Top States by Upper Range (sorted by max)"}
         note={
           mode === "selected"
-            ? "Plus (+) signs in some ranges indicate postings above the plotted max; chart uses a conservative cap for visualization."
+            ? `Plus (+) signs in some ranges indicate postings above the plotted max; chart uses a conservative cap for visualization.${noteYear ? ` Data reflects ~${noteYear}.` : ""}`
             : "Sorted descending by max $k bound across selected states."
         }
       />
     </div>
   );
 }
-
