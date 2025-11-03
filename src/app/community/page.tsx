@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 export default function CommunityPage() {
   return (
     <div className="min-h-screen bg-bs-background">
-      <Section className="pt-40 md:pt-48 lg:pt-56 pb-16 md:pb-24">
+      <Section className="pt-10 md:pt-14 pb-16 md:pb-24">
         <Container className="max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content Column */}

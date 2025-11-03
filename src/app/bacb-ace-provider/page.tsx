@@ -96,7 +96,7 @@ export default function BACBACEProviderPage() {
       />
 
       {/* Breadcrumbs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-2">
         <Breadcrumbs
           items={[
             { label: "All articles", href: "/blog" },
@@ -107,7 +107,7 @@ export default function BACBACEProviderPage() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-10 pb-12">
         <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
           {/* Header */}
           <div className="text-center mb-12">

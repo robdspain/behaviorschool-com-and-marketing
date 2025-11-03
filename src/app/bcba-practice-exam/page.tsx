@@ -232,12 +232,12 @@ export default function BCBAPracticeExamPage() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs */}
-        <div className="pt-24 pb-4">
+        <div className="pt-24 pb-2">
           <Breadcrumbs items={breadcrumbItems} />
         </div>
 
         {/* Hero Section */}
-        <section className="relative py-16 lg:py-24 overflow-hidden">
+        <section className="relative pt-8 md:pt-10 pb-16 lg:pb-24 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-emerald-50 rounded-3xl" />
           <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-gradient-to-br from-purple-100 to-transparent opacity-30 blur-3xl" />
           <div className="absolute -bottom-10 left-0 w-80 h-80 rounded-full bg-gradient-to-tr from-emerald-100 to-transparent opacity-20 blur-2xl" />

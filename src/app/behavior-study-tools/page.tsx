@@ -99,7 +99,7 @@ export default function BehaviorStudyToolsPage() {
       </div>
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
+      <section className="relative pt-10 md:pt-14 pb-16 lg:pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-blue-50" />
         <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-emerald-100 to-transparent opacity-30 blur-3xl" />
         <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-blue-100 to-transparent opacity-20 blur-2xl" />

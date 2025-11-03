@@ -169,7 +169,7 @@ export default function FreeBCBAPracticeExamPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-even">
+      <section className="pt-8 md:pt-10 pb-12 sm:pb-16 lg:pb-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Content */}
           <div className="max-w-4xl mx-auto text-center mb-12">
@@ -341,4 +341,3 @@ export default function FreeBCBAPracticeExamPage() {
     </div>
   );
 }
-

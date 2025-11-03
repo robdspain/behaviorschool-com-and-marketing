@@ -107,12 +107,12 @@ export default function SchoolBasedBCBAPage() {
       </div>
 
       {/* Breadcrumbs */}
-      <div className="container mx-auto px-6 pt-24 pb-4">
+      <div className="container mx-auto px-6 pt-24 pb-2">
         <Breadcrumbs items={breadcrumbItems} />
       </div>
 
       {/* Hero Section - Redesigned with Clear Hierarchy */}
-      <section className="container mx-auto px-6 py-12 lg:py-20">
+      <section className="container mx-auto px-6 pt-8 md:pt-10 pb-12 lg:pb-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           {/* Left Column - Content */}
           <div className="space-y-8">
