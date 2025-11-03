@@ -329,7 +329,7 @@ export default function Page() {
 
             {/* References */}
             <div id="references" className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200 scroll-mt-24">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">References (APA)</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">References</h2>
               <ol className="list-decimal pl-6 space-y-3 text-slate-700">
                 <li id="ref-bacb">
                   Behavior Analyst Certification Board. (2022). Ethics Code for Behavior Analysts (updated PDF).
@@ -402,6 +402,21 @@ export default function Page() {
                   <a className="text-emerald-700 underline" href="https://marylandpublicschools.org/programs/Documents/Special-Ed/Training/Progress-Monitoring-and-Data-Collection-PL-Materials-A.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
                 </li>
               </ol>
+            </div>
+
+            {/* End-of-Article CTA */}
+            <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 md:p-10 text-white shadow-xl">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">Become Interview‑Ready in 8 Weeks</h2>
+                  <p className="text-emerald-100 max-w-2xl">Join our Transformation Program for School BCBAs—coaching cycles, artifacts, and systems templates aligned to PBIS/MTSS so you can show measurable impact fast.</p>
+                </div>
+                <div className="flex-shrink-0">
+                  <Link href="/transformation-program" className="inline-block bg-white text-emerald-700 hover:bg-emerald-50 py-3 px-5 rounded-xl font-semibold transition-colors">
+                    Explore the Transformation Program →
+                  </Link>
+                </div>
+              </div>
             </div>
 
           </article>
