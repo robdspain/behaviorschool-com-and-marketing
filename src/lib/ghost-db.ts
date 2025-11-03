@@ -216,6 +216,7 @@ export async function getPosts(
       excerpt: row.excerpt,
       feature_image: row.feature_image,
       published_at: row.published_at ? new Date(row.published_at).toISOString() : null,
+      status: 'published',
       tags: tagsMap[row.id] || [],
       primary_tag: tagsMap[row.id]?.[0] || null,
       authors: row.author_id ? [{
@@ -332,6 +333,7 @@ export async function getPostBySlug(
       excerpt: postRow.excerpt,
       feature_image: postRow.feature_image,
       published_at: postRow.published_at ? new Date(postRow.published_at).toISOString() : null,
+      status: 'published',
       tags,
       primary_tag: tags[0] || null,
       authors: postRow.author_id ? [{

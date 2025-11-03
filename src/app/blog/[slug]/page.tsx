@@ -89,6 +89,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = decodeHtmlEntities(post.meta_title || post.title || "Blog Post");
   const description = decodeHtmlEntities(post.meta_description || post.excerpt || post.title || "");
 
+  const isIndexable = post.status ? post.status === 'published' : true;
+
   return {
     title: `${title} | Behavior School`,
     description: description,
@@ -122,8 +124,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       creator: "@BehaviorSchool",
     },
     robots: {
-      index: post.status === 'published',
-      follow: post.status === 'published',
+      index: isIndexable,
+      follow: isIndexable,
     },
   };
 }
