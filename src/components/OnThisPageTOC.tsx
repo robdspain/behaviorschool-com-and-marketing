@@ -80,12 +80,21 @@ export function OnThisPageTOC({ items }: { items: TocItem[] }) {
                 href={`#${id}`}
                 aria-current={isActive ? "location" : undefined}
                 className={[
-                  "block transition-colors",
+                  "relative block pl-4 py-1 transition-colors duration-200",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 rounded-md",
                   isActive
                     ? "text-emerald-700 font-semibold"
                     : "hover:text-emerald-700",
                 ].join(" ")}
               >
+                <span
+                  aria-hidden
+                  className={[
+                    "absolute left-0 top-1 bottom-1 w-1 rounded bg-emerald-600",
+                    "transition-transform duration-300 origin-top",
+                    isActive ? "scale-y-100 opacity-100" : "scale-y-0 opacity-40",
+                  ].join(" ")}
+                />
                 {label}
               </a>
             </li>
@@ -95,4 +104,3 @@ export function OnThisPageTOC({ items }: { items: TocItem[] }) {
     </div>
   );
 }
-
