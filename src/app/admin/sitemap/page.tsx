@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useCallback } from 'react'
 import {
   LayoutDashboard,
   Users,
@@ -34,6 +35,7 @@ export default function AdminSitemapPage() {
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [linkStats, setLinkStats] = useState({ internalOk: 0, internalTotal: 0, externalOk: 0, externalTotal: 0 })
+  const [indexMap, setIndexMap] = useState<Record<string, boolean>>({})
   const supabase = createClient()
   const router = useRouter()
 
@@ -86,6 +88,33 @@ export default function AdminSitemapPage() {
     Promise.allSettled(checks).catch(() => {})
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated])
+
+  // Load current indexing settings
+  useEffect(() => {
+    if (!isAuthenticated) return
+    ;(async () => {
+      try {
+        const res = await fetch('/api/admin/indexing', { cache: 'no-store' })
+        const json = await res.json().catch(() => ({ items: [] }))
+        const map: Record<string, boolean> = {}
+        for (const it of json.items || []) {
+          if (typeof it?.path === 'string') map[it.path] = !!it.index
+        }
+        setIndexMap(map)
+      } catch {}
+    })()
+  }, [isAuthenticated])
+
+  const toggleIndex = useCallback(async (path: string, nextVal: boolean) => {
+    setIndexMap(prev => ({ ...prev, [path]: nextVal }))
+    try {
+      await fetch('/api/admin/indexing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path, index: nextVal })
+      })
+    } catch {}
+  }, [])
 
   const sections: PageSection[] = [
     {
@@ -446,7 +475,7 @@ export default function AdminSitemapPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {section.pages.map((page, pageIndex) => (
-                  <div key={pageIndex}>
+                  <div key={pageIndex} className="relative">
                     {page.external ? (
                       <a
                         href={page.path}
@@ -484,6 +513,22 @@ export default function AdminSitemapPage() {
                           {page.path}
                         </div>
                       </Link>
+                    )}
+
+                    {/* Indexing toggle */}
+                    {!page.external && (
+                      <div className="absolute top-2 right-2 flex items-center gap-2 bg-white/80 backdrop-blur px-2 py-1 rounded border border-slate-200">
+                        <label className="text-xs text-slate-600">Index</label>
+                        <input
+                          type="checkbox"
+                          checked={indexMap[page.path] !== false}
+                          onChange={(e) => toggleIndex(page.path, e.currentTarget.checked)}
+                          title="Toggle indexability for this page"
+                        />
+                        {indexMap[page.path] === false && (
+                          <span className="text-[10px] text-amber-700 bg-amber-100 border border-amber-200 rounded px-1">noindex</span>
+                        )}
+                      </div>
                     )}
                   </div>
                 ))}
