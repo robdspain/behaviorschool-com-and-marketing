@@ -22,7 +22,12 @@ export default function GuestResultsModal() {
   }, [params]);
 
   useEffect(() => {
-    if (shouldOpen) setOpen(true);
+    if (shouldOpen) {
+      setOpen(true);
+      try {
+        trackButtonClick('results_modal_open', 'free-mock-return', { reason: 'query_param' });
+      } catch {}
+    }
   }, [shouldOpen]);
 
   const clearParam = () => {
@@ -73,4 +78,3 @@ export default function GuestResultsModal() {
     </div>
   );
 }
-
