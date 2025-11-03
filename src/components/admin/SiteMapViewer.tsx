@@ -289,9 +289,12 @@ export default function SiteMapViewer() {
             { path: '/school-bcba/salary-by-state', label: 'Salary by State', domain: 'behaviorschool.com' },
             { path: '/school-bcba/how-to-become', label: 'How to Become a School BCBA', domain: 'behaviorschool.com' },
             { path: '/', label: 'Study Platform Homepage', domain: 'study.behaviorschool.com' },
-            { path: '/quiz', label: 'Study Quiz', domain: 'study.behaviorschool.com' },
-            { path: '/flashcards', label: 'Study Flashcards', domain: 'study.behaviorschool.com' },
-            { path: '/practice-test', label: 'Study Practice Test', domain: 'study.behaviorschool.com' },
+            { path: '/free-practice', label: 'Free Practice Questions', domain: 'study.behaviorschool.com' },
+            { path: '/quiz', label: 'Adaptive Quiz Mode', domain: 'study.behaviorschool.com' },
+            { path: '/learn', label: 'Learn Mode', domain: 'study.behaviorschool.com' },
+            { path: '/product-tour', label: 'Product Tour', domain: 'study.behaviorschool.com' },
+            { path: '/pricing', label: 'Pricing', domain: 'study.behaviorschool.com' },
+            { path: '/features', label: 'Features', domain: 'study.behaviorschool.com' },
           ].map(({ path, label, domain }) => {
             const full = `https://${domain}${path}`;
             const gsc = `https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent(`https://${domain}`)}&url=${encodeURIComponent(full)}`;
