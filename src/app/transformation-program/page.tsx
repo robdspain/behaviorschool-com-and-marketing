@@ -393,10 +393,10 @@ export default function TransformationProgramPage() {
                 </div>
                 <div>
                   <h4 className="text-sm sm:text-base font-semibold text-slate-900 mb-2">The Solution:</h4>
-                  <ul className="text-xs sm:text-sm text-slate-700 space-y-1 sm:space-y-2">
-                    <li>• Create referral systems and tiered supports</li>
-                    <li>• Build clear standard operating procedures that bring order to chaos</li>
-                    <li>• Complete School BCBA Transformation System Playbook</li>
+                  <ul className="list-disc list-inside text-left text-xs sm:text-sm text-slate-700 space-y-1 sm:space-y-2">
+                    <li>Create referral systems and tiered supports</li>
+                    <li>Build clear standard operating procedures that bring order to chaos</li>
+                    <li>Complete School BCBA Transformation System Playbook</li>
                   </ul>
                 </div>
                 <div className="bg-white rounded-lg p-3 sm:p-4">
@@ -419,10 +419,10 @@ export default function TransformationProgramPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900 mb-2">The Solution:</h4>
-                  <ul className="text-slate-700 space-y-2">
-                    <li>• Clarify where ethics and district expectations collide</li>
-                    <li>• Learn advocacy scripts and boundary-setting strategies</li>
-                    <li>• Protect integrity while preserving relationships</li>
+                  <ul className="list-disc list-inside text-left text-slate-700 space-y-2">
+                    <li>Clarify where ethics and district expectations collide</li>
+                    <li>Learn advocacy scripts and boundary-setting strategies</li>
+                    <li>Protect integrity while preserving relationships</li>
                   </ul>
                 </div>
                 <div className="bg-white rounded-lg p-4">
@@ -445,10 +445,10 @@ export default function TransformationProgramPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900 mb-2">The Solution:</h4>
-                  <ul className="text-slate-700 space-y-2">
-                    <li>• Master the Buy-In Blueprint (trust-building, micro-coaching)</li>
-                    <li>• Reframe ABA as collaborative and student-centered</li>
-                    <li>• Build positive feedback loops with staff</li>
+                  <ul className="list-disc list-inside text-left text-slate-700 space-y-2">
+                    <li>Master the Buy-In Blueprint (trust-building, micro-coaching)</li>
+                    <li>Reframe ABA as collaborative and student-centered</li>
+                    <li>Build positive feedback loops with staff</li>
                   </ul>
                 </div>
                 <div className="bg-white rounded-lg p-4">
@@ -471,10 +471,10 @@ export default function TransformationProgramPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900 mb-2">The Solution:</h4>
-                  <ul className="text-slate-700 space-y-2">
-                    <li>• Build plug-and-play onboarding tools</li>
-                    <li>• Create fidelity checklists and supervision models</li>
-                    <li>• Systems that work no matter who&apos;s on staff</li>
+                  <ul className="list-disc list-inside text-left text-slate-700 space-y-2">
+                    <li>Build plug-and-play onboarding tools</li>
+                    <li>Create fidelity checklists and supervision models</li>
+                    <li>Systems that work no matter who&apos;s on staff</li>
                   </ul>
                 </div>
                 <div className="bg-white rounded-lg p-4">
@@ -497,10 +497,10 @@ export default function TransformationProgramPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900 mb-2">The Solution:</h4>
-                  <ul className="text-slate-700 space-y-2">
-                    <li>• Create trauma-informed crisis protocols</li>
-                    <li>• Build quick, repeatable staff response systems</li>
-                    <li>• Real-time intervention and coaching strategies</li>
+                  <ul className="list-disc list-inside text-left text-slate-700 space-y-2">
+                    <li>Create trauma-informed crisis protocols</li>
+                    <li>Build quick, repeatable staff response systems</li>
+                    <li>Real-time intervention and coaching strategies</li>
                   </ul>
                 </div>
                 <div className="bg-white rounded-lg p-4">
@@ -523,10 +523,10 @@ export default function TransformationProgramPage() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900 mb-2">The Solution:</h4>
-                  <ul className="text-slate-700 space-y-2">
-                    <li>• Data systems that prove student progress</li>
-                    <li>• Make your impact visible and measurable</li>
-                    <li>• Polished playbook that demonstrates district value</li>
+                  <ul className="list-disc list-inside text-left text-slate-700 space-y-2">
+                    <li>Data systems that prove student progress</li>
+                    <li>Make your impact visible and measurable</li>
+                    <li>Polished playbook that demonstrates district value</li>
                   </ul>
                 </div>
                 <div className="bg-white rounded-lg p-4">

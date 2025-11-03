@@ -173,11 +173,11 @@ export function AnimatedSections() {
               <p className="text-emerald-700 mb-4">
                 Use our <strong>free IEP behavior goal writer</strong> right now! Create compliant behavior goals in minutes with no registration required.
               </p>
-              <ul className="text-sm text-emerald-600 space-y-2">
-                <li>• Behavior-specific goal generation</li>
-                <li>• SMART goal compliance</li>
-                <li>• Instant copy/download</li>
-                <li>• Privacy-first (no data stored)</li>
+              <ul className="list-disc list-inside text-left text-sm text-emerald-600 space-y-2">
+                <li>Behavior-specific goal generation</li>
+                <li>SMART goal compliance</li>
+                <li>Instant copy/download</li>
+                <li>Privacy-first (no data stored)</li>
               </ul>
             </motion.div>
 
@@ -195,11 +195,11 @@ export function AnimatedSections() {
               <p className="text-blue-700 mb-4">
                 We&apos;re developing a <strong>comprehensive IEP goal writer</strong> with advanced features for all goal types and enhanced functionality.
               </p>
-              <ul className="text-sm text-blue-600 space-y-2">
-                <li>• Academic, social, communication goals</li>
-                <li>• Advanced customization options</li>
-                <li>• Goal bank integration</li>
-                <li>• Team collaboration features</li>
+              <ul className="list-disc list-inside text-left text-sm text-blue-600 space-y-2">
+                <li>Academic, social, communication goals</li>
+                <li>Advanced customization options</li>
+                <li>Goal bank integration</li>
+                <li>Team collaboration features</li>
               </ul>
               <div className="mt-4">
                 <button
@@ -286,54 +286,7 @@ export function AnimatedSections() {
         </div>
       </section>
 
-      {/* Problem Section */}
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-12"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Why Values Come First in Effective IEP Goals
-            </h2>
-
-            <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
-              <div className="bg-white rounded-lg p-4 sm:p-6 border border-red-300">
-                <p className="text-base sm:text-lg font-medium text-red-800">
-                  &ldquo;[Student] will reduce blurting in class.&rdquo;
-                </p>
-                <p className="text-sm text-red-600 mt-2">Compliance-based goal that fades when motivation drops</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6 max-w-4xl mx-auto">
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">No student values</span>
-              </div>
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">Compliance-focused</span>
-              </div>
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">No ownership</span>
-              </div>
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">Skills fade</span>
-              </div>
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <XCircle className="h-4 w-4 sm:h-6 sm:w-6 text-red-500 flex-shrink-0" />
-                <span className="text-slate-700 text-xs sm:text-sm">No meaning</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Problem Section removed by request */}
 
       {/* Who Benefits Section - MOVED UP for better conversion flow */}
       <section className="py-16 lg:py-20 bg-slate-50">
@@ -602,20 +555,20 @@ export function AnimatedSections() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">What Research Says:</h4>
-                    <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Write goals that anyone can see and measure</li>
-                      <li>• Teach better behaviors instead of just stopping bad ones</li>
-                      <li>• Use clear ways to track student progress</li>
-                      <li>• Plan for skills to work in different places and last over time</li>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
+                      <li>Write goals that anyone can see and measure</li>
+                      <li>Teach better behaviors instead of just stopping bad ones</li>
+                      <li>Use clear ways to track student progress</li>
+                      <li>Plan for skills to work in different places and last over time</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">How Our Tool Helps:</h4>
-                    <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Guides you through: Setting → Behavior → Goal → How to Measure</li>
-                      <li>• Always asks &quot;what should they do instead?&quot; for problem behaviors</li>
-                      <li>• Built-in options: count times, track minutes, measure speed</li>
-                      <li>• Automatic planning for different settings and long-term success</li>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
+                      <li>Guides you through: Setting → Behavior → Goal → How to Measure</li>
+                      <li>Always asks &quot;what should they do instead?&quot; for problem behaviors</li>
+                      <li>Built-in options: count times, track minutes, measure speed</li>
+                      <li>Automatic planning for different settings and long-term success</li>
                     </ul>
                   </div>
                 </div>
@@ -636,20 +589,20 @@ export function AnimatedSections() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">What Research Says:</h4>
-                    <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Don&apos;t hope skills transfer to new places—plan for it</li>
-                      <li>• Practice the same skill in many different situations</li>
-                      <li>• Give students tools to remind themselves what to do</li>
-                      <li>• Make rewards unpredictable so skills stick better</li>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
+                      <li>Don&apos;t hope skills transfer to new places—plan for it</li>
+                      <li>Practice the same skill in many different situations</li>
+                      <li>Give students tools to remind themselves what to do</li>
+                      <li>Make rewards unpredictable so skills stick better</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">How Our Tool Helps:</h4>
-                    <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Built-in planner asks: where else should this work?</li>
-                      <li>• Requires at least 3 different places, people, or materials</li>
-                      <li>• Creates reminder cards students can use themselves</li>
-                      <li>• Suggests mixing up when students get praised or rewards</li>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
+                      <li>Built-in planner asks: where else should this work?</li>
+                      <li>Requires at least 3 different places, people, or materials</li>
+                      <li>Creates reminder cards students can use themselves</li>
+                      <li>Suggests mixing up when students get praised or rewards</li>
                     </ul>
                   </div>
                 </div>
@@ -670,20 +623,20 @@ export function AnimatedSections() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">What Research Says:</h4>
-                    <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Students need to be both correct AND fast for skills to last</li>
-                      <li>• Skills should stick, work when tired, stay steady, and transfer</li>
-                      <li>• Speed goals help create stronger, lasting skills</li>
-                      <li>• Build small skills first, then combine into bigger ones</li>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
+                      <li>Students need to be both correct AND fast for skills to last</li>
+                      <li>Skills should stick, work when tired, stay steady, and transfer</li>
+                      <li>Speed goals help create stronger, lasting skills</li>
+                      <li>Build small skills first, then combine into bigger ones</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">How Our Tool Helps:</h4>
-                    <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Option to add speed goals (like &quot;within 5 seconds&quot;)</li>
-                      <li>• Tests if skills work even when students are distracted</li>
-                      <li>• Helps break big skills into smaller, learnable steps</li>
-                      <li>• Sets high standards (90-100% correct) for better results</li>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
+                      <li>Option to add speed goals (like &quot;within 5 seconds&quot;)</li>
+                      <li>Tests if skills work even when students are distracted</li>
+                      <li>Helps break big skills into smaller, learnable steps</li>
+                      <li>Sets high standards (90-100% correct) for better results</li>
                     </ul>
                   </div>
                 </div>
@@ -704,20 +657,20 @@ export function AnimatedSections() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">What Research Says:</h4>
-                    <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Students must show they can do it multiple times, not just once</li>
-                      <li>• Skills should work the same way every time and everywhere</li>
-                      <li>• Higher standards help skills last longer than lower ones</li>
-                      <li>• Aiming for 90-100% correct works better than 80%</li>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
+                      <li>Students must show they can do it multiple times, not just once</li>
+                      <li>Skills should work the same way every time and everywhere</li>
+                      <li>Higher standards help skills last longer than lower ones</li>
+                      <li>Aiming for 90-100% correct works better than 80%</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">How Our Tool Helps:</h4>
-                    <ul className="space-y-2 text-sm text-slate-700">
-                      <li>• Sets goals for 90% success over 3 different days</li>
-                      <li>• Checks that skills work in multiple situations</li>
-                      <li>• Warns you if goals are set too low to be effective</li>
-                      <li>• Automatically includes 4-week follow-up checks</li>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
+                      <li>Sets goals for 90% success over 3 different days</li>
+                      <li>Checks that skills work in multiple situations</li>
+                      <li>Warns you if goals are set too low to be effective</li>
+                      <li>Automatically includes 4-week follow-up checks</li>
                     </ul>
                   </div>
                 </div>
@@ -847,19 +800,19 @@ export function AnimatedSections() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-bold text-red-800 mb-2">✅ Includes:</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Date and context</li>
-                      <li>• Specific behavior</li>
-                      <li>• Measurement criteria</li>
+                    <ul className="list-disc list-inside text-left space-y-1 text-sm">
+                      <li>Date and context</li>
+                      <li>Specific behavior</li>
+                      <li>Measurement criteria</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-bold text-red-800 mb-2">❌ Missing:</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Baseline data</li>
-                      <li>• Latency & fluency</li>
-                      <li>• Generalization</li>
-                      <li>• Maintenance</li>
+                    <ul className="list-disc list-inside text-left space-y-1 text-sm">
+                      <li>Baseline data</li>
+                      <li>Latency & fluency</li>
+                      <li>Generalization</li>
+                      <li>Maintenance</li>
                     </ul>
                   </div>
                 </div>
@@ -889,21 +842,21 @@ export function AnimatedSections() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-bold text-emerald-800 mb-2">✅ Includes All Components:</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• Baseline data (current performance)</li>
-                      <li>• Latency (10 seconds)</li>
-                      <li>• Fluency (90% accuracy)</li>
-                      <li>• Generalization (3 settings)</li>
-                      <li>• Maintenance (4 weeks)</li>
+                    <ul className="list-disc list-inside text-left space-y-1 text-sm">
+                      <li>Baseline data (current performance)</li>
+                      <li>Latency (10 seconds)</li>
+                      <li>Fluency (90% accuracy)</li>
+                      <li>Generalization (3 settings)</li>
+                      <li>Maintenance (4 weeks)</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-bold text-emerald-800 mb-2">🎯 Research Benefits:</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li>• 90-100% accuracy for better retention</li>
-                      <li>• Fluency building for skill stability</li>
-                      <li>• Cross-setting generalization</li>
-                      <li>• Long-term maintenance</li>
+                    <ul className="list-disc list-inside text-left space-y-1 text-sm">
+                      <li>90-100% accuracy for better retention</li>
+                      <li>Fluency building for skill stability</li>
+                      <li>Cross-setting generalization</li>
+                      <li>Long-term maintenance</li>
                     </ul>
                   </div>
                 </div>

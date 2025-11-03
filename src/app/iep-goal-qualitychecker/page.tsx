@@ -92,11 +92,25 @@ export default function IEPGoalQualityChecker() {
       </div>
 
       <section className="container mx-auto px-6 py-10">
-        <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-2zl p-6 md:p-8">
+        <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-2xl p-6 md:p-8">
           <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">IEP Behavior Goal Quality Checker</h1>
-          <p className="text-slate-600 mb-6">
-            Paste a behavior goal to get instant feedback on core components: condition, behavior, measurement, criteria (90–100%), timeframe, and monitoring.
+          <p className="text-slate-600 mb-4">
+            Check IEP behavior goals for measurability in seconds — condition, observable behavior, measurement method, mastery criteria (90–100%), timeframe, baseline/present levels, and monitoring.
           </p>
+          <div className="mb-6">
+            <ul className="flex flex-wrap gap-2 text-xs text-slate-600">
+              {[
+                'IEP goal checker',
+                'measurable behavior goals',
+                'ABA-aligned criteria',
+                'progress monitoring',
+                'special education IEP',
+                'BCBA tools',
+              ].map((k) => (
+                <li key={k} className="px-2 py-1 bg-slate-50 border border-slate-200 rounded-md">{k}</li>
+              ))}
+            </ul>
+          </div>
 
           <textarea
             value={text}
@@ -217,9 +231,54 @@ export default function IEPGoalQualityChecker() {
             applicationCategory: "EducationalApplication",
             operatingSystem: "Web",
             description: "Instant, rule-based quality checks for IEP behavior goals with export and copy features.",
+            keywords: [
+              "IEP goal checker",
+              "measurable IEP goals",
+              "behavior goal criteria",
+              "ABA",
+              "BCBA",
+              "progress monitoring"
+            ],
             offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
             url: "https://behaviorschool.com/iep-goal-qualitychecker",
             publisher: { "@type": "Organization", name: "Behavior School" }
+          })
+        }}
+      />
+
+      {/* FAQ Structured Data (compact intro) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What does the IEP Goal Quality Checker review?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Condition, observable behavior, measurement method, mastery criteria (90–100%), timeframe/end date, baseline/present levels, supports, and monitoring."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is this tool free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. The checker is free with optional copy/PDF export."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Who is it for?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "School-based BCBAs, special educators, and related service providers writing measurable behavior goals."
+                }
+              }
+            ]
           })
         }}
       />
@@ -236,6 +295,7 @@ export default function IEPGoalQualityChecker() {
         isDownloadFlow={true}
         onSuccess={onSignupSuccess}
         id="quality-checker-signup"
+        unlockOnError={true}
       />
     </main>
   );

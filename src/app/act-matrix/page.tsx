@@ -346,19 +346,19 @@ export default function ACTMatrixPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-semibold text-blue-900 mb-3">Core Components:</h4>
-                    <ul className="space-y-2 text-blue-800">
-                      <li>• <strong>Acceptance:</strong> Learning to experience difficult thoughts and feelings without fighting them</li>
-                      <li>• <strong>Commitment:</strong> Taking action guided by personal values even when it&apos;s difficult</li>
-                      <li>• <strong>Training:</strong> Building skills through practice and repetition</li>
+                    <ul className="list-disc list-inside text-left space-y-2 text-blue-800">
+                      <li><strong>Acceptance:</strong> Learning to experience difficult thoughts and feelings without fighting them</li>
+                      <li><strong>Commitment:</strong> Taking action guided by personal values even when it&apos;s difficult</li>
+                      <li><strong>Training:</strong> Building skills through practice and repetition</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-900 mb-3">School Applications:</h4>
-                    <ul className="space-y-2 text-blue-800">
-                      <li>• Social-emotional learning curricula</li>
-                      <li>• Individual behavior support plans</li>
-                      <li>• Classroom management strategies</li>
-                      <li>• Student resilience building programs</li>
+                    <ul className="list-disc list-inside text-left space-y-2 text-blue-800">
+                      <li>Social-emotional learning curricula</li>
+                      <li>Individual behavior support plans</li>
+                      <li>Classroom management strategies</li>
+                      <li>Student resilience building programs</li>
                     </ul>
                   </div>
                 </div>
@@ -733,10 +733,10 @@ export default function ACTMatrixPage() {
                       </p>
                       <div className="bg-emerald-50 p-4 rounded-lg">
                         <p className="text-emerald-800 font-medium mb-2">Examples:</p>
-                        <ul className="text-emerald-700 space-y-1">
-                          <li>• Asking for help when stuck</li>
-                          <li>• Trying new challenges</li>
-                          <li>• Being kind to others</li>
+                        <ul className="list-disc list-inside text-left text-emerald-700 space-y-1">
+                          <li>Asking for help when stuck</li>
+                          <li>Trying new challenges</li>
+                          <li>Being kind to others</li>
                         </ul>
                       </div>
                     </div>
@@ -748,10 +748,10 @@ export default function ACTMatrixPage() {
                       </p>
                       <div className="bg-emerald-50 p-4 rounded-lg">
                         <p className="text-emerald-800 font-medium mb-2">Examples:</p>
-                        <ul className="text-emerald-700 space-y-1">
-                          <li>• &quot;I can learn from this&quot;</li>
-                          <li>• Feeling curious</li>
-                          <li>• Sense of purpose</li>
+                        <ul className="list-disc list-inside text-left text-emerald-700 space-y-1">
+                          <li>&quot;I can learn from this&quot;</li>
+                          <li>Feeling curious</li>
+                          <li>Sense of purpose</li>
                         </ul>
                       </div>
                     </div>

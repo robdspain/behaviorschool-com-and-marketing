@@ -384,20 +384,20 @@ export default function BCBAMockExamGuidePage() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <h4 className="font-semibold text-emerald-700 mb-2">✓ DO</h4>
-                        <ul className="text-sm text-slate-600 space-y-1">
-                          <li>• Complete full 185 questions in 4 hours</li>
-                          <li>• Simulate real test conditions (quiet, timed)</li>
-                          <li>• Review all 9 content domains first</li>
-                          <li>• Track domain-by-domain performance</li>
+                        <ul className="list-disc list-inside text-left text-sm text-slate-600 space-y-1">
+                          <li>Complete full 185 questions in 4 hours</li>
+                          <li>Simulate real test conditions (quiet, timed)</li>
+                          <li>Review all 9 content domains first</li>
+                          <li>Track domain-by-domain performance</li>
                         </ul>
                       </div>
                       <div>
                         <h4 className="font-semibold text-red-700 mb-2">✗ DON&apos;T</h4>
-                        <ul className="text-sm text-slate-600 space-y-1">
-                          <li>• Take before content review is complete</li>
-                          <li>• Split across multiple days</li>
-                          <li>• Look up answers during the exam</li>
-                          <li>• Stress about a low score—it&apos;s diagnostic</li>
+                        <ul className="list-disc list-inside text-left text-sm text-slate-600 space-y-1">
+                          <li>Take before content review is complete</li>
+                          <li>Split across multiple days</li>
+                          <li>Look up answers during the exam</li>
+                          <li>Stress about a low score—it&apos;s diagnostic</li>
                         </ul>
                       </div>
                     </div>
@@ -421,20 +421,20 @@ export default function BCBAMockExamGuidePage() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <h4 className="font-semibold text-emerald-700 mb-2">✓ DO</h4>
-                        <ul className="text-sm text-slate-600 space-y-1">
-                          <li>• Use a different mock exam than baseline</li>
-                          <li>• Compare domain scores to Phase 1</li>
-                          <li>• Identify persistent weak areas</li>
-                          <li>• Adjust study plan based on gaps</li>
+                        <ul className="list-disc list-inside text-left text-sm text-slate-600 space-y-1">
+                          <li>Use a different mock exam than baseline</li>
+                          <li>Compare domain scores to Phase 1</li>
+                          <li>Identify persistent weak areas</li>
+                          <li>Adjust study plan based on gaps</li>
                         </ul>
                       </div>
                       <div>
                         <h4 className="font-semibold text-red-700 mb-2">✗ DON&apos;T</h4>
-                        <ul className="text-sm text-slate-600 space-y-1">
-                          <li>• Retake the same exam (memorization risk)</li>
-                          <li>• Skip if baseline score was high</li>
-                          <li>• Ignore domains that improved slightly</li>
-                          <li>• Take too close to final exam (no time to adjust)</li>
+                        <ul className="list-disc list-inside text-left text-sm text-slate-600 space-y-1">
+                          <li>Retake the same exam (memorization risk)</li>
+                          <li>Skip if baseline score was high</li>
+                          <li>Ignore domains that improved slightly</li>
+                          <li>Take too close to final exam (no time to adjust)</li>
                         </ul>
                       </div>
                     </div>
@@ -458,20 +458,20 @@ export default function BCBAMockExamGuidePage() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <h4 className="font-semibold text-emerald-700 mb-2">✓ DO</h4>
-                        <ul className="text-sm text-slate-600 space-y-1">
-                          <li>• Target 75-80%+ overall score</li>
-                          <li>• Score 70%+ in all domains</li>
-                          <li>• Practice same time of day as real test</li>
-                          <li>• Review only flagged/incorrect questions</li>
+                        <ul className="list-disc list-inside text-left text-sm text-slate-600 space-y-1">
+                          <li>Target 75-80%+ overall score</li>
+                          <li>Score 70%+ in all domains</li>
+                          <li>Practice same time of day as real test</li>
+                          <li>Review only flagged/incorrect questions</li>
                         </ul>
                       </div>
                       <div>
                         <h4 className="font-semibold text-red-700 mb-2">✗ DON&apos;T</h4>
-                        <ul className="text-sm text-slate-600 space-y-1">
-                          <li>• Take within 3 days of test (causes stress)</li>
-                          <li>• Panic if one domain is weak—review it</li>
-                          <li>• Cram new content after this exam</li>
-                          <li>• Over-analyze every missed question</li>
+                        <ul className="list-disc list-inside text-left text-sm text-slate-600 space-y-1">
+                          <li>Take within 3 days of test (causes stress)</li>
+                          <li>Panic if one domain is weak—review it</li>
+                          <li>Cram new content after this exam</li>
+                          <li>Over-analyze every missed question</li>
                         </ul>
                       </div>
                     </div>

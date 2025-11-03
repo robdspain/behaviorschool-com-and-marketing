@@ -447,12 +447,12 @@ export default function Page() {
                     <p className="text-sm text-slate-700 mb-3">Complete remaining coursework while accumulating school-specific fieldwork experiences. Begin creating portfolio artifacts that demonstrate competency.</p>
                     <div className="bg-slate-50 rounded-lg p-4">
                       <p className="text-xs font-semibold text-slate-900 mb-2">Focus Areas:</p>
-                      <ul className="text-xs text-slate-700 space-y-1">
-                        <li>• Lead FBAs and BIP development (aim for 5-10 complete cases)</li>
-                        <li>• Participate actively in IEP meetings and write behavior goals</li>
-                        <li>• Conduct staff training sessions (document with fidelity data)</li>
-                        <li>• Build progress monitoring systems and data workflows</li>
-                        <li>• Create your first portfolio artifacts (BIP examples, IEP goals, coaching plans)</li>
+                      <ul className="list-disc list-inside text-left text-xs text-slate-700 space-y-1">
+                        <li>Lead FBAs and BIP development (aim for 5-10 complete cases)</li>
+                        <li>Participate actively in IEP meetings and write behavior goals</li>
+                        <li>Conduct staff training sessions (document with fidelity data)</li>
+                        <li>Build progress monitoring systems and data workflows</li>
+                        <li>Create your first portfolio artifacts (BIP examples, IEP goals, coaching plans)</li>
                       </ul>
                     </div>
                   </div>
@@ -469,12 +469,12 @@ export default function Page() {
                     <p className="text-sm text-slate-700 mb-3">Complete all requirements, pass BCBA exam, finalize portfolio, and begin targeted job search. Many candidates land offers before or shortly after passing the exam.</p>
                     <div className="bg-slate-50 rounded-lg p-4">
                       <p className="text-xs font-semibold text-slate-900 mb-2">Focus Areas:</p>
-                      <ul className="text-xs text-slate-700 space-y-1">
-                        <li>• Intensive BCBA exam prep (prioritize school-based scenarios)</li>
-                        <li>• Finalize portfolio with 90-day plan, BIP, IEP goals, coaching cycle</li>
-                        <li>• Validate artifacts with free tools (Goal Quality Checker, BIP Writer)</li>
-                        <li>• Apply to school districts (start 3-6 months before desired start date)</li>
-                        <li>• Prepare for interviews with systems-level talking points</li>
+                      <ul className="list-disc list-inside text-left text-xs text-slate-700 space-y-1">
+                        <li>Intensive BCBA exam prep (prioritize school-based scenarios)</li>
+                        <li>Finalize portfolio with 90-day plan, BIP, IEP goals, coaching cycle</li>
+                        <li>Validate artifacts with free tools (Goal Quality Checker, BIP Writer)</li>
+                        <li>Apply to school districts (start 3-6 months before desired start date)</li>
+                        <li>Prepare for interviews with systems-level talking points</li>
                       </ul>
                     </div>
                   </div>

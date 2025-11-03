@@ -983,26 +983,26 @@ export default function BCBAMockPracticeTestPage() {
                 <div className="grid md:grid-cols-3 gap-4 mb-4">
                   <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
                     <h4 className="font-bold text-purple-800 mb-2">Early Prep (3-6 months out)</h4>
-                    <ul className="text-sm text-purple-700 space-y-1">
-                      <li>• One diagnostic test initially</li>
-                      <li>• Focus on content review</li>
-                      <li>• Weekly mini-domain exams</li>
+                    <ul className="list-disc list-inside text-left text-sm text-purple-700 space-y-1">
+                      <li>One diagnostic test initially</li>
+                      <li>Focus on content review</li>
+                      <li>Weekly mini-domain exams</li>
                     </ul>
                   </div>
                   <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                     <h4 className="font-bold text-blue-800 mb-2">Active Prep (1-3 months out)</h4>
-                    <ul className="text-sm text-blue-700 space-y-1">
-                      <li>• Full mock exam every 2 weeks</li>
-                      <li>• Analyze performance patterns</li>
-                      <li>• Focus on weak domains</li>
+                    <ul className="list-disc list-inside text-left text-sm text-blue-700 space-y-1">
+                      <li>Full mock exam every 2 weeks</li>
+                      <li>Analyze performance patterns</li>
+                      <li>Focus on weak domains</li>
                     </ul>
                   </div>
                   <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
                     <h4 className="font-bold text-emerald-800 mb-2">Final Prep (2-4 weeks out)</h4>
-                    <ul className="text-sm text-emerald-700 space-y-1">
-                      <li>• 2-3 final practice exams</li>
-                      <li>• Simulate exact conditions</li>
-                      <li>• Build confidence</li>
+                    <ul className="list-disc list-inside text-left text-sm text-emerald-700 space-y-1">
+                      <li>2-3 final practice exams</li>
+                      <li>Simulate exact conditions</li>
+                      <li>Build confidence</li>
                     </ul>
                   </div>
                 </div>

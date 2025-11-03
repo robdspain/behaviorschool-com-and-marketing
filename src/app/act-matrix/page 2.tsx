@@ -361,19 +361,19 @@ export default function ACTMatrixPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-semibold text-blue-900 mb-3">Core Components:</h4>
-                    <ul className="space-y-2 text-blue-800">
-                      <li>• <strong>Acceptance:</strong> Learning to experience difficult thoughts and feelings without fighting them</li>
-                      <li>• <strong>Commitment:</strong> Taking action guided by personal values even when it&apos;s difficult</li>
-                      <li>• <strong>Training:</strong> Building skills through practice and repetition</li>
+                    <ul className="list-disc list-inside text-left space-y-2 text-blue-800">
+                      <li><strong>Acceptance:</strong> Learning to experience difficult thoughts and feelings without fighting them</li>
+                      <li><strong>Commitment:</strong> Taking action guided by personal values even when it&apos;s difficult</li>
+                      <li><strong>Training:</strong> Building skills through practice and repetition</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-900 mb-3">School Applications:</h4>
-                    <ul className="space-y-2 text-blue-800">
-                      <li>• Social-emotional learning curricula</li>
-                      <li>• Individual behavior support plans</li>
-                      <li>• Classroom management strategies</li>
-                      <li>• Student resilience building programs</li>
+                    <ul className="list-disc list-inside text-left space-y-2 text-blue-800">
+                      <li>Social-emotional learning curricula</li>
+                      <li>Individual behavior support plans</li>
+                      <li>Classroom management strategies</li>
+                      <li>Student resilience building programs</li>
                     </ul>
                   </div>
                 </div>
@@ -522,37 +522,37 @@ export default function ACTMatrixPage() {
                     
                     <div className="border-r border-slate-200 pr-4">
                       <div className="text-red-500 font-semibold mb-2">Away Moves</div>
-                      <ul className="text-slate-600 space-y-1">
-                        <li>• Skipping math class</li>
-                        <li>• Not doing homework</li>
-                        <li>• Distracting others</li>
+                      <ul className="list-disc list-inside text-left text-slate-600 space-y-1">
+                        <li>Skipping math class</li>
+                        <li>Not doing homework</li>
+                        <li>Distracting others</li>
                       </ul>
                     </div>
                     
                     <div className="pl-4">
                       <div className="text-emerald-600 font-semibold mb-2">Toward Moves</div>
-                      <ul className="text-slate-600 space-y-1">
-                        <li>• Asking teacher for help</li>
-                        <li>• Practicing problems</li>
-                        <li>• Working with study group</li>
+                      <ul className="list-disc list-inside text-left text-slate-600 space-y-1">
+                        <li>Asking teacher for help</li>
+                        <li>Practicing problems</li>
+                        <li>Working with study group</li>
                       </ul>
                     </div>
                     
                     <div className="border-r border-slate-200 pr-4 pt-4">
                       <div className="text-red-500 font-semibold mb-2">Unhelpful Internal</div>
-                      <ul className="text-slate-600 space-y-1">
-                        <li>• &quot;I&apos;m terrible at math&quot;</li>
-                        <li>• Feeling frustrated</li>
-                        <li>• Fear of looking stupid</li>
+                      <ul className="list-disc list-inside text-left text-slate-600 space-y-1">
+                        <li>&quot;I&apos;m terrible at math&quot;</li>
+                        <li>Feeling frustrated</li>
+                        <li>Fear of looking stupid</li>
                       </ul>
                     </div>
                     
                     <div className="pl-4 pt-4">
                       <div className="text-emerald-600 font-semibold mb-2">Helpful Internal</div>
-                      <ul className="text-slate-600 space-y-1">
-                        <li>• &quot;Mistakes help me learn&quot;</li>
-                        <li>• Feeling curious</li>
-                        <li>• Sense of challenge</li>
+                      <ul className="list-disc list-inside text-left text-slate-600 space-y-1">
+                        <li>&quot;Mistakes help me learn&quot;</li>
+                        <li>Feeling curious</li>
+                        <li>Sense of challenge</li>
                       </ul>
                     </div>
                   </div>
@@ -575,37 +575,37 @@ export default function ACTMatrixPage() {
                     
                     <div className="border-r border-slate-200 pr-4">
                       <div className="text-red-500 font-semibold mb-2">Away Moves</div>
-                      <ul className="text-slate-600 space-y-1">
-                        <li>• Eating lunch alone</li>
-                        <li>• Avoiding group work</li>
-                        <li>• Staying quiet in class</li>
+                      <ul className="list-disc list-inside text-left text-slate-600 space-y-1">
+                        <li>Eating lunch alone</li>
+                        <li>Avoiding group work</li>
+                        <li>Staying quiet in class</li>
                       </ul>
                     </div>
                     
                     <div className="pl-4">
                       <div className="text-emerald-600 font-semibold mb-2">Toward Moves</div>
-                      <ul className="text-slate-600 space-y-1">
-                        <li>• Sitting with classmates</li>
-                        <li>• Joining group activities</li>
-                        <li>• Offering to help others</li>
+                      <ul className="list-disc list-inside text-left text-slate-600 space-y-1">
+                        <li>Sitting with classmates</li>
+                        <li>Joining group activities</li>
+                        <li>Offering to help others</li>
                       </ul>
                     </div>
                     
                     <div className="border-r border-slate-200 pr-4 pt-4">
                       <div className="text-red-500 font-semibold mb-2">Unhelpful Internal</div>
-                      <ul className="text-slate-600 space-y-1">
-                        <li>• &quot;They&apos;ll reject me&quot;</li>
-                        <li>• Feeling anxious</li>
-                        <li>• Racing heart</li>
+                      <ul className="list-disc list-inside text-left text-slate-600 space-y-1">
+                        <li>&quot;They&apos;ll reject me&quot;</li>
+                        <li>Feeling anxious</li>
+                        <li>Racing heart</li>
                       </ul>
                     </div>
                     
                     <div className="pl-4 pt-4">
                       <div className="text-emerald-600 font-semibold mb-2">Helpful Internal</div>
-                      <ul className="text-slate-600 space-y-1">
-                        <li>• &quot;Others feel nervous too&quot;</li>
-                        <li>• Feeling hopeful</li>
-                        <li>• Wanting connection</li>
+                      <ul className="list-disc list-inside text-left text-slate-600 space-y-1">
+                        <li>&quot;Others feel nervous too&quot;</li>
+                        <li>Feeling hopeful</li>
+                        <li>Wanting connection</li>
                       </ul>
                     </div>
                   </div>

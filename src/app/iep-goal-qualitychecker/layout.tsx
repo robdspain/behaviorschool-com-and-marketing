@@ -1,11 +1,38 @@
 import type { Metadata } from "next";
 
+const baseUrl = "https://behaviorschool.com";
+
 export const metadata: Metadata = {
-  title: "IEP Behavior Goal Quality Checker | Free Tool",
+  title: "IEP Goal Quality Checker | Measurable Behavior Goals (Free Tool)",
   description:
-    "Paste any IEP behavior goal and get instant, rule-based feedback on measurability, conditions, criteria (90–100%), and monitoring.",
-  alternates: { canonical: "https://behaviorschool.com/iep-goal-qualitychecker" },
+    "Check IEP behavior goals for condition, behavior, measurement, criteria (90–100%), timeframe, baseline. Free copy & PDF export.",
+  keywords: [
+    "IEP goals",
+    "behavior goal",
+    "measurable IEP goals",
+    "IEP goal checker",
+    "IEP goal criteria",
+    "ABA",
+    "BCBA",
+    "special education",
+    "progress monitoring",
+  ],
+  alternates: { canonical: `${baseUrl}/iep-goal-qualitychecker` },
   robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    url: `${baseUrl}/iep-goal-qualitychecker`,
+    title: "IEP Goal Quality Checker | Measurable Behavior Goals (Free Tool)",
+    description:
+      "Instant IEP behavior goal checks: condition, behavior, measurement, criteria (90–100%), timeframe, baseline. Free copy & PDF export.",
+    siteName: "Behavior School",
+  },
+  twitter: {
+    card: "summary",
+    title: "IEP Goal Quality Checker | Measurable Behavior Goals (Free Tool)",
+    description:
+      "Instant IEP behavior goal checks: condition, behavior, measurement, criteria (90–100%), timeframe, baseline.",
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

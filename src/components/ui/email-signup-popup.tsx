@@ -18,6 +18,7 @@ interface EmailSignupPopupProps {
   isDownloadFlow?: boolean; // When true, show download-specific disclaimer/messages
   onSuccess?: () => void; // New prop for success callback
   id?: string; // Accessibility: id for aria-controls
+  unlockOnError?: boolean; // When true, call onSuccess even if API fails (graceful unlock)
 }
 
 export function EmailSignupPopup({
@@ -32,7 +33,8 @@ export function EmailSignupPopup({
   showNameField = false,
   isDownloadFlow = false,
   onSuccess, // Destructure onSuccess prop
-  id = "email-signup-popup"
+  id = "email-signup-popup",
+  unlockOnError = false
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [localSuccessMessage, setLocalSuccessMessage] = useState(successMessage);
@@ -103,11 +105,21 @@ export function EmailSignupPopup({
           error: 'api_failed',
           status: response.status
         });
-        setIsSubmitted(true);
-        setTimeout(() => {
-          onClose();
-          setIsSubmitted(false);
-        }, 3000);
+        // Graceful unlock path if configured
+        if (unlockOnError && onSuccess) {
+          console.warn('EmailSignupPopup: unlockOnError enabled — proceeding with onSuccess');
+          onSuccess();
+          setTimeout(() => {
+            onClose();
+            setIsSubmitted(false);
+          }, 500);
+        } else {
+          setIsSubmitted(true);
+          setTimeout(() => {
+            onClose();
+            setIsSubmitted(false);
+          }, 3000);
+        }
       }
     } catch (error) {
       console.error("Newsletter subscription error:", error);
@@ -115,11 +127,21 @@ export function EmailSignupPopup({
         pageSource,
         error: 'network_error'
       });
-      setIsSubmitted(true);
-      setTimeout(() => {
-        onClose();
-        setIsSubmitted(false);
-      }, 3000);
+      // Graceful unlock on network errors if configured
+      if (unlockOnError && onSuccess) {
+        console.warn('EmailSignupPopup: unlockOnError on network error — proceeding with onSuccess');
+        onSuccess();
+        setTimeout(() => {
+          onClose();
+          setIsSubmitted(false);
+        }, 500);
+      } else {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          onClose();
+          setIsSubmitted(false);
+        }, 3000);
+      }
     }
   };
 

@@ -92,10 +92,11 @@ export function ProductsClient() {
                 >
                   <Link 
                     href="/behavior-study-tools" 
-                    className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold group"
+                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    aria-label="Learn more about Behavior Study Tools"
                   >
                     Learn more about Behavior Study Tools
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
 
@@ -205,10 +206,11 @@ export function ProductsClient() {
                 >
                   <Link
                     href="/supervisors"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold group"
+                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    aria-label="Learn more about Supervision Tools"
                   >
                     Learn more about Supervision Tools
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
                 <div className="mt-2">
@@ -264,10 +266,11 @@ export function ProductsClient() {
                 >
                   <Link 
                     href="/iep-goals" 
-                    className="inline-flex items-center text-purple-600 hover:text-purple-700 font-semibold group"
+                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    aria-label="Learn more about IEP Goal Writer"
                   >
                     Learn more about IEP Goal Writer
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
               </div>
@@ -328,10 +331,11 @@ export function ProductsClient() {
                 >
                   <Link 
                     href="/act-matrix" 
-                    className="inline-flex items-center text-teal-600 hover:text-teal-700 font-semibold group"
+                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    aria-label="Learn more about ACT Matrix Guide"
                   >
                     Learn more about ACT Matrix Guide
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
               </div>
@@ -451,10 +455,11 @@ export function ProductsClient() {
                 >
                   <Link 
                     href="/behavior-plans" 
-                    className="inline-flex items-center text-orange-600 hover:text-orange-700 font-semibold group"
+                    className="inline-flex items-center px-5 py-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-sm hover:shadow group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
+                    aria-label="Learn more about Behavior Plan Writer"
                   >
                     Learn more about Behavior Plan Writer
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
               </div>
@@ -467,4 +472,3 @@ export function ProductsClient() {
     </div>
   );
 }
-

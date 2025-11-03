@@ -1045,20 +1045,20 @@ export default function BCBAPracticeExamPage() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="bg-red-50 border border-red-200 rounded-xl p-4">
                     <h4 className="font-bold text-red-800 mb-2">Repetitive &ldquo;Drill &amp; Kill&rdquo;</h4>
-                    <ul className="text-sm text-red-700 space-y-1">
-                      <li>• Creates mechanical responding patterns</li>
-                      <li>• Builds memorization, not understanding</li>
-                      <li>• Leads to plateau effect and boredom</li>
-                      <li>• Fails in novel clinical situations</li>
+                    <ul className="list-disc list-inside text-left text-sm text-red-700 space-y-1">
+                      <li>Creates mechanical responding patterns</li>
+                      <li>Builds memorization, not understanding</li>
+                      <li>Leads to plateau effect and boredom</li>
+                      <li>Fails in novel clinical situations</li>
                     </ul>
                   </div>
                   <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
                     <h4 className="font-bold text-emerald-800 mb-2">Non-Repetitive Variation</h4>
-                    <ul className="text-sm text-emerald-700 space-y-1">
-                      <li>• Forces conceptual understanding</li>
-                      <li>• Builds generalization and transfer</li>
-                      <li>• Maintains engagement through novelty</li>
-                      <li>• Develops authentic clinical thinking</li>
+                    <ul className="list-disc list-inside text-left text-sm text-emerald-700 space-y-1">
+                      <li>Forces conceptual understanding</li>
+                      <li>Builds generalization and transfer</li>
+                      <li>Maintains engagement through novelty</li>
+                      <li>Develops authentic clinical thinking</li>
                     </ul>
                   </div>
                 </div>

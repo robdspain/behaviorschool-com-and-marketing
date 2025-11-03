@@ -283,14 +283,14 @@ export default function ProviderSettings() {
       {/* Info */}
       <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
         <h4 className="font-bold text-blue-900 mb-2">About API Keys</h4>
-        <ul className="space-y-1 text-blue-800 text-sm">
-          <li>• All API keys are stored locally in your browser</li>
-          <li>• Keys are sent to your server when generating presentations</li>
-          <li>• At minimum, you need one AI provider key (Google AI recommended)</li>
-          <li>• Additional provider keys enable fallback options</li>
-          <li>• Ollama endpoint allows using local AI models</li>
-          <li>• No Presenton subscription required - this is self-hosted</li>
-          <li>• Tip: Use Export JSON to back up your keys, and Import/Paste to restore if they’re cleared</li>
+        <ul className="list-disc list-inside text-left space-y-1 text-blue-800 text-sm">
+          <li>All API keys are stored locally in your browser</li>
+          <li>Keys are sent to your server when generating presentations</li>
+          <li>At minimum, you need one AI provider key (Google AI recommended)</li>
+          <li>Additional provider keys enable fallback options</li>
+          <li>Ollama endpoint allows using local AI models</li>
+          <li>No Presenton subscription required - this is self-hosted</li>
+          <li>Tip: Use Export JSON to back up your keys, and Import/Paste to restore if they’re cleared</li>
         </ul>
       </div>
     </div>

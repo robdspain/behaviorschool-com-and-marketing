@@ -107,12 +107,12 @@ export default function Home() {
                 <span className="text-2xl">⚠️</span>
               </div>
               <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Current Reality</h4>
-              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
-                <li>• Ethical challenges in schools with admin demands</li>
-                <li>• Difficulty getting teacher buy-in for behavior plans</li>
-                <li>• School BCBA burnout from overwhelming caseloads</li>
-                <li>• Constant school behavior crisis management</li>
-                <li>• Lack of school-wide behavior support systems</li>
+              <ul className="list-disc list-inside text-left text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
+                <li>Ethical challenges in schools with admin demands</li>
+                <li>Difficulty getting teacher buy-in for behavior plans</li>
+                <li>School BCBA burnout from overwhelming caseloads</li>
+                <li>Constant school behavior crisis management</li>
+                <li>Lack of school-wide behavior support systems</li>
               </ul>
             </div>
 
@@ -122,12 +122,12 @@ export default function Home() {
                 <span className="text-2xl">🎯</span>
               </div>
               <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Our Solution</h4>
-              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
-                <li>• Ethical leadership framework for school BCBAs</li>
-                <li>• Training teachers in behavior support strategies</li>
-                <li>• Applied behavior analysis in schools workflows</li>
-                <li>• Crisis management in schools protocols</li>
-                <li>• MTSS behavior support implementation</li>
+              <ul className="list-disc list-inside text-left text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
+                <li>Ethical leadership framework for school BCBAs</li>
+                <li>Training teachers in behavior support strategies</li>
+                <li>Applied behavior analysis in schools workflows</li>
+                <li>Crisis management in schools protocols</li>
+                <li>MTSS behavior support implementation</li>
               </ul>
             </div>
 
@@ -137,12 +137,12 @@ export default function Home() {
                 <span className="text-2xl">🚀</span>
               </div>
               <h4 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 leading-tight">Your Future</h4>
-              <ul className="text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
-                <li>• Confident ethical leadership as a school BCBA</li>
-                <li>• Engaged teachers implementing behavior plans</li>
-                <li>• Streamlined school-wide behavior support</li>
-                <li>• Measurable student behavior outcomes</li>
-                <li>• District-wide MTSS behavior support impact</li>
+              <ul className="list-disc list-inside text-left text-slate-600 space-y-2 text-sm sm:text-base leading-relaxed">
+                <li>Confident ethical leadership as a school BCBA</li>
+                <li>Engaged teachers implementing behavior plans</li>
+                <li>Streamlined school-wide behavior support</li>
+                <li>Measurable student behavior outcomes</li>
+                <li>District-wide MTSS behavior support impact</li>
               </ul>
             </div>
           </div>

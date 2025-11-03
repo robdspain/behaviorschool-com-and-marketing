@@ -113,9 +113,19 @@ export default function AdminSitemapPage() {
           description: 'About Behavior School and our mission'
         },
         {
+          name: 'About: Rob Spain',
+          path: '/about/rob-spain',
+          description: 'Founder profile and background'
+        },
+        {
           name: 'Contact',
           path: '/contact',
           description: 'Contact form and information'
+        },
+        {
+          name: 'FAQ',
+          path: '/faq',
+          description: 'Frequently asked questions'
         }
       ]
     },
@@ -137,6 +147,16 @@ export default function AdminSitemapPage() {
           name: 'Behavior Study Tools',
           path: '/behavior-study-tools',
           description: 'Interactive study tools platform'
+        },
+        {
+          name: 'Practice Hub',
+          path: '/practice',
+          description: 'Practice launcher and modes'
+        },
+        {
+          name: 'Practice Launcher',
+          path: '/practice/launch',
+          description: 'Launch practice with selected mode'
         },
         {
           name: 'BCBA Practice Exam',
@@ -162,6 +182,16 @@ export default function AdminSitemapPage() {
           name: 'Study Platform',
           path: '/study',
           description: 'Main study platform and tools hub'
+        },
+        {
+          name: 'BCBA Study Fluency',
+          path: '/bcba-study-fluency',
+          description: 'Fluency practice for BCBA prep'
+        },
+        {
+          name: 'BCBA Mock Exam Guide',
+          path: '/bcba-mock-exam-guide',
+          description: 'Detailed guide to mock exams'
         }
       ]
     },
@@ -208,6 +238,11 @@ export default function AdminSitemapPage() {
           name: 'School-Based Behavior Support',
           path: '/school-based-behavior-support',
           description: 'Behavior support strategies for schools'
+        },
+        {
+          name: 'BCBAs in Schools',
+          path: '/bcbas-in-schools',
+          description: 'How BCBAs support K-12 schools'
         }
       ]
     },
@@ -234,6 +269,21 @@ export default function AdminSitemapPage() {
           name: 'Behavior Plans',
           path: '/behavior-plans',
           description: 'Behavior intervention plan resources'
+        },
+        {
+          name: 'IEP Goals Widget',
+          path: '/iep-behavior-goals/widget',
+          description: 'Embeddable behavior goals widget'
+        },
+        {
+          name: 'Templates',
+          path: '/templates',
+          description: 'Downloadable templates and tools'
+        },
+        {
+          name: 'Values Goal Assistant Landing',
+          path: '/values-goal-assistant-landing',
+          description: 'Landing page for values-based assistant'
         }
       ]
     },
@@ -293,6 +343,16 @@ export default function AdminSitemapPage() {
           description: 'BCBA supervision platform and tools'
         },
         {
+          name: 'Masterclass',
+          path: '/masterclass',
+          description: 'Masterclass overview and details'
+        },
+        {
+          name: 'Masterclass Enroll',
+          path: '/masterclass/enroll',
+          description: 'Enrollment page for masterclass'
+        },
+        {
           name: 'Blog',
           path: '/blog',
           description: 'Blog posts and articles'
@@ -306,6 +366,16 @@ export default function AdminSitemapPage() {
           name: 'Subscribe',
           path: '/subscribe',
           description: 'Newsletter subscription'
+        },
+        {
+          name: 'Download Confirmation',
+          path: '/download-confirmation',
+          description: 'Confirmation page after downloads'
+        },
+        {
+          name: 'BACB ACE Provider',
+          path: '/bacb-ace-provider',
+          description: 'ACE provider info and CEUs'
         }
       ]
     },
