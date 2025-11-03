@@ -282,18 +282,22 @@ export default function SiteMapViewer() {
         </CardHeader>
         <CardContent className="space-y-3">
           {[
-            { path: '/iep-goal-qualitychecker', label: 'IEP Goal Quality Checker' },
-            { path: '/school-bcba', label: 'School BCBA Hub' },
-            { path: '/school-bcba/vs-school-based-bcba', label: 'VS: School vs School-Based BCBA' },
-            { path: '/school-bcba/job-guide', label: 'School BCBA Job Guide' },
-            { path: '/school-bcba/salary-by-state', label: 'Salary by State' },
-            { path: '/school-bcba/how-to-become', label: 'How to Become a School BCBA' },
-          ].map(({ path, label }) => {
-            const full = `https://behaviorschool.com${path}`;
-            const gsc = `https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent('https://behaviorschool.com')}&url=${encodeURIComponent(full)}`;
-            const copied = copiedPath === path;
+            { path: '/iep-goal-qualitychecker', label: 'IEP Goal Quality Checker', domain: 'behaviorschool.com' },
+            { path: '/school-bcba', label: 'School BCBA Hub', domain: 'behaviorschool.com' },
+            { path: '/school-bcba/vs-school-based-bcba', label: 'VS: School vs School-Based BCBA', domain: 'behaviorschool.com' },
+            { path: '/school-bcba/job-guide', label: 'School BCBA Job Guide', domain: 'behaviorschool.com' },
+            { path: '/school-bcba/salary-by-state', label: 'Salary by State', domain: 'behaviorschool.com' },
+            { path: '/school-bcba/how-to-become', label: 'How to Become a School BCBA', domain: 'behaviorschool.com' },
+            { path: '/', label: 'Study Platform Homepage', domain: 'study.behaviorschool.com' },
+            { path: '/quiz', label: 'Study Quiz', domain: 'study.behaviorschool.com' },
+            { path: '/flashcards', label: 'Study Flashcards', domain: 'study.behaviorschool.com' },
+            { path: '/practice-test', label: 'Study Practice Test', domain: 'study.behaviorschool.com' },
+          ].map(({ path, label, domain }) => {
+            const full = `https://${domain}${path}`;
+            const gsc = `https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent(`https://${domain}`)}&url=${encodeURIComponent(full)}`;
+            const copied = copiedPath === `${domain}${path}`;
             return (
-              <div key={path} className="flex items-center justify-between gap-3 border border-slate-200 rounded-lg p-3 hover:border-slate-300 transition-colors">
+              <div key={`${domain}${path}`} className="flex items-center justify-between gap-3 border border-slate-200 rounded-lg p-3 hover:border-slate-300 transition-colors">
                 <div className="min-w-0">
                   <div className="text-sm font-medium text-slate-900 truncate">{label}</div>
                   <div className="text-xs text-slate-600 truncate">{full}</div>
@@ -303,7 +307,7 @@ export default function SiteMapViewer() {
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      navigator.clipboard.writeText(full).then(() => setCopiedPath(path));
+                      navigator.clipboard.writeText(full).then(() => setCopiedPath(`${domain}${path}`));
                       setTimeout(() => setCopiedPath(null), 1500);
                     }}
                     className="hover:bg-slate-50 transition-colors"
