@@ -1,14 +1,24 @@
 import { Metadata } from "next";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { Button } from "@/components/ui/button";
-import { Target, Users, BookOpen, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import SimpleDownloadButton from "@/components/SimpleDownloadButton";
+import {
+  Target,
+  Users,
+  BookOpen,
+  ArrowRight,
+  Heart,
+  Brain,
+  Lightbulb,
+  CheckCircle2,
+  ChevronRight,
+  Download,
+  TrendingUp,
+  Compass,
+  Sparkles
+} from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "The ACT Matrix: A Framework for School-Based BCBAs | Complete Guide",
-  description: "Learn how the ACT Matrix framework transforms school-based BCBA practice. Complete guide with examples, implementation strategies, and free PDF resources for behavior analysts in schools.",
+  title: "The ACT Matrix: A Framework for School-Based BCBAs | Complete Implementation Guide",
+  description: "Complete guide to implementing the ACT Matrix framework in school-based BCBA practice. Learn values-based intervention strategies, see real examples, and access free resources for psychological flexibility in schools.",
   robots: {
     index: true,
     follow: true,
@@ -22,599 +32,659 @@ export const metadata: Metadata = {
   },
   keywords: [
     "act matrix framework",
-    "school based bcba", 
+    "school based bcba",
     "act matrix bcba",
     "acceptance commitment therapy schools",
     "school bcba framework",
     "act matrix behavior analyst",
-    "school based behavior analysis",
-    "bcba act matrix training",
     "psychological flexibility schools",
-    "values based behavior support",
-    "act matrix implementation",
-    "school bcba practice",
-    "behavior analyst framework",
-    "act matrix guide"
+    "values based behavior support"
   ],
   openGraph: {
-    title: "The ACT Matrix: A Framework for School-Based BCBAs | Complete Guide",
-    description: "Comprehensive guide to using the ACT Matrix framework in school-based BCBA practice. Learn implementation strategies, see real examples, and download free resources.",
-    type: "article", 
+    title: "The ACT Matrix: A Framework for School-Based BCBAs",
+    description: "Comprehensive guide to using the ACT Matrix framework in school-based BCBA practice with implementation strategies and real examples.",
+    type: "article",
     url: "https://behaviorschool.com/the-act-matrix-a-framework-for-school-based-bcbas",
-    images: [
-      {
-        url: "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp",
-        width: 1200,
-        height: 630,
-        alt: "The ACT Matrix Framework for School-Based BCBAs"
-      }
-    ]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "The ACT Matrix: A Framework for School-Based BCBAs | Complete Guide",
-    description: "Comprehensive guide to using the ACT Matrix framework in school-based BCBA practice. Learn implementation strategies, see real examples, and download free resources.",
-    images: ["https://behaviorschool.com/thumbnails/act-matrix-thumb.webp"]
   },
   alternates: {
     canonical: "https://behaviorschool.com/the-act-matrix-a-framework-for-school-based-bcbas"
   }
 };
 
-// Article structured data optimized for best performing URL
-const articleStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "The ACT Matrix: A Framework for School-Based BCBAs",
-  "description": "Comprehensive guide to implementing the ACT Matrix framework in school-based behavior analysis practice, with real-world examples and practical strategies.",
-  "image": "https://behaviorschool.com/thumbnails/act-matrix-thumb.webp",
-  "author": {
-    "@type": "Person",
-    "name": "Rob Spain",
-    "jobTitle": "Board Certified Behavior Analyst (BCBA)",
-    "url": "https://robspain.com",
-    "sameAs": ["https://www.linkedin.com/in/robspain/", "https://behaviorschool.com/about"]
-  },
-  "publisher": {
-    "@type": "Organization", 
-    "name": "Behavior School",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://behaviorschool.com/Logos/logo-gold-transparent.webp"
-    }
-  },
-  "datePublished": "2024-08-15",
-  "dateModified": "2025-01-05",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://behaviorschool.com/the-act-matrix-a-framework-for-school-based-bcbas"
-  },
-  "about": [
-    {
-      "@type": "Thing",
-      "name": "ACT Matrix"
-    },
-    {
-      "@type": "Thing",
-      "name": "School-based BCBA"
-    },
-    {
-      "@type": "Thing",
-      "name": "Behavior Analysis"
-    }
-  ],
-  "wordCount": 2500,
-  "articleSection": "School-Based Practice"
-};
-
-// FAQ Schema for this specific URL
-const faqSchema = {
-  "@context": "https://schema.org", 
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is the ACT Matrix framework for school-based BCBAs?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The ACT Matrix is a visual framework from Acceptance and Commitment Therapy that helps school-based BCBAs guide students in making values-based behavioral choices. It organizes experiences into four quadrants: toward moves, away moves, helpful internal experiences, and unhelpful internal experiences, all centered around student values."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do school-based BCBAs implement the ACT Matrix?",
-      "acceptedAnswer": {
-        "@type": "Answer", 
-        "text": "School-based BCBAs implement the ACT Matrix by first helping students identify their core values, then mapping behaviors that move toward or away from those values, and finally exploring the internal experiences that influence these choices. This creates a comprehensive framework for values-based behavior intervention."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What makes the ACT Matrix different from traditional BCBA interventions?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Unlike traditional behavior interventions that focus primarily on consequence-based strategies, the ACT Matrix framework emphasizes building psychological flexibility and intrinsic motivation. It helps students make choices based on personal values rather than just avoiding consequences or seeking rewards."
-      }
-    }
-  ]
-};
-
 export default function ACTMatrixFrameworkPage() {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      
-      <div className="min-h-screen bg-bs-background">
-        {/* Breadcrumbs */}
-        <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
-          <Breadcrumbs 
-            items={[
-              { label: "Blog", href: "/blog" },
-              { label: "The ACT Matrix Framework for School-Based BCBAs" }
-            ]}
-          />
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* Breadcrumb */}
+      <section className="container mx-auto px-6 pt-24 pb-4">
+        <nav className="flex items-center text-sm text-slate-600" aria-label="Breadcrumb">
+          <Link className="hover:text-emerald-600 transition-colors" href="/blog">
+            Blog
+          </Link>
+          <ChevronRight className="w-4 h-4 mx-2" />
+          <span className="text-slate-900 font-medium">ACT Matrix Framework</span>
         </nav>
-        
-        {/* Article Header */}
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <header className="mb-12">
-            <div className="text-center">
-              <div className="mb-4">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
-                  School-Based Practice
-                </span>
-              </div>
-              
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-                The ACT Matrix: A Framework for School-Based BCBAs
-              </h1>
-              
-              <p className="text-xl sm:text-2xl text-slate-600 mb-8 leading-relaxed">
-                How the Acceptance and Commitment Therapy Matrix transforms behavior analysis practice in educational settings
-              </p>
-              
-              <div className="flex items-center justify-center space-x-4 text-sm text-slate-500">
-                <span>Published August 15, 2024</span>
-                <span>•</span>
-                <span>Updated January 5, 2025</span>
-                <span>•</span>
-                <span>12 min read</span>
-              </div>
-            </div>
-          </header>
+      </section>
 
-          {/* Featured Image */}
-          <div className="mb-12">
-            <div className="aspect-video bg-gradient-to-br from-emerald-100 to-blue-100 rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="/thumbnails/act-matrix-thumb.webp"
-                alt="The ACT Matrix Framework for School-Based BCBAs"
-                className="w-full h-full object-cover"
-                width={800}
-                height={450}
-              />
-            </div>
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 pb-12">
+        <div className="max-w-5xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full mb-6">
+            <Compass className="w-4 h-4 text-emerald-700" />
+            <span className="text-sm font-semibold text-emerald-700">School-Based Practice Framework</span>
           </div>
 
-          {/* Article Content */}
-          <div className="prose prose-lg max-w-none">
-            
+          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+            The ACT Matrix: A Framework for School-Based BCBAs
+          </h1>
+
+          <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mb-8">
+            How the Acceptance and Commitment Therapy Matrix transforms behavior analysis practice in educational settings by building psychological flexibility and values-based decision making in students.
+          </p>
+
+          <div className="flex items-center gap-4 text-sm text-slate-500">
+            <span>Published August 15, 2024</span>
+            <span>•</span>
+            <span>Updated January 5, 2025</span>
+            <span>•</span>
+            <span>12 min read</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content Grid */}
+      <section className="container mx-auto px-6 pb-16">
+        <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+          {/* Main Content Area */}
+          <article className="lg:col-span-2 space-y-8">
+
             {/* Introduction */}
-            <div className="mb-12">
-              <p className="text-xl text-slate-700 leading-relaxed mb-6">
-                As a school-based BCBA, you&apos;ve likely encountered students whose behavior challenges seem to resist traditional interventions. You implement function-based interventions, modify antecedents, and adjust consequences, yet some students continue to struggle with motivation, emotional regulation, and behavioral flexibility.
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+              <p className="text-lg text-slate-700 leading-relaxed mb-6">
+                As a school-based BCBA, you've likely encountered students whose behavior challenges seem to resist traditional interventions. You implement function-based interventions, modify antecedents, and adjust consequences, yet some students continue to struggle with motivation, emotional regulation, and behavioral flexibility.
               </p>
-              
-              <p className="text-lg text-slate-600 mb-6">
-                This is where the ACT Matrix framework becomes invaluable. Unlike traditional behavior analytic approaches that focus primarily on external contingencies, the ACT Matrix helps students develop <strong>psychological flexibility</strong> - the ability to stay present with difficult experiences while choosing actions based on what truly matters to them.
-              </p>
-              
-              <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 my-8">
-                <h3 className="text-lg font-semibold text-emerald-800 mb-3">Key Takeaway</h3>
-                <p className="text-emerald-700">
-                  The ACT Matrix provides school-based BCBAs with a values-centered framework that complements traditional behavior analysis by building intrinsic motivation and emotional resilience in students.
-                </p>
+
+              <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-xl p-6 border-l-4 border-emerald-500">
+                <div className="flex items-start gap-3">
+                  <Lightbulb className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-bold text-emerald-900 mb-2">Key Takeaway</h3>
+                    <p className="text-emerald-800 text-sm leading-relaxed">
+                      The ACT Matrix provides school-based BCBAs with a values-centered framework that complements traditional behavior analysis by building intrinsic motivation and emotional resilience in students. It helps students make choices based on what truly matters to them, not just external contingencies.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* What is the ACT Matrix */}
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">What is the ACT Matrix Framework?</h2>
-              
-              <p className="text-lg text-slate-600 mb-6">
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                  <Compass className="w-6 h-6 text-emerald-600" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900">What is the ACT Matrix Framework?</h2>
+                  <p className="text-sm text-slate-600">Understanding the four quadrants and center</p>
+                </div>
+              </div>
+
+              <p className="text-slate-700 mb-6 leading-relaxed">
                 The ACT Matrix is a visual tool from Acceptance and Commitment Therapy (ACT) that organizes human experience into four quadrants, all centered around personal values. For school-based BCBAs, it serves as a comprehensive framework for understanding and intervening with complex behavioral presentations.
               </p>
 
-              {/* Visual Matrix */}
-              <div className="bg-white border-2 border-slate-300 rounded-2xl p-8 my-8 shadow-lg">
-                <div className="grid grid-cols-2 gap-8 text-center relative">
-                  {/* Horizontal and vertical lines */}
-                  <div className="absolute inset-x-0 top-1/2 border-t-2 border-slate-400"></div>
-                  <div className="absolute inset-y-0 left-1/2 border-l-2 border-slate-400"></div>
-                  
-                  {/* Quadrants */}
-                  <div className="pb-8 pr-4">
-                    <h4 className="text-lg font-bold text-red-600 mb-4">Away Moves</h4>
-                    <div className="text-sm text-slate-600">
-                      • Avoiding difficult tasks<br/>
-                      • Acting out behaviors<br/>
-                      • Escaping social situations
+              {/* Visual ACT Matrix */}
+              <div className="bg-gradient-to-br from-slate-50 to-slate-100 border-2 border-slate-300 rounded-2xl p-8 my-8 shadow-xl">
+                <div className="relative">
+                  <div className="grid grid-cols-2 gap-0 text-center relative">
+                    {/* Center circle - positioned absolutely */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                      <div className="bg-gradient-to-br from-amber-100 to-yellow-100 border-4 border-amber-400 rounded-full w-32 h-32 flex items-center justify-center shadow-lg">
+                        <div>
+                          <Heart className="w-6 h-6 text-amber-600 mx-auto mb-1" />
+                          <div className="text-amber-900 font-bold text-sm">Student Values</div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="pb-8 pl-4">
-                    <h4 className="text-lg font-bold text-emerald-600 mb-4">Toward Moves</h4>
-                    <div className="text-sm text-slate-600">
-                      • Asking for help<br/>
-                      • Trying new challenges<br/>
-                      • Being kind to peers
-                    </div>
-                  </div>
-                  
-                  <div className="pt-8 pr-4">
-                    <h4 className="text-lg font-bold text-red-600 mb-4">Unhelpful Internal</h4>
-                    <div className="text-sm text-slate-600">
-                      • &ldquo;I can&apos;t do this&rdquo;<br/>
-                      • Feeling anxious<br/>
-                      • Fear of failure
-                    </div>
-                  </div>
-                  
-                  <div className="pt-8 pl-4">
-                    <h4 className="text-lg font-bold text-emerald-600 mb-4">Helpful Internal</h4>
-                    <div className="text-sm text-slate-600">
-                      • &ldquo;I can learn from mistakes&rdquo;<br/>
-                      • Feeling motivated<br/>
-                      • Curiosity about learning
-                    </div>
-                  </div>
-                  
-                  {/* Center circle */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-yellow-100 border-2 border-yellow-500 rounded-full w-24 h-24 flex items-center justify-center">
-                      <div className="text-yellow-800 font-bold text-sm text-center">Student Values</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <p className="text-lg text-slate-600 mb-6">
-                This framework recognizes that all behavior occurs in a context of internal experiences (thoughts, feelings, sensations) and that sustainable behavior change happens when students connect with their deeper values and purposes.
-              </p>
-            </section>
 
-            {/* Why School-Based BCBAs Need This */}
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">Why School-Based BCBAs Need the ACT Matrix</h2>
-              
-              <p className="text-lg text-slate-600 mb-6">
-                Traditional behavior analytic interventions excel at addressing function-based behaviors through environmental modifications and contingency management. However, school-based BCBAs often encounter situations where:
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-8 my-8">
-                <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                  <h4 className="text-lg font-semibold text-red-800 mb-4">Traditional Challenges</h4>
-                  <ul className="text-red-700 space-y-2">
-                    <li>• Students comply but lack intrinsic motivation</li>
-                    <li>• Behaviors return when external supports are removed</li>
-                    <li>• Emotional regulation difficulties persist</li>
-                    <li>• Students struggle with novel situations</li>
-                    <li>• Limited generalization across settings</li>
-                  </ul>
-                </div>
-                
-                <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
-                  <h4 className="text-lg font-semibold text-emerald-800 mb-4">ACT Matrix Solutions</h4>
-                  <ul className="text-emerald-700 space-y-2">
-                    <li>• Builds psychological flexibility and resilience</li>
-                    <li>• Develops values-based decision making</li>
-                    <li>• Improves emotional acceptance and regulation</li>
-                    <li>• Enhances self-directed behavior change</li>
-                    <li>• Promotes generalization through values</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
+                    {/* Quadrant Lines */}
+                    <div className="absolute inset-x-0 top-1/2 border-t-2 border-slate-400 transform -translate-y-1/2"></div>
+                    <div className="absolute inset-y-0 left-1/2 border-l-2 border-slate-400 transform -translate-x-1/2"></div>
 
-            {/* Implementation for BCBAs */}
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">Implementing the ACT Matrix in Your BCBA Practice</h2>
-              
-              <p className="text-lg text-slate-600 mb-8">
-                Here&apos;s a step-by-step approach to integrating the ACT Matrix framework into your school-based behavior analysis practice:
-              </p>
-              
-              <div className="space-y-8">
-                <div className="bg-slate-50 rounded-xl p-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
-                    <div className="flex-1">
-                      <h4 className="text-xl font-semibold text-slate-900 mb-3">Values Assessment and Exploration</h4>
-                      <p className="text-slate-600 mb-4">
-                        Begin by helping the student identify what truly matters to them. Use age-appropriate language and activities to explore values across domains like relationships, learning, personal growth, and contribution to others.
-                      </p>
-                      <div className="bg-white p-4 rounded-lg">
-                        <p className="text-sm font-medium text-slate-900 mb-2">BCBA Tip:</p>
-                        <p className="text-sm text-slate-600">
-                          For younger students, use concrete examples: &ldquo;What kind of friend do you want to be?&rdquo; For older students, explore abstract concepts like integrity, growth, and purpose.
-                        </p>
+                    {/* Top Left - Away Moves */}
+                    <div className="p-8 pb-16">
+                      <div className="bg-red-50 rounded-xl p-6 border-2 border-red-200">
+                        <div className="flex items-center gap-2 justify-center mb-3">
+                          <ArrowRight className="w-5 h-5 text-red-600 transform rotate-180" />
+                          <h4 className="text-lg font-bold text-red-700">Away Moves</h4>
+                        </div>
+                        <div className="text-sm text-red-800 space-y-1">
+                          <p>• Avoiding difficult tasks</p>
+                          <p>• Acting out behaviors</p>
+                          <p>• Escaping social situations</p>
+                          <p>• Shutting down emotionally</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Top Right - Toward Moves */}
+                    <div className="p-8 pb-16">
+                      <div className="bg-emerald-50 rounded-xl p-6 border-2 border-emerald-200">
+                        <div className="flex items-center gap-2 justify-center mb-3">
+                          <ArrowRight className="w-5 h-5 text-emerald-600" />
+                          <h4 className="text-lg font-bold text-emerald-700">Toward Moves</h4>
+                        </div>
+                        <div className="text-sm text-emerald-800 space-y-1">
+                          <p>• Asking for help</p>
+                          <p>• Trying new challenges</p>
+                          <p>• Being kind to peers</p>
+                          <p>• Practicing resilience</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Left - Unhelpful Internal */}
+                    <div className="p-8 pt-16">
+                      <div className="bg-red-50 rounded-xl p-6 border-2 border-red-200">
+                        <h4 className="text-lg font-bold text-red-700 mb-3 flex items-center gap-2 justify-center">
+                          <Brain className="w-5 h-5" />
+                          Unhelpful Internal
+                        </h4>
+                        <div className="text-sm text-red-800 space-y-1">
+                          <p>• "I can't do this"</p>
+                          <p>• Feeling anxious</p>
+                          <p>• Fear of failure</p>
+                          <p>• Self-doubt thoughts</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Right - Helpful Internal */}
+                    <div className="p-8 pt-16">
+                      <div className="bg-emerald-50 rounded-xl p-6 border-2 border-emerald-200">
+                        <h4 className="text-lg font-bold text-emerald-700 mb-3 flex items-center gap-2 justify-center">
+                          <Sparkles className="w-5 h-5" />
+                          Helpful Internal
+                        </h4>
+                        <div className="text-sm text-emerald-800 space-y-1">
+                          <p>• "I can learn from mistakes"</p>
+                          <p>• Feeling motivated</p>
+                          <p>• Curiosity about learning</p>
+                          <p>• Growth mindset</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                <div className="bg-slate-50 rounded-xl p-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
-                    <div className="flex-1">
-                      <h4 className="text-xl font-semibold text-slate-900 mb-3">Behavioral Analysis Through the Matrix</h4>
-                      <p className="text-slate-600 mb-4">
-                        Map current behaviors into &ldquo;toward moves&rdquo; (behaviors that move the student toward their values) and &ldquo;away moves&rdquo; (behaviors that move them away from their values). This reframes problem behaviors as ineffective attempts to cope rather than just &ldquo;bad&rdquo; behaviors.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-slate-50 rounded-xl p-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
-                    <div className="flex-1">
-                      <h4 className="text-xl font-semibold text-slate-900 mb-3">Internal Experience Mapping</h4>
-                      <p className="text-slate-600 mb-4">
-                        Help students identify the thoughts, feelings, and physical sensations that show up when they engage in toward or away moves. Normalize all internal experiences while focusing on behavioral choice.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-slate-50 rounded-xl p-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold">4</div>
-                    <div className="flex-1">
-                      <h4 className="text-xl font-semibold text-slate-900 mb-3">Integration with Traditional BA Interventions</h4>
-                      <p className="text-slate-600 mb-4">
-                        Use the ACT Matrix to inform your traditional behavior analytic interventions. Design reinforcement systems that support values-based behaviors and help students understand how environmental supports can facilitate toward moves.
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
-            </section>
 
-            {/* Case Examples */}
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">Real-World Case Examples</h2>
-              
-              <div className="space-y-8">
-                <div className="border border-slate-200 rounded-xl p-8">
-                  <h4 className="text-xl font-semibold text-slate-900 mb-4">Case 1: Middle School Student with Task Avoidance</h4>
-                  
-                  <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <p className="text-slate-600 mb-4">
-                        <strong>Traditional Approach:</strong> Implemented escape extinction and positive reinforcement for task completion.
-                      </p>
-                      <p className="text-red-600 font-medium">
-                        Result: Compliance during intervention but return to avoidance when supports removed.
-                      </p>
-                    </div>
-                    
-                    <div>
-                      <p className="text-slate-600 mb-4">
-                        <strong>ACT Matrix Integration:</strong> Discovered student valued &ldquo;being smart and helpful to others.&rdquo;
-                      </p>
-                      <p className="text-emerald-600 font-medium">
-                        Result: Student began viewing challenging tasks as opportunities to grow and help classmates.
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-emerald-50 p-6 rounded-lg">
-                    <p className="text-emerald-800">
-                      <strong>Key Learning:</strong> By connecting task engagement to the student&apos;s values of learning and helping others, intrinsic motivation increased and behavior generalized across settings.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="border border-slate-200 rounded-xl p-8">
-                  <h4 className="text-xl font-semibold text-slate-900 mb-4">Case 2: High School Student with Social Anxiety</h4>
-                  
-                  <p className="text-slate-600 mb-6">
-                    Student valued friendship and belonging but engaged in social avoidance due to anxiety. The ACT Matrix helped differentiate between helpful anxiety (alerting to social cues) and unhelpful anxiety (leading to avoidance).
-                  </p>
-                  
-                  <div className="bg-blue-50 p-6 rounded-lg">
-                    <p className="text-blue-800">
-                      <strong>Intervention Integration:</strong> Combined systematic desensitization with values-based exposure. Student practiced &ldquo;brave moves toward friendship&rdquo; rather than just &ldquo;exposure trials.&rdquo;
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Training and Implementation */}
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">Building Your ACT Matrix Skills</h2>
-              
-              <p className="text-lg text-slate-600 mb-6">
-                Implementing the ACT Matrix effectively requires specific training and practice. Here&apos;s how to develop competency in this framework:
+              <p className="text-slate-700 leading-relaxed">
+                This framework recognizes that all behavior occurs in a context of internal experiences (thoughts, feelings, sensations) and that sustainable behavior change happens when students connect with their deeper values and purposes. The ACT Matrix helps students notice their internal experiences without being controlled by them.
               </p>
-              
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <BookOpen className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Foundational Training</h4>
-                  <p className="text-slate-600">
-                    Study ACT principles, attend workshops, and practice personal matrix work to understand the framework deeply.
-                  </p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Target className="w-8 h-8 text-green-600" />
-                  </div>
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Supervised Practice</h4>
-                  <p className="text-slate-600">
-                    Start with simple cases under supervision, gradually building complexity as competency develops.
-                  </p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Users className="w-8 h-8 text-purple-600" />
-                  </div>
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Peer Consultation</h4>
-                  <p className="text-slate-600">
-                    Join consultation groups with other BCBAs using ACT-informed approaches to share cases and strategies.
-                  </p>
-                </div>
-              </div>
-            </section>
+            </div>
 
-            {/* Conclusion and CTA */}
-            <section className="mb-12">
-              <div className="bg-gradient-to-r from-emerald-50 to-blue-50 border border-emerald-200 rounded-2xl p-8 text-center">
-                <h2 className="text-3xl font-bold text-slate-900 mb-6">Transform Your School-Based Practice</h2>
-                
-                <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-                  The ACT Matrix framework represents a powerful evolution in school-based behavior analysis, combining the precision of behavior science with the depth of values-based intervention.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                  <SimpleDownloadButton 
-                    resource="act-matrix"
-                    fileName="ACT-Matrix-for-Schools-Guide.pdf"
-                    title="ACT Matrix for Schools Guide"
-                    buttonText="Download Free ACT Matrix Guide"
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-8 py-3 rounded-xl"
-                  />
-                  
-                  <Button asChild variant="outline" size="lg" className="px-8 py-3 rounded-xl">
-                    <Link href="/transformation-program">
-                      Get Complete BCBA Training
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
+            {/* Why School-Based BCBAs Need This */}
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <Target className="w-6 h-6 text-blue-600" />
                 </div>
-                
-                <div className="text-sm text-slate-500">
-                  Join 1,000+ school-based BCBAs already using these evidence-based approaches
-                </div>
-              </div>
-            </section>
-
-            {/* ACT Matrix Resource Collection */}
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-8">Complete ACT Matrix Resource Collection</h2>
-
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-8 mb-8">
-                <div className="text-center">
-                  <h3 className="text-2xl font-semibold text-emerald-800 mb-4">ACT Matrix Main Resource Hub</h3>
-                  <p className="text-emerald-700 mb-6">
-                    Access our comprehensive ACT Matrix guide with free PDF downloads, examples, and step-by-step implementation instructions.
-                  </p>
-                  <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                    <Link href="/act-matrix">
-                      View Main ACT Matrix Guide
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900">Why School-Based BCBAs Need the ACT Matrix</h2>
+                  <p className="text-sm text-slate-600">Bridging traditional BA with values-based intervention</p>
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">ACT Implementation Hub</h4>
-                  <p className="text-slate-600 mb-4">
-                    Central resource hub with implementation guides, research, and practical tools for schools.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link href="/act-matrix-schools-hub">Visit Hub</Link>
-                  </Button>
-                </div>
-
-                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">K-12 ACT Activities</h4>
-                  <p className="text-slate-600 mb-4">
-                    Classroom-ready ACT activities organized by grade level with implementation guides.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link href="/act-activities-k12-students">View Activities</Link>
-                  </Button>
-                </div>
-              </div>
+              <p className="text-slate-700 mb-6 leading-relaxed">
+                Traditional behavior analytic interventions excel at addressing function-based behaviors through environmental modifications and contingency management. However, school-based BCBAs often encounter situations where external reinforcement alone is insufficient for lasting change.
+              </p>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Age-Appropriate ACT Metaphors</h4>
-                  <p className="text-slate-600 mb-4">
+                <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 bg-red-200 rounded-lg flex items-center justify-center">
+                      <span className="text-red-700 font-bold">!</span>
+                    </div>
+                    <h3 className="font-bold text-red-900">Traditional Challenges</h3>
+                  </div>
+                  <ul className="text-sm text-red-800 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Students comply but lack intrinsic motivation</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Behaviors return when external supports removed</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Emotional regulation difficulties persist</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Students struggle with novel situations</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                      <span>Limited generalization across settings</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 bg-emerald-200 rounded-lg flex items-center justify-center">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-700" />
+                    </div>
+                    <h3 className="font-bold text-emerald-900">ACT Matrix Solutions</h3>
+                  </div>
+                  <ul className="text-sm text-emerald-800 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <span>Builds psychological flexibility and resilience</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <span>Develops values-based decision making</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <span>Improves emotional acceptance and regulation</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <span>Enhances self-directed behavior change</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                      <span>Promotes generalization through values connection</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Implementation Steps */}
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                  <BookOpen className="w-6 h-6 text-purple-600" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900">Implementing the ACT Matrix in Your Practice</h2>
+                  <p className="text-sm text-slate-600">4-step integration approach</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                {/* Step 1 */}
+                <div className="relative pl-12 border-l-4 border-emerald-500 pb-6">
+                  <div className="absolute -left-6 top-0 w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <span className="text-white text-lg font-bold">1</span>
+                  </div>
+                  <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">Values Assessment and Exploration</h3>
+                    <p className="text-slate-700 text-sm mb-4 leading-relaxed">
+                      Begin by helping the student identify what truly matters to them. Use age-appropriate language and activities to explore values across domains like relationships, learning, personal growth, and contribution to others.
+                    </p>
+                    <div className="bg-white rounded-lg p-4 border border-emerald-200">
+                      <p className="text-sm font-semibold text-slate-900 mb-2">BCBA Implementation Tip:</p>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        For younger students (K-5), use concrete examples: "What kind of friend do you want to be?" For older students (6-12), explore abstract concepts like integrity, growth, and purpose. Create visual representations of values using drawings or collages.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="relative pl-12 border-l-4 border-blue-500 pb-6">
+                  <div className="absolute -left-6 top-0 w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <span className="text-white text-lg font-bold">2</span>
+                  </div>
+                  <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">Behavioral Analysis Through the Matrix</h3>
+                    <p className="text-slate-700 text-sm mb-4 leading-relaxed">
+                      Map current behaviors into "toward moves" (behaviors that move the student toward their values) and "away moves" (behaviors that move them away from their values). This reframes problem behaviors as ineffective attempts to cope rather than just "bad" behaviors.
+                    </p>
+                    <div className="bg-white rounded-lg p-4 border border-blue-200">
+                      <p className="text-sm font-semibold text-slate-900 mb-2">Example:</p>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Student values "being a good friend." <strong>Toward moves:</strong> sharing, helping classmates, listening. <strong>Away moves:</strong> pushing others when frustrated, refusing to participate in group work, isolating during lunch.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div className="relative pl-12 border-l-4 border-purple-500 pb-6">
+                  <div className="absolute -left-6 top-0 w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <span className="text-white text-lg font-bold">3</span>
+                  </div>
+                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">Internal Experience Mapping</h3>
+                    <p className="text-slate-700 text-sm mb-4 leading-relaxed">
+                      Help students identify the thoughts, feelings, and physical sensations that show up when they engage in toward or away moves. Normalize all internal experiences while focusing on behavioral choice. The goal is awareness, not suppression.
+                    </p>
+                    <div className="bg-white rounded-lg p-4 border border-purple-200">
+                      <p className="text-sm font-semibold text-slate-900 mb-2">ACT Language:</p>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        "When anxiety shows up (unhelpful internal), you can notice it's there AND still make a toward move (asking for help). The anxiety doesn't have to control your choice." This builds defusion and acceptance skills.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 4 */}
+                <div className="relative pl-12 border-l-4 border-emerald-500">
+                  <div className="absolute -left-6 top-0 w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <span className="text-white text-lg font-bold">4</span>
+                  </div>
+                  <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-xl p-6">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">Integration with Traditional BA Interventions</h3>
+                    <p className="text-slate-700 text-sm mb-4 leading-relaxed">
+                      Use the ACT Matrix to inform your traditional behavior analytic interventions. Design reinforcement systems that support values-based behaviors and help students understand how environmental supports can facilitate toward moves.
+                    </p>
+                    <div className="bg-white rounded-lg p-4 border border-emerald-200">
+                      <p className="text-sm font-semibold text-slate-900 mb-2">Integration Example:</p>
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Rather than "earn points for compliance," frame it as "earn recognition for toward moves that match your values." The external reinforcement supports the internal motivation rather than replacing it.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Case Examples */}
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <Users className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900">Real-World Case Examples</h2>
+                  <p className="text-sm text-slate-600">How the ACT Matrix transforms student outcomes</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 border-2 border-slate-200">
+                  <h3 className="text-lg font-bold text-slate-900 mb-4">Case 1: Middle School Student with Task Avoidance</h3>
+
+                  <div className="grid md:grid-cols-2 gap-6 mb-6">
+                    <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                      <h4 className="font-bold text-red-900 mb-2 text-sm">Traditional Approach Only:</h4>
+                      <p className="text-sm text-slate-700 mb-3">
+                        Implemented escape extinction and positive reinforcement for task completion. Token economy with preferred activities as backup reinforcers.
+                      </p>
+                      <p className="text-sm font-semibold text-red-700">
+                        Result: Compliance during intervention but return to avoidance when supports removed or with novel tasks.
+                      </p>
+                    </div>
+
+                    <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
+                      <h4 className="font-bold text-emerald-900 mb-2 text-sm">ACT Matrix Integration:</h4>
+                      <p className="text-sm text-slate-700 mb-3">
+                        Discovered student valued "being smart and helpful to others." Connected task engagement to growth ("toward becoming the person you want to be").
+                      </p>
+                      <p className="text-sm font-semibold text-emerald-700">
+                        Result: Student began viewing challenging tasks as opportunities to grow competence and eventually help classmates.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-emerald-50 rounded-lg p-4 border-l-4 border-emerald-500">
+                    <p className="text-sm text-emerald-900">
+                      <strong>Key Learning:</strong> By connecting task engagement to the student's values of learning and helping others, intrinsic motivation increased and behavior generalized across settings without external reinforcement.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 border-2 border-slate-200">
+                  <h3 className="text-lg font-bold text-slate-900 mb-4">Case 2: High School Student with Social Anxiety</h3>
+
+                  <p className="text-slate-700 mb-4 text-sm leading-relaxed">
+                    Student valued friendship and belonging but engaged in social avoidance due to anxiety. Traditional exposure therapy was meeting with resistance. The ACT Matrix helped differentiate between helpful anxiety (alerting to social cues) and unhelpful anxiety (leading to avoidance).
+                  </p>
+
+                  <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
+                    <p className="text-sm text-blue-900 mb-2">
+                      <strong>Intervention Integration:</strong>
+                    </p>
+                    <p className="text-sm text-slate-700 leading-relaxed">
+                      Combined systematic desensitization with values-based exposure. Student practiced "brave moves toward friendship" rather than just "exposure trials." Anxiety was reframed as something that shows up when we care about something (values connection), not as something to eliminate before taking action.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Resources & Next Steps */}
+            <div className="bg-gradient-to-br from-emerald-600 to-blue-600 rounded-2xl shadow-lg p-8 text-white">
+              <div className="text-center mb-6">
+                <h2 className="text-3xl font-bold mb-3">Transform Your School-Based Practice</h2>
+                <p className="text-emerald-100 text-lg max-w-2xl mx-auto">
+                  The ACT Matrix framework represents a powerful evolution in school-based behavior analysis, combining the precision of behavior science with the depth of values-based intervention.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                <Link href="/act-matrix">
+                  <button className="bg-white text-emerald-700 hover:bg-emerald-50 font-semibold px-8 py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                    <Download className="w-5 h-5" />
+                    Download Free ACT Matrix Guide
+                  </button>
+                </Link>
+
+                <Link href="/transformation-program">
+                  <button className="bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-8 py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                    Get Complete BCBA Training
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </Link>
+              </div>
+
+              <p className="text-center text-sm text-emerald-100">
+                Join 1,000+ school-based BCBAs already using these evidence-based approaches
+              </p>
+            </div>
+
+            {/* Related Resources */}
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Complete ACT Matrix Resource Collection</h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-emerald-50 rounded-xl p-6 border border-emerald-200 hover:shadow-lg transition-shadow">
+                  <h3 className="font-bold text-slate-900 mb-3">ACT Implementation Hub</h3>
+                  <p className="text-sm text-slate-700 mb-4">
+                    Central resource hub with implementation guides, research, and practical tools for schools.
+                  </p>
+                  <Link href="/act-matrix-schools-hub" className="text-emerald-700 font-semibold text-sm hover:underline flex items-center gap-2">
+                    Visit Hub <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                <div className="bg-blue-50 rounded-xl p-6 border border-blue-200 hover:shadow-lg transition-shadow">
+                  <h3 className="font-bold text-slate-900 mb-3">K-12 ACT Activities</h3>
+                  <p className="text-sm text-slate-700 mb-4">
+                    Classroom-ready ACT activities organized by grade level with implementation guides.
+                  </p>
+                  <Link href="/act-activities-k12-students" className="text-blue-700 font-semibold text-sm hover:underline flex items-center gap-2">
+                    View Activities <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                <div className="bg-purple-50 rounded-xl p-6 border border-purple-200 hover:shadow-lg transition-shadow">
+                  <h3 className="font-bold text-slate-900 mb-3">Age-Appropriate ACT Metaphors</h3>
+                  <p className="text-sm text-slate-700 mb-4">
                     Developmental guide to using ACT metaphors effectively with children and adolescents.
                   </p>
-                  <Button variant="outline" asChild>
-                    <Link href="/age-appropriate-act-metaphors">Explore Metaphors</Link>
-                  </Button>
+                  <Link href="/age-appropriate-act-metaphors" className="text-purple-700 font-semibold text-sm hover:underline flex items-center gap-2">
+                    Explore Metaphors <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
 
-                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Implementation Challenges & Solutions</h4>
-                  <p className="text-slate-600 mb-4">
+                <div className="bg-emerald-50 rounded-xl p-6 border border-emerald-200 hover:shadow-lg transition-shadow">
+                  <h3 className="font-bold text-slate-900 mb-3">Implementation Challenges & Solutions</h3>
+                  <p className="text-sm text-slate-700 mb-4">
                     Evidence-based solutions to common ACT implementation challenges in school settings.
                   </p>
-                  <Button variant="outline" asChild>
-                    <Link href="/act-implementation-challenges-solutions">Find Solutions</Link>
-                  </Button>
+                  <Link href="/act-implementation-challenges-solutions" className="text-emerald-700 font-semibold text-sm hover:underline flex items-center gap-2">
+                    Find Solutions <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </div>
-            </section>
+            </div>
 
-            {/* Related Articles */}
-            <section className="mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 mb-8">Related School-Based Resources</h2>
+          </article>
 
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Values-Based IEP Goals</h4>
-                  <p className="text-slate-600 mb-4">
-                    Learn how to integrate student values into IEP goal development for better outcomes.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link href="/iep-goals">Read More</Link>
-                  </Button>
-                </div>
+          {/* Sidebar */}
+          <aside className="lg:col-span-1">
+            <div className="sticky top-24 space-y-6">
 
-                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">School BCBA Supervision</h4>
-                  <p className="text-slate-600 mb-4">
-                    Essential tools and strategies for effective BCBA supervision in school settings.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link href="/supervisors">Read More</Link>
-                  </Button>
-                </div>
-
-                <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">Behavior Support Systems</h4>
-                  <p className="text-slate-600 mb-4">
-                    Comprehensive guide to implementing school-wide positive behavior supports.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link href="/school-based-behavior-support">Read More</Link>
-                  </Button>
-                </div>
+              {/* Quick Links */}
+              <div className="bg-white rounded-xl border border-slate-200 shadow-lg p-6">
+                <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <Target className="w-5 h-5 text-emerald-600" />
+                  Related School BCBA Resources
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/iep-goals">
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <span className="text-sm font-medium">Values-Based IEP Goals</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/supervisors">
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <span className="text-sm font-medium">School BCBA Supervision</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-based-behavior-support">
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <span className="text-sm font-medium">Behavior Support Systems</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba">
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <span className="text-sm font-medium">School BCBA Hub</span>
+                    </Link>
+                  </li>
+                </ul>
               </div>
-            </section>
-          </div>
-        </article>
-      </div>
-    </>
+
+              {/* Key Takeaways */}
+              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-200 shadow-lg p-6">
+                <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5 text-blue-600" />
+                  Key Implementation Points
+                </h3>
+                <ul className="space-y-3 text-sm text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span>Start with values exploration (age-appropriate)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span>Map behaviors as "toward" vs "away" moves</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span>Normalize all internal experiences</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span>Integrate with traditional BA interventions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span>Focus on choice, not emotion control</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* CTA */}
+              <div className="bg-gradient-to-br from-emerald-600 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+                <h3 className="font-bold text-xl mb-3">Master ACT-Informed Practice</h3>
+                <p className="text-emerald-100 text-sm mb-4 leading-relaxed">
+                  Learn to integrate ACT principles with behavior analysis in our School BCBA Transformation System.
+                </p>
+                <Link href="/transformation-program">
+                  <button className="w-full bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+                    Join Program
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </Link>
+              </div>
+
+            </div>
+          </aside>
+
+        </div>
+      </section>
+
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "The ACT Matrix: A Framework for School-Based BCBAs",
+            "description": "Comprehensive guide to implementing the ACT Matrix framework in school-based behavior analysis practice with real-world examples and practical strategies.",
+            "author": {
+              "@type": "Person",
+              "name": "Rob Spain",
+              "jobTitle": "Board Certified Behavior Analyst (BCBA)"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Behavior School"
+            },
+            "datePublished": "2024-08-15",
+            "dateModified": "2025-01-05"
+          })
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is the ACT Matrix framework for school-based BCBAs?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The ACT Matrix is a visual framework from Acceptance and Commitment Therapy that helps school-based BCBAs guide students in making values-based behavioral choices. It organizes experiences into four quadrants: toward moves, away moves, helpful internal experiences, and unhelpful internal experiences, all centered around student values."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do school-based BCBAs implement the ACT Matrix?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Implementation follows 4 steps: 1) Values assessment and exploration with age-appropriate activities, 2) Mapping behaviors as toward or away moves, 3) Helping students identify internal experiences without being controlled by them, 4) Integrating the framework with traditional behavior analytic interventions like reinforcement systems."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What makes the ACT Matrix different from traditional BCBA interventions?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Unlike traditional behavior interventions that focus primarily on consequence-based strategies, the ACT Matrix framework emphasizes building psychological flexibility and intrinsic motivation. It helps students make choices based on personal values rather than just avoiding consequences or seeking rewards, leading to better generalization and maintenance."
+                }
+              }
+            ]
+          })
+        }}
+      />
+    </main>
   );
 }

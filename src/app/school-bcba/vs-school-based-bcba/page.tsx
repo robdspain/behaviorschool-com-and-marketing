@@ -1,106 +1,353 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, Search, FileText, Briefcase, Award } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "School BCBA vs School-Based BCBA: What’s the Difference?",
+  title: "School BCBA vs School-Based BCBA: What's the Difference? | Career Guide 2025",
   description:
-    "Clarity on titles, roles, and search intent: how 'School BCBA' differs from 'School-Based BCBA' and why the wording matters for districts and candidates.",
+    "Understand the key differences between School BCBA and School-Based BCBA terminology. Learn which title to use for job searches, how to position yourself, and why the wording matters for career success.",
   alternates: { canonical: "https://behaviorschool.com/school-bcba/vs-school-based-bcba" },
   robots: { index: true, follow: true },
 };
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-bs-background">
-      <section className="container mx-auto px-6 pt-24 pb-10">
-        <nav className="text-sm mb-4 text-slate-500">
-          <Link className="hover:underline" href="/school-bcba">School BCBA</Link>
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* Breadcrumb */}
+      <section className="container mx-auto px-6 pt-24 pb-6">
+        <nav className="text-sm text-slate-500">
+          <Link className="hover:text-emerald-700 transition-colors" href="/school-bcba">
+            School BCBA
+          </Link>
           <span className="mx-2">/</span>
-          <span>VS School-Based BCBA</span>
+          <span className="text-slate-700">VS School-Based BCBA</span>
         </nav>
-        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">School BCBA vs School-Based BCBA</h1>
-        <p className="text-slate-700 max-w-3xl">
-          Same credential, slightly different wording. Here’s how districts and candidates can use the titles strategically for search visibility, hiring alignment, and clarity of responsibilities.
-        </p>
       </section>
 
-      <section className="container mx-auto px-6 grid md:grid-cols-3 gap-8 pb-16">
-        <article className="md:col-span-2 prose prose-slate max-w-none">
-          <h2>Why the Wording Matters</h2>
-          <p>
-            District job boards, HR systems, and candidate searches don’t always use the same phrase. “School BCBA” tends to match how candidates search, while “school-based BCBA” appears more often in long-form content and training resources. Optimizing for both increases discoverability without changing the work itself.
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-12">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-sm font-semibold mb-6">
+            <Search className="h-4 w-4 mr-2" />
+            Keyword Strategy Guide
+          </div>
+
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+            School BCBA vs <br className="hidden md:block" />
+            School-Based BCBA
+          </h1>
+
+          <p className="text-xl md:text-2xl text-slate-600 leading-relaxed mb-8">
+            Same credential, slightly different wording—here's why it matters for your job search,
+            professional positioning, and career visibility.
           </p>
+        </div>
+      </section>
 
-          <h3>Typical Usage</h3>
-          <ul>
-            <li><strong>School BCBA</strong>: shows up in job titles, LinkedIn profiles, and quick searches.</li>
-            <li><strong>School-Based BCBA</strong>: used in articles, training, and program descriptions.</li>
-          </ul>
-
-          <h3>Responsibilities Are the Same</h3>
-          <p>
-            Regardless of title, responsibilities include FBAs, BIPs, IEP collaboration, MTSS/PBIS alignment, staff coaching, and systems-level implementation. Your portfolio (IEP goals, BIPs, coaching plans, data systems) demonstrates impact better than any title nuance.
-          </p>
-
-          <h3>How to Position Yourself</h3>
-          <ul>
-            <li>Use both phrases across your resume and portfolio to match recruiter searches.</li>
-            <li>Create artifacts that map to district needs: 90-day plan, BIP sample, coaching cycle, progress monitoring templates.</li>
-            <li>Link to role-aligned tools: <Link href="/iep-behavior-goals" className="text-emerald-700 underline">IEP Goal Writer</Link>, <Link href="/behavior-plans" className="text-emerald-700 underline">Behavior Plan Writer</Link>, and the <Link href="/iep-goal-qualitychecker" className="text-emerald-700 underline">IEP Goal Quality Checker</Link>.</li>
-            <li>Review salary expectations by state with our <Link href="/school-bcba/salary-by-state" className="text-emerald-700 underline">comprehensive salary guide</Link>.</li>
-            <li>Prepare for interviews using our <Link href="/school-bcba/job-guide-2025" className="text-emerald-700 underline">2025 job guide</Link> with real questions and scoring rubrics.</li>
-          </ul>
-
-          <h3>SEO Considerations for Districts</h3>
-          <ul>
-            <li>Include both terms in job descriptions to maximize candidate reach.</li>
-            <li>Publish a short “About the Role” page describing systems-level impact and MTSS/PBIS alignment.</li>
-            <li>Link to examples of expected deliverables (FBAs, BIPs, IEP goal quality guidelines).</li>
-          </ul>
-
-          <h3>FAQs</h3>
-          <p><strong>Is a &quot;School BCBA&quot; different from a &quot;School-Based BCBA&quot;?</strong> No. Both refer to a BCBA practicing in K-12 settings. The difference is language preference and search behavior.</p>
-          <p><strong>Which title should I use?</strong> Use both. Lead with &quot;School BCBA&quot; for job search visibility, and include &quot;school-based BCBA&quot; in long-form materials.</p>
-          <p><strong>How should I showcase impact?</strong> Provide a 90-day plan, staff coaching cycle, sample BIP, and progress monitoring visuals with clear outcomes.</p>
-          
-          <h3>Getting Started Resources</h3>
-          <p>Whether you&apos;re just entering the field or positioning yourself for a new role:</p>
-          <ul>
-            <li><strong>New to School-Based Work:</strong> Start with our <Link href="/school-bcba/how-to-become" className="text-emerald-700 underline">complete pathway guide</Link> covering credentials, fieldwork, and competencies.</li>
-            <li><strong>Already Certified:</strong> Review our <Link href="/school-bcba/job-guide-2025" className="text-emerald-700 underline">job guide</Link> for interview prep, resume keywords, and portfolio examples.</li>
-            <li><strong>Comparing Offers:</strong> Use our <Link href="/school-bcba/salary-by-state" className="text-emerald-700 underline">salary benchmarks</Link> to evaluate compensation packages.</li>
-            <li><strong>Building Your Practice:</strong> Explore the <Link href="/school-based-behavior-support" className="text-emerald-700 underline">school-based behavior support framework</Link> and <Link href="/the-act-matrix-a-framework-for-school-based-bcbas" className="text-emerald-700 underline">ACT Matrix for schools</Link>.</li>
-          </ul>
-        </article>
-
-        <aside className="md:col-span-1 space-y-4">
-          <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <h3 className="font-semibold mb-3">Related Guides</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link className="text-emerald-700 hover:underline flex items-center" href="/school-bcba">🏠 School BCBA Hub</Link></li>
-              <li><Link className="text-emerald-700 hover:underline flex items-center" href="/school-bcba/job-guide-2025">📋 Job Guide 2025</Link></li>
-              <li><Link className="text-emerald-700 hover:underline flex items-center" href="/school-bcba/salary-by-state">💰 Salary by State</Link></li>
-              <li><Link className="text-emerald-700 hover:underline flex items-center" href="/school-bcba/how-to-become">🎓 How to Become</Link></li>
-            </ul>
+      {/* Quick Answer Section */}
+      <section className="container mx-auto px-6 py-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-8 border-2 border-emerald-200 shadow-lg">
+            <h2 className="text-2xl font-bold text-emerald-900 mb-4">Quick Answer</h2>
+            <p className="text-lg text-emerald-800 leading-relaxed">
+              <strong className="font-bold">They're the same role.</strong> "School BCBA" and "School-Based BCBA"
+              both refer to a Board Certified Behavior Analyst working in K-12 educational settings. The difference
+              is search behavior and language preference—not job responsibilities, qualifications, or scope of practice.
+            </p>
           </div>
+        </div>
+      </section>
 
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-            <h3 className="font-semibold mb-3 text-emerald-900">Free Tools</h3>
-            <ul className="space-y-2 text-sm text-emerald-900">
-              <li><Link className="hover:underline" href="/iep-behavior-goals">IEP Goals Generator →</Link></li>
-              <li><Link className="hover:underline" href="/behavior-plans">Behavior Plan Writer →</Link></li>
-              <li><Link className="hover:underline" href="/iep-goal-qualitychecker">Goal Quality Checker →</Link></li>
-            </ul>
-          </div>
+      {/* Main Content */}
+      <section className="container mx-auto px-6 py-12">
+        <div className="grid lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+          <article className="lg:col-span-2 space-y-12">
+            {/* Why The Wording Matters */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">Why the Wording Matters</h2>
+              <div className="prose prose-lg max-w-none text-slate-700">
+                <p className="mb-4">
+                  District job boards, HR systems, and candidate searches don't always use the same phrase. Understanding
+                  the nuanced differences in how these terms are used can significantly impact your job search success
+                  and professional visibility.
+                </p>
+                <p>
+                  <strong>"School BCBA"</strong> tends to match how candidates search and appears in job titles,
+                  while <strong>"School-Based BCBA"</strong> shows up more often in long-form content, training programs,
+                  and professional development materials. Optimizing for both terms increases your discoverability
+                  without changing the actual work.
+                </p>
+              </div>
+            </div>
 
-          <div className="rounded-xl border border-blue-200 bg-blue-50 p-5">
-            <h3 className="font-semibold mb-2 text-blue-900 text-sm">Training Programs</h3>
-            <p className="text-xs text-blue-800 mb-3">Comprehensive training for school-based BCBAs</p>
-            <Link href="/school-based-bcba" className="text-blue-700 hover:underline text-sm font-medium">
-              Explore Program →
-            </Link>
-          </div>
-        </aside>
+            {/* Comparison Grid */}
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">How Each Term Is Used</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-200">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4">
+                    <Briefcase className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-blue-900 mb-4">School BCBA</h3>
+                  <ul className="space-y-3 text-blue-900">
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2">•</span>
+                      <span>Job titles and postings</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2">•</span>
+                      <span>LinkedIn profiles</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2">•</span>
+                      <span>Quick Google searches</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2">•</span>
+                      <span>Resume headlines</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-600 mr-2">•</span>
+                      <span>Candidate self-identification</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-8 border-2 border-emerald-200">
+                  <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center mb-4">
+                    <FileText className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-emerald-900 mb-4">School-Based BCBA</h3>
+                  <ul className="space-y-3 text-emerald-900">
+                    <li className="flex items-start">
+                      <span className="text-emerald-600 mr-2">•</span>
+                      <span>Articles and blog posts</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-emerald-600 mr-2">•</span>
+                      <span>Training program descriptions</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-emerald-600 mr-2">•</span>
+                      <span>Research literature</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-emerald-600 mr-2">•</span>
+                      <span>Professional development materials</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-emerald-600 mr-2">•</span>
+                      <span>Academic contexts</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Core Responsibilities */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200">
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                Core Responsibilities (Identical for Both Terms)
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                {[
+                  "Conduct functional behavior assessments (FBAs)",
+                  "Develop behavior intervention plans (BIPs)",
+                  "Collaborate on IEP teams",
+                  "Align interventions with MTSS/PBIS frameworks",
+                  "Coach and train school staff",
+                  "Implement systems-level supports",
+                  "Use data-driven decision making",
+                  "Provide crisis intervention support"
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start">
+                    <svg className="h-6 w-6 text-emerald-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-slate-700">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* SEO Strategy */}
+            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-8 border-2 border-purple-200">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Search className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-purple-900 mb-2">Strategic Positioning Tips</h2>
+                  <p className="text-purple-800">Maximize your visibility and opportunities</p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-bold text-purple-900 mb-3">For Job Seekers</h3>
+                  <ul className="space-y-3 text-purple-900">
+                    <li className="flex items-start">
+                      <span className="text-purple-600 font-bold mr-2">→</span>
+                      <span><strong>Use both terms</strong> throughout your resume, cover letter, and portfolio to match different recruiter search patterns</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-purple-600 font-bold mr-2">→</span>
+                      <span><strong>Lead with "School BCBA"</strong> in job titles and LinkedIn for maximum visibility</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-purple-600 font-bold mr-2">→</span>
+                      <span><strong>Include "school-based BCBA"</strong> in your professional summary and about sections</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-purple-600 font-bold mr-2">→</span>
+                      <span>Create artifacts that demonstrate district-ready competencies (see links below)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-purple-900 mb-3">For Districts & Employers</h3>
+                  <ul className="space-y-3 text-purple-900">
+                    <li className="flex items-start">
+                      <span className="text-purple-600 font-bold mr-2">→</span>
+                      <span><strong>Include both terms</strong> in job postings to maximize qualified candidate reach</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-purple-600 font-bold mr-2">→</span>
+                      <span><strong>Publish role descriptions</strong> that outline systems-level impact expectations</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-purple-600 font-bold mr-2">→</span>
+                      <span><strong>Provide examples</strong> of expected deliverables (FBAs, BIPs, IEP goal frameworks)</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Essential Resources */}
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Essential Resources by Career Stage</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <ResourceCard
+                  icon={<GraduationCap className="h-6 w-6 text-white" />}
+                  color="blue"
+                  title="New to the Field"
+                  items={[
+                    { text: "Complete pathway guide", href: "/school-bcba/how-to-become" },
+                    { text: "Credential requirements", href: "/school-bcba/how-to-become" },
+                    { text: "Fieldwork & competencies", href: "/school-bcba/how-to-become" }
+                  ]}
+                />
+
+                <ResourceCard
+                  icon={<Briefcase className="h-6 w-6 text-white" />}
+                  color="emerald"
+                  title="Actively Job Searching"
+                  items={[
+                    { text: "2025 job guide & interview prep", href: "/school-bcba/job-guide" },
+                    { text: "Resume keywords that work", href: "/school-bcba/job-guide" },
+                    { text: "Portfolio examples", href: "/school-bcba/job-guide" }
+                  ]}
+                />
+
+                <ResourceCard
+                  icon={<DollarSign className="h-6 w-6 text-white" />}
+                  color="green"
+                  title="Evaluating Offers"
+                  items={[
+                    { text: "Salary by state (50 states)", href: "/school-bcba/salary-by-state" },
+                    { text: "Benefits comparison", href: "/school-bcba/salary-by-state" },
+                    { text: "Negotiation strategies", href: "/school-bcba/salary-by-state" }
+                  ]}
+                />
+
+                <ResourceCard
+                  icon={<Award className="h-6 w-6 text-white" />}
+                  color="purple"
+                  title="Building Your Practice"
+                  items={[
+                    { text: "School behavior support framework", href: "/school-based-behavior-support" },
+                    { text: "ACT Matrix for schools", href: "/the-act-matrix-a-framework-for-school-based-bcbas" },
+                    { text: "Free IEP tools", href: "/iep-behavior-goals" }
+                  ]}
+                />
+              </div>
+            </div>
+          </article>
+
+          {/* Sidebar */}
+          <aside className="space-y-6">
+            <div className="sticky top-24 space-y-6">
+              {/* Quick Links */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
+                <h3 className="font-bold text-lg text-slate-900 mb-4">Related Guides</h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/school-bcba">
+                      🏠 School BCBA Hub
+                      <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/school-bcba/job-guide">
+                      📋 Job Guide 2025
+                      <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/school-bcba/salary-by-state">
+                      💰 Salary by State
+                      <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/school-bcba/how-to-become">
+                      🎓 How to Become
+                      <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Free Tools */}
+              <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-6 border-2 border-emerald-200">
+                <h3 className="font-bold text-lg text-emerald-900 mb-4">Free Tools</h3>
+                <ul className="space-y-3 text-emerald-900">
+                  <li>
+                    <Link className="hover:text-emerald-700 font-medium flex items-center group" href="/iep-behavior-goals">
+                      IEP Goals Generator
+                      <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-emerald-700 font-medium flex items-center group" href="/behavior-plans">
+                      Behavior Plan Writer
+                      <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="hover:text-emerald-700 font-medium flex items-center group" href="/iep-goal-qualitychecker">
+                      Goal Quality Checker
+                      <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Training CTA */}
+              <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-xl">
+                <h3 className="font-bold text-lg mb-2">Ready to Excel?</h3>
+                <p className="text-blue-100 text-sm mb-4">
+                  Comprehensive training for school-based BCBAs
+                </p>
+                <Link href="/transformation-program" className="block w-full bg-white text-blue-700 hover:bg-blue-50 py-3 px-4 rounded-xl font-semibold text-center transition-colors">
+                  View Training Program →
+                </Link>
+              </div>
+            </div>
+          </aside>
+        </div>
       </section>
 
       {/* Structured Data - FAQPage Schema */}
@@ -147,33 +394,55 @@ export default function Page() {
           })
         }}
       />
-
-      {/* Structured Data - Article Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "School BCBA vs School-Based BCBA: What's the Difference?",
-            "description": "Clarity on titles, roles, and search intent: how School BCBA differs from School-Based BCBA and why the wording matters for districts and candidates.",
-            "author": {
-              "@type": "Organization",
-              "name": "Behavior School"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Behavior School",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://behaviorschool.com/optimized/og-image.webp"
-              }
-            },
-            "datePublished": "2025-01-15",
-            "dateModified": new Date().toISOString().split('T')[0]
-          })
-        }}
-      />
     </main>
+  );
+}
+
+import { DollarSign, GraduationCap } from "lucide-react";
+
+function ResourceCard({
+  icon,
+  color,
+  title,
+  items
+}: {
+  icon: React.ReactNode;
+  color: "blue" | "emerald" | "green" | "purple";
+  title: string;
+  items: { text: string; href: string }[];
+}) {
+  const colorClasses = {
+    blue: "from-blue-50 to-blue-100 border-blue-200 text-blue-900",
+    emerald: "from-emerald-50 to-emerald-100 border-emerald-200 text-emerald-900",
+    green: "from-green-50 to-green-100 border-green-200 text-green-900",
+    purple: "from-purple-50 to-purple-100 border-purple-200 text-purple-900"
+  };
+
+  const iconBgClasses = {
+    blue: "bg-blue-600",
+    emerald: "bg-emerald-600",
+    green: "bg-green-600",
+    purple: "bg-purple-600"
+  };
+
+  return (
+    <div className={`bg-gradient-to-br ${colorClasses[color]} rounded-2xl p-6 border-2`}>
+      <div className="flex items-center gap-3 mb-4">
+        <div className={`w-10 h-10 ${iconBgClasses[color]} rounded-xl flex items-center justify-center`}>
+          {icon}
+        </div>
+        <h3 className="font-bold text-lg">{title}</h3>
+      </div>
+      <ul className="space-y-2">
+        {items.map((item, idx) => (
+          <li key={idx}>
+            <Link href={item.href} className="text-sm hover:underline flex items-center group">
+              <span className="mr-1">→</span>
+              {item.text}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
