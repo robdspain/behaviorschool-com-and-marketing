@@ -509,7 +509,7 @@ export default function Page() {
             }
           }
         ]
-      })}}/></script>
+      })}} />
     </main>
   );
 }

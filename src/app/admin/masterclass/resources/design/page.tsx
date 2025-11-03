@@ -313,7 +313,7 @@ export default function DesignResourcesPage() {
           </Button>
         </div>
 
-        {/* Resources List */
+        {/* Resources List */}
         {resources.length > 0 ? (
           <DndContext
             sensors={sensors}
