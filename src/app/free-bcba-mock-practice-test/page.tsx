@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
+import TrackedOutboundLink from "@/components/TrackedOutboundLink";
+import dynamic from "next/dynamic";
+const GuestResultsModal = dynamic(() => import("@/components/GuestResultsModal"), { ssr: false });
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
@@ -161,6 +164,7 @@ export default function BCBAMockPracticeTestPage() {
 
   return (
     <div className="min-h-screen bg-bs-background">
+      <GuestResultsModal />
       {/* Sticky CTA */}
       <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4">
         <div className="max-w-3xl w-full bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-slate-200 p-3 flex items-center justify-between gap-3">
@@ -168,9 +172,9 @@ export default function BCBAMockPracticeTestPage() {
             Ready? Try a free 10‑question BCBA guest quiz with instant scoring.
           </div>
           <Button asChild size="sm" className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl">
-            <a href="https://study.behaviorschool.com/quiz/guest?limit=10" target="_blank" rel="noopener noreferrer">
+            <TrackedOutboundLink href="https://study.behaviorschool.com/quiz/guest?limit=10" location="free-mock-sticky" variant="10">
               Start 10‑Q Guest Quiz <ArrowRight className="ml-1 h-4 w-4" />
-            </a>
+            </TrackedOutboundLink>
           </Button>
         </div>
       </div>
@@ -312,15 +316,15 @@ export default function BCBAMockPracticeTestPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105">
-                <a href="https://study.behaviorschool.com/quiz/guest?limit=10" target="_blank" rel="noopener noreferrer">
+              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow- xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105">
+                <TrackedOutboundLink href="https://study.behaviorschool.com/quiz/guest?limit=10" location="free-mock-hero" variant="10">
                   <PlayCircle className="mr-2 h-5 w-5" /> Start 10‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                </TrackedOutboundLink>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-slate-300 text-slate-800 hover:bg-slate-100 px-8 py-4 rounded-2xl shadow-md hover:shadow-lg transition-all duration-200">
-                <a href="https://study.behaviorschool.com/quiz/guest?limit=185" target="_blank" rel="noopener noreferrer">
+                <TrackedOutboundLink href="https://study.behaviorschool.com/quiz/guest?limit=185" location="free-mock-hero" variant="185">
                   <PlayCircle className="mr-2 h-5 w-5" /> Start Full 185‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                </TrackedOutboundLink>
               </Button>
             </div>
             <p className="text-sm text-slate-500 max-w-xl mx-auto">Guest mode lets you complete one mini (10) or one full (185) for free. Sign in afterward to view results, explanations, and analytics.</p>
@@ -592,16 +596,10 @@ export default function BCBAMockPracticeTestPage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  asChild 
-                  size="lg" 
-                  className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
-                >
-                  <a href="https://study.behaviorschool.com/quiz/guest?limit=10" target="_blank" rel="noopener noreferrer">
-                    <PlayCircle className="mr-2 h-5 w-5" />
-                    Start 10‑Q Guest Quiz
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
+                <Button asChild size="lg" className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105">
+                  <TrackedOutboundLink href="https://study.behaviorschool.com/quiz/guest?limit=10" location="free-mock-mid" variant="10">
+                    <PlayCircle className="mr-2 h-5 w-5" /> Start 10‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
+                  </TrackedOutboundLink>
                 </Button>
               </div>
             </div>
