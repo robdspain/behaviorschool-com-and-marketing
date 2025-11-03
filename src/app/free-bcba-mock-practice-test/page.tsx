@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import TrackedOutboundLink from "@/components/TrackedOutboundLink";
 import ClientFreeMockInjections from "@/components/ClientFreeMockInjections";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
@@ -163,7 +164,9 @@ export default function BCBAMockPracticeTestPage() {
 
   return (
     <div className="min-h-screen bg-bs-background">
-      <ClientFreeMockInjections />
+      <Suspense fallback={null}>
+        <ClientFreeMockInjections />
+      </Suspense>
       {/* Sticky CTA */}
       <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4">
         <div className="max-w-3xl w-full bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-slate-200 p-3 flex items-center justify-between gap-3">
