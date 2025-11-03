@@ -197,6 +197,28 @@ export default function Page() {
               {/* Range Chart with Toggle */}
               <RangeChartBlock />
 
+              {/* Downloads */}
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <TrackableLink
+                  href="/api/salary-benchmarks?format=csv&download=1"
+                  className="inline-flex items-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-medium px-4 py-2 rounded-lg transition-colors"
+                  buttonName="Download Salary Data CSV"
+                  buttonLocation="salary-by-state downloads"
+                  additionalData={{ format: 'csv' }}
+                >
+                  Download CSV
+                </TrackableLink>
+                <TrackableLink
+                  href="/api/salary-benchmarks?format=json&download=1"
+                  className="inline-flex items-center gap-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-medium px-4 py-2 rounded-lg transition-colors"
+                  buttonName="Download Salary Data JSON"
+                  buttonLocation="salary-by-state downloads"
+                  additionalData={{ format: 'json' }}
+                >
+                  Download JSON
+                </TrackableLink>
+              </div>
+
               <div className="mt-8 p-6 bg-slate-50 rounded-xl border-l-4 border-emerald-500">
                 <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2">
                   <LineChart className="w-5 h-5 text-emerald-600" />
