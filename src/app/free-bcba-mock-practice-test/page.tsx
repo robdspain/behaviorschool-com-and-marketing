@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import TrackedOutboundLink from "@/components/TrackedOutboundLink";
 import ClientFreeMockInjections from "@/components/ClientFreeMockInjections";
+import MiniMockSelector from "@/components/MiniMockSelector";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
@@ -328,6 +329,9 @@ export default function BCBAMockPracticeTestPage() {
                   <PlayCircle className="mr-2 h-5 w-5" /> Start Full 185‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
                 </TrackedOutboundLink>
               </Button>
+            </div>
+            <div className="max-w-xl mx-auto mb-8">
+              <MiniMockSelector />
             </div>
             <p className="text-sm text-slate-500 max-w-xl mx-auto">Guest mode lets you complete one mini (10) or one full (185) for free. Sign in afterward to view results, explanations, and analytics.</p>
 
