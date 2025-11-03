@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { OnThisPageTOC } from "@/components/OnThisPageTOC";
 import { ArrowRight, Briefcase, FileText, Target, Users, CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -408,20 +409,19 @@ export default function Page() {
           {/* Sidebar */}
           <aside className="space-y-6">
             <div className="sticky top-24 space-y-6">
-              {/* On this page (TOC) */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
-                <h3 className="font-bold text-lg text-slate-900 mb-4">On this page</h3>
-                <ul className="space-y-2 text-slate-700">
-                  <li><a className="hover:text-emerald-700" href="#role-expectations">Role expectations</a></li>
-                  <li><a className="hover:text-emerald-700" href="#portfolio-artifacts">Portfolio artifacts</a></li>
-                  <li><a className="hover:text-emerald-700" href="#systems-impact">Systems-level impact</a></li>
-                  <li><a className="hover:text-emerald-700" href="#interview-questions">Interview questions</a></li>
-                  <li><a className="hover:text-emerald-700" href="#resume-keywords">Resume keywords</a></li>
-                  <li><a className="hover:text-emerald-700" href="#practical-prep">Practical prep</a></li>
-                  <li><a className="hover:text-emerald-700" href="#advanced-talking-point">Advanced talking point</a></li>
-                  <li><a className="hover:text-emerald-700" href="#references">References</a></li>
-                </ul>
-              </div>
+              {/* On this page (TOC with active highlighting) */}
+              <OnThisPageTOC
+                items={[
+                  { id: "role-expectations", label: "Role expectations" },
+                  { id: "portfolio-artifacts", label: "Portfolio artifacts" },
+                  { id: "systems-impact", label: "Systems-level impact" },
+                  { id: "interview-questions", label: "Interview questions" },
+                  { id: "resume-keywords", label: "Resume keywords" },
+                  { id: "practical-prep", label: "Practical prep" },
+                  { id: "advanced-talking-point", label: "Advanced talking point" },
+                  { id: "references", label: "References" },
+                ]}
+              />
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
                 <h3 className="font-bold text-lg text-slate-900 mb-4">Tools for Candidates</h3>
                 <ul className="space-y-3">
