@@ -57,8 +57,10 @@ export default function AdminSitemapPage() {
   // Compute and verify links once authenticated
   useEffect(() => {
     if (!isAuthenticated) return
-    const internal = sections.flatMap(s => s.pages.filter(p => !p.external))
-    const external = sections.flatMap(s => s.pages.filter(p => p.external))
+    const all = sections.flatMap(s => s.pages)
+    const isHttp = (p: PageLink) => /^https?:/i.test(p.path)
+    const internal = all.filter(p => !isHttp(p))
+    const external = all.filter(p => isHttp(p))
     setLinkStats(ls => ({ ...ls, internalTotal: internal.length, externalTotal: external.length }))
 
     const origin = typeof window !== 'undefined' ? window.location.origin : 'https://behaviorschool.com'
@@ -79,7 +81,7 @@ export default function AdminSitemapPage() {
       checks.push(ping(u, 'internalOk'))
     }
     for (const p of external) {
-      if (p.path.startsWith('http')) checks.push(ping(p.path, 'externalOk'))
+      checks.push(ping(p.path, 'externalOk'))
     }
     Promise.allSettled(checks).catch(() => {})
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -429,15 +431,11 @@ export default function AdminSitemapPage() {
             <h3 className="text-lg font-bold text-emerald-900 mb-2">Quick Summary</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
-                <div className="text-3xl font-bold text-emerald-600">
-                  {linkStats.internalOk}/{sections.reduce((acc, section) => acc + section.pages.filter(p => !p.external).length, 0)}
-                </div>
+                <div className="text-3xl font-bold text-emerald-600">{linkStats.internalOk}/{linkStats.internalTotal}</div>
                 <div className="text-sm text-emerald-700">Internal Pages OK</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-blue-600">
-                  {linkStats.externalOk}/{sections.reduce((acc, section) => acc + section.pages.filter(p => p.external).length, 0)}
-                </div>
+                <div className="text-3xl font-bold text-blue-600">{linkStats.externalOk}/{linkStats.externalTotal}</div>
                 <div className="text-sm text-blue-700">External Links OK</div>
               </div>
               <div>
