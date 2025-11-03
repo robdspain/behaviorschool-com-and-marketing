@@ -1,6 +1,8 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getPosts, type Post } from "@/lib/ghost-hybrid";
+import { templates } from "@/data/templates";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 function decodeHtmlEntities(text: string): string {
@@ -34,11 +36,17 @@ function decodeHtmlEntities(text: string): string {
     .replace(/&#8221;/g, '\u201D');
 }
 
+export const metadata: Metadata = {
+  title: "Resources | Behavior School",
+  description: "Downloadable templates and helpful links for school-based behavior analysts.",
+  robots: { index: false, follow: false, googleBot: { index: false, follow: false, noimageindex: true } },
+};
+
 function PostRow({ post }: { post: Post }) {
   return (
     <div className="flex flex-col gap-1 py-4 border-b border-slate-200">
       <h3 className="text-lg font-semibold text-slate-900">
-        <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+        <Link href={`/blog/${post.slug}`}>{post.title}</Link>
       </h3>
       {post.excerpt ? <p className="text-slate-600 text-sm">{decodeHtmlEntities(post.excerpt)}</p> : null}
     </div>
@@ -60,14 +68,38 @@ export default async function ResourcesPage() {
         </div>
       
       <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-6">Resources</h1>
-      <div>
-        {posts.map((post) => (
-          <PostRow key={post.id} post={post} />
-        ))}
-      </div>
+
+      {/* Downloadable Templates */}
+      <section className="mb-8">
+        <h2 className="text-xl font-semibold text-slate-900 mb-3">Downloadable Templates</h2>
+        <div className="space-y-3">
+          {templates.map(t => (
+            <div key={t.url} className="flex items-start justify-between gap-4 border border-slate-200 rounded-lg p-4 bg-white">
+              <div>
+                <Link href={t.url} target="_blank" className="text-emerald-700 hover:text-emerald-800 font-medium">
+                  {t.name}
+                </Link>
+                <p className="text-slate-600 text-sm mt-1">{t.description}</p>
+              </div>
+              <Link href={t.url} target="_blank" className="text-sm text-emerald-700 hover:text-emerald-800 font-medium">Open</Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Blog resources tagged as resources */}
+      {posts.length > 0 && (
+        <section>
+          <h2 className="text-xl font-semibold text-slate-900 mb-3">Guides & Articles</h2>
+          <div>
+            {posts.map((post) => (
+              <PostRow key={post.id} post={post} />
+            ))}
+          </div>
+        </section>
+      )}
       </div>
     </div>
   );
 }
-
 

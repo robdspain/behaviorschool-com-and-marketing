@@ -241,12 +241,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-    {
-      url: `${baseUrl}/resources`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
+    // /resources intentionally excluded until ready (noindex)
     // /templates intentionally excluded until ready (noindex)
 
     // Legal Pages
