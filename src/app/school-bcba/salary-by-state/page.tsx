@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { RangeChartBlock } from "@/components/RangeChartBlock";
 import { TrackableLink } from "@/components/TrackableLink";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const metadata: Metadata = {
   title: "School BCBA Salary by State 2025: Ranges & Benefits",
@@ -203,6 +204,38 @@ export default function Page() {
                 <p className="text-sm text-slate-600 italic">
                   Always verify step/column placement, education differentials (Master's vs. Doctorate), and available stipends (bilingual, high-need sites, leadership). Some districts offer 200+ day contracts and robust benefits packages that effectively raise total compensation by 15-30%.
                 </p>
+              </div>
+
+              {/* Source Notes (expand for links/examples) */}
+              <div className="mt-4">
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="sources" className="bg-white rounded-xl border border-slate-200">
+                    <AccordionTrigger className="px-6 py-4 text-left font-semibold text-slate-900">Source Notes</AccordionTrigger>
+                    <AccordionContent className="px-6 pb-6 text-sm text-slate-700 leading-relaxed">
+                      <ul className="list-disc pl-5 space-y-2">
+                        <li>
+                          Primary benchmarks from 2024–2025 <strong>public K–12 district postings</strong> and <strong>HR salary schedules</strong> (e.g., California listings on EdJoin).
+                          {" "}
+                          <a href="https://www.edjoin.org/" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">EdJoin.org</a>
+                        </li>
+                        <li>
+                          <strong>Aggregated salary snapshots</strong> for “BCBA” across settings used for directional state context: {" "}
+                          <a href="https://www.indeed.com/career/bcba/salaries" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">Indeed</a>, {" "}
+                          <a href="https://www.ziprecruiter.com/Salaries/BCBA-Salary" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">ZipRecruiter</a>, {" "}
+                          <a href="https://www.glassdoor.com/Salaries/bcba-salary-SRCH_KO0,4.htm" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">Glassdoor</a>.
+                          School district salaries may differ from private/clinical roles.
+                        </li>
+                        <li>
+                          Ranges reflect <strong>base salary</strong> only; total compensation varies with contract days, stipends, and benefits.
+                          Always confirm local step/column placement and differentials with district HR.
+                        </li>
+                        <li>
+                          Outliers (e.g., extended-year contracts, high-need stipends, metro cost-of-living adjustments) can exceed plotted ranges.
+                        </li>
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </div>
             </div>
 
