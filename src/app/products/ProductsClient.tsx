@@ -34,7 +34,7 @@ export function ProductsClient() {
       </div>
       
       {/* Products Section */}
-      <section id="products" className="pt-36 pb-16 lg:pb-20 bg-bs-section-even">
+      <section id="products" className="pt-10 md:pt-14 pb-16 lg:pb-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
