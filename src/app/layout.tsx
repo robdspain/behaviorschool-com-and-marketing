@@ -421,11 +421,11 @@ export default function RootLayout({
         </Script>
 
         {/* Ahrefs Analytics */}
-        <Script 
-          src="https://analytics.ahrefs.com/analytics.js" 
-          data-key="qFMnKEdLIrHbuzIcuxBlmw"
-          strategy="lazyOnload"
-        />
+        <script
+          async
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="S+Vj3X2Qa6J/7godUSWIPg"
+        ></script>
         
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
