@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Exam 2025 | Unlimited Practice Questions",
-  description: "Take a full-length BCBA mock exam free. Unlimited practice questions, detailed rationales, and instant scoring. Practice under real exam conditions.",
+  title: "Free BCBA Mock Practice Test (10‑Q Guest) | Instant Scoring",
+  description: "Start a free 10‑question BCBA guest quiz now. Realistic items, instant scoring, and explanations. No signup required.",
   robots: {
     index: true,
     follow: true,
@@ -19,29 +19,19 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "free bcba practice exam",
-    "bcba practice exam free",
-    "free bcba mock exam",
-    "bcba mock exam free",
-    "bcba free mock exam",
-    "mock bcba exam",
-    "bcba mock practice test free",
-    "free bcba practice test",
-    "best bcba mock exams",
-    "bcba exam simulation",
-    "bcba practice questions free",
+    "free bcba mock test",
+    "bcba practice questions",
+    "bcba mock exam",
+    "bcba exam simulator",
     "bcba test prep",
-    "bcba exam prep",
-    "bcba mock exam questions free",
-    "free bcba exam prep",
-    "mock exams bcba"
+    "bcba practice test"
   ],
   alternates: {
     canonical: "https://behaviorschool.com/free-bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Free BCBA Practice Exam → 185 Questions | No Email Required",
-    description: "FREE BCBA practice exam with 185 questions. Instant results + detailed explanations. No signup required. Start immediately!",
+    title: "Free BCBA Mock Practice Test (10‑Question Guest)",
+    description: "Start a free 10‑question BCBA guest quiz. Instant results and explanations—no signup.",
     url: "https://behaviorschool.com/free-bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -57,8 +47,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FREE BCBA Practice Exam | Instant Results | No Signup Required",
-    description: "Professional BCBA practice exam with 185 realistic questions. Instant scoring, detailed explanations for every answer.",
+    title: "Free BCBA Mock Practice Test (10‑Q Guest) | Instant Scoring",
+    description: "Start a free 10‑question BCBA guest quiz. Instant results and explanations—no signup.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -140,8 +130,8 @@ export default function BCBAMockPracticeTestPage() {
       duration: "15-45 minutes",
       questions: "8-35 questions",
       ideal: "Focused practice",
-      ctaText: "Start Domain Practice",
-      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      ctaText: "Start 10‑Question Guest Quiz",
+      ctaUrl: "https://study.behaviorschool.com/quiz/guest?limit=10",
       popular: false,
       features: ["Domain A: 8 questions", "Domain G: 35 questions", "All 9 domains available", "Free with detailed analytics"]
     },
@@ -151,8 +141,8 @@ export default function BCBAMockPracticeTestPage() {
       duration: "4 hours",
       questions: "185 questions",
       ideal: "Complete assessment",
-      ctaText: "Take Full Mock Exam",
-      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      ctaText: "Start 10‑Question Guest Quiz",
+      ctaUrl: "https://study.behaviorschool.com/quiz/guest?limit=10",
       popular: true,
       features: ["One free complete exam", "Exact BACB question distribution", "Comprehensive performance analytics", "Detailed explanations included"]
     },
@@ -162,8 +152,8 @@ export default function BCBAMockPracticeTestPage() {
       duration: "Flexible",
       questions: "10 questions daily (free)",
       ideal: "Daily habit building",
-      ctaText: "Start Daily Practice",
-      ctaUrl: "https://study.behaviorschool.com/free-practice",
+      ctaText: "Start 10‑Question Guest Quiz",
+      ctaUrl: "https://study.behaviorschool.com/quiz/guest?limit=10",
       popular: false,
       features: ["10 free questions per day", "Choose specific domains", "Adaptive difficulty", "Progress tracking included"]
     }
@@ -171,6 +161,19 @@ export default function BCBAMockPracticeTestPage() {
 
   return (
     <div className="min-h-screen bg-bs-background">
+      {/* Sticky CTA */}
+      <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4">
+        <div className="max-w-3xl w-full bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-slate-200 p-3 flex items-center justify-between gap-3">
+          <div className="text-sm text-slate-700">
+            Ready? Try a free 10‑question BCBA guest quiz with instant scoring.
+          </div>
+          <Button asChild size="sm" className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl">
+            <a href="https://study.behaviorschool.com/quiz/guest?limit=10" target="_blank" rel="noopener noreferrer">
+              Start 10‑Q Guest Quiz <ArrowRight className="ml-1 h-4 w-4" />
+            </a>
+          </Button>
+        </div>
+      </div>
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -314,9 +317,9 @@ export default function BCBAMockPracticeTestPage() {
                 size="lg" 
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
-                <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                <a href="https://study.behaviorschool.com/quiz/guest?limit=10" target="_blank" rel="noopener noreferrer">
                   <PlayCircle className="mr-2 h-5 w-5" />
-                  Start Free Mock Test
+                  Start 10‑Question Guest Quiz
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
@@ -594,9 +597,9 @@ export default function BCBAMockPracticeTestPage() {
                   size="lg" 
                   className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
                 >
-                  <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                  <a href="https://study.behaviorschool.com/quiz/guest?limit=10" target="_blank" rel="noopener noreferrer">
                     <PlayCircle className="mr-2 h-5 w-5" />
-                    Take Your First Mock Test
+                    Start 10‑Q Guest Quiz
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
                 </Button>
