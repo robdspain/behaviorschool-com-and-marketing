@@ -11,6 +11,15 @@ export const metadata: Metadata = {
     description: "Free printable templates for school-based BCBAs and behavior analysts",
     url: "https://behaviorschool.com/templates",
   },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
 };
 
 const templates = [
@@ -136,5 +145,4 @@ export default function TemplatesPage() {
     </main>
   );
 }
-
 
