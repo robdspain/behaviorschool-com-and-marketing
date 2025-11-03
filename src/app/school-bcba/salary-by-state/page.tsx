@@ -651,6 +651,13 @@ function RangeChartBlock() {
           "Plus (+) signs in some ranges indicate postings above the plotted max; chart uses a conservative cap for visualization."
         }
       />
+
+      {/* Second chart: sorted by upper range (max) */}
+      <RangeBarChart
+        items={[...items].sort((a, b) => b.max - a.max)}
+        title="Top States by Upper Range (sorted by max)"
+        note={"Sorted descending by max $k bound across selected states."}
+      />
     </div>
   );
 }
