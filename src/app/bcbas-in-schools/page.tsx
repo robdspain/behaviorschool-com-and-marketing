@@ -81,12 +81,50 @@ export default function BCBAsInSchoolsPage() {
         </div>
       </section>
 
-      {/* Main Content Grid */}
-      <section id="references" className="container mx-auto px-6 pb-16 scroll-mt-24">
-        <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {/* Main Content Grid */}
+          <section className="container mx-auto px-6 pb-16">
+            <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
-          {/* Main Content Area */}
+              {/* Main Content Area */}
           <article className="lg:col-span-2 space-y-8">
+
+            {/* Quick Checklist */}
+            <div id="checklist" className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl shadow-lg border border-emerald-200 p-8 scroll-mt-24">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center">
+                  <Target className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-emerald-900">Quick Checklist: PBIS‑aligned Tier 3 FBA→BIP</h2>
+                  <p className="text-sm text-emerald-800">Feasible, function‑matched plans implemented with fidelity</p>
+                </div>
+              </div>
+
+              <ol className="grid md:grid-cols-2 gap-3 text-sm text-slate-800">
+                {[
+                  'Assemble a team; obtain consent; define routines of concern',
+                  'Plan FBA; select tools (ABC data, interviews, scatterplots)',
+                  'Collect baseline data across settings and times',
+                  'Analyze patterns; generate testable function hypotheses',
+                  'Draft BIP: prevention, teaching replacement skills, consequences, safety',
+                  'Train implementers; schedule fidelity checks (10–20% of opportunities)',
+                  'Monitor behavior + integrity weekly; adjust using decision rules',
+                  'Align measurable IEP goals; document progress and decisions',
+                ].map((step, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5" />
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+
+              <p className="mt-4 text-xs text-emerald-700">
+                Evidence: {" "}
+                <Link href="https://www.pbis.org/current/function-based-support-throughout-the-continuum" target="_blank" rel="noopener noreferrer" className="underline">Function‑based support</Link>{" • "}
+                <Link href="https://sites.ed.gov/idea/files/Functional-Behavioral-Assessments-11-19-2024.pdf" target="_blank" rel="noopener noreferrer" className="underline">U.S. ED FBA Guidance (2024)</Link>{" • "}
+                <Link href="https://ies.ed.gov/ncee/wwc/docs/practiceguide/behavioral-interventions-practice-guide_v3a_508a.pdf" target="_blank" rel="noopener noreferrer" className="underline">WWC Practice Guide (2024)</Link>
+              </p>
+            </div>
 
             {/* Overview & Rise of BCBAs */}
             <div id="rise" className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 scroll-mt-24">
@@ -752,6 +790,32 @@ export default function BCBAsInSchoolsPage() {
                 },
                 "datePublished": "2025-01-15",
                 "dateModified": "2025-01-15"
+              },
+              {
+                "@type": "HowTo",
+                "name": "Implement PBIS‑aligned Tier 3 FBA→BIP",
+                "description": "Step‑by‑step process to plan an FBA and translate results into a feasible, function‑matched BIP implemented with fidelity in K–12 settings.",
+                "totalTime": "P14D",
+                "estimatedCost": {"@type":"MonetaryAmount","currency":"USD","value":"0"},
+                "supply": [
+                  {"@type":"HowToSupply","name":"FBA interview forms (teachers, family)"},
+                  {"@type":"HowToSupply","name":"ABC/incident data sheets"},
+                  {"@type":"HowToSupply","name":"BIP template (prevention, teaching, consequences)"}
+                ],
+                "tool": [
+                  {"@type":"HowToTool","name":"Data graphing spreadsheet"},
+                  {"@type":"HowToTool","name":"Fidelity checklist"}
+                ],
+                "step": [
+                  {"@type":"HowToStep","name":"Form team & define routines","text":"Obtain consent, define target routines, confirm priorities with teachers and family."},
+                  {"@type":"HowToStep","name":"Plan FBA & measures","text":"Select interviews and direct observation tools (ABC, scatterplots); set timeframe."},
+                  {"@type":"HowToStep","name":"Collect baseline data","text":"Gather multi‑day data across settings/times; capture antecedents, behavior, consequences."},
+                  {"@type":"HowToStep","name":"Hypothesize function","text":"Analyze patterns; generate and validate function hypotheses with the team."},
+                  {"@type":"HowToStep","name":"Design BIP","text":"Prevention strategies, explicit replacement‑skill instruction, consequence plan, safety links."},
+                  {"@type":"HowToStep","name":"Train & set integrity","text":"Train implementers; create a brief fidelity checklist (10–20% sampled)."},
+                  {"@type":"HowToStep","name":"Monitor & adjust","text":"Weekly graphing; link outcome changes to integrity; revise strategies as needed."},
+                  {"@type":"HowToStep","name":"IEP alignment","text":"Write measurable goals; document progress and data‑based decisions in team meetings."}
+                ]
               },
               {
                 "@type": "FAQPage",
