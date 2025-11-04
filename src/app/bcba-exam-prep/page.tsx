@@ -143,7 +143,7 @@ export default function BCBAExamPrepPage() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
-                    href="/study"
+                    href="https://study.behaviorschool.com"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white hover:bg-slate-50 text-emerald-700 border-2 border-emerald-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Try AI Study Platform
