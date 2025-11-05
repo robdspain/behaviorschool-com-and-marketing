@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import TrackedOutboundLink from "@/components/TrackedOutboundLink";
 import ClientFreeMockInjections from "@/components/ClientFreeMockInjections";
+import TopQuizBanner from "@/components/TopQuizBanner";
 import MiniMockSelector from "@/components/MiniMockSelector";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
@@ -308,6 +309,9 @@ export default function BCBAMockPracticeTestPage() {
           <Breadcrumbs items={breadcrumbItems} />
         </div>
 
+        {/* Selected Quiz Banner (shows after returning from quiz) */}
+        <TopQuizBanner />
+
         {/* Hero Section */}
         <section className="relative py-16 lg:py-24 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-emerald-50 rounded-3xl" />
@@ -332,7 +336,7 @@ export default function BCBAMockPracticeTestPage() {
             {/* PRIMARY CTA - Hero Button */}
             <div className="mb-6">
               <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-12 py-6 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-200 transform hover:scale-105 text-xl font-bold">
-                <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=10&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked')} location="free-mock-hero" variant="10">
+                <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=10&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked&quiz=' + encodeURIComponent('Mini-Mock Exam (10 Questions)'))} location="free-mock-hero" variant="10">
                   <PlayCircle className="mr-3 h-6 w-6" /> Start Free 10-Question Quiz <ArrowRight className="ml-3 h-6 w-6" />
                 </TrackedOutboundLink>
               </Button>
@@ -362,7 +366,7 @@ export default function BCBAMockPracticeTestPage() {
               <p className="text-sm text-slate-600 mb-4">Or choose a different practice format:</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-4">
                 <Button asChild size="sm" variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-50 px-6 py-3 rounded-xl">
-                  <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=185&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked')} location="free-mock-hero-secondary" variant="185">
+                  <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=185&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked&quiz=' + encodeURIComponent('Full BACB Mock Exam'))} location="free-mock-hero-secondary" variant="185">
                     Full 185-Question Mock Exam (4 hours)
                   </TrackedOutboundLink>
                 </Button>
@@ -625,7 +629,7 @@ export default function BCBAMockPracticeTestPage() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105">
-                  <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=10&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked')} location="free-mock-mid" variant="10">
+                  <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=10&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked&quiz=' + encodeURIComponent('Mini-Mock Exam (10 Questions)'))} location="free-mock-mid" variant="10">
                     <PlayCircle className="mr-2 h-5 w-5" /> Start 10‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
                   </TrackedOutboundLink>
                 </Button>
