@@ -40,6 +40,10 @@ export default function AdminSitemapPage() {
   const [deletedMap, setDeletedMap] = useState<Record<string, boolean>>({})
   const [refreshing, setRefreshing] = useState(false)
   const [refreshMsg, setRefreshMsg] = useState<string | null>(null)
+  const [pending, setPending] = useState<Record<string, { index?: boolean; in_sitemap?: boolean; deleted?: boolean }>>({})
+  const [saving, setSaving] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitMsg, setSubmitMsg] = useState<string | null>(null)
   const supabase = createClient()
   const router = useRouter()
 
@@ -117,43 +121,58 @@ export default function AdminSitemapPage() {
     })()
   }, [isAuthenticated])
 
-  const toggleIndex = useCallback(async (path: string, nextVal: boolean) => {
+  const markPending = useCallback((path: string, patch: { index?: boolean; in_sitemap?: boolean; deleted?: boolean }) => {
+    setPending(prev => ({ ...prev, [path]: { ...prev[path], ...patch } }))
+  }, [])
+
+  const toggleIndex = useCallback((path: string, nextVal: boolean) => {
     setIndexMap(prev => ({ ...prev, [path]: nextVal }))
-    try {
-      await fetch('/api/admin/indexing', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path, index: nextVal })
-      })
-    } catch {}
-  }, [])
+    markPending(path, { index: nextVal })
+  }, [markPending])
 
-  const toggleSitemap = useCallback(async (path: string, nextVal: boolean) => {
+  const toggleSitemap = useCallback((path: string, nextVal: boolean) => {
     setSitemapMap(prev => ({ ...prev, [path]: nextVal }))
-    try {
-      await fetch('/api/admin/indexing', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path, in_sitemap: nextVal })
-      })
-    } catch {}
-  }, [])
+    markPending(path, { in_sitemap: nextVal })
+  }, [markPending])
 
-  const toggleDeleted = useCallback(async (path: string, nextVal: boolean) => {
+  const toggleDeleted = useCallback((path: string, nextVal: boolean) => {
     // If deleting, also force noindex and remove from sitemap locally
     setDeletedMap(prev => ({ ...prev, [path]: nextVal }))
     if (nextVal) {
       setIndexMap(prev => ({ ...prev, [path]: false }))
       setSitemapMap(prev => ({ ...prev, [path]: false }))
+      markPending(path, { deleted: true, index: false, in_sitemap: false })
+    } else {
+      markPending(path, { deleted: false })
     }
+  }, [markPending])
+
+  const saveChanges = useCallback(async () => {
+    const entries = Object.entries(pending)
+    if (entries.length === 0) return
+    setSaving(true)
+    setRefreshMsg(null)
     try {
-      await fetch('/api/admin/indexing', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path, deleted: nextVal, index: nextVal ? false : indexMap[path], in_sitemap: nextVal ? false : sitemapMap[path] })
-      })
-    } catch {}
-  }, [indexMap, sitemapMap])
+      for (const [path, vals] of entries) {
+        const payload: any = { path }
+        if (typeof vals.index === 'boolean') payload.index = vals.index
+        if (typeof vals.in_sitemap === 'boolean') payload.in_sitemap = vals.in_sitemap
+        if (typeof vals.deleted === 'boolean') payload.deleted = vals.deleted
+        await fetch('/api/admin/indexing', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+      }
+      setPending({})
+      await fetch('/api/admin/sitemap/revalidate', { method: 'POST' })
+      setRefreshMsg('Changes saved. Sitemap cache revalidated.')
+    } catch {
+      setRefreshMsg('Some changes may not have saved. Please retry.')
+    } finally {
+      setSaving(false)
+    }
+  }, [pending])
 
   const refreshSitemap = useCallback(async () => {
     setRefreshing(true)
@@ -169,6 +188,78 @@ export default function AdminSitemapPage() {
       setRefreshMsg('Network error while revalidating sitemap.')
     } finally {
       setRefreshing(false)
+    }
+  }, [])
+
+  // Submit a curated set of recently updated URLs (OG/meta fixes) to IndexNow
+  const submitOgUpdatedUrls = useCallback(async () => {
+    setSubmitting(true)
+    setSubmitMsg(null)
+    try {
+      // Curated list from OG fixes and reported pages
+      const candidates = [
+        '/blog',
+        '/behavior-plans',
+        '/study',
+        '/the-act-matrix-a-framework-for-school-based-bcbas',
+        '/school-bcba/salary-by-state',
+        '/school-bcba/how-to-become',
+        '/iep-goal-qualitychecker',
+        '/school-bcba/vs-school-based-bcba',
+        '/age-appropriate-act-metaphors',
+        '/bcbas-in-schools',
+        '/school-bcba/job-guide',
+        '/act-implementation-challenges-solutions',
+        '/act-matrix-schools-hub',
+        '/act-activities-k12-students',
+        '/subscribe',
+        '/values-goal-assistant-landing',
+        '/signup',
+      ]
+
+      // Respect admin indexing controls and deletions
+      const urls = candidates.filter(p => indexMap[p] !== false && deletedMap[p] !== true)
+
+      if (urls.length === 0) {
+        setSubmitMsg('No indexable URLs selected for IndexNow.')
+        return
+      }
+
+      const res = await fetch('/api/indexnow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ urls })
+      })
+
+      if (!res.ok) {
+        const t = await res.text().catch(() => '')
+        throw new Error(t || `HTTP ${res.status}`)
+      }
+      const json = await res.json().catch(() => ({}))
+      const count = Array.isArray(json?.submittedUrls) ? json.submittedUrls.length : urls.length
+      setSubmitMsg(`Submitted ${count} URL(s) to IndexNow.`)
+    } catch (e) {
+      setSubmitMsg('IndexNow submission failed. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }, [indexMap, deletedMap])
+
+  const validateIndexNow = useCallback(async () => {
+    setSubmitting(true)
+    setSubmitMsg(null)
+    try {
+      const res = await fetch('/api/indexnow?action=validate')
+      const json = await res.json().catch(() => ({}))
+      if (json?.valid) {
+        setSubmitMsg('IndexNow key is accessible and valid.')
+      } else {
+        setSubmitMsg('IndexNow key not accessible. Check key file and config.')
+      }
+    } catch {
+      setSubmitMsg('Validation check failed. Network or server error.')
+    } finally {
+      setSubmitting(false)
     }
   }, [])
 
@@ -509,6 +600,30 @@ export default function AdminSitemapPage() {
             </div>
             <div className="flex items-center gap-3">
               <button
+                onClick={saveChanges}
+                disabled={saving || Object.keys(pending).length === 0}
+                className="px-4 py-2 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800 disabled:opacity-60"
+                title="Save pending changes to indexing and sitemap"
+              >
+                {saving ? 'Saving…' : `Save Changes${Object.keys(pending).length ? ` (${Object.keys(pending).length})` : ''}`}
+              </button>
+              <button
+                onClick={validateIndexNow}
+                disabled={submitting}
+                className="px-4 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 disabled:opacity-60"
+                title="Validate IndexNow key accessibility"
+              >
+                Validate IndexNow
+              </button>
+              <button
+                onClick={submitOgUpdatedUrls}
+                disabled={submitting}
+                className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-60"
+                title="Submit updated URLs to IndexNow for faster reindexing"
+              >
+                {submitting ? 'Submitting…' : 'Submit to IndexNow'}
+              </button>
+              <button
                 onClick={refreshSitemap}
                 disabled={refreshing}
                 className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 disabled:opacity-60"
@@ -524,9 +639,14 @@ export default function AdminSitemapPage() {
               </Link>
             </div>
           </div>
-          {refreshMsg && (
+          {(refreshMsg || Object.keys(pending).length > 0) && (
             <div className="mt-3 text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded px-3 py-2">
-              {refreshMsg}
+              {refreshMsg || `${Object.keys(pending).length} pending change(s) not yet saved.`}
+            </div>
+          )}
+          {submitMsg && (
+            <div className="mt-3 text-sm text-blue-800 bg-blue-50 border border-blue-200 rounded px-3 py-2">
+              {submitMsg}
             </div>
           )}
         </div>
