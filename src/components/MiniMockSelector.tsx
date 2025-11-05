@@ -5,15 +5,15 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 import { PlayCircle, ArrowRight } from "lucide-react";
 
 const DOMAINS = [
-  { id: "A", label: "Domain A" },
-  { id: "B", label: "Domain B" },
-  { id: "C", label: "Domain C" },
-  { id: "D", label: "Domain D" },
-  { id: "E", label: "Domain E" },
-  { id: "F", label: "Domain F" },
-  { id: "G", label: "Domain G" },
-  { id: "H", label: "Domain H" },
-  { id: "I", label: "Domain I" },
+  { id: "A", label: "Domain A", questions: 8 },
+  { id: "B", label: "Domain B", questions: 24 },
+  { id: "C", label: "Domain C", questions: 21 },
+  { id: "D", label: "Domain D", questions: 13 },
+  { id: "E", label: "Domain E", questions: 22 },
+  { id: "F", label: "Domain F", questions: 23 },
+  { id: "G", label: "Domain G", questions: 25 },
+  { id: "H", label: "Domain H", questions: 20 },
+  { id: "I", label: "Domain I", questions: 19 },
 ];
 
 export default function MiniMockSelector({ location = "free-mock-mini" }: { location?: string }) {
@@ -21,8 +21,10 @@ export default function MiniMockSelector({ location = "free-mock-mini" }: { loca
   const { trackButtonClick } = useAnalytics();
 
   const start = () => {
+    const selectedDomain = DOMAINS.find(d => d.id === domain);
+    const limit = selectedDomain?.questions || 10;
     const ret = encodeURIComponent("https://behaviorschool.com/free-bcba-mock-practice-test?results=locked");
-    const url = `https://study.behaviorschool.com/practice?mode=mini&domain=${encodeURIComponent(domain)}&return=${ret}`;
+    const url = `https://study.behaviorschool.com/quiz/guest?limit=${limit}&domain=${encodeURIComponent(domain)}&return=${ret}`;
     try { trackButtonClick('mini_select_start', location, { domain, href: url }); } catch {}
     window.open(url, '_blank', 'noopener,noreferrer');
   };
@@ -53,7 +55,7 @@ export default function MiniMockSelector({ location = "free-mock-mini" }: { loca
           </button>
         </div>
       </div>
-      <p className="mt-2 text-xs text-slate-500">Opens the study platform start page for your selected mini. Results are gated; sign in after completing the guest quiz.</p>
+      <p className="mt-2 text-xs text-slate-500">Start a free mini-mock exam for your selected domain. No registration required—sign in after completing to view results and analytics.</p>
     </div>
   );
 }
