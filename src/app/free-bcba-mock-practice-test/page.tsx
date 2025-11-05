@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Practice Test (10‑Q Guest) | Instant Scoring",
-  description: "Start a free 10‑question BCBA guest quiz now. Realistic items, instant scoring, and explanations. No signup required.",
+  title: "Free BCBA Mock Test: 10 Questions, No Signup | Instant Results",
+  description: "Start your free BCBA practice test right now. 10 realistic questions, instant scoring, detailed explanations. No signup, no credit card required. Takes 2-3 minutes.",
   robots: {
     index: true,
     follow: true,
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/free-bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Free BCBA Mock Practice Test (10‑Question Guest)",
-    description: "Start a free 10‑question BCBA guest quiz. Instant results and explanations—no signup.",
+    title: "Free BCBA Mock Test: 10 Questions, No Signup",
+    description: "Start your free BCBA practice test right now. 10 realistic questions with instant results. No signup or credit card required.",
     url: "https://behaviorschool.com/free-bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -51,8 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Mock Practice Test (10‑Q Guest) | Instant Scoring",
-    description: "Start a free 10‑question BCBA guest quiz. Instant results and explanations—no signup.",
+    title: "Free BCBA Mock Test: 10 Questions, No Signup | Instant Results",
+    description: "Start your free BCBA practice test right now. 10 realistic questions, instant scoring. No signup or credit card required. Takes 2-3 minutes.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -170,13 +170,19 @@ export default function BCBAMockPracticeTestPage() {
       </Suspense>
       {/* Sticky CTA */}
       <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4">
-        <div className="max-w-3xl w-full bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-slate-200 p-3 flex items-center justify-between gap-3">
-          <div className="text-sm text-slate-700">
-            Ready? Try a free 10‑question BCBA guest quiz with instant scoring.
+        <div className="max-w-3xl w-full bg-white/95 backdrop-blur rounded-2xl shadow-2xl border-2 border-emerald-200 p-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2 text-xs text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full font-semibold">
+              <CheckCircle className="h-3 w-3" />
+              No signup
+            </div>
+            <div className="text-sm font-medium text-slate-900">
+              Start your free 10-question BCBA practice test now
+            </div>
           </div>
-          <Button asChild size="sm" className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl">
+          <Button asChild size="sm" className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl font-semibold whitespace-nowrap">
             <TrackedOutboundLink href="https://study.behaviorschool.com/quiz/guest?limit=10" location="free-mock-sticky" variant="10">
-              Start 10‑Q Guest Quiz <ArrowRight className="ml-1 h-4 w-4" />
+              Start Quiz <ArrowRight className="ml-1 h-4 w-4" />
             </TrackedOutboundLink>
           </Button>
         </div>
@@ -306,47 +312,58 @@ export default function BCBAMockPracticeTestPage() {
           <div className="relative text-center">
             <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-8">
               <PlayCircle className="mr-2 h-4 w-4" />
-              Free Mock Practice Tests
+              Free BCBA Mock Test
             </div>
-            
+
             <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-              Master the BCBA Exam with 
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent"> Realistic Mock Tests</span>
+              Free 10-Question BCBA Practice Test
+              <span className="block bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">Start in 2 Minutes — No Signup</span>
             </h1>
-            
-            <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Build confidence, identify weak areas, and perfect your test-taking strategy with our comprehensive BCBA mock practice tests. Experience the real exam before exam day.
+
+            <p className="text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+              Try realistic BCBA exam questions right now. Get instant scoring and detailed explanations. Perfect for testing your readiness or starting your study journey.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow- xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105">
+            {/* PRIMARY CTA - Hero Button */}
+            <div className="mb-6">
+              <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-12 py-6 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-200 transform hover:scale-105 text-xl font-bold">
                 <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=10&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked')} location="free-mock-hero" variant="10">
-                  <PlayCircle className="mr-2 h-5 w-5" /> Start 10‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
+                  <PlayCircle className="mr-3 h-6 w-6" /> Start Free 10-Question Quiz <ArrowRight className="ml-3 h-6 w-6" />
                 </TrackedOutboundLink>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-slate-300 text-slate-800 hover:bg-slate-100 px-8 py-4 rounded-2xl shadow-md hover:shadow-lg transition-all duration-200">
-                <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=185&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked')} location="free-mock-hero" variant="185">
-                  <PlayCircle className="mr-2 h-5 w-5" /> Start Full 185‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
-                </TrackedOutboundLink>
-              </Button>
+              <p className="mt-3 text-sm text-slate-600">Takes 2-3 minutes • Instant results</p>
             </div>
-            <div className="max-w-xl mx-auto mb-8">
-              <MiniMockSelector />
-            </div>
-            <p className="text-sm text-slate-500 max-w-xl mx-auto">Guest mode lets you complete one mini (10) or one full (185) for free. Sign in afterward to view results, explanations, and analytics.</p>
 
-            <div className="flex items-center justify-center space-x-8 text-sm text-slate-600">
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-4 w-4 text-emerald-600" />
-                <span>Quick signup</span>
+            {/* TRUST BAR - Hyper-visible */}
+            <div className="inline-flex items-center justify-center gap-6 px-8 py-4 bg-emerald-50 border-2 border-emerald-200 rounded-2xl mb-8">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-emerald-600" />
+                <span className="font-semibold text-slate-900">No signup</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <Timer className="h-4 w-4 text-emerald-600" />
-                <span>Realistic timing</span>
+              <div className="h-6 w-px bg-emerald-300" />
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-emerald-600" />
+                <span className="font-semibold text-slate-900">No credit card</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <BarChart3 className="h-4 w-4 text-emerald-600" />
-                <span>Detailed analytics</span>
+              <div className="h-6 w-px bg-emerald-300" />
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-emerald-600" />
+                <span className="font-semibold text-slate-900">Results in minutes</span>
+              </div>
+            </div>
+
+            {/* SECONDARY OPTIONS - Tucked below */}
+            <div className="max-w-2xl mx-auto">
+              <p className="text-sm text-slate-600 mb-4">Or choose a different practice format:</p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-4">
+                <Button asChild size="sm" variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-50 px-6 py-3 rounded-xl">
+                  <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=185&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked')} location="free-mock-hero-secondary" variant="185">
+                    Full 185-Question Mock Exam (4 hours)
+                  </TrackedOutboundLink>
+                </Button>
+              </div>
+              <div className="max-w-xl mx-auto">
+                <MiniMockSelector location="free-mock-hero-secondary" />
               </div>
             </div>
           </div>
