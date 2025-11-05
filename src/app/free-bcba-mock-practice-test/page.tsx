@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Test: 10 Questions, No Signup | Instant Results",
-  description: "Start your free BCBA practice test right now. 10 realistic questions, instant scoring, detailed explanations. No signup, no credit card required. Takes 2-3 minutes.",
+  title: "Free BCBA Practice Exam: 10 Questions, No Signup | 6th Edition",
+  description: "Free BCBA practice exam with 10 realistic questions aligned with 6th edition. Best BCBA mock exams with instant scoring, detailed explanations. No signup or credit card required. BCBA exam practice tests with performance analytics.",
   robots: {
     index: true,
     follow: true,
@@ -24,18 +24,23 @@ export const metadata: Metadata = {
   },
   keywords: [
     "free bcba mock test",
-    "bcba practice questions",
+    "bcba practice exam free",
+    "bcba 6th edition mock exam free",
+    "best bcba mock exams",
+    "bcba practice test",
+    "bcba practice exam",
+    "bcba exam practice tests",
+    "bcba exam practice questions",
     "bcba mock exam",
-    "bcba exam simulator",
-    "bcba test prep",
-    "bcba practice test"
+    "free bcba practice exam",
+    "bcba practice questions"
   ],
   alternates: {
     canonical: "https://behaviorschool.com/free-bcba-mock-practice-test"
   },
   openGraph: {
-    title: "Free BCBA Mock Test: 10 Questions, No Signup",
-    description: "Start your free BCBA practice test right now. 10 realistic questions with instant results. No signup or credit card required.",
+    title: "Free BCBA Practice Exam: 10 Questions | 6th Edition",
+    description: "Free BCBA practice exam with 10 realistic questions aligned with 6th edition. Best BCBA mock exams with instant scoring and detailed explanations. No signup required.",
     url: "https://behaviorschool.com/free-bcba-mock-practice-test",
     siteName: "Behavior School",
     images: [
@@ -51,8 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Mock Test: 10 Questions, No Signup | Instant Results",
-    description: "Start your free BCBA practice test right now. 10 realistic questions, instant scoring. No signup or credit card required. Takes 2-3 minutes.",
+    title: "Free BCBA Practice Exam: 10 Questions | 6th Edition",
+    description: "Free BCBA practice exam with 10 realistic 6th edition questions. Best BCBA mock exams with instant scoring and detailed explanations. No signup or credit card required.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -321,7 +326,7 @@ export default function BCBAMockPracticeTestPage() {
             </h1>
 
             <p className="text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
-              Try realistic BCBA exam questions right now. Get instant scoring and detailed explanations. Perfect for testing your readiness or starting your study journey.
+              Our free BCBA practice exam features realistic questions aligned with the 6th edition test content outline. Get instant scoring, detailed explanations, and performance analytics. Perfect for testing your readiness or starting your study journey.
             </p>
 
             {/* PRIMARY CTA - Hero Button */}
@@ -373,10 +378,10 @@ export default function BCBAMockPracticeTestPage() {
         <section className="py-20 bg-gradient-to-br from-blue-50 to-emerald-50">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-              Advanced Mock Test Platform with Real-Time Analytics
+              Best BCBA Mock Exams with Real-Time Analytics
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Experience the most comprehensive BCBA mock testing system with precision tracking and detailed performance insights
+              Our free BCBA exam practice tests feature 6th edition-aligned questions with precision tracking and detailed performance insights. Access unlimited BCBA practice questions with adaptive difficulty and comprehensive explanations.
             </p>
           </div>
 
