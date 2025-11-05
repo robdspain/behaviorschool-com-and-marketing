@@ -3,11 +3,36 @@ import { MetadataRoute } from 'next'
 // Cache sitemap for 1 hour to reduce server load from crawler requests
 export const revalidate = 3600
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://behaviorschool.com'
   const currentDate = new Date().toISOString()
 
-  return [
+  // Load admin indexing settings and exclude any paths explicitly set to noindex
+  const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL || baseUrl
+  let noindex = new Set<string>()
+  let includeSitemap = new Set<string>()
+  let deleted = new Set<string>()
+  try {
+    const res = await fetch(`${siteOrigin}/api/admin/indexing`, { cache: 'no-store' })
+    const json = await res.json().catch(() => ({ items: [] }))
+    const nset = new Set<string>()
+    const iset = new Set<string>()
+    const dset = new Set<string>()
+    for (const it of json.items || []) {
+      if (it && typeof it.path === 'string') {
+        if (it.index === false) nset.add(it.path)
+        if (it.in_sitemap === true) iset.add(it.path)
+        if (it.deleted === true) dset.add(it.path)
+      }
+    }
+    noindex = nset
+    includeSitemap = iset
+    deleted = dset
+  } catch {
+    // If indexing API fails, default to including all entries
+  }
+
+  const entries: MetadataRoute.Sitemap = [
     // Homepage - Highest Priority
     {
       url: baseUrl,
@@ -258,4 +283,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ]
+
+  // Filter out any entries whose path is configured as noindex in admin
+  const filteredBase = entries.filter((e) => {
+    try {
+      const url = new URL(e.url)
+      const path = url.pathname || '/'
+      return !noindex.has(path) && !deleted.has(path)
+    } catch {
+      return true
+    }
+  })
+
+  // Add any admin-approved sitemap entries that aren't already present
+  const existingPaths = new Set<string>()
+  for (const e of filteredBase) {
+    try {
+      const u = new URL(e.url)
+      existingPaths.add(u.pathname || '/')
+    } catch {}
+  }
+  const dynamicAdds: MetadataRoute.Sitemap = []
+  for (const path of includeSitemap) {
+    if (noindex.has(path) || deleted.has(path)) continue
+    if (!existingPaths.has(path)) {
+      dynamicAdds.push({
+        url: `${baseUrl}${path}`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly',
+        priority: 0.6,
+      })
+    }
+  }
+
+  return [...filteredBase, ...dynamicAdds]
 }

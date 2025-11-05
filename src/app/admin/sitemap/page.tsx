@@ -36,6 +36,10 @@ export default function AdminSitemapPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [linkStats, setLinkStats] = useState({ internalOk: 0, internalTotal: 0, externalOk: 0, externalTotal: 0 })
   const [indexMap, setIndexMap] = useState<Record<string, boolean>>({})
+  const [sitemapMap, setSitemapMap] = useState<Record<string, boolean>>({})
+  const [deletedMap, setDeletedMap] = useState<Record<string, boolean>>({})
+  const [refreshing, setRefreshing] = useState(false)
+  const [refreshMsg, setRefreshMsg] = useState<string | null>(null)
   const supabase = createClient()
   const router = useRouter()
 
@@ -97,10 +101,18 @@ export default function AdminSitemapPage() {
         const res = await fetch('/api/admin/indexing', { cache: 'no-store' })
         const json = await res.json().catch(() => ({ items: [] }))
         const map: Record<string, boolean> = {}
+        const sm: Record<string, boolean> = {}
+        const del: Record<string, boolean> = {}
         for (const it of json.items || []) {
-          if (typeof it?.path === 'string') map[it.path] = !!it.index
+          if (typeof it?.path === 'string') {
+            map[it.path] = it.index !== false
+            if (typeof it.in_sitemap === 'boolean') sm[it.path] = !!it.in_sitemap
+            if (typeof it.deleted === 'boolean') del[it.path] = !!it.deleted
+          }
         }
         setIndexMap(map)
+        setSitemapMap(sm)
+        setDeletedMap(del)
       } catch {}
     })()
   }, [isAuthenticated])
@@ -114,6 +126,50 @@ export default function AdminSitemapPage() {
         body: JSON.stringify({ path, index: nextVal })
       })
     } catch {}
+  }, [])
+
+  const toggleSitemap = useCallback(async (path: string, nextVal: boolean) => {
+    setSitemapMap(prev => ({ ...prev, [path]: nextVal }))
+    try {
+      await fetch('/api/admin/indexing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path, in_sitemap: nextVal })
+      })
+    } catch {}
+  }, [])
+
+  const toggleDeleted = useCallback(async (path: string, nextVal: boolean) => {
+    // If deleting, also force noindex and remove from sitemap locally
+    setDeletedMap(prev => ({ ...prev, [path]: nextVal }))
+    if (nextVal) {
+      setIndexMap(prev => ({ ...prev, [path]: false }))
+      setSitemapMap(prev => ({ ...prev, [path]: false }))
+    }
+    try {
+      await fetch('/api/admin/indexing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path, deleted: nextVal, index: nextVal ? false : indexMap[path], in_sitemap: nextVal ? false : sitemapMap[path] })
+      })
+    } catch {}
+  }, [indexMap, sitemapMap])
+
+  const refreshSitemap = useCallback(async () => {
+    setRefreshing(true)
+    setRefreshMsg(null)
+    try {
+      const res = await fetch('/api/admin/sitemap/revalidate', { method: 'POST' })
+      if (res.ok) {
+        setRefreshMsg('Sitemap cache revalidated. Changes will reflect shortly.')
+      } else {
+        setRefreshMsg('Failed to revalidate sitemap. Please try again.')
+      }
+    } catch {
+      setRefreshMsg('Network error while revalidating sitemap.')
+    } finally {
+      setRefreshing(false)
+    }
   }, [])
 
   const sections: PageSection[] = [
@@ -451,13 +507,28 @@ export default function AdminSitemapPage() {
                 Quick access to all user-facing pages
               </p>
             </div>
-            <Link
-              href="/admin"
-              className="px-4 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
-            >
-              ← Back to Dashboard
-            </Link>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={refreshSitemap}
+                disabled={refreshing}
+                className="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 disabled:opacity-60"
+                title="Force refresh the sitemap cache"
+              >
+                {refreshing ? 'Refreshing…' : 'Refresh Sitemap'}
+              </button>
+              <Link
+                href="/admin"
+                className="px-4 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
+              >
+                ← Back to Dashboard
+              </Link>
+            </div>
           </div>
+          {refreshMsg && (
+            <div className="mt-3 text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded px-3 py-2">
+              {refreshMsg}
+            </div>
+          )}
         </div>
       </header>
 
@@ -524,9 +595,37 @@ export default function AdminSitemapPage() {
                           checked={indexMap[page.path] !== false}
                           onChange={(e) => toggleIndex(page.path, e.currentTarget.checked)}
                           title="Toggle indexability for this page"
+                          disabled={deletedMap[page.path] === true}
+                        />
+                        <span className="mx-1 text-slate-300">|</span>
+                        <label className="text-xs text-slate-600">Sitemap</label>
+                        <input
+                          type="checkbox"
+                          checked={!!sitemapMap[page.path]}
+                          onChange={(e) => toggleSitemap(page.path, e.currentTarget.checked)}
+                          title="Include/exclude from sitemap"
+                          disabled={deletedMap[page.path] === true || indexMap[page.path] === false}
+                        />
+                        <span className="mx-1 text-slate-300">|</span>
+                        <label className="text-xs text-slate-600">Delete</label>
+                        <input
+                          type="checkbox"
+                          checked={!!deletedMap[page.path]}
+                          onChange={(e) => {
+                            const v = e.currentTarget.checked
+                            if (v && !confirm('This will soft-delete this path (404 rewrite) and remove it from sitemap and indexing. Continue?')) {
+                              e.preventDefault()
+                              return
+                            }
+                            toggleDeleted(page.path, v)
+                          }}
+                          title="Soft-delete this page (rewrite to not-found)"
                         />
                         {indexMap[page.path] === false && (
                           <span className="text-[10px] text-amber-700 bg-amber-100 border border-amber-200 rounded px-1">noindex</span>
+                        )}
+                        {deletedMap[page.path] === true && (
+                          <span className="text-[10px] text-red-700 bg-red-100 border border-red-200 rounded px-1">deleted</span>
                         )}
                       </div>
                     )}
