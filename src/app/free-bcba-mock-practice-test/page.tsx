@@ -368,7 +368,7 @@ export default function BCBAMockPracticeTestPage() {
               <p className="text-sm text-slate-600 mb-4">Or choose a different practice format:</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-4">
                 <Button asChild size="sm" variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-50 px-6 py-3 rounded-xl">
-                  <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=185&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked&quiz=' + encodeURIComponent('Full BACB Mock Exam'))} location="free-mock-hero-secondary" variant="185">
+                  <TrackedOutboundLink href="https://study.behaviorschool.com/free-mock-exam/full" location="free-mock-hero-secondary" variant="185">
                     Full 185-Question Mock Exam (4 hours)
                   </TrackedOutboundLink>
                 </Button>
