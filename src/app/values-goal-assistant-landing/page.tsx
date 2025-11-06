@@ -21,7 +21,7 @@ export default function ValuesGoalAssistantLandingPage() {
           >
             <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
               <span className="bg-gradient-to-r from-blue-700 to-purple-500 bg-clip-text text-transparent">
-                Values-Based Goal Assistant
+                Behavior Goal Assistant
               </span>
               <br />
               Write Goals That Truly Matter
@@ -424,7 +424,7 @@ export default function ValuesGoalAssistantLandingPage() {
             Ready to Write More Meaningful Goals?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join our interest list to be the first to know when the Values-Based Goal Assistant is available!
+            Join our interest list to be the first to know when the Behavior Goal Assistant is available!
           </p>
           <button 
             onClick={() => setIsSignupOpen(true)}
@@ -440,12 +440,12 @@ export default function ValuesGoalAssistantLandingPage() {
       <EmailSignupPopup
         isOpen={isSignupOpen}
         onClose={() => setIsSignupOpen(false)}
-        title="Join the Values-Based Goal Assistant Interest List"
+        title="Join the Behavior Goal Assistant Interest List"
         description="Be the first to know about updates, early access, and launch details for our new goal-writing tool."
         pageSource="/values-goal-assistant-landing"
         showNameField={true}
         buttonText="Sign Me Up!"
-        successMessage="Thanks for your interest! We'll keep you updated on the Values-Based Goal Assistant."
+        successMessage="Thanks for your interest! We'll keep you updated on the Behavior Goal Assistant."
       />
     </div>
   );

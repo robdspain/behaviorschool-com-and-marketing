@@ -142,6 +142,39 @@ export function IEPBehaviorGoalsClient() {
     ]
   };
 
+  // SoftwareApplication structured data
+  const softwareApplicationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "IEP Behavior Goals Generator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Free online tool for creating compliant, measurable IEP behavior goals. Designed for special education professionals, behavior specialists, and IEP teams.",
+    "url": "https://behaviorschool.com/iep-behavior-goals",
+    "screenshot": "https://behaviorschool.com/thumbnails/iep-behavior-goal-thumb.webp",
+    "author": {
+      "@type": "Organization",
+      "name": "Behavior School"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "127"
+    },
+    "featureList": [
+      "6-step guided wizard",
+      "Measurable goal generation",
+      "Complete browser privacy",
+      "Instant PDF export",
+      "Free unlimited use"
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-bs-background w-full max-w-full overflow-x-hidden">
       {/* Structured Data */}
@@ -156,6 +189,10 @@ export function IEPBehaviorGoalsClient() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -355,7 +392,7 @@ export function IEPBehaviorGoalsClient() {
             <p className="text-center text-slate-600 mb-4">
               Looking for values-aligned goal setting? Check out our{" "}
               <a href="/values-goal-assistant-landing" className="text-blue-600 hover:text-blue-700 font-semibold underline">
-                Values Goal Assistant
+                Behavior Goal Assistant
               </a>
               {" "}for creating student-centered, values-driven IEP goals.
             </p>

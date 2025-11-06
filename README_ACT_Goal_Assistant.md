@@ -1,4 +1,4 @@
-# Values-Based Goal Writing Assistant
+# Behavior Goal Assistant
 
 ## Project Description
 

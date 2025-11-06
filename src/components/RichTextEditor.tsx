@@ -59,6 +59,36 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, editor])
 
+  const addImage = () => {
+    const url = prompt('Enter image URL:')
+    if (url) {
+      editor?.chain().focus().setImage({ src: url }).run()
+    }
+  }
+
+  const addLink = () => {
+    const url = prompt('Enter link URL:')
+    if (url) {
+      editor?.chain().focus().setLink({ href: url }).run()
+    }
+  }
+
+  const addYouTube = () => {
+    const url = prompt('Enter YouTube URL:')
+    if (url) {
+      editor?.chain().focus().setYoutubeVideo({ src: url }).run()
+    }
+  }
+
+  const addCTAButton = () => {
+    const text = prompt('Enter button text:')
+    const url = prompt('Enter button URL:')
+    if (text && url) {
+      const buttonHTML = `<a href="${url}" class="inline-block px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors no-underline" target="_blank" rel="noopener noreferrer">${text}</a>`
+      editor?.chain().focus().insertContent(buttonHTML).run()
+    }
+  }
+
   const Toolbar = useMemo(() => {
     if (!editor) return null
     const btn = (
@@ -90,6 +120,10 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
         {btn(() => editor.chain().focus().setTextAlign('right').run(), editor.isActive({ textAlign: 'right' }), 'Right')}
         {btn(() => editor.chain().focus().toggleCodeBlock().run(), editor.isActive('codeBlock'), '</>')}
         {btn(() => editor.chain().focus().setHorizontalRule().run(), false, 'HR')}
+        {btn(() => addLink(), editor.isActive('link'), '🔗 Link')}
+        {btn(() => addImage(), false, '🖼️ Image')}
+        {btn(() => addYouTube(), false, '▶️ YouTube')}
+        {btn(() => addCTAButton(), false, '🔘 CTA Button')}
       </div>
     )
   }, [editor])

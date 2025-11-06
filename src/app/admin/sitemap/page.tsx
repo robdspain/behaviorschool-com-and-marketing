@@ -452,9 +452,9 @@ export default function AdminSitemapPage() {
           description: 'Downloadable templates and tools'
         },
         {
-          name: 'Values Goal Assistant Landing',
+          name: 'Behavior Goal Assistant Landing',
           path: '/values-goal-assistant-landing',
-          description: 'Landing page for values-based assistant'
+          description: 'Landing page for Behavior Goal Assistant'
         }
       ]
     },

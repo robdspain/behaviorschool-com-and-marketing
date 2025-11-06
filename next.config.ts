@@ -56,7 +56,48 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Existing redirects
+      // ============================================
+      // HIGH-IMPACT SEO REDIRECTS (Jan 2025)
+      // ============================================
+      {
+        source: '/bcba-mock-practice-test',
+        destination: '/bcba-practice-exam',
+        permanent: true,
+      },
+      {
+        source: '/free-bcba-mock-practice-test',
+        destination: '/free-bcba-practice-exam',
+        permanent: true,
+      },
+      {
+        source: '/behavior-study-tools',
+        destination: '/study',
+        permanent: true,
+      },
+      {
+        source: '/bcba-study-tools',
+        destination: '/study',
+        permanent: true,
+      },
+      {
+        source: '/school-based-bcba',
+        destination: '/school-bcba',
+        permanent: true,
+      },
+      {
+        source: '/bcbas-in-schools',
+        destination: '/school-bcba',
+        permanent: true,
+      },
+      {
+        source: '/school-bcba/job-guide',
+        destination: '/school-bcba/job-guide-2025',
+        permanent: true,
+      },
+
+      // ============================================
+      // EXISTING REDIRECTS
+      // ============================================
       {
         source: '/supervision',
         destination: '/supervisors',
@@ -80,7 +121,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/behavior-study-tools/',
-        destination: '/behavior-study-tools',
+        destination: '/study',
         permanent: true,
       },
       {
@@ -170,7 +211,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/free-tools/behavior-study-tools',
-        destination: '/behavior-study-tools',
+        destination: '/study',
         permanent: true,
       },
       // Additional 404 fixes
@@ -229,7 +270,7 @@ const nextConfig: NextConfig = {
       // Fix specific failing tag URLs
       {
         source: '/tag/free-practice-test',
-        destination: '/free-bcba-mock-practice-test',
+        destination: '/free-bcba-practice-exam',
         permanent: true,
       },
       {
@@ -255,12 +296,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/ai-powered-learning',
-        destination: '/behavior-study-tools',
+        destination: '/study',
         permanent: true,
       },
       {
         source: '/tag/ai-powered-learning/',
-        destination: '/behavior-study-tools',
+        destination: '/study',
         permanent: true,
       },
       {
@@ -275,12 +316,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/study-materials',
-        destination: '/behavior-study-tools',
+        destination: '/study',
         permanent: true,
       },
       {
         source: '/tag/study-materials/',
-        destination: '/behavior-study-tools',
+        destination: '/study',
         permanent: true,
       },
       {
@@ -295,12 +336,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/artificial-intelligence',
-        destination: '/behavior-study-tools',
+        destination: '/study',
         permanent: true,
       },
       {
         source: '/tag/artificial-intelligence/',
-        destination: '/behavior-study-tools',
+        destination: '/study',
         permanent: true,
       },
       {
@@ -395,12 +436,6 @@ const nextConfig: NextConfig = {
       {
         source: '/act-matrix-schools-hub.html',
         destination: '/act-matrix-schools-hub',
-        permanent: true,
-      },
-      // Remove redirecting URLs from sitemap - redirect to canonical version
-      {
-        source: '/school-bcba/job-guide-2025',
-        destination: '/school-bcba/job-guide',
         permanent: true,
       },
       // Domain redirect for schoolbcba.com

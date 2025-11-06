@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Values-Based Goal Assistant',
+  title: 'Behavior Goal Assistant',
   description: 'A tool to help write values-aligned IEP and behavior goals.',
 };
 

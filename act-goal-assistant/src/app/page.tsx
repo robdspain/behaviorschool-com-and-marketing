@@ -7,7 +7,7 @@ export default function Home() {
           Achieve Your Goals with Clarity and Purpose
         </h1>
         <p className="text-xl md:text-2xl text-gray-700 mb-8">
-          The Values-Based Goal Assistant helps you set meaningful goals aligned with what truly matters to you.
+          The Behavior Goal Assistant helps you set meaningful goals aligned with what truly matters to you.
         </p>
         <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition duration-300 hover:scale-105">
           Start Your Journey

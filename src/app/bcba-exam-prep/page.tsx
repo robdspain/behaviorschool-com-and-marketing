@@ -76,10 +76,29 @@ export default function BCBAExamPrepPage() {
     }
   ];
 
+  // Structured data for SEO
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqData.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   return (
-    <div className="min-h-screen bg-bs-background">
-      {/* Breadcrumbs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
+      <div className="min-h-screen bg-bs-background">
+        {/* Breadcrumbs */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
         <Breadcrumbs
           items={[
             { label: "BCBA Exam Prep" }
@@ -486,5 +505,6 @@ export default function BCBAExamPrepPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

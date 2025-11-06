@@ -65,7 +65,7 @@
 - [IEP Goal Quality Checker](https://behaviorschool.com/iep-goal-qualitychecker)
 - [IEP Behavior Goals Widget](https://behaviorschool.com/iep-behavior-goals/widget)
 - [Behavior Plans](https://behaviorschool.com/behavior-plans)
-- [Values Goal Assistant Landing](https://behaviorschool.com/values-goal-assistant-landing)
+- [Behavior Goal Assistant Landing](https://behaviorschool.com/values-goal-assistant-landing)
 
 ---
 

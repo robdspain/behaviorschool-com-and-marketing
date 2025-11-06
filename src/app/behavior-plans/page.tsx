@@ -174,7 +174,7 @@ export default function BehaviorPlansPage() {
             <div className="grid sm:grid-cols-2 gap-4">
               <Link href="/iep-goals" className="group block p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-600 transition-colors">
                 <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700">IEP Goal Writing Tools</h3>
-                <p className="text-sm text-slate-600 mt-1">Includes <Link href="/values-goal-assistant-landing" className="text-emerald-700 hover:text-emerald-800 underline">Values Goal Assistant</Link> for student-centered goals</p>
+                <p className="text-sm text-slate-600 mt-1">Includes <Link href="/values-goal-assistant-landing" className="text-emerald-700 hover:text-emerald-800 underline">Behavior Goal Assistant</Link> for student-centered goals</p>
                 <p className="text-sm text-slate-600">Build measurable behavior goals and progress monitoring plans.</p>
               </Link>
               <Link href="/transformation-program" className="group block p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-600 transition-colors">
