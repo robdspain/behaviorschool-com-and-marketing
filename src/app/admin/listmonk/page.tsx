@@ -501,6 +501,14 @@ LISTMONK_PASSWORD=your-password`}
               Not configured
             </>
           )}
+          <button
+            onClick={() => openUrl(status?.endpoint)}
+            disabled={!status?.endpoint}
+            className="ml-3 inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 disabled:opacity-50 text-white px-3 py-1.5 rounded-md border border-white/20"
+            title={status?.endpoint ? `Open ${status.endpoint}` : 'Endpoint not configured'}
+          >
+            <ExternalLink className="w-4 h-4" /> Open Listmonk Admin
+          </button>
         </div>
       </div>
 
