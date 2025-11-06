@@ -478,13 +478,14 @@ function BlogEditorContent() {
             const refetchResult = await refetchResponse.json()
             if (refetchResult.success && refetchResult.post) {
               // Update the entire post state with fresh data from Ghost
+              // IMPORTANT: Transform Ghost URLs to proxy URLs for images
               setPost({
                 id: refetchResult.post.id,
                 title: refetchResult.post.title || '',
                 slug: refetchResult.post.slug || '',
                 html: refetchResult.post.html || '',
                 excerpt: refetchResult.post.excerpt || '',
-                feature_image: refetchResult.post.feature_image || '',
+                feature_image: transformGhostImageUrl(refetchResult.post.feature_image),
                 featured: refetchResult.post.featured || false,
                 status: refetchResult.post.status || 'draft',
                 published_at: refetchResult.post.published_at || null,
@@ -492,10 +493,10 @@ function BlogEditorContent() {
                 meta_description: refetchResult.post.meta_description || '',
                 twitter_title: refetchResult.post.twitter_title || '',
                 twitter_description: refetchResult.post.twitter_description || '',
-                twitter_image: refetchResult.post.twitter_image || '',
+                twitter_image: transformGhostImageUrl(refetchResult.post.twitter_image),
                 og_title: refetchResult.post.og_title || '',
                 og_description: refetchResult.post.og_description || '',
-                og_image: refetchResult.post.og_image || '',
+                og_image: transformGhostImageUrl(refetchResult.post.og_image),
                 tags: refetchResult.post.tags || [],
                 codeinjection_head: refetchResult.post.codeinjection_head || '',
                 codeinjection_foot: refetchResult.post.codeinjection_foot || '',
