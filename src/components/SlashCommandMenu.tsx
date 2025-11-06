@@ -108,7 +108,7 @@ export const SlashCommandMenu = forwardRef<SlashCommandMenuRef, SlashCommandMenu
         description: 'Insert a table',
         icon: <Table className="w-4 h-4" />,
         command: (editor) =>
-          editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(),
+          (editor as any).chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(),
       },
       {
         title: 'Divider',
@@ -201,4 +201,3 @@ export const SlashCommandMenu = forwardRef<SlashCommandMenuRef, SlashCommandMenu
 );
 
 SlashCommandMenu.displayName = 'SlashCommandMenu';
-

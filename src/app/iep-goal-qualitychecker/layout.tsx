@@ -26,12 +26,22 @@ export const metadata: Metadata = {
     description:
       "Instant IEP behavior goal checks: condition, behavior, measurement, criteria (90–100%), timeframe, baseline. Free copy & PDF export.",
     siteName: "Behavior School",
+    locale: "en_US",
+    images: [
+      {
+        url: "/optimized/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Behavior School",
+      },
+    ],
   },
   twitter: {
     card: "summary",
     title: "IEP Goal Quality Checker | Measurable Behavior Goals (Free Tool)",
     description:
       "Instant IEP behavior goal checks: condition, behavior, measurement, criteria (90–100%), timeframe, baseline.",
+    images: ["/optimized/og-image.webp"],
   },
 };
 

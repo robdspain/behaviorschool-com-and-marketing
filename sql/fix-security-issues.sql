@@ -14,22 +14,27 @@
 ALTER TABLE IF EXISTS analytics_events ENABLE ROW LEVEL SECURITY;
 
 -- Create RLS policies for analytics_events
+-- Drop existing policies first to avoid conflicts
+DROP POLICY IF EXISTS "Users can view own analytics events" ON analytics_events;
+DROP POLICY IF EXISTS "Anyone can insert analytics events" ON analytics_events;
+DROP POLICY IF EXISTS "Service role can manage analytics events" ON analytics_events;
+
 -- Allow authenticated users to read their own events
-CREATE POLICY IF NOT EXISTS "Users can view own analytics events"
+CREATE POLICY "Users can view own analytics events"
   ON analytics_events
   FOR SELECT
   TO authenticated
   USING (user_id = auth.uid());
 
 -- Allow anyone to insert analytics events (for tracking)
-CREATE POLICY IF NOT EXISTS "Anyone can insert analytics events"
+CREATE POLICY "Anyone can insert analytics events"
   ON analytics_events
   FOR INSERT
   TO anon, authenticated
   WITH CHECK (true);
 
 -- Allow service role to manage all analytics events
-CREATE POLICY IF NOT EXISTS "Service role can manage analytics events"
+CREATE POLICY "Service role can manage analytics events"
   ON analytics_events
   FOR ALL
   TO service_role

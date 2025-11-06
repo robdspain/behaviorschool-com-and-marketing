@@ -30,7 +30,8 @@ BEGIN
   NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+  SET search_path = public, pg_temp;
 
 CREATE TRIGGER trigger_update_analytics_events_updated_at
   BEFORE UPDATE ON analytics_events
@@ -48,4 +49,3 @@ CREATE TRIGGER trigger_update_analytics_events_updated_at
 -- ('email_signup', 'Newsletter Signup', '/act-matrix', 'test@example.com', 5.00),
 -- ('download', 'ACT Matrix Guide Download', '/act-matrix', 'test@example.com', 10.00),
 -- ('course_inquiry', 'Course Information Request', '/supervisors', 'test2@example.com', 25.00);
-

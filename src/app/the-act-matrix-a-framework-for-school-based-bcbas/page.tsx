@@ -45,6 +45,16 @@ export const metadata: Metadata = {
     description: "Comprehensive guide to using the ACT Matrix framework in school-based BCBA practice with implementation strategies and real examples.",
     type: "article",
     url: "https://behaviorschool.com/the-act-matrix-a-framework-for-school-based-bcbas",
+    siteName: "Behavior School",
+    locale: "en_US",
+    images: [
+      {
+        url: "/optimized/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Behavior School",
+      },
+    ],
   },
   alternates: {
     canonical: "https://behaviorschool.com/the-act-matrix-a-framework-for-school-based-bcbas"

@@ -190,6 +190,23 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       }).join(', ');
       return `srcset="${rewritten}"`;
     });
+
+    // Fix insecure internal links to https for behaviorschool.com subdomains
+    // 1) Protocol-relative hrefs (//sub.domain) → https://sub.domain
+    out = out.replace(
+      /href=(["'])\/\/((?:[^"']+\.)*behaviorschool\.com[^"']*)\1/gi,
+      'href=$1https://$2$1'
+    );
+    // 2) Explicit http:// hrefs for our domains → https://
+    out = out.replace(
+      /href="http:\/\/((?:[^"']+\.)*behaviorschool\.com[^"]*)"/gi,
+      'href="https://$1"'
+    );
+    out = out.replace(
+      /href='http:\/\/((?:[^"']+\.)*behaviorschool\.com[^']*)'/gi,
+      "href='https://$1'"
+    );
+
     return out;
   };
 

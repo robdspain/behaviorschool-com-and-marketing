@@ -113,7 +113,8 @@ BEGIN
   NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+  SET search_path = public, pg_temp;
 
 -- Triggers for updated_at
 DROP TRIGGER IF EXISTS update_course_sections_updated_at ON masterclass_course_sections;

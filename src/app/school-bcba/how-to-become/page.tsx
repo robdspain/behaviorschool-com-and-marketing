@@ -27,6 +27,17 @@ export const metadata: Metadata = {
     title: "How to Become a School BCBA: Complete Pathway Guide",
     description: "Step-by-step guide with timelines, artifacts, and district-specific competencies for becoming a School BCBA.",
     type: "article",
+    url: "https://behaviorschool.com/school-bcba/how-to-become",
+    siteName: "Behavior School",
+    locale: "en_US",
+    images: [
+      {
+        url: "/optimized/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Behavior School",
+      },
+    ],
   }
 };
 

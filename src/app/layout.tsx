@@ -10,6 +10,7 @@ import Script from "next/script";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || "https://behaviorschool.com"),
   title: "FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
   description: "Behavior School: Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides and IEP templates now!",
   keywords: [
@@ -471,7 +472,7 @@ export default function RootLayout({
         <meta name="distribution" content="global" />
         <meta name="language" content="en" />
         <meta name="content-language" content="en-US" />
-        <meta name="og:type" content="website" />
+        <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
 
         {/* E-A-T Enhancement Meta Tags */}

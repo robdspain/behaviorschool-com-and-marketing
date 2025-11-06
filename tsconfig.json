@@ -31,12 +31,12 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts"
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules",
     "listmonk/**",
+    "netlify/**",
     "src/app/bcba-mock-practice-test/page-original.tsx"
   ]
 }

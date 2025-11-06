@@ -9,54 +9,54 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Social Media Icons */}
         <div className="flex justify-center space-x-6 mb-4">
-          <Link 
-            href="https://twitter.com/behaviorschool" 
-            target="_blank" 
+          <Link
+            href="https://x.com/behavior_school"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
-            aria-label="Follow Behavior School on Twitter"
+            aria-label="Follow Behavior School on X"
           >
             <Twitter size={24} />
           </Link>
-          <Link 
-            href="https://github.com/behaviorschool" 
-            target="_blank" 
+          <Link
+            href="https://bsky.app/profile/behaviorschool.bsky.social"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
-            aria-label="View Behavior School on GitHub"
+            aria-label="Follow Behavior School on Bluesky"
           >
-            <Code size={24} />
+            <Image src="/icons/bluesky.svg" alt="Bluesky" width={24} height={24} />
           </Link>
-          <Link 
-            href="https://youtube.com/@behaviorschool" 
-            target="_blank" 
+          <Link
+            href="https://www.youtube.com/@BehaviorSchool"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
             aria-label="Subscribe to Behavior School on YouTube"
           >
             <Youtube size={24} />
           </Link>
-          <Link 
-            href="https://instagram.com/behaviorschool" 
-            target="_blank" 
+          <Link
+            href="https://www.instagram.com/behaviorschool"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
             aria-label="Follow Behavior School on Instagram"
           >
             <Instagram size={24} />
           </Link>
-          <Link 
-            href="https://facebook.com/behaviorschool" 
-            target="_blank" 
+          <Link
+            href="https://www.facebook.com/profile.php?id=61564836345571"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
             aria-label="Like Behavior School on Facebook"
           >
             <Facebook size={24} />
           </Link>
-          <Link 
-            href="https://linkedin.com/company/behaviorschool" 
-            target="_blank" 
+          <Link
+            href="https://www.linkedin.com/company/behavior-school/"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-gray-900 transition-colors"
             aria-label="Connect with Behavior School on LinkedIn"
@@ -114,22 +114,61 @@ export function Footer() {
       <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-center space-x-6 text-sm">
-            <Link href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/products" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Tools
+            </Link>
+            <Link href="/resources" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Resources
+            </Link>
+            <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
+              About
+            </Link>
+            <Link
+              href="https://study.behaviorschool.com/faq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
               FAQ
             </Link>
-            <Link href="https://study.behaviorschool.com/free-bcba-practice-exam" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="https://study.behaviorschool.com/free-bcba-practice-exam"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
               BCBA Practice Exams (Free)
             </Link>
-            <Link href="/contact" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="https://study.behaviorschool.com/contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
               Contact Us
             </Link>
-            <Link href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="https://study.behaviorschool.com/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="https://study.behaviorschool.com/terms-of-service"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
               Terms of Service
             </Link>
-            <Link href="/" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="https://behaviorschool.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
               Behavior School
             </Link>
             <Link href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors">

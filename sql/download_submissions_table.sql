@@ -26,7 +26,8 @@ BEGIN
   NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+  SET search_path = public, pg_temp;
 
 CREATE TRIGGER trigger_update_download_submissions_updated_at
   BEFORE UPDATE ON download_submissions

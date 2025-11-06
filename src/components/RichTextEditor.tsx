@@ -11,7 +11,7 @@ import Strike from '@tiptap/extension-strike'
 import TextAlign from '@tiptap/extension-text-align'
 import Youtube from '@tiptap/extension-youtube'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
-import { lowlight } from 'lowlight/lib/common'
+import { common, createLowlight } from 'lowlight'
 
 interface RichTextEditorProps {
   content: string
@@ -20,6 +20,7 @@ interface RichTextEditorProps {
 }
 
 export function RichTextEditor({ content, onChange, placeholder }: RichTextEditorProps) {
+  const lowlight = useMemo(() => createLowlight(common), [])
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -53,7 +54,7 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
     if (!editor) return
     const current = editor.getHTML()
     if (content && content !== current) {
-      editor.commands.setContent(content, false)
+      editor.commands.setContent(content, { emitUpdate: false })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content, editor])

@@ -159,7 +159,9 @@ BEGIN
 
   RETURN v_enrollment_id;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql
+  SECURITY DEFINER
+  SET search_path = public, pg_temp;
 
 -- Grant execute permission
 GRANT EXECUTE ON FUNCTION get_or_create_enrollment TO authenticated;

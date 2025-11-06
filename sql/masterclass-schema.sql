@@ -185,7 +185,8 @@ BEGIN
   NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+  SET search_path = public, pg_temp;
 
 -- Trigger to auto-update updated_at on masterclass_progress
 DROP TRIGGER IF EXISTS trigger_update_masterclass_progress_updated_at ON masterclass_progress;
@@ -209,7 +210,8 @@ BEGIN
 
   RETURN completed_sections = 4;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+  SET search_path = public, pg_temp;
 
 -- Function to calculate enrollment progress percentage
 CREATE OR REPLACE FUNCTION calculate_masterclass_progress(enrollment_uuid UUID)
@@ -229,7 +231,8 @@ BEGIN
 
   RETURN (completed_steps * 100 / total_steps);
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+  SET search_path = public, pg_temp;
 
 -- Function to generate unique certificate ID
 CREATE OR REPLACE FUNCTION generate_certificate_id()
@@ -261,7 +264,8 @@ BEGIN
 
   RETURN cert_id;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+  SET search_path = public, pg_temp;
 
 -- ============================================================================
 -- ROW LEVEL SECURITY (RLS) POLICIES

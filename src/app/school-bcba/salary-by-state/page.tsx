@@ -32,6 +32,17 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `School BCBA Salary by State ${year}: Ranges & Benefits`,
       description: "State-by-state School BCBA salary ranges with a chart, benefits, and negotiation tips.",
       type: "article",
+      url: "https://behaviorschool.com/school-bcba/salary-by-state",
+      siteName: "Behavior School",
+      locale: "en_US",
+      images: [
+        {
+          url: "/optimized/og-image.webp",
+          width: 1200,
+          height: 630,
+          alt: "Behavior School",
+        },
+      ],
     },
   };
 }
