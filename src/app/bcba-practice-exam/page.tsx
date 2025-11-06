@@ -1116,6 +1116,59 @@ export default function BCBAPracticeExamPage() {
           </div>
         </section>
       </div>
+
+      {/* FAQ Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What's the difference between free and paid BCBA practice exams?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our free exam offers 185 questions with instant feedback and detailed explanations. Paid platforms may include additional features like video explanations or study schedules, but our unlimited AI-generated questions ensure you never run out of free practice material."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I know if I'm ready to take the BCBA exam?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Consistent 80%+ scores on practice exams across all domains indicate strong readiness. Focus on weak areas identified through practice. Our adaptive system tracks your progress and provides readiness indicators based on your performance trends."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which BCBA practice exam is most accurate?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Look for exams written by BCBAs covering all BACB task list items. Our questions are developed by practicing BCBAs with AI-generated variations to ensure unlimited practice without repetition. The adaptive difficulty matches real exam conditions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Should I take a full BCBA mock exam or study by domain?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Both! Start with full mocks to identify weak domains, then use targeted practice on specific areas. Our system provides domain-specific practice quizzes (Domain A: 8 questions, Domain G: 35 questions, etc.) alongside full 185-question exams."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How many BCBA practice exams should I take before the real test?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Most successful candidates take 3-5 full mock exams plus hundreds of individual questions by domain. Our unlimited AI-generated questions let you practice as much as you need without ever seeing repeats."
+                }
+              }
+            ]
+          })
+        }}
+      />
     </div>
   );
 }
