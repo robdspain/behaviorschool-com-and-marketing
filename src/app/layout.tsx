@@ -9,8 +9,14 @@ import PerformanceMonitor from "@/components/PerformanceMonitor";
 import Script from "next/script";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 
+// Ensure OG image URLs never resolve to localhost in production crawls
+const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
+const EFFECTIVE_SITE_URL = (!RAW_SITE_URL || /localhost/i.test(RAW_SITE_URL))
+  ? "https://behaviorschool.com"
+  : RAW_SITE_URL;
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || "https://behaviorschool.com"),
+  metadataBase: new URL(EFFECTIVE_SITE_URL),
   title: "FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
   description: "Behavior School: Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides and IEP templates now!",
   keywords: [

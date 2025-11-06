@@ -53,5 +53,54 @@ export const metadata: Metadata = {
 };
 
 export default function ProductsPage() {
-  return <ProductsClient />;
+  return (
+    <>
+      {/* FAQ Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Are your BCBA tools free to use?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. We offer free BCBA mock exams, goal-writing tools, and printable templates. Premium options are available for expanded features, but core practice resources are free with no credit card required."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What products are best for exam prep?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Start with our Free BCBA Mock Practice Test for quick diagnostics, then use the full BCBA Practice Exam for unlimited, non-repetitive questions and detailed analytics. Add the study fluency system for structured progression."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you have tools for IEP goal writing and behavior plans?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Our IEP Goal Writer and Behavior Plans resources help generate measurable goals and intervention plans with templates, examples, and progress-monitoring tools."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can schools or districts use these tools?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely. Our resources are designed for school-based practice. We offer campus-ready templates, downloadable guides, and options for branding and team rollout."
+                }
+              }
+            ]
+          })
+        }}
+      />
+
+      <ProductsClient />
+    </>
+  );
 }
