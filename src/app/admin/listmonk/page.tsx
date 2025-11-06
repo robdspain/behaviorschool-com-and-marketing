@@ -5,10 +5,39 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase-client'
 import { Mail, ExternalLink, AlertTriangle } from 'lucide-react'
 import dynamic from 'next/dynamic'
+import React from 'react'
 const RichTextEditor = dynamic(() => import('@/components/RichTextEditor').then(m => m.RichTextEditor), {
   ssr: false,
   loading: () => <div className="border-2 border-slate-200 rounded-lg p-3 text-sm text-slate-500">Loading editor…</div>
 })
+
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; message?: string }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError(err: unknown) {
+    return { hasError: true, message: String(err) }
+  }
+  componentDidCatch(err: unknown) {
+    // eslint-disable-next-line no-console
+    console.error('Listmonk admin render error:', err)
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+          <div className="text-center max-w-lg">
+            <div className="w-16 h-16 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-slate-700 font-semibold mb-2">Newsletter admin encountered an error</p>
+            <p className="text-slate-600 text-sm">Please refresh. If it persists, we can open Listmonk directly.</p>
+          </div>
+        </div>
+      )
+    }
+    return this.props.children as any
+  }
+}
 
 type StatusResponse = {
   success: boolean
@@ -447,7 +476,8 @@ LISTMONK_PASSWORD=your-password`}
 
   // Full-screen native integration
   return (
-    <div className="fixed inset-0 bg-white overflow-auto">
+    <ErrorBoundary>
+    <div className="fixed inset-0 bg-white overflow-auto" suppressHydrationWarning>
       {/* Thin header bar */}
       <div className="h-14 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-between px-6 border-b border-blue-700">
         <div className="flex items-center gap-3">
@@ -872,5 +902,6 @@ LISTMONK_PASSWORD=your-password`}
         </div>
       )}
     </div>
+    </ErrorBoundary>
   )
 }
