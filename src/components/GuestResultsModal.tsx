@@ -10,6 +10,7 @@ export default function GuestResultsModal() {
   const router = useRouter();
   const { trackButtonClick } = useAnalytics();
   const [open, setOpen] = useState(false);
+  const quiz = params.get('quiz') || undefined;
 
   const shouldOpen = useMemo(() => {
     const markers = [
@@ -51,9 +52,10 @@ export default function GuestResultsModal() {
             <X className="w-5 h-5" />
           </button>
         </div>
-        <p className="text-slate-700 text-sm mb-4">
-          You completed a guest quiz. Sign in to unlock your score, explanations, and full analytics.
+        <p className="text-slate-700 text-sm mb-2">
+          You completed a guest quiz{quiz ? `: ${quiz}` : ''}.
         </p>
+        <p className="text-slate-700 text-sm mb-4">Sign in to unlock your score, explanations, and full analytics.</p>
         <div className="flex items-center gap-3">
           <a
             href={signupUrl}
