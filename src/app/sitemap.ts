@@ -6,6 +6,14 @@ export const revalidate = 3600
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://behaviorschool.com'
   const currentDate = new Date().toISOString()
+  const normalize = (p: string) => {
+    try {
+      let path = p.trim()
+      if (!path.startsWith('/')) path = '/' + path
+      if (path !== '/' && path.endsWith('/')) path = path.replace(/\/+$/, '')
+      return path
+    } catch { return p }
+  }
   // Legacy paths that now permanently redirect. Never include these in the sitemap.
   const legacyRedirectPaths = new Set<string>([
     '/bcba-mock-practice-test',
@@ -15,6 +23,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/bcba-study-tools',
     '/bcbas-in-schools',
     '/school-bcba/job-guide',
+  ])
+  // Hard noindex paths: pages intentionally kept out of sitemap
+  const hardNoindexPaths = new Set<string>([
+    '/resources',
   ])
 
   // Load admin indexing settings and exclude any paths explicitly set to noindex
@@ -267,8 +279,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const filteredBase = entries.filter((e) => {
     try {
       const url = new URL(e.url)
-      const path = url.pathname || '/'
-      return !noindex.has(path) && !deleted.has(path) && !legacyRedirectPaths.has(path)
+      const path = normalize(url.pathname || '/')
+      const pathAlt = path.endsWith('/') ? path.slice(0, -1) : path + '/'
+      return !noindex.has(path) && !noindex.has(pathAlt) &&
+             !deleted.has(path) && !deleted.has(pathAlt) &&
+             !legacyRedirectPaths.has(path) && !legacyRedirectPaths.has(pathAlt) &&
+             !hardNoindexPaths.has(path)
     } catch {
       return true
     }
@@ -279,13 +295,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const e of filteredBase) {
     try {
       const u = new URL(e.url)
-      existingPaths.add(u.pathname || '/')
+      existingPaths.add(normalize(u.pathname || '/'))
     } catch {}
   }
   const dynamicAdds: MetadataRoute.Sitemap = []
-  for (const path of includeSitemap) {
+  for (const p of includeSitemap) {
+    const path = normalize(p)
     if (noindex.has(path) || deleted.has(path)) continue
-    if (legacyRedirectPaths.has(path)) continue
+    if (legacyRedirectPaths.has(path) || hardNoindexPaths.has(path)) continue
     if (!existingPaths.has(path)) {
       dynamicAdds.push({
         url: `${baseUrl}${path}`,
