@@ -354,26 +354,37 @@ function BlogEditorContent() {
 
     setSaving(true)
     try {
-      // If editing an existing post, fetch the latest version first to get current updated_at
-      let latestUpdatedAt = post.updated_at
-      if (postId) {
+      // Helper function to fetch the latest updated_at from Ghost
+      const fetchLatestUpdatedAt = async (): Promise<string> => {
+        if (!postId) return post.updated_at
+
         try {
-          // Add small delay to ensure Ghost has processed any recent changes
-          await new Promise(resolve => setTimeout(resolve, 200))
+          // Longer delay to ensure Ghost has fully processed any recent changes
+          // Especially important after image uploads
+          const delayMs = retryCount === 0 ? 500 : 1000
+          await new Promise(resolve => setTimeout(resolve, delayMs))
 
           const fetchResponse = await fetch(`/api/admin/blog/posts/${postId}?_=${Date.now()}`, {
-            cache: 'no-store'
+            cache: 'no-store',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate'
+            }
           })
           const fetchResult = await fetchResponse.json()
           if (fetchResult.success && fetchResult.post) {
-            latestUpdatedAt = fetchResult.post.updated_at
-            console.log('Fetched latest updated_at before save:', latestUpdatedAt)
+            console.log(`[Retry ${retryCount}] Fetched latest updated_at:`, fetchResult.post.updated_at)
+            return fetchResult.post.updated_at
           }
         } catch (fetchError) {
           console.error('Error fetching latest post data:', fetchError)
-          // Continue with existing updated_at if fetch fails
         }
+
+        // Fallback to existing updated_at if fetch fails
+        return post.updated_at
       }
+
+      // Fetch the latest version FRESH on each attempt (including retries)
+      const latestUpdatedAt = await fetchLatestUpdatedAt()
 
       const statusToSave = newStatus || post.status
 
@@ -427,11 +438,21 @@ function BlogEditorContent() {
       const result = await response.json()
 
       // Handle 409 conflict (stale updated_at) with automatic retry
-      if (!result.success && result.error?.includes('409') && retryCount < 2) {
-        console.log(`Got 409 conflict, retrying (attempt ${retryCount + 1}/2)...`)
+      // Ghost sometimes takes time to process changes (like image uploads) and update timestamps
+      if (!result.success && result.error?.includes('409') && retryCount < 3) {
+        console.warn(`⚠️ Got 409 conflict (attempt ${retryCount + 1}/3). Ghost's updated_at was stale.`)
+        console.log('   Waiting 1 second, then fetching fresh timestamp and retrying...')
         setSaving(false)
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await new Promise(resolve => setTimeout(resolve, 1000))
         return handleSave(newStatus, retryCount + 1)
+      }
+
+      // If we've exhausted retries, show helpful error message
+      if (!result.success && result.error?.includes('409')) {
+        console.error('❌ Failed after 3 retry attempts. Ghost timestamp conflict persists.')
+        alert('Failed to save: The post was modified elsewhere. Please refresh the page and try again.')
+        setSaving(false)
+        return
       }
 
       if (result.success) {
