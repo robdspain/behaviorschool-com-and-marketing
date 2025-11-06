@@ -36,13 +36,46 @@ export function ProductsClient() {
       {/* Products Section */}
       <section id="products" className="pt-10 md:pt-14 pb-16 lg:pb-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
               FREE BCBA Tools & Training
             </h1>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
               Professional resources for BCBA certification, behavior analysis, and school-based support
             </p>
+          </div>
+          {/* Primary CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10">
+            <Link
+              href="/free-bcba-mock-practice-test"
+              className="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-md hover:shadow-lg"
+              aria-label="Start free BCBA mock exam"
+            >
+              Start Free Mock Exam
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+            <span className="text-sm text-slate-600">No signup required</span>
+            <Link
+              href="/iep-goals"
+              className="inline-flex items-center px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-md hover:shadow-lg"
+              aria-label="Try the IEP Goal Writer"
+            >
+              Try IEP Goal Writer
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </div>
+
+          {/* Trust signals */}
+          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 mb-12">
+            <div className="flex items-center justify-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-emerald-800 text-sm font-semibold">
+              <Check className="h-4 w-4" /> Aligned with BACB 6th Edition
+            </div>
+            <Link href="/about" className="flex items-center justify-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-3 py-2 text-blue-800 text-sm font-semibold hover:bg-blue-100">
+              <Users className="h-4 w-4" /> Built by BCBA educators
+            </Link>
+            <Link href="/contact" className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-800 text-sm font-semibold hover:bg-slate-100">
+              <FileText className="h-4 w-4" /> Questions? Contact us
+            </Link>
           </div>
           <motion.div
             className="grid gap-16 lg:gap-20"
@@ -145,7 +178,7 @@ export function ProductsClient() {
                     width={600}
                     height={400}
                     className="w-full h-auto rounded-2xl shadow-2xl"
-                    loading="eager"
+                    priority
                   />
                 </div>
                 <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-200 to-yellow-100 opacity-80 animate-pulse" />
@@ -467,8 +500,43 @@ export function ProductsClient() {
           </motion.div>
         </div>
       </section>
+      {/* Testimonials */}
+      <section className="py-12 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">What educators and BCBAs say</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[ 
+              { quote: 'The mock exams felt exactly like the real thing and the analytics showed me what to fix.', author: 'BCBA Candidate' },
+              { quote: 'The IEP goal writer saved our team hours each week and improved goal quality.', author: 'Special Education Coordinator' },
+              { quote: 'Clear, school-focused guidance that actually works in classrooms.', author: 'School-based BCBA' },
+            ].map((t, i) => (
+              <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p className="text-slate-800">“{t.quote}”</p>
+                <div className="mt-2 text-sm text-slate-600 font-semibold">— {t.author}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      
+      {/* Structured Data: ItemList of products */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'BCBA Mock Exams', url: 'https://behaviorschool.com/bcba-practice-exam' },
+              { '@type': 'ListItem', position: 2, name: 'Free Mock Practice Test', url: 'https://behaviorschool.com/free-bcba-mock-practice-test' },
+              { '@type': 'ListItem', position: 3, name: 'IEP Goal Writer', url: 'https://behaviorschool.com/iep-goals' },
+              { '@type': 'ListItem', position: 4, name: 'Behavior Plan Writer', url: 'https://behaviorschool.com/behavior-plans' },
+              { '@type': 'ListItem', position: 5, name: 'Study Tools Platform', url: 'https://behaviorschool.com/behavior-study-tools' },
+              { '@type': 'ListItem', position: 6, name: 'School-Based BCBA Hub', url: 'https://behaviorschool.com/school-bcba' },
+            ],
+          }),
+        }}
+      />
     </div>
   );
 }
