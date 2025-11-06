@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavior School Weekly - {{ .Subject }}</title>
+    <style>
+        /* Reset styles */
+        body, table, td, p, a, li, blockquote {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+
+        /* Email styles */
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: #FAF3E0;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #d1fae5;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Content sections */
+        .content {
+            padding: 30px 20px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        /* Featured post */
+        .featured-section {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .featured-label {
+            display: inline-block;
+            background-color: #10b981;
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .featured-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1e293b;
+            margin: 10px 0;
+            line-height: 1.3;
+        }
+
+        .featured-description {
+            color: #475569;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 12px 0;
+        }
+
+        /* Product spotlight */
+        .product-section {
+            background-color: #f8fafc;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #10b981;
+            margin-bottom: 8px;
+        }
+
+        /* Quick tip */
+        .tip-section {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .tip-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .tip-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .tip-content {
+            color: #78350f;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff !important;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1e293b;
+            color: #94a3b8;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .footer-links {
+            margin: 15px 0;
+        }
+
+        .footer-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .unsubscribe {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .unsubscribe a {
+            color: #94a3b8;
+            text-decoration: underline;
+        }
+
+        /* Utility classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <a href="https://behaviorschool.com" class="logo">Behavior School</a>
+            <p class="tagline">Tools, Training, and Community for BCBAs</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <p class="greeting">Hi {{ .FirstName | default "there" }},</p>
+
+            <p>Welcome to this week's edition! Here's what we have for you:</p>
+
+            <!-- Featured Blog Post Section -->
+            <div class="featured-section">
+                <span class="featured-label">📚 New Resource</span>
+                <h2 class="featured-title">{{ .FeaturedPostTitle }}</h2>
+                <p class="featured-description">{{ .FeaturedPostDescription }}</p>
+                <div class="text-center">
+                    <a href="{{ .FeaturedPostURL }}" class="cta-button">Read Full Article →</a>
+                </div>
+            </div>
+
+            <!-- Product Spotlight Section -->
+            <div class="product-section">
+                <h3 class="section-title">🎯 Product Spotlight</h3>
+                <p class="product-title">{{ .ProductTitle }}</p>
+                <p style="color: #475569; font-size: 14px; line-height: 1.6;">
+                    {{ .ProductDescription }}
+                </p>
+                <p style="margin-top: 15px;">
+                    <a href="{{ .ProductURL }}" style="color: #10b981; font-weight: bold; text-decoration: none;">
+                        Try it now (100% free) →
+                    </a>
+                </p>
+            </div>
+
+            <!-- Quick Tip Section -->
+            <div class="tip-section">
+                <div class="tip-icon">💡</div>
+                <h4 class="tip-title">Quick Tip of the Week</h4>
+                <p class="tip-content">{{ .QuickTip }}</p>
+            </div>
+
+            <!-- Secondary CTA -->
+            <div class="text-center mt-20 mb-20">
+                <p style="font-size: 16px; color: #475569; margin-bottom: 15px;">
+                    <strong>{{ .SecondaryCTAText }}</strong>
+                </p>
+                <a href="{{ .SecondaryCTAURL }}" class="cta-button">{{ .SecondaryCTAButton }}</a>
+            </div>
+
+            <!-- Community Section -->
+            <div style="border-top: 2px solid #e2e8f0; padding-top: 20px; margin-top: 30px;">
+                <p style="font-size: 14px; color: #64748b;">
+                    <strong>Join the conversation:</strong> Connect with 1,000+ BCBAs in our community forum,
+                    share experiences, and get support from behavior analysts nationwide.
+                </p>
+                <p style="margin-top: 10px;">
+                    <a href="https://community.behaviorschool.com" style="color: #10b981; font-weight: bold; text-decoration: none;">
+                        Join Community →
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p style="margin-bottom: 15px;">
+                <strong style="color: #cbd5e1;">Behavior School</strong><br>
+                Professional development for school-based BCBAs
+            </p>
+
+            <div class="footer-links">
+                <a href="https://behaviorschool.com/blog" class="footer-link">Blog</a> |
+                <a href="https://behaviorschool.com/products" class="footer-link">Free Tools</a> |
+                <a href="https://behaviorschool.com/about" class="footer-link">About</a> |
+                <a href="https://behaviorschool.com/contact" class="footer-link">Contact</a>
+            </div>
+
+            <div class="social-links">
+                <a href="https://twitter.com/behaviorschool" class="social-link">𝕏</a>
+                <a href="https://www.linkedin.com/company/behavior-school" class="social-link">LinkedIn</a>
+                <a href="https://community.behaviorschool.com" class="social-link">Community</a>
+            </div>
+
+            <div class="unsubscribe">
+                <p>
+                    You're receiving this because you signed up for Behavior School updates.<br>
+                    <a href="{{ .UnsubscribeURL }}">Unsubscribe</a> |
+                    <a href="{{ .PreferencesURL }}">Email Preferences</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
