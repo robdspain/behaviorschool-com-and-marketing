@@ -232,38 +232,11 @@ function BlogEditorContent() {
       if (result.success && result.images && result.images[0]) {
         const imageUrl = transformGhostImageUrl(result.images[0].url)
 
-        // If editing an existing post, we need to refetch to get the latest updated_at
-        // Ghost updates the post internally when an image is uploaded
-        if (postId) {
-          try {
-            // Small delay to ensure Ghost has processed the image upload
-            await new Promise(resolve => setTimeout(resolve, 300))
-            
-            const refetchResponse = await fetch(`/api/admin/blog/posts/${postId}`)
-            const refetchResult = await refetchResponse.json()
-            
-            if (refetchResult.success && refetchResult.post) {
-              // Update the entire post with fresh data from Ghost
-              // but preserve any local edits the user might have made
-              setPost(prev => ({
-                ...prev,
-                feature_image: imageUrl, // Use the new image
-                updated_at: refetchResult.post.updated_at, // Fresh timestamp from Ghost
-                id: refetchResult.post.id, // Ensure ID is current
-              }))
-            } else {
-              // Fallback: just update the image without timestamp
-              setPost(prev => ({ ...prev, feature_image: imageUrl }))
-            }
-          } catch (refetchError) {
-            console.error('Error refetching post after image upload:', refetchError)
-            // Fallback: just update the image
-            setPost(prev => ({ ...prev, feature_image: imageUrl }))
-          }
-        } else {
-          // New post - just update the image
-          setPost(prev => ({ ...prev, feature_image: imageUrl }))
-        }
+        // Simply update the feature image URL in state
+        // The updated_at timestamp will be fetched fresh when saving
+        setPost(prev => ({ ...prev, feature_image: imageUrl }))
+
+        console.log('Image uploaded successfully:', imageUrl)
       } else {
         alert('Failed to upload image')
       }
@@ -373,7 +346,7 @@ function BlogEditorContent() {
     }
   }
 
-  const handleSave = async (newStatus?: 'draft' | 'published') => {
+  const handleSave = async (newStatus?: 'draft' | 'published', retryCount = 0) => {
     if (!post.title.trim()) {
       alert('Please enter a title')
       return
@@ -385,7 +358,12 @@ function BlogEditorContent() {
       let latestUpdatedAt = post.updated_at
       if (postId) {
         try {
-          const fetchResponse = await fetch(`/api/admin/blog/posts/${postId}`)
+          // Add small delay to ensure Ghost has processed any recent changes
+          await new Promise(resolve => setTimeout(resolve, 200))
+
+          const fetchResponse = await fetch(`/api/admin/blog/posts/${postId}?_=${Date.now()}`, {
+            cache: 'no-store'
+          })
           const fetchResult = await fetchResponse.json()
           if (fetchResult.success && fetchResult.post) {
             latestUpdatedAt = fetchResult.post.updated_at
@@ -447,6 +425,14 @@ function BlogEditorContent() {
       )
 
       const result = await response.json()
+
+      // Handle 409 conflict (stale updated_at) with automatic retry
+      if (!result.success && result.error?.includes('409') && retryCount < 2) {
+        console.log(`Got 409 conflict, retrying (attempt ${retryCount + 1}/2)...`)
+        setSaving(false)
+        await new Promise(resolve => setTimeout(resolve, 500))
+        return handleSave(newStatus, retryCount + 1)
+      }
 
       if (result.success) {
         // If publishing and auto-post is enabled, trigger social media posting
