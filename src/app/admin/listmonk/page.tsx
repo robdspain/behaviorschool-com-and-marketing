@@ -4,7 +4,11 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase-client'
 import { Mail, ExternalLink, AlertTriangle } from 'lucide-react'
-import { RichTextEditor } from '@/components/RichTextEditor'
+import dynamic from 'next/dynamic'
+const RichTextEditor = dynamic(() => import('@/components/RichTextEditor').then(m => m.RichTextEditor), {
+  ssr: false,
+  loading: () => <div className="border-2 border-slate-200 rounded-lg p-3 text-sm text-slate-500">Loading editor…</div>
+})
 
 type StatusResponse = {
   success: boolean
