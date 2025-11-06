@@ -133,9 +133,10 @@ export default function Home() {
                 </p>
               </div>
               <div className="pt-2">
-                <Link 
-                  href="/transformation-program" 
-                  className="inline-flex items-center bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold group transition-colors text-sm sm:text-base w-full sm:w-auto justify-center min-w-[280px] text-center"
+                <Link
+                  href="/transformation-program"
+                  style={{backgroundColor: '#E3B23C'}}
+                  className="inline-flex items-center hover:opacity-90 focus:opacity-90 focus:ring-2 focus:ring-offset-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold group transition-all text-sm sm:text-base w-full sm:w-auto justify-center min-w-[280px] text-center"
                 >
                   Get the Full Program Details →
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -176,7 +177,7 @@ export default function Home() {
                 </ul>
               </div>
               <div className="pt-2">
-                <Button asChild size="lg" className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white rounded-xl w-full sm:w-auto min-w-[200px]">
+                <Button asChild size="lg" style={{backgroundColor: '#E3B23C'}} className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold hover:opacity-90 focus:opacity-90 focus:ring-2 focus:ring-offset-2 text-white rounded-xl w-full sm:w-auto min-w-[200px]">
                   <a href="https://community.behaviorschool.com" target="_blank" rel="noopener noreferrer">
                     Join the School BCBA Community
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -228,7 +229,8 @@ export default function Home() {
                   <div className="space-y-2 mt-auto">
                     <Link
                       href="/bcba-mock-practice-test"
-                      className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      style={{backgroundColor: '#E3B23C'}}
+                      className="block w-full hover:opacity-90 focus:opacity-90 focus:ring-2 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-all"
                     >
                       Free BCBA Mock Exam
                     </Link>
@@ -253,7 +255,8 @@ export default function Home() {
                   <div className="mt-auto">
                     <Link
                       href="/supervisors"
-                      className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      style={{backgroundColor: '#E3B23C'}}
+                      className="block w-full hover:opacity-90 focus:opacity-90 focus:ring-2 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-all"
                     >
                       BCBA Supervision Curriculum Free
                     </Link>
@@ -272,7 +275,8 @@ export default function Home() {
                   <div className="mt-auto">
                     <Link
                       href="/iep-behavior-goals"
-                      className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      style={{backgroundColor: '#E3B23C'}}
+                      className="block w-full hover:opacity-90 focus:opacity-90 focus:ring-2 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-all"
                     >
                       IEP Behavior Goals
                     </Link>
@@ -289,9 +293,10 @@ export default function Home() {
                   <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">Behavior Intervention Plan Writer</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 flex-grow">Develop comprehensive behavior intervention plans (BIPs) from functional behavior assessments.</p>
                   <div className="mt-auto">
-                    <Link 
+                    <Link
                       href="/behavior-plans"
-                      className="block w-full bg-emerald-600 hover:bg-emerald-700 focus:bg-emerald-700 focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                      style={{backgroundColor: '#E3B23C'}}
+                      className="block w-full hover:opacity-90 focus:opacity-90 focus:ring-2 focus:ring-offset-2 text-white py-2 px-4 rounded-lg text-sm font-medium transition-all"
                     >
                       Behavior Plan Details
                     </Link>

@@ -158,106 +158,100 @@ export function IEPBehaviorGoalsClient() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
       />
 
-      {/* Breadcrumbs */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
-        <Breadcrumbs
-          items={[
-            { label: "Products", href: "/products" },
-            { label: "IEP Goal Writer", href: "/iep-goals" },
-            { label: "Free Behavior Goals Generator" }
-          ]}
-        />
-      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumbs */}
+        <div className="pt-32 pb-4">
+          <Breadcrumbs
+            items={[
+              { label: "Products", href: "/products" },
+              { label: "IEP Goal Writer", href: "/iep-goals" },
+              { label: "Free Behavior Goals Generator" }
+            ]}
+          />
+        </div>
 
-      {/* Hero Section */}
-      <section className="pt-12 pb-20 w-full">
-        <div className="w-full max-w-md mx-auto px-4 sm:max-w-lg md:max-w-2xl lg:max-w-5xl">
-          {/* Premium Card Layout */}
-          <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
-            {/* Top CTA Bar */}
-            <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-center py-4 px-6 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/20 to-transparent"></div>
-              <span className="relative font-semibold text-sm tracking-wide">✨ Free IEP Behavior Goals Generator — Create Behavior Goals in Under 5 Minutes</span>
+        {/* Hero Section */}
+        <section className="relative py-16 lg:py-24 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-amber-50 rounded-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-gradient-to-br from-blue-100 to-transparent opacity-30 blur-3xl" />
+          <div className="absolute -bottom-10 left-0 w-80 h-80 rounded-full bg-gradient-to-tr from-amber-100 to-transparent opacity-20 blur-2xl" />
+
+          <div className="relative text-center">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-8">
+              ✨ Free Sample from Our <a href="/iep-goals" className="underline hover:text-blue-900 ml-1">IEP Goal Writer</a>
             </div>
 
-            {/* Content Section */}
-            <div className="p-8 md:p-12 text-center">
-              {/* Eyebrow */}
-              <div className="inline-flex items-center justify-center px-4 py-2 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-full mb-6 uppercase tracking-wider border border-emerald-200">
-                FREE SAMPLE FROM OUR <a href="/iep-goals" className="underline hover:text-emerald-800">IEP GOAL WRITER</a>
-              </div>
+            {/* Main Headline */}
+            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+              Free IEP Behavior Goals Generator
+              <span className="block bg-gradient-to-r from-blue-600 to-amber-600 bg-clip-text text-transparent">Create Goals in Under 5 Minutes</span>
+            </h1>
 
-              {/* Main Headline */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-6 tracking-tight">
-                Free IEP Behavior Goals Generator — Create Behavior Goals for IEP
-              </h1>
+            {/* Subheadline */}
+            <p className="text-xl text-slate-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+              Generate professional IEP behavior goals in minutes. Our specialized wizard transforms lengthy IEP sessions into quick, compliant goal creation with measurable outcomes.
+            </p>
 
-              {/* Subheadline */}
-              <p className="text-slate-600 text-lg md:text-xl mb-10 leading-relaxed max-w-3xl mx-auto">
-                Generate <span className="text-emerald-600 font-semibold">free IEP behavior goals</span> in under 5 minutes. Our specialized <span className="text-emerald-600 font-semibold">behavior goal IEP</span> wizard transforms <span className="text-emerald-600 font-semibold">3-4 hour IEP sessions</span> into quick, compliant goal creation.
-              </p>
-
-              {/* Main CTA Button */}
+            {/* Main CTA Button */}
+            <div className="mb-6">
               <button
                 onClick={handleCTAClick}
-                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 w-full md:w-auto text-base group relative overflow-hidden mb-8"
+                style={{backgroundColor: '#E3B23C'}}
+                className="hover:opacity-90 text-white font-bold py-4 px-12 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 text-lg"
               >
-                <span className="relative z-10">Start Creating Goals Now</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                Start Creating Goals Now
               </button>
-              <div className="mt-2">
-                <a href="/iep-goal-qualitychecker" className="text-emerald-700 underline text-sm">
-                  Already have a goal? Check quality →
-                </a>
-              </div>
+              <p className="mt-3 text-sm text-slate-600">No signup required • 100% free • Results in minutes</p>
+            </div>
 
-              {/* Widget Preview Image */}
-              <div className="mt-8">
-                <div className="relative max-w-4xl mx-auto">
-                  <div className="bg-white rounded-lg border border-slate-200 shadow-lg overflow-hidden">
-                    <img
-                      src="/images/iep-behavior-goals-widget-preview.png"
-                      alt="IEP Behavior Goals Generator Widget Preview - Shows the step-by-step interface for creating behavior goals"
-                      className="w-full h-auto"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10 pointer-events-none"></div>
-                </div>
+            {/* Secondary Link */}
+            <div className="mb-8">
+              <a href="/iep-goal-qualitychecker" className="text-blue-600 hover:text-blue-700 underline text-sm font-medium">
+                Already have a goal? Check quality →
+              </a>
+            </div>
+
+            {/* Trust Bar */}
+            <div className="inline-flex items-center justify-center gap-6 px-8 py-4 bg-blue-50 border-2 border-blue-200 rounded-2xl mb-8">
+              <div className="flex items-center gap-2">
+                <div className="text-2xl font-bold text-blue-600">100%</div>
+                <span className="text-sm text-slate-700">Client-Side</span>
+              </div>
+              <div className="h-6 w-px bg-blue-300" />
+              <div className="flex items-center gap-2">
+                <div className="text-2xl font-bold text-blue-600">0</div>
+                <span className="text-sm text-slate-700">Registration</span>
+              </div>
+              <div className="h-6 w-px bg-blue-300" />
+              <div className="flex items-center gap-2">
+                <div className="text-2xl font-bold text-blue-600">5</div>
+                <span className="text-sm text-slate-700">Minutes</span>
+              </div>
+              <div className="h-6 w-px bg-blue-300" />
+              <div className="flex items-center gap-2">
+                <div className="text-2xl font-bold" style={{color: '#E3B23C'}}>Free</div>
+                <span className="text-sm text-slate-700">To Use</span>
               </div>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="px-8 pb-8 border-t border-slate-100">
-              <div className="flex items-center justify-center space-x-8 pt-6">
-                {/* Trust Indicator 1 */}
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-emerald-600">100%</div>
-                  <div className="text-xs text-slate-500 uppercase tracking-wide">Client-Side</div>
+            {/* Widget Preview Image */}
+            <div className="mt-8">
+              <div className="relative max-w-4xl mx-auto">
+                <div className="bg-white rounded-lg border border-slate-200 shadow-lg overflow-hidden">
+                  <img
+                    src="/images/iep-behavior-goals-widget-preview.png"
+                    alt="IEP Behavior Goals Generator Widget Preview - Shows the step-by-step interface for creating behavior goals"
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
                 </div>
-
-                {/* Trust Indicator 2 */}
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-emerald-600">0</div>
-                  <div className="text-xs text-slate-500 uppercase tracking-wide">Registration</div>
-                </div>
-
-                {/* Trust Indicator 3 */}
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-emerald-600">5</div>
-                  <div className="text-xs text-slate-500 uppercase tracking-wide">Minutes</div>
-                </div>
-
-                {/* Trust Indicator 4 */}
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-emerald-600">Free</div>
-                  <div className="text-xs text-slate-500 uppercase tracking-wide">To Use</div>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10 pointer-events-none"></div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Three Key Benefits Bar */}
       <section className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 py-12 overflow-hidden">
@@ -309,12 +303,12 @@ export function IEPBehaviorGoalsClient() {
               href="/bcba-study-tools"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-slate-200 group"
             >
-              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
                 BCBA Study Tools
               </h3>
               <p className="text-slate-600 text-sm">
@@ -326,12 +320,12 @@ export function IEPBehaviorGoalsClient() {
               href="/iep-goals"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-slate-200 group"
             >
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{backgroundColor: '#FEF3D3'}}>
+                <svg className="w-6 h-6" style={{color: '#D4A017'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-lg font-semibold text-slate-900 mb-2 transition-colors group-hover:text-blue-600">
                 IEP Goal Writer
               </h3>
               <p className="text-slate-600 text-sm">
@@ -356,11 +350,11 @@ export function IEPBehaviorGoalsClient() {
               </p>
             </a>
           </div>
-          
+
           <div className="mt-8 pt-8 border-t border-slate-200">
             <p className="text-center text-slate-600 mb-4">
               Looking for values-aligned goal setting? Check out our{" "}
-              <a href="/values-goal-assistant-landing" className="text-emerald-700 hover:text-emerald-800 font-semibold underline">
+              <a href="/values-goal-assistant-landing" className="text-blue-600 hover:text-blue-700 font-semibold underline">
                 Values Goal Assistant
               </a>
               {" "}for creating student-centered, values-driven IEP goals.
@@ -370,35 +364,38 @@ export function IEPBehaviorGoalsClient() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="relative py-20 bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-700 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/20 via-transparent to-blue-600/20"></div>
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-xl"></div>
-          <div className="absolute bottom-10 right-10 w-24 h-24 bg-blue-300 rounded-full blur-xl"></div>
-        </div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
+      <section className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-3xl shadow-2xl" style={{background: 'linear-gradient(135deg, #1E3A34 0%, #152825 100%)'}}>
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-xl"></div>
+              <div className="absolute bottom-10 right-10 w-24 h-24" style={{backgroundColor: '#E3B23C', filter: 'blur(64px)'}}></div>
+            </div>
+            <div className="relative px-8 py-16 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-6">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight">
+                Ready to Generate Your IEP Behavior Goals?
+              </h2>
+              <p className="text-xl text-slate-200 mb-6 max-w-2xl mx-auto leading-relaxed">
+                Start creating compliant, measurable behavior goals in under 5 minutes with our specialized tool.
+              </p>
+              <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                This free behavior goals generator is just a sample of our comprehensive <a href="/iep-goals" className="text-white hover:opacity-80 underline font-semibold">IEP Goal Writer</a> that creates goals for all areas, not just behavior.
+              </p>
+              <button
+                onClick={handleCTAClick}
+                style={{backgroundColor: '#E3B23C'}}
+                className="hover:opacity-90 text-white font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-lg"
+              >
+                Get Started Now - It&apos;s Free
+              </button>
+              <p className="text-slate-300 text-sm mt-4">Start immediately • 100% free</p>
+            </div>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight">
-            Ready to Generate Your IEP Behavior Goals?
-          </h2>
-          <p className="text-xl text-emerald-100 mb-6 max-w-2xl mx-auto leading-relaxed">
-            Start creating compliant, measurable behavior goals in under 5 minutes with our specialized tool.
-          </p>
-          <p className="text-lg text-emerald-100/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-            This free behavior goals generator is just a sample of our comprehensive <a href="/iep-goals" className="text-white hover:text-emerald-100 underline font-semibold">IEP Goal Writer</a> that creates goals for all areas, not just behavior.
-          </p>
-          <button
-            onClick={handleCTAClick}
-            className="bg-white hover:bg-slate-50 text-emerald-600 font-bold py-4 px-8 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-lg group relative overflow-hidden"
-          >
-            <span className="relative z-10">Get Started Now - It&apos;s Free</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-white to-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </button>
-          <p className="text-emerald-100/80 text-sm mt-4">Start immediately • 100% free</p>
         </div>
       </section>
 
