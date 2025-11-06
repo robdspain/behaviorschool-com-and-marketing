@@ -17,9 +17,17 @@ export async function GET(_req: NextRequest, { params }: { params: { path: strin
     const safePath = restPath.startsWith('content/images/') ? restPath : `content/images/${restPath.replace(/^\/?/, '')}`
     const targetUrl = `${base}/${safePath}`
 
-    const upstream = await fetch(targetUrl, { cache: 'no-store' })
+    const upstream = await fetch(targetUrl, {
+      cache: 'no-store',
+      redirect: 'follow',
+      headers: {
+        Accept: 'image/avif,image/webp,image/*,*/*;q=0.8',
+        'User-Agent': 'BehaviorSchoolImageProxy/1.0'
+      }
+    })
     if (!upstream.ok) {
-      return new Response('Not found', { status: upstream.status })
+      console.error('[media/ghost] upstream error', upstream.status, targetUrl)
+      return new Response('Not found', { status: upstream.status, headers: { 'X-Upstream-Status': String(upstream.status) } })
     }
 
     // Copy headers but avoid hop-by-hop
@@ -35,4 +43,3 @@ export async function GET(_req: NextRequest, { params }: { params: { path: strin
     return new Response('Proxy error', { status: 500 })
   }
 }
-

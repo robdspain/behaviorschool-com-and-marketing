@@ -632,6 +632,28 @@ function BlogEditorContent() {
                   className="hidden"
                 />
               </label>
+              {post.feature_image && (
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      const u = post.feature_image.startsWith('/media/ghost') ? post.feature_image : transformGhostImageUrl(post.feature_image)
+                      const ghost = transformToGhostUrl(u)
+                      const res1 = await fetch(`/api/admin/blog/images/test?url=${encodeURIComponent(u)}`)
+                      const r1 = await res1.json()
+                      const res2 = await fetch(`/api/admin/blog/images/test?url=${encodeURIComponent(ghost)}`)
+                      const r2 = await res2.json()
+                      alert(`Proxy: ${r1.status} ${r1.contentType || ''}\nGhost: ${r2.status} ${r2.contentType || ''}`)
+                    } catch (e) {
+                      alert('Test failed')
+                    }
+                  }}
+                  className="px-4 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
+                  title="Test image URLs"
+                >
+                  Test Image
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => setShowImageGenerator(true)}
