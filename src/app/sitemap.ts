@@ -6,6 +6,16 @@ export const revalidate = 3600
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://behaviorschool.com'
   const currentDate = new Date().toISOString()
+  // Legacy paths that now permanently redirect. Never include these in the sitemap.
+  const legacyRedirectPaths = new Set<string>([
+    '/bcba-mock-practice-test',
+    '/free-bcba-mock-practice-test',
+    '/school-based-bcba',
+    '/behavior-study-tools',
+    '/bcba-study-tools',
+    '/bcbas-in-schools',
+    '/school-bcba/job-guide',
+  ])
 
   // Load admin indexing settings and exclude any paths explicitly set to noindex
   const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL || baseUrl
@@ -49,19 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/behavior-study-tools`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
       url: `${baseUrl}/bcba-exam-prep`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/bcba-study-tools`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.95,
@@ -87,7 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/school-bcba/job-guide`,
+      url: `${baseUrl}/school-bcba/job-guide-2025`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -112,24 +110,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.85,
     },
-    {
-      url: `${baseUrl}/school-based-bcba`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/free-bcba-mock-practice-test`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-mock-practice-test`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
+    // Removed redirecting legacy URLs from sitemap:
+    // - /school-based-bcba -> /school-bcba
+    // - /free-bcba-mock-practice-test -> /free-bcba-practice-exam
+    // - /bcba-mock-practice-test -> /bcba-practice-exam
     {
       url: `${baseUrl}/behavior-plans`,
       lastModified: currentDate,
@@ -182,12 +166,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
-    {
-      url: `${baseUrl}/bcbas-in-schools`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
+    // Removed legacy blog route that redirects: /bcbas-in-schools -> /school-bcba
     {
       url: `${baseUrl}/bcba-study-fluency`,
       lastModified: currentDate,
@@ -289,7 +268,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     try {
       const url = new URL(e.url)
       const path = url.pathname || '/'
-      return !noindex.has(path) && !deleted.has(path)
+      return !noindex.has(path) && !deleted.has(path) && !legacyRedirectPaths.has(path)
     } catch {
       return true
     }
@@ -306,6 +285,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dynamicAdds: MetadataRoute.Sitemap = []
   for (const path of includeSitemap) {
     if (noindex.has(path) || deleted.has(path)) continue
+    if (legacyRedirectPaths.has(path)) continue
     if (!existingPaths.has(path)) {
       dynamicAdds.push({
         url: `${baseUrl}${path}`,
