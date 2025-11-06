@@ -40,7 +40,7 @@ export async function GET(req: NextRequest, { params }: { params: { path: string
     const isProcessable = /image\/(png|jpeg|jpg|webp)/i.test(ct)
     const sourceBuf = Buffer.from(await upstream.arrayBuffer())
 
-    // Parse basic transform params
+    // Parse optional transform params; only process if explicitly requested
     const url = new URL(req.url)
     const wParam = url.searchParams.get('w')
     const qParam = url.searchParams.get('q')
@@ -49,7 +49,9 @@ export async function GET(req: NextRequest, { params }: { params: { path: string
     const quality = Math.max(40, Math.min(90, Number(qParam) || 75))
     const targetFormat = (fParam === 'avif' || fParam === 'jpeg' || fParam === 'webp') ? fParam : 'webp'
 
-    if (!isProcessable) {
+    const hasTransforms = Boolean(wParam || qParam || fParam)
+
+    if (!isProcessable || !hasTransforms) {
       headers.set('Content-Type', ct)
       return new Response(sourceBuf, { status: 200, headers })
     }

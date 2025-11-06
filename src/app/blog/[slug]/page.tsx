@@ -168,9 +168,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     out = out.replace(/src=\"\/\/([^\"]+)\"/g, 'src="https://$1"');
     // Force https for any http Ghost URL
     out = out.replace(new RegExp(`src=\\"http:\\/\\/${ghostBase.replace(/https?:\/\//, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`,'g'), `src="https://${ghostBase.replace(/https?:\/\//, '')}`);
-    // Rewrite any Ghost content images (absolute or relative) to proxy path
-    out = out.replace(new RegExp(`src=\\\"${ghostContentPrefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\\"]+)\\\"`, 'g'), (_m, rest) => `src="/media/ghost/content/images/${rest}"`);
-    out = out.replace(/src=\"(\/content\/images\/[^\"]+)\"/g, (_m, p1) => `src="/media/ghost${p1}"`);
+    // Rewrite any Ghost content images (absolute or relative) to proxy path with compression params
+    out = out.replace(
+      new RegExp(`src=\\\"${ghostContentPrefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\\"\?]+)\\\"`, 'g'),
+      (_m, rest) => `src="/media/ghost/content/images/${rest}?w=1600&q=75&f=webp"`
+    );
+    out = out.replace(
+      /src=\"(\/content\/images\/[^\"\?]+)\"/g,
+      (_m, p1) => `src="/media/ghost${p1}?w=1600&q=75&f=webp"`
+    );
 
     // Handle srcset lists
     out = out.replace(/srcset=\"([^\"]+)\"/g, (_m, val: string) => {
@@ -184,7 +190,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           u = u.replace(ghostBase, '');
         }
         if (u.startsWith('/content/images/')) {
-          u = '/media/ghost' + u;
+          u = '/media/ghost' + u + '?w=1600&q=75&f=webp';
         }
         return [u, size].filter(Boolean).join(' ');
       }).join(', ');

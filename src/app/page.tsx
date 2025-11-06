@@ -56,6 +56,117 @@ export default function Home() {
         primaryCta={{ href: "/transformation-program", label: "See the Program" }}
       />
 
+      {/* FREE MOCK EXAM CTA - Above the Fold */}
+      <section className="py-8 sm:py-12 bg-gradient-to-b from-emerald-50 to-white border-b-2 border-emerald-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10 border-2 border-emerald-200">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex-1 text-center md:text-left">
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3">
+                  🎯 MOST POPULAR
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+                  Free BCBA Mock Exam
+                </h2>
+                <p className="text-base sm:text-lg text-slate-600 mb-4">
+                  185 Questions • No Signup Required • Instant Feedback • All 9 Domains
+                </p>
+                <div className="flex flex-wrap gap-3 justify-center md:justify-start text-sm text-slate-600">
+                  <span className="flex items-center gap-1">
+                    ✓ Matches real exam format
+                  </span>
+                  <span className="flex items-center gap-1">
+                    ✓ Detailed explanations
+                  </span>
+                  <span className="flex items-center gap-1">
+                    ✓ Track your progress
+                  </span>
+                </div>
+              </div>
+              <div className="flex-shrink-0">
+                <Link
+                  href="/free-bcba-practice-exam"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white text-lg font-bold rounded-xl hover:from-emerald-700 hover:to-emerald-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  Start Free Mock Exam
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TOP TASKS - Quick Navigation Strip */}
+      <section className="py-8 sm:py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6 text-center">
+            Popular Resources
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {/* Free Mock Exam */}
+            <Link
+              href="/free-bcba-practice-exam"
+              className="group bg-gradient-to-br from-emerald-50 to-emerald-100 hover:from-emerald-100 hover:to-emerald-200 rounded-xl p-4 transition-all duration-200 hover:shadow-lg border-2 border-emerald-200 hover:border-emerald-300"
+            >
+              <div className="text-3xl mb-2">🎯</div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1 group-hover:text-emerald-700">Free Mock Exam</h3>
+              <p className="text-xs text-slate-600">185 questions, instant results</p>
+            </Link>
+
+            {/* IEP Goal Writer */}
+            <Link
+              href="/iep-behavior-goals"
+              className="group bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-xl p-4 transition-all duration-200 hover:shadow-lg border-2 border-blue-200 hover:border-blue-300"
+            >
+              <div className="text-3xl mb-2">📝</div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1 group-hover:text-blue-700">IEP Goal Writer</h3>
+              <p className="text-xs text-slate-600">Generate goals in minutes</p>
+            </Link>
+
+            {/* Study Tools */}
+            <Link
+              href="/study"
+              className="group bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 rounded-xl p-4 transition-all duration-200 hover:shadow-lg border-2 border-purple-200 hover:border-purple-300"
+            >
+              <div className="text-3xl mb-2">📚</div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1 group-hover:text-purple-700">Study Tools</h3>
+              <p className="text-xs text-slate-600">Adaptive learning platform</p>
+            </Link>
+
+            {/* School BCBA Hub */}
+            <Link
+              href="/school-bcba"
+              className="group bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 rounded-xl p-4 transition-all duration-200 hover:shadow-lg border-2 border-amber-200 hover:border-amber-300"
+            >
+              <div className="text-3xl mb-2">🏫</div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1 group-hover:text-amber-700">School BCBA Hub</h3>
+              <p className="text-xs text-slate-600">Career guides & resources</p>
+            </Link>
+
+            {/* Exam Prep */}
+            <Link
+              href="/bcba-exam-prep"
+              className="group bg-gradient-to-br from-pink-50 to-pink-100 hover:from-pink-100 hover:to-pink-200 rounded-xl p-4 transition-all duration-200 hover:shadow-lg border-2 border-pink-200 hover:border-pink-300"
+            >
+              <div className="text-3xl mb-2">📊</div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1 group-hover:text-pink-700">Exam Prep</h3>
+              <p className="text-xs text-slate-600">Study guides & strategies</p>
+            </Link>
+
+            {/* Community */}
+            <Link
+              href="/community"
+              className="group bg-gradient-to-br from-teal-50 to-teal-100 hover:from-teal-100 hover:to-teal-200 rounded-xl p-4 transition-all duration-200 hover:shadow-lg border-2 border-teal-200 hover:border-teal-300"
+            >
+              <div className="text-3xl mb-2">👥</div>
+              <h3 className="font-bold text-slate-900 text-sm mb-1 group-hover:text-teal-700">Community</h3>
+              <p className="text-xs text-slate-600">Connect with BCBAs</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* PRIMARY CONVERSION SECTION - Transformation Program */}
       <section className="py-12 sm:py-16 lg:py-20 bg-bs-section-odd">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

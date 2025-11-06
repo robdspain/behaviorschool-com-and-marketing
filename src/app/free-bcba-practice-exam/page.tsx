@@ -291,6 +291,92 @@ export default function FreeBCBAPracticeExamPage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-slate-600">
+              Everything you need to know about our free BCBA practice exam
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {/* FAQ 1 */}
+            <div className="bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                Is the free BCBA mock practice test really free?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                Yes, completely free with no signup required. Access all 185 questions instantly without creating an account or providing payment information.
+              </p>
+            </div>
+
+            {/* FAQ 2 */}
+            <div className="bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                How many questions are on the BCBA mock exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                Our free mock exam has 185 questions matching the real BCBA exam format (175 scored + 10 unscored). This quick practice test has 10 questions to help you get started.
+              </p>
+            </div>
+
+            {/* FAQ 3 */}
+            <div className="bg-gradient-to-br from-purple-50 to-white border-2 border-purple-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                Can I take the free BCBA practice test multiple times?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                Yes! Take it as many times as you need. Questions are randomized each time for better practice and retention.
+              </p>
+            </div>
+
+            {/* FAQ 4 */}
+            <div className="bg-gradient-to-br from-amber-50 to-white border-2 border-amber-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                How accurate is this compared to the real BCBA exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                Questions are written by BCBAs and cover all 9 content areas matching the BACB task list. The difficulty and format mirror real exam questions.
+              </p>
+            </div>
+
+            {/* FAQ 5 */}
+            <div className="bg-gradient-to-br from-pink-50 to-white border-2 border-pink-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                Do I need to sign up to take the free mock exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                No signup required! Start practicing immediately and track your progress locally in your browser.
+              </p>
+            </div>
+
+            {/* FAQ 6 */}
+            <div className="bg-gradient-to-br from-teal-50 to-white border-2 border-teal-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                How long should I take to complete the mock exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                The real BCBA exam allows 4 hours for 185 questions. We recommend timing yourself for realistic practice - approximately 1.3 minutes per question.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              href="/bcba-exam-prep"
+              className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold"
+            >
+              View Complete BCBA Exam Prep Guide
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 lg:py-20 bg-emerald-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -331,10 +417,65 @@ export default function FreeBCBAPracticeExamPage() {
           description: "Take a quick BCBA practice test with 10 challenging questions and detailed answers. Free BCBA practice test for efficient exam prep.",
           isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Behavior School" },
         } as const;
+        const faqJsonLd = {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "Is the free BCBA mock practice test really free?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes, completely free with no signup required. Access all 185 questions instantly without creating an account or providing payment information."
+              }
+            },
+            {
+              "@type": "Question",
+              name: "How many questions are on the BCBA mock exam?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Our free mock exam has 185 questions matching the real BCBA exam format (175 scored + 10 unscored). This quick practice test has 10 questions to help you get started."
+              }
+            },
+            {
+              "@type": "Question",
+              name: "Can I take the free BCBA practice test multiple times?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes! Take it as many times as you need. Questions are randomized each time for better practice and retention."
+              }
+            },
+            {
+              "@type": "Question",
+              name: "How accurate is this compared to the real BCBA exam?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Questions are written by BCBAs and cover all 9 content areas matching the BACB task list. The difficulty and format mirror real exam questions."
+              }
+            },
+            {
+              "@type": "Question",
+              name: "Do I need to sign up to take the free mock exam?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "No signup required! Start practicing immediately and track your progress locally in your browser."
+              }
+            },
+            {
+              "@type": "Question",
+              name: "How long should I take to complete the mock exam?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "The real BCBA exam allows 4 hours for 185 questions. We recommend timing yourself for realistic practice - approximately 1.3 minutes per question."
+              }
+            }
+          ]
+        } as const;
         return (
           <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
           </>
         );
       })()}

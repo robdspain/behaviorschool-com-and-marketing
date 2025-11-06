@@ -513,6 +513,29 @@ LISTMONK_PASSWORD=your-password`}
       </div>
 
       <div className="p-6 space-y-6">
+        {/* Embed gate to avoid client crashes; open external admin by default */}
+        {!showEmbedded && (
+          <div className="bg-slate-50 border-2 border-slate-200 rounded-lg p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="text-slate-700 text-sm">
+              Use the native Listmonk admin or load the embedded manager here.
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => openUrl(status?.endpoint)}
+                disabled={!status?.endpoint}
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md disabled:opacity-50"
+              >
+                <ExternalLink className="w-4 h-4" /> Open Listmonk Admin
+              </button>
+              <button
+                onClick={() => setShowEmbedded(true)}
+                className="inline-flex items-center gap-2 bg-slate-200 hover:bg-slate-300 text-slate-900 px-3 py-2 rounded-md"
+              >
+                Load Embedded Manager
+              </button>
+            </div>
+          </div>
+        )}
         {/* Health banner when issues detected */}
         {!statusLoading && status?.configured && status?.raw && (
           (!((status as any).raw.listsOk && (status as any).raw.subsOk && (status as any).raw.campOk)) && (
@@ -532,6 +555,8 @@ LISTMONK_PASSWORD=your-password`}
             </div>
           )
         )}
+        {showEmbedded && (
+        <>
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white rounded-xl border p-4">
@@ -776,6 +801,8 @@ LISTMONK_PASSWORD=your-password`}
             </div>
           </div>
         </div>
+        </>
+        )}
       </div>
       {/* Preview Modal */}
       {preview.open && (
