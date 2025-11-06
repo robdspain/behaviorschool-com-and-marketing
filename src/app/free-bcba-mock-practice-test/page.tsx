@@ -310,7 +310,9 @@ export default function BCBAMockPracticeTestPage() {
         </div>
 
         {/* Selected Quiz Banner (shows after returning from quiz) */}
-        <TopQuizBanner />
+        <Suspense fallback={null}>
+          <TopQuizBanner />
+        </Suspense>
 
         {/* Hero Section */}
         <section className="relative py-16 lg:py-24 overflow-hidden">
