@@ -644,7 +644,22 @@ function BlogEditorContent() {
                       const r1 = await res1.json()
                       const res2 = await fetch(`/api/admin/blog/images/test?url=${encodeURIComponent(ghost)}`)
                       const r2 = await res2.json()
-                      alert(`Proxy: ${r1.status} ${r1.contentType || ''}\nGhost: ${r2.status} ${r2.contentType || ''}`)
+                      // Auto-fix: prefer proxy URL if it works, else fall back to Ghost URL
+                      const ok1 = r1 && r1.ok === true && Number(r1.status) >= 200 && Number(r1.status) < 400
+                      const ok2 = r2 && r2.ok === true && Number(r2.status) >= 200 && Number(r2.status) < 400
+                      if (ok1 && !ok2) {
+                        setPost(prev => ({ ...prev, feature_image: u }))
+                        alert(`Proxy OK (${r1.status}). Updated image URL to proxy.`)
+                      } else if (!ok1 && ok2) {
+                        setPost(prev => ({ ...prev, feature_image: ghost }))
+                        alert(`Ghost OK (${r2.status}). Updated image URL to Ghost origin.`)
+                      } else if (ok1 && ok2) {
+                        // Prefer proxy for caching; still report both
+                        setPost(prev => ({ ...prev, feature_image: u }))
+                        alert(`Both OK. Using proxy.\nProxy: ${r1.status} ${r1.contentType || ''}\nGhost: ${r2.status} ${r2.contentType || ''}`)
+                      } else {
+                        alert(`Both failed.\nProxy: ${r1.status} ${r1.contentType || ''}\nGhost: ${r2.status} ${r2.contentType || ''}`)
+                      }
                     } catch (e) {
                       alert('Test failed')
                     }
