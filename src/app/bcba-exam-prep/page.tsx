@@ -155,17 +155,17 @@ export default function BCBAExamPrepPage() {
               >
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="/free-bcba-mock-practice-test"
+                    href="https://study.behaviorschool.com/free-mock-exam"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
-                    Take Free 185-Question Mock Exam
+                    Practice by Domain (Mini Exams)
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
-                    href="https://study.behaviorschool.com"
+                    href="https://study.behaviorschool.com/free-mock-exam"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white hover:bg-slate-50 text-emerald-700 border-2 border-emerald-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
-                    Try AI Study Platform
+                    Choose Your Domain
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </div>
@@ -400,10 +400,10 @@ export default function BCBAExamPrepPage() {
             className="text-center"
           >
             <Link
-              href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-exam-prep-page"
+              href="https://study.behaviorschool.com/free-mock-exam"
               className="inline-flex items-center px-10 py-5 text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
             >
-              Start Free BCBA Practice Questions Now
+              Practice by Domain (Mini Exams)
               <ArrowRight className="ml-3 w-6 h-6" />
             </Link>
             <p className="mt-4 text-slate-600">
@@ -487,10 +487,10 @@ export default function BCBAExamPrepPage() {
               Join thousands of successful school-based BCBAs who started their journey with our comprehensive exam prep program.
             </p>
             <Link
-              href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-exam-prep-page"
+              href="https://study.behaviorschool.com/free-mock-exam"
               className="inline-flex items-center px-10 py-5 text-xl font-bold bg-white text-emerald-600 hover:bg-emerald-50 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
             >
-              Start Practice Questions Now
+              Start Domain Practice Now
               <ArrowRight className="ml-3 w-6 h-6" />
             </Link>
             <p className="mt-6 text-emerald-100">

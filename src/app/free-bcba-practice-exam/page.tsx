@@ -208,8 +208,8 @@ export default function FreeBCBAPracticeExamPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <FreeQuizWidget
             questions={questions}
-            ctaUrl="https://study.behaviorschool.com"
-            ctaText="Continue with Full Adaptive Practice"
+            ctaUrl="https://study.behaviorschool.com/free-mock-exam/full"
+            ctaText="Take Full 185-Question Mock Exam"
           />
         </div>
       </section>
@@ -381,20 +381,20 @@ export default function FreeBCBAPracticeExamPage() {
       <section className="py-16 lg:py-20 bg-emerald-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Ready for Unlimited Practice?
+            Ready for the Full 185-Question Mock Exam?
           </h2>
           <p className="text-xl text-emerald-50 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Get access to unlimited adaptive practice questions, full 185-question mock exams, and personalized study analytics — all completely free, no credit card required.
+            Experience the complete BCBA exam with 185 questions across all 9 domains. 4-hour timed simulation with instant scoring and detailed performance analytics — completely free, no signup required.
           </p>
           <Link
-            href="https://study.behaviorschool.com"
+            href="https://study.behaviorschool.com/free-mock-exam/full"
             className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 rounded-xl shadow-xl hover:shadow-2xl hover:bg-emerald-50 transition-all duration-200 transform hover:-translate-y-1"
           >
-            Start Full Practice Platform
+            Start Full 185-Question Mock Exam
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
           <p className="mt-6 text-emerald-100 text-sm font-medium">
-            Join 1,000+ behavior analysts preparing for certification
+            Join 1,000+ behavior analysts practicing with realistic exam conditions
           </p>
         </div>
       </section>
