@@ -102,34 +102,39 @@ export default function ContentPage() {
 
   const ghostAdminUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL?.replace('/ghost/api/content', '') || 'https://ghost.behaviorschool.com'
 
-  // Transform Ghost image URLs to use our proxy
-  const transformImageUrl = (url: string | null): string | null => {
+  // Transform Ghost image URLs to use our proxy with fallback to original
+  const transformImageUrl = (url: string | null, useProxy: boolean = true): string | null => {
     if (!url) return null;
-    
+
     const ghostBase = ghostAdminUrl.replace(/\/$/, '');
     const ghostContentPrefix = `${ghostBase}/content/images/`;
-    
+
     let transformed = url;
-    
+
     // Handle protocol-relative URLs
     if (transformed.startsWith('//')) {
       transformed = 'https:' + transformed;
     }
-    
+
     // Force https
     if (transformed.startsWith('http://')) {
       transformed = transformed.replace(/^http:/, 'https:');
     }
-    
+
+    // If not using proxy, return the direct Ghost URL
+    if (!useProxy) {
+      return transformed;
+    }
+
     // Transform Ghost content images to proxy path
     if (transformed.startsWith(ghostContentPrefix)) {
       transformed = transformed.replace(ghostBase, '');
     }
-    
+
     if (transformed.startsWith('/content/images/')) {
       transformed = '/media/ghost' + transformed;
     }
-    
+
     return transformed;
   };
 
@@ -209,15 +214,30 @@ export default function ContentPage() {
               <div key={post.id} className="bg-white border-2 border-slate-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
                 <div className="flex items-start gap-6">
                   {/* Feature Image */}
-                  {post.feature_image && transformImageUrl(post.feature_image) && (
+                  {post.feature_image && (
                     <div className="flex-shrink-0 w-32 h-32 rounded-lg overflow-hidden bg-slate-100">
-                      <img 
-                        src={transformImageUrl(post.feature_image) || ''} 
+                      <img
+                        src={transformImageUrl(post.feature_image, true) || ''}
                         alt={post.title}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          // Hide image on error
-                          e.currentTarget.style.display = 'none';
+                          // Fallback to direct Ghost URL if proxy fails
+                          const directUrl = transformImageUrl(post.feature_image, false);
+                          if (directUrl && e.currentTarget.src !== directUrl) {
+                            console.warn('Image proxy failed, trying direct URL:', {
+                              proxyUrl: e.currentTarget.src,
+                              directUrl
+                            });
+                            e.currentTarget.src = directUrl;
+                          } else {
+                            // Hide image only if direct URL also fails
+                            console.error('Image failed to load:', {
+                              proxyUrl: transformImageUrl(post.feature_image, true),
+                              directUrl,
+                              originalUrl: post.feature_image
+                            });
+                            e.currentTarget.style.display = 'none';
+                          }
                         }}
                       />
                     </div>
