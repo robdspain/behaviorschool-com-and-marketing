@@ -10,7 +10,7 @@ type Finding = { label: string; ok: boolean; hint?: string };
 
 export default function IEPGoalQualityChecker() {
   const [text, setText] = useState("");
-  const findings: Finding[] = useMemo(() => evaluate(text), [text]);
+  const { findings, optionalFindings } = useMemo(() => evaluate(text), [text]);
   const score = useMemo(() => Math.round((findings.filter(f => f.ok).length / findings.length) * 100) || 0, [findings]);
   const [showSignup, setShowSignup] = useState(false);
   const [hasSignup, setHasSignup] = useState(false);
@@ -137,6 +137,32 @@ export default function IEPGoalQualityChecker() {
             ))}
           </ul>
 
+          {/* Optional Enhancements */}
+          {optionalFindings && optionalFindings.length > 0 && (
+            <div className="mt-4">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-2">
+                <p className="text-sm text-blue-900 font-medium">
+                  ℹ️ Optional Enhancement (not counted in score)
+                </p>
+                <p className="text-xs text-blue-700 mt-1">
+                  Baseline is recommended but not required. Many professionally-written IEP goals are complete without explicit baseline references.
+                </p>
+              </div>
+              <ul className="divide-y divide-slate-200 rounded-lg border border-slate-200">
+                {optionalFindings.map((f, i) => (
+                  <li key={i} className="p-3 flex items-start justify-between">
+                    <span className="text-slate-800">
+                      {f.ok ? "✅" : "💡"} {f.label}
+                    </span>
+                    {!f.ok && f.hint ? (
+                      <span className="text-sm text-slate-500 ml-4">{f.hint}</span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <Button onClick={() => ensureSignup('copy', doCopy)} variant="outline">Copy Results</Button>
             <Button onClick={() => ensureSignup('pdf', doExportPDF)} className="bg-emerald-600 hover:bg-emerald-700">Export PDF</Button>
@@ -169,11 +195,16 @@ export default function IEPGoalQualityChecker() {
             </div>
             {showImprove && (
               <div className="mt-4 space-y-4">
-                <ul className="list-disc pl-6 text-slate-700">
-                  {findings.filter(f => !f.ok).map((f, i) => (
-                    <li key={i}>{f.label}{f.hint ? ` — ${f.hint}` : ''}</li>
-                  ))}
-                </ul>
+                {findings.filter(f => !f.ok).length > 0 && (
+                  <ul className="list-disc pl-6 text-slate-700">
+                    {findings.filter(f => !f.ok).map((f, i) => (
+                      <li key={i}>{f.label}{f.hint ? ` — ${f.hint}` : ''}</li>
+                    ))}
+                  </ul>
+                )}
+                {findings.filter(f => !f.ok).length === 0 && (
+                  <p className="text-emerald-700 font-medium">✅ All required criteria met!</p>
+                )}
                 {(masteryRatio !== null && masteryRatio >= 0.9 && masteryRatio < 0.95) && (
                   <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-900">
                     Recommendation: Many districts prefer mastery at 95%+. Consider adjusting to 95% if appropriate for the student and context.
@@ -301,30 +332,34 @@ export default function IEPGoalQualityChecker() {
   );
 }
 
-function evaluate(txt: string): Finding[] {
+function evaluate(txt: string): { findings: Finding[]; optionalFindings: Finding[] } {
   const t = (txt || "").toLowerCase();
   const hasCondition = /(given|with|following|during|in the presence of|provided)/.test(t);
   const hasBehavior = /(will|increase|decrease|request|remain|complete|transition|comply)/.test(t);
-  const hasMeasurement = /(measured by|event recording|duration|frequency|rate|latency|percentage|probe|data)/.test(t);
+  const hasMeasurement = /(measured by|event recording|duration|frequency|rate|latency|percentage|probe|data|observation|collection|record)/.test(t);
   const hasCriteria = hasStrongCriteria(t);
   const hasTimeframe = /(by\s+\d{1,2}\/\d{1,2}\/\d{2,4}|within\s+\d+\s+(weeks|months)|by\s+(fall|spring|end of (quarter|semester|year)))/.test(t);
   const hasBaseline = /(baseline|currently|from|average of|pretest)/.test(t);
-  const avoidsVague = !/(better|improve|appropriate|successfully|more|less)\s*(behav|comply|work|transition)/.test(t);
-  const hasSupport = /(visual schedule|first\/then|prompt|model|token|break card|choice|timer|check-in|self-monitor)/.test(t);
-  const hasObservation = /(as measured by|teacher|therapist|observer|data sheet)/.test(t);
+  const avoidsVague = t.length >= 10 && !/(better|improve|appropriate|successfully|more|less)\s*(behav|comply|work|transition)/.test(t);
+  const hasSupport = /(visual|prompt|model|token|break|choice|timer|check-in|self-monitor|self-regulation|schedule|chart|fidget|proximity|script|cue|reminder|story|stories|access to|redirection|de-escalation|directive|instruction|materials|warning|tool|support|peer)/.test(t);
+  const hasObservation = /(as measured by|teacher|therapist|observer|staff|data sheet|behavior log|incident report|documentation|tracking|observation|logs|records|collection)/.test(t);
 
-  const res: Finding[] = [
+  const findings: Finding[] = [
     { label: "Includes clear condition (Given/With/During)", ok: hasCondition, hint: "Add a condition: 'Given a visual schedule…'" },
     { label: "Identifies observable target behavior", ok: hasBehavior, hint: "Use a measurable verb: request, transition, remain, complete." },
     { label: "Specifies measurement method", ok: hasMeasurement, hint: "Add 'as measured by event recording / duration / frequency'." },
     { label: "Includes mastery criteria", ok: hasCriteria, hint: "Add criteria like 'in 90% of opportunities across 3 days'." },
     { label: "Has timeframe/end date", ok: hasTimeframe, hint: "Include 'by 11/15/2025' or 'within 12 weeks'." },
-    { label: "References baseline or present levels", ok: hasBaseline, hint: "Optionally add baseline: 'Currently averages 2 requests/day'." },
     { label: "Avoids vague language", ok: avoidsVague, hint: "Replace vague terms with measurable actions and contexts." },
     { label: "Lists supports/accommodations", ok: hasSupport, hint: "Add supports: visual schedule, choice, break card, token, prompts." },
     { label: "States who is measuring/observing", ok: hasObservation, hint: "Add 'as measured by teacher with data sheet'." },
   ];
-  return res;
+
+  const optionalFindings: Finding[] = [
+    { label: "References baseline or present levels", ok: hasBaseline, hint: "Optionally add baseline: 'Currently averages 2 requests/day'." },
+  ];
+
+  return { findings, optionalFindings };
 }
 
 function hasStrongCriteria(t: string) {
@@ -339,6 +374,10 @@ function hasStrongCriteria(t: string) {
     const b = parseInt(frac[2], 10);
     if (b > 0 && a / b >= 0.9) return true;
   }
+  // Accept "0 instances" or "zero instances" for behavior reduction goals
+  if (/\b(0|zero)\s+instances?\b/i.test(t)) return true;
+  // Accept "X consecutive days/weeks/trials/sessions"
+  if (/\d+\s+consecutive\s+(days?|weeks?|trials?|sessions?)/i.test(t)) return true;
   return false;
 }
 
