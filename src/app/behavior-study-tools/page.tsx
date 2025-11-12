@@ -642,6 +642,64 @@ export default function BehaviorStudyToolsPage() {
         </div>
       </section>
 
+      {/* Related Resources */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Additional Study Resources
+            </h2>
+            <p className="text-lg text-slate-600">
+              Explore more tools to enhance your BCBA exam preparation
+            </p>
+          </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Link
+              href="/bcba-study-fluency"
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+            >
+              <div className="flex items-center mb-3">
+                <TrendingUp className="w-6 h-6 text-emerald-600 mr-2" />
+                <h3 className="text-lg font-semibold text-slate-900">Study Fluency Tracking</h3>
+              </div>
+              <p className="text-slate-600 text-sm">
+                Precision response time analytics and fluency-based learning to optimize your study efficiency and retention.
+              </p>
+            </Link>
+            <Link
+              href="/bcba-exam-prep"
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+            >
+              <div className="flex items-center mb-3">
+                <BookOpen className="w-6 h-6 text-emerald-600 mr-2" />
+                <h3 className="text-lg font-semibold text-slate-900">BCBA Exam Prep</h3>
+              </div>
+              <p className="text-slate-600 text-sm">
+                Comprehensive exam preparation guide with pass rate statistics and study strategies.
+              </p>
+            </Link>
+            <Link
+              href="/bcba-practice-exam"
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+            >
+              <div className="flex items-center mb-3">
+                <Target className="w-6 h-6 text-emerald-600 mr-2" />
+                <h3 className="text-lg font-semibold text-slate-900">Practice Exams</h3>
+              </div>
+              <p className="text-slate-600 text-sm">
+                Full-length BCBA practice exams with detailed explanations and performance analytics.
+              </p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 lg:py-20 bg-gradient-to-br from-emerald-600 to-emerald-500">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

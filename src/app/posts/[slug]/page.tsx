@@ -19,7 +19,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       out = out.replace(/^https?:\/\/[\s\S]*?(?=\/content\/images\/)/, '');
     }
     if (out.startsWith('/content/images/')) {
-      out = '/media/ghost' + out;
+      // Use proxy with WebP optimization for large images
+      out = '/media/ghost' + out + '?w=1200&q=80&f=webp';
     }
     return out;
   };

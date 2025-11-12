@@ -123,12 +123,7 @@ export function Footer() {
             <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
               About
             </Link>
-            <Link
-              href="https://study.behaviorschool.com/faq"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
+            <Link href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors">
               FAQ
             </Link>
             <Link
@@ -147,20 +142,10 @@ export function Footer() {
             >
               Contact Us
             </Link>
-            <Link
-              href="https://study.behaviorschool.com/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
+            <Link href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors">
               Privacy Policy
             </Link>
-            <Link
-              href="https://study.behaviorschool.com/terms-of-service"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
+            <Link href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors">
               Terms of Service
             </Link>
             <Link

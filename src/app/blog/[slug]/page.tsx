@@ -51,8 +51,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const ghostBase = (process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com').replace(/\/$/, '');
   
-  // Transform Ghost image URL to use proxy
-  const transformImageUrl = (url: string | null | undefined): string => {
+  // Transform Ghost image URL to use proxy with WebP optimization
+  const transformImageUrl = (url: string | null | undefined, optimize: boolean = true): string => {
     if (!url) return '/optimized/og-image.webp';
     
     let transformed = url;
@@ -75,6 +75,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     
     if (transformed.startsWith('/content/images/')) {
       transformed = '/media/ghost' + transformed;
+      // Add WebP optimization parameters for large images
+      if (optimize && !transformed.includes('?')) {
+        transformed += '?w=1200&q=80&f=webp';
+      }
     }
     
     // Convert to absolute URL for social sharing
@@ -236,7 +240,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 src = src.replace(ghostBase, '');
               }
               if (src.startsWith('/content/images/')) {
-                src = '/media/ghost' + src;
+                // Use proxy with WebP optimization for large images
+                src = '/media/ghost' + src + '?w=1600&q=75&f=webp';
               }
               return src;
             })()}

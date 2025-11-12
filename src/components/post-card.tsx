@@ -89,7 +89,15 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
     // Ensure HTTPS
     if (src.startsWith("http://")) src = src.replace(/^http:/, "https:");
 
-    // Use Ghost URLs directly - they should work fine for images
+    // Transform Ghost content images to use proxy with WebP optimization
+    if (src.includes('/content/images/')) {
+      const pathMatch = src.match(/\/content\/images\/.+$/);
+      if (pathMatch && !src.includes('/media/ghost')) {
+        // Use proxy with WebP optimization for thumbnail images
+        src = `/media/ghost${pathMatch[0]}?w=800&q=75&f=webp`;
+      }
+    }
+
     return src;
   }, [post.feature_image]);
 
