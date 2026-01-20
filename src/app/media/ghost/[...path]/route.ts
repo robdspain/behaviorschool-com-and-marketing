@@ -9,10 +9,11 @@ function getGhostBase(): string {
   return raw.replace(/\/?ghost\/api\/content\/?$/, '').replace(/\/$/, '')
 }
 
-export async function GET(req: NextRequest, { params }: { params: { path: string[] } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ path: string[] }> }) {
   try {
+    const { path } = await params;
     const base = getGhostBase()
-    const restPath = (params.path || []).join('/')
+    const restPath = (path || []).join('/')
 
     // Only proxy content images for safety
     const safePath = restPath.startsWith('content/images/') ? restPath : `content/images/${restPath.replace(/^\/?/, '')}`
@@ -53,7 +54,7 @@ export async function GET(req: NextRequest, { params }: { params: { path: string
 
     if (!isProcessable || !hasTransforms) {
       headers.set('Content-Type', ct)
-      return new Response(sourceBuf, { status: 200, headers })
+      return new Response(sourceBuf as unknown as BodyInit, { status: 200, headers })
     }
 
     try {
@@ -74,12 +75,12 @@ export async function GET(req: NextRequest, { params }: { params: { path: string
         headers.set('Content-Type', 'image/webp')
       }
       const out = await pipeline.toBuffer()
-      return new Response(out, { status: 200, headers })
+      return new Response(out as unknown as BodyInit, { status: 200, headers })
     } catch (err) {
       // Fallback to original bytes if processing fails
       console.error('[media/ghost] sharp processing failed, falling back', err)
       headers.set('Content-Type', ct)
-      return new Response(sourceBuf, { status: 200, headers })
+      return new Response(sourceBuf as unknown as BodyInit, { status: 200, headers })
     }
   } catch (e) {
     console.error('[media/ghost] proxy error', e)

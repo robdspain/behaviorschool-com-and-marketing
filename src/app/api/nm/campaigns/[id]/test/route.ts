@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseAdminClient } from '@/lib/supabase-admin'
 import { renderCampaignHTML, sendEmailViaMailgun } from '@/lib/nm-mail'
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
-  const id = Number(params.id)
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const body = await req.json().catch(() => ({}))
   const emails: string[] = (body?.emails || body?.subscribers || '').split(',').map((s: string) => s.trim()).filter(Boolean)
   if (!emails.length) return NextResponse.json({ error: 'emails required' }, { status: 400 })

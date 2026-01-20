@@ -81,6 +81,7 @@ export default function ListmonkAdminPage() {
   const [edit, setEdit] = useState<{ open: boolean; id: number | null; loading: boolean; message: string }>({ open: false, id: null, loading: false, message: '' })
   const [editForm, setEditForm] = useState({ name: '', subject: '', listIds: [] as number[], templateId: 0, body: '', altbody: '', fromEmail: '', messenger: 'email', tags: '', headers: '' })
   const [analytics, setAnalytics] = useState<{ id: number | null; loading: boolean; data: { views: number | null; clicks: number | null; bounces: number | null; links: number | null }; linkTop: Array<{ url: string; clicks: number }> }>({ id: null, loading: false, data: { views: null, clicks: null, bounces: null, links: null }, linkTop: [] })
+  const [showEmbedded, setShowEmbedded] = useState(false)
 
   useEffect(() => {
     document.title = 'Newsletter (Listmonk) | Admin'

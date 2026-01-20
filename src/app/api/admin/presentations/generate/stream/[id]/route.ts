@@ -1,23 +1,26 @@
 import { NextRequest } from 'next/server';
+import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
-export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
-  const encoder = new TextEncoder();
-  const stream = new ReadableStream({
-    async start(controller) {
-      const send = (event: string, data: any) => {
-        controller.enqueue(encoder.encode(`event: ${event}\n`));
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-      };
-      send('status', { step: 'queued', progress: 0 });
-      await new Promise(r => setTimeout(r, 300));
-      send('status', { step: 'running', progress: 30 });
-      await new Promise(r => setTimeout(r, 300));
-      send('status', { step: 'rendering', progress: 70 });
-      await new Promise(r => setTimeout(r, 300));
-      send('complete', { id: params.id, progress: 100 });
-      controller.close();
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  try {
+    const supabase = createSupabaseAdminClient();
+    const { data: job, error } = await supabase
+      .from('presentations_ai_jobs')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error || !job) {
+      return new Response('Job not found', { status: 404 });
     }
-  });
-  return new Response(stream, { headers: { 'Content-Type':'text/event-stream', 'Cache-Control':'no-cache' } });
-}
 
+    // Return the job data as a stream or JSON depending on needs. 
+    // Assuming simple JSON for now based on context, or text.
+    return new Response(JSON.stringify(job), {
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (e) {
+    return new Response(String(e), { status: 500 });
+  }
+}

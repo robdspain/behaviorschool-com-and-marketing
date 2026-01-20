@@ -355,7 +355,7 @@ function BlogEditorContent() {
     setSaving(true)
     try {
       // Helper function to fetch the latest updated_at from Ghost
-      const fetchLatestUpdatedAt = async (): Promise<string> => {
+      const fetchLatestUpdatedAt = async (): Promise<string | undefined> => {
         if (!postId) return post.updated_at
 
         try {

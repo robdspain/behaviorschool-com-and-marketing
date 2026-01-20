@@ -6,6 +6,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Brain, Target, TrendingUp, BookOpen, Users, ChevronUp, ChevronDown } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { ScrollNav } from "@/components/ui/scroll-nav";
+import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -97,6 +99,14 @@ export default function BehaviorStudyToolsPage() {
           ]}
         />
       </div>
+
+      <ScrollNav 
+        items={[
+          { id: "mock-exam", label: "Free Mock Exam" },
+          { id: "features", label: "Features" },
+          { id: "faq", label: "FAQ" }
+        ]}
+      />
       
       {/* Hero Section */}
       <section className="relative pt-10 md:pt-14 pb-16 lg:pb-20 overflow-hidden">
@@ -185,7 +195,7 @@ export default function BehaviorStudyToolsPage() {
       </section>
 
       {/* Free Trial Hero Section */}
-      <section className="py-16 bg-gradient-to-r from-emerald-50 to-blue-50">
+      <section id="mock-exam" className="py-16 bg-gradient-to-r from-emerald-50 to-blue-50 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -335,7 +345,7 @@ export default function BehaviorStudyToolsPage() {
       </section>
 
       {/* Why It Works Section */}
-      <section className="py-16 lg:py-20 bg-white">
+      <section id="features" className="py-16 lg:py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -598,7 +608,7 @@ export default function BehaviorStudyToolsPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="faq" className="py-16 px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -790,6 +800,15 @@ export default function BehaviorStudyToolsPage() {
           </>
         );
       })()}
+      
+      {/* Exit Intent Modal */}
+      <ExitIntentModal 
+        pageSource="study-tools" 
+        title="Wait! Take a Free Mock Exam" 
+        description="Test your knowledge with 10 free BCBA practice questions. No credit card required." 
+        buttonText="Start Free Exam" 
+        successMessage="Redirecting to exam..." 
+      />
     </div>
   );
 }

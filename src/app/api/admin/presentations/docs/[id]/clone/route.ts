@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
-export async function POST(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const supabase = createSupabaseAdminClient();
   const { data, error } = await supabase
     .from('presentations_ai_docs')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
   if (error || !data) return NextResponse.json({ error: error?.message || 'Not found' }, { status: 404 });
   const title = `${data.title} (Copy)`;
