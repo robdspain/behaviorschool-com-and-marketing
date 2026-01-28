@@ -407,7 +407,7 @@ export default function BCBAExamPrepPage() {
               <ArrowRight className="ml-3 w-6 h-6" />
             </Link>
             <p className="mt-4 text-slate-600">
-              Join thousands of successful BCBAs who started with our free study tools
+              Start with free practice questions and adaptive learning technology
             </p>
           </motion.div>
         </div>
@@ -542,7 +542,7 @@ export default function BCBAExamPrepPage() {
               Ready to Beat the 54% Pass Rate?
             </h2>
             <p className="text-xl text-emerald-50 mb-8 max-w-2xl mx-auto">
-              Join thousands of successful school-based BCBAs who started their journey with our comprehensive exam prep program.
+              Access comprehensive BCBA exam prep with unlimited practice questions, adaptive learning, and detailed explanations.
             </p>
             <Link
               href="https://study.behaviorschool.com/free-mock-exam"

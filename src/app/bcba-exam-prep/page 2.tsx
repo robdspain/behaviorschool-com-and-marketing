@@ -353,7 +353,7 @@ export default function BCBAExamPrepPage() {
             Ready to Pass Your BCBA Exam?
           </h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-            Join hundreds of successful school-based BCBAs who started their journey with our comprehensive exam prep program.
+            Access comprehensive BCBA exam prep with unlimited practice questions, adaptive learning, and detailed explanations.
           </p>
           <Button 
             size="lg"

@@ -19,7 +19,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/bcba-mock-practice-test',
     '/free-bcba-mock-practice-test',
     '/school-based-bcba',
-    '/behavior-study-tools',
     '/bcba-study-tools',
     '/bcbas-in-schools',
     '/school-bcba/job-guide',
@@ -72,6 +71,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/bcba-exam-prep`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/behavior-study-tools`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.95,

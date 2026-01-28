@@ -372,8 +372,8 @@ export default function BehaviorStudyToolsPage() {
             {[
               {
                 icon: Brain,
-                title: "1000+ AI-Generated Practice Questions",
-                description: "Never run out of fresh questions. Each one is unique, aligned with the BACB® 6th Edition Task List, and includes detailed explanations.",
+                title: "Unlimited AI-Generated Practice Questions",
+                description: "Never run out of fresh questions. Our adaptive system generates unique questions aligned with the BACB® 6th Edition Task List, each with detailed explanations.",
                 color: "emerald"
               },
               {
@@ -421,7 +421,7 @@ export default function BehaviorStudyToolsPage() {
             <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-white shadow-xl">
               <h3 className="text-2xl font-bold mb-4">Ready to Experience Smarter BCBA Prep?</h3>
               <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
-                Join 2,500+ behavior analysts using our platform to pass the BCBA exam. Start with your free mock exam today.
+                Get unlimited AI-powered practice questions, adaptive learning, and detailed explanations. Start with your free mock exam today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
@@ -504,14 +504,14 @@ export default function BehaviorStudyToolsPage() {
                 </div>
                 <div className="space-y-4">
                   {[
-                    { label: "Questions Answered", value: "2,847", color: "emerald" },
-                    { label: "Accuracy Rate", value: "78%", color: "blue" },
-                    { label: "Study Streak", value: "12 days", color: "purple" },
-                    { label: "Domains Mastered", value: "4/6", color: "orange" }
+                    { label: "Questions Answered", icon: "✓", color: "emerald" },
+                    { label: "Accuracy by Domain", icon: "📊", color: "blue" },
+                    { label: "Study Streak Tracking", icon: "🔥", color: "purple" },
+                    { label: "Progress by Section", icon: "📈", color: "orange" }
                   ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between p-4 rounded-lg bg-slate-50">
+                    <div key={item.label} className="flex items-center gap-4 p-4 rounded-lg bg-slate-50">
+                      <span className="text-2xl">{item.icon}</span>
                       <span className="font-medium text-slate-900">{item.label}</span>
-                      <span className={`font-semibold text-${item.color}-600`}>{item.value}</span>
                     </div>
                   ))}
                 </div>

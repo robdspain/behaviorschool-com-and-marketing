@@ -336,7 +336,7 @@ export default function FreePracticeTestWidget() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                    <span>Join thousands of behavior analysts preparing for the BCBA exam</span>
+                    <span>Track your progress across all BACB task list domains</span>
                   </li>
                 </ul>
               </div>

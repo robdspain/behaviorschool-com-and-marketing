@@ -549,7 +549,7 @@ export function BCBAStudyToolsClient() {
             Ready to Pass Your BCBA Exam?
           </h2>
           <p className="text-xl text-emerald-100 mb-8">
-            Join thousands of behavior analysts who have used our study tools to achieve BCBA certification success.
+            Access unlimited AI-powered practice questions, adaptive learning, and detailed explanations to master the BACB exam.
           </p>
           <Link
             href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page"

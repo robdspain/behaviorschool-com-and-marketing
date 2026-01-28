@@ -907,7 +907,7 @@ export default function BCBAPracticeExamPage() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Users className="h-4 w-4" />
-                  <span>Join thousands of students</span>
+                  <span>AI-powered adaptive learning</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Star className="h-4 w-4" />

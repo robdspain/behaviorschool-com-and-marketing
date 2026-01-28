@@ -341,7 +341,7 @@ export default function MasterclassPage() {
               Ready to Transform Your Practice?
             </h2>
             <p className="text-xl text-emerald-100 mb-8">
-              Join hundreds of school BCBAs who have completed this masterclass
+              Get comprehensive training designed specifically for school-based BCBAs
             </p>
             <button
               onClick={() => {

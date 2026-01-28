@@ -598,7 +598,7 @@ export default function BCBAsInSchoolsPage() {
 
               <div className="text-center">
                 <p className="text-emerald-100 text-sm mb-4">
-                  Connect with thousands of BCBAs in schools sharing strategies, resources, and support
+                  Connect with school-based BCBAs sharing strategies, resources, and support
                 </p>
                 <Link href="/community">
                   <button className="bg-white/20 hover:bg-white/30 text-white font-semibold px-8 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
