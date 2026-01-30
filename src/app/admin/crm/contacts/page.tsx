@@ -44,6 +44,7 @@ export default function ContactsPage() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
   useEffect(() => {
     fetchContacts();
@@ -110,6 +111,42 @@ export default function ContactsPage() {
       low: 'text-gray-600'
     };
     return colors[priority] || 'text-gray-600';
+  };
+
+  const handleDelete = async (contactId: string) => {
+    try {
+      const response = await fetch(`/api/admin/crm/contacts/${contactId}`, {
+        method: 'DELETE',
+      });
+      
+      if (response.ok) {
+        setContacts(contacts.filter((c) => c.id !== contactId));
+        setDeleteConfirm(null);
+      } else {
+        alert('Failed to delete contact');
+      }
+    } catch (error) {
+      console.error('Error deleting contact:', error);
+      alert('Error deleting contact');
+    }
+  };
+
+  const handleArchive = async (contactId: string) => {
+    try {
+      const response = await fetch(`/api/admin/crm/contacts/${contactId}/archive`, {
+        method: 'POST',
+      });
+      
+      if (response.ok) {
+        // Refresh contacts list
+        fetchContacts();
+      } else {
+        alert('Failed to archive contact');
+      }
+    } catch (error) {
+      console.error('Error archiving contact:', error);
+      alert('Error archiving contact');
+    }
   };
 
   if (loading) {
@@ -287,6 +324,20 @@ export default function ContactsPage() {
                         >
                           <Edit className="w-4 h-4" />
                         </button>
+                        <button
+                          onClick={() => handleArchive(contact.id)}
+                          className="p-2 text-orange-600 hover:bg-orange-50 rounded transition-colors"
+                          title="Archive"
+                        >
+                          <StarOff className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => setDeleteConfirm(contact.id)}
+                          className="p-2 text-red-600 hover:bg-red-50 rounded transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </div>
                     </td>
                   </motion.tr>
@@ -401,6 +452,56 @@ export default function ContactsPage() {
                     </p>
                   )}
                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {deleteConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            onClick={() => setDeleteConfirm(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-white rounded-xl shadow-xl max-w-md w-full p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                  <Trash2 className="w-6 h-6 text-red-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-slate-900">Delete Contact</h3>
+                  <p className="text-sm text-slate-600">This action cannot be undone</p>
+                </div>
+              </div>
+              
+              <p className="text-slate-700 mb-6">
+                Are you sure you want to permanently delete this contact? All associated data will be removed.
+              </p>
+              
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setDeleteConfirm(null)}
+                  className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleDelete(deleteConfirm)}
+                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                >
+                  Delete
+                </button>
               </div>
             </motion.div>
           </motion.div>
