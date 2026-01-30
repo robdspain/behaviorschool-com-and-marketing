@@ -42,7 +42,7 @@ import { ArrowRight, Users, School, Download, Brain } from "lucide-react";
 import { Hero } from "@/components/ui/hero";
 import { TrustBar } from "@/components/ui/trust-bar";
 import { ExternalLinkModal } from "@/components/ui/external-link-modal";
-import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
+// import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
  
 
 export default function Home() {
@@ -170,7 +170,8 @@ export default function Home() {
         </div>
       </section>
 
-      <ExitIntentModal pageSource="home" />
+      {/* Email popup disabled - Rob said it's ugly */}
+      {/* <ExitIntentModal pageSource="home" /> */}
     </div>
   );
 }
