@@ -324,26 +324,26 @@ export default function ContentPage() {
           </div>
         )}
 
-        {/* Ghost CMS Info */}
-        <div className="mt-8 bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+        {/* File-Based Blog Info */}
+        <div className="mt-8 bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6">
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-              <FileText className="w-6 h-6 text-blue-600" />
+            <div className="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+              <FileText className="w-6 h-6 text-emerald-600" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-blue-900 mb-2">Connected to Ghost CMS</h3>
-              <p className="text-blue-700 mb-4">
-                This page displays posts from your Ghost blog. To create or edit posts, use the Ghost admin interface.
+              <h3 className="text-lg font-bold text-emerald-900 mb-2">File-Based Blog System</h3>
+              <p className="text-emerald-700 mb-4">
+                Posts are stored as markdown files in your repository. No external CMS needed - everything is version controlled with Git.
               </p>
-              <a
-                href={`${ghostAdminUrl}/ghost/`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Open Ghost Admin
-                <ExternalLink className="w-4 h-4" />
-              </a>
+              <div className="flex gap-3">
+                <Link
+                  href="/admin/blog/editor"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
+                >
+                  <Plus className="w-4 h-4" />
+                  Create New Post
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -1,63 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { getAllPosts } from '@/lib/blog';
 
-// Ghost URL should be just the base domain (https://ghost.behaviorschool.com)
-const GHOST_URL = process.env.GHOST_ADMIN_URL || (process.env.GHOST_CONTENT_URL?.replace('/ghost/api/content', '')) || 'https://ghost.behaviorschool.com';
-const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
-
-console.log('Ghost URL:', GHOST_URL); // Debug log
-console.log('Ghost Admin Key exists:', !!GHOST_ADMIN_KEY); // Debug log
-
-function getGhostToken() {
-  if (!GHOST_ADMIN_KEY) {
-    throw new Error('Ghost Admin API key not configured');
-  }
-
-  const [id, secret] = GHOST_ADMIN_KEY.split(':');
-
-  const token = jwt.sign({}, Buffer.from(secret, 'hex'), {
-    keyid: id,
-    algorithm: 'HS256',
-    expiresIn: '5m',
-    audience: '/admin/'
-  });
-
-  return token;
-}
-
-// GET - Fetch all posts
+// GET - Fetch all posts from markdown files
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const status = searchParams.get('status') || 'all';
+    const statusParam = searchParams.get('status') || 'all';
 
-    const token = getGhostToken();
-    const url = `${GHOST_URL}/ghost/api/admin/posts/?include=tags,authors&formats=mobiledoc,html&limit=all${status !== 'all' ? `&filter=status:${status}` : ''}`;
+    let posts = getAllPosts();
 
-    console.log('Fetching from URL:', url); // Debug log
-
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Ghost ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Ghost API error:', error);
-      return NextResponse.json({
-        success: false,
-        error: `Ghost API returned ${response.status}: ${error}`
-      }, { status: response.status });
+    // Filter by status if specified
+    if (statusParam !== 'all') {
+      posts = posts.filter(post => post.status === statusParam);
     }
 
-    const data = await response.json();
-    console.log(`Fetched ${data.posts?.length || 0} posts from Ghost`); // Debug log
+    // Transform to match Ghost API format for backward compatibility
+    const transformedPosts = posts.map(post => ({
+      id: post.slug,
+      title: post.title,
+      slug: post.slug,
+      excerpt: post.excerpt,
+      feature_image: post.featured_image || null,
+      published_at: post.date,
+      updated_at: post.date,
+      status: post.status,
+      tags: post.tags?.map(tag => ({ name: tag, slug: tag.toLowerCase().replace(/\s+/g, '-') })) || []
+    }));
 
     return NextResponse.json({
       success: true,
-      posts: data.posts || []
+      posts: transformedPosts
     });
   } catch (error) {
     console.error('Error fetching posts:', error);
@@ -73,51 +45,27 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const token = getGhostToken();
+    const { savePost } = await import('@/lib/blog');
 
-    const response = await fetch(`${GHOST_URL}/ghost/api/admin/posts/`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Ghost ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        posts: [{
-          title: body.title,
-          html: body.html,
-          status: body.status || 'draft',
-          published_at: body.published_at,
-          feature_image: body.feature_image,
-          tags: body.tags,
-          excerpt: body.excerpt,
-          meta_title: body.meta_title,
-          meta_description: body.meta_description,
-          twitter_title: body.twitter_title,
-          twitter_description: body.twitter_description,
-          twitter_image: body.twitter_image,
-          og_title: body.og_title,
-          og_description: body.og_description,
-          og_image: body.og_image,
-          codeinjection_head: body.codeinjection_head,
-          codeinjection_foot: body.codeinjection_foot,
-        }]
-      }),
-    });
+    const slug = body.slug || body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    
+    const frontmatter = {
+      title: body.title,
+      excerpt: body.excerpt || '',
+      date: body.date || new Date().toISOString(),
+      author: body.author || 'Rob Spain',
+      featured_image: body.featured_image,
+      tags: body.tags || [],
+      status: body.status || 'draft',
+      meta_title: body.meta_title,
+      meta_description: body.meta_description,
+    };
 
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Ghost API error:', error);
-      return NextResponse.json({
-        success: false,
-        error: `Failed to create post: ${response.status}`
-      }, { status: response.status });
-    }
-
-    const data = await response.json();
+    savePost(slug, frontmatter, body.content || '');
 
     return NextResponse.json({
       success: true,
-      post: data.posts?.[0]
+      post: { slug, ...frontmatter }
     });
   } catch (error) {
     console.error('Error creating post:', error);
