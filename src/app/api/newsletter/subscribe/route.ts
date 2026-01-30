@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { sendWelcomeEmail } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,11 +40,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: Send welcome email via Mailgun
-    // TODO: Add to Kit.com list if configured
+    // Send welcome email via Resend
+    const emailResult = await sendWelcomeEmail(email);
+    
+    if (!emailResult.success) {
+      console.error('Welcome email failed:', emailResult.error);
+      // Don't fail the subscription if email fails
+    }
 
     return NextResponse.json({
-      message: 'Successfully subscribed!'
+      message: 'Successfully subscribed! Check your email for a welcome message.'
     });
   } catch (error) {
     console.error('Newsletter API error:', error);
