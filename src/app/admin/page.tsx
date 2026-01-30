@@ -238,6 +238,14 @@ export default function AdminDashboard() {
       stats: statsLoading ? '...' : `${stats?.totalSubmissions || 0} total`
     },
     {
+      title: 'CRM System',
+      description: 'Manage contacts, sales pipeline, and tasks',
+      href: '/admin/crm',
+      icon: TrendingUp,
+      color: 'purple',
+      stats: 'Leads & Deals'
+    },
+    {
       title: 'Email Templates',
       description: 'Create and edit automated email templates',
       href: '/admin/email-templates',
