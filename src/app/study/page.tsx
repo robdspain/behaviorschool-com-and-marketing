@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -28,7 +29,14 @@ export default function StudyPage() {
             </div>
           )}
         >
-          <div className="w-full h-full bg-white" />
+          <Image
+            src="/study-app-preview.png"
+            alt="Behavior Study Tools Dashboard - BCBA Exam Prep Platform"
+            width={1200}
+            height={800}
+            className="w-full h-full object-cover rounded-lg shadow-2xl"
+            priority
+          />
         </ContainerScroll>
       </section>
 
