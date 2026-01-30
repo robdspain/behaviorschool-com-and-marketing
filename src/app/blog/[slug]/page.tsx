@@ -4,6 +4,7 @@ import { getPostBySlug } from "@/lib/ghost-hybrid";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { EditPostButton } from "@/components/admin/EditPostButton";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 // Decode HTML entities in text
 function decodeHtmlEntities(text: string): string {
@@ -260,6 +261,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         />
       ) : null}
     </article>
+    
+    <div className="max-w-4xl mx-auto px-6 lg:px-8 pb-12">
+      <NewsletterSignup />
+    </div>
+    
     <EditPostButton ghostId={post.id as string} slug={slug} />
     </>
   );
