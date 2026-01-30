@@ -1,12 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
+// Rate limiting: track IPs and timestamps
+const submissionTracker = new Map<string, number>();
+
 export async function POST(request: NextRequest) {
   try {
     // Use Supabase admin client so RLS can remain strict on public tables
     const supabase = createSupabaseAdminClient();
     const body = await request.json();
-    const { firstName, lastName, email, phone, role, currentChallenges } = body;
+    const { firstName, lastName, email, phone, role, currentChallenges, website } = body;
+
+    // SPAM PROTECTION 1: Honeypot field check
+    // If the "website" field is filled (invisible to humans), it's a bot
+    if (website) {
+      console.log('🚫 Spam blocked: Honeypot field filled');
+      return NextResponse.json(
+        { message: 'Application submitted successfully' }, // Fake success to fool bots
+        { status: 200 }
+      );
+    }
+
+    // SPAM PROTECTION 2: Rate limiting (1 submission per IP per 5 minutes)
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const now = Date.now();
+    const lastSubmission = submissionTracker.get(ip);
+    
+    if (lastSubmission && (now - lastSubmission) < 5 * 60 * 1000) {
+      const waitMinutes = Math.ceil((5 * 60 * 1000 - (now - lastSubmission)) / 60000);
+      console.log(`🚫 Rate limit: IP ${ip} tried to submit again after ${(now - lastSubmission) / 1000}s`);
+      return NextResponse.json(
+        { message: `Please wait ${waitMinutes} minute(s) before submitting again.` },
+        { status: 429 }
+      );
+    }
 
     // Validate required fields
     if (!firstName || !lastName || !email || !role) {
@@ -16,7 +43,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate email format
+    // SPAM PROTECTION 3: Email validation (enhanced)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
@@ -24,6 +51,35 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Block suspicious email patterns (common spam indicators)
+    const suspiciousPatterns = [
+      /^[a-z]\.[a-z]{2,}\.[a-z]{2,}\.[a-z]{2,}\.\d+@/i, // o.j.a.s.kal.e.123.4@
+      /^[a-z]{2,}\.[a-z]{2,}\.[a-z]{2,}\.\d+@/i, // mo.xada.m.u.l.6.24@
+      /\d{3,}@/i, // napafagova846@
+      /@(test|spam|fake|temp|disposable)\./i
+    ];
+
+    if (suspiciousPatterns.some(pattern => pattern.test(email))) {
+      console.log(`🚫 Spam blocked: Suspicious email pattern: ${email}`);
+      return NextResponse.json(
+        { message: 'Application submitted successfully' }, // Fake success
+        { status: 200 }
+      );
+    }
+
+    // Block if first/last name contains random gibberish (>15 chars of random letters)
+    const gibberishPattern = /^[A-Za-z]{15,}$/;
+    if (gibberishPattern.test(firstName) || gibberishPattern.test(lastName)) {
+      console.log(`🚫 Spam blocked: Gibberish name: ${firstName} ${lastName}`);
+      return NextResponse.json(
+        { message: 'Application submitted successfully' }, // Fake success
+        { status: 200 }
+      );
+    }
+
+    // Record this IP submission
+    submissionTracker.set(ip, now);
 
     // Store in Supabase
     const { error: signupError } = await supabase

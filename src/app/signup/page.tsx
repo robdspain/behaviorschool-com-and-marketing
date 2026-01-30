@@ -16,7 +16,8 @@ export default function SignupPage() {
     email: "",
     phone: "",
     role: "",
-    currentChallenges: ""
+    currentChallenges: "",
+    website: "" // Honeypot field - bots fill this, humans don't see it
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -370,6 +371,20 @@ export default function SignupPage() {
                 <p className="text-xs text-slate-500 mt-1">
                   Sharing this helps us tailor our consultation call specifically to your needs and show you relevant solutions right away.
                 </p>
+              </div>
+
+              {/* Honeypot field - invisible to humans, bots fill it */}
+              <div style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
               </div>
 
               <button
