@@ -6,7 +6,6 @@ import { Briefcase, DollarSign, GraduationCap, FileText, Users, BookOpen, ArrowR
 import { Button } from "@/components/ui/button";
 import { TrustBar } from "@/components/ui/trust-bar";
 import { ScrollNav } from "@/components/ui/scroll-nav";
-import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -185,7 +184,6 @@ export default function SchoolBCBAContent() {
         </div>
       </section>
 
-      <ExitIntentModal pageSource="school-bcba-hub" />
     </main>
   );
 }

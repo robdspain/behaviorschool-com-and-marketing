@@ -4,10 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, Target, CheckCircle, BookOpen } from "lucide-react";
-import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 
 export default function ValuesGoalAssistantLandingPage() {
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-bs-background">
@@ -43,13 +41,13 @@ export default function ValuesGoalAssistantLandingPage() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <button 
-              onClick={() => setIsSignupOpen(true)}
+            <Link 
+              href="/iep-behavior-goals"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-500 hover:from-blue-700 hover:to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
             >
-              Join the Interest List
+              Try Behavior Goals Now
               <Mail className="ml-2 w-5 h-5" />
-            </button>
+            </Link>
             <Link 
               href="#act-overview"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-blue-700 border border-blue-700 rounded-lg hover:bg-blue-50 transition-colors duration-200"
@@ -426,27 +424,16 @@ export default function ValuesGoalAssistantLandingPage() {
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Join our interest list to be the first to know when the Behavior Goal Assistant is available!
           </p>
-          <button 
-            onClick={() => setIsSignupOpen(true)}
+          <Link 
+            href="/iep-behavior-goals"
             className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-700 hover:bg-blue-50 font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
           >
-            Sign Up for Updates
-            <Mail className="ml-2 w-5 h-5" />
-          </button>
+            Try Behavior Goals Now
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Link>
         </div>
       </section>
 
-      {/* Email Signup Popup */}
-      <EmailSignupPopup
-        isOpen={isSignupOpen}
-        onClose={() => setIsSignupOpen(false)}
-        title="Join the Behavior Goal Assistant Interest List"
-        description="Be the first to know about updates, early access, and launch details for our new goal-writing tool."
-        pageSource="/values-goal-assistant-landing"
-        showNameField={true}
-        buttonText="Sign Me Up!"
-        successMessage="Thanks for your interest! We'll keep you updated on the Behavior Goal Assistant."
-      />
     </div>
   );
 }

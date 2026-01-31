@@ -224,6 +224,12 @@ Each source emphasizes the value of combining SBT and ACT principles to achieve 
 
 ---
 
+---
+
+**Edited by Rob Spain, M.S., BCBA, IBA**
+
+---
+
 ## Want More Evidence-Based ABA Strategies?
 
 Subscribe to our weekly newsletter for practical tips, research updates, and free resources for school-based BCBAs.

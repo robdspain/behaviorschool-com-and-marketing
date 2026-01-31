@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Check, Brain, Target, TrendingUp, BookOpen, Users, ChevronUp, ChevronDown } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ScrollNav } from "@/components/ui/scroll-nav";
-import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -801,14 +800,6 @@ export default function BehaviorStudyToolsPage() {
         );
       })()}
       
-      {/* Exit Intent Modal */}
-      <ExitIntentModal 
-        pageSource="study-tools" 
-        title="Wait! Take a Free Mock Exam" 
-        description="Test your knowledge with 10 free BCBA practice questions. No credit card required." 
-        buttonText="Start Free Exam" 
-        successMessage="Redirecting to exam..." 
-      />
     </div>
   );
 }

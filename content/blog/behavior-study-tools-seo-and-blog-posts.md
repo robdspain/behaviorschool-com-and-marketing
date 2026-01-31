@@ -631,6 +631,12 @@ Example: link QR code or business card to behaviorstudytools.com/free-test → r
 
 ---
 
+---
+
+**Edited by Rob Spain, M.S., BCBA, IBA**
+
+---
+
 ## Want More Evidence-Based ABA Strategies?
 
 Subscribe to our weekly newsletter for practical tips, research updates, and free resources for school-based BCBAs.

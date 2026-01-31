@@ -308,6 +308,12 @@ Insights into Learning Disabilities, 20(2), 81–99 – case report of a school-
 
 ---
 
+---
+
+**Edited by Rob Spain, M.S., BCBA, IBA**
+
+---
+
 ## Want More Evidence-Based ABA Strategies?
 
 Subscribe to our weekly newsletter for practical tips, research updates, and free resources for school-based BCBAs.

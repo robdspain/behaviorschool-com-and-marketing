@@ -1,11 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { useRouter } from "next/navigation";
 
 export function IEPBehaviorGoalsClient() {
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const router = useRouter();
 
@@ -26,25 +24,10 @@ export function IEPBehaviorGoalsClient() {
       console.log('IEPBehaviorGoalsPage: Redirecting to widget (already signed up)');
       router.push("/iep-behavior-goals/widget");
     } else {
-      // Show signup popup
-      console.log('IEPBehaviorGoalsPage: Opening signup popup');
-      setIsSignupOpen(true);
-    }
-  };
-
-  const handleSignupSuccess = () => {
-    console.log('IEPBehaviorGoalsPage: handleSignupSuccess called');
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('hasSignedUpForIEPWidget', 'true');
-      setHasSignedUp(true);
-      console.log('IEPBehaviorGoalsPage: localStorage flag set');
-    }
-    setIsSignupOpen(false);
-    console.log('IEPBehaviorGoalsPage: Redirecting to widget page...');
-    // Use setTimeout to ensure the popup closes before redirecting
-    setTimeout(() => {
+      // Redirect to widget directly
+      console.log('IEPBehaviorGoalsPage: Redirecting to widget');
       router.push("/iep-behavior-goals/widget");
-    }, 100);
+    }
   };
 
   // FAQ data for structured data
@@ -436,18 +419,6 @@ export function IEPBehaviorGoalsClient() {
         </div>
       </section>
 
-      {/* Email Signup Popup */}
-      <EmailSignupPopup
-        isOpen={isSignupOpen}
-        onClose={() => setIsSignupOpen(false)}
-        title="Generate Your Behavior Goals"
-        description="Enter your email to access the IEP Behavior Goal Generator and start creating compliant, measurable goals instantly."
-        pageSource="/iep-behavior-goals"
-        showNameField={true}
-        buttonText="Access Generator"
-        successMessage="Thanks! Redirecting you to the IEP Behavior Goal Generator..."
-        onSuccess={handleSignupSuccess}
-      />
     </div>
   );
 }

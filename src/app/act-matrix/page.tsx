@@ -7,7 +7,6 @@ import { CheckCircle, Target, Users, BookOpen, ArrowRight, Download, Star } from
 import Link from "next/link";
 import SimpleDownloadButton from "@/components/SimpleDownloadButton";
 import { ScrollNav } from "@/components/ui/scroll-nav";
-import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
 import { motion } from "framer-motion";
 
 const fadeInUp = {
@@ -229,13 +228,6 @@ export default function ACTMatrixPage() {
           </div>
         </div>
       </section>
-
-      <ExitIntentModal 
-        pageSource="act-matrix" 
-        title="Get the ACT Matrix Pack"
-        description="Download our free printable worksheets and implementation guide before you go."
-        buttonText="Download Now"
-      />
     </div>
   );
 }

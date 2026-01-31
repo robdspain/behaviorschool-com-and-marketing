@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Check, FileText, Target, TrendingUp, Users, Shield, Mail, Bell, ArrowRight } from "lucide-react";
-import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 
@@ -23,7 +22,6 @@ const staggerContainer = {
 };
 
 export default function BehaviorPlansPage() {
-  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <div className="min-h-screen bg-bs-background">
@@ -101,10 +99,6 @@ export default function BehaviorPlansPage() {
                  className="space-y-4"
                >
                  <form 
-                   onSubmit={(e) => {
-                     e.preventDefault();
-                     setShowPopup(true);
-                   }} 
                    className="flex flex-col sm:flex-row gap-4 max-w-md"
                    data-netlify="true" 
                    name="bip-writer-signup"
@@ -552,16 +546,13 @@ export default function BehaviorPlansPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <button 
-                onClick={() => setShowPopup(true)}
-                aria-haspopup="dialog"
-                aria-expanded={showPopup}
-                aria-controls="email-signup-popup"
+              <a 
+                href="#"
                 className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-orange-600 hover:bg-slate-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
               >
                 <Bell className="w-5 h-5 mr-2" />
                 Join the Waitlist
-              </button>
+              </a>
             </motion.div>
             
             <div className="space-y-2">
@@ -577,18 +568,6 @@ export default function BehaviorPlansPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* Email Signup Popup */}
-      <EmailSignupPopup
-        isOpen={showPopup}
-        onClose={() => setShowPopup(false)}
-        title="Join the BIP Writer Waitlist"
-        description="Be the first to know when our AI-powered behavior intervention plan tool launches. Get early access and special pricing."
-        pageSource="behavior-plans"
-        buttonText="Join Waitlist"
-        successMessage="Thanks! We'll notify you when BIP Writer launches."
-        className=""
-      />
 
       {/* Structured Data */}
       {(() => {

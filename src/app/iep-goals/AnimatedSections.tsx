@@ -3,13 +3,11 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
-import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export function AnimatedSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const router = useRouter();
 
@@ -29,23 +27,10 @@ export function AnimatedSections() {
       console.log('IEP Goals: Redirecting to widget (already signed up)');
       router.push("/iep-behavior-goals/widget");
     } else {
-      // Show signup popup
-      console.log('IEP Goals: Opening signup popup');
-      setIsSignupOpen(true);
+      // Redirect to widget directly
+      console.log('IEP Goals: Redirecting to widget');
+      router.push("/iep-behavior-goals/widget");
     }
-  };
-
-  const handleSignupSuccess = () => {
-    console.log('IEP Goals: handleSignupSuccess called');
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('hasSignedUpForIEPWidget', 'true');
-      setHasSignedUp(true);
-      console.log('IEP Goals: localStorage flag set');
-    }
-
-    console.log('IEP Goals: Redirecting to widget page...');
-    // Redirect immediately, no setTimeout needed
-    router.push("/iep-behavior-goals/widget");
   };
 
   const faqs = [
@@ -206,7 +191,7 @@ export function AnimatedSections() {
                   onClick={handleCTAClick}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
                 >
-                  Get notified when ready <ArrowRight className="ml-2 w-4 h-4" />
+                  Try Behavior Goals Now <ArrowRight className="ml-2 w-4 h-4" />
                 </button>
               </div>
             </motion.div>
@@ -448,7 +433,7 @@ export function AnimatedSections() {
 
             <div className="text-center">
               <button 
-                onClick={() => setIsSignupOpen(true)}
+                onClick={handleCTAClick}
                 className="inline-flex items-center px-10 py-5 text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
                 Start Creating Goals Now
@@ -994,18 +979,6 @@ export function AnimatedSections() {
           </div>
         </div>
       </div>
-      
-      <EmailSignupPopup
-        isOpen={isSignupOpen}
-        onClose={() => setIsSignupOpen(false)}
-        title="Generate Your IEP Goals"
-        description="Enter your email to access the IEP Goal Generator and start creating compliant, measurable goals instantly."
-        pageSource="/iep-goals"
-        showNameField={true}
-        buttonText="Access Generator"
-        successMessage="Thanks! Redirecting you to the IEP Goal Generator..."
-        onSuccess={handleSignupSuccess}
-      />
     </main>
   );
 }

@@ -135,6 +135,12 @@ Behavior Analysis in Practice. https://doi.org/10.1007/s40617-023-00833-w
 
 ---
 
+---
+
+**Edited by Rob Spain, M.S., BCBA, IBA**
+
+---
+
 ## Want More Evidence-Based ABA Strategies?
 
 Subscribe to our weekly newsletter for practical tips, research updates, and free resources for school-based BCBAs.

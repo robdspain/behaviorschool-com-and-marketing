@@ -4,11 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { School, Users, Target, TrendingUp, CheckCircle, BookOpen, ArrowRight, Download, Star } from "lucide-react";
 
 export default function SchoolBehaviorSupportPage() {
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   const services = [
     {
@@ -97,11 +95,13 @@ export default function SchoolBehaviorSupportPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg"
-              onClick={() => setIsSignupOpen(true)}
               className="bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-800 hover:to-emerald-700"
+              asChild
             >
-              Get Implementation Guide
-              <Download className="ml-2 w-5 h-5" />
+              <Link href="/transformation-program">
+                Get Implementation Guide
+                <Download className="ml-2 w-5 h-5" />
+              </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
               <Link href="#services">
@@ -236,10 +236,10 @@ export default function SchoolBehaviorSupportPage() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => setIsSignupOpen(true)}
                   className="w-full"
+                  asChild
                 >
-                  Download Free
+                  <Link href="/transformation-program">Download Free</Link>
                 </Button>
               </div>
             ))}
@@ -307,26 +307,17 @@ export default function SchoolBehaviorSupportPage() {
           </p>
           <Button 
             size="lg"
-            onClick={() => setIsSignupOpen(true)}
             className="bg-white text-emerald-700 hover:bg-emerald-50"
+            asChild
           >
-            Get Started - Free Resources
-            <ArrowRight className="ml-2 w-5 h-5" />
+            <Link href="/transformation-program">
+              Get Started - Free Resources
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
           </Button>
         </div>
       </section>
 
-      {/* Newsletter Signup Popup */}
-      <EmailSignupPopup
-        isOpen={isSignupOpen}
-        onClose={() => setIsSignupOpen(false)}
-        title="Download Free PBIS Implementation Guide"
-        description="Get our comprehensive guide with step-by-step instructions, templates, and proven strategies for implementing positive behavior support in your school."
-        pageSource="/school-based-behavior-support"
-        showNameField={true}
-        buttonText="Download Guide"
-        successMessage="Check your email! Your PBIS implementation guide is on its way."
-      />
     </div>
   );
 }

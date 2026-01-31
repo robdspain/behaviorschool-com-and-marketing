@@ -6,13 +6,11 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Users, Target, CheckCircle, Star, Award, Heart, Shield, Zap, Calendar, BookOpen, FileCheck, Lightbulb, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { EmailSignupPopup } from '@/components/ui/email-signup-popup';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { ScrollNav } from '@/components/ui/scroll-nav';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ValueStack } from '@/components/ui/value-stack';
 import { CurriculumProgress } from '@/components/ui/curriculum-progress';
-import { ExitIntentModal } from '@/components/ui/exit-intent-modal';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -141,7 +139,6 @@ const curriculumData = [
 ];
 
 export default function TransformationProgramPage() {
-  const [showEmailPopup, setShowEmailPopup] = React.useState(false);
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -359,8 +356,6 @@ export default function TransformationProgramPage() {
       </section>
 
       <div className="h-20 md:hidden"></div>
-      <ExitIntentModal pageSource="transformation" />
-      <EmailSignupPopup isOpen={showEmailPopup} onClose={() => setShowEmailPopup(false)} title="Join the Waitlist" description="Our current cohort is forming. Join the waitlist to be notified of the next opening and get early access pricing." pageSource="transformation" />
     </div>
   );
 }

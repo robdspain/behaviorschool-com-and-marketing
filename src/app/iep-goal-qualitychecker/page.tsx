@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
 type Finding = { label: string; ok: boolean; hint?: string };
@@ -12,53 +11,20 @@ export default function IEPGoalQualityChecker() {
   const [text, setText] = useState("");
   const { findings, optionalFindings } = useMemo(() => evaluate(text), [text]);
   const score = useMemo(() => Math.round((findings.filter(f => f.ok).length / findings.length) * 100) || 0, [findings]);
-  const [showSignup, setShowSignup] = useState(false);
-  const [hasSignup, setHasSignup] = useState(false);
-  const [pendingAction, setPendingAction] = useState<null | "copy" | "pdf" | "email">(null);
   const [showImprove, setShowImprove] = useState(false);
   const [improvedGoal, setImprovedGoal] = useState("");
 
   const { trackButtonClick, trackToolUsage } = useAnalytics();
   const masteryRatio = useMemo(() => parseMasteryRatio(text), [text]);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const flag = localStorage.getItem('hasSignedUpForIEPWidget') === 'true' || localStorage.getItem('hasSignedUpForIEPGoalTools') === 'true';
-      setHasSignup(flag);
-    }
-  }, []);
-
-  const ensureSignup = (action: "copy" | "pdf" | "email", fn: () => void) => {
-    trackToolUsage('iep_goal_quality_checker', `attempt_${action}`, { score });
-    if (hasSignup) {
-      fn();
-    } else {
-      setPendingAction(action);
-      setShowSignup(true);
-    }
-  };
-
-  const onSignupSuccess = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('hasSignedUpForIEPGoalTools', 'true');
-      setHasSignup(true);
-    }
-    setTimeout(() => {
-      if (pendingAction === 'copy') doCopy();
-      if (pendingAction === 'pdf') doExportPDF();
-      if (pendingAction === 'email') doEmailToSelf();
-      setPendingAction(null);
-    }, 100);
-  };
-
-  const doCopy = () => {
+  const handleCopy = () => {
     const content = buildExport(text, findings, score);
     navigator.clipboard.writeText(content).catch(() => {});
     trackButtonClick('copy_results', 'quality_checker_actions', { score });
     trackToolUsage('iep_goal_quality_checker', 'copy_results', { score });
   };
 
-  const doExportPDF = () => {
+  const handleExportPDF = () => {
     const content = buildHTMLForPrint(text, findings, score);
     const w = window.open('', '_blank');
     if (!w) return;
@@ -71,7 +37,7 @@ export default function IEPGoalQualityChecker() {
     trackToolUsage('iep_goal_quality_checker', 'export_pdf', { score });
   };
 
-  const doEmailToSelf = () => {
+  const handleEmailToSelf = () => {
     const subject = encodeURIComponent('Your IEP Goal Quality Check');
     const body = encodeURIComponent(buildExport(text, findings, score));
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
@@ -164,8 +130,8 @@ export default function IEPGoalQualityChecker() {
           )}
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <Button onClick={() => ensureSignup('copy', doCopy)} variant="outline">Copy Results</Button>
-            <Button onClick={() => ensureSignup('pdf', doExportPDF)} className="bg-emerald-600 hover:bg-emerald-700">Export PDF</Button>
+            <Button onClick={handleCopy} variant="outline">Copy Results</Button>
+            <Button onClick={handleExportPDF} className="bg-emerald-600 hover:bg-emerald-700">Export PDF</Button>
           </div>
 
           <div className="mt-4 flex flex-col sm:flex-row gap-3">
@@ -175,7 +141,7 @@ export default function IEPGoalQualityChecker() {
             <Button asChild variant="ghost">
               <Link href="/iep-goals">Explore the Full IEP Goal Writer</Link>
             </Button>
-            <Button variant="ghost" onClick={() => ensureSignup('email', doEmailToSelf)}>Email Results to Me</Button>
+            <Button variant="ghost" onClick={handleEmailToSelf}>Email Results to Me</Button>
           </div>
 
           {/* Improve My Goal */}
@@ -228,11 +194,11 @@ export default function IEPGoalQualityChecker() {
                   {improvedGoal && (
                     <Button
                       variant="outline"
-                      onClick={() => ensureSignup('copy', () => {
+                      onClick={() => {
                         navigator.clipboard.writeText(improvedGoal).catch(() => {});
                         trackButtonClick('copy_improved_goal', 'quality_checker_improve', { score });
                         trackToolUsage('iep_goal_quality_checker', 'copy_improved_goal', { score });
-                      })}
+                      }}
                     >
                       Copy Improved Goal
                     </Button>
@@ -314,20 +280,6 @@ export default function IEPGoalQualityChecker() {
         }}
       />
 
-      {/* Email Signup Modal */}
-      <EmailSignupPopup
-        isOpen={showSignup}
-        onClose={() => setShowSignup(false)}
-        title="Get Free Access to Exports"
-        description="Enter your email to unlock Copy and PDF export, plus receive School BCBA tools and tips."
-        pageSource="iep_goal_quality_checker"
-        buttonText="Unlock Free Access"
-        showNameField={false}
-        isDownloadFlow={true}
-        onSuccess={onSignupSuccess}
-        id="quality-checker-signup"
-        unlockOnError={true}
-      />
     </main>
   );
 }

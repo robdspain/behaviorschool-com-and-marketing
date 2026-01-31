@@ -7,9 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { ScrollNav } from "@/components/ui/scroll-nav";
-import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
 import {
   ClipboardList,
   BarChart3,
@@ -48,7 +46,6 @@ const itemVariants: Variants = {
 };
 
 export default function SupervisorsPage() {
-  const [showPopup, setShowPopup] = useState(false);
   const heroRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
 
@@ -159,10 +156,9 @@ export default function SupervisorsPage() {
               size="lg"
               variant="outline"
               className="bg-white/20 text-white border-white/50 backdrop-blur-md hover:bg-white/30 px-10 py-5 text-xl font-bold rounded-2xl"
-              onClick={() => setShowPopup(true)}
+              asChild
             >
-              Join Premium Waitlist
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <a href="#platform">Join Premium Waitlist</a>
             </Button>
           </motion.div>
         </div>
@@ -384,14 +380,6 @@ export default function SupervisorsPage() {
       </section>
 
       <div className="h-20 md:hidden"></div>
-      <ExitIntentModal pageSource="supervisors" />
-      <EmailSignupPopup
-        isOpen={showPopup}
-        onClose={() => setShowPopup(false)}
-        title="Join the Premium Supervision Waitlist"
-        description="Be the first to access our comprehensive BCBA supervision platform. Get early access and exclusive launch pricing."
-        pageSource="supervisors"
-      />
     </div>
   );
 }
