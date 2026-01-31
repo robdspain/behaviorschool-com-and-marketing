@@ -43,7 +43,6 @@ import { Hero } from "@/components/ui/hero";
 import { TrustBar } from "@/components/ui/trust-bar";
 import { ExternalLinkModal } from "@/components/ui/external-link-modal";
 // import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
-import { TimeDelayPopup } from "@/components/ui/time-delay-popup";
  
 
 export default function Home() {
@@ -171,14 +170,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Time-delayed email popup - shows after 10 seconds */}
-      <TimeDelayPopup 
-        pageSource="homepage"
-        delay={10000}
-        title="Join 5,000+ School BCBAs Getting Weekly Tips"
-        description="Get evidence-based strategies, IEP tools, and behavior support ideas delivered every week. Free resources to help you work smarter, not harder."
-        buttonText="Subscribe to Weekly Tips"
-      />
+      {/* No popup on homepage - irritating for visitors */}
     </div>
   );
 }
