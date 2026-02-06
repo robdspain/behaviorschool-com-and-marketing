@@ -105,36 +105,6 @@ const curriculumData = [
     ],
     icon: FileCheck,
     color: "emerald"
-  },
-  {
-    week: 7,
-    topic: "Acceptance & Commitment Training (ACT) for You & Your Students",
-    objectives: [
-      "Learn ACT strategies to improve personal resilience.",
-      "Begin using simple ACT tools with students."
-    ],
-    deliverables: [
-      "“ACT for Analysts” values worksheet.",
-      "Mini ACT toolkit for students (5 quick activities).",
-      "Challenge: Share a short video on how you’ll use one ACT tool this week."
-    ],
-    icon: Lightbulb,
-    color: "teal"
-  },
-  {
-    week: 8,
-    topic: "Systems for Sustainability",
-    objectives: [
-      "Consolidate tools into a repeatable “Behavior Toolkit.”",
-      "Create a 90-day implementation roadmap."
-    ],
-    deliverables: [
-      "Your “Behavior Systems Binder” (digital or print).",
-      "Schoolwide Audit Template.",
-      "Wrap-Up: Peer celebration & accountability pod launch."
-    ],
-    icon: Trophy,
-    color: "yellow"
   }
 ];
 
@@ -165,12 +135,18 @@ export default function TransformationProgramPage() {
                   From Chaos <br className="hidden sm:block" /> to <span className="text-emerald-600">Confidence</span>
                 </h1>
                 <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-[58ch] leading-relaxed mx-auto lg:mx-0">
-                  The Behavior School Operating System equips School BCBAs to stop firefighting and lead with clarity, systems, and measurable results.
+                  A 6-week, district-ready training for employed School BCBAs to move from reactive to system-led practice — with tools, templates, and coaching built for real classrooms.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Button asChild size="lg" className="rounded-2xl px-8 h-14 text-lg font-bold bg-red-600 hover:bg-red-700 text-white shadow-xl">
                     <Link href="/signup">Claim Your Spot <ArrowRight className="ml-2 h-5 w-5" /></Link>
                   </Button>
+                </div>
+                <div className="mt-6 inline-flex flex-col gap-1 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900">
+                  <p className="text-sm font-semibold uppercase tracking-widest text-emerald-700">Next Cohort (6-Week Pilot)</p>
+                  <p className="text-sm font-semibold">Thursdays · 6:00–8:00 PM PT</p>
+                  <p className="text-sm">Dates: Mar 26, Apr 9, Apr 16, Apr 23, Apr 30, <span className="font-semibold">May 7</span></p>
+                  <p className="text-xs text-emerald-700">Skipping Easter week</p>
                 </div>
               </motion.div>
             </div>
@@ -185,7 +161,7 @@ export default function TransformationProgramPage() {
 
       <ScrollNav 
         items={[
-          { id: "curriculum", label: "8-Week Schedule" },
+          { id: "curriculum", label: "6-Week Schedule" },
           { id: "outcomes", label: "Learning Goals" },
           { id: "enroll", label: "Join Cohort" },
         ]}
@@ -197,6 +173,7 @@ export default function TransformationProgramPage() {
           <motion.div className="text-center mb-24">
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 mb-6">Class Schedule & Agenda</h2>
             <p className="text-lg text-emerald-700 font-bold tracking-widest uppercase">The Transformation Blueprint</p>
+            <p className="mt-3 text-sm font-semibold text-slate-600">6-week live cohort with weekly deliverables.</p>
           </motion.div>
 
           <div className="relative max-w-5xl mx-auto">
@@ -273,6 +250,11 @@ export default function TransformationProgramPage() {
                 </motion.div>
               ))}
             </div>
+
+            <div className="mt-12 rounded-2xl border border-emerald-200 bg-emerald-50 px-6 py-5 text-emerald-900">
+              <p className="text-sm font-semibold uppercase tracking-widest text-emerald-700">Bonus Resources Included</p>
+              <p className="mt-2 text-sm">ACT toolkit + Sustainability roadmap (self-paced).</p>
+            </div>
           </div>
         </div>
       </section>
@@ -290,7 +272,7 @@ export default function TransformationProgramPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">Simplified Learning Objectives</h2>
-            <p className="text-xl text-slate-400">By the end of this 8-week cohort, participants will:</p>
+            <p className="text-xl text-slate-400">By the end of this 6-week cohort, participants will:</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -325,7 +307,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-black text-center mb-16 text-slate-900">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: "The next cohort begins October 23rd. Space is limited to ensure a high-quality interactive experience." },
+            { question: "When does the next cohort start?", answer: "March 26 (Thursdays at 6–8 PM PT). Six live sessions ending May 7." },
             { question: "What if I miss a live call?", answer: "All sessions are recorded and made available in your student portal within 24 hours." },
             { question: "Can I pay with a Purchase Order (PO)?", answer: "Yes! We work with many school districts. Email support@behaviorschool.com to request an invoice." }
           ]} />
@@ -341,7 +323,7 @@ export default function TransformationProgramPage() {
           
           <ValueStack 
             items={[
-              { label: "8-Week Transformation Program", value: 5000 },
+              { label: "6-Week Transformation Program", value: 5000 },
               { label: "Complete Behavior Systems Binder", value: 3000 },
               { label: "Digital Tool & Template Library", value: 4000 },
               { label: "90-Day Implementation Roadmap", value: 3000 },
