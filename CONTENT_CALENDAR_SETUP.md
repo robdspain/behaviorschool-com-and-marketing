@@ -92,11 +92,11 @@ The system is pre-configured with this optimal schedule:
 
 ```
 Monday:    LinkedIn (7-9 AM) + Email (9-11 AM)
-Tuesday:   Instagram Reel (9-11 AM)
-Wednesday: Facebook (10-11 AM) + LinkedIn (5-6 PM)
+Tuesday:   Instagram Reel (9-11 AM) + Twitter (10 AM-12 PM)
+Wednesday: YouTube Short (7-9 AM) + Facebook (10-11 AM) + LinkedIn (5-6 PM)
 Thursday:  Instagram Reel (9-11 AM) + Email (9-11 AM)
-Friday:    Instagram Reel (2-4 PM) + Facebook (10-11 AM)
-Saturday:  Instagram (10 AM-12 PM, optional)
+Friday:    Instagram Reel (2-4 PM) + Twitter (11 AM-1 PM) + Facebook (10-11 AM)
+Saturday:  Instagram (10 AM-12 PM, optional) + YouTube (9 AM-12 PM, optional)
 Sunday:    Rest or evergreen reshare
 ```
 
@@ -130,6 +130,8 @@ Posts are color-coded in the calendar:
 - **Instagram**: Purple  
 - **LinkedIn**: Blue
 - **Facebook**: Navy
+- **Twitter**: Sky Blue
+- **YouTube**: Red
 - **Email**: Emerald
 
 ## 📊 Content Strategy Highlights
@@ -138,17 +140,23 @@ Posts are color-coded in the calendar:
 - **Instagram**: Mon-Fri, 9-11 AM, 2-4 PM
 - **LinkedIn**: Tue-Thu, 7-9 AM, 5-6 PM  
 - **Facebook**: Wed-Thu, 9-11 AM
+- **Twitter**: Tue-Thu, 9 AM-3 PM
+- **YouTube**: Weekdays 6-9 AM, 6-10 PM
 - **Email**: Tue-Thu, 8-10 AM
 
 ### Content That Works
 - **Instagram Reels**: Short quiz clips (15-30 sec) = highest engagement
 - **LinkedIn**: Carousels (278% better than video!)
+- **Twitter**: Text threads with strong hooks
+- **YouTube Shorts**: 45-60 sec explainers
 - **Facebook**: Blog shares and community questions perform well
 - **Email**: Clear subject lines + one primary CTA
 
 ### Posting Frequency
 - Instagram: 3-5x per week
 - LinkedIn: 2-5x per week (3 is optimal)
+- Twitter: 1-3x per day
+- YouTube Shorts: 2-3x per week
 - Facebook: 2-4x per week
 - Email: 1-2x per week (campaigns or newsletters)
 

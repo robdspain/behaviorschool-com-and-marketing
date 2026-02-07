@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS content_calendar (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   title TEXT NOT NULL,
   caption TEXT,
-  platforms TEXT[] NOT NULL, -- Array of platforms: Instagram, LinkedIn, Facebook, Email
+  platforms TEXT[] NOT NULL, -- Array of platforms: Instagram, LinkedIn, Facebook, Twitter, YouTube, Email
   content_type TEXT NOT NULL, -- Video Clip, Blog Post, Carousel, Text Post, Story
   media_url TEXT, -- URL to video file or image
   scheduled_date TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -42,8 +42,10 @@ INSERT INTO weekly_posting_template (day_of_week, time_slot, platform, content_t
   
   -- Tuesday
   (2, '9-11 AM', 'Instagram', 'Video Clip', 'Question clip Reel', true),
+  (2, '10 AM-12 PM', 'Twitter', 'Text Post', 'Quick tip or poll', true),
   
   -- Wednesday
+  (3, '7-9 AM', 'YouTube', 'Video Clip', 'Explainer Short or repurposed Reel', true),
   (3, '10-11 AM', 'Facebook', 'Blog Post', 'Blog post share to educator groups', true),
   (3, '5-6 PM', 'LinkedIn', 'Carousel', 'Carousel or document post', true),
   
@@ -53,10 +55,12 @@ INSERT INTO weekly_posting_template (day_of_week, time_slot, platform, content_t
   
   -- Friday
   (5, '2-4 PM', 'Instagram', 'Video Clip', 'Fun/engaging/relatable Reel', true),
+  (5, '11 AM-1 PM', 'Twitter', 'Text Post', 'Poll or engagement question', true),
   (5, '10-11 AM', 'Facebook', 'Text Post', 'Community question or poll', true),
   
   -- Saturday
   (6, '10 AM-12 PM', 'Instagram', 'Video Clip', 'Evergreen or behind-the-scenes', false),
+  (6, '9 AM-12 PM', 'YouTube', 'Video Clip', 'Evergreen Short (optional)', false),
   
   -- Sunday
   (0, 'Optional', 'All', 'Text Post', 'Rest or evergreen reshare', false)
@@ -98,7 +102,21 @@ INSERT INTO posting_time_recommendations (platform, day_of_week, time_window, pr
   ('Facebook', 4, '9-11 AM', 'primary', 'Thursday peak'),
   ('Facebook', 4, '10 AM-12 PM', 'primary', 'Late morning'),
   ('Facebook', 2, '10 AM-12 PM', 'secondary', 'Tuesday engagement'),
-  
+
+  -- Twitter
+  ('Twitter', 2, '7-9 AM', 'primary', 'Morning news check'),
+  ('Twitter', 2, '10 AM-12 PM', 'primary', 'Mid-morning engagement'),
+  ('Twitter', 3, '10 AM-12 PM', 'primary', 'Wednesday peak'),
+  ('Twitter', 3, '1-3 PM', 'primary', 'Afternoon browsing'),
+  ('Twitter', 4, '7-9 AM', 'primary', 'Morning peak'),
+  ('Twitter', 4, '1-3 PM', 'primary', 'Afternoon engagement'),
+
+  -- YouTube
+  ('YouTube', 1, '6-9 AM', 'primary', 'Morning commute'),
+  ('YouTube', 2, '12-2 PM', 'primary', 'Lunch break discovery'),
+  ('YouTube', 3, '6-10 PM', 'primary', 'Evening viewing'),
+  ('YouTube', 6, '9 AM-12 PM', 'secondary', 'Saturday morning'),
+
   -- Email
   ('Email', 2, '8-10 AM', 'primary', 'High open rates mid-week mornings'),
   ('Email', 3, '8-10 AM', 'primary', 'Mid-week inbox check'),

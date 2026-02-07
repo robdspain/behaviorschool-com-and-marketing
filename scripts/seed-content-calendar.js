@@ -45,7 +45,7 @@ D) Continuous Reinforcement (CRF)
 Drop your answer below! 👇
 
 #BCBA #BCBAExam #ABA #BehaviorAnalysis #ExamPrep`,
-    platforms: ['Instagram', 'Facebook'],
+    platforms: ['Instagram', 'YouTube'],
     content_type: 'Video Clip',
     media_url: null,
     scheduled_date: getNextDayAtTime(2, 9), // Tuesday 9 AM
@@ -68,7 +68,7 @@ It's the gold standard for identifying behavior function!
 Want to learn more? Link in bio 🎯
 
 #BCBA #FunctionalAnalysis #ABA #BehaviorAnalysis`,
-    platforms: ['Instagram', 'Facebook'],
+    platforms: ['Instagram', 'YouTube'],
     content_type: 'Video Clip',
     media_url: null,
     scheduled_date: getNextDayAtTime(4, 9), // Thursday 9 AM
@@ -137,7 +137,7 @@ Each has a time and place!
 Comment which one you use most 👇
 
 #BCBA #PreferenceAssessment #ABA #Reinforcement`,
-    platforms: ['Instagram', 'Facebook'],
+    platforms: ['Instagram', 'YouTube'],
     content_type: 'Video Clip',
     media_url: null,
     scheduled_date: getNextDayAtTime(6, 10), // Saturday 10 AM
@@ -161,7 +161,7 @@ D) Behavior changing to a different form
 Think you know? Reply with your answer! ⬇️
 
 #BCBAExam #StudyTip #ABA`,
-    platforms: ['LinkedIn', 'Email'],
+    platforms: ['LinkedIn', 'Twitter'],
     content_type: 'Text Post',
     media_url: null,
     scheduled_date: getNextDayAtTime(1, 9), // Monday 9 AM
@@ -269,7 +269,7 @@ Your complete guide to passing the BCBA exam in 2026:
 Read the full guide → [link]
 
 #BCBA #ExamPrep #StudyGuide`,
-    platforms: ['Facebook', 'LinkedIn', 'Email'],
+    platforms: ['Facebook', 'LinkedIn', 'Twitter', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/bcba-exam-study-guide-2026',
     scheduled_date: getNextDayAtTime(3, 10), // Wednesday 10 AM
@@ -292,7 +292,7 @@ How to write IEP behavior goals that actually work:
 Full article + free template → [link]
 
 #IEP #BCBA #SpecialEducation #BehaviorGoals`,
-    platforms: ['Facebook', 'LinkedIn', 'Email'],
+    platforms: ['Facebook', 'LinkedIn', 'Twitter', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/writing-iep-behavior-goals',
     scheduled_date: getNextDayAtTime(2, 9), // Tuesday 9 AM
@@ -314,7 +314,7 @@ Full article + free template → [link]
 Your roadmap to a BCBA career → [link]
 
 #BCBA #CareerPath #BehaviorAnalysis #Psychology`,
-    platforms: ['LinkedIn', 'Facebook', 'Email'],
+    platforms: ['LinkedIn', 'Facebook', 'Twitter', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/bcba-career-path-guide',
     scheduled_date: getNextDayAtTime(4, 9), // Thursday 9 AM

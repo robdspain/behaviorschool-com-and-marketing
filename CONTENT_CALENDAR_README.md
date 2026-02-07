@@ -6,13 +6,13 @@ A comprehensive social media content planning and scheduling system built into t
 
 ### 📅 Calendar View
 - Monthly calendar grid showing all scheduled posts
-- Color-coded by platform (Instagram=purple, LinkedIn=blue, Facebook=navy, Email=emerald)
+- Color-coded by platform (Instagram=purple, LinkedIn=blue, Facebook=navy, Twitter=sky, YouTube=red, Email=emerald)
 - Click on any post to edit
 - Navigate between months easily
 
 ### ✍️ Post Creator/Editor
 - **Title & Caption** with character count
-- **Multi-platform selection** - schedule one post to multiple platforms (Instagram, LinkedIn, Facebook, Email)
+- **Multi-platform selection** - schedule one post to multiple platforms (Instagram, LinkedIn, Facebook, Twitter, YouTube, Email)
 - **Content types**: Video Clip, Blog Post, Carousel, Text Post, Story
 - **Media attachment** - Add video URLs with preview
 - **Smart scheduling** - AI-suggested optimal posting times based on research
@@ -44,11 +44,11 @@ Built-in weekly posting schedule optimized for BCBA audiences:
 
 ```
 Monday:    LinkedIn (7-9 AM) + Email (9-11 AM)
-Tuesday:   Instagram Reel (9-11 AM)
-Wednesday: Facebook (10-11 AM) + LinkedIn (5-6 PM)
+Tuesday:   Instagram Reel (9-11 AM) + Twitter (10 AM-12 PM)
+Wednesday: YouTube Short (7-9 AM) + Facebook (10-11 AM) + LinkedIn (5-6 PM)
 Thursday:  Instagram Reel (9-11 AM) + Email (9-11 AM)
-Friday:    Instagram Reel (2-4 PM) + Facebook (10-11 AM)
-Saturday:  Instagram (10 AM-12 PM, optional)
+Friday:    Instagram Reel (2-4 PM) + Twitter (11 AM-1 PM) + Facebook (10-11 AM)
+Saturday:  Instagram (10 AM-12 PM, optional) + YouTube (9 AM-12 PM, optional)
 Sunday:    Rest or evergreen reshare
 ```
 
@@ -91,7 +91,7 @@ Navigate to: `https://behaviorschool.com/admin/content-calendar`
 - **id**: UUID primary key
 - **title**: Post title (required)
 - **caption**: Post caption/description
-- **platforms**: Array of platforms (Instagram, LinkedIn, Facebook, Email)
+- **platforms**: Array of platforms (Instagram, LinkedIn, Facebook, Twitter, YouTube, Email)
 - **content_type**: Video Clip, Blog Post, Carousel, Text Post, Story
 - **media_url**: URL to video/image file
 - **scheduled_date**: When to post (timestamp with timezone)
@@ -104,7 +104,7 @@ Navigate to: `https://behaviorschool.com/admin/content-calendar`
 
 ### `posting_time_recommendations`
 Pre-populated with research-based optimal posting times for each platform:
-- **platform**: Instagram, LinkedIn, Facebook, Email
+- **platform**: Instagram, LinkedIn, Facebook, Twitter, YouTube, Email
 - **day_of_week**: 0 (Sunday) - 6 (Saturday)
 - **time_window**: e.g., "7-9 AM PST"
 - **priority**: primary, secondary, avoid
@@ -159,6 +159,8 @@ Key insights:
 - **Instagram**: 9-11 AM, 2-4 PM weekdays
 - **LinkedIn**: Morning commute (7-9 AM) and after work (5-6 PM)
 - **Facebook**: Mid-morning (9-11 AM) Wednesday-Thursday
+- **Twitter**: Business hours (9 AM-3 PM) Tuesday-Thursday
+- **YouTube**: Commute times and evening (6-10 PM)
 - **Email**: Tuesday-Thursday, 8-10 AM (highest open rates)
 
 ### Content Performance by Platform
@@ -166,6 +168,10 @@ Key insights:
 **Instagram Reels**: Short quiz clips (15-30 sec) perform best
 
 **LinkedIn**: Carousels get 278% higher engagement than video
+
+**Twitter**: Text posts with strong hooks drive discussion
+
+**YouTube Shorts**: Longer explainers (45-60 sec) work well
 
 **Facebook**: Blog shares and community questions perform best mid-morning
 
@@ -220,6 +226,8 @@ Use tags to track this balance in the pipeline view.
 - **Instagram**: 2,200 characters (first 125 visible)
 - **LinkedIn**: 3,000 characters (first 140 visible)
 - **Facebook**: 63,206 characters (first 120 visible, aim for 40-80)
+- **Twitter**: 280 characters (4,000 with Blue)
+- **YouTube Shorts**: 5,000 characters (title: 100)
 - **Email**: Subject line 40-60 characters; preheader 40-90; body 50-125 words for best engagement
 
 ## Troubleshooting
