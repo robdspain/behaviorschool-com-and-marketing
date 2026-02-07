@@ -9,7 +9,9 @@ import {
   type GoalMode,
   type GoalInputs,
   type GeneratedGoal,
+  type BehaviorFunction,
   behaviorCategories,
+  behaviorFunctions,
   gradeLevels,
   measurementMethods,
   masteryCriteriaOptions,
@@ -19,15 +21,27 @@ import {
 } from "./goalTemplateEngine";
 
 // ─── Steps ───────────────────────────────────────────────────
-const steps = [
+const reductionSteps = [
   { key: "mode", label: "Goal Type" },
-  { key: "student", label: "Student Info" },
+  { key: "student", label: "Student" },
   { key: "behavior", label: "Behavior" },
+  { key: "function", label: "Function" },
   { key: "baseline", label: "Baseline" },
-  { key: "target", label: "Target" },
+  { key: "target", label: "Replacement" },
   { key: "measurement", label: "Measurement" },
   { key: "mastery", label: "Mastery" },
-  { key: "email", label: "Get Results" },
+  { key: "email", label: "Results" },
+];
+
+const skillSteps = [
+  { key: "mode", label: "Goal Type" },
+  { key: "student", label: "Student" },
+  { key: "behavior", label: "Behavior" },
+  { key: "baseline", label: "Baseline" },
+  { key: "target", label: "Target Skill" },
+  { key: "measurement", label: "Measurement" },
+  { key: "mastery", label: "Mastery" },
+  { key: "email", label: "Results" },
 ];
 
 const defaultInputs: GoalInputs = {
@@ -36,6 +50,7 @@ const defaultInputs: GoalInputs = {
   ageRange: "",
   currentBehavior: "",
   behaviorCategory: "",
+  behaviorFunction: "unknown",
   baselineFrequency: "",
   baselineDuration: "",
   baselineIntensity: "",
@@ -58,6 +73,8 @@ export function GoalGeneratorWizard() {
   const [copied, setCopied] = useState<string | null>(null);
   const [emailError, setEmailError] = useState("");
 
+  const steps = inputs.mode === "reduction" ? reductionSteps : skillSteps;
+
   const update = useCallback(<K extends keyof GoalInputs>(key: K, value: GoalInputs[K]) => {
     setInputs(prev => ({ ...prev, [key]: value }));
   }, []);
@@ -73,28 +90,29 @@ export function GoalGeneratorWizard() {
 
   const isStepValid = useMemo(() => {
     const v: boolean[] = [];
-    // 0: mode — always valid once mode is set
-    v.push(!!inputs.mode);
-    // 1: student info
-    v.push(!!inputs.gradeLevel);
-    // 2: behavior
-    v.push(!!inputs.behaviorCategory && inputs.currentBehavior.trim().length > 3);
-    // 3: baseline
-    v.push(!!(inputs.baselineFrequency || inputs.baselineDuration || inputs.baselineIntensity));
-    // 4: target
-    v.push(
-      inputs.mode === "reduction"
-        ? inputs.replacementBehavior.trim().length > 3
-        : inputs.targetBehavior.trim().length > 3
-    );
-    // 5: measurement
-    v.push(!!inputs.measurementMethod);
-    // 6: mastery
-    v.push(!!inputs.masteryCriteria && !!inputs.masteryConsecutive && inputs.settings.length > 0);
-    // 7: email
-    v.push(true); // always allow proceeding
+    // Build validation per current step list
+    for (const step of steps) {
+      switch (step.key) {
+        case "mode": v.push(!!inputs.mode); break;
+        case "student": v.push(!!inputs.gradeLevel); break;
+        case "behavior": v.push(!!inputs.behaviorCategory && inputs.currentBehavior.trim().length > 3); break;
+        case "function": v.push(!!inputs.behaviorFunction); break;
+        case "baseline": v.push(!!(inputs.baselineFrequency || inputs.baselineDuration || inputs.baselineIntensity)); break;
+        case "target":
+          v.push(
+            inputs.mode === "reduction"
+              ? inputs.replacementBehavior.trim().length > 3
+              : inputs.targetBehavior.trim().length > 3
+          );
+          break;
+        case "measurement": v.push(!!inputs.measurementMethod); break;
+        case "mastery": v.push(!!inputs.masteryCriteria && !!inputs.masteryConsecutive && inputs.settings.length > 0); break;
+        case "email": v.push(true); break;
+        default: v.push(true);
+      }
+    }
     return v;
-  }, [inputs]);
+  }, [inputs, steps]);
 
   const handleNext = () => {
     if (currentStep < steps.length - 1 && isStepValid[currentStep]) {
@@ -112,22 +130,18 @@ export function GoalGeneratorWizard() {
       return;
     }
     setEmailError("");
-    // Fire and forget — store in localStorage for now, can hook to API later
     try {
       const stored = JSON.parse(localStorage.getItem("bs_iep_emails") || "[]");
       stored.push({ email, timestamp: Date.now(), mode: inputs.mode });
       localStorage.setItem("bs_iep_emails", JSON.stringify(stored));
     } catch { /* ignore */ }
     setEmailSubmitted(true);
-    const goal = generateGoal(inputs);
-    setGeneratedGoal(goal);
+    setGeneratedGoal(generateGoal(inputs));
   };
 
   const handleSkipEmail = () => {
-    // Show partial results only
     setEmailSubmitted(true);
-    const goal = generateGoal(inputs);
-    setGeneratedGoal(goal);
+    setGeneratedGoal(generateGoal(inputs));
   };
 
   const handleCopy = async (text: string, label: string) => {
@@ -149,15 +163,15 @@ export function GoalGeneratorWizard() {
 
   const categories = behaviorCategories[inputs.mode];
 
-  // ─── Render helpers ─────────────────────────────────────────
+  // ─── Step renderers ─────────────────────────────────────────
 
   const renderModeStep = () => (
     <div className="space-y-5">
       <p className="text-sm text-slate-600">What type of IEP goal do you need?</p>
       <div className="grid gap-4 sm:grid-cols-2">
         {([
-          { mode: "reduction" as GoalMode, title: "Problem Behavior Reduction", desc: "Goals for decreasing challenging behaviors", emoji: "📉", color: "rose" },
-          { mode: "skill" as GoalMode, title: "Behavior Skill Increase", desc: "Goals for building new skills", emoji: "📈", color: "emerald" },
+          { mode: "reduction" as GoalMode, title: "Problem Behavior Reduction", desc: "Decrease challenging behaviors with function-based goals", emoji: "📉" },
+          { mode: "skill" as GoalMode, title: "Behavior Skill Increase", desc: "Build new skills and replacement behaviors", emoji: "📈" },
         ]).map(opt => (
           <button
             key={opt.mode}
@@ -165,6 +179,9 @@ export function GoalGeneratorWizard() {
             onClick={() => {
               update("mode", opt.mode);
               update("behaviorCategory", "");
+              update("behaviorFunction", "unknown");
+              // Reset step to 0 when mode changes to avoid out-of-bounds
+              setCurrentStep(0);
             }}
             className={cn(
               "flex flex-col items-start gap-2 rounded-2xl border-2 p-5 text-left transition-all",
@@ -233,28 +250,82 @@ export function GoalGeneratorWizard() {
       </div>
       <div className="space-y-2">
         <Label htmlFor="current-behavior" className="text-sm font-semibold">
-          Describe the specific behavior
+          Describe the specific, observable, measurable behavior
         </Label>
         <textarea
           id="current-behavior"
           value={inputs.currentBehavior}
           onChange={e => update("currentBehavior", e.target.value)}
           placeholder={inputs.mode === "reduction"
-            ? "e.g., Student hits peers with open hand when asked to share materials"
-            : "e.g., Student currently does not initiate greetings with peers"
+            ? "e.g., Student hits peers with open hand when asked to share materials during group activities"
+            : "e.g., Student currently does not initiate greetings with peers during unstructured time"
           }
           className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           rows={3}
         />
+        <p className="text-xs text-emerald-700">💡 Use observable, measurable terms. Avoid subjective language (e.g., &quot;gets angry&quot;). Instead: &quot;throws materials off desk.&quot;</p>
+      </div>
+    </div>
+  );
+
+  const renderFunctionStep = () => (
+    <div className="space-y-5">
+      <div>
+        <p className="text-sm font-semibold text-slate-900">
+          What is the hypothesized function of the behavior?
+        </p>
+        <p className="text-xs text-slate-500">
+          Why does the behavior occur? The function determines the replacement behavior and intervention strategies.
+          If a formal FBA has not been completed, select &quot;Not Yet Determined.&quot;
+        </p>
+      </div>
+      <div className="grid gap-3">
+        {behaviorFunctions.map(fn => (
+          <button
+            key={fn.value}
+            type="button"
+            onClick={() => update("behaviorFunction", fn.value)}
+            className={cn(
+              "flex items-start gap-4 rounded-xl border p-4 text-left transition",
+              inputs.behaviorFunction === fn.value
+                ? "border-emerald-600 bg-emerald-50 shadow-sm"
+                : "border-slate-200 bg-white hover:border-emerald-300"
+            )}
+          >
+            <span className="mt-0.5 text-2xl">{fn.emoji}</span>
+            <div>
+              <span className={cn("text-sm font-semibold", inputs.behaviorFunction === fn.value ? "text-emerald-800" : "text-slate-900")}>
+                {fn.label}
+              </span>
+              <p className="mt-0.5 text-xs text-slate-500">{fn.description}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+      <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+        <p className="font-semibold">⚠️ Function matters!</p>
+        <p className="text-xs mt-1">
+          Per best practice (and KCUSD Behavior Team standards), behavior goals should be <strong>function-based</strong>.
+          The replacement behavior must serve the same function as the problem behavior.
+          If function is unknown, a Functional Behavior Assessment (FBA) is recommended.
+        </p>
       </div>
     </div>
   );
 
   const renderBaselineStep = () => (
     <div className="space-y-5">
-      <p className="text-sm text-slate-600">
-        Enter current baseline data. Fill in at least one field.
-      </p>
+      <div>
+        <p className="text-sm font-semibold text-slate-900">
+          {inputs.mode === "reduction"
+            ? "Baseline for Problem Behavior"
+            : "Current Skill Baseline"
+          }
+        </p>
+        <p className="text-xs text-slate-500">
+          For how long or how often is the behavior currently occurring? Fill in at least one field.
+        </p>
+      </div>
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="baseline-freq" className="text-sm font-semibold">Frequency</Label>
@@ -291,11 +362,70 @@ export function GoalGeneratorWizard() {
     <div className="space-y-5">
       {inputs.mode === "reduction" ? (
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
-            What replacement behavior should the student use instead?
-          </p>
+          <div>
+            <p className="text-sm font-semibold text-slate-900">
+              Replacement Behavior
+            </p>
+            <p className="text-xs text-slate-500">
+              What should the student do <strong>instead</strong> of the problem behavior?
+              The replacement must serve the same function as the problem behavior.
+            </p>
+          </div>
+
+          {/* Function-based replacement suggestions */}
+          {inputs.behaviorFunction !== "unknown" && (
+            <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-3">
+              <p className="text-xs font-semibold text-emerald-800 uppercase tracking-wider">
+                Suggested replacements for {behaviorFunctions.find(f => f.value === inputs.behaviorFunction)?.label}
+              </p>
+              <div className="mt-2 grid gap-2">
+                {(() => {
+                  // Import function replacements inline
+                  const replacements: Record<BehaviorFunction, string[]> = {
+                    escape: [
+                      "request a break using a break card or verbal request",
+                      "ask for help when a task is too difficult",
+                      "request task modification (e.g., fewer problems, extended time)",
+                    ],
+                    attention: [
+                      "raise hand and wait to be called on",
+                      "use an appropriate verbal bid for attention (e.g., 'Excuse me')",
+                      "initiate peer interaction using taught social scripts",
+                    ],
+                    tangible: [
+                      "request the item/activity using appropriate communication",
+                      "accept 'no' or 'wait' and engage in an alternative activity",
+                      "use a visual timer to wait for the preferred item",
+                    ],
+                    automatic: [
+                      "engage in a functionally equivalent alternative sensory activity",
+                      "request access to a sensory tool or break area",
+                      "use a self-monitoring checklist to redirect to task",
+                    ],
+                    unknown: [],
+                  };
+                  return replacements[inputs.behaviorFunction]?.map((r, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => update("replacementBehavior", r)}
+                      className={cn(
+                        "text-left text-xs rounded-lg border px-3 py-2 transition",
+                        inputs.replacementBehavior === r
+                          ? "border-emerald-500 bg-white text-emerald-800 font-medium"
+                          : "border-emerald-200 bg-white/50 text-emerald-700 hover:bg-white"
+                      )}
+                    >
+                      {r}
+                    </button>
+                  ));
+                })()}
+              </div>
+            </div>
+          )}
+
           <div className="space-y-2">
-            <Label htmlFor="replacement" className="text-sm font-semibold">Replacement Behavior</Label>
+            <Label htmlFor="replacement" className="text-sm font-semibold">Replacement Behavior (customize or use suggestion above)</Label>
             <textarea
               id="replacement"
               value={inputs.replacementBehavior}
@@ -304,7 +434,7 @@ export function GoalGeneratorWizard() {
               className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
               rows={3}
             />
-            <p className="text-xs text-emerald-700">💡 ABA best practice: Always pair behavior reduction with a functionally equivalent replacement behavior.</p>
+            <p className="text-xs text-emerald-700">💡 The replacement behavior must serve the same function as the problem behavior and be easier for the student to perform.</p>
           </div>
         </div>
       ) : (
@@ -450,7 +580,7 @@ export function GoalGeneratorWizard() {
           id="context"
           value={inputs.additionalContext}
           onChange={e => update("additionalContext", e.target.value)}
-          placeholder="e.g., 1:1 aide present, sensory breaks available"
+          placeholder="e.g., 1:1 aide present, sensory breaks available, BIP in place"
         />
       </div>
     </div>
@@ -467,7 +597,8 @@ export function GoalGeneratorWizard() {
           <span className="text-4xl">🎯</span>
           <h3 className="mt-3 text-xl font-semibold text-slate-900">Your IEP Goal is Ready!</h3>
           <p className="mt-2 text-sm text-slate-600">
-            Enter your email to get the complete goal with short-term objectives, data collection methods, and progress monitoring schedule.
+            Enter your email to get the complete goal package with short-term objectives, data collection methods,
+            {inputs.mode === "reduction" ? " function-based intervention strategies," : ""} and progress monitoring schedule.
           </p>
         </div>
 
@@ -499,7 +630,7 @@ export function GoalGeneratorWizard() {
   };
 
   const renderResults = (goal: GeneratedGoal) => {
-    const showFull = !!email; // full results only if email provided
+    const showFull = !!email;
 
     return (
       <div className="space-y-6">
@@ -507,12 +638,7 @@ export function GoalGeneratorWizard() {
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50/40 p-5">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-semibold text-emerald-900">📋 Annual IEP Goal</h3>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handleCopy(goal.annualGoal, "goal")}
-              className="text-xs"
-            >
+            <Button variant="outline" size="sm" onClick={() => handleCopy(goal.annualGoal, "goal")} className="text-xs">
               {copied === "goal" ? "Copied!" : "Copy"}
             </Button>
           </div>
@@ -537,30 +663,77 @@ export function GoalGeneratorWizard() {
             </ol>
           ) : (
             <div className="mt-3 rounded-xl bg-slate-100 px-4 py-6 text-center text-sm text-slate-500">
-              🔒 Enter your email above to unlock short-term objectives, data collection methods, and progress monitoring schedule.
+              🔒 Enter your email above to unlock short-term objectives, data collection methods, intervention strategies, and progress monitoring.
             </div>
           )}
         </div>
+
+        {/* Function-based Intervention Strategies (reduction mode only) */}
+        {showFull && inputs.mode === "reduction" && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50/40 p-5">
+            <h3 className="text-base font-semibold text-amber-900">
+              💡 Suggested Function-Based Interventions
+              {inputs.behaviorFunction !== "unknown" && (
+                <span className="ml-2 text-xs font-normal text-amber-700">
+                  ({behaviorFunctions.find(f => f.value === inputs.behaviorFunction)?.label})
+                </span>
+              )}
+            </h3>
+            <p className="mt-1 text-xs text-amber-700">
+              Per KCUSD Behavior Team standards: interventions organized by Antecedent → Teaching → Consequence.
+            </p>
+
+            <div className="mt-4 space-y-4">
+              <div>
+                <p className="text-sm font-semibold text-slate-900">🛡️ Antecedent Interventions</p>
+                <p className="text-xs text-slate-500 mb-2">What will reduce the likelihood of the behavior before it occurs?</p>
+                <ul className="space-y-1">
+                  {goal.suggestedInterventions.antecedent.map((s, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                      <span className="mt-0.5 text-amber-600">•</span><span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900">📖 Teaching Strategies</p>
+                <p className="text-xs text-slate-500 mb-2">How will the replacement behavior be taught?</p>
+                <ul className="space-y-1">
+                  {goal.suggestedInterventions.teaching.map((s, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                      <span className="mt-0.5 text-blue-600">•</span><span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900">⚡ Consequence Procedures</p>
+                <p className="text-xs text-slate-500 mb-2">How will replacement behavior be reinforced and problem behavior be addressed?</p>
+                <ul className="space-y-1">
+                  {goal.suggestedInterventions.consequence.map((s, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                      <span className="mt-0.5 text-emerald-600">•</span><span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Data Collection */}
         {showFull && (
           <div className="rounded-2xl border border-slate-200 bg-white p-5">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-semibold text-slate-900">📝 Data Collection Methods</h3>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleCopy(goal.dataCollectionMethods.join("\n"), "data")}
-                className="text-xs"
-              >
+              <Button variant="outline" size="sm" onClick={() => handleCopy(goal.dataCollectionMethods.join("\n"), "data")} className="text-xs">
                 {copied === "data" ? "Copied!" : "Copy"}
               </Button>
             </div>
             <ul className="mt-3 space-y-2">
               {goal.dataCollectionMethods.map((method, i) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-                  <span className="mt-0.5 text-emerald-600">•</span>
-                  <span>{method}</span>
+                  <span className="mt-0.5 text-emerald-600">•</span><span>{method}</span>
                 </li>
               ))}
             </ul>
@@ -572,12 +745,7 @@ export function GoalGeneratorWizard() {
           <div className="rounded-2xl border border-slate-200 bg-white p-5">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-semibold text-slate-900">📅 Progress Monitoring Schedule</h3>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleCopy(goal.progressMonitoringSchedule, "progress")}
-                className="text-xs"
-              >
+              <Button variant="outline" size="sm" onClick={() => handleCopy(goal.progressMonitoringSchedule, "progress")} className="text-xs">
                 {copied === "progress" ? "Copied!" : "Copy"}
               </Button>
             </div>
@@ -587,14 +755,19 @@ export function GoalGeneratorWizard() {
           </div>
         )}
 
-        {/* Copy All + Reset */}
+        {/* Actions */}
         <div className="flex flex-wrap gap-3">
           {showFull && (
             <Button
-              onClick={() => handleCopy(
-                `ANNUAL GOAL:\n${goal.annualGoal}\n\nSHORT-TERM OBJECTIVES:\n${goal.shortTermObjectives.map((o, i) => `${i + 1}. ${o}`).join("\n")}\n\nDATA COLLECTION:\n${goal.dataCollectionMethods.join("\n")}\n\nPROGRESS MONITORING:\n${goal.progressMonitoringSchedule}`,
-                "all"
-              )}
+              onClick={() => {
+                const interventionsText = inputs.mode === "reduction"
+                  ? `\n\nSUGGESTED INTERVENTIONS:\nAntecedent:\n${goal.suggestedInterventions.antecedent.map(s => `• ${s}`).join("\n")}\n\nTeaching:\n${goal.suggestedInterventions.teaching.map(s => `• ${s}`).join("\n")}\n\nConsequence:\n${goal.suggestedInterventions.consequence.map(s => `• ${s}`).join("\n")}`
+                  : "";
+                handleCopy(
+                  `ANNUAL GOAL:\n${goal.annualGoal}\n\nSHORT-TERM OBJECTIVES:\n${goal.shortTermObjectives.map((o, i) => `${i + 1}. ${o}`).join("\n")}${interventionsText}\n\nDATA COLLECTION:\n${goal.dataCollectionMethods.map(m => `• ${m}`).join("\n")}\n\nPROGRESS MONITORING:\n${goal.progressMonitoringSchedule}`,
+                  "all"
+                );
+              }}
               className="bg-emerald-600 hover:bg-emerald-700"
             >
               {copied === "all" ? "Copied Everything!" : "Copy Complete Goal Package"}
@@ -607,13 +780,9 @@ export function GoalGeneratorWizard() {
         {!showFull && (
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-center">
             <p className="text-sm text-amber-800 font-medium">
-              Want the complete package? Enter your email above to unlock all sections.
+              Want the complete package with interventions? Enter your email above.
             </p>
-            <Button
-              onClick={() => { setEmailSubmitted(false); }}
-              className="mt-3 bg-emerald-600 hover:bg-emerald-700"
-              size="sm"
-            >
+            <Button onClick={() => setEmailSubmitted(false)} className="mt-3 bg-emerald-600 hover:bg-emerald-700" size="sm">
               Unlock Full Results
             </Button>
           </div>
@@ -622,27 +791,34 @@ export function GoalGeneratorWizard() {
     );
   };
 
-  // ─── Main render ────────────────────────────────────────────
+  // ─── Step router ────────────────────────────────────────────
 
-  const stepRenderers = [
-    renderModeStep,
-    renderStudentStep,
-    renderBehaviorStep,
-    renderBaselineStep,
-    renderTargetStep,
-    renderMeasurementStep,
-    renderMasteryStep,
-    renderEmailStep,
-  ];
+  const renderCurrentStep = () => {
+    const stepKey = steps[currentStep]?.key;
+    switch (stepKey) {
+      case "mode": return renderModeStep();
+      case "student": return renderStudentStep();
+      case "behavior": return renderBehaviorStep();
+      case "function": return renderFunctionStep();
+      case "baseline": return renderBaselineStep();
+      case "target": return renderTargetStep();
+      case "measurement": return renderMeasurementStep();
+      case "mastery": return renderMasteryStep();
+      case "email": return renderEmailStep();
+      default: return null;
+    }
+  };
+
+  // ─── Main render ────────────────────────────────────────────
 
   return (
     <div className="rounded-3xl border border-emerald-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
       {/* Header */}
       <div className="border-b border-emerald-100 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 px-6 py-6 text-white rounded-t-3xl">
-        <span className="text-xs uppercase tracking-[0.3em] text-emerald-100">Comprehensive Tool</span>
+        <span className="text-xs uppercase tracking-[0.3em] text-emerald-100">Function-Based</span>
         <h2 className="text-2xl font-semibold sm:text-3xl">IEP Goal Generator</h2>
         <p className="text-sm text-emerald-50/90">
-          Generate complete, measurable, legally defensible IEP goals with objectives and data collection plans.
+          Generate complete, measurable, legally defensible IEP goals with function-based interventions.
         </p>
       </div>
 
@@ -671,7 +847,7 @@ export function GoalGeneratorWizard() {
                 onClick={() => { if (i <= currentStep) setCurrentStep(i); }}
                 className={cn(
                   "text-[10px] font-medium transition",
-                  i <= currentStep ? "text-emerald-700 cursor-pointer" : "text-slate-300 cursor-default"
+                  i === currentStep ? "text-emerald-700 font-bold" : i < currentStep ? "text-emerald-600 cursor-pointer" : "text-slate-300 cursor-default"
                 )}
               >
                 {step.label}
@@ -682,11 +858,11 @@ export function GoalGeneratorWizard() {
 
         {/* Step content */}
         <div className="rounded-2xl border border-slate-200 bg-white px-4 py-5 sm:px-6 min-h-[300px]">
-          {stepRenderers[currentStep]()}
+          {renderCurrentStep()}
         </div>
 
         {/* Navigation */}
-        {!(currentStep === steps.length - 1 && emailSubmitted) && (
+        {!(steps[currentStep]?.key === "email" && emailSubmitted) && (
           <div className="mt-6 flex items-center justify-between">
             <Button variant="outline" onClick={handleBack} disabled={currentStep === 0}>
               Back
