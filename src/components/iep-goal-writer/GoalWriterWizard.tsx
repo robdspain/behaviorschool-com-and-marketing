@@ -18,6 +18,14 @@ const valueOptions = [
   { emoji: "🙏", label: "Respectful", description: "Treating others well" },
   { emoji: "🌟", label: "Creative", description: "Thinking in new ways" },
   { emoji: "✅", label: "Responsible", description: "Following through on commitments" },
+  { emoji: "✏️", label: "Custom Value", description: "Use your own value" },
+];
+
+const measurementOptions = [
+  "Teacher observation",
+  "Frequency count",
+  "Duration recording",
+  "Interval recording",
 ];
 
 const generalizationOptions = [
@@ -43,11 +51,13 @@ type BehaviorType = "increase" | "decrease";
 export function GoalWriterWizard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedValue, setSelectedValue] = useState(valueOptions[0]);
+  const [customValue, setCustomValue] = useState("");
   const [behaviorType, setBehaviorType] = useState<BehaviorType>("increase");
   const [behavior, setBehavior] = useState("");
   const [replacementBehavior, setReplacementBehavior] = useState("");
   const [baseline, setBaseline] = useState(40);
   const [target, setTarget] = useState(90);
+  const [measurementMethod, setMeasurementMethod] = useState(measurementOptions[0]);
   const [fluencyEnabled, setFluencyEnabled] = useState(true);
   const [fluencySeconds, setFluencySeconds] = useState(5);
   const [generalization, setGeneralization] = useState<string[]>(defaultSettings);
@@ -55,24 +65,35 @@ export function GoalWriterWizard() {
   const [generatedGoal, setGeneratedGoal] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
+  const valueLabel = useMemo(() => {
+    if (selectedValue.label === "Custom Value") {
+      return customValue.trim() || "custom value";
+    }
+    return selectedValue.label;
+  }, [customValue, selectedValue.label]);
+
   const isStepValid = useMemo(() => {
     const baselineOk = Number.isFinite(baseline) && baseline >= 0 && baseline <= 100;
     const targetOk = Number.isFinite(target) && target >= 0 && target <= 100;
     const behaviorOk = behavior.trim().length > 4;
     const replacementOk = behaviorType === "increase" || replacementBehavior.trim().length > 4;
     const generalizationOk = generalization.length > 0;
+    const valueOk = selectedValue.label === "Custom Value"
+      ? customValue.trim().length > 1
+      : Boolean(selectedValue);
 
     return [
-      Boolean(selectedValue),
+      valueOk,
       behaviorOk && replacementOk,
       baselineOk && targetOk,
       generalizationOk,
       maintenanceWeeks >= 2,
     ];
-  }, [baseline, target, behavior, replacementBehavior, behaviorType, generalization, maintenanceWeeks, selectedValue]);
+  }, [baseline, target, behavior, replacementBehavior, behaviorType, generalization, maintenanceWeeks, selectedValue, customValue]);
 
   const onNext = () => {
     if (currentStep < steps.length - 1 && isStepValid[currentStep]) {
+      console.log("iep_goal_writer_step_next", { step: currentStep + 1 });
       setCurrentStep((prev) => prev + 1);
       setCopied(false);
     }
@@ -80,12 +101,14 @@ export function GoalWriterWizard() {
 
   const onBack = () => {
     if (currentStep > 0) {
+      console.log("iep_goal_writer_step_back", { step: currentStep + 1 });
       setCurrentStep((prev) => prev - 1);
       setCopied(false);
     }
   };
 
   const updateGeneralization = (setting: string) => {
+    console.log("iep_goal_writer_generalization_toggle", { setting });
     setGeneralization((prev) =>
       prev.includes(setting)
         ? prev.filter((item) => item !== setting)
@@ -98,24 +121,32 @@ export function GoalWriterWizard() {
     const date = formatFutureDate(12);
     const settingsText = generalization.length > 0 ? listToSentence(generalization) : "structured classroom settings";
     const behaviorPhrase = behaviorType === "increase"
-      ? `increase ${behavior}`
-      : `decrease ${behavior} by using ${replacementBehavior || "a replacement behavior"}`;
+      ? `increase ${behavior || "the target behavior"}`
+      : `decrease ${behavior || "the target behavior"} by using ${replacementBehavior || "a replacement behavior"}`;
     const fluencyPhrase = fluencyEnabled
-      ? `, initiating within ${fluencySeconds} seconds of the opportunity`
+      ? ` with a response latency of ${fluencySeconds} seconds or less`
       : "";
     const generalizationPhrase = generalization.length >= 2
       ? ` across ${generalization.length} settings`
       : "";
 
-    const goal = `By ${date}, when in ${settingsText}, ${student} will ${behaviorPhrase} in ${target}% of opportunities for 3 consecutive school days${fluencyPhrase}${generalizationPhrase}, as measured by teacher observation. Additionally, ${student} will maintain the behavior for ${maintenanceWeeks} weeks following mastery to ensure long-term retention.`;
+    const conditionLine = `Condition: By ${date}, when in ${settingsText}`;
+    const behaviorLine = `Behavior: ${student} will ${behaviorPhrase} to demonstrate ${valueLabel}`;
+    const criteriaLine = `Criteria: ${target}% of opportunities for 3 consecutive school days${fluencyPhrase}${generalizationPhrase}, as measured by ${measurementMethod.toLowerCase()}.`;
+    const maintenanceLine = `Maintenance: ${student} will maintain the skill for ${maintenanceWeeks} weeks following mastery.`;
 
     const baselineLine = `${student} currently ${behaviorType === "increase" ? "demonstrates" : "engages in"} ${behavior || "the target behavior"} in ${baseline}% of observed opportunities.`;
 
-    return `${goal}\n\nBaseline: ${baselineLine}`;
+    return `${conditionLine}\n${behaviorLine}\n${criteriaLine}\n${maintenanceLine}\n\nBaseline: ${baselineLine}`;
   };
 
   const handleGenerate = () => {
     const goal = buildGoal();
+    console.log("iep_goal_writer_generate", {
+      value: valueLabel,
+      behaviorType,
+      measurementMethod,
+    });
     setGeneratedGoal(goal);
     setCopied(false);
   };
@@ -124,6 +155,7 @@ export function GoalWriterWizard() {
     if (!generatedGoal) return;
     try {
       await navigator.clipboard.writeText(generatedGoal);
+      console.log("iep_goal_writer_copy");
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
@@ -131,13 +163,22 @@ export function GoalWriterWizard() {
     }
   };
 
+  const handlePrint = () => {
+    if (!generatedGoal) return;
+    console.log("iep_goal_writer_print");
+    window.print();
+  };
+
   const handleReset = () => {
+    console.log("iep_goal_writer_reset");
     setSelectedValue(valueOptions[0]);
+    setCustomValue("");
     setBehaviorType("increase");
     setBehavior("");
     setReplacementBehavior("");
     setBaseline(40);
     setTarget(90);
+    setMeasurementMethod(measurementOptions[0]);
     setFluencyEnabled(true);
     setFluencySeconds(5);
     setGeneralization(defaultSettings);
@@ -146,6 +187,20 @@ export function GoalWriterWizard() {
     setCopied(false);
     setCurrentStep(0);
   };
+
+  const previewGoal = useMemo(() => buildGoal(), [
+    baseline,
+    behavior,
+    behaviorType,
+    fluencyEnabled,
+    fluencySeconds,
+    generalization,
+    maintenanceWeeks,
+    measurementMethod,
+    replacementBehavior,
+    target,
+    valueLabel,
+  ]);
 
   return (
     <div className="rounded-3xl border border-emerald-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
@@ -190,12 +245,28 @@ export function GoalWriterWizard() {
                       label={value.label}
                       description={value.description}
                       selected={selectedValue.label === value.label}
-                      onClick={() => setSelectedValue(value)}
+                      onClick={() => {
+                        console.log("iep_goal_writer_value_select", { value: value.label });
+                        setSelectedValue(value);
+                      }}
                     />
                   ))}
                 </div>
+                {selectedValue.label === "Custom Value" && (
+                  <div className="space-y-2">
+                    <Label htmlFor="custom-value" className="text-sm font-semibold">Custom Value</Label>
+                    <Input
+                      id="custom-value"
+                      value={customValue}
+                      onChange={(event) => {
+                        setCustomValue(event.target.value);
+                      }}
+                      placeholder="Perseverance, self-advocacy, teamwork..."
+                    />
+                  </div>
+                )}
                 <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-800">
-                  Selected: <span className="font-semibold">{selectedValue.emoji} {selectedValue.label}</span>
+                  Selected: <span className="font-semibold">{selectedValue.emoji} {valueLabel}</span>
                 </div>
               </div>
             )}
@@ -207,7 +278,10 @@ export function GoalWriterWizard() {
                     <button
                       key={type}
                       type="button"
-                      onClick={() => setBehaviorType(type as BehaviorType)}
+                      onClick={() => {
+                        console.log("iep_goal_writer_behavior_type", { type });
+                        setBehaviorType(type as BehaviorType);
+                      }}
                       className={cn(
                         "flex-1 rounded-xl border px-4 py-3 text-sm font-semibold transition",
                         behaviorType === type
@@ -282,6 +356,38 @@ export function GoalWriterWizard() {
                     <p className={cn("text-xs", target < 80 ? "text-amber-600" : "text-slate-500")}>
                       {target < 80 ? "Consider 80%+ for lasting change." : "90%+ recommended for retention."}
                     </p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-sm font-semibold text-slate-900">Measurement Method</p>
+                    <p className="text-xs text-slate-500">How will progress be tracked?</p>
+                  </div>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {measurementOptions.map((option) => (
+                      <label
+                        key={option}
+                        className={cn(
+                          "flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition",
+                          measurementMethod === option
+                            ? "border-emerald-500 bg-emerald-50 text-emerald-800"
+                            : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200"
+                        )}
+                      >
+                        <input
+                          type="radio"
+                          name="measurement-method"
+                          checked={measurementMethod === option}
+                          onChange={() => {
+                            console.log("iep_goal_writer_measurement_select", { method: option });
+                            setMeasurementMethod(option);
+                          }}
+                          className="h-4 w-4 border-slate-300 text-emerald-600"
+                        />
+                        {option}
+                      </label>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -384,6 +490,7 @@ export function GoalWriterWizard() {
                       <Button onClick={handleCopy} className="bg-emerald-600 hover:bg-emerald-700">
                         {copied ? "Copied!" : "Copy Goal"}
                       </Button>
+                      <Button variant="outline" onClick={handlePrint}>Print/PDF</Button>
                       <Button variant="outline" onClick={handleReset}>Start Over</Button>
                     </div>
                   </div>
@@ -413,6 +520,19 @@ export function GoalWriterWizard() {
               </Button>
             )}
           </div>
+        </div>
+
+        <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Live Goal Preview</p>
+              <p className="text-xs text-slate-500">Updates automatically as you complete each step.</p>
+            </div>
+            <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-500">Draft</span>
+          </div>
+          <pre className="mt-3 whitespace-pre-wrap rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700">
+            {previewGoal}
+          </pre>
         </div>
       </div>
     </div>
