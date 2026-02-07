@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS content_calendar (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   title TEXT NOT NULL,
   caption TEXT,
-  platforms TEXT[] NOT NULL, -- Array of platforms: Instagram, LinkedIn, Facebook, YouTube, Email
+  platforms TEXT[] NOT NULL, -- Array of platforms: Instagram, LinkedIn, Facebook, Email
   content_type TEXT NOT NULL, -- Video Clip, Blog Post, Carousel, Text Post, Story
   media_url TEXT, -- URL to video file or image
   scheduled_date TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -44,7 +44,6 @@ INSERT INTO weekly_posting_template (day_of_week, time_slot, platform, content_t
   (2, '9-11 AM', 'Instagram', 'Video Clip', 'Question clip Reel', true),
   
   -- Wednesday
-  (3, '7-9 AM', 'YouTube', 'Video Clip', 'Explainer Short or repurposed Reel', true),
   (3, '10-11 AM', 'Facebook', 'Blog Post', 'Blog post share to educator groups', true),
   (3, '5-6 PM', 'LinkedIn', 'Carousel', 'Carousel or document post', true),
   
@@ -105,14 +104,7 @@ INSERT INTO posting_time_recommendations (platform, day_of_week, time_window, pr
   ('Email', 3, '8-10 AM', 'primary', 'Mid-week inbox check'),
   ('Email', 4, '8-10 AM', 'primary', 'Thursday morning engagement'),
   ('Email', 1, '9-11 AM', 'secondary', 'Monday planning window'),
-  ('Email', 5, '9-11 AM', 'secondary', 'Friday morning before weekend'),
-
-  -- YouTube
-  ('YouTube', 2, '6-9 AM', 'primary', 'Morning commute viewing'),
-  ('YouTube', 3, '12-2 PM', 'primary', 'Lunch break discovery'),
-  ('YouTube', 4, '6-9 AM', 'primary', 'Weekday morning engagement'),
-  ('YouTube', 6, '9 AM-12 PM', 'secondary', 'Saturday morning browsing'),
-  ('YouTube', 5, '6-10 PM', 'secondary', 'Friday evening wind-down')
+  ('Email', 5, '9-11 AM', 'secondary', 'Friday morning before weekend')
 ON CONFLICT DO NOTHING;
 
 -- Function to update updated_at timestamp
