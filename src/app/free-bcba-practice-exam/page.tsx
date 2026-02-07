@@ -215,6 +215,21 @@ export default function FreeBCBAPracticeExamPage() {
         </div>
       </section>
 
+      {/* Email Signup Section - After Quiz */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">
+              Get More BCBA Practice Questions + Study Tips
+            </h2>
+            <p className="text-lg text-slate-600">
+              Join our newsletter for weekly practice questions, study strategies, and free resources to help you pass the exam.
+            </p>
+          </div>
+          <NewsletterSignup />
+        </div>
+      </section>
+
       {/* Why Practice Section */}
       <section className="py-16 lg:py-20 bg-bs-section-even">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
