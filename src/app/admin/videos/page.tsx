@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import type { Video, VideoCategory, VideoSource } from '@/types/video';
+import { R2VideoUpload } from '@/components/video/R2VideoUpload';
+import { R2VideoPlayer } from '@/components/video/R2VideoPlayer';
 
 export default function AdminVideosPage() {
   const [videos, setVideos] = useState<Video[]>([]);
@@ -370,24 +372,49 @@ function VideoForm({ video, isEditing, onSave, onCancel }: VideoFormProps) {
               </select>
             </div>
 
-            {/* Video URL */}
+            {/* Video URL or Upload */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Video URL *
+                Video URL {formData.videoSource === 'upload' && '(or upload below)'}
               </label>
               <input
                 type="url"
-                required
+                required={formData.videoSource !== 'upload'}
                 value={formData.videoUrl}
                 onChange={e => handleChange('videoUrl', e.target.value)}
                 placeholder={
                   formData.videoSource === 'youtube' ? 'https://www.youtube.com/watch?v=...' :
                   formData.videoSource === 'vimeo' ? 'https://vimeo.com/...' :
-                  'https://...'
+                  'https://... or upload a video below'
                 }
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
               />
+              {formData.videoSource === 'upload' && !formData.videoUrl && (
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Enter a URL above or upload a video to R2 below
+                </p>
+              )}
             </div>
+
+            {/* R2 Video Upload */}
+            {formData.videoSource === 'upload' && !formData.videoUrl && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Upload Video to R2
+                </label>
+                <R2VideoUpload
+                  onUploadComplete={(result) => {
+                    handleChange('videoUrl', result.url);
+                    if (result.thumbnailUrl && !formData.thumbnailUrl) {
+                      handleChange('thumbnailUrl', result.thumbnailUrl);
+                    }
+                    if (result.duration && !formData.duration) {
+                      handleChange('duration', Math.floor(result.duration));
+                    }
+                  }}
+                />
+              </div>
+            )}
 
             {/* Thumbnail URL */}
             <div>
@@ -400,6 +427,13 @@ function VideoForm({ video, isEditing, onSave, onCancel }: VideoFormProps) {
                 onChange={e => handleChange('thumbnailUrl', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
               />
+              {formData.thumbnailUrl && (
+                <img 
+                  src={formData.thumbnailUrl} 
+                  alt="Thumbnail preview" 
+                  className="mt-2 max-h-32 rounded border border-gray-300 dark:border-gray-600"
+                />
+              )}
             </div>
 
             {/* Transcript */}
@@ -428,6 +462,22 @@ function VideoForm({ video, isEditing, onSave, onCancel }: VideoFormProps) {
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
               />
             </div>
+
+            {/* Video Preview */}
+            {formData.videoUrl && formData.videoSource === 'upload' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Video Preview
+                </label>
+                <div className="border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+                  <R2VideoPlayer
+                    mp4Url={formData.videoUrl}
+                    posterUrl={formData.thumbnailUrl}
+                    title={formData.title}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Actions */}
