@@ -7,7 +7,9 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { ProgressIndicator } from "./ProgressIndicator";
+import { TemplateSelector } from "./TemplateSelector";
 import { ValueCard } from "./ValueCard";
+import type { GoalTemplate } from "./goalTemplates";
 
 const valueOptions = [
   { emoji: "💛", label: "Kind", description: "Caring about others" },
@@ -49,6 +51,8 @@ const defaultSettings = [
 type BehaviorType = "increase" | "decrease";
 
 export function GoalWriterWizard() {
+  const [showTemplates, setShowTemplates] = useState(true);
+  const [activeTemplate, setActiveTemplate] = useState<GoalTemplate | null>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedValue, setSelectedValue] = useState(valueOptions[0]);
   const [customValue, setCustomValue] = useState("");
@@ -186,6 +190,27 @@ export function GoalWriterWizard() {
     setGeneratedGoal(null);
     setCopied(false);
     setCurrentStep(0);
+    setShowTemplates(true);
+    setActiveTemplate(null);
+  };
+
+  const applyTemplate = (template: GoalTemplate) => {
+    console.log("iep_goal_writer_template_select", { template: template.id });
+    setActiveTemplate(template);
+    setSelectedValue(valueOptions[template.valueIndex]);
+    if (template.customValue) setCustomValue(template.customValue);
+    setBehaviorType(template.behaviorType);
+    setBehavior(template.behavior);
+    setReplacementBehavior(template.replacementBehavior);
+    setBaseline(template.baseline);
+    setTarget(template.target);
+    setMeasurementMethod(template.measurementMethod);
+    setFluencyEnabled(template.fluencyEnabled);
+    setFluencySeconds(template.fluencySeconds);
+    setGeneralization(template.generalization);
+    setMaintenanceWeeks(template.maintenanceWeeks);
+    setShowTemplates(false);
+    setCurrentStep(0);
   };
 
   const previewGoal = useMemo(() => buildGoal(), [
@@ -215,6 +240,30 @@ export function GoalWriterWizard() {
       </div>
 
       <div className="px-6 py-6">
+        {showTemplates ? (
+          <div className="space-y-6">
+            <TemplateSelector
+              onSelect={applyTemplate}
+              onSkip={() => setShowTemplates(false)}
+            />
+          </div>
+        ) : (
+        <>
+        {activeTemplate && (
+          <div className="mb-4 flex items-center justify-between rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-3">
+            <div className="flex items-center gap-2">
+              <span className="text-lg">{activeTemplate.emoji}</span>
+              <span className="text-sm font-semibold text-emerald-800">Template: {activeTemplate.title}</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => { setShowTemplates(true); setActiveTemplate(null); }}
+              className="text-xs font-semibold text-emerald-700 hover:text-emerald-900"
+            >
+              Change
+            </button>
+          </div>
+        )}
         <div className="mb-6 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-4">
           <ProgressIndicator steps={steps} currentStep={currentStep} />
         </div>
@@ -534,6 +583,23 @@ export function GoalWriterWizard() {
             {previewGoal}
           </pre>
         </div>
+
+        {activeTemplate && (
+          <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50/40 px-4 py-4">
+            <p className="text-sm font-semibold text-emerald-900">💡 Suggested Intervention Strategies</p>
+            <p className="mb-3 text-xs text-emerald-700">Evidence-informed strategies for {activeTemplate.title.toLowerCase()}. Customize to fit the student.</p>
+            <ul className="space-y-2">
+              {activeTemplate.interventionStrategies.map((strategy, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-emerald-900/90">
+                  <span className="mt-0.5 text-emerald-600">•</span>
+                  <span>{strategy}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        </>
+        )}
       </div>
     </div>
   );
