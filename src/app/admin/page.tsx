@@ -246,6 +246,14 @@ export default function AdminDashboard() {
       stats: 'Leads & Deals'
     },
     {
+      title: 'Content Calendar',
+      description: 'Plan and schedule social media posts',
+      href: '/admin/content-calendar',
+      icon: BarChart3,
+      color: 'blue',
+      stats: 'Social Media'
+    },
+    {
       title: 'Email Templates',
       description: 'Create and edit automated email templates',
       href: '/admin/email-templates',
