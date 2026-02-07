@@ -36,7 +36,6 @@ const PLATFORM_COLORS = {
   Instagram: 'bg-purple-500',
   LinkedIn: 'bg-blue-600',
   Facebook: 'bg-blue-800',
-  Twitter: 'bg-sky-400',
   YouTube: 'bg-red-500',
   Email: 'bg-emerald-600'
 }
@@ -54,8 +53,7 @@ const WEEKLY_TEMPLATE = [
   {
     day: 'Tuesday',
     items: [
-      { platform: 'Instagram', time: '9-11 AM', description: 'Question clip Reel' },
-      { platform: 'Twitter', time: '10 AM-12 PM', description: 'Quick tip or poll' }
+      { platform: 'Instagram', time: '9-11 AM', description: 'Question clip Reel' }
     ]
   },
   {
@@ -77,7 +75,6 @@ const WEEKLY_TEMPLATE = [
     day: 'Friday',
     items: [
       { platform: 'Instagram', time: '2-4 PM', description: 'Fun/engaging/relatable Reel' },
-      { platform: 'Twitter', time: '11 AM-1 PM', description: 'Poll or engagement question' },
       { platform: 'Facebook', time: '10-11 AM', description: 'Community question or poll' }
     ]
   },

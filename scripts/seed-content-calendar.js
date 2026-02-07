@@ -161,7 +161,7 @@ D) Behavior changing to a different form
 Think you know? Reply with your answer! ⬇️
 
 #BCBAExam #StudyTip #ABA`,
-    platforms: ['LinkedIn', 'Twitter'],
+    platforms: ['LinkedIn', 'Email'],
     content_type: 'Text Post',
     media_url: null,
     scheduled_date: getNextDayAtTime(1, 9), // Monday 9 AM
@@ -269,7 +269,7 @@ Your complete guide to passing the BCBA exam in 2026:
 Read the full guide → [link]
 
 #BCBA #ExamPrep #StudyGuide`,
-    platforms: ['Facebook', 'LinkedIn', 'Twitter', 'Email'],
+    platforms: ['Facebook', 'LinkedIn', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/bcba-exam-study-guide-2026',
     scheduled_date: getNextDayAtTime(3, 10), // Wednesday 10 AM
@@ -292,7 +292,7 @@ How to write IEP behavior goals that actually work:
 Full article + free template → [link]
 
 #IEP #BCBA #SpecialEducation #BehaviorGoals`,
-    platforms: ['Facebook', 'LinkedIn', 'Twitter', 'Email'],
+    platforms: ['Facebook', 'LinkedIn', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/writing-iep-behavior-goals',
     scheduled_date: getNextDayAtTime(2, 9), // Tuesday 9 AM
@@ -314,7 +314,7 @@ Full article + free template → [link]
 Your roadmap to a BCBA career → [link]
 
 #BCBA #CareerPath #BehaviorAnalysis #Psychology`,
-    platforms: ['LinkedIn', 'Facebook', 'Twitter', 'Email'],
+    platforms: ['LinkedIn', 'Facebook', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/bcba-career-path-guide',
     scheduled_date: getNextDayAtTime(4, 9), // Thursday 9 AM
