@@ -42,6 +42,7 @@ import { ArrowRight, Users, School, Download, Brain } from "lucide-react";
 import { Hero } from "@/components/ui/hero";
 import { TrustBar } from "@/components/ui/trust-bar";
 import { ExternalLinkModal } from "@/components/ui/external-link-modal";
+import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
 // import { ExitIntentModal } from "@/components/ui/exit-intent-modal";
  
 
@@ -169,6 +170,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Homepage Email Capture */}
+      <HomepageEmailCapture />
 
       {/* No popup on homepage - irritating for visitors */}
     </div>

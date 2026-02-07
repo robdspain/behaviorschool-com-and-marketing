@@ -1,5 +1,6 @@
 "use client";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 // Add custom styles to hide scrollbars completely
 const iframeStyles = `
@@ -55,6 +56,21 @@ export default function WidgetContent() {
               msOverflowStyle: 'none' // IE/Edge
             }}
           />
+        </div>
+      </section>
+
+      {/* Email Signup Section */}
+      <section className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-indigo-100">
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-bold text-slate-900 mb-2">
+              Want to Save Your Goals & Get Weekly IEP Tips?
+            </h3>
+            <p className="text-slate-600">
+              Join our community and get expert tips, templates, and resources for writing effective IEP goals.
+            </p>
+          </div>
+          <NewsletterSignup />
         </div>
       </section>
     </div>

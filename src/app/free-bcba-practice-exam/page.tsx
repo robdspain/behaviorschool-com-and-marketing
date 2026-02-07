@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Target, Clock, Brain } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { FreeQuizWidget } from "@/components/quiz/FreeQuizWidget";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 export default function FreeBCBAPracticeExamPage() {
   const questions = [
