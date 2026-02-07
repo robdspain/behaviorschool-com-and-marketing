@@ -1,0 +1,75 @@
+{
+  "videos": [
+    {
+      "id": "ethics-traps",
+      "slug": "5-bcba-ethics-questions-that-trip-everyone-up",
+      "title": "5 BCBA Ethics Questions That Trip Everyone Up",
+      "description": "Most people get question #3 wrong on the BCBA exam—and it costs them. Learn the 5 ethics traps that separate those who pass from those who don't, with real-world scenarios and surprising correct answers.",
+      "category": "Exam Prep",
+      "videoUrl": "https://www.youtube.com/watch?v=PLACEHOLDER",
+      "videoSource": "youtube",
+      "thumbnailUrl": "/images/video-thumbnails/ethics-traps.jpg",
+      "publishedAt": "2026-02-07T00:00:00Z",
+      "order": 1,
+      "metaDescription": "Master 5 common BCBA ethics questions that trip up most exam candidates. Learn the surprising correct answers with real-world scenarios from an experienced school BCBA.",
+      "keywords": ["BCBA ethics", "BCBA exam prep", "behavior analyst ethics", "dual relationships", "confidentiality"]
+    },
+    {
+      "id": "reinforcement-vs-punishment",
+      "slug": "reinforcement-vs-punishment-bcba-exam-matrix",
+      "title": "Reinforcement vs Punishment: The Question That Separates Passers from Failers",
+      "description": "If you can't nail the 2x2 matrix in under 10 seconds, you're not ready for the BCBA exam. Deep dive into positive/negative reinforcement/punishment with tricky examples that show up in 15-20 exam questions.",
+      "category": "Exam Prep",
+      "videoUrl": "https://www.youtube.com/watch?v=PLACEHOLDER",
+      "videoSource": "youtube",
+      "thumbnailUrl": "/images/video-thumbnails/reinforcement-vs-punishment.jpg",
+      "publishedAt": "2026-02-07T00:00:00Z",
+      "order": 2,
+      "metaDescription": "Master the reinforcement vs punishment matrix that appears in 15-20 BCBA exam questions. Learn the 2-question decision tree that prevents common mistakes.",
+      "keywords": ["reinforcement vs punishment", "BCBA exam", "positive reinforcement", "negative reinforcement", "punishment procedures"]
+    },
+    {
+      "id": "experimental-design",
+      "slug": "experimental-design-made-simple-bcba-exam",
+      "title": "Experimental Design Made Simple: The 3 Things You MUST Know",
+      "description": "Experimental design sounds complicated—but the BCBA exam only cares about three things. Master reversal, multiple baseline, and multielement designs and ace every single-subject design question.",
+      "category": "Exam Prep",
+      "videoUrl": "https://www.youtube.com/watch?v=PLACEHOLDER",
+      "videoSource": "youtube",
+      "thumbnailUrl": "/images/video-thumbnails/experimental-design.jpg",
+      "publishedAt": "2026-02-07T00:00:00Z",
+      "order": 3,
+      "metaDescription": "Simplify BCBA experimental design with 3 core concepts: reversal, multiple baseline, and multielement designs. Learn when to use each for your exam and practice.",
+      "keywords": ["experimental design", "BCBA exam", "single-subject design", "reversal design", "multiple baseline"]
+    },
+    {
+      "id": "fba-to-bip",
+      "slug": "fba-to-bip-10-minutes-school-bcba-guide",
+      "title": "From FBA to BIP in 10 Minutes: A School BCBA's Guide",
+      "description": "I've written over 200 behavior plans in schools, and I can get from FBA to BIP in about 10 minutes. Learn the exact framework used by a school-based BCBA to create effective, function-based behavior plans.",
+      "category": "School BCBA Tips",
+      "videoUrl": "https://www.youtube.com/watch?v=PLACEHOLDER",
+      "videoSource": "youtube",
+      "thumbnailUrl": "/images/video-thumbnails/fba-to-bip.jpg",
+      "publishedAt": "2026-02-07T00:00:00Z",
+      "order": 1,
+      "metaDescription": "Create function-based behavior plans in 10 minutes with this proven 6-step framework used by school BCBAs. From FBA hypothesis to BIP implementation.",
+      "keywords": ["FBA to BIP", "behavior intervention plan", "school BCBA", "function-based assessment", "behavior plan template"]
+    },
+    {
+      "id": "study-strategy",
+      "slug": "how-to-pass-bcba-exam-study-strategy",
+      "title": "How to Actually Pass the BCBA Exam: A Study Strategy That Works",
+      "description": "If you're reading the same chapter for the third time and still don't feel ready, you're studying wrong. Learn the evidence-based study strategy that actually works: active recall, spaced repetition, and deliberate practice.",
+      "category": "Exam Prep",
+      "videoUrl": "https://www.youtube.com/watch?v=PLACEHOLDER",
+      "videoSource": "youtube",
+      "thumbnailUrl": "/images/video-thumbnails/study-strategy.jpg",
+      "publishedAt": "2026-02-07T00:00:00Z",
+      "order": 4,
+      "metaDescription": "Stop re-reading and start learning with this evidence-based BCBA exam study strategy. Active recall, spaced repetition, and timed practice for first-time passers.",
+      "keywords": ["BCBA exam study tips", "how to pass BCBA exam", "active recall", "spaced repetition", "BCBA study strategy"]
+    }
+  ],
+  "lastUpdated": "2026-02-07T00:00:00Z"
+}

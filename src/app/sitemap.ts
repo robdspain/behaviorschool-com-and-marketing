@@ -1,4 +1,6 @@
 import { MetadataRoute } from 'next'
+import fs from 'fs'
+import path from 'path'
 
 // Cache sitemap for 1 hour to reduce server load from crawler requests
 export const revalidate = 3600
@@ -13,6 +15,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (path !== '/' && path.endsWith('/')) path = path.replace(/\/+$/, '')
       return path
     } catch { return p }
+  }
+  
+  // Load videos for sitemap
+  let videoPages: MetadataRoute.Sitemap = []
+  try {
+    const videosPath = path.join(process.cwd(), 'public', 'data', 'videos.json')
+    const videosData = JSON.parse(fs.readFileSync(videosPath, 'utf-8'))
+    videoPages = (videosData.videos || []).map((video: any) => ({
+      url: `${baseUrl}/videos/${video.slug}`,
+      lastModified: video.updatedAt || video.publishedAt || currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }))
+  } catch (error) {
+    console.warn('Could not load videos for sitemap:', error)
   }
   // Legacy paths that now permanently redirect. Never include these in the sitemap.
   const legacyRedirectPaths = new Set<string>([
@@ -183,6 +200,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+    
+    // Video Library
+    {
+      url: `${baseUrl}/videos`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
     // Removed legacy blog route that redirects: /bcbas-in-schools -> /school-bcba
     {
       url: `${baseUrl}/bcba-study-fluency`,
@@ -318,5 +343,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...filteredBase, ...dynamicAdds]
+  return [...filteredBase, ...videoPages, ...dynamicAdds]
 }
