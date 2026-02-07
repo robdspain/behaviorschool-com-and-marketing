@@ -87,6 +87,12 @@ export async function middleware(request: NextRequest) {
     // Admins bypass enrollment check and can access directly
   }
 
+  // Add noindex header for admin and test pages
+  const pathname = request.nextUrl.pathname
+  if (pathname.startsWith('/admin') || pathname.startsWith('/test')) {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+  }
+
   return response
 }
 

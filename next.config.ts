@@ -38,8 +38,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // ============================================
-      // HIGH-IMPACT SEO REDIRECTS (Jan 2025)
+      // HIGH-IMPACT SEO REDIRECTS (Feb 2026)
+      // Consolidate duplicate URLs → canonical targets
       // ============================================
+
+      // -- Exam Prep Duplicates --
       {
         source: '/bcba-mock-practice-test',
         destination: '/bcba-practice-exam',
@@ -47,9 +50,26 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/free-bcba-mock-practice-test',
-        destination: '/free-bcba-practice-exam',
+        destination: '/free-bcba-practice-test',
         permanent: true,
       },
+      {
+        source: '/free-bcba-practice-exam',
+        destination: '/free-bcba-practice-test',
+        permanent: true,
+      },
+      {
+        source: '/free-bcba-practice',
+        destination: '/free-bcba-practice-test',
+        permanent: true,
+      },
+      {
+        source: '/bcba-mock-exam-guide',
+        destination: '/bcba-exam-prep',
+        permanent: true,
+      },
+
+      // -- Study Tools Duplicates --
       {
         source: '/behavior-study-tools',
         destination: '/study',
@@ -60,6 +80,8 @@ const nextConfig: NextConfig = {
         destination: '/study',
         permanent: true,
       },
+
+      // -- School BCBA Duplicates --
       {
         source: '/school-based-bcba',
         destination: '/school-bcba',
@@ -71,8 +93,40 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/school-bcba/job-guide',
-        destination: '/school-bcba/job-guide-2025',
+        source: '/school-bcba/job-guide-2025',
+        destination: '/school-bcba/job-guide',
+        permanent: true,
+      },
+
+      // -- Blog / Content Duplicates --
+      {
+        source: '/the-act-matrix-a-framework-for-school-based-bcbas',
+        destination: '/act-matrix',
+        permanent: true,
+      },
+      {
+        source: '/values-goal-assistant-landing',
+        destination: '/act-tools/values-sort',
+        permanent: true,
+      },
+      {
+        source: '/iep-behavior-goals',
+        destination: '/iep-goals',
+        permanent: true,
+      },
+      {
+        source: '/iep-behavior-goals/widget',
+        destination: '/iep-goals',
+        permanent: true,
+      },
+      {
+        source: '/school-based-behavior-support',
+        destination: '/school-bcba',
+        permanent: true,
+      },
+      {
+        source: '/iep-goal-generator',
+        destination: '/iep-goal-writer',
         permanent: true,
       },
 
@@ -107,7 +161,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/fba-bip-plan-writer',
-        destination: '/behavior-plans',
+        destination: '/fba-to-bip',
         permanent: true,
       },
       {
@@ -204,6 +258,11 @@ const nextConfig: NextConfig = {
       {
         source: '/test-forms/:path*',
         destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/posts/:slug',
+        destination: '/blog/:slug',
         permanent: true,
       },
       {

@@ -35,11 +35,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const legacyRedirectPaths = new Set<string>([
     '/bcba-mock-practice-test',
     '/free-bcba-mock-practice-test',
+    '/free-bcba-practice-exam',
+    '/free-bcba-practice',
+    '/bcba-mock-exam-guide',
     '/school-based-bcba',
     '/bcba-study-tools',
     '/bcbas-in-schools',
-    '/school-bcba/job-guide',
+    '/school-bcba/job-guide-2025',
+    '/the-act-matrix-a-framework-for-school-based-bcbas',
+    '/values-goal-assistant-landing',
+    '/iep-behavior-goals',
+    '/school-based-behavior-support',
+    '/iep-goal-generator',
+    '/behavior-study-tools',
   ])
+  // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
+  const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view']
   // Hard noindex paths: pages intentionally kept out of sitemap
   const hardNoindexPaths = new Set<string>([
     '/resources',
@@ -93,10 +104,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/behavior-study-tools`,
+      url: `${baseUrl}/behavior-tools`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/ceus`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/supervisors`,
@@ -119,7 +136,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/school-bcba/job-guide-2025`,
+      url: `${baseUrl}/school-bcba/job-guide`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -155,7 +172,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/iep-behavior-goals`,
+      url: `${baseUrl}/iep-goal-writer`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.85,
@@ -216,22 +233,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.75,
     },
     {
-      url: `${baseUrl}/bcba-mock-exam-guide`,
+      url: `${baseUrl}/free-bcba-practice-test`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.75,
     },
     {
-      url: `${baseUrl}/free-bcba-practice-exam`,
+      url: `${baseUrl}/fba-to-bip`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/values-goal-assistant-landing`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
+      priority: 0.85,
     },
 
     // Study Tools
@@ -270,22 +281,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Additional Important Pages
     {
-      url: `${baseUrl}/school-based-behavior-support`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
       url: `${baseUrl}/act-matrix`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.75,
     },
     {
-      url: `${baseUrl}/the-act-matrix-a-framework-for-school-based-bcbas`,
+      url: `${baseUrl}/act-tools/metaphor-creator`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/act-tools/values-sort`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     // /resources intentionally excluded until ready (noindex)
     // /templates intentionally excluded until ready (noindex)
@@ -311,10 +322,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const url = new URL(e.url)
       const path = normalize(url.pathname || '/')
       const pathAlt = path.endsWith('/') ? path.slice(0, -1) : path + '/'
+      const isExcludedPrefix = excludedPrefixes.some(prefix => path.startsWith(prefix))
       return !noindex.has(path) && !noindex.has(pathAlt) &&
              !deleted.has(path) && !deleted.has(pathAlt) &&
              !legacyRedirectPaths.has(path) && !legacyRedirectPaths.has(pathAlt) &&
-             !hardNoindexPaths.has(path)
+             !hardNoindexPaths.has(path) && !isExcludedPrefix
     } catch {
       return true
     }
