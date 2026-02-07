@@ -186,15 +186,16 @@ export default function FBAToBIPPage() {
           <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-6">
             <h3 className="text-lg font-semibold text-emerald-900">What&apos;s included in your BIP</h3>
             <ul className="mt-3 space-y-2 text-sm text-emerald-900/90">
-              <li>✓ Operational behavior definitions</li>
-              <li>✓ Function of behavior summary</li>
-              <li>✓ Antecedent / prevention strategies</li>
-              <li>✓ Teaching strategies for replacement behaviors</li>
-              <li>✓ Reinforcement strategies</li>
-              <li>✓ Response to problem behavior</li>
-              <li>✓ Data collection plan</li>
-              <li>✓ Crisis/safety plan (when applicable)</li>
-              <li>✓ Generalization & maintenance plans</li>
+              <li>✓ Target Behavior for Reduction (with precursors &amp; triggers)</li>
+              <li>✓ Baseline for Problem Behavior</li>
+              <li>✓ Function of Behavior (to get / to avoid / sensory)</li>
+              <li>✓ Replacement Behavior &amp; Baseline</li>
+              <li>✓ Antecedent Interventions</li>
+              <li>✓ Reinforcement Procedures</li>
+              <li>✓ Consequence Interventions</li>
+              <li>✓ Data Collection Matrix</li>
+              <li>✓ Criteria for Success &amp; Goals</li>
+              <li>✓ Crisis/Safety Plan (when applicable)</li>
             </ul>
           </div>
         </section>
