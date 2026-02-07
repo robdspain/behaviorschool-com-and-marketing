@@ -8,7 +8,7 @@ import { CheckCircle2, Zap, Target, Brain, TrendingUp, Award } from "lucide-reac
 
 export const metadata = {
   title: "FREE BCBA Exam Prep - Pass Your BCBA Exam First Try | Behavior School",
-  description: "AI-powered BCBA practice exams, adaptive learning, and instant feedback. Join 1000+ BCBAs who passed using our free study platform.",
+  description: "AI-powered BCBA practice exams, adaptive learning, and instant feedback. Free study platform with 500+ vetted questions.",
   keywords: "BCBA exam prep, BCBA practice exam, BCBA mock exam, behavior analyst certification, free BCBA study tools",
 };
 
@@ -65,18 +65,18 @@ export default function StudyPage() {
         </ContainerScroll>
       </section>
 
-      {/* Social Proof Banner */}
+      {/* Features Banner */}
       <section className="py-8 bg-white border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-wrap items-center justify-center gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-emerald-600">1,000+</div>
-              <div className="text-sm text-slate-600">BCBAs Passed</div>
+              <div className="text-3xl font-bold text-emerald-600">FREE</div>
+              <div className="text-sm text-slate-600">Always Free</div>
             </div>
             <div className="hidden md:block w-px h-12 bg-slate-200" />
             <div>
-              <div className="text-3xl font-bold text-emerald-600">92%</div>
-              <div className="text-sm text-slate-600">Pass Rate</div>
+              <div className="text-3xl font-bold text-emerald-600">AI-Powered</div>
+              <div className="text-sm text-slate-600">Adaptive Learning</div>
             </div>
             <div className="hidden md:block w-px h-12 bg-slate-200" />
             <div>
@@ -85,8 +85,8 @@ export default function StudyPage() {
             </div>
             <div className="hidden md:block w-px h-12 bg-slate-200" />
             <div>
-              <div className="text-3xl font-bold text-emerald-600">FREE</div>
-              <div className="text-sm text-slate-600">Forever</div>
+              <div className="text-3xl font-bold text-emerald-600">Instant</div>
+              <div className="text-sm text-slate-600">Feedback</div>
             </div>
           </div>
         </div>
