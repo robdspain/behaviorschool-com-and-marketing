@@ -33,12 +33,11 @@ interface PostingRecommendation {
 type ViewMode = 'calendar' | 'list' | 'videos'
 
 const PLATFORM_COLORS = {
-  TikTok: 'bg-pink-500',
   Instagram: 'bg-purple-500',
-  YouTube: 'bg-red-500',
   LinkedIn: 'bg-blue-600',
   Facebook: 'bg-blue-800',
-  Twitter: 'bg-sky-400'
+  YouTube: 'bg-red-600',
+  Email: 'bg-orange-500'
 }
 
 const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -348,7 +347,7 @@ export default function ContentCalendarPage() {
                 id: '',
                 title: '',
                 caption: '',
-                platforms: ['TikTok'],
+                platforms: ['Instagram'],
                 content_type: 'Video Clip',
                 media_url: videoUrl,
                 scheduled_date: new Date().toISOString(),

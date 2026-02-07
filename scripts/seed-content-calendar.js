@@ -45,7 +45,7 @@ D) Continuous Reinforcement (CRF)
 Drop your answer below! 👇
 
 #BCBA #BCBAExam #ABA #BehaviorAnalysis #ExamPrep`,
-    platforms: ['TikTok', 'Instagram', 'YouTube'],
+    platforms: ['Instagram', 'Facebook'],
     content_type: 'Video Clip',
     media_url: null,
     scheduled_date: getNextDayAtTime(1, 12), // Monday 12 PM
@@ -68,7 +68,7 @@ It's the gold standard for identifying behavior function!
 Want to learn more? Link in bio 🎯
 
 #BCBA #FunctionalAnalysis #ABA #BehaviorAnalysis`,
-    platforms: ['TikTok', 'Instagram'],
+    platforms: ['Instagram', 'Facebook'],
     content_type: 'Video Clip',
     media_url: null,
     scheduled_date: getNextDayAtTime(3, 19), // Wednesday 7 PM
@@ -115,7 +115,7 @@ Save this for next IEP season! 📋
 Who else relates? 🙋‍♀️
 
 #BCBA #DayInTheLife #BehaviorAnalyst #SchoolPsychology`,
-    platforms: ['TikTok', 'Instagram'],
+    platforms: ['Instagram'],
     content_type: 'Video Clip',
     media_url: null,
     scheduled_date: getNextDayAtTime(5, 14), // Friday 2 PM
@@ -137,7 +137,7 @@ Each has a time and place!
 Comment which one you use most 👇
 
 #BCBA #PreferenceAssessment #ABA #Reinforcement`,
-    platforms: ['YouTube', 'TikTok'],
+    platforms: ['Instagram', 'Facebook'],
     content_type: 'Video Clip',
     media_url: null,
     scheduled_date: getNextDayAtTime(6, 9), // Saturday 9 AM
@@ -161,7 +161,7 @@ D) Behavior changing to a different form
 Think you know? Reply with your answer! ⬇️
 
 #BCBAExam #StudyTip #ABA`,
-    platforms: ['Twitter', 'LinkedIn'],
+    platforms: ['LinkedIn', 'Email'],
     content_type: 'Text Post',
     media_url: null,
     scheduled_date: getNextDayAtTime(2, 10), // Tuesday 10 AM
@@ -181,7 +181,7 @@ C) DRI (Differential Reinforcement of Incompatible behavior)
 D) DRL (Differential Reinforcement of Low rates)
 
 #BCBA #BehaviorAnalysis #StudyDaily`,
-    platforms: ['Twitter', 'Facebook'],
+    platforms: ['Facebook', 'LinkedIn'],
     content_type: 'Text Post',
     media_url: null,
     scheduled_date: getNextDayAtTime(4, 11), // Thursday 11 AM
@@ -222,7 +222,7 @@ C) Total Task Presentation
 D) Graduated Guidance
 
 #BCBA #Teaching #TaskAnalysis`,
-    platforms: ['LinkedIn', 'Twitter'],
+    platforms: ['LinkedIn', 'Facebook'],
     content_type: 'Text Post',
     media_url: null,
     scheduled_date: getNextDayAtTime(3, 10), // Wednesday 10 AM
@@ -269,7 +269,7 @@ Your complete guide to passing the BCBA exam in 2026:
 Read the full guide → [link]
 
 #BCBA #ExamPrep #StudyGuide`,
-    platforms: ['Facebook', 'LinkedIn', 'Twitter'],
+    platforms: ['Facebook', 'LinkedIn', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/bcba-exam-study-guide-2026',
     scheduled_date: getNextDayAtTime(3, 10), // Wednesday 10 AM
@@ -314,7 +314,7 @@ Full article + free template → [link]
 Your roadmap to a BCBA career → [link]
 
 #BCBA #CareerPath #BehaviorAnalysis #Psychology`,
-    platforms: ['LinkedIn', 'Facebook', 'Twitter'],
+    platforms: ['LinkedIn', 'Facebook', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/bcba-career-path-guide',
     scheduled_date: getNextDayAtTime(4, 14), // Thursday 2 PM

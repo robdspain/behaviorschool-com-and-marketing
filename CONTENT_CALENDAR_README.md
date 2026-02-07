@@ -6,13 +6,13 @@ A comprehensive social media content planning and scheduling system built into t
 
 ### 📅 Calendar View
 - Monthly calendar grid showing all scheduled posts
-- Color-coded by platform (TikTok=pink, Instagram=purple, YouTube=red, LinkedIn=blue, Facebook=navy, Twitter=sky)
+- Color-coded by platform (Instagram=purple, LinkedIn=blue, Facebook=navy, Email=emerald)
 - Click on any post to edit
 - Navigate between months easily
 
 ### ✍️ Post Creator/Editor
 - **Title & Caption** with character count
-- **Multi-platform selection** - schedule one post to multiple platforms
+- **Multi-platform selection** - schedule one post to multiple platforms (Instagram, LinkedIn, Facebook, Email)
 - **Content types**: Video Clip, Blog Post, Carousel, Text Post, Story
 - **Media attachment** - Add video URLs with preview
 - **Smart scheduling** - AI-suggested optimal posting times based on research
@@ -43,12 +43,12 @@ A comprehensive social media content planning and scheduling system built into t
 Built-in weekly posting schedule optimized for BCBA audiences:
 
 ```
-Monday:    LinkedIn (7-9 AM) + TikTok (12-1 PM)
-Tuesday:   Instagram Reel (9-11 AM) + Twitter (10 AM-12 PM)
-Wednesday: YouTube Short (7-9 AM) + Facebook (10-11 AM) + TikTok (7-9 PM)
-Thursday:  TikTok (12-1 PM) + LinkedIn (5-6 PM)
-Friday:    Instagram Reel (2-4 PM) + Twitter (11 AM-1 PM)
-Saturday:  TikTok (9-11 AM)
+Monday:    LinkedIn (7-9 AM) + Email (9-11 AM)
+Tuesday:   Instagram Reel (9-11 AM)
+Wednesday: Facebook (10-11 AM) + LinkedIn (5-6 PM)
+Thursday:  Instagram Reel (9-11 AM) + Email (9-11 AM)
+Friday:    Instagram Reel (2-4 PM) + Facebook (10-11 AM)
+Saturday:  Instagram (10 AM-12 PM, optional)
 Sunday:    Rest or evergreen reshare
 ```
 
@@ -91,7 +91,7 @@ Navigate to: `https://behaviorschool.com/admin/content-calendar`
 - **id**: UUID primary key
 - **title**: Post title (required)
 - **caption**: Post caption/description
-- **platforms**: Array of platforms (TikTok, Instagram, etc.)
+- **platforms**: Array of platforms (Instagram, LinkedIn, Facebook, Email)
 - **content_type**: Video Clip, Blog Post, Carousel, Text Post, Story
 - **media_url**: URL to video/image file
 - **scheduled_date**: When to post (timestamp with timezone)
@@ -104,7 +104,7 @@ Navigate to: `https://behaviorschool.com/admin/content-calendar`
 
 ### `posting_time_recommendations`
 Pre-populated with research-based optimal posting times for each platform:
-- **platform**: TikTok, Instagram, LinkedIn, etc.
+- **platform**: Instagram, LinkedIn, Facebook, Email
 - **day_of_week**: 0 (Sunday) - 6 (Saturday)
 - **time_window**: e.g., "7-9 AM PST"
 - **priority**: primary, secondary, avoid
@@ -156,22 +156,20 @@ All posting times and recommendations are based on 2025-2026 research compiled i
 
 Key insights:
 - **Best days**: Tuesday, Wednesday, Thursday across most platforms
-- **TikTok**: 7-9 AM, 12-1 PM, 7-9 PM (PST)
-- **LinkedIn**: Morning commute (7-9 AM) and after work (5-6 PM)
 - **Instagram**: 9-11 AM, 2-4 PM weekdays
-- **Twitter**: Business hours (9 AM-3 PM) Tuesday-Thursday
-- **YouTube Shorts**: Commute times and evening (6-10 PM)
+- **LinkedIn**: Morning commute (7-9 AM) and after work (5-6 PM)
 - **Facebook**: Mid-morning (9-11 AM) Wednesday-Thursday
+- **Email**: Tuesday-Thursday, 8-10 AM (highest open rates)
 
 ### Content Performance by Platform
 
-**TikTok/Instagram Reels**: Short quiz clips (15-30 sec) perform best
+**Instagram Reels**: Short quiz clips (15-30 sec) perform best
 
 **LinkedIn**: Carousels get 278% higher engagement than video
 
-**Twitter**: Text posts with strong hooks drive discussion
+**Facebook**: Blog shares and community questions perform best mid-morning
 
-**YouTube Shorts**: Longer explainers (45-60 sec) work well
+**Email**: Short, clear subject lines and one primary CTA per send
 
 ## Content Pillars
 
@@ -219,12 +217,10 @@ Use tags to track this balance in the pipeline view.
 
 ## Character Limits by Platform
 
-- **TikTok**: 2,200 characters (aim for 100-150)
 - **Instagram**: 2,200 characters (first 125 visible)
-- **YouTube Shorts**: 5,000 characters (title: 100)
 - **LinkedIn**: 3,000 characters (first 140 visible)
 - **Facebook**: 63,206 characters (first 120 visible, aim for 40-80)
-- **Twitter**: 280 characters (4,000 with Blue)
+- **Email**: Subject line 40-60 characters; preheader 40-90; body 50-125 words for best engagement
 
 ## Troubleshooting
 

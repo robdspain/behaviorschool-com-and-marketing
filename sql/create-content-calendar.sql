@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS content_calendar (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   title TEXT NOT NULL,
   caption TEXT,
-  platforms TEXT[] NOT NULL, -- Array of platforms: TikTok, Instagram, YouTube, LinkedIn, Facebook, Twitter
+  platforms TEXT[] NOT NULL, -- Array of platforms: Instagram, LinkedIn, Facebook, YouTube, Email
   content_type TEXT NOT NULL, -- Video Clip, Blog Post, Carousel, Text Post, Story
   media_url TEXT, -- URL to video file or image
   scheduled_date TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -38,27 +38,26 @@ CREATE TABLE IF NOT EXISTS weekly_posting_template (
 INSERT INTO weekly_posting_template (day_of_week, time_slot, platform, content_type, description, is_active) VALUES
   -- Monday
   (1, '7-9 AM', 'LinkedIn', 'Text Post', 'Professional tip or case study', true),
-  (1, '12-1 PM', 'TikTok', 'Video Clip', 'Question clip', true),
+  (1, '9-11 AM', 'Email', 'Text Post', 'Weekly newsletter or announcement', true),
   
   -- Tuesday
   (2, '9-11 AM', 'Instagram', 'Video Clip', 'Question clip Reel', true),
-  (2, '10 AM-12 PM', 'Twitter', 'Text Post', 'Quick tip thread or poll', true),
   
   -- Wednesday
-  (3, '7-9 AM', 'YouTube', 'Video Clip', 'Explainer Short', true),
+  (3, '7-9 AM', 'YouTube', 'Video Clip', 'Explainer Short or repurposed Reel', true),
   (3, '10-11 AM', 'Facebook', 'Blog Post', 'Blog post share to educator groups', true),
-  (3, '7-9 PM', 'TikTok', 'Video Clip', 'Trending format adaptation', true),
+  (3, '5-6 PM', 'LinkedIn', 'Carousel', 'Carousel or document post', true),
   
   -- Thursday
-  (4, '12-1 PM', 'TikTok', 'Video Clip', 'Question clip', true),
-  (4, '5-6 PM', 'LinkedIn', 'Carousel', 'Carousel or document post', true),
+  (4, '9-11 AM', 'Instagram', 'Video Clip', 'Educational Reel or tip', true),
+  (4, '9-11 AM', 'Email', 'Text Post', 'Campaign email or resource highlight', true),
   
   -- Friday
   (5, '2-4 PM', 'Instagram', 'Video Clip', 'Fun/engaging/relatable Reel', true),
-  (5, '11 AM-1 PM', 'Twitter', 'Text Post', 'Poll or engagement question', true),
+  (5, '10-11 AM', 'Facebook', 'Text Post', 'Community question or poll', true),
   
   -- Saturday
-  (6, '9-11 AM', 'TikTok', 'Video Clip', 'Trending format or evergreen', true),
+  (6, '10 AM-12 PM', 'Instagram', 'Video Clip', 'Evergreen or behind-the-scenes', false),
   
   -- Sunday
   (0, 'Optional', 'All', 'Text Post', 'Rest or evergreen reshare', false)
@@ -77,19 +76,6 @@ CREATE TABLE IF NOT EXISTS posting_time_recommendations (
 
 -- Insert posting recommendations based on research
 INSERT INTO posting_time_recommendations (platform, day_of_week, time_window, priority, reason) VALUES
-  -- TikTok
-  ('TikTok', 2, '7-9 AM', 'primary', 'Peak engagement for educational content before work'),
-  ('TikTok', 2, '12-1 PM', 'primary', 'Lunch break browsing'),
-  ('TikTok', 2, '7-9 PM', 'primary', 'Evening wind-down'),
-  ('TikTok', 3, '7-9 AM', 'primary', 'Morning commute'),
-  ('TikTok', 3, '12-1 PM', 'primary', 'Lunch break'),
-  ('TikTok', 3, '7-9 PM', 'primary', 'Evening engagement'),
-  ('TikTok', 4, '7-9 AM', 'primary', 'Peak mid-week engagement'),
-  ('TikTok', 4, '12-1 PM', 'primary', 'Lunch peak'),
-  ('TikTok', 4, '7-9 PM', 'primary', 'Evening peak'),
-  ('TikTok', 1, '9-11 AM', 'secondary', 'Monday morning'),
-  ('TikTok', 5, '9-11 AM', 'secondary', 'Friday morning'),
-  
   -- Instagram
   ('Instagram', 1, '9-11 AM', 'primary', 'Professional browsing during work break'),
   ('Instagram', 2, '9-11 AM', 'primary', 'Morning engagement'),
@@ -107,26 +93,26 @@ INSERT INTO posting_time_recommendations (platform, day_of_week, time_window, pr
   ('LinkedIn', 4, '5-6 PM', 'primary', 'Evening peak'),
   ('LinkedIn', 1, '8-10 AM', 'secondary', 'Monday morning'),
   
-  -- Twitter
-  ('Twitter', 2, '7-9 AM', 'primary', 'Morning news check'),
-  ('Twitter', 2, '10 AM-12 PM', 'primary', 'Mid-morning engagement'),
-  ('Twitter', 3, '10 AM-12 PM', 'primary', 'Wednesday peak'),
-  ('Twitter', 3, '1-3 PM', 'primary', 'Afternoon browsing'),
-  ('Twitter', 4, '7-9 AM', 'primary', 'Morning peak'),
-  ('Twitter', 4, '1-3 PM', 'primary', 'Afternoon engagement'),
-  
-  -- YouTube
-  ('YouTube', 1, '6-9 AM', 'primary', 'Morning commute'),
-  ('YouTube', 2, '12-2 PM', 'primary', 'Lunch break discovery'),
-  ('YouTube', 3, '6-10 PM', 'primary', 'Evening viewing'),
-  ('YouTube', 6, '9 AM-12 PM', 'secondary', 'Saturday morning'),
-  
   -- Facebook
   ('Facebook', 3, '9-11 AM', 'primary', 'Mid-morning educator browsing'),
   ('Facebook', 3, '1-3 PM', 'primary', 'Afternoon break'),
   ('Facebook', 4, '9-11 AM', 'primary', 'Thursday peak'),
   ('Facebook', 4, '10 AM-12 PM', 'primary', 'Late morning'),
-  ('Facebook', 2, '10 AM-12 PM', 'secondary', 'Tuesday engagement')
+  ('Facebook', 2, '10 AM-12 PM', 'secondary', 'Tuesday engagement'),
+  
+  -- Email
+  ('Email', 2, '8-10 AM', 'primary', 'High open rates mid-week mornings'),
+  ('Email', 3, '8-10 AM', 'primary', 'Mid-week inbox check'),
+  ('Email', 4, '8-10 AM', 'primary', 'Thursday morning engagement'),
+  ('Email', 1, '9-11 AM', 'secondary', 'Monday planning window'),
+  ('Email', 5, '9-11 AM', 'secondary', 'Friday morning before weekend'),
+
+  -- YouTube
+  ('YouTube', 2, '6-9 AM', 'primary', 'Morning commute viewing'),
+  ('YouTube', 3, '12-2 PM', 'primary', 'Lunch break discovery'),
+  ('YouTube', 4, '6-9 AM', 'primary', 'Weekday morning engagement'),
+  ('YouTube', 6, '9 AM-12 PM', 'secondary', 'Saturday morning browsing'),
+  ('YouTube', 5, '6-10 PM', 'secondary', 'Friday evening wind-down')
 ON CONFLICT DO NOTHING;
 
 -- Function to update updated_at timestamp
