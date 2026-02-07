@@ -36,11 +36,59 @@ const PLATFORM_COLORS = {
   Instagram: 'bg-purple-500',
   LinkedIn: 'bg-blue-600',
   Facebook: 'bg-blue-800',
-  YouTube: 'bg-red-600',
-  Email: 'bg-orange-500'
+  Email: 'bg-emerald-600'
 }
 
 const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+const WEEKLY_TEMPLATE = [
+  {
+    day: 'Monday',
+    items: [
+      { platform: 'LinkedIn', time: '7-9 AM', description: 'Professional tip or case study' },
+      { platform: 'Email', time: '9-11 AM', description: 'Weekly newsletter or update' }
+    ]
+  },
+  {
+    day: 'Tuesday',
+    items: [
+      { platform: 'Instagram', time: '9-11 AM', description: 'Question clip Reel' }
+    ]
+  },
+  {
+    day: 'Wednesday',
+    items: [
+      { platform: 'Facebook', time: '10-11 AM', description: 'Blog post share to educator groups' },
+      { platform: 'LinkedIn', time: '5-6 PM', description: 'Carousel or document post' }
+    ]
+  },
+  {
+    day: 'Thursday',
+    items: [
+      { platform: 'Instagram', time: '9-11 AM', description: 'Educational Reel or tip' },
+      { platform: 'Email', time: '9-11 AM', description: 'Campaign email or resource highlight' }
+    ]
+  },
+  {
+    day: 'Friday',
+    items: [
+      { platform: 'Instagram', time: '2-4 PM', description: 'Fun/engaging/relatable Reel' },
+      { platform: 'Facebook', time: '10-11 AM', description: 'Community question or poll' }
+    ]
+  },
+  {
+    day: 'Saturday',
+    items: [
+      { platform: 'Instagram', time: '10 AM-12 PM', description: 'Evergreen or behind-the-scenes (optional)' }
+    ]
+  },
+  {
+    day: 'Sunday',
+    items: [
+      { platform: 'All', time: 'Optional', description: 'Rest or evergreen reshare' }
+    ]
+  }
+]
 
 export default function ContentCalendarPage() {
   const [loading, setLoading] = useState(true)
@@ -202,6 +250,34 @@ export default function ContentCalendarPage() {
             icon={<TrendingUp className="w-6 h-6" />}
             color="purple"
           />
+        </div>
+
+        {/* Weekly Template */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold">Weekly Template</h2>
+            <span className="text-sm text-gray-500">Auto-suggested when scheduling</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {WEEKLY_TEMPLATE.map((day) => (
+              <div key={day.day} className="border rounded-lg p-4">
+                <h3 className="font-semibold text-gray-900 mb-2">{day.day}</h3>
+                <div className="space-y-2">
+                  {day.items.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-2">
+                      <span className={`mt-1 h-2 w-2 rounded-full ${PLATFORM_COLORS[item.platform as keyof typeof PLATFORM_COLORS] || 'bg-gray-400'}`} />
+                      <div className="text-sm">
+                        <div className="font-medium text-gray-800">
+                          {item.platform} • {item.time}
+                        </div>
+                        <div className="text-gray-500">{item.description}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* View Controls */}

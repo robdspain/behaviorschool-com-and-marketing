@@ -48,7 +48,7 @@ Drop your answer below! 👇
     platforms: ['Instagram', 'Facebook'],
     content_type: 'Video Clip',
     media_url: null,
-    scheduled_date: getNextDayAtTime(1, 12), // Monday 12 PM
+    scheduled_date: getNextDayAtTime(2, 9), // Tuesday 9 AM
     status: 'draft',
     tags: ['Exam Prep', 'BCBA Tips'],
     notes: 'Short quiz format - 15-30 seconds. Use text overlay with countdown timer. Answer: A'
@@ -71,7 +71,7 @@ Want to learn more? Link in bio 🎯
     platforms: ['Instagram', 'Facebook'],
     content_type: 'Video Clip',
     media_url: null,
-    scheduled_date: getNextDayAtTime(3, 19), // Wednesday 7 PM
+    scheduled_date: getNextDayAtTime(4, 9), // Thursday 9 AM
     status: 'draft',
     tags: ['BCBA Tips', 'Clinical Skills'],
     notes: '30-45 second explainer. Use visual graphics for the 3 points. Upbeat background music.'
@@ -140,7 +140,7 @@ Comment which one you use most 👇
     platforms: ['Instagram', 'Facebook'],
     content_type: 'Video Clip',
     media_url: null,
-    scheduled_date: getNextDayAtTime(6, 9), // Saturday 9 AM
+    scheduled_date: getNextDayAtTime(6, 10), // Saturday 10 AM
     status: 'draft',
     tags: ['BCBA Tips', 'Clinical Skills'],
     notes: '45-60 second explainer. Visual comparison chart. Engaging music.'
@@ -164,7 +164,7 @@ Think you know? Reply with your answer! ⬇️
     platforms: ['LinkedIn', 'Email'],
     content_type: 'Text Post',
     media_url: null,
-    scheduled_date: getNextDayAtTime(2, 10), // Tuesday 10 AM
+    scheduled_date: getNextDayAtTime(1, 9), // Monday 9 AM
     status: 'draft',
     tags: ['Exam Prep'],
     notes: 'Short, engaging poll format. Answer: B'
@@ -184,7 +184,7 @@ D) DRL (Differential Reinforcement of Low rates)
     platforms: ['Facebook', 'LinkedIn'],
     content_type: 'Text Post',
     media_url: null,
-    scheduled_date: getNextDayAtTime(4, 11), // Thursday 11 AM
+    scheduled_date: getNextDayAtTime(3, 10), // Wednesday 10 AM
     status: 'draft',
     tags: ['Exam Prep'],
     notes: 'Answer: B. Can turn into a discussion thread.'
@@ -203,7 +203,7 @@ Drop your answers below! 👇
     platforms: ['Instagram', 'Facebook'],
     content_type: 'Text Post',
     media_url: null,
-    scheduled_date: getNextDayAtTime(1, 9), // Monday 9 AM
+    scheduled_date: getNextDayAtTime(2, 9), // Tuesday 9 AM
     status: 'draft',
     tags: ['Exam Prep', 'Clinical Skills'],
     notes: 'Answer: Interobserver Agreement, to ensure data reliability, 80% minimum. Good engagement driver.'
@@ -247,7 +247,7 @@ What's the ethical response?
     platforms: ['LinkedIn', 'Facebook'],
     content_type: 'Text Post',
     media_url: null,
-    scheduled_date: getNextDayAtTime(5, 11), // Friday 11 AM
+    scheduled_date: getNextDayAtTime(5, 10), // Friday 10 AM
     status: 'draft',
     tags: ['Exam Prep', 'BCBA Tips'],
     notes: 'Answer: B. Great discussion driver on LinkedIn. Ethics is always engaging.'
@@ -292,7 +292,7 @@ How to write IEP behavior goals that actually work:
 Full article + free template → [link]
 
 #IEP #BCBA #SpecialEducation #BehaviorGoals`,
-    platforms: ['Facebook', 'LinkedIn'],
+    platforms: ['Facebook', 'LinkedIn', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/writing-iep-behavior-goals',
     scheduled_date: getNextDayAtTime(2, 9), // Tuesday 9 AM
@@ -317,7 +317,7 @@ Your roadmap to a BCBA career → [link]
     platforms: ['LinkedIn', 'Facebook', 'Email'],
     content_type: 'Blog Post',
     media_url: 'https://behaviorschool.com/blog/bcba-career-path-guide',
-    scheduled_date: getNextDayAtTime(4, 14), // Thursday 2 PM
+    scheduled_date: getNextDayAtTime(4, 9), // Thursday 9 AM
     status: 'draft',
     tags: ['Career Advice'],
     notes: 'Target: psychology students, RBTs considering certification. Good for recruiting future customers.'
