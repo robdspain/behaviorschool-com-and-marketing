@@ -737,7 +737,7 @@ async function buildPdfFromSlides(
         const x = 60 + i * 190;
         page.drawRectangle({ x, y: top, width: w, height: h, color: hexToRgb(templateConfig.backgroundColor), borderColor: hexToRgb(templateConfig.textColor) });
         if (m.value !== null) {
-          page.drawText(sanitizePdfText(m.display ?? String(m.value), { x: x + 10, y: top + h - 36, size: 18, font: helveticaBold, color: hexToRgb(templateConfig.titleColor) });
+          page.drawText(sanitizePdfText(m.display ?? String(m.value)), { x: x + 10, y: top + h - 36, size: 18, font: helveticaBold, color: hexToRgb(templateConfig.titleColor) });
           page.drawText(sanitizePdfText(m.label), { x: x + 10, y: top + 20, size: 12, font: helvetica, color: hexToRgb(templateConfig.textColor) });
         } else {
           page.drawText(sanitizePdfText(m.label), { x: x + 10, y: top + h - 24, size: 14, font: helveticaBold, color: hexToRgb(templateConfig.titleColor) });
@@ -779,7 +779,7 @@ async function buildPdfFromSlides(
         const ticks = [0,0.25,0.5,0.75,1];
         ticks.forEach(t => {
           const yTick = chartY + 10 + t * (availH);
-          try { page.drawText(sanitizePdfText(formatValue(max * t, slide.chart?.yFormat), { x: chartX + 2, y: yTick-4, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
+          try { page.drawText(sanitizePdfText(formatValue(max * t, slide.chart?.yFormat)), { x: chartX + 2, y: yTick-4, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
         });
 
         for (let i=0;i<catCount;i++) {
@@ -798,15 +798,15 @@ async function buildPdfFromSlides(
               const useInside = pref === 'inside' || (pref !== 'above' && (dense || h >= 18));
               const yLabel = useInside ? (yBar + Math.max(h - 10, 2)) : (yBar + h + 2);
               const xLabel = x + Math.max(barW / 2 - 6, 0);
-              try { page.drawText(sanitizePdfText(formatValue(v, slide.chart?.yFormat), { x: xLabel, y: yLabel, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
+              try { page.drawText(sanitizePdfText(formatValue(v, slide.chart?.yFormat)), { x: xLabel, y: yLabel, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
             }
             if (data.stacked) stackTop += h;
           });
           if (data.stacked) {
-            try { page.drawText(sanitizePdfText(formatValue(data.series.reduce((sum, s)=> sum + (s.values[i]||0), 0), slide.chart?.yFormat), { x: baseX, y: chartY + 10 + stackTop + 2, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
+            try { page.drawText(sanitizePdfText(formatValue(data.series.reduce((sum, s)=> sum + (s.values[i]||0), 0), slide.chart?.yFormat)), { x: baseX, y: chartY + 10 + stackTop + 2, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
           }
           // category labels
-          try { page.drawText(sanitizePdfText((slide.chart?.categories[i] || '').slice(0,6), { x: baseX, y: chartY - 12, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
+          try { page.drawText(sanitizePdfText((slide.chart?.categories[i] || '').slice(0,6)), { x: baseX, y: chartY - 12, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
         }
         // simple legend
         if (data.showLegend) {
@@ -814,7 +814,7 @@ async function buildPdfFromSlides(
           let ly = slide.chart?.legendPosition === 'bottom' ? chartY - 10 : chartY + chartH - 12;
           data.series.forEach((s, si) => {
             page.drawRectangle({ x: lx, y: ly, width: 10, height: 10, color: colors[si] });
-            try { page.drawText(sanitizePdfText(s.name.slice(0,10), { x: lx + 14, y: ly, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
+            try { page.drawText(sanitizePdfText(s.name.slice(0,10)), { x: lx + 14, y: ly, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
             if (slide.chart?.legendPosition === 'bottom') lx += 60; else ly -= 14;
           });
         }
@@ -832,7 +832,7 @@ async function buildPdfFromSlides(
             const yBar = chartY + 10;
             page.drawRectangle({ x, y: yBar, width: barW, height: h, color: hexToRgb(templateConfig.titleColor) });
             try { page.drawText(sanitizePdfText(d.label).slice(0,6), { x, y: chartY - 12, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
-            try { page.drawText(sanitizePdfText(formatValue(d.value, slide.chart?.yFormat), { x, y: yBar + h + 2, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
+            try { page.drawText(sanitizePdfText(formatValue(d.value, slide.chart?.yFormat)), { x, y: yBar + h + 2, size: 8, font: helvetica, color: hexToRgb(templateConfig.textColor) }); } catch {}
           });
         }
       }
