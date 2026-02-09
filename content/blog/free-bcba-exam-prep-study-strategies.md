@@ -14,7 +14,7 @@ meta_title: "Free BCBA Exam Prep: Study Strategies That Actually Work (2026) | B
 meta_description: "Free BCBA exam prep strategies that work. Covers the 6th Edition Task List, study schedules, practice exam tips, free resources, and how to pass the BCBA exam on your first attempt."
 ---
 
-The BCBA exam is hard. The pass rate hovers around 60%, which means roughly 4 out of 10 test-takers fail on their first attempt. That's not because the people taking it aren't smart or dedicated — it's because most study strategies don't match how the exam actually tests you.
+The BCBA exam is hard. According to recent BACB data, the national average first-time pass rate is approximately 54%, which means nearly half of test-takers don't pass on their first attempt. That's not because the people taking it aren't smart or dedicated — it's because most study strategies don't match how the exam actually tests you.
 
 This guide covers the study strategies that consistently work, based on research on exam preparation, input from BCBAs who passed on their first try, and an honest look at where most candidates go wrong. And yes, many of the best resources are free.
 
