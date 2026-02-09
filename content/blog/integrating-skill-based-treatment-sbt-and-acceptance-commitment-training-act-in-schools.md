@@ -10,6 +10,7 @@ tags:
   - Applied Behavior Analysis
   - Evidence-Based Practice
 status: published
+slug: "integrating-skill-based-treatment-sbt-and-acceptance-commitment-training-act-in-schools"
 meta_title: "Integrating Skill‐Based Treatment (SBT) and Acceptance & Commitment Training (ACT) in Schools | Behavior School"
 meta_description: "Dixon et al. (2022) – AIM Curriculum Implementation in Public Schools Full Citation: Dixon, M. R., Paliliunas, D., Weber, J., & Schmick, A. M. (2022). A large-s..."
 ---

@@ -1,5 +1,5 @@
 ---
-title: "Deep Reserch - Funcational Behavior Assessment in Public Schools"
+title: "Functional Behavior Assessment in Public Schools"
 excerpt: "Functional Behavior Assessment Tools and Rubrics in U.S. Schools Functional Behavior Assessments (FBAs) are used in U.S. public schools to understand why a stud..."
 date: "2026-01-14T09:00:00.000Z"
 author: Rob Spain
@@ -10,7 +10,8 @@ tags:
   - Applied Behavior Analysis
   - Evidence-Based Practice
 status: published
-meta_title: "Deep Reserch - Funcational Behavior Assessment in Public Schools | Behavior School"
+slug: "functional-behavior-assessment-in-public-schools"
+meta_title: "Functional Behavior Assessment in Public Schools | Behavior School"
 meta_description: "Functional Behavior Assessment Tools and Rubrics in U.S. Schools Functional Behavior Assessments (FBAs) are used in U.S. public schools to understand why a stud..."
 ---
 
