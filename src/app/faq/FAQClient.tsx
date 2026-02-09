@@ -204,7 +204,7 @@ export function FAQClient() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-16">
+      <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white pt-28 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Frequently Asked Questions

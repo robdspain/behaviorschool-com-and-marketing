@@ -217,15 +217,13 @@ export default function ACTMatrixPage() {
           <p className="text-xl text-slate-300 mb-12 leading-relaxed">
             Get instant access to printable worksheets, implementation guides, and real school examples.
           </p>
-          <div className="bg-white rounded-3xl p-1 shadow-2xl inline-block w-full max-w-md mx-auto">
-            <SimpleDownloadButton 
-              resource="act-matrix"
-              fileName="ACT-Matrix-for-Schools-Guide.pdf"
-              title="ACT Matrix Resource Pack"
-              buttonText="Download Free PDF"
-              className="bg-emerald-600 text-white hover:bg-emerald-700 h-16 text-xl font-bold rounded-[1.4rem]"
-            />
-          </div>
+          <SimpleDownloadButton 
+            resource="act-matrix"
+            fileName="ACT-Matrix-for-Schools-Guide.pdf"
+            title="ACT Matrix Resource Pack"
+            buttonText="Download Free PDF"
+            className="bg-emerald-600 text-white hover:bg-emerald-700 h-16 text-xl font-bold rounded-2xl px-10 shadow-2xl w-full max-w-md mx-auto"
+          />
         </div>
       </section>
     </div>
