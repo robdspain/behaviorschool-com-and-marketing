@@ -76,7 +76,7 @@ export function Footer() {
         {/* Copyright Information */}
         <div className="text-center mb-4">
           <p className="text-gray-600 text-sm">
-            © 2025 Behavior School. All rights reserved.
+            © 2026 Behavior School. All rights reserved.
           </p>
           <p className="text-gray-600 text-sm mt-1">
             BehaviorStudyTools.com is a product of Behavior School LLC
@@ -91,8 +91,8 @@ export function Footer() {
               aria-label="BACB ACE Provider Information"
             >
               <Image
-                src="/BACB-ACE/BACB_ACE-Logo-1.webp"
-                alt="BACB ACE Provider Logo - Behavior School"
+                src="/BACB-ACE/BACB_ACE-Logo-New.webp"
+                alt="BACB Authorized Continuing Education Provider Logo - Behavior School"
                 width={100}
                 height={100}
                 className="hover:opacity-80 transition-opacity cursor-pointer"
@@ -101,17 +101,11 @@ export function Footer() {
             <div>
               <p className="text-gray-600 text-sm font-bold">
                 <Link href="/bacb-ace-provider" className="hover:text-emerald-700 transition-colors">
-                  Behavior School LLC
+                  BACB ACE Provider: Behavior School LLC
                 </Link>
               </p>
               <p className="text-gray-600 text-sm">
-                ACE Provider Number: OP-25-11420
-              </p>
-              <p className="text-gray-600 text-sm">
-                Provider: Robert Spain
-              </p>
-              <p className="text-gray-600 text-sm">
-                Valid: 01/30/25 - 01/31/26
+                ACE Provider #: OP-25-11420
               </p>
             </div>
           </div>

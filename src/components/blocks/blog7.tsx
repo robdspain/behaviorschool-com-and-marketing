@@ -85,7 +85,7 @@ const Blog7 = ({
             {description}
           </p>
           <Button variant="link" className="w-full sm:w-auto" asChild>
-            <a href={buttonUrl} target="_blank">
+            <a href={buttonUrl} target="_blank" rel="noopener noreferrer">
               {buttonText}
               <ArrowRight className="ml-2 size-4" />
             </a>
@@ -97,7 +97,7 @@ const Blog7 = ({
               <div className="w-full bg-slate-50 h-48 sm:h-56 lg:h-64 flex items-center justify-center overflow-hidden">
                 <a
                   href={post.url}
-                  target="_blank"
+                  target="_blank" rel="noopener noreferrer"
                   className="transition-opacity duration-200 fade-in hover:opacity-70"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -122,7 +122,7 @@ const Blog7 = ({
               <CardFooter>
                 <a
                   href={post.url}
-                  target="_blank"
+                  target="_blank" rel="noopener noreferrer"
                   className="flex items-center text-foreground hover:underline"
                 >
                   Read more
