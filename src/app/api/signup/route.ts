@@ -596,14 +596,14 @@ Creator, School BCBA Transformation System`;
       const delivery48h = new Date(Date.now() + 48 * 60 * 60 * 1000);
       const rfc48h = delivery48h.toUTCString();
 
-      const caseStudy48Subject = `${firstName}, how Sarah went from overwhelmed to confident in 8 weeks`;
+      const caseStudy48Subject = `${firstName}, how Sarah went from overwhelmed to confident in 6 weeks`;
       const caseStudy48Text = `Hi ${firstName},
 
 I wanted to share a quick story with you.
 
 Sarah was a school BCBA in Oregon, drowning in FBAs and feeling like she was always playing catch-up. Teachers resisted her recommendations. Admins questioned her value. She was working 60-hour weeks and still felt behind.
 
-8 weeks after joining the School BCBA Transformation System:
+6 weeks after joining the School BCBA Transformation System:
 
 → She built a sustainable behavior tracking system that runs itself
 → Teachers started ASKING for her support (instead of avoiding her)
@@ -647,7 +647,7 @@ P.S. Sarah told me the biggest game-changer was the "5-Minute FBA Framework." It
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to share a quick story with you.</p>
               <p style="margin: 0 0 10px; font-size: 16px; color: #334155;"><strong>Sarah was a school BCBA in Oregon</strong>, drowning in FBAs and feeling like she was always playing catch-up. Teachers resisted her recommendations. Admins questioned her value. She was working 60-hour weeks and still felt behind.</p>
               <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; margin: 24px 0;">
-                <p style="margin: 0 0 12px; font-size: 16px; color: #166534; font-weight: 600;">8 weeks after joining the School BCBA Transformation System:</p>
+                <p style="margin: 0 0 12px; font-size: 16px; color: #166534; font-weight: 600;">6 weeks after joining the School BCBA Transformation System:</p>
                 <ul style="margin: 0; padding-left: 20px; color: #166534;">
                   <li style="margin-bottom: 8px;">She built a sustainable behavior tracking system that runs itself</li>
                   <li style="margin-bottom: 8px;">Teachers started ASKING for her support (instead of avoiding her)</li>

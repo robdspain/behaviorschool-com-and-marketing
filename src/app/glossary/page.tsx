@@ -66,7 +66,7 @@ export default function GlossaryPage() {
                 Master These Concepts in Practice
               </h2>
               <p className="text-slate-300 max-w-2xl mx-auto mb-8">
-                Definitions are just the start. Learn how to apply these frameworks in real classrooms with our 8-week Transformation Program.
+                Definitions are just the start. Learn how to apply these frameworks in real classrooms with our 6-week Transformation Program.
               </p>
               <Link
                 href="/transformation-program"

@@ -171,7 +171,7 @@ export default function SchoolBCBAContent() {
                 Ready to Transform Your School BCBA Practice?
               </h2>
               <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Join our 8-week transformation program designed specifically to help school-based behavior analysts lead with confidence.
+                Join our 6-week transformation program designed specifically to help school-based behavior analysts lead with confidence.
               </p>
               <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white text-lg px-10 py-7 font-bold rounded-2xl shadow-xl shadow-red-900/20 transition-all transform hover:scale-105">
                 <Link href="/transformation-program">

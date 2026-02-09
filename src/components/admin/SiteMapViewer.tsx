@@ -69,7 +69,7 @@ export default function SiteMapViewer() {
       pages: [
         { path: "/school-based-bcba", title: "School-Based BCBA", description: "Main hub for school-based practice", status: "live", cluster: "School-Based BCBA", priority: "high" },
         { path: "/school-based-behavior-support", title: "School-Based Behavior Support", description: "Systems and support strategies", status: "live", cluster: "School-Based BCBA", priority: "high" },
-        { path: "/transformation-program", title: "Transformation Program", description: "8-week professional development program", status: "live", cluster: "School-Based BCBA", priority: "high" },
+        { path: "/transformation-program", title: "Transformation Program", description: "6-week professional development program", status: "live", cluster: "School-Based BCBA", priority: "high" },
         { path: "/school-bcba-salary", title: "School BCBA Salary", description: "Salary information and negotiations", status: "planned", cluster: "School-Based BCBA", priority: "high" },
         { path: "/school-bcba-job-description", title: "School BCBA Job Description", description: "Role responsibilities and expectations", status: "planned", cluster: "School-Based BCBA", priority: "medium" },
         { path: "/school-bcba-vs-clinical-bcba", title: "School BCBA vs Clinical BCBA", description: "Practice setting differences", status: "planned", cluster: "School-Based BCBA", priority: "medium" },

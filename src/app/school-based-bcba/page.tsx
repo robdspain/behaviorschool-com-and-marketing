@@ -23,7 +23,7 @@ import {
 
 export const metadata: Metadata = {
   title: "School-Based BCBA Transformation System | Behavior School",
-  description: "Lead behavior systems, reduce burnout & scale MTSS/PBIS supports with our 8-week BCBA transformation program. Free tools for IEP goals, BIPs & supervision included.",
+  description: "Lead behavior systems, reduce burnout & scale MTSS/PBIS supports with our 6-week BCBA transformation program. Free tools for IEP goals, BIPs & supervision included.",
   robots: {
     index: true,
     follow: true,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "School-Based BCBA Transformation System | Behavior School",
-    description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 8-week BCBA transformation program.",
+    description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 6-week BCBA transformation program.",
     url: "https://behaviorschool.com/school-based-bcba",
     siteName: "Behavior School",
     images: [
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "School-Based BCBA Transformation System | Behavior School",
-    description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 8-week BCBA transformation program.",
+    description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 6-week BCBA transformation program.",
     images: ["/optimized/og-image.webp"],
   },
   alternates: {
@@ -135,7 +135,7 @@ export default function SchoolBasedBCBAPage() {
             {/* Value Props - Quick Wins */}
             <div className="space-y-3">
               {[
-                "8-week transformation program with live cohort support",
+                "6-week transformation program with live cohort support",
                 "AI-powered IEP Goal Generator & Behavior Plan Writer",
                 "Evidence-based systems aligned with MTSS & PBIS",
                 "Reduce burnout while scaling your impact district-wide"
@@ -688,7 +688,7 @@ export default function SchoolBasedBCBAPage() {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "School-Based BCBA Transformation System",
-            "description": "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 8-week BCBA transformation program.",
+            "description": "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 6-week BCBA transformation program.",
             "url": "https://behaviorschool.com/school-based-bcba",
             "breadcrumb": {
               "@type": "BreadcrumbList",

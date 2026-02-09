@@ -320,7 +320,7 @@ export default function AboutContent() {
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Transformation Program</h3>
               <p className="text-slate-600 mb-8 leading-relaxed">
-                The complete 8-week operating system for school BCBAs. Stop firefighting and start leading with systems that work.
+                The complete 6-week operating system for school BCBAs. Stop firefighting and start leading with systems that work.
               </p>
               <Link
                 href="/transformation-program"

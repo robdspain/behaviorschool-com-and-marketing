@@ -477,7 +477,7 @@ export default function Page() {
 
               <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-xl">
                 <h3 className="font-bold text-lg mb-2">Get Interview Ready</h3>
-                <p className="text-blue-100 text-sm mb-4">8-week program for school BCBAs</p>
+                <p className="text-blue-100 text-sm mb-4">6-week program for school BCBAs</p>
                 <TrackableLink
                   href="/transformation-program"
                   className="block w-full bg-white text-blue-700 hover:bg-blue-50 py-3 px-4 rounded-xl font-semibold text-center transition-colors"

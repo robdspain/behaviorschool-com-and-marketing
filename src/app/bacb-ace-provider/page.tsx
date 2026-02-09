@@ -194,7 +194,7 @@ export default function BACBACEProviderPage() {
                       School BCBA Transformation System
                     </h3>
                     <p className="text-slate-600 mb-3">
-                      8-week intensive training program for school-based BCBAs
+                      6-week intensive training program for school-based BCBAs
                     </p>
                     <div className="flex items-center gap-2 text-sm text-emerald-700 font-semibold">
                       <Award className="w-4 h-4" />

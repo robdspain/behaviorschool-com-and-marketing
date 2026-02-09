@@ -1106,7 +1106,7 @@ export default function TransformationProgramPage() {
           "@context": "https://schema.org",
           "@type": "Course",
           "name": "Behavior School Operating System - Transformation Program",
-          "description": "8-week cohort-based program for School BCBAs, Psychologists, and Special Education Leaders to replace firefighting with systems that reduce burnout and drive school-wide impact. Learn ethical leadership, crisis management, staff training, and data-driven systems.",
+          "description": "6-week cohort-based program for School BCBAs, Psychologists, and Special Education Leaders to replace firefighting with systems that reduce burnout and drive school-wide impact. Learn ethical leadership, crisis management, staff training, and data-driven systems.",
           "provider": {
             "@type": "Organization",
             "name": "Behavior School",

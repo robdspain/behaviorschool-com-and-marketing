@@ -250,7 +250,7 @@ export default function SignupPage() {
                 Secure Your Spot in the School BCBA Transformation System
               </h1>
               <p className="text-slate-600">
-                Join the 8-week program that transforms overwhelmed BCBAs into confident district leaders.
+                Join the 6-week program that transforms overwhelmed BCBAs into confident district leaders.
               </p>
             </div>
 
@@ -449,7 +449,7 @@ export default function SignupPage() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5" />
-                  <span>8-week comprehensive program</span>
+                  <span>6-week comprehensive program</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5" />

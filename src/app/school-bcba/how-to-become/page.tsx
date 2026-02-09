@@ -644,7 +644,7 @@ export default function Page() {
               <div className="bg-gradient-to-br from-emerald-600 to-blue-600 rounded-xl shadow-lg p-6 text-white">
                 <h3 className="font-bold text-xl mb-3">Accelerate Your Journey</h3>
                 <p className="text-emerald-100 text-sm mb-4 leading-relaxed">
-                  Join our 8-week School BCBA Transformation System to master systems leadership, staff training, and district readiness.
+                  Join our 6-week School BCBA Transformation System to master systems leadership, staff training, and district readiness.
                 </p>
                 <Link href="/transformation-program">
                   <button className="w-full bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">

@@ -890,7 +890,7 @@ export function generateACTBIP(data: ACTFBAData): GeneratedACTBIP {
         committedActionGoals.push(`${name} will take one brave step toward ${valueLabel.toLowerCase()} each day (e.g., sharing a toy, trying a hard task) with adult prompting, as tracked on a visual chart.`);
         break;
       case "1-3":
-        committedActionGoals.push(`${name} will identify and complete one committed action related to ${valueLabel.toLowerCase()} per day, moving from adult-prompted to self-initiated within 8 weeks.`);
+        committedActionGoals.push(`${name} will identify and complete one committed action related to ${valueLabel.toLowerCase()} per day, moving from adult-prompted to self-initiated within 6 weeks.`);
         break;
       case "4-5":
         committedActionGoals.push(`${name} will set weekly committed action goals tied to ${valueLabel.toLowerCase()} and complete 3 of 5 daily, as tracked on a Values in Action log.`);
