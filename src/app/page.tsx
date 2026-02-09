@@ -197,26 +197,26 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Trusted by School Behavior Teams
+              Built for School Behavior Teams
             </h2>
-            <p className="text-lg text-slate-600">Used by BCBAs, school psychologists, and special education teams nationwide.</p>
+            <p className="text-lg text-slate-600">Designed for BCBAs, school psychologists, and special education teams.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                quote: "BehaviorSchool Pro cut my BIP writing time from 3 hours to 20 minutes. The quality is incredible.",
-                name: "Dr. Sarah M.",
-                role: "School Psychologist, CA",
+                quote: "AI-assisted BIP drafting designed to cut hours of writing time into minutes — with FERPA compliance built in.",
+                name: "FBA-to-BIP Generator",
+                role: "Draft behavior plans from assessment data",
               },
               {
-                quote: "The IEP goal bank alone is worth the subscription. Every goal is measurable and classroom-ready.",
-                name: "James T.",
-                role: "BCBA, School District, TX",
+                quote: "Every goal is measurable, classroom-ready, and aligned with best practices in behavior analysis.",
+                name: "IEP Goal Bank",
+                role: "Function-based goals at your fingertips",
               },
               {
-                quote: "Finally, a tool that understands school-based behavior support. FERPA compliance was a must for us.",
-                name: "Linda K.",
-                role: "Special Education Director, IL",
+                quote: "Built by a school BCBA who understands the unique challenges of educational settings and FERPA requirements.",
+                name: "School-First Design",
+                role: "By practitioners, for practitioners",
               },
             ].map((testimonial) => (
               <div key={testimonial.name} className="bg-slate-50 rounded-2xl p-6 border border-slate-200">

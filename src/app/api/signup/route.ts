@@ -596,23 +596,25 @@ Creator, School BCBA Transformation System`;
       const delivery48h = new Date(Date.now() + 48 * 60 * 60 * 1000);
       const rfc48h = delivery48h.toUTCString();
 
-      const caseStudy48Subject = `${firstName}, how Sarah went from overwhelmed to confident in 6 weeks`;
+      const caseStudy48Subject = `${firstName}, what the transformation actually looks like`;
       const caseStudy48Text = `Hi ${firstName},
 
-I wanted to share a quick story with you.
+I wanted to share what I've seen happen when school BCBAs shift from crisis mode to systems leadership.
 
-Sarah was a school BCBA in Oregon, drowning in FBAs and feeling like she was always playing catch-up. Teachers resisted her recommendations. Admins questioned her value. She was working 60-hour weeks and still felt behind.
+Here's a pattern I see over and over again:
 
-6 weeks after joining the School BCBA Transformation System:
+A BCBA is drowning in FBAs, working 60-hour weeks, feeling like they're always playing catch-up. Teachers resist their recommendations. Admin questions their value.
 
-→ She built a sustainable behavior tracking system that runs itself
-→ Teachers started ASKING for her support (instead of avoiding her)
-→ Her district expanded her role to 3 additional schools
-→ She left work at 4pm every day with everything under control
+Then they start building systems instead of being the system:
 
-Sarah's not special. She just had the right systems.
+→ They create sustainable behavior tracking that runs itself
+→ Teachers start ASKING for support (instead of avoiding them)
+→ Their district expands the role because admin finally sees the value
+→ They leave work at a reasonable hour with everything under control
 
-The same systems that transformed her practice are waiting for you in our program.
+This isn't one person's story — it's a pattern I've seen repeat across districts and states.
+
+The systems that make this shift possible are what I teach in the School BCBA Transformation System.
 
 If you're ready to stop feeling overwhelmed and start feeling confident, let's talk:
 https://calendly.com/robspain/behavior-school-transformation-system-phone-call
@@ -622,7 +624,7 @@ Just 15 minutes. No pressure. Let's see if this is right for you.
 Rob Spain
 Creator, School BCBA Transformation System
 
-P.S. Sarah told me the biggest game-changer was the "5-Minute FBA Framework." It's one of 12 systems you'll get access to. Want to hear more about it? Book your call above.`;
+P.S. The "5-Minute FBA Framework" is one of 12 systems you'll get access to. It's consistently the one BCBAs tell me made the biggest difference. Want to hear more? Book your call above.`;
 
       const caseStudy48Html = `
 <!DOCTYPE html>
@@ -644,19 +646,19 @@ P.S. Sarah told me the biggest game-changer was the "5-Minute FBA Framework." It
           <tr>
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to share a quick story with you.</p>
-              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;"><strong>Sarah was a school BCBA in Oregon</strong>, drowning in FBAs and feeling like she was always playing catch-up. Teachers resisted her recommendations. Admins questioned her value. She was working 60-hour weeks and still felt behind.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to share what I've seen happen when school BCBAs shift from crisis mode to systems leadership.</p>
+              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">Here's a pattern I see over and over again: A BCBA is drowning in FBAs, working 60-hour weeks, feeling like they're always playing catch-up. Teachers resist their recommendations. Admin questions their value.</p>
               <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; margin: 24px 0;">
-                <p style="margin: 0 0 12px; font-size: 16px; color: #166534; font-weight: 600;">6 weeks after joining the School BCBA Transformation System:</p>
+                <p style="margin: 0 0 12px; font-size: 16px; color: #166534; font-weight: 600;">Then they start building systems instead of being the system:</p>
                 <ul style="margin: 0; padding-left: 20px; color: #166534;">
-                  <li style="margin-bottom: 8px;">She built a sustainable behavior tracking system that runs itself</li>
-                  <li style="margin-bottom: 8px;">Teachers started ASKING for her support (instead of avoiding her)</li>
-                  <li style="margin-bottom: 8px;">Her district expanded her role to 3 additional schools</li>
-                  <li>She left work at 4pm every day with everything under control</li>
+                  <li style="margin-bottom: 8px;">They create sustainable behavior tracking that runs itself</li>
+                  <li style="margin-bottom: 8px;">Teachers start ASKING for support (instead of avoiding them)</li>
+                  <li style="margin-bottom: 8px;">Their district expands the role because admin sees the value</li>
+                  <li>They leave work at a reasonable hour with everything under control</li>
                 </ul>
               </div>
-              <p style="margin: 20px 0; font-size: 16px; color: #334155;"><strong>Sarah's not special. She just had the right systems.</strong></p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">The same systems that transformed her practice are waiting for you in our program.</p>
+              <p style="margin: 20px 0; font-size: 16px; color: #334155;"><strong>This isn't one person's story — it's a pattern I've seen repeat across districts and states.</strong></p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">The systems that make this shift possible are what I teach in the School BCBA Transformation System.</p>
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">If you're ready to stop feeling overwhelmed and start feeling confident, let's talk:</p>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 24px 0;">
                 <tr>
@@ -667,7 +669,7 @@ P.S. Sarah told me the biggest game-changer was the "5-Minute FBA Framework." It
               </table>
               <p style="margin: 20px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>Just 15 minutes. No pressure. Let's see if this is right for you.</em></p>
               <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; margin: 24px 0;">
-                <p style="margin: 0; font-size: 14px; color: #92400e;"><strong>P.S.</strong> Sarah told me the biggest game-changer was the "5-Minute FBA Framework." It's one of 12 systems you'll get access to. Want to hear more about it? Book your call above.</p>
+                <p style="margin: 0; font-size: 14px; color: #92400e;"><strong>P.S.</strong> The "5-Minute FBA Framework" is consistently the system BCBAs tell me made the biggest difference. It's one of 12 you'll get access to. Want to hear more? Book your call above.</p>
               </div>
             </td>
           </tr>
