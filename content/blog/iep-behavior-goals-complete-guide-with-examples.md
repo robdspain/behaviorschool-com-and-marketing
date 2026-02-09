@@ -1,7 +1,7 @@
 ---
 title: "IEP Behavior Goals: Complete Guide with Examples"
 excerpt: "A comprehensive guide to writing measurable IEP behavior goals with real examples for common school behaviors including elopement, aggression, task refusal, and self-regulation."
-date: "2026-02-07T11:00:00.000Z"
+date: "2026-02-03T11:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

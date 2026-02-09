@@ -1,7 +1,7 @@
 ---
 title: "How to Write an FBA: Step-by-Step Guide for School BCBAs"
 excerpt: "Learn how to write a functional behavior assessment (FBA) with this comprehensive step-by-step guide designed for school-based BCBAs and behavior specialists."
-date: "2026-02-07T12:00:00.000Z"
+date: "2026-02-05T12:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

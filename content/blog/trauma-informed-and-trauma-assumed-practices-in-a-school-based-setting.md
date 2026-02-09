@@ -1,7 +1,7 @@
 ---
 title: "Trauma informed and trauma assumed practices in a school-based setting"
 excerpt: "Introduction Trauma is increasingly recognized as a pervasive public health issue. The National Center for PTSD estimates that 60 % of men and 50 % of women in..."
-date: "2026-01-30T06:35:19.125Z"
+date: "2025-12-22T09:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

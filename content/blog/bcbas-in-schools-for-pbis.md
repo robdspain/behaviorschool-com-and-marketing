@@ -1,7 +1,7 @@
 ---
 title: "BCBAs in Schools for PBIS"
 excerpt: "BCBAs in PBIS: How to support all levels, systemically An overview of how to integrate the support of board certified behavior analysts into all three levels o..."
-date: "2026-01-30T06:35:19.125Z"
+date: "2026-01-18T10:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

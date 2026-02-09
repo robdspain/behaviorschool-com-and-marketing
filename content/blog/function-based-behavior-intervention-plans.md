@@ -1,7 +1,7 @@
 ---
 title: "Function-Based Behavior Intervention Plans: A Practical Guide"
 excerpt: "Learn how to build behavior intervention plans that actually work by grounding every component in the function of behavior identified through your FBA."
-date: "2026-02-07T09:00:00.000Z"
+date: "2026-02-01T09:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

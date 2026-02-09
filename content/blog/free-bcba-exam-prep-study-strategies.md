@@ -1,7 +1,7 @@
 ---
 title: "Free BCBA Exam Prep: Study Strategies That Actually Work"
 excerpt: "Proven study strategies for the BCBA exam, including free resources, study schedules, and tips from BCBAs who passed on their first attempt."
-date: "2026-02-07T08:00:00.000Z"
+date: "2026-01-30T08:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

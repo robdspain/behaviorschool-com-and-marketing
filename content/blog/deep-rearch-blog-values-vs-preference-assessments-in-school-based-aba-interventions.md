@@ -1,7 +1,7 @@
 ---
 title: "Deep Rearch - Blog - Values vs. Preference Assessments in School-Based ABA Interventions"
 excerpt: "Values vs. Preference Assessments in School-Based ABA Interventions Understanding Preference Assessments and Reinforcers In applied behavior analysis (ABA), sti..."
-date: "2026-01-30T06:35:19.125Z"
+date: "2026-01-06T09:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

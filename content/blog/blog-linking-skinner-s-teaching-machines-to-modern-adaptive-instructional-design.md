@@ -1,7 +1,7 @@
 ---
 title: "Linking Skinner’s Teaching Machines to Modern Adaptive Instructional Design"
 excerpt: "Linking Skinner’s Teaching Machines to Modern Adaptive Instructional Design From Teaching Machines to Adaptive Learning Systems B. F. Skinner’s teaching machine..."
-date: "2026-01-30T06:35:19.125Z"
+date: "2026-01-02T10:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

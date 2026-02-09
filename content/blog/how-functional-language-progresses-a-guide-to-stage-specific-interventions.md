@@ -1,7 +1,7 @@
 ---
 title: "How Functional Language Progresses: A Guide to Stage-Specific Interventions"
 excerpt: "Language is far more than just words—it is a behavior that plays a critical role in how we interact with our world. Viewing language through a functional lens h..."
-date: "2026-01-30T06:35:19.125Z"
+date: "2026-01-22T09:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

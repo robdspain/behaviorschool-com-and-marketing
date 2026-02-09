@@ -109,7 +109,7 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
           <img
             src={imageSrc}
             alt={post.title}
-            className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             loading="lazy"
           />
         </div>

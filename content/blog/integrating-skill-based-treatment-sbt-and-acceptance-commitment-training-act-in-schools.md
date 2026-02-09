@@ -1,7 +1,7 @@
 ---
 title: "Integrating Skill‐Based Treatment (SBT) and Acceptance & Commitment Training (ACT) in Schools"
 excerpt: "Dixon et al. (2022) – AIM Curriculum Implementation in Public Schools Full Citation: Dixon, M. R., Paliliunas, D., Weber, J., & Schmick, A. M. (2022). A large-s..."
-date: "2026-01-30T06:35:19.125Z"
+date: "2026-01-26T10:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:

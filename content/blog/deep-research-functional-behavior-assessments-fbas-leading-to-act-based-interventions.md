@@ -1,7 +1,7 @@
 ---
 title: "Deep Research - Functional Behavior Assessments (FBAs) Leading to ACT-Based Interventions"
 excerpt: "Functional Behavior Assessments (FBAs) Leading to ACT-Based Interventions Functional Behavior Assessment (FBA) is a systematic approach to identify why a probl..."
-date: "2026-01-30T06:35:19.125Z"
+date: "2026-01-10T10:00:00.000Z"
 author: Rob Spain
 featured_image: null
 tags:
