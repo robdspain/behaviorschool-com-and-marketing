@@ -15,6 +15,8 @@ meta_title: "Functional Behavior Assessment in Public Schools | Behavior School"
 meta_description: "Functional Behavior Assessment Tools and Rubrics in U.S. Schools Functional Behavior Assessments (FBAs) are used in U.S. public schools to understand why a stud..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## Functional Behavior Assessment Tools and Rubrics in U.S.
 
 Schools
@@ -168,7 +170,7 @@ For instance, Northup et al. (1991) demonstrated an FA with single 5-minute tria
 
 Brief FAs can sometimes be done in a single school day.
 
-They do sometimes identify a clear function, but they have a trade-off: due to limited data, about only half of brief FAs yield clear, interpretable results in studies.
+They do sometimes identify a clear function, but they have a trade-off: due to limited data, brief FAs can be inconclusive in many cases.
 
 If a brief FA is inconclusive, a more extended analysis might still be needed.
 
@@ -186,7 +188,7 @@ These trials are interspersed throughout the day.
 
 The outcome is determined by analyzing the percentage of trials in which behavior occurs in each test condition versus control.
 
-Research by Bloom et al. (2011) found TBFA results agreed with traditional FA outcomes in a majority of cases (6 out of 10 with full correspondence, and partial in a 7th).
+Research by Bloom et al. (2011) found TBFA results often agreed with traditional FA outcomes.
 
 TBFA is thus promising for classrooms, as it can identify function while minimizing disruption.
 
@@ -424,7 +426,7 @@ Each component is rated (present/absent or on a scale), yielding an overall fide
 
 In one study examining 135 school FBAs and 129 BIPs, the TATE showed good psychometric properties - moderate internal consistency, excellent inter-rater reliability, and content validity as judged by experts.
 
-They found most school FBAs/BIPs only met about 40-50% of the key components, underscoring the need for such rubrics.
+They found many school FBAs/BIPs missed key components, underscoring the need for such rubrics.
 
 Using a rubric like TATE can guide staff to improve the completeness and effectiveness of their FBA reports.
 

@@ -12,6 +12,8 @@ meta_title: Welcome to Your New File-Based Blog
 meta_description: Learn about the new markdown-based blog system for BehaviorSchool.com
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## Ghost CMS has been replaced! 🎉
 
 Your blog is now powered by a simple, file-based system. Here's what changed:

@@ -15,6 +15,8 @@ meta_title: "Integrating Skill-Based Treatment (SBT) and Acceptance & Commitment
 meta_description: "Dixon et al. (2022) - AIM Curriculum Implementation in Public Schools Full Citation: Dixon, M. R., Paliliunas, D., Weber, J., & Schmick, A. M. (2022). A large-s..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## Dixon et al. (2022) - AIM Curriculum Implementation in Public Schools
 Full Citation: Dixon, M. R., Paliliunas, D., Weber, J., & Schmick, A. M. (2022). A large-scale naturalistic evaluation of the AIM curriculum in a public-school setting. *Behavior Analysis in Practice, 15*(1), 156-170. [DOI](https://doi.org/10.1007/s40617-021-00569-5)
 Focus & Findings: This peer-reviewed study evaluated the Accept, Identify, Move (AIM) curriculum - an ACT-based social-emotional learning program - when delivered daily by school staff over an entire school year to 318 students in a public elementary setting.

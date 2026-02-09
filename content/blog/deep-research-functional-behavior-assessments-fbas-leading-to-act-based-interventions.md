@@ -15,6 +15,8 @@ meta_title: "Functional Behavior Assessments (FBAs) Leading to ACT-Based Interve
 meta_description: "Functional Behavior Assessments (FBAs) Leading to ACT-Based Interventions Functional Behavior Assessment (FBA) is a systematic approach to identify why a probl..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## Functional Behavior Assessments (FBAs) Leading to ACT-Based Interventions
 Functional Behavior Assessment (FBA) is a systematic approach to identify why a problem behavior occurs (its function) and to guide effective intervention planning ( Functional Analysis in Public School Settings: A Systematic Review of the Literature - PMC ).
 

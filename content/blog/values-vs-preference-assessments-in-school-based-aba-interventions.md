@@ -15,6 +15,8 @@ meta_title: "Values vs. Preference Assessments in School-Based ABA Interventions
 meta_description: "Values vs. Preference Assessments in School-Based ABA Interventions Understanding Preference Assessments and Reinforcers In applied behavior analysis (ABA), sti..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## Values vs.
 
 Preference Assessments in School-Based ABA Interventions

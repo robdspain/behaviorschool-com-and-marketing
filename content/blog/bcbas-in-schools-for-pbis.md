@@ -14,6 +14,8 @@ meta_title: "BCBAs in Schools for PBIS | Behavior School"
 meta_description: "BCBAs in PBIS: How to support all levels, systemically An overview of how to integrate the support of board certified behavior analysts into all three levels o..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## BCBAs in PBIS: How to support all levels, systemically
 An overview of how to integrate the support of board certified behavior analysts into all three levels of PBIS in the school setting.
 
@@ -28,7 +30,7 @@ BCBAs help set measurable behavior goals and design school-wide support strategi
 
 They attend regular Tier 1 team meetings and contribute behavioral expertise to action planning .
 
-For example, a BCBA may assist the team in co-creating 3–5 positively stated school rules and routines that are taught to all students .
+For example, a BCBA may assist the team in co-creating a small set of positively stated school rules and routines that are taught to all students .
 Data Systems & Analysis: Designing and managing behavior data systems to track schoolwide trends .
 
 BCBAs establish efficient data collection for discipline referrals, classroom behavior points, attendance, etc., and help define data-based decision rules .
@@ -72,7 +74,7 @@ They ensure these reinforcement systems follow behavioral principles (consistent
 For instance, a BCBA might set up a token economy school store and use data to determine if recognition is happening at a high rate across all classrooms  .
 
 They also coach staff to use praise and rewards consistently, since acknowledging positive behavior is a core Tier 1 practice  .
-Maintaining PBIS Fidelity and Equity: BCBAs often take on the role of Tier 1 fidelity checker – using PBIS fidelity tools or checklists to assess how well the school is implementing core features (e.g. are 80% of students able to state the expectations? Are teachers using the referral process correctly?)  .
+Maintaining PBIS Fidelity and Equity: BCBAs often take on the role of Tier 1 fidelity checker – using PBIS fidelity tools or checklists to assess how well the school is implementing core features (e.g. can most students state the expectations? Are teachers using the referral process correctly?)  .
 
 They share these evaluation results with the team to celebrate successes or address gaps.
 
@@ -167,7 +169,7 @@ Board Certified Behavior Analysts (BCBAs), with their expertise in ABA, are ther
 
 This deep dive focuses on Tier 2 supports – targeted interventions for at-risk students – and how BCBAs can contribute within public school districts to strengthen these systems.
 ## Understanding Tier 2 Interventions in PBIS
-Tier 2 supports are the targeted, group-based interventions provided to the 10-15% of students who do not fully succeed with Tier 1 universal supports alone .
+Tier 2 supports are targeted, group-based interventions provided to students who do not fully succeed with Tier 1 universal supports alone .
 
 The goal at Tier 2 is to intervene early before problem behaviors escalate, by teaching and reinforcing appropriate behaviors in a more focused way .
 
@@ -193,7 +195,7 @@ Extensive research has shown CICO to be an evidence-based Tier 2 practice.
 
 Multiple studies and meta-analyses find that CICO can significantly increase academic engagement and prosocial behavior while reducing disruptive behavior for at-risk students – especially when the root of the behavior problem is attention-seeking .
 
-In group-design studies, CICO yields moderate improvements on average (overall effect size ~0.42), with particularly strong effects in elementary grades .
+In group-design studies, CICO yields moderate improvements on average, with particularly strong effects in elementary grades .
 
 Teachers and parents also rate CICO as a socially acceptable and positive support in most cases .
 Aside from CICO, schools may implement Tier 2 supports like small-group behavior coaching, anger management classes, or check & connect mentoring.
@@ -374,7 +376,7 @@ They shift the school from a reactive, punitive discipline model to a proactive 
 While the benefits of BCBA involvement at Tier 2 are evident, there are practical challenges to address:
 Capacity and Caseload: Many BCBAs in districts juggle large caseloads (e.g. assessing dozens of individual Tier 3 cases) which leaves limited time for Tier 2 efforts.
 
-In a California survey, school BCBAs reported an average caseload of ~15 students (some had 30-50), and “lack of time” was the most common challenge identified (BAESIG, 2023).
+In a California survey, school BCBAs reported widely varying caseloads, and “lack of time” was the most common challenge identified (BAESIG, 2023).
 
 Districts should be mindful to allocate sufficient BCBA staffing if they expect robust Tier 2 coaching support.
 
@@ -469,7 +471,7 @@ And for the system as a whole, it means PBIS isn’t just a box of interventions
 
 ## Tier 3 PBIS Individualized Supports for BCBAs in K–12 Schools
 ## Overview of Tier 3 PBIS Supports
-Tier 3 of Positive Behavioral Interventions and Supports (PBIS) provides intensive, individualized support for the small subset of students (roughly 1–5%) whose needs are not met by Tier 1 or 2 interventions .
+Tier 3 of Positive Behavioral Interventions and Supports (PBIS) provides intensive, individualized support for a small subset of students whose needs are not met by Tier 1 or 2 interventions .
 
 These students often exhibit dangerous or highly disruptive behaviors that impede learning and inclusion, or have serious emotional/mental health challenges.
 

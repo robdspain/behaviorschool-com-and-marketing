@@ -14,6 +14,8 @@ meta_title: "BCBA Keyword Strategy 2025 – Behavior Study Tools | Behavior Scho
 meta_description: "BCBA Keyword Strategy 2025 – Behavior Study Tools Overview & Objectives Behavior Study Tools is leveraging a focused SEO strategy in 2025 to drive high-intent t..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## BCBA Keyword Strategy 2025 – Behavior Study Tools
 
 ## Overview & Objectives

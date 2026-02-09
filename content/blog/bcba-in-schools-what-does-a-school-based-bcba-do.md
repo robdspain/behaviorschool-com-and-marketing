@@ -14,6 +14,8 @@ meta_title: "BCBA in Schools: What Does a School-Based BCBA Do? | Behavior Schoo
 meta_description: "Learn what a school-based BCBA does, how the role differs from clinical ABA, typical responsibilities, salary expectations, and how to transition into school-based practice."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 If you're a BCBA considering school-based work — or a school administrator wondering whether to hire one — you're asking the right question at the right time. School districts across the country are creating BCBA positions at an unprecedented rate, driven by rising behavioral needs, MTSS implementation requirements, and a growing recognition that behavior expertise belongs in schools.
 
 But the role of a BCBA in a school looks very different from what most BCBAs experience in clinical settings. This guide breaks down exactly what school-based BCBAs do, how the role differs from clinic work, and what it takes to thrive in the school environment.
@@ -101,14 +103,14 @@ School BCBAs often serve as crisis responders, helping de-escalate situations an
 | Aspect | School-Based BCBA | Clinical BCBA |
 |--------|-------------------|---------------|
 | **Setting** | K–12 schools, district offices | Clinics, homes, community |
-| **Caseload** | 15–50+ students across a building or district | 6–15 individual clients |
+| **Caseload** | Varies widely by district and role | 6–15 individual clients |
 | **Service model** | Consultation, training, systems-level | Direct 1:1 or small group therapy |
 | **Population** | All disabilities, general ed referrals | Often autism-focused |
 | **Intervention focus** | Function-based BIPs, replacement behaviors, environmental modifications | Skill acquisition programs, DTT, NET |
 | **Data collection** | Often teacher-collected; simpler systems | RBT-collected; frequent, detailed |
 | **Schedule** | School calendar (summers off) | Year-round, often evening hours |
 | **Collaboration** | Teachers, admins, school psychologists, SLPs | Parents, RBTs, clinical supervisors |
-| **Salary range** | $60,000–$95,000 (varies by district and state) | $65,000–$100,000+ (varies widely) |
+| **Salary range** | Varies widely by district and region | Varies widely by employer and region |
 
 ### The Biggest Adjustment
 
@@ -153,8 +155,8 @@ While no two days are identical, here's a representative schedule:
 The path to becoming a school-based BCBA is the same as any BCBA:
 
 1. **Master's degree** in behavior analysis, psychology, education, or a related field
-2. **BACB-approved coursework** (315 hours in the current 6th Edition Task List)
-3. **Supervised fieldwork** (2,000 hours, or 1,500 concentrated)
+2. **BACB-approved coursework** (per current task list requirements)
+3. **Supervised fieldwork** (per current BACB requirements)
 4. **Pass the BCBA exam**
 
 If you're preparing for the exam, check out our [BCBA practice exam](/bcba-practice-exam) and [study tools](/bcba-study-tools) — they're designed to help you pass on your first attempt.
@@ -236,4 +238,4 @@ BehaviorSchool was built specifically for BCBAs who work in schools. Here's what
 
 ---
 
-*Join thousands of school-based BCBAs getting weekly tips, resources, and professional development delivered to their inbox. [Subscribe to the BehaviorSchool newsletter](/subscribe) — it's free.*
+*Join many school-based BCBAs getting weekly tips, resources, and professional development delivered to their inbox. [Subscribe to the BehaviorSchool newsletter](/subscribe) — it's free.*

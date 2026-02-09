@@ -15,6 +15,8 @@ meta_title: "Trauma-Informed and Trauma-Assumed Practices in School-Based Settin
 meta_description: "Learn how to integrate trauma-informed principles into school-based behavior analysis, including practical functional assessment and trauma-assumed intervention strategies."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## Introduction
 
 Trauma is increasingly recognized as a pervasive public health issue. Research from the National Center for PTSD indicates that approximately 60% of men and 50% of women in the United States experience at least one traumatic event in their lifetime ([PTSD.va.gov](https://www.ptsd.va.gov/professional/treat/specific/ptsd_research_women.asp)).

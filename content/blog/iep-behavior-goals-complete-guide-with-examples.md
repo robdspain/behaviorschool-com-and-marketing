@@ -15,6 +15,8 @@ meta_title: "IEP Behavior Goals: Complete Guide with Examples (2026) | Behavior 
 meta_description: "Learn how to write measurable IEP behavior goals with 20+ real examples. Covers elopement, aggression, task refusal, self-regulation, and social skills goals aligned with FBA data."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 Writing effective IEP behavior goals is one of the most important — and most challenging — tasks in special education. A well-written behavior goal gives the team a clear target, the student a clear path, and everyone a way to measure progress. A poorly written one? It sits in the IEP binder and helps no one.
 
 This guide covers everything you need to know about writing behavior goals for IEPs: the components of a strong goal, common mistakes, and over 20 real examples organized by behavior type.

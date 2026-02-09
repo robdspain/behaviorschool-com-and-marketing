@@ -15,6 +15,8 @@ meta_title: "Function-Based Behavior Intervention Plans: A Practical Guide | Beh
 meta_description: "How to write a function-based behavior intervention plan (BIP) that works. Covers antecedent strategies, replacement behaviors, consequence modifications, and real school examples."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 Here's a hard truth about behavior intervention plans: most of them don't work. Not because behavior intervention is ineffective — decades of research prove otherwise — but because most BIPs aren't actually function-based. They're lists of generic strategies ("give the student breaks," "use positive reinforcement," "provide choices") that aren't connected to *why* the behavior is happening.
 
 A function-based BIP is different. Every component — every antecedent modification, every replacement behavior, every consequence strategy — is directly linked to the function identified in the FBA. That's what makes it effective, and that's what this guide will teach you to build.

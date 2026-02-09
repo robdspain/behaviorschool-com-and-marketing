@@ -14,6 +14,8 @@ meta_title: "Behavior Study Tools SEO and Blog Posts | Behavior School"
 meta_description: "Great—I'll gather keyword suggestions, page titles, and meta descriptions tailored to: Free BCBA Practice Test (high conversion intent) BCBA Exam Prep Guide (br..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## Great—I'll gather keyword suggestions, page titles, and meta descriptions tailored to:
 ## Free BCBA Practice Test (high conversion intent)
 ## BCBA Exam Prep Guide (broad coverage)

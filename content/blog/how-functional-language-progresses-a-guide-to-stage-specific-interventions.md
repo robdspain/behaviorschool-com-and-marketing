@@ -14,6 +14,8 @@ meta_title: "How Functional Language Progresses: A Guide to Stage-Specific Inter
 meta_description: "Language is far more than just words-it is a behavior that plays a critical role in how we interact with our world. Viewing language through a functional lens h..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 Language is far more than just words-it is a behavior that plays a critical role in how we interact with our world.
 
 Viewing language through a functional lens helps us understand its developmental progression and guides our design of effective, compassionate interventions.

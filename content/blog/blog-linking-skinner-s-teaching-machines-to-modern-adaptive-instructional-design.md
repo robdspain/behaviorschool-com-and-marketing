@@ -15,6 +15,8 @@ meta_title: "Linking Skinner's Teaching Machines to Modern Adaptive Instructiona
 meta_description: "Linking Skinner's Teaching Machines to Modern Adaptive Instructional Design From Teaching Machines to Adaptive Learning Systems B. F. Skinner's teaching machine..."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 ## Linking Skinner's Teaching Machines to Modern Adaptive Instructional Design
 ## From Teaching Machines to Adaptive Learning Systems
 B.

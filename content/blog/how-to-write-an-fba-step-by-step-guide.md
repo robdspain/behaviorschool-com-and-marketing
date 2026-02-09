@@ -15,6 +15,8 @@ meta_title: "How to Write an FBA: Step-by-Step Guide for School BCBAs | Behavior
 meta_description: "Complete guide to writing a functional behavior assessment (FBA) in schools. Step-by-step process, data collection methods, and how to link FBA results to effective behavior intervention plans."
 ---
 
+*AI-assisted draft; reviewed and edited by Rob Spain.*
+
 A functional behavior assessment (FBA) is one of the most powerful tools in a school-based BCBA's toolkit. When done well, an FBA doesn't just describe what a student is doing — it explains *why* they're doing it. That understanding is what separates effective behavior intervention plans from the kind that collect dust in a filing cabinet.
 
 Whether you're new to school-based practice or looking to sharpen your process, this guide walks you through every step of writing a thorough, defensible FBA that leads directly to meaningful intervention.
@@ -106,7 +108,7 @@ Antecedent-Behavior-Consequence (ABC) recording is the gold standard for descrip
 - **Behavior:** What exactly did the student do?
 - **Consequence:** What happened immediately after? (teacher attention, task removed, peer reaction, sent to office)
 
-Aim for at least 3–5 observation sessions across different times, settings, and activities.
+Aim for multiple observation sessions across different times, settings, and activities.
 
 ### Scatterplot Analysis
 
@@ -200,7 +202,7 @@ If you're also writing IEP behavior goals based on your FBA, our [IEP Goal Write
 
 ### How long should an FBA take?
 
-A thorough FBA typically takes 2–4 weeks from referral to completed report. This allows time for multiple observations, interviews with key stakeholders, and careful data analysis. Rushing the process leads to inaccurate hypotheses and ineffective interventions.
+A thorough FBA typically takes several weeks from referral to completed report. This allows time for multiple observations, interviews with key stakeholders, and careful data analysis. Rushing the process leads to inaccurate hypotheses and ineffective interventions.
 
 ### Who can conduct an FBA?
 
