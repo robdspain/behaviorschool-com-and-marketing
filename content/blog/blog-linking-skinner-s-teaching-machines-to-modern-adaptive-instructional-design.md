@@ -226,134 +226,29 @@ In a very real sense, today's sophisticated adaptive learning technologies are t
 The tools have evolved from mechanical boxes to AI-driven software, but the fundamental principles - individualization, ongoing assessment, responsive feedback, and mastery-oriented progression - show a clear throughline from the behaviorist era to the present.
 
 As we design modern learning experiences, we continue to "stand on the shoulders" of these early giants, merging their empirically grounded techniques (often demonstrated through single-subject studies) with contemporary data science to fulfill the longstanding dream of efficient, personalized education for every learner.
-## References (APA w/ links):
-Skinner, B.
+## References
 
-F. (1958).
+Skinner, B. F. (1958). Teaching machines. *Science, 128*(3330), 969–977. [DOI](https://doi.org/10.1126/science.128.3330.969)
 
-Teaching Machines.
+Crowder, N. A. (1960). Automatic tutoring by intrinsic programming. In A. A. Lumsdaine & R. Glaser (Eds.), *Teaching Machines and Programmed Learning: A Source Book* (pp. 286–298). Washington, DC: National Education Association.
 
-Science, 128(3330), 969-977. (PDF full text) - Classic paper in which Skinner introduces the concept of teaching machines and programmed instruction, describing principles like small-step sequencing, immediate reinforcement, and self-pacing.
+<!-- UNVERIFIED CITATION: Pask, G. (1958). Electronics, "Learning Machines" (No. 101). Could not verify this specific citation. -->
 
-Skinner demonstrates how automated instruction can shape behavior by rewarding correct responses.
-Crowder, N.
+Keller, F. S. (1968). “Good-bye, teacher…” *Journal of Applied Behavior Analysis, 1*(1), 79–89. [DOI](https://doi.org/10.1901/jaba.1968.1-79)
 
-A. (1960).
+Haring, N. G., Lovitt, T. C., Eaton, M. D., & Hansen, C. L. (1978). *The Fourth R: Research in the Classroom*. Columbus, OH: Charles E. Merrill.
 
-Automatic Tutoring by Intrinsic Programming.
+Fuller, J. L., & Fienup, D. M. (2018). A preliminary analysis of mastery criterion level: Effects on response maintenance. *Behavior Analysis in Practice, 11*(1), 1–8. [DOI](https://doi.org/10.1007/s40617-017-0201-0)
 
-In A.
+<!-- UNVERIFIED CITATION: Richling, S. M., Nazaruk, E., Ekert, K., & Dixon, M. R. (2019). "Mastery criteria: Is higher better?" Could not verify this exact title/authors. Closest match: Richling, S. M., Williams, W. L., & Carr, J. E. (2019) in JABA. DOI: 10.1002/jaba.580 -->
 
-A.
+Wilson, R. C., Shenhav, A., Straccia, M., & Cohen, J. D. (2019). The eighty-five percent rule for optimal learning. *Nature Communications, 10*, 4646. [DOI](https://doi.org/10.1038/s41467-019-12552-4)
 
-Lumsdaine & R.
+Kara, N., & Sevim, N. (2013). Adaptive learning systems: Beyond teaching machines. *Contemporary Educational Technology, 4*(2), 108–120. [DOI](https://doi.org/10.30935/cedtech/6095)
 
-Glaser (Eds.), Teaching Machines and Programmed Learning: A Source Book (pp. 286-298).
+Watters, A. (2018, August 8). Teaching Machines: An American Story (And the Case for Gordon Pask). *Hack Education*. https://hackeducation.com/2018/08/08/teaching-machines
 
-Washington, DC: National Education Association. - Norman Crowder's method of intrinsic (branching) programming, which adapts instruction based on learner errors.
-
-Crowder argues that effective programs must diagnose a student's needs in real time and provide targeted remediation for mistakes, rather than a one-path-fits-all approach.
-
-Crowder's systems foreshadow modern adaptive branching logic.
-Pask, G. (1958). *Electronics, "Learning Machines" (No. 101). (Referenced in Stafford Beer's 1959 book Cybernetics and Management). - Gordon Pask's work on adaptive teaching machines, especially the SAKI system for keyboard training.
-
-Pask's machine built a probabilistic model of the learner's skill and adjusted question presentation speed and frequency based on performance.
-
-This is one of the first demonstrations of real-time adaptive difficulty: tasks the learner found easy were given less often and with less help, while difficult tasks were repeated more often with more cues.
-Keller, F.
-
-S. (1968). "Goodbye, Teacher…" Journal of Applied Behavior Analysis, 1(1), 79-89. (link) - Keller's introduction of the Personalized System of Instruction (PSI), a mastery-based, self-paced instructional method for college students.
-
-In PSI, students must master each unit at a high criterion (often 90-100% on a test) before proceeding, and they learn asynchronously.
-
-This paper contextualizes the mastery learning approach in adult/higher education, demonstrating improved outcomes when students are allowed to reach true mastery without time penalties (Kulik et al., 1979 review found PSI greatly increased achievement).
-
-Illustrates adoption of behaviorist mastery criteria and pacing in adult learning.
-Haring, N.
-
-G., Lovitt, T.
-
-C., Eaton, M.
-
-D., & Hansen, C.
-
-L. (1978).
-
-The Fourth R: Research in the Classroom.Columbus, OH: Charles E.
-
-Merrill. - This work presents the Instructional Hierarchy (Acquisition, Fluency, Generalization, Adaptation stages of learning) which has been influential in special education and behavior analysis.
-
-It outlines how instructional strategies should change as the learner moves from ~60% accuracy (acquisition) to high accuracy and speed (fluency ~80%+) to application in new contexts (~90%+ generalization).
-
-While not online, its concepts are summarized in many sources and form the basis for thinking about stage-wise criteria in skill learning (e.g., ).
-Fuller, J.
-
-L., & Fienup, D.
-
-M. (2018).
-
-A preliminary analysis of mastery criterion level: Effects on response maintenance.
-
-Behavior Analysis in Practice, 11(1), 1-8. (DOI) - An experimental study (multiple-probe single-case design) evaluating how different mastery criteria (50%, 80%, 90% correct) during training affect the long-term maintenance of skills for individuals with autism.
-
-It found only the 90% criterion led to consistently maintained responses after a few weeks.
-
-This evidence supports using high accuracy criteria (as opposed to a lax 60-80%) if the goal is durable learning.
-Richling, S.
-
-M., Nazaruk, E., Ekert, K., & Dixon, M.
-
-R. (2019).
-
-Mastery criteria: Is higher better? Journal of Applied Behavior Analysis, 52(4), 882-898. (DOI) - Another study on mastery criteria, here systematically comparing 60%, 70%, 80%, 90%, 100% (with 3 consecutive session requirements) in an applied setting.
-
-It showed significantly better maintenance for the highest criteria.
-
-The authors discuss the trade-off between efficiency (fewer trials to reach 60% vs more trials to reach 100%) and effectiveness (higher criteria yielding more persistent learning).
-
-This is a single-subject research approach providing empirical backing for the often-cited 80%/90% rules.
-Wilson, R.
-
-C., Shenhav, A., Straccia, M., & Cohen, J.
-
-D. (2019).
-
-The Eighty-Five Percent Rule for optimal learning.
-
-Nature Communications, 10:4646. (Open Access) - A contemporary computational study that finds the optimal error rate during training is around 15% (i.e., 85% correct), across both artificial neural networks and analyses of animal/human learning.
-
-It frames this sweet spot in terms of keeping difficulty neither too low nor too high, and explicitly connects to educational practices: "this intuition…is at the heart of modern teaching methods"and is analogous to shaping in behaviorism.
-
-Bridges behaviorist concepts of gradually increasing difficulty (shaping/fading) with modern machine learning and cognitive theory, supporting the idea that ~80-90% accuracy is a productive training target.
-Kara, N., & Sevim, N. (2013).
-
-Adaptive Learning Systems: Beyond Teaching Machines.
-
-Contemporary Educational Technology, 4(2), 108-120. (Full text PDF) - A review comparing 1950s-60s teaching machines to today's adaptive learning technologies.
-
-It highlights both similarities (individualized pacing, immediate feedback, focus on reinforcement and mastery) and differences (modern systems leverage AI and often constructivist models).
-
-Importantly, the authors note that many principles of teaching machines - e.g. personalization, active learner participation, ongoing progress tracking - are still central in adaptive e-learning environments.
-
-This paper situates historical approaches in a modern context, essentially arguing that adaptive learning systems are an evolutionary extension of the teaching machine concept.
-Watters, A. (2018, Aug 8).
-
-Teaching Machines: An American Story (And the Case for Gordon Pask). (Blog post)[Hacked Education]. (Link) - Ed-tech historian Audrey Watters provides a narrative on the development of teaching machines with a focus on Pask.
-
-This piece gives a rich description of Pask's SAKI adaptive machine, quoting primary sources like Pask (1958) and Stafford Beer's account.
-
-It emphasizes how Pask's device was "possibly the first truly cybernetic [adaptive] device" in education, able to model the learner's knowledge state and adjust difficulty on an individualized basis.
-
-The blog format makes it very accessible, and it links the mid-century innovations to current discussions on personalization in ed-tech.
-Estella, L. (2024).
-
-Adaptive Learning and Assessment Strategies for Adult Learners: A Comprehensive Approach. [Unpublished manuscript]. - (Cited via ResearchGate abstract) A recent paper examining the impact of adaptive learning in adult education settings.
-
-Although full text is not publicly available, the abstract reports that implementing adaptive learning technology "significantly improve[s] learner engagement, knowledge retention, and overall success in adult education".
-
-It also notes challenges like the need for instructor training and infrastructure.
-
-This reference underscores that the principles inherited from Skinner and behaviorist designs (e.g. self-pacing, immediate feedback, mastery learning) are highly relevant and beneficial for adult learners, who bring diverse backgrounds and require flexible, personalized pathways.
+<!-- UNVERIFIED CITATION: Estella, L. (2024). Adaptive learning and assessment strategies for adult learners: A comprehensive approach. Unpublished manuscript. Could not verify. -->
 There have been recent critiques and refinements of the "85% Rule," often prompted by broader frameworks like desirable difficulties, expertise reversal, and task complexity.
 
 Here's what the research says:
