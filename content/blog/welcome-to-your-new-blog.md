@@ -7,7 +7,7 @@ featured_image: null
 tags:
   - Updates
   - Getting Started
-status: published
+status: draft
 meta_title: Welcome to Your New File-Based Blog
 meta_description: Learn about the new markdown-based blog system for BehaviorSchool.com
 ---
