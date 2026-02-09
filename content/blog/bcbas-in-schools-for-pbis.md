@@ -820,59 +820,21 @@ The combined use of PFA, SBT, and ACT addresses both the technical side of behav
 This comprehensive approach has been shown to lead to real-world success, transforming the lives of students with severe challenges and empowering school teams with effective tools (Hanley et al., 2014 ; Tarbox et al., 2020 ).
 
 It exemplifies the ultimate goal of Tier 3 PBIS: every student gets the support they need to thrive behaviorally, socially, and academically, in a positive and inclusive school environment.
-References
+## References
 
-Bradshaw, C.
+Bradshaw, C. P., Waasdorp, T. E., & Leaf, P. J. (2012). Effects of school-wide positive behavioral interventions and supports on child behavior problems. *Pediatrics, 130*(5), e1136–e1145. [DOI](https://doi.org/10.1542/peds.2012-0243)
 
-P., Waasdorp, T.
+Center on PBIS. (2025). Positive Behavioral Interventions & Supports [Website]. https://www.pbis.org
 
-E., & Leaf, P.
+Enright, J. (2025, May 21). PBIS is just ABA with a nicer name: Positive behavioural interventions and supports are no better. *Neurodiversified*. https://medium.com/neurodiversified/pbis-is-just-aba-with-a-nicer-name-282c6e92a568
 
-J. (2012).
+Malloy, J. (2009). School reform through PBIS. *National Dropout Prevention Center/Network Newsletter, 21*(1). https://dropoutprevention.org/wp-content/uploads/2015/05/newsletter-v21n1-2009.pdf
 
-Effects of school-wide positive behavioral interventions and supports on child behavior problems.
+Santiago-Rosario, M. R., McIntosh, K., Izzard, S., Cohen-Lissman, D., & Calhoun, T. E. (2023). Is positive behavioral interventions and supports (PBIS) an evidence-based practice? Center on PBIS, University of Oregon. https://www.pbis.org/resource/is-school-wide-positive-behavior-support-an-evidence-based-practice
 
-Pediatrics, 130(5), e1136–e1145. https://doi.org/10.1542/peds.2012-0243
+U.S. Department of Education. (2014). Guiding principles: A resource guide for improving school climate and discipline. Washington, DC: Author. https://www2.ed.gov/policy/gen/guid/school-discipline/guiding-principles.pdf
 
-## Center on PBIS. (2025).
-
-Positive Behavioral Interventions & Supports [Website]. https://www.pbis.org
-
-Enright, J. (2025, May 21).
-
-PBIS is just ABA with a nicer name: Positive behavioural interventions and supports are no better.
-
-Neurodiversified. https://medium.com/neurodiversified/pbis-is-just-aba-with-a-nicer-name-282c6e92a568
-
-Malloy, J. (2009).
-
-School reform through PBIS.
-
-National Dropout Prevention Center/Network Newsletter, 21(1).
-
-Retrieved from https://dropoutprevention.org/wp-content/uploads/2015/05/newsletter-v21n1-2009.pdf
-
-Santiago-Rosario, M.
-
-R., McIntosh, K., Izzard, S., Cohen-Lissman, D., & Calhoun, T.
-
-E. (2023).
-
-Is positive behavioral interventions and supports (PBIS) an evidence-based practice? Center on PBIS, University of Oregon. https://www.pbis.org/resource/is-school-wide-positive-behavior-support-an-evidence-based-practice
-
-U.S.
-
-Department of Education. (2014).
-
-Guiding principles: A resource guide for improving school climate and discipline.
-
-Washington, DC: Author. https://www2.ed.gov/policy/gen/guid/school-discipline/guiding-principles.pdf
-
-Venet, A. (2021, January 21).
-
-Problematizing PBIS: Resource round-up.
-
-Unconditional Learning. https://www.unconditionallearning.org/blog/pbis-resource-roundup
+Venet, A. (2021, January 21). Problematizing PBIS: Resource round-up. *Unconditional Learning*. https://www.unconditionallearning.org/blog/pbis-resource-roundup
 
 ---
 
