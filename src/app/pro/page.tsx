@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -44,6 +45,7 @@ const FEATURES = [
       "Export to PDF or Word",
       "Editable before finalizing",
     ],
+    image: "/images/pro/fba-to-bip.png",
   },
   {
     icon: Target,
@@ -56,6 +58,7 @@ const FEATURES = [
       "Includes baselines & criteria",
       "Copy directly into your IEP system",
     ],
+    image: "/images/pro/iep-goal-generator.png",
   },
   {
     icon: BookOpen,
@@ -68,6 +71,7 @@ const FEATURES = [
       "Regular updates with new goals",
       "Save favorites to your account",
     ],
+    image: "/images/pro/iep-goal-bank.png",
   },
   {
     icon: Brain,
@@ -80,6 +84,7 @@ const FEATURES = [
       "Defusion & mindfulness activities",
       "Progress tracking tools",
     ],
+    image: "/images/pro/act-module.png",
   },
 ];
 
@@ -217,10 +222,17 @@ export default function ProPage() {
           <div className="space-y-20">
             {FEATURES.map((feature, i) => (
               <div key={feature.title} className={`flex flex-col lg:flex-row gap-10 items-center ${i % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
-                {/* Mockup placeholder */}
+                {/* Product mockup */}
                 <div className="lg:w-1/2">
-                  <div className="bg-gradient-to-br from-slate-100 to-slate-50 border border-slate-200 rounded-2xl aspect-[4/3] flex items-center justify-center">
-                    <feature.icon className="h-20 w-20 text-emerald-300" />
+                  <div className="rounded-2xl overflow-hidden shadow-2xl">
+                    <Image
+                      src={feature.image}
+                      alt={`${feature.title} interface mockup`}
+                      width={800}
+                      height={600}
+                      className="w-full h-auto"
+                      priority={i === 0}
+                    />
                   </div>
                 </div>
                 <div className="lg:w-1/2 space-y-4">
