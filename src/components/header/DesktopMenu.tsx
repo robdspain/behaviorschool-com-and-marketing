@@ -13,7 +13,7 @@ type Props = {
 
 export function DesktopMenu({ openKey, onOpen }: Props) {
   return (
-    <div className="hidden md:flex items-center space-x-2">
+    <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
       {menuSections.map((section) => {
         const hasChildren = !!section.children?.length;
         const key = section.label.toLowerCase();
@@ -28,7 +28,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
               transition={{ duration: 0.2 }}
             >
               <motion.button
-                className="inline-flex items-center gap-1 px-4 py-2 text-lg font-medium text-emerald-700 focus:outline-none relative rounded-lg"
+                className="inline-flex items-center gap-1 px-3 py-2 text-sm xl:text-base font-medium text-emerald-700 focus:outline-none relative rounded-lg"
                 aria-haspopup="menu"
                 aria-expanded={openKey === key}
                 whileHover={{ 
@@ -78,7 +78,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
           >
             <Link
               href={section.href ?? "#"}
-              className="px-4 py-2 text-lg font-medium text-emerald-700 relative block rounded-lg"
+              className="px-3 py-2 text-sm xl:text-base font-medium text-emerald-700 relative block rounded-lg whitespace-nowrap"
               target={section.href?.startsWith("http") ? "_blank" : undefined}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >

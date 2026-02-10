@@ -15,7 +15,7 @@ type Props = {
 export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
   if (!isOpen) return null;
   return (
-    <div className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-sm">
+    <div className="lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-sm">
       <div className="px-2 py-3 space-y-1 sm:px-3">
         {menuSections.map((section) => {
           const key = section.label.toLowerCase();

@@ -33,7 +33,7 @@ export function NavBar() {
 
           <DesktopMenu openKey={openDesktopKey} onOpen={setOpenDesktopKey} />
 
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
