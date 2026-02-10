@@ -984,7 +984,7 @@ export default function PresentationPlayer({
 
         {/* Slide Display Area */}
         <div className="flex-1 flex flex-col">
-          <div className="flex-1 overflow-auto p-8 bg-gradient-to-br from-slate-50 to-slate-100">
+          <div className="flex-1 overflow-auto p-4 sm:p-8 bg-gradient-to-br from-slate-50 to-slate-100">
             <div className="max-w-5xl mx-auto rounded-2xl shadow-2xl border-2 border-slate-200 p-12 min-h-[600px] flex flex-col" style={{ background: bgColor }}>
               {/* Slide Title */}
               <h2 className="text-4xl font-bold mb-8 pb-4 border-b-4" style={{ color: titleColor, borderBottomColor: primaryColor }}>{currentSlideData.title}</h2>

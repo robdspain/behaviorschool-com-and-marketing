@@ -243,7 +243,7 @@ export default function CreatePresentation() {
         <label className="block text-sm font-bold text-slate-900 mb-3">
           How would you like to create your presentation?
         </label>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
           <button
             type="button"
             onClick={() => setForm({ ...form, inputType: "text" })}
@@ -321,7 +321,7 @@ export default function CreatePresentation() {
       )}
 
       {/* Configuration Grid */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {/* Slide Count */}
         <div>
           <label className="block text-sm font-bold text-slate-900 mb-2">
@@ -384,7 +384,7 @@ export default function CreatePresentation() {
         </div>
 
         {/* AI Model */}
-        <div className="md:col-span-2">
+        <div className="sm:col-span-2">
           <label className="block text-sm font-bold text-slate-900 mb-2">
             AI Model
           </label>
@@ -445,13 +445,13 @@ export default function CreatePresentation() {
         </div>
 
         {/* Web Grounding */}
-        <div className="md:col-span-2">
+        <div className="sm:col-span-2">
           <div className="flex items-center gap-3">
             <input id="wg" type="checkbox" checked={!!form.webGrounding} onChange={(e)=> setForm({ ...form, webGrounding: e.target.checked })} />
             <label htmlFor="wg" className="text-sm font-bold text-slate-900">Use web search grounding</label>
           </div>
           {form.webGrounding && (
-            <div className="mt-2 grid md:grid-cols-2 gap-3">
+            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-sm font-bold text-slate-900 mb-1">Search query (optional)</label>
                 <input value={form.webQuery || ''} onChange={(e)=> setForm({ ...form, webQuery: e.target.value })} className="w-full px-3 py-2 border-2 border-slate-200 rounded" placeholder="Defaults to your topic" />

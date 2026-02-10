@@ -265,7 +265,7 @@ export default function ProviderSettings() {
       </button>
 
       {/* Utilities */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         <button onClick={handleExport} className="px-4 py-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 text-slate-800 font-semibold">Export JSON</button>
         <label className="px-4 py-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 text-slate-800 font-semibold cursor-pointer text-center">
           Import JSON
