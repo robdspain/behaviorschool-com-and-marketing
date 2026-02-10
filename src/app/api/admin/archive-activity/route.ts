@@ -1,13 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE!
-);
+const getSupabase = () => {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE) {
+    throw new Error('Supabase env vars missing');
+  }
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE
+  );
+};
 
 export async function POST(request: NextRequest) {
   try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      return NextResponse.json(
+        { success: false, error: 'Supabase not configured' },
+        { status: 503 }
+      );
+    }
+
+    const supabase = getSupabase();
     const { activityType, activityId, title, description, timestamp } = await request.json();
 
     if (!activityType || !activityId || !title || !description || !timestamp) {
@@ -53,6 +66,14 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      return NextResponse.json(
+        { success: false, error: 'Supabase not configured' },
+        { status: 503 }
+      );
+    }
+
+    const supabase = getSupabase();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
