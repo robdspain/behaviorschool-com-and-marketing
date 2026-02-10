@@ -39,7 +39,8 @@ export const metadata: Metadata = {
 };
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, School, Download, Brain, Shield, Star, CheckCircle, Sparkles, Zap } from "lucide-react";
-import { CalabaBanner } from "@/components/ui/calaba-banner";
+// CALABA banner temporarily removed — "Claim Offer" link was broken (2026-02-10)
+// import { CalabaBanner } from "@/components/ui/calaba-banner";
 
 const PRO_TOOLS = [
   {
@@ -79,7 +80,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--bs-background,#FAF3E0)]">
       {/* CALABA Banner */}
-      <CalabaBanner />
+      {/* <CalabaBanner /> — temporarily removed, broken link */}
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-700 pt-32 pb-20 sm:pt-36 sm:pb-24">
