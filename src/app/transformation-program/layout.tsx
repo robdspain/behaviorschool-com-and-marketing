@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "School BCBA Training Program",
-  description: "School BCBA training: 6-week program to reduce burnout, build systems, and lead with confidence. Transform from crisis manager to ethical leader. Join next cohort.",
+  title: "School BCBA Training Program | Behavior School",
+  description: "6-week school BCBA training program to reduce burnout and build behavior support systems. Transform from crisis manager to ethical leader. Join next cohort.",
   keywords: "school BCBA training, behavior analyst burnout solution, special education leadership, school psychology systems, BCBA ethics training, crisis management schools, staff training protocols, behavior support systems, school transformation program, cohort-based BCBA course",
   alternates: { canonical: "https://behaviorschool.com/transformation-program" },
   openGraph: {
     type: "website",
-    title: "School BCBA Training Program",
-    description: "School BCBA training: 6-week program to reduce burnout and build systems. Transform from crisis manager to leader.",
+    title: "School BCBA Training Program | Behavior School",
+    description: "6-week school BCBA training program to reduce burnout and build behavior support systems. Transform from crisis manager to ethical leader. Join next cohort.",
     url: "/transformation-program",
     siteName: "Behavior School",
     locale: "en_US",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "School BCBA Training Program",
-    description: "School BCBA training: 6-week program to reduce burnout, build systems, lead with confidence.",
+    title: "School BCBA Training Program | Behavior School",
+    description: "6-week school BCBA training program to reduce burnout and build behavior support systems. Transform from crisis manager to ethical leader. Join next cohort.",
     images: ["/hero-chaos-to-confidence.jpg"],
     creator: "@BehaviorSchool",
   },

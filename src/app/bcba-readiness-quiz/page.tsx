@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { BCBAReadinessQuiz } from "./BCBAReadinessQuiz";
 
 export const metadata: Metadata = {
-  title: "BCBA Exam Readiness Quiz — How Prepared Are You? | Behavior School",
+  title: "BCBA Exam Readiness Quiz | Behavior School",
   description:
-    "Take our free 2-minute BCBA Exam Readiness Quiz to find out if you're ready for the BCBA certification exam. Get a personalized readiness score and study recommendations.",
+    "Take our free 2-minute BCBA Exam Readiness Quiz. Find out if you're ready for the certification exam with a personalized score and study recommendations!",
   keywords: [
     "BCBA exam readiness",
     "BCBA exam prep quiz",

@@ -8,12 +8,12 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "BCBA Study & School-Based ABA Blog | Behavior School",
-  description: "Expert guides on BCBA exam prep, school-based ABA practice, IEP goals, and ACT Matrix — plus free mock exams and study tools.",
+  title: "BCBA Study & School ABA Blog | Behavior School",
+  description: "Expert guides on BCBA exam prep, school-based ABA, IEP goals, and ACT Matrix. Plus free mock exams and study tools for behavior analysts. Read now!",
   alternates: { canonical: "https://behaviorschool.com/blog" },
   openGraph: {
-    title: "BCBA Study & School-Based ABA Blog | Behavior School",
-    description: "Evidence-based insights for BCBAs and educators: exam prep, school-based practice, IEP goals, ACT Matrix, and free practice tools.",
+    title: "BCBA Study & School ABA Blog | Behavior School",
+    description: "Expert guides on BCBA exam prep, school-based ABA, IEP goals, and ACT Matrix. Plus free mock exams and study tools for behavior analysts. Read now!",
     url: "https://behaviorschool.com/blog",
     siteName: "Behavior School",
     type: "website",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BCBA Study & School-Based ABA Blog | Behavior School",
-    description: "Guides on BCBA exam prep, school-based ABA, IEP goals, ACT Matrix, and free practice tools.",
+    title: "BCBA Study & School ABA Blog | Behavior School",
+    description: "Expert guides on BCBA exam prep, school-based ABA, IEP goals, and ACT Matrix. Plus free mock exams and study tools for behavior analysts. Read now!",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },

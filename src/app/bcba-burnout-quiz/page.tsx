@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { BCBABurnoutQuiz } from "./BCBABurnoutQuiz";
 
 export const metadata: Metadata = {
-  title: "BCBA Burnout Risk Quiz — Check Your Stress Level | Behavior School",
+  title: "BCBA Burnout Risk Quiz | Behavior School",
   description:
-    "Take our free 2-minute BCBA Burnout Risk Quiz to check your stress level and get next-step recommendations.",
+    "Take our free 2-minute BCBA Burnout Risk Quiz. Check your stress level, get your burnout score, and receive personalized recommendations. Start the quiz now!",
   keywords: [
     "BCBA burnout quiz",
     "BCBA stress assessment",

@@ -221,8 +221,52 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     return out;
   };
 
+  // Transform image URL for Schema.org
+  const schemaImage = (() => {
+    let src = (post.feature_image as string) || '/optimized/og-image.webp';
+    if (src.startsWith('//')) src = 'https:' + src;
+    if (src.startsWith('http://')) src = src.replace(/^http:/, 'https:');
+    if (src.startsWith(ghostContentPrefix)) {
+      src = src.replace(ghostBase, '');
+    }
+    if (src.startsWith('/content/images/')) {
+      src = '/media/ghost' + src + '?w=1200&q=80&f=webp';
+    }
+    if (src.startsWith('/')) {
+      src = `https://behaviorschool.com${src}`;
+    }
+    return src;
+  })();
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: decodeHtmlEntities(post.title || ''),
+    description: decodeHtmlEntities(post.excerpt || post.meta_description || ''),
+    image: schemaImage,
+    datePublished: post.published_at,
+    dateModified: post.updated_at || post.published_at,
+    author: {
+      '@type': 'Person',
+      name: 'Rob Spain',
+      url: 'https://behaviorschool.com/about'
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Behavior School',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://behaviorschool.com/Logos/Logo.webp'
+      }
+    }
+  };
+
   return (
     <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+    />
     <article className="mx-auto max-w-3xl px-6 lg:px-8 pt-20 pb-12">
       <header>
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">{post.title}</h1>

@@ -76,9 +76,9 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "FBA to BIP Generator | Free Behavior Intervention Plan Builder",
+  title: "FBA to BIP Generator - Free Tool | Behavior School",
   description:
-    "Free FBA-to-BIP generator for BCBAs and special educators. Enter your FBA data and generate a complete Behavior Intervention Plan with evidence-based strategies in minutes.",
+    "Free FBA-to-BIP generator for BCBAs and educators. Enter FBA data and get a complete, evidence-based Behavior Intervention Plan in minutes. Start free today!",
   keywords: [
     "FBA to BIP generator",
     "behavior intervention plan generator",

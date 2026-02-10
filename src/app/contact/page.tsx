@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { ContactClient } from "./ContactClient";
 
 export const metadata: Metadata = {
-  title: "Contact Behavior School | Get Help with BCBA Training & School Behavior Support",
-  description: "Contact our BCBA experts for personalized guidance on certification prep, school-based behavior analysis, IEP goals & behavior intervention planning support.",
+  title: "Contact Behavior School | BCBA Training & Support",
+  description: "Get expert help with BCBA certification prep, school behavior analysis, IEP goals, and intervention planning. Contact our team for personalized support today.",
   robots: {
     index: true,
     follow: true,
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     "school BCBA support"
   ],
   openGraph: {
-    title: "Contact Behavior School | Get Help with BCBA Training & School Behavior Support",
-    description: "Contact our BCBA experts for personalized guidance on certification prep, school-based behavior analysis, IEP goals, and behavior intervention planning.",
+    title: "Contact Behavior School | BCBA Training & Support",
+    description: "Get expert help with BCBA certification prep, school behavior analysis, IEP goals, and intervention planning. Contact our team for personalized support today.",
     type: "website",
     url: "https://behaviorschool.com/contact",
     images: [
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Behavior School | BCBA Training Support",
-    description: "Get personalized help with BCBA certification, school behavior analysis, and intervention planning from our expert team.",
+    title: "Contact Behavior School | BCBA Training & Support",
+    description: "Get expert help with BCBA certification prep, school behavior analysis, IEP goals, and intervention planning. Contact our team for personalized support today.",
     images: ["https://behaviorschool.com/optimized/og-image.webp"]
   },
   alternates: {

@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 export const metadata: Metadata = {
-  title: "AI-Powered Behavior Tools for School Teams | BehaviorSchool",
+  title: "AI Behavior Tools for School Teams | Behavior School",
   description:
-    "AI-powered FBA-to-BIP generator, IEP Goal Writer, Goal Bank & ACT modules — FERPA compliant. Used by BCBAs and school psychologists nationwide. Try free today.",
+    "AI-powered FBA-to-BIP, IEP Goal Writer & ACT tools for BCBAs and school psychologists. FERPA compliant. Try free today and transform your practice.",
   keywords: "BehaviorSchool Pro, FBA to BIP, IEP goal generator, IEP goal bank, ACT module, school BCBA tools, FERPA compliant, behavior intervention plan, school behavior support, AI behavior tools",
   alternates: { canonical: "https://behaviorschool.com/" },
   openGraph: {
     type: "website",
-    title: "AI-Powered Behavior Tools for School Teams | BehaviorSchool",
+    title: "AI Behavior Tools for School Teams | Behavior School",
     description:
-      "AI-powered FBA-to-BIP generator, IEP Goal Writer, Goal Bank & ACT modules — FERPA compliant. Used by BCBAs and school psychologists nationwide.",
+      "AI-powered FBA-to-BIP, IEP Goal Writer & ACT tools for BCBAs and school psychologists. FERPA compliant. Try free today and transform your practice.",
     url: "/",
     siteName: "Behavior School",
     locale: "en_US",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI-Powered Behavior Tools for School Teams | BehaviorSchool",
+    title: "AI Behavior Tools for School Teams | Behavior School",
     description:
-      "AI-powered FBA-to-BIP generator, IEP Goal Writer, Goal Bank & ACT modules — FERPA compliant. Try free today.",
+      "AI-powered FBA-to-BIP, IEP Goal Writer & ACT tools for BCBAs and school psychologists. FERPA compliant. Try free today and transform your practice.",
     images: ["/og-image.webp"],
     creator: "@BehaviorSchool",
   },

@@ -7,8 +7,8 @@ import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { CheckCircle2, Zap, Target, Brain, TrendingUp, Award } from "lucide-react";
 
 export const metadata = {
-  title: "FREE BCBA Exam Prep - Pass Your BCBA Exam First Try | Behavior School",
-  description: "AI-powered BCBA practice exams, adaptive learning, and instant feedback. Free study platform with 500+ vetted questions.",
+  title: "BCBA Exam Prep - Pass First Try | Behavior School",
+  description: "AI-powered BCBA practice exams with adaptive learning and instant feedback. Join 1,000+ BCBAs who passed using our free platform with 500+ vetted questions.",
   keywords: "BCBA exam prep, BCBA practice exam, BCBA mock exam, behavior analyst certification, free BCBA study tools",
 };
 

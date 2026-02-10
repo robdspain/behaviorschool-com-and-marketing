@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "IEP Goal Writing Tool - Effective IEP Goals That Drive Student Success | Behavior School",
-  description: "Simple tool for writing effective IEP goals that are clear, measurable, and built for long-term student success. Perfect for teachers, BCBAs, and schools.",
+  title: "IEP Goal Writing Tool | Behavior School",
+  description: "Write clear, measurable IEP goals that drive student success. Perfect for teachers, BCBAs, and school psychologists. Try our free IEP goal writer today.",
   keywords: "IEP goals, special education, goal writing, measurable objectives, student success, behavior analysis, education tools, IEP writing software",
-  alternates: { canonical: "/iep-goals" },
+  alternates: { canonical: "https://behaviorschool.com/iep-goals" },
   openGraph: {
     type: "website",
-    title: "IEP Goal Writing Tool - Effective IEP Goals That Drive Student Success",
-    description: "Simple tool for writing effective IEP goals that are clear, measurable, and built for long-term student success. Perfect for teachers, BCBAs, and schools.",
+    title: "IEP Goal Writing Tool | Behavior School",
+    description: "Write clear, measurable IEP goals that drive student success. Perfect for teachers, BCBAs, and school psychologists. Try our free IEP goal writer today.",
     url: "/iep-goals",
     images: [
       {
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "IEP Goal Writing Tool - Effective IEP Goals That Drive Student Success",
-    description: "Simple tool for writing effective IEP goals that are clear, measurable, and built for long-term student success. Perfect for teachers, BCBAs, and schools.",
+    title: "IEP Goal Writing Tool | Behavior School",
+    description: "Write clear, measurable IEP goals that drive student success. Perfect for teachers, BCBAs, and school psychologists. Try our free IEP goal writer today.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },

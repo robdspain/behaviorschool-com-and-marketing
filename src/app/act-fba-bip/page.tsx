@@ -86,9 +86,9 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "ACT-Informed FBA & BIP Generator | Free Values-Based Behavior Plan",
+  title: "ACT-Informed FBA & BIP Generator | Behavior School",
   description:
-    "Free ACT-informed FBA and BIP generator for BCBAs and school behavior teams. Create values-based behavior intervention plans with acceptance strategies, defusion techniques, committed action goals, and age-appropriate ACT metaphors.",
+    "Free ACT-informed FBA and BIP generator with values-based strategies, acceptance techniques, and defusion exercises. For BCBAs and behavior teams. Start free!",
   keywords: [
     "ACT behavior intervention plan",
     "values-based BIP",

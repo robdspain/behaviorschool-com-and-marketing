@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { BCBAStudyToolsClient } from "./BCBAStudyToolsClient";
 
 export const metadata: Metadata = {
-  title: "FREE BCBA Study Tools 2025 | AI Practice Tests + Adaptive Learning | Behavior School",
-  description: "FREE AI-powered BCBA study tools. Unlimited practice questions, adaptive learning, performance analytics. Join BCBAs preparing for their exam. Start free today!",
+  title: "BCBA Study Tools 2025 | AI Practice Tests | Behavior School",
+  description: "Free AI-powered BCBA study tools with adaptive learning and performance analytics. Unlimited practice questions to help you pass the exam. Start free today!",
   robots: {
     index: true,
     follow: true,
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     "first-time BCBA pass rate"
   ],
   openGraph: {
-    title: "FREE BCBA Study Tools 2025 | AI Practice Tests + Adaptive Learning | Behavior School",
-    description: "FREE AI-powered BCBA study tools. Unlimited practice questions, adaptive learning, performance analytics. Start free today!",
+    title: "BCBA Study Tools 2025 | AI Practice Tests | Behavior School",
+    description: "Free AI-powered BCBA study tools with adaptive learning and performance analytics. Unlimited practice questions to help you pass the exam. Start free today!",
     type: "website",
     url: "https://behaviorschool.com/bcba-study-tools",
     images: [

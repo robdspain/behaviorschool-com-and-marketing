@@ -66,9 +66,9 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "IEP Goal Writer | Values-Based Behavior Goals in Minutes",
+  title: "IEP Goal Writer - Values-Based Goals | Behavior School",
   description:
-    "Free IEP Goal Writer that turns student values into Level 5 SMART behavior goals with baseline, fluency, and maintenance in minutes.",
+    "Free IEP Goal Writer that creates Level 5 SMART behavior goals with baseline, fluency, and maintenance in minutes. For BCBAs and educators. Start now!",
   keywords: [
     "IEP goal writer",
     "behavior goals",

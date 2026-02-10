@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Practice Exam Questions | BehaviorSchool",
+  title: "Free BCBA Practice Exam Questions | Behavior School",
   description:
-    "20 free BCBA practice exam questions covering all 6th edition task list domains. Take our free BCBA mock exam with instant scoring, detailed explanations, and expert-written content. No signup required to start.",
+    "20 free BCBA practice exam questions covering all 6th edition task list domains. Instant scoring and detailed explanations. No signup required. Start now!",
   keywords: [
     "BCBA practice exam free",
     "BCBA mock exam",
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://behaviorschool.com/free-bcba-practice" },
   openGraph: {
     type: "article",
-    title: "Free BCBA Practice Exam Questions | BehaviorSchool",
+    title: "Free BCBA Practice Exam Questions | Behavior School",
     description:
-      "20 free BCBA practice questions with detailed explanations. Covers ethics, measurement, behavior change, experimental design & more.",
+      "20 free BCBA practice exam questions covering all 6th edition task list domains. Instant scoring and detailed explanations. No signup required. Start now!",
     url: "/free-bcba-practice",
     images: [
       {
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Practice Exam Questions | BehaviorSchool",
+    title: "Free BCBA Practice Exam Questions | Behavior School",
     description:
-      "20 free BCBA practice questions covering all task list domains. Instant feedback & detailed explanations.",
+      "20 free BCBA practice exam questions covering all 6th edition task list domains. Instant scoring and detailed explanations. No signup required. Start now!",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },

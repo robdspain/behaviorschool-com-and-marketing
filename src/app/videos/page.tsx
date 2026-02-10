@@ -5,8 +5,8 @@ import fs from 'fs';
 import path from 'path';
 
 export const metadata: Metadata = {
-  title: 'Free BCBA Exam Prep Videos | BehaviorSchool',
-  description: 'Watch free BCBA exam prep videos covering ethics, reinforcement vs punishment, experimental design, and study strategies from an experienced school BCBA.',
+  title: 'Free BCBA Exam Prep Videos | Behavior School',
+  description: 'Watch free BCBA exam prep videos covering ethics, reinforcement, experimental design, and study strategies from an experienced school BCBA. Start learning!',
   keywords: [
     'BCBA exam prep videos',
     'free BCBA study videos',
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     'school BCBA tips'
   ],
   openGraph: {
-    title: 'Free BCBA Exam Prep Videos | BehaviorSchool',
-    description: 'Expert BCBA exam prep videos to help you pass on your first attempt. Learn from real-world scenarios and proven study strategies.',
+    title: 'Free BCBA Exam Prep Videos | Behavior School',
+    description: 'Watch free BCBA exam prep videos covering ethics, reinforcement, experimental design, and study strategies from an experienced school BCBA. Start learning!',
     type: 'website',
     url: 'https://behaviorschool.com/videos',
   },
