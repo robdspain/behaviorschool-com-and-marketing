@@ -346,6 +346,22 @@ function BlogEditorContent() {
     }
   }
 
+  const handleDelete = async () => {
+    if (!postId) return
+    if (!confirm('Are you sure you want to delete this post? This cannot be undone.')) return
+    try {
+      const response = await fetch(`/api/admin/blog/posts/${postId}`, { method: 'DELETE' })
+      const result = await response.json()
+      if (result.success) {
+        router.push('/admin/blog')
+      } else {
+        alert('Failed to delete: ' + (result.error || 'Unknown error'))
+      }
+    } catch (error) {
+      alert('Failed to delete post')
+    }
+  }
+
   const handleSave = async (newStatus?: 'draft' | 'published', retryCount = 0) => {
     if (!post.title.trim()) {
       alert('Please enter a title')
@@ -594,6 +610,16 @@ function BlogEditorContent() {
                 >
                   <Eye className="w-4 h-4" />
                   Publish
+                </button>
+              )}
+              {postId && (
+                <button
+                  onClick={handleDelete}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors"
+                  title="Delete this post"
+                >
+                  <X className="w-4 h-4" />
+                  Delete
                 </button>
               )}
             </div>
