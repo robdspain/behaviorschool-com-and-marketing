@@ -10,8 +10,8 @@ tags:
   - Applied Behavior Analysis
   - Evidence-Based Practice
 status: published
-meta_title: "BCBAs in Schools for PBIS | Behavior School"
-meta_description: "BCBAs in PBIS: How to support all levels, systemically An overview of how to integrate the support of board certified behavior analysts into all three levels o..."
+meta_title: "BCBAs in Schools: PBIS Support Guide | BehaviorSchool"
+meta_description: "How BCBAs support PBIS at all three tiers: conducting FBAs, implementing PFA/SBT, coaching staff, and building school-wide positive behavior systems."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -839,6 +839,28 @@ U.S. Department of Education. (2014). Guiding principles: A resource guide for i
 Venet, A. (2021, January 21). Problematizing PBIS: Resource round-up. *Unconditional Learning*. https://www.unconditionallearning.org/blog/pbis-resource-roundup
 
 ---
+
+## Frequently Asked Questions About BCBAs and PBIS
+
+### What role do BCBAs play in PBIS implementation?
+
+BCBAs serve as behavior specialists on PBIS leadership teams, conducting functional behavior assessments, designing function-based interventions, training staff, analyzing behavior data, and supporting all three tiers of PBIS with evidence-based ABA strategies.
+
+### How is Practical Functional Assessment (PFA) different from traditional FBA?
+
+PFA is an interview-informed, streamlined functional analysis that tests multiple triggers and reinforcers together in one brief, assent-based session. It's safer, faster, and more practical than traditional functional analyses while yielding reliable results.
+
+### What is Skill-Based Treatment (SBT)?
+
+SBT is a function-based intervention following PFA that teaches three key skills: functional communication (replacing problem behavior), tolerance (delaying reinforcement), and contextually appropriate behaviors (cooperating with demands). It's trauma-informed and focused on skill-building, not punishment.
+
+### Can BCBAs support general education students with PBIS?
+
+Yes! BCBAs should support all tiers of PBIS for all students, not just those with IEPs. They can design Tier 2 interventions like Check-In/Check-Out, train teachers in classroom management, and build school-wide behavior systems that benefit every student.
+
+### How does ACT fit into school-based behavior support?
+
+Acceptance and Commitment Training (ACT) helps teachers and staff manage stress, prevent burnout, and stay committed to positive behavior plans even when facing challenging behaviors. It builds psychological flexibility and resilience in the adults implementing interventions.
 
 ---
 

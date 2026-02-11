@@ -11,8 +11,8 @@ tags:
   - School-Based ABA
   - blog
 status: published
-meta_title: "Function-Based Behavior Intervention Plans: A Practical Guide | Behavior School"
-meta_description: "How to write a function-based behavior intervention plan (BIP) that works. Covers antecedent strategies, replacement behaviors, consequence modifications, and real school examples."
+meta_title: "Function-Based BIPs: Practical Guide | BehaviorSchool"
+meta_description: "Build behavior intervention plans that work by grounding every component in FBA function. Learn antecedent strategies, replacement behaviors, and consequence modifications."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -294,6 +294,28 @@ A function-based BIP is the difference between managing behavior and changing it
 Start with a solid FBA. Build your BIP around the function. Teach a replacement behavior that works better than the problem behavior. Collect data. Adjust. Repeat.
 
 That's effective behavior intervention. And it's what school-based BCBAs do better than anyone.
+
+## Frequently Asked Questions About Function-Based BIPs
+
+### What's the difference between a function-based BIP and a regular BIP?
+
+A function-based BIP connects every strategy (antecedents, replacement behaviors, consequences) directly to the function identified in the FBA. Regular BIPs often list generic strategies without understanding why the behavior occurs, making them less effective.
+
+### Can a behavior have more than one function?
+
+Yes. Behaviors can serve multiple functions (e.g., escape work AND get attention) or different functions in different contexts. Your BIP should address all identified functions with matched strategies for each.
+
+### What if the replacement behavior doesn't work?
+
+First, check implementation fidelity—is it being taught and reinforced consistently? Second, verify that it truly serves the same function. Third, ensure it's more efficient than the problem behavior (faster, easier, more reliable). If all else fails, revisit your FBA hypothesis.
+
+### How long should it take to see progress with a function-based BIP?
+
+With consistent implementation, you should see some improvement within 2-4 weeks. If there's no change after 6 weeks of high-fidelity implementation, revisit your FBA hypothesis—the function may have been misidentified.
+
+### Who should be involved in creating a BIP?
+
+The team should include the person who conducted the FBA, classroom teacher(s), parents/caregivers, the student (when appropriate), and any other staff who will implement the plan. Collaborative development increases buy-in and implementation fidelity.
 
 **Ready to build better BIPs?** [Try the BehaviorSchool FBA-to-BIP Generator](/fba-to-bip) — function-based intervention planning in minutes, not hours.
 

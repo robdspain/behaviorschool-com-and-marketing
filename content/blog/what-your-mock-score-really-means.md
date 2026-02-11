@@ -9,6 +9,9 @@ tags:
   - BCBA Exam
   - Study Tips
   - Mock Exams
+meta_title: "What Your BCBA Mock Score Means | Don't Panic"
+meta_description: "Scoring 50-70% on BCBA mock exams? You're likely more prepared than you think. Learn what practice scores predict and how to study smarter based on your results."
+status: draft
 ---
 
 # What Your BCBA Mock Exam Score Really Means
@@ -150,6 +153,28 @@ If you've studied the content, practiced application, and developed test-taking 
 Your mock exam score is **one data point**, not a prophecy. It's a tool to guide your studying, not a judgment of your worth as a future BCBA.
 
 If you're scoring in the 50-70% range, you're in good company with thousands of people who went on to pass. Focus on improvement, trust your preparation, and remember: the BACB exam is passable. You've got this.
+
+## Frequently Asked Questions About BCBA Mock Exam Scores
+
+### Is 60% on a BCBA mock exam good enough to pass?
+
+Yes, many candidates who score 60-70% on mock exams pass the actual BCBA exam. Mock exams are often intentionally harder than the real thing. Focus on improvement trends and content area analysis, not just your overall percentage.
+
+### How many mock exams should I take before the BCBA exam?
+
+Take at least 2-3 full-length mock exams spaced throughout your study period. Use the first as a diagnostic, the middle one(s) to track progress, and the final one 1-2 weeks before exam day to confirm readiness.
+
+### What if my mock exam scores aren't improving?
+
+If scores plateau or decline, change your study strategy. Shift from passive review (rereading notes) to active recall (practice questions, teaching concepts). Focus on your weakest content areas and analyze WHY you're missing questions, not just WHAT you're missing.
+
+### When should I schedule my BCBA exam based on mock scores?
+
+Schedule when you're consistently scoring 60%+ on mock exams, your scores are trending upward, and you can explain why wrong answers are wrong. If you're below 50% or scores are declining, extend your study timeline.
+
+### Are all BCBA mock exams equally predictive?
+
+No. Some providers create intentionally harder exams to overprepare candidates. The BACB doesn't publish official practice exams, so third-party mocks vary in difficulty and accuracy. Use multiple sources and focus on learning from mistakes, not just scoring high.
 
 ---
 

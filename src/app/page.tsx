@@ -98,13 +98,13 @@ export default function Home() {
             Generate BIPs from FBA data, write measurable IEP goals, and access a complete goal bank — all FERPA compliant. Used by BCBAs and school psychologists nationwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="https://app.behaviorschool.com/signup">
+            <Link href="https://plan.behaviorschool.com/signup">
               <Button size="lg" className="h-14 px-8 text-lg font-bold bg-amber-400 hover:bg-amber-300 text-emerald-900 rounded-xl shadow-lg shadow-amber-400/25 w-full sm:w-auto">
                 Try Free for 14 Days
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href="https://app.behaviorschool.com/pricing">
+            <Link href="https://plan.behaviorschool.com/pricing">
               <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-2 border-white/30 text-white hover:bg-white/10 rounded-xl w-full sm:w-auto">
                 See Pricing
               </Button>
@@ -276,13 +276,13 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="https://app.behaviorschool.com/signup">
+            <Link href="https://plan.behaviorschool.com/signup">
               <Button size="lg" className="h-14 px-8 text-lg font-bold bg-amber-400 hover:bg-amber-300 text-emerald-900 rounded-xl shadow-lg w-full sm:w-auto">
                 Start Free Trial
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href="https://app.behaviorschool.com/pricing">
+            <Link href="https://plan.behaviorschool.com/pricing">
               <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-2 border-white/30 text-white hover:bg-white/10 rounded-xl w-full sm:w-auto">
                 Compare Plans
               </Button>

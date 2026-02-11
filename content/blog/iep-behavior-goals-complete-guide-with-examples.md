@@ -11,8 +11,8 @@ tags:
   - School-Based ABA
   - blog
 status: published
-meta_title: "IEP Behavior Goals: Complete Guide with Examples (2026) | Behavior School"
-meta_description: "Learn how to write measurable IEP behavior goals with 20+ real examples. Covers elopement, aggression, task refusal, self-regulation, and social skills goals aligned with FBA data."
+meta_title: "IEP Behavior Goals: Guide + 20 Examples | BehaviorSchool"
+meta_description: "Write measurable IEP behavior goals with 20+ examples for elopement, aggression, task refusal, and self-regulation. Function-based goals aligned with FBA data."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -210,6 +210,28 @@ Review data at least monthly. If a student isn't making progress after 4–6 wee
 IEP behavior goals are where assessment meets action. When grounded in FBA data, stated in positive and measurable terms, and connected to a function-based intervention plan, they give students a real path to success.
 
 The examples in this guide are starting points — every student is unique, and your goals should reflect their individual needs, strengths, and circumstances. But the principles remain the same: be specific, be measurable, teach what you want to see, and always link back to function.
+
+## Frequently Asked Questions About IEP Behavior Goals
+
+### How do I write an IEP behavior goal from an FBA?
+
+Identify the function of the behavior from your FBA, then write a goal that teaches a replacement behavior serving the same function. Include the condition (when), observable behavior (what), criteria (how much), measurement method (how tracked), and timeframe (by when).
+
+### Should IEP behavior goals be written in positive or negative terms?
+
+Always write behavior goals in positive terms—state what the student WILL do, not what they won't do. Instead of "will reduce aggression," write "will use verbal expression or request a break instead of aggression."
+
+### What makes an IEP behavior goal measurable?
+
+A measurable behavior goal includes specific criteria (percentage, frequency, duration), a clear measurement method (ABC data, point sheets, frequency counts), and observable behaviors anyone can reliably track.
+
+### How many behavior goals should be in an IEP?
+
+Include as many behavior goals as the student needs to access their education—typically 2-5 goals addressing priority behaviors identified through FBA. Quality matters more than quantity; each goal should target a critical skill deficit.
+
+### How often should I monitor progress on IEP behavior goals?
+
+Monitor progress at least weekly for high-priority behaviors, monthly for all goals. If a student isn't making progress after 4-6 weeks of consistent implementation, revisit your FBA hypothesis and intervention plan.
 
 **Need help writing behavior goals for your caseload?** [Try the BehaviorSchool IEP Goal Writer](/iep-goal-writer) — built by BCBAs, for BCBAs, with function-based goal writing at its core.
 

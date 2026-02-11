@@ -11,7 +11,7 @@ tags:
   - BCBA
   - blog
 status: published
-meta_title: "How to Write an FBA: Step-by-Step Guide for School BCBAs | Behavior School"
+meta_title: "How to Write an FBA: Step-by-Step | BehaviorSchool"
 meta_description: "Complete guide to writing a functional behavior assessment (FBA) in schools. Step-by-step process, data collection methods, and how to link FBA results to effective behavior intervention plans."
 ---
 

@@ -10,8 +10,8 @@ tags:
   - Career
   - blog
 status: published
-meta_title: "BCBA in Schools: What Does a School-Based BCBA Do? | Behavior School"
-meta_description: "Learn what a school-based BCBA does, how the role differs from clinical ABA, typical responsibilities, salary expectations, and how to transition into school-based practice."
+meta_title: "What Does a School-Based BCBA Do? | BehaviorSchool"
+meta_description: "School BCBAs conduct FBAs, write BIPs, support IEP teams, train staff, and implement PBIS. Learn what school-based behavior analysts do daily."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -223,6 +223,28 @@ It may not be the best fit if you:
 - ❌ Want to do primarily direct ABA therapy
 - ❌ Are uncomfortable with ambiguity and competing priorities
 - ❌ Need a large professional peer group in your daily setting
+
+## Frequently Asked Questions About School-Based BCBAs
+
+### What qualifications do you need to be a school BCBA?
+
+You need a master's degree, BACB-approved coursework, supervised fieldwork hours, and must pass the BCBA exam. Some districts also prefer teaching certification or special education experience.
+
+### How much does a school-based BCBA make?
+
+School BCBA salaries vary widely by region and district, typically ranging from $60,000-$95,000 annually. Many positions follow teacher salary schedules with additional stipends for advanced degrees and certifications.
+
+### Do school BCBAs get summers off?
+
+Most school BCBAs work on a school calendar (190-200 days per year) and have summers off, though some districts offer extended school year positions or summer professional development opportunities.
+
+### What's the difference between a school psychologist and a school BCBA?
+
+School psychologists conduct assessments, provide counseling, and support mental health. School BCBAs focus specifically on behavior: conducting FBAs, writing function-based BIPs, training staff, and implementing behavior support systems like PBIS.
+
+### Can a BCBA work in schools without a teaching certificate?
+
+Yes. Most states do not require teaching certification to work as a school-based BCBA, though some districts prefer it. The BCBA credential itself qualifies you for behavior analyst positions in schools.
 
 ## Resources for School-Based BCBAs
 

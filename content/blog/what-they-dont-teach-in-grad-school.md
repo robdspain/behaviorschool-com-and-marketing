@@ -10,6 +10,9 @@ tags:
   - Career
   - New BCBAs
   - School-Based ABA
+meta_title: "What They Don't Teach in BCBA Grad School | Real Talk"
+meta_description: "Grad school taught you the science, not the job. Learn what new BCBAs need to know about caseload management, parent communication, burnout, and real-world practice."
+status: draft
 ---
 
 # What They Don't Teach You in BCBA Grad School
@@ -281,6 +284,28 @@ Grad school gave you the foundation. The BCBA exam tested your knowledge. But **
 If you're a new BCBA feeling overwhelmed, underprepared, or wondering if you're "doing it right": **You're not alone.** Every BCBA who's been in the field for more than a year has felt exactly what you're feeling.
 
 The gap between grad school and practice is real. But it's also closeable. Seek mentorship. Build systems. Ask questions. Give yourself grace. And remember: competence is built one case, one challenge, one lesson at a time.
+
+## Frequently Asked Questions for New BCBAs
+
+### How long does it take to feel confident as a new BCBA?
+
+Most BCBAs report it takes 1-2 years of practice to feel truly confident. The first 6 months are typically the hardest as you build systems, learn organizational skills, and develop clinical intuition beyond what grad school teaches.
+
+### What should I look for in a BCBA mentor?
+
+Look for someone with at least 3-5 years of experience in your practice area (school, clinic, home-based), who provides constructive feedback, models ethical practice, and makes time for regular consultation. Formal or informal mentorship significantly reduces new BCBA burnout.
+
+### Is it normal to feel overwhelmed as a new BCBA?
+
+Absolutely. The transition from coursework to practice is huge. Many new BCBAs report feeling underprepared for caseload management, documentation demands, and emotional labor. Building systems, setting boundaries, and seeking peer support are essential.
+
+### How do I manage work-life balance as a BCBA?
+
+Set clear boundaries (work hours, email response times), use templates and systems for efficiency, learn to say no to excessive caseloads, and schedule non-negotiable personal time. Sustainable practice prevents burnout and improves clinical quality.
+
+### When should I consider leaving clinical practice?
+
+If you're experiencing persistent burnout, compassion fatigue, or loss of effectiveness despite support and self-care, it may be time to explore other ABA roles like supervision, training, consulting, or program development. Pivoting doesn't mean failure.
 
 ---
 

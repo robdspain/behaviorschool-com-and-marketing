@@ -10,8 +10,8 @@ tags:
   - BCBA
   - blog
 status: published
-meta_title: "Free BCBA Exam Prep: Study Strategies That Actually Work (2026) | Behavior School"
-meta_description: "Free BCBA exam prep strategies that work. Covers the 6th Edition Task List, study schedules, practice exam tips, free resources, and how to pass the BCBA exam on your first attempt."
+meta_title: "Free BCBA Exam Prep That Works | BehaviorSchool"
+meta_description: "Study strategies, free practice exams, and a 16-week study plan for the BCBA exam. Learn what actually works from BCBAs who passed first try."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -239,6 +239,28 @@ Passing the BCBA exam opens the door to a career that changes lives — includin
 5. Find an accountability partner or study group
 
 **Want adaptive, AI-powered study tools that adjust to your weak areas?** [Check out BehaviorSchool's BCBA study platform](/bcba-study-tools) — built by BCBAs who've been where you are, designed to get you where you want to be.
+
+## Frequently Asked Questions About BCBA Exam Prep
+
+### How long should I study for the BCBA exam?
+
+Most candidates need 12-16 weeks of consistent study (1-2 hours daily, 5-6 days per week). If you're retaking the exam, focus 8-12 weeks on your weak content areas identified in your score report.
+
+### What are the best free BCBA practice exam resources?
+
+BehaviorSchool's free practice exam, BACB sample questions, university study materials, and YouTube BCBA exam prep channels offer quality free practice. Always verify content aligns with the 6th Edition Task List.
+
+### Is the BCBA exam hard?
+
+Yes. The BCBA exam tests application of concepts, not just memorization. Questions present complex scenarios requiring you to analyze variables and apply principles correctly. Most candidates find it challenging, which is why consistent, strategic study is essential.
+
+### How many questions do I need to get right to pass the BCBA exam?
+
+The BACB uses scaled scoring. You don't need a specific raw score—you must demonstrate competency across all content areas. Focus on understanding concepts deeply rather than targeting a specific number of correct answers.
+
+### What should I do the week before the BCBA exam?
+
+Do light review only—no cramming. Get adequate sleep, visit your testing center, prepare your ID and materials, and trust your preparation. The week before is for rest and confidence-building, not learning new content.
 
 ---
 
