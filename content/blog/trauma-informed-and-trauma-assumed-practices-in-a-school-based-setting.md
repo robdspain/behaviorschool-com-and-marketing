@@ -11,8 +11,8 @@ tags:
   - Evidence-Based Practice
   - blog
 status: published
-meta_title: "Trauma-Informed and Trauma-Assumed Practices in School-Based Settings | Behavior School"
-meta_description: "Learn how to integrate trauma-informed principles into school-based behavior analysis, including practical functional assessment and trauma-assumed intervention strategies."
+meta_title: "Trauma-Informed ABA in Schools | Practical Guide"
+meta_description: "Trauma-informed behavior analysis for schools: assess trauma impact, design trauma-assumed interventions, and integrate safety, choice, and relationship-building into FBAs and BIPs."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -217,6 +217,28 @@ National Center for PTSD. Research on Women, Trauma, and PTSD. U.S. Department o
 Wheeler, K., Hixson, J., Hamrick, J., Lee, J., & Ratliff, C. (2023). Behavior analysts' training and practice regarding trauma-informed care. *Behavior Analysis in Practice, 17*(3), 746-758.
 
 ---
+
+## Frequently Asked Questions About Trauma-Informed ABA
+
+### What does "trauma-assumed" mean in school settings?
+
+Trauma-assumed practice means assuming that challenging behavior may be trauma-related without requiring disclosure or diagnosis. Instead of asking "What's wrong with this student?" ask "What happened to this student?" and design interventions accordingly—emphasizing safety, choice, predictability, and relationship.
+
+### How is trauma-informed ABA different from traditional ABA?
+
+Trauma-informed ABA prioritizes psychological safety, offers choices, avoids triggering stimuli, builds trust before demands, and recognizes that behavior may serve a protective function related to past trauma. It still uses functional assessment and evidence-based interventions, but with a trauma lens.
+
+### Can I implement trauma-informed practices without knowing a student's trauma history?
+
+Absolutely. Trauma-assumed practices (offering choice, building relationship, providing warnings/transitions, honoring escape requests) benefit ALL students and don't require trauma disclosure. These practices align with ethical ABA and improve intervention effectiveness across the board.
+
+### Should I still do an FBA for trauma-affected students?
+
+Yes—but adapt your approach. Use trauma-informed interview questions, avoid triggering exposures during assessment, prioritize safety and relationship-building, and recognize that behavior functions may be linked to trauma triggers (escape from perceived threat, seeking safety/connection).
+
+### What if a student's behavior is maintained by trauma memories, not external consequences?
+
+Collaborate with mental health professionals (school psychologists, trauma therapists). Your role as a BCBA is to teach coping skills, provide environmental supports, and ensure the student feels safe. Trauma processing itself typically falls outside BCBA scope—refer to licensed therapists.
 
 **Edited by Rob Spain, M.S., BCBA, IBA**
 

@@ -11,8 +11,8 @@ tags:
   - Evidence-Based Practice
 status: published
 slug: "functional-behavior-assessments-fbas-leading-to-act-based-interventions"
-meta_title: "Functional Behavior Assessments (FBAs) Leading to ACT-Based Interventions | Behavior School"
-meta_description: "Functional Behavior Assessments (FBAs) Leading to ACT-Based Interventions Functional Behavior Assessment (FBA) is a systematic approach to identify why a probl..."
+meta_title: "FBAs Leading to ACT Interventions | BehaviorSchool"
+meta_description: "How to integrate Acceptance and Commitment Training (ACT) with functional behavior assessment. Evidence-based ACT interventions for internalizing behaviors in schools."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -283,6 +283,28 @@ Tarbox, J., Szabo, T. G., & Aclan, M. (2020). Acceptance and commitment training
 ---
 
 ---
+
+## Frequently Asked Questions About FBAs and ACT Interventions
+
+### When should I use ACT instead of traditional ABA interventions?
+
+Use ACT when behavior is maintained by internal experiences (anxiety, intrusive thoughts, emotional avoidance) rather than external consequences. ACT is especially effective for internalizing behaviors like school refusal, self-injury for emotion regulation, and perfectionism-driven task avoidance.
+
+### Can ACT be used with elementary-age students?
+
+Yes, but it requires adaptation. Use concrete metaphors, experiential activities, and simpler language. Focus on behavioral components (committed action toward values) rather than abstract cognitive defusion. Middle and high school students typically engage more readily with ACT.
+
+### Is ACT within a BCBA's scope of practice?
+
+Yes. The BACB recognizes ACT as a behavior-analytic intervention when implemented by trained BCBAs. Focus on observable behavior change (avoidance vs. approach behaviors) and functional outcomes, not just cognitive/emotional processing.
+
+### How do I measure progress with ACT interventions?
+
+Track approach behaviors toward valued outcomes (days attending school, tasks attempted, social interactions initiated) rather than just problem behavior reduction. Use functional outcome measures like academic engagement, goal attainment, and quality-of-life indicators.
+
+### What training do I need to implement ACT in schools?
+
+Seek formal ACT training from reputable sources (ACBS workshops, university courses). Read core ACT texts, practice with supervision, and collaborate with school psychologists or counselors experienced in ACT. Start with less complex cases.
 
 **Edited by Rob Spain, M.S., BCBA, IBA**
 

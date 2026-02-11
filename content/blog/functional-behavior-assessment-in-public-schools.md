@@ -11,8 +11,8 @@ tags:
   - Evidence-Based Practice
 status: published
 slug: "functional-behavior-assessment-in-public-schools"
-meta_title: "Functional Behavior Assessment in Public Schools | Behavior School"
-meta_description: "Functional Behavior Assessment Tools and Rubrics in U.S. Schools Functional Behavior Assessments (FBAs) are used in U.S. public schools to understand why a stud..."
+meta_title: "FBA Tools & Methods for Schools | BehaviorSchool"
+meta_description: "Evidence-based functional behavior assessment tools for schools: indirect assessments (MAS, QABF), ABC observation, functional analysis, and PFA. Complete guide with implementation tips."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -509,6 +509,28 @@ Smith, R. G., & Churchill, R. M. (2002). Identification of environmental determi
 Tarbox, J., Szabo, T. G., & Aclan, M. (2020). Acceptance and commitment training within the scope of practice of applied behavior analysis. *Behavior Analysis in Practice, 15*(1), 146–157. [DOI](https://doi.org/10.1007/s40617-020-00466-3)
 
 ---
+
+## Frequently Asked Questions About FBA in Schools
+
+### What FBA tools are most commonly used in public schools?
+
+Indirect assessments (MAS, QABF, FAI) are commonly used first, followed by direct ABC observation and scatterplot analysis. Functional analyses are less common due to resource constraints, though Practical Functional Assessment (PFA/IISCA) is gaining traction for efficiency.
+
+### How long does a school FBA typically take?
+
+A thorough FBA usually takes 2-4 weeks, including indirect interviews, multiple direct observations across settings and times, data analysis, and hypothesis development. Rushed FBAs often yield inaccurate hypotheses and ineffective interventions.
+
+### What's the difference between a functional analysis and descriptive assessment?
+
+Descriptive assessment (ABC observation) records what naturally happens before and after behavior—it's correlational. Functional analysis experimentally manipulates antecedents and consequences to test hypothesized functions—it's causal. Functional analysis is more conclusive but requires more resources.
+
+### Do schools have to conduct FBAs?
+
+Under IDEA, schools must conduct FBAs in certain situations: when behavior leads to a change of placement (10+ days suspension), during manifestation determinations, or when the IEP team determines one is needed. Best practice is to conduct FBAs proactively for any significant behavioral concern.
+
+### What is Practical Functional Assessment (PFA)?
+
+PFA/IISCA is a streamlined, interview-informed functional analysis that tests multiple functions together in one brief, assent-based session. It's safer, faster, and more practical than traditional functional analyses, making it increasingly popular in school settings.
 
 ---
 

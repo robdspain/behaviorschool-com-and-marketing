@@ -11,8 +11,8 @@ tags:
   - Evidence-Based Practice
 status: published
 slug: "integrating-skill-based-treatment-sbt-and-acceptance-commitment-training-act-in-schools"
-meta_title: "Integrating Skill-Based Treatment (SBT) and Acceptance & Commitment Training (ACT) in Schools | Behavior School"
-meta_description: "Dixon et al. (2022) - AIM Curriculum Implementation in Public Schools Full Citation: Dixon, M. R., Paliliunas, D., Weber, J., & Schmick, A. M. (2022). A large-s..."
+meta_title: "SBT + ACT in Schools | Evidence-Based Guide"
+meta_description: "Integrate Skill-Based Treatment and Acceptance & Commitment Training in schools. Evidence-based strategies, AIM curriculum implementation, and practical examples for BCBAs."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -202,6 +202,28 @@ Ghaemmaghami, M., Ruppel, K. W., Cammilleri, A. P., Fiani, T., & Hanley, G. P. (
 ---
 
 ---
+
+## Frequently Asked Questions About SBT and ACT in Schools
+
+### What's the difference between Skill-Based Treatment and traditional ABA?
+
+Skill-Based Treatment (SBT) is function-based ABA that focuses on teaching replacement skills (communication, tolerance, cooperation) rather than just reducing problem behavior. It's trauma-informed, assent-based, and emphasizes psychological safety while teaching functionally equivalent skills.
+
+### Can ACT and SBT be used together?
+
+Yes—they're highly complementary. SBT teaches concrete behavioral skills to replace problem behavior. ACT addresses the internal barriers (anxiety, rigid thinking, avoidance) that might interfere with learning or using those skills. Together they address both skill deficits and psychological flexibility.
+
+### Is the AIM curriculum effective for general education students?
+
+Yes. Research shows the AIM curriculum (ACT + Matrix) improves self-regulation, social-emotional skills, and reduces anxiety/depression in general education classrooms. It's universal SEL curriculum grounded in behavior analysis and ACT principles.
+
+### Do I need special training to implement SBT?
+
+Yes. Seek training in Practical Functional Assessment (PFA) and SBT from Dr. Greg Hanley's resources (FAAB, online trainings). SBT requires understanding interview-informed functional analysis, teaching procedures, and trauma-informed implementation. Don't attempt complex cases without training.
+
+### How long does SBT take to show results?
+
+Many BCBAs report seeing reduction in severe problem behavior within 1-2 weeks of implementing SBT with high fidelity. The teaching process (FCR, tolerance, CABs) is systematic and progressive, with data guiding each phase transition.
 
 **Edited by Rob Spain, M.S., BCBA, IBA**
 

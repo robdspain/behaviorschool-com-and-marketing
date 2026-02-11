@@ -10,8 +10,8 @@ tags:
   - Applied Behavior Analysis
   - Evidence-Based Practice
 status: published
-meta_title: "How Functional Language Progresses: A Guide to Stage-Specific Interventions | Behavior School"
-meta_description: "Language is far more than just words-it is a behavior that plays a critical role in how we interact with our world. Viewing language through a functional lens h..."
+meta_title: "Functional Language Development Guide | Stages & Tips"
+meta_description: "Guide to functional language progression: echoic, mand, tact, intraverbal. Stage-specific ABA interventions for teaching communication skills in schools."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -114,6 +114,28 @@ Tarbox, C., Tarbox, J., Lanagan, T., Silverman, E., & Servellon, L. (2023). Kind
 ---
 
 ---
+
+## Frequently Asked Questions About Functional Language Development
+
+### What's the difference between expressive and functional language?
+
+Expressive language is any spoken/signed output. Functional language serves a specific communicative purpose (requesting, labeling, conversing). A child might expressively repeat words (echolalia) without functional communication. We target functional language—communication that gets needs met.
+
+### In what order should I teach verbal operants?
+
+Generally: mand (requesting) first because it's immediately reinforcing, then tact (labeling), then intraverbal (conversational exchanges). Echoic (imitation) is often taught early as a tool to build other operants. Listener responding (receptive language) develops alongside or before expressive operants.
+
+### Can a student have strong tacting but weak manding?
+
+Yes. Some students can label hundreds of items but rarely request what they need. This often happens when teaching focuses on labeling drills without establishing motivation for manding. Always prioritize functional communication (mands) that improve quality of life.
+
+### How do I teach manding to a nonverbal student?
+
+Start with high-value motivators and immediate access. Use errorless prompting (model, physical guidance, or gestural) to shape any approximation of the mand (reaching, sign approximation, picture exchange). Fade prompts quickly and ensure immediate reinforcement. Functional Communication Training (FCT) is evidence-based for this.
+
+### When should I involve a speech-language pathologist?
+
+Always when possible! SLPs assess articulation, phonology, syntax, and pragmatics. BCBAs focus on the function and reinforcement of language. Collaborative treatment provides comprehensive language intervention—SLPs target form, BCBAs target function.
 
 **Edited by Rob Spain, M.S., BCBA, IBA**
 

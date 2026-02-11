@@ -11,8 +11,8 @@ tags:
   - Evidence-Based Practice
 status: published
 slug: "linking-skinner-s-teaching-machines-to-modern-adaptive-instructional-design"
-meta_title: "Linking Skinner's Teaching Machines to Modern Adaptive Instructional Design | Behavior School"
-meta_description: "Linking Skinner's Teaching Machines to Modern Adaptive Instructional Design From Teaching Machines to Adaptive Learning Systems B. F. Skinner's teaching machine..."
+meta_title: "Skinner's Teaching Machines to Adaptive Learning"
+meta_description: "From Skinner's 1950s teaching machines to modern AI-powered adaptive learning. Explore how behavior analytic principles shaped educational technology and personalized instruction."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -394,6 +394,28 @@ So fluency is far more than what percent-correct numbers capture.
 ---
 
 ---
+
+## Frequently Asked Questions About Adaptive Learning and Behavior Analysis
+
+### How did Skinner's teaching machines work?
+
+Skinner's teaching machines presented material in small steps, required active student responses, provided immediate feedback, and allowed self-pacing. Students couldn't advance until mastering each step—principles still used in modern adaptive learning platforms.
+
+### What are the key behavior analytic principles in adaptive learning?
+
+Immediate reinforcement (feedback), shaping (progressive difficulty), errorless learning (high success rates), mastery-based progression, and data-driven instruction. Modern AI systems operationalize these principles at scale.
+
+### How is adaptive learning different from traditional computer-based instruction?
+
+Adaptive learning adjusts difficulty, pacing, content sequence, and feedback based on individual student performance data. Traditional computer instruction delivers the same content to all students regardless of their responses or mastery level.
+
+### Are adaptive learning platforms effective for students with disabilities?
+
+Yes, when designed with behavior analytic principles. Research shows adaptive platforms can provide the individualized pacing, frequent reinforcement, and error correction that benefit students with learning disabilities, ADHD, and autism.
+
+### Can BCBAs design educational technology?
+
+Absolutely. BCBAs bring expertise in shaping, reinforcement schedules, task analysis, and data-based decision-making—all essential for effective instructional design. Many ed-tech companies seek BCBA consultants for product development.
 
 **Edited by Rob Spain, M.S., BCBA, IBA**
 

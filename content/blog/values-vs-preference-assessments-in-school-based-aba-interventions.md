@@ -11,8 +11,8 @@ tags:
   - Evidence-Based Practice
 status: published
 slug: "values-vs-preference-assessments-in-school-based-aba-interventions"
-meta_title: "Values vs. Preference Assessments in School-Based ABA Interventions | Behavior School"
-meta_description: "Values vs. Preference Assessments in School-Based ABA Interventions Understanding Preference Assessments and Reinforcers In applied behavior analysis (ABA), sti..."
+meta_title: "Values vs Preference Assessments | ABA in Schools"
+meta_description: "Understand when to use values assessments vs preference assessments in school-based ABA. Learn how values-based interventions improve adolescent engagement and long-term behavior change."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
@@ -565,6 +565,28 @@ Tarbox, J., et al. (2020). Is Acceptance and Commitment Training or Therapy (ACT
 ---
 
 ---
+
+## Frequently Asked Questions About Values vs Preference Assessments
+
+### When should I use a preference assessment instead of a values assessment?
+
+Use preference assessments for immediate reinforcer selection (especially with younger students or those with limited verbal skills). Use values assessments for long-term behavior change goals, adolescent engagement, and when you need to connect behavior to meaningful life outcomes.
+
+### Can I use preference assessments and values assessments together?
+
+Yes! Values clarify the "why" (long-term goals, what matters to the student), while preference assessments identify the "what" (immediate reinforcers to motivate behavior). Use values to guide intervention direction, preferences to reinforce along the way.
+
+### How do I conduct a values assessment with a student?
+
+Use age-appropriate tools: values card sorts, interview questions ("What kind of person do you want to be?"), the ACT Matrix, or narrative exercises. Focus on domains like relationships, learning, health, fun, and helping others. Look for patterns in what the student describes as important.
+
+### Are values assessments only for older students?
+
+Values assessments work best with adolescents and adults who can articulate abstract concepts. For younger students (elementary age), focus on concrete preferences and interests, then gradually introduce "what matters to you" conversations as language and abstract thinking develop.
+
+### How do values-based interventions improve behavior outcomes?
+
+When interventions connect to what students genuinely care about (not just external rewards), they're more motivated to persist through challenges, generalize skills, and maintain behavior change long-term. Values tap intrinsic motivation—the most powerful and sustainable form of motivation.
 
 **Edited by Rob Spain, M.S., BCBA, IBA**
 
