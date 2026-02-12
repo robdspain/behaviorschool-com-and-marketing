@@ -110,7 +110,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href="https://plan.behaviorschool.com/signup">
+            <Link href="/pro/waitlist">
               <ShimmerButton
                 className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
@@ -120,7 +120,7 @@ export default function Home() {
                 <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
               </ShimmerButton>
             </Link>
-            <Link href="https://plan.behaviorschool.com/pricing">
+            <Link href="/pro">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-2 border-white/30 text-white hover:bg-white/10 rounded-xl w-full sm:w-auto">
                   See Pricing
@@ -418,7 +418,7 @@ export default function Home() {
 
           <FadeInSection delay={0.3}>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="https://plan.behaviorschool.com/signup">
+              <Link href="/pro/waitlist">
                 <ShimmerButton
                   className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
                   background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
@@ -428,7 +428,7 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
                 </ShimmerButton>
               </Link>
-              <Link href="https://plan.behaviorschool.com/pricing">
+              <Link href="/pro">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-2 border-white/30 text-white hover:bg-white/10 rounded-xl w-full sm:w-auto">
                     Compare Plans

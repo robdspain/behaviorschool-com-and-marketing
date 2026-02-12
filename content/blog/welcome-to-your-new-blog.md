@@ -3,6 +3,7 @@ title: Welcome to Your New File-Based Blog
 excerpt: Your blog posts are now stored as markdown files in your repository - no Ghost CMS needed!
 date: "2025-12-01T10:00:00.000Z"
 author: Rob Spain
+draft: true
 featured_image: null
 tags:
   - Updates

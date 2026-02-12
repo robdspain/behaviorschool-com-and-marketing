@@ -14,7 +14,7 @@ export function CalabaBanner() {
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-3">
         <span>🎉 See us at CALABA 2026! Conference attendees get <strong>40% off</strong> the first year.</span>
         <Link
-          href="https://plan.behaviorschool.com/signup?promo=calaba2026"
+          href="/pro/waitlist"
           className="inline-flex items-center bg-emerald-800 text-white text-xs font-bold px-3 py-1 rounded-full hover:bg-emerald-700 transition-colors"
         >
           Claim Offer

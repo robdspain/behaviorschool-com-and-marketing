@@ -28,7 +28,7 @@ export function ProUpgradeBanner({
             You&apos;ve used <strong>{usageCount} of {usageLimit}</strong> free generations this month
           </span>
         </div>
-        <Link href="https://plan.behaviorschool.com/signup" className="text-xs font-bold text-amber-700 hover:text-amber-900 underline">
+        <Link href="/pro/waitlist" className="text-xs font-bold text-amber-700 hover:text-amber-900 underline">
           Get Unlimited
         </Link>
       </div>
@@ -38,14 +38,14 @@ export function ProUpgradeBanner({
         <p className="text-white font-bold text-lg mb-1">Want unlimited access?</p>
         <p className="text-emerald-100 text-sm mb-4">Try BehaviorSchool Pro free for 14 days — no credit card required.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="https://plan.behaviorschool.com/signup">
+          <Link href="/pro/waitlist">
             <Button className="bg-amber-400 hover:bg-amber-300 text-emerald-900 font-bold rounded-lg px-6">
               Start Free Trial
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
           {showSave && (
-            <Link href="https://plan.behaviorschool.com">
+            <Link href="/pro">
               <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 rounded-lg px-6">
                 <Save className="mr-2 h-4 w-4" />
                 Save to Your Account
