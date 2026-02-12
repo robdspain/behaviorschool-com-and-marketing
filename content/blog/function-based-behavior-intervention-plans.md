@@ -1,6 +1,6 @@
 ---
 title: "Function-Based Behavior Intervention Plans: A Practical Guide"
-excerpt: "Learn how to build behavior intervention plans that actually work by grounding every component in the function of behavior identified through your FBA."
+excerpt: "Go beyond the basics of BIP writing. Learn how to use IISCA, Skill-Based Treatment, competition analysis, and implementation fidelity strategies to build BIPs that actually work in school settings."
 date: "2026-02-01T09:00:00.000Z"
 author: Rob Spain
 featured_image: null
@@ -9,315 +9,228 @@ tags:
   - Behavior Intervention Plan
   - FBA
   - School-Based ABA
+  - Skill-Based Treatment
+  - IISCA
   - blog
 status: published
-meta_title: "Function-Based BIPs: Practical Guide | BehaviorSchool"
-meta_description: "Build behavior intervention plans that work by grounding every component in FBA function. Learn antecedent strategies, replacement behaviors, and consequence modifications."
+meta_title: "Function-Based BIPs: Beyond the Basics | BehaviorSchool"
+meta_description: "Advanced guide to building function-based BIPs in schools. Covers IISCA, Skill-Based Treatment, competition analysis, implementation fidelity, and what to do when the FBA is wrong."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
 
-Here's a hard truth about behavior intervention plans: most of them don't work. Not because behavior intervention is ineffective — decades of research prove otherwise — but because most BIPs aren't actually function-based. They're lists of generic strategies ("give the student breaks," "use positive reinforcement," "provide choices") that aren't connected to *why* the behavior is happening.
+If you went to grad school for behavior analysis, you learned the four functions of behavior. Escape, attention, access, automatic. You learned to do an FBA, identify the function, pick a replacement behavior that serves the same function, and write it all up. Cool. That is the floor, not the ceiling.
 
-A function-based BIP is different. Every component — every antecedent modification, every replacement behavior, every consequence strategy — is directly linked to the function identified in the FBA. That's what makes it effective, and that's what this guide will teach you to build.
+Most BIPs fail. Not because the science is wrong, but because the plan was too simple for the problem. Behavior in schools is messy, multiply controlled, and embedded in a context where 30 other students, a stressed teacher, and an unpredictable schedule are all part of the equation. A plan that says "teach the student to request a break" without addressing why the break card sits untouched on the desk every single day is not a function-based plan. It is a gesture toward one.
 
-## What Makes a BIP "Function-Based"?
+This guide is for practitioners who want to build BIPs that actually hold up in real classrooms with real kids and real staff. I write this as someone who does it every day in a public school district, and I am going to share what I have learned works, what does not, and what the research supports when we move past the textbook basics.
 
-A behavior intervention plan is function-based when:
+## Start with a Real Functional Analysis, Not Just an FBA
 
-1. **It's built on FBA data.** Not assumptions, not gut feelings — actual assessment data that identifies the function of the target behavior.
-2. **The replacement behavior serves the same function.** If the student is hitting to escape work, the replacement must also let them escape (appropriately).
-3. **Antecedent strategies address identified triggers.** Not generic modifications, but specific changes to the conditions that reliably predict the problem behavior.
-4. **Consequence strategies are function-aligned.** Reinforcement is delivered for the replacement behavior in a way that makes it more efficient than the problem behavior.
+Here is something that bothers me: we tell people to "conduct an FBA first" as if that is a single, clear thing. In practice, most school FBAs are indirect assessments (interviews, rating scales) plus some ABC data. That is a hypothesis at best. It is not confirmation.
 
-### Why Generic BIPs Fail
+If you want a BIP that actually works, you need to test your hypothesis. In schools, that means a practical functional analysis.
 
-Consider this common scenario: A student throws materials when given math assignments. A generic BIP might include:
+### The IISCA in Schools
 
-- "Provide choices"
-- "Use positive reinforcement"
-- "Allow breaks"
-- "Implement a token economy"
+The Interview-Informed Synthesized Contingency Analysis (Hanley, Jin, Vanselow, & Hanratty, 2014) is the most school-friendly FA model I have used. Here is why: instead of testing isolated conditions one at a time (which takes forever and often does not match real-world conditions), the IISCA uses interview data to create a single test condition that combines the relevant variables.
 
-These strategies *might* help, but without knowing the function, you're guessing. If the behavior functions to escape math (because it's too difficult), then "provide choices" between two equally difficult math tasks won't help. But if it functions to get peer attention, "allow breaks" might actually *reinforce* the throwing by giving the student what they want.
+Here is how I run one in a school setting:
 
-A function-based BIP eliminates the guesswork.
+**Step 1: The open-ended interview.** I sit down with the teacher, the para, and anyone else who sees the behavior daily. I use Hanley's open-ended functional assessment interview (it is freely available). The goal is to identify what the synthesized reinforcer looks like for this specific student.
 
-## The Four Functions of Behavior
+**Step 2: Build the test and control conditions.** Based on the interview, I create a test condition that includes all the relevant establishing operations at once, and a control condition where everything the student wants is freely available.
 
-Every BIP should map to one or more of these functions:
+**Step 3: Run it.** I alternate between test and control in brief sessions, usually 5 minutes each. For a student like Marcus, a 4th grader who flips desks during writing, the test condition might look like: I present a writing demand, withdraw attention, and remove access to his drawing materials simultaneously. The control condition: no demands, my full attention, drawing materials available. If desk-flipping happens reliably in the test and not the control, I have confirmed the function.
 
-### 1. Escape/Avoidance
-The behavior allows the student to get away from something aversive — a difficult task, a non-preferred activity, a social situation, or sensory input.
+The whole thing takes 30 to 60 minutes across a morning. Compare that to weeks of inconclusive ABC data.
 
-**Signs it's escape:**
-- Behavior occurs when demands are placed
-- Behavior stops when the demand is removed
-- Behavior is more likely during non-preferred activities
-- Behavior is less likely during preferred activities
+### Why Synthesized Contingencies Matter
 
-### 2. Attention
-The behavior produces social responses from others — teacher attention, peer reactions, even negative attention like reprimands.
+Here is what the standard four-function model misses: most challenging behavior in schools is multiply controlled. Marcus is not just escaping writing. He is escaping writing AND losing access to drawing AND losing adult attention all at the same time. If I write a BIP that only addresses escape, I am addressing one-third of the problem.
 
-**Signs it's attention:**
-- Behavior occurs when the student is not receiving attention
-- Behavior stops (or escalates) when attention is given
-- Student looks at others during or after the behavior
-- Behavior occurs more with certain people present
+Hanley's work (2012) showed that when you test synthesized conditions, where multiple variables operate together, you get clearer differentiation and more useful results than single-function analyses. In my experience, this is almost always the case with the students who end up needing BIPs. The easy, single-function cases often resolve with simple classroom adjustments. The kids who land on my caseload have complex, multiply controlled behavior.
 
-### 3. Access to Tangibles/Activities
-The behavior results in the student getting something they want — a toy, a device, an activity, food, or a turn.
+Your BIP needs to address the full reinforcer package, not just one piece of it.
 
-**Signs it's access:**
-- Behavior occurs when a preferred item is visible but unavailable
-- Behavior occurs when told "no" or "wait"
-- Behavior stops when the item/activity is provided
+## Skill-Based Treatment: The Framework That Changed How I Write BIPs
 
-### 4. Automatic/Sensory
-The behavior itself produces reinforcement — sensory stimulation, pain reduction, or internal satisfaction — independent of social consequences.
+If you are not familiar with Greg Hanley's Practical Functional Assessment and Skill-Based Treatment (PFA/SBT) model, stop and go read about it. It has fundamentally changed how I approach intervention planning.
 
-**Signs it's automatic:**
-- Behavior occurs across all settings and contexts
-- Behavior occurs when the student is alone
-- Behavior has a stereotyped, repetitive quality
-- Social consequences don't seem to affect the behavior
+SBT is not just "teach a replacement behavior." It is a structured progression with three integrated components:
 
-## Building a Function-Based BIP: Step by Step
+### 1. Functional Communication Training (FCT)
 
-### Step 1: Start with the FBA Hypothesis
+Teach the student to request the entire reinforcer package using a functional communication response (FCR). For Marcus, that is not just "request a break." It is "request a break from writing with access to drawing and adult interaction." The FCR has to access everything the problem behavior was accessing.
 
-Your BIP should directly reference the FBA hypothesis statement. If you don't have one, stop — go back and complete the FBA first. A BIP without an FBA is like a prescription without a diagnosis.
+I start by reinforcing the FCR on a dense schedule, every single time. The student learns: this new response works perfectly, instantly, every time.
 
-**Example hypothesis:** "When presented with independent writing tasks that require more than 3 sentences, Jayden engages in verbal refusal ('I can't,' 'This is stupid') and puts his head on his desk to escape the academic demand. This behavior is more likely on Mondays and days following absences."
+### 2. Tolerance Training
 
-Everything in the BIP flows from this statement.
+Here is where most BIPs stop, and where SBT keeps going. Once the FCR is strong, I begin systematically introducing delays and denials. "I hear you, Marcus. You want a break. We can take one in two minutes." Then three minutes. Then five.
 
-### Step 2: Design Antecedent Strategies
+This is not arbitrary. I am building tolerance for the conditions that used to evoke problem behavior. I am doing it gradually, with signals, and with the student's buy-in. Critical: I always follow through. If I say "in two minutes," it happens in two minutes. Trust is the foundation.
 
-Antecedent strategies modify the environment *before* the problem behavior occurs. They're your first line of defense and often the most impactful component.
+### 3. Contextually Appropriate Behavior (CAB)
 
-**For escape-maintained behavior:**
-- Modify task difficulty (scaffolding, chunking, reducing response effort)
-- Provide choice in task format (not whether to do work, but how)
-- Prime the student before transitions or demands
-- Address setting events (Monday check-in routine, post-absence reintegration plan)
-- Use high-probability request sequences (easy tasks before hard ones)
-- Embed preferred activities within non-preferred ones
+This is the piece that makes SBT actually sustainable. During those delay periods, I teach the student what TO do. For Marcus, that might be: continue writing for two more sentences, use a self-monitoring checklist, or work on a modified version of the task. The student learns to tolerate the delay by engaging in appropriate behavior, and that appropriate behavior itself gets reinforced.
 
-**For attention-maintained behavior:**
-- Provide frequent, scheduled attention (non-contingent reinforcement)
-- Give attention before the student seeks it inappropriately
-- Increase opportunities for positive attention (classroom jobs, leadership roles)
-- Pre-teach expected behaviors and acknowledge them immediately
+The progression looks like this: FCR (100% reinforced) then tolerate brief delays then engage in CAB during delays then gradually extend expectations.
 
-**For access-maintained behavior:**
-- Provide scheduled access to preferred items/activities
-- Use visual schedules so the student knows when they'll get access
-- Offer choices between acceptable options
-- Pre-teach waiting and accepting "no"
+This is not a quick fix. It takes weeks. But the outcomes are durable because you are building actual skills, not just managing contingencies.
 
-**For automatically-maintained behavior:**
-- Provide appropriate sensory alternatives (matched stimulation)
-- Modify the environment to reduce triggers (noise-canceling headphones, flexible seating)
-- Build movement breaks into the schedule
-- Provide access to sensory tools proactively
+## Competition Analysis: Will Your Replacement Behavior Actually Win?
 
-### Step 3: Select and Teach Replacement Behaviors
+Before I finalize any BIP, I do a competition analysis. This is the question most BIP writers skip: can the replacement behavior actually compete with the problem behavior?
 
-The replacement behavior is the linchpin of a function-based BIP. It must:
+Think about it from the student's perspective. Problem behavior has been working for months or years. It is practiced, efficient, and reliably reinforced (even if intermittently). Your shiny new replacement behavior is unfamiliar, untested, and requires the student to trust that adults will follow through.
 
-1. **Serve the same function** as the problem behavior
-2. **Be more efficient** — easier, faster, and more reliably reinforced
-3. **Be socially appropriate**
-4. **Be within the student's current repertoire** (or teachable quickly)
+I evaluate four dimensions:
 
-#### Replacement Behaviors by Function
+**Effort.** Is the replacement behavior equal to or easier than the problem behavior? If flipping a desk gets Marcus out of writing instantly, but the break card requires him to find the card, hand it to the teacher, and wait for acknowledgment, the problem behavior wins on effort. Solution: make the FCR as easy as possible. A single word, a gesture, a tap on a visual.
 
-**Escape:**
-- Requesting a break (verbally, with a card, or gesturally)
-- Asking for help
-- Requesting a modified task
-- Using a self-monitoring system to pace work
+**Latency to reinforcement.** How fast does the student get what they need? If screaming gets immediate teacher response but raising a hand means waiting three minutes, screaming wins. Solution: at the start of intervention, reinforce the FCR faster than the problem behavior ever got reinforced.
 
-**Attention:**
-- Raising hand
-- Using a "talk to me" signal
-- Appropriately joining conversations
-- Showing work to the teacher for feedback
+**Quality of reinforcement.** Does the replacement get the student something as good as what the problem behavior got them? If throwing a chair results in being sent to a quiet office (full escape plus preferred environment) but the break card gets a two-minute break at a desk in the same noisy classroom, the problem behavior wins on quality. Solution: match the reinforcer quality, then fade.
 
-**Access:**
-- Requesting items/activities appropriately
-- Using a visual schedule to check when access is available
-- Trading or negotiating with peers
-- Using a token system to earn access
+**Consistency.** Does the replacement work every single time? If the break card works with the morning teacher but the afternoon teacher says "not right now," the student learns that the replacement is unreliable. Problem behavior, which has always worked with everyone, wins. Solution: train every implementer to honor the FCR 100% of the time at the start.
 
-**Automatic:**
-- Using an appropriate sensory alternative
-- Requesting a sensory break
-- Self-monitoring and redirecting
+If your replacement behavior cannot beat the problem behavior on at least effort and consistency, your BIP will fail. Full stop. Adjust before you implement.
 
-### Teaching the Replacement Behavior
+## Setting Events and Motivating Operations: Go Deeper
 
-Don't assume the student knows how to perform the replacement behavior. Explicitly teach it:
+Most BIPs address setting events with something like "conduct a morning check-in." That is fine as far as it goes, but it does not go far enough.
 
-1. **Explain** why they're learning this skill and how it helps them
-2. **Model** the behavior in the natural context
-3. **Practice** during calm moments, not during a behavioral incident
-4. **Prompt** the replacement behavior when antecedents occur (then fade prompts)
-5. **Reinforce** immediately and consistently when the student uses it
+Setting events and motivating operations (MOs) are the reason the same student can be fine on Tuesday and in crisis on Wednesday. If you are not assessing and responding to these variables, you are writing a plan for an average day that does not exist.
 
-### Step 4: Modify Consequence Strategies
+Here is what I actually assess:
 
-Consequence strategies ensure that the replacement behavior is more effective than the problem behavior.
+**Sleep.** I ask caregivers to track sleep patterns. A student running on four hours of sleep has a fundamentally different threshold for frustration. For Amara, a 6th grader on my caseload, we discovered that every major incident occurred after a night with less than six hours of sleep. That information changed the entire antecedent plan for those days.
 
-**Reinforce the replacement behavior:**
-- Immediately (especially at first)
-- Consistently (every time, at first)
-- With the functional reinforcer (if the function is escape, the reinforcer is a break — not a sticker)
+**Medication changes.** Dose adjustments, missed doses, new medications, all of these alter the behavioral picture. I am not making medical decisions, but I need to know when these changes happen so I can interpret data accurately.
 
-**Respond to the problem behavior:**
-- Don't provide the functional reinforcer (extinction)
-- Redirect to the replacement behavior
-- Keep your response brief and neutral (no lectures, no emotional reactions)
-- Implement safety procedures if needed
+**Family stressors.** Custody transitions, housing instability, food insecurity, parental conflict. I am not a therapist and this is not my lane to treat, but a student who spent the morning watching their parents argue has a different set of establishing operations than the same student on a calm day.
 
-**Important:** Extinction can produce an extinction burst (temporary increase in behavior intensity). Warn the team and have a plan for it.
+**Sensory needs.** Not the generic "provide fidgets" kind. Actual sensory assessment data. Is the fluorescent lighting in third period a consistent antecedent? Is the noise level in the cafeteria functionally aversive? These are abolishing operations if addressed and establishing operations if ignored.
 
-#### The Efficiency Formula
+**Build conditional pathways into the BIP.** Instead of one static plan, I write plans with if-then branches: "If the morning check-in indicates poor sleep or high stress, implement the modified schedule (reduced demands, increased reinforcer access, proactive sensory breaks) for the first two hours."
 
-For a replacement behavior to "win" over the problem behavior, it needs to beat it on at least one of these dimensions:
+## ACT-Informed Strategies for Older Students
 
-| Dimension | Problem Behavior | Replacement Behavior (Goal) |
-|-----------|-----------------|---------------------------|
-| **Physical effort** | Low (just needs to throw materials) | Lower (just raise a card) |
-| **Time to reinforcement** | Fast (task removed immediately) | Faster (break granted immediately when card is raised) |
-| **Consistency** | Sometimes works | Always works (at first) |
-| **Quality of reinforcer** | Full escape (sent to office) | Adequate (2-minute break at desk) |
+For middle and high school students, pure contingency management often is not enough and can feel controlling or infantilizing. This is where Acceptance and Commitment Therapy (ACT) informed components earn their place in a BIP.
 
-### Step 5: Plan for Generalization and Fading
+I am not doing therapy. I am a BCBA. But ACT is rooted in behavior analysis (relational frame theory), and several components translate directly into BIP strategies:
 
-A BIP that works only with one adult in one classroom isn't really working. Build in:
+**Defusion.** Teaching a student to notice a thought without being controlled by it. For Jaylen, a 10th grader who shuts down when he thinks "I am stupid," I taught him to say "I am having the thought that I am stupid" and then re-engage with the task. This is a skill you can operationally define, teach, and measure.
 
-- **Generalization:** Train across settings, staff, and times of day
-- **Fading:** Gradually increase expectations (shorter breaks, more work before a break, less frequent prompts)
-- **Maintenance:** Check in periodically to ensure the behavior change is sustained
+**Acceptance.** Teaching tolerance for discomfort without avoidance. This aligns directly with the tolerance training component of SBT but frames it in language that resonates with adolescents. "You can feel frustrated and still do the next step" is more effective with a 16-year-old than a token board.
 
-### Step 6: Create a Data Collection Plan
+**Values.** Connecting behavioral expectations to what the student actually cares about. Jaylen wants to graduate and work in music production. When we linked assignment completion to "building the discipline you will need in a studio," his motivation shifted from external contingencies to something internal. That is not magic; that is augmental control.
 
-Your BIP should specify:
+For students with the verbal repertoire to engage with these concepts, ACT-informed components make the BIP more dignified, more durable, and more likely to generalize beyond the school setting.
 
-- **What data to collect** — frequency of problem behavior AND replacement behavior
-- **Who collects it** — the classroom teacher, a paraprofessional, the student themselves
-- **When to collect** — specific times/activities or all day
-- **How to record it** — tally sheet, interval recording, daily rating, app
-- **When to review** — weekly team check-ins, monthly data review
+## Implementation Fidelity: Why Good BIPs Fail
 
-Keep it simple. The best data system is the one that actually gets used.
+I will say it plainly: implementation fidelity is the number one reason BIPs fail in schools. Not bad assessment, not wrong function, not poor strategy selection. Staff do not implement the plan as written. And honestly, it is usually our fault for writing plans that are unrealistic, unclear, or unsupported.
 
-## Function-Based BIP Template
+Here is what I do to address this:
 
-Here's a complete template you can adapt:
+**Train, do not just distribute.** Handing a teacher a 12-page BIP and saying "let me know if you have questions" is not training. I do a 20-minute walkthrough with every implementer. We role-play the replacement behavior, practice the reinforcement procedure, and rehearse the response to problem behavior. I demonstrate, they practice, I give feedback.
 
-### Section 1: Student Information
-- Student name, grade, school, date
-- FBA completion date and author
-- BIP team members
+**Self-monitoring checklists.** I give staff a simple daily checklist: Did I prompt the FCR before demands? Did I reinforce the FCR within 5 seconds? Did I avoid providing the functional reinforcer after problem behavior? Three to five items, yes/no, takes 30 seconds at the end of the period. This is not surveillance. It is a self-management tool that keeps the plan active in working memory.
 
-### Section 2: Target Behavior
-- Operational definition
-- Baseline data (frequency, duration, or intensity)
-- Function identified in FBA
+**Coaching, not just consultation.** I observe implementation at least weekly for the first month. Not to evaluate, but to coach. I provide immediate, specific, positive feedback ("You caught his FCR and responded in two seconds, that was perfect") and gentle correction ("Next time he raises the card, try to respond before redirecting the other student").
 
-### Section 3: Hypothesis Statement
-- Direct from the FBA report
+**Simplify ruthlessly.** If the plan requires more than three to four distinct staff behaviors, it is too complex. I would rather have three strategies implemented with fidelity than eight strategies implemented inconsistently. Cut the plan down to what matters most and add complexity only after the basics are solid.
 
-### Section 4: Prevention Strategies (Antecedents)
-- Setting event strategies
-- Immediate antecedent modifications
-- Environmental arrangements
+**Measure fidelity directly.** I use a simple fidelity checklist during my observations. If fidelity drops below 80%, I do not blame the staff. I simplify the plan or increase support. The data tells you whether you have an intervention problem or an implementation problem.
 
-### Section 5: Replacement Behavior
-- Operational definition of replacement behavior
-- How it serves the same function
-- Teaching plan (who, when, how)
+## Generalization: Build It In From Day One
 
-### Section 6: Consequence Strategies
-- How to reinforce the replacement behavior
-- How to respond to the problem behavior
-- Extinction procedures (if applicable)
-- Safety/crisis protocol (if needed)
+Generalization is not a phase that comes after the behavior improves. It is a design feature of the plan from the start.
 
-### Section 7: Data Collection Plan
-- What, who, when, how
-- Decision rules (when to modify the plan)
+Here is what this looks like in practice:
 
-### Section 8: Team Communication Plan
-- How often the team meets to review data
-- Who is responsible for what
-- How to handle questions or concerns
+**Train with multiple exemplars.** If Marcus learns to use his FCR with me, it will not automatically transfer to his teacher, the lunch aide, or the substitute. I train the FCR with at least three different adults in the first week.
 
-## Common BIP Mistakes
+**Train across settings.** The FCR that works in the resource room needs to work in the general education classroom, the cafeteria, and specials. I practice it in each setting, with the adults in that setting, during the actual routines.
 
-### 1. The "Bribery" BIP
-Offering rewards for *not* engaging in problem behavior without teaching a replacement. "If you don't hit anyone today, you get extra recess." This doesn't teach what TO do and often falls apart quickly.
+**Program common stimuli.** I make sure the visual supports, cue cards, or whatever tools the student uses look the same everywhere. If the break card is green in my room and does not exist in science class, generalization will not happen.
 
-### 2. The Punishment-Heavy BIP
-Focused entirely on consequences for problem behavior (loss of privileges, calls home, office referrals) with no antecedent modifications or replacement behavior teaching. Punishment alone doesn't teach new skills.
+**Fade to natural contingencies.** The goal is not for the student to use a break card forever. The goal is for the student to develop internal regulation skills that work without external supports. I plan the fading sequence from the beginning and share it with the team so everyone knows where we are headed.
 
-### 3. The Kitchen Sink BIP
-Listing every possible strategy without connecting them to function. "Provide visual schedule, token economy, social stories, fidget tools, brain breaks, mindfulness, peer buddy, check-in/check-out." If you can't explain why each strategy addresses the identified function, it doesn't belong.
+**Teach self-management early.** Even with young students, I build in self-monitoring as soon as the replacement behavior is established. A simple "Did I use my words?" self-check after each activity period teaches the student to manage their own behavior rather than relying on adult prompts indefinitely.
 
-### 4. The Unrealistic BIP
-Requiring the classroom teacher to collect continuous ABC data on 5 behaviors while teaching 28 students. If staff can't implement it, it won't work — no matter how well-designed it is on paper.
+## When the FBA Is Wrong: How to Pivot
 
-### 5. The Static BIP
-Writing the plan and never revising it. BIPs should be living documents that evolve based on data.
+Sometimes the data does not match the hypothesis. You implemented the BIP with good fidelity for four weeks and the problem behavior has not changed, or it has gotten worse. This is not failure. This is information.
 
-## Streamline Your BIP Process
+Here is my decision tree:
 
-Building a function-based BIP from scratch is time-intensive. BehaviorSchool's [FBA-to-BIP Generator](/fba-to-bip) takes your FBA findings — the target behavior, identified function, antecedent triggers, and setting events — and generates a complete, function-based behavior intervention plan with:
+**Step 1: Check fidelity first.** Nine times out of ten, the issue is implementation, not assessment. Review your fidelity data. If staff are implementing below 80%, fix that before changing anything else.
 
-- Antecedent strategies matched to the function
-- Replacement behaviors with teaching plans
-- Consequence strategies aligned with the hypothesis
-- Data collection recommendations
-- A format ready for IEP team review
+**Step 2: Check the reinforcer.** Is the FCR actually accessing the functional reinforcer? I had a student, Deshawn, whose BIP was built around escape from writing. The plan gave him breaks, but his behavior did not improve. When I looked more closely, I realized the breaks were happening at his desk in the same room, still surrounded by the aversive stimuli. He needed to physically leave the space. The function was right, but the reinforcer quality was wrong.
 
-It doesn't replace your professional judgment — it gives you a strong, function-aligned draft that you can customize for the individual student.
+**Step 3: Reassess the function.** If fidelity is good and the reinforcer is matched, your hypothesis may be wrong. Go back and run a functional analysis. Do not just review the indirect data again. Actually test the conditions. I have had cases where the interview data pointed to escape but the FA revealed automatic reinforcement. The topography looked the same, but the function was completely different.
 
-Pair it with the [IEP Goal Writer](/iep-goal-writer) to generate measurable behavior goals that align with your BIP, and you've got a complete package from assessment to intervention to IEP documentation.
+**Step 4: Look for multiply controlled behavior.** If you tested single functions initially, try synthesized conditions. The IISCA approach often reveals maintaining variables that isolated condition FAs miss.
 
-## Conclusion
+**Step 5: Consider the setting events.** Maybe the function is right but the BIP does not account for the conditions under which the behavior is most likely. Add conditional pathways based on MO assessment.
 
-A function-based BIP is the difference between managing behavior and changing it. When every component of your plan connects back to why the behavior is happening, you're not just putting out fires — you're addressing root causes and teaching students skills they'll use for life.
+**Step 6: Talk to the student.** For students with sufficient verbal skills, ask them. Not "why do you do this?" which invites post-hoc rationalization, but "what would make this class better for you?" or "what is the hardest part of your day?" Students often have insight that our data does not capture.
 
-Start with a solid FBA. Build your BIP around the function. Teach a replacement behavior that works better than the problem behavior. Collect data. Adjust. Repeat.
+The willingness to say "my hypothesis was wrong" and go back to assessment is what separates competent practitioners from those who blame the student when the plan does not work.
 
-That's effective behavior intervention. And it's what school-based BCBAs do better than anyone.
+## Putting It All Together
+
+A function-based BIP that works in a real school is not a form you fill out. It is a living system that includes:
+
+- A confirmed functional hypothesis (ideally FA-confirmed, not just interview-based)
+- Intervention strategies that address the full reinforcer package (synthesized contingencies)
+- A skill-building progression (FCT, tolerance training, CAB) not just a replacement behavior
+- A competition analysis showing the replacement can actually win
+- Conditional pathways for setting events and MOs
+- A realistic implementation plan with fidelity monitoring
+- Generalization programming built in from day one
+- Decision rules for when and how to pivot
+
+This is more work upfront. Significantly more. But it saves time in the long run because you are not rewriting the BIP every six weeks when the generic plan fails again.
+
+BehaviorSchool's [FBA-to-BIP Generator](/fba-to-bip) can help you draft the initial framework, including function-matched strategies, replacement behavior teaching plans, and data collection systems. Use it as a starting point, then layer in the advanced components: your competition analysis, your SBT progression, your fidelity monitoring plan. Pair it with the [IEP Goal Writer](/iep-goal-writer) to align your BIP goals with measurable IEP objectives.
+
+The science of behavior works. The challenge has always been implementing it well, consistently, in messy, underfunded, overcrowded schools. That is our job. Let us do it well.
 
 ## Frequently Asked Questions About Function-Based BIPs
 
-### What's the difference between a function-based BIP and a regular BIP?
+### What is the difference between a traditional FBA and the IISCA approach?
 
-A function-based BIP connects every strategy (antecedents, replacement behaviors, consequences) directly to the function identified in the FBA. Regular BIPs often list generic strategies without understanding why the behavior occurs, making them less effective.
+A traditional FBA typically relies on indirect assessment (interviews, rating scales) and descriptive assessment (ABC data) to hypothesize a function. The IISCA goes further by using interview data to create a synthesized test condition that combines all relevant variables, then directly tests whether behavior occurs under those conditions versus a control. It is faster, more school-friendly, and often more accurate than traditional single-function experimental analyses.
 
 ### Can a behavior have more than one function?
 
-Yes. Behaviors can serve multiple functions (e.g., escape work AND get attention) or different functions in different contexts. Your BIP should address all identified functions with matched strategies for each.
+Absolutely, and in my experience, the students who need BIPs almost always have multiply controlled behavior. This is exactly why the IISCA and synthesized contingency approach is so valuable. Your BIP must address the full reinforcer package, not just one function in isolation.
 
-### What if the replacement behavior doesn't work?
+### What is Skill-Based Treatment and how is it different from just teaching a replacement behavior?
 
-First, check implementation fidelity—is it being taught and reinforced consistently? Second, verify that it truly serves the same function. Third, ensure it's more efficient than the problem behavior (faster, easier, more reliable). If all else fails, revisit your FBA hypothesis.
+SBT (Hanley, 2012; Hanley et al., 2014) is a structured three-phase approach: functional communication training (to request the full reinforcer), tolerance training (to handle delays and denials), and contextually appropriate behavior training (to engage in expected behavior during those delays). Traditional BIPs often stop at FCT. SBT builds the complete skill set needed for long-term success.
 
-### How long should it take to see progress with a function-based BIP?
+### How do I know if my replacement behavior can compete with the problem behavior?
 
-With consistent implementation, you should see some improvement within 2-4 weeks. If there's no change after 6 weeks of high-fidelity implementation, revisit your FBA hypothesis—the function may have been misidentified.
+Run a competition analysis. Evaluate the replacement behavior against the problem behavior on four dimensions: effort (is it as easy or easier?), latency to reinforcement (is it as fast or faster?), quality of reinforcement (does it access an equivalent reinforcer?), and consistency (does it work every time?). If the replacement loses on more than one dimension, redesign before implementing.
 
-### Who should be involved in creating a BIP?
+### What should I do when a BIP is not working after several weeks?
 
-The team should include the person who conducted the FBA, classroom teacher(s), parents/caregivers, the student (when appropriate), and any other staff who will implement the plan. Collaborative development increases buy-in and implementation fidelity.
+Follow this sequence: first check implementation fidelity, then verify the reinforcer match, then reassess the function with a direct analysis (not just more interviews), then look for multiply controlled behavior, then examine setting events and MOs. Do not blame the student or simply add more punishment-based strategies.
 
-**Ready to build better BIPs?** [Try the BehaviorSchool FBA-to-BIP Generator](/fba-to-bip) — function-based intervention planning in minutes, not hours.
+### How do I get teachers to actually implement the BIP?
+
+Train them directly with modeling and rehearsal, give them a simple self-monitoring checklist, provide weekly coaching with specific positive feedback, and keep the plan simple. Three strategies implemented well beats eight strategies implemented poorly. If fidelity is low, simplify the plan before blaming the implementer.
+
+### Is Skill-Based Treatment appropriate for all age groups?
+
+The core framework applies across ages, but the specific strategies look different. For younger students, the emphasis is on FCT and structured tolerance training with visual supports. For older students, you can integrate ACT-informed components like defusion and values-based motivation alongside the SBT framework. The principles are the same; the delivery adapts to developmental level.
+
+**Ready to build better BIPs?** [Try the BehaviorSchool FBA-to-BIP Generator](/fba-to-bip) to get a function-based draft in minutes, then customize with the advanced strategies outlined above.
 
 ---
 
