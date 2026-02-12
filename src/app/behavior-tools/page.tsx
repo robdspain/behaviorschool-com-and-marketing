@@ -90,12 +90,12 @@ const tools = [
       "Create comprehensive behavior intervention plans with evidence-based strategies, data collection systems, and staff training materials.",
     href: "/behavior-plans",
     icon: Sparkles,
-    status: "coming-soon" as const,
+    status: "live" as const,
     features: [
-      "Evidence-based strategies",
-      "Staff training materials",
+      "Step-by-step wizard",
+      "Function-based interventions",
       "Data collection systems",
-      "Progress reports",
+      "Print-ready output",
     ],
   },
   {
@@ -138,6 +138,34 @@ const tools = [
       "Values ranking",
       "Goal alignment",
       "Printable results",
+    ],
+  },
+  {
+    title: "IEP Goal Bank",
+    description:
+      "Searchable library of 120+ pre-written IEP behavior goals organized by category and grade level. Copy-ready goals for behavior reduction, social skills, self-regulation, and more.",
+    href: "/iep-goal-bank",
+    icon: ClipboardCheck,
+    status: "live" as const,
+    features: [
+      "120+ pre-written goals",
+      "Filter by category",
+      "Grade-level organized",
+      "Copy-ready format",
+    ],
+  },
+  {
+    title: "Free BCBA Practice Exam",
+    description:
+      "Test your BCBA exam knowledge with free practice questions covering ethics, measurement, assessment, intervention, and more.",
+    href: "/free-bcba-practice",
+    icon: ClipboardCheck,
+    status: "live" as const,
+    features: [
+      "Free practice questions",
+      "Detailed explanations",
+      "Multiple content areas",
+      "Self-assessment tool",
     ],
   },
 ];

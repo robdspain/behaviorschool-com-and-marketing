@@ -217,6 +217,41 @@ export default function IEPGoalQualityChecker() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="container mx-auto px-6 py-10" aria-labelledby="faq-heading">
+        <div className="max-w-4xl mx-auto">
+          <h2 id="faq-heading" className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">
+            Frequently Asked Questions
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="bg-white border border-slate-200 rounded-xl p-5">
+              <h3 className="font-semibold text-slate-900 mb-2">What does the IEP Goal Quality Checker review?</h3>
+              <p className="text-sm text-slate-600">
+                It checks for condition, observable behavior, measurement method, mastery criteria (90-100%), timeframe/end date, baseline/present levels, supports, and who is monitoring.
+              </p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-xl p-5">
+              <h3 className="font-semibold text-slate-900 mb-2">Is this tool free?</h3>
+              <p className="text-sm text-slate-600">
+                Yes. The checker is completely free with optional copy/PDF export. No registration required.
+              </p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-xl p-5">
+              <h3 className="font-semibold text-slate-900 mb-2">Who is it for?</h3>
+              <p className="text-sm text-slate-600">
+                School-based BCBAs, special educators, and related service providers writing measurable behavior goals.
+              </p>
+            </div>
+            <div className="bg-white border border-slate-200 rounded-xl p-5">
+              <h3 className="font-semibold text-slate-900 mb-2">What makes a good mastery criteria?</h3>
+              <p className="text-sm text-slate-600">
+                Mastery criteria should be 90-100% for skill acquisition, or specific reduction targets like zero instances for severe behavior.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SoftwareApplication Structured Data */}
       <script
         type="application/ld+json"

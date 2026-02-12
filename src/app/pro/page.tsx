@@ -105,7 +105,7 @@ const PRICING = [
       "Limited Goal Bank access",
     ],
     cta: "Get Started",
-    href: "https://plan.behaviorschool.com/signup",
+    href: "/pro/waitlist",
     highlight: false,
   },
   {
@@ -122,7 +122,7 @@ const PRICING = [
       "Email support",
     ],
     cta: "Start Free Trial",
-    href: "https://plan.behaviorschool.com/signup?plan=individual",
+    href: "/pro/waitlist",
     highlight: false,
   },
   {
@@ -140,7 +140,7 @@ const PRICING = [
       "Custom onboarding",
     ],
     cta: "Start Free Trial",
-    href: "https://plan.behaviorschool.com/signup?plan=team",
+    href: "/pro/waitlist",
     highlight: true,
   },
 ];
@@ -239,7 +239,7 @@ export default function ProPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href="https://plan.behaviorschool.com/signup">
+            <Link href="/pro/waitlist">
               <ShimmerButton
                 className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
@@ -316,7 +316,7 @@ export default function ProPage() {
                   background={feature.background}
                   Icon={feature.icon}
                   description={feature.description}
-                  href="#"
+                  href="/products"
                   cta="Learn more →"
                 />
               ))}
@@ -493,7 +493,7 @@ export default function ProPage() {
             <p className="text-lg text-emerald-100 mb-8">
               Join BCBAs and school psychologists nationwide who are using BehaviorSchool Pro to spend less time on paperwork and more time with students.
             </p>
-            <Link href="https://plan.behaviorschool.com/signup">
+            <Link href="/pro/waitlist">
               <ShimmerButton
                 className="h-14 px-10 text-lg font-bold rounded-xl"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"

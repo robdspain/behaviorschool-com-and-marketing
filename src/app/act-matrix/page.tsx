@@ -209,6 +209,46 @@ export default function ACTMatrixPage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section id="faq" className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-xl text-slate-600">Common questions about using the ACT Matrix in schools</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">What is the ACT Matrix?</h3>
+              <p className="text-slate-600">
+                The ACT Matrix is a visual framework from Acceptance and Commitment Therapy that helps students identify their values and distinguish between values-aligned actions and avoidance behaviors.
+              </p>
+            </div>
+            
+            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">Who can use this tool?</h3>
+              <p className="text-slate-600">
+                School counselors, BCBAs, special educators, social workers, and school psychologists working with students on goal setting, behavior change, and values exploration.
+              </p>
+            </div>
+            
+            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">How do I introduce the Matrix to students?</h3>
+              <p className="text-slate-600">
+                Start with identifying a value that matters to them, then help them notice when their actions move toward or away from that value. Use simple examples from their daily life at school.
+              </p>
+            </div>
+            
+            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-3">Is the download free?</h3>
+              <p className="text-slate-600">
+                Yes. The ACT Matrix guide, worksheets, and implementation materials are completely free for educators. No registration required.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section id="download" className="py-24 bg-slate-900 text-white scroll-mt-24 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />

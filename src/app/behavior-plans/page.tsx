@@ -1,647 +1,218 @@
-"use client";
-
-import { useState } from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { Check, FileText, Target, TrendingUp, Users, Shield, Mail, Bell, ArrowRight } from "lucide-react";
+import type { Metadata } from "next";
+import { BehaviorPlanWizard } from "@/components/behavior-plan-writer/BehaviorPlanWizard";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import Link from "next/link";
+import { ShareButtons } from "@/components/ui/share-buttons";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" }
+const baseUrl = "https://behaviorschool.com";
+const pageUrl = `${baseUrl}/behavior-plans`;
+
+const faqItems = [
+  {
+    question: "What is a Behavior Intervention Plan?",
+    answer:
+      "A BIP is a proactive, written plan that outlines specific strategies, supports, and data collection methods designed to reduce challenging behavior and teach replacement skills. It is based on a functional behavior assessment.",
+  },
+  {
+    question: "Who is the Behavior Plan Writer for?",
+    answer:
+      "School-based BCBAs, behavior specialists, special education teachers, school psychologists, and IEP teams responsible for developing and implementing behavior intervention plans.",
+  },
+  {
+    question: "What makes this different from a BIP template?",
+    answer:
+      "Instead of a blank template, the Behavior Plan Writer guides you through a step-by-step process, provides function-based strategy recommendations, and generates a complete, formatted plan ready for team review.",
+  },
+  {
+    question: "Can I customize the generated plan?",
+    answer:
+      "Yes. The wizard lets you select from evidence-based strategies, add custom interventions, and adjust all components. The final output is fully editable before you save or print.",
+  },
+  {
+    question: "Is it free to use?",
+    answer:
+      "Yes. The Behavior Plan Writer is completely free with no registration required. Simply complete the wizard and generate your plan.",
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      name: "Behavior Plan Writer",
+      description:
+        "Free behavior intervention plan (BIP) generator that creates comprehensive, evidence-based plans with function-matched strategies, data collection systems, and implementation guides.",
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "Web",
+      url: pageUrl,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      provider: {
+        "@type": "Organization",
+        name: "Behavior School",
+        url: baseUrl,
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ],
 };
 
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
+export const metadata: Metadata = {
+  title: "Behavior Plan Writer - Free BIP Generator | Behavior School",
+  description:
+    "Free behavior intervention plan (BIP) writer for BCBAs and educators. Create comprehensive, evidence-based plans with function-matched strategies in minutes. Start now!",
+  keywords: [
+    "behavior plan writer",
+    "BIP generator",
+    "behavior intervention plan",
+    "BIP template",
+    "BCBA tools",
+    "behavior support plan",
+    "special education",
+    "positive behavior support",
+    "PBS plan",
+    "school behavior plan",
+  ],
+  alternates: { canonical: pageUrl },
+  openGraph: {
+    title: "Behavior Plan Writer | Free BIP Generator for School Teams",
+    description:
+      "Create comprehensive behavior intervention plans with evidence-based strategies, data collection systems, and implementation guides. Free for BCBAs and educators.",
+    url: pageUrl,
+    images: [
+      {
+        url: `${baseUrl}/og-image.webp`,
+        width: 1200,
+        height: 630,
+        alt: "Behavior Plan Writer by Behavior School",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Behavior Plan Writer | Free BIP Generator for School Teams",
+    description:
+      "Create comprehensive behavior intervention plans with evidence-based strategies, data collection systems, and implementation guides. Free for BCBAs and educators.",
+    images: [`${baseUrl}/og-image.webp`],
+  },
 };
 
-export default function BehaviorPlansPage() {
-
+export default function BehaviorPlanWriterPage() {
   return (
-    <div className="min-h-screen bg-bs-background">
-      {/* Breadcrumbs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
-        <Breadcrumbs 
+    <main className="min-h-screen bg-bs-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="container mx-auto px-6 pt-20">
+        <Breadcrumbs
           items={[
             { label: "Products", href: "/products" },
-            { label: "Behavior Plans" }
+            { label: "Behavior Plan Writer" },
           ]}
         />
       </div>
-      {/* Hero Section */}
-      <section className="relative pt-10 md:pt-14 pb-16 lg:pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-red-50" />
-        <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-orange-100 to-transparent opacity-30 blur-3xl" />
-        <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-red-100 to-transparent opacity-20 blur-2xl" />
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div 
-              className="space-y-8"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="space-y-4">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.05] text-slate-900">
-                    BIP Writer
-                  </h1>
-                </motion.div>
-                <motion.h2
-                  className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-orange-600"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  Coming Soon: Write Effective BIPs in Minutes
-                </motion.h2>
-                <motion.p
-                  className="text-lg sm:text-xl leading-relaxed text-slate-600"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                >
-                  We&apos;re building an AI-powered tool that transforms challenging behaviors into actionable intervention plans. Get notified when BIP Writer launches.
-                </motion.p>
-                
-                <motion.div
-                  className="bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl p-6 border border-orange-200"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
-                >
-                  <div className="flex items-center gap-3 mb-2">
-                    <Bell className="w-5 h-5 text-orange-600" />
-                    <h3 className="font-semibold text-orange-900">Early Access Preview</h3>
-                  </div>
-                  <p className="text-orange-800 text-sm">
-                    Be the first to know when BIP Writer launches. Early subscribers get exclusive access to beta features and special pricing.
-                  </p>
-                </motion.div>
-              </div>
 
-                             {/* Email Signup Form */}
-               <motion.div
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ delay: 0.8 }}
-                 className="space-y-4"
-               >
-                 <form 
-                   className="flex flex-col sm:flex-row gap-4 max-w-md"
-                   data-netlify="true" 
-                   name="bip-writer-signup"
-                 >
-                   <input type="hidden" name="form-name" value="bip-writer-signup" />
-                   <input type="hidden" name="page-source" value="behavior-plans" />
-                   
-                   <div className="flex-1">
-                     <input
-                       type="email"
-                       name="email"
-                       placeholder="Enter your email"
-                       required
-                       className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors"
-                     />
-                   </div>
-                   <button
-                     type="submit"
-                     className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-700 to-orange-600 hover:from-orange-800 hover:to-orange-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
-                   >
-                     <Mail className="w-4 h-4 mr-2" />
-                     Notify Me
-                   </button>
-                 </form>
-                 <p className="text-sm text-slate-500">
-                   No spam, unsubscribe anytime. Join fellow educators interested in early access.
-                 </p>
-               </motion.div>
-            </motion.div>
-
-            <motion.div 
-              className="relative"
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="relative z-10">
-                <Image
-                  src="/optimized/BIP-Writer/BIP-Writer-Team.webp"
-                  alt="BIP Writer - AI-powered behavior intervention plan creation"
-                  width={600}
-                  height={400}
-                  className="w-full h-auto rounded-2xl shadow-2xl"
-                  loading="eager"
-                  priority
-                />
-              </div>
-              <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-orange-200 to-orange-100 opacity-80 animate-pulse" />
-              <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-gradient-to-br from-red-200 to-red-100 opacity-60" />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Related Resources Section */}
-      <section className="py-16 lg:py-20 bg-bs-section-odd">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Related Resources</h2>
-            <p className="text-slate-600">Strengthen your behavior support systems with these resources:</p>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <Link href="/iep-goals" className="group block p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-600 transition-colors">
-                <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700">IEP Goal Writing Tools</h3>
-                <p className="text-sm text-slate-600 mt-1">Includes <Link href="/values-goal-assistant-landing" className="text-emerald-700 hover:text-emerald-800 underline">Behavior Goal Assistant</Link> for student-centered goals</p>
-                <p className="text-sm text-slate-600">Build measurable behavior goals and progress monitoring plans.</p>
-              </Link>
-              <Link href="/transformation-program" className="group block p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-600 transition-colors">
-                <h3 className="font-semibold text-slate-900 group-hover:text-emerald-700">School BCBA Transformation System</h3>
-                <p className="text-sm text-slate-600">Lead with systems, not firefighting. Cohort-based training.</p>
-              </Link>
+      <article className="container mx-auto px-6 pb-16 pt-8">
+        <section className="grid gap-8 lg:grid-cols-[1.05fr_1.2fr] lg:items-start">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
+              BIP Wizard
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* What We're Building Section */}
-      <section className="py-16 lg:py-20 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-8"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              What We&apos;re Building
-            </h2>
-
-            <p className="text-xl text-slate-600">
-              BIP Writer will solve the biggest challenges with behavior intervention plans:
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-6">
-                <h3 className="text-xl font-bold text-red-700 mb-4">❌ Current Problem</h3>
-                <ul className="space-y-3 text-left">
-                  <li className="text-red-600">• Vague, generic strategies</li>
-                  <li className="text-red-600">• No specific implementation steps</li>
-                  <li className="text-red-600">• Missing data collection plans</li>
-                  <li className="text-red-600">• Staff left guessing how to help</li>
-                </ul>
-              </div>
-              
-              <div className="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-6">
-                <h3 className="text-xl font-bold text-emerald-700 mb-4">✅ Our Solution</h3>
-                <ul className="space-y-3 text-left">
-                  <li className="text-emerald-600">• Evidence-based intervention library</li>
-                  <li className="text-emerald-600">• Step-by-step implementation guides</li>
-                  <li className="text-emerald-600">• Built-in progress monitoring</li>
-                  <li className="text-emerald-600">• Clear staff training materials</li>
-                </ul>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Preview Features Section */}
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-8"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              What&apos;s Coming in BIP Writer
-            </h2>
-
-            <div className="bg-emerald-50 rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-slate-900 mb-8">Every BIP will include:</h3>
-              <div className="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto">
-                <div className="space-y-4">
-                  <p className="text-lg font-medium text-emerald-700">✅ <strong>Specific Interventions</strong><br/><span className="text-sm text-emerald-600">Step-by-step procedures</span></p>
-                  <p className="text-lg font-medium text-emerald-700">✅ <strong>Data Collection Methods</strong><br/><span className="text-sm text-emerald-600">Clear measurement systems</span></p>
-                  <p className="text-lg font-medium text-emerald-700">✅ <strong>Progress Monitoring</strong><br/><span className="text-sm text-emerald-600">Regular review schedules</span></p>
-                </div>
-                <div className="space-y-4">
-                  <p className="text-lg font-medium text-emerald-700">✅ <strong>Staff Training</strong><br/><span className="text-sm text-emerald-600">Implementation guidelines</span></p>
-                  <p className="text-lg font-medium text-emerald-700">✅ <strong>Crisis Procedures</strong><br/><span className="text-sm text-emerald-600">Safety protocols when needed</span></p>
-                  <p className="text-lg font-medium text-emerald-700">✅ <strong>Team Collaboration</strong><br/><span className="text-sm text-emerald-600">Share with all stakeholders</span></p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Contextual CTA after features preview */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              viewport={{ once: true }}
-              className="pt-8"
-            >
-              <p className="text-lg text-slate-600 mb-6">
-                While you wait for the BIP Writer, start building your behavior support expertise with our comprehensive training and tools.
+            <div className="space-y-4">
+              <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
+                Create Comprehensive Behavior Intervention Plans in Minutes
+              </h1>
+              <p className="text-base text-slate-600">
+                Stop wrestling with blank templates. Build complete, evidence-based behavior plans with function-matched strategies, data collection systems, and staff training guides.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/transformation-program" 
-                  className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
-                >
-                  Get School BCBA Training Now
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-                <Link 
-                  href="/iep-goals" 
-                  className="inline-flex items-center px-8 py-3 border border-emerald-600 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition-colors"
-                >
-                  Start with IEP Goal Writing
-                </Link>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 lg:py-20 bg-gradient-to-br from-slate-50 to-orange-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Why BIP Writer Works
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Our platform combines behavioral science with practical implementation to create BIPs that actually work in real educational settings.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            {[
-              {
-                icon: FileText,
-                title: "Evidence-Based Templates",
-                description: "Built on proven behavioral interventions that work across different age groups and settings.",
-                color: "orange"
-              },
-              {
-                icon: Target,
-                title: "Customizable Strategies",
-                description: "Adapt interventions to fit your specific student, classroom, and school environment.",
-                color: "red"
-              },
-              {
-                icon: TrendingUp,
-                title: "Progress Tracking",
-                description: "Built-in data collection tools and progress monitoring to measure intervention effectiveness.",
-                color: "emerald"
-              },
-              {
-                icon: Users,
-                title: "Team Collaboration",
-                description: "Share plans with teachers, paraprofessionals, and parents for consistent implementation.",
-                color: "blue"
-              }
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
-                variants={fadeInUp}
-                whileHover={{ y: -5 }}
-              >
-                <div className={`w-12 h-12 bg-gradient-to-br from-${feature.color}-500 to-${feature.color}-400 rounded-xl flex items-center justify-center mb-6`}>
-                  <feature.icon className="w-6 h-6 text-white" />
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                "Step-by-step wizard",
+                "Function-based interventions",
+                "Data collection plans included",
+                "Staff training materials",
+                "Print-ready output",
+                "No registration required",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-2 rounded-2xl border border-emerald-100 bg-white px-4 py-3 text-sm text-slate-700">
+                  <span className="mt-0.5 text-emerald-600">✓</span>
+                  <span>{item}</span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{feature.title}</h3>
-                <p className="text-slate-600 leading-relaxed">{feature.description}</p>
-              </motion.div>
+              ))}
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600">
+              <p className="font-semibold text-slate-900">How it works</p>
+              <p>Enter student info, define target behavior, identify function, select prevention strategies, choose teaching interventions, set up reinforcement, create data collection plan, and generate your complete BIP.</p>
+            </div>
+          </div>
+
+          <BehaviorPlanWizard />
+        </section>
+
+        <section className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_1fr]" aria-labelledby="behavior-plan-what">
+          <div className="space-y-4">
+            <h2 id="behavior-plan-what" className="text-2xl font-semibold text-slate-900">
+              What is the Behavior Plan Writer?
+            </h2>
+            <p className="text-base text-slate-600">
+              The Behavior Plan Writer is a free, comprehensive tool that guides you through creating a complete behavior intervention plan. It walks you through identifying the target behavior, determining its function, selecting evidence-based strategies, and building data collection and staff training systems.
+            </p>
+            <p className="text-base text-slate-600">
+              Every plan includes operational definitions, function-based interventions, antecedent strategies, teaching plans for replacement behaviors, reinforcement procedures, consequence strategies, data collection methods, and progress monitoring systems.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-6">
+            <h3 className="text-lg font-semibold text-emerald-900">What is included in your BIP</h3>
+            <ul className="mt-3 space-y-2 text-sm text-emerald-900/90">
+              <li>✓ Student information and behavior definition</li>
+              <li>✓ Function of behavior (escape, attention, tangible, automatic)</li>
+              <li>✓ Antecedent/prevention strategies</li>
+              <li>✓ Replacement behavior teaching plan</li>
+              <li>✓ Reinforcement procedures</li>
+              <li>✓ Consequence strategies</li>
+              <li>✓ Data collection plan with measurement methods</li>
+              <li>✓ Progress monitoring schedule</li>
+              <li>✓ Staff training guidelines</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="mt-12" aria-labelledby="behavior-plan-faq">
+          <h2 id="behavior-plan-faq" className="text-2xl font-semibold text-slate-900">
+            Behavior Plan Writer FAQ
+          </h2>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            {faqItems.map((item) => (
+              <div key={item.question} className="rounded-2xl border border-slate-200 bg-white p-5">
+                <h3 className="text-base font-semibold text-slate-900">{item.question}</h3>
+                <p className="mt-2 text-sm text-slate-600">{item.answer}</p>
+              </div>
             ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Before & After Example */}
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-12"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 text-center">
-              Before &amp; After Example
-            </h2>
-
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Old BIP */}
-              <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-red-800 mb-6">❌ Traditional BIP:</h3>
-                <p className="text-lg text-slate-700 italic mb-6">
-                  &quot;Use positive reinforcement and redirect when needed.&quot;
-                </p>
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-red-700 mb-3">Issues:</h4>
-                  <p className="text-sm text-red-600">❌ No specific procedures</p>
-                  <p className="text-sm text-red-600">❌ Vague reinforcement schedule</p>
-                  <p className="text-sm text-red-600">❌ No data collection plan</p>
-                  <p className="text-sm text-red-600">❌ Missing staff training</p>
-                  <p className="text-sm text-red-600">❌ No progress monitoring</p>
-                </div>
-              </div>
-
-              {/* Our BIP */}
-              <div className="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-emerald-800 mb-6">✅ BIP Writer Plan:</h3>
-                <p className="text-lg text-slate-700 mb-6">
-                  &quot;Implement token economy with 5-minute intervals, collect frequency data, review weekly.&quot;
-                </p>
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-emerald-700 mb-3">Features:</h4>
-                  <p className="text-sm text-emerald-600">✅ Specific intervention (token economy)</p>
-                  <p className="text-sm text-emerald-600">✅ Clear schedule (5-minute intervals)</p>
-                  <p className="text-sm text-emerald-600">✅ Data collection method (frequency)</p>
-                  <p className="text-sm text-emerald-600">✅ Progress review (weekly)</p>
-                  <p className="text-sm text-emerald-600">✅ Staff training included</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <p className="text-2xl font-bold text-slate-900">
-                Specific. Measurable. Effective.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Who Benefits Section */}
-      <section className="py-16 lg:py-20 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-12"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Who Benefits
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-8 text-center">
-                <div className="text-6xl mb-4">🧑‍⚕️</div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">BCBAs</h3>
-                <p className="text-slate-600">Create comprehensive, evidence-based intervention plans quickly.</p>
-              </div>
-
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 text-center">
-                <div className="text-6xl mb-4">👩‍🏫</div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Teachers</h3>
-                <p className="text-slate-600">Implement clear, actionable strategies that work in real classrooms.</p>
-              </div>
-
-              <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-8 text-center">
-                <div className="text-6xl mb-4">🏫</div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Schools</h3>
-                <p className="text-slate-600">Improve student outcomes and reduce behavioral incidents.</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Key Benefits Section */}
-      <section className="py-16 lg:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div 
-              className="space-y-8"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="space-y-6">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-                  Built for Real Classrooms
-                </h2>
-                <p className="text-xl text-slate-600 leading-relaxed">
-                  BIP Writer was created by school-based BCBAs who understand the challenges of implementing behavior plans in busy educational environments.
-                </p>
-                <ul className="space-y-4">
-                  {[
-                    "Time-saving templates and workflows",
-                    "Evidence-based intervention strategies", 
-                    "Clear implementation guidelines",
-                    "Progress monitoring tools"
-                  ].map((item, index) => (
-                    <motion.li 
-                      key={index}
-                      className="flex items-center gap-4 text-lg text-slate-700"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                    >
-                      <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Check className="w-4 h-4 text-white" />
-                      </div>
-                      {item}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              className="relative"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="bg-white rounded-2xl p-8 shadow-2xl">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-400 rounded-xl flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900">BIP Dashboard</h3>
-                    <p className="text-slate-600">Track implementation and progress</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  {[
-                    { label: "Plan Management", value: "Organized", color: "orange" },
-                    { label: "Progress Tracking", value: "Visual", color: "emerald" },
-                    { label: "Implementation", value: "Systematic", color: "blue" },
-                    { label: "Staff Support", value: "Ongoing", color: "purple" }
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between p-4 rounded-lg bg-slate-50">
-                      <span className="font-medium text-slate-900">{item.label}</span>
-                      <span className={`font-semibold text-${item.color}-600`}>{item.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-16 lg:py-20 bg-gradient-to-br from-orange-600 to-orange-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
-              Be the First to Know When BIP Writer Launches
-            </h2>
-            <p className="text-xl text-orange-100 max-w-2xl mx-auto">
-              Join other BCBAs and educators who want to transform how they create behavior intervention plans.
-            </p>
-            
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a 
-                href="#"
-                className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-orange-600 hover:bg-slate-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-              >
-                <Bell className="w-5 h-5 mr-2" />
-                Join the Waitlist
-              </a>
-            </motion.div>
-            
-            <div className="space-y-2">
-              <p className="text-orange-200 text-sm">
-                Get early access • Beta pricing • No spam, unsubscribe anytime
-              </p>
-              <div className="flex items-center justify-center gap-6 text-orange-200 text-sm">
-                <span>✓ Early access to beta</span>
-                <span>✓ Special launch pricing</span>
-                <span>✓ Priority support</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Structured Data */}
-      {(() => {
-        const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
-        const webPageJsonLd = {
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          name: "BIP Writer - Coming Soon | Behavior School",
-          url: `${SITE_URL}/behavior-plans`,
-          description: "Coming Soon: AI-powered BIP Writer tool for creating effective behavior intervention plans. Join the waitlist for early access and special launch pricing.",
-          isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Behavior School" },
-        } as const;
-        const breadcrumbJsonLd = {
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Home",
-              item: SITE_URL,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Products",
-              item: `${SITE_URL}/products`,
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "BIP Writer",
-              item: `${SITE_URL}/behavior-plans`,
-            },
-          ],
-        } as const;
-        const faqJsonLd = {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is a Behavior Intervention Plan (BIP)?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "A BIP is a proactive plan that outlines specific strategies, supports, and data collection methods to reduce challenging behavior and teach replacement skills based on functional assessment."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Who uses BIP Writer?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "School BCBAs, school psychologists, and special education teams use BIP Writer to produce consistent, evidence‑based plans with clear implementation steps."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Will BIP Writer include progress monitoring?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes. The tool includes data collection options and review schedules to help teams monitor implementation fidelity and student outcomes over time."
-              }
-            }
-          ]
-        } as const;
-        return (
-          <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-          </>
-        );
-      })()}
-    </div>
+        <section className="mt-12" aria-labelledby="behavior-plan-share">
+          <h2 id="behavior-plan-share" className="text-2xl font-semibold text-slate-900">
+            Share this tool
+          </h2>
+          <ShareButtons title="Behavior Plan Writer" url={pageUrl} className="mt-4" />
+        </section>
+      </article>
+    </main>
   );
 }
