@@ -8395,6 +8395,487 @@
       "revenue": 0,
       "createdAt": "2026-02-13T00:10:00Z",
       "updatedAt": "2026-02-13T00:10:00Z"
+    },
+    {
+      "id": "100",
+      "name": "Shoua Normen",
+      "email": "ShouaNormen@clovisusd.k12.ca.us",
+      "phone": "",
+      "company": "Clovis USD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "101",
+      "name": "Anna Lenz",
+      "email": "AnnaLenz@clovisusd.k12.ca.us",
+      "phone": "",
+      "company": "Clovis USD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "102",
+      "name": "Nannett Retz",
+      "email": "NannettRetz@clovisusd.k12.ca.us",
+      "phone": "",
+      "company": "Clovis USD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "103",
+      "name": "Soleil Burnett",
+      "email": "SoleilBurnett@clovisusd.k12.ca.us",
+      "phone": "",
+      "company": "Clovis USD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "104",
+      "name": "Michelle Talley",
+      "email": "michelletalley@clovisusd.k12.ca.us",
+      "phone": "",
+      "company": "Clovis USD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "105",
+      "name": "Cassie Smith",
+      "email": "cassandrasmith@centralusd.k12.ca.us",
+      "phone": "",
+      "company": "Central USD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "106",
+      "name": "Elizabeth Vandervelde",
+      "email": "evandervelde@kjuhsd.k12.ca.us",
+      "phone": "",
+      "company": "Kerman JUHSD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "107",
+      "name": "Denise Hernandez",
+      "email": "DHernandez@mcsd.k12.ca.us",
+      "phone": "",
+      "company": "MCSD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "108",
+      "name": "Kelly Cousins",
+      "email": "kcousins@nusd.k12.ca.us",
+      "phone": "",
+      "company": "NUSD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "109",
+      "name": "Liz Gutierrez",
+      "email": "lgutierrez@mountpleasant.k12.ca.us",
+      "phone": "",
+      "company": "Mt Pleasant SD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "110",
+      "name": "Sandy Meyer",
+      "email": "smeyer@mountpleasant.k12.ca.us",
+      "phone": "",
+      "company": "Mt Pleasant SD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "111",
+      "name": "Brad Fifer",
+      "email": "fifer_brad@cupertino.k12.ca.us",
+      "phone": "",
+      "company": "Cupertino USD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "112",
+      "name": "Nina Maiden",
+      "email": "NMaiden@ravenswood.k12.ca.us",
+      "phone": "",
+      "company": "Ravenswood CSD",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "113",
+      "name": "Heather Nelson",
+      "email": "Heather.Nelson@fresnounified.org",
+      "phone": "",
+      "company": "Fresno Unified",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "114",
+      "name": "Joe Luppino",
+      "email": "Joe.Luppino@fresnounified.org",
+      "phone": "",
+      "company": "Fresno Unified",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "115",
+      "name": "Melanie Barco",
+      "email": "Melanie.Barco@fresnounified.org",
+      "phone": "",
+      "company": "Fresno Unified",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "116",
+      "name": "Micaela Garcia",
+      "email": "Micaela.Garcia@fresnounified.org",
+      "phone": "",
+      "company": "Fresno Unified",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "117",
+      "name": "Priscilla Fowler",
+      "email": "Priscilla.Fowler@fresnounified.org",
+      "phone": "",
+      "company": "Fresno Unified",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "118",
+      "name": "Sarah EckHart",
+      "email": "Sarah.EckHart@fresnounified.org",
+      "phone": "",
+      "company": "Fresno Unified",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "119",
+      "name": "Tyler Ferreria",
+      "email": "Tyler.Ferreria@fresnounified.org",
+      "phone": "",
+      "company": "Fresno Unified",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "120",
+      "name": "Valorie Rothgarn",
+      "email": "Valorie.Rothgarn@fresnounified.org",
+      "phone": "",
+      "company": "Fresno Unified",
+      "role": "School Staff",
+      "type": "lead",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "School",
+        "BCBA"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "121",
+      "name": "CalABA Public Policy",
+      "email": "publicpolicy@calaba.org",
+      "phone": "",
+      "company": "CalABA",
+      "role": "Public Policy Committee",
+      "type": "partner",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "Organization"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "122",
+      "name": "California PBIS",
+      "email": "info@pbisca.org",
+      "phone": "",
+      "company": "California PBIS Coalition",
+      "role": "Organization",
+      "type": "partner",
+      "source": "email",
+      "status": "new",
+      "tags": [
+        "Organization"
+      ],
+      "notes": "Found in Rob's KCUSD-related email correspondence",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:20:00Z",
+      "updatedAt": "2026-02-13T00:20:00Z"
     }
   ]
 }
