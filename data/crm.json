@@ -8329,6 +8329,72 @@
       "revenue": 0,
       "createdAt": "2026-02-13T00:00:00Z",
       "updatedAt": "2026-02-13T00:00:00Z"
+    },
+    {
+      "id": "100",
+      "name": "Sdew",
+      "email": "Sdew@murrieta.k12.ca.us",
+      "phone": "",
+      "company": "Murrieta Valley USD",
+      "role": "Behavioral Health Support",
+      "type": "lead",
+      "source": "website",
+      "status": "new",
+      "tags": [
+        "BCBA",
+        "School",
+        "Web"
+      ],
+      "notes": "Found on district behavioral health support page",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:10:00Z",
+      "updatedAt": "2026-02-13T00:10:00Z"
+    },
+    {
+      "id": "101",
+      "name": "Jcortez",
+      "email": "jcortez@murrieta.k12.ca.us",
+      "phone": "",
+      "company": "Murrieta Valley USD",
+      "role": "Behavioral Health Support",
+      "type": "lead",
+      "source": "website",
+      "status": "new",
+      "tags": [
+        "BCBA",
+        "School",
+        "Web"
+      ],
+      "notes": "Found on district behavioral health support page",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:10:00Z",
+      "updatedAt": "2026-02-13T00:10:00Z"
+    },
+    {
+      "id": "102",
+      "name": "Lhersh",
+      "email": "lhersh@murrieta.k12.ca.us",
+      "phone": "",
+      "company": "Murrieta Valley USD",
+      "role": "Behavioral Health Support",
+      "type": "lead",
+      "source": "website",
+      "status": "new",
+      "tags": [
+        "BCBA",
+        "School",
+        "Web"
+      ],
+      "notes": "Found on district behavioral health support page",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:10:00Z",
+      "updatedAt": "2026-02-13T00:10:00Z"
     }
   ]
 }
