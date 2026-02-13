@@ -143,13 +143,13 @@ export default function SupervisorsPage() {
             className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12"
           >
             <Link
-              href="https://study.behaviorschool.com"
+              href="https://supervision.behaviorschool.com/rbt"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center px-10 py-5 text-xl font-bold bg-white text-emerald-700 rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300"
             >
-              <PlayCircle className="w-6 h-6 mr-3" />
-              Track Supervisee Progress Now
+              <ClipboardList className="w-6 h-6 mr-3" />
+              Launch RBT Supervision Tracker
               <ExternalLink className="w-6 h-6 ml-3" />
             </Link>
             <Button
