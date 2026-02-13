@@ -248,12 +248,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     dateModified: post.updated_at || post.published_at,
     author: {
       '@type': 'Person',
-      name: 'Rob Spain',
+      name: 'Rob Spain, BCBA, IBA',
       url: 'https://behaviorschool.com/about'
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Behavior School',
+      name: 'BehaviorSchool',
       logo: {
         '@type': 'ImageObject',
         url: 'https://behaviorschool.com/Logos/Logo.webp'

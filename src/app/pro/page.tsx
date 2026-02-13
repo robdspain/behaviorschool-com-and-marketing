@@ -147,6 +147,18 @@ const PRICING = [
 
 const FAQ = [
   {
+    q: "What tools do school BCBAs need?",
+    a: "School BCBAs need tools for behavior assessment (FBAs), intervention planning (BIPs), IEP goal writing, data collection and analysis, progress monitoring, and team collaboration. BehaviorSchool Pro provides AI-powered tools for FBA-to-BIP generation, IEP goal creation, a searchable goal bank with 1,000+ expert-written goals, and ACT-based intervention resources. These tools save hours on documentation while maintaining clinical quality and legal compliance.",
+  },
+  {
+    q: "How can AI help with FBAs and BIPs?",
+    a: "AI can analyze functional behavior assessment data and generate comprehensive, legally-defensible behavior intervention plans in minutes instead of hours. BehaviorSchool Pro's FBA-to-BIP generator takes your assessment data and produces a complete BIP with function-based strategies, data collection plans, and implementation protocols. All outputs are fully editable, ensuring the BCBA maintains professional judgment and clinical decision-making authority while eliminating repetitive writing tasks.",
+  },
+  {
+    q: "Is AI-generated behavior plan content FERPA compliant?",
+    a: "Yes, when implemented correctly. BehaviorSchool Pro never stores student personally identifiable information (PII) on our servers. All AI processing happens in real-time with zero data retention. Our infrastructure uses SOC 2 certified providers with end-to-end encryption. No student data is used to train AI models. We provide Data Privacy Agreements (DPAs) for district procurement teams and full audit logging for administrator oversight.",
+  },
+  {
     q: "Is BehaviorSchool Pro FERPA compliant?",
     a: "Yes. We never store student personally identifiable information (PII) on our servers. All AI processing happens in real-time with zero data retention. Our infrastructure runs on SOC 2 certified providers with end-to-end encryption.",
   },
@@ -507,6 +519,25 @@ export default function ProPage() {
           </FadeInSection>
         </div>
       </section>
+
+      {/* Structured Data - FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ.map((item) => ({
+              "@type": "Question",
+              name: item.q,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: item.a,
+              },
+            })),
+          }),
+        }}
+      />
     </div>
   );
 }

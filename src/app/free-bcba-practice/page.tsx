@@ -460,6 +460,42 @@ export default function FreeBCBAPracticePage() {
           <div className="space-y-6">
             <div className="bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-100 rounded-xl p-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">
+                How many questions are on the BCBA exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                The BCBA exam contains 185 multiple-choice questions, 160 of which are scored and 25 are unscored pilot questions. Candidates have 4 hours to complete the exam. The questions cover all domains of the BACB 6th Edition Task List, including ethics, concepts and principles, measurement, experimental design, behavior-change procedures, assessment, personnel supervision, and implementation.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                What is the BCBA exam pass rate?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                The BCBA exam pass rate varies by year but typically ranges from 60-75% for first-time test takers. The BACB publishes official pass rate statistics annually. Thorough preparation using practice exams, study guides, and reviewing the 6th edition task list significantly increases your chances of passing.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-white border-2 border-purple-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                How do I prepare for the BCBA exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                Effective BCBA exam preparation includes: (1) reviewing the 6th edition task list thoroughly, (2) taking multiple practice exams to identify weak areas, (3) studying core ABA concepts and principles, (4) reviewing ethics code scenarios, and (5) practicing application questions rather than just memorizing definitions. Most successful candidates spend 2-3 months in focused preparation and take at least 3-5 full-length practice exams.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-amber-50 to-white border-2 border-amber-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                What topics are covered on the BCBA exam?
+              </h3>
+              <p className="text-slate-700 leading-relaxed">
+                The BCBA exam covers eight major domains: (A) Ethics & Professional Conduct, (B) Concepts & Principles of Behavior Analysis, (C) Measurement, Data Display & Interpretation, (D) Experimental Design, (E) Behavior-Change Procedures, (F) Behavior Assessment, (G) Personnel Supervision & Management, and (H) Implementation, Management & Supervision. Each domain has specific task list items that outline the knowledge and skills tested.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-100 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
                 Are these BCBA practice questions really free?
               </h3>
               <p className="text-slate-700 leading-relaxed">
@@ -564,10 +600,42 @@ export default function FreeBCBAPracticePage() {
           mainEntity: [
             {
               "@type": "Question",
+              name: "How many questions are on the BCBA exam?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "The BCBA exam contains 185 multiple-choice questions, 160 of which are scored and 25 are unscored pilot questions. Candidates have 4 hours to complete the exam. The questions cover all domains of the BACB 6th Edition Task List, including ethics, concepts and principles, measurement, experimental design, behavior-change procedures, assessment, personnel supervision, and implementation.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "What is the BCBA exam pass rate?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "The BCBA exam pass rate varies by year but typically ranges from 60-75% for first-time test takers. The BACB publishes official pass rate statistics annually. Thorough preparation using practice exams, study guides, and reviewing the 6th edition task list significantly increases your chances of passing.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How do I prepare for the BCBA exam?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Effective BCBA exam preparation includes: (1) reviewing the 6th edition task list thoroughly, (2) taking multiple practice exams to identify weak areas, (3) studying core ABA concepts and principles, (4) reviewing ethics code scenarios, and (5) practicing application questions rather than just memorizing definitions. Most successful candidates spend 2-3 months in focused preparation and take at least 3-5 full-length practice exams.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "What topics are covered on the BCBA exam?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "The BCBA exam covers eight major domains: (A) Ethics & Professional Conduct, (B) Concepts & Principles of Behavior Analysis, (C) Measurement, Data Display & Interpretation, (D) Experimental Design, (E) Behavior-Change Procedures, (F) Behavior Assessment, (G) Personnel Supervision & Management, and (H) Implementation, Management & Supervision. Each domain has specific task list items that outline the knowledge and skills tested.",
+              },
+            },
+            {
+              "@type": "Question",
               name: "Are these BCBA practice questions really free?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes! All 20 questions with detailed explanations are completely free. No credit card or payment required.",
+                text: "Yes! All 20 questions with detailed explanations are completely free. No credit card or payment required. After finishing, you can enter your email to unlock 100+ additional practice questions.",
               },
             },
             {
@@ -575,7 +643,7 @@ export default function FreeBCBAPracticePage() {
               name: "Are these questions aligned to the 6th edition task list?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes. Every question is mapped to specific task list items from the BACB 6th Edition Task List.",
+                text: "Yes. Every question is mapped to specific task list items from the BACB 6th Edition Task List, covering ethics, concepts & principles, measurement, experimental design, behavior-change procedures, assessment, and supervision.",
               },
             },
             {
@@ -583,7 +651,15 @@ export default function FreeBCBAPracticePage() {
               name: "How difficult are these questions compared to the real exam?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Our questions are written by practicing BCBAs and designed to match the complexity and format of the actual BCBA exam.",
+                text: "Our questions are written by practicing BCBAs and designed to match the complexity and format of the actual BCBA exam. They emphasize application and critical thinking, not just rote memorization.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Can I retake the practice quiz?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Absolutely! You can retake the quiz as many times as you want. We recommend reviewing the explanations carefully before retrying to maximize learning.",
               },
             },
           ],

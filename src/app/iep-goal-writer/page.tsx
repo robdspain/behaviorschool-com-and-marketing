@@ -8,24 +8,44 @@ const pageUrl = `${baseUrl}/iep-goal-writer`;
 
 const faqItems = [
   {
+    question: "What is an IEP behavior goal?",
+    answer:
+      "An IEP behavior goal is a measurable objective written into a student's Individualized Education Program that targets specific behaviors needing improvement. It includes baseline data, target criteria, and conditions for success. Effective behavior goals focus on observable actions and include timelines for achievement.",
+  },
+  {
+    question: "How do I write measurable behavior goals for IEPs?",
+    answer:
+      "To write measurable IEP behavior goals, start with a clear definition of the target behavior, establish baseline data, set specific criteria for success (e.g., '4 out of 5 days'), and include conditions under which the behavior should occur. Include fluency, generalization, and maintenance components to ensure the skill transfers across settings and time.",
+  },
+  {
+    question: "What are examples of IEP behavior goals?",
+    answer:
+      "Examples include: 'Student will raise hand before speaking in class 80% of opportunities for 3 consecutive weeks' or 'Student will use calming strategies when frustrated in 4 out of 5 instances across all school settings.' Strong behavior goals specify the behavior, measurement method, success criteria, and timeframe.",
+  },
+  {
+    question: "How many behavior goals should an IEP have?",
+    answer:
+      "Most IEPs include 2-4 behavior goals, though this varies based on student needs. Focus on priority behaviors that significantly impact learning or safety rather than creating too many goals. Quality and achievability matter more than quantity.",
+  },
+  {
     question: "Who is the IEP Goal Writer for?",
     answer:
-      "It is built for special educators, school-based BCBAs, and support staff who need a fast, values-aligned behavior goal.",
+      "It is built for special educators, school-based BCBAs, and support staff who need a fast, values-aligned behavior goal. The tool is designed for professionals working in K-12 settings who need to create research-backed IEP goals efficiently.",
   },
   {
     question: "What makes this different from a generic IEP goal template?",
     answer:
-      "It starts with student values, then walks you through baseline, target, fluency, generalization, and maintenance so goals are actionable and measurable.",
+      "It starts with student values, then walks you through baseline, target, fluency, generalization, and maintenance so goals are actionable and measurable. This values-based approach ensures goals are personally meaningful to students, increasing motivation and engagement.",
   },
   {
     question: "Can I use the output in an IEP meeting?",
     answer:
-      "Yes. The tool produces a copy-ready goal statement with baseline and maintenance language you can refine for the team.",
+      "Yes. The tool produces a copy-ready goal statement with baseline and maintenance language you can refine for the team. All generated goals follow SMART criteria and include the components required for legally compliant IEPs.",
   },
   {
     question: "Is it free to use?",
     answer:
-      "Yes. No registration is required to generate a goal.",
+      "Yes. No registration is required to generate a goal. You can create unlimited IEP behavior goals at no cost.",
   },
 ];
 
