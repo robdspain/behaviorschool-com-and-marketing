@@ -14,7 +14,7 @@ tags:
   - blog
 status: published
 meta_title: "Function-Based BIPs: Beyond the Basics | BehaviorSchool"
-meta_description: "Advanced guide to building function-based BIPs in schools. Covers IISCA, Skill-Based Treatment, competition analysis, implementation fidelity, and what to do when the FBA is wrong."
+meta_description: "Advanced guide to function-based BIPs in schools. IISCA, Skill-Based Treatment, competition analysis, and implementation tips."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*

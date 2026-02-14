@@ -12,7 +12,7 @@ tags:
 status: published
 slug: "values-vs-preference-assessments-in-school-based-aba-interventions"
 meta_title: "Values vs Preference Assessments | ABA in Schools"
-meta_description: "Understand when to use values assessments vs preference assessments in school-based ABA. Learn how values-based interventions improve adolescent engagement and long-term behavior change."
+meta_description: "When to use values vs preference assessments in school ABA. How values-based interventions improve engagement and behavior change."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*

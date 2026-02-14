@@ -12,7 +12,7 @@ tags:
 status: published
 slug: "functional-behavior-assessment-in-public-schools"
 meta_title: "FBA Tools & Methods for Schools | BehaviorSchool"
-meta_description: "Evidence-based functional behavior assessment tools for schools: indirect assessments (MAS, QABF), ABC observation, functional analysis, and PFA. Complete guide with implementation tips."
+meta_description: "Evidence-based FBA tools for schools: MAS, QABF, ABC observation, functional analysis, and PFA. Complete implementation guide."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*

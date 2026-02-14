@@ -12,7 +12,7 @@ tags:
 status: published
 slug: "integrating-skill-based-treatment-sbt-and-acceptance-commitment-training-act-in-schools"
 meta_title: "SBT + ACT in Schools | Evidence-Based Guide"
-meta_description: "Integrate Skill-Based Treatment and Acceptance & Commitment Training in schools. Evidence-based strategies, AIM curriculum implementation, and practical examples for BCBAs."
+meta_description: "Integrate SBT and ACT in schools. Evidence-based strategies, AIM curriculum implementation, and practical BCBA examples."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*

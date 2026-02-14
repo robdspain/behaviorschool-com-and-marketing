@@ -12,7 +12,7 @@ tags:
   - blog
 status: published
 meta_title: "How to Write an FBA: Step-by-Step | BehaviorSchool"
-meta_description: "Complete guide to writing a functional behavior assessment (FBA) in schools. Step-by-step process, data collection methods, and how to link FBA results to effective behavior intervention plans."
+meta_description: "Complete guide to writing an FBA in schools. Step-by-step process, data collection, and linking to effective BIPs."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*

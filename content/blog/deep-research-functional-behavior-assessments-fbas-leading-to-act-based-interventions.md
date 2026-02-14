@@ -12,7 +12,7 @@ tags:
 status: published
 slug: "functional-behavior-assessments-fbas-leading-to-act-based-interventions"
 meta_title: "FBAs Leading to ACT Interventions | BehaviorSchool"
-meta_description: "How to integrate Acceptance and Commitment Training (ACT) with functional behavior assessment. Evidence-based ACT interventions for internalizing behaviors in schools."
+meta_description: "Integrate ACT with functional behavior assessment. Evidence-based interventions for internalizing behaviors in schools."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*

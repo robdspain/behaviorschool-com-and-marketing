@@ -12,7 +12,7 @@ tags:
 status: published
 slug: "linking-skinner-s-teaching-machines-to-modern-adaptive-instructional-design"
 meta_title: "Skinner's Teaching Machines to Adaptive Learning"
-meta_description: "From Skinner's 1950s teaching machines to modern AI-powered adaptive learning. Explore how behavior analytic principles shaped educational technology and personalized instruction."
+meta_description: "From Skinner's 1950s teaching machines to AI adaptive learning. How behavior analytic principles shaped educational technology."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*

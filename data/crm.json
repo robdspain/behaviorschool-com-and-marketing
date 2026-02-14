@@ -8876,6 +8876,50 @@
       "revenue": 0,
       "createdAt": "2026-02-13T00:20:00Z",
       "updatedAt": "2026-02-13T00:20:00Z"
+    },
+    {
+      "id": "423",
+      "name": "T. Janiszewski",
+      "email": "tjaniszewski@lcesc.org",
+      "phone": "",
+      "company": "LCESC",
+      "role": "Educator",
+      "type": "lead",
+      "source": "google-sheets-share",
+      "status": "new",
+      "tags": [
+        "School",
+        "Lead",
+        "ABC-Sheet"
+      ],
+      "notes": "Requested access to Structured Customizable ABC Score Sheet (Feb 2025)",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:00:00Z",
+      "updatedAt": "2026-02-13T00:00:00Z"
+    },
+    {
+      "id": "424",
+      "name": "Samantha Brawley",
+      "email": "samanthabrawley@quincypublicschools.com",
+      "phone": "",
+      "company": "Quincy Public Schools",
+      "role": "Educator",
+      "type": "lead",
+      "source": "google-sheets-share",
+      "status": "new",
+      "tags": [
+        "School",
+        "Lead",
+        "ABC-Sheet"
+      ],
+      "notes": "Requested access to Structured Customizable ABC Score Sheet (Feb 2025)",
+      "lastContactDate": "",
+      "stripeCustomerId": null,
+      "revenue": 0,
+      "createdAt": "2026-02-13T00:00:00Z",
+      "updatedAt": "2026-02-13T00:00:00Z"
     }
   ]
 }

@@ -12,7 +12,7 @@ tags:
   - blog
 status: published
 meta_title: "Trauma-Informed ABA in Schools | Practical Guide"
-meta_description: "Trauma-informed behavior analysis for schools: assess trauma impact, design trauma-assumed interventions, and integrate safety, choice, and relationship-building into FBAs and BIPs."
+meta_description: "Trauma-informed ABA for schools: assess trauma impact, design interventions, and integrate safety into FBAs and BIPs."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain.*
