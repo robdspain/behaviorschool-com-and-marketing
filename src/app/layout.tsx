@@ -8,6 +8,7 @@ import PerformanceOptimizer from "@/components/PerformanceOptimizer";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 import Script from "next/script";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
+import { RevenueBanner } from "@/components/ui/revenue-banner";
 
 // Ensure OG image URLs never resolve to localhost in production crawls
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
@@ -507,7 +508,8 @@ export default function RootLayout({
           Skip to content
         </a>
         <ToastProvider>
-          <div className="min-h-screen flex flex-col w-full max-w-full">
+          <div className="min-h-screen flex flex-col w-full max-w-full pt-10">
+            <RevenueBanner />
             <ConditionalNavBar />
             <ScrollProgressBar />
             <main id="main-content" role="main" aria-label="Main Content" className="flex-1 w-full max-w-full">{children}</main>

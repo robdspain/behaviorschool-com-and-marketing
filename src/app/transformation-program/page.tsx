@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -109,6 +109,32 @@ const curriculumData = [
 ];
 
 export default function TransformationProgramPage() {
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  async function handleWaitlistSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const payload = {
+      name: String(formData.get("name") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      role: String(formData.get("role") || "").trim(),
+    };
+
+    setFormStatus("loading");
+    try {
+      const res = await fetch("/api/accelerator-waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setFormStatus("success");
+      form.reset();
+    } catch (err) {
+      setFormStatus("error");
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white relative">
@@ -334,6 +360,46 @@ export default function TransformationProgramPage() {
             ctaLink="/signup"
             ctaLabel="SECURE YOUR SPOT NOW"
           />
+
+          <div className="mt-14 max-w-2xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 shadow-xl">
+            <h3 className="text-2xl font-black text-slate-900 mb-2">Join the School BCBA Accelerator Waitlist</h3>
+            <p className="text-slate-600 mb-6">Get first access, pricing details, and cohort dates. No spam.</p>
+            <form onSubmit={handleWaitlistSubmit} className="grid gap-4 text-left">
+              <div className="grid gap-2">
+                <label className="text-sm font-semibold text-slate-700" htmlFor="name">Name</label>
+                <input id="name" name="name" type="text" className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900" placeholder="Your name" />
+              </div>
+              <div className="grid gap-2">
+                <label className="text-sm font-semibold text-slate-700" htmlFor="email">Email</label>
+                <input id="email" name="email" type="email" required className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900" placeholder="you@email.com" />
+              </div>
+              <div className="grid gap-2">
+                <label className="text-sm font-semibold text-slate-700" htmlFor="role">Role</label>
+                <select id="role" name="role" className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900">
+                  <option value="">Select one</option>
+                  <option value="School BCBA">School BCBA</option>
+                  <option value="Behavior Specialist">Behavior Specialist</option>
+                  <option value="BCBA Student">BCBA Student</option>
+                  <option value="Administrator">Administrator</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <button type="submit" className="mt-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-3">
+                {formStatus === "loading" ? "Submitting..." : "Join Waitlist"}
+              </button>
+              {formStatus === "success" && (
+                <p className="text-emerald-700 text-sm font-semibold">You are on the list. Check your inbox soon.</p>
+              )}
+              {formStatus === "error" && (
+                <p className="text-red-600 text-sm font-semibold">Something went wrong. Try again in a moment.</p>
+              )}
+            </form>
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
+              <Link href="/contact" className="text-emerald-700 font-semibold hover:underline">Book a 15-minute call</Link>
+              <span className="text-slate-400">|</span>
+              <Link href="/calaba-2026" className="text-emerald-700 font-semibold hover:underline">See CalABA 2026 offer</Link>
+            </div>
+          </div>
         </div>
       </section>
 
