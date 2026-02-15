@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +10,9 @@ import { ProgressIndicator } from "./ProgressIndicator";
 import { TemplateSelector } from "./TemplateSelector";
 import { ValueCard } from "./ValueCard";
 import type { GoalTemplate } from "./goalTemplates";
+import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
+import { Copy, Printer, RotateCcw, Check, Sparkles, ArrowRight, ArrowLeft } from "lucide-react";
 
 const valueOptions = [
   { emoji: "💛", label: "Kind", description: "Caring about others" },
@@ -68,6 +71,15 @@ export function GoalWriterWizard() {
   const [maintenanceWeeks, setMaintenanceWeeks] = useState(4);
   const [generatedGoal, setGeneratedGoal] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  // Scroll to top when step changes
+  useEffect(() => {
+    const wizardTop = document.getElementById("wizard-top");
+    if (wizardTop && !showTemplates) {
+      wizardTop.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [currentStep, showTemplates]);
 
   const valueLabel = useMemo(() => {
     if (selectedValue.label === "Custom Value") {
@@ -145,14 +157,24 @@ export function GoalWriterWizard() {
   };
 
   const handleGenerate = () => {
-    const goal = buildGoal();
-    console.log("iep_goal_writer_generate", {
-      value: valueLabel,
-      behaviorType,
-      measurementMethod,
-    });
-    setGeneratedGoal(goal);
-    setCopied(false);
+    setIsGenerating(true);
+    // Simulate thinking/generating time for effect
+    setTimeout(() => {
+      const goal = buildGoal();
+      console.log("iep_goal_writer_generate", {
+        value: valueLabel,
+        behaviorType,
+        measurementMethod,
+      });
+      setGeneratedGoal(goal);
+      setCopied(false);
+      setIsGenerating(false);
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }, 600);
   };
 
   const handleCopy = async () => {
@@ -227,379 +249,439 @@ export function GoalWriterWizard() {
     valueLabel,
   ]);
 
-  return (
-    <div className="rounded-3xl border border-emerald-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
-      <div className="border-b border-emerald-100 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 px-6 py-6 text-white">
-        <div className="flex flex-col gap-2">
-          <span className="text-xs uppercase tracking-[0.3em] text-emerald-100">Values Wizard</span>
-          <h2 className="text-2xl font-semibold sm:text-3xl">IEP Goal Writer</h2>
-          <p className="text-sm text-emerald-50/90">
-            Build a Level 5 SMART behavior goal in five focused steps.
-          </p>
+  if (showTemplates) {
+    return (
+      <div id="wizard-top" className="rounded-3xl border border-emerald-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
+        <div className="border-b border-emerald-100 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 px-6 py-8 text-white">
+          <div className="flex flex-col gap-2">
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-emerald-100">Values Wizard</span>
+            <h2 className="text-3xl font-bold sm:text-4xl">IEP Goal Writer</h2>
+            <p className="text-base text-emerald-50/90 sm:text-lg">
+              Build a Level 5 SMART behavior goal in five focused steps.
+            </p>
+          </div>
+        </div>
+        <div className="px-6 py-8">
+          <TemplateSelector
+            onSelect={applyTemplate}
+            onSkip={() => setShowTemplates(false)}
+          />
         </div>
       </div>
+    );
+  }
 
-      <div className="px-6 py-6">
-        {showTemplates ? (
-          <div className="space-y-6">
-            <TemplateSelector
-              onSelect={applyTemplate}
-              onSkip={() => setShowTemplates(false)}
-            />
-          </div>
-        ) : (
-        <>
-        {activeTemplate && (
-          <div className="mb-4 flex items-center justify-between rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-3">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">{activeTemplate.emoji}</span>
-              <span className="text-sm font-semibold text-emerald-800">Template: {activeTemplate.title}</span>
+  if (generatedGoal) {
+    return (
+      <div id="wizard-top" className="mx-auto max-w-3xl animate-in fade-in zoom-in-95 duration-500">
+        <div className="overflow-hidden rounded-3xl border border-emerald-200 bg-white shadow-2xl shadow-emerald-900/10">
+          <div className="border-b border-emerald-100 bg-emerald-50/50 px-8 py-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="flex items-center gap-2 text-2xl font-bold text-emerald-950">
+                  <Sparkles className="h-6 w-6 text-emerald-600" />
+                  Goal Generated
+                </h2>
+                <p className="mt-1 text-emerald-800">Here is your research-backed, values-aligned IEP goal.</p>
+              </div>
+              <span className="hidden rounded-full bg-emerald-100 px-4 py-1.5 text-sm font-bold text-emerald-800 sm:inline-block">
+                Level 5 SMART Goal
+              </span>
             </div>
-            <button
-              type="button"
-              onClick={() => { setShowTemplates(true); setActiveTemplate(null); }}
-              className="text-xs font-semibold text-emerald-700 hover:text-emerald-900"
-            >
-              Change
-            </button>
           </div>
-        )}
-        <div className="mb-6 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-4">
-          <ProgressIndicator steps={steps} currentStep={currentStep} />
-        </div>
+          
+          <div className="px-8 py-8">
+            <div className="relative rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="absolute -top-3 left-4 bg-white px-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+                Official Document Preview
+              </div>
+              <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed text-slate-800">{generatedGoal}</pre>
+            </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white px-4 py-5 sm:px-6">
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Button onClick={handleCopy} className="h-12 flex-1 gap-2 bg-emerald-600 text-base font-semibold hover:bg-emerald-700 shadow-lg shadow-emerald-900/20">
+                {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
+                {copied ? "Copied to Clipboard" : "Copy Goal"}
+              </Button>
+              <Button variant="outline" onClick={handlePrint} className="h-12 flex-1 gap-2 border-slate-300 text-slate-700 hover:bg-slate-50">
+                <Printer className="h-5 w-5" /> Print/PDF
+              </Button>
+              <Button variant="ghost" onClick={handleReset} className="h-12 gap-2 text-slate-500 hover:text-slate-900">
+                <RotateCcw className="h-5 w-5" /> Start Over
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div id="wizard-top" className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+      {/* Left Column: Wizard Inputs */}
+      <div className="rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50">
+        
+        {/* Header */}
+        <div className="border-b border-slate-100 px-6 py-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">Step {currentStep + 1} of 5</p>
-              <h3 className="text-lg font-semibold text-slate-900 sm:text-xl">{steps[currentStep]}</h3>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Step {currentStep + 1} of 5</p>
+              <h3 className="text-xl font-bold text-slate-900">{steps[currentStep]}</h3>
             </div>
-            <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-              {steps[currentStep]} Focus
-            </span>
+            {activeTemplate && (
+              <div className="hidden items-center gap-2 rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700 sm:flex">
+                <span>{activeTemplate.emoji}</span>
+                <span>Template Active</span>
+              </div>
+            )}
           </div>
+          <div className="mt-4">
+            <ProgressIndicator steps={steps} currentStep={currentStep} />
+          </div>
+        </div>
 
-          <div className="mt-5 space-y-6">
-            {currentStep === 0 && (
-              <div className="space-y-5">
-                <div>
-                  <p className="text-sm text-slate-600">What matters most to this student?</p>
-                  <p className="text-xs text-slate-500">Choose a value the student wants to grow in.</p>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                  {valueOptions.map((value) => (
-                    <ValueCard
-                      key={value.label}
-                      emoji={value.emoji}
-                      label={value.label}
-                      description={value.description}
-                      selected={selectedValue.label === value.label}
-                      onClick={() => {
-                        console.log("iep_goal_writer_value_select", { value: value.label });
-                        setSelectedValue(value);
-                      }}
-                    />
-                  ))}
-                </div>
-                {selectedValue.label === "Custom Value" && (
-                  <div className="space-y-2">
-                    <Label htmlFor="custom-value" className="text-sm font-semibold">Custom Value</Label>
-                    <Input
-                      id="custom-value"
-                      value={customValue}
-                      onChange={(event) => {
-                        setCustomValue(event.target.value);
-                      }}
-                      placeholder="Perseverance, self-advocacy, teamwork..."
-                    />
+        {/* Input Area */}
+        <div className="px-6 py-6 min-h-[400px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
+              {currentStep === 0 && (
+                <div className="space-y-5">
+                  <div>
+                    <p className="text-sm font-medium text-slate-700">What matters most to this student?</p>
+                    <p className="text-sm text-slate-500">Choose a value the student wants to grow in.</p>
                   </div>
-                )}
-                <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-800">
-                  Selected: <span className="font-semibold">{selectedValue.emoji} {valueLabel}</span>
-                </div>
-              </div>
-            )}
-
-            {currentStep === 1 && (
-              <div className="space-y-5">
-                <div className="flex flex-wrap gap-3">
-                  {["increase", "decrease"].map((type) => (
-                    <button
-                      key={type}
-                      type="button"
-                      onClick={() => {
-                        console.log("iep_goal_writer_behavior_type", { type });
-                        setBehaviorType(type as BehaviorType);
-                      }}
-                      className={cn(
-                        "flex-1 rounded-xl border px-4 py-3 text-sm font-semibold transition",
-                        behaviorType === type
-                          ? "border-emerald-600 bg-emerald-50 text-emerald-700"
-                          : "border-slate-200 bg-white text-slate-600 hover:border-emerald-300"
-                      )}
-                    >
-                      {type === "increase" ? "Increase a Positive Behavior" : "Decrease a Problem Behavior"}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="behavior-input" className="text-sm font-semibold">Target Behavior</Label>
-                  <Input
-                    id="behavior-input"
-                    value={behavior}
-                    onChange={(event) => setBehavior(event.target.value)}
-                    placeholder={behaviorType === "increase"
-                      ? "Using kind words with peers when upset"
-                      : "Yelling at peers"
-                    }
-                  />
-                </div>
-
-                {behaviorType === "decrease" && (
-                  <div className="space-y-2">
-                    <Label htmlFor="replacement-input" className="text-sm font-semibold">Replacement Behavior</Label>
-                    <Input
-                      id="replacement-input"
-                      value={replacementBehavior}
-                      onChange={(event) => setReplacementBehavior(event.target.value)}
-                      placeholder="Using a calm voice to express frustration"
-                    />
-                    <p className="text-xs text-emerald-700">ABA tip: teach a replacement behavior, not just reduction.</p>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {currentStep === 2 && (
-              <div className="space-y-5">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="baseline" className="text-sm font-semibold">Baseline (Current)</Label>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        id="baseline"
-                        type="number"
-                        min={0}
-                        max={100}
-                        value={baseline}
-                        onChange={(event) => setBaseline(Number(event.target.value))}
+                  <div className="grid gap-3 grid-cols-2">
+                    {valueOptions.map((value) => (
+                      <ValueCard
+                        key={value.label}
+                        emoji={value.emoji}
+                        label={value.label}
+                        description={value.description}
+                        selected={selectedValue.label === value.label}
+                        onClick={() => setSelectedValue(value)}
                       />
-                      <span className="text-sm font-semibold text-slate-600">%</span>
-                    </div>
-                    <p className="text-xs text-slate-500">Current performance level.</p>
+                    ))}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="target" className="text-sm font-semibold">Target (Goal)</Label>
-                    <div className="flex items-center gap-2">
+                  {selectedValue.label === "Custom Value" && (
+                    <div className="space-y-2 pt-2">
+                      <Label htmlFor="custom-value">Custom Value</Label>
                       <Input
-                        id="target"
-                        type="number"
-                        min={0}
-                        max={100}
-                        value={target}
-                        onChange={(event) => setTarget(Number(event.target.value))}
+                        id="custom-value"
+                        value={customValue}
+                        onChange={(e) => setCustomValue(e.target.value)}
+                        placeholder="Perseverance, self-advocacy..."
+                        className="h-11"
+                        autoFocus
                       />
-                      <span className="text-sm font-semibold text-slate-600">%</span>
                     </div>
-                    <p className={cn("text-xs", target < 80 ? "text-amber-600" : "text-slate-500")}>
-                      {target < 80 ? "Consider 80%+ for lasting change." : "90%+ recommended for retention."}
+                  )}
+                </div>
+              )}
+
+              {currentStep === 1 && (
+                <div className="space-y-6">
+                  <div className="flex gap-3">
+                    {(["increase", "decrease"] as const).map((type) => (
+                      <button
+                        key={type}
+                        onClick={() => setBehaviorType(type)}
+                        className={cn(
+                          "flex-1 rounded-xl border p-4 text-left transition-all",
+                          behaviorType === type
+                            ? "border-emerald-600 bg-emerald-50 ring-1 ring-emerald-600"
+                            : "border-slate-200 hover:border-emerald-300"
+                        )}
+                      >
+                        <div className="font-semibold text-slate-900">
+                          {type === "increase" ? "Increase Behavior" : "Decrease Behavior"}
+                        </div>
+                        <div className="text-xs text-slate-500 mt-1">
+                          {type === "increase" ? "Build a positive skill" : "Reduce a problem behavior"}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="behavior-input">Target Behavior</Label>
+                    <Input
+                      id="behavior-input"
+                      value={behavior}
+                      onChange={(e) => setBehavior(e.target.value)}
+                      placeholder={behaviorType === "increase" ? "Raising hand, asking for help..." : "Yelling, hitting, eloping..."}
+                      className="h-11"
+                      autoFocus
+                    />
+                  </div>
+
+                  {behaviorType === "decrease" && (
+                    <div className="space-y-2 rounded-xl bg-emerald-50/50 p-4 border border-emerald-100">
+                      <Label htmlFor="replacement-input" className="text-emerald-900">Replacement Behavior (FERPA Best Practice)</Label>
+                      <Input
+                        id="replacement-input"
+                        value={replacementBehavior}
+                        onChange={(e) => setReplacementBehavior(e.target.value)}
+                        placeholder="Using a break card, deep breathing..."
+                        className="h-11 bg-white"
+                      />
+                      <p className="text-xs text-emerald-700 pt-1">Always teach what to do *instead*.</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {currentStep === 2 && (
+                <div className="space-y-6">
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="baseline">Baseline (Current Level)</Label>
+                      <div className="relative">
+                        <Input
+                          id="baseline"
+                          type="number"
+                          min={0}
+                          max={100}
+                          value={baseline}
+                          onChange={(e) => setBaseline(Number(e.target.value))}
+                          className="h-11 pr-8"
+                        />
+                        <span className="absolute right-3 top-3 text-slate-400">%</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="target">Target Goal</Label>
+                      <div className="relative">
+                        <Input
+                          id="target"
+                          type="number"
+                          min={0}
+                          max={100}
+                          value={target}
+                          onChange={(e) => setTarget(Number(e.target.value))}
+                          className="h-11 pr-8"
+                        />
+                        <span className="absolute right-3 top-3 text-slate-400">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label>Measurement Method</Label>
+                    <div className="grid gap-2">
+                      {measurementOptions.map((option) => (
+                        <label
+                          key={option}
+                          className={cn(
+                            "flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors",
+                            measurementMethod === option
+                              ? "border-emerald-500 bg-emerald-50/50"
+                              : "border-slate-200 hover:bg-slate-50"
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            name="measurement"
+                            checked={measurementMethod === option}
+                            onChange={() => setMeasurementMethod(option)}
+                            className="h-4 w-4 text-emerald-600 focus:ring-emerald-500"
+                          />
+                          <span className="text-sm font-medium text-slate-700">{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {currentStep === 3 && (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between rounded-xl border border-slate-200 p-4">
+                    <div>
+                      <p className="font-semibold text-slate-900">Fluency Requirement</p>
+                      <p className="text-sm text-slate-500">Require quick response time?</p>
+                    </div>
+                    <Switch checked={fluencyEnabled} onCheckedChange={setFluencyEnabled} />
+                  </div>
+
+                  <AnimatePresence>
+                    {fluencyEnabled && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-2 pb-2">
+                          <Label htmlFor="fluency">Response Latency (seconds)</Label>
+                          <Input
+                            id="fluency"
+                            type="number"
+                            min={1}
+                            max={60}
+                            value={fluencySeconds}
+                            onChange={(e) => setFluencySeconds(Number(e.target.value))}
+                            className="h-11"
+                          />
+                          <p className="text-xs text-slate-500">Student must respond within this time.</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div className="space-y-3">
+                    <Label>Generalization Settings (Select multiple)</Label>
+                    <div className="grid gap-2 max-h-[240px] overflow-y-auto pr-2">
+                      {generalizationOptions.map((setting) => (
+                        <label
+                          key={setting}
+                          className={cn(
+                            "flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors",
+                            generalization.includes(setting)
+                              ? "border-emerald-500 bg-emerald-50/50"
+                              : "border-slate-200 hover:bg-slate-50"
+                          )}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={generalization.includes(setting)}
+                            onChange={() => updateGeneralization(setting)}
+                            className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                          />
+                          <span className="text-sm font-medium text-slate-700">{setting}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {currentStep === 4 && (
+                <div className="space-y-8">
+                  <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-5">
+                    <h4 className="font-semibold text-emerald-900">Final Polish</h4>
+                    <p className="text-sm text-emerald-700 mt-1">
+                      Maintenance ensures the skill sticks. Research suggests 4+ weeks.
                     </p>
                   </div>
-                </div>
 
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">Measurement Method</p>
-                    <p className="text-xs text-slate-500">How will progress be tracked?</p>
-                  </div>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    {measurementOptions.map((option) => (
-                      <label
-                        key={option}
-                        className={cn(
-                          "flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition",
-                          measurementMethod === option
-                            ? "border-emerald-500 bg-emerald-50 text-emerald-800"
-                            : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200"
-                        )}
-                      >
-                        <input
-                          type="radio"
-                          name="measurement-method"
-                          checked={measurementMethod === option}
-                          onChange={() => {
-                            console.log("iep_goal_writer_measurement_select", { method: option });
-                            setMeasurementMethod(option);
-                          }}
-                          className="h-4 w-4 border-slate-300 text-emerald-600"
-                        />
-                        {option}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {currentStep === 3 && (
-              <div className="space-y-6">
-                <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">Fluency Requirement</p>
-                    <p className="text-xs text-slate-500">Should the student respond quickly?</p>
-                  </div>
-                  <Switch checked={fluencyEnabled} onCheckedChange={setFluencyEnabled} />
-                </div>
-
-                {fluencyEnabled && (
-                  <div className="space-y-2">
-                    <Label htmlFor="fluency" className="text-sm font-semibold">Response Time (seconds)</Label>
-                    <Input
-                      id="fluency"
-                      type="number"
-                      min={1}
-                      max={60}
-                      value={fluencySeconds}
-                      onChange={(event) => setFluencySeconds(Number(event.target.value))}
-                    />
-                  </div>
-                )}
-
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">Generalization Settings</p>
-                    <p className="text-xs text-slate-500">Pick at least 3 settings for best results.</p>
-                  </div>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    {generalizationOptions.map((setting) => (
-                      <label
-                        key={setting}
-                        className={cn(
-                          "flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition",
-                          generalization.includes(setting)
-                            ? "border-emerald-500 bg-emerald-50 text-emerald-800"
-                            : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200"
-                        )}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={generalization.includes(setting)}
-                          onChange={() => updateGeneralization(setting)}
-                          className="h-4 w-4 rounded border-slate-300 text-emerald-600"
-                        />
-                        {setting}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {currentStep === 4 && (
-              <div className="space-y-6">
-                <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-4">
-                  <p className="text-sm font-semibold text-emerald-800">Maintenance Period</p>
-                  <p className="text-xs text-emerald-700">How long should the skill last after mastery?</p>
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="maintenance" className="text-sm font-semibold">Weeks of Maintenance</Label>
-                  <div className="flex items-center gap-3">
+                  <div className="space-y-4">
+                    <div className="flex justify-between">
+                      <Label htmlFor="maintenance">Maintenance Period</Label>
+                      <span className="font-bold text-emerald-700">{maintenanceWeeks} Weeks</span>
+                    </div>
                     <input
                       id="maintenance"
                       type="range"
                       min={2}
                       max={8}
+                      step={1}
                       value={maintenanceWeeks}
-                      onChange={(event) => setMaintenanceWeeks(Number(event.target.value))}
-                      className="w-full accent-emerald-600"
+                      onChange={(e) => setMaintenanceWeeks(Number(e.target.value))}
+                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
                     />
-                    <span className="min-w-[52px] rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">
-                      {maintenanceWeeks} wks
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-500">Research recommends 4+ weeks for lasting behavior change.</p>
-                </div>
-
-                <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
-                  Goal will include baseline, fluency, generalization, and maintenance for a Level 5 SMART goal.
-                </div>
-
-                {generatedGoal && (
-                  <div className="space-y-4 rounded-2xl border border-emerald-200 bg-emerald-50/40 px-4 py-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-semibold text-emerald-900">Your Level 5 SMART Goal</p>
-                        <p className="text-xs text-emerald-700">Ready to copy into your IEP software.</p>
-                      </div>
-                      <span className="rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">Level 5</span>
-                    </div>
-                    <pre className="whitespace-pre-wrap rounded-xl border border-emerald-100 bg-white px-4 py-3 text-sm text-emerald-900">{generatedGoal}</pre>
-                    <div className="flex flex-wrap gap-3">
-                      <Button onClick={handleCopy} className="bg-emerald-600 hover:bg-emerald-700">
-                        {copied ? "Copied!" : "Copy Goal"}
-                      </Button>
-                      <Button variant="outline" onClick={handlePrint}>Print/PDF</Button>
-                      <Button variant="outline" onClick={handleReset}>Start Over</Button>
+                    <div className="flex justify-between text-xs text-slate-400">
+                      <span>2 Weeks</span>
+                      <span>8 Weeks</span>
                     </div>
                   </div>
-                )}
-              </div>
-            )}
-          </div>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <Button variant="outline" onClick={onBack} disabled={currentStep === 0}>
-            Back
+        {/* Footer Actions */}
+        <div className="flex items-center justify-between border-t border-slate-100 bg-slate-50/50 px-6 py-4 rounded-b-3xl">
+          <Button variant="ghost" onClick={onBack} disabled={currentStep === 0} className="gap-2 pl-0 hover:pl-2 transition-all">
+            <ArrowLeft className="h-4 w-4" /> Back
           </Button>
-          <div className="flex flex-1 items-center justify-end gap-3">
-            {currentStep < steps.length - 1 && (
-              <Button onClick={onNext} disabled={!isStepValid[currentStep]}>
-                Next
-              </Button>
-            )}
-            {currentStep === steps.length - 1 && (
-              <Button
-                onClick={handleGenerate}
-                className="bg-emerald-600 hover:bg-emerald-700"
-                disabled={!isStepValid[currentStep]}
-              >
-                Generate Goal
-              </Button>
-            )}
-          </div>
+          
+          {currentStep < steps.length - 1 ? (
+            <Button onClick={onNext} disabled={!isStepValid[currentStep]} className="gap-2 bg-slate-900 hover:bg-slate-800">
+              Next Step <ArrowRight className="h-4 w-4" />
+            </Button>
+          ) : (
+            <Button 
+              onClick={handleGenerate} 
+              disabled={!isStepValid[currentStep] || isGenerating}
+              className="gap-2 bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-600/20"
+            >
+              {isGenerating ? (
+                <>Building Goal...</>
+              ) : (
+                <>Generate Goal <Sparkles className="h-4 w-4" /></>
+              )}
+            </Button>
+          )}
         </div>
+      </div>
 
-        <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-semibold text-slate-900">Live Goal Preview</p>
-              <p className="text-xs text-slate-500">Updates automatically as you complete each step.</p>
+      {/* Right Column: Sticky Preview */}
+      <div className="space-y-6 lg:sticky lg:top-24">
+        {/* Live Document Preview */}
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="border-b border-slate-100 bg-slate-50 px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-red-400" />
+              <div className="h-3 w-3 rounded-full bg-amber-400" />
+              <div className="h-3 w-3 rounded-full bg-emerald-400" />
+              <span className="ml-2 text-xs font-semibold uppercase text-slate-400">Live Draft</span>
             </div>
-            <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-500">Draft</span>
           </div>
-          <pre className="mt-3 whitespace-pre-wrap rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700">
-            {previewGoal}
-          </pre>
+          <div className="p-6">
+            <div className="mb-4 flex items-center justify-between border-b border-slate-100 pb-4">
+              <div>
+                <h4 className="font-serif text-lg font-bold text-slate-900">IEP Goal Draft</h4>
+                <p className="text-xs text-slate-500">Confidential • {new Date().toLocaleDateString()}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-xs font-medium text-slate-900">Student: [Name]</p>
+                <p className="text-xs text-slate-500">Grade: [Grade]</p>
+              </div>
+            </div>
+            
+            <div className="space-y-4 font-serif text-sm leading-relaxed text-slate-800">
+              <div className="rounded bg-slate-50 p-3 text-xs text-slate-500 italic">
+                Preview updates automatically as you type...
+              </div>
+              <pre className="whitespace-pre-wrap font-serif text-sm">{previewGoal}</pre>
+            </div>
+          </div>
         </div>
 
-        {activeTemplate && (
-          <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50/40 px-4 py-4">
-            <p className="text-sm font-semibold text-emerald-900">💡 Suggested Intervention Strategies</p>
-            <p className="mb-3 text-xs text-emerald-700">Evidence-informed strategies for {activeTemplate.title.toLowerCase()}. Customize to fit the student.</p>
-            <ul className="space-y-2">
-              {activeTemplate.interventionStrategies.map((strategy, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-emerald-900/90">
-                  <span className="mt-0.5 text-emerald-600">•</span>
-                  <span>{strategy}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        </>
-        )}
+        {/* Dynamic Help Card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-5"
+          >
+            <div className="flex items-start gap-3">
+              <div className="rounded-full bg-white p-2 shadow-sm">
+                <span className="text-lg">💡</span>
+              </div>
+              <div>
+                <h4 className="font-semibold text-emerald-900">Pro Tip</h4>
+                <p className="mt-1 text-sm text-emerald-800/80">
+                  {currentStep === 0 && "Connecting goals to student values increases buy-in and success rates by over 40%."}
+                  {currentStep === 1 && "Always define the replacement behavior. We can't just stop a behavior; we must replace it with a skill."}
+                  {currentStep === 2 && "If the gap between baseline and target is too wide, consider a benchmark objective first."}
+                  {currentStep === 3 && "Fluency builds automaticity. If they have to think about it too long, they won't use it in stress situations."}
+                  {currentStep === 4 && "Maintenance failures are the #1 reason for behavior regression. Lock it in with a 4-week window."}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

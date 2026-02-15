@@ -123,12 +123,12 @@ export const metadata: Metadata = {
 
 export default function IEPGoalWriterPage() {
   return (
-    <main className="min-h-screen bg-bs-background">
+    <main className="min-h-screen bg-slate-50/50 pb-20">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="container mx-auto px-6 pt-20">
+      <div className="container mx-auto px-6 pt-8">
         <Breadcrumbs
           items={[
             { label: "Products", href: "/products" },
@@ -137,86 +137,98 @@ export default function IEPGoalWriterPage() {
         />
       </div>
 
-      <article className="container mx-auto px-6 pb-16 pt-8">
-        <section className="grid gap-8 lg:grid-cols-[1.05fr_1.2fr] lg:items-start">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
-              Values Wizard
-            </div>
-            <div className="space-y-4">
-              <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
-                IEP Behavior Goals that students actually care about
-              </h1>
-              <p className="text-base text-slate-600">
-                Move beyond compliance. Start with student values and generate a research-backed, Level 5 SMART behavior goal in under five minutes.
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[
-                "No registration required",
-                "Baseline + fluency + maintenance included",
-                "Built for special educators and BCBAs",
-                "Copy-ready goal output",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-2 rounded-2xl border border-emerald-100 bg-white px-4 py-3 text-sm text-slate-700">
-                  <span className="mt-0.5 text-emerald-600">✓</span>
-                  <span>{item}</span>
+      <article className="container mx-auto max-w-6xl px-6 pt-12">
+        {/* Hero Section */}
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-emerald-700 shadow-sm">
+            Values-Based Tool
+          </div>
+          <h1 className="mb-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
+            Write IEP Goals that <span className="text-emerald-700">Matter</span>
+          </h1>
+          <p className="mx-auto max-w-2xl text-lg text-slate-600">
+            Stop starting with compliance. Start with student values. Generate a research-backed, Level 5 SMART behavior goal with baseline, fluency, and maintenance in under five minutes.
+          </p>
+          
+          <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-6">
+            {[
+              "No registration needed",
+              "Baseline + Fluency included",
+              "Built for BCBAs & Educators",
+            ].map((item) => (
+              <div key={item} className="flex items-center gap-2 text-sm font-medium text-slate-600">
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
-              ))}
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600">
-              <p className="font-semibold text-slate-900">How it works</p>
-              <p>Pick a value, define the behavior, set baseline and target, add fluency/generalization, and lock in maintenance.</p>
-            </div>
-          </div>
-
-          <GoalWriterWizard />
-        </section>
-
-        <section className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_1fr]" aria-labelledby="iep-goal-writer-what">
-          <div className="space-y-4">
-            <h2 id="iep-goal-writer-what" className="text-2xl font-semibold text-slate-900">
-              What is the IEP Goal Writer?
-            </h2>
-            <p className="text-base text-slate-600">
-              The IEP Goal Writer is a free, values-based tool that helps you create clear, measurable IEP behavior goals. It guides you through
-              selecting a student value, defining the behavior, setting baseline and target levels, and adding fluency, generalization, and maintenance
-              so the goal is ready for team review.
-            </p>
-            <p className="text-base text-slate-600">
-              Use it when you need a fast, research-aligned goal statement that still feels personal and meaningful for the student.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-6">
-            <h3 className="text-lg font-semibold text-emerald-900">Best-fit use cases</h3>
-            <ul className="mt-3 space-y-2 text-sm text-emerald-900/90">
-              <li>Build a new IEP goal from scratch in minutes.</li>
-              <li>Refresh a goal to include baseline, fluency, and maintenance.</li>
-              <li>Create values-based targets students can connect with.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="mt-12" aria-labelledby="iep-goal-writer-faq">
-          <h2 id="iep-goal-writer-faq" className="text-2xl font-semibold text-slate-900">
-            IEP Goal Writer FAQ
-          </h2>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            {faqItems.map((item) => (
-              <div key={item.question} className="rounded-2xl border border-slate-200 bg-white p-5">
-                <h3 className="text-base font-semibold text-slate-900">{item.question}</h3>
-                <p className="mt-2 text-sm text-slate-600">{item.answer}</p>
+                {item}
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Wizard App Section */}
+        <section className="relative mb-24 scroll-mt-24" id="tool">
+          <GoalWriterWizard />
         </section>
 
-        <section className="mt-12" aria-labelledby="iep-goal-writer-share">
-          <h2 id="iep-goal-writer-share" className="text-2xl font-semibold text-slate-900">
-            Share this tool
-          </h2>
-          <ShareButtons title="IEP Goal Writer" url={pageUrl} className="mt-4" />
-        </section>
+        {/* Info Content */}
+        <div className="mx-auto max-w-4xl space-y-24">
+          <section className="grid gap-12 md:grid-cols-2 md:items-center" aria-labelledby="iep-goal-writer-what">
+            <div className="space-y-6">
+              <h2 id="iep-goal-writer-what" className="text-3xl font-bold text-slate-900">
+                Why use the Goal Writer?
+              </h2>
+              <p className="text-lg leading-relaxed text-slate-600">
+                Most IEP goals fail because they are compliant but not meaningful. This tool flips the script.
+              </p>
+              <p className="text-lg leading-relaxed text-slate-600">
+                It guides you through selecting a core student value first, then helps you operationalize it into a measurable behavior with all the technical components (baseline, fluency, generalization, maintenance) required for a robust IEP.
+              </p>
+            </div>
+            <div className="rounded-3xl border border-emerald-100 bg-emerald-50/50 p-8 shadow-sm">
+              <h3 className="mb-6 text-xl font-bold text-emerald-900">Perfect for:</h3>
+              <ul className="space-y-4">
+                {[
+                  "Building a new IEP goal from scratch in minutes",
+                  "Refreshing old goals with fluency & maintenance criteria",
+                  "Creating values-based targets students actually care about",
+                  "Ensuring legal defensibility with SMART criteria"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <div className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    <span className="text-emerald-900/90">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section aria-labelledby="iep-goal-writer-faq">
+            <h2 id="iep-goal-writer-faq" className="mb-10 text-center text-3xl font-bold text-slate-900">
+              Frequently Asked Questions
+            </h2>
+            <div className="grid gap-6 md:grid-cols-2">
+              {faqItems.map((item) => (
+                <div key={item.question} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+                  <h3 className="mb-3 font-bold text-slate-900">{item.question}</h3>
+                  <p className="text-slate-600">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-3xl bg-slate-900 px-8 py-12 text-center text-white" aria-labelledby="iep-goal-writer-share">
+            <h2 id="iep-goal-writer-share" className="mb-4 text-2xl font-bold">
+              Know a teacher who is drowning in paperwork?
+            </h2>
+            <p className="mb-8 text-slate-300">Share this free tool and help them get their weekend back.</p>
+            <div className="flex justify-center">
+              <ShareButtons title="IEP Goal Writer" url={pageUrl} className="text-white" />
+            </div>
+          </section>
+        </div>
       </article>
     </main>
   );
