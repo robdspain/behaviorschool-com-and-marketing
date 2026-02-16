@@ -545,11 +545,11 @@ export default function SupervisorsPage() {
                     <feature.icon className="w-8 h-8 text-white" />
                   </div>
 
-                  <h3 className={`text-2xl font-bold mb-4 ${feature.highlight ? 'text-slate-900' : 'text-white'}`}>
+                  <h3 className={`text-2xl font-bold mb-4 ${feature.highlight ? 'text-white' : 'text-white'}`}>
                     {feature.title}
                   </h3>
 
-                  <p className={`leading-relaxed text-lg ${feature.highlight ? 'text-slate-600' : 'text-slate-300'}`}>
+                  <p className={`leading-relaxed text-lg ${feature.highlight ? 'text-slate-200' : 'text-slate-300'}`}>
                     {feature.desc}
                   </p>
 
