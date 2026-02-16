@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen } from "lucide-react";
+import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen, ExternalLink, ChevronRight, GraduationCap, Shield, Star, Mail } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {

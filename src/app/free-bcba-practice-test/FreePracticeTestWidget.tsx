@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle, XCircle, ArrowRight, Save } from "lucide-react";
+import { CheckCircle, XCircle, ArrowRight, Save, MessageSquare, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import confetti from "canvas-confetti";
+import { AiTutorPanel } from "@/components/AiTutorPanel";
 
 interface QuizQuestion {
   id: string;
@@ -158,6 +159,7 @@ export default function FreePracticeTestWidget() {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [startTime] = useState<number>(Date.now());
   const [isComplete, setIsComplete] = useState(false);
+  const [isAiPanelOpen, setIsAiPanelOpen] = useState(false);
 
   const currentQuestion = PRACTICE_QUESTIONS[currentQuestionIndex];
   const progress = (answeredQuestions.size / PRACTICE_QUESTIONS.length) * 100;
@@ -185,6 +187,7 @@ export default function FreePracticeTestWidget() {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
       setShowExplanation(false);
+      setIsAiPanelOpen(false); // Close AI panel on next question
     } else {
       // Complete the test
       const finalCorrectAnswers = correctAnswers + (selectedAnswer === currentQuestion.answer ? 1 : 0);
@@ -470,6 +473,17 @@ export default function FreePracticeTestWidget() {
                   </p>
                 </div>
               </div>
+              
+              {/* AI Tutor Button - Integrated into Explanation */}
+              <div className="mt-6 pt-6 border-t border-emerald-200">
+                <Button 
+                  onClick={() => setIsAiPanelOpen(true)}
+                  className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md border-0"
+                >
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Confused? Ask the AI Tutor
+                </Button>
+              </div>
             </div>
           )}
 
@@ -504,6 +518,14 @@ export default function FreePracticeTestWidget() {
           </div>
         </div>
       </div>
+
+      <AiTutorPanel 
+        isOpen={isAiPanelOpen}
+        onClose={() => setIsAiPanelOpen(false)}
+        question={currentQuestion}
+        userAnswer={selectedAnswer || ""}
+        isCorrect={selectedAnswer === currentQuestion.answer}
+      />
     </div>
   );
 }

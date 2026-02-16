@@ -133,7 +133,7 @@ export default function TransformationProgramPage() {
         </Link>
       </div>
       {/* Breadcrumbs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4 relative z-10">
         <Breadcrumbs
           items={[
             { label: "School BCBA Transformation System" }
