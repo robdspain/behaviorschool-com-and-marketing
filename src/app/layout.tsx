@@ -597,7 +597,7 @@ export default function RootLayout({
             }
           }) }}
         />
-        <Script id="sw-register" strategy="afterInteractive">
+        {/* <Script id="sw-register" strategy="afterInteractive">
           {`
             // Avoid registering the Service Worker on admin pages to prevent
             // stale HTML/JS caching that can break the Editor and dashboard.
@@ -638,7 +638,7 @@ export default function RootLayout({
               }
             }
           `}
-        </Script>
+        </Script> */}
       </body>
     </html>
   );
