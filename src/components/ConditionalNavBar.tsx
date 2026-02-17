@@ -17,5 +17,10 @@ export function ConditionalNavBar() {
   }
   
   // Use consistent full navbar across all pages
-  return <NavBar />;
+  return (
+    <>
+      <NavBar />
+      <div aria-hidden="true" className="h-20" />
+    </>
+  );
 }
