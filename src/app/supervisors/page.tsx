@@ -239,8 +239,34 @@ export default function SupervisorsPage() {
         </div>
       </section>
 
+      {/* Section Tabs */}
+      <section className="sticky top-20 z-20 bg-white/90 backdrop-blur border-b border-slate-200">
+        <div className="max-w-5xl mx-auto px-6 py-4">
+          <div className="flex flex-wrap justify-center gap-3">
+            <a
+              href="#progress-monitoring"
+              className="px-5 py-2 rounded-full text-sm font-semibold text-slate-700 border border-slate-300 hover:border-emerald-500 hover:text-emerald-700 bg-white shadow-sm transition-colors"
+            >
+              Progress Monitoring
+            </a>
+            <a
+              href="#premium-features"
+              className="px-5 py-2 rounded-full text-sm font-semibold text-slate-700 border border-slate-300 hover:border-emerald-500 hover:text-emerald-700 bg-white shadow-sm transition-colors"
+            >
+              Premium Features
+            </a>
+            <a
+              href="#faq"
+              className="px-5 py-2 rounded-full text-sm font-semibold text-slate-700 border border-slate-300 hover:border-emerald-500 hover:text-emerald-700 bg-white shadow-sm transition-colors"
+            >
+              FAQ
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Current Platform Integration - Enhanced Design */}
-      <section className="py-32 bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/30 relative">
+      <section id="progress-monitoring" className="py-32 bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/30 relative scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -421,7 +447,7 @@ export default function SupervisorsPage() {
       </section>
 
       {/* Premium Features Coming Soon - Enhanced */}
-      <section className="py-32 bg-slate-900 relative overflow-hidden">
+      <section id="premium-features" className="py-32 bg-slate-900 relative overflow-hidden scroll-mt-24">
         {/* Premium Background */}
         <div className="absolute inset-0">
           <motion.div
@@ -679,7 +705,7 @@ export default function SupervisorsPage() {
       </section>
 
       {/* FAQ - Enhanced */}
-      <section className="py-32 bg-gradient-to-br from-white to-slate-50">
+      <section id="faq" className="py-32 bg-gradient-to-br from-white to-slate-50 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

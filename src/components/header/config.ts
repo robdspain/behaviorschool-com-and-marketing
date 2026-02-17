@@ -15,9 +15,14 @@ export const menuSections: MenuSection[] = [
   {
     label: "Free Tools",
     children: [
-      { label: "All Tools", href: "/products" },
-      { label: "BCBA Readiness Quiz", href: "/free-bcba-practice-test" },
-      { label: "FBA Decision Matrix", href: "/fba-decision-matrix" },
+      { label: "IEP Behavior Goals", href: "/iep-behavior-goals" },
+      { label: "IEP Goal Quality Checker", href: "/iep-goal-qualitychecker" },
+      { label: "Behavior Plan Writer", href: "/behavior-plans" },
+      { label: "ACT Matrix Guide", href: "/act-matrix" },
+      { label: "Values Goal Assistant", href: "/values-goal-assistant-landing" },
+      { label: "BCBA Study Tools", href: "/behavior-study-tools" },
+      { label: "BCBA Supervision Tools", href: "/supervisors" },
+      { label: "Templates", href: "/templates" },
     ],
   },
   { label: "Transformation", href: "/transformation-program" },
