@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen, ExternalLink, ChevronRight, GraduationCap, Shield, Star, Mail } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { StudyToolsLaptopMock } from "@/components/StudyToolsLaptopMock";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -172,17 +173,8 @@ export function ProductsClient() {
               </div>
               <div className="relative">
                 <div className="relative z-10">
-                  <Image
-                    src="/Hero/Hero-group1.webp"
-                    alt="Behavior Study Tools - AI-powered BCBA exam preparation"
-                    width={600}
-                    height={400}
-                    className="w-full h-auto rounded-2xl shadow-2xl"
-                    priority
-                  />
+                  <StudyToolsLaptopMock />
                 </div>
-                <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-200 to-yellow-100 opacity-80 animate-pulse" />
-                <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-gradient-to-br from-purple-200 to-purple-100 opacity-60" />
               </div>
             </motion.div>
 
