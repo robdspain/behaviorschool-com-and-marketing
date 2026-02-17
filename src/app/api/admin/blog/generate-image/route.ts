@@ -1,14 +1,12 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { VertexAI } from '@google-cloud/vertexai';
 import jwt from 'jsonwebtoken';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
+import { getVertexAI } from '@/lib/vertex';
 
 const GHOST_URL = process.env.GHOST_ADMIN_URL || process.env.GHOST_CONTENT_URL?.replace('/ghost/api/content', '') || 'https://ghost.behaviorschool.com';
 const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
-const GCP_PROJECT = process.env.GCP_PROJECT;
-const GCP_LOCATION = process.env.GCP_LOCATION;
 
 function getGhostToken() {
   if (!GHOST_ADMIN_KEY) {
@@ -35,11 +33,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Prompt is required' }, { status: 400 });
     }
 
-    if (!GCP_PROJECT || !GCP_LOCATION) {
-      return NextResponse.json({ success: false, error: 'GCP project or location not configured' }, { status: 500 });
+    let vertexAI;
+    try {
+      vertexAI = getVertexAI();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'GCP project or location not configured';
+      return NextResponse.json({ success: false, error: message }, { status: 500 });
     }
-
-    const vertexAI = new VertexAI({ project: GCP_PROJECT, location: GCP_LOCATION });
 
     const generativeModel = vertexAI.getGenerativeModel({
         model: 'imagegeneration@0.0.1',

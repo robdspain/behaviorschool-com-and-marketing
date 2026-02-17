@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { VertexAI } from '@google-cloud/vertexai';
+import { getVertexAI } from '@/lib/vertex';
 import jwt from 'jsonwebtoken';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
@@ -258,7 +259,7 @@ Format your response as a JSON array of objects with this structure:
       parsed.map(async (slide: any) => {
         if (slide.image_prompt) {
           try {
-            const vertexAI = new VertexAI({ project: process.env.GCP_PROJECT, location: process.env.GCP_LOCATION });
+            const vertexAI = getVertexAI();
             const generativeModel = vertexAI.getGenerativeModel({
               model: 'imagegeneration@0.0.1',
             });
