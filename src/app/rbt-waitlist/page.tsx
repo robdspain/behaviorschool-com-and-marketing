@@ -25,11 +25,12 @@ export default function RbtWaitlistPage() {
               const formData = new FormData(form)
               const name = String(formData.get('name') || '')
               const email = String(formData.get('email') || '')
+              const role = String(formData.get('role') || '')
 
               const res = await fetch('/api/rbt-waitlist', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, role: 'RBT Waitlist' })
+                body: JSON.stringify({ name, email, role })
               })
 
               const data = await res.json()
@@ -62,6 +63,19 @@ export default function RbtWaitlistPage() {
                 className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                 placeholder="you@example.com"
               />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700">Role *</label>
+              <select
+                name="role"
+                required
+                className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              >
+                <option value="">Select your role</option>
+                <option value="BCBA">BCBA</option>
+                <option value="RBT">RBT</option>
+                <option value="OTHER">Other</option>
+              </select>
             </div>
             <button
               type="submit"
