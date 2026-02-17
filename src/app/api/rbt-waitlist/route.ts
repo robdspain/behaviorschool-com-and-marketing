@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseAdminClient } from '@/lib/supabase-admin'
+import { upsertCrmContact } from '@/lib/crm'
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,17 +48,13 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      await fetch(process.env.CRM_URL || 'https://robspain.com/api/crm', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          first_name: firstName,
-          last_name: lastName,
-          role,
-          organization: 'Behavior School',
-          source: 'behaviorschool_rbt_waitlist'
-        })
+      await upsertCrmContact({
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        role,
+        organization: 'Behavior School',
+        source: 'behaviorschool_rbt_waitlist'
       })
     } catch (crmError) {
       console.error('CRM sync error:', crmError)
