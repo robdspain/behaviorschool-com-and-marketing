@@ -29,7 +29,7 @@ export default function BehaviorPlansPage() {
     <div className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
-        <Breadcrumbs 
+        <Breadcrumbs
           items={[
             { label: "Products", href: "/products" },
             { label: "Behavior Plans" }
@@ -41,10 +41,10 @@ export default function BehaviorPlansPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-red-50" />
         <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-orange-100 to-transparent opacity-30 blur-3xl" />
         <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-red-100 to-transparent opacity-20 blur-2xl" />
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div 
+            <motion.div
               className="space-y-8"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -76,7 +76,7 @@ export default function BehaviorPlansPage() {
                 >
                   We&apos;re building an AI-powered tool that transforms challenging behaviors into actionable intervention plans. Get notified when BIP Writer launches.
                 </motion.p>
-                
+
                 <motion.div
                   className="bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl p-6 border border-orange-200"
                   initial={{ opacity: 0, y: 20 }}
@@ -92,6 +92,23 @@ export default function BehaviorPlansPage() {
                   </p>
                 </motion.div>
               </div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.75 }}
+                className="space-y-3"
+              >
+                <Link
+                  href="/behavior-plans/bip-writer"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                >
+                  Try the BIP Writer Beta
+                </Link>
+                <p className="text-sm text-slate-500">
+                  Build an FBA→BIP workflow in your browser and export printable reports.
+                </p>
+              </motion.div>
 
                              {/* Email Signup Form */}
                <motion.div
@@ -111,7 +128,7 @@ export default function BehaviorPlansPage() {
                  >
                    <input type="hidden" name="form-name" value="bip-writer-signup" />
                    <input type="hidden" name="page-source" value="behavior-plans" />
-                   
+
                    <div className="flex-1">
                      <input
                        type="email"
@@ -135,7 +152,7 @@ export default function BehaviorPlansPage() {
                </motion.div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="relative"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -214,7 +231,7 @@ export default function BehaviorPlansPage() {
                   <li className="text-red-600">• Staff left guessing how to help</li>
                 </ul>
               </div>
-              
+
               <div className="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-6">
                 <h3 className="text-xl font-bold text-emerald-700 mb-4">✅ Our Solution</h3>
                 <ul className="space-y-3 text-left">
@@ -258,7 +275,7 @@ export default function BehaviorPlansPage() {
                 </div>
               </div>
             </div>
-            
+
             {/* Contextual CTA after features preview */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -271,15 +288,15 @@ export default function BehaviorPlansPage() {
                 While you wait for the BIP Writer, start building your behavior support expertise with our comprehensive training and tools.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/transformation-program" 
+                <Link
+                  href="/transformation-program"
                   className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
                 >
                   Get School BCBA Training Now
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-                <Link 
-                  href="/iep-goals" 
+                <Link
+                  href="/iep-goals"
                   className="inline-flex items-center px-8 py-3 border border-emerald-600 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition-colors"
                 >
                   Start with IEP Goal Writing
@@ -308,7 +325,7 @@ export default function BehaviorPlansPage() {
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
             variants={staggerContainer}
             initial="initial"
@@ -456,7 +473,7 @@ export default function BehaviorPlansPage() {
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div 
+            <motion.div
               className="space-y-8"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -473,11 +490,11 @@ export default function BehaviorPlansPage() {
                 <ul className="space-y-4">
                   {[
                     "Time-saving templates and workflows",
-                    "Evidence-based intervention strategies", 
+                    "Evidence-based intervention strategies",
                     "Clear implementation guidelines",
                     "Progress monitoring tools"
                   ].map((item, index) => (
-                    <motion.li 
+                    <motion.li
                       key={index}
                       className="flex items-center gap-4 text-lg text-slate-700"
                       initial={{ opacity: 0, x: -20 }}
@@ -495,7 +512,7 @@ export default function BehaviorPlansPage() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="relative"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -547,12 +564,12 @@ export default function BehaviorPlansPage() {
             <p className="text-xl text-orange-100 max-w-2xl mx-auto">
               Join other BCBAs and educators who want to transform how they create behavior intervention plans.
             </p>
-            
+
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <button 
+              <button
                 onClick={() => setShowPopup(true)}
                 aria-haspopup="dialog"
                 aria-expanded={showPopup}
@@ -563,7 +580,7 @@ export default function BehaviorPlansPage() {
                 Join the Waitlist
               </button>
             </motion.div>
-            
+
             <div className="space-y-2">
               <p className="text-orange-200 text-sm">
                 Get early access • Beta pricing • No spam, unsubscribe anytime
@@ -642,7 +659,7 @@ export default function BehaviorPlansPage() {
               "name": "Who uses BIP Writer?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "School BCBAs, school psychologists, and special education teams use BIP Writer to produce consistent, evidence‑based plans with clear implementation steps."
+                "text": "School BCBAs, school psychologists, and special education teams use BIP Writer to produce consistent, evidence-based plans with clear implementation steps."
               }
             },
             {
