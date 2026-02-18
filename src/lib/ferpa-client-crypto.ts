@@ -71,3 +71,64 @@ export async function getEncryptedLocal<T>(key: string): Promise<T | null> {
   }
   return null;
 }
+
+export async function hashPassphrase(passphrase: string) {
+  const data = new TextEncoder().encode(passphrase);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return bufToB64(digest);
+}
+
+export async function encryptWithPassphrase(data: unknown, passphrase: string) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const keyMaterial = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(passphrase),
+    "PBKDF2",
+    false,
+    ["deriveKey"]
+  );
+  const key = await crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256" },
+    keyMaterial,
+    { name: "AES-GCM", length: 256 },
+    false,
+    ["encrypt", "decrypt"]
+  );
+  const encoded = new TextEncoder().encode(JSON.stringify(data));
+  const cipher = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, encoded);
+  return {
+    v: 1,
+    alg: "A256GCM",
+    salt: bufToB64(salt.buffer),
+    iv: bufToB64(iv.buffer),
+    data: bufToB64(cipher),
+  } as const;
+}
+
+export async function decryptWithPassphrase<T>(payload: any, passphrase: string): Promise<T | null> {
+  try {
+    const salt = new Uint8Array(b64ToBuf(payload.salt));
+    const iv = new Uint8Array(b64ToBuf(payload.iv));
+    const keyMaterial = await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder().encode(passphrase),
+      "PBKDF2",
+      false,
+      ["deriveKey"]
+    );
+    const key = await crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256" },
+      keyMaterial,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["decrypt"]
+    );
+    const cipher = b64ToBuf(payload.data);
+    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, cipher);
+    const text = new TextDecoder().decode(plain);
+    return JSON.parse(text) as T;
+  } catch {
+    return null;
+  }
+}

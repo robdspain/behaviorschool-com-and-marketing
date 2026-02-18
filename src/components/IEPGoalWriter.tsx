@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { decryptWithPassphrase, encryptWithPassphrase, hashPassphrase } from '@/lib/ferpa-client-crypto';
 
 export function IEPGoalWriter() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,6 +34,15 @@ export function IEPGoalWriter() {
 
   const [qualityLevel, setQualityLevel] = useState(0);
   const [generatedGoal, setGeneratedGoal] = useState('');
+
+  const [vaultSchool, setVaultSchool] = useState('');
+  const [vaultEmail, setVaultEmail] = useState('');
+  const [vaultRole, setVaultRole] = useState('staff');
+  const [vaultTitle, setVaultTitle] = useState('IEP Goal Draft');
+  const [vaultKey, setVaultKey] = useState('');
+  const [vaultDocs, setVaultDocs] = useState<{ _id: string; title: string; createdBy: string; createdAt: number }[]>([]);
+  const [vaultLoading, setVaultLoading] = useState(false);
+  const [vaultError, setVaultError] = useState<string | null>(null);
 
   // Calculate quality level based on filled fields
   useEffect(() => {
@@ -70,6 +80,91 @@ export function IEPGoalWriter() {
 
     setGeneratedGoal(goal);
     setCurrentStep(6);
+  };
+
+  const requireVaultFields = () => {
+    if (!vaultSchool || !vaultEmail || !vaultKey) {
+      setVaultError('School, email, and team key are required.');
+      return false;
+    }
+    return true;
+  };
+
+  const handleVaultSave = async () => {
+    setVaultError(null);
+    if (!requireVaultFields()) return;
+    setVaultLoading(true);
+    try {
+      const encrypted = await encryptWithPassphrase({ formData, generatedGoal }, vaultKey);
+      const teamKeyHash = await hashPassphrase(vaultKey);
+      const res = await fetch('/api/ferpa/iep-goals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          schoolSlug: vaultSchool,
+          teamKeyHash,
+          email: vaultEmail,
+          role: vaultRole,
+          title: vaultTitle || 'IEP Goal Draft',
+          payload: JSON.stringify(encrypted),
+          payloadVersion: 1,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Unable to save.');
+      }
+      await handleVaultRefresh();
+    } catch (err: any) {
+      setVaultError(err.message || 'Unable to save.');
+    } finally {
+      setVaultLoading(false);
+    }
+  };
+
+  const handleVaultRefresh = async () => {
+    setVaultError(null);
+    if (!requireVaultFields()) return;
+    setVaultLoading(true);
+    try {
+      const teamKeyHash = await hashPassphrase(vaultKey);
+      const res = await fetch(`/api/ferpa/iep-goals?school=${encodeURIComponent(vaultSchool)}&hash=${encodeURIComponent(teamKeyHash)}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Unable to load docs.');
+      }
+      const data = await res.json();
+      setVaultDocs(data.docs || []);
+    } catch (err: any) {
+      setVaultError(err.message || 'Unable to load docs.');
+    } finally {
+      setVaultLoading(false);
+    }
+  };
+
+  const handleVaultOpen = async (docId: string) => {
+    setVaultError(null);
+    if (!requireVaultFields()) return;
+    setVaultLoading(true);
+    try {
+      const teamKeyHash = await hashPassphrase(vaultKey);
+      const res = await fetch(`/api/ferpa/iep-goals/${docId}?school=${encodeURIComponent(vaultSchool)}&hash=${encodeURIComponent(teamKeyHash)}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Unable to open doc.');
+      }
+      const data = await res.json();
+      const payload = JSON.parse(data.doc.payload);
+      const decrypted = await decryptWithPassphrase<{ formData: typeof formData; generatedGoal: string }>(payload, vaultKey);
+      if (!decrypted) throw new Error('Unable to decrypt.');
+      setFormData(decrypted.formData);
+      setGeneratedGoal(decrypted.generatedGoal || '');
+      setCurrentStep(6);
+    } catch (err: any) {
+      setVaultError(err.message || 'Unable to open doc.');
+    } finally {
+      setVaultLoading(false);
+    }
   };
 
   return (
@@ -344,6 +439,53 @@ export function IEPGoalWriter() {
           gap: 8px;
         }
 
+        .vault-section {
+          margin: 16px 20px;
+          padding: 16px;
+          border: 1px solid #e2e8f0;
+          border-radius: 10px;
+          background: #f8fafc;
+        }
+
+        .vault-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 10px;
+          margin-top: 10px;
+        }
+
+        .vault-actions {
+          display: flex;
+          gap: 8px;
+          margin-top: 12px;
+          flex-wrap: wrap;
+        }
+
+        .vault-docs {
+          margin-top: 12px;
+          border-top: 1px solid #e2e8f0;
+          padding-top: 10px;
+          display: grid;
+          gap: 8px;
+        }
+
+        .vault-doc {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 8px 10px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          background: white;
+          font-size: 12px;
+        }
+
+        .vault-error {
+          margin-top: 8px;
+          color: #b45309;
+          font-size: 12px;
+        }
+
         .embed-info {
           margin-top: 16px;
           padding: 12px;
@@ -615,6 +757,83 @@ export function IEPGoalWriter() {
           )}
         </div>
       )}
+
+      <div className="vault-section">
+        <strong>Team Vault (end‑to‑end encrypted)</strong>
+        <div className="vault-grid">
+          <div className="form-field">
+            <label>School slug</label>
+            <input
+              type="text"
+              placeholder="e.g., kcusd"
+              value={vaultSchool}
+              onChange={(e) => setVaultSchool(e.target.value.trim())}
+            />
+          </div>
+          <div className="form-field">
+            <label>Your email</label>
+            <input
+              type="email"
+              placeholder="name@school.org"
+              value={vaultEmail}
+              onChange={(e) => setVaultEmail(e.target.value.trim())}
+            />
+          </div>
+          <div className="form-field">
+            <label>Role</label>
+            <select value={vaultRole} onChange={(e) => setVaultRole(e.target.value)}>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="staff">Staff</option>
+            </select>
+          </div>
+          <div className="form-field">
+            <label>Team key</label>
+            <input
+              type="password"
+              placeholder="Shared team key"
+              value={vaultKey}
+              onChange={(e) => setVaultKey(e.target.value)}
+            />
+          </div>
+          <div className="form-field">
+            <label>Document title</label>
+            <input
+              type="text"
+              placeholder="IEP Goal Draft"
+              value={vaultTitle}
+              onChange={(e) => setVaultTitle(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="vault-actions">
+          <button className="wizard-button" onClick={handleVaultSave} disabled={vaultLoading}>
+            Save to Team Vault
+          </button>
+          <button className="wizard-button" onClick={handleVaultRefresh} disabled={vaultLoading}>
+            Refresh Vault
+          </button>
+        </div>
+
+        {vaultError && <div className="vault-error">{vaultError}</div>}
+
+        {vaultDocs.length > 0 && (
+          <div className="vault-docs">
+            {vaultDocs.map((doc) => (
+              <div key={doc._id} className="vault-doc">
+                <div>
+                  <div><strong>{doc.title}</strong></div>
+                  <div>{doc.createdBy}</div>
+                </div>
+                <button className="wizard-button" onClick={() => handleVaultOpen(doc._id)}>
+                  Open
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* Quality Bar */}
       <div className="quality-bar">

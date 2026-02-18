@@ -22,4 +22,31 @@ export default defineSchema({
     tags: v.optional(v.array(v.string())),
     createdAt: v.number(),
   }).index("by_email", ["email"]),
+
+  schools: defineTable({
+    slug: v.string(),
+    name: v.string(),
+    teamKeyHash: v.string(),
+    createdAt: v.number(),
+  }).index("by_slug", ["slug"]),
+
+  school_members: defineTable({
+    schoolId: v.id("schools"),
+    email: v.string(),
+    role: v.string(),
+    createdAt: v.number(),
+    lastActiveAt: v.optional(v.number()),
+  })
+    .index("by_school", ["schoolId"])
+    .index("by_school_email", ["schoolId", "email"]),
+
+  iep_goal_docs: defineTable({
+    schoolId: v.id("schools"),
+    title: v.string(),
+    createdBy: v.string(),
+    payload: v.string(),
+    payloadVersion: v.number(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_school", ["schoolId"]),
 });
