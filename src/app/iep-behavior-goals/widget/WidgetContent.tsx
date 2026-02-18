@@ -1,5 +1,6 @@
 "use client";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { FerpaNotice } from "@/components/ui/FerpaNotice";
 
 // Add custom styles to hide scrollbars completely
 const iframeStyles = `
@@ -31,6 +32,9 @@ export default function WidgetContent() {
 
       {/* Widget Section - Removed shadows and scrollbars */}
       <section className="w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+          <FerpaNotice />
+        </div>
         <div className="w-full">
           <iframe
             src="https://school-behavior-goals.netlify.app/"

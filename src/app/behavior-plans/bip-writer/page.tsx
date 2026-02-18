@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, FileDown } from "lucide-react";
+import { FerpaNotice } from "@/components/ui/FerpaNotice";
 import {
   WizardLayout,
   WizardStepContainer,
@@ -11,11 +12,8 @@ import {
 
 const DRAFT_KEY = "behaviorschool_fba_bip_builder_v1";
 
-type StudentInfo = {
-  studentName: string;
-  grade: string;
-  school: string;
-  caseManager: string;
+type PlanInfo = {
+  studentId: string;
   date: string;
 };
 
@@ -86,11 +84,8 @@ type FBABIPFormData = {
   implementation: ImplementationData;
 };
 
-const defaultStudentInfo: StudentInfo = {
-  studentName: "",
-  grade: "",
-  school: "",
-  caseManager: "",
+const defaultPlanInfo: PlanInfo = {
+  studentId: "",
   date: "",
 };
 
@@ -147,7 +142,7 @@ function renderSection(title: string, body: string) {
   `;
 }
 
-function buildReportHTML(title: string, studentInfo: StudentInfo, content: string) {
+function buildReportHTML(title: string, planInfo: PlanInfo, content: string) {
   return `
     <html>
       <head>
@@ -167,11 +162,8 @@ function buildReportHTML(title: string, studentInfo: StudentInfo, content: strin
       <body>
         <h1>${title}</h1>
         <div class="meta">
-          ${studentInfo.studentName ? `Student: <strong>${studentInfo.studentName}</strong>` : "Student: <em>Not specified</em>"}
-          ${studentInfo.grade ? ` • Grade: ${studentInfo.grade}` : ""}
-          ${studentInfo.school ? ` • School: ${studentInfo.school}` : ""}
-          ${studentInfo.caseManager ? ` • Case Manager: ${studentInfo.caseManager}` : ""}
-          ${studentInfo.date ? ` • Date: ${studentInfo.date}` : ""}
+          ${planInfo.studentId ? `Student ID/Initials: <strong>${planInfo.studentId}</strong>` : "Student ID/Initials: <em>Not specified</em>"}
+          ${planInfo.date ? ` • Date: ${planInfo.date}` : ""}
         </div>
         ${content}
       </body>
@@ -181,7 +173,7 @@ function buildReportHTML(title: string, studentInfo: StudentInfo, content: strin
 
 export default function BIPWriterPage() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [studentInfo, setStudentInfo] = useState<StudentInfo>(defaultStudentInfo);
+  const [planInfo, setPlanInfo] = useState<PlanInfo>(defaultPlanInfo);
   const [formData, setFormData] = useState<FBABIPFormData>(defaultFormData);
 
   useEffect(() => {
@@ -190,7 +182,7 @@ export default function BIPWriterPage() {
     if (!saved) return;
     try {
       const parsed = JSON.parse(saved);
-      if (parsed?.studentInfo) setStudentInfo(parsed.studentInfo);
+      if (parsed?.planInfo) setPlanInfo(parsed.planInfo);
       if (parsed?.formData) setFormData(parsed.formData);
     } catch (error) {
       console.warn("Unable to load BIP writer draft", error);
@@ -226,9 +218,9 @@ export default function BIPWriterPage() {
     if (typeof window === "undefined") return;
     localStorage.setItem(
       DRAFT_KEY,
-      JSON.stringify({ studentInfo, formData, updatedAt: new Date().toISOString() })
+      JSON.stringify({ planInfo, formData, updatedAt: new Date().toISOString() })
     );
-    alert("Draft saved locally in your browser.");
+    alert("Draft saved locally in your browser. Do not include student-identifying details.");
   }
 
   function openReport(title: string, html: string) {
@@ -240,12 +232,7 @@ export default function BIPWriterPage() {
   }
 
   function handleExport(type: "fba" | "bip") {
-    if (!studentInfo.studentName) {
-      alert("Please add the student name before exporting.");
-      return;
-    }
-
-    handleSaveDraft();
+    // Export without requiring student identifiers.
 
     if (type === "fba") {
       const content = [
@@ -272,7 +259,7 @@ export default function BIPWriterPage() {
       ].join("");
       openReport(
         "Functional Behavior Assessment (FBA)",
-        buildReportHTML("Functional Behavior Assessment (FBA)", studentInfo, content)
+        buildReportHTML("Functional Behavior Assessment (FBA)", planInfo, content)
       );
       return;
     }
@@ -318,7 +305,7 @@ export default function BIPWriterPage() {
 
     openReport(
       "Behavior Intervention Plan (BIP)",
-      buildReportHTML("Behavior Intervention Plan (BIP)", studentInfo, content)
+      buildReportHTML("Behavior Intervention Plan (BIP)", planInfo, content)
     );
   }
 
@@ -338,51 +325,31 @@ export default function BIPWriterPage() {
         </p>
       </div>
 
+      <FerpaNotice className="mb-4" />
+
       <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-slate-100 mb-6">
-        <h2 className="text-xl font-bold text-slate-900 mb-4">Student & Case Details</h2>
+        <h2 className="text-xl font-bold text-slate-900 mb-4">Plan Details (De‑identified)</h2>
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">Student Name *</label>
+            <label className="block text-sm font-medium text-slate-700 mb-2">Student ID / Initials (optional)</label>
             <input
-              value={studentInfo.studentName}
-              onChange={(e) => setStudentInfo({ ...studentInfo, studentName: e.target.value })}
+              value={planInfo.studentId}
+              onChange={(e) =>
+                setPlanInfo({
+                  ...planInfo,
+                  studentId: e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 8),
+                })
+              }
               className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              placeholder="Student name"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">Grade</label>
-            <input
-              value={studentInfo.grade}
-              onChange={(e) => setStudentInfo({ ...studentInfo, grade: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              placeholder="Grade level"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">School</label>
-            <input
-              value={studentInfo.school}
-              onChange={(e) => setStudentInfo({ ...studentInfo, school: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              placeholder="School name"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">Case Manager</label>
-            <input
-              value={studentInfo.caseManager}
-              onChange={(e) => setStudentInfo({ ...studentInfo, caseManager: e.target.value })}
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              placeholder="BCBA / School Psych"
+              placeholder="e.g., JS-01"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">Date</label>
             <input
               type="date"
-              value={studentInfo.date}
-              onChange={(e) => setStudentInfo({ ...studentInfo, date: e.target.value })}
+              value={planInfo.date}
+              onChange={(e) => setPlanInfo({ ...planInfo, date: e.target.value })}
               className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             />
           </div>

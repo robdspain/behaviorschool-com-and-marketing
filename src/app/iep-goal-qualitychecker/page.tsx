@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
+import { FerpaNotice } from "@/components/ui/FerpaNotice";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
 type Finding = { label: string; ok: boolean; hint?: string };
@@ -111,6 +112,8 @@ export default function IEPGoalQualityChecker() {
               ))}
             </ul>
           </div>
+
+          <FerpaNotice className="mb-4" />
 
           <textarea
             value={text}

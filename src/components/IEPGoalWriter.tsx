@@ -8,7 +8,7 @@ export function IEPGoalWriter() {
 
   // State for form data
   const [formData, setFormData] = useState({
-    studentName: '',
+    studentId: '',
     dueDate: '',
     direction: 'decrease',
     behaviorTitle: '',
@@ -59,9 +59,9 @@ export function IEPGoalWriter() {
 
   const generateGoal = () => {
     // Basic goal generation logic
-    const { studentName, behaviorTitle, behaviorDefinition, accuracy, consistency, context, supports, dataMethod } = formData;
+    const { studentId, behaviorTitle, behaviorDefinition, accuracy, consistency, context, supports, dataMethod } = formData;
 
-    const student = studentName || '[Student]';
+    const student = studentId ? `Student ${studentId}` : 'the student';
     const date = formData.dueDate || new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', {
       month: '2-digit', day: '2-digit', year: '2-digit'
     });
@@ -101,6 +101,12 @@ export function IEPGoalWriter() {
           margin: 4px 0 0 0;
           font-size: 13px;
           opacity: 0.9;
+        }
+
+        .ferpa-note {
+          margin-top: 8px;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.85);
         }
 
         .wizard-progress {
@@ -364,6 +370,7 @@ export function IEPGoalWriter() {
       <div className="wizard-header">
         <h2>IEP Goal Writer</h2>
         <div className="subtitle">Generate high-quality behavior goals with built-in baseline data</div>
+        <div className="ferpa-note">FERPA‑safe: do not enter student names or identifying details.</div>
       </div>
 
       <div className="wizard-progress">
@@ -391,12 +398,12 @@ export function IEPGoalWriter() {
           <h3>Student & Behavior</h3>
           <div className="form-grid">
             <div className="form-field">
-              <label>Student Name</label>
+              <label>Student initials or ID (optional)</label>
               <input
                 type="text"
-                placeholder="e.g., Student name (optional)"
-                value={formData.studentName}
-                onChange={(e) => updateFormData('studentName', e.target.value)}
+                placeholder="e.g., JS-01"
+                value={formData.studentId}
+                onChange={(e) => updateFormData('studentId', e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 8))}
               />
             </div>
             <div className="form-field">
