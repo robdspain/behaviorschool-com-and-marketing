@@ -8,7 +8,7 @@ export function IEPGoalWriter() {
 
   // State for form data
   const [formData, setFormData] = useState({
-    studentId: '',
+    studentName: '',
     dueDate: '',
     direction: 'decrease',
     behaviorTitle: '',
@@ -59,9 +59,9 @@ export function IEPGoalWriter() {
 
   const generateGoal = () => {
     // Basic goal generation logic
-    const { studentId, behaviorTitle, behaviorDefinition, accuracy, consistency, context, supports, dataMethod } = formData;
+    const { studentName, behaviorTitle, behaviorDefinition, accuracy, consistency, context, supports, dataMethod } = formData;
 
-    const student = studentId ? `Student ${studentId}` : 'the student';
+    const student = studentName || 'the student';
     const date = formData.dueDate || new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', {
       month: '2-digit', day: '2-digit', year: '2-digit'
     });
@@ -398,12 +398,12 @@ export function IEPGoalWriter() {
           <h3>Student & Behavior</h3>
           <div className="form-grid">
             <div className="form-field">
-              <label>Student initials or ID (optional)</label>
+              <label>Student Name (optional)</label>
               <input
                 type="text"
-                placeholder="e.g., JS-01"
-                value={formData.studentId}
-                onChange={(e) => updateFormData('studentId', e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 8))}
+                placeholder="e.g., Alex"
+                value={formData.studentName}
+                onChange={(e) => updateFormData('studentName', e.target.value)}
               />
             </div>
             <div className="form-field">
