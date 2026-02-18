@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseAdminClient } from '@/lib/supabase-admin'
-import { upsertCrmContact } from '@/lib/crm'
+import { getConvexClient } from '@/lib/convex'
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createSupabaseAdminClient()
+    const convex = getConvexClient()
     const body = await request.json()
     const { name, email, role } = body || {}
 
@@ -24,37 +23,29 @@ export async function POST(request: NextRequest) {
     const [firstName, ...rest] = String(name || '').trim().split(' ')
     const lastName = rest.join(' ') || ''
 
-    const { error } = await supabase
-      .from('signup_submissions')
-      .insert([
-        {
-          first_name: firstName || null,
-          last_name: lastName || null,
-          email,
-          phone: null,
-          organization: 'Behavior School',
-          role,
-          caseload_size: null,
-          current_challenges: 'RBT exam prep waitlist',
-          status: 'new',
-          submitted_at: new Date().toISOString(),
-          source: 'behaviorschool_rbt_waitlist_business'
-        }
-      ])
+    await convex.mutation('waitlist:addSubmission', {
+      email,
+      firstName: firstName || undefined,
+      lastName: lastName || undefined,
+      role,
+      organization: 'Behavior School',
+      source: 'behaviorschool_rbt_waitlist_business',
+      notes: 'RBT exam prep waitlist'
+    })
 
-    if (error) {
-      console.error('Supabase error:', error)
-      return NextResponse.json({ message: 'Failed to save waitlist. Please try again.' }, { status: 500 })
-    }
-
+    const crmUrl = process.env.CRM_URL || 'https://robspain.com/api/crm'
     try {
-      await upsertCrmContact({
-        email,
-        first_name: firstName,
-        last_name: lastName,
-        role,
-        organization: 'Behavior School',
-        source: 'behaviorschool_rbt_waitlist'
+      await fetch(crmUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          role,
+          first_name: firstName,
+          last_name: lastName,
+          organization: 'Behavior School',
+          source: 'behaviorschool_rbt_waitlist'
+        })
       })
     } catch (crmError) {
       console.error('CRM sync error:', crmError)
