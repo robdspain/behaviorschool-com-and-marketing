@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import confetti from "canvas-confetti";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { getEncryptedLocal } from "@/lib/ferpa-client-crypto";
 
 interface TestResults {
   score: number;
@@ -21,9 +22,8 @@ export default function ResultsPage() {
 
   useEffect(() => {
     // Load results from localStorage
-    const savedResults = localStorage.getItem('bcba_practice_test_results');
-    if (savedResults) {
-      const parsedResults = JSON.parse(savedResults);
+    getEncryptedLocal<TestResults>('bcba_practice_test_results').then((parsedResults) => {
+      if (!parsedResults) return;
       setResults(parsedResults);
 
       // Show confetti for high scores
@@ -31,7 +31,7 @@ export default function ResultsPage() {
         triggerSuccessConfetti();
         setHasShownConfetti(true);
       }
-    }
+    });
   }, [hasShownConfetti]);
 
   const triggerSuccessConfetti = () => {

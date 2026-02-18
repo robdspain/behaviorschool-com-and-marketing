@@ -370,7 +370,7 @@ export function IEPGoalWriter() {
       <div className="wizard-header">
         <h2>IEP Goal Writer</h2>
         <div className="subtitle">Generate high-quality behavior goals with built-in baseline data</div>
-        <div className="ferpa-note">FERPA‑safe: do not enter student names or identifying details.</div>
+        <div className="ferpa-note">FERPA‑safe: inputs stay on‑device; saved drafts are encrypted locally.</div>
       </div>
 
       <div className="wizard-progress">

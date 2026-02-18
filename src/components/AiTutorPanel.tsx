@@ -5,6 +5,7 @@ import { X, Send, Loader2, Sparkles, Brain, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getEncryptedLocal, setEncryptedLocal } from "@/lib/ferpa-client-crypto";
 
 interface Message {
   role: "user" | "assistant";
@@ -32,10 +33,11 @@ export function AiTutorPanel({ isOpen, onClose, question, userAnswer, isCorrect 
     // Load usage from local storage
     const today = new Date().toDateString();
     const storageKey = `ai_tutor_usage_${today}`;
-    const stored = localStorage.getItem(storageKey);
-    if (stored) {
-      setUsageCount(parseInt(stored));
-    }
+    getEncryptedLocal<number>(storageKey).then((stored) => {
+      if (stored) {
+        setUsageCount(stored);
+      }
+    });
   }, [isOpen]);
 
   useEffect(() => {
@@ -68,7 +70,7 @@ export function AiTutorPanel({ isOpen, onClose, question, userAnswer, isCorrect 
       const storageKey = `ai_tutor_usage_${today}`;
       const newCount = usageCount + 1;
       setUsageCount(newCount);
-      localStorage.setItem(storageKey, newCount.toString());
+      await setEncryptedLocal(storageKey, newCount);
 
       const response = await fetch("/api/ai-tutor", {
         method: "POST",

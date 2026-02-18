@@ -52,3 +52,22 @@ export async function decryptJson<T>(payload: EncryptedPayload): Promise<T | nul
     return null;
   }
 }
+
+export async function setEncryptedLocal(key: string, value: unknown) {
+  const payload = await encryptJson(value);
+  localStorage.setItem(key, JSON.stringify(payload));
+}
+
+export async function getEncryptedLocal<T>(key: string): Promise<T | null> {
+  const raw = localStorage.getItem(key);
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed?.v === 1 && parsed?.iv && parsed?.data) {
+      return await decryptJson<T>(parsed);
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}

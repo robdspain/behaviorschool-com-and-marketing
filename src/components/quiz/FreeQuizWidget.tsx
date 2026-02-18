@@ -5,6 +5,7 @@ import { CheckCircle, XCircle, ArrowRight, RefreshCw, Save } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import confetti from "canvas-confetti";
+import { getEncryptedLocal, setEncryptedLocal } from "@/lib/ferpa-client-crypto";
 
 interface QuizQuestion {
   id: string;
@@ -43,12 +44,12 @@ export function FreeQuizWidget({
 
   // Daily limit tracking
   useEffect(() => {
-    const checkDailyLimit = () => {
+    const checkDailyLimit = async () => {
       const today = new Date().toDateString();
-      const storedData = localStorage.getItem('quiz_attempts');
+      const storedData = await getEncryptedLocal<{ date: string; attempts: number }>('quiz_attempts');
       
       if (storedData) {
-        const { date, attempts } = JSON.parse(storedData);
+        const { date, attempts } = storedData;
         
         if (date === today) {
           setAttemptsToday(attempts);
@@ -57,13 +58,13 @@ export function FreeQuizWidget({
           }
         } else {
           // New day, reset
-          localStorage.setItem('quiz_attempts', JSON.stringify({ date: today, attempts: 0 }));
+          await setEncryptedLocal('quiz_attempts', { date: today, attempts: 0 });
           setAttemptsToday(0);
           setDailyLimitReached(false);
         }
       } else {
         // First time
-        localStorage.setItem('quiz_attempts', JSON.stringify({ date: today, attempts: 0 }));
+        await setEncryptedLocal('quiz_attempts', { date: today, attempts: 0 });
         setAttemptsToday(0);
       }
     };
@@ -155,17 +156,17 @@ export function FreeQuizWidget({
     }, 250);
   };
 
-  const handleRestart = () => {
+  const handleRestart = async () => {
     // Check and increment daily attempts
     const today = new Date().toDateString();
-    const storedData = localStorage.getItem('quiz_attempts');
+    const storedData = await getEncryptedLocal<{ date: string; attempts: number }>('quiz_attempts');
     
     if (storedData) {
-      const { date, attempts } = JSON.parse(storedData);
+      const { date, attempts } = storedData;
       
       if (date === today) {
         const newAttempts = attempts + 1;
-        localStorage.setItem('quiz_attempts', JSON.stringify({ date: today, attempts: newAttempts }));
+        await setEncryptedLocal('quiz_attempts', { date: today, attempts: newAttempts });
         setAttemptsToday(newAttempts);
         
         if (newAttempts >= 3) {
@@ -174,7 +175,7 @@ export function FreeQuizWidget({
         }
       } else {
         // New day
-        localStorage.setItem('quiz_attempts', JSON.stringify({ date: today, attempts: 1 }));
+        await setEncryptedLocal('quiz_attempts', { date: today, attempts: 1 });
         setAttemptsToday(1);
       }
     }

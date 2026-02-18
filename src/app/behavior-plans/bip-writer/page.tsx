@@ -236,7 +236,7 @@ export default function BIPWriterPage() {
     if (typeof window === "undefined") return;
     const payload = await encryptJson({ studentInfo, formData, updatedAt: new Date().toISOString() });
     localStorage.setItem(DRAFT_KEY, JSON.stringify(payload));
-    alert("Draft saved locally in your browser (encrypted). Keep FERPA data secure.");
+    alert("Draft saved locally in your browser (encrypted).");
   }
 
   function openReport(title: string, html: string) {

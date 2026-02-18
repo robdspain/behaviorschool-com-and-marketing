@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle, XCircle, ArrowRight, Save, MessageSquare, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { setEncryptedLocal } from "@/lib/ferpa-client-crypto";
 import confetti from "canvas-confetti";
 import { AiTutorPanel } from "@/components/AiTutorPanel";
 
@@ -195,13 +196,13 @@ export default function FreePracticeTestWidget() {
       const percentage = Math.round((finalCorrectAnswers / PRACTICE_QUESTIONS.length) * 100);
 
       // Save results to localStorage
-      localStorage.setItem('bcba_practice_test_results', JSON.stringify({
+      setEncryptedLocal('bcba_practice_test_results', {
         score: finalCorrectAnswers,
         total: PRACTICE_QUESTIONS.length,
         percentage,
         time: totalTime,
         completedAt: new Date().toISOString()
-      }));
+      });
 
       // Trigger confetti if perfect score
       if (finalCorrectAnswers === PRACTICE_QUESTIONS.length) {
