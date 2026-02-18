@@ -86,6 +86,7 @@ export default function PrivacyPage() {
               <li>Limited access to personal information on a need-to-know basis</li>
               <li>Secure payment processing through certified providers</li>
             </ul>
+            <p className="text-slate-700 mb-4"><strong>FERPA-safe tools (simple summary):</strong> For tools that may include student information, data is encrypted on your device before saving. The server stores only encrypted text (ciphertext). Authorized school users can open the data only if they have the shared team key, and decryption happens in the browser—never on the server.</p>
           </section>
 
           {/* Section 5 */}
