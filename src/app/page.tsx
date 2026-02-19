@@ -110,7 +110,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href="/pro/waitlist">
+            <Link href="/pro/demo">
               <ShimmerButton
                 className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
@@ -418,7 +418,7 @@ export default function Home() {
 
           <FadeInSection delay={0.3}>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/pro/waitlist">
+              <Link href="/pro/demo">
                 <ShimmerButton
                   className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
                   background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
