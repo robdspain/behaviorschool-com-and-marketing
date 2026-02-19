@@ -85,30 +85,30 @@ export default function CalABA2026Page() {
           ============================================ */}
       <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white pt-24 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-blue-500/30">
+          <div className="inline-flex items-center gap-2 bg-cyan-500/30 text-cyan-200 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-cyan-400/50">
             📍 CalABA 2026 · Sacramento
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-blue-400">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-cyan-300">
             Beyond Observable Behavior
           </h1>
-          <h2 className="text-xl sm:text-2xl text-slate-300 mb-6">
+          <h2 className="text-xl sm:text-2xl text-white mb-6">
             Measuring and Modifying the Function of Thought in School-Based Assessment
           </h2>
 
-          <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
-            <strong className="text-slate-200">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
+          <p className="text-lg text-slate-200 mb-8 max-w-2xl mx-auto">
+            <strong className="text-white">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
           </p>
 
           {/* Download Materials Box */}
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8 max-w-xl mx-auto text-left shadow-2xl">
+          <div className="bg-slate-800 border-2 border-cyan-500/40 rounded-2xl p-8 max-w-xl mx-auto text-left shadow-2xl">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                <Download className="w-6 h-6 text-blue-400" />
+              <div className="w-12 h-12 bg-cyan-500/30 rounded-xl flex items-center justify-center">
+                <Download className="w-6 h-6 text-cyan-300" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">Download Symposium Materials</h3>
-                <p className="text-sm text-slate-400">Slides, handouts, templates, and references</p>
+                <p className="text-sm text-slate-300">Slides, handouts, templates, and references</p>
               </div>
             </div>
 
@@ -120,7 +120,7 @@ export default function CalABA2026Page() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-500 bg-slate-900 text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
                 />
                 <input
                   type="email"
@@ -128,22 +128,22 @@ export default function CalABA2026Page() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none"
+                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-500 bg-slate-900 text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
                 />
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={subscribeNewsletter}
                     onChange={(e) => setSubscribeNewsletter(e.target.checked)}
-                    className="w-5 h-5 rounded border-slate-500 bg-slate-700 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                    className="w-5 h-5 rounded border-cyan-400 bg-slate-700 text-cyan-500 focus:ring-cyan-500 focus:ring-offset-0"
                   />
-                  <span className="text-sm text-slate-300 group-hover:text-white transition-colors">
+                  <span className="text-sm text-slate-200 group-hover:text-white transition-colors">
                     Subscribe to the Behavior School newsletter for tips, tools, and updates
                   </span>
                 </label>
                 <button
                   type="submit"
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
                 >
                   <Download className="w-5 h-5" />
                   Get Free Materials
@@ -151,10 +151,10 @@ export default function CalABA2026Page() {
               </form>
             ) : (
               <div className="text-center py-6">
-                <CheckCircle className="w-12 h-12 text-blue-400 mx-auto mb-3" />
+                <CheckCircle className="w-12 h-12 text-cyan-400 mx-auto mb-3" />
                 <p className="text-lg font-bold text-white mb-2">Check your email!</p>
-                <p className="text-slate-400 mb-4">Your download link is on its way.</p>
-                <div className="space-y-2 text-sm text-slate-400">
+                <p className="text-slate-200 mb-4">Your download link is on its way.</p>
+                <div className="space-y-2 text-sm text-slate-200">
                   <p>📋 Presentation slides (PDF)</p>
                   <p>📄 Assessment templates (CPFQ, ACT Matrix, Values Sort)</p>
                   <p>📚 APA References list</p>
@@ -177,12 +177,12 @@ export default function CalABA2026Page() {
                 href={item.href}
                 target={item.href.startsWith("http") ? "_blank" : undefined}
                 rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="bg-slate-700/50 hover:bg-slate-700 border border-slate-600 backdrop-blur-sm rounded-xl p-4 text-center transition-all hover:scale-105 hover:border-blue-500/50 group cursor-pointer"
+                className="bg-slate-700/80 hover:bg-cyan-600/30 border-2 border-slate-500 backdrop-blur-sm rounded-xl p-4 text-center transition-all hover:scale-105 hover:border-cyan-400 group cursor-pointer"
               >
-                <item.icon className="w-6 h-6 mx-auto mb-2 text-blue-400 group-hover:text-blue-300" />
-                <span className="text-sm font-medium flex items-center justify-center gap-1">
+                <item.icon className="w-6 h-6 mx-auto mb-2 text-cyan-300 group-hover:text-cyan-200" />
+                <span className="text-sm font-semibold text-white flex items-center justify-center gap-1">
                   {item.label}
-                  {item.href.startsWith("http") && <ExternalLink className="w-3 h-3 opacity-50" />}
+                  {item.href.startsWith("http") && <ExternalLink className="w-3 h-3 opacity-70" />}
                 </span>
               </a>
             ))}
