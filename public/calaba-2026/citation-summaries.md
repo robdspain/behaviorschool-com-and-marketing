@@ -44,6 +44,14 @@ This review summarizes the empirical basis for ACT across clinical populations. 
 
 RFT provides the behavior-analytic foundation for ACT. This edited volume explains how humans derive relations among stimuli (equivalence, opposition, comparison, temporal relations) through a history of multiple-exemplar training. The key insight for school behavior support: once a student derives that "I'm stupid" is equivalent to failure experiences, the thought itself acquires aversive functions—and escape from the thought (not just escape from the academic task) can maintain avoidance behavior. This explains why manipulating environmental contingencies alone fails when the behavior is "rule-governed" by derived verbal relations.
 
+**Barnes-Holmes, Y., Barnes-Holmes, D., & McHugh, L. (2004). Teaching derived relational responding to young children. *Journal of Early and Intensive Behavior Intervention, 1*(1), 3-12. https://doi.org/10.1037/h0100275**
+
+This foundational study demonstrates that derived relational responding can be explicitly taught to young children through multiple-exemplar training. The research establishes that the building blocks of complex verbal behavior—the same processes underlying cognitive fusion and rule-governed behavior—emerge through learning history rather than biological maturation alone. For the symposium's assessment methodology, this supports the premise that students' verbal statements (the content being challenged in the validating vs. challenging conditions) acquired their stimulus functions through derived relational responding, and therefore latency differences reveal differential fusion with specific verbal content.
+
+**Foody, M., Barnes-Holmes, Y., Barnes-Holmes, D., Törneke, N., Luciano, C., Stewart, I., & McEnteggart, C. (2014). RFT for clinical use: The example of metaphor. *Journal of Contextual Behavioral Science, 3*(4), 305-313. https://doi.org/10.1016/j.jcbs.2014.08.001**
+
+This paper bridges RFT theory and ACT clinical practice, demonstrating how metaphor functions through derived relational responding to promote defusion. The authors explain that metaphors work by establishing new relational frames that alter the functions of problematic verbal content without directly challenging the content itself. For the symposium, this citation supports the intervention phase: once the latency-based assessment identifies which verbal statements show least psychological flexibility (shortest latency to precursors when challenged), metaphor-based defusion interventions specifically target those high-fusion statements—the transformation of stimulus functions reduces the aversive properties of the verbal content.
+
 ### ACT Matrix
 
 **Polk, K. L., & Schoendorff, B. (Eds.). (2014). *The ACT matrix: A new approach to building psychological flexibility across settings and populations*. New Harbinger Publications.**
