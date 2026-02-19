@@ -252,35 +252,46 @@ export default function CalABA2026Page() {
             </div>
           </div>
 
-          {/* Core Tools */}
+          {/* Core Tools - Link to demo tools */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 icon: "📋",
                 title: "FBA-to-BIP",
                 description: "Upload observation data → get comprehensive assessment and intervention plan",
+                href: "/fba-to-bip",
               },
               {
                 icon: "🎯",
                 title: "IEP Goal Writer",
                 description: "Describe the student → get measurable, legally defensible goals",
+                href: "/iep-goal-writer",
               },
               {
                 icon: "📚",
                 title: "Goal Bank",
                 description: "500+ evidence-based goals searchable by domain and grade",
+                href: "/iep-goal-bank",
               },
               {
                 icon: "🧠",
                 title: "ACT Module",
                 description: "ACT Matrix, values assessment, and psychological flexibility tools",
+                href: "/act-tools",
               },
             ].map((tool) => (
-              <div key={tool.title} className="bg-slate-50 rounded-xl p-5 text-center">
+              <Link 
+                key={tool.title} 
+                href={tool.href}
+                className="bg-slate-50 hover:bg-emerald-50 border-2 border-transparent hover:border-emerald-200 rounded-xl p-5 text-center transition-all hover:scale-105 group cursor-pointer"
+              >
                 <div className="text-3xl mb-3">{tool.icon}</div>
-                <h4 className="font-bold text-slate-900 mb-2">{tool.title}</h4>
+                <h4 className="font-bold text-slate-900 mb-2 group-hover:text-emerald-700">{tool.title}</h4>
                 <p className="text-sm text-slate-600">{tool.description}</p>
-              </div>
+                <span className="text-xs text-emerald-600 mt-2 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
+                  Try it free →
+                </span>
+              </Link>
             ))}
           </div>
 
