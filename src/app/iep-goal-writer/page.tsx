@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IEPGoalWriter } from "@/components/IEPGoalWriter";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { FerpaNotice } from "@/components/ui/FerpaNotice";
 
 export const metadata: Metadata = {
   title: "IEP Goal Writer (Team Vault) | Behavior School",
@@ -15,6 +16,7 @@ export default function IEPGoalWriterPage() {
         <Breadcrumbs items={[{ label: "IEP Goals", href: "/iep-goals" }, { label: "IEP Goal Writer" }]} />
       </div>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <FerpaNotice className="mb-4" />
         <IEPGoalWriter />
       </div>
     </div>

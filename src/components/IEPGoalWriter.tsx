@@ -1,36 +1,64 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { decryptWithPassphrase, encryptWithPassphrase, hashPassphrase } from '@/lib/ferpa-client-crypto';
+import { decryptWithPassphrase, encryptWithPassphrase, hashPassphrase, getEncryptedLocal, setEncryptedLocal } from '@/lib/ferpa-client-crypto';
+
+const LOCAL_DRAFT_KEY = 'behaviorschool_iep_goal_writer_draft_v1';
+
+type FormDataType = {
+  studentName: string;
+  dueDate: string;
+  direction: string;
+  behaviorTitle: string;
+  behaviorDefinition: string;
+  context: string;
+  supports: string;
+  dataMethod: string;
+  accuracy: string;
+  consistency: string;
+  baselineFrequency: string;
+  baselineUnit: string;
+  baselineMaxConsec: string;
+  baselineMethods: string;
+  baselineAvg: string;
+  latencySeconds: string;
+  fluencyNotes: string;
+  settingsCount: string;
+  maintenance: string;
+  baselineLatency: string;
+  baselineGeneralization: string;
+};
+
+const defaultFormData: FormDataType = {
+  studentName: '',
+  dueDate: '',
+  direction: 'decrease',
+  behaviorTitle: '',
+  behaviorDefinition: '',
+  context: '',
+  supports: '',
+  dataMethod: '',
+  accuracy: '',
+  consistency: '',
+  baselineFrequency: '',
+  baselineUnit: 'times per day',
+  baselineMaxConsec: '',
+  baselineMethods: '',
+  baselineAvg: '',
+  latencySeconds: '',
+  fluencyNotes: '',
+  settingsCount: '',
+  maintenance: '',
+  baselineLatency: '',
+  baselineGeneralization: ''
+};
 
 export function IEPGoalWriter() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(1);
 
   // State for form data
-  const [formData, setFormData] = useState({
-    studentName: '',
-    dueDate: '',
-    direction: 'decrease',
-    behaviorTitle: '',
-    behaviorDefinition: '',
-    context: '',
-    supports: '',
-    dataMethod: '',
-    accuracy: '',
-    consistency: '',
-    baselineFrequency: '',
-    baselineUnit: 'times per day',
-    baselineMaxConsec: '',
-    baselineMethods: '',
-    baselineAvg: '',
-    latencySeconds: '',
-    fluencyNotes: '',
-    settingsCount: '',
-    maintenance: '',
-    baselineLatency: '',
-    baselineGeneralization: ''
-  });
+  const [formData, setFormData] = useState<FormDataType>(defaultFormData);
 
   const [qualityLevel, setQualityLevel] = useState(0);
   const [generatedGoal, setGeneratedGoal] = useState('');
@@ -43,6 +71,40 @@ export function IEPGoalWriter() {
   const [vaultDocs, setVaultDocs] = useState<{ _id: string; title: string; createdBy: string; createdAt: number }[]>([]);
   const [vaultLoading, setVaultLoading] = useState(false);
   const [vaultError, setVaultError] = useState<string | null>(null);
+  const [draftSaved, setDraftSaved] = useState(false);
+
+  // Load saved draft from encrypted localStorage on mount
+  useEffect(() => {
+    const loadDraft = async () => {
+      if (typeof window === 'undefined') return;
+      try {
+        const draft = await getEncryptedLocal<{ formData: FormDataType; generatedGoal: string; updatedAt: string }>(LOCAL_DRAFT_KEY);
+        if (draft) {
+          if (draft.formData) setFormData(draft.formData);
+          if (draft.generatedGoal) setGeneratedGoal(draft.generatedGoal);
+        }
+      } catch (error) {
+        console.warn('Unable to load IEP Goal Writer draft', error);
+      }
+    };
+    loadDraft();
+  }, []);
+
+  // Save draft to encrypted localStorage
+  const handleSaveDraft = async () => {
+    if (typeof window === 'undefined') return;
+    try {
+      await setEncryptedLocal(LOCAL_DRAFT_KEY, {
+        formData,
+        generatedGoal,
+        updatedAt: new Date().toISOString()
+      });
+      setDraftSaved(true);
+      setTimeout(() => setDraftSaved(false), 2000);
+    } catch (error) {
+      console.warn('Unable to save IEP Goal Writer draft', error);
+    }
+  };
 
   // Calculate quality level based on filled fields
   useEffect(() => {
@@ -876,6 +938,14 @@ export function IEPGoalWriter() {
           disabled={currentStep === 1}
         >
           Back
+        </button>
+
+        <button
+          className="wizard-button"
+          onClick={handleSaveDraft}
+          style={{ marginLeft: '8px' }}
+        >
+          {draftSaved ? '✓ Saved' : 'Save Draft'}
         </button>
 
         <div style={{ flex: 1 }} />
