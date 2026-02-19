@@ -169,7 +169,7 @@ export default function CalABA2026Page() {
             {[
               { icon: FileText, label: "64 Slides", href: "https://docs.google.com/presentation/d/1Je5rD1o5N6Tog3Kr646mm8hT3BERrb_0IXFIVoksnnk/edit" },
               { icon: BookOpen, label: "20+ References", href: "/calaba-2026/references.pdf" },
-              { icon: Download, label: "Assessment Tools", href: "#assessment-tools" },
+              { icon: Download, label: "Assessment Tools", href: "/calaba-2026/assessment-tools" },
               { icon: Users, label: "Data Templates", href: "#data-templates" },
             ].map((item) => (
               <a 
