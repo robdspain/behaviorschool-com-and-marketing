@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { CheckCircle, Clock, Users, Shield, Zap, Star } from "lucide-react";
+import { CheckCircle, Clock, Users, Shield, Zap, Star, Download, FileText, BookOpen, ArrowRight } from "lucide-react";
 
-export default function CalABA2026FoundingMember() {
+export default function CalABA2026Page() {
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,
     hours: 0,
@@ -14,7 +14,8 @@ export default function CalABA2026FoundingMember() {
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [downloadSubmitted, setDownloadSubmitted] = useState(false);
+  const [founderSubmitted, setFounderSubmitted] = useState(false);
 
   useEffect(() => {
     const targetDate = new Date("2026-03-07T23:59:59-08:00").getTime();
@@ -36,501 +37,427 @@ export default function CalABA2026FoundingMember() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleEmailSubmit = async (e: React.FormEvent) => {
+  const handleDownloadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // This would integrate with your email service (Listmonk, etc.)
-    console.log("Email submitted:", { name, email });
-    setSubmitted(true);
+    try {
+      await fetch('/api/crm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          name,
+          source: 'calaba-2026-download',
+          role: 'BCBA',
+        }),
+      });
+    } catch (err) {
+      console.error('CRM error:', err);
+    }
+    setDownloadSubmitted(true);
   };
 
-  // JSON-LD Schema for FAQ
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is this FERPA compliant?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. All student data is processed locally in your browser. We never store, transmit, or train models on student information. Each tool follows FERPA best practices for school-based behavior analysis."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What if I am not at CalABA?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This exclusive Founding Member rate is available to all school-based BCBAs through March 7, 2026. You don't need to attend CalABA to join — this is for the entire school BCBA community."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can my district purchase this?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! We offer district and SELPA-wide licenses. Contact us at rob@behaviorschool.com for volume pricing and purchase orders. Founding Members get priority access to district license conversions."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the cancellation policy?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Cancel anytime, no questions asked. Your Founding Member rate stays locked as long as you remain subscribed. If you cancel and rejoin later, you'll pay the current standard rate."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "When do new tools get added?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We ship new features monthly. Coming in 2026: CEU Library (Q2), Supervision Dashboard (Q3), Data Collection Mobile App (Q4). All future tools are included at no extra cost for Founding Members."
-        }
-      }
-    ]
+  const handleFounderSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await fetch('/api/crm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          name,
+          source: 'calaba-2026-founder-interest',
+          role: 'BCBA',
+        }),
+      });
+    } catch (err) {
+      console.error('CRM error:', err);
+    }
+    setFounderSubmitted(true);
   };
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+    <div className="min-h-screen bg-bs-background">
+      {/* ============================================
+          SECTION 1: DOWNLOAD SYMPOSIUM MATERIALS
+          ============================================ */}
+      <div className="bg-gradient-to-br from-emerald-800 via-emerald-700 to-teal-600 text-white pt-24 pb-16 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-bold mb-6 border border-white/30">
+            📍 CalABA 2026 · Sacramento
+          </div>
 
-      <div className="min-h-screen bg-bs-background">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-br from-bs-primary via-bs-primary-dark to-slate-900 text-white pt-20 pb-16 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-bs-accent/20 text-bs-accent px-4 py-2 rounded-full text-sm font-bold mb-6 border border-bs-accent/30">
-              🎓 CalABA 2026 Exclusive Offer
-            </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+            Beyond Observable Behavior
+          </h1>
+          <h2 className="text-xl sm:text-2xl text-emerald-100 mb-6">
+            Measuring and Modifying the Function of Thought in School-Based Assessment
+          </h2>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Become a <span className="text-bs-accent">Founding Member</span>
-            </h1>
+          <p className="text-lg text-emerald-100 mb-8 max-w-2xl mx-auto">
+            <strong>Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCBA · Megan Caluza, BCBA
+          </p>
 
-            <p className="text-xl sm:text-2xl text-slate-200 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Join the first 100 school BCBAs getting AI-powered tools built specifically for them
-            </p>
-
-            {/* Countdown Timer */}
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 mb-8 max-w-2xl mx-auto">
-              <p className="text-sm text-slate-300 mb-4 font-medium">Founding Member Rate Ends:</p>
-              <div className="grid grid-cols-4 gap-4">
-                {[
-                  { label: "Days", value: timeRemaining.days },
-                  { label: "Hours", value: timeRemaining.hours },
-                  { label: "Minutes", value: timeRemaining.minutes },
-                  { label: "Seconds", value: timeRemaining.seconds },
-                ].map((unit) => (
-                  <div key={unit.label} className="bg-bs-primary-dark rounded-lg p-4">
-                    <div className="text-3xl sm:text-4xl font-bold text-bs-accent mb-1">
-                      {String(unit.value).padStart(2, "0")}
-                    </div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wide">
-                      {unit.label}
-                    </div>
-                  </div>
-                ))}
+          {/* Download Materials Box */}
+          <div className="bg-white rounded-2xl p-8 max-w-xl mx-auto text-left shadow-2xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                <Download className="w-6 h-6 text-emerald-700" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-slate-900">Download Symposium Materials</h3>
+                <p className="text-sm text-slate-600">Slides, handouts, templates, and references</p>
               </div>
             </div>
 
-            <Link
-              href="https://plan.behaviorschool.com/signup?plan=founding"
-              className="inline-flex items-center gap-2 bg-bs-accent hover:bg-bs-accent/90 text-bs-primary-dark text-lg font-bold px-10 py-5 rounded-xl shadow-lg shadow-bs-accent/25 transition-all hover:scale-105"
-            >
-              Lock In Your Founding Member Rate
-            </Link>
-
-            <p className="text-sm text-slate-400 mt-4">
-              Limited to first 100 members · $149/year (40% off forever)
-            </p>
-          </div>
-        </div>
-
-        {/* What You Get Section */}
-        <div className="py-20 px-4 bg-white">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-bs-primary">
-              What You Get as a Founding Member
-            </h2>
-            <p className="text-center text-bs-text-light text-lg mb-12 max-w-2xl mx-auto">
-              Everything you need to save hours every week while delivering better outcomes for students
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {[
-                {
-                  title: "AI-Powered FBA Generator",
-                  description: "Upload observation data and get a comprehensive Functional Behavior Assessment in minutes. Save 8+ hours per FBA with legally defensible documentation.",
-                  icon: "📋",
-                  badge: "Available Now",
-                },
-                {
-                  title: "IEP Behavior Goal Writer",
-                  description: "Generate measurable, SMART behavior goals aligned to your FBA findings. Legally defensible goals in minutes, not hours.",
-                  icon: "🎯",
-                  badge: "Available Now",
-                },
-                {
-                  title: "Behavior Plan Writer",
-                  description: "From assessment to intervention in one seamless workflow. Generate comprehensive BIPs connected directly to your FBA data.",
-                  icon: "📝",
-                  badge: "Available Now",
-                },
-                {
-                  title: "Goal Bank (500+ Goals)",
-                  description: "Searchable library of evidence-based behavior and academic goals. Filter by domain, grade level, and intervention type.",
-                  icon: "📚",
-                  badge: "Available Now",
-                },
-                {
-                  title: "CEU Library",
-                  description: "School-focused continuing education units. Track your BACB requirements and earn credits on topics that matter for school practice.",
-                  icon: "🎓",
-                  badge: "Coming Q2 2026",
-                },
-                {
-                  title: "Supervision Dashboard",
-                  description: "Manage RBT supervision hours, track professional development, and document supervision sessions. Built for school-based supervisors.",
-                  icon: "👥",
-                  badge: "Coming Q3 2026",
-                },
-              ].map((tool) => (
-                <div
-                  key={tool.title}
-                  className="bg-bs-section-odd border-2 border-bs-primary/10 rounded-xl p-6 hover:shadow-lg transition-shadow"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="text-4xl">{tool.icon}</div>
-                    <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-                      tool.badge.includes("Now") 
-                        ? "bg-emerald-100 text-emerald-700" 
-                        : "bg-slate-200 text-slate-600"
-                    }`}>
-                      {tool.badge}
-                    </span>
-                  </div>
-                  <h3 className="font-bold text-xl mb-2 text-bs-primary">{tool.title}</h3>
-                  <p className="text-bs-text-light leading-relaxed">{tool.description}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 text-center">
-              <div className="inline-flex items-center gap-2 bg-bs-accent/10 text-bs-primary px-6 py-3 rounded-full border-2 border-bs-accent/30">
-                <Zap className="w-5 h-5 text-bs-accent" />
-                <span className="font-bold">All future tools included at no extra cost</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Pricing Section */}
-        <div className="py-20 px-4 bg-bs-section-odd">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 text-bs-primary">
-              Founding Member Pricing
-            </h2>
-            <p className="text-center text-bs-text-light text-lg mb-12">
-              Lock in this rate forever — as long as you stay subscribed
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {/* Annual Plan - Recommended */}
-              <div className="bg-white border-4 border-bs-accent rounded-2xl p-8 relative shadow-xl">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-bs-accent text-bs-primary-dark text-sm font-bold px-4 py-1 rounded-full whitespace-nowrap">
-                  ⭐ FOUNDING MEMBER RATE
-                </div>
-                
-                <div className="text-center mb-6 mt-2">
-                  <h3 className="text-2xl font-bold text-bs-primary mb-2">Annual Plan</h3>
-                  <div className="mb-2">
-                    <span className="text-slate-500 line-through text-xl">$249/year</span>
-                  </div>
-                  <div className="text-5xl font-bold text-bs-primary mb-1">
-                    $149
-                  </div>
-                  <div className="text-bs-text-light text-sm">per year · billed annually</div>
-                </div>
-
-                <div className="space-y-3 mb-6">
-                  {[
-                    "40% off forever",
-                    "All current tools",
-                    "All future tools included",
-                    "Priority feature requests",
-                    "Founding Member Discord channel",
-                  ].map((feature) => (
-                    <div key={feature} className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                      <span className="text-bs-text">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Link
-                  href="https://plan.behaviorschool.com/signup?plan=founding-annual"
-                  className="block w-full bg-bs-accent hover:bg-bs-accent/90 text-bs-primary-dark font-bold py-4 rounded-xl text-center transition-colors shadow-lg"
-                >
-                  Get Started — $149/year
-                </Link>
-
-                <p className="text-xs text-center text-slate-500 mt-4">
-                  Save $100/year compared to standard rate
-                </p>
-              </div>
-
-              {/* Monthly Plan */}
-              <div className="bg-white border-2 border-bs-primary/20 rounded-2xl p-8">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-bs-primary mb-2">Monthly Plan</h3>
-                  <div className="mb-2">
-                    <span className="text-slate-500 line-through text-xl">$25/month</span>
-                  </div>
-                  <div className="text-5xl font-bold text-bs-primary mb-1">
-                    $19
-                  </div>
-                  <div className="text-bs-text-light text-sm">per month · cancel anytime</div>
-                </div>
-
-                <div className="space-y-3 mb-6">
-                  {[
-                    "24% off standard rate",
-                    "All current tools",
-                    "All future tools included",
-                    "Cancel anytime",
-                    "Rate locked forever",
-                  ].map((feature) => (
-                    <div key={feature} className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                      <span className="text-bs-text">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Link
-                  href="https://plan.behaviorschool.com/signup?plan=founding-monthly"
-                  className="block w-full bg-bs-primary hover:bg-bs-primary-dark text-white font-bold py-4 rounded-xl text-center transition-colors"
-                >
-                  Get Started — $19/month
-                </Link>
-
-                <p className="text-xs text-center text-slate-500 mt-4">
-                  Annual plan saves you $79 per year
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-12 max-w-2xl mx-auto bg-white border-2 border-bs-accent/30 rounded-xl p-6">
-              <div className="flex items-start gap-4">
-                <Shield className="w-6 h-6 text-bs-accent flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-bold text-bs-primary mb-2">Lock in this price forever</h4>
-                  <p className="text-sm text-bs-text-light">
-                    After the first 100 members, our standard rate is $249/year or $25/month. 
-                    As a Founding Member, your rate never increases — ever — as long as you stay subscribed.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Social Proof Section */}
-        <div className="py-20 px-4 bg-white">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-bs-section-odd border border-bs-primary/10 rounded-2xl p-8 sm:p-12">
-              <div className="flex flex-col sm:flex-row gap-8 items-center">
-                <div className="flex-shrink-0">
-                  <div className="w-32 h-32 bg-bs-primary rounded-full flex items-center justify-center text-white text-5xl font-bold">
-                    RS
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-bs-primary mb-3">
-                    Built by Rob Spain, BCBA, IBA
-                  </h3>
-                  <p className="text-bs-text-light mb-4 leading-relaxed">
-                    A school-based behavior analyst who uses these tools every day. Rob leads the behavior team at 
-                    Kings Canyon Unified School District and coordinates the Fresno County BCBA Collaborative, 
-                    supporting 30+ school districts across Central California.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="bg-white border border-bs-primary/20 px-3 py-1 rounded-full text-sm text-bs-primary font-medium">
-                      KCUSD Behavior Team Lead
-                    </span>
-                    <span className="bg-white border border-bs-primary/20 px-3 py-1 rounded-full text-sm text-bs-primary font-medium">
-                      Fresno County BCBA Collaborative
-                    </span>
-                    <span className="bg-white border border-bs-primary/20 px-3 py-1 rounded-full text-sm text-bs-primary font-medium">
-                      CalABA 2026 Presenter
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-12 text-center">
-              <p className="text-bs-text-light italic mb-4">
-                "I built Behavior School because I was drowning in paperwork like everyone else. 
-                These aren't adapted clinic tools — they're built from the ground up for school BCBAs who need to move fast 
-                and produce legally defensible documentation."
-              </p>
-              <p className="text-bs-primary font-bold">— Rob Spain, BCBA</p>
-            </div>
-          </div>
-        </div>
-
-        {/* FAQ Section */}
-        <div className="py-20 px-4 bg-bs-section-odd">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-bs-primary">
-              Frequently Asked Questions
-            </h2>
-
-            <div className="space-y-6">
-              {[
-                {
-                  question: "Is this FERPA compliant?",
-                  answer: "Yes. All student data is processed locally in your browser. We never store, transmit, or train models on student information. Each tool follows FERPA best practices for school-based behavior analysis.",
-                },
-                {
-                  question: "What if I am not at CalABA?",
-                  answer: "This exclusive Founding Member rate is available to all school-based BCBAs through March 7, 2026. You don't need to attend CalABA to join — this is for the entire school BCBA community.",
-                },
-                {
-                  question: "Can my district purchase this?",
-                  answer: "Yes! We offer district and SELPA-wide licenses. Contact us at rob@behaviorschool.com for volume pricing and purchase orders. Founding Members get priority access to district license conversions.",
-                },
-                {
-                  question: "What is the cancellation policy?",
-                  answer: "Cancel anytime, no questions asked. Your Founding Member rate stays locked as long as you remain subscribed. If you cancel and rejoin later, you'll pay the current standard rate.",
-                },
-                {
-                  question: "When do new tools get added?",
-                  answer: "We ship new features monthly. Coming in 2026: CEU Library (Q2), Supervision Dashboard (Q3), Data Collection Mobile App (Q4). All future tools are included at no extra cost for Founding Members.",
-                },
-              ].map((faq) => (
-                <div key={faq.question} className="bg-white rounded-xl p-6 border border-bs-primary/10">
-                  <h3 className="font-bold text-lg text-bs-primary mb-3">{faq.question}</h3>
-                  <p className="text-bs-text-light leading-relaxed">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* QR Code Section */}
-        <div className="py-20 px-4 bg-white">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-bs-primary mb-6">
-              Share This Page
-            </h2>
-            <p className="text-bs-text-light mb-8">
-              Scan this QR code from any presentation slide or share with colleagues
-            </p>
-
-            <div className="inline-block bg-white border-4 border-bs-primary rounded-2xl p-8">
-              <svg
-                width="200"
-                height="200"
-                viewBox="0 0 200 200"
-                className="mx-auto"
-              >
-                {/* Simple QR code placeholder - in production, use a proper QR library */}
-                <rect width="200" height="200" fill="white" />
-                <rect x="10" y="10" width="60" height="60" fill="black" />
-                <rect x="20" y="20" width="40" height="40" fill="white" />
-                <rect x="30" y="30" width="20" height="20" fill="black" />
-                
-                <rect x="130" y="10" width="60" height="60" fill="black" />
-                <rect x="140" y="20" width="40" height="40" fill="white" />
-                <rect x="150" y="30" width="20" height="20" fill="black" />
-                
-                <rect x="10" y="130" width="60" height="60" fill="black" />
-                <rect x="20" y="140" width="40" height="40" fill="white" />
-                <rect x="30" y="150" width="20" height="20" fill="black" />
-                
-                {/* Data pattern */}
-                {Array.from({ length: 15 }).map((_, i) => (
-                  <g key={i}>
-                    <rect x={80 + (i % 5) * 10} y={80 + Math.floor(i / 5) * 10} width="8" height="8" fill={Math.random() > 0.5 ? "black" : "white"} />
-                  </g>
-                ))}
-              </svg>
-              <p className="text-sm text-bs-text-light mt-4 font-mono">
-                behaviorschool.com/calaba-2026
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom CTA: Email Capture */}
-        <div className="py-20 px-4 bg-gradient-to-br from-bs-primary via-bs-primary-dark to-slate-900 text-white">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Not Ready Yet? Stay Updated.
-            </h2>
-            <p className="text-slate-300 text-lg mb-8">
-              Get notified when we launch new tools and features
-            </p>
-
-            {!submitted ? (
-              <form onSubmit={handleEmailSubmit} className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="w-full px-4 py-3 rounded-lg text-bs-text border-2 border-white/20 focus:border-bs-accent focus:outline-none"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full px-4 py-3 rounded-lg text-bs-text border-2 border-white/20 focus:border-bs-accent focus:outline-none"
-                  />
-                </div>
+            {!downloadSubmitted ? (
+              <form onSubmit={handleDownloadSubmit} className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-emerald-500 focus:outline-none text-slate-900"
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-emerald-500 focus:outline-none text-slate-900"
+                />
                 <button
                   type="submit"
-                  className="w-full sm:w-auto bg-bs-accent hover:bg-bs-accent/90 text-bs-primary-dark font-bold px-8 py-4 rounded-lg transition-colors"
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
                 >
-                  Notify Me When New Tools Launch
+                  <Download className="w-5 h-5" />
+                  Get Free Materials
                 </button>
               </form>
             ) : (
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
-                <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
-                <p className="text-lg font-medium">Thanks! We'll keep you posted.</p>
+              <div className="text-center py-6">
+                <CheckCircle className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
+                <p className="text-lg font-bold text-slate-900 mb-2">Check your email!</p>
+                <p className="text-slate-600 mb-4">Your download link is on its way.</p>
+                <div className="space-y-2 text-sm text-slate-600">
+                  <p>📋 Presentation slides (PDF)</p>
+                  <p>📄 Assessment templates (CPFQ, ACT Matrix, Values Sort)</p>
+                  <p>📚 APA References list</p>
+                  <p>🔧 KCUSD data collection templates</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* What's Included */}
+          <div className="mt-12 grid sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            {[
+              { icon: FileText, label: "64 Slides" },
+              { icon: BookOpen, label: "20+ References" },
+              { icon: Download, label: "Assessment Tools" },
+              { icon: Users, label: "Data Templates" },
+            ].map((item) => (
+              <div key={item.label} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <item.icon className="w-6 h-6 mx-auto mb-2 text-emerald-200" />
+                <span className="text-sm font-medium">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================
+          SECTION 2: WHAT IS BEHAVIORSCHOOL PRO?
+          ============================================ */}
+      <div className="py-20 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              What is BehaviorSchool Pro?
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              AI-powered tools built specifically for school-based BCBAs, school psychologists, and behavior teams. 
+              Save hours on documentation while producing better outcomes.
+            </p>
+          </div>
+
+          {/* The Problem / Solution */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+              <h3 className="font-bold text-red-800 mb-4 text-lg">😫 The Problem</h3>
+              <ul className="space-y-3 text-red-700">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-1">✕</span>
+                  FBAs take 8+ hours to write
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-1">✕</span>
+                  IEP goals are vague and unmeasurable
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-1">✕</span>
+                  BIPs don't connect to assessment data
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-1">✕</span>
+                  Drowning in paperwork, not helping students
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
+              <h3 className="font-bold text-emerald-800 mb-4 text-lg">✅ The Solution</h3>
+              <ul className="space-y-3 text-emerald-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  Generate FBAs from observation data in minutes
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  AI writes measurable, SMART IEP goals
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  BIPs auto-link to your FBA findings
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  FERPA compliant — student data never stored
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Core Tools */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: "📋",
+                title: "FBA-to-BIP",
+                description: "Upload observation data → get comprehensive assessment and intervention plan",
+              },
+              {
+                icon: "🎯",
+                title: "IEP Goal Writer",
+                description: "Describe the student → get measurable, legally defensible goals",
+              },
+              {
+                icon: "📚",
+                title: "Goal Bank",
+                description: "500+ evidence-based goals searchable by domain and grade",
+              },
+              {
+                icon: "🧠",
+                title: "ACT Module",
+                description: "ACT Matrix, values assessment, and psychological flexibility tools",
+              },
+            ].map((tool) => (
+              <div key={tool.title} className="bg-slate-50 rounded-xl p-5 text-center">
+                <div className="text-3xl mb-3">{tool.icon}</div>
+                <h4 className="font-bold text-slate-900 mb-2">{tool.title}</h4>
+                <p className="text-sm text-slate-600">{tool.description}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Trust Badges */}
+          <div className="mt-12 flex flex-wrap justify-center gap-4">
+            <div className="flex items-center gap-2 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-medium">
+              <Shield className="w-4 h-4" />
+              FERPA Compliant
+            </div>
+            <div className="flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+              <CheckCircle className="w-4 h-4" />
+              Built by School BCBAs
+            </div>
+            <div className="flex items-center gap-2 bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">
+              <Zap className="w-4 h-4" />
+              AI-Powered
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================
+          SECTION 3: FOUNDING MEMBER OFFER
+          ============================================ */}
+      <div className="py-20 px-4 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-400 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-amber-500/30">
+              🎓 CalABA 2026 Exclusive · Limited to First 100
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Become a <span className="text-amber-400">Founding Member</span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              Lock in 40% off forever. Be one of the first 100 school BCBAs to shape the future of these tools.
+            </p>
+          </div>
+
+          {/* Countdown Timer */}
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 mb-10 max-w-2xl mx-auto">
+            <p className="text-sm text-slate-400 mb-4 text-center font-medium">Founding Member Rate Ends:</p>
+            <div className="grid grid-cols-4 gap-4">
+              {[
+                { label: "Days", value: timeRemaining.days },
+                { label: "Hours", value: timeRemaining.hours },
+                { label: "Minutes", value: timeRemaining.minutes },
+                { label: "Seconds", value: timeRemaining.seconds },
+              ].map((unit) => (
+                <div key={unit.label} className="bg-slate-800 rounded-lg p-4 text-center">
+                  <div className="text-3xl sm:text-4xl font-bold text-amber-400 mb-1">
+                    {String(unit.value).padStart(2, "0")}
+                  </div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wide">
+                    {unit.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-12">
+            {/* Annual Plan */}
+            <div className="bg-white border-4 border-amber-400 rounded-2xl p-8 relative text-slate-900">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 text-sm font-bold px-4 py-1 rounded-full whitespace-nowrap">
+                ⭐ BEST VALUE
+              </div>
+              
+              <div className="text-center mb-6 mt-2">
+                <h3 className="text-xl font-bold mb-2">Annual Plan</h3>
+                <div className="mb-1">
+                  <span className="text-slate-400 line-through text-lg">$249/year</span>
+                </div>
+                <div className="text-4xl font-bold text-emerald-600 mb-1">$149</div>
+                <div className="text-slate-500 text-sm">per year</div>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                {["40% off forever", "All tools included", "Priority feature requests", "Founding Member Discord"].map((f) => (
+                  <div key={f} className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="w-4 h-4 text-emerald-600" />
+                    {f}
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="https://plan.behaviorschool.com/signup?plan=founding-annual"
+                className="block w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-4 rounded-xl text-center transition-colors"
+              >
+                Get Started — $149/year
+              </Link>
+            </div>
+
+            {/* Monthly Plan */}
+            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8 text-white">
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold mb-2">Monthly Plan</h3>
+                <div className="mb-1">
+                  <span className="text-slate-500 line-through text-lg">$25/month</span>
+                </div>
+                <div className="text-4xl font-bold text-white mb-1">$19</div>
+                <div className="text-slate-400 text-sm">per month · cancel anytime</div>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                {["24% off forever", "All tools included", "Cancel anytime", "Rate locked forever"].map((f) => (
+                  <div key={f} className="flex items-center gap-2 text-sm text-slate-300">
+                    <CheckCircle className="w-4 h-4 text-emerald-500" />
+                    {f}
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="https://plan.behaviorschool.com/signup?plan=founding-monthly"
+                className="block w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl text-center transition-colors border border-slate-600"
+              >
+                Get Started — $19/month
+              </Link>
+            </div>
+          </div>
+
+          {/* Not Ready CTA */}
+          <div className="text-center">
+            <p className="text-slate-400 mb-4">Not ready to commit? Get notified when we launch new features:</p>
+            {!founderSubmitted ? (
+              <form onSubmit={handleFounderSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="flex-1 px-4 py-3 rounded-lg text-slate-900"
+                />
+                <button
+                  type="submit"
+                  className="bg-slate-700 hover:bg-slate-600 text-white font-medium px-6 py-3 rounded-lg whitespace-nowrap"
+                >
+                  Keep Me Updated
+                </button>
+              </form>
+            ) : (
+              <div className="bg-emerald-500/20 border border-emerald-500/30 rounded-xl p-4 max-w-md mx-auto">
+                <CheckCircle className="w-6 h-6 text-emerald-400 mx-auto mb-2" />
+                <p className="text-emerald-300">You're on the list!</p>
               </div>
             )}
           </div>
         </div>
+      </div>
 
-        {/* Footer */}
-        <div className="border-t border-bs-primary/10 py-8 px-4 text-center bg-white">
-          <p className="text-sm text-bs-text-light">
-            © {new Date().getFullYear()} Behavior School · Founding Member rate valid through March 7, 2026
-          </p>
-          <div className="mt-4 space-x-6">
-            <Link href="/privacy" className="text-sm text-bs-primary hover:text-bs-accent">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-sm text-bs-primary hover:text-bs-accent">
-              Terms of Service
-            </Link>
-            <Link href="/contact" className="text-sm text-bs-primary hover:text-bs-accent">
-              Contact
-            </Link>
+      {/* ============================================
+          SECTION 4: ABOUT THE PRESENTERS
+          ============================================ */}
+      <div className="py-16 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-center mb-8 text-slate-900">About the Presenters</h2>
+          
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Rob Spain, BCBA, IBA",
+                role: "Kings Canyon USD · Behavior School",
+                desc: "Behavior Team Lead, Fresno County BCBA Collaborative Coordinator",
+              },
+              {
+                name: "Cristal Lopez, BCBA",
+                role: "Kings Canyon USD",
+                desc: "Behavior Case Manager specializing in ACT-informed interventions",
+              },
+              {
+                name: "Megan Caluza, BCBA",
+                role: "Berkeley USD",
+                desc: "Implementation specialist and staff training coordinator",
+              },
+            ].map((person) => (
+              <div key={person.name} className="text-center">
+                <div className="w-20 h-20 bg-emerald-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-emerald-700">
+                    {person.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                  </span>
+                </div>
+                <h3 className="font-bold text-slate-900">{person.name}</h3>
+                <p className="text-sm text-emerald-600 mb-2">{person.role}</p>
+                <p className="text-sm text-slate-600">{person.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </>
+
+      {/* Footer */}
+      <div className="border-t border-slate-200 py-8 px-4 text-center bg-slate-50">
+        <p className="text-sm text-slate-500">
+          © {new Date().getFullYear()} Behavior School · Questions? <a href="mailto:rob@behaviorschool.com" className="text-emerald-600 hover:underline">rob@behaviorschool.com</a>
+        </p>
+      </div>
+    </div>
   );
 }
