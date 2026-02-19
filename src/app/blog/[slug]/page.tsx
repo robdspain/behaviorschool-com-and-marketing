@@ -4,6 +4,7 @@ import { getPostBySlug } from "@/lib/ghost-hybrid";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { EditPostButton } from "@/components/admin/EditPostButton";
+import { AudioNarration } from "@/components/blog/AudioNarration";
 
 // Decode HTML entities in text
 function decodeHtmlEntities(text: string): string {
@@ -219,6 +220,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           <p className="mt-2 text-sm text-slate-500">{new Date(post.published_at).toLocaleDateString()}</p>
         ) : null}
       </header>
+      
+      {/* Audio Narration Player */}
+      <AudioNarration slug={slug} title={post.title || 'Article'} />
+      
       {post.feature_image ? (
         <div className="mt-6 overflow-hidden rounded-lg bg-slate-100">
           <img

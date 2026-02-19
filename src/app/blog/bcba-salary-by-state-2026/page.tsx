@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { Section } from "@/components/section";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { AudioNarrationStatic } from "@/components/blog/AudioNarrationStatic";
 import MarkdownIt from "markdown-it";
 
 const md = new MarkdownIt({ html: true, linkify: true, typographer: true });
@@ -58,6 +59,13 @@ export default function BcbaSalaryByState2026Page() {
       </div>
       <Section>
         <Container>
+          {/* Audio Narration Player */}
+          <AudioNarrationStatic 
+            slug="bcba-salary-by-state-2026" 
+            title="BCBA Salary by State 2026: What Behavior Analysts Actually Earn"
+            markdownContent={body}
+          />
+          
           <article className="prose prose-slate max-w-none">
             <div dangerouslySetInnerHTML={{ __html: html }} />
           </article>
