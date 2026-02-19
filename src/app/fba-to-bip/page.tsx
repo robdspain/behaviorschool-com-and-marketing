@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { FBAToBIPWizard } from "@/components/fba-to-bip/FBAToBIPWizard";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ShareButtons } from "@/components/ui/share-buttons";
+import { ProTrialCTA } from "@/components/ui/ProTrialCTA";
 
 const baseUrl = "https://behaviorschool.com";
 const pageUrl = `${baseUrl}/fba-to-bip`;
@@ -170,6 +171,9 @@ export default function FBAToBIPPage() {
 
           <FBAToBIPWizard />
         </section>
+
+        {/* Pro Trial CTA */}
+        <ProTrialCTA source="fba-to-bip" className="mt-10" />
 
         <section className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_1fr]" aria-labelledby="fba-to-bip-what">
           <div className="space-y-4">

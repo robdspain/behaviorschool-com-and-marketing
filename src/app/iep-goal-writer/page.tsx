@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { GoalWriterWizard } from "@/components/iep-goal-writer/GoalWriterWizard";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ShareButtons } from "@/components/ui/share-buttons";
+import { ProTrialCTA } from "@/components/ui/ProTrialCTA";
 
 const baseUrl = "https://behaviorschool.com";
 const pageUrl = `${baseUrl}/iep-goal-writer`;
@@ -169,9 +170,12 @@ export default function IEPGoalWriterPage() {
         </div>
 
         {/* Wizard App Section */}
-        <section className="relative mb-24 scroll-mt-24" id="tool">
+        <section className="relative mb-12 scroll-mt-24" id="tool">
           <GoalWriterWizard />
         </section>
+
+        {/* Pro Trial CTA */}
+        <ProTrialCTA source="iep-goal-writer" className="mb-24" />
 
         {/* Info Content */}
         <div className="mx-auto max-w-4xl space-y-24">

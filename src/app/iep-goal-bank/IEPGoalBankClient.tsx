@@ -4,6 +4,7 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { goals, categories, gradeLevels, IEPGoal } from "./goalData";
 import { Search, Copy, Check, Filter, ChevronDown, ChevronUp, Lock, Sparkles, X } from "lucide-react";
 import Link from "next/link";
+import { ProTrialCTA } from "@/components/ui/ProTrialCTA";
 
 const FREE_GOAL_LIMIT = 10;
 
@@ -260,8 +261,11 @@ export default function IEPGoalBankClient() {
           </>
         )}
 
+        {/* Pro Trial CTA */}
+        <ProTrialCTA source="iep-goal-bank" className="mt-12" />
+
         {/* CTA */}
-        <div className="mt-12 bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 text-center">
+        <div className="mt-8 bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 text-center">
           <h2 className="text-2xl font-bold text-bs-primary mb-3">Need a Custom Goal?</h2>
           <p className="text-slate-600 mb-6 max-w-lg mx-auto">
             Use our free IEP Goal Generator to create personalized, measurable behavior goals tailored to your student&apos;s unique needs.
