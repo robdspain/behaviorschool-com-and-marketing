@@ -2,49 +2,154 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft, Play, Pause, RotateCcw, Plus, Trash2, BarChart3, Target, Clock, AlertTriangle } from "lucide-react";
+import { 
+  ArrowLeft, ArrowRight, Play, Pause, RotateCcw, Plus, Trash2, 
+  BarChart3, Target, Clock, AlertTriangle, CheckCircle, User,
+  Brain, Heart, Zap, Shield
+} from "lucide-react";
+
+// Types
+interface QuestionnaireAnswers {
+  studentName: string;
+  grade: string;
+  // Inner + Away (difficult thoughts/feelings)
+  difficultThoughts: string[];
+  difficultFeelings: string[];
+  // Inner + Toward (values, what matters)
+  values: string[];
+  whatMatters: string;
+  // Outer + Away (avoidance behaviors)
+  avoidanceBehaviors: string[];
+  // Outer + Toward (values-consistent actions)
+  towardBehaviors: string[];
+  // Direct verbal statements
+  selfStatements: string[];
+}
 
 interface Statement {
   id: string;
   text: string;
+  source: "questionnaire" | "manual";
   validatingLatency: number | null;
   challengingLatency: number | null;
 }
 
-interface Trial {
-  statementId: string;
-  condition: "validating" | "challenging";
-  latency: number;
-}
+type Step = "questionnaire" | "matrix" | "statements" | "fusion-fa" | "results";
 
-export default function FusionFAPage() {
-  const [statements, setStatements] = useState<Statement[]>([
-    { id: "1", text: "I'm going to fail no matter what", validatingLatency: null, challengingLatency: null },
-    { id: "2", text: "I'm stupid", validatingLatency: null, challengingLatency: null },
-    { id: "3", text: "Nobody wants to work with me", validatingLatency: null, challengingLatency: null },
-  ]);
-  const [newStatement, setNewStatement] = useState("");
+const DIFFICULT_THOUGHTS_OPTIONS = [
+  "I'm going to fail",
+  "I'm stupid",
+  "Nobody likes me",
+  "I can't do anything right",
+  "Everyone is looking at me",
+  "I'm going to get in trouble",
+  "This is too hard",
+  "I don't belong here",
+  "Something bad will happen",
+  "I'm not good enough",
+];
+
+const DIFFICULT_FEELINGS_OPTIONS = [
+  "Worried/Anxious",
+  "Angry/Frustrated",
+  "Sad/Hopeless",
+  "Embarrassed/Ashamed",
+  "Bored/Restless",
+  "Overwhelmed",
+  "Scared/Afraid",
+  "Lonely",
+];
+
+const VALUES_OPTIONS = [
+  "Family",
+  "Friends",
+  "Learning new things",
+  "Being helpful",
+  "Sports/Activities",
+  "Being creative",
+  "Being honest",
+  "Having fun",
+  "Being respected",
+  "Taking care of others",
+];
+
+const AVOIDANCE_OPTIONS = [
+  "Leave the classroom",
+  "Put head down",
+  "Refuse to work",
+  "Argue with teacher",
+  "Say mean things",
+  "Break things",
+  "Cry",
+  "Shut down/go quiet",
+  "Distract others",
+  "Make jokes/act silly",
+];
+
+export default function FusionFAWorkflow() {
+  const [step, setStep] = useState<Step>("questionnaire");
+  const [answers, setAnswers] = useState<QuestionnaireAnswers>({
+    studentName: "",
+    grade: "",
+    difficultThoughts: [],
+    difficultFeelings: [],
+    values: [],
+    whatMatters: "",
+    avoidanceBehaviors: [],
+    towardBehaviors: [],
+    selfStatements: [],
+  });
+  const [customThought, setCustomThought] = useState("");
+  const [customStatement, setCustomStatement] = useState("");
+  const [statements, setStatements] = useState<Statement[]>([]);
   const [activeTimer, setActiveTimer] = useState<{ statementId: string; condition: "validating" | "challenging" } | null>(null);
   const [timerValue, setTimerValue] = useState(0);
   const [timerInterval, setTimerIntervalState] = useState<NodeJS.Timeout | null>(null);
-  const [showResults, setShowResults] = useState(false);
 
-  const addStatement = () => {
-    if (newStatement.trim()) {
-      setStatements([...statements, {
-        id: Date.now().toString(),
-        text: newStatement.trim(),
-        validatingLatency: null,
-        challengingLatency: null,
-      }]);
-      setNewStatement("");
+  // Toggle selection helpers
+  const toggleSelection = (field: keyof QuestionnaireAnswers, value: string) => {
+    const current = answers[field] as string[];
+    if (current.includes(value)) {
+      setAnswers({ ...answers, [field]: current.filter(v => v !== value) });
+    } else {
+      setAnswers({ ...answers, [field]: [...current, value] });
     }
   };
 
-  const removeStatement = (id: string) => {
-    setStatements(statements.filter(s => s.id !== id));
+  const addCustomThought = () => {
+    if (customThought.trim() && !answers.difficultThoughts.includes(customThought.trim())) {
+      setAnswers({ 
+        ...answers, 
+        difficultThoughts: [...answers.difficultThoughts, customThought.trim()] 
+      });
+      setCustomThought("");
+    }
   };
 
+  // Move to statements step - extract from questionnaire
+  const extractStatements = () => {
+    const extracted: Statement[] = answers.difficultThoughts.map((thought, idx) => ({
+      id: `q-${idx}`,
+      text: thought,
+      source: "questionnaire" as const,
+      validatingLatency: null,
+      challengingLatency: null,
+    }));
+    // Add any direct self-statements
+    answers.selfStatements.forEach((stmt, idx) => {
+      extracted.push({
+        id: `s-${idx}`,
+        text: stmt,
+        source: "questionnaire" as const,
+        validatingLatency: null,
+        challengingLatency: null,
+      });
+    });
+    setStatements(extracted);
+    setStep("statements");
+  };
+
+  // Timer functions
   const startTimer = (statementId: string, condition: "validating" | "challenging") => {
     if (timerInterval) clearInterval(timerInterval);
     setActiveTimer({ statementId, condition });
@@ -72,12 +177,21 @@ export default function FusionFAPage() {
     setTimerIntervalState(null);
   };
 
-  const resetAll = () => {
-    if (timerInterval) clearInterval(timerInterval);
-    setStatements(statements.map(s => ({ ...s, validatingLatency: null, challengingLatency: null })));
-    setActiveTimer(null);
-    setTimerValue(0);
-    setShowResults(false);
+  const addManualStatement = () => {
+    if (customStatement.trim()) {
+      setStatements([...statements, {
+        id: `m-${Date.now()}`,
+        text: customStatement.trim(),
+        source: "manual",
+        validatingLatency: null,
+        challengingLatency: null,
+      }]);
+      setCustomStatement("");
+    }
+  };
+
+  const removeStatement = (id: string) => {
+    setStatements(statements.filter(s => s.id !== id));
   };
 
   const getResults = () => {
@@ -91,222 +205,567 @@ export default function FusionFAPage() {
   };
 
   const getFusionLevel = (delta: number) => {
-    if (delta >= 30) return { level: "High", color: "text-red-400", bg: "bg-red-500/20" };
-    if (delta >= 15) return { level: "Moderate", color: "text-yellow-400", bg: "bg-yellow-500/20" };
-    return { level: "Low", color: "text-green-400", bg: "bg-green-500/20" };
+    if (delta >= 30) return { level: "High", color: "text-red-400", bg: "bg-red-500/20", priority: true };
+    if (delta >= 15) return { level: "Moderate", color: "text-yellow-400", bg: "bg-yellow-500/20", priority: false };
+    return { level: "Low", color: "text-green-400", bg: "bg-green-500/20", priority: false };
   };
 
-  const allComplete = statements.every(s => s.validatingLatency !== null && s.challengingLatency !== null);
+  const allComplete = statements.length > 0 && statements.every(s => s.validatingLatency !== null && s.challengingLatency !== null);
+
+  // Step indicator
+  const steps = [
+    { id: "questionnaire", label: "Questionnaire", icon: User },
+    { id: "matrix", label: "ACT Matrix", icon: Brain },
+    { id: "statements", label: "Statements", icon: Target },
+    { id: "fusion-fa", label: "Fusion FA", icon: Clock },
+    { id: "results", label: "Results", icon: BarChart3 },
+  ];
 
   return (
     <div className="min-h-screen bg-slate-900">
       {/* Header */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white pt-20 pb-8 px-4">
+      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white pt-20 pb-6 px-4">
         <div className="max-w-4xl mx-auto">
           <Link 
             href="/calaba-2026/assessment-tools"
-            className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm mb-6"
+            className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm mb-4"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Assessment Tools
           </Link>
           
-          <h1 className="text-2xl sm:text-3xl font-bold mb-3 text-cyan-300">
-            Fusion Hierarchy Assessment
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-cyan-300">
+            Fusion Hierarchy Assessment Workflow
           </h1>
-          <p className="text-slate-300 max-w-2xl">
-            Measure differential latency to precursor behaviors across validating vs. challenging conditions. 
-            Identify which verbal statements show the least psychological flexibility.
+          <p className="text-slate-300 text-sm">
+            Complete student questionnaire → ACT Matrix → Latency-based functional analysis
           </p>
         </div>
       </section>
 
-      {/* Protocol Info */}
-      <section className="max-w-4xl mx-auto px-4 py-6">
-        <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4 mb-6">
-          <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-yellow-400" /> Protocol Instructions
-          </h3>
-          <div className="text-sm text-slate-300 space-y-2">
-            <p><strong>Validating Condition:</strong> "I hear you saying [statement]. That makes sense given what you've experienced."</p>
-            <p><strong>Challenging Condition:</strong> "I'm not sure that's true. What if [statement] isn't accurate?"</p>
-            <p><strong>Measure:</strong> Time from statement delivery to first observable precursor (posture shift, facial tension, self-talk, fidgeting).</p>
-          </div>
+      {/* Progress Steps */}
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="flex items-center justify-between bg-slate-800/50 rounded-xl p-3">
+          {steps.map((s, idx) => {
+            const Icon = s.icon;
+            const isActive = s.id === step;
+            const isPast = steps.findIndex(x => x.id === step) > idx;
+            return (
+              <div key={s.id} className="flex items-center">
+                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
+                  isActive ? "bg-cyan-500/20 text-cyan-300" : 
+                  isPast ? "text-emerald-400" : "text-slate-500"
+                }`}>
+                  {isPast ? <CheckCircle className="w-4 h-4" /> : <Icon className="w-4 h-4" />}
+                  <span className="text-xs font-medium hidden sm:inline">{s.label}</span>
+                </div>
+                {idx < steps.length - 1 && (
+                  <div className={`w-8 h-0.5 mx-1 ${isPast ? "bg-emerald-500" : "bg-slate-700"}`} />
+                )}
+              </div>
+            );
+          })}
         </div>
-      </section>
+      </div>
 
-      {/* Main Tool */}
+      {/* Main Content */}
       <section className="max-w-4xl mx-auto px-4 pb-12">
         
-        {/* Add Statement */}
-        <div className="flex gap-2 mb-6">
-          <input
-            type="text"
-            value={newStatement}
-            onChange={(e) => setNewStatement(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && addStatement()}
-            placeholder="Add verbal statement (e.g., Everyone thinks I am weird)"
-            className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 focus:border-cyan-500 focus:outline-none"
-          />
-          <button
-            onClick={addStatement}
-            className="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-3 rounded-lg font-medium flex items-center gap-2"
-          >
-            <Plus className="w-5 h-5" /> Add
-          </button>
-        </div>
-
-        {/* Statements List */}
-        <div className="space-y-4 mb-8">
-          {statements.map((statement, idx) => (
-            <div key={statement.id} className="bg-slate-800 border border-slate-700 rounded-xl p-4">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <span className="text-xs text-slate-500 mb-1 block">Statement {idx + 1}</span>
-                  <p className="text-white font-medium">"{statement.text}"</p>
+        {/* STEP 1: Questionnaire */}
+        {step === "questionnaire" && (
+          <div className="space-y-6">
+            {/* Student Info */}
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <User className="w-5 h-5 text-cyan-400" /> Student Information
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm text-slate-400 mb-1 block">Student Name/ID</label>
+                  <input
+                    type="text"
+                    value={answers.studentName}
+                    onChange={(e) => setAnswers({ ...answers, studentName: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white"
+                    placeholder="Enter name or ID"
+                  />
                 </div>
+                <div>
+                  <label className="text-sm text-slate-400 mb-1 block">Grade</label>
+                  <select
+                    value={answers.grade}
+                    onChange={(e) => setAnswers({ ...answers, grade: e.target.value })}
+                    className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white"
+                  >
+                    <option value="">Select grade</option>
+                    {["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"].map(g => (
+                      <option key={g} value={g}>{g === "K" ? "Kindergarten" : `Grade ${g}`}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Difficult Thoughts (Inner + Away) */}
+            <div className="bg-slate-800 border border-red-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-red-400" /> Difficult Thoughts
+              </h3>
+              <p className="text-slate-400 text-sm mb-4">
+                "What thoughts show up that make things hard for you at school?"
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {DIFFICULT_THOUGHTS_OPTIONS.map(thought => (
+                  <button
+                    key={thought}
+                    onClick={() => toggleSelection("difficultThoughts", thought)}
+                    className={`px-3 py-2 rounded-lg text-sm transition-all ${
+                      answers.difficultThoughts.includes(thought)
+                        ? "bg-red-500/30 text-red-300 border-2 border-red-500"
+                        : "bg-slate-700 text-slate-300 border-2 border-transparent hover:border-slate-500"
+                    }`}
+                  >
+                    {thought}
+                  </button>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={customThought}
+                  onChange={(e) => setCustomThought(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && addCustomThought()}
+                  placeholder="Add another thought..."
+                  className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
+                />
                 <button
-                  onClick={() => removeStatement(statement.id)}
-                  className="text-slate-500 hover:text-red-400 p-1"
+                  onClick={addCustomThought}
+                  className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg text-sm"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Plus className="w-4 h-4" />
                 </button>
               </div>
+            </div>
 
+            {/* Difficult Feelings */}
+            <div className="bg-slate-800 border border-orange-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <Heart className="w-5 h-5 text-orange-400" /> Difficult Feelings
+              </h3>
+              <p className="text-slate-400 text-sm mb-4">
+                "What feelings show up that are hard to deal with?"
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {DIFFICULT_FEELINGS_OPTIONS.map(feeling => (
+                  <button
+                    key={feeling}
+                    onClick={() => toggleSelection("difficultFeelings", feeling)}
+                    className={`px-3 py-2 rounded-lg text-sm transition-all ${
+                      answers.difficultFeelings.includes(feeling)
+                        ? "bg-orange-500/30 text-orange-300 border-2 border-orange-500"
+                        : "bg-slate-700 text-slate-300 border-2 border-transparent hover:border-slate-500"
+                    }`}
+                  >
+                    {feeling}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Values (Inner + Toward) */}
+            <div className="bg-slate-800 border border-emerald-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-emerald-400" /> What Matters to You
+              </h3>
+              <p className="text-slate-400 text-sm mb-4">
+                "What's important to you? What do you care about?"
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {VALUES_OPTIONS.map(value => (
+                  <button
+                    key={value}
+                    onClick={() => toggleSelection("values", value)}
+                    className={`px-3 py-2 rounded-lg text-sm transition-all ${
+                      answers.values.includes(value)
+                        ? "bg-emerald-500/30 text-emerald-300 border-2 border-emerald-500"
+                        : "bg-slate-700 text-slate-300 border-2 border-transparent hover:border-slate-500"
+                    }`}
+                  >
+                    {value}
+                  </button>
+                ))}
+              </div>
+              <input
+                type="text"
+                value={answers.whatMatters}
+                onChange={(e) => setAnswers({ ...answers, whatMatters: e.target.value })}
+                placeholder="Anything else that matters to you?"
+                className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
+              />
+            </div>
+
+            {/* Avoidance Behaviors (Outer + Away) */}
+            <div className="bg-slate-800 border border-purple-500/30 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-purple-400" /> What You Do When It Gets Hard
+              </h3>
+              <p className="text-slate-400 text-sm mb-4">
+                "When those difficult thoughts and feelings show up, what do you usually do?"
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {AVOIDANCE_OPTIONS.map(behavior => (
+                  <button
+                    key={behavior}
+                    onClick={() => toggleSelection("avoidanceBehaviors", behavior)}
+                    className={`px-3 py-2 rounded-lg text-sm transition-all ${
+                      answers.avoidanceBehaviors.includes(behavior)
+                        ? "bg-purple-500/30 text-purple-300 border-2 border-purple-500"
+                        : "bg-slate-700 text-slate-300 border-2 border-transparent hover:border-slate-500"
+                    }`}
+                  >
+                    {behavior}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Next Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => setStep("matrix")}
+                disabled={answers.difficultThoughts.length === 0}
+                className="bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+              >
+                View ACT Matrix <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 2: ACT Matrix */}
+        {step === "matrix" && (
+          <div className="space-y-6">
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <Brain className="w-5 h-5 text-cyan-400" /> {answers.studentName || "Student"}'s ACT Matrix
+              </h3>
+              
               <div className="grid grid-cols-2 gap-4">
-                {/* Validating */}
-                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
-                  <div className="text-xs text-green-400 font-medium mb-2">VALIDATING</div>
-                  {statement.validatingLatency !== null ? (
-                    <div className="text-2xl font-bold text-green-300">{statement.validatingLatency}s</div>
-                  ) : activeTimer?.statementId === statement.id && activeTimer.condition === "validating" ? (
-                    <div className="flex items-center gap-2">
-                      <div className="text-2xl font-bold text-green-300">{timerValue.toFixed(1)}s</div>
-                      <button
-                        onClick={stopTimer}
-                        className="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded text-sm flex items-center gap-1"
-                      >
-                        <Pause className="w-3 h-3" /> Stop
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => startTimer(statement.id, "validating")}
-                      disabled={activeTimer !== null}
-                      className="bg-green-600 hover:bg-green-500 disabled:opacity-50 text-white px-3 py-2 rounded text-sm flex items-center gap-1"
-                    >
-                      <Play className="w-3 h-3" /> Start Timer
-                    </button>
-                  )}
+                {/* Inner + Away */}
+                <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+                  <h4 className="text-red-400 font-semibold mb-2 text-sm">INNER + AWAY</h4>
+                  <p className="text-xs text-slate-500 mb-3">Difficult thoughts & feelings</p>
+                  <div className="space-y-1">
+                    {answers.difficultThoughts.map(t => (
+                      <div key={t} className="text-red-300 text-sm">• "{t}"</div>
+                    ))}
+                    {answers.difficultFeelings.map(f => (
+                      <div key={f} className="text-orange-300 text-sm">• {f}</div>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Challenging */}
-                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
-                  <div className="text-xs text-red-400 font-medium mb-2">CHALLENGING</div>
-                  {statement.challengingLatency !== null ? (
-                    <div className="text-2xl font-bold text-red-300">{statement.challengingLatency}s</div>
-                  ) : activeTimer?.statementId === statement.id && activeTimer.condition === "challenging" ? (
-                    <div className="flex items-center gap-2">
-                      <div className="text-2xl font-bold text-red-300">{timerValue.toFixed(1)}s</div>
-                      <button
-                        onClick={stopTimer}
-                        className="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded text-sm flex items-center gap-1"
-                      >
-                        <Pause className="w-3 h-3" /> Stop
-                      </button>
-                    </div>
-                  ) : (
+                {/* Inner + Toward */}
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4">
+                  <h4 className="text-emerald-400 font-semibold mb-2 text-sm">INNER + TOWARD</h4>
+                  <p className="text-xs text-slate-500 mb-3">Values & what matters</p>
+                  <div className="space-y-1">
+                    {answers.values.map(v => (
+                      <div key={v} className="text-emerald-300 text-sm">• {v}</div>
+                    ))}
+                    {answers.whatMatters && (
+                      <div className="text-emerald-300 text-sm">• {answers.whatMatters}</div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Outer + Away */}
+                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
+                  <h4 className="text-purple-400 font-semibold mb-2 text-sm">OUTER + AWAY</h4>
+                  <p className="text-xs text-slate-500 mb-3">Avoidance behaviors</p>
+                  <div className="space-y-1">
+                    {answers.avoidanceBehaviors.map(b => (
+                      <div key={b} className="text-purple-300 text-sm">• {b}</div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Outer + Toward */}
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
+                  <h4 className="text-cyan-400 font-semibold mb-2 text-sm">OUTER + TOWARD</h4>
+                  <p className="text-xs text-slate-500 mb-3">Values-consistent actions</p>
+                  <div className="text-slate-400 text-sm italic">
+                    (Intervention targets — what we want to increase)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-between">
+              <button
+                onClick={() => setStep("questionnaire")}
+                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+              <button
+                onClick={extractStatements}
+                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+              >
+                Extract Statements for FA <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 3: Statement Selection */}
+        {step === "statements" && (
+          <div className="space-y-6">
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <Target className="w-5 h-5 text-cyan-400" /> Statements to Test
+              </h3>
+              <p className="text-slate-400 text-sm mb-4">
+                These verbal statements will be tested in validating vs. challenging conditions. 
+                Remove any that don't apply or add more.
+              </p>
+              
+              <div className="space-y-2 mb-4">
+                {statements.map(s => (
+                  <div key={s.id} className="flex items-center justify-between bg-slate-900 rounded-lg px-4 py-3">
+                    <span className="text-white">"{s.text}"</span>
                     <button
-                      onClick={() => startTimer(statement.id, "challenging")}
-                      disabled={activeTimer !== null}
-                      className="bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white px-3 py-2 rounded text-sm flex items-center gap-1"
+                      onClick={() => removeStatement(s.id)}
+                      className="text-slate-500 hover:text-red-400"
                     >
-                      <Play className="w-3 h-3" /> Start Timer
+                      <Trash2 className="w-4 h-4" />
                     </button>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={customStatement}
+                  onChange={(e) => setCustomStatement(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && addManualStatement()}
+                  placeholder="Add another statement to test..."
+                  className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white"
+                />
+                <button
+                  onClick={addManualStatement}
+                  className="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg"
+                >
+                  <Plus className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-between">
+              <button
+                onClick={() => setStep("matrix")}
+                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+              <button
+                onClick={() => setStep("fusion-fa")}
+                disabled={statements.length === 0}
+                className="bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+              >
+                Start Fusion FA <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 4: Fusion FA */}
+        {step === "fusion-fa" && (
+          <div className="space-y-6">
+            {/* Protocol Info */}
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
+              <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-yellow-400" /> Protocol
+              </h3>
+              <div className="text-sm text-slate-300 space-y-1">
+                <p><strong className="text-green-400">Validating:</strong> "I hear you saying [statement]. That makes sense."</p>
+                <p><strong className="text-red-400">Challenging:</strong> "I'm not sure that's true. What if [statement] isn't accurate?"</p>
+                <p><strong className="text-cyan-400">Measure:</strong> Time to first precursor (posture shift, facial tension, self-talk)</p>
+              </div>
+            </div>
+
+            {/* Statements with timers */}
+            <div className="space-y-4">
+              {statements.map((statement, idx) => (
+                <div key={statement.id} className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <span className="text-xs text-slate-500 mb-1 block">Statement {idx + 1}</span>
+                      <p className="text-white font-medium">"{statement.text}"</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Validating */}
+                    <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+                      <div className="text-xs text-green-400 font-medium mb-2">VALIDATING</div>
+                      {statement.validatingLatency !== null ? (
+                        <div className="text-2xl font-bold text-green-300">{statement.validatingLatency}s</div>
+                      ) : activeTimer?.statementId === statement.id && activeTimer.condition === "validating" ? (
+                        <div className="flex items-center gap-2">
+                          <div className="text-2xl font-bold text-green-300">{timerValue.toFixed(1)}s</div>
+                          <button
+                            onClick={stopTimer}
+                            className="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded text-sm flex items-center gap-1"
+                          >
+                            <Pause className="w-3 h-3" /> Stop
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => startTimer(statement.id, "validating")}
+                          disabled={activeTimer !== null}
+                          className="bg-green-600 hover:bg-green-500 disabled:opacity-50 text-white px-3 py-2 rounded text-sm flex items-center gap-1"
+                        >
+                          <Play className="w-3 h-3" /> Start
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Challenging */}
+                    <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                      <div className="text-xs text-red-400 font-medium mb-2">CHALLENGING</div>
+                      {statement.challengingLatency !== null ? (
+                        <div className="text-2xl font-bold text-red-300">{statement.challengingLatency}s</div>
+                      ) : activeTimer?.statementId === statement.id && activeTimer.condition === "challenging" ? (
+                        <div className="flex items-center gap-2">
+                          <div className="text-2xl font-bold text-red-300">{timerValue.toFixed(1)}s</div>
+                          <button
+                            onClick={stopTimer}
+                            className="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded text-sm flex items-center gap-1"
+                          >
+                            <Pause className="w-3 h-3" /> Stop
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => startTimer(statement.id, "challenging")}
+                          disabled={activeTimer !== null}
+                          className="bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white px-3 py-2 rounded text-sm flex items-center gap-1"
+                        >
+                          <Play className="w-3 h-3" /> Start
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-between">
+              <button
+                onClick={() => setStep("statements")}
+                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+              {allComplete && (
+                <button
+                  onClick={() => setStep("results")}
+                  className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+                >
+                  View Results <BarChart3 className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 5: Results */}
+        {step === "results" && (
+          <div className="space-y-6">
+            <div className="bg-slate-800 border-2 border-cyan-500 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-cyan-300 mb-4 flex items-center gap-2">
+                <Target className="w-5 h-5" /> Fusion Hierarchy Results — {answers.studentName || "Student"}
+              </h3>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="border-b border-slate-600">
+                      <th className="pb-3 text-slate-400 text-sm font-medium">Rank</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium">Statement</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">Valid.</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">Chall.</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">Δ</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">Fusion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getResults().map((result, idx) => {
+                      const fusion = getFusionLevel(result.delta);
+                      return (
+                        <tr key={result.id} className="border-b border-slate-700">
+                          <td className="py-3 text-white font-bold">{idx + 1}</td>
+                          <td className="py-3 text-white">"{result.text}"</td>
+                          <td className="py-3 text-green-300 text-center">{result.validatingLatency}s</td>
+                          <td className="py-3 text-red-300 text-center">{result.challengingLatency}s</td>
+                          <td className="py-3 text-cyan-300 text-center font-bold">{result.delta.toFixed(1)}s</td>
+                          <td className="py-3 text-center">
+                            <span className={`${fusion.bg} ${fusion.color} px-2 py-1 rounded text-xs font-medium`}>
+                              {fusion.level}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Intervention Targets */}
+              <div className="mt-6 p-4 bg-slate-900/50 rounded-lg">
+                <h4 className="font-semibold text-white mb-3">🎯 Priority Defusion Targets</h4>
+                <div className="space-y-2">
+                  {getResults().filter(r => getFusionLevel(r.delta).priority).map((r, idx) => (
+                    <div key={r.id} className="flex items-center gap-3 text-red-300">
+                      <span className="font-bold">{idx + 1}.</span>
+                      <span>"{r.text}"</span>
+                      <span className="text-slate-500 text-sm">(Δ {r.delta.toFixed(1)}s)</span>
+                    </div>
+                  ))}
+                  {getResults().filter(r => getFusionLevel(r.delta).priority).length === 0 && (
+                    <p className="text-slate-400 text-sm">No high-fusion statements identified. Consider retesting or adding more statements.</p>
                   )}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* Actions */}
-        <div className="flex gap-3 mb-8">
-          <button
-            onClick={resetAll}
-            className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-          >
-            <RotateCcw className="w-4 h-4" /> Reset All
-          </button>
-          {allComplete && (
-            <button
-              onClick={() => setShowResults(true)}
-              className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded-lg font-medium flex items-center gap-2"
-            >
-              <BarChart3 className="w-4 h-4" /> View Fusion Hierarchy
-            </button>
-          )}
-        </div>
-
-        {/* Results */}
-        {showResults && (
-          <div className="bg-slate-800 border-2 border-cyan-500 rounded-xl p-6">
-            <h3 className="text-xl font-bold text-cyan-300 mb-4 flex items-center gap-2">
-              <Target className="w-5 h-5" /> Fusion Hierarchy Results
-            </h3>
-            
-            <p className="text-slate-300 text-sm mb-4">
-              Statements ranked by latency differential (Δ). Higher Δ = faster precursor onset when challenged = greater fusion.
-            </p>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="border-b border-slate-600">
-                    <th className="pb-3 text-slate-400 text-sm font-medium">Rank</th>
-                    <th className="pb-3 text-slate-400 text-sm font-medium">Statement</th>
-                    <th className="pb-3 text-slate-400 text-sm font-medium text-center">Validating</th>
-                    <th className="pb-3 text-slate-400 text-sm font-medium text-center">Challenging</th>
-                    <th className="pb-3 text-slate-400 text-sm font-medium text-center">Δ Latency</th>
-                    <th className="pb-3 text-slate-400 text-sm font-medium text-center">Fusion</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {getResults().map((result, idx) => {
-                    const fusion = getFusionLevel(result.delta);
-                    return (
-                      <tr key={result.id} className="border-b border-slate-700">
-                        <td className="py-3 text-white font-bold">{idx + 1}</td>
-                        <td className="py-3 text-white">"{result.text}"</td>
-                        <td className="py-3 text-green-300 text-center">{result.validatingLatency}s</td>
-                        <td className="py-3 text-red-300 text-center">{result.challengingLatency}s</td>
-                        <td className="py-3 text-cyan-300 text-center font-bold">{result.delta.toFixed(1)}s</td>
-                        <td className="py-3 text-center">
-                          <span className={`${fusion.bg} ${fusion.color} px-2 py-1 rounded text-xs font-medium`}>
-                            {fusion.level}
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="mt-6 p-4 bg-slate-900/50 rounded-lg">
-              <h4 className="font-semibold text-white mb-2">Intervention Targets</h4>
-              <p className="text-slate-300 text-sm">
-                Statements with <span className="text-red-400 font-medium">High Fusion</span> (Δ ≥ 30s) should be prioritized 
-                for defusion interventions. These verbal relations are functionally controlling behavior and show 
-                the least psychological flexibility when challenged.
-              </p>
+            {/* Actions */}
+            <div className="flex justify-between">
+              <button
+                onClick={() => setStep("fusion-fa")}
+                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-xl font-medium"
+              >
+                Print Report
+              </button>
             </div>
           </div>
         )}
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
-        <p>CalABA 2026 Symposium Demo Tool</p>
+      <footer className="border-t border-slate-800 py-6 text-center text-slate-500 text-sm">
+        <p>CalABA 2026 Symposium — Fusion Hierarchy Assessment Demo</p>
         <p className="mt-1">Based on KCUSD Latency-Based FA Methodology</p>
       </footer>
     </div>
