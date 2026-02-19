@@ -29,12 +29,29 @@ interface QuestionnaireAnswers {
 interface Statement {
   id: string;
   text: string;
+  context: string;
   source: "questionnaire" | "manual";
   validatingLatency: number | null;
   challengingLatency: number | null;
 }
 
-type Step = "questionnaire" | "matrix" | "statements" | "fusion-fa" | "results";
+type Step = "questionnaire" | "matrix" | "context" | "statements" | "fusion-fa" | "results";
+
+const CONTEXT_OPTIONS = [
+  "During math class",
+  "During reading/writing",
+  "When given a new assignment",
+  "When asked to work with others",
+  "During transitions",
+  "At recess/lunch",
+  "When corrected by teacher",
+  "When struggling with work",
+  "When called on in class",
+  "When peers are watching",
+  "In the morning",
+  "After lunch",
+  "During tests",
+];
 
 const DIFFICULT_THOUGHTS_OPTIONS = [
   "I'm going to fail",
@@ -126,11 +143,12 @@ export default function FusionFAWorkflow() {
     }
   };
 
-  // Move to statements step - extract from questionnaire
+  // Move to context step - extract statements from questionnaire
   const extractStatements = () => {
     const extracted: Statement[] = answers.difficultThoughts.map((thought, idx) => ({
       id: `q-${idx}`,
       text: thought,
+      context: "",
       source: "questionnaire" as const,
       validatingLatency: null,
       challengingLatency: null,
@@ -140,13 +158,19 @@ export default function FusionFAWorkflow() {
       extracted.push({
         id: `s-${idx}`,
         text: stmt,
+        context: "",
         source: "questionnaire" as const,
         validatingLatency: null,
         challengingLatency: null,
       });
     });
     setStatements(extracted);
-    setStep("statements");
+    setStep("context");
+  };
+
+  // Update context for a statement
+  const updateStatementContext = (id: string, context: string) => {
+    setStatements(statements.map(s => s.id === id ? { ...s, context } : s));
   };
 
   // Timer functions
@@ -182,6 +206,7 @@ export default function FusionFAWorkflow() {
       setStatements([...statements, {
         id: `m-${Date.now()}`,
         text: customStatement.trim(),
+        context: "",
         source: "manual",
         validatingLatency: null,
         challengingLatency: null,
@@ -216,7 +241,8 @@ export default function FusionFAWorkflow() {
   const steps = [
     { id: "questionnaire", label: "Questionnaire", icon: User },
     { id: "matrix", label: "ACT Matrix", icon: Brain },
-    { id: "statements", label: "Statements", icon: Target },
+    { id: "context", label: "Context", icon: Target },
+    { id: "statements", label: "Review", icon: CheckCircle },
     { id: "fusion-fa", label: "Fusion FA", icon: Clock },
     { id: "results", label: "Results", icon: BarChart3 },
   ];
@@ -518,12 +544,111 @@ export default function FusionFAWorkflow() {
           </div>
         )}
 
-        {/* STEP 3: Statement Selection */}
+        {/* STEP 3: Context Capture */}
+        {step === "context" && (
+          <div className="space-y-6">
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <Target className="w-5 h-5 text-cyan-400" /> Statement Context
+              </h3>
+              <p className="text-slate-400 text-sm mb-4">
+                For each statement, identify when/where the student typically makes this statement or when this thought occurs.
+              </p>
+              
+              {/* Statement + Context Table */}
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-slate-600">
+                      <th className="text-left py-3 text-slate-400 text-sm font-medium w-1/2">Statement</th>
+                      <th className="text-left py-3 text-slate-400 text-sm font-medium w-1/2">Context (When does this happen?)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {statements.map(s => (
+                      <tr key={s.id} className="border-b border-slate-700">
+                        <td className="py-4 pr-4">
+                          <span className="text-white">"{s.text}"</span>
+                        </td>
+                        <td className="py-4">
+                          <div className="space-y-2">
+                            <select
+                              value={s.context}
+                              onChange={(e) => updateStatementContext(s.id, e.target.value)}
+                              className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                            >
+                              <option value="">Select context...</option>
+                              {CONTEXT_OPTIONS.map(ctx => (
+                                <option key={ctx} value={ctx}>{ctx}</option>
+                              ))}
+                              <option value="custom">Other (type below)</option>
+                            </select>
+                            {s.context === "custom" && (
+                              <input
+                                type="text"
+                                placeholder="Describe the context..."
+                                onChange={(e) => updateStatementContext(s.id, e.target.value)}
+                                className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                              />
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Statement + Context Summary */}
+            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-6">
+              <h4 className="text-cyan-400 font-semibold mb-3">Statement-Context Summary</h4>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-cyan-500/30">
+                      <th className="text-left py-2 text-cyan-300">#</th>
+                      <th className="text-left py-2 text-cyan-300">Verbal Statement</th>
+                      <th className="text-left py-2 text-cyan-300">Context</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {statements.map((s, idx) => (
+                      <tr key={s.id} className="border-b border-slate-700">
+                        <td className="py-2 text-white">{idx + 1}</td>
+                        <td className="py-2 text-white">"{s.text}"</td>
+                        <td className="py-2 text-slate-300">{s.context || <span className="text-slate-500 italic">Not specified</span>}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-between">
+              <button
+                onClick={() => setStep("matrix")}
+                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+              <button
+                onClick={() => setStep("statements")}
+                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+              >
+                Review Statements <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 4: Statement Review */}
         {step === "statements" && (
           <div className="space-y-6">
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                <Target className="w-5 h-5 text-cyan-400" /> Statements to Test
+                <CheckCircle className="w-5 h-5 text-cyan-400" /> Review Statements
               </h3>
               <p className="text-slate-400 text-sm mb-4">
                 These verbal statements will be tested in validating vs. challenging conditions. 
@@ -533,7 +658,10 @@ export default function FusionFAWorkflow() {
               <div className="space-y-2 mb-4">
                 {statements.map(s => (
                   <div key={s.id} className="flex items-center justify-between bg-slate-900 rounded-lg px-4 py-3">
-                    <span className="text-white">"{s.text}"</span>
+                    <div>
+                      <span className="text-white">"{s.text}"</span>
+                      {s.context && <span className="text-slate-500 text-sm ml-2">— {s.context}</span>}
+                    </div>
                     <button
                       onClick={() => removeStatement(s.id)}
                       className="text-slate-500 hover:text-red-400"
@@ -565,7 +693,7 @@ export default function FusionFAWorkflow() {
             {/* Navigation */}
             <div className="flex justify-between">
               <button
-                onClick={() => setStep("matrix")}
+                onClick={() => setStep("context")}
                 className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" /> Back
@@ -581,7 +709,7 @@ export default function FusionFAWorkflow() {
           </div>
         )}
 
-        {/* STEP 4: Fusion FA */}
+        {/* STEP 5: Fusion FA */}
         {step === "fusion-fa" && (
           <div className="space-y-6">
             {/* Protocol Info */}
@@ -698,6 +826,7 @@ export default function FusionFAWorkflow() {
                     <tr className="border-b border-slate-600">
                       <th className="pb-3 text-slate-400 text-sm font-medium">Rank</th>
                       <th className="pb-3 text-slate-400 text-sm font-medium">Statement</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium">Context</th>
                       <th className="pb-3 text-slate-400 text-sm font-medium text-center">Valid.</th>
                       <th className="pb-3 text-slate-400 text-sm font-medium text-center">Chall.</th>
                       <th className="pb-3 text-slate-400 text-sm font-medium text-center">Δ</th>
@@ -711,6 +840,7 @@ export default function FusionFAWorkflow() {
                         <tr key={result.id} className="border-b border-slate-700">
                           <td className="py-3 text-white font-bold">{idx + 1}</td>
                           <td className="py-3 text-white">"{result.text}"</td>
+                          <td className="py-3 text-slate-400 text-sm">{result.context || "—"}</td>
                           <td className="py-3 text-green-300 text-center">{result.validatingLatency}s</td>
                           <td className="py-3 text-red-300 text-center">{result.challengingLatency}s</td>
                           <td className="py-3 text-cyan-300 text-center font-bold">{result.delta.toFixed(1)}s</td>
@@ -729,12 +859,19 @@ export default function FusionFAWorkflow() {
               {/* Intervention Targets */}
               <div className="mt-6 p-4 bg-slate-900/50 rounded-lg">
                 <h4 className="font-semibold text-white mb-3">🎯 Priority Defusion Targets</h4>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {getResults().filter(r => getFusionLevel(r.delta).priority).map((r, idx) => (
-                    <div key={r.id} className="flex items-center gap-3 text-red-300">
-                      <span className="font-bold">{idx + 1}.</span>
-                      <span>"{r.text}"</span>
-                      <span className="text-slate-500 text-sm">(Δ {r.delta.toFixed(1)}s)</span>
+                    <div key={r.id} className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                      <div className="flex items-center gap-3 text-red-300 font-medium">
+                        <span className="font-bold">{idx + 1}.</span>
+                        <span>"{r.text}"</span>
+                        <span className="text-slate-500 text-sm">(Δ {r.delta.toFixed(1)}s)</span>
+                      </div>
+                      {r.context && (
+                        <div className="text-slate-400 text-sm mt-1 ml-6">
+                          Context: {r.context}
+                        </div>
+                      )}
                     </div>
                   ))}
                   {getResults().filter(r => getFusionLevel(r.delta).priority).length === 0 && (
