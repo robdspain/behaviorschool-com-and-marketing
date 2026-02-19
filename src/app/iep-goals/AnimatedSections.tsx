@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { getEncryptedLocal, setEncryptedLocal } from "@/lib/ferpa-client-crypto";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { useRouter } from "next/navigation";
@@ -14,12 +15,13 @@ export function AnimatedSections() {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user has already signed up
-    if (typeof window !== 'undefined') {
-      const signedUp = localStorage.getItem('hasSignedUpForIEPWidget') === 'true';
-      setHasSignedUp(signedUp);
-      console.log('IEP Goals: hasSignedUp status:', signedUp);
-    }
+    const loadSignupFlag = async () => {
+      if (typeof window === 'undefined') return;
+      const signedUp = await getEncryptedLocal<boolean>('hasSignedUpForIEPWidget');
+      setHasSignedUp(Boolean(signedUp));
+      console.log('IEP Goals: hasSignedUp status:', Boolean(signedUp));
+    };
+    loadSignupFlag();
   }, []);
 
   const handleCTAClick = () => {
@@ -35,10 +37,10 @@ export function AnimatedSections() {
     }
   };
 
-  const handleSignupSuccess = () => {
+  const handleSignupSuccess = async () => {
     console.log('IEP Goals: handleSignupSuccess called');
     if (typeof window !== 'undefined') {
-      localStorage.setItem('hasSignedUpForIEPWidget', 'true');
+      await setEncryptedLocal('hasSignedUpForIEPWidget', true);
       setHasSignedUp(true);
       console.log('IEP Goals: localStorage flag set');
     }

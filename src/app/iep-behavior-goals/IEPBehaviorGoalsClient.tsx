@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { getEncryptedLocal, setEncryptedLocal } from "@/lib/ferpa-client-crypto";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { useRouter } from "next/navigation";
@@ -12,11 +13,13 @@ export function IEPBehaviorGoalsClient() {
   useEffect(() => {
     console.log('IEPBehaviorGoalsPage: useEffect triggered');
     // Check if user has already signed up (but DON'T auto-redirect)
-    if (typeof window !== 'undefined') {
-      const signedUp = localStorage.getItem('hasSignedUpForIEPWidget') === 'true';
-      setHasSignedUp(signedUp);
-      console.log('IEPBehaviorGoalsPage: hasSignedUp status:', signedUp);
-    }
+    const loadSignupFlag = async () => {
+      if (typeof window === 'undefined') return;
+      const signedUp = await getEncryptedLocal<boolean>('hasSignedUpForIEPWidget');
+      setHasSignedUp(Boolean(signedUp));
+      console.log('IEPBehaviorGoalsPage: hasSignedUp status:', Boolean(signedUp));
+    };
+    loadSignupFlag();
   }, [router]);
 
   const handleCTAClick = () => {
@@ -32,10 +35,10 @@ export function IEPBehaviorGoalsClient() {
     }
   };
 
-  const handleSignupSuccess = () => {
+  const handleSignupSuccess = async () => {
     console.log('IEPBehaviorGoalsPage: handleSignupSuccess called');
     if (typeof window !== 'undefined') {
-      localStorage.setItem('hasSignedUpForIEPWidget', 'true');
+      await setEncryptedLocal('hasSignedUpForIEPWidget', true);
       setHasSignedUp(true);
       console.log('IEPBehaviorGoalsPage: localStorage flag set');
     }
