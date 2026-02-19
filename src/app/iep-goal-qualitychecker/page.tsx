@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { EmailSignupPopup } from "@/components/ui/email-signup-popup";
 import { FerpaNotice } from "@/components/ui/FerpaNotice";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { getEncryptedLocal, setEncryptedLocal } from "@/lib/ferpa-client-crypto";
 
 type Finding = { label: string; ok: boolean; hint?: string };
 
@@ -23,10 +24,14 @@ export default function IEPGoalQualityChecker() {
   const masteryRatio = useMemo(() => parseMasteryRatio(text), [text]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const flag = localStorage.getItem('hasSignedUpForIEPWidget') === 'true' || localStorage.getItem('hasSignedUpForIEPGoalTools') === 'true';
+    const loadSignupFlag = async () => {
+      if (typeof window === 'undefined') return;
+      const widgetFlag = await getEncryptedLocal<boolean>('hasSignedUpForIEPWidget');
+      const toolsFlag = await getEncryptedLocal<boolean>('hasSignedUpForIEPGoalTools');
+      const flag = Boolean(widgetFlag || toolsFlag);
       setHasSignup(flag);
-    }
+    };
+    loadSignupFlag();
   }, []);
 
   const ensureSignup = (action: "copy" | "pdf" | "email", fn: () => void) => {
@@ -39,9 +44,9 @@ export default function IEPGoalQualityChecker() {
     }
   };
 
-  const onSignupSuccess = () => {
+  const onSignupSuccess = async () => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('hasSignedUpForIEPGoalTools', 'true');
+      await setEncryptedLocal('hasSignedUpForIEPGoalTools', true);
       setHasSignup(true);
     }
     setTimeout(() => {
