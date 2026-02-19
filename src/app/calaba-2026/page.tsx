@@ -463,7 +463,7 @@ export default function CalABA2026Page() {
               {
                 name: "Cristal Lopez, BCaBA",
                 role: "Kings Canyon USD",
-                desc: "Behavior Case Manager specializing in ACT-informed interventions",
+                desc: "Behavior Team Supervisor - Specialized and ACT Informed Interventions, PFA/SBT",
               },
               {
                 name: "Megan Caluza, BCBA",
