@@ -49,4 +49,14 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
   }).index("by_school", ["schoolId"]),
+
+  bip_docs: defineTable({
+    schoolId: v.id("schools"),
+    title: v.string(),
+    createdBy: v.string(),
+    payload: v.string(),
+    payloadVersion: v.number(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_school", ["schoolId"]),
 });

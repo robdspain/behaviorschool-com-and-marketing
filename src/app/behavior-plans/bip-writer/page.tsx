@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, FileDown } from "lucide-react";
 import { FerpaNotice } from "@/components/ui/FerpaNotice";
-import { decryptJson, encryptJson } from "@/lib/ferpa-client-crypto";
+import { decryptJson, encryptJson, decryptWithPassphrase, encryptWithPassphrase, hashPassphrase } from "@/lib/ferpa-client-crypto";
 import {
   WizardLayout,
   WizardStepContainer,
@@ -186,6 +186,15 @@ export default function BIPWriterPage() {
   const [studentInfo, setStudentInfo] = useState<StudentInfo>(defaultStudentInfo);
   const [formData, setFormData] = useState<FBABIPFormData>(defaultFormData);
 
+  const [vaultSchool, setVaultSchool] = useState("");
+  const [vaultEmail, setVaultEmail] = useState("");
+  const [vaultRole, setVaultRole] = useState("staff");
+  const [vaultTitle, setVaultTitle] = useState("FBA/BIP Draft");
+  const [vaultKey, setVaultKey] = useState("");
+  const [vaultDocs, setVaultDocs] = useState<{ _id: string; title: string; createdBy: string; createdAt: number }[]>([]);
+  const [vaultLoading, setVaultLoading] = useState(false);
+  const [vaultError, setVaultError] = useState<string | null>(null);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const saved = localStorage.getItem(DRAFT_KEY);
@@ -238,6 +247,92 @@ export default function BIPWriterPage() {
     localStorage.setItem(DRAFT_KEY, JSON.stringify(payload));
     alert("Draft saved locally in your browser (encrypted).");
   }
+
+  const requireVaultFields = () => {
+    if (!vaultSchool || !vaultEmail || !vaultKey) {
+      setVaultError("School, email, and team key are required.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleVaultSave = async () => {
+    setVaultError(null);
+    if (!requireVaultFields()) return;
+    setVaultLoading(true);
+    try {
+      const encrypted = await encryptWithPassphrase({ studentInfo, formData }, vaultKey);
+      const teamKeyHash = await hashPassphrase(vaultKey);
+      const res = await fetch("/api/ferpa/bip", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          schoolSlug: vaultSchool,
+          teamKeyHash,
+          email: vaultEmail,
+          role: vaultRole,
+          title: vaultTitle || "FBA/BIP Draft",
+          payload: JSON.stringify(encrypted),
+          payloadVersion: 1,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Unable to save.");
+      }
+      await handleVaultRefresh();
+    } catch (err: any) {
+      setVaultError(err.message || "Unable to save.");
+    } finally {
+      setVaultLoading(false);
+    }
+  };
+
+  const handleVaultRefresh = async () => {
+    setVaultError(null);
+    if (!requireVaultFields()) return;
+    setVaultLoading(true);
+    try {
+      const teamKeyHash = await hashPassphrase(vaultKey);
+      const res = await fetch(`/api/ferpa/bip?school=${encodeURIComponent(vaultSchool)}&hash=${encodeURIComponent(teamKeyHash)}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Unable to load docs.");
+      }
+      const data = await res.json();
+      setVaultDocs(data.docs || []);
+    } catch (err: any) {
+      setVaultError(err.message || "Unable to load docs.");
+    } finally {
+      setVaultLoading(false);
+    }
+  };
+
+  const handleVaultOpen = async (docId: string) => {
+    setVaultError(null);
+    if (!requireVaultFields()) return;
+    setVaultLoading(true);
+    try {
+      const teamKeyHash = await hashPassphrase(vaultKey);
+      const res = await fetch(`/api/ferpa/bip/${docId}?school=${encodeURIComponent(vaultSchool)}&hash=${encodeURIComponent(teamKeyHash)}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Unable to open doc.");
+      }
+      const data = await res.json();
+      const payload = JSON.parse(data.doc.payload);
+      const decrypted = await decryptWithPassphrase<{ studentInfo: StudentInfo; formData: FBABIPFormData }>(payload, vaultKey);
+      if (!decrypted) throw new Error("Unable to decrypt.");
+      setStudentInfo(decrypted.studentInfo || defaultStudentInfo);
+      setFormData(decrypted.formData || defaultFormData);
+      setCurrentStep(0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err: any) {
+      setVaultError(err.message || "Unable to open doc.");
+    } finally {
+      setVaultLoading(false);
+    }
+  };
 
   function openReport(title: string, html: string) {
     const reportWindow = window.open("", "_blank");
@@ -1435,6 +1530,105 @@ export default function BIPWriterPage() {
             <p className="text-sm text-emerald-700 mt-3">
               Exports open in a new tab so you can print or save as PDF.
             </p>
+          </div>
+
+          <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">Team Vault (end‑to‑end encrypted)</h3>
+            <p className="text-sm text-slate-600 mb-4">
+              Save and share encrypted drafts with authorized school staff. The server only stores ciphertext.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">School slug</label>
+                <input
+                  type="text"
+                  placeholder="e.g., kcusd"
+                  value={vaultSchool}
+                  onChange={(e) => setVaultSchool(e.target.value.trim())}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Your email</label>
+                <input
+                  type="email"
+                  placeholder="name@school.org"
+                  value={vaultEmail}
+                  onChange={(e) => setVaultEmail(e.target.value.trim())}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Role</label>
+                <select
+                  value={vaultRole}
+                  onChange={(e) => setVaultRole(e.target.value)}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                >
+                  <option value="admin">Admin</option>
+                  <option value="manager">Manager</option>
+                  <option value="staff">Staff</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Team key</label>
+                <input
+                  type="password"
+                  placeholder="Shared team key"
+                  value={vaultKey}
+                  onChange={(e) => setVaultKey(e.target.value)}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Document title</label>
+                <input
+                  type="text"
+                  placeholder="FBA/BIP Draft"
+                  value={vaultTitle}
+                  onChange={(e) => setVaultTitle(e.target.value)}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button
+                onClick={handleVaultSave}
+                disabled={vaultLoading}
+                className="px-5 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
+              >
+                Save to Team Vault
+              </button>
+              <button
+                onClick={handleVaultRefresh}
+                disabled={vaultLoading}
+                className="px-5 py-2.5 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-medium"
+              >
+                Refresh Vault
+              </button>
+            </div>
+
+            {vaultError && <p className="text-sm text-amber-700 mt-3">{vaultError}</p>}
+
+            {vaultDocs.length > 0 && (
+              <div className="mt-4 grid gap-3">
+                {vaultDocs.map((doc) => (
+                  <div key={doc._id} className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
+                    <div>
+                      <div className="font-semibold text-slate-900 text-sm">{doc.title}</div>
+                      <div className="text-xs text-slate-600">{doc.createdBy}</div>
+                    </div>
+                    <button
+                      onClick={() => handleVaultOpen(doc._id)}
+                      className="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-white transition-colors text-sm"
+                    >
+                      Open
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <WizardNavigation onBack={handleBack} showNext={false} onSaveDraft={handleSaveDraft} />

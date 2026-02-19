@@ -95,3 +95,44 @@ export const getIepGoalDoc = query({
     return await ctx.db.get(args.id);
   },
 });
+
+export const createBipDoc = mutation({
+  args: {
+    schoolId: v.id("schools"),
+    title: v.string(),
+    createdBy: v.string(),
+    payload: v.string(),
+    payloadVersion: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const now = Date.now();
+    const id = await ctx.db.insert("bip_docs", {
+      schoolId: args.schoolId,
+      title: args.title,
+      createdBy: args.createdBy,
+      payload: args.payload,
+      payloadVersion: args.payloadVersion,
+      createdAt: now,
+      updatedAt: now,
+    });
+    return await ctx.db.get(id);
+  },
+});
+
+export const listBipDocs = query({
+  args: { schoolId: v.id("schools") },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("bip_docs")
+      .withIndex("by_school", (q) => q.eq("schoolId", args.schoolId))
+      .order("desc")
+      .take(50);
+  },
+});
+
+export const getBipDoc = query({
+  args: { id: v.id("bip_docs") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id);
+  },
+});
