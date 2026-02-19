@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { CheckCircle, Clock, Users, Shield, Zap, Star, Download, FileText, BookOpen, ArrowRight } from "lucide-react";
+import { CheckCircle, Clock, Users, Shield, Zap, Star, Download, FileText, BookOpen, ArrowRight, ExternalLink } from "lucide-react";
 
 export default function CalABA2026Page() {
   const [timeRemaining, setTimeRemaining] = useState({
@@ -14,6 +14,7 @@ export default function CalABA2026Page() {
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [subscribeNewsletter, setSubscribeNewsletter] = useState(true);
   const [downloadSubmitted, setDownloadSubmitted] = useState(false);
   const [founderSubmitted, setFounderSubmitted] = useState(false);
 
@@ -48,6 +49,7 @@ export default function CalABA2026Page() {
           name,
           source: 'calaba-2026-download',
           role: 'BCBA',
+          newsletter: subscribeNewsletter,
         }),
       });
     } catch (err) {
@@ -79,33 +81,34 @@ export default function CalABA2026Page() {
     <div className="min-h-screen bg-bs-background">
       {/* ============================================
           SECTION 1: DOWNLOAD SYMPOSIUM MATERIALS
+          Styled to match slide deck: dark slate/blue theme
           ============================================ */}
-      <div className="bg-gradient-to-br from-emerald-800 via-emerald-700 to-teal-600 text-white pt-24 pb-16 px-4">
+      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white pt-24 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-bold mb-6 border border-white/30">
+          <div className="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-blue-500/30">
             📍 CalABA 2026 · Sacramento
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-blue-400">
             Beyond Observable Behavior
           </h1>
-          <h2 className="text-xl sm:text-2xl text-emerald-100 mb-6">
+          <h2 className="text-xl sm:text-2xl text-slate-300 mb-6">
             Measuring and Modifying the Function of Thought in School-Based Assessment
           </h2>
 
-          <p className="text-lg text-emerald-100 mb-8 max-w-2xl mx-auto">
-            <strong>Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCBA · Megan Caluza, BCBA
+          <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
+            <strong className="text-slate-200">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
           </p>
 
           {/* Download Materials Box */}
-          <div className="bg-white rounded-2xl p-8 max-w-xl mx-auto text-left shadow-2xl">
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8 max-w-xl mx-auto text-left shadow-2xl">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                <Download className="w-6 h-6 text-emerald-700" />
+              <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                <Download className="w-6 h-6 text-blue-400" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-900">Download Symposium Materials</h3>
-                <p className="text-sm text-slate-600">Slides, handouts, templates, and references</p>
+                <h3 className="text-xl font-bold text-white">Download Symposium Materials</h3>
+                <p className="text-sm text-slate-400">Slides, handouts, templates, and references</p>
               </div>
             </div>
 
@@ -117,7 +120,7 @@ export default function CalABA2026Page() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-emerald-500 focus:outline-none text-slate-900"
+                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none"
                 />
                 <input
                   type="email"
@@ -125,11 +128,22 @@ export default function CalABA2026Page() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-200 focus:border-emerald-500 focus:outline-none text-slate-900"
+                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none"
                 />
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={subscribeNewsletter}
+                    onChange={(e) => setSubscribeNewsletter(e.target.checked)}
+                    className="w-5 h-5 rounded border-slate-500 bg-slate-700 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                  />
+                  <span className="text-sm text-slate-300 group-hover:text-white transition-colors">
+                    Subscribe to the Behavior School newsletter for tips, tools, and updates
+                  </span>
+                </label>
                 <button
                   type="submit"
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
                 >
                   <Download className="w-5 h-5" />
                   Get Free Materials
@@ -137,10 +151,10 @@ export default function CalABA2026Page() {
               </form>
             ) : (
               <div className="text-center py-6">
-                <CheckCircle className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
-                <p className="text-lg font-bold text-slate-900 mb-2">Check your email!</p>
-                <p className="text-slate-600 mb-4">Your download link is on its way.</p>
-                <div className="space-y-2 text-sm text-slate-600">
+                <CheckCircle className="w-12 h-12 text-blue-400 mx-auto mb-3" />
+                <p className="text-lg font-bold text-white mb-2">Check your email!</p>
+                <p className="text-slate-400 mb-4">Your download link is on its way.</p>
+                <div className="space-y-2 text-sm text-slate-400">
                   <p>📋 Presentation slides (PDF)</p>
                   <p>📄 Assessment templates (CPFQ, ACT Matrix, Values Sort)</p>
                   <p>📚 APA References list</p>
@@ -150,18 +164,27 @@ export default function CalABA2026Page() {
             )}
           </div>
 
-          {/* What's Included */}
+          {/* What's Included - Clickable Links */}
           <div className="mt-12 grid sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {[
-              { icon: FileText, label: "64 Slides" },
-              { icon: BookOpen, label: "20+ References" },
-              { icon: Download, label: "Assessment Tools" },
-              { icon: Users, label: "Data Templates" },
+              { icon: FileText, label: "64 Slides", href: "https://docs.google.com/presentation/d/1Je5rD1o5N6Tog3Kr646mm8hT3BERrb_0IXFIVoksnnk/edit" },
+              { icon: BookOpen, label: "20+ References", href: "/calaba-2026/references.pdf" },
+              { icon: Download, label: "Assessment Tools", href: "#assessment-tools" },
+              { icon: Users, label: "Data Templates", href: "#data-templates" },
             ].map((item) => (
-              <div key={item.label} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                <item.icon className="w-6 h-6 mx-auto mb-2 text-emerald-200" />
-                <span className="text-sm font-medium">{item.label}</span>
-              </div>
+              <a 
+                key={item.label} 
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="bg-slate-700/50 hover:bg-slate-700 border border-slate-600 backdrop-blur-sm rounded-xl p-4 text-center transition-all hover:scale-105 hover:border-blue-500/50 group cursor-pointer"
+              >
+                <item.icon className="w-6 h-6 mx-auto mb-2 text-blue-400 group-hover:text-blue-300" />
+                <span className="text-sm font-medium flex items-center justify-center gap-1">
+                  {item.label}
+                  {item.href.startsWith("http") && <ExternalLink className="w-3 h-3 opacity-50" />}
+                </span>
+              </a>
             ))}
           </div>
         </div>
@@ -427,7 +450,7 @@ export default function CalABA2026Page() {
                 desc: "Behavior Team Lead, Fresno County BCBA Collaborative Coordinator",
               },
               {
-                name: "Cristal Lopez, BCBA",
+                name: "Cristal Lopez, BCaBA",
                 role: "Kings Canyon USD",
                 desc: "Behavior Case Manager specializing in ACT-informed interventions",
               },
