@@ -144,7 +144,7 @@ export default function FusionFAPage() {
             value={newStatement}
             onChange={(e) => setNewStatement(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && addStatement()}
-            placeholder='Add verbal statement (e.g., "Everyone thinks I\'m weird")'
+            placeholder="Add verbal statement (e.g., Everyone thinks I am weird)"
             className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder:text-slate-500 focus:border-cyan-500 focus:outline-none"
           />
           <button
