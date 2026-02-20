@@ -8,8 +8,9 @@ export function RevenueBanner() {
   const [dismissed, setDismissed] = useState(false);
   if (dismissed) return null;
 
+  // Hide on mobile (< 768px) - the md:block should work but adding explicit styles for safety
   return (
-    <div className="hidden md:block fixed top-0 left-0 right-0 z-[95] bg-emerald-900 text-white py-2.5 px-4 text-center text-sm font-semibold shadow-md">
+    <div className="hidden md:flex fixed top-0 left-0 right-0 z-[95] bg-emerald-900 text-white py-2.5 px-4 text-center text-sm font-semibold shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-3">
         <span className="text-white">CalABA 2026 is coming. Join the founding member offer and the School BCBA Accelerator waitlist.</span>
         <Link
