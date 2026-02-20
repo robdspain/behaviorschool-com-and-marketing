@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import formData from 'form-data';
-import Mailgun from 'mailgun.js';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
+  // Dynamic imports to avoid build-time issues
+  const formData = (await import('form-data')).default;
+  const Mailgun = (await import('mailgun.js')).default;
+  
   try {
     // Check environment variables first
     if (!process.env.MAILGUN_API_KEY) {
