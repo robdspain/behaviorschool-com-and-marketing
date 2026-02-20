@@ -47,6 +47,13 @@ interface ParentCPFQAnswers {
   openResponses: Record<string, string>;
 }
 
+// Behavior Profile (Precursors + Triggers + Target Behavior)
+interface BehaviorProfile {
+  targetBehavior: string; // Operational definition
+  precursors: string[]; // Observable behaviors that predict target behavior
+  triggers: string[]; // Antecedent events/contexts
+}
+
 interface Statement {
   id: string;
   title: string; // Short descriptive title (e.g., "The Shiny Door")
@@ -70,7 +77,7 @@ interface Statement {
   aiFrameType?: string;
 }
 
-type Step = "afqy" | "parent-cpfq" | "questionnaire" | "matrix" | "context" | "statements" | "fusion-fa" | "results";
+type Step = "afqy" | "parent-cpfq" | "questionnaire" | "matrix" | "context" | "statements" | "behavior-profile" | "fusion-fa" | "results";
 
 // AFQ-Y Questions (8-item validated version)
 const AFQY_QUESTIONS = [
@@ -155,6 +162,15 @@ export default function FusionFAWorkflow() {
     responses: {},
     openResponses: {},
   });
+  
+  // Behavior Profile state (precursors + triggers)
+  const [behaviorProfile, setBehaviorProfile] = useState<BehaviorProfile>({
+    targetBehavior: "",
+    precursors: [],
+    triggers: [],
+  });
+  const [newPrecursor, setNewPrecursor] = useState("");
+  const [newTrigger, setNewTrigger] = useState("");
   
   // Other state
   const [customThought, setCustomThought] = useState("");
@@ -582,6 +598,19 @@ AFQ-Y SCORE: ${afqyScore !== null ? `${afqyScore}/32 (${getAfqyInterpretation(af
 PARENT CPFQ SCORE: ${parentScore !== null ? `${parentScore}/32` : "Not completed"}
 
 ================================================================================
+BEHAVIOR PROFILE
+================================================================================
+
+TARGET BEHAVIOR:
+${behaviorProfile.targetBehavior || "(Not specified)"}
+
+PRECURSOR BEHAVIORS (observed during latency timing):
+${behaviorProfile.precursors.length > 0 ? behaviorProfile.precursors.map(p => `  • ${p}`).join('\n') : "  (None specified)"}
+
+KNOWN TRIGGERS:
+${behaviorProfile.triggers.length > 0 ? behaviorProfile.triggers.map(t => `  • ${t}`).join('\n') : "  (None specified)"}
+
+================================================================================
 STATEMENT ANALYSIS
 ================================================================================
 
@@ -667,6 +696,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
     { id: "matrix", label: "ACT Matrix", icon: Brain },
     { id: "context", label: "Context", icon: Target },
     { id: "statements", label: "Review", icon: CheckCircle },
+    { id: "behavior-profile", label: "Precursors", icon: AlertTriangle },
     { id: "fusion-fa", label: "Fusion FA", icon: Clock },
     { id: "results", label: "Results", icon: BarChart3 },
   ];
@@ -1394,9 +1424,182 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                 <ArrowLeft className="w-4 h-4" /> Back
               </button>
               <button
-                onClick={() => setStep("fusion-fa")}
+                onClick={() => setStep("behavior-profile")}
                 disabled={statements.length === 0}
                 className="bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+              >
+                Define Precursors <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 7: Behavior Profile (Precursors & Triggers) */}
+        {step === "behavior-profile" && (
+          <div className="space-y-6">
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-yellow-400" /> Behavior Profile
+              </h3>
+              <p className="text-slate-400 text-sm mb-6">
+                Define the target behavior, precursor behaviors to observe during the FA, and known triggers.
+              </p>
+
+              {/* Target Behavior */}
+              <div className="mb-6">
+                <label className="text-sm font-medium text-white mb-2 block">Target Behavior (Operational Definition)</label>
+                <textarea
+                  value={behaviorProfile.targetBehavior}
+                  onChange={(e) => setBehaviorProfile({ ...behaviorProfile, targetBehavior: e.target.value })}
+                  placeholder="e.g., Dysregulation: defined as crying with or without tears, putting his head down on the table, laying on covering his face/eyes/ears, refusing to talk, shouting in the classroom..."
+                  rows={3}
+                  className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-3 text-white text-sm"
+                />
+              </div>
+
+              {/* Precursors */}
+              <div className="mb-6">
+                <label className="text-sm font-medium text-white mb-2 block">
+                  Precursor Behaviors <span className="text-yellow-400">(what to observe during latency timing)</span>
+                </label>
+                <p className="text-slate-500 text-xs mb-3">
+                  Observable behaviors that predict the target behavior (e.g., balling fists, tensing body, scowling, verbal refusal)
+                </p>
+                
+                {behaviorProfile.precursors.length > 0 && (
+                  <div className="mb-3 flex flex-wrap gap-2">
+                    {behaviorProfile.precursors.map((p, idx) => (
+                      <div key={idx} className="flex items-center gap-2 bg-yellow-500/20 border border-yellow-500/30 rounded-lg px-3 py-1.5">
+                        <span className="text-yellow-200 text-sm">{p}</span>
+                        <button
+                          onClick={() => setBehaviorProfile({
+                            ...behaviorProfile,
+                            precursors: behaviorProfile.precursors.filter((_, i) => i !== idx)
+                          })}
+                          className="text-yellow-400 hover:text-yellow-300"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newPrecursor}
+                    onChange={(e) => setNewPrecursor(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && newPrecursor.trim()) {
+                        setBehaviorProfile({
+                          ...behaviorProfile,
+                          precursors: [...behaviorProfile.precursors, newPrecursor.trim()]
+                        });
+                        setNewPrecursor("");
+                      }
+                    }}
+                    placeholder="Type a precursor behavior..."
+                    className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
+                  />
+                  <button
+                    onClick={() => {
+                      if (newPrecursor.trim()) {
+                        setBehaviorProfile({
+                          ...behaviorProfile,
+                          precursors: [...behaviorProfile.precursors, newPrecursor.trim()]
+                        });
+                        setNewPrecursor("");
+                      }
+                    }}
+                    className="bg-yellow-600 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Triggers */}
+              <div className="mb-6">
+                <label className="text-sm font-medium text-white mb-2 block">
+                  Triggers <span className="text-orange-400">(antecedent events/contexts)</span>
+                </label>
+                <p className="text-slate-500 text-xs mb-3">
+                  Events or situations that set the occasion for behavior (e.g., peer conflict, academic demands, transitions)
+                </p>
+                
+                {behaviorProfile.triggers.length > 0 && (
+                  <div className="mb-3 flex flex-wrap gap-2">
+                    {behaviorProfile.triggers.map((t, idx) => (
+                      <div key={idx} className="flex items-center gap-2 bg-orange-500/20 border border-orange-500/30 rounded-lg px-3 py-1.5">
+                        <span className="text-orange-200 text-sm">{t}</span>
+                        <button
+                          onClick={() => setBehaviorProfile({
+                            ...behaviorProfile,
+                            triggers: behaviorProfile.triggers.filter((_, i) => i !== idx)
+                          })}
+                          className="text-orange-400 hover:text-orange-300"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newTrigger}
+                    onChange={(e) => setNewTrigger(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && newTrigger.trim()) {
+                        setBehaviorProfile({
+                          ...behaviorProfile,
+                          triggers: [...behaviorProfile.triggers, newTrigger.trim()]
+                        });
+                        setNewTrigger("");
+                      }
+                    }}
+                    placeholder="Type a trigger..."
+                    className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
+                  />
+                  <button
+                    onClick={() => {
+                      if (newTrigger.trim()) {
+                        setBehaviorProfile({
+                          ...behaviorProfile,
+                          triggers: [...behaviorProfile.triggers, newTrigger.trim()]
+                        });
+                        setNewTrigger("");
+                      }
+                    }}
+                    className="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Summary Preview */}
+              {(behaviorProfile.precursors.length > 0 || behaviorProfile.triggers.length > 0) && (
+                <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-700">
+                  <h4 className="text-sm font-semibold text-white mb-2">Summary</h4>
+                  <div className="text-sm text-slate-400">
+                    <p><strong className="text-yellow-400">{behaviorProfile.precursors.length}</strong> precursor behaviors to observe</p>
+                    <p><strong className="text-orange-400">{behaviorProfile.triggers.length}</strong> known triggers</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-between">
+              <button onClick={() => setStep("statements")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+              <button
+                onClick={() => setStep("fusion-fa")}
+                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
               >
                 Start Fusion FA <ArrowRight className="w-5 h-5" />
               </button>
@@ -1404,7 +1607,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
           </div>
         )}
 
-        {/* STEP 7: Fusion FA */}
+        {/* STEP 8: Fusion FA */}
         {step === "fusion-fa" && (
           <div className="space-y-6">
             <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
@@ -1600,7 +1803,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
             })}
 
             <div className="flex justify-between">
-              <button onClick={() => setStep("statements")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+              <button onClick={() => setStep("behavior-profile")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" /> Back
               </button>
               {allComplete && (
@@ -1612,7 +1815,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
           </div>
         )}
 
-        {/* STEP 8: Results */}
+        {/* STEP 9: Results */}
         {step === "results" && (
           <div className="space-y-6">
             {/* Summary Cards */}
