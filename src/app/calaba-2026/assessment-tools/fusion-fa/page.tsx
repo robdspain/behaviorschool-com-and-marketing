@@ -758,18 +758,17 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
           {steps.map((s, idx) => {
             const Icon = s.icon;
             const isActive = s.id === step;
-            const isPast = steps.findIndex(x => x.id === step) > idx;
+            const currentIdx = steps.findIndex(x => x.id === step);
+            const isPast = currentIdx > idx;
+            const isFuture = currentIdx < idx;
             return (
               <div key={s.id} className="flex items-center flex-shrink-0">
                 <button
-                  onClick={() => {
-                    // Allow navigation to completed steps
-                    if (isPast) setStep(s.id as Step);
-                  }}
-                  disabled={!isPast && !isActive}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
+                  onClick={() => setStep(s.id as Step)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all cursor-pointer ${
                     isActive ? "bg-cyan-500/20 text-cyan-300" : 
-                    isPast ? "text-emerald-400 hover:bg-emerald-500/10 cursor-pointer" : "text-slate-500"
+                    isPast ? "text-emerald-400 hover:bg-emerald-500/10" : 
+                    "text-slate-400 hover:bg-slate-700/50 hover:text-slate-300"
                   }`}
                 >
                   {isPast ? <CheckCircle className="w-4 h-4" /> : <Icon className="w-4 h-4" />}
