@@ -101,6 +101,70 @@ export default function FreeBCBAPracticeTestPage() {
           <FreePracticeTestWidget />
         </div>
       </section>
+
+      {/* Free Ebook Section */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-bs-section-even">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Mockup Image */}
+            <div className="flex justify-center lg:justify-end">
+              <img 
+                src="/images/bcba-exam-guide-3d-mockup.png" 
+                alt="The 2026 BCBA Exam Survival Guide - Free Download"
+                className="w-full max-w-md drop-shadow-2xl"
+              />
+            </div>
+            
+            {/* Content */}
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-800 text-sm font-semibold rounded-full mb-6">
+                📚 Free Download
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+                The 2026 BCBA Exam Survival Guide
+              </h2>
+              <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                Your complete roadmap to certification success. Includes evidence-based study strategies, 
+                the 12-week study plan, key concepts breakdown, test-taking tips, and full APA references.
+              </p>
+              
+              <ul className="text-left space-y-3 mb-8">
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-600 mt-1">✓</span>
+                  <span className="text-slate-700">5th Edition Task List breakdown with exam weights</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-600 mt-1">✓</span>
+                  <span className="text-slate-700">Research-backed 12-week study schedule</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-600 mt-1">✓</span>
+                  <span className="text-slate-700">High-yield concepts: SEAT functions, reinforcement quadrant</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-600 mt-1">✓</span>
+                  <span className="text-slate-700">Test-taking strategies from cognitive science</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-600 mt-1">✓</span>
+                  <span className="text-slate-700">Full APA references (Cooper, Iwata, Bailey & Burch, etc.)</span>
+                </li>
+              </ul>
+              
+              <a 
+                href="/downloads/bcba-exam-survival-guide-2026.pdf"
+                download
+                className="inline-flex items-center justify-center px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-lg font-semibold rounded-xl transition-colors shadow-lg hover:shadow-xl"
+              >
+                Download Free Guide →
+              </a>
+              <p className="text-sm text-slate-500 mt-4">
+                Edited by Rob Spain, BCBA, IBA
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
