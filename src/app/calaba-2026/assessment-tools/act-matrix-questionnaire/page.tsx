@@ -500,107 +500,73 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
 
               {/* Matrix Grid */}
               <div className="grid grid-cols-2 gap-4">
-                {/* Top Left - Thoughts/Feelings */}
-                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-purple-500/30 rounded-lg flex items-center justify-center">
-                      <Brain className="w-4 h-4 text-purple-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-purple-300 font-semibold text-sm">Inner Experience</h4>
-                      <p className="text-purple-300/60 text-xs">Thoughts & Feelings</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                {/* Top Left - INNER + AWAY */}
+                <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+                  <h4 className="text-red-400 font-bold text-sm uppercase tracking-wide mb-1">Inner + Away</h4>
+                  <p className="text-slate-400 text-xs mb-3">Difficult thoughts & feelings</p>
+                  <div className="space-y-1 max-h-40 overflow-y-auto">
                     {matrix.thoughtsFeelings.length > 0 ? (
                       matrix.thoughtsFeelings.map((t) => (
-                        <div key={t.id} className="text-sm text-purple-200 bg-purple-500/10 rounded px-2 py-1">
-                          "{t.text}"
+                        <div key={t.id} className="text-sm text-red-200">
+                          • "{t.text}"
                         </div>
                       ))
                     ) : (
-                      <p className="text-purple-300/40 text-sm italic">No thoughts recorded</p>
+                      <p className="text-slate-500 text-sm italic">No thoughts recorded</p>
                     )}
                   </div>
                 </div>
 
-                {/* Top Right - Values */}
-                <div className="bg-rose-500/10 border border-rose-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-rose-500/30 rounded-lg flex items-center justify-center">
-                      <Heart className="w-4 h-4 text-rose-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-rose-300 font-semibold text-sm">Values</h4>
-                      <p className="text-rose-300/60 text-xs">What Matters</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                {/* Top Right - INNER + TOWARD */}
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
+                  <h4 className="text-cyan-400 font-bold text-sm uppercase tracking-wide mb-1">Inner + Toward</h4>
+                  <p className="text-slate-400 text-xs mb-3">Values & what matters</p>
+                  <div className="space-y-1 max-h-40 overflow-y-auto">
                     {matrix.values.length > 0 ? (
                       matrix.values.map((v, i) => (
-                        <div key={i} className="text-sm text-rose-200 bg-rose-500/10 rounded px-2 py-1">
-                          {v}
+                        <div key={i} className="text-sm text-cyan-200">
+                          • {v}
                         </div>
                       ))
                     ) : (
-                      <p className="text-rose-300/40 text-sm italic">No values recorded</p>
+                      <p className="text-slate-500 text-sm italic">No values recorded</p>
                     )}
                   </div>
                 </div>
 
-                {/* Bottom Left - Away Moves */}
-                <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-amber-500/30 rounded-lg flex items-center justify-center">
-                      <ArrowLeft className="w-4 h-4 text-amber-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-amber-300 font-semibold text-sm">Away Moves</h4>
-                      <p className="text-amber-300/60 text-xs">Challenging Behaviors</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                {/* Bottom Left - OUTER + AWAY */}
+                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
+                  <h4 className="text-purple-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Away</h4>
+                  <p className="text-slate-400 text-xs mb-3">Avoidance behaviors</p>
+                  <div className="space-y-1 max-h-40 overflow-y-auto">
                     {matrix.awayMoves.length > 0 ? (
                       matrix.awayMoves.map((a, i) => (
-                        <div key={i} className="text-sm text-amber-200 bg-amber-500/10 rounded px-2 py-1">
-                          {a}
+                        <div key={i} className="text-sm text-purple-200">
+                          • {a}
                         </div>
                       ))
                     ) : (
-                      <p className="text-amber-300/40 text-sm italic">No away moves recorded</p>
+                      <p className="text-slate-500 text-sm italic">No behaviors recorded</p>
                     )}
                   </div>
                 </div>
 
-                {/* Bottom Right - Toward Moves */}
-                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-emerald-500/30 rounded-lg flex items-center justify-center">
-                      <ArrowRight className="w-4 h-4 text-emerald-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-emerald-300 font-semibold text-sm">Toward Moves</h4>
-                      <p className="text-emerald-300/60 text-xs">Goals & Actions</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                {/* Bottom Right - OUTER + TOWARD */}
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
+                  <h4 className="text-cyan-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Toward</h4>
+                  <p className="text-slate-400 text-xs mb-3">Values-consistent actions</p>
+                  <div className="space-y-1 max-h-40 overflow-y-auto">
                     {matrix.towardMoves.length > 0 ? (
                       matrix.towardMoves.map((t, i) => (
-                        <div key={i} className="text-sm text-emerald-200 bg-emerald-500/10 rounded px-2 py-1">
-                          {t}
+                        <div key={i} className="text-sm text-cyan-200">
+                          • {t}
                         </div>
                       ))
                     ) : (
-                      <p className="text-emerald-300/40 text-sm italic">No toward moves recorded</p>
+                      <p className="text-slate-500 text-sm italic">(Intervention targets — what we want to increase)</p>
                     )}
                   </div>
                 </div>
-              </div>
-
-              {/* Axis Labels */}
-              <div className="mt-4 pt-4 border-t border-slate-600 flex justify-between text-xs text-slate-400">
-                <span>← Away from Values</span>
-                <span>Toward Values →</span>
               </div>
             </div>
 
@@ -757,42 +723,42 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
 
                 {showMatrix && (
                   <div className="grid grid-cols-2 gap-2 text-xs">
-                    {/* Thoughts */}
-                    <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-2">
-                      <div className="text-purple-400 font-medium mb-1 flex items-center gap-1">
-                        <Brain className="w-3 h-3" /> Thoughts
+                    {/* Inner + Away */}
+                    <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-2">
+                      <div className="text-red-400 font-medium mb-1 text-[10px] uppercase tracking-wide">
+                        Inner+Away
                       </div>
-                      <div className="text-purple-300/70">
+                      <div className="text-red-300/70">
                         {matrix.thoughtsFeelings.length} recorded
                       </div>
                     </div>
 
-                    {/* Values */}
-                    <div className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-2">
-                      <div className="text-rose-400 font-medium mb-1 flex items-center gap-1">
-                        <Heart className="w-3 h-3" /> Values
+                    {/* Inner + Toward */}
+                    <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg p-2">
+                      <div className="text-cyan-400 font-medium mb-1 text-[10px] uppercase tracking-wide">
+                        Inner+Toward
                       </div>
-                      <div className="text-rose-300/70">
+                      <div className="text-cyan-300/70">
                         {matrix.values.length} recorded
                       </div>
                     </div>
 
-                    {/* Away */}
-                    <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-2">
-                      <div className="text-amber-400 font-medium mb-1 flex items-center gap-1">
-                        <ArrowLeft className="w-3 h-3" /> Away
+                    {/* Outer + Away */}
+                    <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-2">
+                      <div className="text-purple-400 font-medium mb-1 text-[10px] uppercase tracking-wide">
+                        Outer+Away
                       </div>
-                      <div className="text-amber-300/70">
+                      <div className="text-purple-300/70">
                         {matrix.awayMoves.length} recorded
                       </div>
                     </div>
 
-                    {/* Toward */}
-                    <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2">
-                      <div className="text-emerald-400 font-medium mb-1 flex items-center gap-1">
-                        <ArrowRight className="w-3 h-3" /> Toward
+                    {/* Outer + Toward */}
+                    <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg p-2">
+                      <div className="text-cyan-400 font-medium mb-1 text-[10px] uppercase tracking-wide">
+                        Outer+Toward
                       </div>
-                      <div className="text-emerald-300/70">
+                      <div className="text-cyan-300/70">
                         {matrix.towardMoves.length} recorded
                       </div>
                     </div>
@@ -815,16 +781,16 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
 
                 {/* Thoughts goal */}
                 {currentSection === 2 && (
-                  <div className="mt-4 bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
+                  <div className="mt-4 bg-red-500/10 border border-red-500/30 rounded-lg p-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-purple-300 text-xs">Thoughts Goal</span>
-                      <span className={`text-xs font-medium ${matrix.thoughtsFeelings.length >= 10 ? "text-emerald-400" : "text-purple-400"}`}>
+                      <span className="text-red-300 text-xs">Inner+Away Goal</span>
+                      <span className={`text-xs font-medium ${matrix.thoughtsFeelings.length >= 10 ? "text-emerald-400" : "text-red-400"}`}>
                         {matrix.thoughtsFeelings.length}/10
                       </span>
                     </div>
-                    <div className="h-1.5 bg-purple-500/20 rounded-full mt-2 overflow-hidden">
+                    <div className="h-1.5 bg-red-500/20 rounded-full mt-2 overflow-hidden">
                       <div 
-                        className={`h-full transition-all duration-300 ${matrix.thoughtsFeelings.length >= 10 ? "bg-emerald-500" : "bg-purple-500"}`}
+                        className={`h-full transition-all duration-300 ${matrix.thoughtsFeelings.length >= 10 ? "bg-emerald-500" : "bg-red-500"}`}
                         style={{ width: `${Math.min(100, (matrix.thoughtsFeelings.length / 10) * 100)}%` }}
                       />
                     </div>

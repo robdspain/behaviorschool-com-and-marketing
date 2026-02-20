@@ -551,48 +551,54 @@ export default function FusionFAWorkflow() {
               <div className="grid grid-cols-2 gap-4">
                 {/* Inner + Away */}
                 <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
-                  <h4 className="text-red-400 font-semibold mb-2 text-sm">INNER + AWAY</h4>
-                  <p className="text-xs text-slate-500 mb-3">Difficult thoughts & feelings</p>
+                  <h4 className="text-red-400 font-bold text-sm uppercase tracking-wide mb-1">Inner + Away</h4>
+                  <p className="text-slate-400 text-xs mb-3">Difficult thoughts & feelings</p>
                   <div className="space-y-1">
                     {answers.difficultThoughts.map(t => (
-                      <div key={t} className="text-red-300 text-sm">• "{t}"</div>
+                      <div key={t} className="text-red-200 text-sm">• "{t}"</div>
                     ))}
                     {answers.difficultFeelings.map(f => (
-                      <div key={f} className="text-orange-300 text-sm">• {f}</div>
+                      <div key={f} className="text-red-200 text-sm">• {f}</div>
                     ))}
+                    {answers.difficultThoughts.length === 0 && answers.difficultFeelings.length === 0 && (
+                      <p className="text-slate-500 text-sm italic">No thoughts recorded</p>
+                    )}
                   </div>
                 </div>
 
                 {/* Inner + Toward */}
-                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4">
-                  <h4 className="text-emerald-400 font-semibold mb-2 text-sm">INNER + TOWARD</h4>
-                  <p className="text-xs text-slate-500 mb-3">Values & what matters</p>
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
+                  <h4 className="text-cyan-400 font-bold text-sm uppercase tracking-wide mb-1">Inner + Toward</h4>
+                  <p className="text-slate-400 text-xs mb-3">Values & what matters</p>
                   <div className="space-y-1">
                     {answers.values.map(v => (
-                      <div key={v} className="text-emerald-300 text-sm">• {v}</div>
+                      <div key={v} className="text-cyan-200 text-sm">• {v}</div>
                     ))}
-                    {answers.whatMatters && (
-                      <div className="text-emerald-300 text-sm">• {answers.whatMatters}</div>
+                    {answers.values.length === 0 && (
+                      <p className="text-slate-500 text-sm italic">No values recorded</p>
                     )}
                   </div>
                 </div>
 
                 {/* Outer + Away */}
                 <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
-                  <h4 className="text-purple-400 font-semibold mb-2 text-sm">OUTER + AWAY</h4>
-                  <p className="text-xs text-slate-500 mb-3">Avoidance behaviors</p>
+                  <h4 className="text-purple-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Away</h4>
+                  <p className="text-slate-400 text-xs mb-3">Avoidance behaviors</p>
                   <div className="space-y-1">
                     {answers.avoidanceBehaviors.map(b => (
-                      <div key={b} className="text-purple-300 text-sm">• {b}</div>
+                      <div key={b} className="text-purple-200 text-sm">• {b}</div>
                     ))}
+                    {answers.avoidanceBehaviors.length === 0 && (
+                      <p className="text-slate-500 text-sm italic">No behaviors recorded</p>
+                    )}
                   </div>
                 </div>
 
                 {/* Outer + Toward */}
                 <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
-                  <h4 className="text-cyan-400 font-semibold mb-2 text-sm">OUTER + TOWARD</h4>
-                  <p className="text-xs text-slate-500 mb-3">Values-consistent actions</p>
-                  <div className="text-slate-400 text-sm italic">
+                  <h4 className="text-cyan-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Toward</h4>
+                  <p className="text-slate-400 text-xs mb-3">Values-consistent actions</p>
+                  <div className="text-slate-500 text-sm italic">
                     (Intervention targets — what we want to increase)
                   </div>
                 </div>
