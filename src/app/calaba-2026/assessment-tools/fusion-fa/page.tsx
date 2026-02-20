@@ -53,54 +53,29 @@ const CONTEXT_OPTIONS = [
   "During tests",
 ];
 
-const DIFFICULT_THOUGHTS_OPTIONS = [
+// Examples shown as hints (not clickable options)
+const DIFFICULT_THOUGHTS_EXAMPLES = [
   "I'm going to fail",
-  "I'm stupid",
   "Nobody likes me",
   "I can't do anything right",
-  "Everyone is looking at me",
-  "I'm going to get in trouble",
-  "This is too hard",
-  "I don't belong here",
-  "Something bad will happen",
-  "I'm not good enough",
 ];
 
-const DIFFICULT_FEELINGS_OPTIONS = [
+const DIFFICULT_FEELINGS_EXAMPLES = [
   "Worried/Anxious",
   "Angry/Frustrated",
-  "Sad/Hopeless",
-  "Embarrassed/Ashamed",
-  "Bored/Restless",
   "Overwhelmed",
-  "Scared/Afraid",
-  "Lonely",
 ];
 
-const VALUES_OPTIONS = [
+const VALUES_EXAMPLES = [
   "Family",
-  "Friends",
   "Learning new things",
   "Being helpful",
-  "Sports/Activities",
-  "Being creative",
-  "Being honest",
-  "Having fun",
-  "Being respected",
-  "Taking care of others",
 ];
 
-const AVOIDANCE_OPTIONS = [
+const AVOIDANCE_EXAMPLES = [
   "Leave the classroom",
-  "Put head down",
-  "Refuse to work",
-  "Argue with teacher",
-  "Say mean things",
-  "Break things",
-  "Cry",
   "Shut down/go quiet",
-  "Distract others",
-  "Make jokes/act silly",
+  "Refuse to work",
 ];
 
 export default function FusionFAWorkflow() {
@@ -117,6 +92,9 @@ export default function FusionFAWorkflow() {
     selfStatements: [],
   });
   const [customThought, setCustomThought] = useState("");
+  const [customFeeling, setCustomFeeling] = useState("");
+  const [customValue, setCustomValue] = useState("");
+  const [customAvoidance, setCustomAvoidance] = useState("");
   const [customStatement, setCustomStatement] = useState("");
   const [statements, setStatements] = useState<Statement[]>([]);
   const [activeTimer, setActiveTimer] = useState<{ statementId: string; condition: "validating" | "challenging" } | null>(null);
@@ -336,31 +314,37 @@ export default function FusionFAWorkflow() {
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5 text-red-400" /> Difficult Thoughts
               </h3>
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-slate-400 text-sm mb-2">
                 "What thoughts show up that make things hard for you at school?"
               </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {DIFFICULT_THOUGHTS_OPTIONS.map(thought => (
-                  <button
-                    key={thought}
-                    onClick={() => toggleSelection("difficultThoughts", thought)}
-                    className={`px-3 py-2 rounded-lg text-sm transition-all ${
-                      answers.difficultThoughts.includes(thought)
-                        ? "bg-red-500/30 text-red-300 border-2 border-red-500"
-                        : "bg-slate-700 text-slate-300 border-2 border-transparent hover:border-slate-500"
-                    }`}
-                  >
-                    {thought}
-                  </button>
-                ))}
-              </div>
+              <p className="text-slate-500 text-xs mb-4 italic">
+                Examples: "{DIFFICULT_THOUGHTS_EXAMPLES.join('", "')}"
+              </p>
+              
+              {/* Recorded thoughts */}
+              {answers.difficultThoughts.length > 0 && (
+                <div className="mb-4 space-y-2">
+                  {answers.difficultThoughts.map((thought, idx) => (
+                    <div key={idx} className="flex items-center justify-between bg-red-500/20 border border-red-500/30 rounded-lg px-4 py-2">
+                      <span className="text-red-200">"{thought}"</span>
+                      <button
+                        onClick={() => setAnswers({ ...answers, difficultThoughts: answers.difficultThoughts.filter((_, i) => i !== idx) })}
+                        className="text-red-400 hover:text-red-300"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={customThought}
                   onChange={(e) => setCustomThought(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && addCustomThought()}
-                  placeholder="Add another thought..."
+                  placeholder="Type a thought the student shared..."
                   className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
                 />
                 <button
@@ -377,23 +361,55 @@ export default function FusionFAWorkflow() {
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                 <Heart className="w-5 h-5 text-orange-400" /> Difficult Feelings
               </h3>
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-slate-400 text-sm mb-2">
                 "What feelings show up that are hard to deal with?"
               </p>
-              <div className="flex flex-wrap gap-2">
-                {DIFFICULT_FEELINGS_OPTIONS.map(feeling => (
-                  <button
-                    key={feeling}
-                    onClick={() => toggleSelection("difficultFeelings", feeling)}
-                    className={`px-3 py-2 rounded-lg text-sm transition-all ${
-                      answers.difficultFeelings.includes(feeling)
-                        ? "bg-orange-500/30 text-orange-300 border-2 border-orange-500"
-                        : "bg-slate-700 text-slate-300 border-2 border-transparent hover:border-slate-500"
-                    }`}
-                  >
-                    {feeling}
-                  </button>
-                ))}
+              <p className="text-slate-500 text-xs mb-4 italic">
+                Examples: {DIFFICULT_FEELINGS_EXAMPLES.join(", ")}
+              </p>
+              
+              {/* Recorded feelings */}
+              {answers.difficultFeelings.length > 0 && (
+                <div className="mb-4 space-y-2">
+                  {answers.difficultFeelings.map((feeling, idx) => (
+                    <div key={idx} className="flex items-center justify-between bg-orange-500/20 border border-orange-500/30 rounded-lg px-4 py-2">
+                      <span className="text-orange-200">{feeling}</span>
+                      <button
+                        onClick={() => setAnswers({ ...answers, difficultFeelings: answers.difficultFeelings.filter((_, i) => i !== idx) })}
+                        className="text-orange-400 hover:text-orange-300"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={customFeeling}
+                  onChange={(e) => setCustomFeeling(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && customFeeling.trim()) {
+                      setAnswers({ ...answers, difficultFeelings: [...answers.difficultFeelings, customFeeling.trim()] });
+                      setCustomFeeling("");
+                    }
+                  }}
+                  placeholder="Type a feeling the student described..."
+                  className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
+                />
+                <button
+                  onClick={() => {
+                    if (customFeeling.trim()) {
+                      setAnswers({ ...answers, difficultFeelings: [...answers.difficultFeelings, customFeeling.trim()] });
+                      setCustomFeeling("");
+                    }
+                  }}
+                  className="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg text-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
@@ -402,31 +418,56 @@ export default function FusionFAWorkflow() {
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                 <Zap className="w-5 h-5 text-emerald-400" /> What Matters to You
               </h3>
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-slate-400 text-sm mb-2">
                 "What's important to you? What do you care about?"
               </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {VALUES_OPTIONS.map(value => (
-                  <button
-                    key={value}
-                    onClick={() => toggleSelection("values", value)}
-                    className={`px-3 py-2 rounded-lg text-sm transition-all ${
-                      answers.values.includes(value)
-                        ? "bg-emerald-500/30 text-emerald-300 border-2 border-emerald-500"
-                        : "bg-slate-700 text-slate-300 border-2 border-transparent hover:border-slate-500"
-                    }`}
-                  >
-                    {value}
-                  </button>
-                ))}
+              <p className="text-slate-500 text-xs mb-4 italic">
+                Examples: {VALUES_EXAMPLES.join(", ")}
+              </p>
+              
+              {/* Recorded values */}
+              {answers.values.length > 0 && (
+                <div className="mb-4 space-y-2">
+                  {answers.values.map((value, idx) => (
+                    <div key={idx} className="flex items-center justify-between bg-emerald-500/20 border border-emerald-500/30 rounded-lg px-4 py-2">
+                      <span className="text-emerald-200">{value}</span>
+                      <button
+                        onClick={() => setAnswers({ ...answers, values: answers.values.filter((_, i) => i !== idx) })}
+                        className="text-emerald-400 hover:text-emerald-300"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={customValue}
+                  onChange={(e) => setCustomValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && customValue.trim()) {
+                      setAnswers({ ...answers, values: [...answers.values, customValue.trim()] });
+                      setCustomValue("");
+                    }
+                  }}
+                  placeholder="Type what the student said matters to them..."
+                  className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
+                />
+                <button
+                  onClick={() => {
+                    if (customValue.trim()) {
+                      setAnswers({ ...answers, values: [...answers.values, customValue.trim()] });
+                      setCustomValue("");
+                    }
+                  }}
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
               </div>
-              <input
-                type="text"
-                value={answers.whatMatters}
-                onChange={(e) => setAnswers({ ...answers, whatMatters: e.target.value })}
-                placeholder="Anything else that matters to you?"
-                className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
-              />
             </div>
 
             {/* Avoidance Behaviors (Outer + Away) */}
@@ -434,23 +475,55 @@ export default function FusionFAWorkflow() {
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                 <Shield className="w-5 h-5 text-purple-400" /> What You Do When It Gets Hard
               </h3>
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-slate-400 text-sm mb-2">
                 "When those difficult thoughts and feelings show up, what do you usually do?"
               </p>
-              <div className="flex flex-wrap gap-2">
-                {AVOIDANCE_OPTIONS.map(behavior => (
-                  <button
-                    key={behavior}
-                    onClick={() => toggleSelection("avoidanceBehaviors", behavior)}
-                    className={`px-3 py-2 rounded-lg text-sm transition-all ${
-                      answers.avoidanceBehaviors.includes(behavior)
-                        ? "bg-purple-500/30 text-purple-300 border-2 border-purple-500"
-                        : "bg-slate-700 text-slate-300 border-2 border-transparent hover:border-slate-500"
-                    }`}
-                  >
-                    {behavior}
-                  </button>
-                ))}
+              <p className="text-slate-500 text-xs mb-4 italic">
+                Examples: {AVOIDANCE_EXAMPLES.join(", ")}
+              </p>
+              
+              {/* Recorded behaviors */}
+              {answers.avoidanceBehaviors.length > 0 && (
+                <div className="mb-4 space-y-2">
+                  {answers.avoidanceBehaviors.map((behavior, idx) => (
+                    <div key={idx} className="flex items-center justify-between bg-purple-500/20 border border-purple-500/30 rounded-lg px-4 py-2">
+                      <span className="text-purple-200">{behavior}</span>
+                      <button
+                        onClick={() => setAnswers({ ...answers, avoidanceBehaviors: answers.avoidanceBehaviors.filter((_, i) => i !== idx) })}
+                        className="text-purple-400 hover:text-purple-300"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={customAvoidance}
+                  onChange={(e) => setCustomAvoidance(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && customAvoidance.trim()) {
+                      setAnswers({ ...answers, avoidanceBehaviors: [...answers.avoidanceBehaviors, customAvoidance.trim()] });
+                      setCustomAvoidance("");
+                    }
+                  }}
+                  placeholder="Type what the student does when it gets hard..."
+                  className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
+                />
+                <button
+                  onClick={() => {
+                    if (customAvoidance.trim()) {
+                      setAnswers({ ...answers, avoidanceBehaviors: [...answers.avoidanceBehaviors, customAvoidance.trim()] });
+                      setCustomAvoidance("");
+                    }
+                  }}
+                  className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
