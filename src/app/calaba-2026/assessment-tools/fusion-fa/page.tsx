@@ -54,6 +54,8 @@ interface Statement {
   source: "questionnaire" | "manual" | "afqy" | "parent";
   validatingLatency: number | null;
   challengingLatency: number | null;
+  validatingPrecursors: string;
+  challengingPrecursors: string;
 }
 
 type Step = "afqy" | "parent-cpfq" | "questionnaire" | "matrix" | "context" | "statements" | "fusion-fa" | "results";
@@ -251,6 +253,8 @@ export default function FusionFAWorkflow() {
         source: "questionnaire",
         validatingLatency: null,
         challengingLatency: null,
+        validatingPrecursors: "",
+        challengingPrecursors: "",
       });
     });
     
@@ -265,6 +269,8 @@ export default function FusionFAWorkflow() {
           source: "afqy",
           validatingLatency: null,
           challengingLatency: null,
+          validatingPrecursors: "",
+          challengingPrecursors: "",
         });
       }
     });
@@ -281,6 +287,8 @@ export default function FusionFAWorkflow() {
             source: "parent",
             validatingLatency: null,
             challengingLatency: null,
+            validatingPrecursors: "",
+            challengingPrecursors: "",
           });
         }
       });
@@ -375,9 +383,24 @@ export default function FusionFAWorkflow() {
         source: "manual",
         validatingLatency: null,
         challengingLatency: null,
+        validatingPrecursors: "",
+        challengingPrecursors: "",
       }]);
       setCustomStatement("");
     }
+  };
+
+  // Update precursors for a statement
+  const updatePrecursors = (id: string, condition: "validating" | "challenging", value: string) => {
+    setStatements(prev => prev.map(s => {
+      if (s.id === id) {
+        return {
+          ...s,
+          [condition === "validating" ? "validatingPrecursors" : "challengingPrecursors"]: value
+        };
+      }
+      return s;
+    }));
   };
 
   const removeStatement = (id: string) => {
@@ -447,92 +470,118 @@ export default function FusionFAWorkflow() {
 
   const allComplete = statements.length > 0 && statements.every(s => s.validatingLatency !== null && s.challengingLatency !== null);
 
-  // Generate PDF Report
+  // Generate CSV Report (Table Format)
   const generateReport = () => {
     const results = getResults();
     const afqyScore = getAfqyScore();
     const parentScore = getParentCpfqScore();
     
-    const reportContent = `
-FUSION HIERARCHY ASSESSMENT REPORT
+    // Build the statement table data with prompts
+    const statementRows = statements.map(s => {
+      const prompts = generatePrompts(s);
+      return {
+        ...s,
+        relation: prompts.frameType,
+        validatingScript: prompts.validating,
+        challengingScript: prompts.challenging,
+      };
+    });
+    
+    // CSV content for statement context table
+    const csvHeader = "Statements,Context,Relation,Validating Script,Challenging Script,Precursors (Control/Validating),Time (Control),Precursors (Test/Challenging),Time (Test),Delta,Fusion Level";
+    const csvRows = statementRows.map(s => {
+      const result = results.find(r => r.id === s.id);
+      return [
+        `"${s.text.replace(/"/g, '""')}"`,
+        `"${(s.context || '').replace(/"/g, '""')}"`,
+        `"${s.relation}"`,
+        `"${s.validatingScript.replace(/"/g, '""')}"`,
+        `"${s.challengingScript.replace(/"/g, '""')}"`,
+        `"${(s.validatingPrecursors || '').replace(/"/g, '""')}"`,
+        s.validatingLatency !== null ? `${s.validatingLatency}s` : '',
+        `"${(s.challengingPrecursors || '').replace(/"/g, '""')}"`,
+        s.challengingLatency !== null ? `${s.challengingLatency}s` : '',
+        result ? `${result.delta.toFixed(1)}s` : '',
+        result ? getFusionLevel(result.delta).level : '',
+      ].join(',');
+    });
+    
+    const reportContent = `FUSION HIERARCHY ASSESSMENT REPORT
 =====================================
-Generated: ${new Date().toLocaleString()}
+Student: ${answers.studentName || "Not specified"}
+Age: ${answers.studentAge || ""} | Grade: ${answers.grade || ""}
 Assessor: ${answers.assessorName || "Not specified"}
+Date: ${answers.assessmentDate}
+Generated: ${new Date().toLocaleString()}
 
-STUDENT INFORMATION
--------------------
-Name: ${answers.studentName || "Not specified"}
-Age: ${answers.studentAge || "Not specified"}
-Grade: ${answers.grade || "Not specified"}
-Assessment Date: ${answers.assessmentDate}
+AFQ-Y SCORE: ${afqyScore !== null ? `${afqyScore}/32 (${getAfqyInterpretation(afqyScore).level})` : "Not completed"}
+PARENT CPFQ SCORE: ${parentScore !== null ? `${parentScore}/32` : "Not completed"}
 
-AFQ-Y RESULTS (Avoidance and Fusion Questionnaire for Youth)
-------------------------------------------------------------
-Total Score: ${afqyScore !== null ? afqyScore : "Not completed"}/32
-Interpretation: ${getAfqyInterpretation(afqyScore).level}
+=====================================
+STATEMENT-CONTEXT TABLE
+=====================================
+${csvHeader}
+${csvRows.join('\n')}
 
-Item Responses:
-${AFQY_QUESTIONS.map(q => `  ${q.text}: ${afqyAnswers.responses[q.id] !== undefined ? afqyAnswers.responses[q.id] : 'N/A'}`).join('\n')}
+=====================================
+DETAILED STATEMENT ANALYSIS
+=====================================
+${statementRows.map((s, idx) => {
+  const result = results.find(r => r.id === s.id);
+  return `
+--- Statement ${idx + 1} ---
+STATEMENT: "${s.text}"
+CONTEXT: ${s.context || "Not specified"}
+RELATION: ${s.relation}
 
-PARENT CPFQ RESULTS
--------------------
-Completed by: ${parentCpfq.parentName || "Not specified"} (${parentCpfq.relationship || "Not specified"})
-Total Score: ${parentScore !== null ? parentScore : "Not completed"}/32
+VALIDATING SCRIPT:
+${s.validatingScript}
 
-Parent-Reported Concerning Thoughts:
-${parentCpfq.openResponses.popen1 || "None reported"}
+CHALLENGING SCRIPT:
+${s.challengingScript}
 
-Parent-Reported Avoidance Patterns:
-${parentCpfq.openResponses.popen2 || "None reported"}
+PRECURSORS IN CONTROL CONDITION (Validating):
+${s.validatingPrecursors || "(Not recorded)"}
 
-Parent-Reported Values:
-${parentCpfq.openResponses.popen3 || "None reported"}
+PRECURSORS IN TEST CONDITION (Challenging):
+${s.challengingPrecursors || "(Not recorded)"}
 
+TIME IN CONTROL CONDITION: ${s.validatingLatency !== null ? `${s.validatingLatency}s` : "Not recorded"}
+TIME IN TEST CONDITION: ${s.challengingLatency !== null ? `${s.challengingLatency}s` : "Not recorded"}
+DELTA (V-C): ${result ? `${result.delta.toFixed(1)}s` : "N/A"}
+FUSION LEVEL: ${result ? getFusionLevel(result.delta).level : "N/A"}
+`;
+}).join('\n')}
+
+=====================================
 ACT MATRIX SUMMARY
-------------------
-Inner + Away (Difficult Thoughts):
-${answers.difficultThoughts.map(t => `  • "${t}"`).join('\n') || "  None recorded"}
+=====================================
+INNER + AWAY (Difficult Thoughts/Feelings):
+${answers.difficultThoughts.map(t => `  • "${t}"`).join('\n') || "  None"}
+${answers.difficultFeelings.map(f => `  • ${f}`).join('\n') || ""}
 
-Inner + Away (Difficult Feelings):
-${answers.difficultFeelings.map(f => `  • ${f}`).join('\n') || "  None recorded"}
+INNER + TOWARD (Values):
+${answers.values.map(v => `  • ${v}`).join('\n') || "  None"}
 
-Inner + Toward (Values):
-${answers.values.map(v => `  • ${v}`).join('\n') || "  None recorded"}
+OUTER + AWAY (Avoidance Behaviors):
+${answers.avoidanceBehaviors.map(b => `  • ${b}`).join('\n') || "  None"}
 
-Outer + Away (Avoidance Behaviors):
-${answers.avoidanceBehaviors.map(b => `  • ${b}`).join('\n') || "  None recorded"}
-
-FUSION HIERARCHY RESULTS
-------------------------
-${results.map((r, idx) => `
-${idx + 1}. "${r.text}"
-   Context: ${r.context || "Not specified"}
-   Validating Latency: ${r.validatingLatency}s
-   Challenging Latency: ${r.challengingLatency}s
-   Delta (V-C): ${r.delta.toFixed(1)}s
-   Fusion Level: ${getFusionLevel(r.delta).level}
-   Source: ${r.source}
-`).join('')}
-
+=====================================
 PRIORITY DEFUSION TARGETS
--------------------------
-${results.filter(r => getFusionLevel(r.delta).priority).map((r, idx) => `
-${idx + 1}. "${r.text}" (Δ ${r.delta.toFixed(1)}s)
-   - High fusion suggests this verbal relation strongly controls behavior
-   - Recommended for targeted defusion intervention
-`).join('') || "No high-fusion statements identified"}
+=====================================
+${results.filter(r => getFusionLevel(r.delta).priority).map((r, idx) => 
+  `${idx + 1}. "${r.text}" (Δ ${r.delta.toFixed(1)}s) - ${r.context || "No context"}`
+).join('\n') || "No high-fusion statements identified"}
 
+=====================================
 RECOMMENDATIONS
----------------
-Based on the assessment results, consider the following intervention priorities:
-
-1. Defusion Work: Focus on the high-fusion statements identified above
-2. Values Clarification: Build on identified values (${answers.values.slice(0, 3).join(', ') || "explore in follow-up"})
-3. Acceptance: Address avoidance patterns (${answers.avoidanceBehaviors.slice(0, 2).join(', ') || "monitor"})
+=====================================
+1. DEFUSION: Target high-fusion statements above
+2. VALUES: Build on ${answers.values.slice(0, 3).join(', ') || "identified values"}
+3. ACCEPTANCE: Address ${answers.avoidanceBehaviors.slice(0, 2).join(', ') || "avoidance patterns"}
 
 ---
-This report was generated using the Fusion Hierarchy Assessment Tool
-CalABA 2026 Symposium | Behavior School Pro
+Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
     `.trim();
 
     // Create download
@@ -1314,7 +1363,7 @@ CalABA 2026 Symposium | Behavior School Pro
                       const isActive = activeTimer?.statementId === statement.id && activeTimer?.condition === "validating";
                       return (
                         <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-                          <div className="text-xs text-green-400 font-bold uppercase tracking-wide mb-2">Validating</div>
+                          <div className="text-xs text-green-400 font-bold uppercase tracking-wide mb-2">Control Condition (Validating)</div>
                           <p className="text-green-200/80 text-sm italic mb-4">{prompts.validating}</p>
                           <div className="border-t border-green-500/20 pt-3">
                             {statement.validatingLatency !== null ? (
@@ -1343,6 +1392,17 @@ CalABA 2026 Symposium | Behavior School Pro
                                 </div>
                               </>
                             )}
+                            {/* Precursor observations */}
+                            <div className="mt-3 pt-3 border-t border-green-500/20">
+                              <label className="text-xs text-green-400 block mb-1">Precursors Observed:</label>
+                              <textarea
+                                value={statement.validatingPrecursors}
+                                onChange={(e) => updatePrecursors(statement.id, "validating", e.target.value)}
+                                placeholder="e.g., posture shift, eye contact break, whispered..."
+                                rows={2}
+                                className="w-full bg-slate-900 border border-green-500/30 rounded px-2 py-1 text-white text-xs"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
@@ -1354,7 +1414,7 @@ CalABA 2026 Symposium | Behavior School Pro
                       const isActive = activeTimer?.statementId === statement.id && activeTimer?.condition === "challenging";
                       return (
                         <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
-                          <div className="text-xs text-red-400 font-bold uppercase tracking-wide mb-2">Challenging</div>
+                          <div className="text-xs text-red-400 font-bold uppercase tracking-wide mb-2">Test Condition (Challenging)</div>
                           <p className="text-red-200/80 text-sm italic mb-4">{prompts.challenging}</p>
                           <div className="border-t border-red-500/20 pt-3">
                             {statement.challengingLatency !== null ? (
@@ -1383,6 +1443,17 @@ CalABA 2026 Symposium | Behavior School Pro
                                 </div>
                               </>
                             )}
+                            {/* Precursor observations */}
+                            <div className="mt-3 pt-3 border-t border-red-500/20">
+                              <label className="text-xs text-red-400 block mb-1">Precursors Observed:</label>
+                              <textarea
+                                value={statement.challengingPrecursors}
+                                onChange={(e) => updatePrecursors(statement.id, "challenging", e.target.value)}
+                                placeholder="e.g., said 'I don't know if they're right', looked away..."
+                                rows={2}
+                                className="w-full bg-slate-900 border border-red-500/30 rounded px-2 py-1 text-white text-xs"
+                              />
+                            </div>
                           </div>
                         </div>
                       );
