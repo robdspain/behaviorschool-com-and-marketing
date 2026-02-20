@@ -1,17 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase-client";
 import { 
   ArrowLeft, ArrowRight, Play, Pause, RotateCcw, Plus, Trash2, 
   BarChart3, Target, Clock, AlertTriangle, CheckCircle, User,
-  Brain, Heart, Zap, Shield
+  Brain, Heart, Zap, Shield, FileText, Download, LogIn, Users,
+  ClipboardList
 } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
 
 // Types
 interface QuestionnaireAnswers {
   studentName: string;
+  studentAge: string;
   grade: string;
+  assessorName: string;
+  assessmentDate: string;
   // Inner + Away (difficult thoughts/feelings)
   difficultThoughts: string[];
   difficultFeelings: string[];
@@ -26,16 +32,61 @@ interface QuestionnaireAnswers {
   selfStatements: string[];
 }
 
+// AFQ-Y (Avoidance and Fusion Questionnaire for Youth) - 8 item version
+interface AFQYAnswers {
+  completed: boolean;
+  responses: Record<string, number>; // 0-4 scale (Not at all true - Very true)
+}
+
+// Parent CPFQ (Comprehensive Psychological Flexibility Questionnaire)
+interface ParentCPFQAnswers {
+  completed: boolean;
+  parentName: string;
+  relationship: string;
+  responses: Record<string, number>;
+  openResponses: Record<string, string>;
+}
+
 interface Statement {
   id: string;
   text: string;
   context: string;
-  source: "questionnaire" | "manual";
+  source: "questionnaire" | "manual" | "afqy" | "parent";
   validatingLatency: number | null;
   challengingLatency: number | null;
 }
 
-type Step = "questionnaire" | "matrix" | "context" | "statements" | "fusion-fa" | "results";
+type Step = "afqy" | "parent-cpfq" | "questionnaire" | "matrix" | "context" | "statements" | "fusion-fa" | "results";
+
+// AFQ-Y Questions (8-item validated version)
+const AFQY_QUESTIONS = [
+  { id: "afqy1", text: "My life won't be good until I feel happy." },
+  { id: "afqy2", text: "My thoughts and feelings mess up my life." },
+  { id: "afqy3", text: "If I feel sad or afraid, something must be wrong with me." },
+  { id: "afqy4", text: "The bad things I think about myself must be true." },
+  { id: "afqy5", text: "I don't try new things if I'm afraid I will fail." },
+  { id: "afqy6", text: "I must get rid of my worries and fears so I can have a good life." },
+  { id: "afqy7", text: "I do worse in school when I have thoughts that make me feel sad." },
+  { id: "afqy8", text: "I am afraid of my feelings." },
+];
+
+// Parent CPFQ Questions
+const PARENT_CPFQ_QUESTIONS = [
+  { id: "pcpfq1", text: "My child avoids activities when they feel anxious or worried.", category: "avoidance" },
+  { id: "pcpfq2", text: "My child seems to believe their negative thoughts about themselves.", category: "fusion" },
+  { id: "pcpfq3", text: "My child has difficulty doing things that matter to them when upset.", category: "values" },
+  { id: "pcpfq4", text: "My child gets stuck on difficult thoughts or feelings.", category: "fusion" },
+  { id: "pcpfq5", text: "My child tries to push away or suppress uncomfortable feelings.", category: "avoidance" },
+  { id: "pcpfq6", text: "My child can notice their feelings without getting overwhelmed.", category: "acceptance", reverse: true },
+  { id: "pcpfq7", text: "My child can do what's important even when feeling nervous.", category: "values", reverse: true },
+  { id: "pcpfq8", text: "My child seems to take their thoughts too literally (believes everything they think).", category: "fusion" },
+];
+
+const PARENT_OPEN_QUESTIONS = [
+  { id: "popen1", label: "What thoughts seem to 'hook' your child the most?", placeholder: "e.g., 'I'm stupid', 'Nobody likes me', 'I can't do it'" },
+  { id: "popen2", label: "What does your child avoid because of difficult feelings?", placeholder: "e.g., new activities, social situations, challenging schoolwork" },
+  { id: "popen3", label: "What matters most to your child? What do they care about?", placeholder: "e.g., friends, family, sports, games, learning" },
+];
 
 const CONTEXT_OPTIONS = [
   "During math class",
@@ -53,36 +104,20 @@ const CONTEXT_OPTIONS = [
   "During tests",
 ];
 
-// Examples shown as hints (not clickable options)
-const DIFFICULT_THOUGHTS_EXAMPLES = [
-  "I'm going to fail",
-  "Nobody likes me",
-  "I can't do anything right",
-];
-
-const DIFFICULT_FEELINGS_EXAMPLES = [
-  "Worried/Anxious",
-  "Angry/Frustrated",
-  "Overwhelmed",
-];
-
-const VALUES_EXAMPLES = [
-  "Family",
-  "Learning new things",
-  "Being helpful",
-];
-
-const AVOIDANCE_EXAMPLES = [
-  "Leave the classroom",
-  "Shut down/go quiet",
-  "Refuse to work",
-];
-
 export default function FusionFAWorkflow() {
-  const [step, setStep] = useState<Step>("questionnaire");
+  // Auth state
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Workflow state
+  const [step, setStep] = useState<Step>("afqy");
   const [answers, setAnswers] = useState<QuestionnaireAnswers>({
     studentName: "",
+    studentAge: "",
     grade: "",
+    assessorName: "",
+    assessmentDate: new Date().toISOString().split('T')[0],
     difficultThoughts: [],
     difficultFeelings: [],
     values: [],
@@ -91,6 +126,23 @@ export default function FusionFAWorkflow() {
     towardBehaviors: [],
     selfStatements: [],
   });
+  
+  // AFQ-Y state
+  const [afqyAnswers, setAfqyAnswers] = useState<AFQYAnswers>({
+    completed: false,
+    responses: {},
+  });
+  
+  // Parent CPFQ state
+  const [parentCpfq, setParentCpfq] = useState<ParentCPFQAnswers>({
+    completed: false,
+    parentName: "",
+    relationship: "",
+    responses: {},
+    openResponses: {},
+  });
+  
+  // Other state
   const [customThought, setCustomThought] = useState("");
   const [customFeeling, setCustomFeeling] = useState("");
   const [customValue, setCustomValue] = useState("");
@@ -98,10 +150,47 @@ export default function FusionFAWorkflow() {
   const [customStatement, setCustomStatement] = useState("");
   const [statements, setStatements] = useState<Statement[]>([]);
   const [customContextIds, setCustomContextIds] = useState<Set<string>>(new Set());
-  // Timer state: tracks accumulated time and running state per statement/condition
   const [timerStates, setTimerStates] = useState<Record<string, { accumulated: number; isRunning: boolean }>>({});
   const [activeTimer, setActiveTimer] = useState<{ statementId: string; condition: "validating" | "challenging" } | null>(null);
   const [timerInterval, setTimerIntervalState] = useState<NodeJS.Timeout | null>(null);
+
+  // Check auth on mount
+  useEffect(() => {
+    const supabase = createClient();
+    
+    const checkAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setIsAuthenticated(!!session);
+        setUserEmail(session?.user?.email || null);
+      } catch (error) {
+        console.error("Auth check failed:", error);
+        setIsAuthenticated(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session);
+      setUserEmail(session?.user?.email || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogin = async () => {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/calaba-2026/assessment-tools/fusion-fa`,
+      },
+    });
+  };
 
   // Toggle selection helpers
   const toggleSelection = (field: keyof QuestionnaireAnswers, value: string) => {
@@ -123,37 +212,90 @@ export default function FusionFAWorkflow() {
     }
   };
 
-  // Move to context step - extract statements from questionnaire
+  // Calculate AFQ-Y score
+  const getAfqyScore = () => {
+    const responses = Object.values(afqyAnswers.responses);
+    if (responses.length === 0) return null;
+    return responses.reduce((sum, val) => sum + val, 0);
+  };
+
+  const getAfqyInterpretation = (score: number | null) => {
+    if (score === null) return { level: "Incomplete", color: "text-slate-400" };
+    if (score <= 8) return { level: "Low psychological inflexibility", color: "text-green-400" };
+    if (score <= 16) return { level: "Moderate psychological inflexibility", color: "text-yellow-400" };
+    return { level: "High psychological inflexibility", color: "text-red-400" };
+  };
+
+  // Calculate Parent CPFQ score
+  const getParentCpfqScore = () => {
+    const responses = Object.values(parentCpfq.responses);
+    if (responses.length === 0) return null;
+    let score = 0;
+    PARENT_CPFQ_QUESTIONS.forEach(q => {
+      const val = parentCpfq.responses[q.id] || 0;
+      score += q.reverse ? (4 - val) : val;
+    });
+    return score;
+  };
+
+  // Extract statements from all sources
   const extractStatements = () => {
-    const extracted: Statement[] = answers.difficultThoughts.map((thought, idx) => ({
-      id: `q-${idx}`,
-      text: thought,
-      context: "",
-      source: "questionnaire" as const,
-      validatingLatency: null,
-      challengingLatency: null,
-    }));
-    // Add any direct self-statements
-    answers.selfStatements.forEach((stmt, idx) => {
+    const extracted: Statement[] = [];
+    
+    // From questionnaire
+    answers.difficultThoughts.forEach((thought, idx) => {
       extracted.push({
-        id: `s-${idx}`,
-        text: stmt,
+        id: `q-${idx}`,
+        text: thought,
         context: "",
-        source: "questionnaire" as const,
+        source: "questionnaire",
         validatingLatency: null,
         challengingLatency: null,
       });
     });
+    
+    // From AFQ-Y high-scoring items
+    AFQY_QUESTIONS.forEach(q => {
+      const score = afqyAnswers.responses[q.id];
+      if (score >= 3) { // High endorsement
+        extracted.push({
+          id: `afqy-${q.id}`,
+          text: q.text,
+          context: "",
+          source: "afqy",
+          validatingLatency: null,
+          challengingLatency: null,
+        });
+      }
+    });
+    
+    // From Parent open responses
+    if (parentCpfq.openResponses.popen1) {
+      const thoughts = parentCpfq.openResponses.popen1.split(',').map(t => t.trim()).filter(t => t);
+      thoughts.forEach((thought, idx) => {
+        if (!extracted.some(e => e.text.toLowerCase() === thought.toLowerCase())) {
+          extracted.push({
+            id: `parent-${idx}`,
+            text: thought,
+            context: "",
+            source: "parent",
+            validatingLatency: null,
+            challengingLatency: null,
+          });
+        }
+      });
+    }
+    
     setStatements(extracted);
     setStep("context");
   };
 
-  // Update context for a statement - uses functional update to avoid stale closure
+  // Update context for a statement
   const updateStatementContext = (id: string, context: string) => {
     setStatements(prev => prev.map(s => s.id === id ? { ...s, context } : s));
   };
 
-  // Timer functions - support pause/resume
+  // Timer functions
   const getTimerKey = (statementId: string, condition: "validating" | "challenging") => `${statementId}-${condition}`;
   
   const getTimerState = (statementId: string, condition: "validating" | "challenging") => {
@@ -162,7 +304,6 @@ export default function FusionFAWorkflow() {
   };
 
   const startTimer = (statementId: string, condition: "validating" | "challenging") => {
-    // Stop any existing timer
     if (timerInterval) clearInterval(timerInterval);
     
     const key = getTimerKey(statementId, condition);
@@ -208,14 +349,12 @@ export default function FusionFAWorkflow() {
 
   const resetTimer = (statementId: string, condition: "validating" | "challenging") => {
     const key = getTimerKey(statementId, condition);
-    // Stop if this timer is running
     if (activeTimer?.statementId === statementId && activeTimer?.condition === condition) {
       if (timerInterval) clearInterval(timerInterval);
       setActiveTimer(null);
       setTimerIntervalState(null);
     }
     setTimerStates(prev => ({ ...prev, [key]: { accumulated: 0, isRunning: false } }));
-    // Also clear the recorded latency
     setStatements(prev => prev.map(s => {
       if (s.id === statementId) {
         return {
@@ -225,12 +364,6 @@ export default function FusionFAWorkflow() {
       }
       return s;
     }));
-  };
-
-  // Legacy stopTimer for backward compatibility
-  const stopTimer = () => {
-    pauseTimer();
-    setTimerIntervalState(null);
   };
 
   const addManualStatement = () => {
@@ -267,217 +400,46 @@ export default function FusionFAWorkflow() {
     return { level: "Low", color: "text-green-400", bg: "bg-green-500/20", priority: false };
   };
 
-  // Comprehensive Relational Frame Types based on RFT literature
-  type RelationalFrameType = 
-    | "coordination-self" // I am X (self-as-content)
-    | "coordination-other" // They are X, X is Y
-    | "opposition" // X is opposite of Y
-    | "distinction" // X is different from Y
-    | "comparison-self" // I am more/less X than others
-    | "comparison-general" // X is better/worse than Y
-    | "hierarchical" // I am part of X, X contains Y
-    | "temporal-past" // X happened, because of past
-    | "temporal-future" // X will happen, prediction
-    | "temporal-always" // X always/never happens
-    | "causal" // X causes Y, because X then Y
-    | "conditional" // If X then Y, must/should/have to
-    | "deictic-self" // I-here-now perspective
-    | "deictic-other" // You-there-then, they think X
-    | "spatial" // Here/there, in/out, close/far
-    | "evaluative" // X is good/bad, right/wrong
-    | "general";
-
-  // Generate validating and challenging prompts based on statement and context
+  // Generate prompts based on statement
   const generatePrompts = (statement: Statement) => {
     const text = statement.text.toLowerCase();
     const originalText = statement.text;
     const context = statement.context || "";
-    
-    // Comprehensive frame detection
-    let frameType: RelationalFrameType = "general";
-    
-    // COORDINATION - Sameness/Equivalence frames
-    if (/^i('m| am) (a |an |the )?/.test(text) && /(stupid|dumb|bad|worthless|failure|loser|idiot|ugly|fat|weak|broken|mess|disaster)/.test(text)) {
-      frameType = "coordination-self";
-    } else if (/^(i('m| am)|i feel) (like )?(nothing|nobody|invisible|alone|empty|lost)/.test(text)) {
-      frameType = "coordination-self";
-    } else if (/(they|he|she|everyone|people|kids|teachers?) (is|are|think|say|believe)/.test(text)) {
-      frameType = "coordination-other";
-    }
-    // OPPOSITION frames
-    else if (/(opposite|contrary|against|versus|rather than)/.test(text)) {
-      frameType = "opposition";
-    } else if (/(not like|unlike|the reverse|instead of)/.test(text)) {
-      frameType = "opposition";
-    }
-    // DISTINCTION frames  
-    else if (/(different|unique|separate|apart|not the same|don't belong|don't fit)/.test(text)) {
-      frameType = "distinction";
-    } else if (/(outsider|outcast|weirdo|freak|not like (them|others|everyone))/.test(text)) {
-      frameType = "distinction";
-    }
-    // COMPARISON frames
-    else if (/(worse|better|more|less|smarter|dumber|prettier|uglier) than/.test(text)) {
-      frameType = "comparison-self";
-    } else if (/(not (as|good|smart|pretty|fast) (as|enough))/.test(text)) {
-      frameType = "comparison-self";
-    } else if (/(the worst|the best|most|least|biggest|smallest)/.test(text)) {
-      frameType = "comparison-general";
-    }
-    // HIERARCHICAL frames
-    else if (/(part of|belong to|member of|in the group|on the team)/.test(text)) {
-      frameType = "hierarchical";
-    } else if (/(type of|kind of|category|all \w+ are)/.test(text)) {
-      frameType = "hierarchical";
-    }
-    // TEMPORAL frames
-    else if (/(used to|back when|remember when|that time|before|after|since|when i was)/.test(text)) {
-      frameType = "temporal-past";
-    } else if (/(going to|gonna|will|won't|about to|someday|eventually|soon)/.test(text)) {
-      frameType = "temporal-future";
-    } else if (/(always|never|every time|all the time|constantly|forever|eternally)/.test(text)) {
-      frameType = "temporal-always";
-    }
-    // CAUSAL frames
-    else if (/(because|since|therefore|so|that's why|the reason|caused|made me|fault)/.test(text)) {
-      frameType = "causal";
-    } else if (/(leads to|results in|ends up|turns into)/.test(text)) {
-      frameType = "causal";
-    }
-    // CONDITIONAL frames (rules)
-    else if (/(if i|when i|whenever|unless|only if|as long as)/.test(text)) {
-      frameType = "conditional";
-    } else if (/(have to|must|should|need to|supposed to|got to|can't|cannot|not allowed)/.test(text)) {
-      frameType = "conditional";
-    }
-    // DEICTIC frames (perspective-taking)
-    else if (/(i know|i see|i feel|i think|from my|in my experience|for me)/.test(text)) {
-      frameType = "deictic-self";
-    } else if (/(they think|they see|from their|in their eyes|they probably|they must think)/.test(text)) {
-      frameType = "deictic-other";
-    }
-    // SPATIAL frames
-    else if (/(here|there|inside|outside|close|far|near|away|in this|out of)/.test(text)) {
-      frameType = "spatial";
-    } else if (/(trapped|stuck|cornered|surrounded|boxed in|no way out)/.test(text)) {
-      frameType = "spatial";
-    }
-    // EVALUATIVE frames
-    else if (/(good|bad|right|wrong|fair|unfair|stupid idea|dumb thing|mistake)/.test(text)) {
-      frameType = "evaluative";
-    } else if (/(sucks|terrible|awful|horrible|great|amazing|perfect)/.test(text)) {
-      frameType = "evaluative";
-    }
-
-    // Generate context-aware prompts
     const ctx = context ? `, especially ${context.toLowerCase()}` : "";
     const ctxStart = context ? `When ${context.toLowerCase()}, ` : "";
     
     let validating = "";
     let challenging = "";
-    let frameLabel = "";
+    let frameLabel = "Verbal Relation";
     
-    switch (frameType) {
-      case "coordination-self":
-        frameLabel = "Self-as-Content";
-        validating = `"${ctxStart}I can see why you'd think '${originalText}'. When that thought shows up, it probably feels completely true."`;
-        challenging = `"I'm curious about something. Is '${originalText}' a fact about you, or is it more like a thought your mind is having${ctx}? What's the difference?"`;
-        break;
-        
-      case "coordination-other":
-        frameLabel = "Other-Coordination";
-        validating = `"It sounds like you really believe '${originalText}'${ctx}. That must be hard to carry around."`;
-        challenging = `"How do you know for certain that '${originalText}'? Is there any way to check if that's actually true, or might your mind be filling in the blanks?"`;
-        break;
-
-      case "opposition":
-        frameLabel = "Opposition";
-        validating = `"I hear you saying '${originalText}'${ctx}. It sounds like you see these as completely opposite."`;
-        challenging = `"What if '${originalText}' isn't as black-and-white as it seems? Are there any shades of gray your mind might be missing?"`;
-        break;
-
-      case "distinction":
-        frameLabel = "Distinction/Difference";
-        validating = `"${ctxStart}When you think '${originalText}', it makes sense that you'd feel separate or different."`;
-        challenging = `"I wonder—in what ways might you actually be similar to others, even when '${originalText}' feels true${ctx}?"`;
-        break;
-
-      case "comparison-self":
-        frameLabel = "Self-Comparison";
-        validating = `"I can understand why '${originalText}' would feel true${ctx}. Comparing ourselves to others is something we all do."`;
-        challenging = `"When your mind tells you '${originalText}', is it comparing you to everyone fairly, or might it be picking specific examples${ctx}?"`;
-        break;
-
-      case "comparison-general":
-        frameLabel = "Comparison";
-        validating = `"It sounds like '${originalText}' feels like an accurate assessment to you${ctx}."`;
-        challenging = `"I'm curious—by what standard are you measuring '${originalText}'? Is there another way to look at this${ctx}?"`;
-        break;
-
-      case "hierarchical":
-        frameLabel = "Hierarchical/Category";
-        validating = `"${ctxStart}I hear that '${originalText}' is an important way you see yourself fitting in."`;
-        challenging = `"What if '${originalText}' is just one way to categorize things? Are there other groups or categories that might also apply${ctx}?"`;
-        break;
-
-      case "temporal-past":
-        frameLabel = "Temporal-Past";
-        validating = `"When you remember '${originalText}'${ctx}, I can see why that past experience would still affect you."`;
-        challenging = `"That happened in the past. I wonder—does '${originalText}' have to define what happens now or in the future${ctx}?"`;
-        break;
-
-      case "temporal-future":
-        frameLabel = "Temporal-Future";
-        validating = `"${ctxStart}When you think '${originalText}', that prediction probably feels very certain."`;
-        challenging = `"Has there ever been a time when you predicted something bad would happen and it turned out differently? What would it mean if '${originalText}' wasn't guaranteed${ctx}?"`;
-        break;
-
-      case "temporal-always":
-        frameLabel = "Temporal-Absolute";
-        validating = `"It sounds like '${originalText}' feels like an absolute truth${ctx}—like it happens without exception."`;
-        challenging = `"'Always' and 'never' are pretty strong words. Can you think of even one exception to '${originalText}'${ctx}? What would that mean?"`;
-        break;
-
-      case "causal":
-        frameLabel = "Causal";
-        validating = `"I understand—when you think '${originalText}'${ctx}, there's a clear cause and effect in your mind."`;
-        challenging = `"What if there are other causes besides the one your mind is focused on? Could '${originalText}' have multiple explanations${ctx}?"`;
-        break;
-
-      case "conditional":
-        frameLabel = "Conditional/Rule";
-        validating = `"${ctxStart}I hear you saying '${originalText}'. It sounds like this rule feels absolutely necessary to follow."`;
-        challenging = `"What would happen if '${originalText}' wasn't actually a rule you had to follow${ctx}? What's the worst that could realistically happen?"`;
-        break;
-
-      case "deictic-self":
-        frameLabel = "Self-Perspective";
-        validating = `"From your perspective${ctx}, '${originalText}' makes complete sense."`;
-        challenging = `"If your best friend was in this exact situation${ctx}, would they see it the same way? What might they notice that's different from '${originalText}'?"`;
-        break;
-
-      case "deictic-other":
-        frameLabel = "Other-Perspective";
-        validating = `"It sounds like you're pretty sure about what others think—'${originalText}'${ctx}."`;
-        challenging = `"I'm curious—can you actually read their minds? Is it possible '${originalText}' is more of a guess than a fact${ctx}?"`;
-        break;
-
-      case "spatial":
-        frameLabel = "Spatial";
-        validating = `"${ctxStart}When you feel '${originalText}', that sense of being trapped or stuck must be overwhelming."`;
-        challenging = `"Even when '${originalText}' feels true${ctx}, are there any small movements or options your mind might not be noticing?"`;
-        break;
-
-      case "evaluative":
-        frameLabel = "Evaluative";
-        validating = `"I can see why '${originalText}' would feel like an accurate judgment${ctx}."`;
-        challenging = `"Who decides whether '${originalText}' is true? Is this evaluation a fact or an opinion—and whose opinion is it${ctx}?"`;
-        break;
-
-      default:
-        frameLabel = "Verbal Relation";
-        validating = `"${ctxStart}I hear you saying '${originalText}'. That thought makes sense given what you've shared."`;
-        challenging = `"What if '${originalText}' is just a thought your mind is having, not necessarily the whole truth${ctx}? What else might be true?"`;
+    // Self-as-content patterns
+    if (/^(i('m| am)|i feel) /.test(text) && /(stupid|dumb|bad|worthless|failure|loser|can't|afraid|scared)/.test(text)) {
+      frameLabel = "Self-as-Content";
+      validating = `"${ctxStart}I can see why you'd think '${originalText}'. When that thought shows up, it probably feels completely true."`;
+      challenging = `"I'm curious about something. Is '${originalText}' a fact about you, or is it more like a thought your mind is having${ctx}? What's the difference?"`;
+    }
+    // Temporal-always patterns
+    else if (/(always|never|every time|won't|can't)/.test(text)) {
+      frameLabel = "Temporal-Absolute";
+      validating = `"It sounds like '${originalText}' feels like an absolute truth${ctx}—like it happens without exception."`;
+      challenging = `"'Always' and 'never' are pretty strong words. Can you think of even one exception to '${originalText}'${ctx}? What would that mean?"`;
+    }
+    // Conditional patterns
+    else if (/(have to|must|should|need to|until|won't be)/.test(text)) {
+      frameLabel = "Conditional/Rule";
+      validating = `"${ctxStart}I hear you saying '${originalText}'. It sounds like this rule feels absolutely necessary to follow."`;
+      challenging = `"What would happen if '${originalText}' wasn't actually a rule you had to follow${ctx}? What's the worst that could realistically happen?"`;
+    }
+    // Causal patterns
+    else if (/(because|mess up|make me|wrong with me)/.test(text)) {
+      frameLabel = "Causal";
+      validating = `"I understand—when you think '${originalText}'${ctx}, there's a clear cause and effect in your mind."`;
+      challenging = `"What if there are other causes besides the one your mind is focused on? Could '${originalText}' have multiple explanations${ctx}?"`;
+    }
+    // Default
+    else {
+      validating = `"${ctxStart}I hear you saying '${originalText}'. That thought makes sense given what you've shared."`;
+      challenging = `"What if '${originalText}' is just a thought your mind is having, not necessarily the whole truth${ctx}? What else might be true?"`;
     }
     
     return { validating, challenging, frameType: frameLabel };
@@ -485,9 +447,111 @@ export default function FusionFAWorkflow() {
 
   const allComplete = statements.length > 0 && statements.every(s => s.validatingLatency !== null && s.challengingLatency !== null);
 
+  // Generate PDF Report
+  const generateReport = () => {
+    const results = getResults();
+    const afqyScore = getAfqyScore();
+    const parentScore = getParentCpfqScore();
+    
+    const reportContent = `
+FUSION HIERARCHY ASSESSMENT REPORT
+=====================================
+Generated: ${new Date().toLocaleString()}
+Assessor: ${answers.assessorName || "Not specified"}
+
+STUDENT INFORMATION
+-------------------
+Name: ${answers.studentName || "Not specified"}
+Age: ${answers.studentAge || "Not specified"}
+Grade: ${answers.grade || "Not specified"}
+Assessment Date: ${answers.assessmentDate}
+
+AFQ-Y RESULTS (Avoidance and Fusion Questionnaire for Youth)
+------------------------------------------------------------
+Total Score: ${afqyScore !== null ? afqyScore : "Not completed"}/32
+Interpretation: ${getAfqyInterpretation(afqyScore).level}
+
+Item Responses:
+${AFQY_QUESTIONS.map(q => `  ${q.text}: ${afqyAnswers.responses[q.id] !== undefined ? afqyAnswers.responses[q.id] : 'N/A'}`).join('\n')}
+
+PARENT CPFQ RESULTS
+-------------------
+Completed by: ${parentCpfq.parentName || "Not specified"} (${parentCpfq.relationship || "Not specified"})
+Total Score: ${parentScore !== null ? parentScore : "Not completed"}/32
+
+Parent-Reported Concerning Thoughts:
+${parentCpfq.openResponses.popen1 || "None reported"}
+
+Parent-Reported Avoidance Patterns:
+${parentCpfq.openResponses.popen2 || "None reported"}
+
+Parent-Reported Values:
+${parentCpfq.openResponses.popen3 || "None reported"}
+
+ACT MATRIX SUMMARY
+------------------
+Inner + Away (Difficult Thoughts):
+${answers.difficultThoughts.map(t => `  • "${t}"`).join('\n') || "  None recorded"}
+
+Inner + Away (Difficult Feelings):
+${answers.difficultFeelings.map(f => `  • ${f}`).join('\n') || "  None recorded"}
+
+Inner + Toward (Values):
+${answers.values.map(v => `  • ${v}`).join('\n') || "  None recorded"}
+
+Outer + Away (Avoidance Behaviors):
+${answers.avoidanceBehaviors.map(b => `  • ${b}`).join('\n') || "  None recorded"}
+
+FUSION HIERARCHY RESULTS
+------------------------
+${results.map((r, idx) => `
+${idx + 1}. "${r.text}"
+   Context: ${r.context || "Not specified"}
+   Validating Latency: ${r.validatingLatency}s
+   Challenging Latency: ${r.challengingLatency}s
+   Delta (V-C): ${r.delta.toFixed(1)}s
+   Fusion Level: ${getFusionLevel(r.delta).level}
+   Source: ${r.source}
+`).join('')}
+
+PRIORITY DEFUSION TARGETS
+-------------------------
+${results.filter(r => getFusionLevel(r.delta).priority).map((r, idx) => `
+${idx + 1}. "${r.text}" (Δ ${r.delta.toFixed(1)}s)
+   - High fusion suggests this verbal relation strongly controls behavior
+   - Recommended for targeted defusion intervention
+`).join('') || "No high-fusion statements identified"}
+
+RECOMMENDATIONS
+---------------
+Based on the assessment results, consider the following intervention priorities:
+
+1. Defusion Work: Focus on the high-fusion statements identified above
+2. Values Clarification: Build on identified values (${answers.values.slice(0, 3).join(', ') || "explore in follow-up"})
+3. Acceptance: Address avoidance patterns (${answers.avoidanceBehaviors.slice(0, 2).join(', ') || "monitor"})
+
+---
+This report was generated using the Fusion Hierarchy Assessment Tool
+CalABA 2026 Symposium | Behavior School Pro
+    `.trim();
+
+    // Create download
+    const blob = new Blob([reportContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `fusion-fa-report-${answers.studentName || 'student'}-${answers.assessmentDate}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   // Step indicator
   const steps = [
-    { id: "questionnaire", label: "Questionnaire", icon: User },
+    { id: "afqy", label: "Student AFQ-Y", icon: ClipboardList },
+    { id: "parent-cpfq", label: "Parent CPFQ", icon: Users },
+    { id: "questionnaire", label: "Interview", icon: User },
     { id: "matrix", label: "ACT Matrix", icon: Brain },
     { id: "context", label: "Context", icon: Target },
     { id: "statements", label: "Review", icon: CheckCircle },
@@ -495,45 +559,112 @@ export default function FusionFAWorkflow() {
     { id: "results", label: "Results", icon: BarChart3 },
   ];
 
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto"></div>
+          <p className="mt-4 text-slate-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Auth gate
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
+        <div className="max-w-md w-full">
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8">
+            <div className="text-center mb-6">
+              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4">
+                <Brain className="w-8 h-8 text-white" />
+              </div>
+              <h1 className="text-2xl font-bold text-white mb-2">Fusion Hierarchy Assessment</h1>
+              <p className="text-slate-400">Sign in to access this professional assessment tool</p>
+            </div>
+            
+            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 mb-6">
+              <p className="text-cyan-300 text-sm">
+                <strong>Free with Behavior School Pro</strong><br />
+                This tool is part of the free tier. Sign in with Google to continue.
+              </p>
+            </div>
+            
+            <button
+              onClick={handleLogin}
+              className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white hover:bg-slate-100 rounded-xl transition-all text-slate-800 font-semibold"
+            >
+              <FcGoogle className="h-6 w-6" />
+              <span>Continue with Google</span>
+            </button>
+            
+            <p className="text-center text-slate-500 text-sm mt-6">
+              <Link href="/calaba-2026" className="text-cyan-400 hover:text-cyan-300">
+                ← Back to CalABA 2026
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-900">
       {/* Header */}
       <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white pt-20 pb-6 px-4">
         <div className="max-w-4xl mx-auto">
           <Link 
-            href="/calaba-2026/assessment-tools"
+            href="/calaba-2026"
             className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm mb-4"
           >
-            <ArrowLeft className="w-4 h-4" /> Back to Assessment Tools
+            <ArrowLeft className="w-4 h-4" /> Back to CalABA 2026
           </Link>
           
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-cyan-300">
-            Fusion Hierarchy Assessment Workflow
-          </h1>
-          <p className="text-slate-300 text-sm">
-            Complete student questionnaire → ACT Matrix → Latency-based functional analysis
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-cyan-300">
+                Fusion Hierarchy Assessment
+              </h1>
+              <p className="text-slate-300 text-sm">
+                Complete ACT-informed functional assessment with latency-based analysis
+              </p>
+            </div>
+            <div className="text-right text-sm text-slate-400">
+              <div>Signed in as</div>
+              <div className="text-cyan-400">{userEmail}</div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Progress Steps */}
       <div className="max-w-4xl mx-auto px-4 py-4">
-        <div className="flex items-center justify-between bg-slate-800/50 rounded-xl p-3">
+        <div className="flex items-center justify-between bg-slate-800/50 rounded-xl p-3 overflow-x-auto">
           {steps.map((s, idx) => {
             const Icon = s.icon;
             const isActive = s.id === step;
             const isPast = steps.findIndex(x => x.id === step) > idx;
             return (
-              <div key={s.id} className="flex items-center">
-                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
-                  isActive ? "bg-cyan-500/20 text-cyan-300" : 
-                  isPast ? "text-emerald-400" : "text-slate-500"
-                }`}>
+              <div key={s.id} className="flex items-center flex-shrink-0">
+                <button
+                  onClick={() => {
+                    // Allow navigation to completed steps
+                    if (isPast) setStep(s.id as Step);
+                  }}
+                  disabled={!isPast && !isActive}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
+                    isActive ? "bg-cyan-500/20 text-cyan-300" : 
+                    isPast ? "text-emerald-400 hover:bg-emerald-500/10 cursor-pointer" : "text-slate-500"
+                  }`}
+                >
                   {isPast ? <CheckCircle className="w-4 h-4" /> : <Icon className="w-4 h-4" />}
-                  <span className="text-xs font-medium hidden sm:inline">{s.label}</span>
-                </div>
+                  <span className="text-xs font-medium hidden md:inline">{s.label}</span>
+                </button>
                 {idx < steps.length - 1 && (
-                  <div className={`w-8 h-0.5 mx-1 ${isPast ? "bg-emerald-500" : "bg-slate-700"}`} />
+                  <div className={`w-4 md:w-8 h-0.5 mx-1 flex-shrink-0 ${isPast ? "bg-emerald-500" : "bg-slate-700"}`} />
                 )}
               </div>
             );
@@ -544,54 +675,274 @@ export default function FusionFAWorkflow() {
       {/* Main Content */}
       <section className="max-w-4xl mx-auto px-4 pb-12">
         
-        {/* STEP 1: Questionnaire */}
-        {step === "questionnaire" && (
+        {/* STEP 1: AFQ-Y */}
+        {step === "afqy" && (
           <div className="space-y-6">
-            {/* Student Info */}
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                <User className="w-5 h-5 text-cyan-400" /> Student Information
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <ClipboardList className="w-5 h-5 text-cyan-400" /> Student AFQ-Y
               </h3>
-              <div className="grid grid-cols-2 gap-4">
+              <p className="text-slate-400 text-sm mb-4">
+                Avoidance and Fusion Questionnaire for Youth (8-item version). 
+                Read each statement to the student and record their response.
+              </p>
+              
+              {/* Student Info */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-slate-900/50 rounded-lg">
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Student Name/ID</label>
+                  <label className="text-xs text-slate-400 mb-1 block">Student Name</label>
                   <input
                     type="text"
                     value={answers.studentName}
                     onChange={(e) => setAnswers({ ...answers, studentName: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white"
-                    placeholder="Enter name or ID"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                    placeholder="Name"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Grade</label>
+                  <label className="text-xs text-slate-400 mb-1 block">Age</label>
+                  <input
+                    type="text"
+                    value={answers.studentAge}
+                    onChange={(e) => setAnswers({ ...answers, studentAge: e.target.value })}
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                    placeholder="Age"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-slate-400 mb-1 block">Grade</label>
                   <select
                     value={answers.grade}
                     onChange={(e) => setAnswers({ ...answers, grade: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white"
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
                   >
-                    <option value="">Select grade</option>
+                    <option value="">Select</option>
                     {["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"].map(g => (
-                      <option key={g} value={g}>{g === "K" ? "Kindergarten" : `Grade ${g}`}</option>
+                      <option key={g} value={g}>{g}</option>
                     ))}
                   </select>
                 </div>
+                <div>
+                  <label className="text-xs text-slate-400 mb-1 block">Assessor</label>
+                  <input
+                    type="text"
+                    value={answers.assessorName}
+                    onChange={(e) => setAnswers({ ...answers, assessorName: e.target.value })}
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                    placeholder="Your name"
+                  />
+                </div>
+              </div>
+              
+              {/* Response Scale Legend */}
+              <div className="flex items-center justify-center gap-4 mb-6 text-xs text-slate-400">
+                <span>0 = Not at all true</span>
+                <span>1 = A little true</span>
+                <span>2 = Pretty true</span>
+                <span>3 = True</span>
+                <span>4 = Very true</span>
+              </div>
+              
+              {/* Questions */}
+              <div className="space-y-4">
+                {AFQY_QUESTIONS.map((q, idx) => (
+                  <div key={q.id} className="bg-slate-900/50 rounded-lg p-4">
+                    <div className="flex items-start gap-4">
+                      <span className="text-slate-500 text-sm font-mono">{idx + 1}.</span>
+                      <div className="flex-1">
+                        <p className="text-white mb-3">{q.text}</p>
+                        <div className="flex gap-2">
+                          {[0, 1, 2, 3, 4].map(val => (
+                            <button
+                              key={val}
+                              onClick={() => setAfqyAnswers(prev => ({
+                                ...prev,
+                                responses: { ...prev.responses, [q.id]: val }
+                              }))}
+                              className={`w-10 h-10 rounded-lg font-bold transition-all ${
+                                afqyAnswers.responses[q.id] === val
+                                  ? "bg-cyan-600 text-white"
+                                  : "bg-slate-700 text-slate-400 hover:bg-slate-600"
+                              }`}
+                            >
+                              {val}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Score Summary */}
+              {Object.keys(afqyAnswers.responses).length === AFQY_QUESTIONS.length && (
+                <div className="mt-6 p-4 bg-cyan-500/10 border border-cyan-500/30 rounded-xl">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-sm text-cyan-400">AFQ-Y Total Score</div>
+                      <div className="text-2xl font-bold text-white">{getAfqyScore()}/32</div>
+                    </div>
+                    <div className={`text-right ${getAfqyInterpretation(getAfqyScore()).color}`}>
+                      {getAfqyInterpretation(getAfqyScore()).level}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Navigation */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => {
+                  setAfqyAnswers(prev => ({ ...prev, completed: true }));
+                  setStep("parent-cpfq");
+                }}
+                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+              >
+                Continue to Parent CPFQ <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 2: Parent CPFQ */}
+        {step === "parent-cpfq" && (
+          <div className="space-y-6">
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                <Users className="w-5 h-5 text-purple-400" /> Parent/Caregiver Questionnaire
+              </h3>
+              <p className="text-slate-400 text-sm mb-4">
+                Comprehensive Psychological Flexibility Questionnaire - Parent Report
+              </p>
+              
+              {/* Parent Info */}
+              <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-slate-900/50 rounded-lg">
+                <div>
+                  <label className="text-xs text-slate-400 mb-1 block">Parent/Caregiver Name</label>
+                  <input
+                    type="text"
+                    value={parentCpfq.parentName}
+                    onChange={(e) => setParentCpfq(prev => ({ ...prev, parentName: e.target.value }))}
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                    placeholder="Name"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-slate-400 mb-1 block">Relationship to Student</label>
+                  <select
+                    value={parentCpfq.relationship}
+                    onChange={(e) => setParentCpfq(prev => ({ ...prev, relationship: e.target.value }))}
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                  >
+                    <option value="">Select</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Father">Father</option>
+                    <option value="Guardian">Guardian</option>
+                    <option value="Grandparent">Grandparent</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+              
+              {/* Rating Questions */}
+              <div className="mb-6">
+                <h4 className="text-white font-medium mb-3">Rate how true each statement is for your child:</h4>
+                <div className="flex items-center justify-center gap-4 mb-4 text-xs text-slate-400">
+                  <span>0 = Not at all</span>
+                  <span>1 = A little</span>
+                  <span>2 = Somewhat</span>
+                  <span>3 = Very</span>
+                  <span>4 = Extremely</span>
+                </div>
+                
+                <div className="space-y-4">
+                  {PARENT_CPFQ_QUESTIONS.map((q, idx) => (
+                    <div key={q.id} className="bg-slate-900/50 rounded-lg p-4">
+                      <div className="flex items-start gap-4">
+                        <span className="text-slate-500 text-sm font-mono">{idx + 1}.</span>
+                        <div className="flex-1">
+                          <p className="text-white mb-3">{q.text}</p>
+                          <div className="flex gap-2">
+                            {[0, 1, 2, 3, 4].map(val => (
+                              <button
+                                key={val}
+                                onClick={() => setParentCpfq(prev => ({
+                                  ...prev,
+                                  responses: { ...prev.responses, [q.id]: val }
+                                }))}
+                                className={`w-10 h-10 rounded-lg font-bold transition-all ${
+                                  parentCpfq.responses[q.id] === val
+                                    ? "bg-purple-600 text-white"
+                                    : "bg-slate-700 text-slate-400 hover:bg-slate-600"
+                                }`}
+                              >
+                                {val}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Open-ended Questions */}
+              <div className="space-y-4">
+                <h4 className="text-white font-medium">Additional Information:</h4>
+                {PARENT_OPEN_QUESTIONS.map(q => (
+                  <div key={q.id} className="bg-slate-900/50 rounded-lg p-4">
+                    <label className="text-white text-sm mb-2 block">{q.label}</label>
+                    <textarea
+                      value={parentCpfq.openResponses[q.id] || ""}
+                      onChange={(e) => setParentCpfq(prev => ({
+                        ...prev,
+                        openResponses: { ...prev.openResponses, [q.id]: e.target.value }
+                      }))}
+                      placeholder={q.placeholder}
+                      rows={2}
+                      className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Difficult Thoughts (Inner + Away) */}
+            {/* Navigation */}
+            <div className="flex justify-between">
+              <button
+                onClick={() => setStep("afqy")}
+                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+              <button
+                onClick={() => {
+                  setParentCpfq(prev => ({ ...prev, completed: true }));
+                  setStep("questionnaire");
+                }}
+                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
+              >
+                Continue to Interview <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 3: Questionnaire (Clinical Interview) */}
+        {step === "questionnaire" && (
+          <div className="space-y-6">
+            {/* Difficult Thoughts */}
             <div className="bg-slate-800 border border-red-500/30 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5 text-red-400" /> Difficult Thoughts
               </h3>
-              <p className="text-slate-400 text-sm mb-2">
+              <p className="text-slate-400 text-sm mb-4">
                 "What thoughts show up that make things hard for you at school?"
               </p>
-              <p className="text-slate-500 text-xs mb-4 italic">
-                Examples: "{DIFFICULT_THOUGHTS_EXAMPLES.join('", "')}"
-              </p>
               
-              {/* Recorded thoughts */}
               {answers.difficultThoughts.length > 0 && (
                 <div className="mb-4 space-y-2">
                   {answers.difficultThoughts.map((thought, idx) => (
@@ -617,10 +968,7 @@ export default function FusionFAWorkflow() {
                   placeholder="Type a thought the student shared..."
                   className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
                 />
-                <button
-                  onClick={addCustomThought}
-                  className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg text-sm"
-                >
+                <button onClick={addCustomThought} className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg">
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
@@ -631,23 +979,14 @@ export default function FusionFAWorkflow() {
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                 <Heart className="w-5 h-5 text-orange-400" /> Difficult Feelings
               </h3>
-              <p className="text-slate-400 text-sm mb-2">
-                "What feelings show up that are hard to deal with?"
-              </p>
-              <p className="text-slate-500 text-xs mb-4 italic">
-                Examples: {DIFFICULT_FEELINGS_EXAMPLES.join(", ")}
-              </p>
+              <p className="text-slate-400 text-sm mb-4">"What feelings show up that are hard to deal with?"</p>
               
-              {/* Recorded feelings */}
               {answers.difficultFeelings.length > 0 && (
                 <div className="mb-4 space-y-2">
                   {answers.difficultFeelings.map((feeling, idx) => (
                     <div key={idx} className="flex items-center justify-between bg-orange-500/20 border border-orange-500/30 rounded-lg px-4 py-2">
                       <span className="text-orange-200">{feeling}</span>
-                      <button
-                        onClick={() => setAnswers({ ...answers, difficultFeelings: answers.difficultFeelings.filter((_, i) => i !== idx) })}
-                        className="text-orange-400 hover:text-orange-300"
-                      >
+                      <button onClick={() => setAnswers({ ...answers, difficultFeelings: answers.difficultFeelings.filter((_, i) => i !== idx) })} className="text-orange-400 hover:text-orange-300">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -666,7 +1005,7 @@ export default function FusionFAWorkflow() {
                       setCustomFeeling("");
                     }
                   }}
-                  placeholder="Type a feeling the student described..."
+                  placeholder="Type a feeling..."
                   className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
                 />
                 <button
@@ -676,35 +1015,26 @@ export default function FusionFAWorkflow() {
                       setCustomFeeling("");
                     }
                   }}
-                  className="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg text-sm"
+                  className="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Values (Inner + Toward) */}
+            {/* Values */}
             <div className="bg-slate-800 border border-emerald-500/30 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                <Zap className="w-5 h-5 text-emerald-400" /> What Matters to You
+                <Zap className="w-5 h-5 text-emerald-400" /> What Matters
               </h3>
-              <p className="text-slate-400 text-sm mb-2">
-                "What's important to you? What do you care about?"
-              </p>
-              <p className="text-slate-500 text-xs mb-4 italic">
-                Examples: {VALUES_EXAMPLES.join(", ")}
-              </p>
+              <p className="text-slate-400 text-sm mb-4">"What's important to you? What do you care about?"</p>
               
-              {/* Recorded values */}
               {answers.values.length > 0 && (
                 <div className="mb-4 space-y-2">
                   {answers.values.map((value, idx) => (
                     <div key={idx} className="flex items-center justify-between bg-emerald-500/20 border border-emerald-500/30 rounded-lg px-4 py-2">
                       <span className="text-emerald-200">{value}</span>
-                      <button
-                        onClick={() => setAnswers({ ...answers, values: answers.values.filter((_, i) => i !== idx) })}
-                        className="text-emerald-400 hover:text-emerald-300"
-                      >
+                      <button onClick={() => setAnswers({ ...answers, values: answers.values.filter((_, i) => i !== idx) })} className="text-emerald-400 hover:text-emerald-300">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -723,7 +1053,7 @@ export default function FusionFAWorkflow() {
                       setCustomValue("");
                     }
                   }}
-                  placeholder="Type what the student said matters to them..."
+                  placeholder="Type a value..."
                   className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
                 />
                 <button
@@ -733,35 +1063,26 @@ export default function FusionFAWorkflow() {
                       setCustomValue("");
                     }
                   }}
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm"
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Avoidance Behaviors (Outer + Away) */}
+            {/* Avoidance Behaviors */}
             <div className="bg-slate-800 border border-purple-500/30 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                <Shield className="w-5 h-5 text-purple-400" /> What You Do When It Gets Hard
+                <Shield className="w-5 h-5 text-purple-400" /> Avoidance Behaviors
               </h3>
-              <p className="text-slate-400 text-sm mb-2">
-                "When those difficult thoughts and feelings show up, what do you usually do?"
-              </p>
-              <p className="text-slate-500 text-xs mb-4 italic">
-                Examples: {AVOIDANCE_EXAMPLES.join(", ")}
-              </p>
+              <p className="text-slate-400 text-sm mb-4">"When those difficult thoughts and feelings show up, what do you usually do?"</p>
               
-              {/* Recorded behaviors */}
               {answers.avoidanceBehaviors.length > 0 && (
                 <div className="mb-4 space-y-2">
                   {answers.avoidanceBehaviors.map((behavior, idx) => (
                     <div key={idx} className="flex items-center justify-between bg-purple-500/20 border border-purple-500/30 rounded-lg px-4 py-2">
                       <span className="text-purple-200">{behavior}</span>
-                      <button
-                        onClick={() => setAnswers({ ...answers, avoidanceBehaviors: answers.avoidanceBehaviors.filter((_, i) => i !== idx) })}
-                        className="text-purple-400 hover:text-purple-300"
-                      >
+                      <button onClick={() => setAnswers({ ...answers, avoidanceBehaviors: answers.avoidanceBehaviors.filter((_, i) => i !== idx) })} className="text-purple-400 hover:text-purple-300">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -780,7 +1101,7 @@ export default function FusionFAWorkflow() {
                       setCustomAvoidance("");
                     }
                   }}
-                  placeholder="Type what the student does when it gets hard..."
+                  placeholder="Type a behavior..."
                   className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white text-sm"
                 />
                 <button
@@ -790,27 +1111,26 @@ export default function FusionFAWorkflow() {
                       setCustomAvoidance("");
                     }
                   }}
-                  className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-sm"
+                  className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* Next Button */}
-            <div className="flex justify-end">
-              <button
-                onClick={() => setStep("matrix")}
-                disabled={answers.difficultThoughts.length === 0}
-                className="bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
-              >
+            {/* Navigation */}
+            <div className="flex justify-between">
+              <button onClick={() => setStep("parent-cpfq")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+              <button onClick={() => setStep("matrix")} className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2">
                 View ACT Matrix <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           </div>
         )}
 
-        {/* STEP 2: ACT Matrix */}
+        {/* STEP 4: ACT Matrix */}
         {step === "matrix" && (
           <div className="space-y-6">
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
@@ -819,209 +1139,102 @@ export default function FusionFAWorkflow() {
               </h3>
               
               <div className="grid grid-cols-2 gap-4">
-                {/* Inner + Away */}
                 <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
                   <h4 className="text-red-400 font-bold text-sm uppercase tracking-wide mb-1">Inner + Away</h4>
                   <p className="text-slate-400 text-xs mb-3">Difficult thoughts & feelings</p>
                   <div className="space-y-1">
-                    {answers.difficultThoughts.map(t => (
-                      <div key={t} className="text-red-200 text-sm">• "{t}"</div>
-                    ))}
-                    {answers.difficultFeelings.map(f => (
-                      <div key={f} className="text-red-200 text-sm">• {f}</div>
-                    ))}
+                    {answers.difficultThoughts.map(t => <div key={t} className="text-red-200 text-sm">• "{t}"</div>)}
+                    {answers.difficultFeelings.map(f => <div key={f} className="text-red-200 text-sm">• {f}</div>)}
                     {answers.difficultThoughts.length === 0 && answers.difficultFeelings.length === 0 && (
                       <p className="text-slate-500 text-sm italic">No thoughts recorded</p>
                     )}
                   </div>
                 </div>
 
-                {/* Inner + Toward */}
                 <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
                   <h4 className="text-cyan-400 font-bold text-sm uppercase tracking-wide mb-1">Inner + Toward</h4>
                   <p className="text-slate-400 text-xs mb-3">Values & what matters</p>
                   <div className="space-y-1">
-                    {answers.values.map(v => (
-                      <div key={v} className="text-cyan-200 text-sm">• {v}</div>
-                    ))}
-                    {answers.values.length === 0 && (
-                      <p className="text-slate-500 text-sm italic">No values recorded</p>
-                    )}
+                    {answers.values.map(v => <div key={v} className="text-cyan-200 text-sm">• {v}</div>)}
+                    {answers.values.length === 0 && <p className="text-slate-500 text-sm italic">No values recorded</p>}
                   </div>
                 </div>
 
-                {/* Outer + Away */}
                 <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
                   <h4 className="text-purple-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Away</h4>
                   <p className="text-slate-400 text-xs mb-3">Avoidance behaviors</p>
                   <div className="space-y-1">
-                    {answers.avoidanceBehaviors.map(b => (
-                      <div key={b} className="text-purple-200 text-sm">• {b}</div>
-                    ))}
-                    {answers.avoidanceBehaviors.length === 0 && (
-                      <p className="text-slate-500 text-sm italic">No behaviors recorded</p>
-                    )}
+                    {answers.avoidanceBehaviors.map(b => <div key={b} className="text-purple-200 text-sm">• {b}</div>)}
+                    {answers.avoidanceBehaviors.length === 0 && <p className="text-slate-500 text-sm italic">No behaviors recorded</p>}
                   </div>
                 </div>
 
-                {/* Outer + Toward */}
                 <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4">
                   <h4 className="text-cyan-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Toward</h4>
                   <p className="text-slate-400 text-xs mb-3">Values-consistent actions</p>
-                  <div className="text-slate-500 text-sm italic">
-                    (Intervention targets — what we want to increase)
-                  </div>
+                  <div className="text-slate-500 text-sm italic">(Intervention targets)</div>
                 </div>
               </div>
             </div>
 
-            {/* Navigation */}
             <div className="flex justify-between">
-              <button
-                onClick={() => setStep("questionnaire")}
-                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-              >
+              <button onClick={() => setStep("questionnaire")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" /> Back
               </button>
-              <button
-                onClick={extractStatements}
-                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
-              >
-                Extract Statements for FA <ArrowRight className="w-5 h-5" />
+              <button onClick={extractStatements} className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2">
+                Extract Statements <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           </div>
         )}
 
-        {/* STEP 3: Context Capture */}
+        {/* STEP 5: Context */}
         {step === "context" && (
           <div className="space-y-6">
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
                 <Target className="w-5 h-5 text-cyan-400" /> Statement Context
               </h3>
-              <p className="text-slate-400 text-sm mb-4">
-                For each statement, identify when/where the student typically makes this statement or when this thought occurs.
-              </p>
+              <p className="text-slate-400 text-sm mb-4">Identify when/where each statement typically occurs.</p>
               
-              {/* Statement + Context Table */}
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-slate-600">
-                      <th className="text-left py-3 text-slate-400 text-sm font-medium w-1/2">Statement</th>
-                      <th className="text-left py-3 text-slate-400 text-sm font-medium w-1/2">Context (When does this happen?)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {statements.map(s => {
-                      const isCustomMode = customContextIds.has(s.id) || (s.context && !CONTEXT_OPTIONS.includes(s.context));
-                      return (
-                        <tr key={s.id} className="border-b border-slate-700">
-                          <td className="py-4 pr-4">
-                            <span className="text-white">"{s.text}"</span>
-                          </td>
-                          <td className="py-4">
-                            <div className="space-y-2">
-                              <select
-                                value={isCustomMode ? "custom" : s.context}
-                                onChange={(e) => {
-                                  if (e.target.value === "custom") {
-                                    // Enable custom mode for this statement
-                                    setCustomContextIds(prev => new Set(prev).add(s.id));
-                                  } else {
-                                    // Disable custom mode and set the selected value
-                                    setCustomContextIds(prev => {
-                                      const next = new Set(prev);
-                                      next.delete(s.id);
-                                      return next;
-                                    });
-                                    updateStatementContext(s.id, e.target.value);
-                                  }
-                                }}
-                                className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
-                              >
-                                <option value="">Select context...</option>
-                                {CONTEXT_OPTIONS.map(ctx => (
-                                  <option key={ctx} value={ctx}>{ctx}</option>
-                                ))}
-                                <option value="custom">Other (type below)</option>
-                              </select>
-                              {isCustomMode && (
-                                <input
-                                  key={`custom-context-${s.id}`}
-                                  type="text"
-                                  value={CONTEXT_OPTIONS.includes(s.context) ? "" : s.context}
-                                  placeholder="Describe the context..."
-                                  onChange={(e) => updateStatementContext(s.id, e.target.value)}
-                                  onFocus={(e) => e.target.select()}
-                                  className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
-                                />
-                              )}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+              <div className="space-y-4">
+                {statements.map((s, idx) => (
+                  <div key={s.id} className="bg-slate-900/50 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-xs bg-slate-700 text-slate-400 px-2 py-0.5 rounded">{s.source}</span>
+                      <span className="text-white">"{s.text}"</span>
+                    </div>
+                    <select
+                      value={s.context}
+                      onChange={(e) => updateStatementContext(s.id, e.target.value)}
+                      className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                    >
+                      <option value="">Select context...</option>
+                      {CONTEXT_OPTIONS.map(ctx => <option key={ctx} value={ctx}>{ctx}</option>)}
+                    </select>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Statement + Context Summary */}
-            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-6">
-              <h4 className="text-cyan-400 font-semibold mb-3">Statement-Context Summary</h4>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-cyan-500/30">
-                      <th className="text-left py-2 text-cyan-300">#</th>
-                      <th className="text-left py-2 text-cyan-300">Verbal Statement</th>
-                      <th className="text-left py-2 text-cyan-300">Context</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {statements.map((s, idx) => (
-                      <tr key={s.id} className="border-b border-slate-700">
-                        <td className="py-2 text-white">{idx + 1}</td>
-                        <td className="py-2 text-white">"{s.text}"</td>
-                        <td className="py-2 text-slate-300">{s.context || <span className="text-slate-500 italic">Not specified</span>}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* Navigation */}
             <div className="flex justify-between">
-              <button
-                onClick={() => setStep("matrix")}
-                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-              >
+              <button onClick={() => setStep("matrix")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" /> Back
               </button>
-              <button
-                onClick={() => setStep("statements")}
-                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
-              >
+              <button onClick={() => setStep("statements")} className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2">
                 Review Statements <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           </div>
         )}
 
-        {/* STEP 4: Statement Review */}
+        {/* STEP 6: Statement Review */}
         {step === "statements" && (
           <div className="space-y-6">
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-cyan-400" /> Review Statements
               </h3>
-              <p className="text-slate-400 text-sm mb-4">
-                These verbal statements will be tested in validating vs. challenging conditions. 
-                Remove any that don't apply or add more.
-              </p>
               
               <div className="space-y-2 mb-4">
                 {statements.map(s => (
@@ -1030,10 +1243,7 @@ export default function FusionFAWorkflow() {
                       <span className="text-white">"{s.text}"</span>
                       {s.context && <span className="text-slate-500 text-sm ml-2">— {s.context}</span>}
                     </div>
-                    <button
-                      onClick={() => removeStatement(s.id)}
-                      className="text-slate-500 hover:text-red-400"
-                    >
+                    <button onClick={() => removeStatement(s.id)} className="text-slate-500 hover:text-red-400">
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
@@ -1046,24 +1256,17 @@ export default function FusionFAWorkflow() {
                   value={customStatement}
                   onChange={(e) => setCustomStatement(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && addManualStatement()}
-                  placeholder="Add another statement to test..."
+                  placeholder="Add another statement..."
                   className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white"
                 />
-                <button
-                  onClick={addManualStatement}
-                  className="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg"
-                >
+                <button onClick={addManualStatement} className="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg">
                   <Plus className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            {/* Navigation */}
             <div className="flex justify-between">
-              <button
-                onClick={() => setStep("context")}
-                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-              >
+              <button onClick={() => setStep("context")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" /> Back
               </button>
               <button
@@ -1077,213 +1280,124 @@ export default function FusionFAWorkflow() {
           </div>
         )}
 
-        {/* STEP 5: Fusion FA */}
+        {/* STEP 7: Fusion FA */}
         {step === "fusion-fa" && (
           <div className="space-y-6">
-            {/* Protocol Info */}
             <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
               <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-yellow-400" /> Fusion FA Protocol
+                <AlertTriangle className="w-4 h-4 text-yellow-400" /> Protocol
               </h3>
-              <div className="text-sm text-slate-300 space-y-2">
-                <p><strong className="text-green-400">1. Validating Condition:</strong> Read the green prompt to validate/support the student's verbal relation</p>
-                <p><strong className="text-red-400">2. Challenging Condition:</strong> Read the red prompt to gently challenge the verbal relation</p>
-                <p><strong className="text-cyan-400">3. Measure:</strong> Start timer when you begin speaking → Stop at first precursor (posture shift, facial tension, self-talk, looking away)</p>
-                <p><strong className="text-yellow-400">4. Compare:</strong> Larger Δ (validating − challenging) = higher fusion = priority defusion target</p>
+              <div className="text-sm text-slate-300 space-y-1">
+                <p><strong className="text-green-400">Validating:</strong> Support the verbal relation</p>
+                <p><strong className="text-red-400">Challenging:</strong> Gently challenge it</p>
+                <p><strong className="text-cyan-400">Measure:</strong> Latency to first precursor behavior</p>
               </div>
             </div>
 
-            {/* Statements with timers */}
-            <div className="space-y-6">
-              {statements.map((statement, idx) => {
-                const prompts = generatePrompts(statement);
-                return (
-                  <div key={statement.id} className="bg-slate-800 border border-slate-700 rounded-xl p-5">
-                    {/* Statement Header */}
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-xs text-slate-500">Statement {idx + 1}</span>
-                          <span className="text-[10px] bg-slate-700 text-slate-400 px-2 py-0.5 rounded uppercase">
-                            {prompts.frameType.replace("-", " ")}
-                          </span>
-                        </div>
-                        <p className="text-white font-semibold text-lg">"{statement.text}"</p>
-                        {statement.context && (
-                          <p className="text-slate-400 text-sm mt-1">Context: {statement.context}</p>
-                        )}
-                      </div>
+            {statements.map((statement, idx) => {
+              const prompts = generatePrompts(statement);
+              return (
+                <div key={statement.id} className="bg-slate-800 border border-slate-700 rounded-xl p-5">
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs text-slate-500">Statement {idx + 1}</span>
+                      <span className="text-[10px] bg-slate-700 text-slate-400 px-2 py-0.5 rounded uppercase">{prompts.frameType}</span>
                     </div>
-
-                    <div className="grid grid-cols-2 gap-4 mt-4">
-                      {/* Validating */}
-                      {(() => {
-                        const vState = getTimerState(statement.id, "validating");
-                        const isActive = activeTimer?.statementId === statement.id && activeTimer?.condition === "validating";
-                        return (
-                          <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-                            <div className="text-xs text-green-400 font-bold uppercase tracking-wide mb-2">Validating Prompt</div>
-                            <p className="text-green-200/80 text-sm italic mb-4 leading-relaxed">{prompts.validating}</p>
-                            
-                            <div className="border-t border-green-500/20 pt-3 mt-3">
-                              <div className="text-xs text-green-400 mb-2">Latency to Precursor</div>
-                              
-                              {/* Show recorded value if saved */}
-                              {statement.validatingLatency !== null ? (
-                                <div className="flex items-center justify-between">
-                                  <div className="text-2xl font-bold text-green-300">{statement.validatingLatency}s ✓</div>
-                                  <button
-                                    onClick={() => resetTimer(statement.id, "validating")}
-                                    className="text-green-400 hover:text-green-300"
-                                    title="Reset"
-                                  >
-                                    <RotateCcw className="w-4 h-4" />
-                                  </button>
-                                </div>
-                              ) : (
-                                <>
-                                  {/* Timer display */}
-                                  <div className="text-2xl font-bold text-green-300 mb-3">
-                                    {vState.accumulated.toFixed(1)}s
-                                    {vState.isRunning && <span className="text-green-400 text-sm ml-2 animate-pulse">●</span>}
-                                  </div>
-                                  
-                                  {/* Timer controls */}
-                                  <div className="flex gap-2">
-                                    {isActive ? (
-                                      <button
-                                        onClick={pauseTimer}
-                                        className="flex-1 bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
-                                      >
-                                        <Pause className="w-4 h-4" /> Pause
-                                      </button>
-                                    ) : (
-                                      <button
-                                        onClick={() => startTimer(statement.id, "validating")}
-                                        disabled={activeTimer !== null && !isActive}
-                                        className="flex-1 bg-green-600 hover:bg-green-500 disabled:opacity-50 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
-                                      >
-                                        <Play className="w-4 h-4" /> {vState.accumulated > 0 ? "Resume" : "Start"}
-                                      </button>
-                                    )}
-                                    {vState.accumulated > 0 && !isActive && (
-                                      <button
-                                        onClick={() => recordTimer(statement.id, "validating")}
-                                        className="bg-green-700 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
-                                      >
-                                        <CheckCircle className="w-4 h-4" /> Record
-                                      </button>
-                                    )}
-                                    {vState.accumulated > 0 && (
-                                      <button
-                                        onClick={() => resetTimer(statement.id, "validating")}
-                                        className="text-green-400 hover:text-green-300 px-2"
-                                        title="Reset"
-                                      >
-                                        <RotateCcw className="w-4 h-4" />
-                                      </button>
-                                    )}
-                                  </div>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })()}
-
-                      {/* Challenging */}
-                      {(() => {
-                        const cState = getTimerState(statement.id, "challenging");
-                        const isActive = activeTimer?.statementId === statement.id && activeTimer?.condition === "challenging";
-                        return (
-                          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
-                            <div className="text-xs text-red-400 font-bold uppercase tracking-wide mb-2">Challenging Prompt</div>
-                            <p className="text-red-200/80 text-sm italic mb-4 leading-relaxed">{prompts.challenging}</p>
-                            
-                            <div className="border-t border-red-500/20 pt-3 mt-3">
-                              <div className="text-xs text-red-400 mb-2">Latency to Precursor</div>
-                              
-                              {/* Show recorded value if saved */}
-                              {statement.challengingLatency !== null ? (
-                                <div className="flex items-center justify-between">
-                                  <div className="text-2xl font-bold text-red-300">{statement.challengingLatency}s ✓</div>
-                                  <button
-                                    onClick={() => resetTimer(statement.id, "challenging")}
-                                    className="text-red-400 hover:text-red-300"
-                                    title="Reset"
-                                  >
-                                    <RotateCcw className="w-4 h-4" />
-                                  </button>
-                                </div>
-                              ) : (
-                                <>
-                                  {/* Timer display */}
-                                  <div className="text-2xl font-bold text-red-300 mb-3">
-                                    {cState.accumulated.toFixed(1)}s
-                                    {cState.isRunning && <span className="text-red-400 text-sm ml-2 animate-pulse">●</span>}
-                                  </div>
-                                  
-                                  {/* Timer controls */}
-                                  <div className="flex gap-2">
-                                    {isActive ? (
-                                      <button
-                                        onClick={pauseTimer}
-                                        className="flex-1 bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
-                                      >
-                                        <Pause className="w-4 h-4" /> Pause
-                                      </button>
-                                    ) : (
-                                      <button
-                                        onClick={() => startTimer(statement.id, "challenging")}
-                                        disabled={activeTimer !== null && !isActive}
-                                        className="flex-1 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
-                                      >
-                                        <Play className="w-4 h-4" /> {cState.accumulated > 0 ? "Resume" : "Start"}
-                                      </button>
-                                    )}
-                                    {cState.accumulated > 0 && !isActive && (
-                                      <button
-                                        onClick={() => recordTimer(statement.id, "challenging")}
-                                        className="bg-red-700 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
-                                      >
-                                        <CheckCircle className="w-4 h-4" /> Record
-                                      </button>
-                                    )}
-                                    {cState.accumulated > 0 && (
-                                      <button
-                                        onClick={() => resetTimer(statement.id, "challenging")}
-                                        className="text-red-400 hover:text-red-300 px-2"
-                                        title="Reset"
-                                      >
-                                        <RotateCcw className="w-4 h-4" />
-                                      </button>
-                                    )}
-                                  </div>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })()}
-                    </div>
+                    <p className="text-white font-semibold text-lg">"{statement.text}"</p>
+                    {statement.context && <p className="text-slate-400 text-sm mt-1">Context: {statement.context}</p>}
                   </div>
-                );
-              })}
-            </div>
 
-            {/* Navigation */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Validating */}
+                    {(() => {
+                      const vState = getTimerState(statement.id, "validating");
+                      const isActive = activeTimer?.statementId === statement.id && activeTimer?.condition === "validating";
+                      return (
+                        <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+                          <div className="text-xs text-green-400 font-bold uppercase tracking-wide mb-2">Validating</div>
+                          <p className="text-green-200/80 text-sm italic mb-4">{prompts.validating}</p>
+                          <div className="border-t border-green-500/20 pt-3">
+                            {statement.validatingLatency !== null ? (
+                              <div className="flex items-center justify-between">
+                                <div className="text-2xl font-bold text-green-300">{statement.validatingLatency}s ✓</div>
+                                <button onClick={() => resetTimer(statement.id, "validating")} className="text-green-400 hover:text-green-300"><RotateCcw className="w-4 h-4" /></button>
+                              </div>
+                            ) : (
+                              <>
+                                <div className="text-2xl font-bold text-green-300 mb-3">{vState.accumulated.toFixed(1)}s</div>
+                                <div className="flex gap-2">
+                                  {isActive ? (
+                                    <button onClick={pauseTimer} className="flex-1 bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1">
+                                      <Pause className="w-4 h-4" /> Pause
+                                    </button>
+                                  ) : (
+                                    <button onClick={() => startTimer(statement.id, "validating")} disabled={activeTimer !== null} className="flex-1 bg-green-600 hover:bg-green-500 disabled:opacity-50 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1">
+                                      <Play className="w-4 h-4" /> {vState.accumulated > 0 ? "Resume" : "Start"}
+                                    </button>
+                                  )}
+                                  {vState.accumulated > 0 && !isActive && (
+                                    <button onClick={() => recordTimer(statement.id, "validating")} className="bg-green-700 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1">
+                                      <CheckCircle className="w-4 h-4" /> Record
+                                    </button>
+                                  )}
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Challenging */}
+                    {(() => {
+                      const cState = getTimerState(statement.id, "challenging");
+                      const isActive = activeTimer?.statementId === statement.id && activeTimer?.condition === "challenging";
+                      return (
+                        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+                          <div className="text-xs text-red-400 font-bold uppercase tracking-wide mb-2">Challenging</div>
+                          <p className="text-red-200/80 text-sm italic mb-4">{prompts.challenging}</p>
+                          <div className="border-t border-red-500/20 pt-3">
+                            {statement.challengingLatency !== null ? (
+                              <div className="flex items-center justify-between">
+                                <div className="text-2xl font-bold text-red-300">{statement.challengingLatency}s ✓</div>
+                                <button onClick={() => resetTimer(statement.id, "challenging")} className="text-red-400 hover:text-red-300"><RotateCcw className="w-4 h-4" /></button>
+                              </div>
+                            ) : (
+                              <>
+                                <div className="text-2xl font-bold text-red-300 mb-3">{cState.accumulated.toFixed(1)}s</div>
+                                <div className="flex gap-2">
+                                  {isActive ? (
+                                    <button onClick={pauseTimer} className="flex-1 bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1">
+                                      <Pause className="w-4 h-4" /> Pause
+                                    </button>
+                                  ) : (
+                                    <button onClick={() => startTimer(statement.id, "challenging")} disabled={activeTimer !== null} className="flex-1 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1">
+                                      <Play className="w-4 h-4" /> {cState.accumulated > 0 ? "Resume" : "Start"}
+                                    </button>
+                                  )}
+                                  {cState.accumulated > 0 && !isActive && (
+                                    <button onClick={() => recordTimer(statement.id, "challenging")} className="bg-red-700 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1">
+                                      <CheckCircle className="w-4 h-4" /> Record
+                                    </button>
+                                  )}
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                </div>
+              );
+            })}
+
             <div className="flex justify-between">
-              <button
-                onClick={() => setStep("statements")}
-                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-              >
+              <button onClick={() => setStep("statements")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" /> Back
               </button>
               {allComplete && (
-                <button
-                  onClick={() => setStep("results")}
-                  className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
-                >
+                <button onClick={() => setStep("results")} className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2">
                   View Results <BarChart3 className="w-5 h-5" />
                 </button>
               )}
@@ -1291,25 +1405,46 @@ export default function FusionFAWorkflow() {
           </div>
         )}
 
-        {/* STEP 5: Results */}
+        {/* STEP 8: Results */}
         {step === "results" && (
           <div className="space-y-6">
+            {/* Summary Cards */}
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-slate-800 border border-cyan-500/30 rounded-xl p-4 text-center">
+                <div className="text-xs text-cyan-400 uppercase tracking-wide mb-1">AFQ-Y Score</div>
+                <div className="text-2xl font-bold text-white">{getAfqyScore() ?? "—"}/32</div>
+                <div className={`text-sm ${getAfqyInterpretation(getAfqyScore()).color}`}>
+                  {getAfqyInterpretation(getAfqyScore()).level.split(' ').slice(-1)}
+                </div>
+              </div>
+              <div className="bg-slate-800 border border-purple-500/30 rounded-xl p-4 text-center">
+                <div className="text-xs text-purple-400 uppercase tracking-wide mb-1">Parent CPFQ</div>
+                <div className="text-2xl font-bold text-white">{getParentCpfqScore() ?? "—"}/32</div>
+                <div className="text-sm text-slate-400">Parent report</div>
+              </div>
+              <div className="bg-slate-800 border border-red-500/30 rounded-xl p-4 text-center">
+                <div className="text-xs text-red-400 uppercase tracking-wide mb-1">High Fusion</div>
+                <div className="text-2xl font-bold text-white">{getResults().filter(r => getFusionLevel(r.delta).priority).length}</div>
+                <div className="text-sm text-slate-400">statements</div>
+              </div>
+            </div>
+
+            {/* Fusion Hierarchy Table */}
             <div className="bg-slate-800 border-2 border-cyan-500 rounded-xl p-6">
               <h3 className="text-xl font-bold text-cyan-300 mb-4 flex items-center gap-2">
-                <Target className="w-5 h-5" /> Fusion Hierarchy Results — {answers.studentName || "Student"}
+                <Target className="w-5 h-5" /> Fusion Hierarchy — {answers.studentName || "Student"}
               </h3>
               
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>
                     <tr className="border-b border-slate-600">
-                      <th className="pb-3 text-slate-400 text-sm font-medium">Rank</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium">#</th>
                       <th className="pb-3 text-slate-400 text-sm font-medium">Statement</th>
-                      <th className="pb-3 text-slate-400 text-sm font-medium">Context</th>
-                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">Valid.</th>
-                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">Chall.</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">V</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">C</th>
                       <th className="pb-3 text-slate-400 text-sm font-medium text-center">Δ</th>
-                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">Fusion</th>
+                      <th className="pb-3 text-slate-400 text-sm font-medium text-center">Level</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1319,14 +1454,11 @@ export default function FusionFAWorkflow() {
                         <tr key={result.id} className="border-b border-slate-700">
                           <td className="py-3 text-white font-bold">{idx + 1}</td>
                           <td className="py-3 text-white">"{result.text}"</td>
-                          <td className="py-3 text-slate-400 text-sm">{result.context || "—"}</td>
                           <td className="py-3 text-green-300 text-center">{result.validatingLatency}s</td>
                           <td className="py-3 text-red-300 text-center">{result.challengingLatency}s</td>
                           <td className="py-3 text-cyan-300 text-center font-bold">{result.delta.toFixed(1)}s</td>
                           <td className="py-3 text-center">
-                            <span className={`${fusion.bg} ${fusion.color} px-2 py-1 rounded text-xs font-medium`}>
-                              {fusion.level}
-                            </span>
+                            <span className={`${fusion.bg} ${fusion.color} px-2 py-1 rounded text-xs font-medium`}>{fusion.level}</span>
                           </td>
                         </tr>
                       );
@@ -1334,46 +1466,38 @@ export default function FusionFAWorkflow() {
                   </tbody>
                 </table>
               </div>
+            </div>
 
-              {/* Intervention Targets */}
-              <div className="mt-6 p-4 bg-slate-900/50 rounded-lg">
-                <h4 className="font-semibold text-white mb-3">🎯 Priority Defusion Targets</h4>
-                <div className="space-y-3">
-                  {getResults().filter(r => getFusionLevel(r.delta).priority).map((r, idx) => (
-                    <div key={r.id} className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
-                      <div className="flex items-center gap-3 text-red-300 font-medium">
-                        <span className="font-bold">{idx + 1}.</span>
-                        <span>"{r.text}"</span>
-                        <span className="text-slate-500 text-sm">(Δ {r.delta.toFixed(1)}s)</span>
-                      </div>
-                      {r.context && (
-                        <div className="text-slate-400 text-sm mt-1 ml-6">
-                          Context: {r.context}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  {getResults().filter(r => getFusionLevel(r.delta).priority).length === 0 && (
-                    <p className="text-slate-400 text-sm">No high-fusion statements identified. Consider retesting or adding more statements.</p>
-                  )}
-                </div>
+            {/* Priority Targets */}
+            <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
+              <h4 className="font-semibold text-red-300 mb-3">🎯 Priority Defusion Targets</h4>
+              <div className="space-y-2">
+                {getResults().filter(r => getFusionLevel(r.delta).priority).map((r, idx) => (
+                  <div key={r.id} className="bg-slate-900/50 rounded-lg p-3">
+                    <span className="text-white font-bold">{idx + 1}.</span>
+                    <span className="text-white ml-2">"{r.text}"</span>
+                    <span className="text-slate-500 text-sm ml-2">(Δ {r.delta.toFixed(1)}s)</span>
+                  </div>
+                ))}
+                {getResults().filter(r => getFusionLevel(r.delta).priority).length === 0 && (
+                  <p className="text-slate-400">No high-fusion statements identified.</p>
+                )}
               </div>
             </div>
 
             {/* Actions */}
             <div className="flex justify-between">
-              <button
-                onClick={() => setStep("fusion-fa")}
-                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-              >
+              <button onClick={() => setStep("fusion-fa")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" /> Back
               </button>
-              <button
-                onClick={() => window.print()}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-xl font-medium"
-              >
-                Print Report
-              </button>
+              <div className="flex gap-2">
+                <button onClick={() => window.print()} className="bg-slate-600 hover:bg-slate-500 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                  <FileText className="w-4 h-4" /> Print
+                </button>
+                <button onClick={generateReport} className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2">
+                  <Download className="w-5 h-5" /> Download Report
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -1381,8 +1505,8 @@ export default function FusionFAWorkflow() {
 
       {/* Footer */}
       <footer className="border-t border-slate-800 py-6 text-center text-slate-500 text-sm">
-        <p>CalABA 2026 Symposium — Fusion Hierarchy Assessment Demo</p>
-        <p className="mt-1">Based on KCUSD Latency-Based FA Methodology</p>
+        <p>CalABA 2026 Symposium — Fusion Hierarchy Assessment</p>
+        <p className="mt-1">Behavior School Pro • Free Tier</p>
       </footer>
     </div>
   );
