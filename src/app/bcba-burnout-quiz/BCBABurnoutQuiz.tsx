@@ -489,6 +489,13 @@ export function BCBABurnoutQuiz() {
           </p>
         </div>
 
+        <div className="text-center my-8">
+          <Link href="/bcba-burnout-quiz/playbook" className="inline-flex items-center gap-3 bg-emerald-600 text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg hover:bg-emerald-700 transition-colors">
+            Download Your Free Self-Care Playbook
+          </Link>
+          <p className="text-sm text-slate-500 mt-3">A practical guide to preventing burnout and building a sustainable career.</p>
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-3 mb-6">
           <a
             href="https://study.behaviorschool.com"

@@ -278,7 +278,7 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                 <textarea
                   value={currentThought.text}
                   onChange={(e) => setCurrentThought(prev => ({ ...prev, text: e.target.value }))}
-                  placeholder='e.g., "I think I\'m going to get in trouble anyway"'
+                  placeholder={`e.g., "I think I'm going to get in trouble anyway"`}
                   className="w-full mt-2 bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                   rows={2}
                 />
