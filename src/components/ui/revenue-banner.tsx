@@ -9,18 +9,18 @@ export function RevenueBanner() {
   if (dismissed) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[95] bg-emerald-900 text-white py-2.5 px-4 text-center text-sm font-semibold shadow-md">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3">
+    <div className="hidden md:block fixed top-0 left-0 right-0 z-[95] bg-emerald-900 text-white py-2.5 px-4 text-center text-sm font-semibold shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-center gap-3">
         <span className="text-white">CalABA 2026 is coming. Join the founding member offer and the School BCBA Accelerator waitlist.</span>
         <Link
           href="/calaba-2026"
-          className="inline-flex items-center bg-amber-400 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full hover:bg-amber-300 transition-colors"
+          className="inline-flex items-center bg-amber-400 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full hover:bg-amber-300 transition-colors whitespace-nowrap"
         >
           CalABA 2026 Offer
         </Link>
         <Link
           href="/transformation-program#enroll"
-          className="inline-flex items-center bg-emerald-700 text-white text-xs font-bold px-3 py-1 rounded-full hover:bg-emerald-600 transition-colors"
+          className="inline-flex items-center bg-emerald-700 text-white text-xs font-bold px-3 py-1 rounded-full hover:bg-emerald-600 transition-colors whitespace-nowrap"
         >
           Accelerator Waitlist
         </Link>
