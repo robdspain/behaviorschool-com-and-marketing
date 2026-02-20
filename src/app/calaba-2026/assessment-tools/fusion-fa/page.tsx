@@ -77,7 +77,7 @@ interface Statement {
   aiFrameType?: string;
 }
 
-type Step = "afqy" | "parent-cpfq" | "questionnaire" | "matrix" | "context" | "statements" | "behavior-profile" | "fusion-fa" | "results";
+type Step = "cpfq" | "questionnaire" | "matrix" | "context" | "statements" | "behavior-profile" | "fusion-fa" | "results";
 
 // AFQ-Y Questions (8-item validated version)
 const AFQY_QUESTIONS = [
@@ -132,7 +132,7 @@ export default function FusionFAWorkflow() {
   const [isLoading, setIsLoading] = useState(true);
   
   // Workflow state
-  const [step, setStep] = useState<Step>("afqy");
+  const [step, setStep] = useState<Step>("cpfq");
   const [answers, setAnswers] = useState<QuestionnaireAnswers>({
     studentName: "",
     studentAge: "",
@@ -594,8 +594,7 @@ Assessor: ${answers.assessorName || "Not specified"}
 Date: ${answers.assessmentDate}
 Generated: ${new Date().toLocaleString()}
 
-AFQ-Y SCORE: ${afqyScore !== null ? `${afqyScore}/32 (${getAfqyInterpretation(afqyScore).level})` : "Not completed"}
-PARENT CPFQ SCORE: ${parentScore !== null ? `${parentScore}/32` : "Not completed"}
+CPFQ SCORE: ${parentScore !== null ? `${parentScore}/32` : "Not completed"}
 
 ================================================================================
 BEHAVIOR PROFILE
@@ -690,8 +689,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
 
   // Step indicator
   const steps = [
-    { id: "afqy", label: "Student AFQ-Y", icon: ClipboardList },
-    { id: "parent-cpfq", label: "Parent CPFQ", icon: Users },
+    { id: "cpfq", label: "CPFQ", icon: ClipboardList },
     { id: "questionnaire", label: "Interview", icon: User },
     { id: "matrix", label: "ACT Matrix", icon: Brain },
     { id: "context", label: "Context", icon: Target },
@@ -816,20 +814,15 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
       {/* Main Content */}
       <section className="max-w-4xl mx-auto px-4 pb-12">
         
-        {/* STEP 1: AFQ-Y */}
-        {step === "afqy" && (
+        {/* STEP 1: CPFQ */}
+        {step === "cpfq" && (
           <div className="space-y-6">
+            {/* Student & Assessment Info */}
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                <ClipboardList className="w-5 h-5 text-cyan-400" /> Student AFQ-Y
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <ClipboardList className="w-5 h-5 text-cyan-400" /> Assessment Info
               </h3>
-              <p className="text-slate-400 text-sm mb-4">
-                Avoidance and Fusion Questionnaire for Youth (8-item version). 
-                Read each statement to the student and record their response.
-              </p>
-              
-              {/* Student Info */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-slate-900/50 rounded-lg">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-slate-900/50 rounded-lg">
                 <div>
                   <label className="text-xs text-slate-400 mb-1 block">Student Name</label>
                   <input
@@ -874,88 +867,15 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                   />
                 </div>
               </div>
-              
-              {/* Response Scale Legend */}
-              <div className="flex items-center justify-center gap-4 mb-6 text-xs text-slate-400">
-                <span>0 = Not at all true</span>
-                <span>1 = A little true</span>
-                <span>2 = Pretty true</span>
-                <span>3 = True</span>
-                <span>4 = Very true</span>
-              </div>
-              
-              {/* Questions */}
-              <div className="space-y-4">
-                {AFQY_QUESTIONS.map((q, idx) => (
-                  <div key={q.id} className="bg-slate-900/50 rounded-lg p-4">
-                    <div className="flex items-start gap-4">
-                      <span className="text-slate-500 text-sm font-mono">{idx + 1}.</span>
-                      <div className="flex-1">
-                        <p className="text-white mb-3">{q.text}</p>
-                        <div className="flex gap-2">
-                          {[0, 1, 2, 3, 4].map(val => (
-                            <button
-                              key={val}
-                              onClick={() => setAfqyAnswers(prev => ({
-                                ...prev,
-                                responses: { ...prev.responses, [q.id]: val }
-                              }))}
-                              className={`w-10 h-10 rounded-lg font-bold transition-all ${
-                                afqyAnswers.responses[q.id] === val
-                                  ? "bg-cyan-600 text-white"
-                                  : "bg-slate-700 text-slate-400 hover:bg-slate-600"
-                              }`}
-                            >
-                              {val}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Score Summary */}
-              {Object.keys(afqyAnswers.responses).length === AFQY_QUESTIONS.length && (
-                <div className="mt-6 p-4 bg-cyan-500/10 border border-cyan-500/30 rounded-xl">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-sm text-cyan-400">AFQ-Y Total Score</div>
-                      <div className="text-2xl font-bold text-white">{getAfqyScore()}/32</div>
-                    </div>
-                    <div className={`text-right ${getAfqyInterpretation(getAfqyScore()).color}`}>
-                      {getAfqyInterpretation(getAfqyScore()).level}
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
 
-            {/* Navigation */}
-            <div className="flex justify-end">
-              <button
-                onClick={() => {
-                  setAfqyAnswers(prev => ({ ...prev, completed: true }));
-                  setStep("parent-cpfq");
-                }}
-                className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2"
-              >
-                Continue to Parent CPFQ <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 2: Parent CPFQ */}
-        {step === "parent-cpfq" && (
-          <div className="space-y-6">
+            {/* CPFQ */}
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                <Users className="w-5 h-5 text-purple-400" /> Parent/Caregiver Questionnaire
+                <Users className="w-5 h-5 text-purple-400" /> CPFQ - Comprehensive Psychological Flexibility Questionnaire
               </h3>
               <p className="text-slate-400 text-sm mb-4">
-                Comprehensive Psychological Flexibility Questionnaire - Parent Report
+                Parent/Caregiver report on student's psychological flexibility
               </p>
               
               {/* Parent Info */}
@@ -1052,13 +972,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
             </div>
 
             {/* Navigation */}
-            <div className="flex justify-between">
-              <button
-                onClick={() => setStep("afqy")}
-                className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-              >
-                <ArrowLeft className="w-4 h-4" /> Back
-              </button>
+            <div className="flex justify-end">
               <button
                 onClick={() => {
                   setParentCpfq(prev => ({ ...prev, completed: true }));
@@ -1261,7 +1175,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
 
             {/* Navigation */}
             <div className="flex justify-between">
-              <button onClick={() => setStep("parent-cpfq")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+              <button onClick={() => setStep("cpfq")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" /> Back
               </button>
               <button onClick={() => setStep("matrix")} className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2">
