@@ -11,6 +11,8 @@ import {
   useSensors,
   useDroppable,
   useDraggable,
+  type DraggableAttributes,
+  type DraggableSyntheticListeners,
 } from "@dnd-kit/core";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -22,7 +24,7 @@ import {
   Target,
 } from "lucide-react";
 
-const steps = ["Sort Cards", "Pick Top Values", "Summary"];
+const steps = ["Sort Cards", "Pick Top Values", "Reflect", "Summary"];
 
 type PileId = "unassigned" | "very" | "some" | "not";
 
@@ -35,19 +37,13 @@ type ValueCard = {
 };
 
 const valueCards: ValueCard[] = [
+  // Relationships
   {
     id: "kind",
     label: "Kind",
     definition: "Caring about others and their feelings.",
     emoji: "💛",
     category: "relationships",
-  },
-  {
-    id: "brave",
-    label: "Brave",
-    definition: "Trying new things even when you feel nervous.",
-    emoji: "🦁",
-    category: "growth",
   },
   {
     id: "helpful",
@@ -57,11 +53,54 @@ const valueCards: ValueCard[] = [
     category: "relationships",
   },
   {
-    id: "honest",
-    label: "Honest",
-    definition: "Telling the truth and being trustworthy.",
+    id: "caring",
+    label: "Caring",
+    definition: "Showing warmth and looking out for others.",
+    emoji: "🫶",
+    category: "relationships",
+  },
+  {
+    id: "loyal",
+    label: "Loyal",
+    definition: "Sticking by friends and family through good and bad.",
+    emoji: "🤞",
+    category: "relationships",
+  },
+  {
+    id: "friendly",
+    label: "Friendly",
+    definition: "Being warm and welcoming to others.",
+    emoji: "👋",
+    category: "relationships",
+  },
+  {
+    id: "loving",
+    label: "Loving",
+    definition: "Showing love and affection to people you care about.",
+    emoji: "❤️",
+    category: "relationships",
+  },
+  {
+    id: "teamwork",
+    label: "Teamwork",
+    definition: "Working well with others to reach a shared goal.",
     emoji: "🤝",
-    category: "character",
+    category: "relationships",
+  },
+  {
+    id: "forgiving",
+    label: "Forgiving",
+    definition: "Letting go of hurt and giving second chances.",
+    emoji: "🕊️",
+    category: "relationships",
+  },
+  // Personal Growth
+  {
+    id: "brave",
+    label: "Brave",
+    definition: "Trying new things even when you feel nervous.",
+    emoji: "🦁",
+    category: "growth",
   },
   {
     id: "creative",
@@ -70,6 +109,63 @@ const valueCards: ValueCard[] = [
     emoji: "🎨",
     category: "growth",
   },
+  {
+    id: "adventurous",
+    label: "Adventurous",
+    definition: "Exploring, trying, and being curious.",
+    emoji: "🧗",
+    category: "growth",
+  },
+  {
+    id: "independent",
+    label: "Independent",
+    definition: "Doing things on your own when you can.",
+    emoji: "🌟",
+    category: "growth",
+  },
+  {
+    id: "curious",
+    label: "Curious",
+    definition: "Wanting to learn and discover new things.",
+    emoji: "🔍",
+    category: "growth",
+  },
+  {
+    id: "confident",
+    label: "Confident",
+    definition: "Believing in yourself and your abilities.",
+    emoji: "💪",
+    category: "growth",
+  },
+  {
+    id: "open-minded",
+    label: "Open-Minded",
+    definition: "Being willing to consider new ideas and viewpoints.",
+    emoji: "🧠",
+    category: "growth",
+  },
+  {
+    id: "resilient",
+    label: "Resilient",
+    definition: "Bouncing back after setbacks or challenges.",
+    emoji: "🌱",
+    category: "growth",
+  },
+  {
+    id: "determined",
+    label: "Determined",
+    definition: "Keeping going even when things get tough.",
+    emoji: "🎯",
+    category: "growth",
+  },
+  {
+    id: "flexible",
+    label: "Flexible",
+    definition: "Adapting when plans change unexpectedly.",
+    emoji: "🌊",
+    category: "growth",
+  },
+  // School/Learning
   {
     id: "responsible",
     label: "Responsible",
@@ -85,12 +181,119 @@ const valueCards: ValueCard[] = [
     category: "school",
   },
   {
+    id: "hardworking",
+    label: "Hardworking",
+    definition: "Putting in effort and not giving up easily.",
+    emoji: "⚡",
+    category: "school",
+  },
+  {
+    id: "organized",
+    label: "Organized",
+    definition: "Keeping track of things and planning ahead.",
+    emoji: "📋",
+    category: "school",
+  },
+  {
+    id: "motivated",
+    label: "Motivated",
+    definition: "Feeling driven to reach your goals.",
+    emoji: "🚀",
+    category: "school",
+  },
+  {
+    id: "achievement",
+    label: "Achievement",
+    definition: "Working hard to accomplish important goals.",
+    emoji: "🏆",
+    category: "school",
+  },
+  {
+    id: "learning",
+    label: "Learning",
+    definition: "Enjoying gaining new knowledge and skills.",
+    emoji: "📚",
+    category: "school",
+  },
+  {
+    id: "excellence",
+    label: "Excellence",
+    definition: "Striving to do your best work.",
+    emoji: "⭐",
+    category: "school",
+  },
+  // Character
+  {
+    id: "honest",
+    label: "Honest",
+    definition: "Telling the truth and being trustworthy.",
+    emoji: "💎",
+    category: "character",
+  },
+  {
     id: "respectful",
     label: "Respectful",
     definition: "Using kind words and honoring boundaries.",
     emoji: "🙏",
     category: "character",
   },
+  {
+    id: "fair",
+    label: "Fair",
+    definition: "Treating everyone equally and playing by the rules.",
+    emoji: "⚖️",
+    category: "character",
+  },
+  {
+    id: "patient",
+    label: "Patient",
+    definition: "Waiting calmly without getting frustrated.",
+    emoji: "🐢",
+    category: "character",
+  },
+  {
+    id: "grateful",
+    label: "Grateful",
+    definition: "Appreciating what you have and saying thank you.",
+    emoji: "🙌",
+    category: "character",
+  },
+  {
+    id: "humble",
+    label: "Humble",
+    definition: "Not bragging and being modest about success.",
+    emoji: "🌾",
+    category: "character",
+  },
+  {
+    id: "integrity",
+    label: "Integrity",
+    definition: "Doing the right thing even when no one is watching.",
+    emoji: "🛡️",
+    category: "character",
+  },
+  {
+    id: "courageous",
+    label: "Courageous",
+    definition: "Standing up for what's right even when it's hard.",
+    emoji: "🦸",
+    category: "character",
+  },
+  {
+    id: "self-control",
+    label: "Self-Control",
+    definition: "Managing your impulses and thinking before acting.",
+    emoji: "🧘",
+    category: "character",
+  },
+  {
+    id: "generous",
+    label: "Generous",
+    definition: "Sharing with others freely and willingly.",
+    emoji: "🎁",
+    category: "character",
+  },
+  // Wellbeing
   {
     id: "fun-loving",
     label: "Fun-Loving",
@@ -99,25 +302,53 @@ const valueCards: ValueCard[] = [
     category: "wellbeing",
   },
   {
-    id: "adventurous",
-    label: "Adventurous",
-    definition: "Exploring, trying, and being curious.",
-    emoji: "🧗",
-    category: "growth",
+    id: "healthy",
+    label: "Healthy",
+    definition: "Taking care of your body and mind.",
+    emoji: "🏃",
+    category: "wellbeing",
   },
   {
-    id: "caring",
-    label: "Caring",
-    definition: "Showing warmth and looking out for others.",
-    emoji: "🫶",
-    category: "relationships",
+    id: "calm",
+    label: "Calm",
+    definition: "Staying peaceful even in stressful moments.",
+    emoji: "😌",
+    category: "wellbeing",
   },
   {
-    id: "independent",
-    label: "Independent",
-    definition: "Doing things on your own when you can.",
-    emoji: "🌟",
-    category: "growth",
+    id: "happy",
+    label: "Happy",
+    definition: "Finding joy and contentment in everyday life.",
+    emoji: "😊",
+    category: "wellbeing",
+  },
+  {
+    id: "safe",
+    label: "Safe",
+    definition: "Feeling secure and protected.",
+    emoji: "🏠",
+    category: "wellbeing",
+  },
+  {
+    id: "balance",
+    label: "Balance",
+    definition: "Making time for work, play, and rest.",
+    emoji: "☯️",
+    category: "wellbeing",
+  },
+  {
+    id: "mindful",
+    label: "Mindful",
+    definition: "Paying attention to the present moment.",
+    emoji: "🧘‍♀️",
+    category: "wellbeing",
+  },
+  {
+    id: "optimistic",
+    label: "Optimistic",
+    definition: "Looking on the bright side and expecting good things.",
+    emoji: "☀️",
+    category: "wellbeing",
   },
 ];
 
@@ -156,15 +387,26 @@ const initialPileMap = Object.fromEntries(
   valueCards.map((card) => [card.id, "unassigned"])
 ) as Record<string, PileId>;
 
-function buildSummaryText(topValues: ValueCard[]) {
+function buildSummaryText(topValues: ValueCard[], reflections: Record<string, { why: string; when: string; hard: string }>) {
   const lines = [
     "Values Card Sort Summary",
     "",
     "Top Values:",
-    ...topValues.map((value, index) => `${index + 1}. ${value.label} - ${value.definition}`),
-    "",
-    "Created with BehaviorSchool ACT Tools",
   ];
+
+  topValues.forEach((value, index) => {
+    lines.push(`${index + 1}. ${value.emoji} ${value.label}`);
+    lines.push(`   Definition: ${value.definition}`);
+    const ref = reflections[value.id];
+    if (ref) {
+      if (ref.why) lines.push(`   Why it matters: ${ref.why}`);
+      if (ref.when) lines.push(`   When I show it: ${ref.when}`);
+      if (ref.hard) lines.push(`   When it's hard: ${ref.hard}`);
+    }
+    lines.push("");
+  });
+
+  lines.push("Created with BehaviorSchool ACT Tools");
 
   return lines.join("\n");
 }
@@ -254,8 +496,8 @@ function DraggableCard({
   isActive: boolean;
   onMove: (target: PileId) => void;
   onToggle: () => void;
-  listeners: Record<string, unknown>;
-  attributes: Record<string, unknown>;
+  listeners: DraggableSyntheticListeners;
+  attributes: DraggableAttributes;
   setNodeRef: (node: HTMLElement | null) => void;
   isDragging: boolean;
 }) {
@@ -307,6 +549,7 @@ export default function ValuesCardSort() {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
   const [draggingCard, setDraggingCard] = useState<ValueCard | null>(null);
+  const [reflections, setReflections] = useState<Record<string, { why: string; when: string; hard: string }>>({});
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -342,6 +585,7 @@ export default function ValuesCardSort() {
   const canContinue = useMemo(() => {
     if (stepIndex === 0) return piles.very.length >= 3;
     if (stepIndex === 1) return selectedTopIds.length >= 3 && selectedTopIds.length <= 5;
+    if (stepIndex === 2) return true; // Reflections are optional
     return true;
   }, [stepIndex, piles.very.length, selectedTopIds.length]);
 
@@ -381,7 +625,7 @@ export default function ValuesCardSort() {
   const handleCopy = async () => {
     if (topValueCards.length === 0) return;
     try {
-      await navigator.clipboard.writeText(buildSummaryText(topValueCards));
+      await navigator.clipboard.writeText(buildSummaryText(topValueCards, reflections));
       setCopyStatus("copied");
       window.setTimeout(() => setCopyStatus("idle"), 2000);
     } catch {
@@ -391,13 +635,23 @@ export default function ValuesCardSort() {
 
   const handleDownload = () => {
     if (topValueCards.length === 0) return;
-    const blob = new Blob([buildSummaryText(topValueCards)], { type: "text/plain" });
+    const blob = new Blob([buildSummaryText(topValueCards, reflections)], { type: "text/plain" });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
     link.download = "values-card-sort-summary.txt";
     link.click();
     window.URL.revokeObjectURL(url);
+  };
+
+  const handleReflectionChange = (valueId: string, field: "why" | "when" | "hard", text: string) => {
+    setReflections((prev) => ({
+      ...prev,
+      [valueId]: {
+        ...prev[valueId],
+        [field]: text,
+      },
+    }));
   };
 
   return (
@@ -422,7 +676,7 @@ export default function ValuesCardSort() {
                 <span>Step {stepIndex + 1} of {steps.length}</span>
                 <span className="font-medium text-slate-700">{steps[stepIndex]}</span>
               </div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 {steps.map((step, index) => (
                   <div
                     key={step}
@@ -643,6 +897,76 @@ export default function ValuesCardSort() {
 
             {stepIndex === 2 && (
               <section className="space-y-6">
+                <div>
+                  <h2 className="text-xl font-semibold text-slate-900">Reflect on your values</h2>
+                  <p className="text-sm text-slate-600">Answer a few questions about each value (optional but helpful!).</p>
+                </div>
+
+                <div className="space-y-6">
+                  {topValueCards.map((card) => (
+                    <div key={card.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="text-2xl">{card.emoji}</span>
+                        <div>
+                          <p className="text-lg font-semibold text-slate-900">{card.label}</p>
+                          <p className="text-sm text-slate-500">{card.definition}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <label className="text-sm font-medium text-slate-700 block mb-1">
+                            Why is being {card.label.toLowerCase()} important to you?
+                          </label>
+                          <textarea
+                            rows={2}
+                            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                            placeholder="This matters to me because..."
+                            value={reflections[card.id]?.why || ""}
+                            onChange={(e) => handleReflectionChange(card.id, "why", e.target.value)}
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="text-sm font-medium text-slate-700 block mb-1">
+                            When do you act {card.label.toLowerCase()}?
+                          </label>
+                          <textarea
+                            rows={2}
+                            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                            placeholder="I show this value when..."
+                            value={reflections[card.id]?.when || ""}
+                            onChange={(e) => handleReflectionChange(card.id, "when", e.target.value)}
+                          />
+                        </div>
+                        
+                        <div>
+                          <label className="text-sm font-medium text-slate-700 block mb-1">
+                            When is it hard to be {card.label.toLowerCase()}?
+                          </label>
+                          <textarea
+                            rows={2}
+                            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                            placeholder="It's hard when..."
+                            value={reflections[card.id]?.hard || ""}
+                            onChange={(e) => handleReflectionChange(card.id, "hard", e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="rounded-2xl border border-amber-100 bg-amber-50/60 p-4">
+                  <p className="text-sm text-amber-800">
+                    <strong>Tip:</strong> These reflections are optional. Fill out as much as you&apos;d like — they&apos;ll be included in your summary.
+                  </p>
+                </div>
+              </section>
+            )}
+
+            {stepIndex === 3 && (
+              <section className="space-y-6">
                 <div className="print:hidden">
                   <h2 className="text-xl font-semibold text-slate-900">Summary</h2>
                   <p className="text-sm text-slate-600">Your values snapshot is ready to print or share.</p>
@@ -665,19 +989,36 @@ export default function ValuesCardSort() {
                   </div>
 
                   <div className="mt-6 grid gap-4">
-                    {topValueCards.map((card, index) => (
-                      <div key={card.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">{card.emoji}</span>
-                          <div>
-                            <p className="text-base font-semibold text-slate-900">
-                              {index + 1}. {card.label}
-                            </p>
-                            <p className="text-sm text-slate-600">{card.definition}</p>
+                    {topValueCards.map((card, index) => {
+                      const ref = reflections[card.id];
+                      const hasReflections = ref && (ref.why || ref.when || ref.hard);
+                      return (
+                        <div key={card.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                          <div className="flex items-center gap-3">
+                            <span className="text-2xl">{card.emoji}</span>
+                            <div>
+                              <p className="text-base font-semibold text-slate-900">
+                                {index + 1}. {card.label}
+                              </p>
+                              <p className="text-sm text-slate-600">{card.definition}</p>
+                            </div>
                           </div>
+                          {hasReflections && (
+                            <div className="mt-3 space-y-2 text-sm text-slate-700 border-t border-slate-200 pt-3">
+                              {ref.why && (
+                                <p><strong>Why it matters:</strong> {ref.why}</p>
+                              )}
+                              {ref.when && (
+                                <p><strong>When I show it:</strong> {ref.when}</p>
+                              )}
+                              {ref.hard && (
+                                <p><strong>When it&apos;s hard:</strong> {ref.hard}</p>
+                              )}
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                     {topValueCards.length === 0 && (
                       <div className="rounded-2xl border border-dashed border-slate-200 p-6 text-center text-sm text-slate-500">
                         No values selected yet. Go back to choose 3-5 top values.
@@ -722,6 +1063,7 @@ export default function ValuesCardSort() {
                     setStepIndex(0);
                     setPileMap(initialPileMap);
                     setSelectedTopIds([]);
+                    setReflections({});
                   }}
                 >
                   Start over

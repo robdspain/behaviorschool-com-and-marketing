@@ -13,7 +13,7 @@ const steps = [
 ];
 
 const gradeOptions = ["K-2", "3-5", "6-8", "9-12"] as const;
-const actProcesses = ["Defusion", "Acceptance", "Present Moment", "Values"] as const;
+const actProcesses = ["Defusion", "Acceptance", "Present Moment", "Values", "Committed Action"] as const;
 const interestOptions = ["Sports", "Video Games", "Animals", "Music", "Art", "Nature"] as const;
 
 type GradeLevel = typeof gradeOptions[number];
@@ -362,6 +362,132 @@ const metaphorLibrary: Metaphor[] = [
     },
     keywords: ["values", "goals"],
     source: "ACT in Schools (adapted)"
+  },
+  // Committed Action metaphors
+  {
+    id: "bus-driver",
+    title: "Bus Driver",
+    actProcess: "Committed Action",
+    gradeLevel: ["6-8", "9-12"],
+    summary: "You choose the direction; passengers are just noise.",
+    setup: "Imagine you're driving a bus toward a place that matters to you.",
+    instructions: [
+      "Decide where your bus is headed (your value or goal).",
+      "Notice the noisy passengers (unhelpful thoughts) shouting directions.",
+      "Keep your hands on the wheel and drive toward your destination anyway."
+    ],
+    reflection: [
+      "What destination are you driving toward?",
+      "Which passengers are the loudest?",
+      "Can you keep driving even when they shout?"
+    ],
+    adaptations: {
+      younger: "Use toy buses and figures to act it out.",
+      older: "Write the passenger names on cards.",
+      visual: "Draw the bus with passengers labeled."
+    },
+    keywords: ["action", "values", "persistence"],
+    source: "ACT for Teens (adapted)"
+  },
+  {
+    id: "planting-seeds",
+    title: "Planting Seeds",
+    actProcess: "Committed Action",
+    gradeLevel: ["K-2", "3-5", "6-8"],
+    summary: "Small actions today grow into big results later.",
+    setup: "Imagine planting seeds in a garden.",
+    instructions: [
+      "Choose what kind of garden you want to grow (your value).",
+      "Plant small seeds every day (small actions).",
+      "Water and care for them, even when you can't see growth yet."
+    ],
+    reflection: [
+      "What kind of garden do you want to grow?",
+      "What small seed could you plant today?",
+      "How do you keep going when you can't see results yet?"
+    ],
+    adaptations: {
+      younger: "Plant real seeds in a cup.",
+      older: "Create a weekly seed-planting tracker.",
+      visual: "Draw your garden with labeled seeds."
+    },
+    keywords: ["action", "patience", "growth"],
+    source: "ACT for Kids (adapted)"
+  },
+  {
+    id: "building-house",
+    title: "Building Your House",
+    actProcess: "Committed Action",
+    gradeLevel: ["3-5", "6-8", "9-12"],
+    summary: "Values are the blueprint; actions are the bricks.",
+    setup: "Imagine building a house that represents the life you want.",
+    instructions: [
+      "Draw the blueprint (what values guide your house?).",
+      "Lay bricks every day (small actions toward your values).",
+      "Notice that storms may come, but keep building."
+    ],
+    reflection: [
+      "What does your dream house look like?",
+      "What brick could you lay today?",
+      "How do you keep building when the weather is bad?"
+    ],
+    adaptations: {
+      younger: "Use building blocks to construct.",
+      older: "Create an action plan with weekly goals.",
+      visual: "Sketch a house with labeled rooms for each value."
+    },
+    keywords: ["action", "goals", "persistence"],
+    source: "ACT Made Simple (adapted)"
+  },
+  {
+    id: "stepping-stones",
+    title: "Stepping Stones",
+    actProcess: "Committed Action",
+    gradeLevel: ["3-5", "6-8"],
+    summary: "Each small step gets you closer to where you want to be.",
+    setup: "Imagine crossing a river using stepping stones.",
+    instructions: [
+      "Look across the river at your destination (your value or goal).",
+      "Find the next stepping stone (a small action you can take).",
+      "Step carefully, knowing you don't need to jump the whole river at once."
+    ],
+    reflection: [
+      "What's on the other side of your river?",
+      "What's the very next stone you can step on?",
+      "How does it feel to take one step at a time?"
+    ],
+    adaptations: {
+      younger: "Use paper circles as stepping stones on the floor.",
+      older: "Map out stepping stones for a specific goal.",
+      visual: "Draw the river path with labeled stones."
+    },
+    keywords: ["action", "small steps", "progress"],
+    source: "School ACT Toolkit (adapted)"
+  },
+  {
+    id: "rowing-boat",
+    title: "Rowing the Boat",
+    actProcess: "Committed Action",
+    gradeLevel: ["6-8", "9-12"],
+    summary: "Keep rowing toward what matters, even through rough water.",
+    setup: "Imagine you're in a rowboat heading toward an island that matters to you.",
+    instructions: [
+      "Choose your island (a value you want to live by).",
+      "Notice the waves (difficult thoughts and feelings).",
+      "Keep rowing steadily, even when the water gets choppy."
+    ],
+    reflection: [
+      "What island are you rowing toward?",
+      "What makes the water feel rough?",
+      "How do you keep rowing when it's hard?"
+    ],
+    adaptations: {
+      younger: "Act out rowing with arm movements.",
+      older: "Journal about recent choppy waters and how you kept going.",
+      visual: "Draw your boat journey with labeled waves."
+    },
+    keywords: ["action", "persistence", "values"],
+    source: "ACT for Teens (adapted)"
   }
 ];
 
@@ -556,6 +682,7 @@ export default function MetaphorCreator() {
                               {process === "Acceptance" && "Making room for big feelings"}
                               {process === "Present Moment" && "Grounding and mindfulness"}
                               {process === "Values" && "Clarifying what matters most"}
+                              {process === "Committed Action" && "Taking values-based action"}
                             </p>
                           </div>
                         </div>
