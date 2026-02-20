@@ -132,6 +132,37 @@ export default function SchoolBCBAContent() {
         </div>
       </section>
 
+      {/* Free Guide CTA */}
+      <section className="py-16 bg-emerald-700">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 text-white">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/20 text-white text-sm font-medium mb-4">
+                <Download className="w-4 h-4 mr-2" /> Free Guide
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                New to School-Based Work?
+              </h2>
+              <p className="text-emerald-100 text-lg mb-6">
+                Get our complete First 90 Days survival guide—phase-by-phase roadmap, email templates, and pro tips from experienced school BCBAs.
+              </p>
+              <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-emerald-50 font-bold">
+                <Link href="/school-bcba/first-90-days">
+                  Download Free Guide
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+            <div className="flex-shrink-0">
+              <div className="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+                <div className="text-6xl font-bold text-white mb-2">90</div>
+                <div className="text-emerald-100 text-sm uppercase tracking-wide">Day Guide</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Free Tools Section */}
       <section id="free-tools" className="py-24 bg-slate-50 scroll-mt-24">
         <div className="container mx-auto px-6">
