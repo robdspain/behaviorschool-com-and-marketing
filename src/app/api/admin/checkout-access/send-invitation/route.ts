@@ -2,11 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
 
-const mailgun = new Mailgun(formData);
-const mg = mailgun.client({
-  username: 'api',
-  key: process.env.MAILGUN_API_KEY || '',
-});
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,6 +27,13 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Initialize Mailgun client inside handler (not at module level)
+    const mailgun = new Mailgun(formData);
+    const mg = mailgun.client({
+      username: 'api',
+      key: process.env.MAILGUN_API_KEY,
+    });
 
     const { email, first_name, last_name } = await request.json();
 
