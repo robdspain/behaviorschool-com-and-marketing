@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,10 +9,12 @@ import { cn } from "@/lib/utils";
 import { ProgressIndicator } from "./ProgressIndicator";
 import { TemplateSelector } from "./TemplateSelector";
 import { ValueCard } from "./ValueCard";
+import { QualityMeter } from "./QualityMeter";
 import type { GoalTemplate } from "./goalTemplates";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
-import { Copy, Printer, RotateCcw, Check, Sparkles, ArrowRight, ArrowLeft } from "lucide-react";
+import { Copy, Printer, RotateCcw, Check, Sparkles, ArrowRight, ArrowLeft, Download, FileText } from "lucide-react";
+import { generateGoalPdf } from "@/lib/generateGoalPdf";
 
 const valueOptions = [
   { emoji: "💛", label: "Kind", description: "Caring about others" },
@@ -72,6 +74,7 @@ export function GoalWriterWizard() {
   const [generatedGoal, setGeneratedGoal] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
 
   // Scroll to top when step changes
   useEffect(() => {
@@ -195,6 +198,57 @@ export function GoalWriterWizard() {
     window.print();
   };
 
+  const handleDownloadPdf = useCallback(async () => {
+    if (!generatedGoal) return;
+    setIsDownloadingPdf(true);
+    try {
+      console.log("iep_goal_writer_download_pdf");
+      const pdfBlob = await generateGoalPdf({
+        goal: generatedGoal,
+        value: valueLabel,
+        behaviorType,
+        behavior,
+        baseline,
+        target,
+        measurementMethod,
+        fluencyEnabled,
+        fluencySeconds,
+        generalization,
+        maintenanceWeeks,
+        qualityLevel,
+      });
+      
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `iep-goal-${new Date().toISOString().split('T')[0]}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('PDF generation error:', error);
+    } finally {
+      setIsDownloadingPdf(false);
+    }
+  }, [generatedGoal, valueLabel, behaviorType, behavior, baseline, target, measurementMethod, fluencyEnabled, fluencySeconds, generalization, maintenanceWeeks]);
+
+  // Calculate quality level (1-5) based on goal components
+  const qualityLevel = useMemo(() => {
+    let level = 0;
+    // Level 1: Basic goal with behavior and measurement
+    if (behavior.trim().length > 4) level = 1;
+    // Level 2: + Baseline data
+    if (level === 1 && Number.isFinite(baseline) && baseline >= 0) level = 2;
+    // Level 3: + Fluency
+    if (level === 2 && fluencyEnabled && fluencySeconds > 0) level = 3;
+    // Level 4: + Generalization
+    if (level >= 2 && generalization.length >= 2) level = Math.max(level, 4);
+    // Level 5: + Maintenance
+    if (level >= 4 && maintenanceWeeks >= 4) level = 5;
+    return level;
+  }, [behavior, baseline, fluencyEnabled, fluencySeconds, generalization, maintenanceWeeks]);
+
   const handleReset = () => {
     console.log("iep_goal_writer_reset");
     setSelectedValue(valueOptions[0]);
@@ -273,42 +327,91 @@ export function GoalWriterWizard() {
 
   if (generatedGoal) {
     return (
-      <div id="wizard-top" className="mx-auto max-w-3xl animate-in fade-in zoom-in-95 duration-500">
+      <div id="wizard-top" className="mx-auto max-w-4xl animate-in fade-in zoom-in-95 duration-500">
         <div className="overflow-hidden rounded-3xl border border-emerald-200 bg-white shadow-2xl shadow-emerald-900/10">
-          <div className="border-b border-emerald-100 bg-emerald-50/50 px-8 py-6">
+          <div className="border-b border-emerald-100 bg-gradient-to-r from-emerald-600 to-emerald-700 px-8 py-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="flex items-center gap-2 text-2xl font-bold text-emerald-950">
-                  <Sparkles className="h-6 w-6 text-emerald-600" />
-                  Goal Generated
+                <h2 className="flex items-center gap-2 text-2xl font-bold text-white">
+                  <Sparkles className="h-6 w-6 text-emerald-200" />
+                  Goal Generated Successfully!
                 </h2>
-                <p className="mt-1 text-emerald-800">Here is your research-backed, values-aligned IEP goal.</p>
+                <p className="mt-1 text-emerald-100">Your research-backed, values-aligned IEP behavior goal is ready.</p>
               </div>
-              <span className="hidden rounded-full bg-emerald-100 px-4 py-1.5 text-sm font-bold text-emerald-800 sm:inline-block">
-                Level 5 SMART Goal
+              <span className={cn(
+                "hidden rounded-full px-4 py-1.5 text-sm font-bold sm:inline-block",
+                qualityLevel >= 5 ? "bg-emerald-100 text-emerald-800" :
+                qualityLevel >= 4 ? "bg-blue-100 text-blue-800" :
+                qualityLevel >= 3 ? "bg-yellow-100 text-yellow-800" :
+                "bg-orange-100 text-orange-800"
+              )}>
+                Level {qualityLevel} SMART Goal
               </span>
             </div>
           </div>
           
-          <div className="px-8 py-8">
-            <div className="relative rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="absolute -top-3 left-4 bg-white px-2 text-xs font-bold uppercase tracking-wider text-slate-400">
-                Official Document Preview
+          <div className="px-8 py-8 space-y-8">
+            {/* Quality Meter */}
+            <QualityMeter level={qualityLevel} />
+            
+            {/* Goal Preview */}
+            <div className="relative rounded-xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+              <div className="absolute -top-3 left-4 bg-slate-50 px-2 text-xs font-bold uppercase tracking-wider text-slate-500">
+                <FileText className="w-3 h-3 inline mr-1" />
+                IEP Goal Document
               </div>
-              <pre className="whitespace-pre-wrap font-mono text-sm leading-relaxed text-slate-800">{generatedGoal}</pre>
+              <pre className="whitespace-pre-wrap font-serif text-sm leading-relaxed text-slate-800">{generatedGoal}</pre>
             </div>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button onClick={handleCopy} className="h-12 flex-1 gap-2 bg-emerald-600 text-base font-semibold hover:bg-emerald-700 shadow-lg shadow-emerald-900/20">
+            {/* Action Buttons */}
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <Button onClick={handleCopy} className="h-12 gap-2 bg-emerald-600 text-base font-semibold hover:bg-emerald-700 shadow-lg shadow-emerald-900/20">
                 {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
-                {copied ? "Copied to Clipboard" : "Copy Goal"}
+                {copied ? "Copied!" : "Copy Goal"}
               </Button>
-              <Button variant="outline" onClick={handlePrint} className="h-12 flex-1 gap-2 border-slate-300 text-slate-700 hover:bg-slate-50">
-                <Printer className="h-5 w-5" /> Print/PDF
+              <Button 
+                variant="outline" 
+                onClick={handleDownloadPdf} 
+                disabled={isDownloadingPdf}
+                className="h-12 gap-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50"
+              >
+                <Download className="h-5 w-5" />
+                {isDownloadingPdf ? "Generating..." : "Download PDF"}
+              </Button>
+              <Button variant="outline" onClick={handlePrint} className="h-12 gap-2 border-slate-300 text-slate-700 hover:bg-slate-50">
+                <Printer className="h-5 w-5" /> Print
               </Button>
               <Button variant="ghost" onClick={handleReset} className="h-12 gap-2 text-slate-500 hover:text-slate-900">
                 <RotateCcw className="h-5 w-5" /> Start Over
               </Button>
+            </div>
+            
+            {/* Goal Components Checklist */}
+            <div className="bg-slate-50 rounded-xl p-5 border border-slate-200">
+              <h4 className="font-bold text-slate-900 mb-3">Goal Components Included:</h4>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                  { label: "Student Value", included: true, detail: valueLabel },
+                  { label: "Baseline Data", included: true, detail: `${baseline}%` },
+                  { label: "Target Criteria", included: true, detail: `${target}%` },
+                  { label: "Measurement Method", included: true, detail: measurementMethod },
+                  { label: "Fluency", included: fluencyEnabled, detail: fluencyEnabled ? `${fluencySeconds}s` : "Not set" },
+                  { label: "Generalization", included: generalization.length >= 2, detail: `${generalization.length} settings` },
+                  { label: "Maintenance", included: maintenanceWeeks >= 4, detail: `${maintenanceWeeks} weeks` },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-2 text-sm">
+                    <span className={cn(
+                      "w-5 h-5 rounded-full flex items-center justify-center text-xs",
+                      item.included ? "bg-emerald-100 text-emerald-600" : "bg-slate-200 text-slate-400"
+                    )}>
+                      {item.included ? "✓" : "○"}
+                    </span>
+                    <span className={item.included ? "text-slate-700" : "text-slate-400"}>
+                      {item.label}: <span className="font-medium">{item.detail}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

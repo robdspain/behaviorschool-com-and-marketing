@@ -21,16 +21,9 @@ export function AnimatedSections() {
   }, []);
 
   const handleCTAClick = () => {
-    console.log('IEP Goals: CTA clicked, hasSignedUp:', hasSignedUp);
-    if (hasSignedUp) {
-      // User has already signed up, go directly to widget
-      console.log('IEP Goals: Redirecting to widget (already signed up)');
-      router.push("/iep-behavior-goals/widget");
-    } else {
-      // Redirect to widget directly
-      console.log('IEP Goals: Redirecting to widget');
-      router.push("/iep-behavior-goals/widget");
-    }
+    console.log('IEP Goals: CTA clicked');
+    // Direct users to the native IEP Goal Writer tool
+    router.push("/iep-goal-writer");
   };
 
   const faqs = [
