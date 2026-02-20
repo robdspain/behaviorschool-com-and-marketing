@@ -105,6 +105,64 @@ This meta-analysis confirms that therapist empathy is "one of the most consisten
 | Defusion techniques (noticing, labeling as thoughts) | Weakens fusion | Changes functional context |
 | Challenging/perspective-taking on thought content | Weakens fusion | Introduces competing relational frames |
 
+### Clinical Guardrails for Alliance-First Practitioners
+
+For clinicians whose natural style emphasizes validation and rapport-building, the following guardrails help prevent inadvertent strengthening of fusion while maintaining therapeutic alliance:
+
+#### 1. The 2-Minute Rule
+Validate the *experience* of having a thought for no more than 2 minutes before pivoting to defusion. Example pivot: "I hear that this thought shows up a lot for you" → "And when it shows up, what do you notice happens next?"
+
+#### 2. Language Swaps
+
+| ❌ Content Validation (Avoid) | ✅ Experience Validation (Use) |
+|------------------------------|-------------------------------|
+| "That must be so hard to feel stupid" | "That thought really hooks you" |
+| "I understand why you think everyone hates you" | "I notice that thought shows up a lot" |
+| "It makes sense you'd feel that way" | "It makes sense your mind would offer that" |
+
+The key distinction: validate that the *mind produces thoughts* (externalizing), not the *truth of the thought content*.
+
+#### 3. Session Structure Template
+- **0-5 min:** Connect and build alliance
+- **5-10 min:** Notice what showed up this week (experience validation only)
+- **10-25 min:** Defusion work on specific high-fusion thoughts (challenging)
+- **25-30 min:** Values clarification and committed action
+
+This structure builds in a natural ratio of approximately 5 minutes validation to 15 minutes defusion/challenging.
+
+#### 4. The "Notice" Pivot Technique
+Train one reflexive phrase that shifts from content to process: **"And I notice..."**
+
+Example:
+- Child: "Everyone thinks I'm weird"
+- Therapist: "That thought keeps showing up. **And I notice** when it shows up, you pull back from the group. What's that like?"
+
+This pivot acknowledges the thought without validating its content, then immediately redirects to observable behavior and workability.
+
+#### 5. Supervisor Observation Coding
+During session observations, supervisors can tally interaction types:
+- **V** = Validation of thought content
+- **E** = Validation of experience/process (neutral)
+- **D** = Defusion move
+- **C** = Challenge or perspective-taking
+
+Target ratio: Content validation (V) should comprise less than 20% of total coded interactions.
+
+#### 6. Visual Session Reminder
+A simple card visible during sessions:
+```
+✓ VALIDATE the person's experience
+✓ DEFUSE from the thought
+✗ Don't validate the thought as literally true
+```
+
+#### 7. Fusion FA Report Integration
+The Fusion FA assessment output should include:
+- **High-fusion alerts** for statements with <3 second latency to precursors when challenged
+- **Session focus recommendations** prioritizing defusion work for specific statements
+- **Explicit warnings** against extended validation for high-fusion items
+- **Suggested defusion scripts** tailored to each identified fused thought
+
 ---
 
 ## PAPER 1: The Assessment Phase - Precursor Functional Analysis

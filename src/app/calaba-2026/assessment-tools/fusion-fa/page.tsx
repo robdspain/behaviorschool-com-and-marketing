@@ -1809,6 +1809,79 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
               </div>
             </div>
 
+            {/* Clinical Guardrails */}
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6">
+              <h4 className="font-semibold text-amber-300 mb-3 flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5" /> Clinical Guardrails — Verbal Community Effect
+              </h4>
+              <p className="text-slate-300 text-sm mb-4">
+                Extended validation of fused thoughts can strengthen fusion by providing social reinforcement from the verbal community. 
+                Use these guardrails to maintain therapeutic alliance while promoting defusion:
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* High-Fusion Alerts */}
+                <div className="bg-slate-900/50 rounded-lg p-4">
+                  <h5 className="text-red-300 font-medium mb-2">⚠️ High-Fusion Alerts</h5>
+                  {getResults().filter(r => getFusionLevel(r.delta).priority).length > 0 ? (
+                    <ul className="text-sm text-slate-300 space-y-1">
+                      {getResults().filter(r => getFusionLevel(r.delta).priority).slice(0, 3).map((r, idx) => (
+                        <li key={r.id}>• "{r.text.slice(0, 40)}..." — <span className="text-red-400">Limit validation to &lt;2 min</span></li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-sm text-slate-400">No high-fusion statements requiring alerts.</p>
+                  )}
+                </div>
+
+                {/* The 2-Minute Rule */}
+                <div className="bg-slate-900/50 rounded-lg p-4">
+                  <h5 className="text-cyan-300 font-medium mb-2">⏱️ The 2-Minute Rule</h5>
+                  <p className="text-sm text-slate-300">
+                    For high-fusion statements, validate the <em>experience</em> for no more than 2 minutes before pivoting to defusion.
+                  </p>
+                  <p className="text-xs text-slate-500 mt-2">
+                    Pivot phrase: "And I notice when that thought shows up..."
+                  </p>
+                </div>
+
+                {/* Language Swaps */}
+                <div className="bg-slate-900/50 rounded-lg p-4">
+                  <h5 className="text-green-300 font-medium mb-2">🔄 Language Swaps</h5>
+                  <div className="text-sm space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-red-400">❌ "That must be so hard"</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-green-400">✓ "That thought really hooks you"</span>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-2">Validate experience, not content truth</p>
+                  </div>
+                </div>
+
+                {/* Session Focus */}
+                <div className="bg-slate-900/50 rounded-lg p-4">
+                  <h5 className="text-purple-300 font-medium mb-2">📋 Session Focus Recommendation</h5>
+                  <p className="text-sm text-slate-300">
+                    {getResults().filter(r => getFusionLevel(r.delta).priority).length > 0 
+                      ? `Prioritize defusion work for ${getResults().filter(r => getFusionLevel(r.delta).priority).length} high-fusion statement(s). Target ratio: 5 min validation / 15 min defusion.`
+                      : "No high-priority targets. Maintain standard session structure with defusion emphasis."}
+                  </p>
+                </div>
+              </div>
+
+              {/* Warning Box */}
+              {getResults().filter(r => getFusionLevel(r.delta).priority).length > 0 && (
+                <div className="mt-4 bg-red-900/30 border border-red-500/50 rounded-lg p-3">
+                  <p className="text-red-200 text-sm">
+                    <strong>⚠️ Avoid extended validation</strong> for the {getResults().filter(r => getFusionLevel(r.delta).priority).length} high-fusion statement(s) above. 
+                    Extended engagement with this content may strengthen the relational frame rather than promote defusion.
+                    Use the "Notice" pivot to shift from content to process.
+                  </p>
+                </div>
+              )}
+            </div>
+
             {/* Actions */}
             <div className="flex justify-between">
               <button onClick={() => setStep("fusion-fa")} className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
