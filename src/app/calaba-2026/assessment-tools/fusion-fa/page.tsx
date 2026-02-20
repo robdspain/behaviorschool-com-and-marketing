@@ -97,6 +97,7 @@ export default function FusionFAWorkflow() {
   const [customAvoidance, setCustomAvoidance] = useState("");
   const [customStatement, setCustomStatement] = useState("");
   const [statements, setStatements] = useState<Statement[]>([]);
+  const [customContextIds, setCustomContextIds] = useState<Set<string>>(new Set());
   const [activeTimer, setActiveTimer] = useState<{ statementId: string; condition: "validating" | "challenging" } | null>(null);
   const [timerValue, setTimerValue] = useState(0);
   const [timerInterval, setTimerIntervalState] = useState<NodeJS.Timeout | null>(null);
@@ -644,36 +645,53 @@ export default function FusionFAWorkflow() {
                     </tr>
                   </thead>
                   <tbody>
-                    {statements.map(s => (
-                      <tr key={s.id} className="border-b border-slate-700">
-                        <td className="py-4 pr-4">
-                          <span className="text-white">"{s.text}"</span>
-                        </td>
-                        <td className="py-4">
-                          <div className="space-y-2">
-                            <select
-                              value={s.context}
-                              onChange={(e) => updateStatementContext(s.id, e.target.value)}
-                              className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
-                            >
-                              <option value="">Select context...</option>
-                              {CONTEXT_OPTIONS.map(ctx => (
-                                <option key={ctx} value={ctx}>{ctx}</option>
-                              ))}
-                              <option value="custom">Other (type below)</option>
-                            </select>
-                            {s.context === "custom" && (
-                              <input
-                                type="text"
-                                placeholder="Describe the context..."
-                                onChange={(e) => updateStatementContext(s.id, e.target.value)}
+                    {statements.map(s => {
+                      const isCustomMode = customContextIds.has(s.id) || (s.context && !CONTEXT_OPTIONS.includes(s.context));
+                      return (
+                        <tr key={s.id} className="border-b border-slate-700">
+                          <td className="py-4 pr-4">
+                            <span className="text-white">"{s.text}"</span>
+                          </td>
+                          <td className="py-4">
+                            <div className="space-y-2">
+                              <select
+                                value={isCustomMode ? "custom" : s.context}
+                                onChange={(e) => {
+                                  if (e.target.value === "custom") {
+                                    // Enable custom mode for this statement
+                                    setCustomContextIds(prev => new Set(prev).add(s.id));
+                                  } else {
+                                    // Disable custom mode and set the selected value
+                                    setCustomContextIds(prev => {
+                                      const next = new Set(prev);
+                                      next.delete(s.id);
+                                      return next;
+                                    });
+                                    updateStatementContext(s.id, e.target.value);
+                                  }
+                                }}
                                 className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
-                              />
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                              >
+                                <option value="">Select context...</option>
+                                {CONTEXT_OPTIONS.map(ctx => (
+                                  <option key={ctx} value={ctx}>{ctx}</option>
+                                ))}
+                                <option value="custom">Other (type below)</option>
+                              </select>
+                              {isCustomMode && (
+                                <input
+                                  type="text"
+                                  value={CONTEXT_OPTIONS.includes(s.context) ? "" : s.context}
+                                  placeholder="Describe the context..."
+                                  onChange={(e) => updateStatementContext(s.id, e.target.value)}
+                                  className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
+                                />
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
