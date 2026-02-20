@@ -98,8 +98,9 @@ export default function FusionFAWorkflow() {
   const [customStatement, setCustomStatement] = useState("");
   const [statements, setStatements] = useState<Statement[]>([]);
   const [customContextIds, setCustomContextIds] = useState<Set<string>>(new Set());
+  // Timer state: tracks accumulated time and running state per statement/condition
+  const [timerStates, setTimerStates] = useState<Record<string, { accumulated: number; isRunning: boolean }>>({});
   const [activeTimer, setActiveTimer] = useState<{ statementId: string; condition: "validating" | "challenging" } | null>(null);
-  const [timerValue, setTimerValue] = useState(0);
   const [timerInterval, setTimerIntervalState] = useState<NodeJS.Timeout | null>(null);
 
   // Toggle selection helpers
@@ -152,31 +153,83 @@ export default function FusionFAWorkflow() {
     setStatements(statements.map(s => s.id === id ? { ...s, context } : s));
   };
 
-  // Timer functions
+  // Timer functions - support pause/resume
+  const getTimerKey = (statementId: string, condition: "validating" | "challenging") => `${statementId}-${condition}`;
+  
+  const getTimerState = (statementId: string, condition: "validating" | "challenging") => {
+    const key = getTimerKey(statementId, condition);
+    return timerStates[key] || { accumulated: 0, isRunning: false };
+  };
+
   const startTimer = (statementId: string, condition: "validating" | "challenging") => {
+    // Stop any existing timer
     if (timerInterval) clearInterval(timerInterval);
+    
+    const key = getTimerKey(statementId, condition);
+    const currentState = timerStates[key] || { accumulated: 0, isRunning: false };
+    
     setActiveTimer({ statementId, condition });
-    setTimerValue(0);
+    setTimerStates(prev => ({ ...prev, [key]: { ...currentState, isRunning: true } }));
+    
     const interval = setInterval(() => {
-      setTimerValue(v => v + 0.1);
+      setTimerStates(prev => {
+        const state = prev[key] || { accumulated: 0, isRunning: true };
+        return { ...prev, [key]: { ...state, accumulated: state.accumulated + 0.1 } };
+      });
     }, 100);
     setTimerIntervalState(interval);
   };
 
-  const stopTimer = () => {
+  const pauseTimer = () => {
     if (timerInterval) clearInterval(timerInterval);
     if (activeTimer) {
+      const key = getTimerKey(activeTimer.statementId, activeTimer.condition);
+      setTimerStates(prev => ({ ...prev, [key]: { ...prev[key], isRunning: false } }));
+    }
+    setActiveTimer(null);
+    setTimerIntervalState(null);
+  };
+
+  const recordTimer = (statementId: string, condition: "validating" | "challenging") => {
+    const key = getTimerKey(statementId, condition);
+    const state = timerStates[key];
+    if (state && state.accumulated > 0) {
       setStatements(statements.map(s => {
-        if (s.id === activeTimer.statementId) {
+        if (s.id === statementId) {
           return {
             ...s,
-            [activeTimer.condition === "validating" ? "validatingLatency" : "challengingLatency"]: Math.round(timerValue * 10) / 10
+            [condition === "validating" ? "validatingLatency" : "challengingLatency"]: Math.round(state.accumulated * 10) / 10
           };
         }
         return s;
       }));
     }
-    setActiveTimer(null);
+  };
+
+  const resetTimer = (statementId: string, condition: "validating" | "challenging") => {
+    const key = getTimerKey(statementId, condition);
+    // Stop if this timer is running
+    if (activeTimer?.statementId === statementId && activeTimer?.condition === condition) {
+      if (timerInterval) clearInterval(timerInterval);
+      setActiveTimer(null);
+      setTimerIntervalState(null);
+    }
+    setTimerStates(prev => ({ ...prev, [key]: { accumulated: 0, isRunning: false } }));
+    // Also clear the recorded latency
+    setStatements(statements.map(s => {
+      if (s.id === statementId) {
+        return {
+          ...s,
+          [condition === "validating" ? "validatingLatency" : "challengingLatency"]: null
+        };
+      }
+      return s;
+    }));
+  };
+
+  // Legacy stopTimer for backward compatibility
+  const stopTimer = () => {
+    pauseTimer();
     setTimerIntervalState(null);
   };
 
@@ -895,82 +948,154 @@ export default function FusionFAWorkflow() {
 
                     <div className="grid grid-cols-2 gap-4 mt-4">
                       {/* Validating */}
-                      <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-                        <div className="text-xs text-green-400 font-bold uppercase tracking-wide mb-2">Validating Prompt</div>
-                        <p className="text-green-200/80 text-sm italic mb-4 leading-relaxed">{prompts.validating}</p>
-                        
-                        <div className="border-t border-green-500/20 pt-3 mt-3">
-                          <div className="text-xs text-green-400 mb-2">Latency to Precursor</div>
-                          {statement.validatingLatency !== null ? (
-                            <div className="flex items-center justify-between">
-                              <div className="text-2xl font-bold text-green-300">{statement.validatingLatency}s</div>
-                              <button
-                                onClick={() => setStatements(statements.map(s => s.id === statement.id ? { ...s, validatingLatency: null } : s))}
-                                className="text-green-400 hover:text-green-300 text-xs"
-                              >
-                                <RotateCcw className="w-4 h-4" />
-                              </button>
+                      {(() => {
+                        const vState = getTimerState(statement.id, "validating");
+                        const isActive = activeTimer?.statementId === statement.id && activeTimer?.condition === "validating";
+                        return (
+                          <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+                            <div className="text-xs text-green-400 font-bold uppercase tracking-wide mb-2">Validating Prompt</div>
+                            <p className="text-green-200/80 text-sm italic mb-4 leading-relaxed">{prompts.validating}</p>
+                            
+                            <div className="border-t border-green-500/20 pt-3 mt-3">
+                              <div className="text-xs text-green-400 mb-2">Latency to Precursor</div>
+                              
+                              {/* Show recorded value if saved */}
+                              {statement.validatingLatency !== null ? (
+                                <div className="flex items-center justify-between">
+                                  <div className="text-2xl font-bold text-green-300">{statement.validatingLatency}s ✓</div>
+                                  <button
+                                    onClick={() => resetTimer(statement.id, "validating")}
+                                    className="text-green-400 hover:text-green-300"
+                                    title="Reset"
+                                  >
+                                    <RotateCcw className="w-4 h-4" />
+                                  </button>
+                                </div>
+                              ) : (
+                                <>
+                                  {/* Timer display */}
+                                  <div className="text-2xl font-bold text-green-300 mb-3">
+                                    {vState.accumulated.toFixed(1)}s
+                                    {vState.isRunning && <span className="text-green-400 text-sm ml-2 animate-pulse">●</span>}
+                                  </div>
+                                  
+                                  {/* Timer controls */}
+                                  <div className="flex gap-2">
+                                    {isActive ? (
+                                      <button
+                                        onClick={pauseTimer}
+                                        className="flex-1 bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
+                                      >
+                                        <Pause className="w-4 h-4" /> Pause
+                                      </button>
+                                    ) : (
+                                      <button
+                                        onClick={() => startTimer(statement.id, "validating")}
+                                        disabled={activeTimer !== null && !isActive}
+                                        className="flex-1 bg-green-600 hover:bg-green-500 disabled:opacity-50 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
+                                      >
+                                        <Play className="w-4 h-4" /> {vState.accumulated > 0 ? "Resume" : "Start"}
+                                      </button>
+                                    )}
+                                    {vState.accumulated > 0 && !isActive && (
+                                      <button
+                                        onClick={() => recordTimer(statement.id, "validating")}
+                                        className="bg-green-700 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
+                                      >
+                                        <CheckCircle className="w-4 h-4" /> Record
+                                      </button>
+                                    )}
+                                    {vState.accumulated > 0 && (
+                                      <button
+                                        onClick={() => resetTimer(statement.id, "validating")}
+                                        className="text-green-400 hover:text-green-300 px-2"
+                                        title="Reset"
+                                      >
+                                        <RotateCcw className="w-4 h-4" />
+                                      </button>
+                                    )}
+                                  </div>
+                                </>
+                              )}
                             </div>
-                          ) : activeTimer?.statementId === statement.id && activeTimer.condition === "validating" ? (
-                            <div className="flex items-center gap-3">
-                              <div className="text-2xl font-bold text-green-300">{timerValue.toFixed(1)}s</div>
-                              <button
-                                onClick={stopTimer}
-                                className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-1"
-                              >
-                                <Pause className="w-4 h-4" /> Stop
-                              </button>
-                            </div>
-                          ) : (
-                            <button
-                              onClick={() => startTimer(statement.id, "validating")}
-                              disabled={activeTimer !== null}
-                              className="bg-green-600 hover:bg-green-500 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 w-full justify-center"
-                            >
-                              <Play className="w-4 h-4" /> Start Timer
-                            </button>
-                          )}
-                        </div>
-                      </div>
+                          </div>
+                        );
+                      })()}
 
                       {/* Challenging */}
-                      <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
-                        <div className="text-xs text-red-400 font-bold uppercase tracking-wide mb-2">Challenging Prompt</div>
-                        <p className="text-red-200/80 text-sm italic mb-4 leading-relaxed">{prompts.challenging}</p>
-                        
-                        <div className="border-t border-red-500/20 pt-3 mt-3">
-                          <div className="text-xs text-red-400 mb-2">Latency to Precursor</div>
-                          {statement.challengingLatency !== null ? (
-                            <div className="flex items-center justify-between">
-                              <div className="text-2xl font-bold text-red-300">{statement.challengingLatency}s</div>
-                              <button
-                                onClick={() => setStatements(statements.map(s => s.id === statement.id ? { ...s, challengingLatency: null } : s))}
-                                className="text-red-400 hover:text-red-300 text-xs"
-                              >
-                                <RotateCcw className="w-4 h-4" />
-                              </button>
+                      {(() => {
+                        const cState = getTimerState(statement.id, "challenging");
+                        const isActive = activeTimer?.statementId === statement.id && activeTimer?.condition === "challenging";
+                        return (
+                          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+                            <div className="text-xs text-red-400 font-bold uppercase tracking-wide mb-2">Challenging Prompt</div>
+                            <p className="text-red-200/80 text-sm italic mb-4 leading-relaxed">{prompts.challenging}</p>
+                            
+                            <div className="border-t border-red-500/20 pt-3 mt-3">
+                              <div className="text-xs text-red-400 mb-2">Latency to Precursor</div>
+                              
+                              {/* Show recorded value if saved */}
+                              {statement.challengingLatency !== null ? (
+                                <div className="flex items-center justify-between">
+                                  <div className="text-2xl font-bold text-red-300">{statement.challengingLatency}s ✓</div>
+                                  <button
+                                    onClick={() => resetTimer(statement.id, "challenging")}
+                                    className="text-red-400 hover:text-red-300"
+                                    title="Reset"
+                                  >
+                                    <RotateCcw className="w-4 h-4" />
+                                  </button>
+                                </div>
+                              ) : (
+                                <>
+                                  {/* Timer display */}
+                                  <div className="text-2xl font-bold text-red-300 mb-3">
+                                    {cState.accumulated.toFixed(1)}s
+                                    {cState.isRunning && <span className="text-red-400 text-sm ml-2 animate-pulse">●</span>}
+                                  </div>
+                                  
+                                  {/* Timer controls */}
+                                  <div className="flex gap-2">
+                                    {isActive ? (
+                                      <button
+                                        onClick={pauseTimer}
+                                        className="flex-1 bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
+                                      >
+                                        <Pause className="w-4 h-4" /> Pause
+                                      </button>
+                                    ) : (
+                                      <button
+                                        onClick={() => startTimer(statement.id, "challenging")}
+                                        disabled={activeTimer !== null && !isActive}
+                                        className="flex-1 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
+                                      >
+                                        <Play className="w-4 h-4" /> {cState.accumulated > 0 ? "Resume" : "Start"}
+                                      </button>
+                                    )}
+                                    {cState.accumulated > 0 && !isActive && (
+                                      <button
+                                        onClick={() => recordTimer(statement.id, "challenging")}
+                                        className="bg-red-700 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-1"
+                                      >
+                                        <CheckCircle className="w-4 h-4" /> Record
+                                      </button>
+                                    )}
+                                    {cState.accumulated > 0 && (
+                                      <button
+                                        onClick={() => resetTimer(statement.id, "challenging")}
+                                        className="text-red-400 hover:text-red-300 px-2"
+                                        title="Reset"
+                                      >
+                                        <RotateCcw className="w-4 h-4" />
+                                      </button>
+                                    )}
+                                  </div>
+                                </>
+                              )}
                             </div>
-                          ) : activeTimer?.statementId === statement.id && activeTimer.condition === "challenging" ? (
-                            <div className="flex items-center gap-3">
-                              <div className="text-2xl font-bold text-red-300">{timerValue.toFixed(1)}s</div>
-                              <button
-                                onClick={stopTimer}
-                                className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-1"
-                              >
-                                <Pause className="w-4 h-4" /> Stop
-                              </button>
-                            </div>
-                          ) : (
-                            <button
-                              onClick={() => startTimer(statement.id, "challenging")}
-                              disabled={activeTimer !== null}
-                              className="bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 w-full justify-center"
-                            >
-                              <Play className="w-4 h-4" /> Start Timer
-                            </button>
-                          )}
-                        </div>
-                      </div>
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
                 );
