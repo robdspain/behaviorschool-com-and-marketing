@@ -148,9 +148,9 @@ export default function FusionFAWorkflow() {
     setStep("context");
   };
 
-  // Update context for a statement
+  // Update context for a statement - uses functional update to avoid stale closure
   const updateStatementContext = (id: string, context: string) => {
-    setStatements(statements.map(s => s.id === id ? { ...s, context } : s));
+    setStatements(prev => prev.map(s => s.id === id ? { ...s, context } : s));
   };
 
   // Timer functions - support pause/resume
@@ -194,7 +194,7 @@ export default function FusionFAWorkflow() {
     const key = getTimerKey(statementId, condition);
     const state = timerStates[key];
     if (state && state.accumulated > 0) {
-      setStatements(statements.map(s => {
+      setStatements(prev => prev.map(s => {
         if (s.id === statementId) {
           return {
             ...s,
@@ -216,7 +216,7 @@ export default function FusionFAWorkflow() {
     }
     setTimerStates(prev => ({ ...prev, [key]: { accumulated: 0, isRunning: false } }));
     // Also clear the recorded latency
-    setStatements(statements.map(s => {
+    setStatements(prev => prev.map(s => {
       if (s.id === statementId) {
         return {
           ...s,
@@ -248,7 +248,7 @@ export default function FusionFAWorkflow() {
   };
 
   const removeStatement = (id: string) => {
-    setStatements(statements.filter(s => s.id !== id));
+    setStatements(prev => prev.filter(s => s.id !== id));
   };
 
   const getResults = () => {
@@ -949,10 +949,12 @@ export default function FusionFAWorkflow() {
                               </select>
                               {isCustomMode && (
                                 <input
+                                  key={`custom-context-${s.id}`}
                                   type="text"
                                   value={CONTEXT_OPTIONS.includes(s.context) ? "" : s.context}
                                   placeholder="Describe the context..."
                                   onChange={(e) => updateStatementContext(s.id, e.target.value)}
+                                  onFocus={(e) => e.target.select()}
                                   className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm"
                                 />
                               )}
