@@ -672,6 +672,167 @@ INTERVENTION RECOMMENDATIONS
 4. COMMITTED ACTION: Connect values-based goals to challenging scripts
 
 ================================================================================
+CLINICAL GUARDRAILS — VERBAL COMMUNITY EFFECT
+================================================================================
+
+⚠️ HIGH-FUSION ALERTS:
+${results.filter(r => getFusionLevel(r.delta).priority).map((r, idx) => {
+  const statement = statements.find(s => s.id === r.id);
+  return `• "${r.text.slice(0, 50)}..." — LIMIT VALIDATION TO <2 MINUTES`;
+}).join('\n') || "No high-fusion statements requiring alerts."}
+
+THE 2-MINUTE RULE:
+For high-fusion statements above, validate the EXPERIENCE for no more than 
+2 minutes before pivoting to defusion.
+Pivot phrase: "And I notice when that thought shows up..."
+
+LANGUAGE SWAPS:
+❌ AVOID (Content Validation)     →  ✓ USE (Experience Validation)
+"That must be so hard"           →  "That thought really hooks you"
+"I understand why you think X"   →  "I notice that thought shows up a lot"
+"It makes sense you'd feel that" →  "It makes sense your mind would offer that"
+
+SESSION STRUCTURE (Recommended):
+• 0-5 min:   Connect and build alliance
+• 5-10 min:  Notice what showed up this week (experience validation only)
+• 10-25 min: Defusion work on high-fusion thoughts (use challenging scripts)
+• 25-30 min: Values clarification and committed action
+
+TARGET RATIO: 5 min validation / 15 min defusion for high-fusion content
+
+================================================================================
+5-LESSON DEFUSION CURRICULUM
+================================================================================
+Based on assessment results for ${answers.studentName || "this student"}
+
+${(() => {
+  const priorityStatements = results.filter(r => getFusionLevel(r.delta).priority);
+  const targetStatement = priorityStatements[0];
+  const targetText = targetStatement ? statements.find(s => s.id === targetStatement.id)?.text : answers.difficultThoughts[0] || "difficult thought";
+  const targetTitle = targetStatement ? statements.find(s => s.id === targetStatement.id)?.title : "Target Thought";
+  const values = answers.values.slice(0, 3).join(', ') || "things that matter to them";
+  
+  return `
+LESSON 1: NOTICING THOUGHTS (Introduction to Defusion)
+--------------------------------------------------------------------------------
+Session Timeline:
+  • 0-5 min:   Rapport building, check-in on the week
+  • 5-8 min:   Validate experience: "Sounds like your mind has been busy"
+  • 8-20 min:  DEFUSION ACTIVITY — "Thoughts on Leaves"
+  • 20-25 min: Notice exercise with target thought: "${targetText?.slice(0, 40) || 'target thought'}..."
+  • 25-30 min: Debrief, set home practice
+
+Key Defusion Technique: Thoughts on Leaves
+- Visualize a stream with leaves floating by
+- Each thought gets placed on a leaf and floats away
+- Notice: "I'm having the thought that ${targetText?.slice(0, 30) || '...'}..."
+
+Practitioner Notes:
+⚠️ When "${targetTitle}" comes up, use the Notice pivot—do not engage with content
+✓ Language: "I notice your mind is offering that thought again"
+❌ Avoid: "That must be so hard for you" (content validation)
+
+
+LESSON 2: THOUGHTS VS. FACTS (Cognitive Defusion Deepening)
+--------------------------------------------------------------------------------
+Session Timeline:
+  • 0-5 min:   Check-in, review home practice
+  • 5-8 min:   Brief validation of experience (NOT content)
+  • 8-22 min:  DEFUSION ACTIVITY — "Thought Detective"
+  • 22-28 min: Apply to target statement: "${targetText?.slice(0, 40) || 'target thought'}..."
+  • 28-30 min: Assign thought log for homework
+
+Key Defusion Technique: Thought Detective
+- "Is this thought a FACT or an OPINION?"
+- "Would everyone in the world agree with this thought?"
+- "Can we take a photo of this thought to prove it?"
+
+Practitioner Notes:
+⚠️ High-fusion alert for this session—student may seek validation
+✓ Pivot phrase: "And I notice when that thought shows up, what happens next?"
+✓ Focus: Workability, not truth/falsity
+
+
+LESSON 3: THE MIND AS A STORYTELLER (Metaphor-Based Defusion)
+--------------------------------------------------------------------------------
+Session Timeline:
+  • 0-5 min:   Rapport, brief check-in
+  • 5-7 min:   Acknowledge difficult week (experience validation only)
+  • 7-22 min:  DEFUSION ACTIVITY — "Radio Mind"
+  • 22-28 min: Apply metaphor to target thought
+  • 28-30 min: Practice turning down the volume
+
+Key Defusion Technique: Radio Mind Metaphor
+- "Your mind is like a radio that's always on"
+- "Sometimes it plays helpful songs, sometimes unhelpful ones"
+- "You can't turn it off, but you can turn down the volume"
+- "The thought '${targetText?.slice(0, 30) || '...'}' is just one station playing"
+
+Practitioner Notes:
+✓ This metaphor externalizes thoughts without challenging content
+✓ Student can "thank their mind" for the thought and refocus
+⚠️ If student seeks extended discussion of thought content, pivot to metaphor
+
+
+LESSON 4: VALUES COMPASS (Connecting Defusion to What Matters)
+--------------------------------------------------------------------------------
+Session Timeline:
+  • 0-5 min:   Check-in on metaphor practice
+  • 5-8 min:   Brief validation of any struggles
+  • 8-20 min:  VALUES EXPLORATION — "Compass Points"
+  • 20-27 min: Connect values to action despite fusion
+  • 27-30 min: Identify one toward-move for the week
+
+Key Activity: Compass Points
+- Student identifies 3-4 values domains that matter: ${values}
+- For each: "What does moving TOWARD this look like?"
+- Connect to target thought: "When '${targetText?.slice(0, 30) || '...'}' shows up, 
+  what would someone who cares about ${values.split(',')[0] || 'their values'} do?"
+
+Practitioner Notes:
+✓ Values work shifts focus from fusion to function
+✓ Use challenging scripts from assessment during this lesson
+✓ Build willingness: "Can you take this thought with you while you do what matters?"
+
+
+LESSON 5: COMMITTED ACTION (Putting It Together)
+--------------------------------------------------------------------------------
+Session Timeline:
+  • 0-5 min:   Celebrate progress, review skills learned
+  • 5-8 min:   Acknowledge any ongoing fusion (experience only)
+  • 8-18 min:  COMMITTED ACTION PLANNING — Weekly behavior goal
+  • 18-25 min: Anticipate fusion, practice defusion response
+  • 25-30 min: Schedule follow-up, provide resources
+
+Key Activity: Action Planning with Fusion Anticipation
+1. Identify one values-based action for the week
+2. Predict: "Your mind might say '${targetText?.slice(0, 30) || '...'}'—what will you do?"
+3. Practice: Use defusion technique from Lessons 1-3
+4. Commit: "Are you willing to take this thought with you and still do [action]?"
+
+Practitioner Notes:
+✓ This lesson consolidates all skills
+✓ Focus on behavioral commitment, not thought elimination
+✓ Success = action despite fusion, not absence of fusion
+⚠️ Final guardrail check: Session should be 70%+ action-focused
+
+================================================================================
+CURRICULUM SUMMARY
+================================================================================
+Target Fusion Statement: "${targetText || 'Not specified'}"
+Connected Values: ${values}
+Total Sessions: 5 (30 minutes each)
+Validation:Defusion Ratio: 5:15 minutes per session
+Home Practice: Included each lesson
+
+Progress Monitoring:
+- Re-administer CPFQ after Lesson 5
+- Track latency changes on target statement
+- Student self-report on thought-action workability
+`;
+})()}
+
+================================================================================
 Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
     `.trim();
 
@@ -1880,6 +2041,63 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                   </p>
                 </div>
               )}
+            </div>
+
+            {/* 5-Lesson Curriculum */}
+            <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-6">
+              <h4 className="font-semibold text-emerald-300 mb-4 flex items-center gap-2">
+                <Sparkles className="w-5 h-5" /> 5-Lesson Defusion Curriculum
+              </h4>
+              <p className="text-slate-300 text-sm mb-4">
+                Individualized lesson sequence targeting high-fusion statements with built-in session timelines (5 min validation / 15 min defusion):
+              </p>
+              
+              <div className="space-y-3">
+                {[
+                  { num: 1, title: "Noticing Thoughts", technique: "Thoughts on Leaves", focus: "Introduction to defusion, externalizing thoughts" },
+                  { num: 2, title: "Thoughts vs. Facts", technique: "Thought Detective", focus: "Distinguishing thoughts from facts, workability" },
+                  { num: 3, title: "Mind as Storyteller", technique: "Radio Mind Metaphor", focus: "Metaphor-based defusion, volume control" },
+                  { num: 4, title: "Values Compass", technique: "Compass Points", focus: "Connecting values to action despite fusion" },
+                  { num: 5, title: "Committed Action", technique: "Action Planning", focus: "Behavioral commitment, fusion anticipation" },
+                ].map((lesson) => (
+                  <div key={lesson.num} className="bg-slate-900/50 rounded-lg p-3 flex items-start gap-3">
+                    <div className="bg-emerald-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+                      {lesson.num}
+                    </div>
+                    <div>
+                      <h5 className="text-white font-medium">{lesson.title}</h5>
+                      <p className="text-emerald-300 text-sm">{lesson.technique}</p>
+                      <p className="text-slate-400 text-xs mt-1">{lesson.focus}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-4 bg-slate-900/50 rounded-lg p-3">
+                <h5 className="text-cyan-300 font-medium mb-2">📋 Session Structure (Each Lesson)</h5>
+                <div className="grid grid-cols-4 gap-2 text-xs">
+                  <div className="bg-green-900/30 rounded p-2 text-center">
+                    <div className="text-green-300 font-bold">0-5 min</div>
+                    <div className="text-slate-400">Rapport</div>
+                  </div>
+                  <div className="bg-yellow-900/30 rounded p-2 text-center">
+                    <div className="text-yellow-300 font-bold">5-10 min</div>
+                    <div className="text-slate-400">Validate Exp.</div>
+                  </div>
+                  <div className="bg-cyan-900/30 rounded p-2 text-center">
+                    <div className="text-cyan-300 font-bold">10-25 min</div>
+                    <div className="text-slate-400">Defusion</div>
+                  </div>
+                  <div className="bg-purple-900/30 rounded p-2 text-center">
+                    <div className="text-purple-300 font-bold">25-30 min</div>
+                    <div className="text-slate-400">Values/Action</div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-slate-500 text-xs mt-4">
+                Full lesson plans with scripts included in downloadable report →
+              </p>
             </div>
 
             {/* Actions */}
