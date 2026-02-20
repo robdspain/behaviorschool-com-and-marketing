@@ -1,6 +1,7 @@
 import type { MenuSection } from "./types";
 
 export const menuSections: MenuSection[] = [
+  { label: "Transformation", href: "/transformation-program" },
   { label: "BehaviorSchool Pro", href: "/pro" },
   { label: "CalABA 2026 🎓", href: "/calaba-2026" },
   { label: "Free Practice Exam", href: "/free-bcba-practice" },
@@ -13,7 +14,6 @@ export const menuSections: MenuSection[] = [
       { label: "FBA Decision Matrix", href: "/fba-decision-matrix" },
     ],
   },
-  { label: "Transformation", href: "/transformation-program" },
   { label: "About", href: "/about" },
 ];
 
