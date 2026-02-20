@@ -56,6 +56,55 @@ The Fusion FA tool addresses all three gaps—making the invisible visible and t
 
 *(February 2026 - Rob Spain)*
 
+### Supporting Literature
+
+**Skinner, B. F. (1957). *Verbal behavior*. Appleton-Century-Crofts.**
+https://en.wikipedia.org/wiki/Verbal_Behavior
+
+Skinner's foundational work establishes that verbal behavior is "behavior reinforced through the mediation of other persons" (p. 2). The verbal community—the social group that shapes and maintains verbal behavior—supplies reinforcement based on the conventions it establishes. This directly supports the claim that therapists become members of a student's verbal community, and their reinforcement patterns (validation vs. challenging) will shape the strength of verbal responses, including fused thoughts.
+
+**Hayes, S. C., Levin, M. E., Plumb-Vilardaga, J., Villatte, J. L., & Pistorello, J. (2013). Acceptance and commitment therapy and contextual behavioral science: Examining the progress of a distinctive model of behavioral and cognitive therapy. *Behavior Therapy, 44*(2), 180-198.** 
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3635495/
+
+This paper explains how relational frames, once derived, "can be inhibited but will never be fully unlearned" (p. 188). Once a child derives "I am unlovable," that verbal relation will always be at some strength. The functional context determines the impact of relational responding—which means the therapeutic context (validation-heavy vs. defusion-focused) directly affects whether fused thoughts strengthen or weaken. Key quote: "The relational context determines what you think; the functional context determines the psychological impact of what you think."
+
+**Parry, G. D., Crawford, M. J., & Duggan, C. (2016). Iatrogenic harm from psychological therapies—time to move on. *The British Journal of Psychiatry, 208*(3), 210-212.**
+https://doi.org/10.1192/bjp.bp.115.163618
+
+This editorial acknowledges that adverse effects of psychotherapy have been recognized for decades but research on prevention has stalled. The authors note that therapist factors—including "using an inappropriate therapeutic method" and "lack of skill in noticing and repairing ruptures"—can cause iatrogenic harm. This supports the need for tools that help therapists recognize when their approach may be counterproductive.
+
+**Boisvert, C. M., & Faust, D. (2002). Iatrogenic symptoms in psychotherapy: A theoretical exploration of the potential impact of labels, language, and belief systems. *American Journal of Psychotherapy, 56*(2), 244-259.**
+https://pubmed.ncbi.nlm.nih.gov/12125301/
+
+This paper directly addresses how therapy can inadvertently cause harm through language and interaction patterns. Key finding: "Iatrogenic symptoms may provide clients and therapists with secondary gains that perpetuate potentially negative patterns." The authors argue that therapeutic communication emphasizing certain patterns may socialize clients into those patterns—supporting the claim that validation of fused thoughts can strengthen fusion.
+
+**Ford, T., Degli Esposti, M., Crane, C., Taylor, L., Montero-Marín, J., Blakemore, S.-J., & Kuyken, W. (2023). Do no harm: Can school mental health interventions cause iatrogenic harm? *BJPsych Bulletin, 48*(4), 222-225.**
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10764817/
+
+This recent paper provides evidence that school-based mental health interventions can cause iatrogenic harm in some adolescents. Critical mechanism identified: "interventions inadvertently encourage adolescents to ruminate on their negative thoughts and emotions." The authors found that CBT-based interventions sometimes increased internalizing symptoms relative to control groups. This directly supports the hypothesis that spending excessive time engaging with (rather than defusing from) negative cognitions can worsen outcomes.
+
+**Sundman, E. R., Martin, W. F., & Carr, J. E. (2009). Empirical applications of Skinner's analysis of verbal behavior with humans. *The Analysis of Verbal Behavior, 22*(1), 35-48.**
+https://pmc.ncbi.nlm.nih.gov/articles/PMC2774593/
+
+This review confirms that "intraverbal behavior is thought to be maintained by social reinforcement from a person's verbal community." When a therapist engages extensively with fused verbal content (validating it, exploring it, reflecting it back), they provide social reinforcement that maintains and potentially strengthens that verbal behavior.
+
+### Nuance: Validation Still Matters for Alliance
+
+**Elliott, R., Bohart, A. C., Watson, J. C., & Murphy, D. (2018). Therapist empathy and client outcome: An updated meta-analysis. *Psychotherapy, 55*(4), 399-410.**
+https://doi.org/10.1037/pst0000175
+
+This meta-analysis confirms that therapist empathy is "one of the most consistent outcome predictors in contemporary psychotherapy research." The therapeutic alliance—built partly through validation—predicts treatment outcomes across therapy types. **However**, the key distinction is *what* is being validated: validating the person's experience ("It makes sense you feel overwhelmed") differs fundamentally from validating fused thought content as literal truth ("You really are stupid"). ACT practitioners must "validate the client's experience while gently steering them toward a defused perspective."
+
+### Summary Table: Verbal Community Effect
+
+| Therapeutic Behavior | Effect on Fusion | Mechanism |
+|---------------------|------------------|-----------|
+| Extended engagement with fused thought content | Strengthens fusion | Social reinforcement from verbal community |
+| Reflecting/exploring fused thoughts without defusion | Strengthens fusion | Increased "airtime," denser relational frames |
+| Validating the *person's experience* of having thoughts | Neutral/positive | Builds alliance without reinforcing content |
+| Defusion techniques (noticing, labeling as thoughts) | Weakens fusion | Changes functional context |
+| Challenging/perspective-taking on thought content | Weakens fusion | Introduces competing relational frames |
+
 ---
 
 ## PAPER 1: The Assessment Phase - Precursor Functional Analysis
