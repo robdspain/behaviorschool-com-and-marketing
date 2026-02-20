@@ -146,30 +146,37 @@ export default function CalABAAssessmentToolsPage() {
             </div>
           </div>
 
-          {/* Student Interview */}
-          <div className="group bg-slate-800 border-2 border-slate-600 rounded-2xl p-6">
+          {/* Student Interview / ACT Matrix Questionnaire */}
+          <Link 
+            href="/calaba-2026/assessment-tools/act-matrix-questionnaire"
+            className="group bg-slate-800 border-2 border-emerald-500 hover:border-emerald-400 rounded-2xl p-6 transition-all relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 bg-emerald-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-bl-lg">
+              NEW
+            </div>
             <div className="flex items-start gap-4">
               <div className="w-14 h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
                 <Users className="w-7 h-7 text-emerald-400" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Student Interview Protocol
+                <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 mb-2">
+                  ACT Matrix Questionnaire
                 </h3>
                 <p className="text-slate-300 text-sm mb-3">
-                  Structured interview to explore the student's internal experiences, 
-                  thoughts during behavior episodes, and self-perception.
+                  Interview protocol with open-ended questions to explore the student's internal experiences. 
+                  Watch the ACT Matrix populate in real-time as you conduct the interview.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">Thought Exploration</span>
-                  <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">Self-Report</span>
+                  <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">10+ Questions</span>
+                  <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">Live Matrix</span>
+                  <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded">Context Capture</span>
                 </div>
-                <span className="text-amber-400 text-sm font-medium inline-flex items-center gap-1">
-                  <Sparkles className="w-4 h-4" /> Coming Soon — PDF Template Available
+                <span className="text-cyan-400 text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  Start Interview <ArrowRight className="w-4 h-4" />
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Latency-Based FA */}
           <div className="group bg-slate-800 border-2 border-slate-600 rounded-2xl p-6">
