@@ -508,7 +508,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <ToastProvider>
-          <div className="min-h-screen flex flex-col w-full max-w-full pt-10">
+          <div className="min-h-screen flex flex-col w-full max-w-full">
             <RevenueBanner />
             <ConditionalNavBar />
             <ScrollProgressBar />
