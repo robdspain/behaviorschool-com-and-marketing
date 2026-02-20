@@ -49,6 +49,7 @@ interface ParentCPFQAnswers {
 
 interface Statement {
   id: string;
+  title: string; // Short descriptive title (e.g., "The Shiny Door")
   text: string;
   context: string;
   source: "questionnaire" | "manual" | "afqy" | "parent";
@@ -56,12 +57,17 @@ interface Statement {
   challengingLatency: number | null;
   validatingPrecursors: string;
   challengingPrecursors: string;
-  // AI-generated scripts
+  // AI-generated scripts (arrays for multiple scripts)
+  aiValidatingScripts?: string[];
+  aiChallengingScripts?: string[];
+  aiRelationType?: string; // e.g., "Causal / Fused"
+  aiRelationExplanation?: string; // Rich explanation of the relational frame
+  scriptsGenerated?: boolean;
+  scriptsLoading?: boolean;
+  // Legacy single-script fields (deprecated)
   aiValidating?: string;
   aiChallenging?: string;
   aiFrameType?: string;
-  scriptsGenerated?: boolean;
-  scriptsLoading?: boolean;
 }
 
 type Step = "afqy" | "parent-cpfq" | "questionnaire" | "matrix" | "context" | "statements" | "fusion-fa" | "results";
@@ -254,6 +260,7 @@ export default function FusionFAWorkflow() {
     answers.difficultThoughts.forEach((thought, idx) => {
       extracted.push({
         id: `q-${idx}`,
+        title: "",
         text: thought,
         context: "",
         source: "questionnaire",
@@ -270,6 +277,7 @@ export default function FusionFAWorkflow() {
       if (score >= 3) { // High endorsement
         extracted.push({
           id: `afqy-${q.id}`,
+          title: "",
           text: q.text,
           context: "",
           source: "afqy",
@@ -288,6 +296,7 @@ export default function FusionFAWorkflow() {
         if (!extracted.some(e => e.text.toLowerCase() === thought.toLowerCase())) {
           extracted.push({
             id: `parent-${idx}`,
+            title: "",
             text: thought,
             context: "",
             source: "parent",
@@ -384,6 +393,7 @@ export default function FusionFAWorkflow() {
     if (customStatement.trim()) {
       setStatements([...statements, {
         id: `m-${Date.now()}`,
+        title: "",
         text: customStatement.trim(),
         context: "",
         source: "manual",
@@ -424,6 +434,7 @@ export default function FusionFAWorkflow() {
         body: JSON.stringify({
           statement: statement.text,
           context: statement.context,
+          studentName: answers.studentName,
         }),
       });
 
@@ -433,9 +444,17 @@ export default function FusionFAWorkflow() {
           if (s.id === id) {
             return {
               ...s,
-              aiValidating: data.validating,
-              aiChallenging: data.challenging,
-              aiFrameType: data.frameType,
+              // New array-based fields
+              aiValidatingScripts: data.validatingScripts || [data.validating],
+              aiChallengingScripts: data.challengingScripts || [data.challenging],
+              aiRelationType: data.relationType || data.frameType,
+              aiRelationExplanation: data.relationExplanation || "",
+              // Auto-set title if empty
+              title: s.title || data.suggestedTitle || s.title,
+              // Legacy fields for backward compatibility
+              aiValidating: data.validatingScripts?.[0] || data.validating,
+              aiChallenging: data.challengingScripts?.[0] || data.challenging,
+              aiFrameType: data.relationType || data.frameType,
               scriptsGenerated: true,
               scriptsLoading: false,
             };
@@ -527,44 +546,32 @@ export default function FusionFAWorkflow() {
 
   const allComplete = statements.length > 0 && statements.every(s => s.validatingLatency !== null && s.challengingLatency !== null);
 
-  // Generate CSV Report (Table Format)
+  // Generate Rich Report (Format matching Rob's example)
   const generateReport = () => {
     const results = getResults();
     const afqyScore = getAfqyScore();
     const parentScore = getParentCpfqScore();
     
-    // Build the statement table data with prompts
-    const statementRows = statements.map(s => {
-      const prompts = generatePrompts(s);
+    // Build statement rows with AI-generated or fallback content
+    const statementRows = statements.map((s, idx) => {
+      const fallbackPrompts = generatePrompts(s);
+      const result = results.find(r => r.id === s.id);
       return {
         ...s,
-        relation: prompts.frameType,
-        validatingScript: prompts.validating,
-        challengingScript: prompts.challenging,
+        rowNumber: idx + 1,
+        title: s.title || `Statement ${idx + 1}`,
+        relation: s.aiRelationType || fallbackPrompts.frameType,
+        relationExplanation: s.aiRelationExplanation || "",
+        validatingScripts: s.aiValidatingScripts || [fallbackPrompts.validating],
+        challengingScripts: s.aiChallengingScripts || [fallbackPrompts.challenging],
+        delta: result?.delta,
+        fusionLevel: result ? getFusionLevel(result.delta).level : null,
       };
     });
-    
-    // CSV content for statement context table
-    const csvHeader = "Statements,Context,Relation,Validating Script,Challenging Script,Precursors (Control/Validating),Time (Control),Precursors (Test/Challenging),Time (Test),Delta,Fusion Level";
-    const csvRows = statementRows.map(s => {
-      const result = results.find(r => r.id === s.id);
-      return [
-        `"${s.text.replace(/"/g, '""')}"`,
-        `"${(s.context || '').replace(/"/g, '""')}"`,
-        `"${s.relation}"`,
-        `"${s.validatingScript.replace(/"/g, '""')}"`,
-        `"${s.challengingScript.replace(/"/g, '""')}"`,
-        `"${(s.validatingPrecursors || '').replace(/"/g, '""')}"`,
-        s.validatingLatency !== null ? `${s.validatingLatency}s` : '',
-        `"${(s.challengingPrecursors || '').replace(/"/g, '""')}"`,
-        s.challengingLatency !== null ? `${s.challengingLatency}s` : '',
-        result ? `${result.delta.toFixed(1)}s` : '',
-        result ? getFusionLevel(result.delta).level : '',
-      ].join(',');
-    });
-    
+
+    // Generate the rich format report
     const reportContent = `FUSION HIERARCHY ASSESSMENT REPORT
-=====================================
+================================================================================
 Student: ${answers.studentName || "Not specified"}
 Age: ${answers.studentAge || ""} | Grade: ${answers.grade || ""}
 Assessor: ${answers.assessorName || "Not specified"}
@@ -574,70 +581,69 @@ Generated: ${new Date().toLocaleString()}
 AFQ-Y SCORE: ${afqyScore !== null ? `${afqyScore}/32 (${getAfqyInterpretation(afqyScore).level})` : "Not completed"}
 PARENT CPFQ SCORE: ${parentScore !== null ? `${parentScore}/32` : "Not completed"}
 
-=====================================
-STATEMENT-CONTEXT TABLE
-=====================================
-${csvHeader}
-${csvRows.join('\n')}
+================================================================================
+STATEMENT ANALYSIS
+================================================================================
 
-=====================================
-DETAILED STATEMENT ANALYSIS
-=====================================
-${statementRows.map((s, idx) => {
-  const result = results.find(r => r.id === s.id);
-  return `
---- Statement ${idx + 1} ---
-STATEMENT: "${s.text}"
-CONTEXT: ${s.context || "Not specified"}
-RELATION: ${s.relation}
+${statementRows.map((s) => `
+Row ${s.rowNumber}: ${s.title}
+--------------------------------------------------------------------------------
 
-VALIDATING SCRIPT:
-${s.validatingScript}
+Statement: ${s.text}
 
-CHALLENGING SCRIPT:
-${s.challengingScript}
+Context: ${s.context || "Not specified"}
 
-PRECURSORS IN CONTROL CONDITION (Validating):
-${s.validatingPrecursors || "(Not recorded)"}
+Relation: ${s.relation}${s.relationExplanation ? `. ${s.relationExplanation}` : ""}
 
-PRECURSORS IN TEST CONDITION (Challenging):
-${s.challengingPrecursors || "(Not recorded)"}
+Validating Scripts:
+${s.validatingScripts.map(script => `• ${script.replace(/^"|"$/g, '')}`).join('\n')}
 
-TIME IN CONTROL CONDITION: ${s.validatingLatency !== null ? `${s.validatingLatency}s` : "Not recorded"}
-TIME IN TEST CONDITION: ${s.challengingLatency !== null ? `${s.challengingLatency}s` : "Not recorded"}
-DELTA (V-C): ${result ? `${result.delta.toFixed(1)}s` : "N/A"}
-FUSION LEVEL: ${result ? getFusionLevel(result.delta).level : "N/A"}
-`;
-}).join('\n')}
+Challenging Scripts:
+${s.challengingScripts.map(script => `• ${script.replace(/^"|"$/g, '')}`).join('\n')}
 
-=====================================
+Precursors (Control/Validating): ${s.validatingPrecursors || "(Not recorded)"}
+Time in Control: ${s.validatingLatency !== null ? `${s.validatingLatency}s` : "Not recorded"}
+
+Precursors (Test/Challenging): ${s.challengingPrecursors || "(Not recorded)"}
+Time in Test: ${s.challengingLatency !== null ? `${s.challengingLatency}s` : "Not recorded"}
+
+Delta (V-C): ${s.delta !== undefined ? `${s.delta.toFixed(1)}s` : "N/A"}
+Fusion Level: ${s.fusionLevel || "N/A"}
+`).join('\n')}
+
+================================================================================
 ACT MATRIX SUMMARY
-=====================================
+================================================================================
+
 INNER + AWAY (Difficult Thoughts/Feelings):
-${answers.difficultThoughts.map(t => `  • "${t}"`).join('\n') || "  None"}
+${answers.difficultThoughts.map(t => `  • "${t}"`).join('\n') || "  None recorded"}
 ${answers.difficultFeelings.map(f => `  • ${f}`).join('\n') || ""}
 
 INNER + TOWARD (Values):
-${answers.values.map(v => `  • ${v}`).join('\n') || "  None"}
+${answers.values.map(v => `  • ${v}`).join('\n') || "  None recorded"}
 
 OUTER + AWAY (Avoidance Behaviors):
-${answers.avoidanceBehaviors.map(b => `  • ${b}`).join('\n') || "  None"}
+${answers.avoidanceBehaviors.map(b => `  • ${b}`).join('\n') || "  None recorded"}
 
-=====================================
+================================================================================
 PRIORITY DEFUSION TARGETS
-=====================================
-${results.filter(r => getFusionLevel(r.delta).priority).map((r, idx) => 
-  `${idx + 1}. "${r.text}" (Δ ${r.delta.toFixed(1)}s) - ${r.context || "No context"}`
-).join('\n') || "No high-fusion statements identified"}
+================================================================================
+${results.filter(r => getFusionLevel(r.delta).priority).length > 0 
+  ? results.filter(r => getFusionLevel(r.delta).priority).map((r, idx) => {
+      const statement = statements.find(s => s.id === r.id);
+      return `${idx + 1}. ${statement?.title || "Statement"}: "${r.text}" (Δ ${r.delta.toFixed(1)}s) - ${r.context || "No context"}`;
+    }).join('\n')
+  : "No high-fusion statements identified"}
 
-=====================================
-RECOMMENDATIONS
-=====================================
-1. DEFUSION: Target high-fusion statements above
+================================================================================
+INTERVENTION RECOMMENDATIONS
+================================================================================
+1. DEFUSION: Target statements with high fusion scores using challenging scripts above
 2. VALUES: Build on ${answers.values.slice(0, 3).join(', ') || "identified values"}
-3. ACCEPTANCE: Address ${answers.avoidanceBehaviors.slice(0, 2).join(', ') || "avoidance patterns"}
+3. ACCEPTANCE: Address avoidance of ${answers.avoidanceBehaviors.slice(0, 2).join(', ') || "identified triggers"}
+4. COMMITTED ACTION: Connect values-based goals to challenging scripts
 
----
+================================================================================
 Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
     `.trim();
 
@@ -1341,17 +1347,30 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-cyan-400" /> Review Statements
               </h3>
+              <p className="text-slate-400 text-sm mb-4">Give each statement a short, memorable title (e.g., "The Shiny Door", "The Bad Day")</p>
               
-              <div className="space-y-2 mb-4">
-                {statements.map(s => (
-                  <div key={s.id} className="flex items-center justify-between bg-slate-900 rounded-lg px-4 py-3">
-                    <div>
-                      <span className="text-white">"{s.text}"</span>
-                      {s.context && <span className="text-slate-500 text-sm ml-2">— {s.context}</span>}
+              <div className="space-y-3 mb-4">
+                {statements.map((s, idx) => (
+                  <div key={s.id} className="bg-slate-900 rounded-lg p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xs text-slate-500">#{idx + 1}</span>
+                          <input
+                            type="text"
+                            value={s.title || ""}
+                            onChange={(e) => setStatements(prev => prev.map(st => st.id === s.id ? { ...st, title: e.target.value } : st))}
+                            placeholder="Give it a title (e.g., 'The Shiny Door')"
+                            className="flex-1 bg-slate-800 border border-slate-600 rounded px-3 py-1.5 text-cyan-300 text-sm font-semibold placeholder:text-slate-600"
+                          />
+                        </div>
+                        <p className="text-white">"{s.text}"</p>
+                        {s.context && <p className="text-slate-500 text-sm mt-1">Context: {s.context}</p>}
+                      </div>
+                      <button onClick={() => removeStatement(s.id)} className="text-slate-500 hover:text-red-400 mt-1">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     </div>
-                    <button onClick={() => removeStatement(s.id)} className="text-slate-500 hover:text-red-400">
-                      <Trash2 className="w-4 h-4" />
-                    </button>
                   </div>
                 ))}
               </div>
@@ -1410,23 +1429,24 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
 
             {statements.map((statement, idx) => {
               const templatePrompts = generatePrompts(statement);
-              const prompts = {
-                validating: statement.aiValidating || templatePrompts.validating,
-                challenging: statement.aiChallenging || templatePrompts.challenging,
-                frameType: statement.aiFrameType || templatePrompts.frameType,
-              };
+              // Use AI-generated arrays, falling back to single template-based scripts
+              const validatingScripts = statement.aiValidatingScripts?.length 
+                ? statement.aiValidatingScripts 
+                : [statement.aiValidating || templatePrompts.validating];
+              const challengingScripts = statement.aiChallengingScripts?.length 
+                ? statement.aiChallengingScripts 
+                : [statement.aiChallenging || templatePrompts.challenging];
+              const relationType = statement.aiRelationType || statement.aiFrameType || templatePrompts.frameType;
+              const relationExplanation = statement.aiRelationExplanation || "";
+              
               return (
                 <div key={statement.id} className="bg-slate-800 border border-slate-700 rounded-xl p-5">
+                  {/* Header with title and relation */}
                   <div className="mb-4">
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-slate-500">Statement {idx + 1}</span>
-                        <span className="text-[10px] bg-slate-700 text-slate-400 px-2 py-0.5 rounded uppercase">{prompts.frameType}</span>
-                        {statement.scriptsGenerated && (
-                          <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded flex items-center gap-1">
-                            <Sparkles className="w-3 h-3" /> AI Generated
-                          </span>
-                        )}
+                        <span className="text-xs text-slate-500">Row {idx + 1}</span>
+                        <span className="text-cyan-300 font-bold">{statement.title || `Statement ${idx + 1}`}</span>
                       </div>
                       <button
                         onClick={() => generateAIScripts(statement.id)}
@@ -1440,8 +1460,23 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                         )}
                       </button>
                     </div>
-                    <p className="text-white font-semibold text-lg">"{statement.text}"</p>
-                    {statement.context && <p className="text-slate-400 text-sm mt-1">Context: {statement.context}</p>}
+                    <p className="text-white font-semibold text-lg mb-2">"{statement.text}"</p>
+                    {statement.context && <p className="text-slate-400 text-sm mb-2">Context: {statement.context}</p>}
+                    
+                    {/* Relation type and explanation */}
+                    <div className="bg-slate-900/50 rounded-lg p-3 mt-2">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded uppercase font-semibold">{relationType}</span>
+                        {statement.scriptsGenerated && (
+                          <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded flex items-center gap-1">
+                            <Sparkles className="w-3 h-3" /> AI Generated
+                          </span>
+                        )}
+                      </div>
+                      {relationExplanation && (
+                        <p className="text-slate-400 text-sm italic">{relationExplanation}</p>
+                      )}
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -1452,7 +1487,14 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                       return (
                         <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
                           <div className="text-xs text-green-400 font-bold uppercase tracking-wide mb-2">Control Condition (Validating)</div>
-                          <p className="text-green-200/80 text-sm italic mb-4">{prompts.validating}</p>
+                          {/* Show all validating scripts */}
+                          <div className="space-y-2 mb-4">
+                            {validatingScripts.map((script, scriptIdx) => (
+                              <p key={scriptIdx} className="text-green-200/80 text-sm">
+                                • {script.replace(/^"|"$/g, '')}
+                              </p>
+                            ))}
+                          </div>
                           <div className="border-t border-green-500/20 pt-3">
                             {statement.validatingLatency !== null ? (
                               <div className="flex items-center justify-between">
@@ -1503,7 +1545,14 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                       return (
                         <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
                           <div className="text-xs text-red-400 font-bold uppercase tracking-wide mb-2">Test Condition (Challenging)</div>
-                          <p className="text-red-200/80 text-sm italic mb-4">{prompts.challenging}</p>
+                          {/* Show all challenging scripts */}
+                          <div className="space-y-2 mb-4">
+                            {challengingScripts.map((script, scriptIdx) => (
+                              <p key={scriptIdx} className="text-red-200/80 text-sm">
+                                • {script.replace(/^"|"$/g, '')}
+                              </p>
+                            ))}
+                          </div>
                           <div className="border-t border-red-500/20 pt-3">
                             {statement.challengingLatency !== null ? (
                               <div className="flex items-center justify-between">

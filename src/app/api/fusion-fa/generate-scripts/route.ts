@@ -5,7 +5,7 @@ const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemi
 
 export async function POST(request: NextRequest) {
   try {
-    const { statement, context } = await request.json();
+    const { statement, context, studentName } = await request.json();
 
     if (!statement) {
       return NextResponse.json({ error: "Statement is required" }, { status: 400 });
@@ -14,31 +14,61 @@ export async function POST(request: NextRequest) {
     if (!GEMINI_API_KEY) {
       // Fallback to template-based generation if no API key
       return NextResponse.json({
-        validating: generateTemplateValidating(statement, context),
-        challenging: generateTemplateChallenging(statement, context),
+        validatingScripts: [generateTemplateValidating(statement, context)],
+        challengingScripts: [generateTemplateChallenging(statement, context)],
+        relationType: "Verbal Relation",
+        relationExplanation: "The individual has formed a verbal relation with this thought.",
+        suggestedTitle: generateSuggestedTitle(statement),
         source: "template",
       });
     }
 
     const prompt = `You are an expert in Acceptance and Commitment Therapy (ACT) and Relational Frame Theory (RFT), helping a school-based behavior analyst conduct a Fusion Functional Analysis.
 
-A student made this verbal statement: "${statement}"
+A student${studentName ? ` (${studentName})` : ""} made this verbal statement: "${statement}"
 ${context ? `Context: ${context}` : ""}
 
-Generate TWO clinical scripts:
+Analyze this statement through the lens of Relational Frame Theory and generate:
 
-1. VALIDATING SCRIPT: A statement that validates and supports the student's verbal relation. This should acknowledge their experience and make the thought feel true/understandable. The goal is to strengthen the fusion with the thought.
+1. SUGGESTED TITLE: A brief, evocative title for this statement (2-4 words, like "The Shiny Door" or "The Bad Morning")
 
-2. CHALLENGING SCRIPT: A gentle, curious question that helps the student notice the thought AS a thought (defusion). Don't invalidate or argue—just create psychological distance. Use curious language like "I wonder..." or "What if..."
+2. RELATION TYPE: Identify the relational frame type using format "Category / Fusion Level"
+   Examples: "Causal / Fused", "Coordination / Highly Fused", "Causal / Evaluative", "Temporal / Absolute", "Conditional / Rule-Governed"
+
+3. RELATION EXPLANATION: A 2-3 sentence clinical explanation of the relational frame. Explain WHY this is this type of frame and what cognitive fusion is occurring. Be specific to the student's statement.
+
+4. VALIDATING SCRIPTS: Generate exactly 4 empathetic, validating statements that acknowledge and support the student's experience. These should:
+   - Make the thought feel understood and valid
+   - Acknowledge the emotional experience
+   - NOT challenge or question the thought
+   - Be conversational and age-appropriate
+
+5. CHALLENGING SCRIPTS: Generate exactly 4 gentle, curious questions/statements that promote defusion. These should:
+   - Help the student notice the thought AS a thought
+   - Use curious language ("I wonder...", "What if...", "Is it possible...")
+   - Create psychological distance without invalidating
+   - Be Socratic, not lecturing
 
 Format your response as JSON:
 {
-  "validating": "The validating script here",
-  "challenging": "The challenging script here",
-  "frameType": "The relational frame type (e.g., Self-as-Content, Temporal-Always, Conditional, Causal)"
+  "suggestedTitle": "Brief Title Here",
+  "relationType": "Category / Fusion Level",
+  "relationExplanation": "2-3 sentence explanation of the relational frame and fusion pattern",
+  "validatingScripts": [
+    "First validating statement",
+    "Second validating statement",
+    "Third validating statement",
+    "Fourth validating statement"
+  ],
+  "challengingScripts": [
+    "First challenging question",
+    "Second challenging question",
+    "Third challenging question",
+    "Fourth challenging question"
+  ]
 }
 
-Make the scripts conversational, appropriate for a school-aged student, and directly reference their specific statement. Keep each script 1-3 sentences.`;
+Make all scripts conversational, appropriate for a school-aged student, and directly reference their specific statement and context.`;
 
     const response = await fetch(`${GEMINI_URL}?key=${GEMINI_API_KEY}`, {
       method: "POST",
@@ -49,7 +79,7 @@ Make the scripts conversational, appropriate for a school-aged student, and dire
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 500,
+          maxOutputTokens: 1500,
         },
       }),
     });
@@ -58,8 +88,11 @@ Make the scripts conversational, appropriate for a school-aged student, and dire
       console.error("Gemini API error:", await response.text());
       // Fallback to template
       return NextResponse.json({
-        validating: generateTemplateValidating(statement, context),
-        challenging: generateTemplateChallenging(statement, context),
+        validatingScripts: [generateTemplateValidating(statement, context)],
+        challengingScripts: [generateTemplateChallenging(statement, context)],
+        relationType: "Verbal Relation",
+        relationExplanation: "The individual has formed a verbal relation with this thought.",
+        suggestedTitle: generateSuggestedTitle(statement),
         source: "template",
       });
     }
@@ -73,9 +106,11 @@ Make the scripts conversational, appropriate for a school-aged student, and dire
       try {
         const parsed = JSON.parse(jsonMatch[0]);
         return NextResponse.json({
-          validating: parsed.validating || generateTemplateValidating(statement, context),
-          challenging: parsed.challenging || generateTemplateChallenging(statement, context),
-          frameType: parsed.frameType || "Verbal Relation",
+          validatingScripts: parsed.validatingScripts || [generateTemplateValidating(statement, context)],
+          challengingScripts: parsed.challengingScripts || [generateTemplateChallenging(statement, context)],
+          relationType: parsed.relationType || "Verbal Relation",
+          relationExplanation: parsed.relationExplanation || "The individual has formed a verbal relation with this thought.",
+          suggestedTitle: parsed.suggestedTitle || generateSuggestedTitle(statement),
           source: "gemini",
         });
       } catch {
@@ -85,8 +120,11 @@ Make the scripts conversational, appropriate for a school-aged student, and dire
     
     // Fallback to template if parsing fails
     return NextResponse.json({
-      validating: generateTemplateValidating(statement, context),
-      challenging: generateTemplateChallenging(statement, context),
+      validatingScripts: [generateTemplateValidating(statement, context)],
+      challengingScripts: [generateTemplateChallenging(statement, context)],
+      relationType: "Verbal Relation",
+      relationExplanation: "The individual has formed a verbal relation with this thought.",
+      suggestedTitle: generateSuggestedTitle(statement),
       source: "template",
     });
     
@@ -97,6 +135,21 @@ Make the scripts conversational, appropriate for a school-aged student, and dire
       { status: 500 }
     );
   }
+}
+
+function generateSuggestedTitle(statement: string): string {
+  // Extract key words for a title
+  const words = statement.toLowerCase();
+  if (words.includes("shiny") || words.includes("touch")) return "The Temptation";
+  if (words.includes("bad day") || words.includes("bad morning")) return "The Bad Day";
+  if (words.includes("stupid") || words.includes("dumb")) return "The Self-Doubt";
+  if (words.includes("can't") || words.includes("impossible")) return "The Barrier";
+  if (words.includes("always") || words.includes("never")) return "The Absolute";
+  if (words.includes("hate") || words.includes("angry")) return "The Anger";
+  if (words.includes("scared") || words.includes("afraid")) return "The Fear";
+  if (words.includes("ghost") || words.includes("voice")) return "The Inner Voice";
+  if (words.includes("normal") || words.includes("act")) return "The Mask";
+  return "The Statement";
 }
 
 function generateTemplateValidating(statement: string, context?: string): string {
