@@ -358,6 +358,36 @@ export default function FreePracticeTestWidget() {
               No credit card required • Takes 30 seconds • 10 free questions daily
             </p>
           </div>
+
+          {/* Free Ebook Download Banner */}
+          <div className="mt-8 p-6 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-cyan-500/10 border-2 border-cyan-500/30 rounded-xl">
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <div className="flex-shrink-0">
+                <img 
+                  src="/ebooks/bcba-guide-mockup.png" 
+                  alt="BCBA Exam Survival Guide" 
+                  className="w-32 h-auto drop-shadow-lg"
+                />
+              </div>
+              <div className="flex-1 text-center sm:text-left">
+                <h3 className="text-lg font-bold text-slate-900 mb-2">
+                  📚 Free Download: The 2026 BCBA Exam Survival Guide
+                </h3>
+                <p className="text-sm text-slate-600 mb-4">
+                  Get your complete study roadmap with task list breakdown, 12-week schedule, and test-taking strategies.
+                </p>
+                <a
+                  href="/ebook/bcba-exam-guide"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-lg transition-all"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Get Your Free Guide
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
