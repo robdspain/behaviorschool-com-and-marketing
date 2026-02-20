@@ -268,6 +268,128 @@ export default function FusionFAWorkflow() {
     return score;
   };
 
+  // Calculate CPFQ subscale scores for synthesis
+  const getCpfqSubscales = () => {
+    const subscales: Record<string, { score: number; max: number; items: string[] }> = {
+      avoidance: { score: 0, max: 0, items: [] },
+      fusion: { score: 0, max: 0, items: [] },
+      values: { score: 0, max: 0, items: [] },
+      acceptance: { score: 0, max: 0, items: [] },
+    };
+    
+    PARENT_CPFQ_QUESTIONS.forEach(q => {
+      const category = (q as any).category;
+      if (category && subscales[category]) {
+        const val = parentCpfq.responses[q.id] || 0;
+        const adjustedVal = (q as any).reverse ? (4 - val) : val;
+        subscales[category].score += adjustedVal;
+        subscales[category].max += 4;
+        subscales[category].items.push(q.id);
+      }
+    });
+    
+    return subscales;
+  };
+
+  // Get weak process areas (subscales with high scores = more inflexibility)
+  const getWeakProcessAreas = () => {
+    const subscales = getCpfqSubscales();
+    const weak: { process: string; score: number; percentage: number; label: string }[] = [];
+    
+    const labels: Record<string, string> = {
+      avoidance: "Experiential Avoidance",
+      fusion: "Cognitive Fusion",
+      values: "Values Obstruction",
+      acceptance: "Acceptance Deficits",
+    };
+    
+    Object.entries(subscales).forEach(([key, data]) => {
+      if (data.max > 0) {
+        const percentage = (data.score / data.max) * 100;
+        if (percentage >= 50) { // 50%+ = area of concern
+          weak.push({
+            process: key,
+            score: data.score,
+            percentage,
+            label: labels[key] || key,
+          });
+        }
+      }
+    });
+    
+    // Sort by percentage (highest first)
+    return weak.sort((a, b) => b.percentage - a.percentage);
+  };
+
+  // Generate CPFQ + Fusion FA synthesis
+  const generateSynthesis = () => {
+    const weakAreas = getWeakProcessAreas();
+    const priorityStatements = getResults().filter(r => getFusionLevel(r.delta).priority);
+    const synthesis: { area: string; statement: string; recommendation: string }[] = [];
+    
+    // Match high-fusion statements to weak process areas
+    priorityStatements.forEach(result => {
+      const statement = statements.find(s => s.id === result.id);
+      if (!statement) return;
+      
+      const text = statement.text.toLowerCase();
+      
+      // Detect process connections based on statement content
+      if (weakAreas.some(a => a.process === "avoidance")) {
+        if (text.includes("can't handle") || text.includes("too hard") || text.includes("can't do") || text.includes("won't work")) {
+          synthesis.push({
+            area: "Experiential Avoidance",
+            statement: statement.text,
+            recommendation: `The fused thought "${statement.text.slice(0, 40)}..." appears to drive avoidance behavior. Focus on acceptance/willingness work: "Can you take this thought with you and still do what matters?"`,
+          });
+        }
+      }
+      
+      if (weakAreas.some(a => a.process === "values")) {
+        if (text.includes("doesn't matter") || text.includes("no point") || text.includes("why bother") || text.includes("nothing matters")) {
+          synthesis.push({
+            area: "Values Obstruction",
+            statement: statement.text,
+            recommendation: `The fused thought "${statement.text.slice(0, 40)}..." blocks values connection. Use values clarification: "Even with this thought present, what would you do if you could care about something?"`,
+          });
+        }
+      }
+      
+      if (weakAreas.some(a => a.process === "fusion")) {
+        if (text.includes("i am") || text.includes("i'm") || text.includes("everyone thinks") || text.includes("always") || text.includes("never")) {
+          synthesis.push({
+            area: "Cognitive Fusion",
+            statement: statement.text,
+            recommendation: `The statement "${statement.text.slice(0, 40)}..." shows strong literal belief. Prioritize defusion: "I notice I'm having the thought that..." before other process work.`,
+          });
+        }
+      }
+      
+      if (weakAreas.some(a => a.process === "acceptance")) {
+        if (text.includes("feel") || text.includes("afraid") || text.includes("scared") || text.includes("anxious") || text.includes("can't stand")) {
+          synthesis.push({
+            area: "Acceptance Deficits",
+            statement: statement.text,
+            recommendation: `The fused thought "${statement.text.slice(0, 40)}..." relates to emotion intolerance. Build willingness: "What if this feeling could be here without you having to fix it?"`,
+          });
+        }
+      }
+    });
+    
+    // Add general synthesis for weak areas without specific statement matches
+    weakAreas.forEach(area => {
+      if (!synthesis.some(s => s.area === area.label)) {
+        synthesis.push({
+          area: area.label,
+          statement: "(General pattern)",
+          recommendation: `CPFQ indicates elevated ${area.label.toLowerCase()} (${area.percentage.toFixed(0)}%). Address this process area across intervention sessions.`,
+        });
+      }
+    });
+    
+    return synthesis;
+  };
+
   // Extract statements from all sources
   const extractStatements = () => {
     const extracted: Statement[] = [];
@@ -662,6 +784,31 @@ ${results.filter(r => getFusionLevel(r.delta).priority).length > 0
       return `${idx + 1}. ${statement?.title || "Statement"}: "${r.text}" (Δ ${r.delta.toFixed(1)}s) - ${r.context || "No context"}`;
     }).join('\n')
   : "No high-fusion statements identified"}
+
+================================================================================
+CPFQ + FUSION FA SYNTHESIS
+================================================================================
+Automatic integration of CPFQ subscale deficits with high-fusion statements:
+
+PROCESS AREAS IDENTIFIED (CPFQ Subscales ≥50%):
+${(() => {
+  const weakAreas = getWeakProcessAreas();
+  return weakAreas.length > 0 
+    ? weakAreas.map(a => `  • ${a.label}: ${a.percentage.toFixed(0)}%`).join('\n')
+    : "  No subscales above threshold";
+})()}
+
+SYNTHESIS RECOMMENDATIONS:
+${(() => {
+  const synthesis = generateSynthesis();
+  return synthesis.length > 0
+    ? synthesis.map((syn, idx) => `
+${idx + 1}. [${syn.area}]
+   Statement: ${syn.statement !== "(General pattern)" ? `"${syn.statement}"` : "(General pattern)"}
+   → ${syn.recommendation}
+`).join('\n')
+    : "  Insufficient data for synthesis. Ensure CPFQ is completed.";
+})()}
 
 ================================================================================
 INTERVENTION RECOMMENDATIONS
@@ -2042,6 +2189,53 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                 </div>
               )}
             </div>
+
+            {/* CPFQ + Fusion FA Synthesis */}
+            {generateSynthesis().length > 0 && (
+              <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6">
+                <h4 className="font-semibold text-blue-300 mb-4 flex items-center gap-2">
+                  <Zap className="w-5 h-5" /> CPFQ + Fusion FA Synthesis
+                </h4>
+                <p className="text-slate-300 text-sm mb-4">
+                  Automatic integration of CPFQ subscale deficits with high-fusion statements:
+                </p>
+                
+                <div className="space-y-3">
+                  {generateSynthesis().map((syn, idx) => (
+                    <div key={idx} className="bg-slate-900/50 rounded-lg p-4 border-l-4 border-blue-500">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded font-medium">
+                          {syn.area}
+                        </span>
+                      </div>
+                      {syn.statement !== "(General pattern)" && (
+                        <p className="text-white text-sm mb-2">
+                          "{syn.statement.slice(0, 60)}{syn.statement.length > 60 ? '...' : ''}"
+                        </p>
+                      )}
+                      <p className="text-slate-300 text-sm">
+                        <span className="text-cyan-400">→</span> {syn.recommendation}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Process Area Summary */}
+                <div className="mt-4 bg-slate-900/50 rounded-lg p-3">
+                  <h5 className="text-slate-300 font-medium mb-2 text-sm">Process Areas Identified (CPFQ Subscales ≥50%)</h5>
+                  <div className="flex flex-wrap gap-2">
+                    {getWeakProcessAreas().map((area, idx) => (
+                      <span key={idx} className="bg-blue-900/50 text-blue-300 text-xs px-2 py-1 rounded">
+                        {area.label}: {area.percentage.toFixed(0)}%
+                      </span>
+                    ))}
+                    {getWeakProcessAreas().length === 0 && (
+                      <span className="text-slate-500 text-xs">No subscales above threshold</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* 5-Lesson Curriculum */}
             <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-6">
