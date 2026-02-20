@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-// Using Gemini 2.5 Pro - Google's most capable model for nuanced clinical analysis
-const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:generateContent";
+// Using Gemini 3.1 Pro Preview - Google's latest flagship model (Feb 2026)
+// 1M token context, 77.1% ARC-AGI-2 reasoning
+const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:generateContent";
 
 export async function POST(request: NextRequest) {
   try {
