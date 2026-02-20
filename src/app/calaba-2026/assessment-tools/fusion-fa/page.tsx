@@ -7,7 +7,7 @@ import {
   ArrowLeft, ArrowRight, Play, Pause, RotateCcw, Plus, Trash2, 
   BarChart3, Target, Clock, AlertTriangle, CheckCircle, User,
   Brain, Heart, Zap, Shield, FileText, Download, LogIn, Users,
-  ClipboardList
+  ClipboardList, Sparkles, Loader2
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 
@@ -56,6 +56,12 @@ interface Statement {
   challengingLatency: number | null;
   validatingPrecursors: string;
   challengingPrecursors: string;
+  // AI-generated scripts
+  aiValidating?: string;
+  aiChallenging?: string;
+  aiFrameType?: string;
+  scriptsGenerated?: boolean;
+  scriptsLoading?: boolean;
 }
 
 type Step = "afqy" | "parent-cpfq" | "questionnaire" | "matrix" | "context" | "statements" | "fusion-fa" | "results";
@@ -401,6 +407,57 @@ export default function FusionFAWorkflow() {
       }
       return s;
     }));
+  };
+
+  // Generate AI scripts for a statement
+  const generateAIScripts = async (id: string) => {
+    const statement = statements.find(s => s.id === id);
+    if (!statement) return;
+
+    // Set loading state
+    setStatements(prev => prev.map(s => s.id === id ? { ...s, scriptsLoading: true } : s));
+
+    try {
+      const response = await fetch('/api/fusion-fa/generate-scripts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          statement: statement.text,
+          context: statement.context,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setStatements(prev => prev.map(s => {
+          if (s.id === id) {
+            return {
+              ...s,
+              aiValidating: data.validating,
+              aiChallenging: data.challenging,
+              aiFrameType: data.frameType,
+              scriptsGenerated: true,
+              scriptsLoading: false,
+            };
+          }
+          return s;
+        }));
+      } else {
+        throw new Error('Failed to generate scripts');
+      }
+    } catch (error) {
+      console.error('Script generation error:', error);
+      setStatements(prev => prev.map(s => s.id === id ? { ...s, scriptsLoading: false } : s));
+    }
+  };
+
+  // Generate scripts for all statements
+  const generateAllScripts = async () => {
+    for (const statement of statements) {
+      if (!statement.scriptsGenerated) {
+        await generateAIScripts(statement.id);
+      }
+    }
   };
 
   const removeStatement = (id: string) => {
@@ -1333,24 +1390,55 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
         {step === "fusion-fa" && (
           <div className="space-y-6">
             <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
-              <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-yellow-400" /> Protocol
-              </h3>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-semibold text-white flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-yellow-400" /> Protocol
+                </h3>
+                <button
+                  onClick={generateAllScripts}
+                  className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2"
+                >
+                  <Sparkles className="w-4 h-4" /> Generate All Scripts (AI)
+                </button>
+              </div>
               <div className="text-sm text-slate-300 space-y-1">
-                <p><strong className="text-green-400">Validating:</strong> Support the verbal relation</p>
-                <p><strong className="text-red-400">Challenging:</strong> Gently challenge it</p>
+                <p><strong className="text-green-400">Control (Validating):</strong> Support the verbal relation</p>
+                <p><strong className="text-red-400">Test (Challenging):</strong> Gently challenge it</p>
                 <p><strong className="text-cyan-400">Measure:</strong> Latency to first precursor behavior</p>
               </div>
             </div>
 
             {statements.map((statement, idx) => {
-              const prompts = generatePrompts(statement);
+              const templatePrompts = generatePrompts(statement);
+              const prompts = {
+                validating: statement.aiValidating || templatePrompts.validating,
+                challenging: statement.aiChallenging || templatePrompts.challenging,
+                frameType: statement.aiFrameType || templatePrompts.frameType,
+              };
               return (
                 <div key={statement.id} className="bg-slate-800 border border-slate-700 rounded-xl p-5">
                   <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs text-slate-500">Statement {idx + 1}</span>
-                      <span className="text-[10px] bg-slate-700 text-slate-400 px-2 py-0.5 rounded uppercase">{prompts.frameType}</span>
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-slate-500">Statement {idx + 1}</span>
+                        <span className="text-[10px] bg-slate-700 text-slate-400 px-2 py-0.5 rounded uppercase">{prompts.frameType}</span>
+                        {statement.scriptsGenerated && (
+                          <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded flex items-center gap-1">
+                            <Sparkles className="w-3 h-3" /> AI Generated
+                          </span>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => generateAIScripts(statement.id)}
+                        disabled={statement.scriptsLoading}
+                        className="text-purple-400 hover:text-purple-300 text-xs flex items-center gap-1 disabled:opacity-50"
+                      >
+                        {statement.scriptsLoading ? (
+                          <><Loader2 className="w-3 h-3 animate-spin" /> Generating...</>
+                        ) : (
+                          <><Sparkles className="w-3 h-3" /> {statement.scriptsGenerated ? 'Regenerate' : 'Generate AI Scripts'}</>
+                        )}
+                      </button>
                     </div>
                     <p className="text-white font-semibold text-lg">"{statement.text}"</p>
                     {statement.context && <p className="text-slate-400 text-sm mt-1">Context: {statement.context}</p>}
