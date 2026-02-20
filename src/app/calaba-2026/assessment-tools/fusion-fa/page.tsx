@@ -267,53 +267,220 @@ export default function FusionFAWorkflow() {
     return { level: "Low", color: "text-green-400", bg: "bg-green-500/20", priority: false };
   };
 
+  // Comprehensive Relational Frame Types based on RFT literature
+  type RelationalFrameType = 
+    | "coordination-self" // I am X (self-as-content)
+    | "coordination-other" // They are X, X is Y
+    | "opposition" // X is opposite of Y
+    | "distinction" // X is different from Y
+    | "comparison-self" // I am more/less X than others
+    | "comparison-general" // X is better/worse than Y
+    | "hierarchical" // I am part of X, X contains Y
+    | "temporal-past" // X happened, because of past
+    | "temporal-future" // X will happen, prediction
+    | "temporal-always" // X always/never happens
+    | "causal" // X causes Y, because X then Y
+    | "conditional" // If X then Y, must/should/have to
+    | "deictic-self" // I-here-now perspective
+    | "deictic-other" // You-there-then, they think X
+    | "spatial" // Here/there, in/out, close/far
+    | "evaluative" // X is good/bad, right/wrong
+    | "general";
+
   // Generate validating and challenging prompts based on statement and context
   const generatePrompts = (statement: Statement) => {
     const text = statement.text.toLowerCase();
+    const originalText = statement.text;
     const context = statement.context || "";
     
-    // Identify relational frame type
-    let frameType: "self-evaluation" | "prediction" | "social-comparison" | "control-rule" | "general" = "general";
+    // Comprehensive frame detection
+    let frameType: RelationalFrameType = "general";
     
-    if (text.includes("i'm") && (text.includes("stupid") || text.includes("bad") || text.includes("dumb") || text.includes("worthless") || text.includes("failure"))) {
-      frameType = "self-evaluation";
-    } else if (text.includes("going to") || text.includes("will") || text.includes("never") || text.includes("always")) {
-      frameType = "prediction";
-    } else if (text.includes("nobody") || text.includes("everyone") || text.includes("they") || text.includes("people")) {
-      frameType = "social-comparison";
-    } else if (text.includes("have to") || text.includes("must") || text.includes("should") || text.includes("can't")) {
-      frameType = "control-rule";
+    // COORDINATION - Sameness/Equivalence frames
+    if (/^i('m| am) (a |an |the )?/.test(text) && /(stupid|dumb|bad|worthless|failure|loser|idiot|ugly|fat|weak|broken|mess|disaster)/.test(text)) {
+      frameType = "coordination-self";
+    } else if (/^(i('m| am)|i feel) (like )?(nothing|nobody|invisible|alone|empty|lost)/.test(text)) {
+      frameType = "coordination-self";
+    } else if (/(they|he|she|everyone|people|kids|teachers?) (is|are|think|say|believe)/.test(text)) {
+      frameType = "coordination-other";
+    }
+    // OPPOSITION frames
+    else if (/(opposite|contrary|against|versus|rather than)/.test(text)) {
+      frameType = "opposition";
+    } else if (/(not like|unlike|the reverse|instead of)/.test(text)) {
+      frameType = "opposition";
+    }
+    // DISTINCTION frames  
+    else if (/(different|unique|separate|apart|not the same|don't belong|don't fit)/.test(text)) {
+      frameType = "distinction";
+    } else if (/(outsider|outcast|weirdo|freak|not like (them|others|everyone))/.test(text)) {
+      frameType = "distinction";
+    }
+    // COMPARISON frames
+    else if (/(worse|better|more|less|smarter|dumber|prettier|uglier) than/.test(text)) {
+      frameType = "comparison-self";
+    } else if (/(not (as|good|smart|pretty|fast) (as|enough))/.test(text)) {
+      frameType = "comparison-self";
+    } else if (/(the worst|the best|most|least|biggest|smallest)/.test(text)) {
+      frameType = "comparison-general";
+    }
+    // HIERARCHICAL frames
+    else if (/(part of|belong to|member of|in the group|on the team)/.test(text)) {
+      frameType = "hierarchical";
+    } else if (/(type of|kind of|category|all \w+ are)/.test(text)) {
+      frameType = "hierarchical";
+    }
+    // TEMPORAL frames
+    else if (/(used to|back when|remember when|that time|before|after|since|when i was)/.test(text)) {
+      frameType = "temporal-past";
+    } else if (/(going to|gonna|will|won't|about to|someday|eventually|soon)/.test(text)) {
+      frameType = "temporal-future";
+    } else if (/(always|never|every time|all the time|constantly|forever|eternally)/.test(text)) {
+      frameType = "temporal-always";
+    }
+    // CAUSAL frames
+    else if (/(because|since|therefore|so|that's why|the reason|caused|made me|fault)/.test(text)) {
+      frameType = "causal";
+    } else if (/(leads to|results in|ends up|turns into)/.test(text)) {
+      frameType = "causal";
+    }
+    // CONDITIONAL frames (rules)
+    else if (/(if i|when i|whenever|unless|only if|as long as)/.test(text)) {
+      frameType = "conditional";
+    } else if (/(have to|must|should|need to|supposed to|got to|can't|cannot|not allowed)/.test(text)) {
+      frameType = "conditional";
+    }
+    // DEICTIC frames (perspective-taking)
+    else if (/(i know|i see|i feel|i think|from my|in my experience|for me)/.test(text)) {
+      frameType = "deictic-self";
+    } else if (/(they think|they see|from their|in their eyes|they probably|they must think)/.test(text)) {
+      frameType = "deictic-other";
+    }
+    // SPATIAL frames
+    else if (/(here|there|inside|outside|close|far|near|away|in this|out of)/.test(text)) {
+      frameType = "spatial";
+    } else if (/(trapped|stuck|cornered|surrounded|boxed in|no way out)/.test(text)) {
+      frameType = "spatial";
+    }
+    // EVALUATIVE frames
+    else if (/(good|bad|right|wrong|fair|unfair|stupid idea|dumb thing|mistake)/.test(text)) {
+      frameType = "evaluative";
+    } else if (/(sucks|terrible|awful|horrible|great|amazing|perfect)/.test(text)) {
+      frameType = "evaluative";
     }
 
-    // Generate context-specific prompts
-    const contextPhrase = context ? ` especially ${context.toLowerCase()}` : "";
+    // Generate context-aware prompts
+    const ctx = context ? `, especially ${context.toLowerCase()}` : "";
+    const ctxStart = context ? `When ${context.toLowerCase()}, ` : "";
     
     let validating = "";
     let challenging = "";
+    let frameLabel = "";
     
     switch (frameType) {
-      case "self-evaluation":
-        validating = `"I can see why you'd feel that way${contextPhrase}. When you think '${statement.text}', it makes sense given what you're going through."`;
-        challenging = `"I'm curious—is '${statement.text}' something you know for certain, or is it more like a thought your mind is telling you${contextPhrase}?"`;
+      case "coordination-self":
+        frameLabel = "Self-as-Content";
+        validating = `"${ctxStart}I can see why you'd think '${originalText}'. When that thought shows up, it probably feels completely true."`;
+        challenging = `"I'm curious about something. Is '${originalText}' a fact about you, or is it more like a thought your mind is having${ctx}? What's the difference?"`;
         break;
-      case "prediction":
-        validating = `"That sounds really hard${contextPhrase}. When you think '${statement.text}', I can understand why that feels true."`;
-        challenging = `"Has there ever been a time${contextPhrase} when you thought '${statement.text}' but it didn't turn out that way?"`;
+        
+      case "coordination-other":
+        frameLabel = "Other-Coordination";
+        validating = `"It sounds like you really believe '${originalText}'${ctx}. That must be hard to carry around."`;
+        challenging = `"How do you know for certain that '${originalText}'? Is there any way to check if that's actually true, or might your mind be filling in the blanks?"`;
         break;
-      case "social-comparison":
-        validating = `"It sounds like you really believe '${statement.text}'${contextPhrase}. That must be difficult to carry around."`;
-        challenging = `"I wonder—how would you know for sure that '${statement.text}'? Is there any evidence that might not be 100% accurate${contextPhrase}?"`;
+
+      case "opposition":
+        frameLabel = "Opposition";
+        validating = `"I hear you saying '${originalText}'${ctx}. It sounds like you see these as completely opposite."`;
+        challenging = `"What if '${originalText}' isn't as black-and-white as it seems? Are there any shades of gray your mind might be missing?"`;
         break;
-      case "control-rule":
-        validating = `"I hear you saying '${statement.text}'${contextPhrase}. It sounds like this rule feels very real to you."`;
-        challenging = `"What would happen if '${statement.text}' wasn't actually a rule you had to follow${contextPhrase}? What might be different?"`;
+
+      case "distinction":
+        frameLabel = "Distinction/Difference";
+        validating = `"${ctxStart}When you think '${originalText}', it makes sense that you'd feel separate or different."`;
+        challenging = `"I wonder—in what ways might you actually be similar to others, even when '${originalText}' feels true${ctx}?"`;
         break;
+
+      case "comparison-self":
+        frameLabel = "Self-Comparison";
+        validating = `"I can understand why '${originalText}' would feel true${ctx}. Comparing ourselves to others is something we all do."`;
+        challenging = `"When your mind tells you '${originalText}', is it comparing you to everyone fairly, or might it be picking specific examples${ctx}?"`;
+        break;
+
+      case "comparison-general":
+        frameLabel = "Comparison";
+        validating = `"It sounds like '${originalText}' feels like an accurate assessment to you${ctx}."`;
+        challenging = `"I'm curious—by what standard are you measuring '${originalText}'? Is there another way to look at this${ctx}?"`;
+        break;
+
+      case "hierarchical":
+        frameLabel = "Hierarchical/Category";
+        validating = `"${ctxStart}I hear that '${originalText}' is an important way you see yourself fitting in."`;
+        challenging = `"What if '${originalText}' is just one way to categorize things? Are there other groups or categories that might also apply${ctx}?"`;
+        break;
+
+      case "temporal-past":
+        frameLabel = "Temporal-Past";
+        validating = `"When you remember '${originalText}'${ctx}, I can see why that past experience would still affect you."`;
+        challenging = `"That happened in the past. I wonder—does '${originalText}' have to define what happens now or in the future${ctx}?"`;
+        break;
+
+      case "temporal-future":
+        frameLabel = "Temporal-Future";
+        validating = `"${ctxStart}When you think '${originalText}', that prediction probably feels very certain."`;
+        challenging = `"Has there ever been a time when you predicted something bad would happen and it turned out differently? What would it mean if '${originalText}' wasn't guaranteed${ctx}?"`;
+        break;
+
+      case "temporal-always":
+        frameLabel = "Temporal-Absolute";
+        validating = `"It sounds like '${originalText}' feels like an absolute truth${ctx}—like it happens without exception."`;
+        challenging = `"'Always' and 'never' are pretty strong words. Can you think of even one exception to '${originalText}'${ctx}? What would that mean?"`;
+        break;
+
+      case "causal":
+        frameLabel = "Causal";
+        validating = `"I understand—when you think '${originalText}'${ctx}, there's a clear cause and effect in your mind."`;
+        challenging = `"What if there are other causes besides the one your mind is focused on? Could '${originalText}' have multiple explanations${ctx}?"`;
+        break;
+
+      case "conditional":
+        frameLabel = "Conditional/Rule";
+        validating = `"${ctxStart}I hear you saying '${originalText}'. It sounds like this rule feels absolutely necessary to follow."`;
+        challenging = `"What would happen if '${originalText}' wasn't actually a rule you had to follow${ctx}? What's the worst that could realistically happen?"`;
+        break;
+
+      case "deictic-self":
+        frameLabel = "Self-Perspective";
+        validating = `"From your perspective${ctx}, '${originalText}' makes complete sense."`;
+        challenging = `"If your best friend was in this exact situation${ctx}, would they see it the same way? What might they notice that's different from '${originalText}'?"`;
+        break;
+
+      case "deictic-other":
+        frameLabel = "Other-Perspective";
+        validating = `"It sounds like you're pretty sure about what others think—'${originalText}'${ctx}."`;
+        challenging = `"I'm curious—can you actually read their minds? Is it possible '${originalText}' is more of a guess than a fact${ctx}?"`;
+        break;
+
+      case "spatial":
+        frameLabel = "Spatial";
+        validating = `"${ctxStart}When you feel '${originalText}', that sense of being trapped or stuck must be overwhelming."`;
+        challenging = `"Even when '${originalText}' feels true${ctx}, are there any small movements or options your mind might not be noticing?"`;
+        break;
+
+      case "evaluative":
+        frameLabel = "Evaluative";
+        validating = `"I can see why '${originalText}' would feel like an accurate judgment${ctx}."`;
+        challenging = `"Who decides whether '${originalText}' is true? Is this evaluation a fact or an opinion—and whose opinion is it${ctx}?"`;
+        break;
+
       default:
-        validating = `"I hear you saying '${statement.text}'${contextPhrase}. That makes sense given what you've shared."`;
-        challenging = `"I'm not sure '${statement.text}' is completely true${contextPhrase}. What do you think—is this a fact or more of a thought?"`;
+        frameLabel = "Verbal Relation";
+        validating = `"${ctxStart}I hear you saying '${originalText}'. That thought makes sense given what you've shared."`;
+        challenging = `"What if '${originalText}' is just a thought your mind is having, not necessarily the whole truth${ctx}? What else might be true?"`;
     }
     
-    return { validating, challenging, frameType };
+    return { validating, challenging, frameType: frameLabel };
   };
 
   const allComplete = statements.length > 0 && statements.every(s => s.validatingLatency !== null && s.challengingLatency !== null);
