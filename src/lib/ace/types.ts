@@ -253,6 +253,9 @@ export interface AceEvent {
   location?: string;
   online_meeting_url?: string;
 
+  // Pricing
+  fee?: number;
+
   // Verification
   verification_method?: AceVerificationMethod;
   passing_score_percentage?: number;
