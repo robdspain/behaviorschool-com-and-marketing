@@ -268,6 +268,22 @@ export default function ProvidersPage() {
                         </div>
                       </div>
 
+                      {/* Coordinator Certification Status */}
+                      <div className="bg-emerald-50 rounded-lg p-4 mt-4">
+                        <h4 className="font-semibold text-emerald-900 mb-2 flex items-center gap-2">
+                          <Calendar className="w-4 h-4" />
+                          Coordinator Certification
+                        </h4>
+                        <div className="text-sm">
+                          <p className="text-slate-500">Certification Expires</p>
+                          <p className="font-medium text-slate-900">
+                            {provider.coordinator_certification_expires
+                              ? new Date(provider.coordinator_certification_expires).toLocaleDateString()
+                              : <span className="text-red-600">Not Set</span>}
+                          </p>
+                        </div>
+                      </div>
+
                       {/* Legal Entity Verification (Organizations Only) */}
                       {isOrganization && (
                         <div className="bg-slate-50 rounded-lg p-4 mb-4">
@@ -403,6 +419,18 @@ export default function ProvidersPage() {
   );
 }
 
+// Helper to format date for input
+const formatDateForInput = (date: string | Date | null | undefined) => {
+  if (!date) return '';
+  try {
+    // Handles ISO strings and Date objects
+    return new Date(date).toISOString().split('T')[0];
+  } catch (e) {
+    // Return empty string if date is invalid
+    return '';
+  }
+};
+
 // Provider Create/Edit Modal
 function ProviderModal({
   provider,
@@ -416,12 +444,14 @@ function ProviderModal({
   const isEdit = !!provider;
   const [formData, setFormData] = useState({
     provider_name: provider?.provider_name || '',
-    provider_type: provider?.provider_type || 'individual' as AceProviderType,
+    provider_type: provider?.provider_type || ('individual' as AceProviderType),
     bacb_provider_number: provider?.bacb_provider_number || '',
     primary_email: provider?.primary_email || '',
     primary_phone: provider?.primary_phone || '',
     website: provider?.website || '',
     coordinator_years_certified: provider?.coordinator_years_certified || 5,
+    coordinator_certification_date: formatDateForInput(provider?.coordinator_certification_date),
+    coordinator_certification_expires: formatDateForInput(provider?.coordinator_certification_expires),
     ein: provider?.ein || '',
     leadership_name: provider?.leadership_name || '',
     leadership_title: provider?.leadership_title || '',
@@ -564,6 +594,37 @@ function ProviderModal({
               className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               placeholder="https://..."
             />
+          </div>
+
+          <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 space-y-4">
+            <h3 className="font-semibold text-emerald-900 flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
+              Coordinator Certification (2026 BACB)
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Certification Date
+                </label>
+                <input
+                  type="date"
+                  value={formData.coordinator_certification_date}
+                  onChange={e => setFormData({ ...formData, coordinator_certification_date: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">
+                  Certification Expires
+                </label>
+                <input
+                  type="date"
+                  value={formData.coordinator_certification_expires}
+                  onChange={e => setFormData({ ...formData, coordinator_certification_expires: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Organization-specific fields */}
