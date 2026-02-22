@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getConvexClient, api } from '@/lib/convex';
+import type { Id } from '../../../../../../convex/_generated/dataModel';
 import Stripe from 'stripe';
 
 // Initialize lazily to avoid build errors
@@ -11,12 +12,6 @@ function getStripe() {
     apiVersion: '2024-12-18.acacia',
   });
 }
-
-// Create admin Supabase client for webhook
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE!
-);
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -42,22 +37,19 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const client = getConvexClient();
+
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
         const registrationId = session.metadata?.registration_id;
 
         if (registrationId) {
-          // Update registration to confirmed
-          await supabase
-            .from('ace_registrations')
-            .update({
-              status: 'confirmed',
-              fee_paid: true,
-              payment_date: new Date().toISOString(),
-              stripe_payment_intent_id: session.payment_intent as string,
-            })
-            .eq('id', registrationId);
+          await client.mutation(api.aceRegistrations.markPaymentComplete, {
+            id: registrationId as Id<'aceRegistrations'>,
+            stripeSessionId: session.id,
+            stripePaymentIntentId: session.payment_intent as string,
+          });
 
           console.log(`Registration ${registrationId} payment confirmed`);
 
@@ -71,32 +63,9 @@ export async function POST(request: NextRequest) {
         const registrationId = session.metadata?.registration_id;
 
         if (registrationId) {
-          // Update registration status
-          await supabase
-            .from('ace_registrations')
-            .update({
-              status: 'payment_expired',
-            })
-            .eq('id', registrationId);
-
-          // Decrement participant count
-          const eventId = session.metadata?.event_id;
-          if (eventId) {
-            const { data: event } = await supabase
-              .from('ace_events')
-              .select('current_participants')
-              .eq('id', eventId)
-              .single();
-
-            if (event && event.current_participants > 0) {
-              await supabase
-                .from('ace_events')
-                .update({
-                  current_participants: event.current_participants - 1,
-                })
-                .eq('id', eventId);
-            }
-          }
+          await client.mutation(api.aceRegistrations.cancel, {
+            id: registrationId as Id<'aceRegistrations'>,
+          });
         }
         break;
       }
@@ -104,7 +73,6 @@ export async function POST(request: NextRequest) {
       case 'payment_intent.payment_failed': {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
         console.log(`Payment failed: ${paymentIntent.id}`);
-        // Could send notification email here
         break;
       }
 
@@ -119,6 +87,5 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Route segment config for disabling body parsing
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';

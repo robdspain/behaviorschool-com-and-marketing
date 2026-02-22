@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { getConvexClient, api } from '@/lib/convex';
+import { getQuizQuestions, addQuizQuestion } from '@/lib/ace/ace-service';
+import type { Id } from '../../../../../../convex/_generated/dataModel';
+
+export const dynamic = 'force-dynamic';
 
 // GET /api/ace/quizzes/[id]/questions - Get questions for a quiz
 export async function GET(
@@ -8,18 +12,10 @@ export async function GET(
 ) {
   try {
     const { id: quizId } = await params;
-    const supabase = await createClient();
 
-    const { data, error } = await supabase
-      .from('ace_quiz_questions')
-      .select('*')
-      .eq('quiz_id', quizId)
-      .eq('is_active', true)
-      .order('order_index', { ascending: true });
+    const questions = await getQuizQuestions(quizId);
 
-    if (error) throw error;
-
-    return NextResponse.json({ success: true, data }, { status: 200 });
+    return NextResponse.json({ success: true, data: questions });
   } catch (error) {
     console.error('Error fetching questions:', error);
     return NextResponse.json(
@@ -36,8 +32,6 @@ export async function POST(
 ) {
   try {
     const { id: quizId } = await params;
-    const supabase = await createClient();
-
     const body = await request.json();
 
     // Validate required fields
@@ -48,53 +42,17 @@ export async function POST(
       );
     }
 
-    // Get current question count for order_index
-    const { count } = await supabase
-      .from('ace_quiz_questions')
-      .select('*', { count: 'exact', head: true })
-      .eq('quiz_id', quizId);
-
-    const questionData = {
-      quiz_id: quizId,
+    // Add question using the Convex-powered service
+    const question = await addQuizQuestion(quizId, {
       question_text: body.question_text,
       question_type: body.question_type || 'multiple_choice',
       options: body.options,
       correct_answers: body.correct_answers,
-      explanation: body.explanation || null,
+      explanation: body.explanation,
       points: body.points || 1,
-      order_index: (count || 0) + 1,
-      is_active: true,
-    };
+    });
 
-    const { data, error } = await supabase
-      .from('ace_quiz_questions')
-      .insert([questionData])
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    // Update actual_questions_count on the event
-    const { data: quiz } = await supabase
-      .from('ace_quizzes')
-      .select('event_id')
-      .eq('id', quizId)
-      .single();
-
-    if (quiz?.event_id) {
-      const { count: totalQuestions } = await supabase
-        .from('ace_quiz_questions')
-        .select('*', { count: 'exact', head: true })
-        .eq('quiz_id', quizId)
-        .eq('is_active', true);
-
-      await supabase
-        .from('ace_events')
-        .update({ actual_questions_count: totalQuestions })
-        .eq('id', quiz.event_id);
-    }
-
-    return NextResponse.json({ success: true, data }, { status: 201 });
+    return NextResponse.json({ success: true, data: question }, { status: 201 });
   } catch (error) {
     console.error('Error adding question:', error);
     return NextResponse.json(
@@ -104,14 +62,14 @@ export async function POST(
   }
 }
 
-// DELETE /api/ace/quizzes/[id]/questions - Delete a question
+// DELETE /api/ace/quizzes/[id]/questions - Delete a question (soft delete)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id: quizId } = await params;
-    const supabase = await createClient();
+    const client = getConvexClient();
 
     const { searchParams } = new URL(request.url);
     const questionId = searchParams.get('question_id');
@@ -123,35 +81,12 @@ export async function DELETE(
       );
     }
 
-    const { error } = await supabase
-      .from('ace_quiz_questions')
-      .update({ is_active: false })
-      .eq('id', questionId)
-      .eq('quiz_id', quizId);
+    // Soft delete - deactivate the question
+    await client.mutation(api.aceQuizzes.deactivateQuestion, {
+      questionId: questionId as Id<"aceQuizQuestions">,
+    });
 
-    if (error) throw error;
-
-    // Update actual_questions_count on the event
-    const { data: quiz } = await supabase
-      .from('ace_quizzes')
-      .select('event_id')
-      .eq('id', quizId)
-      .single();
-
-    if (quiz?.event_id) {
-      const { count: totalQuestions } = await supabase
-        .from('ace_quiz_questions')
-        .select('*', { count: 'exact', head: true })
-        .eq('quiz_id', quizId)
-        .eq('is_active', true);
-
-      await supabase
-        .from('ace_events')
-        .update({ actual_questions_count: totalQuestions })
-        .eq('id', quiz.event_id);
-    }
-
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting question:', error);
     return NextResponse.json(

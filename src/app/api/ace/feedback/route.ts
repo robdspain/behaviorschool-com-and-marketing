@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { getConvexClient, api } from '@/lib/convex';
+import { submitFeedback } from '@/lib/ace/ace-service';
+import type { Id } from '../../../../convex/_generated/dataModel';
+
+export const dynamic = 'force-dynamic';
 
 /**
  * POST /api/ace/feedback
@@ -7,7 +11,6 @@ import { createClient } from '@/lib/supabase-server';
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
     const body = await request.json();
 
     const {
@@ -31,70 +34,47 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!overallRating || !instructorRating || !contentRating || !relevanceRating) {
+    if (!overallRating || !instructorRating || !contentRating) {
       return NextResponse.json(
         { error: 'Please provide all required ratings' },
         { status: 400 }
       );
     }
 
-    // Check if feedback already submitted
-    const { data: existingFeedback } = await supabase
-      .from('ace_feedback_responses')
-      .select('id')
-      .eq('event_id', event_id)
-      .eq('participant_id', participant_id)
-      .single();
+    const client = getConvexClient();
 
-    if (existingFeedback) {
+    // Check if feedback already submitted
+    const hasSubmitted = await client.query(api.aceFeedback.hasSubmitted, {
+      eventId: event_id as Id<"aceEvents">,
+      participantId: participant_id as Id<"aceUsers">,
+    });
+
+    if (hasSubmitted) {
       return NextResponse.json(
         { error: 'Feedback already submitted for this event' },
         { status: 400 }
       );
     }
 
-    // Create feedback record
-    const { data: feedback, error: feedbackError } = await supabase
-      .from('ace_feedback_responses')
-      .insert([{
-        event_id,
-        participant_id,
-        rating: overallRating,
-        instructor_rating: instructorRating,
-        content_rating: contentRating,
-        relevance_rating: relevanceRating,
-        comments: comments || null,
-        suggestions: suggestions || null,
-        would_recommend: wouldRecommend,
-        application_plan: applicationPlan || null,
-        submitted_at: new Date().toISOString(),
-      }])
-      .select()
-      .single();
-
-    if (feedbackError) {
-      console.error('Feedback error:', feedbackError);
-      return NextResponse.json(
-        { error: 'Failed to submit feedback' },
-        { status: 500 }
-      );
-    }
-
-    // Update registration to mark feedback as completed
-    await supabase
-      .from('ace_registrations')
-      .update({ feedback_completed: true })
-      .eq('event_id', event_id)
-      .eq('participant_id', participant_id);
+    // Submit feedback using the Convex-powered service
+    await submitFeedback(event_id, participant_id, {
+      rating: overallRating,
+      instructorRating,
+      contentRating,
+      comments,
+      suggestions,
+      wouldRecommend: wouldRecommend ?? true,
+    });
 
     return NextResponse.json({
       success: true,
-      feedback_id: feedback.id,
+      message: 'Feedback submitted successfully',
     });
   } catch (error) {
     console.error('Feedback submission error:', error);
+    const message = error instanceof Error ? error.message : 'An unexpected error occurred';
     return NextResponse.json(
-      { error: 'An unexpected error occurred' },
+      { error: message },
       { status: 500 }
     );
   }
@@ -102,48 +82,35 @@ export async function POST(request: NextRequest) {
 
 /**
  * GET /api/ace/feedback
- * Get feedback for an event (admin)
+ * Get feedback for an event
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
+    const client = getConvexClient();
     const { searchParams } = new URL(request.url);
     const eventId = searchParams.get('event_id');
     const participantId = searchParams.get('participant_id');
 
-    let query = supabase
-      .from('ace_feedback_responses')
-      .select(`
-        *,
-        participant:ace_users (
-          id,
-          first_name,
-          last_name,
-          email
-        )
-      `)
-      .order('submitted_at', { ascending: false });
-
     if (eventId) {
-      query = query.eq('event_id', eventId);
+      // Get feedback for a specific event
+      const feedback = await client.query(api.aceFeedback.getByEvent, {
+        eventId: eventId as Id<"aceEvents">,
+      });
+      return NextResponse.json({ success: true, data: feedback });
     }
 
     if (participantId) {
-      query = query.eq('participant_id', participantId);
+      // Get feedback by a specific participant
+      const feedback = await client.query(api.aceFeedback.getByParticipant, {
+        participantId: participantId as Id<"aceUsers">,
+      });
+      return NextResponse.json({ success: true, data: feedback });
     }
 
-    const { data, error } = await query;
-
-    if (error) {
-      console.error('Fetch feedback error:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch feedback' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json(
+      { error: 'Please provide event_id or participant_id parameter' },
+      { status: 400 }
+    );
   } catch (error) {
     console.error('Fetch feedback error:', error);
     return NextResponse.json(

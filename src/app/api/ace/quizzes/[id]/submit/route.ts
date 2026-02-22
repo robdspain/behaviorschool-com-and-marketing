@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
 import { submitQuiz } from '@/lib/ace/ace-service';
 
 interface RouteParams {
@@ -19,7 +18,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    // Submit the quiz
+    // Submit the quiz using the Convex-powered service
     const result = await submitQuiz(quizId, participant_id, answers);
 
     return NextResponse.json({

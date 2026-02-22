@@ -1,70 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
-import { getCurrentUserProviderId } from '@/lib/ace/queries';
+import { getConvexClient, api } from '@/lib/convex';
+import type { Id } from '../../../../../../convex/_generated/dataModel';
+
+export const dynamic = 'force-dynamic';
 
 /**
- * GET /api/ace/providers/stats
- * Get dashboard statistics for the current user's provider
+ * GET /api/ace/providers/stats?provider_id=xxx
+ * Get dashboard statistics for a provider
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
-    // Check authentication
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Get the provider ID for the current user
-    const providerId = await getCurrentUserProviderId();
+    const { searchParams } = new URL(request.url);
+    const providerId = searchParams.get('provider_id');
 
     if (!providerId) {
       return NextResponse.json(
-        { error: 'No provider found for current user' },
+        { error: 'Missing required parameter: provider_id' },
+        { status: 400 }
+      );
+    }
+
+    const client = getConvexClient();
+
+    const dashboard = await client.query(api.aceProviders.getDashboard, {
+      providerId: providerId as Id<'aceProviders'>,
+    });
+
+    if (!dashboard) {
+      return NextResponse.json(
+        { error: 'Provider not found' },
         { status: 404 }
       );
     }
 
-    // Get total events count
-    const { count: totalEvents, error: eventsError } = await supabase
-      .from('ace_events')
-      .select('*', { count: 'exact', head: true })
-      .eq('provider_id', providerId);
-
-    if (eventsError) throw eventsError;
-
-    // Get active events count (approved or in_progress)
-    const { count: activeEvents, error: activeError } = await supabase
-      .from('ace_events')
-      .select('*', { count: 'exact', head: true })
-      .eq('provider_id', providerId)
-      .in('status', ['approved', 'in_progress']);
-
-    if (activeError) throw activeError;
-
-    // Get total registrations count
-    const { count: totalRegistrations, error: regError } = await supabase
-      .from('ace_registrations')
-      .select('event_id, ace_events!inner(provider_id)', { count: 'exact', head: true })
-      .eq('ace_events.provider_id', providerId);
-
-    if (regError) throw regError;
-
-    // Get total certificates issued
-    const { count: totalCertificatesIssued, error: certError } = await supabase
-      .from('ace_certificates')
-      .select('event_id, ace_events!inner(provider_id)', { count: 'exact', head: true })
-      .eq('ace_events.provider_id', providerId)
-      .eq('status', 'issued');
-
-    if (certError) throw certError;
-
     const stats = {
-      total_events: totalEvents || 0,
-      active_events: activeEvents || 0,
-      total_registrations: totalRegistrations || 0,
-      total_certificates_issued: totalCertificatesIssued || 0,
+      total_events: dashboard.stats.totalEvents,
+      active_events: dashboard.stats.activeEvents,
+      total_registrations: dashboard.stats.totalRegistrations,
+      total_certificates_issued: dashboard.stats.totalCertificates,
+      total_ceus_issued: dashboard.stats.totalCEUsIssued,
     };
 
     return NextResponse.json({ success: true, data: stats }, { status: 200 });

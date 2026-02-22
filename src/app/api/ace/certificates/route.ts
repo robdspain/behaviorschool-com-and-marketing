@@ -1,37 +1,51 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
-import {
-  generateCertificate,
-  getCertificates,
-  getParticipantCertificates
-} from '@/lib/ace/queries';
+import { getConvexClient, api } from '@/lib/convex';
+import { issueCertificate, getCertificateByNumber } from '@/lib/ace/ace-service';
+import type { Id } from '../../../../convex/_generated/dataModel';
+
+export const dynamic = 'force-dynamic';
 
 /**
  * GET /api/ace/certificates
- * Get all certificates (admin) or participant's own certificates
+ * Get certificates by participant or certificate number
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
-    // Check authentication
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
+    const client = getConvexClient();
     const { searchParams } = new URL(request.url);
     const participantId = searchParams.get('participant_id');
+    const certificateNumber = searchParams.get('number');
+    const eventId = searchParams.get('event_id');
 
-    // If participant_id provided, get their certificates
-    if (participantId) {
-      const certificates = await getParticipantCertificates(participantId);
-      return NextResponse.json({ success: true, data: certificates }, { status: 200 });
+    // Get by certificate number
+    if (certificateNumber) {
+      const certificate = await getCertificateByNumber(certificateNumber);
+      return NextResponse.json({ 
+        success: true, 
+        data: certificate ? [certificate] : [] 
+      });
     }
 
-    // Otherwise get all certificates (admin view)
-    const certificates = await getCertificates();
-    return NextResponse.json({ success: true, data: certificates }, { status: 200 });
+    // Get by participant
+    if (participantId) {
+      const certificates = await client.query(api.aceCertificates.getByParticipant, {
+        participantId: participantId as Id<"aceUsers">,
+      });
+      return NextResponse.json({ success: true, data: certificates });
+    }
+
+    // Get by event
+    if (eventId) {
+      const certificates = await client.query(api.aceCertificates.getByEvent, {
+        eventId: eventId as Id<"aceEvents">,
+      });
+      return NextResponse.json({ success: true, data: certificates });
+    }
+
+    return NextResponse.json(
+      { error: 'Please provide participant_id, number, or event_id parameter' },
+      { status: 400 }
+    );
   } catch (error) {
     console.error('Error fetching certificates:', error);
     return NextResponse.json(
@@ -47,14 +61,6 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
-    // Check authentication
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const body = await request.json();
     const { event_id, participant_id } = body;
 
@@ -65,8 +71,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate the certificate
-    const certificate = await generateCertificate(event_id, participant_id);
+    // Generate the certificate using the Convex-powered service
+    const certificate = await issueCertificate(event_id, participant_id);
 
     return NextResponse.json({ success: true, data: certificate }, { status: 201 });
   } catch (error) {

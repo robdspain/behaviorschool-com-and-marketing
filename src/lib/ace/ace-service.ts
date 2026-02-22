@@ -1,10 +1,11 @@
 // ============================================================================
-// ACE Platform - Service Layer
+// ACE Platform - Service Layer (Convex)
 // ============================================================================
-// Centralizes all business logic for the ACE CEU Platform
+// Centralizes all business logic for the ACE CEU Platform using Convex
 // ============================================================================
 
-import { createClient } from '@/lib/supabase-server';
+import { getConvexClient, api } from "@/lib/convex";
+import type { Id } from "../../../convex/_generated/dataModel";
 import type {
   AceEvent,
   AceUser,
@@ -16,7 +17,7 @@ import type {
   AceEventModality,
   AceEventStatus,
   AceCertificateStatus,
-} from './types';
+} from "./types";
 
 // ============================================================================
 // USER SERVICE
@@ -27,58 +28,33 @@ export async function getOrCreateAceUser(
   firstName: string,
   lastName: string,
   bacbId?: string
-): Promise<AceUser> {
-  const supabase = await createClient();
+): Promise<{ _id: Id<"aceUsers">; [key: string]: unknown }> {
+  const client = getConvexClient();
 
-  // Check if user already exists
-  const { data: existingUser } = await supabase
-    .from('ace_users')
-    .select('*')
-    .eq('email', email.toLowerCase())
-    .single();
+  const userId = await client.mutation(api.aceUsers.getOrCreate, {
+    email: email.toLowerCase(),
+    firstName,
+    lastName,
+    bacbId,
+  });
 
-  if (existingUser) {
-    // Update BACB ID if provided and not set
-    if (bacbId && !existingUser.bacb_id) {
-      const { data: updatedUser } = await supabase
-        .from('ace_users')
-        .update({ bacb_id: bacbId })
-        .eq('id', existingUser.id)
-        .select()
-        .single();
-      return updatedUser as AceUser;
-    }
-    return existingUser as AceUser;
-  }
+  // Fetch the user to return the full object
+  const user = await client.query(api.aceUsers.getById, { id: userId });
+  if (!user) throw new Error("Failed to create or get user");
 
-  // Create new user
-  const { data: newUser, error } = await supabase
-    .from('ace_users')
-    .insert([{
-      first_name: firstName,
-      last_name: lastName,
-      email: email.toLowerCase(),
-      bacb_id: bacbId,
-      role: 'participant',
-      is_active: true,
-    }])
-    .select()
-    .single();
-
-  if (error) throw new Error(`Failed to create user: ${error.message}`);
-  return newUser as AceUser;
+  return user;
 }
 
 export async function getUserByEmail(email: string): Promise<AceUser | null> {
-  const supabase = await createClient();
-  
-  const { data } = await supabase
-    .from('ace_users')
-    .select('*')
-    .eq('email', email.toLowerCase())
-    .single();
-  
-  return data as AceUser | null;
+  const client = getConvexClient();
+  const user = await client.query(api.aceUsers.getByEmail, {
+    email: email.toLowerCase(),
+  });
+
+  if (!user) return null;
+
+  // Transform Convex user to AceUser type
+  return transformUser(user);
 }
 
 // ============================================================================
@@ -90,66 +66,38 @@ export async function getPublicEvents(filters?: {
   modality?: AceEventModality;
   upcoming?: boolean;
 }): Promise<AceEvent[]> {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  let query = supabase
-    .from('ace_events')
-    .select(`
-      *,
-      provider:ace_providers (
-        id,
-        provider_name,
-        bacb_provider_number
-      )
-    `)
-    .in('status', ['approved', 'in_progress']);
+  const events = await client.query(api.aceEvents.getPublic, {
+    category: filters?.category,
+    modality: filters?.modality,
+    upcoming: filters?.upcoming,
+  });
 
-  if (filters?.category) {
-    query = query.eq('ce_category', filters.category);
-  }
-
-  if (filters?.modality) {
-    query = query.eq('modality', filters.modality);
-  }
-
-  if (filters?.upcoming) {
-    query = query.gte('start_date', new Date().toISOString());
-  }
-
-  const { data, error } = await query.order('start_date', { ascending: true });
-
-  if (error) throw error;
-  return data as AceEvent[];
+  return events.map(transformEvent);
 }
 
-export async function getEventWithDetails(eventId: string): Promise<AceEvent & {
-  provider: AceProvider;
-  quiz?: AceQuiz;
-  instructors?: AceUser[];
-}> {
-  const supabase = await createClient();
+export async function getEventWithDetails(eventId: string): Promise<
+  | (AceEvent & {
+      provider: AceProvider;
+      quiz?: AceQuiz;
+      instructors?: AceUser[];
+    })
+  | null
+> {
+  const client = getConvexClient();
 
-  const { data: event, error } = await supabase
-    .from('ace_events')
-    .select(`
-      *,
-      provider:ace_providers (*),
-      quiz:ace_quizzes (*),
-      event_instructors:ace_event_instructors (
-        user:ace_users (*)
-      )
-    `)
-    .eq('id', eventId)
-    .single();
+  const event = await client.query(api.aceEvents.getWithDetails, {
+    id: eventId as Id<"aceEvents">,
+  });
 
-  if (error) throw error;
-
-  // Transform instructors array
-  const instructors = event.event_instructors?.map((ei: { user: AceUser }) => ei.user) || [];
+  if (!event) return null;
 
   return {
-    ...event,
-    instructors,
+    ...transformEvent(event),
+    provider: event.provider ? transformProvider(event.provider) : ({} as AceProvider),
+    quiz: event.quiz ? transformQuiz(event.quiz) : undefined,
+    instructors: event.instructors?.map(transformUser) || [],
   };
 }
 
@@ -176,7 +124,7 @@ export async function registerForEvent(
     credentialType?: string;
   }
 ): Promise<RegistrationResult> {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
   // Get or create user
   const user = await getOrCreateAceUser(
@@ -186,121 +134,48 @@ export async function registerForEvent(
     userData.bacbId
   );
 
-  // Get event details
-  const { data: event } = await supabase
-    .from('ace_events')
-    .select('*')
-    .eq('id', eventId)
-    .single();
+  // Register for event
+  const result = await client.mutation(api.aceRegistrations.register, {
+    eventId: eventId as Id<"aceEvents">,
+    participantId: user._id,
+    credentialType: userData.credentialType,
+  });
 
-  if (!event) {
-    return { success: false, error: 'Event not found' };
-  }
-
-  // Check if already registered
-  const { data: existingReg } = await supabase
-    .from('ace_registrations')
-    .select('*')
-    .eq('event_id', eventId)
-    .eq('participant_id', user.id)
-    .single();
-
-  if (existingReg) {
+  if (!result.success) {
     return {
       success: false,
-      error: 'Already registered for this event',
-      registration_id: existingReg.id,
-      confirmation_code: existingReg.confirmation_code,
+      error: result.error,
+      registration_id: result.registrationId,
+      confirmation_code: result.confirmationCode,
     };
   }
 
-  // Check capacity
-  if (event.max_participants && event.current_participants >= event.max_participants) {
-    return { success: false, error: 'Event is at capacity' };
-  }
-
-  // Generate confirmation code
-  const confirmationCode = generateConfirmationCode();
-
-  // Create registration
-  const { data: registration, error } = await supabase
-    .from('ace_registrations')
-    .insert([{
-      event_id: eventId,
-      participant_id: user.id,
-      confirmation_code: confirmationCode,
-      status: 'pending',
-      fee_amount: event.fee || 0,
-      fee_paid: event.fee === 0 || !event.fee,
-    }])
-    .select()
-    .single();
-
-  if (error) {
-    return { success: false, error: `Registration failed: ${error.message}` };
-  }
-
-  // Increment participant count
-  await supabase
-    .from('ace_events')
-    .update({ current_participants: (event.current_participants || 0) + 1 })
-    .eq('id', eventId);
-
-  // If free event, confirm immediately
-  if (!event.fee || event.fee === 0) {
-    await supabase
-      .from('ace_registrations')
-      .update({ status: 'confirmed' })
-      .eq('id', registration.id);
-
-    return {
-      success: true,
-      registration_id: registration.id,
-      confirmation_code: confirmationCode,
-    };
-  }
-
-  // For paid events, return checkout URL
   return {
     success: true,
-    registration_id: registration.id,
-    confirmation_code: confirmationCode,
-    requires_payment: true,
+    registration_id: result.registrationId,
+    confirmation_code: result.confirmationCode,
+    requires_payment: result.requiresPayment,
   };
 }
 
 export async function getRegistration(registrationId: string) {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  const { data, error } = await supabase
-    .from('ace_registrations')
-    .select(`
-      *,
-      event:ace_events (*),
-      participant:ace_users (*)
-    `)
-    .eq('id', registrationId)
-    .single();
+  const registration = await client.query(api.aceRegistrations.getById, {
+    id: registrationId as Id<"aceRegistrations">,
+  });
 
-  if (error) throw error;
-  return data;
+  return registration;
 }
 
 export async function getEventRegistrations(eventId: string) {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  const { data, error } = await supabase
-    .from('ace_registrations')
-    .select(`
-      *,
-      participant:ace_users (*)
-    `)
-    .eq('event_id', eventId)
-    .eq('status', 'confirmed')
-    .order('created_at', { ascending: true });
+  const registrations = await client.query(api.aceRegistrations.getByEvent, {
+    eventId: eventId as Id<"aceEvents">,
+  });
 
-  if (error) throw error;
-  return data;
+  return registrations;
 }
 
 // ============================================================================
@@ -308,90 +183,83 @@ export async function getEventRegistrations(eventId: string) {
 // ============================================================================
 
 export async function getQuizForEvent(eventId: string): Promise<AceQuiz | null> {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  const { data } = await supabase
-    .from('ace_quizzes')
-    .select('*')
-    .eq('event_id', eventId)
-    .eq('is_active', true)
-    .single();
+  const quiz = await client.query(api.aceQuizzes.getByEvent, {
+    eventId: eventId as Id<"aceEvents">,
+  });
 
-  return data as AceQuiz | null;
+  return quiz ? transformQuiz(quiz) : null;
 }
 
 export async function getQuizQuestions(quizId: string): Promise<AceQuizQuestion[]> {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  const { data, error } = await supabase
-    .from('ace_quiz_questions')
-    .select('*')
-    .eq('quiz_id', quizId)
-    .eq('is_active', true)
-    .order('order_index', { ascending: true });
+  const questions = await client.query(api.aceQuizzes.getQuestions, {
+    quizId: quizId as Id<"aceQuizzes">,
+  });
 
-  if (error) throw error;
-  return data as AceQuizQuestion[];
+  return questions.map(transformQuizQuestion);
 }
 
-export async function createQuiz(eventId: string, quizData: Partial<AceQuiz>): Promise<AceQuiz> {
-  const supabase = await createClient();
+export async function createQuiz(
+  eventId: string,
+  quizData: Partial<AceQuiz>
+): Promise<AceQuiz> {
+  const client = getConvexClient();
 
-  const { data, error } = await supabase
-    .from('ace_quizzes')
-    .insert([{
-      event_id: eventId,
-      title: quizData.title || 'Event Quiz',
-      description: quizData.description,
-      passing_score_percentage: quizData.passing_score_percentage || 80,
-      max_attempts: quizData.max_attempts,
-      time_limit_minutes: quizData.time_limit_minutes,
-      shuffle_questions: quizData.shuffle_questions ?? true,
-      show_correct_answers: quizData.show_correct_answers ?? true,
-      is_required: quizData.is_required ?? true,
-      is_active: true,
-    }])
-    .select()
-    .single();
+  const quizId = await client.mutation(api.aceQuizzes.create, {
+    eventId: eventId as Id<"aceEvents">,
+    title: quizData.title || "Event Quiz",
+    description: quizData.description,
+    passingScorePercentage: quizData.passing_score_percentage || 80,
+    maxAttempts: quizData.max_attempts,
+    timeLimitMinutes: quizData.time_limit_minutes,
+    shuffleQuestions: quizData.shuffle_questions ?? true,
+    showCorrectAnswers: quizData.show_correct_answers ?? true,
+    isRequired: quizData.is_required ?? true,
+  });
 
-  if (error) throw error;
-  return data as AceQuiz;
+  const quiz = await client.query(api.aceQuizzes.getById, { id: quizId });
+  if (!quiz) throw new Error("Failed to create quiz");
+
+  return transformQuiz(quiz);
 }
 
 export async function addQuizQuestion(
   quizId: string,
   questionData: Partial<AceQuizQuestion>
 ): Promise<AceQuizQuestion> {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  // Get current max order index
-  const { data: existing } = await supabase
-    .from('ace_quiz_questions')
-    .select('order_index')
-    .eq('quiz_id', quizId)
-    .order('order_index', { ascending: false })
-    .limit(1);
+  const questionId = await client.mutation(api.aceQuizzes.addQuestion, {
+    quizId: quizId as Id<"aceQuizzes">,
+    questionText: questionData.question_text || "",
+    questionType: (questionData.question_type as "multiple_choice" | "true_false" | "multiple_select") || "multiple_choice",
+    options: (questionData.options || []).map((opt) => ({
+      id: opt.id,
+      text: opt.text,
+    })),
+    correctAnswers: questionData.correct_answers || [],
+    explanation: questionData.explanation,
+    points: questionData.points || 1,
+  });
 
-  const nextOrder = (existing?.[0]?.order_index || 0) + 1;
-
-  const { data, error } = await supabase
-    .from('ace_quiz_questions')
-    .insert([{
-      quiz_id: quizId,
-      question_text: questionData.question_text,
-      question_type: questionData.question_type || 'multiple_choice',
-      options: questionData.options || [],
-      correct_answers: questionData.correct_answers || [],
-      explanation: questionData.explanation,
-      points: questionData.points || 1,
-      order_index: nextOrder,
-      is_active: true,
-    }])
-    .select()
-    .single();
-
-  if (error) throw error;
-  return data as AceQuizQuestion;
+  // Return the question data (Convex doesn't return the full object on insert)
+  return {
+    id: questionId as string,
+    quiz_id: quizId,
+    question_text: questionData.question_text || "",
+    question_type: questionData.question_type || "multiple_choice",
+    options: questionData.options || [],
+    correct_answers: questionData.correct_answers || [],
+    explanation: questionData.explanation,
+    points: questionData.points || 1,
+    order_index: 0,
+    is_active: true,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  };
 }
 
 export interface QuizSubmissionResult {
@@ -409,89 +277,15 @@ export async function submitQuiz(
   participantId: string,
   answers: Record<string, string[]>
 ): Promise<QuizSubmissionResult> {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  // Get quiz and questions
-  const { data: quiz } = await supabase
-    .from('ace_quizzes')
-    .select('*')
-    .eq('id', quizId)
-    .single();
+  const result = await client.mutation(api.aceQuizzes.submit, {
+    quizId: quizId as Id<"aceQuizzes">,
+    participantId: participantId as Id<"aceUsers">,
+    answers,
+  });
 
-  if (!quiz) throw new Error('Quiz not found');
-
-  const questions = await getQuizQuestions(quizId);
-
-  // Score the quiz
-  let correctCount = 0;
-  const correctAnswers: Record<string, string[]> = {};
-  const explanations: Record<string, string> = {};
-
-  for (const question of questions) {
-    const submitted = answers[question.id] || [];
-    const correct = question.correct_answers;
-    
-    correctAnswers[question.id] = correct;
-    if (question.explanation) {
-      explanations[question.id] = question.explanation;
-    }
-
-    // Check if answers match (order independent)
-    const isCorrect = 
-      submitted.length === correct.length &&
-      submitted.every(a => correct.includes(a));
-
-    if (isCorrect) {
-      correctCount++;
-    }
-  }
-
-  const scorePercentage = Math.round((correctCount / questions.length) * 100);
-  const passed = scorePercentage >= quiz.passing_score_percentage;
-
-  // Get attempt number
-  const { count } = await supabase
-    .from('ace_quiz_submissions')
-    .select('*', { count: 'exact', head: true })
-    .eq('quiz_id', quizId)
-    .eq('participant_id', participantId);
-
-  const attemptNumber = (count || 0) + 1;
-
-  // Save submission
-  await supabase
-    .from('ace_quiz_submissions')
-    .insert([{
-      quiz_id: quizId,
-      participant_id: participantId,
-      event_id: quiz.event_id,
-      attempt_number: attemptNumber,
-      answers: answers,
-      score: correctCount,
-      total_questions: questions.length,
-      score_percentage: scorePercentage,
-      passed: passed,
-      submitted_at: new Date().toISOString(),
-    }]);
-
-  // If passed, update registration
-  if (passed) {
-    await supabase
-      .from('ace_registrations')
-      .update({ quiz_completed: true })
-      .eq('event_id', quiz.event_id)
-      .eq('participant_id', participantId);
-  }
-
-  return {
-    passed,
-    score: correctCount,
-    totalQuestions: questions.length,
-    scorePercentage,
-    passingScore: quiz.passing_score_percentage,
-    correctAnswers,
-    explanations,
-  };
+  return result;
 }
 
 // ============================================================================
@@ -507,51 +301,53 @@ export async function markAttendance(
     verificationCode?: string;
   }
 ): Promise<void> {
-  const supabase = await createClient();
-  const now = new Date().toISOString();
+  const client = getConvexClient();
 
-  // Get or create attendance record
-  const { data: existing } = await supabase
-    .from('ace_attendance_records')
-    .select('*')
-    .eq('event_id', eventId)
-    .eq('participant_id', participantId)
-    .single();
+  await client.mutation(api.aceAttendance.markAttendance, {
+    eventId: eventId as Id<"aceEvents">,
+    participantId: participantId as Id<"aceUsers">,
+    checkIn: data.checkIn,
+    checkOut: data.checkOut,
+    verificationCode: data.verificationCode,
+  });
+}
 
-  if (existing) {
-    // Update existing record
-    const updates: Record<string, unknown> = {};
-    if (data.checkOut) {
-      updates.sign_out_timestamp = now;
-    }
-    if (data.verificationCode) {
-      updates.verification_code_entered = data.verificationCode;
-      updates.verification_code_timestamp = now;
-    }
+export async function getAttendanceRecord(recordId: string) {
+  const client = getConvexClient();
+  return await client.query(api.aceAttendance.getById, {
+    id: recordId as Id<"aceAttendanceRecords">,
+  });
+}
 
-    await supabase
-      .from('ace_attendance_records')
-      .update(updates)
-      .eq('id', existing.id);
-  } else {
-    // Create new record
-    await supabase
-      .from('ace_attendance_records')
-      .insert([{
-        event_id: eventId,
-        participant_id: participantId,
-        sign_in_timestamp: now,
-        verified: true,
-        verification_method: 'attendance_log',
-      }]);
-  }
+export async function getAttendanceByEventAndParticipant(
+  eventId: string,
+  participantId: string
+) {
+  const client = getConvexClient();
+  return await client.query(api.aceAttendance.getByEventAndParticipant, {
+    eventId: eventId as Id<"aceEvents">,
+    participantId: participantId as Id<"aceUsers">,
+  });
+}
 
-  // Update registration
-  await supabase
-    .from('ace_registrations')
-    .update({ attendance_verified: true })
-    .eq('event_id', eventId)
-    .eq('participant_id', participantId);
+export async function getEventAttendanceRecords(eventId: string) {
+  const client = getConvexClient();
+  return await client.query(api.aceAttendance.getByEvent, {
+    eventId: eventId as Id<"aceEvents">,
+  });
+}
+
+export async function verifyAttendance(
+  recordId: string,
+  verified: boolean,
+  verifiedBy?: string
+) {
+  const client = getConvexClient();
+  await client.mutation(api.aceAttendance.verify, {
+    id: recordId as Id<"aceAttendanceRecords">,
+    verified,
+    verifiedBy: verifiedBy as Id<"aceUsers"> | undefined,
+  });
 }
 
 // ============================================================================
@@ -570,28 +366,18 @@ export async function submitFeedback(
     wouldRecommend: boolean;
   }
 ): Promise<void> {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  await supabase
-    .from('ace_feedback_responses')
-    .insert([{
-      event_id: eventId,
-      participant_id: participantId,
-      rating: feedbackData.rating,
-      instructor_rating: feedbackData.instructorRating,
-      content_rating: feedbackData.contentRating,
-      comments: feedbackData.comments,
-      suggestions: feedbackData.suggestions,
-      would_recommend: feedbackData.wouldRecommend,
-      submitted_at: new Date().toISOString(),
-    }]);
-
-  // Update registration
-  await supabase
-    .from('ace_registrations')
-    .update({ feedback_completed: true })
-    .eq('event_id', eventId)
-    .eq('participant_id', participantId);
+  await client.mutation(api.aceFeedback.submit, {
+    eventId: eventId as Id<"aceEvents">,
+    participantId: participantId as Id<"aceUsers">,
+    rating: feedbackData.rating,
+    instructorRating: feedbackData.instructorRating,
+    contentRating: feedbackData.contentRating,
+    comments: feedbackData.comments,
+    suggestions: feedbackData.suggestions,
+    wouldRecommend: feedbackData.wouldRecommend,
+  });
 }
 
 // ============================================================================
@@ -611,146 +397,50 @@ export async function checkCertificateEligibility(
     feedbackSubmitted: boolean;
   };
 }> {
-  const supabase = await createClient();
-  const reasons: string[] = [];
+  const client = getConvexClient();
 
-  // Get registration
-  const { data: registration } = await supabase
-    .from('ace_registrations')
-    .select('*')
-    .eq('event_id', eventId)
-    .eq('participant_id', participantId)
-    .eq('status', 'confirmed')
-    .single();
-
-  const requirements = {
-    registered: !!registration,
-    attendanceVerified: registration?.attendance_verified || false,
-    quizPassed: registration?.quiz_completed || false,
-    feedbackSubmitted: registration?.feedback_completed || false,
-  };
-
-  if (!requirements.registered) {
-    reasons.push('Not registered for this event');
-  }
-
-  if (!requirements.attendanceVerified) {
-    reasons.push('Attendance not verified');
-  }
-
-  // Get event to check if quiz is required
-  const { data: event } = await supabase
-    .from('ace_events')
-    .select('verification_method, modality')
-    .eq('id', eventId)
-    .single();
-
-  if (event?.verification_method === 'quiz_completion' && !requirements.quizPassed) {
-    reasons.push('Quiz not completed/passed');
-  }
-
-  // Async events always require quiz
-  if (event?.modality === 'asynchronous' && !requirements.quizPassed) {
-    reasons.push('Quiz required for asynchronous events');
-  }
-
-  const eligible = reasons.length === 0;
-
-  return { eligible, reasons, requirements };
+  return await client.query(api.aceCertificates.checkEligibility, {
+    eventId: eventId as Id<"aceEvents">,
+    participantId: participantId as Id<"aceUsers">,
+  });
 }
 
 export async function issueCertificate(
   eventId: string,
   participantId: string
 ): Promise<AceCertificate> {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
   // Check eligibility first
   const eligibility = await checkCertificateEligibility(eventId, participantId);
   if (!eligibility.eligible) {
-    throw new Error(`Not eligible: ${eligibility.reasons.join(', ')}`);
+    throw new Error(`Not eligible: ${eligibility.reasons.join(", ")}`);
   }
 
-  // Check if certificate already exists
-  const { data: existing } = await supabase
-    .from('ace_certificates')
-    .select('*')
-    .eq('event_id', eventId)
-    .eq('participant_id', participantId)
-    .single();
+  const certificateId = await client.mutation(api.aceCertificates.issue, {
+    eventId: eventId as Id<"aceEvents">,
+    participantId: participantId as Id<"aceUsers">,
+  });
 
-  if (existing) {
-    return existing as AceCertificate;
-  }
+  const certificate = await client.query(api.aceCertificates.getById, {
+    id: certificateId,
+  });
 
-  // Get event and participant details
-  const { data: event } = await supabase
-    .from('ace_events')
-    .select(`
-      *,
-      provider:ace_providers (*)
-    `)
-    .eq('id', eventId)
-    .single();
+  if (!certificate) throw new Error("Failed to issue certificate");
 
-  const { data: participant } = await supabase
-    .from('ace_users')
-    .select('*')
-    .eq('id', participantId)
-    .single();
-
-  if (!event || !participant) {
-    throw new Error('Event or participant not found');
-  }
-
-  // Generate certificate number
-  const certificateNumber = generateCertificateNumber();
-
-  // Create certificate
-  const { data: certificate, error } = await supabase
-    .from('ace_certificates')
-    .insert([{
-      event_id: eventId,
-      participant_id: participantId,
-      certificate_number: certificateNumber,
-      participant_name: `${participant.first_name} ${participant.last_name}`,
-      participant_email: participant.email,
-      participant_bacb_id: participant.bacb_id,
-      event_title: event.title,
-      event_date: event.start_date,
-      instructor_name: 'Rob Spain, M.S., BCBA, IBA',
-      total_ceus: event.total_ceus,
-      ce_category: event.ce_category,
-      provider_name: event.provider?.provider_name || 'Behavior School',
-      provider_number: event.provider?.bacb_provider_number,
-      status: 'issued' as AceCertificateStatus,
-      issued_at: new Date().toISOString(),
-    }])
-    .select()
-    .single();
-
-  if (error) throw error;
-
-  // Update registration
-  await supabase
-    .from('ace_registrations')
-    .update({ certificate_issued: true })
-    .eq('event_id', eventId)
-    .eq('participant_id', participantId);
-
-  return certificate as AceCertificate;
+  return transformCertificate(certificate);
 }
 
-export async function getCertificateByNumber(certificateNumber: string): Promise<AceCertificate | null> {
-  const supabase = await createClient();
+export async function getCertificateByNumber(
+  certificateNumber: string
+): Promise<AceCertificate | null> {
+  const client = getConvexClient();
 
-  const { data } = await supabase
-    .from('ace_certificates')
-    .select('*')
-    .eq('certificate_number', certificateNumber)
-    .single();
+  const certificate = await client.query(api.aceCertificates.getByNumber, {
+    certificateNumber,
+  });
 
-  return data as AceCertificate | null;
+  return certificate ? transformCertificate(certificate) : null;
 }
 
 // ============================================================================
@@ -758,87 +448,226 @@ export async function getCertificateByNumber(certificateNumber: string): Promise
 // ============================================================================
 
 export async function getProviderDashboard(providerId: string) {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
-  // Get provider details
-  const { data: provider } = await supabase
-    .from('ace_providers')
-    .select('*')
-    .eq('id', providerId)
-    .single();
+  return await client.query(api.aceProviders.getDashboard, {
+    providerId: providerId as Id<"aceProviders">,
+  });
+}
 
-  if (!provider) throw new Error('Provider not found');
+// ============================================================================
+// TRANSFORM FUNCTIONS
+// ============================================================================
+// Convert Convex data to the existing AceType interfaces
 
-  // Get stats
-  const { count: eventCount } = await supabase
-    .from('ace_events')
-    .select('*', { count: 'exact', head: true })
-    .eq('provider_id', providerId);
-
-  const { count: certCount } = await supabase
-    .from('ace_certificates')
-    .select('*', { count: 'exact', head: true })
-    .eq('provider_id', providerId);
-
-  const { data: registrations } = await supabase
-    .from('ace_registrations')
-    .select('event_id')
-    .in('event_id', await getProviderEventIds(providerId));
-
-  const { data: ceuData } = await supabase
-    .from('ace_certificates')
-    .select('total_ceus')
-    .eq('provider_id', providerId);
-
-  const totalCEUs = ceuData?.reduce((sum, c) => sum + (c.total_ceus || 0), 0) || 0;
-
+function transformUser(user: any): AceUser {
   return {
-    provider,
-    stats: {
-      totalEvents: eventCount || 0,
-      activeEvents: await getActiveEventCount(providerId),
-      totalRegistrations: registrations?.length || 0,
-      totalCertificates: certCount || 0,
-      totalCEUsIssued: totalCEUs,
-    },
+    id: user._id,
+    supabase_user_id: undefined,
+    first_name: user.firstName,
+    last_name: user.lastName,
+    email: user.email,
+    bacb_id: user.bacbId,
+    role: user.role,
+    credential_type: user.credentialType,
+    credential_number: user.credentialNumber,
+    credential_verified: user.credentialVerified,
+    credential_verified_at: user.credentialVerifiedAt
+      ? new Date(user.credentialVerifiedAt).toISOString()
+      : undefined,
+    credential_expires_at: user.credentialExpiresAt
+      ? new Date(user.credentialExpiresAt).toISOString()
+      : undefined,
+    is_active: user.isActive,
+    phone: user.phone,
+    organization: user.organization,
+    created_at: new Date(user.createdAt).toISOString(),
+    updated_at: new Date(user.updatedAt).toISOString(),
+    last_login_at: user.lastLoginAt
+      ? new Date(user.lastLoginAt).toISOString()
+      : undefined,
   };
 }
 
-async function getProviderEventIds(providerId: string): Promise<string[]> {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from('ace_events')
-    .select('id')
-    .eq('provider_id', providerId);
-  return data?.map(e => e.id) || [];
+function transformEvent(event: any): AceEvent {
+  return {
+    id: event._id,
+    provider_id: event.providerId,
+    title: event.title,
+    description: event.description,
+    total_ceus: event.totalCeus,
+    ce_category: event.ceCategory,
+    modality: event.modality,
+    event_type: event.eventType,
+    event_subtype: event.eventSubtype,
+    start_date: new Date(event.startDate).toISOString(),
+    end_date: event.endDate ? new Date(event.endDate).toISOString() : undefined,
+    registration_deadline: event.registrationDeadline
+      ? new Date(event.registrationDeadline).toISOString()
+      : undefined,
+    max_participants: event.maxParticipants,
+    current_participants: event.currentParticipants,
+    location: event.location,
+    online_meeting_url: event.onlineMeetingUrl,
+    fee: event.fee,
+    verification_method: event.verificationMethod,
+    passing_score_percentage: event.passingScorePercentage,
+    status: event.status,
+    minimum_questions_required: event.minimumQuestionsRequired,
+    actual_questions_count: event.actualQuestionsCount,
+    learning_objectives: event.learningObjectives,
+    instructor_qualifications_summary: event.instructorQualificationsSummary,
+    instructor_affiliations: event.instructorAffiliations,
+    conflicts_of_interest: event.conflictsOfInterest,
+    created_at: new Date(event.createdAt).toISOString(),
+    updated_at: new Date(event.updatedAt).toISOString(),
+  };
 }
 
-async function getActiveEventCount(providerId: string): Promise<number> {
-  const supabase = await createClient();
-  const { count } = await supabase
-    .from('ace_events')
-    .select('*', { count: 'exact', head: true })
-    .eq('provider_id', providerId)
-    .in('status', ['approved', 'in_progress'])
-    .gte('start_date', new Date().toISOString());
-  return count || 0;
+function transformProvider(provider: any): AceProvider {
+  return {
+    id: provider._id,
+    provider_name: provider.providerName,
+    provider_type: provider.providerType,
+    bacb_provider_number: provider.bacbProviderNumber,
+    coordinator_id: provider.coordinatorId,
+    coordinator_years_certified: provider.coordinatorYearsCertified,
+    coordinator_certification_date: provider.coordinatorCertificationDate
+      ? new Date(provider.coordinatorCertificationDate).toISOString().split("T")[0]
+      : undefined,
+    coordinator_certification_expires: provider.coordinatorCertificationExpires
+      ? new Date(provider.coordinatorCertificationExpires).toISOString().split("T")[0]
+      : undefined,
+    coordinator_certification_verified: provider.coordinatorCertificationVerified,
+    primary_email: provider.primaryEmail,
+    primary_phone: provider.primaryPhone,
+    website: provider.website,
+    address_line1: provider.addressLine1,
+    address_line2: provider.addressLine2,
+    city: provider.city,
+    state: provider.state,
+    zip_code: provider.zipCode,
+    country: provider.country,
+    application_date: provider.applicationDate
+      ? new Date(provider.applicationDate).toISOString().split("T")[0]
+      : undefined,
+    approval_date: provider.approvalDate
+      ? new Date(provider.approvalDate).toISOString().split("T")[0]
+      : undefined,
+    expiration_date: provider.expirationDate
+      ? new Date(provider.expirationDate).toISOString().split("T")[0]
+      : undefined,
+    is_active: provider.isActive,
+    application_fee_paid: provider.applicationFeePaid,
+    application_fee_amount: provider.applicationFeeAmount,
+    application_fee_paid_date: provider.applicationFeePaidDate
+      ? new Date(provider.applicationFeePaidDate).toISOString().split("T")[0]
+      : undefined,
+    renewal_fee_paid: provider.renewalFeePaid,
+    last_renewal_date: provider.lastRenewalDate
+      ? new Date(provider.lastRenewalDate).toISOString().split("T")[0]
+      : undefined,
+    next_renewal_date: provider.nextRenewalDate
+      ? new Date(provider.nextRenewalDate).toISOString().split("T")[0]
+      : undefined,
+    grace_period_end_date: provider.gracePeriodEndDate
+      ? new Date(provider.gracePeriodEndDate).toISOString().split("T")[0]
+      : undefined,
+    reinstatement_date: provider.reinstatementDate
+      ? new Date(provider.reinstatementDate).toISOString().split("T")[0]
+      : undefined,
+    late_fee_paid: provider.lateFeePaid,
+    late_fee_amount: provider.lateFeeAmount,
+    late_fee_paid_date: provider.lateFeePaidDate
+      ? new Date(provider.lateFeePaidDate).toISOString().split("T")[0]
+      : undefined,
+    can_publish_events: provider.canPublishEvents,
+    can_issue_certificates: provider.canIssueCertificates,
+    lapse_start_date: provider.lapseStartDate
+      ? new Date(provider.lapseStartDate).toISOString().split("T")[0]
+      : undefined,
+    lapse_end_date: provider.lapseEndDate
+      ? new Date(provider.lapseEndDate).toISOString().split("T")[0]
+      : undefined,
+    ein: provider.ein,
+    incorporation_doc_url: provider.incorporationDocUrl,
+    legal_entity_verified: provider.legalEntityVerified,
+    legal_entity_verified_at: provider.legalEntityVerifiedAt
+      ? new Date(provider.legalEntityVerifiedAt).toISOString()
+      : undefined,
+    legal_entity_verified_by: provider.legalEntityVerifiedBy,
+    leadership_attestation_url: provider.leadershipAttestationUrl,
+    leadership_attestation_date: provider.leadershipAttestationDate
+      ? new Date(provider.leadershipAttestationDate).toISOString().split("T")[0]
+      : undefined,
+    leadership_name: provider.leadershipName,
+    leadership_title: provider.leadershipTitle,
+    created_at: new Date(provider.createdAt).toISOString(),
+    updated_at: new Date(provider.updatedAt).toISOString(),
+  };
 }
 
-// ============================================================================
-// HELPER FUNCTIONS
-// ============================================================================
-
-function generateConfirmationCode(): string {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = '';
-  for (let i = 0; i < 8; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return code;
+function transformQuiz(quiz: any): AceQuiz {
+  return {
+    id: quiz._id,
+    event_id: quiz.eventId,
+    title: quiz.title,
+    description: quiz.description,
+    passing_score_percentage: quiz.passingScorePercentage,
+    max_attempts: quiz.maxAttempts,
+    time_limit_minutes: quiz.timeLimitMinutes,
+    shuffle_questions: quiz.shuffleQuestions,
+    show_correct_answers: quiz.showCorrectAnswers,
+    is_required: quiz.isRequired,
+    is_active: quiz.isActive,
+    created_at: new Date(quiz.createdAt).toISOString(),
+    updated_at: new Date(quiz.updatedAt).toISOString(),
+  };
 }
 
-function generateCertificateNumber(): string {
-  const year = new Date().getFullYear();
-  const random = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-  return `CE-${year}-${random}`;
+function transformQuizQuestion(question: any): AceQuizQuestion {
+  return {
+    id: question._id,
+    quiz_id: question.quizId,
+    question_text: question.questionText,
+    question_type: question.questionType,
+    options: question.options,
+    correct_answers: question.correctAnswers,
+    explanation: question.explanation,
+    points: question.points,
+    order_index: question.orderIndex,
+    is_active: question.isActive,
+    created_at: new Date(question.createdAt).toISOString(),
+    updated_at: new Date(question.updatedAt).toISOString(),
+  };
+}
+
+function transformCertificate(cert: any): AceCertificate {
+  return {
+    id: cert._id,
+    event_id: cert.eventId,
+    participant_id: cert.participantId,
+    certificate_number: cert.certificateNumber,
+    participant_name: cert.participantName,
+    participant_email: cert.participantEmail,
+    participant_bacb_id: cert.participantBacbId,
+    event_title: cert.eventTitle,
+    event_date: cert.eventDate,
+    instructor_name: cert.instructorName,
+    provider_name: cert.providerName,
+    provider_number: cert.providerNumber,
+    total_ceus: cert.totalCeus,
+    ce_category: cert.ceCategory as AceEventCategory,
+    status: cert.status as AceCertificateStatus,
+    certificate_url: cert.certificateUrl,
+    issued_at: cert.issuedAt
+      ? new Date(cert.issuedAt).toISOString()
+      : undefined,
+    revoked_at: cert.revokedAt
+      ? new Date(cert.revokedAt).toISOString()
+      : undefined,
+    revoked_by: cert.revokedBy,
+    revocation_reason: cert.revocationReason,
+    created_at: new Date(cert.createdAt).toISOString(),
+  };
 }

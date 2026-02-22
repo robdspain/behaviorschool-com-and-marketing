@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { getConvexClient, api } from '@/lib/convex';
+import { createQuiz, getQuizForEvent } from '@/lib/ace/ace-service';
+import type { Id } from '../../../../convex/_generated/dataModel';
+
+export const dynamic = 'force-dynamic';
 
 // POST /api/ace/quizzes - Create or get quiz for an event
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
     const body = await request.json();
 
     if (!body.event_id) {
@@ -16,40 +18,25 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if quiz already exists
-    const { data: existingQuiz } = await supabase
-      .from('ace_quizzes')
-      .select('*')
-      .eq('event_id', body.event_id)
-      .single();
+    const existingQuiz = await getQuizForEvent(body.event_id);
 
     if (existingQuiz) {
       return NextResponse.json({ success: true, data: existingQuiz }, { status: 200 });
     }
 
-    // Create new quiz
-    const quizData = {
-      event_id: body.event_id,
+    // Create new quiz using the Convex-powered service
+    const quiz = await createQuiz(body.event_id, {
       title: body.title || 'Event Assessment',
-      description: body.description || null,
+      description: body.description,
       passing_score_percentage: body.passing_score_percentage || 80,
-      max_attempts: body.max_attempts || null,
-      time_limit_minutes: body.time_limit_minutes || null,
-      randomize_questions: body.randomize_questions ?? true,
-      randomize_options: body.randomize_options ?? true,
-      show_correct_answers_after_submission: body.show_correct_answers_after_submission ?? true,
-      is_active: true,
+      max_attempts: body.max_attempts,
+      time_limit_minutes: body.time_limit_minutes,
+      shuffle_questions: body.randomize_questions ?? true,
+      show_correct_answers: body.show_correct_answers_after_submission ?? true,
       is_required: true,
-    };
+    });
 
-    const { data, error } = await supabase
-      .from('ace_quizzes')
-      .insert([quizData])
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    return NextResponse.json({ success: true, data }, { status: 201 });
+    return NextResponse.json({ success: true, data: quiz }, { status: 201 });
   } catch (error) {
     console.error('Error creating quiz:', error);
     return NextResponse.json(
@@ -62,8 +49,6 @@ export async function POST(request: NextRequest) {
 // GET /api/ace/quizzes - Get quiz by event_id
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
     const { searchParams } = new URL(request.url);
     const eventId = searchParams.get('event_id');
 
@@ -74,15 +59,9 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
-      .from('ace_quizzes')
-      .select('*')
-      .eq('event_id', eventId)
-      .single();
+    const quiz = await getQuizForEvent(eventId);
 
-    if (error && error.code !== 'PGRST116') throw error;
-
-    return NextResponse.json({ success: true, data }, { status: 200 });
+    return NextResponse.json({ success: true, data: quiz }, { status: 200 });
   } catch (error) {
     console.error('Error fetching quiz:', error);
     return NextResponse.json(

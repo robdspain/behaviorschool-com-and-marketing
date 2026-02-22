@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { getConvexClient, api } from '@/lib/convex';
+import type { Id } from '../../../../../convex/_generated/dataModel';
 import Stripe from 'stripe';
+
+export const dynamic = 'force-dynamic';
 
 // Initialize Stripe lazily to avoid build errors
 function getStripe() {
@@ -30,55 +33,51 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
+    const client = getConvexClient();
 
     // Get registration details
-    const { data: registration, error: regError } = await supabase
-      .from('ace_registrations')
-      .select(`
-        *,
-        event:ace_events (
-          id,
-          title,
-          total_ceus,
-          fee,
-          provider_id
-        )
-      `)
-      .eq('id', registration_id)
-      .single();
+    const registration = await client.query(api.aceRegistrations.getById, {
+      id: registration_id as Id<'aceRegistrations'>,
+    });
 
-    if (regError || !registration) {
+    if (!registration) {
       return NextResponse.json(
         { error: 'Registration not found' },
         { status: 404 }
       );
     }
 
-    if (registration.fee_paid) {
+    if (registration.feePaid) {
       return NextResponse.json(
         { error: 'Payment already completed' },
         { status: 400 }
       );
     }
 
-    const event = registration.event;
+    // Get event details
+    const event = await client.query(api.aceEvents.getWithDetails, {
+      id: event_id as Id<'aceEvents'>,
+    });
+
+    if (!event) {
+      return NextResponse.json(
+        { error: 'Event not found' },
+        { status: 404 }
+      );
+    }
+
     const fee = event.fee || 0;
 
     if (fee === 0) {
       // Free event - just confirm registration
-      await supabase
-        .from('ace_registrations')
-        .update({
-          status: 'confirmed',
-          fee_paid: true,
-        })
-        .eq('id', registration_id);
+      await client.mutation(api.aceRegistrations.markPaymentComplete, {
+        id: registration_id as Id<'aceRegistrations'>,
+      });
 
       return NextResponse.json({
         success: true,
         message: 'Registration confirmed (free event)',
-        redirect_url: `${SITE_URL}/events/${event_id}?registered=true&code=${registration.confirmation_code}`,
+        redirect_url: `${SITE_URL}/events/${event_id}?registered=true&code=${registration.confirmationCode}`,
       });
     }
 
@@ -94,9 +93,9 @@ export async function POST(request: NextRequest) {
             currency: 'usd',
             product_data: {
               name: event.title,
-              description: `${event.total_ceus} CEUs - Continuing Education Event`,
+              description: `${event.totalCeus} CEUs - Continuing Education Event`,
               metadata: {
-                event_id: event.id,
+                event_id: event_id,
                 registration_id: registration_id,
               },
             },
@@ -105,23 +104,18 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
       ],
-      success_url: `${SITE_URL}/events/${event_id}?registered=true&code=${registration.confirmation_code}&payment=success`,
+      success_url: `${SITE_URL}/events/${event_id}?registered=true&code=${registration.confirmationCode}&payment=success`,
       cancel_url: `${SITE_URL}/events/${event_id}?payment=cancelled`,
       metadata: {
         registration_id: registration_id,
         event_id: event_id,
         participant_id: participant_id,
-        confirmation_code: registration.confirmation_code,
+        confirmation_code: registration.confirmationCode,
       },
     });
 
-    // Store Stripe session ID on registration
-    await supabase
-      .from('ace_registrations')
-      .update({
-        stripe_session_id: session.id,
-      })
-      .eq('id', registration_id);
+    // Session ID is stored in Stripe metadata (registration_id).
+    // The webhook handler will call markPaymentComplete when payment succeeds.
 
     return NextResponse.json({
       success: true,

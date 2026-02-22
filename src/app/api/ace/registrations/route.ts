@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { getConvexClient, api } from '@/lib/convex';
 import { registerForEvent, getOrCreateAceUser } from '@/lib/ace/ace-service';
+import type { Id } from '../../../../convex/_generated/dataModel';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,17 +18,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get supabase client
-    const supabase = await createClient();
+    const client = getConvexClient();
 
     // Get the event to check eligibility
-    const { data: event, error: eventError } = await supabase
-      .from('ace_events')
-      .select('*')
-      .eq('id', event_id)
-      .single();
+    const event = await client.query(api.aceEvents.getWithDetails, {
+      id: event_id as Id<"aceEvents">,
+    });
 
-    if (eventError || !event) {
+    if (!event) {
       return NextResponse.json(
         { error: 'Event not found' },
         { status: 404 }
@@ -43,7 +41,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if event is full
-    if (event.max_participants && (event.current_participants || 0) >= event.max_participants) {
+    if (event.maxParticipants && (event.currentParticipants || 0) >= event.maxParticipants) {
       return NextResponse.json(
         { error: 'This event is full' },
         { status: 400 }
@@ -51,7 +49,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check credential eligibility
-    const isPdEvent = event.event_type === 'pd';
+    const isPdEvent = event.eventType === 'pd';
     if (isPdEvent && credentialType !== 'rbt') {
       return NextResponse.json(
         { error: 'This PD event is for RBTs only. BCBAs and BCaBAs should register for CE events.' },
@@ -65,75 +63,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get or create the user
-    const user = await getOrCreateAceUser(email, firstName, lastName, bacbId);
+    // Register using the service
+    const result = await registerForEvent(event_id, {
+      email,
+      firstName,
+      lastName,
+      bacbId,
+      credentialType,
+    });
 
-    // Check for existing registration
-    const { data: existingReg } = await supabase
-      .from('ace_registrations')
-      .select('id, confirmation_code')
-      .eq('event_id', event_id)
-      .eq('participant_id', user.id)
-      .single();
-
-    if (existingReg) {
+    if (!result.success) {
       return NextResponse.json(
         { 
-          error: 'You are already registered for this event',
-          confirmation_code: existingReg.confirmation_code
+          error: result.error,
+          confirmation_code: result.confirmation_code
         },
         { status: 400 }
       );
     }
 
-    // Generate confirmation code
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let confirmationCode = '';
-    for (let i = 0; i < 8; i++) {
-      confirmationCode += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-
-    // Determine if event is free
-    const isFree = !event.fee || event.fee === 0;
-
-    // Create registration
-    const { data: registration, error: regError } = await supabase
-      .from('ace_registrations')
-      .insert({
-        event_id: event_id,
-        participant_id: user.id,
-        confirmation_code: confirmationCode,
-        status: isFree ? 'confirmed' : 'pending_payment',
-        fee_amount: event.fee || 0,
-        fee_paid: isFree,
-        credential_type: credentialType,
-      })
-      .select()
-      .single();
-
-    if (regError) {
-      console.error('Registration error:', regError);
-      return NextResponse.json(
-        { error: 'Failed to create registration' },
-        { status: 500 }
-      );
-    }
-
-    // Update participant count
-    await supabase
-      .from('ace_events')
-      .update({ current_participants: (event.current_participants || 0) + 1 })
-      .eq('id', event_id);
-
     // TODO: Send confirmation email via Listmonk/Resend
 
     return NextResponse.json({
       success: true,
-      registration_id: registration.id,
-      confirmation_code: confirmationCode,
+      registration_id: result.registration_id,
+      confirmation_code: result.confirmation_code,
       event_title: event.title,
-      event_date: event.start_date,
-      requires_payment: !isFree,
+      event_date: event.startDate,
+      requires_payment: result.requires_payment,
     });
   } catch (error) {
     console.error('Registration error:', error);
@@ -145,7 +102,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const supabase = await createClient();
+  const client = getConvexClient();
 
   const searchParams = request.nextUrl.searchParams;
   const email = searchParams.get('email');
@@ -153,63 +110,50 @@ export async function GET(request: NextRequest) {
   const eventId = searchParams.get('event_id');
 
   try {
-    let query = supabase
-      .from('ace_registrations')
-      .select(`
-        *,
-        event:ace_events (
-          id,
-          title,
-          start_date,
-          end_date,
-          total_ceus,
-          event_type,
-          modality,
-          ce_category
-        ),
-        participant:ace_users (
-          id,
-          first_name,
-          last_name,
-          email,
-          bacb_id
-        )
-      `);
+    // Get registrations based on filters
+    if (confirmationCode) {
+      const registration = await client.query(api.aceRegistrations.getByConfirmationCode, {
+        confirmationCode,
+      });
+      return NextResponse.json({ 
+        success: true, 
+        registrations: registration ? [registration] : [] 
+      });
+    }
 
     if (email) {
       // First find the user by email
-      const { data: user } = await supabase
-        .from('ace_users')
-        .select('id')
-        .eq('email', email.toLowerCase())
-        .single();
+      const user = await client.query(api.aceUsers.getByEmail, {
+        email: email.toLowerCase(),
+      });
 
-      if (user) {
-        query = query.eq('participant_id', user.id);
-      } else {
-        return NextResponse.json({ registrations: [] });
+      if (!user) {
+        return NextResponse.json({ success: true, registrations: [] });
       }
-    }
 
-    if (confirmationCode) {
-      query = query.eq('confirmation_code', confirmationCode);
+      const registrations = await client.query(api.aceRegistrations.getByParticipant, {
+        participantId: user._id,
+      });
+
+      // Filter by eventId if provided
+      const filtered = eventId 
+        ? registrations.filter((r: any) => r.eventId === eventId)
+        : registrations;
+
+      return NextResponse.json({ success: true, registrations: filtered });
     }
 
     if (eventId) {
-      query = query.eq('event_id', eventId);
+      const registrations = await client.query(api.aceRegistrations.getByEvent, {
+        eventId: eventId as Id<"aceEvents">,
+      });
+      return NextResponse.json({ success: true, registrations });
     }
 
-    const { data: registrations, error } = await query.order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Fetch registrations error:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch registrations' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({ success: true, registrations });
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Please provide email, code, or event_id parameter' 
+    }, { status: 400 });
   } catch (error) {
     console.error('Fetch registrations error:', error);
     return NextResponse.json(

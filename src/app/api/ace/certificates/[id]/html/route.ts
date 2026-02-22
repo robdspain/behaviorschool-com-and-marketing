@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
-import { getCertificateById } from '@/lib/ace/queries';
+import { getConvexClient, api } from '@/lib/convex';
 import { generateCertificateHTML } from '@/lib/ace/certificate-generator';
+import type { Id } from '../../../../../../convex/_generated/dataModel';
+
+export const dynamic = 'force-dynamic';
 
 /**
  * GET /api/ace/certificates/[id]/html
@@ -12,19 +14,12 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient();
-
-    // Check authentication
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const { id } = await params;
-    const certificateId = id;
+    const client = getConvexClient();
 
-    // Get certificate from database
-    const certificate = await getCertificateById(certificateId);
+    const certificate = await client.query(api.aceCertificates.getById, {
+      id: id as Id<'aceCertificates'>,
+    });
 
     if (!certificate) {
       return NextResponse.json({ error: 'Certificate not found' }, { status: 404 });
@@ -32,22 +27,23 @@ export async function GET(
 
     // Generate HTML
     const html = generateCertificateHTML({
-      certificateNumber: certificate.certificate_number,
-      participantName: certificate.participant_name,
-      participantEmail: certificate.participant_email,
-      bacbNumber: certificate.participant_bacb_id,
-      eventTitle: certificate.event_title,
-      eventDate: certificate.event_date,
-      instructorName: certificate.instructor_name,
-      instructorCredentials: '', // Not stored in database
-      totalCeus: certificate.total_ceus,
-      ceCategory: certificate.ce_category.charAt(0).toUpperCase() + certificate.ce_category.slice(1),
-      providerName: certificate.provider_name || 'Unknown Provider',
-      providerNumber: certificate.provider_number || '',
-      issuedDate: certificate.issued_at || new Date().toISOString(),
+      certificateNumber: certificate.certificateNumber,
+      participantName: certificate.participantName,
+      participantEmail: certificate.participantEmail,
+      bacbNumber: certificate.participantBacbId,
+      eventTitle: certificate.eventTitle,
+      eventDate: certificate.eventDate,
+      instructorName: certificate.instructorName || 'Rob Spain, M.S., BCBA, IBA',
+      instructorCredentials: '',
+      totalCeus: certificate.totalCeus,
+      ceCategory: certificate.ceCategory.charAt(0).toUpperCase() + certificate.ceCategory.slice(1),
+      providerName: certificate.providerName || 'Unknown Provider',
+      providerNumber: certificate.providerNumber || '',
+      issuedDate: certificate.issuedAt
+        ? new Date(certificate.issuedAt).toISOString()
+        : new Date().toISOString(),
     });
 
-    // Return HTML
     return new NextResponse(html, {
       status: 200,
       headers: {
