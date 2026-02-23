@@ -21,7 +21,9 @@ export function EditPostButton({ ghostId, slug }: { ghostId: string; slug: strin
     run();
   }, []);
 
-  if (!isAuthed) return null;
+  const showAdminButtons = process.env.NEXT_PUBLIC_SHOW_ADMIN_BUTTONS === "true";
+
+  if (!isAuthed || !showAdminButtons) return null;
 
   const ghostBase = (process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || "https://ghost.behaviorschool.com").replace(/\/ghost\/api\/content$/, "");
 
