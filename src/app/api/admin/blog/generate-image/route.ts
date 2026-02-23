@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
+import sharp from 'sharp';
 
 const GHOST_URL = process.env.GHOST_ADMIN_URL || process.env.GHOST_CONTENT_URL?.replace('/ghost/api/content', '') || 'https://ghost.behaviorschool.com';
 const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
@@ -87,10 +88,13 @@ export async function POST(request: NextRequest) {
     const arr = await viewResp.arrayBuffer();
     const imageBuffer = Buffer.from(arr);
 
+    const webpBuffer = await sharp(imageBuffer).webp({ quality: 88 }).toBuffer();
+    const webpFilename = imageFilename.replace(/\.[^.]+$/, '') + '.webp';
+
     const formData = new FormData();
-    formData.append('file', imageBuffer, {
-      contentType: 'image/png',
-      filename: imageFilename
+    formData.append('file', webpBuffer, {
+      contentType: 'image/webp',
+      filename: webpFilename
     });
 
     const ghostToken = getGhostToken();
