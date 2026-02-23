@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
 
     // ---- ComfyUI workflow (based on user_workflows/rs-test-workflow.json) ----
     const workflow = {
-      "4": { "class_type": "CheckpointLoaderSimple", "inputs": { "ckpt_name": "v1-5-pruned-emaonly-fp16.safetensors" } },
+      "4": { "class_type": "CheckpointLoaderSimple", "inputs": { "ckpt_name": "v1-5-pruned-emaonly.safetensors" } },
       "5": { "class_type": "EmptyLatentImage", "inputs": { "width": 512, "height": 512, "batch_size": 1 } },
       "6": { "class_type": "CLIPTextEncode", "inputs": { "text": prompt, "clip": ["4", 1] } },
       "7": { "class_type": "CLIPTextEncode", "inputs": { "text": "text, watermark", "clip": ["4", 1] } },
