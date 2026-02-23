@@ -1,14 +1,12 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { VertexAI } from '@google-cloud/vertexai';
 import jwt from 'jsonwebtoken';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
 
 const GHOST_URL = process.env.GHOST_ADMIN_URL || process.env.GHOST_CONTENT_URL?.replace('/ghost/api/content', '') || 'https://ghost.behaviorschool.com';
 const GHOST_ADMIN_KEY = process.env.GHOST_ADMIN_KEY;
-const GCP_PROJECT = process.env.GCP_PROJECT;
-const GCP_LOCATION = process.env.GCP_LOCATION;
+const COMFYUI_URL = process.env.COMFYUI_URL || 'http://127.0.0.1:8188';
 
 function getGhostToken() {
   if (!GHOST_ADMIN_KEY) {
@@ -35,58 +33,64 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Prompt is required' }, { status: 400 });
     }
 
-    if (!GCP_PROJECT || !GCP_LOCATION) {
-      return NextResponse.json({ success: false, error: 'GCP project or location not configured' }, { status: 500 });
-    }
+    // ---- ComfyUI workflow (based on user_workflows/rs-test-workflow.json) ----
+    const workflow = {
+      "4": { "class_type": "CheckpointLoaderSimple", "inputs": { "ckpt_name": "v1-5-pruned-emaonly-fp16.safetensors" } },
+      "5": { "class_type": "EmptyLatentImage", "inputs": { "width": 512, "height": 512, "batch_size": 1 } },
+      "6": { "class_type": "CLIPTextEncode", "inputs": { "text": prompt, "clip": ["4", 1] } },
+      "7": { "class_type": "CLIPTextEncode", "inputs": { "text": "text, watermark", "clip": ["4", 1] } },
+      "3": { "class_type": "KSampler", "inputs": { "seed": Math.floor(Math.random() * 1e9), "steps": 20, "cfg": 8, "sampler_name": "euler", "scheduler": "normal", "denoise": 1, "model": ["4", 0], "positive": ["6", 0], "negative": ["7", 0], "latent_image": ["5", 0] } },
+      "8": { "class_type": "VAEDecode", "inputs": { "samples": ["3", 0], "vae": ["4", 2] } },
+      "9": { "class_type": "SaveImage", "inputs": { "filename_prefix": "behaviorschool-blog", "images": ["8", 0] } }
+    } as Record<string, any>;
 
-    const vertexAI = new VertexAI({ project: GCP_PROJECT, location: GCP_LOCATION });
-
-    const generativeModel = vertexAI.getGenerativeModel({
-        model: 'imagegeneration@0.0.1',
+    const promptResp = await fetch(`${COMFYUI_URL}/prompt`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: workflow })
     });
 
-    const resp = await generativeModel.generateContent({
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-    });
-
-    if (!resp.response.candidates || !resp.response.candidates.length) {
-        return NextResponse.json({ success: false, error: 'No image generated' }, { status: 500 });
+    if (!promptResp.ok) {
+      const err = await promptResp.text();
+      return NextResponse.json({ success: false, error: `ComfyUI prompt failed (${promptResp.status}): ${err}` }, { status: 502 });
     }
 
-    const firstCandidate = resp.response.candidates[0];
-    const firstPart: any = firstCandidate?.content?.parts?.[0];
-    // Vertex may return inlineData.data (base64) or fileData.fileUri (http/gs/data URI)
-    let imageBuffer: Buffer | null = null;
-    const inlineDataB64: string | undefined = firstPart?.inlineData?.data;
-    const fileData = firstPart && 'fileData' in firstPart ? (firstPart.fileData as any) : null;
-    const fileUri: string | undefined = fileData?.fileUri;
+    const promptJson: any = await promptResp.json();
+    const promptId = promptJson?.prompt_id;
+    if (!promptId) {
+      return NextResponse.json({ success: false, error: 'ComfyUI did not return a prompt_id' }, { status: 502 });
+    }
 
-    if (inlineDataB64) {
-      imageBuffer = Buffer.from(inlineDataB64, 'base64');
-    } else if (fileUri) {
-      if (fileUri.startsWith('data:image/')) {
-        const base64 = fileUri.split(',')[1];
-        imageBuffer = base64 ? Buffer.from(base64, 'base64') : null;
-      } else if (fileUri.startsWith('http')) {
-        const res = await fetch(fileUri);
-        if (!res.ok) {
-          return NextResponse.json({ success: false, error: `Failed to fetch generated image (${res.status})` }, { status: 502 });
-        }
-        const arr = await res.arrayBuffer();
-        imageBuffer = Buffer.from(arr);
-      } else {
-        return NextResponse.json({ success: false, error: 'Unsupported fileUri scheme from Vertex' }, { status: 502 });
+    // Poll history for the result
+    let imageFilename: string | null = null;
+    for (let i = 0; i < 30; i++) {
+      await new Promise((r) => setTimeout(r, 1000));
+      const historyResp = await fetch(`${COMFYUI_URL}/history/${promptId}`);
+      if (!historyResp.ok) continue;
+      const historyJson: any = await historyResp.json();
+      const entry = historyJson?.[promptId];
+      const outputs = entry?.outputs?.["9"]?.images;
+      if (outputs && outputs.length) {
+        imageFilename = outputs[0].filename;
+        break;
       }
     }
 
-    if (!imageBuffer) {
-      return NextResponse.json({ success: false, error: 'No valid image data in response' }, { status: 500 });
+    if (!imageFilename) {
+      return NextResponse.json({ success: false, error: 'ComfyUI did not return an image in time' }, { status: 504 });
     }
+
+    const viewResp = await fetch(`${COMFYUI_URL}/view?filename=${encodeURIComponent(imageFilename)}`);
+    if (!viewResp.ok) {
+      return NextResponse.json({ success: false, error: `Failed to fetch ComfyUI image (${viewResp.status})` }, { status: 502 });
+    }
+    const arr = await viewResp.arrayBuffer();
+    const imageBuffer = Buffer.from(arr);
 
     const formData = new FormData();
     formData.append('file', imageBuffer, {
       contentType: 'image/png',
-      filename: 'generated-image.png'
+      filename: imageFilename
     });
 
     const ghostToken = getGhostToken();
