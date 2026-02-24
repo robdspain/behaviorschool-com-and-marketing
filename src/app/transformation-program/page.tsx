@@ -195,7 +195,7 @@ export default function TransformationProgramPage() {
                   </Button>
                   <Link
                     href="#enroll"
-                    className="inline-flex items-center justify-center rounded-2xl border-2 border-emerald-700 px-6 h-14 text-base font-semibold text-emerald-900 hover:bg-emerald-50 transition"
+                    className="inline-flex items-center justify-center rounded-2xl border-2 border-emerald-800 bg-emerald-800 px-6 h-14 text-base font-semibold text-white hover:bg-emerald-900 transition"
                   >
                     Apply for Next Cohort
                   </Link>
