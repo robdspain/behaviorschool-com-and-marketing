@@ -194,11 +194,10 @@ export default function TransformationProgramPage() {
                     <Link href="/signup">Enroll Now <ArrowRight className="ml-2 h-5 w-5" /></Link>
                   </Button>
                   <Link
-                    href="https://calendly.com/behaviorschool/discovery"
-                    target="_blank"
+                    href="#enroll"
                     className="inline-flex items-center justify-center rounded-2xl border-2 border-emerald-700 px-6 h-14 text-base font-semibold text-emerald-900 hover:bg-emerald-50 transition"
                   >
-                    \ud83d\udcde Book a Free Discovery Call
+                    Apply for Next Cohort
                   </Link>
                 </div>
               </motion.div>
