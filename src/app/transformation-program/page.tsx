@@ -107,26 +107,7 @@ const curriculumData = [
   }
 ];
 
-const testimonialCards = [
-  {
-    quote: "This program changed how I approach my entire caseload.",
-    name: "Sarah M.",
-    title: "BCBA, California",
-    initials: "SM"
-  },
-  {
-    quote: "I went from reactive to proactive in 6 weeks.",
-    name: "James T.",
-    title: "Lead BCBA, Texas",
-    initials: "JT"
-  },
-  {
-    quote: "Worth every penny. My admin finally gets what I do.",
-    name: "Dr. Lisa R.",
-    title: "BCBA-D, New York",
-    initials: "LR"
-  }
-];
+
 
 export default function TransformationProgramPage() {
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -223,27 +204,19 @@ export default function TransformationProgramPage() {
               </motion.div>
             </div>
             <div className="md:col-span-5 mt-16 md:mt-0">
-              <div className="relative space-y-5">
-                {testimonialCards.map((testimonial, index) => (
-                  <div
-                    key={testimonial.name}
-                    className={`rounded-3xl bg-white p-6 shadow-xl border border-slate-100 ${index === 0 ? "lg:-rotate-2" : index === 1 ? "lg:rotate-1" : "lg:-rotate-1"} ${index === 1 ? "lg:translate-x-6" : ""}`}
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-700 text-white text-sm font-bold">
-                        {testimonial.initials}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-slate-900">{testimonial.name}</p>
-                        <p className="text-xs text-slate-500">{testimonial.title}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 text-[#e4b63d] mb-3">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={`${testimonial.name}-star-${i}`} className="h-4 w-4 fill-[#e4b63d]" />
-                      ))}
-                    </div>
-                    <p className="text-sm text-slate-700 leading-relaxed">"{testimonial.quote}"</p>
+              <div className="rounded-3xl bg-white p-8 shadow-xl border border-slate-100 space-y-5">
+                <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">What&rsquo;s included</p>
+                {[
+                  { icon: "📋", text: "6-week live cohort with weekly group sessions" },
+                  { icon: "🎯", text: "Evidence-based curriculum built for school BCBAs" },
+                  { icon: "🛠️", text: "Hands-on tools, templates, and planning frameworks" },
+                  { icon: "👥", text: "Peer cohort of school-based practitioners" },
+                  { icon: "📊", text: "Data systems for tracking behavior and progress" },
+                  { icon: "🏫", text: "FERPA-compliant, IEP-aligned throughout" },
+                ].map((item) => (
+                  <div key={item.text} className="flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">{item.icon}</span>
+                    <p className="text-slate-700 text-sm leading-relaxed">{item.text}</p>
                   </div>
                 ))}
               </div>
