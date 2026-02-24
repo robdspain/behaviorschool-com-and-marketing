@@ -207,15 +207,14 @@ export default function TransformationProgramPage() {
               <div className="rounded-3xl bg-white p-8 shadow-xl border border-slate-100 space-y-5">
                 <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">What&rsquo;s included</p>
                 {[
-                  { icon: "📋", text: "6-week live cohort with weekly group sessions" },
-                  { icon: "🎯", text: "Evidence-based curriculum built for school BCBAs" },
-                  { icon: "🛠️", text: "Hands-on tools, templates, and planning frameworks" },
-                  { icon: "👥", text: "Peer cohort of school-based practitioners" },
-                  { icon: "📊", text: "Data systems for tracking behavior and progress" },
-                  { icon: "🏫", text: "FERPA-compliant, IEP-aligned throughout" },
+                  { text: "6-week live cohort with weekly group sessions" },
+                  { text: "Evidence-based curriculum built for school BCBAs" },
+                  { text: "Hands-on tools, templates, and planning frameworks" },
+                  { text: "Peer cohort of school-based practitioners" },
+                  { text: "Data systems for tracking behavior and progress" },
+                  { text: "FERPA-compliant, IEP-aligned throughout" },
                 ].map((item) => (
                   <div key={item.text} className="flex items-start gap-3">
-                    <span className="text-xl flex-shrink-0">{item.icon}</span>
                     <p className="text-slate-700 text-sm leading-relaxed">{item.text}</p>
                   </div>
                 ))}

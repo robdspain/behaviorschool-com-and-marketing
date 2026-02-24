@@ -306,17 +306,14 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: "📋",
                 name: "FBA-to-BIP Generator",
                 description: "AI-assisted behavior plan drafting — go from assessment data to a complete BIP draft in minutes, with FERPA compliance built in.",
               },
               {
-                icon: "🎯",
                 name: "IEP Goal Bank",
                 description: "Browse and filter function-based IEP goals that are measurable, classroom-ready, and aligned with best practices in behavior analysis.",
               },
               {
-                icon: "🏫",
                 name: "School-First Design",
                 description: "Built by a practicing school BCBA who understands educational settings, IEP timelines, FERPA requirements, and the realities of school-based practice.",
               },
@@ -326,7 +323,6 @@ export default function Home() {
                   whileHover={{ y: -4 }}
                   className="bg-slate-50 rounded-2xl p-6 border border-slate-200 h-full hover:shadow-lg transition-shadow"
                 >
-                  <div className="text-3xl mb-4">{feature.icon}</div>
                   <p className="font-semibold text-slate-900 text-lg mb-2">{feature.name}</p>
                   <p className="text-slate-600 leading-relaxed">{feature.description}</p>
                 </motion.div>
