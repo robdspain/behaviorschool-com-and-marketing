@@ -127,6 +127,13 @@ export default function Home() {
                 </Button>
               </motion.div>
             </Link>
+            <Link href="/free-study-plan">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-2 border-[#e4b63d]/60 text-[#e4b63d] hover:bg-[#e4b63d]/10 rounded-xl w-full sm:w-auto">
+                  Get Free Study Plan
+                </Button>
+              </motion.div>
+            </Link>
           </motion.div>
 
           <motion.p

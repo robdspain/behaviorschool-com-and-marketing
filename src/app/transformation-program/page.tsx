@@ -130,7 +130,6 @@ const testimonialCards = [
 
 export default function TransformationProgramPage() {
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [leadMagnetStatus, setLeadMagnetStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   async function handleWaitlistSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -157,37 +156,8 @@ export default function TransformationProgramPage() {
     }
   }
 
-  async function handleLeadMagnetSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const email = String(formData.get("email") || "").trim();
-
-    if (!email || !email.includes("@")) {
-      setLeadMagnetStatus("error");
-      return;
-    }
-
-    setLeadMagnetStatus("loading");
-    try {
-      const res = await fetch("/api/lead-magnet", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          lead_type: "transformation_checklist"
-        }),
-      });
-      if (!res.ok) throw new Error("Request failed");
-      setLeadMagnetStatus("success");
-      form.reset();
-    } catch (err) {
-      setLeadMagnetStatus("error");
-    }
-  }
-
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-white relative pt-28">
       <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white border-t-2 border-slate-100 shadow-2xl md:hidden">
         <Link 
           href="/signup" 
@@ -202,7 +172,7 @@ export default function TransformationProgramPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+      <section className="relative pb-16 md:pb-24 overflow-hidden">
         <div className="max-w-[1200px] px-4 md:px-6 mx-auto text-center lg:text-left">
           <div className="md:grid md:grid-cols-12 md:gap-12 items-center">
             <div className="md:col-span-7">
@@ -221,39 +191,23 @@ export default function TransformationProgramPage() {
                     </span>
                   ))}
                 </div>
-                <div className="rounded-2xl border border-emerald-200 bg-white p-6 shadow-lg text-left">
+                <Link
+                  href="/free-study-plan"
+                  className="block rounded-2xl border border-emerald-200 bg-white p-6 shadow-lg text-left hover:border-[#e4b63d] hover:shadow-xl transition group"
+                >
                   <span className="inline-flex items-center rounded-full bg-[#e4b63d]/20 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#8c6a11]">
                     Free Download
                   </span>
-                  <h2 className="mt-4 text-xl md:text-2xl font-bold text-slate-900">
-                    Get the Free BCBA School Systems Checklist
+                  <h2 className="mt-4 text-xl md:text-2xl font-bold text-slate-900 group-hover:text-[#1f4d3f] transition-colors">
+                    Free: BCBA School Systems Checklist
                   </h2>
                   <p className="mt-2 text-sm text-slate-600">
-                    The 47-point checklist used by high-impact BCBAs to build sustainable school behavior systems.
+                    The 47-point checklist used by high-impact BCBAs to build sustainable school behavior systems — plus your 7-day study plan.
                   </p>
-                  <form onSubmit={handleLeadMagnetSubmit} className="mt-5 flex flex-col sm:flex-row gap-3">
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email address"
-                      required
-                      className="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-                    />
-                    <button
-                      type="submit"
-                      className="w-full sm:w-auto rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-900 disabled:opacity-70"
-                      disabled={leadMagnetStatus === "loading"}
-                    >
-                      {leadMagnetStatus === "loading" ? "Sending..." : "Send It Free \u2192"}
-                    </button>
-                  </form>
-                  {leadMagnetStatus === "success" && (
-                    <p className="mt-3 text-sm font-semibold text-emerald-700">\u2713 Check your inbox!</p>
-                  )}
-                  {leadMagnetStatus === "error" && (
-                    <p className="mt-3 text-sm font-semibold text-rose-600">Please enter a valid email.</p>
-                  )}
-                </div>
+                  <span className="mt-4 inline-flex items-center gap-1 rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white group-hover:bg-emerald-900 transition">
+                    Get It Free →
+                  </span>
+                </Link>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Button asChild size="lg" className="rounded-2xl px-8 h-14 text-lg font-bold bg-red-600 hover:bg-red-700 text-white shadow-xl">
                     <Link href="/signup">Enroll Now <ArrowRight className="ml-2 h-5 w-5" /></Link>
