@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getConvexClient, api } from '@/lib/convex';
-import type { Id } from '../../../../../../../convex/_generated/dataModel';
+import type { Id } from '@/lib/convex';
 import type { AceEventStatus } from '@/lib/ace/types';
 
 export const dynamic = 'force-dynamic';

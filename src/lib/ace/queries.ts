@@ -4,7 +4,7 @@
 // Migrated from Supabase to Convex. All queries now use the Convex client.
 
 import { getConvexClient, api } from '@/lib/convex';
-import type { Id } from '../../../convex/_generated/dataModel';
+import type { Id } from "@/lib/convex";
 
 // ============================================================================
 // PROVIDER QUERIES

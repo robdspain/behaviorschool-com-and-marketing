@@ -1,14 +1,15 @@
 // ============================================================================
 // Convex Client Configuration
 // ============================================================================
-// Server-side and client-side Convex client setup
+// HTTP client for calling Convex actions/queries from Next.js API routes.
+// NOTE: This repo has no local Convex deployment — we use a generic client
+// to call the behaviorschool-app Convex deployment via NEXT_PUBLIC_CONVEX_URL.
 // ============================================================================
 
 import { ConvexHttpClient } from "convex/browser";
-import { api } from "../../convex/_generated/api";
 
 // Get Convex URL from environment
-const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL!;
+const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL ?? "";
 
 if (!CONVEX_URL) {
   console.warn("NEXT_PUBLIC_CONVEX_URL is not set");
@@ -19,8 +20,17 @@ export function getConvexClient() {
   return new ConvexHttpClient(CONVEX_URL);
 }
 
-// Export API for type inference
-export { api };
+// Generic api stub — routes call convex via string paths e.g. "ace:getEvent"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const api: Record<string, any> = new Proxy({}, {
+  get(_, module: string) {
+    return new Proxy({}, {
+      get(_, fn: string) {
+        return `${module}:${fn}`;
+      }
+    });
+  }
+});
 
-// Re-export Id type for convenience
-export type { Id } from "../../convex/_generated/dataModel";
+// Generic Id type
+export type Id<T extends string = string> = string & { readonly _tableName: T };

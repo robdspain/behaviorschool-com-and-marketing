@@ -5,7 +5,7 @@
 // ============================================================================
 
 import { getConvexClient, api } from "@/lib/convex";
-import type { Id } from "../../../convex/_generated/dataModel";
+import type { Id } from "@/lib/convex";
 import type {
   AceEvent,
   AceUser,

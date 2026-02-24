@@ -5,7 +5,7 @@ import {
   getAttendanceByEventAndParticipant,
   getEventAttendanceRecords,
 } from '@/lib/ace/ace-service';
-import type { Id } from '../../../../../convex/_generated/dataModel';
+import type { Id } from '@/lib/convex';
 
 export const dynamic = 'force-dynamic';
 
