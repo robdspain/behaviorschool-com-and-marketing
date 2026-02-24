@@ -140,6 +140,28 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-[#e4b63d]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <FadeInSection>
+            <div className="rounded-2xl bg-[#e4b63d] text-center text-emerald-950 px-6 py-10 sm:py-12 shadow-sm">
+              <p className="text-2xl sm:text-3xl font-bold">
+                New to BehaviorSchool? Start here →
+              </p>
+              <p className="mt-3 text-lg font-medium">
+                Get your free 7-day personalized study plan
+              </p>
+              <div className="mt-6 flex justify-center">
+                <Link href="/free-study-plan">
+                  <Button className="h-12 px-6 text-base font-semibold rounded-xl bg-emerald-950 text-[#e4b63d] hover:bg-emerald-900">
+                    Get My Free Plan
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </FadeInSection>
+        </div>
+      </section>
+
       {/* Trust Bar */}
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
