@@ -299,53 +299,36 @@ export default function Home() {
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
                 Built for School Behavior Teams
               </h2>
-              <p className="text-lg text-slate-600">Designed for BCBAs, school psychologists, and special education teams.</p>
+              <p className="text-lg text-slate-600">Designed by a school BCBA for BCBAs, school psychologists, and special education teams.</p>
             </div>
           </FadeInSection>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                quote: "AI-assisted BIP drafting designed to cut hours of writing time into minutes — with FERPA compliance built in.",
+                icon: "📋",
                 name: "FBA-to-BIP Generator",
-                role: "Draft behavior plans from assessment data",
+                description: "AI-assisted behavior plan drafting — go from assessment data to a complete BIP draft in minutes, with FERPA compliance built in.",
               },
               {
-                quote: "Every goal is measurable, classroom-ready, and aligned with best practices in behavior analysis.",
+                icon: "🎯",
                 name: "IEP Goal Bank",
-                role: "Function-based goals at your fingertips",
+                description: "Browse and filter function-based IEP goals that are measurable, classroom-ready, and aligned with best practices in behavior analysis.",
               },
               {
-                quote: "Built by a school BCBA who understands the unique challenges of educational settings and FERPA requirements.",
+                icon: "🏫",
                 name: "School-First Design",
-                role: "By practitioners, for practitioners",
+                description: "Built by a practicing school BCBA who understands educational settings, IEP timelines, FERPA requirements, and the realities of school-based practice.",
               },
-            ].map((testimonial, i) => (
-              <FadeInSection key={testimonial.name} delay={i * 0.1}>
+            ].map((feature, i) => (
+              <FadeInSection key={feature.name} delay={i * 0.1}>
                 <motion.div
                   whileHover={{ y: -4 }}
                   className="bg-slate-50 rounded-2xl p-6 border border-slate-200 h-full hover:shadow-lg transition-shadow"
                 >
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, starIndex) => (
-                      <motion.div
-                        key={starIndex}
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.3, delay: i * 0.1 + starIndex * 0.05 }}
-                      >
-                        <svg className="h-5 w-5 text-amber-400 fill-amber-400" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      </motion.div>
-                    ))}
-                  </div>
-                  <p className="text-slate-700 mb-4 leading-relaxed italic">&ldquo;{testimonial.quote}&rdquo;</p>
-                  <div>
-                    <p className="font-semibold text-slate-900">{testimonial.name}</p>
-                    <p className="text-sm text-slate-500">{testimonial.role}</p>
-                  </div>
+                  <div className="text-3xl mb-4">{feature.icon}</div>
+                  <p className="font-semibold text-slate-900 text-lg mb-2">{feature.name}</p>
+                  <p className="text-slate-600 leading-relaxed">{feature.description}</p>
                 </motion.div>
               </FadeInSection>
             ))}
