@@ -1,13 +1,16 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-client';
 import type { MasterclassResource } from '@/lib/masterclass/admin-types';
 
-const supabase = createClient();
+// Module-level Supabase client moved to lazy getter to prevent build-time errors
+function getSupabase() { return createClient(); }
 
 // GET all resources
 export async function GET(request: NextRequest) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('masterclass_resources')
       .select('*')
       .order('order_index', { ascending: true });
@@ -30,7 +33,7 @@ export async function POST(request: NextRequest) {
     const newResource: Omit<MasterclassResource, 'id' | 'created_at' | 'updated_at'> = await request.json();
 
     // Determine the next order_index
-    const { data: maxOrderData, error: maxOrderError } = await supabase
+    const { data: maxOrderData, error: maxOrderError } = await getSupabase()
       .from('masterclass_resources')
       .select('order_index')
       .order('order_index', { ascending: false })
@@ -43,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     const nextOrderIndex = (maxOrderData && maxOrderData.length > 0) ? maxOrderData[0].order_index + 1 : 1;
 
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from('masterclass_resources')
       .insert({ ...newResource, order_index: nextOrderIndex })
       .select();
@@ -71,7 +74,7 @@ export async function PUT(request: NextRequest) {
       // Update order_index in a single transaction-like sequence
       for (let i = 0; i < ids.length; i++) {
         const id = ids[i];
-        const { error } = await supabase
+        const { error } = await getSupabase()
           .from('masterclass_resources')
           .update({ order_index: i + 1 })
           .eq('id', id);
@@ -86,7 +89,7 @@ export async function PUT(request: NextRequest) {
     // Single resource update: { id, ...fields }
     if (typeof body?.id === 'number') {
       const { id, ...fields } = body as Partial<MasterclassResource> & { id: number };
-      const { data, error } = await supabase
+      const { data, error } = await getSupabase()
         .from('masterclass_resources')
         .update(fields)
         .eq('id', id)
@@ -115,7 +118,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Missing id' }, { status: 400 });
     }
 
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('masterclass_resources')
       .delete()
       .eq('id', id);

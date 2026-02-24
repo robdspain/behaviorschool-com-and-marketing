@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { issueCertificateForEnrollment } from '@/lib/masterclass/certificate-service';
 

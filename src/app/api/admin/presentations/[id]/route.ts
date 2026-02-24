@@ -1,10 +1,12 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
 async function readSlidesFromStorage(path?: string) {
   if (!path) return null as any;
   const supabase = createSupabaseAdminClient();
-  const { data } = await supabase.storage.from('presentations').download(path);
+  const { data } = await getSupabase().storage.from('presentations').download(path);
   if (!data) return null as any;
   const text = await data.text();
   try {
@@ -21,7 +23,7 @@ async function readSlidesFromStorage(path?: string) {
 
 async function writeSlidesToStorage(path: string, slides: any, meta?: Record<string, any>) {
   const supabase = createSupabaseAdminClient();
-  const { data } = await supabase.storage.from('presentations').download(path);
+  const { data } = await getSupabase().storage.from('presentations').download(path);
   let base: any = {};
   if (data) {
     try { base = JSON.parse(await data.text()); } catch { base = {}; }
@@ -34,7 +36,7 @@ async function writeSlidesToStorage(path: string, slides: any, meta?: Record<str
   // Upsert by removing then uploading or using upsert: true if allowed
   // Supabase storage supports upsert option; here we use upsert true if available
   // @ts-ignore
-  const { error: upErr } = await supabase.storage.from('presentations').upload(path, bytes, { contentType: 'application/json', upsert: true });
+  const { error: upErr } = await getSupabase().storage.from('presentations').upload(path, bytes, { contentType: 'application/json', upsert: true });
   if (upErr) throw upErr;
 }
 
@@ -95,7 +97,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
     // Update the slides in the database
     // Try DB update first; if column doesn't exist, fallback to storage
-    const { data: row } = await supabase.from('presentations_ai').select('storage_path').eq('id', id).single();
+    const { data: row } = await getSupabase().from('presentations_ai').select('storage_path').eq('id', id).single();
     let dbErr: any = null;
     const templateTheme = body.templateTheme;
     const templateFonts = body.templateFonts;
@@ -145,7 +147,7 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
 
     // Delete file from storage
     if (rec?.storage_path) {
-      await supabase.storage.from('presentations').remove([rec.storage_path]);
+      await getSupabase().storage.from('presentations').remove([rec.storage_path]);
     }
 
     // Delete row

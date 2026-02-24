@@ -3,8 +3,6 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const STUDY_PLAN = [
   { day: 1, topic: "Measurement", hours: 4 },
   { day: 2, topic: "Experimental Design", hours: 3 },
@@ -29,6 +27,11 @@ function buildPlanRows(): string {
 }
 
 export async function POST(request: NextRequest) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  if (!resendApiKey) {
+    return NextResponse.json({ success: false, error: "RESEND_API_KEY not configured" }, { status: 500 });
+  }
+  const resend = new Resend(resendApiKey);
   try {
     const body = await request.json();
 

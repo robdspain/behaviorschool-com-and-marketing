@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server'
 import { upsertListmonkSubscriber, getListmonkConfig } from '@/lib/listmonk'
 import { verifyAdminSession } from '@/lib/admin-auth'

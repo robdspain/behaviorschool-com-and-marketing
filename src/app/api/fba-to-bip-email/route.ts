@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import { appendFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";

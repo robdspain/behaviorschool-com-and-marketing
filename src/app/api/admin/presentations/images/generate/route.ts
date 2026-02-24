@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient, withSupabaseAdmin } from '@/lib/supabase-admin';
 
@@ -47,11 +49,11 @@ export async function POST(req: NextRequest) {
       }
       const id = crypto.randomUUID();
       const path = `generated/${id}.png`;
-      const { error: upErr } = await supabase.storage.from('presentations-images').upload(path, bytes, { contentType: 'image/png', upsert: false });
+      const { error: upErr } = await getSupabase().storage.from('presentations-images').upload(path, bytes, { contentType: 'image/png', upsert: false });
       if (upErr) throw upErr;
-      const { data: pub } = supabase.storage.from('presentations-images').getPublicUrl(path);
+      const { data: pub } = getSupabase().storage.from('presentations-images').getPublicUrl(path);
       const publicUrl1 = pub?.publicUrl;
-      await supabase.from('presentations_ai_images').insert({ prompt, provider: 'openai', model: model || 'gpt-image-1', url: publicUrl1, storage_path: path });
+      await getSupabase().from('presentations_ai_images').insert({ prompt, provider: 'openai', model: model || 'gpt-image-1', url: publicUrl1, storage_path: path });
       return NextResponse.json({ url: publicUrl1, path, provider: 'openai' });
     }
 
@@ -83,11 +85,11 @@ export async function POST(req: NextRequest) {
           }
           const id = crypto.randomUUID();
           const path = `generated/${id}.png`;
-          const { error: upErr3 } = await supabase.storage.from('presentations-images').upload(path, bytes3, { contentType: 'image/png', upsert: false });
+          const { error: upErr3 } = await getSupabase().storage.from('presentations-images').upload(path, bytes3, { contentType: 'image/png', upsert: false });
           if (upErr3) throw upErr3;
-          const { data: pub3 } = supabase.storage.from('presentations-images').getPublicUrl(path);
+          const { data: pub3 } = getSupabase().storage.from('presentations-images').getPublicUrl(path);
           const url3 = pub3?.publicUrl;
-          await supabase.from('presentations_ai_images').insert({ prompt, provider: 'gemini', model: 'imagen-3.0', url: url3, storage_path: path });
+          await getSupabase().from('presentations_ai_images').insert({ prompt, provider: 'gemini', model: 'imagen-3.0', url: url3, storage_path: path });
           return NextResponse.json({ url: url3, path, provider: 'gemini' });
         } else {
           lastError = await imResp.text();
@@ -117,11 +119,11 @@ export async function POST(req: NextRequest) {
       }
       const id = crypto.randomUUID();
       const path = `generated/${id}.png`;
-      const { error: upErr2 } = await supabase.storage.from('presentations-images').upload(path, bytes2, { contentType: 'image/png', upsert: false });
+      const { error: upErr2 } = await getSupabase().storage.from('presentations-images').upload(path, bytes2, { contentType: 'image/png', upsert: false });
       if (upErr2) throw upErr2;
-      const { data: pub2 } = supabase.storage.from('presentations-images').getPublicUrl(path);
+      const { data: pub2 } = getSupabase().storage.from('presentations-images').getPublicUrl(path);
       const url2 = pub2?.publicUrl;
-      await supabase.from('presentations_ai_images').insert({ prompt, provider: 'openai', model: 'gpt-image-1', url: url2, storage_path: path });
+      await getSupabase().from('presentations_ai_images').insert({ prompt, provider: 'openai', model: 'gpt-image-1', url: url2, storage_path: path });
       return NextResponse.json({ url: url2, path, provider: 'openai' });
     }
 

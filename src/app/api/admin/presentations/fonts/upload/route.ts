@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient, withSupabaseAdmin } from '@/lib/supabase-admin';
 
@@ -19,9 +21,9 @@ export async function POST(req: NextRequest) {
       }
       return undefined as any;
     });
-    const { error } = await supabase.storage.from('presentations-fonts').upload(path, buf, { contentType: file.type || 'font/ttf' });
+    const { error } = await getSupabase().storage.from('presentations-fonts').upload(path, buf, { contentType: file.type || 'font/ttf' });
     if (error) throw error;
-    const { data } = supabase.storage.from('presentations-fonts').getPublicUrl(path);
+    const { data } = getSupabase().storage.from('presentations-fonts').getPublicUrl(path);
     return NextResponse.json({ url: data?.publicUrl, path });
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 500 });

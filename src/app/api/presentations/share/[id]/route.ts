@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
@@ -17,7 +19,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     if (error) throw error;
     if (!pres || !pres.storage_path) return NextResponse.json({ error: 'Not shareable' }, { status: 404 });
     
-    const { data: file, error: dlError } = await supabase.storage.from('presentations').download(pres.storage_path);
+    const { data: file, error: dlError } = await getSupabase().storage.from('presentations').download(pres.storage_path);
     if (dlError || !file) return NextResponse.json({ error: 'Missing data' }, { status: 404 });
     
     const txt = await file.text();

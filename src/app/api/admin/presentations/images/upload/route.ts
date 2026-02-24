@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient, withSupabaseAdmin } from '@/lib/supabase-admin';
 
@@ -26,12 +28,12 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const bytes = Buffer.from(arrayBuffer);
     const contentType = file.type || (ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' : ext === 'png' ? 'image/png' : 'application/octet-stream');
-    const { error: upErr } = await supabase.storage.from('presentations-images').upload(path, bytes, { contentType, upsert: false });
+    const { error: upErr } = await getSupabase().storage.from('presentations-images').upload(path, bytes, { contentType, upsert: false });
     if (upErr) throw upErr;
-    const { data: pub } = supabase.storage.from('presentations-images').getPublicUrl(path);
+    const { data: pub } = getSupabase().storage.from('presentations-images').getPublicUrl(path);
     const url = pub?.publicUrl;
     // Best effort insert into log table if exists
-    try { await supabase.from('presentations_ai_images').insert({ prompt: 'upload', provider: 'upload', model: 'upload', url, storage_path: path }); } catch {}
+    try { await getSupabase().from('presentations_ai_images').insert({ prompt: 'upload', provider: 'upload', model: 'upload', url, storage_path: path }); } catch {}
     return NextResponse.json({ url, path, provider: 'upload' });
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'Upload failed';

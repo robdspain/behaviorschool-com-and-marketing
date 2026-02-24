@@ -7,8 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 const verifySchema = z.object({
   provider_id: z.string().uuid().nonempty('Provider ID is required.'),
-  ein: z.instanceof(FileList).refine(files => files.length > 0, 'EIN document is required.'),
-  incorporation_doc: z.instanceof(FileList).refine(files => files.length > 0, 'Incorporation document is required.'),
+  ein: z.any().refine(files => files && typeof files.length === 'number' && files.length > 0, 'EIN document is required.'),
+  incorporation_doc: z.any().refine(files => files && typeof files.length === 'number' && files.length > 0, 'Incorporation document is required.'),
 });
 
 type VerifyFormInputs = z.infer<typeof verifySchema>;

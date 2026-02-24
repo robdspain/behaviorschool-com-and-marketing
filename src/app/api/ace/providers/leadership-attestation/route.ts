@@ -1,9 +1,12 @@
+export const dynamic = "force-dynamic";
+
 // src/app/api/ace/providers/leadership-attestation/route.ts
 import { createClient } from '@/lib/supabase-server';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-const supabase = createClient();
+// Module-level Supabase client moved to lazy getter to prevent build-time errors
+function getSupabase() { return createClient(); }
 
 // Define the schema for the request body
 const attestationSchema = z.object({
@@ -27,7 +30,7 @@ export async function POST(req: NextRequest) {
     const signaturePath = `${provider_id}/leadership_attestation.png`;
 
     // Upload the signature to Supabase Storage
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { data: uploadData, error: uploadError } = await getSupabase().storage
       .from('ace-provider-documents')
       .upload(signaturePath, signatureBuffer, {
         contentType: 'image/png',
@@ -39,12 +42,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Get the public URL for the uploaded signature
-    const { data: { publicUrl } } = supabase.storage
+    const { data: { publicUrl } } = getSupabase().storage
         .from('ace-provider-documents')
         .getPublicUrl(signaturePath);
 
     // Update the provider record in the database
-    const { data: updateData, error: updateError } = await supabase
+    const { data: updateData, error: updateError } = await getSupabase()
       .from('ace_providers')
       .update({
         leadership_attestation_url: publicUrl,

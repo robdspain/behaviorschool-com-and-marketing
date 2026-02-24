@@ -9,6 +9,10 @@
   NPM_FLAGS = "--prefer-offline --no-audit"
   PNPM_FLAGS = "--no-frozen-lockfile"
   SECRETS_SCAN_ENABLED = "false"
+  # Placeholder values so module-level Supabase instantiation does not throw at build time.
+  # Real values are set in Netlify site env vars for production runtime.
+  NEXT_PUBLIC_SUPABASE_URL = "https://placeholder.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder_anon_key"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

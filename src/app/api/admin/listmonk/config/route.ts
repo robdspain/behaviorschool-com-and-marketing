@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from 'next/server'
 import { listmonkFetch, getListmonkConfig } from '@/lib/listmonk'
 import { verifyAdminSession } from '@/lib/admin-auth'

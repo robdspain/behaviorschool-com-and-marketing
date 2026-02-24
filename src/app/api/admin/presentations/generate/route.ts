@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { VertexAI } from '@google-cloud/vertexai';
@@ -1437,7 +1439,7 @@ async function persistPresentation(params: {
       });
     if (upErr) throw upErr;
 
-    const { error: insErr } = await supabase.from('presentations_ai').insert({
+    const { error: insErr } = await getSupabase().from('presentations_ai').insert({
       id,
       topic: params.topic.slice(0, 1000),
       slide_count: params.slideCount,

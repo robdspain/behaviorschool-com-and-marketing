@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest } from 'next/server'
 
 // Generate a minimal one-page PDF with a title and checklist lines.

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
 
@@ -11,7 +13,7 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
 
     // Get authenticated user
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const { data: { user }, error: authError } = await getSupabase().auth.getUser();
 
     if (authError || !user) {
       return NextResponse.json(

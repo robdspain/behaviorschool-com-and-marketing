@@ -1,10 +1,12 @@
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
+function getSupabase() { return createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE!
-);
+); }
 
 interface Activity {
   type: string
@@ -18,7 +20,7 @@ export async function GET() {
     const activities: Activity[] = [];
 
     // Get archived activity IDs to filter them out
-    const { data: archivedData } = await supabase
+    const { data: archivedData } = await getSupabase()
       .from('archived_activities')
       .select('activity_type, activity_id');
 
@@ -27,7 +29,7 @@ export async function GET() {
     );
 
     // Get recent submissions (last 10)
-    const { data: submissions, error: submissionsError } = await supabase
+    const { data: submissions, error: submissionsError } = await getSupabase()
       .from('signup_submissions')
       .select('id, first_name, last_name, submitted_at')
       .order('submitted_at', { ascending: false })
@@ -48,7 +50,7 @@ export async function GET() {
     }
 
     // Get recent email template updates (last 5)
-    const { data: templates, error: templatesError } = await supabase
+    const { data: templates, error: templatesError } = await getSupabase()
       .from('email_templates')
       .select('id, name, updated_at')
       .order('updated_at', { ascending: false })
@@ -69,7 +71,7 @@ export async function GET() {
     }
 
     // Get recent downloads (last 5)
-    const { data: downloads, error: downloadsError } = await supabase
+    const { data: downloads, error: downloadsError } = await getSupabase()
       .from('download_submissions')
       .select('id, resource, created_at')
       .order('created_at', { ascending: false })

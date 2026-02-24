@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
@@ -13,10 +15,10 @@ export async function POST(req: NextRequest) {
 
     // Ensure storage bucket exists
     try {
-      const { data: buckets } = await supabase.storage.listBuckets();
+      const { data: buckets } = await getSupabase().storage.listBuckets();
       const has = (buckets || []).some((b) => b.name === 'presentations');
       if (!has) {
-        await supabase.storage.createBucket('presentations', { public: false });
+        await getSupabase().storage.createBucket('presentations', { public: false });
       }
     } catch (e) {
       // proceed; if creation fails later upload will surface error
@@ -26,7 +28,7 @@ export async function POST(req: NextRequest) {
     // Upload a lightweight draft record so storage_path is non-null
     const share_token = crypto.randomUUID();
     const bytes = Buffer.from(JSON.stringify({ topic, template, tone, language, provider, model, slides, share_token }, null, 2), 'utf8');
-    const { error: upErr } = await supabase.storage.from('presentations').upload(storagePath, bytes, { contentType: 'application/json', upsert: false });
+    const { error: upErr } = await getSupabase().storage.from('presentations').upload(storagePath, bytes, { contentType: 'application/json', upsert: false });
     if (upErr) throw upErr;
 
     const { data, error } = await supabase

@@ -1,16 +1,15 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from 'next/server';
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
 import { createClient } from '@/lib/supabase-server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
-const mailgun = new Mailgun(formData);
-const mg = mailgun.client({
-  username: 'api',
-  key: process.env.MAILGUN_API_KEY || '',
-});
 
 export async function POST(request: NextRequest) {
+  const mailgun = new Mailgun(formData);
+  const mg = mailgun.client({ username: "api", key: process.env.MAILGUN_API_KEY || "" });
   try {
     // Verify admin authentication
     const supabase = await createClient();
