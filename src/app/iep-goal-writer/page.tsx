@@ -36,7 +36,7 @@ const faqItems = [
   {
     question: "What makes this different from a generic IEP goal template?",
     answer:
-      "It starts with student values, then walks you through baseline, target, fluency, generalization, and maintenance so goals are actionable and measurable. This values-based approach ensures goals are personally meaningful to students, increasing motivation and engagement.",
+      "Walk through baseline, target, fluency, generalization, and maintenance so goals are actionable, measurable, and SMART.",
   },
   {
     question: "Can I use the output in an IEP meeting?",
@@ -57,7 +57,7 @@ const structuredData = {
       "@type": "SoftwareApplication",
       name: "IEP Goal Writer",
       description:
-        "A values-based IEP goal writer that generates Level 5 SMART behavior goals with baseline, fluency, generalization, and maintenance.",
+        "An IEP goal writer that generates Level 5 SMART behavior goals with baseline, fluency, generalization, and maintenance.",
       applicationCategory: "EducationalApplication",
       operatingSystem: "Web",
       url: pageUrl,
@@ -87,7 +87,7 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "IEP Goal Writer - Values-Based Goals | Behavior School",
+  title: "IEP Goal Writer | Behavior School",
   description:
     "Free IEP Goal Writer that creates Level 5 SMART behavior goals with baseline, fluency, and maintenance in minutes. For BCBAs and educators. Start now!",
   keywords: [
@@ -96,11 +96,11 @@ export const metadata: Metadata = {
     "SMART IEP goals",
     "BCBA tools",
     "special education",
-    "values-based goals",
+    "SMART behavior goals",
   ],
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "IEP Goal Writer | Values-Based Behavior Goals in Minutes",
+    title: "IEP Goal Writer | SMART Behavior Goals in Minutes",
     description:
       "Generate a research-aligned IEP behavior goal with baseline, fluency, generalization, and maintenance in under five minutes.",
     url: pageUrl,
@@ -115,7 +115,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "IEP Goal Writer | Values-Based Behavior Goals in Minutes",
+    title: "IEP Goal Writer | SMART Behavior Goals in Minutes",
     description:
       "Generate a research-aligned IEP behavior goal with baseline, fluency, generalization, and maintenance in under five minutes.",
     images: [`${baseUrl}/og-image.webp`],
@@ -142,13 +142,13 @@ export default function IEPGoalWriterPage() {
         {/* Hero Section */}
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-emerald-700 shadow-sm">
-            Values-Based Tool
+            IEP Goal Writer
           </div>
           <h1 className="mb-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
             Write IEP Goals that <span className="text-emerald-700">Matter</span>
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-slate-600">
-            Stop starting with compliance. Start with student values. Generate a research-backed, Level 5 SMART behavior goal with baseline, fluency, and maintenance in under five minutes.
+            Generate a research-backed, Level 5 SMART behavior goal with baseline, fluency, and maintenance in under five minutes.
           </p>
           
           <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-6">
@@ -197,7 +197,7 @@ export default function IEPGoalWriterPage() {
                 {[
                   "Building a new IEP goal from scratch in minutes",
                   "Refreshing old goals with fluency & maintenance criteria",
-                  "Creating values-based targets students actually care about",
+                  "Creating measurable, actionable targets students can achieve",
                   "Ensuring legal defensibility with SMART criteria"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">

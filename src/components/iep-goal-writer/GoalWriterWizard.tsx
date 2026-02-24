@@ -45,7 +45,7 @@ const generalizationOptions = [
   "With different adults",
 ];
 
-const steps = ["Values", "Behavior", "Baseline", "Fluency", "Maintenance"];
+const steps = ["Behavior", "Baseline", "Fluency", "Maintenance"];
 
 const defaultSettings = [
   "Structured classroom",
@@ -102,7 +102,6 @@ export function GoalWriterWizard() {
       : Boolean(selectedValue);
 
     return [
-      valueOk,
       behaviorOk && replacementOk,
       baselineOk && targetOk,
       generalizationOk,
@@ -150,7 +149,7 @@ export function GoalWriterWizard() {
       : "";
 
     const conditionLine = `Condition: By ${date}, when in ${settingsText}`;
-    const behaviorLine = `Behavior: ${student} will ${behaviorPhrase} to demonstrate ${valueLabel}`;
+    const behaviorLine = `Behavior: ${student} will ${behaviorPhrase}`;
     const criteriaLine = `Criteria: ${target}% of opportunities for 3 consecutive school days${fluencyPhrase}${generalizationPhrase}, as measured by ${measurementMethod.toLowerCase()}.`;
     const maintenanceLine = `Maintenance: ${student} will maintain the skill for ${maintenanceWeeks} weeks following mastery.`;
 
@@ -308,7 +307,7 @@ export function GoalWriterWizard() {
       <div id="wizard-top" className="rounded-3xl border border-emerald-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
         <div className="border-b border-emerald-100 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-600 px-6 py-8 text-white">
           <div className="flex flex-col gap-2">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-emerald-100">Values Wizard</span>
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-emerald-100">IEP Goal Writer</span>
             <h2 className="text-3xl font-bold sm:text-4xl">IEP Goal Writer</h2>
             <p className="text-base text-emerald-50/90 sm:text-lg">
               Build a Level 5 SMART behavior goal in five focused steps.
@@ -428,7 +427,7 @@ export function GoalWriterWizard() {
         <div className="border-b border-slate-100 px-6 py-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Step {currentStep + 1} of 5</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Step {currentStep + 1} of 4</p>
               <h3 className="text-xl font-bold text-slate-900">{steps[currentStep]}</h3>
             </div>
             {activeTemplate && (
@@ -454,41 +453,9 @@ export function GoalWriterWizard() {
               transition={{ duration: 0.2 }}
               className="space-y-6"
             >
-              {currentStep === 0 && (
-                <div className="space-y-5">
-                  <div>
-                    <p className="text-sm font-medium text-slate-700">What matters most to this student?</p>
-                    <p className="text-sm text-slate-500">Choose a value the student wants to grow in.</p>
-                  </div>
-                  <div className="grid gap-3 grid-cols-2">
-                    {valueOptions.map((value) => (
-                      <ValueCard
-                        key={value.label}
-                        emoji={value.emoji}
-                        label={value.label}
-                        description={value.description}
-                        selected={selectedValue.label === value.label}
-                        onClick={() => setSelectedValue(value)}
-                      />
-                    ))}
-                  </div>
-                  {selectedValue.label === "Custom Value" && (
-                    <div className="space-y-2 pt-2">
-                      <Label htmlFor="custom-value">Custom Value</Label>
-                      <Input
-                        id="custom-value"
-                        value={customValue}
-                        onChange={(e) => setCustomValue(e.target.value)}
-                        placeholder="Perseverance, self-advocacy..."
-                        className="h-11"
-                        autoFocus
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
 
-              {currentStep === 1 && (
+
+              {currentStep === 0 && (
                 <div className="space-y-6">
                   <div className="flex gap-3">
                     {(["increase", "decrease"] as const).map((type) => (
@@ -540,7 +507,7 @@ export function GoalWriterWizard() {
                 </div>
               )}
 
-              {currentStep === 2 && (
+              {currentStep === 1 && (
                 <div className="space-y-6">
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div className="space-y-2">
@@ -603,7 +570,7 @@ export function GoalWriterWizard() {
                 </div>
               )}
 
-              {currentStep === 3 && (
+              {currentStep === 2 && (
                 <div className="space-y-6">
                   <div className="flex items-center justify-between rounded-xl border border-slate-200 p-4">
                     <div>
@@ -665,7 +632,7 @@ export function GoalWriterWizard() {
                 </div>
               )}
 
-              {currentStep === 4 && (
+              {currentStep === 3 && (
                 <div className="space-y-8">
                   <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-5">
                     <h4 className="font-semibold text-emerald-900">Final Polish</h4>
@@ -775,11 +742,11 @@ export function GoalWriterWizard() {
               <div>
                 <h4 className="font-semibold text-emerald-900">Pro Tip</h4>
                 <p className="mt-1 text-sm text-emerald-800/80">
-                  {currentStep === 0 && "Connecting goals to student values increases buy-in and success rates by over 40%."}
-                  {currentStep === 1 && "Always define the replacement behavior. We can't just stop a behavior; we must replace it with a skill."}
-                  {currentStep === 2 && "If the gap between baseline and target is too wide, consider a benchmark objective first."}
-                  {currentStep === 3 && "Fluency builds automaticity. If they have to think about it too long, they won't use it in stress situations."}
-                  {currentStep === 4 && "Maintenance failures are the #1 reason for behavior regression. Lock it in with a 4-week window."}
+                  
+                  {currentStep === 0 && "Always define the replacement behavior. We can't just stop a behavior; we must replace it with a skill."}
+                  {currentStep === 1 && "If the gap between baseline and target is too wide, consider a benchmark objective first."}
+                  {currentStep === 2 && "Fluency builds automaticity. If they have to think about it too long, they won't use it in stress situations."}
+                  {currentStep === 3 && "Maintenance failures are the #1 reason for behavior regression. Lock it in with a 4-week window."}
                 </p>
               </div>
             </div>
