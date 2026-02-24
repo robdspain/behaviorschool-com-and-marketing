@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Users, Target, CheckCircle, Star, Award, Heart, Shield, Zap, Calendar, BookOpen, FileCheck, Lightbulb, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -108,8 +107,30 @@ const curriculumData = [
   }
 ];
 
+const testimonialCards = [
+  {
+    quote: "This program changed how I approach my entire caseload.",
+    name: "Sarah M.",
+    title: "BCBA, California",
+    initials: "SM"
+  },
+  {
+    quote: "I went from reactive to proactive in 6 weeks.",
+    name: "James T.",
+    title: "Lead BCBA, Texas",
+    initials: "JT"
+  },
+  {
+    quote: "Worth every penny. My admin finally gets what I do.",
+    name: "Dr. Lisa R.",
+    title: "BCBA-D, New York",
+    initials: "LR"
+  }
+];
+
 export default function TransformationProgramPage() {
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [leadMagnetStatus, setLeadMagnetStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   async function handleWaitlistSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -136,6 +157,35 @@ export default function TransformationProgramPage() {
     }
   }
 
+  async function handleLeadMagnetSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const email = String(formData.get("email") || "").trim();
+
+    if (!email || !email.includes("@")) {
+      setLeadMagnetStatus("error");
+      return;
+    }
+
+    setLeadMagnetStatus("loading");
+    try {
+      const res = await fetch("/api/lead-magnet", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          lead_type: "transformation_checklist"
+        }),
+      });
+      if (!res.ok) throw new Error("Request failed");
+      setLeadMagnetStatus("success");
+      form.reset();
+    } catch (err) {
+      setLeadMagnetStatus("error");
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white relative">
       <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white border-t-2 border-slate-100 shadow-2xl md:hidden">
@@ -152,33 +202,96 @@ export default function TransformationProgramPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <section className="relative pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden">
         <div className="max-w-[1200px] px-4 md:px-6 mx-auto text-center lg:text-left">
           <div className="md:grid md:grid-cols-12 md:gap-12 items-center">
             <div className="md:col-span-7">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="space-y-8">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
-                  From Chaos <br className="hidden sm:block" /> to <span className="text-emerald-600">Confidence</span>
+                <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.3em] text-[#e4b63d]">For School-Based BCBAs</p>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#1f4d3f] tracking-tight leading-[1.05]">
+                  Transform How You Work in Schools
                 </h1>
                 <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-[58ch] leading-relaxed mx-auto lg:mx-0">
-                  A 6-week, district-ready training for employed School BCBAs to move from reactive to system-led practice — with tools, templates, and coaching built for real classrooms.
+                  A 6-week live cohort that turns overwhelmed BCBAs into high-impact school behavior leaders.
                 </p>
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                  {["Live cohort", "6 weeks", "BCBAs only"].map((item) => (
+                    <span key={item} className="px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-xs font-semibold text-emerald-800 uppercase tracking-wide">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+                <div className="rounded-2xl border border-emerald-200 bg-white p-6 shadow-lg text-left">
+                  <span className="inline-flex items-center rounded-full bg-[#e4b63d]/20 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#8c6a11]">
+                    Free Download
+                  </span>
+                  <h2 className="mt-4 text-xl md:text-2xl font-bold text-slate-900">
+                    Get the Free BCBA School Systems Checklist
+                  </h2>
+                  <p className="mt-2 text-sm text-slate-600">
+                    The 47-point checklist used by high-impact BCBAs to build sustainable school behavior systems.
+                  </p>
+                  <form onSubmit={handleLeadMagnetSubmit} className="mt-5 flex flex-col sm:flex-row gap-3">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email address"
+                      required
+                      className="flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                    />
+                    <button
+                      type="submit"
+                      className="w-full sm:w-auto rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-900 disabled:opacity-70"
+                      disabled={leadMagnetStatus === "loading"}
+                    >
+                      {leadMagnetStatus === "loading" ? "Sending..." : "Send It Free \u2192"}
+                    </button>
+                  </form>
+                  {leadMagnetStatus === "success" && (
+                    <p className="mt-3 text-sm font-semibold text-emerald-700">\u2713 Check your inbox!</p>
+                  )}
+                  {leadMagnetStatus === "error" && (
+                    <p className="mt-3 text-sm font-semibold text-rose-600">Please enter a valid email.</p>
+                  )}
+                </div>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <Button asChild size="lg" className="rounded-2xl px-8 h-14 text-lg font-bold bg-red-600 hover:bg-red-700 text-white shadow-xl">
-                    <Link href="/signup">Claim Your Spot <ArrowRight className="ml-2 h-5 w-5" /></Link>
+                    <Link href="/signup">Enroll Now <ArrowRight className="ml-2 h-5 w-5" /></Link>
                   </Button>
-                </div>
-                <div className="mt-6 inline-flex flex-col gap-1 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900">
-                  <p className="text-sm font-semibold uppercase tracking-widest text-emerald-700">Next Cohort (6-Week Pilot)</p>
-                  <p className="text-sm font-semibold">Thursdays · 6:00–8:00 PM PT</p>
-                  <p className="text-sm">Dates: Mar 26, Apr 9, Apr 16, Apr 23, Apr 30, <span className="font-semibold">May 7</span></p>
-                  <p className="text-xs text-emerald-700">Skipping Easter week</p>
+                  <Link
+                    href="https://calendly.com/behaviorschool/discovery"
+                    target="_blank"
+                    className="inline-flex items-center justify-center rounded-2xl border-2 border-emerald-700 px-6 h-14 text-base font-semibold text-emerald-900 hover:bg-emerald-50 transition"
+                  >
+                    \ud83d\udcde Book a Free Discovery Call
+                  </Link>
                 </div>
               </motion.div>
             </div>
             <div className="md:col-span-5 mt-16 md:mt-0">
-              <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl">
-                <Image src="/Hero/Hero-group1.webp" alt="Education team collaborating" fill className="object-cover" />
+              <div className="relative space-y-5">
+                {testimonialCards.map((testimonial, index) => (
+                  <div
+                    key={testimonial.name}
+                    className={`rounded-3xl bg-white p-6 shadow-xl border border-slate-100 ${index === 0 ? "lg:-rotate-2" : index === 1 ? "lg:rotate-1" : "lg:-rotate-1"} ${index === 1 ? "lg:translate-x-6" : ""}`}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-700 text-white text-sm font-bold">
+                        {testimonial.initials}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900">{testimonial.name}</p>
+                        <p className="text-xs text-slate-500">{testimonial.title}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 text-[#e4b63d] mb-3">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={`${testimonial.name}-star-${i}`} className="h-4 w-4 fill-[#e4b63d]" />
+                      ))}
+                    </div>
+                    <p className="text-sm text-slate-700 leading-relaxed">"{testimonial.quote}"</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
