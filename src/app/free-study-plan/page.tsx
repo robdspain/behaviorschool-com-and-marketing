@@ -228,6 +228,12 @@ export default function FreeStudyPlanPage() {
       {/* Social proof bar */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="rounded-2xl bg-white border border-slate-200 px-6 py-4 flex flex-wrap items-center justify-center gap-4 text-sm font-semibold text-[#1f4d3f]">
+          <span>Free for BCBAs and RBTs</span>
+          <span>No credit card required</span>
+          <span>Instant delivery</span>
+        </div>
+      </section>
+
       {/* Full 7-day plan preview */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">

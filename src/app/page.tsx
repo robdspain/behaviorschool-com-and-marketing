@@ -3,7 +3,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Shield, CheckCircle, Sparkles, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  Users,
+  Shield,
+  CheckCircle,
+  Zap,
+  ClipboardList,
+  Target,
+  BookOpen,
+  Brain,
+  GraduationCap,
+  BarChart3,
+  Calendar,
+  FileCheck,
+  Star,
+  MessageSquare,
+} from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import ShimmerButton from "@/components/magicui/shimmer-button";
@@ -12,26 +28,30 @@ import AnimatedGradientText from "@/components/magicui/animated-gradient-text";
 const PRO_TOOLS = [
   {
     title: "FBA-to-BIP Generator",
-    description: "Upload FBA data and get a comprehensive, legally-defensible Behavior Intervention Plan in minutes.",
-    icon: "📋",
+    description:
+      "Upload FBA data and get a comprehensive, legally-defensible Behavior Intervention Plan in minutes.",
+    icon: ClipboardList,
     href: "/fba-to-bip",
   },
   {
     title: "IEP Goal Generator",
-    description: "AI-powered measurable IEP goals aligned to state standards. SMART, specific, and classroom-ready.",
-    icon: "🎯",
+    description:
+      "AI-powered measurable IEP goals aligned to state standards. SMART, specific, and classroom-ready.",
+    icon: Target,
     href: "/iep-goal-generator",
   },
   {
     title: "IEP Goal Bank",
-    description: "Searchable library of 1,000+ pre-written behavior & academic goals. Filter by domain, grade, and need.",
-    icon: "📚",
+    description:
+      "Searchable library of 1,000+ pre-written behavior and academic goals. Filter by domain, grade, and need.",
+    icon: BookOpen,
     href: "/iep-goal-bank",
   },
   {
     title: "ACT Module",
-    description: "Acceptance & Commitment Training tools designed for school-based behavioral support teams.",
-    icon: "🧠",
+    description:
+      "Acceptance and Commitment Training tools designed for school-based behavioral support teams.",
+    icon: Brain,
     href: "/act-matrix",
   },
 ];
@@ -41,6 +61,27 @@ const TRUST_ITEMS = [
   { icon: CheckCircle, label: "Evidence-Based", sub: "Grounded in ABA research" },
   { icon: Users, label: "Built for Schools", sub: "By BCBAs, for school teams" },
   { icon: Zap, label: "AI-Powered", sub: "Save hours every week" },
+];
+
+const STUDY_FEATURES = [
+  { icon: Brain, label: "Adaptive Practice", description: "Questions that adapt to your weak areas so you study smarter, not longer." },
+  { icon: BarChart3, label: "Performance Analytics", description: "See exactly where you stand across all BCBA task list domains." },
+  { icon: CheckCircle, label: "500+ Vetted Questions", description: "Written and reviewed by practicing BCBAs — no low-quality filler." },
+];
+
+const SUPERVISE_FEATURES = [
+  { icon: FileCheck, label: "BACB-Aligned Tracking", description: "Log and track supervised hours with tools built around BACB requirements." },
+  { icon: ClipboardList, label: "Supervision Logs", description: "Structured documentation templates for individual and group supervision." },
+  { icon: Users, label: "Supervisee Resources", description: "Materials to support your supervisees through the credentialing process." },
+];
+
+const TRANSFORMATION_OUTCOMES = [
+  "Map your caseload and stakeholder ecosystem",
+  "Build a streamlined referral system that filters non-behavioral issues",
+  "Strengthen buy-in with teams and identify early adopters",
+  "Select the right assessment for the right context every time",
+  "Create BIPs that staff can actually implement",
+  "Develop a sustainable, school-wide behavior support practice",
 ];
 
 function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -62,9 +103,8 @@ function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; del
 export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--bs-background,#FAF3E0)]">
-      {/* Hero Section */}
+      {/* ─── HERO ──────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-700 pt-32 pb-20 sm:pt-36 sm:pb-24">
-        {/* Animated grid background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
           <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/50 to-transparent" />
@@ -77,8 +117,8 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <AnimatedGradientText className="mb-6">
-              <Sparkles className="h-4 w-4 mr-2" />
-              <span className="text-emerald-900 dark:text-white font-semibold">Now in BehaviorSchool Pro</span>
+              <Star className="h-4 w-4 mr-2" />
+              <span className="text-emerald-900 dark:text-white font-semibold">For School-Based BCBAs</span>
             </AnimatedGradientText>
           </motion.div>
 
@@ -88,10 +128,10 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6"
           >
-            <span className="text-white">AI-Powered Behavior Tools</span>
+            <span className="text-white">The Operating System</span>
             <br className="hidden sm:block" />
             <span className="bg-gradient-to-r from-amber-300 via-amber-200 to-yellow-300 bg-clip-text text-transparent animate-gradient">
-              for School Teams
+              for School-Based BCBAs
             </span>
           </motion.h1>
 
@@ -101,7 +141,7 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="max-w-2xl mx-auto text-lg sm:text-xl text-emerald-100 mb-10 leading-relaxed"
           >
-            Generate BIPs from FBA data, write measurable IEP goals, and access a complete goal bank — all FERPA compliant. Used by BCBAs and school psychologists nationwide.
+            Tools to work faster. Courses to level up. Community to grow together.
           </motion.p>
 
           <motion.div
@@ -110,137 +150,95 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href="/pro/demo">
+            <Link href="#tools">
               <ShimmerButton
                 className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
                 shimmerColor="#ffffff"
               >
-                <span className="text-emerald-900">Try Free for 14 Days</span>
+                <span className="text-emerald-900">Explore Tools</span>
                 <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
               </ShimmerButton>
             </Link>
-            <Link href="/pro">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-2 border-white/30 text-white hover:bg-white/10 rounded-xl w-full sm:w-auto">
-                  See Pricing
-                </Button>
-              </motion.div>
-            </Link>
             <Link href="/free-study-plan">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-2 border-[#e4b63d]/60 text-[#e4b63d] hover:bg-[#e4b63d]/10 rounded-xl w-full sm:w-auto">
-                  Get Free Study Plan
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-14 px-8 text-lg font-bold border-2 border-[#e4b63d]/60 text-[#e4b63d] hover:bg-[#e4b63d]/10 rounded-xl w-full sm:w-auto"
+                >
+                  Start Free Study Plan
                 </Button>
               </motion.div>
             </Link>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-6 text-emerald-200 text-sm"
-          >
-            No credit card required · Cancel anytime
-          </motion.p>
         </div>
       </section>
 
-      <section className="bg-[#e4b63d]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <FadeInSection>
-            <div className="rounded-2xl bg-[#e4b63d] text-center text-emerald-950 px-6 py-10 sm:py-12 shadow-sm">
-              <p className="text-2xl sm:text-3xl font-bold">
-                New to BehaviorSchool? Start here →
-              </p>
-              <p className="mt-3 text-lg font-medium">
-                Get your free 7-day personalized study plan
-              </p>
-              <div className="mt-6 flex justify-center">
-                <Link href="/free-study-plan">
-                  <Button className="h-12 px-6 text-base font-semibold rounded-xl bg-emerald-950 text-[#e4b63d] hover:bg-emerald-900">
-                    Get My Free Plan
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </FadeInSection>
-        </div>
-      </section>
-
-      {/* Trust Bar */}
-      <section className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {TRUST_ITEMS.map((item, i) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="flex items-center gap-3"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="flex-shrink-0 w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center"
-                >
-                  <item.icon className="h-5 w-5 text-emerald-700" />
-                </motion.div>
-                <div>
-                  <p className="font-semibold text-slate-900 text-sm">{item.label}</p>
-                  <p className="text-slate-500 text-xs">{item.sub}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Tool Showcase */}
-      <section className="py-16 sm:py-20 bg-white">
+      {/* ─── SECTION 1: TOOLS ──────────────────────────────────────────── */}
+      <section id="tools" className="py-16 sm:py-20 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeInSection>
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-                Your Complete Behavior Support Toolkit
+                AI-Powered Tools for School Behavior Teams
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Everything school behavior teams need — powered by AI, built by BCBAs.
+                Everything school behavior teams need — built by BCBAs, compliant with FERPA, and designed for the real pace of school work.
               </p>
             </div>
           </FadeInSection>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PRO_TOOLS.map((tool, i) => (
-              <FadeInSection key={tool.title} delay={i * 0.1}>
-                <Link href={tool.href} className="group block h-full">
-                  <motion.div
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                    className="bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-2xl p-6 h-full transition-all duration-200 hover:shadow-xl"
-                  >
+            {PRO_TOOLS.map((tool, i) => {
+              const Icon = tool.icon;
+              return (
+                <FadeInSection key={tool.title} delay={i * 0.1}>
+                  <Link href={tool.href} className="group block h-full">
                     <motion.div
-                      whileHover={{ scale: 1.2, rotate: 5 }}
-                      className="text-4xl mb-4"
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
+                      className="bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-2xl p-6 h-full transition-all duration-200 hover:shadow-xl"
                     >
-                      {tool.icon}
+                      <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
+                        <Icon className="h-6 w-6 text-emerald-700" />
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors">
+                        {tool.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 leading-relaxed">{tool.description}</p>
                     </motion.div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors">
-                      {tool.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">{tool.description}</p>
-                  </motion.div>
-                </Link>
-              </FadeInSection>
-            ))}
+                  </Link>
+                </FadeInSection>
+              );
+            })}
           </div>
+
+          {/* Trust bar inline */}
+          <FadeInSection delay={0.3}>
+            <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 border-t border-slate-100 pt-10">
+              {TRUST_ITEMS.map((item, i) => (
+                <div key={item.label} className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center">
+                    <item.icon className="h-5 w-5 text-emerald-700" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-900 text-sm">{item.label}</p>
+                    <p className="text-slate-500 text-xs">{item.sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </FadeInSection>
 
           <FadeInSection delay={0.4}>
             <div className="text-center mt-10">
               <Link href="/pro">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button size="lg" className="h-12 px-8 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl">
+                  <Button
+                    size="lg"
+                    className="h-12 px-8 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
+                  >
                     See All Pro Features
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
@@ -251,219 +249,237 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FERPA Compliance Section */}
-      <FadeInSection>
-        <section className="py-16 bg-gradient-to-br from-emerald-50 to-teal-50 border-y border-emerald-100">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, type: "spring" }}
-            >
-              <Shield className="h-12 w-12 text-emerald-700 mx-auto mb-4" />
-            </motion.div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">FERPA Compliant by Design</h2>
-            <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
-              Student data is never stored on our servers. All AI processing happens in real-time with no data retention.
-              Built from the ground up to meet the privacy standards your district requires.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              {[
-                { icon: Shield, text: "No student PII stored" },
-                { icon: Shield, text: "SOC 2 infrastructure" },
-                { icon: Shield, text: "Encrypted in transit & at rest" },
-              ].map((item, i) => (
-                <motion.span
-                  key={item.text}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="inline-flex items-center gap-2 bg-white border border-emerald-200 rounded-full px-4 py-2 text-sm font-medium text-emerald-800"
-                >
-                  <item.icon className="h-4 w-4" /> {item.text}
-                </motion.span>
-              ))}
-            </div>
-          </div>
-        </section>
-      </FadeInSection>
-
-      {/* Social Proof */}
-      <section className="py-16 sm:py-20 bg-white">
+      {/* ─── SECTION 2: STUDY ──────────────────────────────────────────── */}
+      <section id="study" className="py-16 sm:py-20 bg-gradient-to-br from-emerald-50 to-teal-50 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeInSection>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-                Built for School Behavior Teams
-              </h2>
-              <p className="text-lg text-slate-600">Designed by a school BCBA for BCBAs, school psychologists, and special education teams.</p>
-            </div>
-          </FadeInSection>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <FadeInSection>
+              <div className="space-y-6">
+                <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">BCBA Exam Prep</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
+                  BCBA Exam Prep That Actually Works
+                </h2>
+                <p className="text-lg text-slate-600 leading-relaxed">
+                  Adaptive practice tests that identify your weak spots, smart analytics that show exactly what to study next, and 500+ vetted questions — all free.
+                </p>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "FBA-to-BIP Generator",
-                description: "AI-assisted behavior plan drafting — go from assessment data to a complete BIP draft in minutes, with FERPA compliance built in.",
-              },
-              {
-                name: "IEP Goal Bank",
-                description: "Browse and filter function-based IEP goals that are measurable, classroom-ready, and aligned with best practices in behavior analysis.",
-              },
-              {
-                name: "School-First Design",
-                description: "Built by a practicing school BCBA who understands educational settings, IEP timelines, FERPA requirements, and the realities of school-based practice.",
-              },
-            ].map((feature, i) => (
-              <FadeInSection key={feature.name} delay={i * 0.1}>
-                <motion.div
-                  whileHover={{ y: -4 }}
-                  className="bg-slate-50 rounded-2xl p-6 border border-slate-200 h-full hover:shadow-lg transition-shadow"
-                >
-                  <p className="font-semibold text-slate-900 text-lg mb-2">{feature.name}</p>
-                  <p className="text-slate-600 leading-relaxed">{feature.description}</p>
-                </motion.div>
-              </FadeInSection>
-            ))}
+                <div className="space-y-4">
+                  {STUDY_FEATURES.map((f) => {
+                    const Icon = f.icon;
+                    return (
+                      <div key={f.label} className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                          <Icon className="h-5 w-5 text-emerald-700" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-slate-900">{f.label}</p>
+                          <p className="text-sm text-slate-600">{f.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                    <ShimmerButton
+                      className="h-12 px-6 text-base font-bold rounded-xl w-full sm:w-auto"
+                      background="linear-gradient(135deg, #1f4d3f 0%, #2d6b55 100%)"
+                      shimmerColor="#e4b63d"
+                    >
+                      <span className="text-white">Start Free Mock Exam</span>
+                      <ArrowRight className="ml-2 h-5 w-5 text-white" />
+                    </ShimmerButton>
+                  </Link>
+                  <Link href="/free-study-plan">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="h-12 px-6 text-base font-semibold border-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 rounded-xl w-full sm:w-auto"
+                    >
+                      Get Free Study Plan
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </FadeInSection>
+
+            <FadeInSection delay={0.2}>
+              <div className="bg-white rounded-2xl shadow-xl border border-emerald-100 overflow-hidden">
+                <div className="bg-emerald-600 px-6 py-4">
+                  <p className="text-white font-semibold">Your Study Dashboard</p>
+                  <p className="text-emerald-200 text-sm">Adaptive BCBA Exam Prep</p>
+                </div>
+                <div className="p-6 space-y-4">
+                  {[
+                    { label: "Behavior Measurement", pct: 82 },
+                    { label: "Experimental Design", pct: 64 },
+                    { label: "Behavior Change Procedures", pct: 73 },
+                    { label: "Ethics", pct: 91 },
+                  ].map((domain) => (
+                    <div key={domain.label}>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span className="text-slate-700 font-medium">{domain.label}</span>
+                        <span className="text-emerald-600 font-semibold">{domain.pct}%</span>
+                      </div>
+                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-emerald-500 rounded-full"
+                          style={{ width: `${domain.pct}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <p className="text-xs text-slate-400 pt-2">Based on your last practice session</p>
+                </div>
+              </div>
+            </FadeInSection>
           </div>
         </div>
       </section>
 
-      {/* Pricing Preview */}
-      <section className="py-16 sm:py-20 relative overflow-hidden">
+      {/* ─── SECTION 3: SUPERVISE ──────────────────────────────────────── */}
+      <section id="supervise" className="py-16 sm:py-20 bg-white scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <FadeInSection delay={0.2} >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-last lg:order-first">
+                {[
+                  { icon: Calendar, label: "Schedule Supervision", desc: "Manage recurring sessions and track contact hours with ease." },
+                  { icon: FileCheck, label: "Documentation Templates", desc: "Structured logs that satisfy BACB requirements without the busywork." },
+                  { icon: BarChart3, label: "Progress Tracking", desc: "Visual dashboards for both supervisor and supervisee growth." },
+                  { icon: GraduationCap, label: "Competency Checklists", desc: "BACB task list-aligned competency tracking across all experience levels." },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div
+                      key={item.label}
+                      className="bg-slate-50 border border-slate-200 rounded-xl p-5"
+                    >
+                      <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
+                        <Icon className="h-5 w-5 text-emerald-700" />
+                      </div>
+                      <p className="font-semibold text-slate-900 text-sm mb-1">{item.label}</p>
+                      <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </FadeInSection>
+
+            <FadeInSection>
+              <div className="space-y-6">
+                <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">For Licensed BCBAs</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
+                  Supervision Tools Built for the Real World
+                </h2>
+                <p className="text-lg text-slate-600 leading-relaxed">
+                  Supervision is one of the most important — and most under-supported — parts of being a BCBA. These tools make the administrative side of supervision manageable so you can focus on actually developing your supervisees.
+                </p>
+
+                <div className="space-y-3">
+                  {SUPERVISE_FEATURES.map((f) => {
+                    const Icon = f.icon;
+                    return (
+                      <div key={f.label} className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                          <Icon className="h-5 w-5 text-emerald-700" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-slate-900">{f.label}</p>
+                          <p className="text-sm text-slate-600">{f.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <Link href="/supervisors">
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button
+                      size="lg"
+                      className="h-12 px-8 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl mt-2"
+                    >
+                      Explore Supervision Tools
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </motion.div>
+                </Link>
+              </div>
+            </FadeInSection>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SECTION 4: TRANSFORMATION ─────────────────────────────────── */}
+      <section id="transformation" className="py-16 sm:py-20 relative overflow-hidden scroll-mt-20">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-700" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
 
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <FadeInSection>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Simple, Transparent Pricing
-            </h2>
-            <p className="text-lg text-emerald-100 mb-10 max-w-xl mx-auto">
-              Start free. Upgrade when you&apos;re ready. Plans for individual practitioners and full school teams.
-            </p>
-          </FadeInSection>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <FadeInSection>
+              <div className="space-y-6">
+                <p className="text-sm font-semibold text-amber-300 uppercase tracking-wide">6-Week Cohort Program</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
+                  The School BCBA Transformation Program
+                </h2>
+                <p className="text-lg text-emerald-100 leading-relaxed">
+                  A structured, cohort-based program that takes you from overwhelmed to operating as the go-to behavior expert in your school. Six focused weeks. Real deliverables. Permanent change.
+                </p>
 
-          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {[
-              {
-                name: "Individual",
-                price: "$29/mo",
-                period: "Billed annually",
-                features: [
-                  "Unlimited FBA-to-BIP",
-                  "Unlimited IEP Goals",
-                  "Full Goal Bank access",
-                  "ACT Module",
-                ],
-                popular: false,
-              },
-              {
-                name: "Team",
-                price: "$19/seat/mo",
-                period: "Billed annually · 5 seat minimum",
-                features: [
-                  "Everything in Individual",
-                  "Team collaboration",
-                  "Admin dashboard",
-                  "Priority support",
-                ],
-                popular: true,
-              },
-            ].map((plan, i) => (
-              <FadeInSection key={plan.name} delay={i * 0.1}>
-                <motion.div
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  className={`rounded-2xl p-6 text-left shadow-xl ${
-                    plan.popular
-                      ? "bg-white"
-                      : "bg-white/10 backdrop-blur border border-white/20"
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className={`text-lg font-bold ${plan.popular ? "text-slate-900" : "text-white"}`}>
-                      {plan.name}
-                    </h3>
-                    {plan.popular && (
-                      <span className="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded-full">
-                        POPULAR
-                      </span>
-                    )}
-                  </div>
-                  <p className={`text-sm mb-4 ${plan.popular ? "text-slate-500" : "text-emerald-200"}`}>
-                    For {plan.name === "Team" ? "school & district teams" : "BCBAs & school psychologists"}
-                  </p>
-                  <p className={`text-3xl font-extrabold mb-1 ${plan.popular ? "text-slate-900" : "text-white"}`}>
-                    {plan.price}
-                  </p>
-                  <p className={`text-xs mb-4 ${plan.popular ? "text-slate-400" : "text-emerald-300"}`}>
-                    {plan.period}
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    {plan.features.map((f) => (
-                      <li
-                        key={f}
-                        className={`flex items-center gap-2 ${
-                          plan.popular ? "text-slate-700" : "text-emerald-100"
-                        }`}
-                      >
-                        <CheckCircle
-                          className={`h-4 w-4 flex-shrink-0 ${
-                            plan.popular ? "text-emerald-600" : "text-amber-300"
-                          }`}
-                        />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </FadeInSection>
-            ))}
+                <Link href="/transformation-program">
+                  <ShimmerButton
+                    className="h-12 px-8 text-base font-bold rounded-xl"
+                    background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
+                    shimmerColor="#ffffff"
+                  >
+                    <span className="text-emerald-900">Apply to the Program</span>
+                    <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
+                  </ShimmerButton>
+                </Link>
+              </div>
+            </FadeInSection>
+
+            <FadeInSection delay={0.2}>
+              <div className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-6">
+                <p className="text-amber-300 font-semibold text-sm uppercase tracking-wide mb-4">What you will build</p>
+                <ul className="space-y-3">
+                  {TRANSFORMATION_OUTCOMES.map((outcome, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
+                      <span className="text-emerald-100 text-sm leading-relaxed">{outcome}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeInSection>
           </div>
-
-          <FadeInSection delay={0.3}>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/pro/demo">
-                <ShimmerButton
-                  className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
-                  background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
-                  shimmerColor="#ffffff"
-                >
-                  <span className="text-emerald-900">Start Free Trial</span>
-                  <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
-                </ShimmerButton>
-              </Link>
-              <Link href="/pro">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-2 border-white/30 text-white hover:bg-white/10 rounded-xl w-full sm:w-auto">
-                    Compare Plans
-                  </Button>
-                </motion.div>
-              </Link>
-            </div>
-          </FadeInSection>
         </div>
       </section>
 
-      {/* Existing Community Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      {/* ─── SECTION 5: COMMUNITY ──────────────────────────────────────── */}
+      <section id="community" className="py-12 sm:py-16 lg:py-20 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <FadeInSection>
               <div className="space-y-6 lg:space-y-8">
                 <div className="space-y-4 sm:space-y-6">
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight">School BCBA Community That Drives Change</h2>
+                  <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">Join the Network</p>
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight">
+                    School BCBA Community That Drives Change
+                  </h2>
                   <p className="text-base sm:text-lg leading-relaxed text-slate-700">
-                    We&apos;re not just a resource hub — we&apos;re a network of school-based BCBAs, educators, and leaders committed to building better school-wide behavior support systems.
+                    We are not just a resource hub — we are a network of school-based BCBAs, educators, and leaders committed to building better school-wide behavior support systems.
                   </p>
                 </div>
                 <div className="pt-2">
                   <Link href="https://community.behaviorschool.com">
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Button size="lg" className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl w-full sm:w-auto min-w-[200px]">
+                      <Button
+                        size="lg"
+                        className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl w-full sm:w-auto min-w-[200px]"
+                      >
                         Join the School BCBA Community
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
@@ -479,8 +495,8 @@ export default function Home() {
                   whileHover={{ scale: 1.02 }}
                   className="relative rounded-2xl overflow-hidden shadow-2xl"
                 >
-                  <Image 
-                    src="/Community/comein-coffee-people-optimized.webp" 
+                  <Image
+                    src="/Community/comein-coffee-people-optimized.webp"
                     alt="Community collaboration"
                     className="w-full h-auto object-cover"
                     width={584}
@@ -489,57 +505,6 @@ export default function Home() {
                 </motion.div>
               </div>
             </FadeInSection>
-          </div>
-        </div>
-      </section>
-
-      {/* Existing Tools Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeInSection>
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4 leading-tight">Free School BCBA Resources</h2>
-            </div>
-          </FadeInSection>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {[
-              { title: "BCBA Exam Prep", href: "/behavior-study-tools", img: "/thumbnails/hero-thumb.webp" },
-              { title: "BCBA Supervision", href: "/supervisors", img: "/thumbnails/supervision-thumb.webp" },
-              { title: "IEP Goal Writer", href: "/iep-goals", img: "/thumbnails/iep-goal-thumb.webp" },
-              { title: "Behavior Plan Writer", href: "/behavior-plans", img: "/thumbnails/bip-writer-thumb.webp" },
-            ].map((card, i) => (
-              <FadeInSection key={card.title} delay={i * 0.1}>
-                <Link href={card.href} className="group block h-full">
-                  <motion.div
-                    whileHover={{ y: -8, scale: 1.03 }}
-                    transition={{ duration: 0.2 }}
-                    className="bg-white rounded-xl shadow-lg overflow-hidden h-full"
-                  >
-                    <div className="p-4 sm:p-6 flex flex-col h-full">
-                      <div className="text-center flex-grow flex flex-col">
-                        <Image
-                          src={card.img}
-                          alt={card.title}
-                          className="w-full h-24 sm:h-32 object-contain mb-3 sm:mb-4"
-                          width={128}
-                          height={128}
-                        />
-                        <h3 className="text-lg sm:text-xl font-semibold text-slate-900 mb-2 leading-tight">{card.title}</h3>
-                        <div className="mt-auto">
-                          <motion.span
-                            whileHover={{ scale: 1.05 }}
-                            className="block w-full bg-emerald-600 group-hover:bg-emerald-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
-                          >
-                            Details
-                          </motion.span>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </Link>
-              </FadeInSection>
-            ))}
           </div>
         </div>
       </section>
