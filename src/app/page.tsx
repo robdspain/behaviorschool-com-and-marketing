@@ -306,31 +306,41 @@ export default function Home() {
 
             <FadeInSection delay={0.2}>
               <div className="bg-white rounded-2xl shadow-xl border border-emerald-100 overflow-hidden">
-                <div className="bg-emerald-600 px-6 py-4">
-                  <p className="text-white font-semibold">Your Study Dashboard</p>
-                  <p className="text-emerald-200 text-sm">Adaptive BCBA Exam Prep</p>
+                <div className="bg-[#1f4d3f] px-6 py-4 flex items-center justify-between">
+                  <div>
+                    <p className="text-white font-semibold">Practice Question</p>
+                    <p className="text-emerald-200 text-sm">Behavior Measurement — Question 12 of 40</p>
+                  </div>
+                  <span className="bg-[#e4b63d]/20 text-[#e4b63d] text-xs font-semibold px-2.5 py-1 rounded-full">Adaptive</span>
                 </div>
                 <div className="p-6 space-y-4">
-                  {[
-                    { label: "Behavior Measurement", pct: 82 },
-                    { label: "Experimental Design", pct: 64 },
-                    { label: "Behavior Change Procedures", pct: 73 },
-                    { label: "Ethics", pct: 91 },
-                  ].map((domain) => (
-                    <div key={domain.label}>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-slate-700 font-medium">{domain.label}</span>
-                        <span className="text-emerald-600 font-semibold">{domain.pct}%</span>
+                  <p className="text-slate-800 font-medium text-sm leading-relaxed">
+                    A behavior analyst records the number of times a student raises their hand during a 30-minute class period. This is an example of which measurement dimension?
+                  </p>
+                  <div className="space-y-2">
+                    {[
+                      { label: "A. Duration", correct: false },
+                      { label: "B. Latency", correct: false },
+                      { label: "C. Frequency", correct: true },
+                      { label: "D. Magnitude", correct: false },
+                    ].map((opt) => (
+                      <div
+                        key={opt.label}
+                        className={`flex items-center justify-between px-4 py-2.5 rounded-lg border text-sm ${
+                          opt.correct
+                            ? "bg-emerald-50 border-emerald-400 text-emerald-800 font-semibold"
+                            : "border-slate-200 text-slate-700"
+                        }`}
+                      >
+                        <span>{opt.label}</span>
+                        {opt.correct && <CheckCircle className="h-4 w-4 text-emerald-600 flex-shrink-0" />}
                       </div>
-                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-emerald-500 rounded-full"
-                          style={{ width: `${domain.pct}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                  <p className="text-xs text-slate-400 pt-2">Based on your last practice session</p>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs text-slate-400">
+                    <span>Domain: Behavior Measurement</span>
+                    <span className="text-emerald-600 font-semibold">Correct</span>
+                  </div>
                 </div>
               </div>
             </FadeInSection>
@@ -342,28 +352,43 @@ export default function Home() {
       <section id="supervise" className="py-16 sm:py-20 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <FadeInSection delay={0.2} >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-last lg:order-first">
-                {[
-                  { icon: Calendar, label: "Schedule Supervision", desc: "Manage recurring sessions and track contact hours with ease." },
-                  { icon: FileCheck, label: "Documentation Templates", desc: "Structured logs that satisfy BACB requirements without the busywork." },
-                  { icon: BarChart3, label: "Progress Tracking", desc: "Visual dashboards for both supervisor and supervisee growth." },
-                  { icon: GraduationCap, label: "Competency Checklists", desc: "BACB task list-aligned competency tracking across all experience levels." },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div
-                      key={item.label}
-                      className="bg-slate-50 border border-slate-200 rounded-xl p-5"
-                    >
-                      <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
-                        <Icon className="h-5 w-5 text-emerald-700" />
+            <FadeInSection delay={0.2}>
+              <div className="order-last lg:order-first bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                <div className="bg-[#1f4d3f] px-6 py-4 flex items-center justify-between">
+                  <div>
+                    <p className="text-white font-semibold">Supervision Log</p>
+                    <p className="text-emerald-200 text-sm">Week of Feb 24, 2026</p>
+                  </div>
+                  <span className="bg-[#e4b63d]/20 text-[#e4b63d] text-xs font-semibold px-2.5 py-1 rounded-full">BACB Aligned</span>
+                </div>
+                <div className="p-6 space-y-3">
+                  {[
+                    { supervisee: "Jordan M., RBT Trainee", type: "Individual", hours: "1.5 hrs", topic: "Skill acquisition programming", date: "Mon, Feb 24" },
+                    { supervisee: "Alex T., RBT Trainee", type: "Group", hours: "1.0 hr", topic: "Data collection & graphing", date: "Tue, Feb 25" },
+                    { supervisee: "Sam R., RBT Trainee", type: "Individual", hours: "2.0 hrs", topic: "Behavior intervention plan review", date: "Thu, Feb 27" },
+                  ].map((entry) => (
+                    <div key={entry.supervisee} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                      <div className="flex-shrink-0 w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center mt-0.5">
+                        <FileCheck className="h-4 w-4 text-emerald-700" />
                       </div>
-                      <p className="font-semibold text-slate-900 text-sm mb-1">{item.label}</p>
-                      <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-0.5">
+                          <p className="font-semibold text-slate-900 text-xs truncate">{entry.supervisee}</p>
+                          <span className="flex-shrink-0 text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded px-1.5 py-0.5 font-medium">{entry.type}</span>
+                        </div>
+                        <p className="text-slate-500 text-xs">{entry.topic}</p>
+                        <div className="flex items-center gap-3 mt-1 text-[10px] text-slate-400">
+                          <span>{entry.date}</span>
+                          <span className="font-semibold text-emerald-600">{entry.hours}</span>
+                        </div>
+                      </div>
                     </div>
-                  );
-                })}
+                  ))}
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-100 text-xs text-slate-500">
+                    <span>Total hours logged: <span className="font-semibold text-slate-700">4.5 / 5.0</span> this week</span>
+                    <span className="text-[#e4b63d] font-semibold">On Track</span>
+                  </div>
+                </div>
               </div>
             </FadeInSection>
 
@@ -442,16 +467,41 @@ export default function Home() {
             </FadeInSection>
 
             <FadeInSection delay={0.2}>
-              <div className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-6">
-                <p className="text-amber-300 font-semibold text-sm uppercase tracking-wide mb-4">What you will build</p>
-                <ul className="space-y-3">
-                  {TRANSFORMATION_OUTCOMES.map((outcome, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-amber-300 flex-shrink-0 mt-0.5" />
-                      <span className="text-emerald-100 text-sm leading-relaxed">{outcome}</span>
-                    </li>
+              <div className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl overflow-hidden">
+                <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+                  <div>
+                    <p className="text-amber-300 font-semibold text-sm">Cohort Schedule</p>
+                    <p className="text-emerald-200 text-xs">Spring 2026 — 6-Week Program</p>
+                  </div>
+                  <span className="bg-amber-300/20 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-full">6 Seats Left</span>
+                </div>
+                <div className="p-6 space-y-3">
+                  {[
+                    { week: "Week 1", label: "Map Your Caseload", date: "Mar 3", status: "upcoming" },
+                    { week: "Week 2", label: "Build Your Referral System", date: "Mar 10", status: "upcoming" },
+                    { week: "Week 3", label: "Stakeholder Buy-In", date: "Mar 17", status: "upcoming" },
+                    { week: "Week 4", label: "Assessment Selection", date: "Mar 24", status: "upcoming" },
+                    { week: "Week 5", label: "BIP Development", date: "Mar 31", status: "upcoming" },
+                    { week: "Week 6", label: "Sustainable Practice", date: "Apr 7", status: "upcoming" },
+                  ].map((item, i) => (
+                    <div key={item.week} className="flex items-center gap-4">
+                      <div className="flex-shrink-0 w-16 text-right">
+                        <span className="text-[#e4b63d] text-xs font-bold">{item.week}</span>
+                      </div>
+                      <div className="flex-shrink-0 w-px h-8 bg-white/20" />
+                      <div className="flex-1 flex items-center justify-between">
+                        <p className="text-emerald-100 text-sm">{item.label}</p>
+                        <span className="text-emerald-300 text-xs flex-shrink-0">{item.date}</span>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                  <div className="pt-3 border-t border-white/10 flex items-center gap-2">
+                    <div className="h-2 flex-1 bg-white/10 rounded-full overflow-hidden">
+                      <div className="h-full w-0 bg-[#e4b63d] rounded-full" />
+                    </div>
+                    <span className="text-emerald-300 text-xs">Cohort starts Mar 3</span>
+                  </div>
+                </div>
               </div>
             </FadeInSection>
           </div>
