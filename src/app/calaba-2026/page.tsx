@@ -1,415 +1,497 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { 
-  ArrowRight, 
-  ArrowLeft, 
-  CheckCircle, 
-  FileText, 
-  Target, 
-  BookOpen, 
-  Brain,
-  Play,
-  Shield,
-  Sparkles,
-  Zap,
-  Mic,
-  Home
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import ShimmerButton from "@/components/magicui/shimmer-button";
+import { useState, useEffect } from "react";
+import { CheckCircle, Clock, Users, Shield, Zap, Star, Download, FileText, BookOpen, ArrowRight, ExternalLink } from "lucide-react";
 
-// 1. Define CalABA-specific demo steps
-const DEMO_STEPS = [
-  {
-    id: 1,
-    title: "ACT-Informed Functional Assessment",
-    icon: Brain,
-    color: "emerald",
-    description: "Go beyond topography. Identify internal drivers—cognitive fusion, psychological inflexibility, and thought-driven behavior—that traditional FBAs miss.",
-    demo: {
-      input: `Student Profile:
-• 9th grade, repeated office referrals for classroom disruption
-• Traditional FBA: function = attention
-• Behavior occurs during unstructured peer work
-• Student reports: "I say stuff before I think"
-• Precursor FA data: elevated heart rate + self-criticism before outbursts`,
-      output: `ACT Behavioral Assessment Summary:
+export default function CalABA2026Page() {
+  const [timeRemaining, setTimeRemaining] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
-🧠 Primary Function: Cognitive Fusion (thought-action fusion)
-External trigger: Unstructured social demands
-Internal trigger: Self-critical automatic thoughts → fused response
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [subscribeNewsletter, setSubscribeNewsletter] = useState(true);
+  const [downloadSubmitted, setDownloadSubmitted] = useState(false);
+  const [founderSubmitted, setFounderSubmitted] = useState(false);
 
-📊 Psychological Flexibility Profile:
-• Present-moment awareness: Low (reactive, not observing)
-• Defusion: Low (thoughts = facts, acts on them immediately)  
-• Values clarity: Moderate (wants peer connection but avoids vulnerability)
-• Committed action: Impaired (behavior inconsistent with stated values)
+  useEffect(() => {
+    const targetDate = new Date("2026-03-07T23:59:59-08:00").getTime();
 
-✅ Assessment Recommendations:
-• Latency-based FA: measure time from trigger to disruption
-• Thought diary: track automatic thoughts before incidents
-• Values clarification interview
-• Precursor behavior monitoring (heart rate, self-talk patterns)`
-    },
-    features: [
-      "Latency-based functional analysis",
-      "Identifies cognitive fusion patterns",
-      "Precursor behavior mapping",
-      "Values clarification protocol"
-    ]
-  },
-  {
-    id: 2,
-    title: "ACT-Informed BIP Generator",
-    icon: FileText,
-    color: "amber",
-    description: "Generate a BIP that targets psychological inflexibility, not just surface behavior. Values-based programming that actually generalizes.",
-    demo: {
-      input: `Assessment Summary:
-• Function: Cognitive fusion + escape from social vulnerability
-• Trigger: Unstructured peer work, performance pressure
-• Defusion deficit: Low — fuses with self-critical thoughts
-• Values: Wants real peer connection, fears rejection
-• Strengths: Self-aware, willing to try, good humor`,
-      output: `ACT-Informed BIP:
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-🎯 Intervention Target: Psychological Inflexibility
-Behavior: Classroom disruption as cognitive fusion response
+      if (distance > 0) {
+        setTimeRemaining({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000),
+        });
+      }
+    }, 1000);
 
-📋 Antecedent Strategies (ACT-based):
-• Pre-task values check-in: "What matters to you in this class?"
-• Structured peer roles to reduce unstructured vulnerability
-• Visual "thoughts vs. facts" cue card at desk
-• Mindfulness minute before peer work (breathing + noticing)
+    return () => clearInterval(interval);
+  }, []);
 
-🧠 Teaching Strategies (ACT hexaflex):
-• Defusion skill: "I'm having the thought that..." labeling
-• Self-as-context: "Observing self" practice (3x/week)
-• Values clarification: weekly 5-min check-in with counselor
-• Committed action: daily "one brave thing" goal setting
-
-✅ Consequence/Response Strategies:
-• Co-regulation: calm, values-based reflection after disruption
-• Avoid: punishment (increases fusion/avoidance)
-• Reinforce: noticing thoughts + choosing values-based behavior
-• Data: track thought-action gap (latency from trigger to behavior)`
-    },
-    features: [
-      "Targets the hexaflex, not just topography",
-      "Values-based reinforcement strategies",
-      "Avoids punishment that worsens fusion",
-      "Measurable thought-action gap data"
-    ]
-  },
-  {
-    id: 3,
-    title: "Implementation & Social Validity",
-    icon: CheckCircle,
-    color: "sky",
-    description: "Track what actually changes—behavior, but also psychological flexibility, quality of life, and student-reported values alignment.",
-    demo: {
-      input: `4-Week Data Summary:
-• Baseline disruptions: 8.2/week average
-• Week 1: 7.1 (↓ 13%)
-• Week 2: 5.4 (↓ 34%)  
-• Week 3: 3.8 (↓ 54%)
-• Week 4: 2.1 (↓ 74%)
-
-Student self-report: "I notice my thoughts more now"
-Teacher report: "Qualitatively different—he's thinking before acting"
-Social validity rating: 4.6/5.0 (student), 4.8/5.0 (teacher)`,
-      output: `Outcome Analysis: Clinically Significant Change
-
-📈 Behavioral Outcomes:
-• 74% reduction in target behavior (4 weeks)
-• Rate: 8.2 → 2.1 disruptions/week
-• Trend: Decelerating, on track for mastery
-
-🧠 Psychological Flexibility Gains:
-• Defusion score: 3/10 → 7/10 (self-report)  
-• Thought-action gap (latency): 0.3s → 4.2s average
-• Values alignment score: 2/10 → 6/10
-
-❤️ Social Validity (Kaufman Brief Social Validity Scale):
-• Student acceptability: 4.6/5.0 ✅ High
-• Teacher acceptability: 4.8/5.0 ✅ High
-• "The intervention felt meaningful, not punitive"
-
-📋 Recommended Next Steps:
-• Fade structured supports (weeks 5-8)
-• Generalization plan: 2 additional settings
-• Annual IEP goal: update to values-based outcomes language
-• Share with parents: social validity summary letter`
-    },
-    features: [
-      "Tracks psychological flexibility gains",
-      "Social validity measurement built-in",
-      "Automated progress reports",
-      "IEP goal update suggestions"
-    ]
-  }
-];
-
-const colorVariants = {
-  emerald: { bg: 'bg-emerald-100', text: 'text-emerald-700', gradient: 'from-emerald-500 to-emerald-600' },
-  amber: { bg: 'bg-amber-100', text: 'text-amber-700', gradient: 'from-amber-500 to-amber-600' },
-  sky: { bg: 'bg-sky-100', text: 'text-sky-700', gradient: 'from-sky-500 to-sky-600' },
-};
-
-// 2. Main Page Component
-export default function CalABA2026DemoPage() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [showOutput, setShowOutput] = useState(false);
-
-  const step = DEMO_STEPS[currentStep];
-  const Icon = step.icon;
-  const colors = colorVariants[step.color as keyof typeof colorVariants];
-
-  const handleNext = () => {
-    if (currentStep < DEMO_STEPS.length - 1) {
-      setCurrentStep(currentStep + 1);
-      setShowOutput(false);
+  const handleDownloadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await fetch('/api/crm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          name,
+          source: 'calaba-2026-download',
+          role: 'BCBA',
+          newsletter: subscribeNewsletter,
+        }),
+      });
+    } catch (err) {
+      console.error('CRM error:', err);
     }
+    setDownloadSubmitted(true);
   };
 
-  const handlePrev = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-      setShowOutput(false);
+  const handleFounderSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await fetch('/api/crm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          name,
+          source: 'calaba-2026-founder-interest',
+          role: 'BCBA',
+        }),
+      });
+    } catch (err) {
+      console.error('CRM error:', err);
     }
-  };
-
-  const handleGenerate = () => {
-    setShowOutput(true);
-  };
-  
-  const scrollToDemo = () => {
-    document.getElementById('interactive-demo')?.scrollIntoView({ behavior: 'smooth' });
+    setFounderSubmitted(true);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* 3. Hero Section */}
-      <div className="bg-slate-900 text-white pt-24 pb-16 px-4">
+    <div className="min-h-screen bg-bs-background">
+      {/* ============================================
+          SECTION 1: DOWNLOAD SYMPOSIUM MATERIALS
+          Styled to match slide deck: dark slate/blue theme
+          ============================================ */}
+      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white pt-24 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-emerald-500/30">
-            <Mic className="w-4 h-4" />
-            CALABA 2026 · March 7, Sacramento
+          <div className="inline-flex items-center gap-2 bg-cyan-500/30 text-cyan-200 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-cyan-400/50">
+            📍 CalABA 2026 · Sacramento
           </div>
-          <h1 className="text-4xl sm:text-6xl font-bold mb-4 leading-tight">
-            See the <span className="text-emerald-400">ACT-FBA-BIP</span> System in Action
+
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-cyan-300">
+            Beyond Observable Behavior
           </h1>
-          <p className="text-lg sm:text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed">
-            The ACT-informed assessment and intervention tools used in our symposium—try them now, no login required.
+          <h2 className="text-xl sm:text-2xl text-white mb-6">
+            Measuring and Modifying the Function of Thought in School-Based Assessment
+          </h2>
+
+          <p className="text-lg text-slate-200 mb-8 max-w-2xl mx-auto">
+            <strong className="text-white">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
           </p>
-          <div className="flex justify-center gap-4">
-            <Button
-              onClick={scrollToDemo}
-              size="lg"
-              className="bg-emerald-500 hover:bg-emerald-600 text-white h-12 px-8 text-base font-bold"
-            >
-              Try the Demo
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-12 px-8 text-base font-bold border-slate-600 hover:bg-slate-800 hover:text-white"
-            >
-              <a href="https://robspain.com/calaba-2026/" target="_blank" rel="noopener noreferrer">View Symposium Details</a>
-            </Button>
+
+          {/* Download Materials Box */}
+          <div className="bg-slate-800 border-2 border-cyan-500/40 rounded-2xl p-8 max-w-xl mx-auto text-left shadow-2xl">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-cyan-500/30 rounded-xl flex items-center justify-center">
+                <Download className="w-6 h-6 text-cyan-300" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white">Download Symposium Materials</h3>
+                <p className="text-sm text-slate-300">Slides, handouts, templates, and references</p>
+              </div>
+            </div>
+
+            {!downloadSubmitted ? (
+              <form onSubmit={handleDownloadSubmit} className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-500 bg-slate-900 text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border-2 border-slate-500 bg-slate-900 text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
+                />
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={subscribeNewsletter}
+                    onChange={(e) => setSubscribeNewsletter(e.target.checked)}
+                    className="w-5 h-5 rounded border-cyan-400 bg-slate-700 text-cyan-500 focus:ring-cyan-500 focus:ring-offset-0"
+                  />
+                  <span className="text-sm text-slate-200 group-hover:text-white transition-colors">
+                    Subscribe to the Behavior School newsletter for tips, tools, and updates
+                  </span>
+                </label>
+                <button
+                  type="submit"
+                  className="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                >
+                  <Download className="w-5 h-5" />
+                  Get Free Materials
+                </button>
+              </form>
+            ) : (
+              <div className="text-center py-6">
+                <CheckCircle className="w-12 h-12 text-cyan-400 mx-auto mb-3" />
+                <p className="text-lg font-bold text-white mb-2">Check your email!</p>
+                <p className="text-slate-200 mb-4">Your download link is on its way.</p>
+                <div className="space-y-2 text-sm text-slate-200">
+                  <p>Presentation slides (PDF)</p>
+                  <p>📄 Assessment templates (CPFQ, ACT Matrix, Values Sort)</p>
+                  <p>📚 APA References list</p>
+                  <p>🔧 KCUSD data collection templates</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* What's Included - Clickable Links */}
+          <div className="mt-12 grid sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            {[
+              { icon: FileText, label: "64 Slides", href: "https://docs.google.com/presentation/d/1Je5rD1o5N6Tog3Kr646mm8hT3BERrb_0IXFIVoksnnk/edit" },
+              { icon: BookOpen, label: "20+ References", href: "/calaba-2026/references.pdf" },
+              { icon: Download, label: "ACT Assessment", href: "/calaba-2026/assessment-tools/fusion-fa" },
+              { icon: Users, label: "Data Templates", href: "#data-templates" },
+            ].map((item) => (
+              <a 
+                key={item.label} 
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="bg-slate-700/80 hover:bg-cyan-600/30 border-2 border-slate-500 backdrop-blur-sm rounded-xl p-4 text-center transition-all hover:scale-105 hover:border-cyan-400 group cursor-pointer"
+              >
+                <item.icon className="w-6 h-6 mx-auto mb-2 text-cyan-300 group-hover:text-cyan-200" />
+                <span className="text-sm font-semibold text-white flex items-center justify-center gap-1">
+                  {item.label}
+                  {item.href.startsWith("http") && <ExternalLink className="w-3 h-3 opacity-70" />}
+                </span>
+              </a>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* 4. Interactive Demo Section */}
-      <div id="interactive-demo" className="max-w-6xl mx-auto px-4 py-16">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Step Header */}
-            <div className="text-center mb-10">
-              <motion.div 
-                className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${colors.bg} mb-4`}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-              >
-                <Icon className={`w-8 h-8 ${colors.text}`} />
-              </motion.div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
-                {step.title}
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                {step.description}
-              </p>
-            </div>
-
-            {/* Demo Area */}
-            <div className="grid lg:grid-cols-2 gap-6 mb-10">
-              {/* Input Panel */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.gradient}`} />
-                  <span className="font-semibold text-slate-900">Input</span>
-                </div>
-                <div className="bg-slate-50 rounded-xl p-4 font-mono text-sm text-slate-700 whitespace-pre-wrap min-h-[300px]">
-                  {step.demo.input}
-                </div>
-                
-                {!showOutput && (
-                  <motion.div className="mt-4">
-                    <Button 
-                      onClick={handleGenerate}
-                      className={`w-full bg-gradient-to-r ${colors.gradient} hover:opacity-90 text-white`}
-                    >
-                      <Play className="w-4 h-4 mr-2" />
-                      Generate with AI
-                    </Button>
-                  </motion.div>
-                )}
-              </div>
-
-              {/* Output Panel */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.gradient}`} />
-                  <span className="font-semibold text-slate-900">AI Output</span>
-                  {showOutput && (
-                    <span className="ml-auto text-xs text-emerald-600 flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" />
-                      Generated in 1.2s
-                    </span>
-                  )}
-                </div>
-                <div className={`bg-slate-50 rounded-xl p-4 font-mono text-sm whitespace-pre-wrap min-h-[300px] transition-all duration-500 ${
-                  showOutput ? 'text-slate-700' : 'text-slate-300'
-                }`}>
-                  {showOutput ? (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {step.demo.output}
-                    </motion.div>
-                  ) : (
-                    "Click 'Generate with AI' to see the output..."
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Features List */}
-            <div className="bg-slate-100 rounded-2xl p-6 mb-10">
-              <h3 className="font-semibold text-slate-900 mb-4">Key Features:</h3>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {step.features.map((feature, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-2"
-                  >
-                    <CheckCircle className={`w-5 h-5 ${colors.text} flex-shrink-0`} />
-                    <span className="text-slate-700">{feature}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Navigation */}
-        <div className="flex items-center justify-between">
-          <Button
-            variant="outline"
-            onClick={handlePrev}
-            disabled={currentStep === 0}
-            className="gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Previous
-          </Button>
-
-          {currentStep < DEMO_STEPS.length - 1 ? (
-            <Button
-              onClick={handleNext}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
-            >
-              Next Tool
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          ) : (
-             <div /> // Placeholder for final CTA button
-          )}
-        </div>
-      </div>
-
-      {/* 5. CTA Section */}
-      <div className="bg-gradient-to-br from-emerald-800 to-teal-900 text-white py-20 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to use these tools with your students?</h2>
-          <p className="text-lg text-emerald-200 mb-8">
-            BehaviorSchool Pro includes ACT assessment, FBA-to-BIP generation, supervision tracking, and more—built for school-based BCBAs.
-          </p>
-          <div className="bg-slate-900/50 border-2 border-dashed border-emerald-400/50 rounded-2xl p-6 mb-8 max-w-md mx-auto">
-            <p className="text-sm text-slate-400 mb-2">Use code at checkout:</p>
-            <div className="text-4xl font-mono font-bold text-emerald-300 tracking-widest">
-              CALABA26
-            </div>
-             <p className="text-xs text-slate-400 mt-2">40% off your first year · 200 uses · Expires April 30, 2026</p>
+      {/* ============================================
+          SECTION 2: WHAT IS BEHAVIORSCHOOL PRO?
+          ============================================ */}
+      <div className="py-20 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              What is BehaviorSchool Pro?
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              AI-powered tools built specifically for school-based BCBAs, school psychologists, and behavior teams. 
+              Save hours on documentation while producing better outcomes.
+            </p>
           </div>
-          <a href="https://plan.behaviorschool.com/signup?promo=calaba2026" target="_blank" rel="noopener noreferrer">
-              <ShimmerButton
-                className="h-14 px-10 text-lg font-bold rounded-xl"
-                background="linear-gradient(135deg, #34D399 0%, #10B981 100%)"
-                shimmerColor="#A7F3D0"
+
+          {/* The Problem / Solution */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+              <h3 className="font-bold text-red-800 mb-4 text-lg">😫 The Problem</h3>
+              <ul className="space-y-3 text-red-700">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-1">✕</span>
+                  FBAs take 8+ hours to write
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-1">✕</span>
+                  IEP goals are vague and unmeasurable
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-1">✕</span>
+                  BIPs don't connect to assessment data
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 mt-1">✕</span>
+                  Drowning in paperwork, not helping students
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
+              <h3 className="font-bold text-emerald-800 mb-4 text-lg">The Solution</h3>
+              <ul className="space-y-3 text-emerald-700">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  Generate FBAs from observation data in minutes
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  AI writes measurable, SMART IEP goals
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  BIPs auto-link to your FBA findings
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  FERPA compliant — student data never stored
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Core Tools - Link to demo tools */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: "",
+                title: "FBA-to-BIP",
+                description: "Upload observation data → get comprehensive assessment and intervention plan",
+                href: "/fba-to-bip",
+              },
+              {
+                icon: "",
+                title: "IEP Goal Writer",
+                description: "Describe the student → get measurable, legally defensible goals",
+                href: "/iep-goal-writer",
+              },
+              {
+                icon: "📚",
+                title: "Goal Bank",
+                description: "500+ evidence-based goals searchable by domain and grade",
+                href: "/iep-goal-bank",
+              },
+              {
+                icon: "",
+                title: "ACT Module",
+                description: "ACT Matrix, values assessment, and psychological flexibility tools",
+                href: "/act-tools",
+              },
+            ].map((tool) => (
+              <Link 
+                key={tool.title} 
+                href={tool.href}
+                className="bg-slate-50 hover:bg-emerald-50 border-2 border-transparent hover:border-emerald-200 rounded-xl p-5 text-center transition-all hover:scale-105 group cursor-pointer"
               >
-                <span className="text-emerald-900">Start Free Trial with CALABA26</span>
-                <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
-              </ShimmerButton>
-            </a>
-           <div className="mt-6">
-             <a 
-              href="https://plan.behaviorschool.com" 
-              target="_blank" rel="noopener noreferrer"
-              className="text-sm text-emerald-300 hover:text-white"
-             >
-                See all features →
-             </a>
-           </div>
-        </div>
-      </div>
-      
-      {/* 6. Footer */}
-       <div className="bg-slate-900 border-t border-slate-700 py-8 px-4">
-          <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-slate-400">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-emerald-500" />
+                <div className="text-3xl mb-3">{tool.icon}</div>
+                <h4 className="font-bold text-slate-900 mb-2 group-hover:text-emerald-700">{tool.title}</h4>
+                <p className="text-sm text-slate-600">{tool.description}</p>
+                <span className="text-xs text-emerald-600 mt-2 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
+                  Try it free →
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          {/* Trust Badges */}
+          <div className="mt-12 flex flex-wrap justify-center gap-4">
+            <div className="flex items-center gap-2 bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full text-sm font-medium">
+              <Shield className="w-4 h-4" />
               FERPA Compliant
             </div>
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-emerald-500" />
-              No credit card required for trial
+            <div className="flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+              <CheckCircle className="w-4 h-4" />
+              Built by School BCBAs
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-emerald-500" />
-              Cancel anytime
-            </div>
-             <div className="flex items-center gap-2">
-               <Home className="w-4 h-4 text-emerald-500" />
-              <a href="https://robspain.com/calaba-2026/" className="hover:text-white">Symposium Resources</a>
+            <div className="flex items-center gap-2 bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">
+              <Zap className="w-4 h-4" />
+              AI-Powered
             </div>
           </div>
         </div>
+      </div>
+
+      {/* ============================================
+          SECTION 3: FOUNDING MEMBER OFFER
+          ============================================ */}
+      <div className="py-20 px-4 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-400 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-amber-500/30">
+              CalABA 2026 Exclusive · Limited to First 100
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Become a <span className="text-amber-400">Founding Member</span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              Lock in 40% off forever. Be one of the first 100 school BCBAs to shape the future of these tools.
+            </p>
+          </div>
+
+          {/* Countdown Timer */}
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 mb-10 max-w-2xl mx-auto">
+            <p className="text-sm text-slate-400 mb-4 text-center font-medium">Founding Member Rate Ends:</p>
+            <div className="grid grid-cols-4 gap-4">
+              {[
+                { label: "Days", value: timeRemaining.days },
+                { label: "Hours", value: timeRemaining.hours },
+                { label: "Minutes", value: timeRemaining.minutes },
+                { label: "Seconds", value: timeRemaining.seconds },
+              ].map((unit) => (
+                <div key={unit.label} className="bg-slate-800 rounded-lg p-4 text-center">
+                  <div className="text-3xl sm:text-4xl font-bold text-amber-400 mb-1">
+                    {String(unit.value).padStart(2, "0")}
+                  </div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wide">
+                    {unit.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-12">
+            {/* Annual Plan */}
+            <div className="bg-white border-4 border-amber-400 rounded-2xl p-8 relative text-slate-900">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 text-sm font-bold px-4 py-1 rounded-full whitespace-nowrap">
+                BEST VALUE
+              </div>
+              
+              <div className="text-center mb-6 mt-2">
+                <h3 className="text-xl font-bold mb-2">Annual Plan</h3>
+                <div className="mb-1">
+                  <span className="text-slate-400 line-through text-lg">$249/year</span>
+                </div>
+                <div className="text-4xl font-bold text-emerald-600 mb-1">$149</div>
+                <div className="text-slate-500 text-sm">per year</div>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                {["40% off forever", "All tools included", "Priority feature requests", "Founding Member Discord"].map((f) => (
+                  <div key={f} className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="w-4 h-4 text-emerald-600" />
+                    {f}
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="https://plan.behaviorschool.com/signup?plan=founding-annual"
+                className="block w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-4 rounded-xl text-center transition-colors"
+              >
+                Get Started — $149/year
+              </Link>
+            </div>
+
+            {/* Monthly Plan */}
+            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8 text-white">
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold mb-2">Monthly Plan</h3>
+                <div className="mb-1">
+                  <span className="text-slate-500 line-through text-lg">$25/month</span>
+                </div>
+                <div className="text-4xl font-bold text-white mb-1">$19</div>
+                <div className="text-slate-400 text-sm">per month · cancel anytime</div>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                {["24% off forever", "All tools included", "Cancel anytime", "Rate locked forever"].map((f) => (
+                  <div key={f} className="flex items-center gap-2 text-sm text-slate-300">
+                    <CheckCircle className="w-4 h-4 text-emerald-500" />
+                    {f}
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="https://plan.behaviorschool.com/signup?plan=founding-monthly"
+                className="block w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl text-center transition-colors border border-slate-600"
+              >
+                Get Started — $19/month
+              </Link>
+            </div>
+          </div>
+
+          {/* Not Ready CTA */}
+          <div className="text-center">
+            <p className="text-slate-400 mb-4">Not ready to commit? Get notified when we launch new features:</p>
+            {!founderSubmitted ? (
+              <form onSubmit={handleFounderSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="flex-1 px-4 py-3 rounded-lg text-slate-900"
+                />
+                <button
+                  type="submit"
+                  className="bg-slate-700 hover:bg-slate-600 text-white font-medium px-6 py-3 rounded-lg whitespace-nowrap"
+                >
+                  Keep Me Updated
+                </button>
+              </form>
+            ) : (
+              <div className="bg-emerald-500/20 border border-emerald-500/30 rounded-xl p-4 max-w-md mx-auto">
+                <CheckCircle className="w-6 h-6 text-emerald-400 mx-auto mb-2" />
+                <p className="text-emerald-300">You're on the list!</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ============================================
+          SECTION 4: ABOUT THE PRESENTERS
+          ============================================ */}
+      <div className="py-16 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-center mb-8 text-slate-900">About the Presenters</h2>
+          
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Rob Spain, BCBA, IBA",
+                role: "Kings Canyon USD · Behavior School",
+                desc: "Behavior Team Lead, Fresno County BCBA Collaborative Coordinator",
+              },
+              {
+                name: "Cristal Lopez, BCaBA",
+                role: "Kings Canyon USD",
+                desc: "Behavior Team Supervisor - Specialized and ACT Informed Interventions, PFA/SBT",
+              },
+              {
+                name: "Megan Caluza, BCBA",
+                role: "Berkeley USD",
+                desc: "Implementation specialist and staff training coordinator",
+              },
+            ].map((person) => (
+              <div key={person.name} className="text-center">
+                <div className="w-20 h-20 bg-emerald-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-emerald-700">
+                    {person.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                  </span>
+                </div>
+                <h3 className="font-bold text-slate-900">{person.name}</h3>
+                <p className="text-sm text-emerald-600 mb-2">{person.role}</p>
+                <p className="text-sm text-slate-600">{person.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="border-t border-slate-200 py-8 px-4 text-center bg-slate-50">
+        <p className="text-sm text-slate-500">
+          © {new Date().getFullYear()} Behavior School · Questions? <a href="mailto:rob@behaviorschool.com" className="text-emerald-600 hover:underline">rob@behaviorschool.com</a>
+        </p>
+      </div>
     </div>
   );
 }

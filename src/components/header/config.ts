@@ -23,6 +23,5 @@ export const menuSections: MenuSection[] = [
   { label: "Supervise", href: "/supervisors" },
   { label: "Transformation", href: "/transformation-program" },
   { label: "Community", href: "/community" },
-  { label: "CalABA 2026", href: "/calaba-2026" },
   { label: "About", href: "/about" },
 ];
