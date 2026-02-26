@@ -104,53 +104,6 @@ Behavior: Classroom disruption as cognitive fusion response
       "Measurable thought-action gap data"
     ]
   },
-  {
-    id: 3,
-    title: "Implementation & Social Validity",
-    icon: CheckCircle,
-    color: "sky",
-    description: "Track what actually changes—behavior, but also psychological flexibility, quality of life, and student-reported values alignment.",
-    demo: {
-      input: `4-Week Data Summary:
-• Baseline disruptions: 8.2/week average
-• Week 1: 7.1 (↓ 13%)
-• Week 2: 5.4 (↓ 34%)  
-• Week 3: 3.8 (↓ 54%)
-• Week 4: 2.1 (↓ 74%)
-
-Student self-report: "I notice my thoughts more now"
-Teacher report: "Qualitatively different—he's thinking before acting"
-Social validity rating: 4.6/5.0 (student), 4.8/5.0 (teacher)`,
-      output: `Outcome Analysis: Clinically Significant Change
-
-📈 Behavioral Outcomes:
-• 74% reduction in target behavior (4 weeks)
-• Rate: 8.2 → 2.1 disruptions/week
-• Trend: Decelerating, on track for mastery
-
-🧠 Psychological Flexibility Gains:
-• Defusion score: 3/10 → 7/10 (self-report)  
-• Thought-action gap (latency): 0.3s → 4.2s average
-• Values alignment score: 2/10 → 6/10
-
-❤️ Social Validity (Kaufman Brief Social Validity Scale):
-• Student acceptability: 4.6/5.0 ✅ High
-• Teacher acceptability: 4.8/5.0 ✅ High
-• "The intervention felt meaningful, not punitive"
-
-📋 Recommended Next Steps:
-• Fade structured supports (weeks 5-8)
-• Generalization plan: 2 additional settings
-• Annual IEP goal: update to values-based outcomes language
-• Share with parents: social validity summary letter`
-    },
-    features: [
-      "Tracks psychological flexibility gains",
-      "Social validity measurement built-in",
-      "Automated progress reports",
-      "IEP goal update suggestions"
-    ]
-  }
 ];
 
 const colorVariants = {
