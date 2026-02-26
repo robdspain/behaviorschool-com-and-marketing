@@ -19,6 +19,7 @@ import {
   FileCheck,
   Star,
   MessageSquare,
+  Briefcase,
 } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
@@ -172,6 +173,79 @@ export default function Home() {
               </motion.div>
             </Link>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ─── WHO ARE YOU? ROUTING ──────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeInSection>
+            <div className="text-center mb-10">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Who are you?</h2>
+              <p className="text-slate-600">Find the right tools for where you are in your career.</p>
+            </div>
+          </FadeInSection>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {/* RBT */}
+            <FadeInSection delay={0.05}>
+              <div className="border-2 border-emerald-700 rounded-2xl bg-white p-6 flex flex-col h-full">
+                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
+                  <GraduationCap className="h-6 w-6 text-emerald-700" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Studying for the RBT Exam</h3>
+                <p className="text-slate-600 text-sm leading-relaxed flex-grow">
+                  Practice questions, task list review, and mock exams designed for the Registered Behavior Technician credential.
+                </p>
+                <a
+                  href="https://rbtstudy.behaviorschool.com"
+                  className="mt-5 inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors w-fit"
+                >
+                  Start RBT Prep
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </FadeInSection>
+
+            {/* BCBA */}
+            <FadeInSection delay={0.1}>
+              <div className="border-2 border-emerald-700 rounded-2xl bg-white p-6 flex flex-col h-full">
+                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
+                  <BookOpen className="h-6 w-6 text-emerald-700" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Studying for the BCBA Exam</h3>
+                <p className="text-slate-600 text-sm leading-relaxed flex-grow">
+                  Full-length mock exams, domain-specific practice, performance analytics, and error analysis — built around the BACB Task List.
+                </p>
+                <a
+                  href="https://study.behaviorschool.com"
+                  className="mt-5 inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors w-fit"
+                >
+                  Start BCBA Prep
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </FadeInSection>
+
+            {/* Licensed BCBA */}
+            <FadeInSection delay={0.15}>
+              <div className="border-2 border-emerald-700 rounded-2xl bg-white p-6 flex flex-col h-full">
+                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
+                  <Briefcase className="h-6 w-6 text-emerald-700" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">Licensed BCBA</h3>
+                <p className="text-slate-600 text-sm leading-relaxed flex-grow">
+                  Track supervision hours, manage your caseload, and access AI-powered tools designed for practicing BCBAs.
+                </p>
+                <a
+                  href="https://supervision.behaviorschool.com"
+                  className="mt-5 inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors w-fit"
+                >
+                  Supervision Tools
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </FadeInSection>
+          </div>
         </div>
       </section>
 
