@@ -22,11 +22,6 @@ const BCBA_PLAN = [
   { day: 7, topic: "Full Mock Exam", hours: 6 },
 ];
 
-const SOCIAL_STATS = [
-  "3,200+ exam prep users",
-  "87% report improved confidence",
-  "BACB-aligned content",
-];
 
 export default function FreeStudyPlanPage() {
   const [role, setRole] = useState<Role>("bcba");
@@ -233,15 +228,6 @@ export default function FreeStudyPlanPage() {
       {/* Social proof bar */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
         <div className="rounded-2xl bg-white border border-slate-200 px-6 py-4 flex flex-wrap items-center justify-center gap-4 text-sm font-semibold text-[#1f4d3f]">
-          {SOCIAL_STATS.map((stat) => (
-            <span key={stat} className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#e4b63d]" />
-              {stat}
-            </span>
-          ))}
-        </div>
-      </section>
-
       {/* Full 7-day plan preview */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
