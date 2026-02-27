@@ -135,7 +135,7 @@ export default function SignupPage() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="w-8 h-8 text-green-600" />
               </div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">Application Submitted Successfully! 🎉</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Application Submitted Successfully!</h2>
               <p className="text-lg text-slate-700 mb-4">
                 Thank you for your interest in the <strong>School BCBA Transformation System</strong>.
               </p>
@@ -151,7 +151,7 @@ export default function SignupPage() {
               className="bg-white rounded-2xl shadow-xl p-8"
             >
               <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">
-                📅 Schedule Your Consultation Call
+                Schedule Your Consultation Call
               </h2>
 
               <div
@@ -327,7 +327,7 @@ export default function SignupPage() {
                   placeholder="(555) 123-4567"
                 />
                 <p className="text-xs text-slate-500 mt-1">
-                  💬 Optional but recommended - we can reach you 2-3x faster with a quick call to discuss your goals!
+                  Optional but recommended — we can reach you faster with a quick call to discuss your goals.
                 </p>
               </div>
 

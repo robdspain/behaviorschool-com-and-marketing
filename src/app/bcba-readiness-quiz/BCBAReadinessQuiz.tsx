@@ -13,6 +13,7 @@ import {
   Target,
   Clock,
   Brain,
+  Rocket,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -413,7 +414,7 @@ export function BCBAReadinessQuiz() {
     setPhase("results");
   };
 
-  const shareText = `I scored ${score}/100 on the BCBA Exam Readiness Quiz! How ready are you? 🎯`;
+  const shareText = `I scored ${score}/100 on the BCBA Exam Readiness Quiz! How ready are you?`;
   const shareUrl = "https://behaviorschool.com/bcba-readiness-quiz";
 
   const handleShare = () => {
@@ -428,7 +429,7 @@ export function BCBAReadinessQuiz() {
   const getRecommendation = () => {
     if (score <= 40) {
       return {
-        emoji: "📚",
+        emoji: "book",
         title: "You Need Structured Practice",
         description:
           "You're in the early stages of exam prep. The good news? With the right tools and a solid study plan, you can build your knowledge quickly. Our AI-powered study app adapts to your weak areas and builds a personalized study schedule.",
@@ -440,7 +441,7 @@ export function BCBAReadinessQuiz() {
     }
     if (score <= 70) {
       return {
-        emoji: "🎯",
+        emoji: "target",
         title: "You're On Track but Have Gaps",
         description:
           "You have a solid foundation, but there are specific content areas that need attention. Our study app identifies exactly where your gaps are and focuses your study time where it matters most.",
@@ -451,8 +452,8 @@ export function BCBAReadinessQuiz() {
       };
     }
     return {
-      emoji: "🚀",
-      title: "Almost There! Fine-Tune with AI",
+      emoji: "rocket",
+      title: "Almost There — Fine-Tune with AI",
       description:
         "You're in great shape! At this stage, it's all about sharpening your weakest areas and building exam-day confidence. Our AI adapts to challenge you where it counts and simulates real exam conditions.",
       cta: "Lock In Your Pass — $288/year",
@@ -792,7 +793,11 @@ export function BCBAReadinessQuiz() {
         </div>
 
         <div className={`rounded-2xl border-2 ${colors.border} ${colors.bg} p-6 sm:p-8 mb-6`}>
-          <div className="text-4xl mb-3">{rec.emoji}</div>
+          <div className="w-12 h-12 rounded-xl bg-white/60 flex items-center justify-center mb-3">
+            {rec.emoji === "book" && <BookOpen className="w-6 h-6" />}
+            {rec.emoji === "target" && <Target className="w-6 h-6" />}
+            {rec.emoji === "rocket" && <Rocket className="w-6 h-6" />}
+          </div>
           <div className={`inline-block text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full ${colors.text} bg-white/60 mb-3`}>
             {rec.badge}
           </div>

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import FreePracticeTestWidget from "./FreePracticeTestWidget";
+import { CheckCircle, Zap, Lock, Target, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free BCBA Practice Test - No Signup Required | Instant Results",
@@ -67,7 +68,8 @@ export default function FreeBCBAPracticeTestPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 text-sm font-semibold rounded-full mb-6">
-              ✨ No Signup Required
+              <CheckCircle className="w-4 h-4 mr-2" />
+              No Signup Required
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight mb-6">
               Free BCBA Practice Test
@@ -80,15 +82,15 @@ export default function FreeBCBAPracticeTestPage() {
           {/* Feature Pills */}
           <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
             <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
-              <span className="text-2xl">🎯</span>
+              <Target className="w-5 h-5 text-emerald-600" />
               <span className="text-sm font-semibold text-slate-900">BACB Task List Aligned</span>
             </div>
             <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
-              <span className="text-2xl">⚡</span>
+              <Zap className="w-5 h-5 text-emerald-600" />
               <span className="text-sm font-semibold text-slate-900">Instant Feedback</span>
             </div>
             <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
-              <span className="text-2xl">🔓</span>
+              <Lock className="w-5 h-5 text-emerald-600" />
               <span className="text-sm font-semibold text-slate-900">No Signup Required</span>
             </div>
           </div>
@@ -118,7 +120,8 @@ export default function FreeBCBAPracticeTestPage() {
             {/* Content */}
             <div className="text-center lg:text-left">
               <div className="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-800 text-sm font-semibold rounded-full mb-6">
-                📚 Free Download
+                <BookOpen className="w-4 h-4 mr-2" />
+                Free Download
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                 The 2026 BCBA Exam Survival Guide
@@ -130,24 +133,24 @@ export default function FreeBCBAPracticeTestPage() {
               
               <ul className="text-left space-y-3 mb-8">
                 <li className="flex items-start gap-3">
-                  <span className="text-emerald-600 mt-1">✓</span>
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
                   <span className="text-slate-700">5th Edition Task List breakdown with exam weights</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-emerald-600 mt-1">✓</span>
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
                   <span className="text-slate-700">Research-backed 12-week study schedule</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-emerald-600 mt-1">✓</span>
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
                   <span className="text-slate-700">High-yield concepts: SEAT functions, reinforcement quadrant</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-emerald-600 mt-1">✓</span>
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
                   <span className="text-slate-700">Test-taking strategies from cognitive science</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-emerald-600 mt-1">✓</span>
-                  <span className="text-slate-700">Full APA references (Cooper, Iwata, Bailey & Burch, etc.)</span>
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-slate-700">Full APA references (Cooper, Iwata, Bailey &amp; Burch, etc.)</span>
                 </li>
               </ul>
               

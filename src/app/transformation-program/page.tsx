@@ -144,7 +144,7 @@ export default function TransformationProgramPage() {
           href="/signup" 
           className="flex items-center justify-center w-full px-6 py-3 text-lg font-bold bg-red-600 hover:bg-red-700 text-white rounded-xl shadow-lg transition-all duration-200"
         >
-          👉 SECURE YOUR SPOT NOW
+          SECURE YOUR SPOT NOW
         </Link>
       </div>
 

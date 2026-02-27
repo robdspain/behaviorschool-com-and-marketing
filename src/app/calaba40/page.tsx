@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Brain, Bot, BarChart3, Smartphone, Target, Zap, GraduationCap } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "CALABA 2026 Exclusive: 40% Off BCBA Study Tools | Behavior School",
@@ -17,7 +18,7 @@ export default function CALABA40Page() {
       <div className="pt-24 pb-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-300 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-emerald-500/30">
-            🎓 CALABA 2026 Exclusive Offer
+            <GraduationCap className="w-4 h-4" /> CALABA 2026 Exclusive Offer
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-bold mb-6 leading-tight">
@@ -61,32 +62,32 @@ export default function CALABA40Page() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                icon: "🧠",
+                Icon: Brain,
                 title: "10,000+ AI Questions",
                 desc: "Adaptive practice that targets your weak areas automatically.",
               },
               {
-                icon: "🤖",
+                Icon: Bot,
                 title: "AI Tutor",
                 desc: "Ask questions and get detailed explanations in real time.",
               },
               {
-                icon: "📊",
+                Icon: BarChart3,
                 title: "Mock Exams",
                 desc: "Full-length simulated exams with score tracking and analytics.",
               },
               {
-                icon: "📱",
+                Icon: Smartphone,
                 title: "Study Anywhere",
                 desc: "Works on phone, tablet, and desktop. Study on the go.",
               },
               {
-                icon: "🎯",
+                Icon: Target,
                 title: "Task List Aligned",
                 desc: "Questions mapped to the 5th Edition BCBA Task List.",
               },
               {
-                icon: "⚡",
+                Icon: Zap,
                 title: "Progress Tracking",
                 desc: "See exactly where you stand and what to study next.",
               },
@@ -95,7 +96,9 @@ export default function CALABA40Page() {
                 key={item.title}
                 className="bg-slate-800/50 border border-slate-700 rounded-xl p-6"
               >
-                <div className="text-3xl mb-3">{item.icon}</div>
+                <div className="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-3">
+                  <item.Icon className="w-5 h-5 text-emerald-400" />
+                </div>
                 <h3 className="font-bold text-lg mb-2">{item.title}</h3>
                 <p className="text-sm text-slate-400">{item.desc}</p>
               </div>

@@ -428,17 +428,17 @@ export default function BCBAPracticeExamPage() {
               
               <div className="space-y-6">
                 <div className="bg-red-50 border border-red-200 rounded-2xl p-4">
-                  <div className="font-medium text-red-800 mb-2">❌ Accuracy Only</div>
+                  <div className="font-medium text-red-800 mb-2">Accuracy Only</div>
                   <div className="text-sm text-red-700">Gets the right answer but takes too long, causing test anxiety and time pressure</div>
                 </div>
                 
                 <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
-                  <div className="font-medium text-emerald-800 mb-2">✅ Fluency (Speed + Accuracy)</div>
+                  <div className="font-medium text-emerald-800 mb-2">Fluency (Speed + Accuracy)</div>
                   <div className="text-sm text-emerald-700">Quick, confident responses that free up mental resources for complex questions</div>
                 </div>
                 
                 <div className="bg-gradient-to-r from-purple-50 to-emerald-50 border border-purple-200 rounded-2xl p-4">
-                  <div className="font-medium text-purple-800 mb-2">🎯 The Goal</div>
+                  <div className="font-medium text-purple-800 mb-2">The Goal</div>
                   <div className="text-sm text-purple-700">Automatic recall that enables higher-level thinking and problem-solving</div>
                 </div>
               </div>

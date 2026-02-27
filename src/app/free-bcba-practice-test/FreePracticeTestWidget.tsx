@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle, XCircle, ArrowRight, Save } from "lucide-react";
+import { CheckCircle, XCircle, ArrowRight, Save, Trophy, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import confetti from "canvas-confetti";
@@ -266,13 +266,13 @@ export default function FreePracticeTestWidget() {
               isPerfectScore ? 'bg-bs-accent' : 'bg-emerald-100'
             }`}>
               {isPerfectScore ? (
-                <span className="text-5xl">🏆</span>
+                <Trophy className="w-12 h-12 text-amber-600" />
               ) : (
                 <CheckCircle className="w-12 h-12 text-emerald-600" />
               )}
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
-              {isPerfectScore ? '🎉 Perfect Score!' : 'Test Complete!'}
+              {isPerfectScore ? 'Perfect Score!' : 'Test Complete!'}
             </h2>
             <p className="text-lg sm:text-xl text-slate-600">
               {isPerfectScore
@@ -311,8 +311,8 @@ export default function FreePracticeTestWidget() {
           {/* Call to Action for Account Creation */}
           <div className="mb-8 p-6 bg-gradient-to-br from-emerald-50 to-blue-50 border-2 border-emerald-300 rounded-xl">
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0">
-                <span className="text-4xl">✨</span>
+              <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                <Award className="w-6 h-6 text-emerald-600" />
               </div>
               <div className="flex-1">
                 <p className="text-lg font-bold text-slate-900 mb-3">
@@ -371,7 +371,7 @@ export default function FreePracticeTestWidget() {
               </div>
               <div className="flex-1 text-center sm:text-left">
                 <h3 className="text-lg font-bold text-slate-900 mb-2">
-                  📚 Free Download: The 2026 BCBA Exam Survival Guide
+                  Free Download: The 2026 BCBA Exam Survival Guide
                 </h3>
                 <p className="text-sm text-slate-600 mb-4">
                   Get your complete study roadmap with task list breakdown, 12-week schedule, and test-taking strategies.

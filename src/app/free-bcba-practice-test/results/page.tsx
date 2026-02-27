@@ -114,10 +114,10 @@ export default function ResultsPage() {
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-4">
                 {isPerfectScore
-                  ? '🎉 Perfect Score!'
+                  ? 'Perfect Score!'
                   : isHighScore
-                  ? '✨ Excellent Work!'
-                  : '🎯 Test Complete!'}
+                  ? 'Excellent Work!'
+                  : 'Test Complete!'}
               </h1>
 
               <p className="text-xl sm:text-2xl text-slate-600">
@@ -219,7 +219,7 @@ export default function ResultsPage() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              Your Account is Active! 🎉
+              Your Account is Active!
             </h2>
 
             <p className="text-xl sm:text-2xl text-emerald-50 mb-8">
@@ -234,19 +234,19 @@ export default function ResultsPage() {
                 </h3>
                 <ul className="space-y-3 text-emerald-50">
                   <li className="flex items-start gap-2">
-                    <span className="text-2xl">✓</span>
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <span>10 fresh practice questions</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-2xl">✓</span>
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <span>Detailed explanations for each answer</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-2xl">✓</span>
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <span>Adaptive difficulty based on your performance</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-2xl">✓</span>
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <span>Progress tracking across all BACB domains</span>
                   </li>
                 </ul>
@@ -259,19 +259,19 @@ export default function ResultsPage() {
                 </h3>
                 <ul className="space-y-3 text-emerald-50">
                   <li className="flex items-start gap-2">
-                    <span className="text-2xl">✓</span>
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <span>Save your progress and scores</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-2xl">✓</span>
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <span>Performance analytics dashboard</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-2xl">✓</span>
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <span>Domain-specific practice modes</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-2xl">✓</span>
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <span>Spaced repetition learning algorithm</span>
                   </li>
                 </ul>
