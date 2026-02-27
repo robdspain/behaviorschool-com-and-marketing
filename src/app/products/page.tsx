@@ -1,25 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { ScrollNav } from "@/components/ui/scroll-nav";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" }
-};
 
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
 
 export default function ProductsPage() {
   return (
@@ -31,32 +17,12 @@ export default function ProductsPage() {
           ]}
         />
       </div>
-
-      <ScrollNav 
-        items={[
-          { id: "study-tools", label: "Study Tools" },
-          { id: "supervision", label: "Supervision" },
-          { id: "iep-writer", label: "IEP Writer" },
-          { id: "act-matrix", label: "ACT Matrix" },
-          { id: "bip-writer", label: "BIP Writer" },
-        ]}
-      />
       
       <section id="products" className="pt-20 pb-16 lg:pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="grid gap-16 lg:gap-20"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-100px" }}
-          >
+          <div>
             {/* Behavior Study Tools */}
-            <motion.div 
-              id="study-tools"
-              className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center scroll-mt-24"
-              variants={fadeInUp}
-            >
+            <div>
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-400 rounded-xl flex items-center justify-center">
@@ -67,23 +33,19 @@ export default function ProductsPage() {
                 <p className="text-lg text-slate-600 leading-relaxed">
                   Master the BCBA exam with our AI-powered study platform. Get practice questions, mock exams, and personalized study plans.
                 </p>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <div>
                   <Link href="/behavior-study-tools" className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold group">
                     Learn more <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
-                </motion.div>
+                </div>
               </div>
               <div className="relative">
                 <Image src="/Hero/Hero-group1.webp" alt="Study Tools" width={600} height={400} className="w-full h-auto rounded-2xl shadow-2xl" />
               </div>
-            </motion.div>
+            </div>
 
             {/* Supervision Tools */}
-            <motion.div 
-              id="supervision"
-              className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center scroll-mt-24"
-              variants={fadeInUp}
-            >
+            <div>
               <div className="relative">
                 <Image src="/Supervision/Supervision1.webp" alt="Supervision" width={800} height={533} className="w-full h-auto rounded-2xl shadow-2xl" />
               </div>
@@ -101,14 +63,10 @@ export default function ProductsPage() {
                   Learn more <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </div>
-            </motion.div>
+            </div>
 
             {/* IEP Goal Writer */}
-            <motion.div 
-              id="iep-writer"
-              className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center scroll-mt-24"
-              variants={fadeInUp}
-            >
+            <div>
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
@@ -126,14 +84,10 @@ export default function ProductsPage() {
               <div className="relative">
                 <Image src="/IEP-Goal/IEP-Goal-Writing.webp" alt="IEP Goal Writing" width={600} height={400} className="w-full h-auto rounded-2xl shadow-2xl" />
               </div>
-            </motion.div>
+            </div>
 
             {/* ACT Matrix Guide - Centered Highlight */}
-            <motion.div 
-              id="act-matrix"
-              className="bg-slate-50 rounded-3xl p-8 lg:p-12 scroll-mt-24 shadow-sm border border-slate-100"
-              variants={fadeInUp}
-            >
+            <div>
               <div className="max-w-4xl mx-auto text-center space-y-8">
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
@@ -160,14 +114,10 @@ export default function ProductsPage() {
                   Get the ACT Matrix Guide
                 </Link>
               </div>
-            </motion.div>
+            </div>
 
             {/* Behavior Plan Writer */}
-            <motion.div 
-              id="bip-writer"
-              className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center scroll-mt-24"
-              variants={fadeInUp}
-            >
+            <div>
               <div className="relative">
                 <Image src="/optimized/BIP-Writer/BIP-Writer-Team.webp" alt="BIP Writer" width={600} height={400} className="w-full h-auto rounded-2xl shadow-2xl" />
               </div>
@@ -185,8 +135,8 @@ export default function ProductsPage() {
                   Learn more <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
