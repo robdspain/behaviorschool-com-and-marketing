@@ -155,7 +155,7 @@ export default function Home() {
               <ShimmerButton
                 className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
-                shimmerColor="#ffffff"
+                shimmerColor="#f0c040"
               >
                 <span className="text-emerald-900">Explore Tools</span>
                 <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
@@ -531,7 +531,7 @@ export default function Home() {
                   <ShimmerButton
                     className="h-12 px-8 text-base font-bold rounded-xl"
                     background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
-                    shimmerColor="#ffffff"
+                    shimmerColor="#f0c040"
                   >
                     <span className="text-emerald-900">Apply to the Program</span>
                     <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />

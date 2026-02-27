@@ -301,7 +301,7 @@ export default function DemoPage() {
               <ShimmerButton
                 className="h-12 px-8 text-lg font-bold rounded-xl"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
-                shimmerColor="#ffffff"
+                shimmerColor="#f0c040"
               >
                 <span className="text-emerald-900">Start Your Free Trial</span>
                 <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
