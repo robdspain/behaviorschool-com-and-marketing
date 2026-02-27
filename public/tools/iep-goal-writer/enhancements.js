@@ -1056,3 +1056,217 @@
   window.updateLivePreview = updateLivePreview;
 
 })();
+
+// ─────────────────────────────────────────────────────────────
+// REAL SOCIAL PROOF ENGINE
+// Collects genuine ratings, testimonials, and usage counts.
+// NOTHING displays until it's real and (for testimonials) approved by Rob.
+// ─────────────────────────────────────────────────────────────
+(function() {
+  const FEEDBACK_URL = "/.netlify/functions/iep-tool-feedback";
+
+  // ── 1. Fire goal_generated event when output renders ─────
+  function fireGoalGenerated() {
+    fetch(FEEDBACK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "goal_generated" }),
+    }).catch(() => {}); // silent fail, never block the user
+  }
+
+  // ── 2. Load real stats and show only if data exists ───────
+  async function loadAndShowStats() {
+    try {
+      const res = await fetch(FEEDBACK_URL + "?action=stats");
+      const data = await res.json();
+
+      // Goals generated counter — real number, starts from 0
+      if (data.goals_generated && data.goals_generated >= 50) {
+        const counter = document.getElementById("goals-generated-counter");
+        if (counter) {
+          counter.textContent = data.goals_generated.toLocaleString() + " goals generated";
+          counter.style.display = "block";
+        }
+      }
+
+      // Star rating — only show after 20+ real ratings
+      if (data.avg_rating && data.rating_count >= 20) {
+        const ratingDisplay = document.getElementById("real-rating-display");
+        if (ratingDisplay) {
+          const stars = Math.round(data.avg_rating * 10) / 10;
+          ratingDisplay.innerHTML = `
+            <span class="rating-stars">${renderStars(stars)}</span>
+            <span class="rating-text">${stars}/5 from ${data.rating_count} teachers</span>
+          `;
+          ratingDisplay.style.display = "flex";
+        }
+      }
+    } catch (e) {
+      // Silent — no fake fallback, just nothing shows
+    }
+  }
+
+  function renderStars(rating) {
+    let html = "";
+    for (let i = 1; i <= 5; i++) {
+      const filled = i <= Math.round(rating);
+      html += `<svg width="14" height="14" viewBox="0 0 20 20" fill="${filled ? "#e3b23c" : "#ddd"}" xmlns="http://www.w3.org/2000/svg"><path d="M10 2l2.09 5.26L18 8.27l-4 3.86.94 5.87L10 15.4l-4.94 2.6.94-5.87-4-3.86 5.91-1.01L10 2z"/></svg>`;
+    }
+    return html;
+  }
+
+  // ── 3. Star rating widget on Step 5 ──────────────────────
+  function injectRatingWidget() {
+    const output = document.getElementById("output");
+    if (!output) return;
+
+    // Don't inject twice
+    if (document.getElementById("rating-widget")) return;
+
+    const widget = document.createElement("div");
+    widget.id = "rating-widget";
+    widget.className = "rating-widget";
+    widget.innerHTML = `
+      <p class="rating-prompt">Was this goal helpful?</p>
+      <div class="rating-stars-input" role="group" aria-label="Rate this tool">
+        ${[1,2,3,4,5].map(n => `
+          <button type="button" class="star-btn" data-stars="${n}" aria-label="${n} star${n>1?'s':''}">
+            <svg width="28" height="28" viewBox="0 0 20 20" fill="#ddd" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 2l2.09 5.26L18 8.27l-4 3.86.94 5.87L10 15.4l-4.94 2.6.94-5.87-4-3.86 5.91-1.01L10 2z"/>
+            </svg>
+          </button>`).join("")}
+      </div>
+      <p id="rating-thanks" class="rating-thanks" style="display:none">Thank you! Your rating helps other teachers find this tool.</p>
+    `;
+
+    output.insertAdjacentElement("afterend", widget);
+
+    // Star hover + click
+    const btns = widget.querySelectorAll(".star-btn");
+    btns.forEach(btn => {
+      btn.addEventListener("mouseenter", () => highlightStars(btns, parseInt(btn.dataset.stars)));
+      btn.addEventListener("mouseleave", () => highlightStars(btns, 0));
+      btn.addEventListener("click", () => submitRating(parseInt(btn.dataset.stars), btns, widget));
+    });
+  }
+
+  function highlightStars(btns, upTo) {
+    btns.forEach((btn, i) => {
+      const svg = btn.querySelector("svg path");
+      if (svg) svg.setAttribute("fill", i < upTo ? "#e3b23c" : "#ddd");
+    });
+  }
+
+  async function submitRating(stars, btns, widget) {
+    highlightStars(btns, stars);
+    btns.forEach(b => b.disabled = true);
+
+    await fetch(FEEDBACK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "rating", stars }),
+    }).catch(() => {});
+
+    const thanks = widget.querySelector("#rating-thanks");
+    const prompt = widget.querySelector(".rating-prompt");
+    const starsInput = widget.querySelector(".rating-stars-input");
+    if (prompt) prompt.style.display = "none";
+    if (starsInput) starsInput.style.display = "none";
+    if (thanks) thanks.style.display = "block";
+
+    // If 4 or 5 stars, show quick testimonial ask
+    if (stars >= 4) {
+      setTimeout(() => injectTestimonialAsk(widget), 800);
+    }
+  }
+
+  // ── 4. Testimonial ask (only after 4-5 star rating) ──────
+  function injectTestimonialAsk(widget) {
+    if (document.getElementById("testimonial-ask")) return;
+
+    const ask = document.createElement("div");
+    ask.id = "testimonial-ask";
+    ask.className = "testimonial-ask";
+    ask.innerHTML = `
+      <p class="testimonial-ask-prompt">Mind sharing one sentence about how this helped you?</p>
+      <p class="testimonial-ask-note">If you're comfortable, we may share this (with your role only — never your name without permission).</p>
+      <select id="testimonial-role" class="testimonial-role-select">
+        <option value="">Your role (optional)</option>
+        <option value="Special Education Teacher">Special Education Teacher</option>
+        <option value="BCBA">BCBA</option>
+        <option value="RBT">RBT</option>
+        <option value="Behavior Specialist">Behavior Specialist</option>
+        <option value="School Psychologist">School Psychologist</option>
+        <option value="Paraprofessional">Paraprofessional</option>
+        <option value="Administrator">Administrator</option>
+        <option value="Other">Other</option>
+      </select>
+      <textarea id="testimonial-text" class="testimonial-textarea" 
+        placeholder="e.g., Saved me 20 minutes on my most difficult IEP…" 
+        rows="2" maxlength="280"></textarea>
+      <div class="testimonial-actions">
+        <button type="button" id="testimonial-submit" class="btn-primary-sm">Submit</button>
+        <button type="button" id="testimonial-skip" class="btn-ghost-sm">Skip</button>
+      </div>
+      <p id="testimonial-submitted" style="display:none;color:#1e3a34;font-size:0.85rem;margin-top:8px;">
+        Thank you — we really appreciate that.
+      </p>
+    `;
+
+    widget.insertAdjacentElement("afterend", ask);
+
+    document.getElementById("testimonial-submit").addEventListener("click", async () => {
+      const text = document.getElementById("testimonial-text").value.trim();
+      const role = document.getElementById("testimonial-role").value;
+      if (!text || text.length < 10) {
+        document.getElementById("testimonial-text").style.border = "1.5px solid #dc2626";
+        return;
+      }
+      await fetch(FEEDBACK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "testimonial", text, role }),
+      }).catch(() => {});
+
+      ask.querySelector(".testimonial-ask-prompt").style.display = "none";
+      ask.querySelector(".testimonial-ask-note").style.display = "none";
+      ask.querySelector("#testimonial-role").style.display = "none";
+      ask.querySelector("#testimonial-text").style.display = "none";
+      ask.querySelector(".testimonial-actions").style.display = "none";
+      document.getElementById("testimonial-submitted").style.display = "block";
+    });
+
+    document.getElementById("testimonial-skip").addEventListener("click", () => {
+      ask.style.display = "none";
+    });
+  }
+
+  // ── 5. Hook into output generation ───────────────────────
+  const outputEl = document.getElementById("output");
+  if (outputEl) {
+    const observer = new MutationObserver(() => {
+      if (outputEl.textContent.trim().length > 50) {
+        fireGoalGenerated();
+        injectRatingWidget();
+        observer.disconnect(); // fire once per session
+      }
+    });
+    observer.observe(outputEl, { childList: true, subtree: true, characterData: true });
+  }
+
+  // ── 6. Placeholder elements for real stats (hidden until data is real) ──
+  document.addEventListener("DOMContentLoaded", () => {
+    // Goals counter — inserted below header, hidden until real data fills it
+    const header = document.querySelector(".app-header");
+    if (header && !document.getElementById("goals-generated-counter")) {
+      const counter = document.createElement("div");
+      counter.id = "goals-generated-counter";
+      counter.className = "goals-counter";
+      counter.style.display = "none"; // shown only when real count >= 50
+      header.insertAdjacentElement("afterend", counter);
+    }
+
+    loadAndShowStats();
+  });
+
+})();
