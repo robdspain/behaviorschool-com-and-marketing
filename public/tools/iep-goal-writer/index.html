@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IEP Behavior Goal Writer — Behavior School</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Override header for embedded context */
+    .app-header { background: #1e3a34; }
+  </style>
+</head>
+<body class="brand-bs">
+  <header class="app-header">
+    <div class="header-content">
+      <div class="header-left">
+        <h1 class="app-title">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:12px;">
+            <rect width="32" height="32" rx="8" fill="#1e3a34"/>
+            <path d="M16 8L18.5 13.5L24 14.5L20 18.5L21 24L16 21L11 24L12 18.5L8 14.5L13.5 13.5L16 8Z" fill="#e3b23c"/>
+            <circle cx="16" cy="16" r="10" stroke="#e3b23c" stroke-width="1.5" opacity="0.3" fill="none"/>
+          </svg>
+          IEP Behavior Goal Writer
+        </h1>
+        <p class="app-subtitle">Create standards-compliant IEP behavior goals in minutes</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wizard-progress" id="wizardProgress">
+      <span class="wizard-step active" data-step-label="1">1. Student &amp; Behavior</span>
+      <span class="wizard-step" data-step-label="2">2. Baseline</span>
+      <span class="wizard-step" data-step-label="3">3. Context &amp; Supports</span>
+      <span class="wizard-step" data-step-label="4">4. Goal and Measurement</span>
+      <span class="wizard-step" data-step-label="5">5. Review &amp; Generate</span>
+    </div>
+
+    <section class="toolbar">
+      <label class="toggle">
+        <input id="autoPreview" type="checkbox" checked> Auto preview
+      </label>
+      <span class="spacer"></span>
+      <button id="resetBtn" class="ghost">Reset</button>
+    </section>
+
+    <section class="panel step" data-step="1">
+      <h2>Student &amp; Behavior</h2>
+      <div class="grid">
+        <label>Annual Goal Date (mm/dd/yy)
+          <input id="dueDate" type="text" placeholder="mm/dd/yy" aria-label="Annual goal date in mm/dd/yy" class="datepicker-input">
+        </label>
+        <label>Student Name
+          <input id="studentName" type="text" placeholder="e.g., Student name (optional)">
+        </label>
+        <label>Grade Level
+          <select id="gradeLevel">
+            <option value="">Select grade (optional)</option>
+            <option value="K">Kindergarten</option>
+            <option value="1">Grade 1</option>
+            <option value="2">Grade 2</option>
+            <option value="3">Grade 3</option>
+            <option value="4">Grade 4</option>
+            <option value="5">Grade 5</option>
+            <option value="6">Grade 6</option>
+            <option value="7">Grade 7</option>
+            <option value="8">Grade 8</option>
+            <option value="9">Grade 9</option>
+            <option value="10">Grade 10</option>
+            <option value="11">Grade 11</option>
+            <option value="12">Grade 12</option>
+          </select>
+        </label>
+        <div class="field direction-field">
+          <div class="label">Behavior Direction</div>
+          <div class="segmented" role="tablist" aria-label="Direction">
+            <button id="dirInc" type="button" role="tab" aria-selected="false">Increase</button>
+            <button id="dirDec" type="button" role="tab" aria-selected="true" class="active">Decrease</button>
+          </div>
+          <select id="direction" aria-hidden="true" style="display:none">
+            <option value="increase">Increase</option>
+            <option value="decrease" selected>Decrease</option>
+          </select>
+        </div>
+        <label>Title of Behavior
+          <input id="behaviorTitle" type="text" placeholder="e.g., on-task behavior" list="behaviorTitleList">
+          <datalist id="behaviorTitleList">
+            <option value="aggressive behavior"></option>
+            <option value="calling out"></option>
+            <option value="off-task behavior"></option>
+            <option value="disruptive behavior"></option>
+            <option value="inappropriate vocalizations"></option>
+            <option value="tantrum behavior"></option>
+            <option value="elopement"></option>
+            <option value="self-injurious behavior"></option>
+            <option value="property destruction"></option>
+          </datalist>
+          <div class="examples-list" id="behaviorTitleExamples">
+            <button type="button" class="example-chip" data-behaviortitle-pick="aggressive behavior">aggressive behavior</button>
+            <button type="button" class="example-chip" data-behaviortitle-pick="calling out">calling out</button>
+            <button type="button" class="example-chip" data-behaviortitle-pick="off-task behavior">off-task behavior</button>
+            <button type="button" class="example-chip" data-behaviortitle-pick="disruptive behavior">disruptive behavior</button>
+            <button type="button" class="example-chip" data-behaviortitle-pick="inappropriate vocalizations">inappropriate vocalizations</button>
+            <button type="button" class="example-chip" data-behaviortitle-pick="tantrum behavior">tantrum behavior</button>
+            <button type="button" class="example-chip" data-behaviortitle-pick="elopement">elopement</button>
+            <button type="button" class="example-chip" data-behaviortitle-pick="self-injurious behavior">self-injurious behavior</button>
+            <button type="button" class="example-chip" data-behaviortitle-pick="property destruction">property destruction</button>
+          </div>
+        </label>
+        <label>Measurable and Observable Behavior
+          <textarea id="behaviorDefinition" rows="3" placeholder="e.g., hitting, yelling, or leaving assigned area without permission"></textarea>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel step" data-step="2" hidden>
+      <h2>Baseline (required)</h2>
+      <div class="grid">
+        <label>Frequency/Rate
+          <input id="baselineFrequency" type="number" min="0" step="0.1" placeholder="e.g., 5" style="display:block;">
+        </label>
+        <label>Frequency Unit
+          <select id="baselineUnit" style="display:block;">
+            <option value="times per day">times per day</option>
+            <option value="times per week">times per week</option>
+            <option value="times per period">times per period</option>
+            <option value="times per hour">times per hour</option>
+            <option value="instances per day">instances per day</option>
+            <option value="instances per week">instances per week</option>
+            <option value="instances per period">instances per period</option>
+            <option value="instances per hour">instances per hour</option>
+            <option value="episodes per day">episodes per day</option>
+            <option value="occurrences per session">occurrences per session</option>
+          </select>
+        </label>
+        <label style="display:none;">Days measured for baseline
+          <input id="baselineMaxConsec" type="text" placeholder="e.g., 3 baseline days">
+        </label>
+        <label>Baseline Data Methods
+          <input id="baselineMethods" type="text" placeholder="e.g., teacher observation and behavior tracking sheets" list="baselineMethodsList">
+          <datalist id="baselineMethodsList">
+            <option value="teacher observation and behavior tracking sheets">
+            <option value="direct observation with frequency recording">
+            <option value="ABC data collection and analysis">
+            <option value="duration recording and time sampling">
+            <option value="interval recording with data sheets">
+            <option value="scatterplot analysis and incident reports">
+            <option value="video recording and behavioral coding">
+            <option value="peer observation and staff documentation">
+            <option value="electronic data collection system">
+            <option value="permanent product recording and work samples">
+          </datalist>
+        </label>
+        <label id="baselinePercentWrapper" style="display:none;">Baseline Percentage Correct
+          <input id="baselinePercent" type="text" placeholder="e.g., 40% of opportunities">
+        </label>
+      </div>
+    </section>
+
+    <section class="panel step" data-step="3" hidden>
+      <h2>Context &amp; Supports</h2>
+      <div class="grid">
+        <label>Specific Context (when)
+          <input id="context" type="text" placeholder="e.g., in a structured classroom setting" list="contextList">
+          <datalist id="contextList"></datalist>
+        </label>
+        <label>Specific Supports (given)
+          <input id="supports" type="text" placeholder="e.g., verbal prompts and a visual checklist" list="supportsList">
+          <datalist id="supportsList"></datalist>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel step" data-step="4" hidden>
+      <h2>Goal and Measurement</h2>
+      <div class="grid">
+        <label>Data Collection Method
+          <input id="dataMethod" type="text" placeholder="e.g., teacher observation and behavior tracking sheets" list="dataMethodList">
+          <datalist id="dataMethodList">
+            <option value="teacher observation and behavior tracking sheets">
+            <option value="direct observation with frequency recording">
+            <option value="ABC data collection and analysis">
+            <option value="duration recording and time sampling">
+            <option value="interval recording with data sheets">
+            <option value="scatterplot analysis and incident reports">
+            <option value="video recording and behavioral coding">
+            <option value="peer observation and staff documentation">
+            <option value="electronic data collection system">
+            <option value="permanent product recording and work samples">
+          </datalist>
+          <div class="examples-list" id="dataMethodExamples">
+            <button type="button" class="example-chip" data-datamethod-pick="teacher observation and behavior tracking sheets">teacher observation and behavior tracking sheets</button>
+            <button type="button" class="example-chip" data-datamethod-pick="direct observation with frequency recording">direct observation with frequency recording</button>
+            <button type="button" class="example-chip" data-datamethod-pick="ABC data collection and analysis">ABC data collection and analysis</button>
+            <button type="button" class="example-chip" data-datamethod-pick="duration recording and time sampling">duration recording and time sampling</button>
+            <button type="button" class="example-chip" data-datamethod-pick="interval recording with data sheets">interval recording with data sheets</button>
+          </div>
+        </label>
+        <label>Accuracy (auto per rules — editable)
+          <input id="accuracy" type="text" placeholder="e.g., in 90% of opportunities">
+        </label>
+        <label>Consistency (auto per rules — editable)
+          <input id="consistency" type="text" placeholder="e.g., for 3 consecutively measured school days">
+        </label>
+        <label class="toggle highlight-box" style="grid-column:1/-1;margin-top:8px;">
+          <input id="includeObjectives" type="checkbox">
+          <span>Include Short-Term Objectives (about every 3 months)</span>
+        </label>
+      </div>
+    </section>
+
+    <div class="quality-bar" aria-label="Goal Level (Hierarchy)">
+      <div class="quality-left">
+        <strong>Goal Level</strong>
+        <span id="levelText" class="quality-level">Fill fields to assess quality</span>
+      </div>
+      <div class="quality-meter">
+        <div class="quality-track">
+          <div id="qualityFill" class="quality-fill" style="width:0%"></div>
+        </div>
+        <div class="quality-steps"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+      </div>
+    </div>
+
+    <div class="wizard-controls">
+      <button id="prevStep" class="ghost">Back</button>
+      <div id="inlinePreview" class="wizard-preview" aria-live="polite"></div>
+      <div class="right">
+        <small id="validationMsg" class="subtitle"></small>
+        <button id="nextStep">Next</button>
+      </div>
+    </div>
+
+    <section class="panel step" data-step="5" hidden>
+      <h2>Output</h2>
+      <div id="commonCoreStandards" class="cc-standards-box" style="display:none;margin-bottom:16px;padding:14px 16px;background:#f0f7f4;border:1px solid #c2dbd3;border-radius:8px;">
+        <strong style="color:#1e3a34;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;">Common Core Standards</strong>
+        <div id="ccStandardsList" style="margin-top:8px;font-size:0.9rem;color:#2d5046;"></div>
+      </div>
+      <div id="output" class="output" contenteditable="false"></div>
+      <div class="actions" style="margin-top:12px">
+        <button id="copyBtn" disabled>Copy Output</button>
+        <button id="downloadBtn" disabled>Download .txt</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-branding">
+        <a href="https://behaviorschool.com" target="_blank" rel="noopener" class="brand-link">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:10px;">
+            <rect width="32" height="32" rx="8" fill="#1e3a34"/>
+            <path d="M16 8L18.5 13.5L24 14.5L20 18.5L21 24L16 21L11 24L12 18.5L8 14.5L13.5 13.5L16 8Z" fill="#e3b23c"/>
+            <circle cx="16" cy="16" r="10" stroke="#e3b23c" stroke-width="1.5" opacity="0.3" fill="none"/>
+          </svg>
+          <span class="brand-name">Behavior School</span>
+        </a>
+        <p class="brand-tagline">Empowering educators with evidence-based behavior support tools</p>
+      </div>
+      <div class="footer-privacy">
+        <small>Privacy: This app does not store or transmit your data. All entries remain local to your browser session.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/motion@11.11.17/dist/motion.min.js"></script>
+  <!-- Common Core Standards lookup -->
+  <script src="cc-standards.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
