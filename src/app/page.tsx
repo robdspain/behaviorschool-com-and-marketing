@@ -226,13 +226,13 @@ export default function Home() {
               </div>
             </FadeInSection>
 
-            {/* Licensed BCBA */}
+            {/* BCBA */}
             <FadeInSection delay={0.15}>
               <div className="border-2 border-emerald-700 rounded-2xl bg-white p-6 flex flex-col h-full">
                 <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
                   <Briefcase className="h-6 w-6 text-emerald-700" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Licensed BCBA</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">BCBA</h3>
                 <p className="text-slate-600 text-sm leading-relaxed flex-grow">
                   Track supervision hours, manage your caseload, and access AI-powered tools designed for practicing BCBAs.
                 </p>
@@ -468,7 +468,7 @@ export default function Home() {
 
             <FadeInSection>
               <div className="space-y-6">
-                <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">For Licensed BCBAs</p>
+                <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">For BCBAs</p>
                 <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
                   Supervision Tools Built for the Real World
                 </h2>
