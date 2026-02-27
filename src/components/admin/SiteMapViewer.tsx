@@ -86,7 +86,6 @@ export default function SiteMapViewer() {
         { path: "/iep-goals", title: "IEP Goals Generator", description: "AI-powered goal generator", status: "live", cluster: "IEP Goals", priority: "high" },
         { path: "/iep-behavior-goals", title: "IEP Behavior Goals", description: "Templates and examples", status: "live", cluster: "IEP Goals", priority: "high" },
         { path: "/iep-goals-examples", title: "IEP Goals Examples", description: "Comprehensive goal examples by domain", status: "planned", cluster: "IEP Goals", priority: "high" },
-        { path: "/iep-goal-bank", title: "IEP Goal Bank", description: "Searchable database of goals", status: "planned", cluster: "IEP Goals", priority: "medium" },
         { path: "/measurable-iep-goals-checklist", title: "Measurable IEP Goals Checklist", description: "Quality assurance guide", status: "planned", cluster: "IEP Goals", priority: "medium" },
         { path: "/iep-goals-for-autism", title: "IEP Goals for Autism", description: "Autism-specific goals", status: "planned", cluster: "IEP Goals", priority: "high" },
         { path: "/iep-goals-for-adhd", title: "IEP Goals for ADHD", description: "ADHD-focused objectives", status: "planned", cluster: "IEP Goals", priority: "medium" },

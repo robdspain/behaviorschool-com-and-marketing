@@ -8,7 +8,7 @@ export const menuSections: MenuSection[] = [
       { label: "BehaviorSchool Pro", href: "/pro" },
       { label: "FBA-to-BIP Generator", href: "/fba-to-bip" },
       { label: "IEP Goal Generator", href: "/iep-goal-generator" },
-      { label: "IEP Goal Bank", href: "/iep-goal-bank" },
+
     ],
   },
   {
