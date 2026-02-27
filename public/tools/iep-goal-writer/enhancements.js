@@ -107,15 +107,6 @@
     const main = document.querySelector("main");
     if (!main) return;
 
-    // Add social proof below header
-    const header = document.querySelector(".app-header");
-    if (header) {
-      const proof = document.createElement("div");
-      proof.className = "social-proof";
-      proof.textContent = "Join 12,400+ special education teachers using this tool";
-      header.insertAdjacentElement("afterend", proof);
-    }
-
     // Wrap main content in app-layout for desktop side panel
     const layout = document.createElement("div");
     layout.className = "app-layout";
