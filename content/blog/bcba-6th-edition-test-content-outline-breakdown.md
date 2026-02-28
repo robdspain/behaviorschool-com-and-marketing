@@ -21,6 +21,8 @@ If you're preparing for the BCBA exam, you're studying the **6th Edition Test Co
 
 This guide breaks down every domain of the BCBA 6th Edition TCO, gives you the exam weights, tells you which tasks are highest-yield, and flags which sections catch school-based BCBAs off guard.
 
+> **Download the official source:** [BCBA 6th Edition Task List & Test Content Outline (BACB.com)](https://www.bacb.com/bcba-bcaba-behavior-analyst-task-list/) — free PDF directly from BACB.
+
 > **Quick fact:** The BCBA exam contains **175 scored questions** plus 10 unscored pilot questions (185 total). The 6th Edition TCO organizes those questions across **9 domains** with 104 total tasks.
 
 ---
@@ -300,7 +302,7 @@ The BCBA 6th Edition Test Content Outline organizes 175 scored exam questions ac
 
 ## Sources & References
 
-- Behavior Analyst Certification Board. (2022). *BCBA/BCaBA Task List (6th ed.) and Test Content Outline*. BACB. https://www.bacb.com/bcba-bcaba-behavior-analyst-task-list/
+- Behavior Analyst Certification Board. (2022). *BCBA/BCaBA Task List (6th ed.) and Test Content Outline*. BACB. [https://www.bacb.com/bcba-bcaba-behavior-analyst-task-list/](https://www.bacb.com/bcba-bcaba-behavior-analyst-task-list/) ← **Official 6th Edition Task List (download directly from BACB)**
 - Behavior Analyst Certification Board. (2022). *Ethics Code for Behavior Analysts*. BACB. https://www.bacb.com/ethics/ethics-code-for-behavior-analysts/
 - Individuals with Disabilities Education Act, 20 U.S.C. § 1414 et seq. (2004).
 - Behavior Analyst Certification Board. (2023). *BCBA Examination Passing Scores and Pass Rates*. BACB. https://www.bacb.com/bcba-exam-pass-rates/
