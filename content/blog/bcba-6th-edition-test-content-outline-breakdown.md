@@ -15,7 +15,7 @@ meta_title: "BCBA 6th Edition Test Content Outline: Domain-by-Domain Breakdown (
 meta_description: "Master the BCBA 6th Edition Test Content Outline with this complete breakdown of all 9 domains, exam weights, task counts, and what changed from the 5th edition. Updated for 2025–2026."
 ---
 
-*AI-assisted draft; reviewed and edited by Rob Spain, BCBA, IBA.*
+*AI-assisted draft; reviewed and edited by Rob Spain, BCBA, IBA. All exam structure information is sourced directly from the BACB's published 6th Edition Test Content Outline and Task List, available at bacb.com. Domain weight estimates reflect task count distribution and are not official BACB-published percentages.*
 
 If you're preparing for the BCBA exam, you're studying the **6th Edition Test Content Outline (TCO)** — and knowing exactly what's on it, how it's weighted, and which domains eat the most exam questions is the difference between a focused study plan and wasted hours.
 
@@ -295,3 +295,14 @@ The BCBA 6th Edition Test Content Outline organizes 175 scored exam questions ac
 ---
 
 *Rob Spain is a Board Certified Behavior Analyst (BCBA) and International Behavior Analyst (IBA) with 25+ years of school-based practice. He is the founder of BehaviorSchool and Behavior Study Tools.*
+
+---
+
+## Sources & References
+
+- Behavior Analyst Certification Board. (2022). *BCBA/BCaBA Task List (6th ed.) and Test Content Outline*. BACB. https://www.bacb.com/bcba-bcaba-behavior-analyst-task-list/
+- Behavior Analyst Certification Board. (2022). *Ethics Code for Behavior Analysts*. BACB. https://www.bacb.com/ethics/ethics-code-for-behavior-analysts/
+- Individuals with Disabilities Education Act, 20 U.S.C. § 1414 et seq. (2004).
+- Behavior Analyst Certification Board. (2023). *BCBA Examination Passing Scores and Pass Rates*. BACB. https://www.bacb.com/bcba-exam-pass-rates/
+
+*Note: Exam domain weight percentages are estimates based on task count distribution across 9 domains (104 total tasks) and widely reported candidate experiences. The BACB does not publish official percentage weights per domain. Consult the official BACB Test Content Outline for authoritative exam structure information.*
