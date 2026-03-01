@@ -14,15 +14,13 @@ export default function CalABA2026Page() {
   const handleDownloadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch('/api/crm', {
+      await fetch('/api/calaba-signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
           name,
-          source: 'calaba-2026-download',
-          role: 'BCBA',
-          newsletter: subscribeNewsletter,
+          subscribeNewsletter,
         }),
       });
     } catch (err) {
@@ -235,7 +233,7 @@ export default function CalABA2026Page() {
               <div className="text-center py-6">
                 <CheckCircle className="w-12 h-12 text-cyan-400 mx-auto mb-3" />
                 <p className="text-lg font-bold text-white mb-2">Check your email!</p>
-                <p className="text-slate-200 mb-4">Your download link is on its way.</p>
+                <p className="text-slate-200 mb-4">Check your inbox — the tool link and references are on their way.</p>
                 <div className="space-y-2 text-sm text-slate-300">
                   <p>Presentation slides (PDF)</p>
                   <p>Assessment templates (CPFQ, ACT Matrix, Values Sort)</p>
