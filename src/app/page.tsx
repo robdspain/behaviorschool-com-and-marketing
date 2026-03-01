@@ -56,12 +56,12 @@ const FREE_TOOLS = [
 ];
 
 const PRO_TOOLS = [
-  { title: "FBA Builder", description: "Guided prompts, hypothesis development, and complete report draft.", access: "Pro" },
-  { title: "BIP Generator", description: "Build a complete Behavior Intervention Plan from your FBA.", access: "Pro" },
-  { title: "IEP Goal Writer", description: "Generate measurable, SMART behavior goals from a goal bank.", access: "Free" },
-  { title: "ABC Data Tracker", description: "Log A-B-C observations, view patterns, export for reports.", access: "Pro" },
-  { title: "CEU Tracker", description: "Track credits against BACB renewal requirements with deadline reminders.", access: "Pro" },
-  { title: "Supervision Logs", description: "BACB-aligned individual and group supervision documentation.", access: "Pro" },
+  { title: "FBA Builder", description: "Guided prompts, hypothesis development, and complete report draft.", access: "Pro", href: "/act-fba-bip" },
+  { title: "BIP Generator", description: "Build a complete Behavior Intervention Plan from your FBA.", access: "Pro", href: "/act-fba-bip" },
+  { title: "IEP Goal Writer", description: "Generate measurable, SMART behavior goals from a goal bank.", access: "Free", href: "/iep-goal-writer" },
+  { title: "ABC Data Tracker", description: "Log A-B-C observations, view patterns, export for reports.", access: "Pro", href: "/abc-function-finder" },
+  { title: "CEU Tracker", description: "Track credits against BACB renewal requirements with deadline reminders.", access: "Pro", href: "/transformation-program" },
+  { title: "Supervision Logs", description: "BACB-aligned individual and group supervision documentation.", access: "Pro", href: "/rbt-hours" },
 ];
 
 const STUDY_FEATURES = [
@@ -84,15 +84,8 @@ export default function Home() {
       <section style={{ backgroundColor: "#1a3d2e" }} className="pt-24 pb-20 sm:pt-32 sm:pb-28 border-b border-black/10">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-          <p style={{
-            color: "#E8B84B",
-            fontSize: "11px",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            marginBottom: "1.5rem",
-          }}>
-            Rob Spain, BCBA, IBA &middot; BehaviorSchool
+          <p className="text-xs font-semibold uppercase tracking-widest text-amber-300/80 mb-5">
+            Rob Spain, BCBA, IBA &nbsp;·&nbsp; CalABA Presenter &nbsp;·&nbsp; Behavior Team Leader &nbsp;·&nbsp; AI Tool Builder
           </p>
 
           <h1 style={{
@@ -290,7 +283,7 @@ export default function Home() {
                   <p style={{ fontSize: "13px", color: "#7A7A72", lineHeight: 1.5 }}>{tool.description}</p>
                 </div>
                 <a
-                  href="https://plan.behaviorschool.com/register"
+                  href={tool.href}
                   style={{
                     flexShrink: 0,
                     fontSize: "12px",
@@ -300,7 +293,7 @@ export default function Home() {
                     textDecoration: "none",
                   }}
                 >
-                  {tool.access === "Free" ? "Free \u2192" : "Available in Pro \u2192"}
+                  Try Free →
                 </a>
               </div>
             ))}
