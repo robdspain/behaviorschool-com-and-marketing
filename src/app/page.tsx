@@ -8,81 +8,104 @@ import {
   Users,
   Shield,
   CheckCircle,
-  Zap,
   ClipboardList,
   Target,
   BookOpen,
   Brain,
-  GraduationCap,
   BarChart3,
-  Calendar,
   FileCheck,
-  Star,
   MessageSquare,
-  Briefcase,
+  Clock,
+  Layers,
+  GraduationCap,
 } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import ShimmerButton from "@/components/magicui/shimmer-button";
-import AnimatedGradientText from "@/components/magicui/animated-gradient-text";
 
-const PRO_TOOLS = [
+const PAIN_POINTS = [
   {
-    title: "FBA-to-BIP Generator",
+    icon: Clock,
+    title: "Drowning in paperwork",
     description:
-      "Upload FBA data and get a comprehensive, legally-defensible Behavior Intervention Plan in minutes.",
-    icon: ClipboardList,
-    href: "/fba-to-bip",
+      "FBAs, BIPs, IEP goals, progress reports. The documentation never stops. Most school BCBAs spend more time writing than working with students.",
   },
   {
-    title: "IEP Goal Generator",
+    icon: Layers,
+    title: "Fragmented tools",
     description:
-      "AI-powered measurable IEP goals aligned to state standards. SMART, specific, and classroom-ready.",
-    icon: Target,
-    href: "/iep-goal-generator",
+      "Word docs for BIPs. Spreadsheets for data. A different app for CEUs. Another for supervision logs. None of it talks to each other.",
   },
   {
-    title: "IEP Goal Bank",
+    icon: Users,
+    title: "No peer support",
     description:
-      "Searchable library of 1,000+ pre-written behavior and academic goals. Filter by domain, grade, and need.",
-    icon: BookOpen,
-    href: "/iep-goal-bank",
+      "School BCBAs are often the only one in the building. There is no one to consult, no one who understands the pace, and no community built for this role.",
   },
+];
+
+const TOOLS = [
   {
-    title: "ACT Module",
+    title: "FBA Builder",
     description:
-      "Acceptance and Commitment Training tools designed for school-based behavioral support teams.",
+      "Structure your functional behavior assessment with guided prompts, hypothesis development, and a complete report draft — ready for your clinical review.",
     icon: Brain,
-    href: "/act-matrix",
+    href: "https://plan.behaviorschool.com/register",
+  },
+  {
+    title: "BIP Generator",
+    description:
+      "Build a complete Behavior Intervention Plan from your FBA. Section-by-section guidance, IDEA-aligned language, and PDF export.",
+    icon: ClipboardList,
+    href: "https://plan.behaviorschool.com/register",
+  },
+  {
+    title: "IEP Goal Writer",
+    description:
+      "Generate measurable, SMART behavior goals aligned to IEP meeting timelines. Pull from a goal bank or build from scratch.",
+    icon: Target,
+    href: "https://plan.behaviorschool.com/register",
+  },
+  {
+    title: "ABC Data",
+    description:
+      "Log antecedent-behavior-consequence data directly in the platform. View patterns, export for reports, and link data to BIP targets.",
+    icon: BarChart3,
+    href: "https://plan.behaviorschool.com/register",
+  },
+  {
+    title: "CEU Tracker",
+    description:
+      "Track your continuing education credits against BACB renewal requirements. Get reminders before your cycle deadline.",
+    icon: GraduationCap,
+    href: "https://plan.behaviorschool.com/register",
+  },
+  {
+    title: "Supervision Hours",
+    description:
+      "Log individual and group supervision hours in a BACB-aligned format. Generate structured supervision logs for your supervisees.",
+    icon: FileCheck,
+    href: "https://plan.behaviorschool.com/register",
   },
 ];
 
 const TRUST_ITEMS = [
   { icon: Shield, label: "FERPA Compliant", sub: "Student data never stored" },
   { icon: CheckCircle, label: "Evidence-Based", sub: "Grounded in ABA research" },
-  { icon: Users, label: "Built for Schools", sub: "By BCBAs, for school teams" },
-  { icon: Zap, label: "AI-Powered", sub: "Save hours every week" },
+  { icon: BookOpen, label: "Built by BCBAs", sub: "For school-based practice" },
+  { icon: Users, label: "School-Ready", sub: "District and IEP aligned" },
 ];
 
 const STUDY_FEATURES = [
   { icon: Brain, label: "Adaptive Practice", description: "Questions that adapt to your weak areas so you study smarter, not longer." },
   { icon: BarChart3, label: "Performance Analytics", description: "See exactly where you stand across all BCBA task list domains." },
-  { icon: CheckCircle, label: "500+ Vetted Questions", description: "Written and reviewed by practicing BCBAs — no low-quality filler." },
+  { icon: CheckCircle, label: "500+ Vetted Questions", description: "Written and reviewed by practicing BCBAs." },
 ];
 
 const SUPERVISE_FEATURES = [
   { icon: FileCheck, label: "BACB-Aligned Tracking", description: "Log and track supervised hours with tools built around BACB requirements." },
   { icon: ClipboardList, label: "Supervision Logs", description: "Structured documentation templates for individual and group supervision." },
   { icon: Users, label: "Supervisee Resources", description: "Materials to support your supervisees through the credentialing process." },
-];
-
-const TRANSFORMATION_OUTCOMES = [
-  "Map your caseload and stakeholder ecosystem",
-  "Build a streamlined referral system that filters non-behavioral issues",
-  "Strengthen buy-in with teams and identify early adopters",
-  "Select the right assessment for the right context every time",
-  "Create BIPs that staff can actually implement",
-  "Develop a sustainable, school-wide behavior support practice",
 ];
 
 function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -104,237 +127,210 @@ function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; del
 export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--bs-background,#FAF3E0)]">
+
       {/* ─── HERO ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-700 pt-32 pb-20 sm:pt-36 sm:pb-24">
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-700 pt-24 pb-20 sm:pt-32 sm:pb-28">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
           <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/50 to-transparent" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <AnimatedGradientText className="mb-6">
-              <Star className="h-4 w-4 mr-2" />
-              <span className="text-emerald-900 dark:text-white font-semibold">For School-Based BCBAs</span>
-            </AnimatedGradientText>
-          </motion.div>
-
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6"
+            transition={{ duration: 0.6 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-white"
           >
-            <span className="text-white">The Operating System</span>
-            <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-amber-300 via-amber-200 to-yellow-300 bg-clip-text text-transparent animate-gradient">
-              for School-Based BCBAs
+            The Complete Platform for{" "}
+            <span className="bg-gradient-to-r from-amber-300 via-amber-200 to-yellow-300 bg-clip-text text-transparent">
+              School-Based Behavior Analysts
             </span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="max-w-2xl mx-auto text-lg sm:text-xl text-emerald-100 mb-10 leading-relaxed"
           >
-            Tools to work faster. Courses to level up. Community to grow together.
+            FBA, BIP, IEP goals, data collection, CEU tracking, and supervision logs — built for school BCBAs who spend too much time on documentation and not enough time with students.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href="#tools">
+            <a href="https://plan.behaviorschool.com/register">
               <ShimmerButton
-                className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
+                className="h-14 px-10 text-lg font-bold rounded-xl w-full sm:w-auto"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
                 shimmerColor="#f0c040"
               >
-                <span className="text-emerald-900">Explore Tools</span>
+                <span className="text-emerald-900">Start Free</span>
                 <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
               </ShimmerButton>
-            </Link>
-            <Link href="/free-study-plan">
+            </a>
+            <a href="#tools">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   size="lg"
                   variant="outline"
                   className="h-14 px-8 text-lg font-bold border-2 border-[#e4b63d]/60 text-[#e4b63d] hover:bg-[#e4b63d]/10 rounded-xl w-full sm:w-auto"
                 >
-                  Start Free Study Plan
+                  See the tools
                 </Button>
               </motion.div>
-            </Link>
+            </a>
           </motion.div>
         </div>
       </section>
 
-      {/* ─── WHO ARE YOU? ROUTING ──────────────────────────────────────── */}
+      {/* ─── PAIN POINTS ───────────────────────────────────────────────── */}
       <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeInSection>
-            <div className="text-center mb-10">
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Who are you?</h2>
-              <p className="text-slate-600">Find the right tools for where you are in your career.</p>
-            </div>
-          </FadeInSection>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {/* RBT */}
-            <FadeInSection delay={0.05}>
-              <div className="border-2 border-emerald-700 rounded-2xl bg-white p-6 flex flex-col h-full">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
-                  <GraduationCap className="h-6 w-6 text-emerald-700" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Studying for the RBT Exam</h3>
-                <p className="text-slate-600 text-sm leading-relaxed flex-grow">
-                  Practice questions, task list review, and mock exams designed for the Registered Behavior Technician credential.
-                </p>
-                <a
-                  href="https://rbtstudy.behaviorschool.com"
-                  className="mt-5 inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors w-fit"
-                >
-                  Start RBT Prep
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            </FadeInSection>
-
-            {/* BCBA */}
-            <FadeInSection delay={0.1}>
-              <div className="border-2 border-emerald-700 rounded-2xl bg-white p-6 flex flex-col h-full">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
-                  <BookOpen className="h-6 w-6 text-emerald-700" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Studying for the BCBA Exam</h3>
-                <p className="text-slate-600 text-sm leading-relaxed flex-grow">
-                  Full-length mock exams, domain-specific practice, performance analytics, and error analysis — built around the BACB Task List.
-                </p>
-                <a
-                  href="https://study.behaviorschool.com"
-                  className="mt-5 inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors w-fit"
-                >
-                  Start BCBA Prep
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            </FadeInSection>
-
-            {/* BCBA */}
-            <FadeInSection delay={0.15}>
-              <div className="border-2 border-emerald-700 rounded-2xl bg-white p-6 flex flex-col h-full">
-                <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
-                  <Briefcase className="h-6 w-6 text-emerald-700" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">BCBA</h3>
-                <p className="text-slate-600 text-sm leading-relaxed flex-grow">
-                  Track supervision hours, manage your caseload, and access AI-powered tools designed for practicing BCBAs.
-                </p>
-                <a
-                  href="https://supervision.behaviorschool.com"
-                  className="mt-5 inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors w-fit"
-                >
-                  Supervision Tools
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            </FadeInSection>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── SECTION 1: TOOLS ──────────────────────────────────────────── */}
-      <section id="tools" className="py-16 sm:py-20 bg-white scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeInSection>
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-                AI-Powered Tools for School Behavior Teams
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+                You became a BCBA to help students — not to manage paperwork
               </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Everything school behavior teams need — built by BCBAs, compliant with FERPA, and designed for the real pace of school work.
+              <p className="text-slate-600 max-w-xl mx-auto">
+                School-based behavior analysts face a specific set of problems. BehaviorSchool was built to solve them.
               </p>
             </div>
           </FadeInSection>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PRO_TOOLS.map((tool, i) => {
+          <div className="grid sm:grid-cols-3 gap-8">
+            {PAIN_POINTS.map((point, i) => {
+              const Icon = point.icon;
+              return (
+                <FadeInSection key={point.title} delay={i * 0.1}>
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 h-full">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
+                      <Icon className="h-6 w-6 text-emerald-700" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{point.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">{point.description}</p>
+                  </div>
+                </FadeInSection>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── TOOLS SHOWCASE ────────────────────────────────────────────── */}
+      <section id="tools" className="py-16 sm:py-20 bg-gradient-to-br from-emerald-50 to-teal-50 scroll-mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeInSection>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+                Every tool a school BCBA actually needs
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Built around the real workflow of school-based practice — from the first FBA to annual IEP review.
+              </p>
+            </div>
+          </FadeInSection>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {TOOLS.map((tool, i) => {
               const Icon = tool.icon;
               return (
-                <FadeInSection key={tool.title} delay={i * 0.1}>
-                  <Link href={tool.href} className="group block h-full">
-                    <motion.div
-                      whileHover={{ y: -8, scale: 1.02 }}
-                      transition={{ duration: 0.2 }}
-                      className="bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-2xl p-6 h-full transition-all duration-200 hover:shadow-xl"
-                    >
-                      <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
-                        <Icon className="h-6 w-6 text-emerald-700" />
-                      </div>
-                      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors">
-                        {tool.title}
-                      </h3>
-                      <p className="text-sm text-slate-600 leading-relaxed">{tool.description}</p>
-                    </motion.div>
-                  </Link>
+                <FadeInSection key={tool.title} delay={i * 0.08}>
+                  <motion.div
+                    whileHover={{ y: -4, scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                    className="bg-white border border-slate-200 hover:border-emerald-300 rounded-2xl p-6 h-full transition-all duration-200 hover:shadow-lg"
+                  >
+                    <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
+                      <Icon className="h-6 w-6 text-emerald-700" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{tool.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">{tool.description}</p>
+                  </motion.div>
                 </FadeInSection>
               );
             })}
           </div>
 
-          {/* Trust bar inline */}
-          <FadeInSection delay={0.3}>
-            <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 border-t border-slate-100 pt-10">
-              {TRUST_ITEMS.map((item, i) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center">
-                    <item.icon className="h-5 w-5 text-emerald-700" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-slate-900 text-sm">{item.label}</p>
-                    <p className="text-slate-500 text-xs">{item.sub}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </FadeInSection>
-
           <FadeInSection delay={0.4}>
             <div className="text-center mt-10">
-              <Link href="/pro">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button
-                    size="lg"
-                    className="h-12 px-8 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
-                  >
-                    See All Pro Features
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </motion.div>
-              </Link>
+              <a href="https://plan.behaviorschool.com/register">
+                <ShimmerButton
+                  className="h-12 px-8 text-base font-bold rounded-xl"
+                  background="linear-gradient(135deg, #1f4d3f 0%, #2d6b55 100%)"
+                  shimmerColor="#e4b63d"
+                >
+                  <span className="text-white">Start Free — No credit card required</span>
+                  <ArrowRight className="ml-2 h-5 w-5 text-white" />
+                </ShimmerButton>
+              </a>
             </div>
           </FadeInSection>
         </div>
       </section>
 
-      {/* ─── SECTION 2: STUDY ──────────────────────────────────────────── */}
-      <section id="study" className="py-16 sm:py-20 bg-gradient-to-br from-emerald-50 to-teal-50 scroll-mt-20">
+      {/* ─── TRUST BAR ─────────────────────────────────────────────────── */}
+      <section className="py-10 bg-white border-y border-slate-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {TRUST_ITEMS.map((item) => (
+              <div key={item.label} className="flex items-center gap-3">
+                <div className="flex-shrink-0 w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center">
+                  <item.icon className="h-5 w-5 text-emerald-700" />
+                </div>
+                <div>
+                  <p className="font-semibold text-slate-900 text-sm">{item.label}</p>
+                  <p className="text-slate-500 text-xs">{item.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SOCIAL PROOF ──────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-slate-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeInSection>
+            <div className="text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+                What school BCBAs are saying
+              </h2>
+              <p className="text-slate-500">Reviews from verified practitioners</p>
+            </div>
+          </FadeInSection>
+
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[0, 1, 2].map((i) => (
+              <FadeInSection key={i} delay={i * 0.1}>
+                <div className="bg-white border border-slate-200 rounded-2xl p-6 h-full flex flex-col items-center justify-center min-h-[180px]">
+                  <MessageSquare className="h-8 w-8 text-slate-300 mb-3" />
+                  <p className="text-slate-400 text-sm text-center italic">
+                    Be the first to share your experience
+                  </p>
+                </div>
+              </FadeInSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── STUDY SECTION ─────────────────────────────────────────────── */}
+      <section id="study" className="py-16 sm:py-20 bg-white scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <FadeInSection>
               <div className="space-y-6">
                 <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">BCBA Exam Prep</p>
                 <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
-                  BCBA Exam Prep That Actually Works
+                  Exam prep built around how BCBAs actually learn
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Adaptive practice tests that identify your weak spots, smart analytics that show exactly what to study next, and 500+ vetted questions — all free.
+                  Adaptive practice tests that identify your weak spots, analytics that show exactly what to study next, and 500+ vetted questions written by practicing BCBAs.
                 </p>
 
                 <div className="space-y-4">
@@ -355,7 +351,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
                     <ShimmerButton
                       className="h-12 px-6 text-base font-bold rounded-xl w-full sm:w-auto"
                       background="linear-gradient(135deg, #1f4d3f 0%, #2d6b55 100%)"
@@ -364,16 +360,7 @@ export default function Home() {
                       <span className="text-white">Start Free Mock Exam</span>
                       <ArrowRight className="ml-2 h-5 w-5 text-white" />
                     </ShimmerButton>
-                  </Link>
-                  <Link href="/free-study-plan">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="h-12 px-6 text-base font-semibold border-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 rounded-xl w-full sm:w-auto"
-                    >
-                      Get Free Study Plan
-                    </Button>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </FadeInSection>
@@ -422,8 +409,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SECTION 3: SUPERVISE ──────────────────────────────────────── */}
-      <section id="supervise" className="py-16 sm:py-20 bg-white scroll-mt-20">
+      {/* ─── SUPERVISE SECTION ─────────────────────────────────────────── */}
+      <section id="supervise" className="py-16 sm:py-20 bg-gradient-to-br from-emerald-50 to-teal-50 scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <FadeInSection delay={0.2}>
@@ -438,7 +425,7 @@ export default function Home() {
                 <div className="p-6 space-y-3">
                   {[
                     { supervisee: "Jordan M., RBT Trainee", type: "Individual", hours: "1.5 hrs", topic: "Skill acquisition programming", date: "Mon, Feb 24" },
-                    { supervisee: "Alex T., RBT Trainee", type: "Group", hours: "1.0 hr", topic: "Data collection & graphing", date: "Tue, Feb 25" },
+                    { supervisee: "Alex T., RBT Trainee", type: "Group", hours: "1.0 hr", topic: "Data collection and graphing", date: "Tue, Feb 25" },
                     { supervisee: "Sam R., RBT Trainee", type: "Individual", hours: "2.0 hrs", topic: "Behavior intervention plan review", date: "Thu, Feb 27" },
                   ].map((entry) => (
                     <div key={entry.supervisee} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
@@ -470,10 +457,10 @@ export default function Home() {
               <div className="space-y-6">
                 <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">For BCBAs</p>
                 <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
-                  Supervision Tools Built for the Real World
+                  Supervision tools built for the real world
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Supervision is one of the most important — and most under-supported — parts of being a BCBA. These tools make the administrative side of supervision manageable so you can focus on actually developing your supervisees.
+                  Supervision is one of the most important — and most under-supported — parts of being a BCBA. These tools make the administrative side manageable so you can focus on developing your supervisees.
                 </p>
 
                 <div className="space-y-3">
@@ -493,97 +480,52 @@ export default function Home() {
                   })}
                 </div>
 
-                <Link href="/supervisors">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <a href="https://supervision.behaviorschool.com">
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block mt-2">
                     <Button
                       size="lg"
-                      className="h-12 px-8 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl mt-2"
+                      className="h-12 px-8 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
                     >
                       Explore Supervision Tools
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </motion.div>
-                </Link>
+                </a>
               </div>
             </FadeInSection>
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION 4: TRANSFORMATION ─────────────────────────────────── */}
-      <section id="transformation" className="py-16 sm:py-20 relative overflow-hidden scroll-mt-20">
+      {/* ─── FINAL CTA ─────────────────────────────────────────────────── */}
+      <section className="py-20 sm:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-700" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <FadeInSection>
-              <div className="space-y-6">
-                <p className="text-sm font-semibold text-amber-300 uppercase tracking-wide">6-Week Cohort Program</p>
-                <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-                  The School BCBA Transformation Program
-                </h2>
-                <p className="text-lg text-emerald-100 leading-relaxed">
-                  A structured, cohort-based program that takes you from overwhelmed to operating as the go-to behavior expert in your school. Six focused weeks. Real deliverables. Permanent change.
-                </p>
-
-                <Link href="/transformation-program">
-                  <ShimmerButton
-                    className="h-12 px-8 text-base font-bold rounded-xl"
-                    background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
-                    shimmerColor="#f0c040"
-                  >
-                    <span className="text-emerald-900">Apply to the Program</span>
-                    <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
-                  </ShimmerButton>
-                </Link>
-              </div>
-            </FadeInSection>
-
-            <FadeInSection delay={0.2}>
-              <div className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl overflow-hidden">
-                <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
-                  <div>
-                    <p className="text-amber-300 font-semibold text-sm">Cohort Schedule</p>
-                    <p className="text-emerald-200 text-xs">Spring 2026 — 6-Week Program</p>
-                  </div>
-                  <span className="bg-amber-300/20 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-full">6 Seats Left</span>
-                </div>
-                <div className="p-6 space-y-3">
-                  {[
-                    { week: "Week 1", label: "Map Your Caseload", date: "Mar 3", status: "upcoming" },
-                    { week: "Week 2", label: "Build Your Referral System", date: "Mar 10", status: "upcoming" },
-                    { week: "Week 3", label: "Stakeholder Buy-In", date: "Mar 17", status: "upcoming" },
-                    { week: "Week 4", label: "Assessment Selection", date: "Mar 24", status: "upcoming" },
-                    { week: "Week 5", label: "BIP Development", date: "Mar 31", status: "upcoming" },
-                    { week: "Week 6", label: "Sustainable Practice", date: "Apr 7", status: "upcoming" },
-                  ].map((item, i) => (
-                    <div key={item.week} className="flex items-center gap-4">
-                      <div className="flex-shrink-0 w-16 text-right">
-                        <span className="text-[#e4b63d] text-xs font-bold">{item.week}</span>
-                      </div>
-                      <div className="flex-shrink-0 w-px h-8 bg-white/20" />
-                      <div className="flex-1 flex items-center justify-between">
-                        <p className="text-emerald-100 text-sm">{item.label}</p>
-                        <span className="text-emerald-300 text-xs flex-shrink-0">{item.date}</span>
-                      </div>
-                    </div>
-                  ))}
-                  <div className="pt-3 border-t border-white/10 flex items-center gap-2">
-                    <div className="h-2 flex-1 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full w-0 bg-[#e4b63d] rounded-full" />
-                    </div>
-                    <span className="text-emerald-300 text-xs">Cohort starts Mar 3</span>
-                  </div>
-                </div>
-              </div>
-            </FadeInSection>
-          </div>
+        <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeInSection>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 leading-tight">
+              Spend less time on paperwork. Spend more time with students.
+            </h2>
+            <p className="text-emerald-100 text-lg mb-10 leading-relaxed">
+              Start free. No credit card required. Access the FBA Builder, BIP Generator, and IEP Goal Writer today.
+            </p>
+            <a href="https://plan.behaviorschool.com/register">
+              <ShimmerButton
+                className="h-14 px-10 text-lg font-bold rounded-xl"
+                background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
+                shimmerColor="#f0c040"
+              >
+                <span className="text-emerald-900">Start Free</span>
+                <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
+              </ShimmerButton>
+            </a>
+          </FadeInSection>
         </div>
       </section>
 
-      {/* ─── SECTION 5: COMMUNITY ──────────────────────────────────────── */}
-      <section id="community" className="py-12 sm:py-16 lg:py-20 bg-white scroll-mt-20">
+      {/* ─── COMMUNITY ─────────────────────────────────────────────────── */}
+      <section id="community" className="py-12 sm:py-16 lg:py-20 bg-white scroll-mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <FadeInSection>
@@ -591,24 +533,24 @@ export default function Home() {
                 <div className="space-y-4 sm:space-y-6">
                   <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">Join the Network</p>
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight">
-                    School BCBA Community That Drives Change
+                    A community built for school-based practice
                   </h2>
                   <p className="text-base sm:text-lg leading-relaxed text-slate-700">
-                    We are not just a resource hub — we are a network of school-based BCBAs, educators, and leaders committed to building better school-wide behavior support systems.
+                    Connect with other school BCBAs, share resources, and get support from people who understand the specific challenges of school-based behavior work.
                   </p>
                 </div>
                 <div className="pt-2">
-                  <Link href="https://community.behaviorschool.com">
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <a href="https://community.behaviorschool.com">
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
                       <Button
                         size="lg"
                         className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl w-full sm:w-auto min-w-[200px]"
                       >
-                        Join the School BCBA Community
+                        Join the Community
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </motion.div>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </FadeInSection>
@@ -621,7 +563,7 @@ export default function Home() {
                 >
                   <Image
                     src="/Community/comein-coffee-people-optimized.webp"
-                    alt="Community collaboration"
+                    alt="School BCBA community"
                     className="w-full h-auto object-cover"
                     width={584}
                     height={389}
@@ -636,7 +578,7 @@ export default function Home() {
       <div className="sr-only">
         <h2>About Behavior School</h2>
         <p>
-          Behavior School is an online community and toolkit for school-based BCBAs, behavior analysts in schools, and education professionals. We provide BCBA exam prep, BCBA practice exams, supervision tools, IEP goal writing, and behavior intervention plan templates.
+          Behavior School is the complete platform for school-based BCBAs and behavior analysts. We provide FBA builders, BIP generators, IEP goal writers, ABC data collection, CEU tracking, supervision hour logging, BCBA exam prep, and a peer community — all built for school-based practice.
         </p>
       </div>
     </div>
