@@ -64,6 +64,19 @@
     --bs-background: #FAF3E0;     /* Cream paper (body default) */
     --bs-text: #1A1A1A;           /* Primary text color */
     --bs-text-light: #6B7280;     /* Secondary text color */
+
+    /* 2026 Chalkboard Palette */
+    --bs-chalk-dark: #1a3d2e;
+    --bs-chalk-mid: #2d5a3d;
+    --bs-parchment: #FAF3E0;
+    --bs-parchment-mid: #F0E6CE;
+    --bs-parchment-deep: #E8DCC0;
+    --bs-gold: #C8901A;
+    --bs-gold-light: #E8B84B;
+    --bs-ink: #1C1C1A;
+    --bs-ink-mid: #4A4A45;
+    --bs-ink-light: #7A7A72;
+    --bs-border: #D8D0BC;
     
     /* Behavior Study Tools variables */
     --quiz-background: #FAFBFC;

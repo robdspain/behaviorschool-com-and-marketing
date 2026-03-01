@@ -1,110 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
-  Users,
-  Shield,
-  CheckCircle,
-  ClipboardList,
-  Target,
-  BookOpen,
   Brain,
   BarChart3,
-  FileCheck,
-  MessageSquare,
-  Clock,
+  Target,
   Layers,
+  ClipboardList,
+  FileCheck,
+  CheckCircle,
+  Users,
+  BookOpen,
+  Shield,
   GraduationCap,
 } from "lucide-react";
-import { motion } from "framer-motion";
-
-const PAIN_POINTS = [
-  {
-    icon: Clock,
-    title: "Drowning in paperwork",
-    description:
-      "FBAs, BIPs, IEP goals, progress reports. The documentation never stops. Most school BCBAs spend more time writing than working with students.",
-  },
-  {
-    icon: Layers,
-    title: "Fragmented tools",
-    description:
-      "Word docs for BIPs. Spreadsheets for data. A different app for CEUs. Another for supervision logs. None of it talks to each other.",
-  },
-  {
-    icon: Users,
-    title: "No peer support",
-    description:
-      "School BCBAs are often the only one in the building. There is no one to consult, no one who understands the pace, and no community built for this role.",
-  },
-];
-
-const TOOLS = [
-  {
-    title: "FBA Builder",
-    description:
-      "Structure your functional behavior assessment with guided prompts, hypothesis development, and a complete report draft — ready for your clinical review.",
-    icon: Brain,
-    href: "https://plan.behaviorschool.com/register",
-  },
-  {
-    title: "BIP Generator",
-    description:
-      "Build a complete Behavior Intervention Plan from your FBA. Section-by-section guidance, IDEA-aligned language, and PDF export.",
-    icon: ClipboardList,
-    href: "https://plan.behaviorschool.com/register",
-  },
-  {
-    title: "IEP Goal Writer",
-    description:
-      "Generate measurable, SMART behavior goals aligned to IEP meeting timelines. Pull from a goal bank or build from scratch.",
-    icon: Target,
-    href: "https://plan.behaviorschool.com/register",
-  },
-  {
-    title: "ABC Data",
-    description:
-      "Log antecedent-behavior-consequence data directly in the platform. View patterns, export for reports, and link data to BIP targets.",
-    icon: BarChart3,
-    href: "https://plan.behaviorschool.com/register",
-  },
-  {
-    title: "CEU Tracker",
-    description:
-      "Track your continuing education credits against BACB renewal requirements. Get reminders before your cycle deadline.",
-    icon: GraduationCap,
-    href: "https://plan.behaviorschool.com/register",
-  },
-  {
-    title: "Supervision Hours",
-    description:
-      "Log individual and group supervision hours in a BACB-aligned format. Generate structured supervision logs for your supervisees.",
-    icon: FileCheck,
-    href: "https://plan.behaviorschool.com/register",
-  },
-];
-
-const TRUST_ITEMS = [
-  { icon: Shield, label: "FERPA Compliant", sub: "Student data never stored" },
-  { icon: CheckCircle, label: "Evidence-Based", sub: "Grounded in ABA research" },
-  { icon: BookOpen, label: "Built by BCBAs", sub: "For school-based practice" },
-  { icon: Users, label: "School-Ready", sub: "District and IEP aligned" },
-];
-
-const STUDY_FEATURES = [
-  { icon: Brain, label: "Adaptive Practice", description: "Questions that adapt to your weak areas so you study smarter, not longer." },
-  { icon: BarChart3, label: "Performance Analytics", description: "See exactly where you stand across all BCBA task list domains." },
-  { icon: CheckCircle, label: "500+ Vetted Questions", description: "Written and reviewed by practicing BCBAs." },
-];
-
-const SUPERVISE_FEATURES = [
-  { icon: FileCheck, label: "BACB-Aligned Tracking", description: "Log and track supervised hours with tools built around BACB requirements." },
-  { icon: ClipboardList, label: "Supervision Logs", description: "Structured documentation templates for individual and group supervision." },
-  { icon: Users, label: "Supervisee Resources", description: "Materials to support your supervisees through the credentialing process." },
-];
 
 const FREE_TOOLS = [
   {
@@ -145,80 +55,170 @@ const FREE_TOOLS = [
   },
 ];
 
+const PRO_TOOLS = [
+  { title: "FBA Builder", description: "Guided prompts, hypothesis development, and complete report draft.", access: "Pro" },
+  { title: "BIP Generator", description: "Build a complete Behavior Intervention Plan from your FBA.", access: "Pro" },
+  { title: "IEP Goal Writer", description: "Generate measurable, SMART behavior goals from a goal bank.", access: "Free" },
+  { title: "ABC Data Tracker", description: "Log A-B-C observations, view patterns, export for reports.", access: "Pro" },
+  { title: "CEU Tracker", description: "Track credits against BACB renewal requirements with deadline reminders.", access: "Pro" },
+  { title: "Supervision Logs", description: "BACB-aligned individual and group supervision documentation.", access: "Pro" },
+];
+
+const STUDY_FEATURES = [
+  { icon: Brain, label: "Adaptive Practice", description: "Questions that adapt to your weak areas so you study smarter, not longer." },
+  { icon: BarChart3, label: "Performance Analytics", description: "See exactly where you stand across all BCBA task list domains." },
+  { icon: CheckCircle, label: "500+ Vetted Questions", description: "Written and reviewed by practicing BCBAs." },
+];
+
+const SUPERVISE_FEATURES = [
+  { icon: FileCheck, label: "BACB-Aligned Tracking", description: "Log and track supervised hours with tools built around BACB requirements." },
+  { icon: ClipboardList, label: "Supervision Logs", description: "Structured documentation templates for individual and group supervision." },
+  { icon: Users, label: "Supervisee Resources", description: "Materials to support your supervisees through the credentialing process." },
+];
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen" style={{ backgroundColor: "#FAF3E0", color: "#1C1C1A" }}>
 
       {/* ─── HERO ──────────────────────────────────────────────────────── */}
-      <section className="bg-[#1a4731] pt-24 pb-20 sm:pt-32 sm:pb-28">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl font-bold leading-tight mb-4 text-white"
-          >
-            Write compliant FBAs and BIPs in 20 minutes.
-          </motion.h1>
+      <section style={{ backgroundColor: "#1a3d2e" }} className="pt-24 pb-20 sm:pt-32 sm:pb-28 border-b border-black/10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-          <p className="text-lg text-emerald-100 mt-4 mb-3">
-            Built for school BCBAs.
+          <p style={{
+            color: "#E8B84B",
+            fontSize: "11px",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            marginBottom: "1.5rem",
+          }}>
+            Rob Spain, BCBA, IBA &middot; BehaviorSchool
           </p>
 
-          <p className="max-w-2xl mx-auto text-base text-emerald-200 mb-10 leading-relaxed">
-            Stop losing hours to documentation. BehaviorSchool gives school-based BCBAs the tools to do their best clinical work — without the paperwork backlog.
+          <h1 style={{
+            fontFamily: "Georgia, serif",
+            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            fontWeight: 700,
+            lineHeight: 1.15,
+            color: "#FFFFFF",
+            marginBottom: "1.5rem",
+          }}>
+            For school BCBAs who carry a caseload<br />
+            no one in the building fully understands.
+          </h1>
+
+          <p style={{
+            fontSize: "16px",
+            color: "#F5EDD6",
+            lineHeight: 1.75,
+            maxWidth: "36rem",
+            margin: "0 auto 2.5rem",
+          }}>
+            Free tools, practical frameworks, and a community built
+            for the behavior analyst who shows up for every student —
+            and still drives home with paperwork unfinished.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/behavior-study-tools"
-              className="inline-flex items-center justify-center h-12 px-8 bg-[#e4b63d] text-emerald-900 font-bold rounded-lg hover:bg-[#d4a72d] transition-colors"
+              href="#free-tools"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "48px",
+                padding: "0 2rem",
+                backgroundColor: "#1a3d2e",
+                color: "#FFFFFF",
+                fontWeight: 700,
+                fontSize: "15px",
+                border: "2px solid #E8B84B",
+                borderRadius: "6px",
+                textDecoration: "none",
+                transition: "background-color 0.15s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#2d5a3d")}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#1a3d2e")}
             >
               Try the Free Tools
-              <ArrowRight className="ml-2 h-4 w-4" />
             </a>
             <a
-              href="https://plan.behaviorschool.com/register"
-              className="inline-flex items-center justify-center h-12 px-8 border-2 border-[#e4b63d]/60 text-[#e4b63d] font-bold rounded-lg hover:bg-[#e4b63d]/10 transition-colors"
+              href="/transformation-program"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "48px",
+                padding: "0 2rem",
+                backgroundColor: "transparent",
+                color: "#E8B84B",
+                fontWeight: 600,
+                fontSize: "15px",
+                border: "1.5px solid #E8B84B",
+                borderRadius: "6px",
+                textDecoration: "none",
+                transition: "background-color 0.15s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "rgba(232,184,75,0.08)")}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "transparent")}
             >
-              Start Free Trial
+              About the Transformation Program
             </a>
           </div>
+
+          {/* Gold rule */}
+          <div style={{
+            width: "60px",
+            height: "2px",
+            backgroundColor: "#C8901A",
+            margin: "3rem auto 0",
+          }} />
         </div>
       </section>
 
-      {/* ─── FREE TOOLS ──────────────────────────────────────────────────── */}
-      <section className="py-16 bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-sm font-semibold tracking-widest uppercase text-emerald-700 mb-3">Free — No Account Required</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+      {/* ─── FREE TOOLS ────────────────────────────────────────────────── */}
+      <section id="free-tools" style={{ backgroundColor: "#FAF3E0" }} className="pt-16 pb-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <p style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#C8901A", fontWeight: 600, marginBottom: "0.75rem" }}>
+              Free — No Account Required
+            </p>
+            <h2 style={{ fontFamily: "system-ui, sans-serif", fontSize: "clamp(1.75rem, 3vw, 2.25rem)", fontWeight: 700, color: "#1C1C1A", marginBottom: "0.75rem" }}>
               Tools that do real clinical work
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p style={{ fontSize: "16px", color: "#4A4A45", lineHeight: 1.75, maxWidth: "36rem" }}>
               Not PDFs. Not worksheets. Interactive tools built for school BCBAs — enter your data, get a usable output.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {FREE_TOOLS.map((tool) => (
               <Link
                 key={tool.href}
                 href={tool.href}
-                className="group block rounded-xl border border-slate-200 bg-white p-6 hover:border-emerald-300 hover:shadow-sm transition-all"
+                style={{
+                  display: "block",
+                  padding: "1.5rem",
+                  backgroundColor: "#FAF3E0",
+                  border: "1px solid #D8D0BC",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  transition: "border-color 0.15s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = "#C8901A")}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = "#D8D0BC")}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 group-hover:bg-emerald-100 transition-colors">
-                    <tool.icon size={18} strokeWidth={1.75} />
-                  </div>
-                  <span className="text-xs font-semibold uppercase tracking-wide text-emerald-700">Free Tool</span>
+                <div style={{ marginBottom: "0.75rem" }}>
+                  <tool.icon size={18} strokeWidth={1.75} style={{ color: "#C8901A" }} />
                 </div>
-                <h3 className="text-base font-semibold text-slate-900 mb-2 group-hover:text-emerald-800 transition-colors">
+                <h3 style={{ fontSize: "15px", fontWeight: 600, color: "#1C1C1A", marginBottom: "0.5rem" }}>
                   {tool.title}
                 </h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-4">{tool.description}</p>
-                <span className="text-sm font-medium text-emerald-700 group-hover:underline">
-                  Try it free →
+                <p style={{ fontSize: "14px", color: "#4A4A45", lineHeight: 1.7, marginBottom: "1rem" }}>
+                  {tool.description}
+                </p>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "#1a3d2e" }}>
+                  Try it free &rarr;
                 </span>
               </Link>
             ))}
@@ -226,152 +226,181 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── DIVIDER ──── */}
+      <div style={{ borderTop: "1px solid #D8D0BC" }} />
+
       {/* ─── PAIN POINTS ───────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
-              You became a BCBA to help students — not to manage paperwork
-            </h2>
-            <p className="text-base text-slate-600 max-w-xl mx-auto">
-              School-based behavior analysts face a specific set of problems. BehaviorSchool was built to solve them.
+      <section style={{ backgroundColor: "#F0E6CE" }} className="py-16 sm:py-20">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 style={{ fontFamily: "system-ui, sans-serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, color: "#1C1C1A", marginBottom: "2rem" }}>
+            The job description doesn&rsquo;t capture it.
+          </h2>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+            <p style={{ fontSize: "16px", color: "#4A4A45", lineHeight: 1.75 }}>
+              You&rsquo;re the only BCBA in a building of hundreds. You write FBAs that take 4 hours. The BIP gets filed. The behavior continues. The teacher asks if you &ldquo;have a minute&rdquo; in the hallway.
+            </p>
+            <p style={{ fontSize: "16px", color: "#4A4A45", lineHeight: 1.75 }}>
+              Your caseload is 22 students across two schools. You haven&rsquo;t observed three of them this month. The IEP meeting is Thursday.
+            </p>
+            <p style={{ fontSize: "16px", color: "#4A4A45", lineHeight: 1.75 }}>
+              The science you learned in grad school works. But transferring it to a paraeducator with 15 other students and no prep period — that&rsquo;s the actual job. Nobody trained you for that part.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-8">
-            {PAIN_POINTS.map((point) => {
-              const Icon = point.icon;
-              return (
-                <div key={point.title} className="bg-slate-50 border border-slate-200 rounded-2xl p-6 h-full">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-emerald-700" />
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-2">{point.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">{point.description}</p>
-                </div>
-              );
-            })}
-          </div>
+          <div style={{ width: "60px", height: "2px", backgroundColor: "#C8901A", margin: "2.5rem 0 2rem" }} />
+
+          <p style={{ fontSize: "18px", fontWeight: 700, color: "#1C1C1A" }}>
+            BehaviorSchool was built for this.
+          </p>
         </div>
       </section>
 
-      {/* ─── TOOLS SHOWCASE ────────────────────────────────────────────── */}
-      <section id="tools" className="py-16 sm:py-20 bg-slate-50 scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+      {/* ─── DIVIDER ──── */}
+      <div style={{ borderTop: "1px solid #D8D0BC" }} />
+
+      {/* ─── PRO TOOLS INDEX ───────────────────────────────────────────── */}
+      <section style={{ backgroundColor: "#FAF3E0" }} className="py-16 sm:py-20">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <p style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#C8901A", fontWeight: 600, marginBottom: "0.75rem" }}>
+              Platform Tools
+            </p>
+            <h2 style={{ fontFamily: "system-ui, sans-serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, color: "#1C1C1A" }}>
               Every tool a school BCBA actually needs
             </h2>
-            <p className="text-base text-slate-600 max-w-2xl mx-auto">
-              Built around the real workflow of school-based practice — from the first FBA to annual IEP review.
-            </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TOOLS.map((tool) => {
-              const Icon = tool.icon;
-              return (
-                <div
-                  key={tool.title}
-                  className="bg-white border border-slate-200 hover:border-emerald-300 rounded-2xl p-6 h-full transition-colors duration-200"
-                >
-                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-emerald-700" />
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 mb-2">{tool.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">{tool.description}</p>
+          <div style={{ border: "1px solid #D8D0BC", borderRadius: "8px", overflow: "hidden" }}>
+            {PRO_TOOLS.map((tool, i) => (
+              <div
+                key={tool.title}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "1rem 1.25rem",
+                  borderTop: i > 0 ? "1px solid #D8D0BC" : "none",
+                  backgroundColor: "#FAF3E0",
+                  gap: "1rem",
+                }}
+              >
+                <div>
+                  <p style={{ fontWeight: 600, color: "#1C1C1A", fontSize: "14px", marginBottom: "2px" }}>{tool.title}</p>
+                  <p style={{ fontSize: "13px", color: "#7A7A72", lineHeight: 1.5 }}>{tool.description}</p>
                 </div>
-              );
-            })}
+                <a
+                  href="https://plan.behaviorschool.com/register"
+                  style={{
+                    flexShrink: 0,
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    color: tool.access === "Free" ? "#C8901A" : "#1a3d2e",
+                    whiteSpace: "nowrap",
+                    textDecoration: "none",
+                  }}
+                >
+                  {tool.access === "Free" ? "Free \u2192" : "Available in Pro \u2192"}
+                </a>
+              </div>
+            ))}
           </div>
 
-          <div className="text-center mt-10">
+          <div className="mt-6">
             <a
               href="https://plan.behaviorschool.com/register"
-              className="inline-flex items-center justify-center h-12 px-8 bg-[#1a4731] text-white font-bold rounded-lg hover:bg-[#153824] transition-colors"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "44px",
+                padding: "0 1.5rem",
+                backgroundColor: "#1a3d2e",
+                color: "#FFFFFF",
+                fontWeight: 600,
+                fontSize: "14px",
+                borderRadius: "6px",
+                textDecoration: "none",
+                transition: "background-color 0.15s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#2d5a3d")}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#1a3d2e")}
             >
               Start Free — No credit card required
-              <ArrowRight className="ml-2 h-4 w-4" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* ─── TRUST BAR ─────────────────────────────────────────────────── */}
-      <section className="py-10 bg-white border-y border-slate-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {TRUST_ITEMS.map((item) => (
-              <div key={item.label} className="flex items-center gap-3">
-                <div className="flex-shrink-0 w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center">
-                  <item.icon className="h-5 w-5 text-emerald-700" />
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-900 text-sm">{item.label}</p>
-                  <p className="text-slate-500 text-xs">{item.sub}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ─── DIVIDER ──── */}
+      <div style={{ borderTop: "1px solid #D8D0BC" }} />
 
       {/* ─── STUDY SECTION ─────────────────────────────────────────────── */}
-      <section id="study" className="py-16 sm:py-20 bg-white scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">BCBA Exam Prep</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">
+      <section id="study" style={{ backgroundColor: "#FAF3E0" }} className="py-16 sm:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <p style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#C8901A", fontWeight: 600, marginBottom: "0.75rem" }}>
+                BCBA Exam Prep
+              </p>
+              <h2 style={{ fontFamily: "system-ui, sans-serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, color: "#1C1C1A", marginBottom: "1rem" }}>
                 Exam prep built around how BCBAs actually learn
               </h2>
-              <p className="text-base text-slate-600 leading-relaxed">
+              <p style={{ fontSize: "16px", color: "#4A4A45", lineHeight: 1.75, marginBottom: "1.75rem" }}>
                 Adaptive practice tests that identify your weak spots, analytics that show exactly what to study next, and 500+ vetted questions written by practicing BCBAs.
               </p>
 
-              <div className="space-y-4">
-                {STUDY_FEATURES.map((f) => {
-                  const Icon = f.icon;
-                  return (
-                    <div key={f.label} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                        <Icon className="h-5 w-5 text-emerald-700" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-slate-900">{f.label}</p>
-                        <p className="text-sm text-slate-600">{f.description}</p>
-                      </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "1.75rem" }}>
+                {STUDY_FEATURES.map((f) => (
+                  <div key={f.label} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                    <f.icon size={16} strokeWidth={1.75} style={{ color: "#C8901A", marginTop: "3px", flexShrink: 0 }} />
+                    <div>
+                      <p style={{ fontWeight: 600, color: "#1C1C1A", fontSize: "14px" }}>{f.label}</p>
+                      <p style={{ fontSize: "13px", color: "#4A4A45", lineHeight: 1.6 }}>{f.description}</p>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
 
-              <div className="pt-2">
-                <a
-                  href="https://study.behaviorschool.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center h-12 px-6 bg-[#1a4731] text-white font-bold rounded-lg hover:bg-[#153824] transition-colors"
-                >
-                  Start Free Mock Exam
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-              </div>
+              <a
+                href="https://study.behaviorschool.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  height: "44px",
+                  padding: "0 1.5rem",
+                  backgroundColor: "#1a3d2e",
+                  color: "#FFFFFF",
+                  fontWeight: 600,
+                  fontSize: "14px",
+                  borderRadius: "6px",
+                  textDecoration: "none",
+                  gap: "0.5rem",
+                  transition: "background-color 0.15s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#2d5a3d")}
+                onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#1a3d2e")}
+              >
+                Start Free Mock Exam <ArrowRight size={14} />
+              </a>
             </div>
 
-            <div className="bg-white rounded-2xl border border-emerald-100 overflow-hidden">
-              <div className="bg-[#1f4d3f] px-6 py-4 flex items-center justify-between">
+            {/* Practice question mock */}
+            <div style={{ border: "1px solid #D8D0BC", borderRadius: "8px", overflow: "hidden" }}>
+              <div style={{ backgroundColor: "#1a3d2e", padding: "1rem 1.25rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div>
-                  <p className="text-white font-semibold">Practice Question</p>
-                  <p className="text-emerald-200 text-sm">Behavior Measurement — Question 12 of 40</p>
+                  <p style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "14px" }}>Practice Question</p>
+                  <p style={{ color: "#E8B84B", fontSize: "12px" }}>Behavior Measurement — Question 12 of 40</p>
                 </div>
-                <span className="bg-[#e4b63d]/20 text-[#e4b63d] text-xs font-semibold px-2.5 py-1 rounded-full">Adaptive</span>
+                <span style={{ backgroundColor: "rgba(232,184,75,0.15)", color: "#E8B84B", fontSize: "11px", fontWeight: 600, padding: "3px 10px", borderRadius: "20px" }}>Adaptive</span>
               </div>
-              <div className="p-6 space-y-4">
-                <p className="text-slate-800 font-medium text-sm leading-relaxed">
+              <div style={{ padding: "1.25rem", backgroundColor: "#FAF3E0" }}>
+                <p style={{ fontSize: "14px", color: "#1C1C1A", lineHeight: 1.7, marginBottom: "1rem" }}>
                   A behavior analyst records the number of times a student raises their hand during a 30-minute class period. This is an example of which measurement dimension?
                 </p>
-                <div className="space-y-2">
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   {[
                     { label: "A. Duration", correct: false },
                     { label: "B. Latency", correct: false },
@@ -380,20 +409,27 @@ export default function Home() {
                   ].map((opt) => (
                     <div
                       key={opt.label}
-                      className={`flex items-center justify-between px-4 py-2.5 rounded-lg border text-sm ${
-                        opt.correct
-                          ? "bg-emerald-50 border-emerald-400 text-emerald-800 font-semibold"
-                          : "border-slate-200 text-slate-700"
-                      }`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "0.5rem 0.75rem",
+                        borderRadius: "5px",
+                        border: opt.correct ? "1px solid #1a3d2e" : "1px solid #D8D0BC",
+                        backgroundColor: opt.correct ? "#E8F0EC" : "transparent",
+                        fontSize: "13px",
+                        color: opt.correct ? "#1a3d2e" : "#4A4A45",
+                        fontWeight: opt.correct ? 600 : 400,
+                      }}
                     >
                       <span>{opt.label}</span>
-                      {opt.correct && <CheckCircle className="h-4 w-4 text-emerald-600 flex-shrink-0" />}
+                      {opt.correct && <CheckCircle size={14} style={{ color: "#1a3d2e" }} />}
                     </div>
                   ))}
                 </div>
-                <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs text-slate-400">
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "1rem", paddingTop: "0.75rem", borderTop: "1px solid #D8D0BC", fontSize: "12px", color: "#7A7A72" }}>
                   <span>Domain: Behavior Measurement</span>
-                  <span className="text-emerald-600 font-semibold">Correct</span>
+                  <span style={{ color: "#1a3d2e", fontWeight: 600 }}>Correct</span>
                 </div>
               </div>
             </div>
@@ -401,109 +437,198 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── DIVIDER ──── */}
+      <div style={{ borderTop: "1px solid #D8D0BC" }} />
+
       {/* ─── SUPERVISE SECTION ─────────────────────────────────────────── */}
-      <section id="supervise" className="py-16 sm:py-20 bg-slate-50 scroll-mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="order-last lg:order-first bg-white rounded-2xl border border-slate-200 overflow-hidden">
-              <div className="bg-[#1f4d3f] px-6 py-4 flex items-center justify-between">
+      <section id="supervise" style={{ backgroundColor: "#FAF3E0" }} className="py-16 sm:py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Supervision log mock */}
+            <div style={{ border: "1px solid #D8D0BC", borderRadius: "8px", overflow: "hidden" }}>
+              <div style={{ backgroundColor: "#1a3d2e", padding: "1rem 1.25rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div>
-                  <p className="text-white font-semibold">Supervision Log</p>
-                  <p className="text-emerald-200 text-sm">Week of Feb 24, 2026</p>
+                  <p style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "14px" }}>Supervision Log</p>
+                  <p style={{ color: "#E8B84B", fontSize: "12px" }}>Week of Feb 24, 2026</p>
                 </div>
-                <span className="bg-[#e4b63d]/20 text-[#e4b63d] text-xs font-semibold px-2.5 py-1 rounded-full">BACB Aligned</span>
+                <span style={{ backgroundColor: "rgba(232,184,75,0.15)", color: "#E8B84B", fontSize: "11px", fontWeight: 600, padding: "3px 10px", borderRadius: "20px" }}>BACB Aligned</span>
               </div>
-              <div className="p-6 space-y-3">
-                {[
-                  { supervisee: "Jordan M., RBT Trainee", type: "Individual", hours: "1.5 hrs", topic: "Skill acquisition programming", date: "Mon, Feb 24" },
-                  { supervisee: "Alex T., RBT Trainee", type: "Group", hours: "1.0 hr", topic: "Data collection and graphing", date: "Tue, Feb 25" },
-                  { supervisee: "Sam R., RBT Trainee", type: "Individual", hours: "2.0 hrs", topic: "Behavior intervention plan review", date: "Thu, Feb 27" },
-                ].map((entry) => (
-                  <div key={entry.supervisee} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                    <div className="flex-shrink-0 w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center mt-0.5">
-                      <FileCheck className="h-4 w-4 text-emerald-700" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2 mb-0.5">
-                        <p className="font-semibold text-slate-900 text-xs truncate">{entry.supervisee}</p>
-                        <span className="flex-shrink-0 text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded px-1.5 py-0.5 font-medium">{entry.type}</span>
+              <div style={{ padding: "1.25rem", backgroundColor: "#FAF3E0" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  {[
+                    { supervisee: "Jordan M., RBT Trainee", type: "Individual", hours: "1.5 hrs", topic: "Skill acquisition programming", date: "Mon, Feb 24" },
+                    { supervisee: "Alex T., RBT Trainee", type: "Group", hours: "1.0 hr", topic: "Data collection and graphing", date: "Tue, Feb 25" },
+                    { supervisee: "Sam R., RBT Trainee", type: "Individual", hours: "2.0 hrs", topic: "Behavior intervention plan review", date: "Thu, Feb 27" },
+                  ].map((entry) => (
+                    <div key={entry.supervisee} style={{ padding: "0.75rem", border: "1px solid #D8D0BC", borderRadius: "6px", backgroundColor: "#F0E6CE" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                        <p style={{ fontSize: "13px", fontWeight: 600, color: "#1C1C1A" }}>{entry.supervisee}</p>
+                        <span style={{ fontSize: "10px", fontWeight: 600, color: "#1a3d2e", border: "1px solid #D8D0BC", padding: "1px 6px", borderRadius: "3px" }}>{entry.type}</span>
                       </div>
-                      <p className="text-slate-500 text-xs">{entry.topic}</p>
-                      <div className="flex items-center gap-3 mt-1 text-[10px] text-slate-400">
+                      <p style={{ fontSize: "12px", color: "#4A4A45" }}>{entry.topic}</p>
+                      <div style={{ display: "flex", gap: "1rem", marginTop: "4px", fontSize: "11px", color: "#7A7A72" }}>
                         <span>{entry.date}</span>
-                        <span className="font-semibold text-emerald-600">{entry.hours}</span>
+                        <span style={{ fontWeight: 600, color: "#1a3d2e" }}>{entry.hours}</span>
                       </div>
                     </div>
-                  </div>
-                ))}
-                <div className="flex items-center justify-between pt-3 border-t border-slate-100 text-xs text-slate-500">
-                  <span>Total hours logged: <span className="font-semibold text-slate-700">4.5 / 5.0</span> this week</span>
-                  <span className="text-[#e4b63d] font-semibold">On Track</span>
+                  ))}
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "1rem", paddingTop: "0.75rem", borderTop: "1px solid #D8D0BC", fontSize: "12px", color: "#7A7A72" }}>
+                  <span>Total hours logged: <strong style={{ color: "#1C1C1A" }}>4.5 / 5.0</strong> this week</span>
+                  <span style={{ color: "#C8901A", fontWeight: 600 }}>On Track</span>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">For BCBAs</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">
+            <div>
+              <p style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#C8901A", fontWeight: 600, marginBottom: "0.75rem" }}>
+                For BCBAs
+              </p>
+              <h2 style={{ fontFamily: "system-ui, sans-serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, color: "#1C1C1A", marginBottom: "1rem" }}>
                 Supervision tools built for the real world
               </h2>
-              <p className="text-base text-slate-600 leading-relaxed">
+              <p style={{ fontSize: "16px", color: "#4A4A45", lineHeight: 1.75, marginBottom: "1.75rem" }}>
                 Supervision is one of the most important — and most under-supported — parts of being a BCBA. These tools make the administrative side manageable so you can focus on developing your supervisees.
               </p>
 
-              <div className="space-y-3">
-                {SUPERVISE_FEATURES.map((f) => {
-                  const Icon = f.icon;
-                  return (
-                    <div key={f.label} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                        <Icon className="h-5 w-5 text-emerald-700" />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-slate-900">{f.label}</p>
-                        <p className="text-sm text-slate-600">{f.description}</p>
-                      </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "1.75rem" }}>
+                {SUPERVISE_FEATURES.map((f) => (
+                  <div key={f.label} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                    <f.icon size={16} strokeWidth={1.75} style={{ color: "#C8901A", marginTop: "3px", flexShrink: 0 }} />
+                    <div>
+                      <p style={{ fontWeight: 600, color: "#1C1C1A", fontSize: "14px" }}>{f.label}</p>
+                      <p style={{ fontSize: "13px", color: "#4A4A45", lineHeight: 1.6 }}>{f.description}</p>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
 
               <a
                 href="https://supervision.behaviorschool.com"
-                className="inline-flex items-center justify-center h-12 px-8 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors mt-2"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  height: "44px",
+                  padding: "0 1.5rem",
+                  backgroundColor: "#1a3d2e",
+                  color: "#FFFFFF",
+                  fontWeight: 600,
+                  fontSize: "14px",
+                  borderRadius: "6px",
+                  textDecoration: "none",
+                  gap: "0.5rem",
+                  transition: "background-color 0.15s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#2d5a3d")}
+                onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#1a3d2e")}
               >
-                Explore Supervision Tools
-                <ArrowRight className="ml-2 h-4 w-4" />
+                Explore Supervision Tools <ArrowRight size={14} />
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── FINAL CTA / NEWSLETTER ────────────────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-[#1a4731]">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 leading-tight">
-            Spend less time on paperwork. Spend more time with students.
-          </h2>
-          <p className="text-emerald-100 text-base mb-10 leading-relaxed">
-            Start free. No credit card required. Access the FBA Builder, BIP Generator, and IEP Goal Writer today.
+      {/* ─── DIVIDER ──── */}
+      <div style={{ borderTop: "1px solid #D8D0BC" }} />
+
+      {/* ─── TRANSFORMATION PROGRAM CTA ────────────────────────────────── */}
+      <section style={{ backgroundColor: "#FAF3E0" }} className="py-16 sm:py-20">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#C8901A", fontWeight: 600, marginBottom: "0.75rem" }}>
+            The Transformation Program
           </p>
-          <a
-            href="https://plan.behaviorschool.com/register"
-            className="inline-flex items-center justify-center h-12 px-10 bg-[#e4b63d] text-emerald-900 font-bold rounded-lg hover:bg-[#d4a72d] transition-colors"
+          <h2 style={{ fontFamily: "system-ui, sans-serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, color: "#1C1C1A", marginBottom: "1rem" }}>
+            A structured path for school BCBAs who want to work differently.
+          </h2>
+          <p style={{ fontSize: "16px", color: "#4A4A45", lineHeight: 1.75, marginBottom: "2rem" }}>
+            Not a course. Not a certification. A focused six-month program built around the real constraints of school-based practice — caseload pressure, system resistance, and the gap between what you learned and what the job actually demands.
+          </p>
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+            <a
+              href="/transformation-program"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                height: "44px",
+                padding: "0 1.5rem",
+                backgroundColor: "#1a3d2e",
+                color: "#FFFFFF",
+                fontWeight: 600,
+                fontSize: "14px",
+                borderRadius: "6px",
+                textDecoration: "none",
+                gap: "0.5rem",
+                transition: "background-color 0.15s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#2d5a3d")}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#1a3d2e")}
+            >
+              Learn More <ArrowRight size={14} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── DIVIDER ──── */}
+      <div style={{ borderTop: "1px solid #D8D0BC" }} />
+
+      {/* ─── NEWSLETTER ────────────────────────────────────────────────── */}
+      <section style={{ backgroundColor: "#1a3d2e" }} className="py-16 sm:py-20">
+        <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "#E8B84B", fontWeight: 600, marginBottom: "0.75rem" }}>
+            Weekly for School BCBAs
+          </p>
+          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, color: "#FFFFFF", marginBottom: "1rem" }}>
+            Practical tools. Real frameworks. No filler.
+          </h2>
+          <p style={{ fontSize: "15px", color: "#F5EDD6", lineHeight: 1.75, marginBottom: "2rem" }}>
+            One email a week. Written by Rob Spain, BCBA. For school-based behavior analysts doing the actual work.
+          </p>
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}
           >
-            Start Free
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </a>
+            <input
+              type="email"
+              placeholder="Your email address"
+              required
+              style={{
+                height: "44px",
+                padding: "0 1rem",
+                fontSize: "14px",
+                border: "1px solid rgba(248,243,224,0.3)",
+                borderRadius: "6px",
+                backgroundColor: "rgba(255,255,255,0.07)",
+                color: "#FFFFFF",
+                minWidth: "220px",
+                outline: "none",
+              }}
+            />
+            <button
+              type="submit"
+              style={{
+                height: "44px",
+                padding: "0 1.25rem",
+                backgroundColor: "#C8901A",
+                color: "#FFFFFF",
+                fontWeight: 700,
+                fontSize: "14px",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+              }}
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </section>
 
       <div className="sr-only">
         <h2>About Behavior School</h2>
         <p>
-          Behavior School is the complete platform for school-based BCBAs and behavior analysts. We provide FBA builders, BIP generators, IEP goal writers, ABC data collection, CEU tracking, supervision hour logging, BCBA exam prep, and a peer community — all built for school-based practice.
+          BehaviorSchool is the platform for school-based BCBAs and behavior analysts. Free tools, practical frameworks, a community, and the Transformation Program — all built for school-based practice.
         </p>
       </div>
     </div>
