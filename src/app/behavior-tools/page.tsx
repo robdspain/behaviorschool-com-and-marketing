@@ -141,16 +141,16 @@ const tools = [
     ],
   },
   {
-    title: "IEP Goal Bank",
+    title: "IEP Goal Generator",
     description:
-      "Searchable library of 120+ pre-written IEP behavior goals organized by category and grade level. Copy-ready goals for behavior reduction, social skills, self-regulation, and more.",
-    href: "/iep-goals",
+      "AI-powered tool that writes behavior-focused IEP goals in seconds. Input the student's needs and get IDEA-aligned, measurable goals ready to drop into any IEP.",
+    href: "/iep-goal-writer",
     icon: ClipboardCheck,
     status: "live" as const,
     features: [
-      "120+ pre-written goals",
-      "Filter by category",
-      "Grade-level organized",
+      "AI-generated goals",
+      "IDEA-aligned",
+      "Measurable criteria",
       "Copy-ready format",
     ],
   },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import {
@@ -91,6 +91,88 @@ const SUPERVISE_FEATURES = [
   { icon: ClipboardList, label: "Supervision Logs", description: "Structured documentation templates for individual and group supervision." },
   { icon: Users, label: "Supervisee Resources", description: "Materials to support your supervisees through the credentialing process." },
 ];
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <p style={{ fontSize: "16px", color: "#E8B84B", fontWeight: 600 }}>
+        You&rsquo;re in. Check your inbox.
+      </p>
+    );
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}
+    >
+      <input
+        type="email"
+        placeholder="Your email address"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        style={{
+          height: "44px",
+          padding: "0 1rem",
+          fontSize: "14px",
+          border: "1px solid rgba(248,243,224,0.3)",
+          borderRadius: "6px",
+          backgroundColor: "rgba(255,255,255,0.07)",
+          color: "#FFFFFF",
+          minWidth: "220px",
+          outline: "none",
+        }}
+      />
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        style={{
+          height: "44px",
+          padding: "0 1.25rem",
+          backgroundColor: "#C8901A",
+          color: "#FFFFFF",
+          fontWeight: 700,
+          fontSize: "14px",
+          border: "none",
+          borderRadius: "6px",
+          cursor: status === "loading" ? "not-allowed" : "pointer",
+          opacity: status === "loading" ? 0.7 : 1,
+        }}
+      >
+        {status === "loading" ? "Subscribing…" : "Subscribe"}
+      </button>
+      {status === "error" && (
+        <p style={{ width: "100%", textAlign: "center", fontSize: "13px", color: "#FCA5A5", marginTop: "0.25rem" }}>
+          Something went wrong. Try again.
+        </p>
+      )}
+    </form>
+  );
+}
 
 export default function Home() {
   return (
@@ -246,48 +328,12 @@ export default function Home() {
               Weekly for School BCBAs
             </p>
             <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 700, color: "#FFFFFF", marginBottom: "1rem" }}>
-              Weekly tools and strategies for school BCBAs
+              The resource your district doesn&rsquo;t send.
             </h2>
             <p style={{ fontSize: "15px", color: "#F5EDD6", lineHeight: 1.75, marginBottom: "2rem" }}>
-              Evidence-based resources delivered every week. No fluff.
+              Evidence-based tools and frameworks for school BCBAs — delivered every week. No fluff.
             </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}
-            >
-              <input
-                type="email"
-                placeholder="Your email address"
-                required
-                style={{
-                  height: "44px",
-                  padding: "0 1rem",
-                  fontSize: "14px",
-                  border: "1px solid rgba(248,243,224,0.3)",
-                  borderRadius: "6px",
-                  backgroundColor: "rgba(255,255,255,0.07)",
-                  color: "#FFFFFF",
-                  minWidth: "220px",
-                  outline: "none",
-                }}
-              />
-              <button
-                type="submit"
-                style={{
-                  height: "44px",
-                  padding: "0 1.25rem",
-                  backgroundColor: "#C8901A",
-                  color: "#FFFFFF",
-                  fontWeight: 700,
-                  fontSize: "14px",
-                  border: "none",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                }}
-              >
-                Subscribe
-              </button>
-            </form>
+            <NewsletterForm />
             <p style={{ fontSize: "12px", color: "rgba(245,237,214,0.6)", marginTop: "0.75rem" }}>
               Unsubscribe anytime.
             </p>
@@ -674,7 +720,7 @@ export default function Home() {
                 onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#2d5a3d")}
                 onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#1a3d2e")}
               >
-                Learn More <ArrowRight size={14} />
+                View the Program &amp; Curriculum <ArrowRight size={14} />
               </a>
             </div>
           </FadeUp>

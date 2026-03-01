@@ -18,8 +18,8 @@ const EFFECTIVE_SITE_URL = (!RAW_SITE_URL || /localhost/i.test(RAW_SITE_URL))
 
 export const metadata: Metadata = {
   metadataBase: new URL(EFFECTIVE_SITE_URL),
-  title: "FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
-  description: "Behavior School: Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides and IEP templates now!",
+  title: "BehaviorSchool | Tools & Resources for School BCBAs",
+  description: "Free AI-powered tools for school-based BCBAs — FBA generator, BIP builder, IEP goal writer, caseload analyzer, and more. Built by a BCBA for the reality of school practice.",
   keywords: [
     "Behavior School",
     "Behavior School platform",
@@ -71,8 +71,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam | Behavior School",
-    description: "Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts. Download free study guides now!",
+    title: "BehaviorSchool | Tools & Resources for School BCBAs",
+    description: "Free AI-powered tools for school-based BCBAs — FBA generator, BIP builder, IEP goal writer, caseload analyzer, and more. Built by a BCBA for the reality of school practice.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     locale: "en_US",
@@ -87,8 +87,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FREE BCBA Exam Prep + Mock Tests | Pass Your BCBA Exam",
-    description: "Get FREE BCBA practice questions, mock exams, and school behavior tools. Professional resources for behavior analysts!",
+    title: "BehaviorSchool | Tools & Resources for School BCBAs",
+    description: "Free AI-powered tools for school-based BCBAs — FBA generator, BIP builder, IEP goal writer, caseload analyzer, and more.",
     images: ["/optimized/og-image.webp"],
   },
   other: {
