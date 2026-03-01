@@ -152,10 +152,7 @@ export function ACTFBABIPWizard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState<ACTFBAData>(initialData);
   const [generatedBIP, setGeneratedBIP] = useState<GeneratedACTBIP | null>(null);
-  const [showEmailGate, setShowEmailGate] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
-  const [emailError, setEmailError] = useState("");
+  const [emailGate, setEmailGate] = useState({ name: "", email: "", submitted: false, loading: false });
 
   const update = useCallback(<K extends keyof ACTFBAData>(key: K, value: ACTFBAData[K]) => {
     setData((prev) => ({ ...prev, [key]: value }));
@@ -236,33 +233,13 @@ export function ACTFBABIPWizard() {
   const handleGenerate = () => {
     const bip = generateACTBIP(data);
     setGeneratedBIP(bip);
-    setShowEmailGate(true);
-  };
-
-  const handleEmailSubmit = async () => {
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailError("Please enter a valid email address.");
-      return;
-    }
-    setEmailError("");
-    try {
-      await fetch("/api/collect-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, timestamp: new Date().toISOString(), source: "act-fba-bip" }),
-      });
-    } catch { /* silently continue */ }
-    setEmailSubmitted(true);
-    setShowEmailGate(false);
   };
 
   const handleReset = () => {
     setData(initialData);
     setCurrentStep(0);
     setGeneratedBIP(null);
-    setShowEmailGate(false);
-    setEmailSubmitted(false);
-    setEmail("");
+    setEmailGate({ name: "", email: "", submitted: false, loading: false });
   };
 
   const onNext = () => {
@@ -272,42 +249,9 @@ export function ACTFBABIPWizard() {
     if (currentStep > 0) setCurrentStep((p) => p - 1);
   };
 
-  // Show full output after email
-  if (generatedBIP && emailSubmitted) {
+  // Show full output after email gate submitted and BIP generated
+  if (generatedBIP) {
     return <ACTBIPOutput bip={generatedBIP} onReset={handleReset} />;
-  }
-
-  // Email gate
-  if (showEmailGate && generatedBIP) {
-    return (
-      <div className="rounded-3xl border border-purple-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
-        <div className="border-b border-purple-100 bg-gradient-to-r from-purple-800 via-purple-700 to-emerald-700 px-6 py-6 text-white">
-          <span className="text-xs uppercase tracking-[0.3em] text-purple-100">Almost There</span>
-          <h2 className="mt-1 text-2xl font-semibold">Your ACT-Informed FBA/BIP is Ready!</h2>
-          <p className="mt-1 text-sm text-purple-50/90">Enter your email to view and download your complete report.</p>
-        </div>
-        <div className="px-6 py-8">
-          <div className="mb-6 rounded-2xl border border-purple-100 bg-purple-50/50 p-5">
-            <p className="text-sm font-semibold text-purple-900">Report Preview</p>
-            <div className="mt-3 space-y-2 text-sm text-purple-800">
-              <p><span className="font-semibold">Student:</span> {generatedBIP.studentInfo.name}</p>
-              <p><span className="font-semibold">Target Behavior:</span> {generatedBIP.behaviorDefinitions[0]?.name}</p>
-              <p><span className="font-semibold">Values Identified:</span> {data.studentValues.map((v) => VALUE_LABELS[v].label).join(", ")}</p>
-              <p><span className="font-semibold">ACT Processes:</span> {data.inflexibilityProcesses.map((p) => ACT_PROCESS_LABELS[p].label).join(", ")}</p>
-              <p><span className="font-semibold">Sections:</span> Values Assessment, Psych Flex Assessment, ACT Functional Analysis, Values-Aligned Replacements, Acceptance Strategies, Defusion Techniques, Committed Action Goals, Metaphors & Exercises, + all standard BIP sections</p>
-            </div>
-            <div className="mt-3 h-20 rounded-xl bg-gradient-to-b from-transparent to-white" />
-          </div>
-          <div className="space-y-3">
-            <Label htmlFor="email-gate" className="text-sm font-semibold">Email Address</Label>
-            <Input id="email-gate" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@school.edu" onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()} />
-            {emailError && <p className="text-xs text-red-600">{emailError}</p>}
-            <Button onClick={handleEmailSubmit} className="w-full bg-purple-600 hover:bg-purple-700">View My Complete ACT FBA/BIP</Button>
-            <p className="text-center text-xs text-slate-500">We&apos;ll send you a copy and occasional behavior support tips. Unsubscribe anytime.</p>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   return (
@@ -708,6 +652,51 @@ export function ACTFBABIPWizard() {
                   <p className="font-semibold">Ready to generate!</p>
                   <p>Your ACT-informed FBA/BIP will include: values assessment, psychological flexibility assessment, ACT functional analysis, values-aligned replacement behaviors, acceptance strategies, defusion techniques, committed action goals, metaphors & exercises catalog, + all standard BIP sections.</p>
                 </div>
+
+                {/* Email gate — shown inline on Step 10 before generate */}
+                {!emailGate.submitted && (
+                  <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-6 mt-4">
+                    <p className="text-sm font-semibold text-emerald-900 mb-1">Your report is ready to generate.</p>
+                    <p className="text-xs text-emerald-700 mb-4">Enter your email and we&apos;ll send you a copy plus occasional school behavior resources. Unsubscribe anytime.</p>
+                    <div className="flex flex-col gap-3">
+                      <input
+                        type="text"
+                        placeholder="Name (optional)"
+                        value={emailGate.name}
+                        onChange={e => setEmailGate(g => ({ ...g, name: e.target.value }))}
+                        className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      />
+                      <input
+                        type="email"
+                        placeholder="Email address *"
+                        value={emailGate.email}
+                        onChange={e => setEmailGate(g => ({ ...g, email: e.target.value }))}
+                        className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                        required
+                      />
+                      <button
+                        type="button"
+                        disabled={!emailGate.email || emailGate.loading}
+                        onClick={async () => {
+                          if (!emailGate.email) return;
+                          setEmailGate(g => ({ ...g, loading: true }));
+                          try {
+                            await fetch("/api/fba-tool-signup", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ name: emailGate.name, email: emailGate.email }),
+                            });
+                          } catch { /* silently continue */ }
+                          setEmailGate(g => ({ ...g, submitted: true, loading: false }));
+                          handleGenerate();
+                        }}
+                        className="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-50 transition"
+                      >
+                        {emailGate.loading ? "Sending..." : "Generate My ACT FBA/BIP →"}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -719,9 +708,6 @@ export function ACTFBABIPWizard() {
           <div className="flex flex-1 items-center justify-end gap-3">
             {currentStep < steps.length - 1 && (
               <Button onClick={onNext} disabled={!isStepValid[currentStep]} className="bg-purple-600 hover:bg-purple-700">Next</Button>
-            )}
-            {currentStep === steps.length - 1 && (
-              <Button onClick={handleGenerate} className="bg-purple-600 hover:bg-purple-700">Generate ACT FBA/BIP</Button>
             )}
           </div>
         </div>
