@@ -112,3 +112,22 @@ If you are preparing for the BCBA exam or preparing to retake it, start with a f
 
 ---
 *Edited by Rob Spain, BCBA, IBA. Content written and researched with AI assistance.*
+
+## Historical BCBA First-Time Pass Rate (BACB Annual Data)
+
+| Year | First-Time Pass Rate | Retake Pass Rate | Notes |
+|------|---------------------|------------------|-------|
+| 2015 | 69% | — | — |
+| 2016 | 68% | — | — |
+| 2017 | 65% | — | — |
+| 2018 | 66% | — | — |
+| 2019 | 64% | — | — |
+| 2020 | 66% | — | Pre-6th edition peak |
+| 2021 | 79% | — | 5th→6th Edition transition year |
+| 2022 | 58% | 24% | 6th Edition fully in effect |
+| 2023 | 56% | 23% | Continued decline |
+| 2024 | 54% | 25% | Most recent BACB data |
+
+*Source: BACB Annual Data Reports*
+
+The 2021 spike to 79% is widely attributed to the exam content transition period between the 5th and 6th Edition Task Content Outlines. Once the 6th Edition was fully in effect in 2022, pass rates dropped sharply — and have declined every year since.
