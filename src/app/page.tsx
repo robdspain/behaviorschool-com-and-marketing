@@ -107,12 +107,42 @@ const SUPERVISE_FEATURES = [
 ];
 
 const FREE_TOOLS = [
-  { title: "ABC Function Finder", desc: "Enter ABC observations, get a hypothesized behavior function with confidence scoring.", href: "/abc-function-finder" },
-  { title: "ACT Matrix Builder", desc: "Build a complete ACT Matrix for any student, with grade-specific intervention strategies.", href: "/act-matrix-builder" },
-  { title: "BCBA Caseload Analyzer", desc: "8-question caseload assessment with a health score and prioritized recommendations.", href: "/caseload-analyzer" },
-  { title: "IEP Goal Writer", desc: "Generate three SMART behavior goals from student info and behavioral function.", href: "/iep-goal-writer" },
-  { title: "RBT Hours Calculator", desc: "Calculate supervision hour progress and projected completion date.", href: "/rbt-hours" },
-  { title: "ACT-FBA Builder", desc: "Full functional behavior assessment with ACT integration and treatment recommendations.", href: "/act-fba-bip" },
+  {
+    title: "ACT-Informed FBA + BIP Generator",
+    description: "Walk through a complete ACT-informed functional behavior assessment. Generates a printable BIP with values-aligned strategies.",
+    icon: Brain,
+    href: "/act-fba-bip",
+  },
+  {
+    title: "ABC Function Finder",
+    description: "Enter 3–10 ABC observations and get a hypothesized behavior function with confidence score and 3 intervention starting points.",
+    icon: BarChart3,
+    href: "/abc-function-finder",
+  },
+  {
+    title: "IEP Behavior Goal Writer",
+    description: "Enter a target behavior and function — get 3 draft SMART IEP goals with measurable criteria, ready for your next meeting.",
+    icon: Target,
+    href: "/iep-goal-writer",
+  },
+  {
+    title: "ACT Matrix Builder",
+    description: "Fill in the four quadrants for any student. Get a printable matrix and 3 clinically-grounded ACT strategy recommendations.",
+    icon: Layers,
+    href: "/act-matrix-builder",
+  },
+  {
+    title: "BCBA Caseload Analyzer",
+    description: "Answer 8 questions about your caseload and get a personalized risk assessment with specific recommendations.",
+    icon: ClipboardList,
+    href: "/caseload-analyzer",
+  },
+  {
+    title: "RBT Supervision Hours Calculator",
+    description: "Track progress toward your 1,500 hours, check your supervision percentage against BACB requirements, and get a projected completion date.",
+    icon: FileCheck,
+    href: "/rbt-hours",
+  },
 ];
 
 export default function Home() {
@@ -157,17 +187,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── FREE TOOLS ────────────────────────────────────────────────── */}
+      {/* ─── FREE TOOLS ──────────────────────────────────────────────────── */}
       <section className="py-16 bg-white border-b border-slate-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">No account required</p>
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">Free tools for school BCBAs</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-sm font-semibold tracking-widest uppercase text-emerald-700 mb-3">Free — No Account Required</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              Tools that do real clinical work
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Not PDFs. Not worksheets. Interactive tools built for school BCBAs — enter your data, get a usable output.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {FREE_TOOLS.map((tool) => (
-              <a key={tool.href} href={tool.href} className="block p-5 border border-slate-200 rounded-xl hover:border-[#1a4731] transition-colors group">
-                <h3 className="font-semibold text-slate-900 group-hover:text-[#1a4731] transition-colors mb-1">{tool.title}</h3>
-                <p className="text-sm text-slate-500">{tool.desc}</p>
-              </a>
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="group block rounded-xl border border-slate-200 bg-white p-6 hover:border-emerald-300 hover:shadow-sm transition-all"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700 group-hover:bg-emerald-100 transition-colors">
+                    <tool.icon size={18} strokeWidth={1.75} />
+                  </div>
+                  <span className="text-xs font-semibold uppercase tracking-wide text-emerald-700">Free Tool</span>
+                </div>
+                <h3 className="text-base font-semibold text-slate-900 mb-2 group-hover:text-emerald-800 transition-colors">
+                  {tool.title}
+                </h3>
+                <p className="text-sm text-slate-500 leading-relaxed mb-4">{tool.description}</p>
+                <span className="text-sm font-medium text-emerald-700 group-hover:underline">
+                  Try it free →
+                </span>
+              </Link>
             ))}
           </div>
         </div>
