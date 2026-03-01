@@ -3,6 +3,7 @@ title: "How to Write a Behavior Intervention Plan: A Step-by-Step Guide for BCBA
 excerpt: "A practical, step-by-step guide to writing a behavior intervention plan that is legally sound, clinically defensible, and actually implemented in the classroom."
 date: "2026-02-28T09:00:00.000Z"
 author: Rob Spain
+edited_by: "Rob Spain, BCBA, IBA"
 featured_image: null
 tags:
   - BIP
@@ -197,3 +198,6 @@ If you are spending hours reformatting, finding the right legal language, or sta
 ---
 
 *Rob Spain, BCBA, IBA, is the founder of BehaviorSchool and a practicing school-based behavior analyst. He works directly with school behavior teams on assessment, intervention design, and systems change.*
+
+---
+*Edited by Rob Spain, BCBA, IBA. Content written and researched with AI assistance.*

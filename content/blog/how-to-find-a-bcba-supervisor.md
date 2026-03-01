@@ -3,6 +3,7 @@ title: "How to Find a BCBA Supervisor: A Practical Guide for Aspiring BCBAs"
 excerpt: "Finding a qualified BCBA supervisor is one of the hardest parts of the credentialing process. Here's what the BACB registry doesn't tell you, and how to find a supervisor who will actually support your development."
 date: "2026-02-28T09:00:00.000Z"
 author: Rob Spain
+edited_by: "Rob Spain, BCBA, IBA"
 featured_image: null
 tags:
   - BCBA Supervision
@@ -128,3 +129,6 @@ Your credentialing process is important. The supervision you receive during it s
 ---
 
 *Rob Spain, BCBA, IBA, is the founder of BehaviorSchool and a practicing school-based behavior analyst.*
+
+---
+*Edited by Rob Spain, BCBA, IBA. Content written and researched with AI assistance.*
