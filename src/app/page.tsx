@@ -77,7 +77,7 @@ const PRO_TOOLS = [
   { title: "BIP Generator", description: "Build a complete Behavior Intervention Plan from your FBA.", access: "Pro", href: "/act-fba-bip" },
   { title: "IEP Goal Writer", description: "Generate measurable, SMART behavior goals from a goal bank.", access: "Free", href: "/iep-goal-writer" },
   { title: "ABC Data Tracker", description: "Log A-B-C observations, view patterns, export for reports.", access: "Pro", href: "/abc-function-finder" },
-  { title: "Supervision Logs", description: "BACB-aligned individual and group supervision documentation.", access: "Pro", href: "/rbt-hours" },
+  { title: "Supervision Hours", description: "Log and track BACB-aligned supervision hours. Generate structured logs for individual and group supervision.", access: "Pro", href: "https://supervision.behaviorschool.com" },
 ];
 
 const STUDY_FEATURES = [
@@ -392,7 +392,7 @@ export default function Home() {
           <FadeUp delay={0.1}>
             <div className="mt-6">
               <a
-                href="https://plan.behaviorschool.com/register"
+                href="https://supervision.behaviorschool.com"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -410,7 +410,7 @@ export default function Home() {
                 onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#2d5a3d")}
                 onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#1a3d2e")}
               >
-                Start Free — No credit card required
+                Open Supervision Tracker →
               </a>
             </div>
           </FadeUp>
