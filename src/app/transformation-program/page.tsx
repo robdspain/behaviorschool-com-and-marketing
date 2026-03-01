@@ -3,10 +3,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Users, Target, CheckCircle, Star, Award, Heart, Shield, Zap, Calendar, BookOpen, FileCheck, Lightbulb, Trophy } from 'lucide-react';
+import { ArrowRight, Users, Target, CheckCircle, Star, Award, Heart, Shield, Zap, Calendar, BookOpen, FileCheck, Lightbulb, Trophy, Clock, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
-import { ScrollNav } from '@/components/ui/scroll-nav';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ValueStack } from '@/components/ui/value-stack';
 import { CurriculumProgress } from '@/components/ui/curriculum-progress';
@@ -27,7 +26,7 @@ const curriculumData = [
     ],
     deliverables: [
       "Caseload tracker template.",
-      "“Explaining My Role” slide deck + scripting.",
+      "\u201cExplaining My Role\u201d slide deck + scripting.",
       "Bonus: Admin/staff engagement email template."
     ],
     icon: Users,
@@ -42,7 +41,7 @@ const curriculumData = [
     deliverables: [
       "Google Form-based referral system.",
       "Referral decision tree & teacher checklist.",
-      "Challenge: Share your school's bottlenecks — get feedback."
+      "Challenge: Share your school\u2019s bottlenecks \u2014 get feedback."
     ],
     icon: Zap,
     color: "blue"
@@ -52,7 +51,7 @@ const curriculumData = [
     topic: "Building Trust & Buy-In with Teams",
     objectives: [
       "Strengthen stakeholder relationships to increase follow-through.",
-      "Identify “early adopters” in your school/district."
+      "Identify \u201cearly adopters\u201d in your school/district."
     ],
     deliverables: [
       "Influence Map tool.",
@@ -67,11 +66,11 @@ const curriculumData = [
     topic: "The RIGHT Assessment for the Right BIP",
     objectives: [
       "Select the most appropriate assessment for each context (MAS, QABF, FA interview, FAST, etc.).",
-      "Know when to use what — and how to explain your decision to others."
+      "Know when to use what \u2014 and how to explain your decision to others."
     ],
     deliverables: [
       "Assessment Matrix (function, time, effort, setting).",
-      "“From Assessment to Action” planner."
+      "\u201cFrom Assessment to Action\u201d planner."
     ],
     icon: Target,
     color: "pink"
@@ -86,7 +85,7 @@ const curriculumData = [
     deliverables: [
       "FA Planning & Consent Guide.",
       "Sample FA summary report with graph.",
-      "Coaching Corner: What to do when you can’t run an FA."
+      "Coaching Corner: What to do when you can\u2019t run an FA."
     ],
     icon: Shield,
     color: "orange"
@@ -108,6 +107,11 @@ const curriculumData = [
 ];
 
 
+
+const STRIPE_LINK = process.env.NEXT_PUBLIC_TRANSFORMATION_STRIPE_LINK || "https://buy.stripe.com/bJe00i82o6Ss72seBw6Vq00";
+const MAILTO_LINK = "mailto:rob@behaviorschool.com?subject=Transformation%20Program%20%E2%80%94%20Reserve%20My%20Spot&body=Hi%20Rob%2C%0A%0AI%27d%20like%20to%20reserve%20my%20spot%20at%20the%20early%20bird%20rate%20for%20the%20Transformation%20Program%20(March%2026%20cohort).%0A%0AName%3A%20%0AEmail%3A%20%0ARole%2FTitle%3A%20%0ASchool%2FDistrict%3A%20";
+const ENROLL_HREF = STRIPE_LINK || MAILTO_LINK;
+const CALENDLY_LINK = "https://calendly.com/robspain/behavior-school-transformation-system-phone-call";
 
 export default function TransformationProgramPage() {
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -139,13 +143,20 @@ export default function TransformationProgramPage() {
 
   return (
     <div className="min-h-screen bg-white relative pt-28">
+      {/* CalABA / Early Bird Banner */}
+      <div className="bg-[#1f4d3f] text-white text-center py-3 px-4 text-sm font-semibold">
+        Attending CalABA March 7? Early bird pricing (<span className="text-[#e4b63d] font-black">$2,499</span>) is available to all CalABA attendees through March 21.
+      </div>
+
       <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white border-t-2 border-slate-100 shadow-2xl md:hidden">
-        <Link 
-          href="/signup" 
-          className="flex items-center justify-center w-full px-6 py-3 text-lg font-bold bg-red-600 hover:bg-red-700 text-white rounded-xl shadow-lg transition-all duration-200"
+        <a
+          href={ENROLL_HREF}
+          target={STRIPE_LINK ? "_blank" : undefined}
+          rel={STRIPE_LINK ? "noopener noreferrer" : undefined}
+          className="flex items-center justify-center w-full px-6 py-3 text-lg font-bold bg-[#1f4d3f] hover:bg-emerald-900 text-white rounded-xl shadow-lg transition-all duration-200"
         >
-          SECURE YOUR SPOT NOW
-        </Link>
+          Reserve Your Spot — $2,499 Early Bird
+        </a>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -172,6 +183,32 @@ export default function TransformationProgramPage() {
                     </span>
                   ))}
                 </div>
+
+                {/* Cohort Dates Callout — prominently featured */}
+                <div className="rounded-2xl bg-[#1f4d3f] p-6 shadow-2xl border-2 border-[#e4b63d] text-left">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Calendar className="w-5 h-5 text-[#e4b63d]" />
+                    <span className="text-[#e4b63d] font-black text-sm uppercase tracking-widest">Next Cohort — 6-Week Pilot</span>
+                  </div>
+                  <p className="text-white font-semibold mb-1">Thursdays &middot; 6:00&ndash;8:00 PM PT</p>
+                  <p className="text-[#e4b63d] font-black text-lg md:text-xl leading-relaxed">
+                    Mar 26 &middot; Apr 9 &middot; Apr 16 &middot; Apr 23 &middot; Apr 30 &middot; May 7
+                  </p>
+                  <p className="text-emerald-300 text-xs mt-2 italic">Easter week (Apr 2) off &middot; Maximum 20 participants</p>
+                  <div className="mt-4 pt-4 border-t border-emerald-700 space-y-2">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <p className="text-[#e4b63d] font-black text-xl">$2,499 <span className="text-sm font-semibold text-emerald-300 line-through">$2,997</span></p>
+                        <p className="text-emerald-200 text-xs">Early bird — save $498. Ends March 21.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-white text-sm">
+                      <Clock className="w-4 h-4 text-[#e4b63d] flex-shrink-0" />
+                      <span>20 spots maximum &mdash; <span className="font-black text-[#e4b63d]">20 remaining</span></span>
+                    </div>
+                  </div>
+                </div>
+
                 <Link
                   href="/free-study-plan"
                   className="block rounded-2xl border border-emerald-200 bg-white p-6 shadow-lg text-left hover:border-[#e4b63d] hover:shadow-xl transition group"
@@ -183,21 +220,26 @@ export default function TransformationProgramPage() {
                     Free: BCBA School Systems Checklist
                   </h2>
                   <p className="mt-2 text-sm text-slate-600">
-                    The 47-point checklist used by high-impact BCBAs to build sustainable school behavior systems — plus your 7-day study plan.
+                    The 47-point checklist used by high-impact BCBAs to build sustainable school behavior systems &mdash; plus your 7-day study plan.
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1 rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white group-hover:bg-emerald-900 transition">
-                    Get It Free →
+                    Get It Free &rarr;
                   </span>
                 </Link>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Button asChild size="lg" className="rounded-2xl px-8 h-14 text-lg font-bold bg-red-600 hover:bg-red-700 text-white shadow-xl">
-                    <Link href="/signup">Enroll Now <ArrowRight className="ml-2 h-5 w-5" /></Link>
-                  </Button>
+                  <a
+                    href={ENROLL_HREF}
+                    target={STRIPE_LINK ? "_blank" : undefined}
+                    rel={STRIPE_LINK ? "noopener noreferrer" : undefined}
+                    className="inline-flex items-center justify-center rounded-2xl px-8 h-14 text-lg font-bold bg-[#1f4d3f] hover:bg-emerald-900 text-white shadow-xl transition"
+                  >
+                    Reserve Your Spot — $2,499 <ArrowRight className="ml-2 h-5 w-5" />
+                  </a>
                   <Link
                     href="#enroll"
-                    className="inline-flex items-center justify-center rounded-2xl border-2 border-emerald-800 bg-emerald-800 px-6 h-14 text-base font-semibold text-white hover:bg-emerald-900 transition"
+                    className="inline-flex items-center justify-center rounded-2xl border-2 border-slate-300 bg-white px-6 h-14 text-base font-semibold text-slate-700 hover:border-emerald-700 hover:text-emerald-800 transition"
                   >
-                    Apply for Next Cohort
+                    See full details
                   </Link>
                 </div>
               </motion.div>
@@ -222,14 +264,6 @@ export default function TransformationProgramPage() {
           </div>
         </div>
       </section>
-
-      <ScrollNav 
-        items={[
-          { id: "curriculum", label: "6-Week Schedule" },
-          { id: "outcomes", label: "Learning Goals" },
-          { id: "enroll", label: "Join Cohort" },
-        ]}
-      />
 
       {/* Curriculum Section */}
       <section id="curriculum" className="py-24 bg-slate-50 relative overflow-hidden scroll-mt-24">
@@ -371,7 +405,9 @@ export default function TransformationProgramPage() {
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-black text-center mb-16 text-slate-900">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: "March 26 (Thursdays at 6–8 PM PT). Six live sessions ending May 7." },
+            { question: "When does the next cohort start?", answer: "March 26, 2026. Sessions run Thursdays 6\u20138 PM PT, ending May 7. Easter week (Apr 2) is off. Maximum 20 participants." },
+            { question: "What does it cost?", answer: "Early bird pricing is $2,499, available through March 21. After that, enrollment is $2,997 \u2014 if spots remain. Maximum 20 seats total." },
+            { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. Many districts reimburse directly or can pay via PO. Email rob@behaviorschool.com to request an invoice for your business office." },
             { question: "What if I miss a live call?", answer: "All sessions are recorded and made available in your student portal within 24 hours." },
             { question: "Can I pay with a Purchase Order (PO)?", answer: "Yes! We work with many school districts. Email support@behaviorschool.com to request an invoice." }
           ]} />
@@ -379,64 +415,95 @@ export default function TransformationProgramPage() {
       </section>
 
       <section id="enroll" className="py-24 lg:py-32 bg-slate-50 relative overflow-hidden scroll-mt-24">
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-6xl font-black text-slate-900 mb-6">Invest in Your Practice</h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">Get the complete operating system and join a cohort of leaders.</p>
+        <div className="max-w-4xl mx-auto px-4 relative z-10">
+          {/* Section header */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4">Enroll in the March 26 Cohort</h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">A 6-week program for school-based BCBAs who are serious about leveling up.</p>
           </div>
-          
-          <ValueStack 
-            items={[
-              { label: "6-Week Transformation Program", value: 5000 },
-              { label: "Complete Behavior Systems Binder", value: 3000 },
-              { label: "Digital Tool & Template Library", value: 4000 },
-              { label: "90-Day Implementation Roadmap", value: 3000 },
-            ]}
-            totalValue={15000}
-            price={2997}
-            paymentPlan="3 payments of $1,097"
-            ctaLink="/signup"
-            ctaLabel="SECURE YOUR SPOT NOW"
-          />
 
-          <div className="mt-14 max-w-2xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 shadow-xl">
-            <h3 className="text-2xl font-black text-slate-900 mb-2">Join the School BCBA Accelerator Waitlist</h3>
-            <p className="text-slate-600 mb-6">Get first access, pricing details, and cohort dates. No spam.</p>
-            <form onSubmit={handleWaitlistSubmit} className="grid gap-4 text-left">
-              <div className="grid gap-2">
-                <label className="text-sm font-semibold text-slate-700" htmlFor="name">Name</label>
-                <input id="name" name="name" type="text" className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900" placeholder="Your name" />
+          {/* Pricing cards */}
+          <div className="grid md:grid-cols-2 gap-6 mb-10">
+            {/* Early bird */}
+            <div className="relative rounded-3xl bg-[#1f4d3f] p-8 shadow-2xl border-2 border-[#e4b63d] text-white">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#e4b63d] text-[#1f4d3f] text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full whitespace-nowrap">
+                Early Bird — Ends March 21
               </div>
-              <div className="grid gap-2">
-                <label className="text-sm font-semibold text-slate-700" htmlFor="email">Email</label>
-                <input id="email" name="email" type="email" required className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900" placeholder="you@email.com" />
+              <div className="mt-4">
+                <p className="text-emerald-300 text-sm font-semibold uppercase tracking-widest mb-2">Early Bird Pricing</p>
+                <p className="text-5xl font-black text-white mb-1">$2,499</p>
+                <p className="text-emerald-300 text-sm mb-6">Save $498 &mdash; available through March 21</p>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "6 live Thursday sessions (Mar 26 – May 7)",
+                    "All tools, templates & frameworks",
+                    "Peer cohort of school BCBAs",
+                    "90-day implementation roadmap",
+                    "Session recordings included",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-sm text-emerald-100">
+                      <CheckCircle className="w-4 h-4 text-[#e4b63d] flex-shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={ENROLL_HREF}
+                  target={STRIPE_LINK ? "_blank" : undefined}
+                  rel={STRIPE_LINK ? "noopener noreferrer" : undefined}
+                  className="block w-full rounded-2xl bg-[#e4b63d] hover:bg-yellow-400 text-[#1f4d3f] font-black text-base py-4 px-6 text-center transition shadow-xl"
+                >
+                  Reserve Your Spot — $2,499 Early Bird
+                </a>
+                {!STRIPE_LINK && (
+                  <p className="text-center text-emerald-300 text-xs mt-2">You&rsquo;ll receive a payment link via email within 24 hours.</p>
+                )}
+                <p className="text-center text-emerald-400 text-xs mt-2">20 spots maximum &mdash; <span className="text-[#e4b63d] font-bold">20 remaining</span></p>
+                <a
+                  href={CALENDLY_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full mt-3 rounded-2xl border-2 border-emerald-400 text-emerald-200 hover:bg-emerald-800 font-semibold text-sm py-3 px-6 text-center transition"
+                >
+                  Have questions? Book a 15-minute call
+                </a>
               </div>
-              <div className="grid gap-2">
-                <label className="text-sm font-semibold text-slate-700" htmlFor="role">Role</label>
-                <select id="role" name="role" className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900">
-                  <option value="">Select one</option>
-                  <option value="School BCBA">School BCBA</option>
-                  <option value="Behavior Specialist">Behavior Specialist</option>
-                  <option value="BCBA Student">BCBA Student</option>
-                  <option value="Administrator">Administrator</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <button type="submit" className="mt-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-3">
-                {formStatus === "loading" ? "Submitting..." : "Join Waitlist"}
-              </button>
-              {formStatus === "success" && (
-                <p className="text-emerald-700 text-sm font-semibold">You are on the list. Check your inbox soon.</p>
-              )}
-              {formStatus === "error" && (
-                <p className="text-red-600 text-sm font-semibold">Something went wrong. Try again in a moment.</p>
-              )}
-            </form>
-            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
-              <Link href="/contact" className="text-emerald-700 font-semibold hover:underline">Book a 15-minute call</Link>
-              <span className="text-slate-400">|</span>
-              <Link href="/calaba-2026" className="text-emerald-700 font-semibold hover:underline">See CalABA 2026 offer</Link>
             </div>
+
+            {/* Regular price info */}
+            <div className="rounded-3xl bg-white p-8 shadow-xl border border-slate-200 flex flex-col justify-between">
+              <div>
+                <p className="text-slate-500 text-sm font-semibold uppercase tracking-widest mb-2">After March 21</p>
+                <p className="text-5xl font-black text-slate-400 mb-1">$2,997</p>
+                <p className="text-slate-500 text-sm mb-6">If spots are still available</p>
+                <div className="rounded-2xl bg-amber-50 border border-amber-200 p-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-amber-800 text-sm font-semibold">Early bird pricing ends March 21 — two weeks after CalABA. After that, enrollment is $2,997 if spots remain.</p>
+                  </div>
+                </div>
+                {/* District reimbursement */}
+                <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-4">
+                  <div className="flex items-start gap-3">
+                    <Building2 className="w-5 h-5 text-emerald-700 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-emerald-900 text-sm font-black mb-1">District Reimbursement</p>
+                      <p className="text-emerald-800 text-sm">This program qualifies as professional development. Many school districts will reimburse or pay directly.</p>
+                      <a href="mailto:rob@behaviorschool.com?subject=District%20Invoice%20Request%20%E2%80%94%20Transformation%20Program" className="inline-block mt-2 text-xs font-bold text-emerald-700 hover:underline">Request an invoice for your district &rarr;</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-slate-400 text-xs mt-6 text-center">Questions? <a href="mailto:rob@behaviorschool.com" className="text-emerald-700 font-semibold hover:underline">Email rob@behaviorschool.com</a></p>
+            </div>
+          </div>
+
+          {/* CalABA tie-in */}
+          <div className="rounded-2xl bg-white border border-slate-200 px-8 py-6 text-center shadow-sm">
+            <p className="text-slate-700 text-sm font-semibold">
+              Attending CalABA March 7? Early bird pricing is available to all CalABA attendees through March 21.{" "}
+              <a href="mailto:rob@behaviorschool.com?subject=CalABA%20Early%20Bird%20%E2%80%94%20Transformation%20Program" className="text-emerald-700 font-bold hover:underline">Reach out after the conference &rarr;</a>
+            </p>
           </div>
         </div>
       </section>

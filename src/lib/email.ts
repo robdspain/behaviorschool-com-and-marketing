@@ -1,8 +1,11 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY || 'placeholder');
+}
 
 export async function sendWelcomeEmail(email: string, name?: string) {
+  const resend = getResend();
   try {
     const { data, error } = await resend.emails.send({
       from: 'Behavior School <[email protected]>',
@@ -56,6 +59,7 @@ export async function sendNewsletterEmail(
   subject: string,
   html: string
 ) {
+  const resend = getResend();
   try {
     const { data, error } = await resend.emails.send({
       from: 'Rob Spain <[email protected]>',
@@ -81,6 +85,7 @@ export async function sendContactFormEmail(
   email: string,
   message: string
 ) {
+  const resend = getResend();
   try {
     const { data, error } = await resend.emails.send({
       from: 'Contact Form <[email protected]>',

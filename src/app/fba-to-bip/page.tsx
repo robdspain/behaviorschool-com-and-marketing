@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Check, Brain, FileText, BarChart, Zap, ShieldCheck } from 'lucide-react';
 import { FBAToBIPWizard } from "@/components/fba-to-bip/FBAToBIPWizard";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ShareButtons } from "@/components/ui/share-buttons";
@@ -117,14 +118,6 @@ export const metadata: Metadata = {
     images: [`${baseUrl}/og-image.webp`],
   },
 };
-
-import { Metadata } from "next";
-import { Check, Brain, FileText, BarChart, Zap, ShieldCheck } from 'lucide-react';
-import { FBAToBIPWizard } from "@/components/fba-to-bip/FBAToBIPWizard";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { ProTrialCTA } from "@/components/ui/ProTrialCTA";
-
-// ... (metadata and structured data remain the same) ...
 
 const FeatureCard = ({ icon: Icon, title, description }) => (
   <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-emerald-300 transition-all duration-300">

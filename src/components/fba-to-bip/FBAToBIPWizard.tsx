@@ -142,21 +142,6 @@ const initialData: FBAData = {
   successCriteria: "",
 };
 
-"use client";
-
-import { useCallback, useMemo, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { ProgressIndicator } from "@/components/iep-goal-writer/ProgressIndicator";
-import type { FBAData, GeneratedBIP } from "./bipGenerator";
-import { generateBIP } from "./bipGenerator";
-import { BIPOutput } from "./BIPOutput";
-import { Loader2, Wand2 } from 'lucide-react';
-
-// ... (Options and initialData constants remain the same) ...
-
 export function FBAToBIPWizard() {
   const [mode, setMode] = useState<'form' | 'paste'>('form');
   const [fbaText, setFbaText] = useState('');

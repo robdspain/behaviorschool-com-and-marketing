@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
     };
 
     // Log signup notification for immediate visibility
-    console.log('🎯 NEW SIGNUP NOTIFICATION:', {
+    console.log('NEW SIGNUP NOTIFICATION:', {
       name: `${firstName} ${lastName}`,
       email: email,
       phone: phone || 'Not provided',
@@ -248,7 +248,7 @@ export async function POST(request: NextRequest) {
 
 Thanks for applying to the School BCBA Transformation System! Your application has been received and we're excited to learn more about your goals.
 
-🎯 NEXT STEP: Schedule your consultation call
+NEXT STEP: Schedule your consultation call
 
 You should see a booking calendar on your screen right now. If you haven't already, pick a time that works best for you:
 https://calendly.com/robspain/behavior-school-transformation-system-phone-call
@@ -287,13 +287,13 @@ Behavior School`;
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">Thanks for applying to the <strong>School BCBA Transformation System</strong>! Your application has been received and we're excited to learn more about your goals.</p>
               <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 16px; margin: 24px 0;">
-                <p style="margin: 0; font-size: 16px; color: #166534; font-weight: 600;">🎯 NEXT STEP: Schedule your consultation call</p>
+                <p style="margin: 0; font-size: 16px; color: #166534; font-weight: 600;">NEXT STEP: Schedule your consultation call</p>
               </div>
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">You should see a booking calendar on your screen right now. If you haven't already, pick a time that works best for you:</p>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 24px 0;">
                 <tr>
                   <td align="center">
-                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">📅 Schedule Your Call</a>
+                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">Schedule Your Call</a>
                   </td>
                 </tr>
               </table>
@@ -432,7 +432,7 @@ Behavior School`;
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
                 <tr>
                   <td align="center">
-                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">📅 Book Your Call Now</a>
+                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">Book Your Call Now</a>
                   </td>
                 </tr>
               </table>
@@ -546,7 +546,7 @@ Creator, School BCBA Transformation System`;
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
                 <tr>
                   <td align="center">
-                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">📅 Book Your 15-Minute Call</a>
+                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">Book Your 15-Minute Call</a>
                   </td>
                 </tr>
               </table>
@@ -665,7 +665,7 @@ P.S. The "5-Minute FBA Framework" is one of 12 systems you'll get access to. It'
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 24px 0;">
                 <tr>
                   <td align="center">
-                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">📅 Book Your Call (15 Minutes)</a>
+                    <a href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call" style="display: inline-block; padding: 16px 32px; background-color: #10b981; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">Book Your Call (15 Minutes)</a>
                   </td>
                 </tr>
               </table>
