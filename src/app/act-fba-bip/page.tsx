@@ -147,6 +147,35 @@ export default function ACTFBABIPPage() {
         />
       </div>
 
+      {/* Post-Presentation Orientation */}
+      <div className="bg-emerald-50 border-b border-emerald-200 py-10 px-6">
+        <div className="container mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold text-emerald-900 mb-4">What You&apos;re About to Do</h2>
+          <p className="text-slate-700 mb-5 text-base leading-relaxed">
+            In Rob&apos;s presentation, you saw how combining a standard FBA with ACT principles creates behavior support
+            plans that address the psychological root of behavior — not just its function. This tool walks you through
+            that exact process:
+          </p>
+          <ol className="space-y-3 mb-6">
+            {[
+              "Identify the function of the behavior (attention, escape, tangible, sensory)",
+              "Assess ACT processes — values, experiential avoidance, cognitive fusion",
+              "Generate a complete, copy-ready BIP with ACT-aligned strategies",
+            ].map((step, i) => (
+              <li key={i} className="flex items-start gap-3 text-slate-700">
+                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-700 text-white text-sm font-bold flex items-center justify-center mt-0.5">
+                  {i + 1}
+                </span>
+                <span>{step}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="text-slate-600 text-sm">
+            It takes about 10 minutes. The output is printable and ready for your team.
+          </p>
+        </div>
+      </div>
+
       <article className="container mx-auto px-6 pb-16 pt-8">
         <section className="grid gap-8 lg:grid-cols-[1.05fr_1.2fr] lg:items-start">
           <div className="space-y-6">
@@ -323,6 +352,29 @@ export default function ACTFBABIPPage() {
             Share this tool
           </h2>
           <ShareButtons title="ACT-Informed FBA & BIP Generator" url={pageUrl} className="mt-4" />
+        </section>
+
+        {/* Transformation Program CTA */}
+        <section className="mt-12 rounded-2xl bg-emerald-800 text-white p-8 sm:p-10">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase tracking-widest text-emerald-300 mb-2">Go Deeper</p>
+            <h2 className="text-2xl font-bold mb-3">
+              Want to learn this process with a cohort of school BCBAs?
+            </h2>
+            <p className="text-emerald-100 mb-2 leading-relaxed">
+              The <strong className="text-white">School BCBA Transformation Program</strong> walks you through this and
+              much more — live, 6 weeks, starting March 26.
+            </p>
+            <p className="text-emerald-200 mb-6 text-sm">
+              Early bird pricing: <strong className="text-white">$2,499</strong> through March 21.
+            </p>
+            <a
+              href="https://behaviorschool.com/transformation-program"
+              className="inline-flex items-center gap-2 bg-white text-emerald-800 font-bold px-7 py-3 rounded-xl hover:bg-emerald-50 transition-colors"
+            >
+              Reserve Your Spot
+            </a>
+          </div>
         </section>
       </article>
     </main>

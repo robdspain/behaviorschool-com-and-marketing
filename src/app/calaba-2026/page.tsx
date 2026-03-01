@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { CheckCircle, Clock, Users, Shield, Zap, Star, Download, FileText, BookOpen, ArrowRight, ExternalLink } from "lucide-react";
+import { CheckCircle, Clock, Users, Shield, Zap, Star, Download, FileText, BookOpen, ArrowRight, ExternalLink, Brain, ClipboardList } from "lucide-react";
 
 export default function CalABA2026Page() {
   const [timeRemaining, setTimeRemaining] = useState({
@@ -191,6 +191,28 @@ export default function CalABA2026Page() {
       </div>
 
       {/* ============================================
+          POST-PRESENTATION BANNER
+          ============================================ */}
+      <div className="bg-emerald-800 text-white py-10 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-emerald-300 mb-2">Welcome from the CalABA Presentation</p>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+            Ready to try the tool?
+          </h2>
+          <p className="text-emerald-100 mb-6 text-lg">
+            Start your ACT-Informed FBA below — it takes about 10 minutes and generates a complete, printable BIP.
+          </p>
+          <Link
+            href="/act-fba-bip"
+            className="inline-flex items-center gap-2 bg-white text-emerald-800 font-bold px-8 py-4 rounded-xl hover:bg-emerald-50 transition-colors text-lg"
+          >
+            Try the ACT-FBA Tool
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+        </div>
+      </div>
+
+      {/* ============================================
           SECTION 2: WHAT IS BEHAVIORSCHOOL PRO?
           ============================================ */}
       <div className="py-20 px-4 bg-white">
@@ -256,28 +278,28 @@ export default function CalABA2026Page() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                icon: "",
+                Icon: FileText,
                 title: "FBA-to-BIP",
                 description: "Upload observation data → get comprehensive assessment and intervention plan",
                 href: "/fba-to-bip",
               },
               {
-                icon: "",
+                Icon: ClipboardList,
                 title: "IEP Goal Writer",
                 description: "Describe the student → get measurable, legally defensible goals",
                 href: "/iep-goal-writer",
               },
               {
-                icon: "📚",
+                Icon: BookOpen,
                 title: "Goal Bank",
                 description: "500+ evidence-based goals searchable by domain and grade",
                 href: "/iep-goal-bank",
               },
               {
-                icon: "",
-                title: "ACT Module",
-                description: "ACT Matrix, values assessment, and psychological flexibility tools",
-                href: "/act-tools",
+                Icon: Brain,
+                title: "ACT-Informed FBA + BIP Generator",
+                description: "The tool from the presentation — walks you through a full ACT-informed FBA and generates a complete BIP",
+                href: "/act-fba-bip",
               },
             ].map((tool) => (
               <Link 
@@ -285,7 +307,9 @@ export default function CalABA2026Page() {
                 href={tool.href}
                 className="bg-slate-50 hover:bg-emerald-50 border-2 border-transparent hover:border-emerald-200 rounded-xl p-5 text-center transition-all hover:scale-105 group cursor-pointer"
               >
-                <div className="text-3xl mb-3">{tool.icon}</div>
+                <div className="flex justify-center mb-3">
+                  <tool.Icon className="w-8 h-8 text-emerald-600 group-hover:text-emerald-700" />
+                </div>
                 <h4 className="font-bold text-slate-900 mb-2 group-hover:text-emerald-700">{tool.title}</h4>
                 <p className="text-sm text-slate-600">{tool.description}</p>
                 <span className="text-xs text-emerald-600 mt-2 inline-block opacity-0 group-hover:opacity-100 transition-opacity">
