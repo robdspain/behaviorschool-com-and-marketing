@@ -37,6 +37,12 @@ export default function Home() {
             >
               Earn CEUs
             </a>
+            <a
+              href="/transformation-program"
+              className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white border border-white/50 rounded-md hover:bg-white/10 transition-colors"
+            >
+              Apply for the Program
+            </a>
           </div>
         </div>
       </section>

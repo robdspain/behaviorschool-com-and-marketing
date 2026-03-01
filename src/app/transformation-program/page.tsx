@@ -9,6 +9,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ValueStack } from '@/components/ui/value-stack';
 import { CurriculumProgress } from '@/components/ui/curriculum-progress';
+import { ProgramApplication } from '@/components/ProgramApplication';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -509,6 +510,9 @@ export default function TransformationProgramPage() {
       </section>
 
       <div className="h-20 md:hidden"></div>
+
+      {/* Application / Waitlist Form */}
+      <ProgramApplication />
     </div>
   );
 }
