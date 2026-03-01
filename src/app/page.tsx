@@ -15,7 +15,7 @@ import {
   Users,
   BookOpen,
   Shield,
-  GraduationCap,
+
 } from "lucide-react";
 
 function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -77,7 +77,6 @@ const PRO_TOOLS = [
   { title: "BIP Generator", description: "Build a complete Behavior Intervention Plan from your FBA.", access: "Pro", href: "/act-fba-bip" },
   { title: "IEP Goal Writer", description: "Generate measurable, SMART behavior goals from a goal bank.", access: "Free", href: "/iep-goal-writer" },
   { title: "ABC Data Tracker", description: "Log A-B-C observations, view patterns, export for reports.", access: "Pro", href: "/abc-function-finder" },
-  { title: "CEU Tracker", description: "Track credits against BACB renewal requirements with deadline reminders.", access: "Pro", href: "/transformation-program" },
   { title: "Supervision Logs", description: "BACB-aligned individual and group supervision documentation.", access: "Pro", href: "/rbt-hours" },
 ];
 
