@@ -144,7 +144,7 @@ const tools = [
     title: "IEP Goal Bank",
     description:
       "Searchable library of 120+ pre-written IEP behavior goals organized by category and grade level. Copy-ready goals for behavior reduction, social skills, self-regulation, and more.",
-    href: "/iep-goal-bank",
+    href: "/iep-goals",
     icon: ClipboardCheck,
     status: "live" as const,
     features: [

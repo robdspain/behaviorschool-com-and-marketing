@@ -415,7 +415,7 @@ export default function CalABA2026Page() {
                 Icon: BookOpen,
                 title: "IEP Goal Bank",
                 description: "500+ evidence-based goals by domain and grade",
-                href: "/iep-goal-bank",
+                href: "/iep-goals",
               },
               {
                 Icon: Brain,
