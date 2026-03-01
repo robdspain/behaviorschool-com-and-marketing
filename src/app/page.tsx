@@ -20,10 +20,10 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://plan.behaviorschool.com"
+              href="/register"
               className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] bg-white rounded-md hover:bg-green-50 transition-colors"
             >
-              Explore AI Tools
+              Get Started
             </a>
             <a
               href="https://study.behaviorschool.com"
