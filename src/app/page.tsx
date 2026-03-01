@@ -205,6 +205,27 @@ export default function Home() {
         </section>
       )}
 
+      {/* ─── CREATOR BIO ──────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-white border-t border-gray-100">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-4">
+            From a BCBA in the Field, For You
+          </p>
+          <blockquote className="text-gray-600 leading-relaxed text-lg italic">
+            Behavior School and its suite of tools were created by Rob Spain, a Board Certified Behavior Analyst (BCBA) with over a decade of experience in public schools. He faced the daily struggle of paperwork, outdated tools, and a lack of practical resources, so he built what he needed: a modern, AI-powered toolkit for today&apos;s behavior analyst. Learn more about Rob&apos;s work at{" "}
+            <a
+              href="https://robspain.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#1f4d3f] font-semibold not-italic hover:underline"
+            >
+              robspain.com
+            </a>
+            .
+          </blockquote>
+        </div>
+      </section>
+
     </main>
   );
 }
