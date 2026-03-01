@@ -147,6 +147,83 @@ export default function ACTFBABIPPage() {
         />
       </div>
 
+      {/* Sample Output Preview */}
+      <div className="bg-white border-b border-slate-200 py-8 px-6">
+        <div className="container mx-auto max-w-3xl">
+          <details className="group">
+            <summary className="flex items-center justify-between cursor-pointer list-none py-2">
+              <div>
+                <span className="text-base font-semibold text-slate-900">See what the output looks like</span>
+                <span className="ml-3 text-sm text-slate-500">A real clinical document — ready to print or share with your team.</span>
+              </div>
+              <span className="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-lg select-none">▼</span>
+            </summary>
+            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 overflow-hidden">
+              <div className="bg-slate-800 px-4 py-2 flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-400" />
+                <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                <div className="w-3 h-3 rounded-full bg-green-400" />
+                <span className="ml-2 text-xs text-slate-400 font-mono">ACT-Informed FBA & BIP — Sample Output</span>
+              </div>
+              <pre className="p-5 text-xs sm:text-sm font-mono text-slate-700 whitespace-pre-wrap leading-relaxed overflow-x-auto">{`ACT-INFORMED FUNCTIONAL BEHAVIOR ASSESSMENT & BEHAVIOR INTERVENTION PLAN
+
+Student: [Student Name] | Grade: 7 | Date: [Today]
+Prepared by: [Team Members]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 1: BEHAVIORAL DEFINITION
+Target Behavior: Task Refusal
+Operational Definition: Student pushes materials away, puts head down, or states
+"I'm not doing this" within 2 minutes of an independent work task being presented.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 2: FUNCTIONAL BEHAVIOR ASSESSMENT SUMMARY
+Hypothesized Function: Escape/Avoidance
+Antecedents: Independent academic task presented; transitions between activities
+Setting Events: Prior peer conflict; unstructured schedule
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 3: ACT ANALYSIS
+ACT Functional Analysis: Task refusal functions as experiential avoidance —
+escaping the internal experience of feeling incompetent. Student is fused with
+self-stories ("I can't do this") that trigger escape behavior.
+
+ACT Processes Targeted: Cognitive Fusion, Experiential Avoidance, Self-as-Content
+Values Identified: Competence, Belonging, Growth
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SECTION 4: BEHAVIOR INTERVENTION PLAN
+
+Antecedent Strategies:
+• Pre-teach tasks during low-pressure time (connects to value: Competence)
+• Offer choice within structure ("Do problems 1-5 or 6-10 first?")
+• Use a visual task breakdown card
+
+Values-Aligned Replacement Behaviors:
+• Use help card to request assistance (toward: Competence)
+• "I need a minute" + return within 2 min (toward: Growth)
+
+Acceptance & Defusion Strategies (ACT):
+• "Passengers on the Bus" metaphor (adapted for Grade 6-8)
+• Thought defusion: "I'm having the thought that I can't do this"
+• Willingness practice: Sitting with hard feelings for 60 seconds
+
+Committed Action Goals:
+• Complete 80% of assigned tasks with help card use within 6 weeks
+• Decrease task refusal from 4-6x/day to 1x/day within 8 weeks
+
+[Full report continues with progress monitoring, team roles, data collection
+procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
+            </div>
+            <p className="mt-3 text-xs text-slate-500">This is a representative preview. Your generated report will be fully customized to your student&apos;s data.</p>
+          </details>
+        </div>
+      </div>
+
       {/* Post-Presentation Orientation */}
       <div className="bg-emerald-50 border-b border-emerald-200 py-10 px-6">
         <div className="container mx-auto max-w-3xl">

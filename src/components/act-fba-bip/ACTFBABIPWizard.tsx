@@ -51,6 +51,70 @@ const steps = [
 const emptyBehavior = { name: "", operationalDefinition: "", frequency: "", duration: "", intensity: "moderate" as const };
 const emptyReplacement = { behavior: "", valueConnection: "" };
 
+const SAMPLE_STUDENT: ACTFBAData = {
+  studentName: "Marcus T.",
+  studentAge: "13",
+  studentGrade: "7",
+  gradeLevel: "6-8",
+  school: "Sample Middle School",
+  dateOfFBA: new Date().toISOString().split("T")[0],
+  teamMembers: "BCBA, Special Ed Teacher, School Psychologist",
+  targetBehaviors: [
+    {
+      name: "Task Refusal",
+      operationalDefinition: "Marcus pushes materials away, puts his head down, or says 'I'm not doing this' within 2 minutes of an independent work task being presented. Occurs 4–6 times per day.",
+      frequency: "4-6x daily",
+      duration: "5–20 minutes per episode",
+      intensity: "moderate"
+    }
+  ],
+  antecedents: [
+    "Independent academic task presented",
+    "Transition between activities",
+    "Request to complete written work"
+  ],
+  customAntecedents: "",
+  settingEvents: [
+    "Prior peer conflict earlier in the day",
+    "Unstructured/less predictable schedule"
+  ],
+  customSettingEvents: "",
+  consequences: [
+    "Task removed or modified",
+    "Adult attention and prompting",
+    "Sent to alternative setting (office, hallway)"
+  ],
+  customConsequences: "",
+  functions: ["escape"],
+  functionNotes: "Behavior consistently results in removal from academic demands. Hypothesized primary function: escape from tasks perceived as difficult or potentially embarrassing.",
+  studentValues: ["competence", "belonging", "growth"],
+  valuesNotes: "Marcus reports wanting to 'be good at things' and to 'have friends who respect him.' He shows interest in sports and gaming. Avoids situations where he might appear incompetent in front of peers.",
+  inflexibilityProcesses: ["cognitive_fusion", "experiential_avoidance", "self_as_content"],
+  inflexibilityNotes: "Marcus frequently says 'I'm stupid' and 'I can't do this' — fused with a self-story of academic incompetence. Behavior appears to function as escape from the internal experience of inadequacy.",
+  actSettingEvents: [
+    "Increased cognitive fusion with academic self-stories",
+    "Low psychological flexibility in response to academic frustration"
+  ],
+  customACTSettingEvents: "",
+  actFunctionalAnalysis: "Marcus's task refusal functions as experiential avoidance — specifically escaping the internal experience of feeling incompetent or embarrassed. He is fused with the thought 'I can't do this/I'm stupid,' and task refusal provides short-term relief from that internal discomfort. The behavior moves him AWAY from his values of competence and belonging, creating a paradox: the very behavior meant to protect him from feeling incompetent reinforces his sense that he cannot handle academic challenges.",
+  replacementBehaviors: [
+    {
+      behavior: "Request help using a 'help card' — place card on desk to signal need without calling attention",
+      valueConnection: "Competence"
+    },
+    {
+      behavior: "Use the 'pause and breathe' script: 'I need a minute' — then return to task within 2 minutes",
+      valueConnection: "Growth"
+    }
+  ],
+  studentStrengths: "Creative problem-solver, strong verbal skills, loyal to friends, shows leadership in unstructured settings, responds well to humor",
+  preferredActivities: "Gaming, sports discussions, drawing, technology, peer-preferred tasks",
+  communicationLevel: "Fully verbal; communicates with full sentences; sarcasm and humor are common",
+  previousInterventions: "Token economy (inconsistent implementation), social stories (not generalized), CICO (some success with preferred adults, discontinued due to staffing)",
+  safetyConcerrns: false,
+  safetyConcernDetails: ""
+};
+
 const initialData: ACTFBAData = {
   studentName: "",
   studentAge: "",
@@ -259,6 +323,21 @@ export function ACTFBABIPWizard() {
       <div className="px-6 py-6">
         <div className="mb-6 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-4">
           <ProgressIndicator steps={steps} currentStep={currentStep} />
+        </div>
+
+        {/* Load Sample Case Banner */}
+        <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 flex items-start gap-4">
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-emerald-900">Try with a real case from the presentation</p>
+            <p className="text-xs text-emerald-700 mt-1">Pre-fills a 7th-grade escape-motivated student with ACT analysis — jump straight to the output.</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => { setData(SAMPLE_STUDENT); setCurrentStep(10); }}
+            className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 transition"
+          >
+            Load Sample Case →
+          </button>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white px-4 py-5 sm:px-6">
