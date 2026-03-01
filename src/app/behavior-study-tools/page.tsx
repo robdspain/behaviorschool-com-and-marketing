@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowRight, Check, Brain, Target, TrendingUp, BookOpen, Users, ChevronUp, ChevronDown } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ScrollNav } from "@/components/ui/scroll-nav";
@@ -12,14 +11,6 @@ const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, ease: "easeOut" }
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
 };
 
 export default function BehaviorStudyToolsPage() {
@@ -108,56 +99,31 @@ export default function BehaviorStudyToolsPage() {
       />
       
       {/* Hero Section */}
-      <section className="relative pt-10 md:pt-14 pb-16 lg:pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-blue-50" />
-        <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-emerald-100 to-transparent opacity-30 blur-3xl" />
-        <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-blue-100 to-transparent opacity-20 blur-2xl" />
+      <section className="pt-10 md:pt-14 pb-16 lg:pb-20">
+
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div 
-              className="space-y-8"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
+            <div className="space-y-8">
               <div className="space-y-4">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.05] text-slate-900">
+                <div>
+                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.05] text-slate-900">
                     Behavior Study Tools
                   </h1>
-                </motion.div>
-                <motion.h2
-                  className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-emerald-600"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
+                </div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-emerald-600">
                   Free BCBA Mock Exam & Unlimited Practice Questions
-                </motion.h2>
-                <motion.p
-                  className="text-lg sm:text-xl leading-relaxed text-slate-600"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                >
+                </h2>
+                <p className="text-lg sm:text-xl leading-relaxed text-slate-600">
                   Welcome to Behavior School&apos;s Study Tools, designed to make preparing for the BCBA® exam feel less overwhelming. Our system is built for busy behavior analysts who want a study system that&apos;s as focused and practical as the science we practice.
-                </motion.p>
+                </p>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-              >
+              <div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="https://study.behaviorschool.com/free-mock-exam"
-                    className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                    className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-[#1a4731] hover:bg-[#153824] text-white rounded-lg transition-colors"
                   >
                     Free Full Mock Exam
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -167,47 +133,34 @@ export default function BehaviorStudyToolsPage() {
                     185 Questions • No Signup Required • Instant Results
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
-            <motion.div 
-              className="relative"
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
+            <div className="relative">
               <div className="relative z-10">
                 <Image
                   src="/BehaviorStudyTools/Hero-BST-Home.webp"
                   alt="BCBA practice exams and mock tests with AI-powered rationales"
                   width={600}
                   height={400}
-                  className="w-full h-auto rounded-2xl shadow-2xl"
+                  className="w-full h-auto rounded-2xl"
                   priority
                 />
               </div>
-              <div className="absolute -top-6 -right-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-200 to-yellow-100 opacity-80 animate-pulse" />
-              <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-xl bg-gradient-to-br from-purple-200 to-purple-100 opacity-60" />
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Free Trial Hero Section */}
-      <section id="mock-exam" className="py-16 bg-gradient-to-r from-emerald-50 to-blue-50 scroll-mt-24">
+      <section id="mock-exam" className="py-16 bg-slate-50 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center space-y-8"
-          >
-            <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-2xl border border-emerald-100">
-              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+          <div className="text-center space-y-8">
+            <div className="bg-white rounded-3xl p-8 lg:p-12 border border-emerald-100">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
                 Try Our Free BCBA Mock Exam
               </h2>
-              <p className="text-xl text-slate-600 mb-6 max-w-3xl mx-auto">
+              <p className="text-base text-slate-600 mb-6 max-w-3xl mx-auto">
                 Get instant access to 10+ free BCBA practice questions. No signup required. Test your knowledge across all BACB task list domains.
               </p>
 
@@ -234,7 +187,7 @@ export default function BehaviorStudyToolsPage() {
 
               <Link
                 href="https://study.behaviorschool.com/free-mock-exam"
-                className="inline-flex items-center px-10 py-4 text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                className="inline-flex items-center px-10 py-4 text-xl font-bold bg-[#1a4731] hover:bg-[#153824] text-white rounded-lg transition-colors"
               >
                 Free Full Mock Exam (185 Questions)
                 <ArrowRight className="ml-3 h-6 w-6" />
@@ -244,27 +197,21 @@ export default function BehaviorStudyToolsPage() {
                 Based on BACB 6th Edition Task List • Detailed explanations included
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Section-Specific Practice Areas */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
               Practice by BCBA Exam Section
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-base text-slate-600 max-w-3xl mx-auto">
               Target your study efforts with section-specific practice questions and mock exams for each domain.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -311,19 +258,11 @@ export default function BehaviorStudyToolsPage() {
                 color: "slate"
               }
             ].map((area, index) => (
-              <motion.div
-                key={index}
-                className="bg-gradient-to-br from-white to-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
+              <div className="bg-white rounded-2xl p-6 transition-all duration-300 border border-slate-200">
                 <div className={`w-12 h-12 bg-gradient-to-br from-${area.color}-500 to-${area.color}-400 rounded-xl flex items-center justify-center mb-4`}>
-                  <BookOpen className="w-6 h-6 text-white" />
+                  <BookOpen className="w-6 h-6 text-emerald-700" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{area.section}</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{area.section}</h3>
                 <h4 className="text-lg font-semibold text-slate-700 mb-3">{area.title}</h4>
                 <p className="text-slate-600 mb-4 leading-relaxed">{area.description}</p>
                 <div className="flex items-center justify-between">
@@ -337,7 +276,7 @@ export default function BehaviorStudyToolsPage() {
                     Practice Now →
                   </Link>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -346,28 +285,16 @@ export default function BehaviorStudyToolsPage() {
       {/* Why It Works Section */}
       <section id="features" className="py-16 lg:py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+          <div className="text-center mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
               Why It Works
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="text-base text-slate-600 max-w-3xl mx-auto">
               Our platform combines cutting-edge AI technology with proven learning science to create an effective BCBA exam preparation experience.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-100px" }}
-          >
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: Brain,
@@ -394,30 +321,19 @@ export default function BehaviorStudyToolsPage() {
                 color: "orange"
               }
             ].map((feature, index) => (
-              <motion.div
-                key={index}
-                className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
-                variants={fadeInUp}
-                whileHover={{ y: -5 }}
-              >
+              <div className="bg-white rounded-2xl p-8 transition-all duration-300">
                 <div className={`w-12 h-12 bg-gradient-to-br from-${feature.color}-500 to-${feature.color}-400 rounded-xl flex items-center justify-center mb-6`}>
-                  <feature.icon className="w-6 h-6 text-white" />
+                  <feature.icon className="w-6 h-6 text-emerald-700" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{feature.title}</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-4">{feature.title}</h3>
                 <p className="text-slate-600 leading-relaxed">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Contextual CTA after features */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mt-16"
-          >
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-white shadow-xl">
+          <div className="text-center mt-16">
+            <div className="bg-[#1a4731] rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-4">Ready to Experience Smarter BCBA Prep?</h3>
               <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
                 Get unlimited AI-powered practice questions, adaptive learning, and detailed explanations. Start with your free mock exam today.
@@ -438,26 +354,20 @@ export default function BehaviorStudyToolsPage() {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Designed for Behavior Analysts Section */}
-      <section className="py-16 lg:py-20 bg-gradient-to-br from-slate-50 to-emerald-50">
+      <section className="py-16 lg:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div 
-              className="space-y-8"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
+            <div className="space-y-8">
               <div className="space-y-6">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
                   Designed for Behavior Analysts
                 </h2>
-                <p className="text-xl text-slate-600 leading-relaxed">
+                <p className="text-base text-slate-600 leading-relaxed">
                   Behavior Study Tools was created by school-based BCBAs who understand the realities of balancing work, family, and exam prep. The system emphasizes:
                 </p>
                 <ul className="space-y-4">
@@ -466,56 +376,42 @@ export default function BehaviorStudyToolsPage() {
                     "Conceptual to applied skill progression", 
                     "Data-driven mastery, not guesswork"
                   ].map((item, index) => (
-                    <motion.li 
-                      key={index}
-                      className="flex items-center gap-4 text-lg text-slate-700"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                    >
+                    <li className="flex items-center gap-4 text-lg text-slate-700">
                       <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check className="w-4 h-4 text-white" />
                       </div>
                       {item}
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div 
-              className="relative"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="bg-white rounded-2xl p-8 shadow-2xl">
+            <div className="relative">
+              <div className="bg-white rounded-2xl p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-400 rounded-xl flex items-center justify-center">
-                    <Users className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                    <Users className="w-6 h-6 text-emerald-700" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900">Study Dashboard</h3>
+                    <h3 className="text-lg font-bold text-slate-900">Study Dashboard</h3>
                     <p className="text-slate-600">Real-time progress tracking</p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   {[
-                    { label: "Questions Answered", icon: "✓", color: "emerald" },
-                    { label: "Accuracy by Domain", icon: "📊", color: "blue" },
-                    { label: "Study Streak Tracking", icon: "🔥", color: "purple" },
-                    { label: "Progress by Section", icon: "📈", color: "orange" }
+                    { label: "Questions Answered", color: "emerald" },
+                    { label: "Accuracy by Domain", color: "blue" },
+                    { label: "Study Streak Tracking", color: "purple" },
+                    { label: "Progress by Section", color: "orange" }
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-4 p-4 rounded-lg bg-slate-50">
-                      <span className="text-2xl">{item.icon}</span>
                       <span className="font-medium text-slate-900">{item.label}</span>
                     </div>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -523,29 +419,17 @@ export default function BehaviorStudyToolsPage() {
       {/* More Than a Test Prep Platform Section */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+          <div className="space-y-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
               More Than a Test Prep Platform
             </h2>
-            <p className="text-xl sm:text-2xl text-slate-600 leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
               This is not just about passing an exam—it&apos;s about building fluency in the science of behavior. You&apos;ll learn to think like a behavior analyst, not just answer like one.
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-emerald-400 mx-auto rounded-full"></div>
+            <div className="w-24 h-1 bg-emerald-600 mx-auto rounded-full"></div>
             
             {/* Contextual CTA after platform description */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              viewport={{ once: true }}
-              className="pt-8"
-            >
+            <div className="pt-8">
               <p className="text-lg text-slate-600 mb-6">
                 Ready to develop true behavioral fluency? After you pass your BCBA exam, continue building expertise with our comprehensive school-based training.
               </p>
@@ -564,45 +448,39 @@ export default function BehaviorStudyToolsPage() {
                   Explore Supervision Tools
                 </Link>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* How It's Different From the Competition Section */}
       <section className="py-16 lg:py-20 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 text-center">
+          <div className="space-y-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 text-center">
               How It’s Different From the Competition
             </h2>
-            <p className="text-xl text-slate-600 leading-relaxed text-center">
+            <p className="text-base text-slate-600 leading-relaxed text-center">
               Most prep options fall into three camps:
             </p>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-200">
+              <div className="bg-white rounded-2xl p-6 border border-red-200">
                 <h3 className="text-xl font-bold text-red-700 mb-4">Flashcards</h3>
                 <p className="text-slate-700">Quick but shallow; they don’t explain why an answer is correct, so learners memorize terms without mastering concepts.</p>
               </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-200">
+              <div className="bg-white rounded-2xl p-6 border border-red-200">
                 <h3 className="text-xl font-bold text-red-700 mb-4">Recycled Test Banks</h3>
                 <p className="text-slate-700">Often outdated, poorly written, or overly simplistic, leaving huge gaps in readiness.</p>
               </div>
-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-red-200">
+              <div className="bg-white rounded-2xl p-6 border border-red-200">
                 <h3 className="text-xl font-bold text-red-700 mb-4">Expensive Review Modules</h3>
                 <p className="text-slate-700">Long lectures and static question sets that don’t adapt to your strengths and weaknesses, so you waste time on material you already know.</p>
               </div>
             </div>
-            <p className="text-xl text-slate-600 leading-relaxed text-center">
+            <p className="text-base text-slate-600 leading-relaxed text-center">
               Behavior Study Tools is different. Our free BCBA mock exam gets you started immediately, then our platform combines efficient practice, clear explanations, adaptive learning, and real-time data tracking. Instead of passive studying, it actively teaches you how to think like a BCBA through scenario-based questions that mirror the actual exam. That&apos;s the innovation future behavior analysts deserve.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -610,7 +488,7 @@ export default function BehaviorStudyToolsPage() {
       <section id="faq" className="py-16 px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-slate-600 mb-4">
@@ -620,7 +498,7 @@ export default function BehaviorStudyToolsPage() {
           
           <div className="space-y-4">
             {faqData.map((faq, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg border border-slate-200">
+              <div key={index} className="bg-white rounded-lg border border-slate-200">
                 <button
                   onClick={() => setActiveFaq(activeFaq === index ? null : index)}
                   className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-slate-50 transition-colors"
@@ -654,24 +532,18 @@ export default function BehaviorStudyToolsPage() {
       {/* Related Resources */}
       <section className="py-16 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
               Additional Study Resources
             </h2>
             <p className="text-lg text-slate-600">
               Explore more tools to enhance your BCBA exam preparation
             </p>
-          </motion.div>
+          </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Link
               href="/bcba-study-fluency"
-              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
                 <TrendingUp className="w-6 h-6 text-emerald-600 mr-2" />
@@ -683,7 +555,7 @@ export default function BehaviorStudyToolsPage() {
             </Link>
             <Link
               href="/bcba-exam-prep"
-              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
                 <BookOpen className="w-6 h-6 text-emerald-600 mr-2" />
@@ -695,7 +567,7 @@ export default function BehaviorStudyToolsPage() {
             </Link>
             <Link
               href="/bcba-practice-exam"
-              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
                 <Target className="w-6 h-6 text-emerald-600 mr-2" />
@@ -710,37 +582,28 @@ export default function BehaviorStudyToolsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 lg:py-20 bg-gradient-to-br from-emerald-600 to-emerald-500">
+      <section className="py-16 lg:py-20 bg-[#1a4731]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             <h2 className="text-3xl sm:text-4xl font-bold text-white">
               Ready to Transform Your BCBA Journey?
             </h2>
-            <p className="text-xl text-emerald-100 max-w-2xl mx-auto">
+            <p className="text-base text-emerald-100 max-w-2xl mx-auto">
               Join behavior analysts using Behavior Study Tools to prepare for the BCBA exam and advance their careers.
             </p>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <div>
               <Link
                 href="https://study.behaviorschool.com/free-mock-exam"
-                className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 hover:bg-slate-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 hover:bg-slate-100 rounded-xl transition-all duration-200"
               >
                 Take Free Full Mock Exam
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-            </motion.div>
+            </div>
             <p className="text-emerald-200 text-sm">
               Free BCBA Mock Exam • behaviorstudytools.com
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 

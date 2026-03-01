@@ -63,7 +63,7 @@ export function ScrollNav({ items, className }: ScrollNavProps) {
   };
 
   return (
-    <div className={cn("sticky top-16 z-40 w-full bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300", className)}>
+    <div className={cn("w-full bg-white border-b border-slate-200", className)}>
       <motion.div 
         className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500 origin-left"
         style={{ scaleX }}
