@@ -20,97 +20,95 @@ interface MatrixData {
 }
 
 const STRATEGIES: Record<string, { title: string; description: string }[]> = {
-  "6-8": [
-    {
-      title: "Passengers on the Bus",
-      description:
-        'Use the "Passengers on the Bus" metaphor. Ask the student: "Imagine you\'re driving a bus toward your goals. Some passengers (thoughts/feelings) try to tell you to turn around. You don\'t have to kick them off — you can just keep driving." Role-play the bus with the student using their own Away experiences as passengers.',
-    },
-    {
-      title: "Values Clarification Exercise",
-      description:
-        "Have the student rank 10 value cards (connection, achievement, adventure, fairness, kindness, etc.). For each top value, ask: \"When you do [Away behavior], does it move you toward or away from this?\" This builds motivation from within rather than external compliance.",
-    },
-    {
-      title: "Defusion Technique: Name It to Tame It",
-      description:
-        'Help the student notice and name their difficult thoughts/feelings without fusing with them. Teach them to say "I\'m having the thought that I\'m going to fail" instead of "I\'m going to fail." Practice with their specific Inner+Away content.',
-    },
-  ],
   "9-12": [
     {
-      title: "Passengers on the Bus",
+      title: "Behavioral Contrast Mapping",
       description:
-        'Use the "Passengers on the Bus" metaphor. Ask the student: "Imagine you\'re driving a bus toward your goals. Some passengers (thoughts/feelings) try to tell you to turn around. You don\'t have to kick them off — you can just keep driving." Role-play the bus with the student using their own Away experiences as passengers.',
+        "On a single sheet, draw two columns: 'What I do when I let [Away thought] drive' and 'What I do when I act on what matters.' Have the student populate both from their own matrix. Then ask: 'Which column describes the student you're trying to become?' This externalization creates distance from fused self-stories without requiring the student to believe anything different — only to observe the contrast.",
     },
     {
-      title: "Values Clarification Exercise",
+      title: "Committed Action With a Reversal Test",
       description:
-        "Have the student rank 10 value cards (connection, achievement, adventure, fairness, kindness, etc.). For each top value, ask: \"When you do [Away behavior], does it move you toward or away from this?\" This builds motivation from within rather than external compliance.",
+        "Identify one specific Toward behavior from the matrix. Have the student commit to it for one week with a data card they keep (not the teacher). After the week, review: did the Away feeling get easier, harder, or the same? The point is not that the feeling disappears — it's that the student discovers they can act on values regardless of the feeling. Document the result as part of the ACT analysis.",
     },
     {
-      title: "Defusion Technique: Name It to Tame It",
+      title: "Private Events as Setting Events",
       description:
-        'Help the student notice and name their difficult thoughts/feelings without fusing with them. Teach them to say "I\'m having the thought that I\'m going to fail" instead of "I\'m going to fail." Practice with their specific Inner+Away content.',
+        "Review the student's Inner+Away quadrant and identify which private events (thoughts, feelings, memories) most reliably precede their target behavior. Reframe these as setting events in the FBA — not causes, but conditions that alter the value of escape or attention. Teach the student to track: 'What was I thinking/feeling in the 5 minutes before?' Add this to the ABC data sheet as an additional column.",
+    },
+  ],
+  "6-8": [
+    {
+      title: "The Two-Choice Write-Up",
+      description:
+        "Give the student two index cards. On Card A, they write what happens when they do their Away behavior — short-term and long-term. On Card B, they write what happens when they do a Toward behavior instead. No judgment, just outcomes. The student keeps both cards. This works because it bypasses resistance to being told what to do — the student writes the analysis themselves. Review weekly and update as the student's perspective changes.",
+    },
+    {
+      title: "Function-to-Values Bridge",
+      description:
+        "Take the function identified in the FBA (e.g., escape from academic demands) and connect it explicitly to the student's values. Say: 'So the behavior gets you out of the assignment — and your value is being seen as capable. How does leaving the assignment help with that?' This is not rhetorical. The student often hasn't made this connection. The goal is to surface the contradiction between the function of the behavior and what the student actually cares about.",
+    },
+    {
+      title: "Flexibility Practice Log",
+      description:
+        "Create a simple daily log the student fills out at the end of class: 'Situation where I felt like doing [Away behavior]: ___ / What I actually did: ___ / Did I move toward [value] or away from it? ___' This is not a behavior chart and should not be shared with parents or used for points. It's a self-monitoring ACT tool. Review it together weekly. Over time it builds the habit of noticing the choice point between feeling and action.",
     },
   ],
   "4-5": [
     {
-      title: "Tug of War with the Monster",
+      title: "The Choice Point Card",
       description:
-        "Explain: \"Imagine your worry/anger is a monster holding one end of a rope. You\'ve been pulling really hard — but the monster gets stronger the more you pull. What if you just dropped the rope?\" Draw this out together. The goal isn\'t to defeat the feeling — it\'s to stop fighting it.",
+        "Create a laminated 4x6 card the student keeps at their desk. One side shows a simple diagram: Situation → Feeling/Thought → [two arrows] → Away move OR Toward move. The student identifies their own examples for each box. When they reach a choice point, they physically touch the card. This externalizes the decision process and creates a brief pause — the pause is where flexibility happens. Replace the card when the student's examples change.",
     },
     {
-      title: "Values Card Sort",
+      title: "Classroom Values Interview",
       description:
-        "Print simple value cards with pictures (being a good friend, being brave, being kind, learning new things). Have the student sort them into \"really important to me\" and \"not as important.\" Then connect their top 2-3 values to the Toward behaviors in their matrix.",
+        "Ask the student three questions and write down their exact words: 'What kind of student do you want your teacher to think you are? What kind of friend do you want to be in this class? What would you want to be better at by the end of the year?' Use their exact language on the values side of their matrix — not adult translations. When the target behavior occurs, reference their words specifically: 'You said you want to be [their word]. Is this move getting you there?'",
     },
     {
-      title: "Thought Train Exercise",
+      title: "Stuck vs. Moving Check-In",
       description:
-        "Draw a train on paper. Each car holds a thought or feeling. Explain: \"Thoughts come and go like train cars. You don\'t have to ride every car — you can watch it pass.\" Have the student draw their difficult thoughts in the cars and practice watching them go by.",
+        "At the start or end of each day, the student rates two things on a 1-3 scale: 'How stuck did I feel today?' and 'How much did I move toward what I care about?' These two numbers are not correlated on purpose — the student can feel very stuck AND still make Toward moves. This directly teaches that discomfort tolerance and values-based action are separate from each other. Track over 2-3 weeks and show the student their own data.",
     },
   ],
   "1-3": [
     {
-      title: "Tug of War with the Monster",
+      title: "The Two Paths Picture",
       description:
-        "Explain: \"Imagine your worry/anger is a monster holding one end of a rope. You\'ve been pulling really hard — but the monster gets stronger the more you pull. What if you just dropped the rope?\" Draw this out together. The goal isn\'t to defeat the feeling — it\'s to stop fighting it.",
+        "Draw a simple fork in the road. Label one path with the student's Away behavior and where it leads (e.g., 'yell → go to office → miss recess'). Label the other with a Toward behavior and where it leads (e.g., 'ask for help → finish work → play with friends'). Use the student's exact words and situations. Post it at their desk or in their folder. Before a known difficult moment, point to the picture and ask: 'Which path?' This replaces verbal prompting with a visual that the student helped create.",
     },
     {
-      title: "Values Card Sort",
+      title: "My Important Job",
       description:
-        "Print simple value cards with pictures (being a good friend, being brave, being kind, learning new things). Have the student sort them into \"really important to me\" and \"not as important.\" Then connect their top 2-3 values to the Toward behaviors in their matrix.",
+        "Give the student a specific classroom job that connects directly to one of their values. If they care about being helpful, they're the 'supply manager.' If they care about being fair, they're the 'turn-keeper.' The job is not a reward — it's a Toward behavior built into the daily structure. When the target behavior occurs near the job time, redirect: 'Your class needs you to do your job.' This creates a values-relevant competing response without requiring the student to discuss their feelings.",
     },
     {
-      title: "Thought Train Exercise",
+      title: "The Feelings-First, Then-Second Rule",
       description:
-        "Draw a train on paper. Each car holds a thought or feeling. Explain: \"Thoughts come and go like train cars. You don\'t have to ride every car — you can watch it pass.\" Have the student draw their difficult thoughts in the cars and practice watching them go by.",
+        "Teach the student one rule: feelings can visit, but they don't get to drive. Practice with low-stakes examples first: 'You feel like staying in from recess, but recess matters to you — so you go anyway.' Build up to the target behavior's antecedent situation. The student practices saying: 'I feel [X], and I'm going to [Toward behavior] anyway.' Repeat daily for at least two weeks before expecting generalization.",
     },
   ],
   "prek-k": [
     {
-      title: "The Feelings Jar",
+      title: "The Feelings Visitor",
       description:
-        "Use a clear jar with glitter glue and water. When shaken, it\'s messy and hard to see through — like big feelings. When still, the glitter settles and everything is clear. Practice shaking it when upset and waiting for it to settle. Say: \"Our brains are like this jar.\"",
+        "Introduce feelings as visitors who come to the classroom but don't live there. When a big feeling arrives: 'Oh, Angry is visiting. Angry wants you to push. But you're the boss of your body — not Angry.' Make a simple picture book together using the student's name as the main character. The student is always the protagonist who gets to choose what happens next. Read it together before known difficult transitions.",
     },
     {
-      title: "My Important Things Book",
+      title: "My Toward Job",
       description:
-        "Help the student draw or cut out pictures of things they care about (friends, pets, a favorite activity). Make it into a small book called \"What I Care About.\" When difficult behaviors arise, refer to the book: \"You care about having friends — what could we try instead?\"",
+        "Identify one specific Toward behavior from the matrix that the student already does sometimes. Name it as their job: 'Your job is to ask for help with words.' Spend one week only reinforcing that job — not reducing the Away behavior directly. Post a picture of the job at eye level. When the Away behavior starts, prompt the job, not the absence of behavior. This approach is based on differential reinforcement of alternative behavior but framed in values-consistent language the teacher can use naturally.",
     },
     {
-      title: "The Superhero Pose",
+      title: "The Day Picture",
       description:
-        "Connect Toward behaviors to a fun identity: \"What does a kind helper do when something feels hard?\" Practice a short \"superhero pose\" (hands on hips, big breath) as a physical anchor to shift from Away to Toward behaviors. Keep it playful and consistent.",
+        "Create a picture schedule where each transition includes a 'toward' picture next to it — not just what happens next, but what the student cares about at that time. If the student values having a snack with friends, the snack picture is next to the difficult transition that precedes it. This makes the values-behavior connection visible in the environment rather than requiring the student to generate it internally.",
     },
   ],
 };
 
 function getStrategies(grade: GradeLevel) {
-  if (grade === "6-8" || grade === "9-12") return STRATEGIES[grade];
-  if (grade === "4-5" || grade === "1-3") return STRATEGIES[grade];
-  return STRATEGIES["prek-k"];
+  return STRATEGIES[grade] ?? STRATEGIES["prek-k"];
 }
 
 export default function ACTMatrixBuilder() {
@@ -248,7 +246,7 @@ export default function ACTMatrixBuilder() {
             </div>
 
             {/* Outer row */}
-            <div style={{ background: "#f0faf4", padding: "16px", borderTop: "1px solid #c8e6d0" }}>
+            <div style={{ background: "#f0fdf4", padding: "16px", borderTop: "1px solid #bbf7d0" }}>
               <div style={quadrantLabel}>Outer (Doing)</div>
               <textarea
                 value={matrix.outerToward}
@@ -258,38 +256,38 @@ export default function ACTMatrixBuilder() {
                 rows={4}
               />
             </div>
-            <div style={{ background: "#fff5f5", padding: "16px", borderTop: "1px solid #fecaca", borderLeft: "1px solid #ccc" }}>
-              <div style={{ ...quadrantLabel, color: "#991b1b" }}>Outer (Doing) — Target Behavior</div>
+            <div style={{ background: "#fff7ed", padding: "16px", borderTop: "1px solid #fed7aa", borderLeft: "1px solid #e5e5e5" }}>
+              <div style={{ ...quadrantLabel, color: "#7c3d0f" }}>Outer (Doing) — Target Behavior</div>
               <textarea
                 value={matrix.outerAway}
                 onChange={(e) => setMatrix({ ...matrix, outerAway: e.target.value })}
                 placeholder="e.g., Refuses tasks, Disrupts class, Leaves the room"
-                style={{ ...textareaStyle, borderColor: "#fca5a5" }}
+                style={{ ...textareaStyle, borderColor: "#fed7aa" }}
                 rows={4}
               />
             </div>
 
             {/* Divider */}
-            <div style={{ gridColumn: "1 / -1", height: 1, background: "#ccc" }} />
+            <div style={{ gridColumn: "1 / -1", height: 1, background: "#e5e5e5" }} />
 
             {/* Inner row */}
-            <div style={{ background: "#faf5ff", padding: "16px" }}>
-              <div style={{ ...quadrantLabel, color: "#6d28d9" }}>Inner (Feeling/Thinking)</div>
+            <div style={{ background: "#f0f7f4", padding: "16px" }}>
+              <div style={{ ...quadrantLabel, color: "#1a4731" }}>Inner (Feeling/Thinking)</div>
               <textarea
                 value={matrix.innerToward}
                 onChange={(e) => setMatrix({ ...matrix, innerToward: e.target.value })}
                 placeholder="e.g., Being seen as smart, Having friends, Being good at sports"
-                style={{ ...textareaStyle, borderColor: "#c4b5fd" }}
+                style={{ ...textareaStyle, borderColor: "#a7d4b8" }}
                 rows={4}
               />
             </div>
-            <div style={{ background: "#fffbeb", padding: "16px", borderLeft: "1px solid #ccc" }}>
-              <div style={{ ...quadrantLabel, color: "#92400e" }}>Inner (Feeling/Thinking)</div>
+            <div style={{ background: "#fefce8", padding: "16px", borderLeft: "1px solid #e5e5e5" }}>
+              <div style={{ ...quadrantLabel, color: "#854d0e" }}>Inner (Feeling/Thinking)</div>
               <textarea
                 value={matrix.innerAway}
                 onChange={(e) => setMatrix({ ...matrix, innerAway: e.target.value })}
                 placeholder="e.g., Feeling stupid, Fear of failing, Embarrassment in front of peers"
-                style={{ ...textareaStyle, borderColor: "#fcd34d" }}
+                style={{ ...textareaStyle, borderColor: "#fde68a" }}
                 rows={4}
               />
             </div>
@@ -396,40 +394,40 @@ export default function ACTMatrixBuilder() {
             </div>
 
             {/* Outer row */}
-            <div style={{ display: "grid", gridTemplateColumns: "120px 1fr 1fr", borderTop: "1px solid #ccc" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "120px 1fr 1fr", borderTop: "1px solid #e5e5e5" }}>
               <div style={{ padding: "16px 12px", background: "#f8f8f8", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "#333" }}>OUTER</div>
                   <div style={{ fontSize: "0.75rem", color: "#666" }}>(doing)</div>
                 </div>
               </div>
-              <div style={{ padding: "16px", background: "#f0faf4", borderLeft: "1px solid #ccc" }}>
-                <p style={{ margin: 0, whiteSpace: "pre-wrap", color: "#1a3a2a", fontSize: "0.95rem" }}>
+              <div style={{ padding: "16px", background: "#f0fdf4", borderLeft: "1px solid #e5e5e5" }}>
+                <p style={{ margin: 0, whiteSpace: "pre-wrap", color: "#1a3a2a", fontSize: "0.9rem", lineHeight: 1.6 }}>
                   {matrix.outerToward || <em style={{ color: "#aaa" }}>Not filled in</em>}
                 </p>
               </div>
-              <div style={{ padding: "16px", background: "#fff5f5", borderLeft: "1px solid #ccc" }}>
-                <p style={{ margin: 0, whiteSpace: "pre-wrap", color: "#7f1d1d", fontSize: "0.95rem" }}>
+              <div style={{ padding: "16px", background: "#fff7ed", borderLeft: "1px solid #e5e5e5" }}>
+                <p style={{ margin: 0, whiteSpace: "pre-wrap", color: "#7c3d0f", fontSize: "0.9rem", lineHeight: 1.6 }}>
                   {matrix.outerAway || <em style={{ color: "#aaa" }}>Not filled in</em>}
                 </p>
               </div>
             </div>
 
             {/* Inner row */}
-            <div style={{ display: "grid", gridTemplateColumns: "120px 1fr 1fr", borderTop: "1px solid #ccc" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "120px 1fr 1fr", borderTop: "1px solid #e5e5e5" }}>
               <div style={{ padding: "16px 12px", background: "#f8f8f8", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "#333" }}>INNER</div>
                   <div style={{ fontSize: "0.75rem", color: "#666" }}>(feeling/<br />thinking)</div>
                 </div>
               </div>
-              <div style={{ padding: "16px", background: "#faf5ff", borderLeft: "1px solid #ccc" }}>
-                <p style={{ margin: 0, whiteSpace: "pre-wrap", color: "#4c1d95", fontSize: "0.95rem" }}>
+              <div style={{ padding: "16px", background: "#f0f7f4", borderLeft: "1px solid #e5e5e5" }}>
+                <p style={{ margin: 0, whiteSpace: "pre-wrap", color: "#1a3a2a", fontSize: "0.9rem", lineHeight: 1.6 }}>
                   {matrix.innerToward || <em style={{ color: "#aaa" }}>Not filled in</em>}
                 </p>
               </div>
-              <div style={{ padding: "16px", background: "#fffbeb", borderLeft: "1px solid #ccc" }}>
-                <p style={{ margin: 0, whiteSpace: "pre-wrap", color: "#78350f", fontSize: "0.95rem" }}>
+              <div style={{ padding: "16px", background: "#fefce8", borderLeft: "1px solid #e5e5e5" }}>
+                <p style={{ margin: 0, whiteSpace: "pre-wrap", color: "#854d0e", fontSize: "0.9rem", lineHeight: 1.6 }}>
                   {matrix.innerAway || <em style={{ color: "#aaa" }}>Not filled in</em>}
                 </p>
               </div>
