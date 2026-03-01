@@ -428,7 +428,7 @@ export default function Home() {
                       textDecoration: "none",
                     }}
                   >
-                    Try Free →
+                    {tool.access === "Free" ? "Try Free →" : "View →"}
                   </a>
                 </div>
               ))}
