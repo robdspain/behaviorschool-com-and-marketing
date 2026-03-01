@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CheckCircle, Users, Shield, Zap, Download, FileText, BookOpen, ArrowRight, ExternalLink, Brain, ClipboardList } from "lucide-react";
+import { ShareBar } from "@/components/ui/ShareBar";
 
 export default function CalABA2026Page() {
   const [email, setEmail] = useState("");
@@ -178,6 +179,16 @@ export default function CalABA2026Page() {
                 <p className="text-emerald-200 text-xs mt-1">{item.sub}</p>
               </div>
             ))}
+          </div>
+
+          {/* Share */}
+          <div className="mt-8 max-w-2xl mx-auto">
+            <ShareBar
+              title="Free ACT-Informed FBA Tool — CalABA 2026"
+              text="Attended Rob Spain's CalABA talk on ACT-Informed FBAs? The free tool and all presentation references are here:"
+              url="https://behaviorschool.com/calaba-2026"
+              hashtags={["CalABA", "BCBA", "SchoolBCBA"]}
+            />
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ACTFBABIPWizard } from "@/components/act-fba-bip/ACTFBABIPWizard";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ShareButtons } from "@/components/ui/share-buttons";
+import { ShareBar } from "@/components/ui/ShareBar";
 
 const baseUrl = "https://behaviorschool.com";
 const pageUrl = `${baseUrl}/act-fba-bip`;
@@ -296,7 +297,15 @@ procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
             </div>
           </div>
 
-          <ACTFBABIPWizard />
+          <div className="space-y-4">
+            <ShareBar
+              title="Free ACT-Informed FBA & BIP Generator"
+              text="This free tool from BehaviorSchool generates a complete ACT-informed FBA and BIP in about 10 minutes. Built for school BCBAs."
+              url="https://behaviorschool.com/act-fba-bip"
+              hashtags={["BCBA", "SchoolBCBA", "BehaviorAnalysis", "ACT"]}
+            />
+            <ACTFBABIPWizard />
+          </div>
         </section>
 
         {/* What is ACT-Informed FBA/BIP */}

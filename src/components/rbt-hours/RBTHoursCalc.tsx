@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AlertTriangle, CheckCircle, ArrowRight, Send } from "lucide-react";
+import { ShareBar } from "@/components/ui/ShareBar";
 
 interface CalcResult {
   hoursCompleted: number;
@@ -365,6 +366,14 @@ export function RBTHoursCalc() {
           )}
         </div>
       )}
+
+      {/* Share */}
+      <ShareBar
+        title="RBT Supervision Hours Calculator"
+        text="Just used BehaviorSchool's free RBT supervision hours calculator. Tracks your progress toward BACB eligibility and checks your monthly supervision requirements."
+        url="https://behaviorschool.com/rbt-hours"
+        hashtags={["RBT", "BCBA", "ABA"]}
+      />
 
       {/* Bottom CTA */}
       <div className="bg-[#1a4731] text-white rounded-xl p-6">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AlertTriangle, CheckCircle, Printer, ArrowRight, Plus, Trash2 } from "lucide-react";
+import { ShareBar } from "@/components/ui/ShareBar";
 
 type Observation = { a: string; b: string; c: string };
 
@@ -463,6 +464,16 @@ export function ABCWizard() {
             <ArrowRight size={14} />
           </a>
         </div>
+      </div>
+
+      {/* Share */}
+      <div className="print:hidden">
+        <ShareBar
+          title="My ABC Function Analysis"
+          text={`I just analyzed ${result.function || 'behavior'}-motivated behavior using BehaviorSchool's free ABC Function Finder. Great tool for school BCBAs.`}
+          url="https://behaviorschool.com/abc-function-finder"
+          hashtags={["BCBA", "SchoolBCBA", "BehaviorAnalysis"]}
+        />
       </div>
 
       {/* Action buttons */}

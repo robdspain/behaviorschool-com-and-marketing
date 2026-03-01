@@ -5,6 +5,20 @@ export const metadata: Metadata = {
   title: "RBT Supervision Hours Calculator | Free Tool | BehaviorSchool",
   description:
     "Calculate your remaining RBT supervision hours, projected BCBA exam eligibility date, and monthly supervision requirements. Free for RBTs and supervisors.",
+  openGraph: {
+    title: "RBT Supervision Hours Calculator | Free Tool",
+    description:
+      "Calculate your remaining RBT supervision hours, projected BCBA exam eligibility date, and monthly supervision requirements. Free for RBTs and supervisors.",
+    url: "https://behaviorschool.com/rbt-hours",
+    siteName: "BehaviorSchool",
+    images: [{ url: "https://behaviorschool.com/og-default.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RBT Supervision Hours Calculator | Free Tool",
+    description:
+      "Calculate your remaining RBT supervision hours, projected BCBA exam eligibility date, and monthly supervision requirements. Free for RBTs and supervisors.",
+  },
 };
 
 export default function RBTHoursPage() {
