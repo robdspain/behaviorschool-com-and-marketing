@@ -60,7 +60,7 @@ export function AceHeader({ providerStatus }: AceHeaderProps) {
   const { title, breadcrumbs } = usePageMeta();
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-white px-4 sm:px-6">
+    <header className="z-40 flex h-16 items-center gap-4 border-b bg-white px-4 sm:px-6">
       {/* Mobile menu toggle */}
       <AceMobileSidebar providerStatus={providerStatus} />
 
