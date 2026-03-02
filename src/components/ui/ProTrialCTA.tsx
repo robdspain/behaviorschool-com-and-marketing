@@ -10,7 +10,7 @@ interface ProTrialCTAProps {
 }
 
 export function ProTrialCTA({ source = "tool-page", variant = "banner", className = "" }: ProTrialCTAProps) {
-  const baseUrl = `https://plan.behaviorschool.com/register?source=${encodeURIComponent(source)}`;
+  const baseUrl = `https://plan.behaviorschool.com/signup?source=${encodeURIComponent(source)}`;
 
   if (variant === "inline") {
     return (
