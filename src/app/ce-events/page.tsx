@@ -4,7 +4,7 @@ import CEEventsClient from './CEEventsClient';
 
 export const metadata: Metadata = {
   title: 'Continuing Education Events | Behavior School',
-  description: 'Browse and register for BACB-approved continuing education events for BCBAs, BCaBAs, and RBTs. Earn CEUs and PDUs to maintain your certification.',
+  description: 'Browse and register for BACB-approved continuing education events. BCBAs & BCaBAs earn CEUs (Continuing Education Units) · RBTs earn PDUs (Professional Development Units).',
   openGraph: {
     title: 'CE Events | Behavior School',
     description: 'BACB-approved continuing education for behavior analysts',

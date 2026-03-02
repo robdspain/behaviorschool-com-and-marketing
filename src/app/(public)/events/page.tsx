@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'Continuing Education Events | Behavior School',
-  description: 'Browse and register for BACB-approved continuing education events for BCBAs, BCaBAs, and RBTs. Earn CEUs with live and on-demand courses.',
+  description: 'Browse and register for BACB-approved continuing education events. BCBAs & BCaBAs earn CEUs · RBTs earn PDUs. Live and on-demand courses.',
   openGraph: {
     title: 'CE Events for Behavior Analysts | Behavior School',
     description: 'BACB-approved continuing education courses. Live and on-demand options available.',
@@ -81,7 +81,7 @@ export default async function EventsPage() {
             </h1>
             <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
               BACB-approved CE courses for BCBAs, BCaBAs, and RBTs. 
-              Earn your CEUs with expert-led live and on-demand training.
+              CEUs for BCBAs &amp; BCaBAs · PDUs for RBTs — expert-led live and on-demand training.
             </p>
           </div>
 

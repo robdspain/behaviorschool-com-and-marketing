@@ -118,7 +118,7 @@ export function ComparisonPageLayout({
             {competitorDescription}
           </p>
           <p className="text-slate-600 text-lg leading-relaxed">
-            <strong>BehaviorSchool</strong> is an all-in-one platform built specifically for school-based BCBAs and behavior analysts in education. It combines AI-powered exam prep, IEP goal writing tools, behavior plan generators, and professional development — all designed by a practicing school BCBA with 20+ years of experience.
+            <strong>BehaviorSchool</strong> is an all-in-one platform built specifically for school-based BCBAs and behavior analysts in education. It combines AI-powered exam prep, IEP goal writing tools, behavior plan generators, and professional development — all designed by a practicing school BCBA with 25+ years of experience.
           </p>
         </div>
       </section>

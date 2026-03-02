@@ -20,28 +20,16 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/register"
+              href="https://plan.behaviorschool.com/signup"
               className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] bg-white rounded-md hover:bg-green-50 transition-colors"
             >
-              Start Free
+              Start Free Trial
             </a>
             <a
               href="https://study.behaviorschool.com"
               className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white border border-white/50 rounded-md hover:bg-white/10 transition-colors"
             >
               Prep for the Exam
-            </a>
-            <a
-              href="https://learning.behaviorschool.com"
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white border border-white/50 rounded-md hover:bg-white/10 transition-colors"
-            >
-              Earn CEUs
-            </a>
-            <a
-              href="/transformation-program"
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white border border-white/50 rounded-md hover:bg-white/10 transition-colors"
-            >
-              Apply for the Program
             </a>
           </div>
         </div>
@@ -212,7 +200,7 @@ export default function Home() {
             From a BCBA in the Field, For You
           </p>
           <blockquote className="text-gray-600 leading-relaxed text-lg italic">
-            Behavior School and its suite of tools were created by Rob Spain, a Board Certified Behavior Analyst (BCBA) with over a decade of experience in public schools. He faced the daily struggle of paperwork, outdated tools, and a lack of practical resources, so he built what he needed: a modern, AI-powered toolkit for today&apos;s behavior analyst. Learn more about Rob&apos;s work at{" "}
+            Behavior School and its suite of tools were created by Rob Spain, a Board Certified Behavior Analyst (BCBA) with over 25+ years of experience in public schools. He faced the daily struggle of paperwork, outdated tools, and a lack of practical resources, so he built what he needed: a modern, AI-powered toolkit for today&apos;s behavior analyst. Learn more about Rob&apos;s work at{" "}
             <a
               href="https://robspain.com"
               target="_blank"

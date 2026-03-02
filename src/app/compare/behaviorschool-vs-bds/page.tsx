@@ -80,7 +80,7 @@ export default function BehaviorSchoolVsBDS() {
           'Free tier with practice questions included',
           'IEP goal writer + behavior plan tools included',
           'Modern, mobile-friendly platform',
-          'Created by a practicing school BCBA with 20+ years experience',
+          'Created by a practicing school BCBA with 25+ years of experience',
         ]}
         features={[
           {

@@ -251,7 +251,7 @@ export function ProductsClient() {
                     href="/about"
                     className="inline-flex items-center text-slate-600 hover:text-slate-700 font-medium text-sm"
                   >
-                    Developed by Rob Spain, BCBA with 20+ years experience
+                    Developed by Rob Spain, BCBA with 25+ years of experience
                     <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>
                 </div>

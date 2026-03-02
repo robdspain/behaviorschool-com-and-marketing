@@ -158,7 +158,7 @@ export default function RootLayout({
       "@type": "Person",
       name: "Rob Spain",
       jobTitle: ["BCBA", "IBA", "Educational Consultant", "Behavior Analyst"],
-      description: "Board Certified Behavior Analyst with over 20 years of experience in school-based applied behavior analysis, special education, and professional development training.",
+      description: "Board Certified Behavior Analyst with over 25 years of experience in school-based applied behavior analysis, special education, and professional development training.",
       url: "https://robspain.com",
       hasCredential: [
         {
@@ -484,9 +484,9 @@ export default function RootLayout({
 
         {/* E-A-T Enhancement Meta Tags */}
         <meta name="expertise" content="Applied Behavior Analysis, School-Based Behavior Support, BCBA Certification" />
-        <meta name="authority" content="20+ years experience, BACB-aligned training, professional development leader" />
+        <meta name="authority" content="25+ years of experience, BACB-aligned training, professional development leader" />
         <meta name="trustworthiness" content="Evidence-based practices, professional credentials, transparent methodology" />
-        <meta name="author-credentials" content="BCBA, IBA, 20+ years experience" />
+        <meta name="author-credentials" content="BCBA, IBA, 25+ years of experience" />
         <meta name="content-accuracy" content="Peer-reviewed, evidence-based, professionally verified" />
         <meta name="professional-standards" content="BACB-aligned, ethical guidelines maintained" />
 

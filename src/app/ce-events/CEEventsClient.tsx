@@ -70,7 +70,7 @@ export default function CEEventsClient({ initialEvents }: { initialEvents: Event
               Continuing Education Events
             </h1>
             <p className="text-xl text-emerald-100 max-w-2xl mx-auto mb-6">
-              BACB-approved continuing education for BCBAs, BCaBAs, and RBTs. 
+              BACB-approved continuing education — CEUs for BCBAs &amp; BCaBAs · PDUs for RBTs.
               Maintain your certification with quality professional development.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">

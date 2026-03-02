@@ -362,7 +362,7 @@ export function BCBAStudyToolsClient() {
 
           <div className="mt-12 text-center">
             <p className="text-slate-300 italic">
-              &ldquo;Resources created by Rob Spain, BCBA, IBA &mdash; combining 20+ years of educational experience with board certification expertise&rdquo;
+              &ldquo;Resources created by Rob Spain, BCBA, IBA &mdash; combining 25+ years of educational experience with board certification expertise&rdquo;
             </p>
           </div>
         </div>
