@@ -167,7 +167,7 @@ export default function DemoPage() {
                 ))}
               </div>
             </div>
-            <Link href="https://plan.behaviorschool.com/register" className="text-emerald-700 hover:text-emerald-800 font-medium text-sm">
+            <Link href="https://plan.behaviorschool.com/signup" className="text-emerald-700 hover:text-emerald-800 font-medium text-sm">
               Skip to Trial →
             </Link>
           </div>
@@ -297,7 +297,7 @@ export default function DemoPage() {
               <ArrowRight className="w-4 h-4" />
             </Button>
           ) : (
-            <Link href="https://plan.behaviorschool.com/register">
+            <Link href="https://plan.behaviorschool.com/signup">
               <ShimmerButton
                 className="h-12 px-8 text-lg font-bold rounded-xl"
                 background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
