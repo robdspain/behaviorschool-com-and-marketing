@@ -23,7 +23,7 @@ export default function Home() {
               href="/register"
               className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] bg-white rounded-md hover:bg-green-50 transition-colors"
             >
-              Get Started
+              Start Free
             </a>
             <a
               href="https://study.behaviorschool.com"
