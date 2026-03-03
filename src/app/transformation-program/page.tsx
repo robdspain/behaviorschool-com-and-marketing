@@ -267,7 +267,7 @@ export default function TransformationProgramPage() {
       </section>
 
       {/* Curriculum Section */}
-      <section id="curriculum" className="py-24 bg-slate-50 relative overflow-hidden scroll-mt-24">
+      <section id="curriculum" className="py-16 bg-slate-50 relative overflow-hidden scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center mb-24">
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 mb-6">Class Schedule & Agenda</h2>
@@ -359,7 +359,7 @@ export default function TransformationProgramPage() {
       </section>
 
       {/* Simplified Learning Objectives Section */}
-      <section id="outcomes" className="py-24 bg-slate-900 text-white overflow-hidden relative scroll-mt-24">
+      <section id="outcomes" className="py-16 bg-slate-900 text-white overflow-hidden relative scroll-mt-24">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -mr-48 -mt-48" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -ml-48 -mb-48" />
         
@@ -402,7 +402,7 @@ export default function TransformationProgramPage() {
         </div>
       </section>
 
-      <section id="faq" className="py-24 bg-white scroll-mt-24">
+      <section id="faq" className="py-16 bg-white scroll-mt-24">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-black text-center mb-16 text-slate-900">Frequently Asked Questions</h2>
           <FAQAccordion items={[
@@ -415,7 +415,7 @@ export default function TransformationProgramPage() {
         </div>
       </section>
 
-      <section id="enroll" className="py-24 lg:py-32 bg-slate-50 relative overflow-hidden scroll-mt-24">
+      <section id="enroll" className="py-16 lg:py-20 bg-slate-50 relative overflow-hidden scroll-mt-24">
         <div className="max-w-4xl mx-auto px-4 relative z-10">
           {/* Section header */}
           <div className="text-center mb-16">

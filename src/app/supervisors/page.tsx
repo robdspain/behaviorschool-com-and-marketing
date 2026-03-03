@@ -102,7 +102,7 @@ export default function SupervisorsPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-blue-800" />
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/30 via-transparent to-blue-900/30" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -155,7 +155,7 @@ export default function SupervisorsPage() {
       </section>
 
       {/* Platform Section */}
-      <section id="platform" className="py-32 bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/30 relative scroll-mt-24">
+      <section id="platform" className="py-20 bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/30 relative scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -248,7 +248,7 @@ export default function SupervisorsPage() {
       </section>
 
       {/* Premium Features */}
-      <section id="features" className="py-32 bg-slate-900 relative overflow-hidden scroll-mt-24">
+      <section id="features" className="py-20 bg-slate-900 relative overflow-hidden scroll-mt-24">
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -332,7 +332,7 @@ export default function SupervisorsPage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-32 bg-gradient-to-br from-white to-slate-50 scroll-mt-24">
+      <section id="faq" className="py-20 bg-gradient-to-br from-white to-slate-50 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 text-center mb-16">
             Frequently Asked Questions

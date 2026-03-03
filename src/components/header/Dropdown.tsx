@@ -14,7 +14,7 @@ export function Dropdown({ links, className }: DropdownProps) {
     <motion.div
       role="menu"
       className={
-        "absolute left-0 mt-2 w-56 rounded-md border border-white/10 bg-white/95 backdrop-blur shadow-lg z-20 " +
+        "absolute left-0 mt-2 w-56 rounded-md border border-white/10 bg-white/95 backdrop-blur shadow-lg z-20 max-h-[70vh] overflow-y-auto " +
         (className ?? "")
       }
       initial={{ opacity: 0, scale: 0.95 }}
