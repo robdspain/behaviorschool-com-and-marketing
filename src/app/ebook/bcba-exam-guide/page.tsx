@@ -90,7 +90,7 @@ export default function BCBAExamGuidePage() {
             {/* Benefits */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               {[
-                { icon: Target, text: "5th Edition Task List Breakdown" },
+                { icon: Target, text: "6th Edition Task List Breakdown" },
                 { icon: Clock, text: "12-Week Study Schedule" },
                 { icon: BookOpen, text: "Test-Taking Strategies" },
                 { icon: Award, text: "Common Mistakes to Avoid" },
@@ -183,7 +183,7 @@ export default function BCBAExamGuidePage() {
             {[
               {
                 chapter: "Chapter 1",
-                title: "Understanding the 5th Edition Task List",
+                title: "Understanding the 6th Edition Task List",
                 description: "Complete breakdown of all sections with exam weights and high-yield focus areas."
               },
               {

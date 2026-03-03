@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Free Download: The 2026 BCBA Exam Survival Guide | Behavior School",
-  description: "Download your free guide to passing the BCBA exam. Includes 5th Edition Task List breakdown, 12-week study schedule, test-taking strategies, and more.",
+  description: "Download your free guide to passing the BCBA exam. Includes 6th Edition Task List breakdown, 12-week study schedule, test-taking strategies, and more.",
   keywords: [
     "BCBA exam guide",
     "BCBA study guide",

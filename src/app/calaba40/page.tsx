@@ -84,7 +84,7 @@ export default function CALABA40Page() {
               {
                 Icon: Target,
                 title: "Task List Aligned",
-                desc: "Questions mapped to the 5th Edition BCBA Task List.",
+                desc: "Questions mapped to the 6th Edition BCBA Task List.",
               },
               {
                 Icon: Zap,

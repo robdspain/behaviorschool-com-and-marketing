@@ -134,7 +134,7 @@ export default function FreeBCBAPracticeTestPage() {
               <ul className="text-left space-y-3 mb-8">
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-slate-700">5th Edition Task List breakdown with exam weights</span>
+                  <span className="text-slate-700">6th Edition Task List breakdown with exam weights</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />

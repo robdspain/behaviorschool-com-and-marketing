@@ -33,7 +33,7 @@ const faqSections = [
     items: [
       {
         q: "How many practice questions are available?",
-        a: "Over 10,000 AI-generated questions mapped to the 5th Edition BCBA Task List. Questions adapt to your performance level.",
+        a: "Over 10,000 AI-generated questions mapped to the 6th Edition BCBA Task List. Questions adapt to your performance level.",
       },
       {
         q: "What is the AI Tutor?",
@@ -45,7 +45,7 @@ const faqSections = [
       },
       {
         q: "Are the questions updated for the current exam?",
-        a: "Yes. All questions align with the current BACB 5th Edition Task List.",
+        a: "Yes. All questions align with the current BACB 6th Edition Task List.",
       },
     ],
   },

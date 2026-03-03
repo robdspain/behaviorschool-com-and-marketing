@@ -72,7 +72,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">BCBA Exam Prep</h3>
               <p className="text-gray-600 leading-relaxed flex-1">
-                Master the 5th Edition Task List with mock exams, detailed analytics, and our adaptive learning algorithm.
+                Master the 6th Edition Task List with mock exams, detailed analytics, and our adaptive learning algorithm.
               </p>
               <a
                 href="https://study.behaviorschool.com"
