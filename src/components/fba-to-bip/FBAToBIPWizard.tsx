@@ -215,8 +215,26 @@ export function FBAToBIPWizard() {
       <div className="px-6 py-6">
         {/* Mode Toggle */}
         <div className="mb-4 flex justify-center rounded-lg bg-slate-100 p-1">
-          <button onClick={() => setMode('form')} className={cn("w-full rounded-md py-2 text-sm font-semibold", mode === 'form' ? 'bg-white text-emerald-700 shadow' : 'text-slate-600')}>Fill Form Manually</button>
-          <button onClick={() => setMode('paste')} className={cn("w-full rounded-md py-2 text-sm font-semibold", mode === 'paste' ? 'bg-white text-emerald-700 shadow' : 'text-slate-600')}>Paste Existing FBA</button>
+          <button
+            type="button"
+            onClick={() => setMode('form')}
+            className={cn(
+              "w-full rounded-md py-2 text-sm font-semibold",
+              mode === 'form' ? 'bg-white text-emerald-700 shadow' : 'text-slate-600'
+            )}
+          >
+            Fill Form Manually
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode('paste')}
+            className={cn(
+              "w-full rounded-md py-2 text-sm font-semibold",
+              mode === 'paste' ? 'bg-white text-emerald-700 shadow' : 'text-slate-600'
+            )}
+          >
+            Paste Existing FBA
+          </button>
         </div>
 
         {mode === 'paste' ? (

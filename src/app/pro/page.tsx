@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowRight,
   Shield,
   CheckCircle,
   Star,
@@ -258,7 +257,6 @@ export default function ProPage() {
                 shimmerColor="#f0c040"
               >
                 <span className="text-emerald-900">Start Free Trial</span>
-                <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
               </ShimmerButton>
             </Link>
           </motion.div>
@@ -512,7 +510,6 @@ export default function ProPage() {
                 shimmerColor="#f0c040"
               >
                 <span className="text-emerald-900">Start Free Trial</span>
-                <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
               </ShimmerButton>
             </Link>
             <p className="mt-4 text-emerald-200 text-sm">14-day free trial · No credit card required · Cancel anytime</p>

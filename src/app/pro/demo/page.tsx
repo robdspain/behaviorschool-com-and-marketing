@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  ArrowRight, 
   ArrowLeft, 
   CheckCircle, 
   FileText, 
@@ -294,7 +293,6 @@ export default function DemoPage() {
               className="bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
             >
               Next Tool
-              <ArrowRight className="w-4 h-4" />
             </Button>
           ) : (
             <Link href="https://plan.behaviorschool.com/signup">
@@ -304,7 +302,6 @@ export default function DemoPage() {
                 shimmerColor="#f0c040"
               >
                 <span className="text-emerald-900">Start Your Free Trial</span>
-                <ArrowRight className="ml-2 h-5 w-5 text-emerald-900" />
               </ShimmerButton>
             </Link>
           )}

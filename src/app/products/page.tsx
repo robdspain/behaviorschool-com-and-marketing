@@ -1,144 +1,127 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
-
+const products = [
+  {
+    name: "Behavior School Plans",
+    domain: "plan.behaviorschool.com",
+    href: "https://plan.behaviorschool.com",
+    description: "Practical planning workflows for school-based behavior teams.",
+  },
+  {
+    name: "Behavior School Study",
+    domain: "study.behaviorschool.com",
+    href: "https://study.behaviorschool.com",
+    description: "Focused BCBA exam preparation and structured study practice.",
+  },
+  {
+    name: "Behavior School Supervision",
+    domain: "supervision.behaviorschool.com",
+    href: "https://supervision.behaviorschool.com",
+    description: "Supervision resources, tracking, and support for BCBA supervisors.",
+  },
+  {
+    name: "Behavior School Learning",
+    domain: "learning.behaviorschool.com",
+    href: "https://learning.behaviorschool.com",
+    description: "Training content and learning pathways for behavior professionals.",
+  },
+  {
+    name: "School RBT",
+    domain: "schoolrbt.com",
+    href: "https://schoolrbt.com",
+    description: "RBT-specific resources designed for school implementation.",
+  },
+  {
+    name: "Behavior Study Tools",
+    domain: "behaviorstudytools.com",
+    href: "https://behaviorstudytools.com",
+    description: "Study tools and prep materials to strengthen exam readiness.",
+  },
+];
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
-        <Breadcrumbs 
-          items={[
-            { label: "Products" }
-          ]}
-        />
+    <main className="min-h-screen bg-white text-slate-900">
+      <div className="mx-auto max-w-7xl px-4 pt-20 pb-6 sm:px-6 lg:px-8">
+        <Breadcrumbs items={[{ label: "Products" }]} />
       </div>
-      
-      <section id="products" className="pt-20 pb-16 lg:pb-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div>
-            {/* Behavior Study Tools */}
-            <div>
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-400 rounded-xl flex items-center justify-center">
-                    <Brain className="w-6 h-6 text-white" />
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Behavior Study Tools</h2>
-                </div>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Master the BCBA exam with our AI-powered study platform. Get practice questions, mock exams, and personalized study plans.
-                </p>
-                <div>
-                  <Link href="/behavior-study-tools" className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold group">
-                    Learn more <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-              <div className="relative">
-                <Image src="/Hero/Hero-group1.webp" alt="Study Tools" width={600} height={400} className="w-full h-auto rounded-2xl shadow-2xl" />
-              </div>
-            </div>
 
-            {/* Supervision Tools */}
-            <div>
-              <div className="relative">
-                <Image src="/Supervision/Supervision1.webp" alt="Supervision" width={800} height={533} className="w-full h-auto rounded-2xl shadow-2xl" />
-              </div>
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
-                    <Users className="w-6 h-6 text-white" />
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Supervision Tools</h2>
-                </div>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Streamline your supervision practice with tools designed for BCBA supervisors.
-                </p>
-                <Link href="/supervisors" className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold">
-                  Learn more <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-
-            {/* IEP Goal Writer */}
-            <div>
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                    <Target className="w-6 h-6 text-white" />
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">IEP Goal Writer</h2>
-                </div>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Write measurable IEP goals that drive real student success.
-                </p>
-                <Link href="/iep-goals" className="inline-flex items-center text-purple-600 hover:text-purple-700 font-semibold">
-                  Learn more <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </div>
-              <div className="relative">
-                <Image src="/IEP-Goal/IEP-Goal-Writing.webp" alt="IEP Goal Writing" width={600} height={400} className="w-full h-auto rounded-2xl shadow-2xl" />
-              </div>
-            </div>
-
-            {/* ACT Matrix Guide - Centered Highlight */}
-            <div>
-              <div className="max-w-4xl mx-auto text-center space-y-8">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
-                    <BookOpen className="w-8 h-8 text-white" />
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">ACT Matrix Guide</h2>
-                </div>
-                <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                  Master values-based interventions with our comprehensive guide.
-                </p>
-                <div className="relative my-12 max-w-2xl mx-auto">
-                  <div className="bg-white border-2 border-slate-200 rounded-2xl p-8 shadow-xl">
-                    <div className="grid grid-cols-2 gap-8 text-center text-sm relative aspect-video">
-                      <div className="absolute inset-x-0 top-1/2 border-t-2 border-slate-100 z-10"></div>
-                      <div className="absolute inset-y-0 left-1/2 border-l-2 border-slate-100 z-10"></div>
-                      <div className="flex flex-col justify-end pb-4 pr-4"><span className="text-red-500 font-bold uppercase text-xs">Away Moves</span></div>
-                      <div className="flex flex-col justify-end pb-4 pl-4"><span className="text-emerald-600 font-bold uppercase text-xs">Toward Moves</span></div>
-                      <div className="flex flex-col justify-start pt-4 pr-4"><span className="text-red-500 font-bold uppercase text-xs">Internal Barriers</span></div>
-                      <div className="flex flex-col justify-start pt-4 pl-4"><span className="text-emerald-600 font-bold uppercase text-xs">Values</span></div>
-                    </div>
-                  </div>
-                </div>
-                <Link href="/act-matrix" className="inline-flex items-center px-8 py-4 bg-teal-600 text-white rounded-xl font-bold">
-                  Get the ACT Matrix Guide
-                </Link>
-              </div>
-            </div>
-
-            {/* Behavior Plan Writer */}
-            <div>
-              <div className="relative">
-                <Image src="/optimized/BIP-Writer/BIP-Writer-Team.webp" alt="BIP Writer" width={600} height={400} className="w-full h-auto rounded-2xl shadow-2xl" />
-              </div>
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
-                    <FileText className="w-6 h-6 text-white" />
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Behavior Plan Writer</h2>
-                </div>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  Develop comprehensive behavior intervention plans with AI assistance.
-                </p>
-                <Link href="/behavior-plans" className="inline-flex items-center text-orange-600 hover:text-orange-700 font-semibold">
-                  Learn more <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </div>
-            </div>
+      <section className="border-y border-emerald-100 bg-gradient-to-b from-emerald-50/70 to-amber-50/60">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+          <div className="max-w-3xl space-y-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-emerald-700">
+              Behavior School Product Suite
+            </p>
+            <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+              Simple, modern tools for behavior professionals in 2026
+            </h1>
+            <p className="text-lg leading-relaxed text-slate-700">
+              Explore our active product ecosystem across planning, study, supervision,
+              and learning for school-based and clinical teams.
+            </p>
+            <Link
+              href="#current-products"
+              className="inline-flex rounded-lg bg-emerald-700 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-800"
+            >
+              View current products
+            </Link>
           </div>
         </div>
       </section>
-    </div>
+
+      <section id="current-products" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mb-8 flex flex-col gap-3">
+          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Current Products</h2>
+          <p className="max-w-2xl text-base leading-relaxed text-slate-600">
+            These are the currently available Behavior School products and partner domains.
+          </p>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {products.map((product) => (
+            <article
+              key={product.domain}
+              className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+            >
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.1em] text-amber-700">
+                {product.domain}
+              </p>
+              <h3 className="text-lg font-semibold text-slate-900">{product.name}</h3>
+              <p className="mt-3 min-h-[3rem] text-sm leading-relaxed text-slate-600">
+                {product.description}
+              </p>
+              <a
+                href={product.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex rounded-md border border-emerald-700 px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-700 hover:text-white"
+              >
+                Visit site
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-t border-slate-200 bg-slate-50">
+        <div className="mx-auto flex max-w-7xl flex-col items-start gap-5 px-4 py-14 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold text-slate-900">Need help choosing the right product?</h2>
+            <p className="mt-2 text-base text-slate-600">
+              Contact the Behavior School team and we will point you to the best fit for your role.
+            </p>
+          </div>
+          <Link
+            href="/contact"
+            className="inline-flex rounded-lg bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 transition-colors hover:bg-amber-500"
+          >
+            Contact team
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }
