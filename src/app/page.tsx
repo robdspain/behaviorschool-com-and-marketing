@@ -10,27 +10,44 @@ export default function Home() {
     <main className="min-h-screen bg-white text-gray-900">
 
       {/* ─── HERO ─────────────────────────────────────────────────── */}
-      <section className="bg-[#1f4d3f] py-24 sm:py-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-6">
-            The Modern Toolkit for<br className="hidden sm:block" /> Behavior Analysts
-          </h1>
-          <p className="text-lg sm:text-xl text-green-100 max-w-2xl mx-auto mb-10 leading-relaxed">
-            AI-powered tools, exam prep, and continuing education for BCBAs, RBTs, and school-based behavior professionals.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://plan.behaviorschool.com/signup"
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] bg-white rounded-md hover:bg-green-50 transition-colors"
-            >
-              Start Free Trial
-            </a>
-            <a
-              href="https://study.behaviorschool.com"
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white border border-white/50 rounded-md hover:bg-white/10 transition-colors"
-            >
-              Prep for the Exam
-            </a>
+      <section className="bg-[#1f4d3f] py-20 sm:py-28">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
+            <div className="text-left">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight mb-6">
+                The Modern Toolkit for<br className="hidden sm:block" /> Behavior Analysts
+              </h1>
+              <p className="text-lg sm:text-xl text-green-100 max-w-2xl mb-10 leading-relaxed">
+                AI-powered tools, exam prep, and continuing education for BCBAs, RBTs, and school-based behavior professionals.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="https://plan.behaviorschool.com/signup"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] bg-white rounded-md hover:bg-green-50 transition-colors"
+                >
+                  Start Free Trial
+                </a>
+                <a
+                  href="https://study.behaviorschool.com"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white border border-white/50 rounded-md hover:bg-white/10 transition-colors"
+                >
+                  Prep for the Exam
+                </a>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="absolute -inset-6 rounded-[32px] bg-white/10 blur-2xl" />
+              <div className="relative overflow-hidden rounded-[28px] border border-white/15 bg-white/5 shadow-2xl">
+                <Image
+                  src="/optimized/Hero/Hero-group1-optimized.webp"
+                  alt="School-based behavior team collaborating"
+                  width={980}
+                  height={980}
+                  className="h-full w-full object-cover"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
