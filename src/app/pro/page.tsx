@@ -75,14 +75,14 @@ const FEATURES = [
   },
   {
     icon: Brain,
-    title: "ACT Module",
+    title: "ACT-Informed FBA → BIP",
     description:
-      "Acceptance & Commitment Training tools designed specifically for school-based behavioral support. Build psychological flexibility.",
+      "Integrate ACT principles into functional assessments and behavior intervention planning for a more complete student support plan.",
     bullets: [
-      "ACT Matrix worksheets",
-      "Values identification exercises",
-      "Defusion & mindfulness activities",
-      "Progress tracking tools",
+      "ACT-informed hypothesis prompts",
+      "Values-aligned intervention planning",
+      "Acceptance-based replacement behaviors",
+      "Export-ready ACT rationale section",
     ],
     className: "col-span-3 lg:col-span-2",
     background: (
@@ -108,15 +108,15 @@ const PRICING = [
     highlight: false,
   },
   {
-    name: "Individual",
-    price: 29,
+    name: "BCBA Starter",
+    price: 19,
     period: "/mo",
     description: "For BCBAs & school psychologists",
     features: [
       "Unlimited FBA-to-BIP",
       "Unlimited IEP Goals",
       "Full Goal Bank (1,000+ goals)",
-      "ACT Module",
+      "ACT-informed FBA → BIP",
       "PDF & Word export",
       "Email support",
     ],
@@ -130,7 +130,7 @@ const PRICING = [
     period: "/seat/mo",
     description: "For school & district teams",
     features: [
-      "Everything in Individual",
+      "Everything in BCBA Starter",
       "5+ seats",
       "Team collaboration",
       "Admin dashboard & usage reports",
@@ -147,7 +147,7 @@ const PRICING = [
 const FAQ = [
   {
     q: "What tools do school BCBAs need?",
-    a: "School BCBAs need tools for behavior assessment (FBAs), intervention planning (BIPs), IEP goal writing, data collection and analysis, progress monitoring, and team collaboration. BehaviorSchool Pro provides AI-powered tools for FBA-to-BIP generation, IEP goal creation, a searchable goal bank with 1,000+ expert-written goals, and ACT-based intervention resources. These tools save hours on documentation while maintaining clinical quality and legal compliance.",
+    a: "School BCBAs need tools for behavior assessment (FBAs), intervention planning (BIPs), IEP goal writing, data collection and analysis, progress monitoring, and team collaboration. BehaviorSchool Pro provides AI-powered tools for FBA-to-BIP generation, IEP goal creation, a searchable goal bank with 1,000+ expert-written goals, and ACT-informed FBA-to-BIP workflows. These tools save hours on documentation while maintaining clinical quality and legal compliance.",
   },
   {
     q: "How can AI help with FBAs and BIPs?",
@@ -440,7 +440,7 @@ export default function ProPage() {
                       <NumberTicker value={plan.price} delay={0.5 + i * 0.1} />
                       <span className="text-base font-normal text-slate-500">{plan.period}</span>
                     </p>
-                    {plan.name === "Individual" && (
+                    {plan.name === "BCBA Starter" && (
                       <p className="text-xs text-slate-400 mb-4">Billed annually</p>
                     )}
                     {plan.name === "Free" && <div className="mb-4" />}

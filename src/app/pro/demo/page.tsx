@@ -72,19 +72,19 @@ const DEMO_STEPS = [
   },
   {
     id: 4,
-    title: "ACT Module",
+    title: "ACT-Informed FBA → BIP",
     icon: Brain,
     color: "purple",
-    description: "Acceptance & Commitment Training tools designed specifically for school-based behavioral support.",
+    description: "Embed ACT principles directly into the FBA and BIP workflow for stronger, values-aligned interventions.",
     demo: {
-      input: "Student Values Exploration:\n\"I want to be a good friend\"\n\"I want to do well in school\"",
-      output: "ACT Matrix Output:\n\n⬆️ Toward Moves (aligned with values):\n• Asking classmates to play\n• Raising hand in class\n• Completing homework\n\n⬇️ Away Moves (avoiding discomfort):\n• Staying alone at recess\n• Not participating in discussions\n• Avoiding challenging work\n\n💭 Difficult Thoughts/Feelings:\n• \"They won't like me\"\n• \"I might get it wrong\"\n\n🎯 Committed Action:\nPractice one toward move this week"
+      input: "Student Values Exploration:\n\"I want to be a good friend\"\n\"I want to do well in school\"\n\nBehavior Summary:\n• Avoids group work\n• Function: Escape from peer evaluation",
+      output: "ACT-Informed BIP Addendum:\n\nValues Anchor:\n• Belonging & participation in class\n\nToward Moves (replacement behaviors):\n• Ask to join group with a scripted prompt\n• Share one idea per activity\n\nACT-Informed Supports:\n• Normalize anxious thoughts (defusion scripts)\n• Practice short mindfulness reset before group work\n\nBIP Integration:\n• Reinforce toward moves tied to values statement\n• Data track: participation attempts + latency"
     },
     features: [
-      "ACT Matrix worksheets",
-      "Values identification exercises",
-      "Defusion & mindfulness activities",
-      "Progress tracking tools"
+      "ACT-informed hypothesis prompts",
+      "Values-aligned replacement behaviors",
+      "Defusion & mindfulness scripts",
+      "Export-ready ACT rationale section"
     ]
   }
 ];
@@ -146,7 +146,7 @@ export default function DemoPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 sticky top-0 z-50">
+      <div className="bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="text-slate-600 hover:text-slate-900 flex items-center gap-2">

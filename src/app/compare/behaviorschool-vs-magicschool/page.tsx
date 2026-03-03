@@ -116,7 +116,7 @@ export default function BehaviorSchoolVsMagicSchool() {
         ]}
         pricing={[
           { name: 'Free Tier', behaviorSchool: '✅ Free tools', competitor: '✅ Free (limited)' },
-          { name: 'Individual Pro', behaviorSchool: '$9.99/mo', competitor: '$8.33–$12.99/mo' },
+          { name: 'BCBA Starter', behaviorSchool: '$19/mo', competitor: '$8.33–$12.99/mo' },
           { name: 'IEP + Behavior Tools', behaviorSchool: 'Included in free & pro', competitor: 'Basic only (1 of 80+ tools)' },
           { name: 'BCBA Exam Prep', behaviorSchool: '$149/6mo or $199/yr', competitor: 'Not available' },
           { name: 'All-Access Bundle', behaviorSchool: '$249/yr', competitor: 'N/A' },
