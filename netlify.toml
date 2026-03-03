@@ -1,6 +1,6 @@
 [build]
-  command = "rm -rf .next tsconfig.tsbuildinfo && pnpm install --no-frozen-lockfile && pnpm run build"
-  publish = ".next"
+  command = "rm -rf .next tsconfig.tsbuildinfo out && pnpm install --no-frozen-lockfile && pnpm run build"
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -13,9 +13,6 @@
   # Real values are set in Netlify site env vars for production runtime.
   NEXT_PUBLIC_SUPABASE_URL = "https://placeholder.supabase.co"
   NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder_anon_key"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
 
 # Auto-submit sitemap to search engines after successful publish
 [[plugins]]

@@ -146,7 +146,7 @@ export default function TransformationProgramPage() {
     <div className="min-h-screen bg-white relative pt-28">
       {/* CalABA / Early Bird Banner */}
       <div className="bg-[#1f4d3f] text-white text-center py-3 px-4 text-sm font-semibold">
-        Attending CalABA March 7? Early bird pricing (<span className="text-[#e4b63d] font-black">$2,499</span>) is available to all CalABA attendees through March 21.
+        Attending CalABA March 7? Early bird pricing (<span className="text-[#e4b63d] font-black">$2,499</span>) is available to all CalABA attendees through March 9.
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white border-t-2 border-slate-100 shadow-2xl md:hidden">
@@ -200,7 +200,7 @@ export default function TransformationProgramPage() {
                     <div className="flex items-center gap-3">
                       <div>
                         <p className="text-[#e4b63d] font-black text-xl">$2,499 <span className="text-sm font-semibold text-emerald-300 line-through">$2,997</span></p>
-                        <p className="text-emerald-200 text-xs">Early bird — save $498. Ends March 21.</p>
+                        <p className="text-emerald-200 text-xs">Early bird — save $498. Ends March 9.</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 text-white text-sm">
@@ -351,8 +351,8 @@ export default function TransformationProgramPage() {
             </div>
 
             <div className="mt-12 rounded-2xl border border-emerald-200 bg-emerald-50 px-6 py-5 text-emerald-900">
-              <p className="text-sm font-semibold uppercase tracking-widest text-emerald-700">Bonus Resources Included</p>
-              <p className="mt-2 text-sm">ACT toolkit + Sustainability roadmap (self-paced).</p>
+              <p className="text-sm font-semibold uppercase tracking-widest text-emerald-700">Included Program Resources</p>
+              <p className="mt-2 text-sm">ACT Toolkit + Sustainability roadmap (self-paced).</p>
             </div>
           </div>
         </div>
@@ -407,7 +407,7 @@ export default function TransformationProgramPage() {
           <h2 className="text-3xl md:text-4xl font-black text-center mb-16 text-slate-900">Frequently Asked Questions</h2>
           <FAQAccordion items={[
             { question: "When does the next cohort start?", answer: "March 26, 2026. Sessions run Thursdays 6\u20138 PM PT, ending May 7. Easter week (Apr 2) is off. Maximum 20 participants." },
-            { question: "What does it cost?", answer: "Early bird pricing is $2,499, available through March 21. After that, enrollment is $2,997 \u2014 if spots remain. Maximum 20 seats total." },
+            { question: "What does it cost?", answer: "Early bird pricing is $2,499, available through March 9. After that, enrollment is $2,997 \u2014 if spots remain. Maximum 20 seats total." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. Many districts reimburse directly or can pay via PO. Email rob@behaviorschool.com to request an invoice for your business office." },
             { question: "What if I miss a live call?", answer: "All sessions are recorded and made available in your student portal within 24 hours." },
             { question: "Can I pay with a Purchase Order (PO)?", answer: "Yes! We work with many school districts. Email support@behaviorschool.com to request an invoice." }
@@ -428,12 +428,12 @@ export default function TransformationProgramPage() {
             {/* Early bird */}
             <div className="relative rounded-3xl bg-[#1f4d3f] p-8 shadow-2xl border-2 border-[#e4b63d] text-white">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#e4b63d] text-[#1f4d3f] text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full whitespace-nowrap">
-                Early Bird — Ends March 21
+                Early Bird — Ends March 9
               </div>
               <div className="mt-4">
                 <p className="text-emerald-300 text-sm font-semibold uppercase tracking-widest mb-2">Early Bird Pricing</p>
                 <p className="text-5xl font-black text-white mb-1">$2,499</p>
-                <p className="text-emerald-300 text-sm mb-6">Save $498 &mdash; available through March 21</p>
+                <p className="text-emerald-300 text-sm mb-6">Save $498 &mdash; available through March 9</p>
                 <ul className="space-y-3 mb-8">
                   {[
                     "6 live Thursday sessions (Mar 26 – May 7)",
@@ -474,13 +474,13 @@ export default function TransformationProgramPage() {
             {/* Regular price info */}
             <div className="rounded-3xl bg-white p-8 shadow-xl border border-slate-200 flex flex-col justify-between">
               <div>
-                <p className="text-slate-500 text-sm font-semibold uppercase tracking-widest mb-2">After March 21</p>
+                <p className="text-slate-500 text-sm font-semibold uppercase tracking-widest mb-2">After March 9</p>
                 <p className="text-5xl font-black text-slate-400 mb-1">$2,997</p>
                 <p className="text-slate-500 text-sm mb-6">If spots are still available</p>
                 <div className="rounded-2xl bg-amber-50 border border-amber-200 p-4 mb-6">
                   <div className="flex items-start gap-3">
                     <Clock className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-amber-800 text-sm font-semibold">Early bird pricing ends March 21 — two weeks after CalABA. After that, enrollment is $2,997 if spots remain.</p>
+                    <p className="text-amber-800 text-sm font-semibold">Early bird pricing ends March 9 — two days after CalABA. After that, enrollment is $2,997 if spots remain.</p>
                   </div>
                 </div>
                 {/* District reimbursement */}
@@ -502,7 +502,7 @@ export default function TransformationProgramPage() {
           {/* CalABA tie-in */}
           <div className="rounded-2xl bg-white border border-slate-200 px-8 py-6 text-center shadow-sm">
             <p className="text-slate-700 text-sm font-semibold">
-              Attending CalABA March 7? Early bird pricing is available to all CalABA attendees through March 21.{" "}
+              Attending CalABA March 7? Early bird pricing is available to all CalABA attendees through March 9.{" "}
               <a href="mailto:rob@behaviorschool.com?subject=CalABA%20Early%20Bird%20%E2%80%94%20Transformation%20Program" className="text-emerald-700 font-bold hover:underline">Reach out after the conference &rarr;</a>
             </p>
           </div>

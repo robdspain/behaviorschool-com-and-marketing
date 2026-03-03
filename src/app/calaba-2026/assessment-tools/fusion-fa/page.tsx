@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase-client";
 import { 
   ArrowLeft, ArrowRight, Play, Pause, RotateCcw, Plus, Trash2, 
   BarChart3, Target, Clock, AlertTriangle, CheckCircle, User,
-  Brain, Heart, Zap, Shield, FileText, Download, LogIn, Users,
+  Brain, Heart, Zap, Shield, FileText, Download, Users,
   ClipboardList, Sparkles, Loader2
 } from "lucide-react";
-import { FcGoogle } from "react-icons/fc";
 
 // Types
 interface QuestionnaireAnswers {
@@ -126,10 +124,7 @@ const CONTEXT_OPTIONS = [
 ];
 
 export default function FusionFAWorkflow() {
-  // Auth state
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading] = useState(false);
   
   // Workflow state
   const [step, setStep] = useState<Step>("cpfq");
@@ -183,44 +178,6 @@ export default function FusionFAWorkflow() {
   const [timerStates, setTimerStates] = useState<Record<string, { accumulated: number; isRunning: boolean }>>({});
   const [activeTimer, setActiveTimer] = useState<{ statementId: string; condition: "validating" | "challenging" } | null>(null);
   const [timerInterval, setTimerIntervalState] = useState<NodeJS.Timeout | null>(null);
-
-  // Check auth on mount
-  useEffect(() => {
-    const supabase = createClient();
-    
-    const checkAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setIsAuthenticated(!!session);
-        setUserEmail(session?.user?.email || null);
-      } catch (error) {
-        console.error("Auth check failed:", error);
-        setIsAuthenticated(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkAuth();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setIsAuthenticated(!!session);
-      setUserEmail(session?.user?.email || null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const handleLogin = async () => {
-    const supabase = createClient();
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/calaba-2026/assessment-tools/fusion-fa`,
-      },
-    });
-  };
 
   // Toggle selection helpers
   const toggleSelection = (field: keyof QuestionnaireAnswers, value: string) => {
@@ -1071,19 +1028,13 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
             <ArrowLeft className="w-4 h-4" /> Back to CalABA 2026
           </Link>
           
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-cyan-300">
-                Fusion Hierarchy Assessment
-              </h1>
-              <p className="text-slate-300 text-sm">
-                Complete ACT-informed functional assessment with latency-based analysis
-              </p>
-            </div>
-            <div className="text-right text-sm text-slate-400">
-              <div>Signed in as</div>
-              <div className="text-cyan-400">{userEmail}</div>
-            </div>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-cyan-300">
+              Fusion Hierarchy Assessment
+            </h1>
+            <p className="text-slate-300 text-sm">
+              Complete ACT-informed functional assessment with latency-based analysis
+            </p>
           </div>
         </div>
       </section>
