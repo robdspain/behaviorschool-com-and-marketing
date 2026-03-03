@@ -95,10 +95,10 @@ const FEATURES = [
     description:
       "Collect ABC data and structured observations to ground the FBA and BIP in real classroom data.",
     bullets: [
-      "ABC, interval, duration, frequency",
+      "ABC, frequency, duration",
+      "Time sampling: partial, whole, momentary",
       "Observation planning built-in",
       "Session summaries + totals",
-      "Ready for compliance review",
     ],
     className: "col-span-3 lg:col-span-1",
     background: (
