@@ -74,6 +74,38 @@ const FEATURES = [
     ),
   },
   {
+    icon: Shield,
+    title: "Interview Suite",
+    description:
+      "Guided teacher, parent, and student interviews to capture function, context, and student voice.",
+    bullets: [
+      "Teacher, parent, and student interview flows",
+      "Age-appropriate student prompts",
+      "Auto summary for reports",
+      "Built into the FBA pipeline",
+    ],
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-cyan-500/20 to-emerald-600/20 blur-xl" />
+    ),
+  },
+  {
+    icon: Zap,
+    title: "Observation Tools",
+    description:
+      "Collect ABC data and structured observations to ground the FBA and BIP in real classroom data.",
+    bullets: [
+      "ABC, interval, duration, frequency",
+      "Observation planning built-in",
+      "Session summaries + totals",
+      "Ready for compliance review",
+    ],
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-500/20 via-zinc-500/20 to-slate-700/20 blur-xl" />
+    ),
+  },
+  {
     icon: Brain,
     title: "ACT-Informed FBA → BIP",
     description:
@@ -311,7 +343,7 @@ export default function ProPage() {
                 Everything Your Team Needs
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Four powerful tools, one platform. Built by BCBAs for school behavior teams.
+                Six powerful tools, one platform. Built by BCBAs for school behavior teams.
               </p>
             </div>
           </FadeInSection>
