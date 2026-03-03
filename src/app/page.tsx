@@ -28,10 +28,10 @@ export default function Home() {
                   Start Free Trial
                 </a>
                 <a
-                  href="https://study.behaviorschool.com"
+                  href="/contact"
                   className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white border border-white/50 rounded-md hover:bg-white/10 transition-colors"
                 >
-                  Prep for the Exam
+                  Request District Quote
                 </a>
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-green-100/80">
