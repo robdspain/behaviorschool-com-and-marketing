@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
   BehaviorSchool<br>
   <a href="https://behaviorschool.com" style="color:#888;">behaviorschool.com</a>
 </p>
-<p style="font-size:12px; color:#aaa;">You're receiving this because you signed up at a CalABA 2026 session. <a href="#" style="color:#aaa;">Unsubscribe</a></p>
+<p style="font-size:12px; color:#aaa;">You're receiving this because you signed up at a CalABA 2026 session. <a href="mailto:support@behaviorschool.com?subject=Unsubscribe" style="color:#aaa;">Unsubscribe</a></p>
 
 </body>
 </html>

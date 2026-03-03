@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
 
 <hr style="border:none; border-top:1px solid #eee; margin:40px 0;">
 <p style="font-size:13px; color:#888;">Rob Spain, BCBA, IBA · BehaviorSchool · <a href="https://behaviorschool.com" style="color:#888;">behaviorschool.com</a></p>
-<p style="font-size:12px; color:#aaa;">You're receiving this because you used the ACT-FBA tool. <a href="#" style="color:#aaa;">Unsubscribe</a></p>
+<p style="font-size:12px; color:#aaa;">You're receiving this because you used the ACT-FBA tool. <a href="mailto:support@behaviorschool.com?subject=Unsubscribe" style="color:#aaa;">Unsubscribe</a></p>
 </body>
 </html>`,
       text: `${firstName ? `Hi ${firstName},` : "Hi,"}
