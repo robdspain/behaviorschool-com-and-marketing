@@ -500,24 +500,6 @@ export function ProductsClient() {
           </motion.div>
         </div>
       </section>
-      {/* Testimonials */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">What educators and BCBAs say</h2>
-          <div className="grid md:grid-cols-3 gap-4">
-            {[ 
-              { quote: 'The mock exams felt exactly like the real thing and the analytics showed me what to fix.', author: 'BCBA Candidate' },
-              { quote: 'The IEP goal writer saved our team hours each week and improved goal quality.', author: 'Special Education Coordinator' },
-              { quote: 'Clear, school-focused guidance that actually works in classrooms.', author: 'School-based BCBA' },
-            ].map((t, i) => (
-              <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-slate-800">“{t.quote}”</p>
-                <div className="mt-2 text-sm text-slate-600 font-semibold">— {t.author}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Structured Data: ItemList of products */}
       <script
