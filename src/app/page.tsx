@@ -34,6 +34,11 @@ export default function Home() {
                   Prep for the Exam
                 </a>
               </div>
+              <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-green-100/80">
+                <span className="rounded-full border border-white/20 px-3 py-1">FERPA‑aligned</span>
+                <span className="rounded-full border border-white/20 px-3 py-1">DPA‑ready</span>
+                <span className="rounded-full border border-white/20 px-3 py-1">No data retention</span>
+              </div>
             </div>
             <div className="relative">
               <div className="absolute -inset-6 rounded-[32px] bg-white/10 blur-2xl" />
