@@ -310,21 +310,6 @@ export function ACTFBABIPWizard() {
           <ProgressIndicator steps={steps} currentStep={currentStep} />
         </div>
 
-        {/* Load Sample Case Banner */}
-        <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 flex items-start gap-4">
-          <div className="flex-1">
-            <p className="text-sm font-semibold text-emerald-900">Try with a real case from the presentation</p>
-            <p className="text-xs text-emerald-700 mt-1">Pre-fills a 7th-grade escape-motivated student with ACT analysis — jump straight to the output.</p>
-          </div>
-          <button
-            type="button"
-            onClick={() => { setData(SAMPLE_STUDENT); setCurrentStep(10); }}
-            className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 transition"
-          >
-            Load Sample Case →
-          </button>
-        </div>
-
         <div className="rounded-2xl border border-slate-200 bg-white px-4 py-5 sm:px-6">
           <div className="flex items-center justify-between">
             <div>
