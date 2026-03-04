@@ -30,7 +30,7 @@ const faqItems = [
   {
     question: "What age groups does it support?",
     answer:
-      "The tool adapts language, metaphors, and strategies for five grade-level bands: Pre-K through Kindergarten, Grades 1-3, Grades 4-5, Grades 6-8, and Grades 9-12. ACT concepts like defusion, acceptance, and values are translated into developmentally appropriate language for each level.",
+      "The tool adapts language, metaphors, and strategies for four grade-level bands: Grades 1–3, Grades 4–5, Grades 6–8, and Grades 9–12. ACT concepts like defusion, acceptance, and values are translated into developmentally appropriate language for each level.",
   },
   {
     question: "What ACT metaphors and exercises are included?",
