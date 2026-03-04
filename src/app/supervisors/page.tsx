@@ -50,9 +50,9 @@ export default function SupervisorsPage() {
     <div className="min-h-screen bg-bs-background">
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section ref={heroRef} className="bg-[#1E3A34] pt-20">
+      <section ref={heroRef} className="bg-[#1E3A34] pt-14">
         {/* Top headline band */}
-        <div className="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+        <div className="max-w-5xl mx-auto px-6 pt-8 pb-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
