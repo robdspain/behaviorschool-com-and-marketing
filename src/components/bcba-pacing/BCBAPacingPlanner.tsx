@@ -59,7 +59,13 @@ export function BCBAPacingPlanner() {
       const res = await fetch("/api/lead-magnet", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), role: "bcba" }),
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          role: "bcba",
+          tags: ["lead-magnet", "pacing-planner"],
+          source: "website",
+        }),
       });
       const data = await res.json();
       if (!res.ok || data?.error) throw new Error(data?.error || "Failed");

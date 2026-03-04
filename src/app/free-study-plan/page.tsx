@@ -22,7 +22,13 @@ export default function FreeStudyPlanPage() {
       const res = await fetch("/api/lead-magnet", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), role }),
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          role,
+          tags: ["lead-magnet", "study-plan"],
+          source: "website",
+        }),
       });
 
       const data = await res.json();
