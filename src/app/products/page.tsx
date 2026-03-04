@@ -2,43 +2,44 @@
 
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { ClipboardList, BookOpen, Users, GraduationCap, BadgeCheck, Brain } from "lucide-react";
 
 const products = [
   {
     name: "Behavior School Plans",
-    domain: "plan.behaviorschool.com",
     href: "https://plan.behaviorschool.com",
     description: "Practical planning workflows for school-based behavior teams.",
+    icon: ClipboardList,
   },
   {
     name: "Behavior School Study",
-    domain: "study.behaviorschool.com",
     href: "https://study.behaviorschool.com",
     description: "Focused BCBA exam preparation and structured study practice.",
+    icon: BookOpen,
   },
   {
     name: "Behavior School Supervision",
-    domain: "supervision.behaviorschool.com",
     href: "https://supervision.behaviorschool.com",
     description: "Supervision resources, tracking, and support for BCBA supervisors.",
+    icon: Users,
   },
   {
     name: "Behavior School Learning",
-    domain: "learning.behaviorschool.com",
     href: "https://learning.behaviorschool.com",
     description: "Training content and learning pathways for behavior professionals.",
+    icon: GraduationCap,
   },
   {
     name: "School RBT",
-    domain: "schoolrbt.com",
     href: "https://schoolrbt.com",
     description: "RBT-specific resources designed for school implementation.",
+    icon: BadgeCheck,
   },
   {
     name: "Behavior Study Tools",
-    domain: "behaviorstudytools.com",
     href: "https://behaviorstudytools.com",
     description: "Study tools and prep materials to strengthen exam readiness.",
+    icon: Brain,
   },
 ];
 
@@ -79,12 +80,12 @@ export default function ProductsPage() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <article
-              key={product.domain}
+              key={product.name}
               className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.1em] text-amber-700">
-                {product.domain}
-              </p>
+              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                <product.icon className="h-5 w-5" />
+              </div>
               <h3 className="text-lg font-semibold text-slate-900">{product.name}</h3>
               <p className="mt-3 min-h-[3rem] text-sm leading-relaxed text-slate-600">
                 {product.description}
