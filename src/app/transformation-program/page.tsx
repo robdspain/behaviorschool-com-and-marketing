@@ -143,7 +143,7 @@ export default function TransformationProgramPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white relative pt-28">
+    <div className="min-h-screen bg-white relative pt-16">
       {/* CalABA / Early Bird Banner */}
       <div className="bg-[#1f4d3f] text-white text-center py-3 px-4 text-sm font-semibold">
         Attending CalABA March 7? Early bird pricing (<span className="text-[#e4b63d] font-black">$2,499</span>) is available to all CalABA attendees through March 9.
