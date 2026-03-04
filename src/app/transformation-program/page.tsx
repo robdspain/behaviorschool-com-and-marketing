@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Users, Target, CheckCircle, Star, Award, Heart, Shield, Zap, Calendar, BookOpen, FileCheck, Lightbulb, Trophy, Clock, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -245,7 +246,23 @@ export default function TransformationProgramPage() {
                 </div>
               </motion.div>
             </div>
-            <div className="md:col-span-5 mt-16 md:mt-0">
+            <div className="md:col-span-5 mt-16 md:mt-0 space-y-6">
+              <div className="rounded-3xl bg-white p-8 shadow-xl border border-slate-100">
+                <div className="flex items-center gap-4">
+                  <div className="h-16 w-16 rounded-2xl overflow-hidden border border-slate-200">
+                    <Image src="/profile-Rob.webp" alt="Rob Spain" width={128} height={128} className="h-full w-full object-cover" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">Led by</p>
+                    <h3 className="text-lg font-bold text-slate-900">Rob Spain, BCBA</h3>
+                    <p className="text-sm text-slate-600">25+ years in school-based behavior support</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm text-slate-600 leading-relaxed">
+                  You&rsquo;ll work directly with Rob each week to build a practical, district-ready behavior systems playbook.
+                </p>
+              </div>
+
               <div className="rounded-3xl bg-white p-8 shadow-xl border border-slate-100 space-y-5">
                 <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">What&rsquo;s included</p>
                 {[
