@@ -75,10 +75,40 @@ const GRADE_LEVEL_OPTIONS: Array<{ value: GradeLevel; label: string }> = [
   { value: "9-12", label: "Grades 9–12" },
 ];
 
+const GRADE_OPTIONS = [
+  "1st",
+  "2nd",
+  "3rd",
+  "4th",
+  "5th",
+  "6th",
+  "7th",
+  "8th",
+  "9th",
+  "10th",
+  "11th",
+  "12th",
+] as const;
+
+const GRADE_TO_BAND: Record<(typeof GRADE_OPTIONS)[number], GradeLevel> = {
+  "1st": "1-3",
+  "2nd": "1-3",
+  "3rd": "1-3",
+  "4th": "4-5",
+  "5th": "4-5",
+  "6th": "6-8",
+  "7th": "6-8",
+  "8th": "6-8",
+  "9th": "9-12",
+  "10th": "9-12",
+  "11th": "9-12",
+  "12th": "9-12",
+};
+
 const steps = [
   "Student Info",
   "Behaviors",
-  "Antecedents",
+  "Establishing Operations",
   "Consequences",
   "Function",
   "Values",
@@ -95,7 +125,7 @@ const emptyReplacement = { behavior: "", valueConnection: "" };
 const SAMPLE_STUDENT: ACTFBAData = {
   studentName: "Marcus T.",
   studentAge: "13",
-  studentGrade: "7",
+  studentGrade: "7th",
   gradeLevel: "6-8",
   school: "Sample Middle School",
   dateOfFBA: new Date().toISOString().split("T")[0],
@@ -335,17 +365,30 @@ export function ACTFBABIPWizard() {
                   </div>
                   <div className="space-y-2">
                     <Label className="text-sm font-semibold">Grade</Label>
-                    <Input value={data.studentGrade} onChange={(e) => update("studentGrade", e.target.value)} placeholder="e.g., 4th" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-sm font-semibold">Grade Level Band *</Label>
-                    <div className="grid gap-2">
-                      {GRADE_LEVEL_OPTIONS.map((gl) => (
-                        <button key={gl.value} type="button" onClick={() => update("gradeLevel", gl.value)} className={cn("rounded-lg border px-3 py-2 text-sm text-left transition", data.gradeLevel === gl.value ? "border-emerald-600 bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600" : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200")}>
-                          {gl.label}
-                        </button>
+                    <select
+                      value={data.studentGrade}
+                      onChange={(e) => {
+                        const selectedGrade = e.target.value;
+                        if (!selectedGrade) {
+                          setData((prev) => ({ ...prev, studentGrade: "" }));
+                          return;
+                        }
+                        const grade = selectedGrade as (typeof GRADE_OPTIONS)[number];
+                        setData((prev) => ({
+                          ...prev,
+                          studentGrade: grade,
+                          gradeLevel: GRADE_TO_BAND[grade],
+                        }));
+                      }}
+                      className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    >
+                      <option value="">Select grade</option>
+                      {GRADE_OPTIONS.map((grade) => (
+                        <option key={grade} value={grade}>
+                          {grade}
+                        </option>
                       ))}
-                    </div>
+                    </select>
                   </div>
                   <div className="space-y-2">
                     <Label className="text-sm font-semibold">School</Label>
@@ -396,7 +439,7 @@ export function ACTFBABIPWizard() {
                         <Label className="text-sm font-semibold">Intensity</Label>
                         <div className="flex gap-2">
                           {(["low", "moderate", "high"] as const).map((level) => (
-                            <button key={level} type="button" onClick={() => updateBehavior(i, "intensity", level)} className={cn("flex-1 rounded-lg border px-2 py-2 text-xs font-semibold capitalize transition", b.intensity === level ? level === "high" ? "border-red-400 bg-red-50 text-red-700" : level === "moderate" ? "border-amber-400 bg-amber-50 text-amber-700" : "border-emerald-400 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-white text-slate-500 hover:border-slate-300")}>
+                            <button key={level} type="button" onClick={() => updateBehavior(i, "intensity", level)} className={cn("min-w-[3.5rem] flex-1 rounded-lg border px-2 py-2 text-center text-xs font-semibold capitalize transition", b.intensity === level ? level === "high" ? "border-red-400 bg-red-50 text-red-700" : level === "moderate" ? "border-amber-400 bg-amber-50 text-amber-700" : "border-emerald-400 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-white text-slate-500 hover:border-slate-300")}>
                               {level}
                             </button>
                           ))}
@@ -411,12 +454,16 @@ export function ACTFBABIPWizard() {
               </div>
             )}
 
-            {/* Step 2: Antecedents & Setting Events */}
+            {/* Step 2: Establishing Operations */}
             {currentStep === 2 && (
               <div className="space-y-5">
                 <p className="text-sm text-slate-600">What happens before the behavior? Select all that apply.</p>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold text-slate-900">Antecedents (Triggers)</p>
+                  <p className="text-sm font-semibold text-slate-900">Establishing Operations</p>
+                  <p className="text-xs text-slate-500">Immediate triggers (antecedents) and background conditions (setting events) that make behavior more likely.</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-slate-900">Immediate Triggers</p>
                   <div className="grid gap-2 sm:grid-cols-2">
                     {ANTECEDENT_OPTIONS.map((option) => (
                       <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.antecedents.includes(option) ? "border-emerald-600 bg-emerald-50 text-emerald-800" : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200")}>
@@ -426,13 +473,13 @@ export function ACTFBABIPWizard() {
                     ))}
                   </div>
                   <div className="space-y-2 pt-2">
-                    <Label className="text-sm font-semibold">Other Antecedents</Label>
+                    <Label className="text-sm font-semibold">Other Immediate Triggers</Label>
                     <Input value={data.customAntecedents} onChange={(e) => update("customAntecedents", e.target.value)} placeholder="Describe other triggers..." />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold text-slate-900">Setting Events</p>
-                  <p className="text-xs text-slate-500">Background conditions that make the behavior more likely.</p>
+                  <p className="text-sm font-semibold text-slate-900">Background Conditions</p>
+                  <p className="text-xs text-slate-500">Setting events that increase the likelihood of behavior.</p>
                   <div className="grid gap-2 sm:grid-cols-2">
                     {SETTING_EVENT_OPTIONS.map((option) => (
                       <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.settingEvents.includes(option) ? "border-amber-500 bg-amber-50 text-amber-800" : "border-slate-200 bg-white text-slate-600 hover:border-amber-200")}>
@@ -442,7 +489,7 @@ export function ACTFBABIPWizard() {
                     ))}
                   </div>
                   <div className="space-y-2 pt-2">
-                    <Label className="text-sm font-semibold">Other Setting Events</Label>
+                    <Label className="text-sm font-semibold">Other Background Conditions</Label>
                     <Input value={data.customSettingEvents} onChange={(e) => update("customSettingEvents", e.target.value)} placeholder="Describe other setting events..." />
                   </div>
                 </div>
@@ -554,7 +601,7 @@ export function ACTFBABIPWizard() {
               </div>
             )}
 
-            {/* Step 7: ACT Functional Analysis + ACT Setting Events */}
+            {/* Step 7: ACT Functional Analysis + Establishing Operations */}
             {currentStep === 7 && (
               <div className="space-y-5">
                 <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
@@ -567,7 +614,7 @@ export function ACTFBABIPWizard() {
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold text-slate-900">ACT-Specific Setting Events</p>
+                  <p className="text-sm font-semibold text-slate-900">Establishing Operations</p>
                   <p className="text-xs text-slate-500">Psychological inflexibility patterns that set the stage for behavior.</p>
                   <div className="grid gap-2">
                     {ACT_SETTING_EVENT_OPTIONS.map((option) => (
@@ -578,7 +625,7 @@ export function ACTFBABIPWizard() {
                     ))}
                   </div>
                   <div className="space-y-2 pt-2">
-                    <Label className="text-sm font-semibold">Other ACT Setting Events</Label>
+                    <Label className="text-sm font-semibold">Other Establishing Operations</Label>
                     <Input value={data.customACTSettingEvents} onChange={(e) => update("customACTSettingEvents", e.target.value)} placeholder="Other inflexibility-related setting events..." />
                   </div>
                 </div>
