@@ -143,7 +143,7 @@ export default function ACTFBABIPPage() {
       <section className="grid lg:grid-cols-2 min-h-[90vh]">
         {/* Left column — brand green, white text */}
         <div
-          className="relative flex flex-col justify-center px-8 py-16 sm:px-12 lg:px-16 xl:px-20 overflow-hidden"
+          className="relative flex flex-col justify-start px-8 pt-10 pb-16 sm:px-12 lg:px-16 xl:px-20 overflow-hidden"
           style={{ backgroundColor: "#1E3A34" }}
         >
           {/* Subtle diagonal mesh texture via CSS */}
@@ -163,7 +163,7 @@ export default function ACTFBABIPPage() {
 
           <div className="relative z-10 max-w-xl">
             {/* Credential badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 mb-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 mb-5">
               <span
                 className="w-2 h-2 rounded-full flex-shrink-0"
                 style={{ backgroundColor: "#e4b63d" }}
