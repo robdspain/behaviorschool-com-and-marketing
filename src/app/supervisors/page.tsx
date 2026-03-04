@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ScrollNav } from "@/components/ui/scroll-nav";
 import {
@@ -50,52 +49,35 @@ export default function SupervisorsPage() {
   return (
     <div className="min-h-screen bg-bs-background">
 
-      {/* Breadcrumbs */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
-        <Breadcrumbs
-          items={[
-            { label: "Tools", href: "/products" },
-            { label: "BCBA Supervision" }
-          ]}
-        />
-      </div>
-
-      <ScrollNav 
-        items={[
-          { id: "platform", label: "Progress Monitoring" },
-          { id: "features", label: "Premium Features" },
-          { id: "faq", label: "FAQ" }
-        ]}
-      />
-
-      {/* Hero Section */}
-      <section ref={heroRef} className="bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-6 py-16">
-          {/* Header */}
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section ref={heroRef} className="bg-[#1E3A34] pt-20">
+        {/* Top headline band */}
+        <div className="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-12"
+            transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <p className="text-xs font-semibold tracking-widest uppercase text-emerald-700 mb-4">BCBA Supervision</p>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
-              Supervision Hour Tracker
+            <p className="text-xs font-semibold tracking-widest uppercase text-emerald-300 mb-4">BCBA Supervision</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight">
+              Stop Tracking Hours<br className="hidden sm:block" /> in Spreadsheets.
             </h1>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              BACB-compliant supervision tracking — no ads, no clutter. Built for BCBAs and RBTs in school and clinical settings.
+            <p className="text-lg text-white/70 max-w-2xl mx-auto">
+              BACB-compliant supervision tracking built for school-based BCBAs — hours, competencies, verification forms, and supervisee progress in one place.
             </p>
           </motion.div>
+        </div>
 
-          {/* Two-column cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
-          >
+        {/* Role cards — flush to hero bottom */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+          className="max-w-5xl mx-auto px-6 pb-0"
+        >
+          <div className="grid sm:grid-cols-2 gap-5">
             {/* Supervisor card */}
-            <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-8 flex flex-col gap-5">
+            <div className="rounded-t-2xl bg-white p-8 flex flex-col gap-5 shadow-xl">
               <div>
                 <p className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-2">I am a Supervisor</p>
                 <h2 className="text-2xl font-bold text-slate-900 mb-2">Track your supervisees</h2>
@@ -104,44 +86,56 @@ export default function SupervisorsPage() {
                 </p>
               </div>
               <ul className="space-y-2 text-sm text-slate-700">
-                <li className="flex items-center gap-2"><span className="text-emerald-600 font-bold">✓</span> BACB monthly &amp; final verification forms</li>
-                <li className="flex items-center gap-2"><span className="text-emerald-600 font-bold">✓</span> Real-time supervisee hour totals</li>
-                <li className="flex items-center gap-2"><span className="text-emerald-600 font-bold">✓</span> Competency tracking &amp; notes</li>
-                <li className="flex items-center gap-2"><span className="text-emerald-600 font-bold">✓</span> Digital signature workflow</li>
+                {["BACB monthly & final verification forms","Real-time supervisee hour totals","Competency tracking & notes","Digital signature workflow"].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    {item}
+                  </li>
+                ))}
               </ul>
               <a
-                href="https://supervision.behaviorschool.com"
-                className="mt-auto inline-flex items-center justify-center rounded-xl bg-emerald-700 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-800 transition-colors"
+                href="https://supervision.behaviorschool.com/register"
+                className="mt-auto inline-flex items-center justify-center rounded-xl bg-[#1E3A34] px-6 py-3 text-sm font-bold text-white hover:bg-emerald-800 transition-colors"
               >
                 Create supervisor account
               </a>
             </div>
 
             {/* Supervisee card */}
-            <div className="rounded-2xl border-2 border-slate-200 bg-slate-50 p-8 flex flex-col gap-5">
+            <div className="rounded-t-2xl bg-white/10 border border-white/20 p-8 flex flex-col gap-5">
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">I am a Supervisee</p>
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">Log &amp; verify your hours</h2>
-                <p className="text-sm text-slate-600">
+                <p className="text-xs font-bold uppercase tracking-widest text-emerald-300 mb-2">I am a Supervisee</p>
+                <h2 className="text-2xl font-bold text-white mb-2">Log &amp; verify your hours</h2>
+                <p className="text-sm text-white/70">
                   Track your BCBA or RBT fieldwork hours, submit for supervisor review, and prepare for your exam — all in one tool.
                 </p>
               </div>
-              <ul className="space-y-2 text-sm text-slate-700">
-                <li className="flex items-center gap-2"><span className="text-slate-500 font-bold">✓</span> Log restricted &amp; unrestricted hours</li>
-                <li className="flex items-center gap-2"><span className="text-slate-500 font-bold">✓</span> BCBA &amp; RBT pathways supported</li>
-                <li className="flex items-center gap-2"><span className="text-slate-500 font-bold">✓</span> Downloadable verification forms</li>
-                <li className="flex items-center gap-2"><span className="text-slate-500 font-bold">✓</span> Pair with exam prep at <a href="https://study.behaviorschool.com" className="underline text-emerald-700">study.behaviorschool.com</a></li>
+              <ul className="space-y-2 text-sm text-white/85">
+                {["Log restricted & unrestricted hours","BCBA & RBT pathways supported","Downloadable verification forms","Pair with exam prep at study.behaviorschool.com"].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-emerald-300 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    {item}
+                  </li>
+                ))}
               </ul>
               <a
-                href="https://supervision.behaviorschool.com"
-                className="mt-auto inline-flex items-center justify-center rounded-xl bg-slate-800 px-6 py-3 text-sm font-bold text-white hover:bg-slate-900 transition-colors"
+                href="https://supervision.behaviorschool.com/register"
+                className="mt-auto inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#1E3A34] hover:bg-emerald-50 transition-colors"
               >
                 Start tracking my hours
               </a>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </section>
+
+      <ScrollNav 
+        items={[
+          { id: "platform", label: "Progress Monitoring" },
+          { id: "features", label: "Premium Features" },
+          { id: "faq", label: "FAQ" }
+        ]}
+      />
 
       {/* Platform Section */}
       <section id="platform" className="py-20 bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/30 relative scroll-mt-24">
