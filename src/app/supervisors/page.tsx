@@ -333,7 +333,7 @@ export default function SupervisorsPage() {
               },
               {
                 q: "What supervision features are available right now?",
-                a: "Currently, you can monitor supervisee progress through our study platform, including study analytics, practice exam scores, and competency development tracking."
+                a: "Supervisors can track and log RBT/BCBA fieldwork hours, monitor supervisee exam readiness scores, view study accuracy and weak areas pulled live from the study platform, generate BACB-compliant verification forms, and get AI-powered session prep suggestions. Sign in at supervision.behaviorschool.com to get started."
               },
               {
                 q: "Can I import existing hours or competency records?",
