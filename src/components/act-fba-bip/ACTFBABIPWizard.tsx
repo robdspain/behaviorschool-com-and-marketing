@@ -1,6 +1,25 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import {
+  Activity,
+  Ban,
+  Bell,
+  BookOpen,
+  Compass,
+  DoorOpen,
+  Gamepad2,
+  Gift,
+  HandHeart,
+  HeartHandshake,
+  Home,
+  Palette,
+  Scale,
+  Shield,
+  Sparkles,
+  UserRound,
+  Users,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,12 +38,34 @@ import {
 import type { GeneratedACTBIP } from "./actBipGenerator";
 import { ACTBIPOutput } from "./ACTBIPOutput";
 
-const FUNCTION_OPTIONS: Array<{ value: BehaviorFunction; label: string; emoji: string; description: string }> = [
-  { value: "attention", label: "Attention", emoji: "👋", description: "Behavior gets a reaction from adults or peers" },
-  { value: "escape", label: "Escape / Avoidance", emoji: "🚪", description: "Behavior removes a demand, task, or situation" },
-  { value: "tangible", label: "Tangible / Access", emoji: "🎯", description: "Behavior results in getting a preferred item or activity" },
-  { value: "sensory", label: "Sensory / Automatic", emoji: "✨", description: "Behavior produces internal sensory stimulation" },
+const FUNCTION_OPTIONS: Array<{ value: BehaviorFunction; label: string; icon: typeof Bell; color: string; description: string }> = [
+  { value: "attention", label: "Attention", icon: Bell, color: "text-emerald-600", description: "Behavior gets a reaction from adults or peers" },
+  { value: "escape", label: "Escape / Avoidance", icon: DoorOpen, color: "text-amber-600", description: "Behavior removes a demand, task, or situation" },
+  { value: "tangible", label: "Tangible / Access", icon: Gift, color: "text-blue-600", description: "Behavior results in getting a preferred item or activity" },
+  { value: "sensory", label: "Sensory / Automatic", icon: Sparkles, color: "text-purple-600", description: "Behavior produces internal sensory stimulation" },
 ];
+
+const VALUE_ICONS: Record<ValueDomain, { icon: typeof BookOpen; color: string }> = {
+  relationships: { icon: HeartHandshake, color: "text-rose-600" },
+  learning: { icon: BookOpen, color: "text-blue-600" },
+  play: { icon: Gamepad2, color: "text-indigo-600" },
+  independence: { icon: Compass, color: "text-emerald-600" },
+  kindness: { icon: HandHeart, color: "text-orange-600" },
+  creativity: { icon: Palette, color: "text-purple-600" },
+  health: { icon: Activity, color: "text-lime-600" },
+  family: { icon: Home, color: "text-slate-600" },
+  honesty: { icon: Scale, color: "text-cyan-700" },
+  bravery: { icon: Shield, color: "text-amber-600" },
+};
+
+const PROCESS_ICONS: Record<ACTProcess, { icon: typeof BookOpen; color: string }> = {
+  "experiential-avoidance": { icon: Ban, color: "text-rose-600" },
+  "cognitive-fusion": { icon: UserRound, color: "text-indigo-600" },
+  "lack-present-moment": { icon: Compass, color: "text-emerald-600" },
+  "self-as-content": { icon: Users, color: "text-slate-600" },
+  "unclear-values": { icon: HeartHandshake, color: "text-amber-600" },
+  "inaction": { icon: Sparkles, color: "text-purple-600" },
+};
 
 const GRADE_LEVEL_OPTIONS: Array<{ value: GradeLevel; label: string }> = [
   { value: "prek-k", label: "Pre-K – Kindergarten" },
@@ -450,7 +491,7 @@ export function ACTFBABIPWizard() {
                   {FUNCTION_OPTIONS.map((func) => (
                     <button key={func.value} type="button" onClick={() => toggleFunction(func.value)} className={cn("flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.functions.includes(func.value) ? "border-purple-500 bg-purple-50 ring-1 ring-purple-500" : "border-slate-200 bg-white hover:border-purple-200")}>
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">{func.emoji}</span>
+                        <func.icon className={`h-5 w-5 ${func.color}`} />
                         <span className="text-sm font-semibold text-slate-900">{func.label}</span>
                       </div>
                       <span className="text-xs text-slate-500">{func.description}</span>
@@ -468,14 +509,18 @@ export function ACTFBABIPWizard() {
             {currentStep === 5 && (
               <div className="space-y-5">
                 <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">🧭 ACT Values Assessment</p>
+                  <p className="text-sm font-semibold text-purple-900">ACT Values Assessment</p>
                   <p className="mt-1 text-xs text-purple-700">What matters to this student? Values are directions, not destinations. Select all that apply — you&apos;ll connect replacement behaviors to these values later.</p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {(Object.entries(VALUE_LABELS) as [ValueDomain, typeof VALUE_LABELS[ValueDomain]][]).map(([key, val]) => (
                     <button key={key} type="button" onClick={() => toggleValue(key)} className={cn("flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.studentValues.includes(key) ? "border-purple-500 bg-purple-50 ring-1 ring-purple-500" : "border-slate-200 bg-white hover:border-purple-200")}>
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">{val.emoji}</span>
+                        {(() => {
+                          const icon = VALUE_ICONS[key];
+                          const Icon = icon?.icon;
+                          return Icon ? <Icon className={`h-5 w-5 ${icon.color}`} /> : null;
+                        })()}
                         <span className="text-sm font-semibold text-slate-900">{val.label}</span>
                       </div>
                       <span className="text-xs text-slate-500">{val.description}</span>
@@ -489,7 +534,7 @@ export function ACTFBABIPWizard() {
                 {data.studentValues.length > 0 && (
                   <div className="rounded-xl border border-purple-100 bg-purple-50/70 px-4 py-3 text-sm text-purple-800">
                     <span className="font-semibold">Selected values:</span>{" "}
-                    {data.studentValues.map((v) => `${VALUE_LABELS[v].emoji} ${VALUE_LABELS[v].label}`).join(", ")}
+                    {data.studentValues.map((v) => VALUE_LABELS[v].label).join(", ")}
                   </div>
                 )}
               </div>
@@ -499,14 +544,18 @@ export function ACTFBABIPWizard() {
             {currentStep === 6 && (
               <div className="space-y-5">
                 <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4">
-                  <p className="text-sm font-semibold text-amber-900">🔍 Psychological Flexibility Assessment</p>
+                  <p className="text-sm font-semibold text-amber-900">Psychological Flexibility Assessment</p>
                   <p className="mt-1 text-xs text-amber-700">Which ACT processes of inflexibility are contributing to the behavior? These represent the &quot;stuck points&quot; that the intervention will target.</p>
                 </div>
                 <div className="space-y-3">
                   {(Object.entries(ACT_PROCESS_LABELS) as [ACTProcess, typeof ACT_PROCESS_LABELS[ACTProcess]][]).map(([key, val]) => (
                     <button key={key} type="button" onClick={() => toggleProcess(key)} className={cn("flex w-full flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.inflexibilityProcesses.includes(key) ? "border-amber-500 bg-amber-50 ring-1 ring-amber-500" : "border-slate-200 bg-white hover:border-amber-200")}>
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">{val.emoji}</span>
+                        {(() => {
+                          const icon = PROCESS_ICONS[key];
+                          const Icon = icon?.icon;
+                          return Icon ? <Icon className={`h-5 w-5 ${icon.color}`} /> : null;
+                        })()}
                         <span className="text-sm font-semibold text-slate-900">{val.label}</span>
                       </div>
                       <span className="text-xs text-slate-500">{val.description}</span>
@@ -524,7 +573,7 @@ export function ACTFBABIPWizard() {
             {currentStep === 7 && (
               <div className="space-y-5">
                 <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">🔬 ACT Lens: Functional Analysis</p>
+                  <p className="text-sm font-semibold text-purple-900">ACT Lens: Functional Analysis</p>
                   <p className="mt-1 text-xs text-purple-700">How does the behavior relate to experiential avoidance or values-inconsistent action? This adds the ACT perspective to the standard functional analysis.</p>
                 </div>
                 <div className="space-y-2">
@@ -555,7 +604,7 @@ export function ACTFBABIPWizard() {
             {currentStep === 8 && (
               <div className="space-y-5">
                 <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">🎯 Values-Aligned Replacement Behaviors</p>
+                  <p className="text-sm font-semibold text-purple-900">Values-Aligned Replacement Behaviors</p>
                   <p className="mt-1 text-xs text-purple-700">Instead of just functional equivalents, define replacement behaviors that move the student TOWARD their values.</p>
                 </div>
                 {data.replacementBehaviors.map((rb, i) => (
@@ -576,7 +625,7 @@ export function ACTFBABIPWizard() {
                         <div className="flex flex-wrap gap-2">
                           {data.studentValues.map((v) => (
                             <button key={v} type="button" onClick={() => updateReplacement(i, "valueConnection", VALUE_LABELS[v].label)} className={cn("rounded-lg border px-3 py-1.5 text-xs font-semibold transition", rb.valueConnection === VALUE_LABELS[v].label ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-500 hover:border-purple-200")}>
-                              {VALUE_LABELS[v].emoji} {VALUE_LABELS[v].label}
+                              {VALUE_LABELS[v].label}
                             </button>
                           ))}
                         </div>
@@ -637,7 +686,7 @@ export function ACTFBABIPWizard() {
                     { label: "Student", value: `${data.studentName}${data.studentGrade ? `, Grade ${data.studentGrade}` : ""} (${GRADE_LEVEL_OPTIONS.find((g) => g.value === data.gradeLevel)?.label})` },
                     { label: "Target Behavior", value: data.targetBehaviors.map((b) => b.name).filter(Boolean).join("; ") || "—" },
                     { label: "Function(s)", value: data.functions.map((f) => f.charAt(0).toUpperCase() + f.slice(1)).join(", ") || "—" },
-                    { label: "Student Values", value: data.studentValues.map((v) => `${VALUE_LABELS[v].emoji} ${VALUE_LABELS[v].label}`).join(", ") || "—" },
+                    { label: "Student Values", value: data.studentValues.map((v) => VALUE_LABELS[v].label).join(", ") || "—" },
                     { label: "Inflexibility Processes", value: data.inflexibilityProcesses.map((p) => ACT_PROCESS_LABELS[p].label).join(", ") || "—" },
                     { label: "Replacement Behavior(s)", value: data.replacementBehaviors.map((r) => `${r.behavior}${r.valueConnection ? ` → ${r.valueConnection}` : ""}`).filter(Boolean).join("; ") || "—" },
                     { label: "Safety Concerns", value: data.safetyConcerrns ? "Yes" : "No" },

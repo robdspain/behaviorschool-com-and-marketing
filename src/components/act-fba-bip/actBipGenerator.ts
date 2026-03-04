@@ -148,50 +148,44 @@ export interface GeneratedACTBIP {
 
 // ─── ACT Process Labels ────────────────────────────────────────────────
 
-export const ACT_PROCESS_LABELS: Record<ACTProcess, { label: string; description: string; emoji: string }> = {
+export const ACT_PROCESS_LABELS: Record<ACTProcess, { label: string; description: string }> = {
   "experiential-avoidance": {
     label: "Experiential Avoidance",
     description: "Tries to avoid or escape difficult thoughts, feelings, or sensations",
-    emoji: "🚫",
   },
   "cognitive-fusion": {
     label: "Cognitive Fusion",
     description: "Gets stuck on rigid thoughts, rules, or self-stories ('I can't do this,' 'I'm bad')",
-    emoji: "🔗",
   },
   "lack-present-moment": {
     label: "Lack of Present-Moment Awareness",
     description: "Difficulty staying focused on the here and now; stuck in past or future",
-    emoji: "⏳",
   },
   "self-as-content": {
     label: "Rigid Self-Concept",
     description: "Identifies rigidly with labels or stories about themselves ('I'm the bad kid')",
-    emoji: "🪞",
   },
   "unclear-values": {
     label: "Unclear Values",
     description: "Doesn't know or can't articulate what matters to them",
-    emoji: "🧭",
   },
   "inaction": {
     label: "Inaction / Impulsivity",
     description: "Acts impulsively or avoids committed action toward what matters",
-    emoji: "⚡",
   },
 };
 
-export const VALUE_LABELS: Record<ValueDomain, { label: string; emoji: string; description: string }> = {
-  relationships: { label: "Relationships / Friendship", emoji: "🤝", description: "Having friends, being a good friend, connecting with others" },
-  learning: { label: "Learning / Curiosity", emoji: "📚", description: "Discovering new things, getting better at skills, being curious" },
-  play: { label: "Play / Fun", emoji: "🎮", description: "Having fun, enjoying activities, being playful" },
-  independence: { label: "Independence / Freedom", emoji: "🦅", description: "Doing things on their own, making choices, being responsible" },
-  kindness: { label: "Kindness / Helping", emoji: "💛", description: "Being kind to others, helping out, caring for people" },
-  creativity: { label: "Creativity / Expression", emoji: "🎨", description: "Making things, expressing ideas, being creative" },
-  health: { label: "Health / Wellness", emoji: "💪", description: "Taking care of their body, feeling strong, being active" },
-  family: { label: "Family", emoji: "🏠", description: "Being close to family, making family proud, spending time together" },
-  honesty: { label: "Honesty / Fairness", emoji: "⚖️", description: "Telling the truth, playing fair, standing up for what's right" },
-  bravery: { label: "Bravery / Courage", emoji: "🦁", description: "Trying new things even when scared, facing challenges" },
+export const VALUE_LABELS: Record<ValueDomain, { label: string; description: string }> = {
+  relationships: { label: "Relationships / Friendship", description: "Having friends, being a good friend, connecting with others" },
+  learning: { label: "Learning / Curiosity", description: "Discovering new things, getting better at skills, being curious" },
+  play: { label: "Play / Fun", description: "Having fun, enjoying activities, being playful" },
+  independence: { label: "Independence / Freedom", description: "Doing things on their own, making choices, being responsible" },
+  kindness: { label: "Kindness / Helping", description: "Being kind to others, helping out, caring for people" },
+  creativity: { label: "Creativity / Expression", description: "Making things, expressing ideas, being creative" },
+  health: { label: "Health / Wellness", description: "Taking care of their body, feeling strong, being active" },
+  family: { label: "Family", description: "Being close to family, making family proud, spending time together" },
+  honesty: { label: "Honesty / Fairness", description: "Telling the truth, playing fair, standing up for what's right" },
+  bravery: { label: "Bravery / Courage", description: "Trying new things even when scared, facing challenges" },
 };
 
 // ─── ACT Setting Events ────────────────────────────────────────────────
@@ -828,14 +822,14 @@ export function generateACTBIP(data: ACTFBAData): GeneratedACTBIP {
   // ── Values Assessment ──
   const valuesDescriptions = data.studentValues.map((v) => {
     const desc = getValueDescription(v, grade);
-    return `${VALUE_LABELS[v].emoji} **${VALUE_LABELS[v].label}**: ${name} values ${desc}.`;
+    return `**${VALUE_LABELS[v].label}**: ${name} values ${desc}.`;
   });
   const valuesActivitiesList = getValuesActivities(data.studentValues, grade);
 
   // ── Psych Flex Assessment ──
   const processDescriptions = data.inflexibilityProcesses.map((p) => {
     const info = ACT_PROCESS_LABELS[p];
-    return `${info.emoji} **${info.label}**: ${name} ${info.description.charAt(0).toLowerCase()}${info.description.slice(1)}.`;
+    return `**${info.label}**: ${name} ${info.description.charAt(0).toLowerCase()}${info.description.slice(1)}.`;
   });
 
   // ── ACT Setting Events Summary ──
