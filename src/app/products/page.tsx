@@ -45,12 +45,8 @@ const products = [
 export default function ProductsPage() {
   return (
     <main className="min-h-screen bg-white text-slate-900">
-      <div className="mx-auto max-w-7xl px-4 pt-20 pb-6 sm:px-6 lg:px-8">
-        <Breadcrumbs items={[{ label: "Products" }]} />
-      </div>
-
-      <section className="border-y border-emerald-100 bg-gradient-to-b from-emerald-50/70 to-amber-50/60">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+      <section className="border-b border-emerald-100 bg-gradient-to-b from-emerald-50/70 to-amber-50/60">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="max-w-3xl space-y-6">
             <p className="text-sm font-semibold uppercase tracking-[0.12em] text-emerald-700">
               Behavior School Product Suite
