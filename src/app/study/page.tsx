@@ -7,8 +7,8 @@ import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { CheckCircle2, Zap, Target, Brain, TrendingUp, Award } from "lucide-react";
 
 export const metadata = {
-  title: "BCBA Exam Prep - Pass First Try | Behavior School",
-  description: "AI-powered BCBA practice exams with adaptive learning and instant feedback. Join 1,000+ BCBAs who passed using our free platform with 500+ vetted questions.",
+  title: "BCBA Exam Prep - Practice Smarter | Behavior School",
+  description: "BCBA practice exams with adaptive learning and instant feedback. Build mastery with focused practice and clear progress tracking.",
   keywords: "BCBA exam prep, BCBA practice exam, BCBA mock exam, behavior analyst certification, free BCBA study tools",
 };
 
@@ -23,16 +23,16 @@ export default function StudyPage() {
           titleComponent={(
             <div className="text-center relative z-10">
               <Badge className="bg-white/20 text-white border-white/30 mb-6 text-base px-4 py-2">
-                ⚡ AI-Powered BCBA Exam Prep
+                AI-Powered BCBA Exam Prep
               </Badge>
               <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-                Pass Your BCBA Exam<br />
+                Practice for the BCBA Exam<br />
                 <span className="bg-gradient-to-r from-yellow-200 to-orange-200 bg-clip-text text-transparent">
-                  First Try, Guaranteed
+                  With Realistic Mock Exams
                 </span>
               </h1>
               <p className="mt-6 text-xl md:text-2xl text-emerald-50 max-w-3xl mx-auto font-medium leading-relaxed">
-                Adaptive practice tests that learn from you. Smart analytics that show exactly what to study. Join 1,000+ BCBAs who passed using our platform.
+                Adaptive practice tests and clear analytics that show what to study next. Build confidence with focused, repeatable practice.
               </p>
               
               <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -49,7 +49,7 @@ export default function StudyPage() {
               </div>
               
               <p className="mt-6 text-emerald-100 text-sm">
-                ✓ No credit card required  •  ✓ Instant access  •  ✓ 500+ vetted questions
+                ✓ No credit card required  •  ✓ Instant access  •  ✓ Growing question bank
               </p>
             </div>
           )}
@@ -80,8 +80,8 @@ export default function StudyPage() {
             </div>
             <div className="hidden md:block w-px h-12 bg-slate-200" />
             <div>
-              <div className="text-3xl font-bold text-emerald-600">500+</div>
-              <div className="text-sm text-slate-600">Practice Questions</div>
+              <div className="text-3xl font-bold text-emerald-600">Practice</div>
+              <div className="text-sm text-slate-600">Question Bank</div>
             </div>
             <div className="hidden md:block w-px h-12 bg-slate-200" />
             <div>
@@ -189,7 +189,7 @@ export default function StudyPage() {
             Ready to Pass Your BCBA Exam?
           </h2>
           <p className="text-2xl text-emerald-50 mb-10 leading-relaxed">
-            Join over 1,000 BCBAs who studied smarter and passed faster.
+            Study smarter with targeted practice and clear progress signals.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

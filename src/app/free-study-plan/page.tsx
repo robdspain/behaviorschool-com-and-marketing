@@ -134,9 +134,39 @@ export default function FreeStudyPlanPage() {
       {/* Divider */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 mb-10 flex items-center gap-4">
         <div className="flex-1 border-t border-slate-200" />
-        <span className="text-sm font-semibold text-slate-400 uppercase tracking-wide">Also available</span>
+        <span className="text-sm font-semibold text-slate-400 uppercase tracking-wide">Free Study Guides</span>
         <div className="flex-1 border-t border-slate-200" />
       </div>
+
+      {/* Study Guides */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 flex flex-col">
+            <img src="/covers/rbt-study-guide-cover.svg" alt="RBT Study Guide Cover" className="w-full h-auto rounded-2xl border border-slate-200" />
+            <h3 className="mt-5 text-xl font-bold text-[#1f4d3f]">RBT Study Guide (PDF)</h3>
+            <p className="mt-2 text-slate-600">A focused 4-week plan with daily structure and review steps.</p>
+            <a
+              href="/downloads/behavior-school-rbt-study-guide.pdf"
+              className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-[#e4b63d] px-5 py-3 text-base font-bold text-[#1f4d3f] hover:bg-[#d4a82d] transition"
+            >
+              Download RBT Guide
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 flex flex-col">
+            <img src="/covers/bcba-study-guide-cover.svg" alt="BCBA Study Guide Cover" className="w-full h-auto rounded-2xl border border-slate-200" />
+            <h3 className="mt-5 text-xl font-bold text-[#1f4d3f]">BCBA Study Guide (PDF)</h3>
+            <p className="mt-2 text-slate-600">An 8-week plan with topic sequencing, mocks, and review structure.</p>
+            <a
+              href="/downloads/behavior-school-bcba-study-guide.pdf"
+              className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-[#1f4d3f] px-5 py-3 text-base font-bold text-white hover:bg-[#153528] transition"
+            >
+              Download BCBA Guide
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Study Plan (secondary) */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
