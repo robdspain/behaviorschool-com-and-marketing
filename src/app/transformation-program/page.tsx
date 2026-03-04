@@ -212,21 +212,34 @@ export default function TransformationProgramPage() {
                 </div>
 
                 <Link
-                  href="/free-study-plan"
+                  href="/downloads/bcba-school-systems-checklist.pdf"
                   className="block rounded-2xl border border-emerald-200 bg-white p-6 shadow-lg text-left hover:border-[#e4b63d] hover:shadow-xl transition group"
                 >
-                  <span className="inline-flex items-center rounded-full bg-[#e4b63d]/20 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#8c6a11]">
-                    Free Download
-                  </span>
-                  <h2 className="mt-4 text-xl md:text-2xl font-bold text-slate-900 group-hover:text-[#1f4d3f] transition-colors">
-                    Free: BCBA School Systems Checklist
-                  </h2>
-                  <p className="mt-2 text-sm text-slate-600">
-                    The 47-point checklist used by high-impact BCBAs to build sustainable school behavior systems &mdash; plus your 7-day study plan.
-                  </p>
-                  <span className="mt-4 inline-flex items-center gap-1 rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white group-hover:bg-emerald-900 transition">
-                    Get It Free &rarr;
-                  </span>
+                  <div className="flex flex-col sm:flex-row gap-5">
+                    <div className="sm:w-36 w-full">
+                      <Image
+                        src="/covers/bcba-school-systems-checklist-cover.svg"
+                        alt="BCBA School Systems Checklist cover"
+                        width={240}
+                        height={320}
+                        className="w-full h-auto rounded-xl border border-slate-200"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <span className="inline-flex items-center rounded-full bg-[#e4b63d]/20 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#8c6a11]">
+                        Free Download
+                      </span>
+                      <h2 className="mt-4 text-xl md:text-2xl font-bold text-slate-900 group-hover:text-[#1f4d3f] transition-colors">
+                        Free: BCBA School Systems Checklist
+                      </h2>
+                      <p className="mt-2 text-sm text-slate-600">
+                        The 47-point checklist used by high-impact BCBAs to build sustainable school behavior systems.
+                      </p>
+                      <span className="mt-4 inline-flex items-center gap-1 rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white group-hover:bg-emerald-900 transition">
+                        Get It Free &rarr;
+                      </span>
+                    </div>
+                  </div>
                 </Link>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a
