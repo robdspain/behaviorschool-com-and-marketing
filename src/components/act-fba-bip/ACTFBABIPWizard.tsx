@@ -42,16 +42,16 @@ const FUNCTION_OPTIONS: Array<{ value: BehaviorFunction; label: string; icon: ty
   { value: "attention", label: "Attention", icon: Bell, color: "text-emerald-600", description: "Behavior gets a reaction from adults or peers" },
   { value: "escape", label: "Escape / Avoidance", icon: DoorOpen, color: "text-amber-600", description: "Behavior removes a demand, task, or situation" },
   { value: "tangible", label: "Tangible / Access", icon: Gift, color: "text-blue-600", description: "Behavior results in getting a preferred item or activity" },
-  { value: "sensory", label: "Sensory / Automatic", icon: Sparkles, color: "text-purple-600", description: "Behavior produces internal sensory stimulation" },
+  { value: "sensory", label: "Sensory / Automatic", icon: Sparkles, color: "text-emerald-600", description: "Behavior produces internal sensory stimulation" },
 ];
 
 const VALUE_ICONS: Record<ValueDomain, { icon: typeof BookOpen; color: string }> = {
   relationships: { icon: HeartHandshake, color: "text-rose-600" },
   learning: { icon: BookOpen, color: "text-blue-600" },
-  play: { icon: Gamepad2, color: "text-indigo-600" },
+  play: { icon: Gamepad2, color: "text-emerald-600" },
   independence: { icon: Compass, color: "text-emerald-600" },
   kindness: { icon: HandHeart, color: "text-orange-600" },
-  creativity: { icon: Palette, color: "text-purple-600" },
+  creativity: { icon: Palette, color: "text-emerald-600" },
   health: { icon: Activity, color: "text-lime-600" },
   family: { icon: Home, color: "text-slate-600" },
   honesty: { icon: Scale, color: "text-cyan-700" },
@@ -60,11 +60,11 @@ const VALUE_ICONS: Record<ValueDomain, { icon: typeof BookOpen; color: string }>
 
 const PROCESS_ICONS: Record<ACTProcess, { icon: typeof BookOpen; color: string }> = {
   "experiential-avoidance": { icon: Ban, color: "text-rose-600" },
-  "cognitive-fusion": { icon: UserRound, color: "text-indigo-600" },
+  "cognitive-fusion": { icon: UserRound, color: "text-emerald-600" },
   "lack-present-moment": { icon: Compass, color: "text-emerald-600" },
   "self-as-content": { icon: Users, color: "text-slate-600" },
   "unclear-values": { icon: HeartHandshake, color: "text-amber-600" },
-  "inaction": { icon: Sparkles, color: "text-purple-600" },
+  "inaction": { icon: Sparkles, color: "text-emerald-600" },
 };
 
 const GRADE_LEVEL_OPTIONS: Array<{ value: GradeLevel; label: string }> = [
@@ -296,12 +296,12 @@ export function ACTFBABIPWizard() {
   }
 
   return (
-    <div className="rounded-3xl border border-purple-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
-      <div className="border-b border-purple-100 bg-gradient-to-r from-purple-800 via-purple-700 to-emerald-700 px-6 py-6 text-white">
+    <div className="rounded-3xl border border-emerald-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
+      <div className="border-b border-emerald-100 bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-700 px-6 py-6 text-white">
         <div className="flex flex-col gap-2">
-          <span className="text-xs uppercase tracking-[0.3em] text-purple-100">ACT-Informed</span>
+          <span className="text-xs uppercase tracking-[0.3em] text-emerald-100">ACT-Informed</span>
           <h2 className="text-2xl font-semibold sm:text-3xl">FBA & Behavior Intervention Plan</h2>
-          <p className="text-sm text-purple-50/90">Acceptance and Commitment Training–informed assessment and intervention planning.</p>
+          <p className="text-sm text-emerald-50/90">Acceptance and Commitment Training–informed assessment and intervention planning.</p>
         </div>
       </div>
 
@@ -313,10 +313,10 @@ export function ACTFBABIPWizard() {
         <div className="rounded-2xl border border-slate-200 bg-white px-4 py-5 sm:px-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-purple-700">Step {currentStep + 1} of {steps.length}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">Step {currentStep + 1} of {steps.length}</p>
               <h3 className="text-lg font-semibold text-slate-900 sm:text-xl">{steps[currentStep]}</h3>
             </div>
-            <span className="rounded-full bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-700">{steps[currentStep]}</span>
+            <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">{steps[currentStep]}</span>
           </div>
 
           <div className="mt-5 space-y-5">
@@ -341,7 +341,7 @@ export function ACTFBABIPWizard() {
                     <Label className="text-sm font-semibold">Grade Level Band *</Label>
                     <div className="grid gap-2">
                       {GRADE_LEVEL_OPTIONS.map((gl) => (
-                        <button key={gl.value} type="button" onClick={() => update("gradeLevel", gl.value)} className={cn("rounded-lg border px-3 py-2 text-sm text-left transition", data.gradeLevel === gl.value ? "border-purple-500 bg-purple-50 text-purple-800 ring-1 ring-purple-500" : "border-slate-200 bg-white text-slate-600 hover:border-purple-200")}>
+                        <button key={gl.value} type="button" onClick={() => update("gradeLevel", gl.value)} className={cn("rounded-lg border px-3 py-2 text-sm text-left transition", data.gradeLevel === gl.value ? "border-emerald-600 bg-emerald-50 text-emerald-800 ring-1 ring-emerald-600" : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200")}>
                           {gl.label}
                         </button>
                       ))}
@@ -381,7 +381,7 @@ export function ACTFBABIPWizard() {
                     </div>
                     <div className="space-y-2">
                       <Label className="text-sm font-semibold">Operational Definition *</Label>
-                      <textarea value={b.operationalDefinition} onChange={(e) => updateBehavior(i, "operationalDefinition", e.target.value)} placeholder="Observable, measurable definition..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={3} />
+                      <textarea value={b.operationalDefinition} onChange={(e) => updateBehavior(i, "operationalDefinition", e.target.value)} placeholder="Observable, measurable definition..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600" rows={3} />
                     </div>
                     <div className="grid gap-3 sm:grid-cols-3">
                       <div className="space-y-2">
@@ -406,7 +406,7 @@ export function ACTFBABIPWizard() {
                   </div>
                 ))}
                 {data.targetBehaviors.length < 3 && (
-                  <button type="button" onClick={() => update("targetBehaviors", [...data.targetBehaviors, { ...emptyBehavior }])} className="w-full rounded-xl border border-dashed border-purple-300 bg-purple-50/50 px-4 py-3 text-sm font-semibold text-purple-700 hover:bg-purple-50">+ Add Another Behavior</button>
+                  <button type="button" onClick={() => update("targetBehaviors", [...data.targetBehaviors, { ...emptyBehavior }])} className="w-full rounded-xl border border-dashed border-emerald-300 bg-emerald-50/50 px-4 py-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">+ Add Another Behavior</button>
                 )}
               </div>
             )}
@@ -419,8 +419,8 @@ export function ACTFBABIPWizard() {
                   <p className="text-sm font-semibold text-slate-900">Antecedents (Triggers)</p>
                   <div className="grid gap-2 sm:grid-cols-2">
                     {ANTECEDENT_OPTIONS.map((option) => (
-                      <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.antecedents.includes(option) ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-600 hover:border-purple-200")}>
-                        <input type="checkbox" checked={data.antecedents.includes(option)} onChange={() => toggleArrayItem("antecedents", option)} className="h-4 w-4 rounded border-slate-300 text-purple-600" />
+                      <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.antecedents.includes(option) ? "border-emerald-600 bg-emerald-50 text-emerald-800" : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200")}>
+                        <input type="checkbox" checked={data.antecedents.includes(option)} onChange={() => toggleArrayItem("antecedents", option)} className="h-4 w-4 rounded border-slate-300 text-emerald-600" />
                         {option}
                       </label>
                     ))}
@@ -455,8 +455,8 @@ export function ACTFBABIPWizard() {
                 <p className="text-sm text-slate-600">What typically happens right after the behavior?</p>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {CONSEQUENCE_OPTIONS.map((option) => (
-                    <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.consequences.includes(option) ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-600 hover:border-purple-200")}>
-                      <input type="checkbox" checked={data.consequences.includes(option)} onChange={() => toggleArrayItem("consequences", option)} className="h-4 w-4 rounded border-slate-300 text-purple-600" />
+                    <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.consequences.includes(option) ? "border-emerald-600 bg-emerald-50 text-emerald-800" : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200")}>
+                      <input type="checkbox" checked={data.consequences.includes(option)} onChange={() => toggleArrayItem("consequences", option)} className="h-4 w-4 rounded border-slate-300 text-emerald-600" />
                       {option}
                     </label>
                   ))}
@@ -474,7 +474,7 @@ export function ACTFBABIPWizard() {
                 <p className="text-sm text-slate-600">Based on the FBA, what function(s) does the behavior serve?</p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {FUNCTION_OPTIONS.map((func) => (
-                    <button key={func.value} type="button" onClick={() => toggleFunction(func.value)} className={cn("flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.functions.includes(func.value) ? "border-purple-500 bg-purple-50 ring-1 ring-purple-500" : "border-slate-200 bg-white hover:border-purple-200")}>
+                    <button key={func.value} type="button" onClick={() => toggleFunction(func.value)} className={cn("flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.functions.includes(func.value) ? "border-emerald-600 bg-emerald-50 ring-1 ring-emerald-600" : "border-slate-200 bg-white hover:border-emerald-200")}>
                       <div className="flex items-center gap-2">
                         <func.icon className={`h-5 w-5 ${func.color}`} />
                         <span className="text-sm font-semibold text-slate-900">{func.label}</span>
@@ -485,7 +485,7 @@ export function ACTFBABIPWizard() {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">Function Notes</Label>
-                  <textarea value={data.functionNotes} onChange={(e) => update("functionNotes", e.target.value)} placeholder="Additional notes about the hypothesized function..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={3} />
+                  <textarea value={data.functionNotes} onChange={(e) => update("functionNotes", e.target.value)} placeholder="Additional notes about the hypothesized function..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600" rows={3} />
                 </div>
               </div>
             )}
@@ -493,13 +493,13 @@ export function ACTFBABIPWizard() {
             {/* Step 5: Values Assessment (ACT) */}
             {currentStep === 5 && (
               <div className="space-y-5">
-                <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">ACT Values Assessment</p>
-                  <p className="mt-1 text-xs text-purple-700">What matters to this student? Values are directions, not destinations. Select all that apply — you&apos;ll connect replacement behaviors to these values later.</p>
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
+                  <p className="text-sm font-semibold text-emerald-900">ACT Values Assessment</p>
+                  <p className="mt-1 text-xs text-emerald-700">What matters to this student? Values are directions, not destinations. Select all that apply — you&apos;ll connect replacement behaviors to these values later.</p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {(Object.entries(VALUE_LABELS) as [ValueDomain, typeof VALUE_LABELS[ValueDomain]][]).map(([key, val]) => (
-                    <button key={key} type="button" onClick={() => toggleValue(key)} className={cn("flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.studentValues.includes(key) ? "border-purple-500 bg-purple-50 ring-1 ring-purple-500" : "border-slate-200 bg-white hover:border-purple-200")}>
+                    <button key={key} type="button" onClick={() => toggleValue(key)} className={cn("flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.studentValues.includes(key) ? "border-emerald-600 bg-emerald-50 ring-1 ring-emerald-600" : "border-slate-200 bg-white hover:border-emerald-200")}>
                       <div className="flex items-center gap-2">
                         {(() => {
                           const icon = VALUE_ICONS[key];
@@ -514,10 +514,10 @@ export function ACTFBABIPWizard() {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">Values Notes</Label>
-                  <textarea value={data.valuesNotes} onChange={(e) => update("valuesNotes", e.target.value)} placeholder="Additional observations about the student's values (from interview, observation, preference assessment)..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={3} />
+                  <textarea value={data.valuesNotes} onChange={(e) => update("valuesNotes", e.target.value)} placeholder="Additional observations about the student's values (from interview, observation, preference assessment)..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600" rows={3} />
                 </div>
                 {data.studentValues.length > 0 && (
-                  <div className="rounded-xl border border-purple-100 bg-purple-50/70 px-4 py-3 text-sm text-purple-800">
+                  <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-800">
                     <span className="font-semibold">Selected values:</span>{" "}
                     {data.studentValues.map((v) => VALUE_LABELS[v].label).join(", ")}
                   </div>
@@ -557,13 +557,13 @@ export function ACTFBABIPWizard() {
             {/* Step 7: ACT Functional Analysis + ACT Setting Events */}
             {currentStep === 7 && (
               <div className="space-y-5">
-                <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">ACT Lens: Functional Analysis</p>
-                  <p className="mt-1 text-xs text-purple-700">How does the behavior relate to experiential avoidance or values-inconsistent action? This adds the ACT perspective to the standard functional analysis.</p>
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
+                  <p className="text-sm font-semibold text-emerald-900">ACT Lens: Functional Analysis</p>
+                  <p className="mt-1 text-xs text-emerald-700">How does the behavior relate to experiential avoidance or values-inconsistent action? This adds the ACT perspective to the standard functional analysis.</p>
                 </div>
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">ACT Functional Analysis</Label>
-                  <textarea value={data.actFunctionalAnalysis} onChange={(e) => update("actFunctionalAnalysis", e.target.value)} placeholder={`e.g., "${data.studentName || "The student"}'s behavior appears to function as experiential avoidance — escaping difficult internal experiences (anxiety, self-doubt) rather than sitting with discomfort and acting on values. The behavior moves them AWAY from what they care about (${data.studentValues.map((v) => VALUE_LABELS[v].label.toLowerCase()).join(", ") || "identified values"})."`} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={5} />
+                  <textarea value={data.actFunctionalAnalysis} onChange={(e) => update("actFunctionalAnalysis", e.target.value)} placeholder={`e.g., "${data.studentName || "The student"}'s behavior appears to function as experiential avoidance — escaping difficult internal experiences (anxiety, self-doubt) rather than sitting with discomfort and acting on values. The behavior moves them AWAY from what they care about (${data.studentValues.map((v) => VALUE_LABELS[v].label.toLowerCase()).join(", ") || "identified values"})."`} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600" rows={5} />
                 </div>
 
                 <div className="space-y-2">
@@ -571,8 +571,8 @@ export function ACTFBABIPWizard() {
                   <p className="text-xs text-slate-500">Psychological inflexibility patterns that set the stage for behavior.</p>
                   <div className="grid gap-2">
                     {ACT_SETTING_EVENT_OPTIONS.map((option) => (
-                      <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.actSettingEvents.includes(option) ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-600 hover:border-purple-200")}>
-                        <input type="checkbox" checked={data.actSettingEvents.includes(option)} onChange={() => toggleArrayItem("actSettingEvents", option)} className="h-4 w-4 rounded border-slate-300 text-purple-600" />
+                      <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.actSettingEvents.includes(option) ? "border-emerald-600 bg-emerald-50 text-emerald-800" : "border-slate-200 bg-white text-slate-600 hover:border-emerald-200")}>
+                        <input type="checkbox" checked={data.actSettingEvents.includes(option)} onChange={() => toggleArrayItem("actSettingEvents", option)} className="h-4 w-4 rounded border-slate-300 text-emerald-600" />
                         {option}
                       </label>
                     ))}
@@ -588,9 +588,9 @@ export function ACTFBABIPWizard() {
             {/* Step 8: Values-Aligned Replacement Behaviors */}
             {currentStep === 8 && (
               <div className="space-y-5">
-                <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">Values-Aligned Replacement Behaviors</p>
-                  <p className="mt-1 text-xs text-purple-700">Instead of just functional equivalents, define replacement behaviors that move the student TOWARD their values.</p>
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
+                  <p className="text-sm font-semibold text-emerald-900">Values-Aligned Replacement Behaviors</p>
+                  <p className="mt-1 text-xs text-emerald-700">Instead of just functional equivalents, define replacement behaviors that move the student TOWARD their values.</p>
                 </div>
                 {data.replacementBehaviors.map((rb, i) => (
                   <div key={i} className="space-y-3 rounded-xl border border-slate-200 bg-slate-50/50 p-4">
@@ -609,7 +609,7 @@ export function ACTFBABIPWizard() {
                       {data.studentValues.length > 0 ? (
                         <div className="flex flex-wrap gap-2">
                           {data.studentValues.map((v) => (
-                            <button key={v} type="button" onClick={() => updateReplacement(i, "valueConnection", VALUE_LABELS[v].label)} className={cn("rounded-lg border px-3 py-1.5 text-xs font-semibold transition", rb.valueConnection === VALUE_LABELS[v].label ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-500 hover:border-purple-200")}>
+                            <button key={v} type="button" onClick={() => updateReplacement(i, "valueConnection", VALUE_LABELS[v].label)} className={cn("rounded-lg border px-3 py-1.5 text-xs font-semibold transition", rb.valueConnection === VALUE_LABELS[v].label ? "border-emerald-600 bg-emerald-50 text-emerald-800" : "border-slate-200 bg-white text-slate-500 hover:border-emerald-200")}>
                               {VALUE_LABELS[v].label}
                             </button>
                           ))}
@@ -621,9 +621,9 @@ export function ACTFBABIPWizard() {
                   </div>
                 ))}
                 {data.replacementBehaviors.length < 3 && (
-                  <button type="button" onClick={() => update("replacementBehaviors", [...data.replacementBehaviors, { ...emptyReplacement }])} className="w-full rounded-xl border border-dashed border-purple-300 bg-purple-50/50 px-4 py-3 text-sm font-semibold text-purple-700 hover:bg-purple-50">+ Add Another Replacement Behavior</button>
+                  <button type="button" onClick={() => update("replacementBehaviors", [...data.replacementBehaviors, { ...emptyReplacement }])} className="w-full rounded-xl border border-dashed border-emerald-300 bg-emerald-50/50 px-4 py-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">+ Add Another Replacement Behavior</button>
                 )}
-                <div className="rounded-xl border border-purple-100 bg-purple-50/70 px-4 py-3 text-sm text-purple-800">
+                <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-800">
                   <p className="font-semibold">💡 ACT Tip</p>
                   <p>In ACT, replacement behaviors aren&apos;t just functional equivalents — they&apos;re &quot;toward moves&quot; that bring the student closer to what they value. Connect each replacement to a specific value.</p>
                 </div>
@@ -636,11 +636,11 @@ export function ACTFBABIPWizard() {
                 <p className="text-sm text-slate-600">This helps personalize the BIP strategies.</p>
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">Student Strengths</Label>
-                  <textarea value={data.studentStrengths} onChange={(e) => update("studentStrengths", e.target.value)} placeholder="e.g., Creative, loves to draw, kind to younger students" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={2} />
+                  <textarea value={data.studentStrengths} onChange={(e) => update("studentStrengths", e.target.value)} placeholder="e.g., Creative, loves to draw, kind to younger students" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600" rows={2} />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">Preferred Activities / Reinforcers</Label>
-                  <textarea value={data.preferredActivities} onChange={(e) => update("preferredActivities", e.target.value)} placeholder="e.g., iPad, drawing, extra recess" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={2} />
+                  <textarea value={data.preferredActivities} onChange={(e) => update("preferredActivities", e.target.value)} placeholder="e.g., iPad, drawing, extra recess" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600" rows={2} />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">Communication Level</Label>
@@ -648,7 +648,7 @@ export function ACTFBABIPWizard() {
                 </div>
                 <div className="space-y-2">
                   <Label className="text-sm font-semibold">Previous Interventions Tried</Label>
-                  <textarea value={data.previousInterventions} onChange={(e) => update("previousInterventions", e.target.value)} placeholder="e.g., Token economy, social stories, CICO" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={2} />
+                  <textarea value={data.previousInterventions} onChange={(e) => update("previousInterventions", e.target.value)} placeholder="e.g., Token economy, social stories, CICO" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600" rows={2} />
                 </div>
                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3">
                   <div className="flex items-center gap-3">
@@ -682,7 +682,7 @@ export function ACTFBABIPWizard() {
                     </div>
                   ))}
                 </div>
-                <div className="rounded-xl border border-purple-100 bg-purple-50/70 px-4 py-3 text-sm text-purple-800">
+                <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 px-4 py-3 text-sm text-emerald-800">
                   <p className="font-semibold">Ready to generate!</p>
                   <p>Your ACT-informed FBA/BIP will include: values assessment, psychological flexibility assessment, ACT functional analysis, values-aligned replacement behaviors, acceptance strategies, defusion techniques, committed action goals, metaphors & exercises catalog, + all standard BIP sections.</p>
                 </div>
@@ -741,7 +741,7 @@ export function ACTFBABIPWizard() {
           <Button variant="outline" onClick={onBack} disabled={currentStep === 0}>Back</Button>
           <div className="flex flex-1 items-center justify-end gap-3">
             {currentStep < steps.length - 1 && (
-              <Button onClick={onNext} disabled={!isStepValid[currentStep]} className="bg-purple-600 hover:bg-purple-700">Next</Button>
+              <Button onClick={onNext} disabled={!isStepValid[currentStep]} className="bg-emerald-600 hover:bg-emerald-700">Next</Button>
             )}
           </div>
         </div>
