@@ -254,7 +254,7 @@ export default function TransformationProgramPage() {
                     href="#enroll"
                     className="inline-flex items-center justify-center rounded-2xl border-2 border-slate-300 bg-white px-6 h-14 text-base font-semibold text-slate-700 hover:border-emerald-700 hover:text-emerald-800 transition"
                   >
-                    See full details
+                    View agenda
                   </Link>
                 </div>
               </motion.div>
