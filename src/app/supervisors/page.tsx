@@ -194,7 +194,7 @@ export default function SupervisorsPage() {
 
                 <div className="pt-4">
                   <Link
-                    href="https://study.behaviorschool.com"
+                    href="https://supervision.behaviorschool.com/register"
                     className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-emerald-600 text-white rounded-xl shadow-lg hover:bg-emerald-700 transition-all duration-300"
                   >
                     Try Progress Monitoring Free
@@ -203,27 +203,69 @@ export default function SupervisorsPage() {
                 </div>
               </div>
 
+              {/* Product UI Mockup */}
               <div className="relative">
-                <motion.div
-                  className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <h4 className="text-xl font-bold mb-6">Supervisee Dashboard</h4>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm">
-                      <span className="text-emerald-100 font-medium">Study Streak</span>
-                      <span className="font-bold text-xl">21 days</span>
-                    </div>
-                    <div className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm">
-                      <span className="text-emerald-100 font-medium">Practice Accuracy</span>
-                      <span className="font-bold text-xl">87%</span>
-                    </div>
-                    <div className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm">
-                      <span className="text-emerald-100 font-medium">Hours This Week</span>
-                      <span className="font-bold text-xl">15.5h</span>
+                <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-2xl bg-white">
+                  {/* Browser chrome */}
+                  <div className="bg-slate-100 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-400" />
+                    <div className="w-3 h-3 rounded-full bg-amber-400" />
+                    <div className="w-3 h-3 rounded-full bg-green-400" />
+                    <div className="mx-auto bg-white rounded-md px-3 py-1 text-xs text-slate-400 font-mono border border-slate-200">
+                      supervision.behaviorschool.com/dashboard
                     </div>
                   </div>
-                </motion.div>
+                  {/* Dashboard UI */}
+                  <div className="p-5 bg-slate-50 space-y-3">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-1">
+                      <div>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Supervisor Dashboard</p>
+                        <p className="text-base font-bold text-slate-900">My Supervisees</p>
+                      </div>
+                      <div className="text-xs bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">3 Active</div>
+                    </div>
+                    {/* Supervisee rows */}
+                    {[
+                      { name: "Sarah M.", pathway: "BCBA", hours: 1420, required: 2000, accuracy: 84, status: "On Track" },
+                      { name: "Jordan T.", pathway: "RBT", hours: 380, required: 500, accuracy: 71, status: "Needs Attention" },
+                      { name: "Alex R.", pathway: "BCBA", hours: 1890, required: 2000, accuracy: 91, status: "Exam Ready" },
+                    ].map((s) => {
+                      const pct = Math.round((s.hours / s.required) * 100);
+                      const statusColor = s.status === "Exam Ready" ? "text-emerald-700 bg-emerald-50" : s.status === "On Track" ? "text-blue-700 bg-blue-50" : "text-amber-700 bg-amber-50";
+                      return (
+                        <div key={s.name} className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-8 h-8 rounded-full bg-[#1E3A34] text-white flex items-center justify-center text-xs font-bold">
+                                {s.name.charAt(0)}
+                              </div>
+                              <div>
+                                <p className="text-sm font-semibold text-slate-900">{s.name}</p>
+                                <p className="text-xs text-slate-400">{s.pathway} Candidate</p>
+                              </div>
+                            </div>
+                            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${statusColor}`}>{s.status}</span>
+                          </div>
+                          <div className="space-y-1.5">
+                            <div className="flex justify-between text-xs text-slate-500">
+                              <span>Fieldwork Hours</span>
+                              <span className="font-semibold text-slate-700">{s.hours} / {s.required}h</span>
+                            </div>
+                            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                              <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${pct}%` }} />
+                            </div>
+                            <div className="flex justify-between text-xs text-slate-400">
+                              <span>Study Accuracy</span>
+                              <span className={s.accuracy >= 85 ? "text-emerald-600 font-semibold" : "text-amber-600 font-semibold"}>{s.accuracy}%</span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <p className="text-xs text-slate-400 text-center mt-3">Actual supervisor dashboard — supervision.behaviorschool.com</p>
               </div>
             </div>
           </motion.div>
