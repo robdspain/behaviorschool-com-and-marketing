@@ -125,6 +125,7 @@ const CONTEXT_OPTIONS = [
 
 export default function FusionFAWorkflow() {
   const [isLoading] = useState(false);
+  const isAuthenticated = true; // Public page — no auth gate
   
   // Workflow state
   const [step, setStep] = useState<Step>("cpfq");

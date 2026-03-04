@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -22,7 +21,7 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     loader: 'default',
     domains: [],
-    unoptimized: true,
+    unoptimized: false,
   },
   // Performance optimizations
   experimental: {
