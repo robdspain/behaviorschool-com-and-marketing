@@ -51,7 +51,7 @@ export default function SupervisorsPage() {
     <div className="min-h-screen bg-bs-background">
 
       {/* Breadcrumbs */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
         <Breadcrumbs
           items={[
             { label: "Tools", href: "/products" },
@@ -70,43 +70,75 @@ export default function SupervisorsPage() {
 
       {/* Hero Section */}
       <section ref={heroRef} className="bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-6 py-16 text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-xs font-semibold tracking-widest uppercase text-emerald-700 mb-4"
-          >
-            BCBA Supervision
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight"
-          >
-            Supervision Hour Tracker for BCBAs
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8"
-          >
-            Track supervisee hours, competency progress, and BACB documentation with clean workflows built for school-based teams.
-          </motion.p>
+        <div className="max-w-6xl mx-auto px-6 py-16">
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-12"
           >
-            <Button size="lg" className="px-8" asChild>
-              <a href="https://supervision.behaviorschool.com">Start tracking hours now</a>
-            </Button>
-            <Button size="lg" variant="outline" className="px-8" asChild>
-              <a href="#platform">See how it works</a>
-            </Button>
+            <p className="text-xs font-semibold tracking-widest uppercase text-emerald-700 mb-4">BCBA Supervision</p>
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
+              Supervision Hour Tracker
+            </h1>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              BACB-compliant supervision tracking — no ads, no clutter. Built for BCBAs and RBTs in school and clinical settings.
+            </p>
+          </motion.div>
+
+          {/* Two-column cards */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
+          >
+            {/* Supervisor card */}
+            <div className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-8 flex flex-col gap-5">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-2">I am a Supervisor</p>
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Track your supervisees</h2>
+                <p className="text-sm text-slate-600">
+                  Log hours, monitor competency progress, generate BACB verification forms, and oversee your entire caseload in one place.
+                </p>
+              </div>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-center gap-2"><span className="text-emerald-600 font-bold">✓</span> BACB monthly &amp; final verification forms</li>
+                <li className="flex items-center gap-2"><span className="text-emerald-600 font-bold">✓</span> Real-time supervisee hour totals</li>
+                <li className="flex items-center gap-2"><span className="text-emerald-600 font-bold">✓</span> Competency tracking &amp; notes</li>
+                <li className="flex items-center gap-2"><span className="text-emerald-600 font-bold">✓</span> Digital signature workflow</li>
+              </ul>
+              <a
+                href="https://supervision.behaviorschool.com"
+                className="mt-auto inline-flex items-center justify-center rounded-xl bg-emerald-700 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-800 transition-colors"
+              >
+                Create supervisor account
+              </a>
+            </div>
+
+            {/* Supervisee card */}
+            <div className="rounded-2xl border-2 border-slate-200 bg-slate-50 p-8 flex flex-col gap-5">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">I am a Supervisee</p>
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Log &amp; verify your hours</h2>
+                <p className="text-sm text-slate-600">
+                  Track your BCBA or RBT fieldwork hours, submit for supervisor review, and prepare for your exam — all in one tool.
+                </p>
+              </div>
+              <ul className="space-y-2 text-sm text-slate-700">
+                <li className="flex items-center gap-2"><span className="text-slate-500 font-bold">✓</span> Log restricted &amp; unrestricted hours</li>
+                <li className="flex items-center gap-2"><span className="text-slate-500 font-bold">✓</span> BCBA &amp; RBT pathways supported</li>
+                <li className="flex items-center gap-2"><span className="text-slate-500 font-bold">✓</span> Downloadable verification forms</li>
+                <li className="flex items-center gap-2"><span className="text-slate-500 font-bold">✓</span> Pair with exam prep at <a href="https://study.behaviorschool.com" className="underline text-emerald-700">study.behaviorschool.com</a></li>
+              </ul>
+              <a
+                href="https://supervision.behaviorschool.com"
+                className="mt-auto inline-flex items-center justify-center rounded-xl bg-slate-800 px-6 py-3 text-sm font-bold text-white hover:bg-slate-900 transition-colors"
+              >
+                Start tracking my hours
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>

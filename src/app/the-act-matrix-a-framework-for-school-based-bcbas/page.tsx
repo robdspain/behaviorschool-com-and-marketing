@@ -65,7 +65,7 @@ export default function ACTMatrixFrameworkPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Breadcrumb */}
-      <section className="container mx-auto px-6 pt-24 pb-4">
+      <section className="container mx-auto px-6 pt-20 pb-4">
         <nav className="flex items-center text-sm text-slate-600" aria-label="Breadcrumb">
           <Link className="hover:text-emerald-600 transition-colors" href="/blog">
             Blog

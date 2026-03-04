@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { ACTFBABIPWizard } from "@/components/act-fba-bip/ACTFBABIPWizard";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ShareButtons } from "@/components/ui/share-buttons";
 import { ShareBar } from "@/components/ui/ShareBar";
 
@@ -134,37 +133,117 @@ export const metadata: Metadata = {
 
 export default function ACTFBABIPPage() {
   return (
-    <main className="min-h-screen bg-bs-background">
+    <main className="min-h-screen bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="container mx-auto px-6 pt-20">
-        <Breadcrumbs
-          items={[
-            { label: "Products", href: "/products" },
-            { label: "ACT-Informed FBA & BIP Generator" },
-          ]}
-        />
-      </div>
 
-      {/* Sample Output Preview */}
-      <div className="bg-white border-b border-slate-200 py-8 px-6">
+      {/* ── HERO ── Two-column: dark left / wizard right */}
+      <section className="grid lg:grid-cols-2 min-h-[90vh]">
+        {/* Left column — brand green, white text */}
+        <div
+          className="relative flex flex-col justify-center px-8 py-16 sm:px-12 lg:px-16 xl:px-20 overflow-hidden"
+          style={{ backgroundColor: "#1E3A34" }}
+        >
+          {/* Subtle diagonal mesh texture via CSS */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage: `repeating-linear-gradient(
+                -45deg,
+                rgba(255,255,255,0.6) 0px,
+                rgba(255,255,255,0.6) 1px,
+                transparent 1px,
+                transparent 28px
+              )`,
+            }}
+          />
+
+          <div className="relative z-10 max-w-xl">
+            {/* Credential badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 mb-8">
+              <span
+                className="w-2 h-2 rounded-full flex-shrink-0"
+                style={{ backgroundColor: "#e4b63d" }}
+              />
+              <span className="text-xs font-semibold tracking-wide text-white/80">
+                Built by a 25-year school BCBA — Rob Spain, BCBA, IBA
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-4xl sm:text-5xl font-bold text-white leading-[1.1] tracking-tight mb-5">
+              Stop Writing FBAs at 10&nbsp;PM.
+            </h1>
+
+            {/* Subheadline */}
+            <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-10">
+              An ACT-informed FBA &amp; BIP that addresses the psychological root of behavior — not just the function.
+              Free. No AI. No login.
+            </p>
+
+            {/* 3 Steps */}
+            <ol className="space-y-5 mb-10">
+              {[
+                "Identify the function of the behavior (attention, escape, tangible, sensory)",
+                "Assess ACT processes — values, experiential avoidance, cognitive fusion",
+                "Generate a complete, copy-ready BIP with ACT-aligned strategies",
+              ].map((step, i) => (
+                <li key={i} className="flex items-start gap-4">
+                  <span
+                    className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-[#1E3A34] mt-0.5"
+                    style={{ backgroundColor: "#e4b63d" }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span className="text-white/85 text-sm sm:text-base leading-snug pt-1">{step}</span>
+                </li>
+              ))}
+            </ol>
+
+            {/* Stat block */}
+            <div className="border-t border-white/15 pt-6">
+              <p className="text-sm text-white/50 leading-relaxed">
+                A comprehensive FBA takes 10–20 hours. This tool makes the output faster — so you can spend those hours
+                on the work that actually matters.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right column — wizard */}
+        <div className="flex flex-col justify-start bg-slate-50 px-6 py-12 sm:px-10 lg:px-12">
+          <ACTFBABIPWizard />
+        </div>
+      </section>
+
+      {/* ── POST-WIZARD: Sample Output Preview ── */}
+      <div className="bg-white border-t border-b border-slate-200 py-10 px-6">
         <div className="container mx-auto max-w-3xl">
           <details className="group">
-            <summary className="flex items-center justify-between cursor-pointer list-none py-2">
+            <summary className="flex items-center justify-between cursor-pointer list-none py-2 gap-4">
               <div>
-                <span className="text-base font-semibold text-slate-900">See what the output looks like</span>
-                <span className="ml-3 text-sm text-slate-500">A real clinical document — ready to print or share with your team.</span>
+                <span className="text-base font-semibold text-slate-900">
+                  See what the output looks like
+                </span>
+                <span className="ml-3 text-sm text-slate-500">
+                  A real clinical document — ready to print or share with your team.
+                </span>
               </div>
-              <span className="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-lg select-none">▼</span>
+              <span className="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-lg select-none flex-shrink-0">
+                ▼
+              </span>
             </summary>
             <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 overflow-hidden">
               <div className="bg-slate-800 px-4 py-2 flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-400" />
                 <div className="w-3 h-3 rounded-full bg-yellow-400" />
                 <div className="w-3 h-3 rounded-full bg-green-400" />
-                <span className="ml-2 text-xs text-slate-400 font-mono">ACT-Informed FBA & BIP — Sample Output</span>
+                <span className="ml-2 text-xs text-slate-400 font-mono">
+                  ACT-Informed FBA &amp; BIP — Sample Output
+                </span>
               </div>
               <pre className="p-5 text-xs sm:text-sm font-mono text-slate-700 whitespace-pre-wrap leading-relaxed overflow-x-auto">{`ACT-INFORMED FUNCTIONAL BEHAVIOR ASSESSMENT & BEHAVIOR INTERVENTION PLAN
 
@@ -220,163 +299,163 @@ Committed Action Goals:
 [Full report continues with progress monitoring, team roles, data collection
 procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
             </div>
-            <p className="mt-3 text-xs text-slate-500">This is a representative preview. Your generated report will be fully customized to your student&apos;s data.</p>
+            <p className="mt-3 text-xs text-slate-500">
+              This is a representative preview. Your generated report will be fully customized to your student&apos;s data.
+            </p>
           </details>
         </div>
       </div>
 
-      {/* Post-Presentation Orientation */}
-      <div className="bg-emerald-50 border-b border-emerald-200 py-10 px-6">
+      {/* ── SHARE BAR (below wizard) ── */}
+      <div className="bg-slate-50 border-b border-slate-200 py-6 px-6">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-emerald-900 mb-4">What You&apos;re About to Do</h2>
-          <p className="text-slate-700 mb-5 text-base leading-relaxed">
-            In Rob&apos;s presentation, you saw how combining a standard FBA with ACT principles creates behavior support
-            plans that address the psychological root of behavior — not just its function. This tool walks you through
-            that exact process:
-          </p>
-          <ol className="space-y-3 mb-6">
-            {[
-              "Identify the function of the behavior (attention, escape, tangible, sensory)",
-              "Assess ACT processes — values, experiential avoidance, cognitive fusion",
-              "Generate a complete, copy-ready BIP with ACT-aligned strategies",
-            ].map((step, i) => (
-              <li key={i} className="flex items-start gap-3 text-slate-700">
-                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-700 text-white text-sm font-bold flex items-center justify-center mt-0.5">
-                  {i + 1}
-                </span>
-                <span>{step}</span>
-              </li>
-            ))}
-          </ol>
-          <p className="text-slate-600 text-sm">
-            It takes about 10 minutes. The output is printable and ready for your team.
-          </p>
+          <ShareBar
+            title="Free ACT-Informed FBA & BIP Generator"
+            text="This free tool from BehaviorSchool generates a complete ACT-informed FBA and BIP in about 10 minutes. Built for school BCBAs."
+            url="https://behaviorschool.com/act-fba-bip"
+            hashtags={["BCBA", "SchoolBCBA", "BehaviorAnalysis", "ACT"]}
+          />
         </div>
       </div>
 
-      <article className="container mx-auto px-6 pb-16 pt-8">
-        <section className="grid gap-8 lg:grid-cols-[1.05fr_1.2fr] lg:items-start">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-purple-700">
-              ACT-Informed FBA → BIP
-            </div>
-            <div className="space-y-4">
-              <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
-                ACT-Informed FBA & Behavior Intervention Plan Generator
-              </h1>
-              <p className="text-base text-slate-600">
-                Go beyond function-based behavior plans. Create a values-driven, ACT-informed FBA and BIP that addresses
-                psychological inflexibility, builds acceptance skills, and connects replacement behaviors to what actually
-                matters to the student.
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[
-                "Values assessment & alignment",
-                "Psychological flexibility assessment",
-                "ACT functional analysis lens",
-                "Age-appropriate defusion & acceptance",
-                "Committed action goals",
-                "Metaphors & exercises catalog",
-                "Values-consistent progress monitoring",
-                "Standard BIP sections included",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-2 rounded-2xl border border-purple-100 bg-white px-4 py-3 text-sm text-slate-700">
-                  <span className="mt-0.5 text-purple-600">✓</span>
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600">
-              <p className="font-semibold text-slate-900">How it works</p>
-              <p>
-                Complete the standard FBA steps (behaviors, antecedents, consequences, function), then add ACT-specific
-                assessments (values, psychological flexibility, ACT functional analysis). The generator produces a comprehensive
-                report with both standard BIP sections and ACT-informed additions — all matched to the student&apos;s grade level.
-              </p>
-            </div>
-          </div>
+      <article className="container mx-auto px-6 pb-20 pt-16 max-w-6xl">
 
-          <div className="space-y-4">
-            <ShareBar
-              title="Free ACT-Informed FBA & BIP Generator"
-              text="This free tool from BehaviorSchool generates a complete ACT-informed FBA and BIP in about 10 minutes. Built for school BCBAs."
-              url="https://behaviorschool.com/act-fba-bip"
-              hashtags={["BCBA", "SchoolBCBA", "BehaviorAnalysis", "ACT"]}
-            />
-            <ACTFBABIPWizard />
+        {/* ── TIME BURDEN STAT ── */}
+        <section className="mb-16" aria-labelledby="act-fba-bip-time">
+          <div
+            className="rounded-2xl border border-slate-200 bg-white px-8 py-8 sm:px-10 shadow-sm"
+            style={{ borderLeft: `4px solid #1E3A34` }}
+          >
+            <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+              <div className="flex-1 space-y-2">
+                <p className="text-2xl font-bold text-slate-900 leading-snug">
+                  A comprehensive FBA takes 10–20 hours to complete.
+                  <sup className="text-sm font-normal text-slate-400 ml-1">*</sup>
+                </p>
+                <p className="text-base text-slate-600 leading-relaxed">
+                  That&apos;s a full week of after-hours work per student — record review, observations, interviews, data
+                  analysis, and report writing. This tool doesn&apos;t replace that process. It makes the{" "}
+                  <em>output</em> faster, so you can spend those hours on the work that matters.
+                </p>
+              </div>
+            </div>
+            <p className="mt-5 text-xs text-slate-400 border-t border-slate-100 pt-4 leading-relaxed">
+              <sup>*</sup> Time estimate based on practitioner-reported workflows: indirect assessment (interviews, rating
+              scales, record review: 1–3 hrs), direct observation across 3+ sessions (1.5–3 hrs), data analysis and
+              hypothesis formation (1–2 hrs), and report writing (3–6+ hrs). Source: Practitioner survey data, r/ABA
+              community (2023); Rob Spain, BCBA, 25 years school-based practice. No peer-reviewed study with a
+              standardized hour-count exists; this reflects real-world practitioner experience.
+            </p>
           </div>
         </section>
 
-        {/* What is ACT-Informed FBA/BIP */}
-        <section className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_1fr]" aria-labelledby="act-fba-bip-what">
-          <div className="space-y-4">
-            <h2 id="act-fba-bip-what" className="text-2xl font-semibold text-slate-900">
+        {/* ── WHAT IS ACT-INFORMED BIP ── */}
+        <section className="mb-16 grid gap-10 lg:grid-cols-[1.2fr_1fr]" aria-labelledby="act-fba-bip-what">
+          <div className="space-y-5">
+            <h2 id="act-fba-bip-what" className="text-3xl font-bold text-slate-900 leading-tight">
               What is an ACT-Informed Behavior Intervention Plan?
             </h2>
-            <p className="text-base text-slate-600">
+            <p className="text-base text-slate-600 leading-relaxed">
               Acceptance and Commitment Training (ACT) is an evidence-based approach that helps individuals develop
               psychological flexibility — the ability to be present, open to difficult experiences, and committed to
               values-driven action. When applied to school-based behavior support, ACT transforms the traditional FBA/BIP
-              process by adding a deeper understanding of WHY behavior occurs and connecting interventions to what genuinely
-              matters to the student.
+              process by adding a deeper understanding of <em>why</em> behavior occurs and connecting interventions to
+              what genuinely matters to the student.
             </p>
-            <p className="text-base text-slate-600">
-              A standard BIP asks: &quot;What function does the behavior serve?&quot; An ACT-informed BIP also asks: &quot;What
-              is the student avoiding internally?&quot; &quot;What rigid thoughts are they fused with?&quot; &quot;What do they
-              value?&quot; and &quot;How can we help them move TOWARD what matters, even when it&apos;s hard?&quot;
+            <p className="text-base text-slate-600 leading-relaxed">
+              A standard BIP asks: &quot;What function does the behavior serve?&quot; An ACT-informed BIP also asks:
+              &quot;What is the student avoiding internally?&quot; &quot;What rigid thoughts are they fused with?&quot;
+              &quot;What do they value?&quot; and &quot;How can we help them move TOWARD what matters, even when it&apos;s
+              hard?&quot;
             </p>
-            <h3 className="text-lg font-semibold text-slate-900 mt-6">
-              ACT&#39;s Six Core Processes in the Classroom
-            </h3>
-            <p className="text-base text-slate-600">
-              ACT targets six interconnected processes: <strong>acceptance</strong> (making room for difficult feelings),{" "}
-              <strong>cognitive defusion</strong> (unhooking from rigid thoughts), <strong>present-moment awareness</strong>{" "}
-              (being here now), <strong>self-as-context</strong> (flexible sense of self), <strong>values</strong> (knowing
-              what matters), and <strong>committed action</strong> (doing what matters). This tool assesses and addresses all
-              six, adapted for each grade level.
-            </p>
+            <div className="pt-2">
+              <h3 className="text-lg font-semibold text-slate-900 mb-3">
+                ACT&apos;s Six Core Processes in the Classroom
+              </h3>
+              <p className="text-base text-slate-600 leading-relaxed">
+                ACT targets six interconnected processes:{" "}
+                <strong className="text-slate-800">acceptance</strong> (making room for difficult feelings),{" "}
+                <strong className="text-slate-800">cognitive defusion</strong> (unhooking from rigid thoughts),{" "}
+                <strong className="text-slate-800">present-moment awareness</strong> (being here now),{" "}
+                <strong className="text-slate-800">self-as-context</strong> (flexible sense of self),{" "}
+                <strong className="text-slate-800">values</strong> (knowing what matters), and{" "}
+                <strong className="text-slate-800">committed action</strong> (doing what matters). This tool assesses and
+                addresses all six, adapted for each grade level.
+              </p>
+            </div>
           </div>
+
           <div className="space-y-4">
-            <div className="rounded-2xl border border-purple-100 bg-purple-50/70 p-6">
-              <h3 className="text-lg font-semibold text-purple-900">What&apos;s included in your ACT FBA/BIP</h3>
-              <ul className="mt-3 space-y-2 text-sm text-purple-900/90">
-                <li>✓ Standard behavior definitions & function analysis</li>
-                <li>✓ Student values assessment & descriptions</li>
-                <li>✓ Psychological flexibility assessment</li>
-                <li>✓ ACT-lens functional analysis</li>
-                <li>✓ ACT-specific setting events</li>
-                <li>✓ Values-aligned replacement behaviors</li>
-                <li>✓ Acceptance-based strategies (by grade level)</li>
-                <li>✓ Defusion techniques (by grade level)</li>
-                <li>✓ Values clarification activities</li>
-                <li>✓ Committed action goals tied to values</li>
-                <li>✓ Metaphors & exercises catalog</li>
-                <li>✓ Standard BIP strategies (antecedent, teaching, reinforcement, response)</li>
-                <li>✓ Values-consistent progress monitoring</li>
-                <li>✓ Crisis plan (when applicable)</li>
-                <li>✓ Generalization & maintenance plans</li>
+            {/* What's included card */}
+            <div
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              style={{ borderLeft: `4px solid #1E3A34` }}
+            >
+              <h3 className="text-base font-semibold text-slate-900 mb-4">
+                What&apos;s included in your ACT FBA/BIP
+              </h3>
+              <ul className="space-y-2 text-sm text-slate-600">
+                {[
+                  "Standard behavior definitions & function analysis",
+                  "Student values assessment & descriptions",
+                  "Psychological flexibility assessment",
+                  "ACT-lens functional analysis",
+                  "ACT-specific setting events",
+                  "Values-aligned replacement behaviors",
+                  "Acceptance-based strategies (by grade level)",
+                  "Defusion techniques (by grade level)",
+                  "Values clarification activities",
+                  "Committed action goals tied to values",
+                  "Metaphors & exercises catalog",
+                  "Standard BIP strategies (antecedent, teaching, reinforcement, response)",
+                  "Values-consistent progress monitoring",
+                  "Crisis plan (when applicable)",
+                  "Generalization & maintenance plans",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-1 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center" style={{ backgroundColor: "#1E3A34" }}>
+                      <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 10 8">
+                        <path d="M1 4l2.5 2.5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-6">
-              <h3 className="text-lg font-semibold text-slate-900">Who Is This For?</h3>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600">
-                <li>• School-based BCBAs using ACT in practice</li>
-                <li>• Behavior specialists exploring values-based approaches</li>
-                <li>• School psychologists integrating ACT into behavior support</li>
-                <li>• Special educators writing comprehensive behavior plans</li>
-                <li>• Teams supporting students with experiential avoidance patterns</li>
+
+            {/* Who is this for */}
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <h3 className="text-base font-semibold text-slate-900 mb-3">Who Is This For?</h3>
+              <ul className="space-y-2 text-sm text-slate-600">
+                {[
+                  "School-based BCBAs using ACT in practice",
+                  "Behavior specialists exploring values-based approaches",
+                  "School psychologists integrating ACT into behavior support",
+                  "Special educators writing comprehensive behavior plans",
+                  "Teams supporting students with experiential avoidance patterns",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-slate-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </section>
 
-        {/* Why ACT-Informed BIP */}
-        <section className="mt-14 space-y-6" aria-labelledby="act-fba-bip-why">
-          <h2 id="act-fba-bip-why" className="text-2xl font-semibold text-slate-900">
-            Why Use an ACT-Informed Behavior Intervention Plan?
-          </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* ── WHY USE ACT-INFORMED BIP ── */}
+        <section className="mb-16 space-y-8" aria-labelledby="act-fba-bip-why">
+          <div>
+            <h2 id="act-fba-bip-why" className="text-3xl font-bold text-slate-900 leading-tight">
+              Why Use an ACT-Informed Behavior Intervention Plan?
+            </h2>
+            <p className="mt-2 text-base text-slate-500">
+              Six reasons this approach goes further than a standard FBA/BIP.
+            </p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 title: "Beyond behavior reduction",
@@ -409,54 +488,76 @@ procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
                   "No AI, no subscriptions, no waiting. The rules-based engine generates a comprehensive ACT-informed FBA/BIP in seconds.",
               },
             ].map((item) => (
-              <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5">
-                <h3 className="text-base font-semibold text-slate-900">{item.title}</h3>
-                <p className="mt-2 text-sm text-slate-600">{item.description}</p>
+              <div
+                key={item.title}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                style={{ borderLeft: `3px solid #1E3A34` }}
+              >
+                <h3 className="text-base font-semibold text-slate-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="mt-12" aria-labelledby="act-fba-bip-faq">
-          <h2 id="act-fba-bip-faq" className="text-2xl font-semibold text-slate-900">
-            ACT-Informed FBA & BIP Generator FAQ
-          </h2>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        {/* ── FAQ ── */}
+        <section className="mb-16" aria-labelledby="act-fba-bip-faq">
+          <div className="mb-8">
+            <h2 id="act-fba-bip-faq" className="text-3xl font-bold text-slate-900 leading-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="mt-2 text-base text-slate-500">
+              Everything you need to know about the ACT-informed FBA &amp; BIP generator.
+            </p>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-2">
             {faqItems.map((item) => (
-              <div key={item.question} className="rounded-2xl border border-slate-200 bg-white p-5">
-                <h3 className="text-base font-semibold text-slate-900">{item.question}</h3>
-                <p className="mt-2 text-sm text-slate-600">{item.answer}</p>
+              <div
+                key={item.question}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                <h3 className="text-base font-semibold text-slate-900 mb-2">{item.question}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{item.answer}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Share */}
-        <section className="mt-12" aria-labelledby="act-fba-bip-share">
-          <h2 id="act-fba-bip-share" className="text-2xl font-semibold text-slate-900">
+        {/* ── SHARE ── */}
+        <section className="mb-16" aria-labelledby="act-fba-bip-share">
+          <h2 id="act-fba-bip-share" className="text-2xl font-bold text-slate-900 mb-4">
             Share this tool
           </h2>
-          <ShareButtons title="ACT-Informed FBA & BIP Generator" url={pageUrl} className="mt-4" />
+          <ShareButtons title="ACT-Informed FBA & BIP Generator" url={pageUrl} className="mt-2" />
         </section>
 
-        {/* Transformation Program CTA */}
-        <section className="mt-12 rounded-2xl bg-emerald-800 text-white p-8 sm:p-10">
+        {/* ── CTA ── */}
+        <section
+          className="rounded-2xl text-white p-8 sm:p-12"
+          style={{ backgroundColor: "#1E3A34" }}
+          aria-labelledby="act-fba-bip-cta"
+        >
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-widest text-emerald-300 mb-2">Go Deeper</p>
-            <h2 className="text-2xl font-bold mb-3">
+            <p
+              className="text-xs font-bold uppercase tracking-widest mb-3"
+              style={{ color: "#e4b63d" }}
+            >
+              Go Deeper
+            </p>
+            <h2 id="act-fba-bip-cta" className="text-2xl sm:text-3xl font-bold leading-snug mb-4">
               Want to learn this process with a cohort of school BCBAs?
             </h2>
-            <p className="text-emerald-100 mb-2 leading-relaxed">
+            <p className="text-white/80 mb-2 leading-relaxed">
               The <strong className="text-white">School BCBA Transformation Program</strong> walks you through this and
               much more — live, 6 weeks, starting March 26.
             </p>
-            <p className="text-emerald-200 mb-6 text-sm">
+            <p className="text-white/60 mb-8 text-sm">
               Early bird pricing: <strong className="text-white">$2,499</strong> through March 21.
             </p>
             <a
               href="https://behaviorschool.com/transformation-program"
-              className="inline-flex items-center gap-2 bg-white text-emerald-800 font-bold px-7 py-3 rounded-xl hover:bg-emerald-50 transition-colors"
+              className="inline-flex items-center gap-2 font-bold px-8 py-3.5 rounded-xl transition-colors text-sm"
+              style={{ backgroundColor: "#e4b63d", color: "#1E3A34" }}
             >
               Reserve Your Spot
             </a>
