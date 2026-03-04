@@ -15,31 +15,29 @@ export const metadata: Metadata = {
 
 export default function IEPGoalWriterPage() {
   return (
-    <main style={{ background: "#f5f5f0", minHeight: "100vh", padding: "48px 24px" }}>
-      <div style={{ maxWidth: 680, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <div style={{ display: "inline-block", background: "#e8f5ee", color: "#1a4731", padding: "6px 16px", borderRadius: 20, fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 16 }}>
-            Free Tool
-          </div>
-          <h1 style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 800, color: "#1a3a2a", marginBottom: 12, lineHeight: 1.2 }}>
+    <main className="min-h-screen bg-white">
+      <section className="pt-20 pb-10 sm:pt-24 sm:pb-14">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xs font-semibold tracking-widest uppercase text-emerald-700 mb-3">Free tool</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
             IEP Behavior Goal Writer
           </h1>
-          <p style={{ color: "#555", fontSize: "1.1rem", maxWidth: 520, margin: "0 auto" }}>
-            Generate 3 draft SMART behavior goals in under 60 seconds. Built on function-based goal structure used by experienced BCBAs.
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Generate three draft SMART behavior goals in under 60 seconds using function-based goal structure.
           </p>
         </div>
+      </section>
 
-        <div style={{ background: "white", borderRadius: 12, padding: "40px 32px", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
-          <IEPGoalWriter />
+      <section className="pb-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm">
+            <IEPGoalWriter />
+          </div>
+          <p className="text-center text-sm text-slate-500 mt-6">
+            Free tool from <a href="/" className="text-emerald-700 font-medium">BehaviorSchool</a> · No login required
+          </p>
         </div>
-
-        <p style={{ textAlign: "center", color: "#888", fontSize: "0.85rem", marginTop: 24 }}>
-          Free tool from{" "}
-          <a href="/" style={{ color: "#1a4731" }}>BehaviorSchool</a>
-          {" "}· No login required
-        </p>
-      </div>
+      </section>
     </main>
   );
 }

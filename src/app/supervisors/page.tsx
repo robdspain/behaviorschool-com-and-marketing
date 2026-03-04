@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -16,7 +15,6 @@ import {
   GraduationCap,
   CheckCircle,
   ExternalLink,
-  Sparkles,
   Clock,
   FileCheck,
   Shield,
@@ -51,33 +49,6 @@ export default function SupervisorsPage() {
 
   return (
     <div className="min-h-screen bg-bs-background">
-      {/* Sophisticated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-emerald-400/10 to-blue-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 0],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-400/10 to-emerald-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1.1, 1, 1.1],
-            rotate: [0, -180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      </div>
 
       {/* Breadcrumbs */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
@@ -98,57 +69,43 @@ export default function SupervisorsPage() {
       />
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-blue-800" />
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/30 via-transparent to-blue-900/30" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex items-center justify-center gap-3 mb-8"
-          >
-            <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-6 py-3 text-lg font-medium">
-              <Sparkles className="w-5 h-5 mr-2" />
-              Premium BCBA Supervision Platform
-            </Badge>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-none"
-          >
-            Transform Your
-            <span className="block bg-gradient-to-r from-emerald-200 via-white to-emerald-100 bg-clip-text text-transparent">
-              Supervision Practice
-            </span>
-          </motion.h1>
-
+      <section ref={heroRef} className="bg-white border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-6 py-16 text-center">
           <motion.p
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="text-2xl text-emerald-50 max-w-4xl mx-auto mb-12 leading-relaxed font-medium"
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-xs font-semibold tracking-widest uppercase text-emerald-700 mb-4"
           >
-            Streamline BCBA supervision with digital competency tracking, automated workflows, and BACB-compliant documentation.
+            BCBA Supervision
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12"
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight"
           >
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-white/20 text-white border-white/50 backdrop-blur-md hover:bg-white/30 px-10 py-5 text-xl font-bold rounded-2xl"
-              asChild
-            >
-              <a href="#platform">Join Premium Waitlist</a>
+            Supervision Hour Tracker for BCBAs
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8"
+          >
+            Track supervisee hours, competency progress, and BACB documentation with clean workflows built for school-based teams.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <Button size="lg" className="px-8" asChild>
+              <a href="https://supervision.behaviorschool.com">Start tracking hours now</a>
+            </Button>
+            <Button size="lg" variant="outline" className="px-8" asChild>
+              <a href="#platform">See how it works</a>
             </Button>
           </motion.div>
         </div>
