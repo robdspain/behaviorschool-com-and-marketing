@@ -87,7 +87,7 @@ const SAMPLE_STUDENT: ACTFBAData = {
   customConsequences: "",
   functions: ["escape"],
   functionNotes: "Behavior consistently results in removal from academic demands. Hypothesized primary function: escape from tasks perceived as difficult or potentially embarrassing.",
-  studentValues: ["competence", "belonging", "growth"],
+  studentValues: ["learning", "relationships", "bravery"],
   valuesNotes: "Marcus reports wanting to 'be good at things' and to 'have friends who respect him.' He shows interest in sports and gaming. Avoids situations where he might appear incompetent in front of peers.",
   inflexibilityProcesses: ["cognitive_fusion", "experiential_avoidance", "self_as_content"],
   inflexibilityNotes: "Marcus frequently says 'I'm stupid' and 'I can't do this' — fused with a self-story of academic incompetence. Behavior appears to function as escape from the internal experience of inadequacy.",
