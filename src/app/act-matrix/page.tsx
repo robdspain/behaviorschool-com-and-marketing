@@ -2,11 +2,11 @@
 
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { ClipboardList, Layers, Sparkles, Target, Star } from "lucide-react";
+import { ClipboardList, Layers, Sparkles, Target, Star, FileText, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import SimpleDownloadButton from "@/components/SimpleDownloadButton";
-import ACTMatrixBuilder from "@/components/act-matrix-builder/ACTMatrixBuilder";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -16,6 +16,14 @@ const fadeInUp = {
 };
 
 export default function ACTMatrixPage() {
+  const [demo, setDemo] = useState({
+    studentName: "",
+    values: "",
+    towardMoves: "",
+    awayMoves: "",
+    innerBarriers: "",
+  });
+
   return (
     <div id="act-matrix-page" className="min-h-screen bg-white">
       {/* Breadcrumbs */}
@@ -91,16 +99,123 @@ export default function ACTMatrixPage() {
         </div>
       </section>
 
-      {/* Tool Section */}
+      {/* ACT-FBA/BIP Live Demo */}
       <section id="tool" className="py-10 bg-slate-50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-4">
             <Sparkles className="w-5 h-5 text-emerald-600" />
-            <h2 className="text-2xl font-bold text-slate-900">Interactive ACT Matrix Builder</h2>
+            <h2 className="text-2xl font-bold text-slate-900">ACT-FBA/BIP Live Demo</h2>
           </div>
-          <p className="text-slate-600 mb-6">Fill in each quadrant, then copy or print the completed matrix for a student or team meeting.</p>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-            <ACTMatrixBuilder />
+          <p className="text-slate-600 mb-6">
+            This demo shows how the ACT Matrix auto-populates in real time as you complete a student interview.
+          </p>
+
+          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-6">
+            {/* Interview Form */}
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <FileText className="w-4 h-4 text-emerald-600" />
+                <h3 className="font-semibold text-slate-900">Student Interview</h3>
+              </div>
+
+              <div className="space-y-4 text-sm">
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Student Name</label>
+                  <input
+                    type="text"
+                    value={demo.studentName}
+                    onChange={(e) => setDemo({ ...demo, studentName: e.target.value })}
+                    placeholder="e.g., Alex"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Values (who/what matters)</label>
+                  <textarea
+                    rows={3}
+                    value={demo.values}
+                    onChange={(e) => setDemo({ ...demo, values: e.target.value })}
+                    placeholder="e.g., Being helpful, being a good friend, making parents proud"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Toward Moves (outer/doing)</label>
+                  <textarea
+                    rows={3}
+                    value={demo.towardMoves}
+                    onChange={(e) => setDemo({ ...demo, towardMoves: e.target.value })}
+                    placeholder="e.g., Asks for help, takes a break, returns to task"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Away Moves (outer/doing)</label>
+                  <textarea
+                    rows={3}
+                    value={demo.awayMoves}
+                    onChange={(e) => setDemo({ ...demo, awayMoves: e.target.value })}
+                    placeholder="e.g., Refuses tasks, leaves seat, yells"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Inner Barriers (thoughts/feelings)</label>
+                  <textarea
+                    rows={3}
+                    value={demo.innerBarriers}
+                    onChange={(e) => setDemo({ ...demo, innerBarriers: e.target.value })}
+                    placeholder={`e.g., "I can't do this", fear of embarrassment`}
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Live Matrix */}
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-slate-900">Live ACT Matrix</h3>
+                <span className="text-xs text-slate-500">Auto-filled in real time</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-0 border border-slate-300 rounded-xl overflow-hidden">
+                <div className="bg-emerald-50 p-4 border-b border-r border-slate-300">
+                  <div className="text-xs uppercase tracking-wide text-emerald-700 font-bold mb-2">Toward Moves</div>
+                  <div className="text-sm text-slate-700 whitespace-pre-wrap min-h-[90px]">
+                    {demo.towardMoves || "—"}
+                  </div>
+                </div>
+                <div className="bg-amber-50 p-4 border-b border-slate-300">
+                  <div className="text-xs uppercase tracking-wide text-amber-700 font-bold mb-2">Away Moves</div>
+                  <div className="text-sm text-slate-700 whitespace-pre-wrap min-h-[90px]">
+                    {demo.awayMoves || "—"}
+                  </div>
+                </div>
+                <div className="bg-emerald-50/60 p-4 border-r border-slate-300">
+                  <div className="text-xs uppercase tracking-wide text-emerald-700 font-bold mb-2">Values (Inner Toward)</div>
+                  <div className="text-sm text-slate-700 whitespace-pre-wrap min-h-[90px]">
+                    {demo.values || "—"}
+                  </div>
+                </div>
+                <div className="bg-amber-50/60 p-4">
+                  <div className="text-xs uppercase tracking-wide text-amber-700 font-bold mb-2">Inner Barriers</div>
+                  <div className="text-sm text-slate-700 whitespace-pre-wrap min-h-[90px]">
+                    {demo.innerBarriers || "—"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 text-xs text-slate-500">
+                This mirrors how the ACT-FBA/BIP tool auto-populates the matrix from interview responses.
+              </div>
+
+              <div className="mt-6">
+                <a href="/act-fba-bip" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm">
+                  Try the full ACT-FBA/BIP workflow <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
