@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ACTFBABIPWizard } from "@/components/act-fba-bip/ACTFBABIPWizard";
 import { ShareButtons } from "@/components/ui/share-buttons";
 import { ShareBar } from "@/components/ui/ShareBar";
+import { HeroStudentForm } from "@/components/act-fba-bip/HeroStudentForm";
 
 const baseUrl = "https://behaviorschool.com";
 const pageUrl = `${baseUrl}/act-fba-bip`;
@@ -215,7 +215,14 @@ export default function ACTFBABIPPage() {
 
         {/* Right column — wizard */}
         <div className="flex flex-col justify-start bg-slate-50 px-6 pt-6 pb-12 sm:px-10 lg:px-12 lg:pt-8">
-          <ACTFBABIPWizard />
+          <div className="rounded-3xl border border-[#1E3A34]/20 bg-white shadow-sm p-6">
+            <div className="mb-4">
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Step 1 of 13</p>
+              <h2 className="text-xl font-semibold text-slate-900">Student Information</h2>
+              <p className="text-sm text-slate-500">Start here. The interview begins on the next step.</p>
+            </div>
+            <HeroStudentForm />
+          </div>
         </div>
       </section>
 

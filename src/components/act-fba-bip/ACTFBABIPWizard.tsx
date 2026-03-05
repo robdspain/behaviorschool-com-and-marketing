@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -109,12 +109,38 @@ function MatrixEditor({
   );
 }
 
-export function ACTFBABIPWizard() {
-  const [phase, setPhase] = useState(0);
-  const [data, setData] = useState<ACTFBAData>(INITIAL_WIZARD_DATA);
+interface ACTFBABIPWizardProps {
+  startFromPhase?: number;
+  onPhase0Complete?: (profileData: ACTFBAData["profile"]) => void;
+  embedded?: boolean; // If true, hide the card wrapper for embedding in hero
+}
+
+export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded = false }: ACTFBABIPWizardProps) {
+  const [phase, setPhase] = useState(startFromPhase);
+  const [data, setData] = useState<ACTFBAData>(() => {
+    // If starting from a later phase, try to load saved data
+    if (typeof window !== "undefined" && startFromPhase > 0) {
+      const saved = localStorage.getItem("act-fba-bip-data");
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          return INITIAL_WIZARD_DATA;
+        }
+      }
+    }
+    return INITIAL_WIZARD_DATA;
+  });
   const [valueSearch, setValueSearch] = useState("");
   const [report, setReport] = useState<GeneratedACTBIP | null>(null);
   const [emailGate, setEmailGate] = useState({ name: "", email: "", loading: false, submitted: false });
+
+  useEffect(() => {
+    // Persist wizard state so we can resume on /act-fba-bip/wizard
+    if (typeof window !== "undefined") {
+      localStorage.setItem("act-fba-bip-data", JSON.stringify(data));
+    }
+  }, [data]);
 
   const questions = useMemo(
     () => INTERVIEW_QUESTIONS.filter((q) => INTERVIEW_QUESTION_IDS.includes(q.id)),
@@ -179,28 +205,34 @@ export function ACTFBABIPWizard() {
   const Icon = currentIcon;
 
   return (
-    <div className="rounded-3xl border border-[#1E3A34]/20 bg-white shadow-sm">
-      <div className="rounded-t-3xl bg-[#1E3A34] px-6 py-5 text-white">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/70">CalABA 2026</p>
-        <h2 className="text-2xl font-semibold">ACT-Informed FBA/BIP Wizard</h2>
-        <p className="text-sm text-white/80">13-phase assessment, intervention, and implementation workflow</p>
-      </div>
-
-      <div className="space-y-5 p-6">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
-          <ProgressIndicator
-            steps={WIZARD_PHASES.map((title, index) => `P${index + 1}`)}
-            currentStep={phase}
-          />
+    <div className={embedded ? "" : "rounded-3xl border border-[#1E3A34]/20 bg-white shadow-sm"}>
+      {!embedded && (
+        <div className="rounded-t-3xl bg-[#1E3A34] px-6 py-5 text-white">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/70">CalABA 2026</p>
+          <h2 className="text-2xl font-semibold">ACT-Informed FBA/BIP Wizard</h2>
+          <p className="text-sm text-white/80">13-phase assessment, intervention, and implementation workflow</p>
         </div>
+      )}
 
-        <div className="flex items-center justify-between rounded-xl border border-[#e4b63d]/50 bg-[#e4b63d]/10 px-4 py-3">
-          <div>
-            <p className="text-xs uppercase tracking-[0.15em] text-slate-600">Phase {phase + 1} of 13</p>
-            <h3 className="text-lg font-semibold text-slate-900">{WIZARD_PHASES[phase]}</h3>
+      <div className={embedded ? "space-y-5" : "space-y-5 p-6"}>
+        {!embedded && (
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+            <ProgressIndicator
+              steps={WIZARD_PHASES.map((title, index) => `P${index + 1}`)}
+              currentStep={phase}
+            />
           </div>
-          <Icon className="h-5 w-5 text-[#1E3A34]" />
-        </div>
+        )}
+
+        {!embedded && (
+          <div className="flex items-center justify-between rounded-xl border border-[#e4b63d]/50 bg-[#e4b63d]/10 px-4 py-3">
+            <div>
+              <p className="text-xs uppercase tracking-[0.15em] text-slate-600">Phase {phase + 1} of 13</p>
+              <h3 className="text-lg font-semibold text-slate-900">{WIZARD_PHASES[phase]}</h3>
+            </div>
+            <Icon className="h-5 w-5 text-[#1E3A34]" />
+          </div>
+        )}
 
         {/* Phase 0: Student Information (basic profile fields only) */}
         {phase === 0 && (
@@ -705,14 +737,22 @@ export function ACTFBABIPWizard() {
         )}
 
         <div className="flex items-center justify-between border-t border-slate-200 pt-4">
-          <Button variant="outline" disabled={phase === 0} onClick={() => setPhase((prev) => Math.max(0, prev - 1))}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
-          </Button>
+          {!embedded && (
+            <Button variant="outline" disabled={phase === 0} onClick={() => setPhase((prev) => Math.max(0, prev - 1))}>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back
+            </Button>
+          )}
 
           {phase < WIZARD_PHASES.length - 1 && (
             <Button
-              onClick={() => setPhase((prev) => Math.min(WIZARD_PHASES.length - 1, prev + 1))}
+              onClick={() => {
+                if (phase === 0 && onPhase0Complete) {
+                  onPhase0Complete(data.profile);
+                  return;
+                }
+                setPhase((prev) => Math.min(WIZARD_PHASES.length - 1, prev + 1));
+              }}
               disabled={!isPhaseValid[phase]}
               className="bg-[#1E3A34] hover:bg-[#173029]"
             >
