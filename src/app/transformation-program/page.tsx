@@ -175,10 +175,10 @@ export default function TransformationProgramPage() {
                 For School-Based BCBAs
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-slate-900 leading-tight">
-                The Transformation Program
+                Stop Drowning in Paperwork.<br className="hidden sm:block" /> Start Leading.
               </h1>
               <p className="text-base sm:text-lg text-slate-600 max-w-[60ch]">
-                A 6-week live cohort that turns overwhelmed BCBAs into high-impact school behavior leaders with a practical, district-ready playbook.
+                A 6-week live cohort that turns overwhelmed school BCBAs into high-impact behavior leaders — with a district-ready playbook you implement immediately.
               </p>
               <div className="flex flex-wrap gap-3">
                 {["Live cohort", "6 weeks", "BCBAs only"].map((item) => (
@@ -186,6 +186,9 @@ export default function TransformationProgramPage() {
                     {item}
                   </span>
                 ))}
+                <span className="px-3 py-1.5 rounded-full border border-amber-200 bg-amber-50 text-xs font-semibold text-amber-800 uppercase tracking-wide">
+                  Only 15 spots
+                </span>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
@@ -200,10 +203,17 @@ export default function TransformationProgramPage() {
                   href={CALENDLY_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full px-7 h-12 text-sm font-semibold border border-[#1f4d3f]/30 text-[#1f4d3f] hover:bg-[#1f4d3f]/10 transition"
+                  className="inline-flex items-center justify-center rounded-full px-7 h-12 text-sm font-semibold bg-white border-2 border-[#1f4d3f] text-[#1f4d3f] hover:bg-[#1f4d3f]/10 transition shadow-md"
                 >
-                  Book a quick call
+                  <Calendar className="mr-2 h-4 w-4" /> Book a 15-min Call with Rob
                 </a>
+              </div>
+              <div className="flex items-center gap-3 flex-wrap text-sm text-slate-500">
+                <span className="flex items-center gap-1.5"><Award size={14} className="text-[#1f4d3f]" /> CalABA 2026 Speaker</span>
+                <span className="text-slate-300">·</span>
+                <span className="flex items-center gap-1.5"><Trophy size={14} className="text-[#1f4d3f]" /> 25+ Years School-Based Practice</span>
+                <span className="text-slate-300">·</span>
+                <span className="flex items-center gap-1.5"><Shield size={14} className="text-[#1f4d3f]" /> BCBA · IBA Certified</span>
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="rounded-2xl border border-white/70 bg-white/80 px-5 py-4 shadow-sm">
@@ -407,7 +417,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-black text-center mb-16 text-slate-900">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: "March 26, 2026. Sessions run Thursdays 6\u20138 PM PT, ending May 7. Easter week (Apr 2) is off. Maximum 20 participants." },
+            { question: "When does the next cohort start?", answer: "March 26, 2026. Sessions run Thursdays 6\u20138 PM PT, ending May 7. Easter week (Apr 2) is off. Maximum 15 participants." },
             { question: "What does it cost?", answer: "Early bird pricing is $2,499, available through March 9. After that, enrollment is $2,997 \u2014 if spots remain. Maximum 20 seats total." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. Many districts reimburse directly or can pay via PO. Email rob@behaviorschool.com to request an invoice for your business office." },
             { question: "What if I miss a live call?", answer: "All sessions are recorded and made available in your student portal within 24 hours." },
@@ -422,6 +432,21 @@ export default function TransformationProgramPage() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4">Enroll in the March 26 Cohort</h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">A 6-week program for school-based BCBAs who are serious about leveling up.</p>
+          </div>
+
+          {/* Trust signals */}
+          <div className="flex flex-wrap justify-center gap-6 mb-10">
+            {[
+              { icon: Award, text: "CalABA 2026 Invited Speaker" },
+              { icon: Users, text: "25+ Years School-Based Practice" },
+              { icon: Shield, text: "BCBA · IBA Certified" },
+              { icon: Building2, text: "District Reimbursement Eligible" },
+            ].map(({ icon: Icon, text }) => (
+              <div key={text} className="flex items-center gap-2 text-sm text-slate-600">
+                <Icon size={15} className="text-[#1f4d3f]" />
+                <span>{text}</span>
+              </div>
+            ))}
           </div>
 
           {/* Pricing cards */}
@@ -460,7 +485,7 @@ export default function TransformationProgramPage() {
                 {!STRIPE_LINK && (
                   <p className="text-center text-emerald-300 text-xs mt-2">You&rsquo;ll receive a payment link via email within 24 hours.</p>
                 )}
-                <p className="text-center text-emerald-400 text-xs mt-2">20 spots maximum &mdash; <span className="text-[#e4b63d] font-bold">20 remaining</span></p>
+                <p className="text-center text-emerald-400 text-xs mt-2">15 spots maximum &mdash; <span className="text-[#e4b63d] font-bold">15 remaining</span></p>
                 <a
                   href={CALENDLY_LINK}
                   target="_blank"
