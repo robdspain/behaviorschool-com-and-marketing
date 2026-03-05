@@ -43,7 +43,7 @@ export function NavBar() {
             <DesktopMenu openKey={openDesktopKey} onOpen={setOpenDesktopKey} />
             <div className="flex items-center gap-3">
               <Link
-                href="https://plan.behaviorschool.com/signup"
+                href="https://plan.behaviorschool.com"
                 className="inline-flex items-center justify-center rounded-full bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white hover:bg-[#173a2f] transition"
               >
                 Start Free Trial

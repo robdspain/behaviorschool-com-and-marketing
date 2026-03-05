@@ -162,128 +162,105 @@ export default function TransformationProgramPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pb-16 md:pb-24 overflow-hidden">
-        <div className="max-w-[1200px] px-4 md:px-6 mx-auto text-center lg:text-left">
-          <div className="md:grid md:grid-cols-12 md:gap-12 items-center">
-            <div className="md:col-span-7">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="space-y-8">
-                <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.3em] text-[#e4b63d]">For School-Based BCBAs</p>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#1f4d3f] tracking-tight leading-[1.05]">
-                  Transform How You Work in Schools
-                </h1>
-                <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-[58ch] leading-relaxed mx-auto lg:mx-0">
-                  A 6-week live cohort that turns overwhelmed BCBAs into high-impact school behavior leaders.
-                </p>
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
-                  {["Live cohort", "6 weeks", "BCBAs only"].map((item) => (
-                    <span key={item} className="px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-xs font-semibold text-emerald-800 uppercase tracking-wide">
-                      {item}
-                    </span>
-                  ))}
+      <section className="relative overflow-hidden bg-[#f7f3ee]">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(31,77,63,0.18),_transparent_55%)]" />
+          <div className="absolute -left-32 top-24 h-72 w-72 rounded-full bg-[#e4b63d]/30 blur-3xl" />
+          <div className="absolute right-[-120px] bottom-[-120px] h-80 w-80 rounded-full bg-[#1f4d3f]/20 blur-3xl" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] items-start">
+            <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="space-y-8">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#1f4d3f]/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#1f4d3f]">
+                For School-Based BCBAs
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-slate-900 leading-tight">
+                The Transformation Program
+              </h1>
+              <p className="text-base sm:text-lg text-slate-600 max-w-[60ch]">
+                A 6-week live cohort that turns overwhelmed BCBAs into high-impact school behavior leaders with a practical, district-ready playbook.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {["Live cohort", "6 weeks", "BCBAs only"].map((item) => (
+                  <span key={item} className="px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-xs font-semibold text-emerald-800 uppercase tracking-wide">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href={ENROLL_HREF}
+                  target={STRIPE_LINK ? "_blank" : undefined}
+                  rel={STRIPE_LINK ? "noopener noreferrer" : undefined}
+                  className="inline-flex items-center justify-center rounded-full px-7 h-12 text-sm font-semibold bg-[#1f4d3f] hover:bg-emerald-900 text-white shadow-xl transition"
+                >
+                  Reserve Your Spot — $2,499 <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+                <a
+                  href={CALENDLY_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full px-7 h-12 text-sm font-semibold border border-[#1f4d3f]/30 text-[#1f4d3f] hover:bg-[#1f4d3f]/10 transition"
+                >
+                  Book a quick call
+                </a>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="rounded-2xl border border-white/70 bg-white/80 px-5 py-4 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">Cohort Window</p>
+                  <p className="mt-2 text-sm font-semibold text-slate-900">Thursdays · 6:00–8:00 PM PT</p>
+                  <p className="text-sm text-slate-600">Mar 26 · Apr 9 · Apr 16 · Apr 23 · Apr 30 · May 7</p>
+                  <p className="mt-1 text-xs text-slate-500">Easter week (Apr 2) off</p>
                 </div>
+                <div className="rounded-2xl border border-white/70 bg-white/80 px-5 py-4 shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">Early Bird</p>
+                  <p className="mt-2 text-lg font-semibold text-slate-900">$2,499 <span className="text-sm text-slate-400 line-through">$2,997</span></p>
+                  <p className="text-xs text-emerald-700">Save $498 · ends March 9</p>
+                  <p className="mt-2 text-xs text-slate-500">20 spots maximum</p>
+                </div>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white/70 p-6">
+                <h3 className="text-base font-semibold text-slate-900 mb-3">Class Agenda (6 weeks)</h3>
+                <div className="grid sm:grid-cols-2 gap-2 text-sm text-slate-600">
+                  <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#1f4d3f]" />Week 1: Foundations for Influence</div>
+                  <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#1f4d3f]" />Week 2: Referral Systems</div>
+                  <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#1f4d3f]" />Week 3: Building Trust & Buy-In</div>
+                  <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#1f4d3f]" />Week 4: The RIGHT Assessment</div>
+                  <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#1f4d3f]" />Week 5: Functional Analysis</div>
+                  <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-[#1f4d3f]" />Week 6: Writing Meaningful Goals</div>
+                </div>
+                <Link href="#curriculum" className="mt-4 inline-flex items-center text-sm font-semibold text-[#1f4d3f] hover:underline">
+                  See full curriculum details <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </div>
+            </motion.div>
 
-                {/* Cohort Dates Callout — prominently featured */}
-                <div className="rounded-2xl bg-[#1f4d3f] p-6 shadow-2xl border-2 border-[#e4b63d] text-left">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Calendar className="w-5 h-5 text-[#e4b63d]" />
-                    <span className="text-[#e4b63d] font-black text-sm uppercase tracking-widest">Next Cohort — 6-Week Pilot</span>
-                  </div>
-                  <p className="text-white font-semibold mb-1">Thursdays &middot; 6:00&ndash;8:00 PM PT</p>
-                  <p className="text-[#e4b63d] font-black text-lg md:text-xl leading-relaxed">
-                    Mar 26 &middot; Apr 9 &middot; Apr 16 &middot; Apr 23 &middot; Apr 30 &middot; May 7
-                  </p>
-                  <p className="text-emerald-300 text-xs mt-2 italic">Easter week (Apr 2) off &middot; Maximum 20 participants</p>
-                  <div className="mt-4 pt-4 border-t border-emerald-700 space-y-2">
-                    <div className="flex items-center gap-3">
-                      <div>
-                        <p className="text-[#e4b63d] font-black text-xl">$2,499 <span className="text-sm font-semibold text-emerald-300 line-through">$2,997</span></p>
-                        <p className="text-emerald-200 text-xs">Early bird — save $498. Ends March 9.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-white text-sm">
-                      <Clock className="w-4 h-4 text-[#e4b63d] flex-shrink-0" />
-                      <span>20 spots maximum &mdash; <span className="font-black text-[#e4b63d]">20 remaining</span></span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-4 justify-center lg:justify-start">
-                  <a
-                    href={ENROLL_HREF}
-                    target={STRIPE_LINK ? "_blank" : undefined}
-                    rel={STRIPE_LINK ? "noopener noreferrer" : undefined}
-                    className="inline-flex items-center justify-center rounded-2xl px-8 h-14 text-lg font-bold bg-[#1f4d3f] hover:bg-emerald-900 text-white shadow-xl transition sm:w-fit"
-                  >
-                    Reserve Your Spot — $2,499 <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
-                </div>
-
-                {/* Class Agenda - Inline */}
-                <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-                  <h3 className="text-lg font-bold text-slate-900 mb-4">Class Agenda</h3>
-                  <div className="grid sm:grid-cols-2 gap-3 text-sm">
-                    <div className="flex items-center gap-2 text-slate-700">
-                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
-                      Week 1: Foundations for Influence
-                    </div>
-                    <div className="flex items-center gap-2 text-slate-700">
-                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
-                      Week 2: Referral Systems
-                    </div>
-                    <div className="flex items-center gap-2 text-slate-700">
-                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
-                      Week 3: Building Trust & Buy-In
-                    </div>
-                    <div className="flex items-center gap-2 text-slate-700">
-                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
-                      Week 4: The RIGHT Assessment
-                    </div>
-                    <div className="flex items-center gap-2 text-slate-700">
-                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
-                      Week 5: Functional Analysis
-                    </div>
-                    <div className="flex items-center gap-2 text-slate-700">
-                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
-                      Week 6: Writing Meaningful Goals
-                    </div>
-                  </div>
-                  <Link href="#curriculum" className="mt-4 inline-flex items-center text-sm font-semibold text-[#1f4d3f] hover:underline">
-                    See full curriculum details <ArrowRight className="ml-1 h-4 w-4" />
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-            <div className="md:col-span-5 mt-16 md:mt-0 space-y-6">
-              <div className="rounded-3xl bg-white p-8 shadow-xl border border-slate-100">
-                <div className="flex items-center gap-4">
-                  <div className="h-16 w-16 rounded-2xl overflow-hidden border border-slate-200">
-                    <Image src="/profile-Rob.webp" alt="Rob Spain" width={128} height={128} className="h-full w-full object-cover" />
+            <div className="space-y-6">
+              <div className="rounded-3xl border border-white/80 bg-white p-6 shadow-xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Led by</p>
+                <div className="mt-4 flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-2xl overflow-hidden border border-slate-200">
+                    <Image src="/profile-Rob.webp" alt="Rob Spain" width={112} height={112} className="h-full w-full object-cover" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">Led by</p>
-                    <h3 className="text-lg font-bold text-slate-900">Rob Spain, BCBA</h3>
+                    <h3 className="text-lg font-semibold text-slate-900">Rob Spain, BCBA</h3>
                     <p className="text-sm text-slate-600">25+ years in school-based behavior support</p>
                   </div>
                 </div>
-                <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-                  You&rsquo;ll work directly with Rob each week to build a practical, district-ready behavior systems playbook.
+                <p className="mt-4 text-sm text-slate-600">
+                  Weekly live guidance, feedback, and a playbook tailored to your district.
                 </p>
               </div>
 
-              <div className="rounded-3xl bg-white p-8 shadow-xl border border-slate-100 space-y-5">
-                <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wide">What&rsquo;s included</p>
-                {[
-                  { text: "6-week live cohort with weekly group sessions" },
-                  { text: "Evidence-based curriculum built for school BCBAs" },
-                  { text: "Hands-on tools, templates, and planning frameworks" },
-                  { text: "Peer cohort of school-based practitioners" },
-                  { text: "Data systems for tracking behavior and progress" },
-                  { text: "FERPA-compliant, IEP-aligned throughout" },
-                ].map((item) => (
-                  <div key={item.text} className="flex items-start gap-3">
-                    <p className="text-slate-700 text-sm leading-relaxed">{item.text}</p>
-                  </div>
-                ))}
+              <div className="rounded-3xl border border-white/80 bg-white p-6 shadow-xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">What you build</p>
+                <ul className="mt-4 space-y-3 text-sm text-slate-600">
+                  <li>District-ready referral and data systems</li>
+                  <li>Assessment decision matrix + FA playbook</li>
+                  <li>Goal writing templates + replacement plans</li>
+                  <li>Team influence map and coaching scripts</li>
+                  <li>Complete transformation playbook</li>
+                </ul>
               </div>
             </div>
           </div>

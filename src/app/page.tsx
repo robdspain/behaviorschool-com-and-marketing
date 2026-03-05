@@ -36,7 +36,7 @@ export default function Home() {
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a
-                  href="https://plan.behaviorschool.com/signup"
+                  href="https://plan.behaviorschool.com"
                   className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-[#1f4d3f] rounded-full hover:bg-[#173a2f] transition-colors"
                 >
                   Start Free Trial
