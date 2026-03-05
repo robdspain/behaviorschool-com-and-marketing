@@ -139,6 +139,7 @@ export const GRADE_LEVEL_OPTIONS: Array<{ value: GradeLevel; label: string }> = 
 ];
 
 export const WIZARD_PHASES = [
+  "Student Information",
   "Open-Ended Interview & Values Identification",
   "ACT Matrix",
   "Values Assessment",

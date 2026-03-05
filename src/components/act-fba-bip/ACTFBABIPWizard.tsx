@@ -45,18 +45,19 @@ import {
 import { ACTBIPOutput } from "./ACTBIPOutput";
 
 const phaseIcons = [
-  UserCheck,
-  Compass,
-  Heart,
-  ClipboardList,
-  Gauge,
-  Brain,
-  Layers,
-  Milestone,
-  BookOpen,
-  Sparkles,
-  CheckSquare,
-  Target,
+  UserCheck,     // Phase 0: Student Information
+  Compass,       // Phase 1: Open-Ended Interview
+  Heart,         // Phase 2: ACT Matrix
+  Heart,         // Phase 3: Values Assessment
+  ClipboardList, // Phase 4: ABC Observation
+  Gauge,         // Phase 5: Latency-Based FA
+  Brain,         // Phase 6: CPFQ
+  Layers,        // Phase 7: Verbal Relations
+  Milestone,     // Phase 8: AIM Curriculum
+  BookOpen,      // Phase 9: BIP Generation
+  Sparkles,      // Phase 10: ACT Strategies
+  CheckSquare,   // Phase 11: Implementation Materials
+  Target,        // Phase 12: Progress Monitoring
 ];
 
 const gradeMap: Record<string, GradeLevel> = {
@@ -135,17 +136,31 @@ export function ACTFBABIPWizard() {
 
   const isPhaseValid = useMemo(() => {
     const checks = [
+      // Phase 0: Student Information
       data.profile.studentName.trim().length > 1,
+      // Phase 1: Open-Ended Interview
+      true, // Interview is optional
+      // Phase 2: ACT Matrix
       data.actMatrix.innerAway.length + data.actMatrix.innerToward.length + data.actMatrix.outerAway.length + data.actMatrix.outerToward.length > 0,
+      // Phase 3: Values Assessment
       data.selectedValues.length >= 3,
+      // Phase 4: ABC Observation
       data.abcObservations.some((o) => o.behavior.trim() && o.latencySeconds > 0),
+      // Phase 5: Latency-Based FA
       data.validatingLatencyAvg.trim().length > 0 && data.challengingLatencyAvg.trim().length > 0,
+      // Phase 6: CPFQ
       Object.keys(data.studentCpfqResponses).length > 0 && Object.keys(data.caregiverCpfqResponses).length > 0,
+      // Phase 7: Verbal Relations
       data.verbalRelations.some((v) => v.statement.trim().length > 0),
+      // Phase 8: AIM Curriculum
       data.aimAcceptPlan.trim().length > 0 && data.aimIdentifyPlan.trim().length > 0 && data.aimMovePlan.trim().length > 0,
+      // Phase 9: ACT-Informed BIP Generation
       data.targetBehavior.trim().length > 0 && data.privateEventFunction.trim().length > 0,
+      // Phase 10: ACT Strategies
       data.selectedStrategies.length >= 3,
+      // Phase 11: Implementation Materials
       true,
+      // Phase 12: Progress Monitoring
       data.decisionRules.trim().length > 0,
     ];
     return checks;
@@ -168,7 +183,7 @@ export function ACTFBABIPWizard() {
       <div className="rounded-t-3xl bg-[#1E3A34] px-6 py-5 text-white">
         <p className="text-xs uppercase tracking-[0.2em] text-white/70">CalABA 2026</p>
         <h2 className="text-2xl font-semibold">ACT-Informed FBA/BIP Wizard</h2>
-        <p className="text-sm text-white/80">12-phase assessment, intervention, and implementation workflow</p>
+        <p className="text-sm text-white/80">13-phase assessment, intervention, and implementation workflow</p>
       </div>
 
       <div className="space-y-5 p-6">
@@ -181,12 +196,13 @@ export function ACTFBABIPWizard() {
 
         <div className="flex items-center justify-between rounded-xl border border-[#e4b63d]/50 bg-[#e4b63d]/10 px-4 py-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.15em] text-slate-600">Phase {phase + 1} of 12</p>
+            <p className="text-xs uppercase tracking-[0.15em] text-slate-600">Phase {phase + 1} of 13</p>
             <h3 className="text-lg font-semibold text-slate-900">{WIZARD_PHASES[phase]}</h3>
           </div>
           <Icon className="h-5 w-5 text-[#1E3A34]" />
         </div>
 
+        {/* Phase 0: Student Information (basic profile fields only) */}
         {phase === 0 && (
           <div className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
@@ -237,7 +253,12 @@ export function ACTFBABIPWizard() {
                 <Input value={data.profile.teamMembers} onChange={(e) => updateProfile("teamMembers", e.target.value)} placeholder="BCBA, teacher, caregiver" />
               </div>
             </div>
+          </div>
+        )}
 
+        {/* Phase 1: Open-Ended Interview & Values Identification */}
+        {phase === 1 && (
+          <div className="space-y-4">
             <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
               <p className="text-sm font-semibold text-slate-900">Open-Ended Interview</p>
               {questions.map((question) => (
@@ -299,7 +320,8 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 1 && (
+        {/* Phase 2: ACT Matrix */}
+        {phase === 2 && (
           <div className="grid gap-4 md:grid-cols-2">
             <MatrixEditor title="Inner + Away" subtitle="Thoughts and feelings struggled with" value={data.actMatrix.innerAway} onChange={(items) => update("actMatrix", { ...data.actMatrix, innerAway: items })} />
             <MatrixEditor title="Inner + Toward" subtitle="What matters internally" value={data.actMatrix.innerToward} onChange={(items) => update("actMatrix", { ...data.actMatrix, innerToward: items })} />
@@ -308,7 +330,10 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 2 && (
+
+
+        {/* Phase 3: Values Assessment */}
+        {phase === 3 && (
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Search Values</Label>
@@ -344,7 +369,8 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 3 && (
+        {/* Phase 4: ABC Observation */}
+        {phase === 12 && (
           <div className="space-y-4">
             {data.abcObservations.map((obs, index) => (
               <div key={index} className="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
@@ -362,7 +388,7 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 4 && (
+        {phase === 12 && (
           <div className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -389,7 +415,7 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 5 && (
+        {phase === 12 && (
           <div className="space-y-4">
             <p className="text-sm text-slate-600">Complete both forms to populate all 6 CPFQ subscales (acceptance, defusion, present-moment, self-as-context, values, committed action).</p>
             <div className="grid gap-4 lg:grid-cols-2">
@@ -449,7 +475,7 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 6 && (
+        {phase === 12 && (
           <div className="space-y-4">
             {data.verbalRelations.map((entry, index) => {
               const frameHints = entry.statement ? suggestFrames(entry.statement).map((x) => x.frame).join(", ") : "";
@@ -498,7 +524,7 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 7 && (
+        {phase === 12 && (
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Accept (willingness, grounding)</Label>
@@ -515,7 +541,7 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 8 && (
+        {phase === 12 && (
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Target Behavior</Label>
@@ -540,7 +566,7 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 9 && (
+        {phase === 12 && (
           <div className="space-y-4">
             {(Object.entries(ACT_STRATEGY_BANK) as [StrategyCategory, readonly string[]][]).map(([category, strategies]) => (
               <div key={category} className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
@@ -598,7 +624,7 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 10 && (
+        {phase === 12 && (
           <div className="space-y-4">
             <div className="grid gap-3 md:grid-cols-2">
               {[
@@ -629,7 +655,7 @@ export function ACTFBABIPWizard() {
           </div>
         )}
 
-        {phase === 11 && (
+        {phase === 12 && (
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Progress Metrics (include CPFQ pre/post and behavioral metrics)</Label>
