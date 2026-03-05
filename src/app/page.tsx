@@ -304,6 +304,80 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── TRANSFORMATION PROGRAM ─────────────────────────────── */}
+      <section className="py-24 sm:py-32 bg-[#f7f3ee] relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,#1f4d3f22,transparent_55%)]" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#1f4d3f]/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#1f4d3f] mb-6">
+                Live Cohort · Starts March 26
+              </div>
+              <h2 className="text-4xl sm:text-5xl font-semibold text-gray-900 mb-6">
+                The Transformation Program
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                A 6-week live cohort that turns overwhelmed school BCBAs into high-impact behavior leaders. Walk away with a district-ready playbook, referral systems, and the confidence to lead.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {[
+                  "6 live sessions with Rob Spain, BCBA",
+                  "Done-for-you templates and systems",
+                  "Small cohort — 20 spots max",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-slate-700">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#1f4d3f]/10 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-[#1f4d3f]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="/transformation-program"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-[#1f4d3f] rounded-full hover:bg-[#173a2f] transition-colors"
+                >
+                  Learn More & Enroll
+                </a>
+                <a
+                  href="https://calendly.com/robspain/behavior-school-transformation-system-phone-call"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] border border-[#1f4d3f]/40 rounded-full hover:bg-[#1f4d3f]/10 transition-colors"
+                >
+                  Book a Call
+                </a>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="rounded-[28px] border border-[#1f4d3f]/10 bg-white p-8 shadow-[0_30px_90px_rgba(31,77,63,0.12)]">
+                <div className="text-center mb-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#e4b63d] mb-2">Early Bird Pricing</p>
+                  <p className="text-4xl font-bold text-slate-900">$2,499</p>
+                  <p className="text-sm text-slate-500 line-through">$2,997</p>
+                  <p className="text-sm text-[#1f4d3f] font-semibold mt-1">Save $498 — ends March 9</p>
+                </div>
+                <div className="border-t border-slate-100 pt-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mb-4">What&apos;s Included</p>
+                  <ul className="space-y-2 text-sm text-slate-600">
+                    <li>• 6 live 2-hour sessions (Thursdays 6-8 PM PT)</li>
+                    <li>• Complete transformation playbook</li>
+                    <li>• Referral system templates</li>
+                    <li>• FA planning guides & scripts</li>
+                    <li>• Lifetime access to materials</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── BLOG ─────────────────────────────────────────────────── */}
       {recentPosts.length > 0 && (
         <section className="py-24 sm:py-32 bg-[#fbfaf8]">
