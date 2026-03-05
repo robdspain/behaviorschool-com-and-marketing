@@ -214,7 +214,7 @@ export default function ACTFBABIPPage() {
         </div>
 
         {/* Right column — wizard */}
-        <div className="flex flex-col justify-start bg-slate-50 px-6 py-12 sm:px-10 lg:px-12">
+        <div className="flex flex-col justify-start bg-slate-50 px-6 pt-6 pb-12 sm:px-10 lg:px-12 lg:pt-8">
           <ACTFBABIPWizard />
         </div>
       </section>
@@ -373,14 +373,7 @@ procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
                 ACT&apos;s Six Core Processes in the Classroom
               </h3>
               <p className="text-base text-slate-600 leading-relaxed">
-                ACT targets six interconnected processes:{" "}
-                <strong className="text-slate-800">acceptance</strong> (making room for difficult feelings),{" "}
-                <strong className="text-slate-800">cognitive defusion</strong> (unhooking from rigid thoughts),{" "}
-                <strong className="text-slate-800">present-moment awareness</strong> (being here now),{" "}
-                <strong className="text-slate-800">self-as-context</strong> (flexible sense of self),{" "}
-                <strong className="text-slate-800">values</strong> (knowing what matters), and{" "}
-                <strong className="text-slate-800">committed action</strong> (doing what matters). This tool assesses and
-                addresses all six, adapted for each grade level.
+                ACT targets six interconnected processes: acceptance (making room for difficult feelings), cognitive defusion (unhooking from rigid thoughts), present-moment awareness (being here now), self-as-context (flexible sense of self), values (knowing what matters), and committed action (doing what matters). This tool assesses and addresses all six, adapted for each grade level.
               </p>
             </div>
           </div>
