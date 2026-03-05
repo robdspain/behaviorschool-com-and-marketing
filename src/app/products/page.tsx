@@ -95,7 +95,7 @@ export default function ProductsPage() {
               <div className="absolute -inset-8 rounded-[32px] bg-[#1f4d3f]/10 blur-2xl" />
               <div className="relative overflow-hidden rounded-[28px] border border-[#1f4d3f]/10 bg-white/80 shadow-[0_30px_90px_rgba(31,77,63,0.18)]">
                 <Image
-                  src="/optimized/Hero/Hero-group1-optimized.webp"
+                  src="/optimized/Community/comein-coffee-people-optimized.webp"
                   alt="Behavior professionals collaborating"
                   width={640}
                   height={480}
