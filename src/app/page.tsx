@@ -8,8 +8,10 @@ import {
   ShieldCheck,
   Sparkles,
   Target,
+  FileText,
 } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
+import { EmailCapture } from "@/components/EmailCapture";
 
 export default function Home() {
   const recentPosts = getPublishedPosts().slice(0, 3);
@@ -248,6 +250,27 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ─── EMAIL CAPTURE ────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-[#1f4d3f]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 mb-6">
+            <FileText className="text-white" size={24} />
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
+            Get the School BCBA Playbook
+          </h2>
+          <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+            Free templates, referral systems, and practical workflows — the same tools we use in our paid products, delivered to your inbox.
+          </p>
+          <div className="flex justify-center">
+            <EmailCapture />
+          </div>
+          <p className="mt-4 text-sm text-white/50">
+            No spam. Unsubscribe anytime.
+          </p>
         </div>
       </section>
 
