@@ -17,6 +17,7 @@ import {
   Instagram,
   Facebook,
 } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -44,8 +45,9 @@ export default function AboutContent() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f4d3f12_1px,transparent_1px),linear-gradient(to_bottom,#1f4d3f12_1px,transparent_1px)] bg-[size:48px_48px]" />
         </div>
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-          <div className="text-center">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-20 sm:pb-28">
+          <Breadcrumbs items={[{ label: "About" }]} />
+          <div className="text-center mt-12 sm:mt-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
