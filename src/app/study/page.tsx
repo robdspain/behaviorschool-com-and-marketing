@@ -162,15 +162,13 @@ export default function StudyPage() {
                     <span>Score reports and progress tracking</span>
                   </li>
                 </ul>
-                <a
-                  href="https://schoolrbt.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/rbt-study"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#e4b63d] px-6 py-3 text-sm font-semibold text-[#1f4d3f] hover:bg-[#d4a82d] transition"
                 >
                   Start RBT Practice
                   <ArrowRight size={16} />
-                </a>
+                </Link>
               </div>
             </article>
           </div>
@@ -248,14 +246,12 @@ export default function StudyPage() {
             >
               BCBA Practice
             </a>
-            <a
-              href="https://schoolrbt.com"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/rbt-study"
               className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-[#1f4d3f] bg-[#e4b63d] rounded-full hover:bg-[#d4a82d] transition-colors"
             >
               RBT Practice
-            </a>
+            </Link>
           </div>
         </div>
       </section>
