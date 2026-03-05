@@ -179,7 +179,7 @@ export default function Home() {
                 Free Tools
               </p>
               <h2 className="text-4xl sm:text-5xl font-semibold text-gray-900">
-                Lead magnets that feel like products
+                Free tools built for real school teams
               </h2>
               <p className="mt-5 text-lg text-slate-600 leading-relaxed">
                 Every free tool is built to save time, improve accuracy, and model the same standards we use in paid systems.

@@ -207,27 +207,6 @@ export default function TransformationProgramPage() {
                   </div>
                 </div>
 
-                <Link
-                  href="https://study.behaviorschool.com"
-                  className="block rounded-2xl border border-emerald-200 bg-white p-6 shadow-lg text-left hover:border-[#e4b63d] hover:shadow-xl transition group"
-                >
-                  <div className="flex flex-col sm:flex-row gap-5 items-center">
-                    <div className="flex-1">
-                      <span className="inline-flex items-center rounded-full bg-[#e4b63d]/20 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#8c6a11]">
-                        Free Practice
-                      </span>
-                      <h2 className="mt-4 text-xl md:text-2xl font-bold text-slate-900 group-hover:text-[#1f4d3f] transition-colors">
-                        Take a Free BCBA Practice Exam
-                      </h2>
-                      <p className="mt-2 text-sm text-slate-600">
-                        Test your knowledge with a full-length mock exam. Instant feedback and detailed explanations.
-                      </p>
-                      <span className="mt-4 inline-flex items-center gap-1 rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white group-hover:bg-emerald-900 transition">
-                        Start Free Exam &rarr;
-                      </span>
-                    </div>
-                  </div>
-                </Link>
                 <div className="flex flex-col gap-4 justify-center lg:justify-start">
                   <a
                     href={ENROLL_HREF}
