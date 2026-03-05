@@ -246,26 +246,6 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="rounded-[28px] border border-[#1f4d3f]/10 bg-white p-6 shadow-lg">
-                <Image
-                  src="/optimized/Supervision/Supervision1.webp"
-                  alt="Supervision workflow"
-                  width={640}
-                  height={420}
-                  className="rounded-2xl object-cover"
-                />
-                <div className="mt-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#1f4d3f]/70">
-                    Supervision-ready
-                  </p>
-                  <h3 className="mt-2 text-xl font-semibold text-slate-900">
-                    Built for ethical leadership and compliance
-                  </h3>
-                  <p className="mt-2 text-sm text-slate-600">
-                    Every workflow is structured to protect your time and your students.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
