@@ -144,11 +144,7 @@ export default function TransformationProgramPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white relative pt-10">
-      {/* CalABA / Early Bird Banner */}
-      <div className="bg-[#1f4d3f] text-white text-center py-3 px-4 text-sm font-semibold">
-        Attending CalABA March 7? Early bird pricing (<span className="text-[#e4b63d] font-black">$2,499</span>) is available to all CalABA attendees through March 9.
-      </div>
+    <div className="min-h-screen bg-white relative">
 
       <div className="fixed bottom-0 left-0 right-0 z-50 p-3 bg-white border-t-2 border-slate-100 shadow-2xl md:hidden">
         <a
@@ -212,49 +208,68 @@ export default function TransformationProgramPage() {
                 </div>
 
                 <Link
-                  href="/downloads/bcba-school-systems-checklist.pdf"
+                  href="https://study.behaviorschool.com"
                   className="block rounded-2xl border border-emerald-200 bg-white p-6 shadow-lg text-left hover:border-[#e4b63d] hover:shadow-xl transition group"
                 >
-                  <div className="flex flex-col sm:flex-row gap-5">
-                    <div className="sm:w-36 w-full">
-                      <Image
-                        src="/covers/bcba-school-systems-checklist-cover.svg"
-                        alt="BCBA School Systems Checklist cover"
-                        width={240}
-                        height={320}
-                        className="w-full h-auto rounded-xl border border-slate-200"
-                      />
-                    </div>
+                  <div className="flex flex-col sm:flex-row gap-5 items-center">
                     <div className="flex-1">
                       <span className="inline-flex items-center rounded-full bg-[#e4b63d]/20 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#8c6a11]">
-                        Free Download
+                        Free Practice
                       </span>
                       <h2 className="mt-4 text-xl md:text-2xl font-bold text-slate-900 group-hover:text-[#1f4d3f] transition-colors">
-                        Free: BCBA School Systems Checklist
+                        Take a Free BCBA Practice Exam
                       </h2>
                       <p className="mt-2 text-sm text-slate-600">
-                        The 47-point checklist used by high-impact BCBAs to build sustainable school behavior systems.
+                        Test your knowledge with a full-length mock exam. Instant feedback and detailed explanations.
                       </p>
                       <span className="mt-4 inline-flex items-center gap-1 rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white group-hover:bg-emerald-900 transition">
-                        Get It Free &rarr;
+                        Start Free Exam &rarr;
                       </span>
                     </div>
                   </div>
                 </Link>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <div className="flex flex-col gap-4 justify-center lg:justify-start">
                   <a
                     href={ENROLL_HREF}
                     target={STRIPE_LINK ? "_blank" : undefined}
                     rel={STRIPE_LINK ? "noopener noreferrer" : undefined}
-                    className="inline-flex items-center justify-center rounded-2xl px-8 h-14 text-lg font-bold bg-[#1f4d3f] hover:bg-emerald-900 text-white shadow-xl transition"
+                    className="inline-flex items-center justify-center rounded-2xl px-8 h-14 text-lg font-bold bg-[#1f4d3f] hover:bg-emerald-900 text-white shadow-xl transition sm:w-fit"
                   >
                     Reserve Your Spot — $2,499 <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
-                  <Link
-                    href="#enroll"
-                    className="inline-flex items-center justify-center rounded-2xl border-2 border-slate-300 bg-white px-6 h-14 text-base font-semibold text-slate-700 hover:border-emerald-700 hover:text-emerald-800 transition"
-                  >
-                    View agenda
+                </div>
+
+                {/* Class Agenda - Inline */}
+                <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+                  <h3 className="text-lg font-bold text-slate-900 mb-4">Class Agenda</h3>
+                  <div className="grid sm:grid-cols-2 gap-3 text-sm">
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
+                      Week 1: Foundations for Influence
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
+                      Week 2: Referral Systems
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
+                      Week 3: Building Trust & Buy-In
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
+                      Week 4: The RIGHT Assessment
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
+                      Week 5: Functional Analysis
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Calendar className="w-4 h-4 text-[#1f4d3f]" />
+                      Week 6: Writing Meaningful Goals
+                    </div>
+                  </div>
+                  <Link href="#curriculum" className="mt-4 inline-flex items-center text-sm font-semibold text-[#1f4d3f] hover:underline">
+                    See full curriculum details <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </div>
               </motion.div>

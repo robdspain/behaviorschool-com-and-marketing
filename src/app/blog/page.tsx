@@ -46,7 +46,7 @@ export default async function BlogPage() {
 
   return (
     <div className="min-h-screen bg-bs-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
         <Breadcrumbs 
           items={[
             { label: "Blog" }
@@ -76,7 +76,7 @@ export default async function BlogPage() {
             </div>
           </div>
         {posts.length > 0 ? (
-          <PostList posts={posts} columns={3} useExternalUrl={false} />
+          <PostList posts={posts} columns={3} useExternalUrl={false} hideImages />
         ) : (
           <p className="text-muted-foreground">No posts found.</p>
         )}

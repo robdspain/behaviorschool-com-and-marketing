@@ -34,7 +34,7 @@ export function ContactClient() {
   return (
     <div className="min-h-screen bg-bs-background">
       {/* Main Contact Section */}
-      <section className="py-12 lg:py-16">
+      <section className="pt-6 pb-12 lg:pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">

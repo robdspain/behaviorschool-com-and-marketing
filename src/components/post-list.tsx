@@ -10,9 +10,10 @@ export interface PostListProps extends React.HTMLAttributes<HTMLDivElement> {
   hrefBase?: string;
   columns?: 1 | 2 | 3 | 4;
   useExternalUrl?: boolean;
+  hideImages?: boolean;
 }
 
-export function PostList({ posts, className, hrefBase = "/blog", columns = 3, useExternalUrl = false, ...props }: PostListProps) {
+export function PostList({ posts, className, hrefBase = "/blog", columns = 3, useExternalUrl = false, hideImages = false, ...props }: PostListProps) {
   const gridCols =
     columns === 1
       ? "grid-cols-1"
@@ -25,7 +26,7 @@ export function PostList({ posts, className, hrefBase = "/blog", columns = 3, us
   return (
     <div className={cn("grid gap-6", gridCols, className)} {...props}>
       {posts.map((post) => (
-        <PostCard key={post.id} post={post} hrefBase={hrefBase} useExternalUrl={useExternalUrl} />
+        <PostCard key={post.id} post={post} hrefBase={hrefBase} useExternalUrl={useExternalUrl} hideImage={hideImages} />
       ))}
     </div>
   );

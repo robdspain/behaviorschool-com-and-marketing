@@ -55,44 +55,44 @@ export default function CalABA2026Page() {
       {/* ============================================
           SECTION 1: HERO — Welcome / Thank You
           ============================================ */}
-      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white pt-24 pb-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-cyan-500/30 text-cyan-200 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-cyan-400/50">
+      <section className="relative overflow-hidden bg-[#1f4d3f]">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
+        </div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#e4b63d]/40 bg-[#e4b63d]/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#e4b63d] mb-6">
             CalABA 2026 · Sacramento
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-cyan-300">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-4">
             You scanned the right QR code.
           </h1>
-          <p className="text-xl sm:text-2xl text-white mb-4">
+          <p className="text-xl sm:text-2xl text-[#e4b63d] font-semibold mb-4">
             Beyond Observable Behavior
           </p>
-          <p className="text-lg text-slate-300 mb-6 max-w-2xl mx-auto">
+          <p className="text-lg text-emerald-100/80 mb-6 max-w-2xl mx-auto">
             Measuring and Modifying the Function of Thought in School-Based Assessment
           </p>
-          <p className="text-base text-slate-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-base text-emerald-100/70 mb-8 max-w-2xl mx-auto">
             <strong className="text-white">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
           </p>
-          <p className="text-slate-300 text-base max-w-xl mx-auto">
+          <p className="text-emerald-100/60 text-base max-w-xl mx-auto mb-10">
             Here&apos;s everything from the presentation — references, the free tool to try right now, and the complete downloadable materials.
           </p>
 
-          {/* Quick nav links */}
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <a href="#try-the-tool" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl transition-colors flex items-center gap-2">
+          {/* Two CTAs only */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/act-fba-bip" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#e4b63d] px-8 py-4 text-base font-semibold text-[#1f4d3f] hover:bg-[#d4a82d] transition-colors">
               Try the ACT-FBA Tool
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a href="#references" className="bg-slate-700 hover:bg-slate-600 text-white font-medium px-6 py-3 rounded-xl transition-colors">
-              View References
-            </a>
-            <a href="#download" className="bg-cyan-600 hover:bg-cyan-500 text-white font-medium px-6 py-3 rounded-xl transition-colors flex items-center gap-2">
-              <Download className="w-4 h-4" />
-              Download Materials
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <a href="/calaba-2026/calaba-2026-materials.zip" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-[#1f4d3f] hover:bg-emerald-50 transition-colors">
+              <Download className="w-5 h-5" />
+              Download Slides + Citations
             </a>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* ============================================
           SECTION 2: REFERENCES
