@@ -1,39 +1,68 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Downloadable Templates | Behavior School</title>
-  <meta name="description" content="Free, printable templates for values-based interventions and behavior planning. Perfect for school-based BCBAs and behavior analysts." />
-  <link rel="canonical" href="https://behaviorschool.com/templates" />
-  <meta name="robots" content="noindex,nofollow" />
-  <style>
-    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 24px; color: #0f172a; }
-    h1 { font-size: 28px; margin: 0 0 8px; }
-    p { color: #475569; }
-    ul { margin: 16px 0; padding-left: 18px; }
-    li { margin: 8px 0; }
-    a { color: #065f46; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin: 12px 0; background: #fff; }
-  </style>
-  <!-- Static index provided to avoid 404 when requesting /templates root -->
-</head>
-<body>
-  <h1>Downloadable Templates</h1>
-  <p>Free, printable templates for values-based interventions and behavior planning.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BehaviorSchool Templates</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --accent:#1f4d3f; --accent-soft:#ecf4f1; --bg:#f8fafc; }
+      * { box-sizing: border-box; }
+      html, body { margin:0; padding:0; }
+      body { font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: var(--bg); }
+      .wrap { max-width: 980px; margin: 28px auto; padding: 0 18px 32px; }
+      .hero { background:white; border:1px solid var(--line); border-radius:16px; padding:18px 20px; }
+      h1 { font-family: "Fraunces", serif; font-size:28px; margin:0 0 6px; }
+      .sub { color:var(--muted); font-size:14px; margin:0; }
+      .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:14px; margin-top:14px; }
+      .card { background:white; border:1px solid var(--line); border-radius:14px; padding:16px 18px; display:flex; flex-direction:column; gap:8px; }
+      .tag { font-size:11px; text-transform:uppercase; letter-spacing:0.04em; color:var(--accent); font-weight:700; }
+      .card a { color: var(--accent); text-decoration:none; font-weight:700; }
+      .muted { color:var(--muted); font-size:13px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="hero">
+        <h1>BehaviorSchool Templates</h1>
+        <p class="sub">Printable tools for ACT‑aligned planning, fidelity checks, and weekly review.</p>
+      </div>
 
-  <div class="card">
-    <ul>
-      <li><a href="/templates/values-interview.html">Values Interview (≈5 minutes)</a> — Brief interview to anchor goals in what matters to the student</li>
-      <li><a href="/templates/act-matrix-choice-point.html">ACT Matrix / Choice-Point (Student)</a> — Values-based framework to guide choice-making</li>
-      <li><a href="/templates/goal-builder.html">Goal Builder (Values-Aligned)</a> — Template for measurable, values‑aligned behavior goals</li>
-      <li><a href="/templates/daily-check-card.html">Daily Check Card</a> — Quick daily tracking tool for toward moves</li>
-      <li><a href="/templates/weekly-review.html">Weekly Review</a> — Reflection template to plan next steps</li>
-      <li><a href="/templates/staff-fidelity-check.html">Staff Fidelity Quick-Check</a> — Checklist to monitor intervention fidelity</li>
-    </ul>
-  </div>
-
-  <p>Looking for more? Visit the full templates page at <a href="https://behaviorschool.com/templates">behaviorschool.com/templates</a>.</p>
-</body>
+      <div class="grid">
+        <div class="card">
+          <div class="tag">ACT</div>
+          <a href="/templates/values-interview.html">Values Interview</a>
+          <p class="muted">Student interview that anchors goals in what matters.</p>
+        </div>
+        <div class="card">
+          <div class="tag">ACT</div>
+          <a href="/templates/act-matrix-choice-point.html">ACT Matrix Choice Point</a>
+          <p class="muted">Map a difficult moment into toward vs away moves.</p>
+        </div>
+        <div class="card">
+          <div class="tag">Goals</div>
+          <a href="/templates/goal-builder.html">Behavior Goal Builder</a>
+          <p class="muted">Build goals with baseline, criteria, generalization, and maintenance.</p>
+        </div>
+        <div class="card">
+          <div class="tag">Data</div>
+          <a href="/templates/daily-check-card.html">Daily Check‑In Card</a>
+          <p class="muted">Quick daily check to track toward moves and barriers.</p>
+        </div>
+        <div class="card">
+          <div class="tag">Fidelity</div>
+          <a href="/templates/staff-fidelity-check.html">Staff Fidelity Check</a>
+          <p class="muted">Simple rubric to verify implementation fidelity.</p>
+        </div>
+        <div class="card">
+          <div class="tag">Weekly</div>
+          <a href="/templates/weekly-review.html">Weekly Review</a>
+          <p class="muted">Weekly reflection for progress, supports, and next steps.</p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
