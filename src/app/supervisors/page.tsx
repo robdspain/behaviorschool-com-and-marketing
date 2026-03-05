@@ -93,12 +93,12 @@ export default function SupervisorsPage() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="https://supervision.behaviorschool.com/register"
+              <Link
+                href="/supervisors/for-supervisors"
                 className="mt-auto inline-flex items-center justify-center rounded-xl bg-[#1E3A34] px-6 py-3 text-sm font-bold text-white hover:bg-emerald-800 transition-colors"
               >
                 Create supervisor account
-              </a>
+              </Link>
             </div>
 
             {/* Supervisee card */}
@@ -118,12 +118,12 @@ export default function SupervisorsPage() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="https://supervision.behaviorschool.com/register"
+              <Link
+                href="/supervisors/for-supervisees"
                 className="mt-auto inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-[#1E3A34] hover:bg-emerald-50 transition-colors"
               >
                 Start tracking my hours
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>
