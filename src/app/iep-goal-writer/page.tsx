@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ValuesWizard from "@/components/iep-goal-writer/ValuesWizard";
+import { Target, BarChart3, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "IEP Behavior Goal Writer | Values Wizard | BehaviorSchool",
@@ -55,21 +56,27 @@ export default function IEPGoalWriterPage() {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white rounded-xl p-6 shadow-sm">
-              <div className="text-3xl mb-3">🎯</div>
+              <div className="mb-3">
+                <Target className="w-8 h-8 text-emerald-600" />
+              </div>
               <h3 className="font-semibold text-slate-900 mb-2">Student Investment</h3>
               <p className="text-sm text-slate-600">
                 When goals connect to what students care about, they become partners in their own growth instead of passive recipients.
               </p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm">
-              <div className="text-3xl mb-3">📊</div>
+              <div className="mb-3">
+                <BarChart3 className="w-8 h-8 text-emerald-600" />
+              </div>
               <h3 className="font-semibold text-slate-900 mb-2">Level 5 SMART Goals</h3>
               <p className="text-sm text-slate-600">
                 Include all research-backed components: baseline, accuracy criteria, fluency, generalization across settings, and maintenance.
               </p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-sm">
-              <div className="text-3xl mb-3">⚡</div>
+              <div className="mb-3">
+                <Zap className="w-8 h-8 text-emerald-600" />
+              </div>
               <h3 className="font-semibold text-slate-900 mb-2">5 Minutes, Not 5 Hours</h3>
               <p className="text-sm text-slate-600">
                 The guided wizard ensures you hit every component without starting from scratch. Copy, paste, done.

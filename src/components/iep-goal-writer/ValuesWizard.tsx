@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Check, ChevronLeft, ChevronRight, Copy, Download, Mail, RotateCcw, Sparkles } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Copy, Download, RotateCcw, Sparkles, Heart, Shield, Target, HandHelping, Scale, Users, Lightbulb, CheckCircle, TrendingUp, TrendingDown } from "lucide-react";
 
 // ============================================================================
 // TYPES
@@ -37,15 +37,15 @@ interface WizardState {
 // CONSTANTS
 // ============================================================================
 
-const VALUES: { id: StudentValue; label: string; emoji: string; description: string }[] = [
-  { id: "kind", label: "Kind", emoji: "💛", description: "Caring about others" },
-  { id: "brave", label: "Brave", emoji: "🦁", description: "Trying new things despite fear" },
-  { id: "focused", label: "Focused", emoji: "🎯", description: "Paying attention to what matters" },
-  { id: "helpful", label: "Helpful", emoji: "🤗", description: "Supporting others" },
-  { id: "honest", label: "Honest", emoji: "🤝", description: "Telling the truth" },
-  { id: "respectful", label: "Respectful", emoji: "🙏", description: "Treating others well" },
-  { id: "creative", label: "Creative", emoji: "🌟", description: "Thinking in new ways" },
-  { id: "responsible", label: "Responsible", emoji: "✅", description: "Following through on commitments" },
+const VALUES: { id: StudentValue; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
+  { id: "kind", label: "Kind", icon: Heart, description: "Caring about others" },
+  { id: "brave", label: "Brave", icon: Shield, description: "Trying new things despite fear" },
+  { id: "focused", label: "Focused", icon: Target, description: "Paying attention to what matters" },
+  { id: "helpful", label: "Helpful", icon: HandHelping, description: "Supporting others" },
+  { id: "honest", label: "Honest", icon: Scale, description: "Telling the truth" },
+  { id: "respectful", label: "Respectful", icon: Users, description: "Treating others well" },
+  { id: "creative", label: "Creative", icon: Lightbulb, description: "Thinking in new ways" },
+  { id: "responsible", label: "Responsible", icon: CheckCircle, description: "Following through on commitments" },
 ];
 
 const BEHAVIOR_EXAMPLES: Record<StudentValue, string[]> = {
@@ -149,32 +149,43 @@ function Step1Values({ state, setState }: { state: WizardState; setState: (s: Wi
       </div>
       
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {VALUES.map((value) => (
-          <button
-            key={value.id}
-            type="button"
-            onClick={() => setState({ ...state, selectedValue: value.id })}
-            className={`
-              p-4 rounded-xl border-2 text-center transition-all hover:shadow-md
-              ${state.selectedValue === value.id 
-                ? "border-emerald-600 bg-emerald-50 shadow-md" 
-                : "border-slate-200 bg-white hover:border-emerald-300"}
-            `}
-          >
-            <span className="text-3xl mb-2 block">{value.emoji}</span>
-            <span className="font-semibold text-slate-900 block">{value.label}</span>
-            <span className="text-xs text-slate-500">{value.description}</span>
-          </button>
-        ))}
+        {VALUES.map((value) => {
+          const IconComponent = value.icon;
+          return (
+            <button
+              key={value.id}
+              type="button"
+              onClick={() => setState({ ...state, selectedValue: value.id })}
+              className={`
+                p-4 rounded-xl border-2 text-center transition-all hover:shadow-md
+                ${state.selectedValue === value.id 
+                  ? "border-emerald-600 bg-emerald-50 shadow-md" 
+                  : "border-slate-200 bg-white hover:border-emerald-300"}
+              `}
+            >
+              <div className="flex justify-center mb-2">
+                <IconComponent className={`w-8 h-8 ${state.selectedValue === value.id ? "text-emerald-600" : "text-slate-600"}`} />
+              </div>
+              <span className="font-semibold text-slate-900 block">{value.label}</span>
+              <span className="text-xs text-slate-500">{value.description}</span>
+            </button>
+          );
+        })}
       </div>
       
-      {state.selectedValue && (
-        <div className="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-          <p className="text-sm text-emerald-800">
-            <strong>Selected:</strong> {VALUES.find(v => v.id === state.selectedValue)?.emoji} {VALUES.find(v => v.id === state.selectedValue)?.label}
-          </p>
-        </div>
-      )}
+      {state.selectedValue && (() => {
+        const selectedVal = VALUES.find(v => v.id === state.selectedValue);
+        const SelectedIcon = selectedVal?.icon;
+        return (
+          <div className="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+            <p className="text-sm text-emerald-800 flex items-center gap-2">
+              <strong>Selected:</strong>
+              {SelectedIcon && <SelectedIcon className="w-4 h-4 text-emerald-600" />}
+              {selectedVal?.label}
+            </p>
+          </div>
+        );
+      })()}
     </div>
   );
 }
@@ -202,7 +213,9 @@ function Step2Behavior({ state, setState }: { state: WizardState; setState: (s: 
               : "border-slate-200 hover:border-emerald-300"
           }`}
         >
-          <span className="text-2xl mb-1 block">📈</span>
+          <div className="flex justify-center mb-1">
+            <TrendingUp className={`w-6 h-6 ${state.behaviorDirection === "increase" ? "text-emerald-600" : "text-slate-500"}`} />
+          </div>
           <span className="font-semibold">Increase</span>
           <span className="text-sm text-slate-500 block">Build a positive skill</span>
         </button>
@@ -215,7 +228,9 @@ function Step2Behavior({ state, setState }: { state: WizardState; setState: (s: 
               : "border-slate-200 hover:border-amber-300"
           }`}
         >
-          <span className="text-2xl mb-1 block">📉</span>
+          <div className="flex justify-center mb-1">
+            <TrendingDown className={`w-6 h-6 ${state.behaviorDirection === "decrease" ? "text-amber-600" : "text-slate-500"}`} />
+          </div>
           <span className="font-semibold">Decrease</span>
           <span className="text-sm text-slate-500 block">Reduce problem behavior</span>
         </button>
@@ -516,6 +531,7 @@ function GoalOutput({ state, onReset }: { state: WizardState; onReset: () => voi
   const goalText = generateGoalText(state);
   const baselineText = generateBaselineText(state);
   const value = VALUES.find(v => v.id === state.selectedValue);
+  const ValueIcon = value?.icon;
   
   const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(`${goalText}\n\nBaseline:\n${baselineText}`);
@@ -536,10 +552,13 @@ function GoalOutput({ state, onReset }: { state: WizardState; onReset: () => voi
   return (
     <div>
       <div className="text-center mb-6">
-        <span className="text-4xl mb-2 block">🎉</span>
+        <div className="flex justify-center mb-2">
+          <Sparkles className="w-10 h-10 text-emerald-600" />
+        </div>
         <h2 className="text-xl font-bold text-slate-900">Your IEP Behavior Goal</h2>
-        <p className="text-sm text-slate-500 mt-1">
-          {value?.emoji} {value?.label} · {state.behaviorDirection === "increase" ? "Skill Building" : "Replacement Behavior"}
+        <p className="text-sm text-slate-500 mt-1 flex items-center justify-center gap-1">
+          {ValueIcon && <ValueIcon className="w-4 h-4 text-emerald-600" />}
+          {value?.label} · {state.behaviorDirection === "increase" ? "Skill Building" : "Replacement Behavior"}
         </p>
       </div>
       
