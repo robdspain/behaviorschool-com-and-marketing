@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ACTFBABIPWizard } from "@/components/act-fba-bip/ACTFBABIPWizard";
 import { DEMO_WIZARD_DATA } from "@/components/act-fba-bip/actBipGenerator";
 
+export const dynamic = "force-dynamic";
+
 export default function ACTFBABIPWizardPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
