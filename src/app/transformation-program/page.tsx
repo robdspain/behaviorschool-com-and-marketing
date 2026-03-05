@@ -175,7 +175,7 @@ export default function TransformationProgramPage() {
                 For School-Based BCBAs
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-slate-900 leading-tight">
-                Stop Drowning in Paperwork.<br className="hidden sm:block" /> Start Leading.
+                Tired of Fighting Fires?<br className="hidden sm:block" /> It&apos;s Time to Build the System.
               </h1>
               <p className="text-base sm:text-lg text-slate-600 max-w-[60ch]">
                 A 6-week live cohort that turns overwhelmed school BCBAs into high-impact behavior leaders — with a district-ready playbook you implement immediately.
