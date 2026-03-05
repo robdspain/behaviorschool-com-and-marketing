@@ -1,226 +1,264 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { CheckCircle2, Zap, Target, Brain, TrendingUp, Award } from "lucide-react";
+import {
+  GraduationCap,
+  BadgeCheck,
+  ArrowRight,
+  Target,
+  BarChart3,
+  Clock,
+  BookOpen,
+  CheckCircle2,
+} from "lucide-react";
 
 export const metadata = {
-  title: "BCBA Exam Prep - Practice Smarter | Behavior School",
-  description: "BCBA practice exams with adaptive learning and instant feedback. Build mastery with focused practice and clear progress tracking.",
-  keywords: "BCBA exam prep, BCBA practice exam, BCBA mock exam, behavior analyst certification, free BCBA study tools",
+  title: "Exam Prep - BCBA & RBT Practice Tests | BehaviorSchool",
+  description:
+    "Practice exams and study tools for BCBA and RBT certification. Mock exams, progress tracking, and focused practice.",
 };
 
 export default function StudyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50">
-      {/* Hero Section with iPad */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-700 to-blue-700 pt-12 pb-24">
-        <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,black)]" />
-        
-        <ContainerScroll
-          titleComponent={(
-            <div className="text-center relative z-10">
-              <Badge className="bg-white/20 text-white border-white/30 mb-6 text-base px-4 py-2">
-                AI-Powered BCBA Exam Prep
-              </Badge>
-              <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-                Practice for the BCBA Exam<br />
-                <span className="bg-gradient-to-r from-yellow-200 to-orange-200 bg-clip-text text-transparent">
-                  With Realistic Mock Exams
-                </span>
-              </h1>
-              <p className="mt-6 text-xl md:text-2xl text-emerald-50 max-w-3xl mx-auto font-medium leading-relaxed">
-                Adaptive practice tests and clear analytics that show what to study next. Build confidence with focused, repeatable practice.
-              </p>
-              
-              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-emerald-50 text-lg px-8 py-6 font-bold shadow-2xl transform hover:scale-105 transition-all">
-                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                    Start FREE Mock Exam →
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-6 font-semibold">
-                  <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                    Try Mini Practice Test
-                  </Link>
-                </Button>
+    <main className="min-h-screen bg-white text-slate-900">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-[#f7f3ee]">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f4d3f12_1px,transparent_1px),linear-gradient(to_bottom,#1f4d3f12_1px,transparent_1px)] bg-[size:48px_48px]" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#1f4d3f]/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#1f4d3f]">
+                Exam Prep
               </div>
-              
-              <p className="mt-6 text-emerald-100 text-sm">
-                ✓ No credit card required  •  ✓ Instant access  •  ✓ Growing question bank
+              <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1f4d3f] leading-tight tracking-tight">
+                Practice for your certification exam.
+              </h1>
+              <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
+                Mock exams, focused practice, and progress tracking for BCBA and RBT candidates. Start free — no account required.
               </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <a
+                  href="#exams"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-[#1f4d3f] rounded-full hover:bg-[#173a2f] transition-colors"
+                >
+                  Choose your exam
+                </a>
+                <Link
+                  href="/free-study-plan"
+                  className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] border border-[#1f4d3f]/40 rounded-full hover:bg-[#1f4d3f]/10 transition-colors"
+                >
+                  Get a free study plan
+                </Link>
+              </div>
             </div>
-          )}
-        >
-          <Image
-            src="/study-app-preview.png"
-            alt="Behavior Study Tools Dashboard - BCBA Exam Prep Platform"
-            width={1200}
-            height={800}
-            className="w-full h-full object-cover rounded-2xl shadow-2xl ring-4 ring-white/20"
-            priority
-          />
-        </ContainerScroll>
-      </section>
-
-      {/* Features Banner */}
-      <section className="py-8 bg-white border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-center gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold text-emerald-600">FREE</div>
-              <div className="text-sm text-slate-600">Always Free</div>
-            </div>
-            <div className="hidden md:block w-px h-12 bg-slate-200" />
-            <div>
-              <div className="text-3xl font-bold text-emerald-600">AI-Powered</div>
-              <div className="text-sm text-slate-600">Adaptive Learning</div>
-            </div>
-            <div className="hidden md:block w-px h-12 bg-slate-200" />
-            <div>
-              <div className="text-3xl font-bold text-emerald-600">Practice</div>
-              <div className="text-sm text-slate-600">Question Bank</div>
-            </div>
-            <div className="hidden md:block w-px h-12 bg-slate-200" />
-            <div>
-              <div className="text-3xl font-bold text-emerald-600">Instant</div>
-              <div className="text-sm text-slate-600">Feedback</div>
+            <div className="relative hidden lg:block">
+              <div className="absolute -inset-8 rounded-[32px] bg-[#1f4d3f]/10 blur-2xl" />
+              <div className="relative overflow-hidden rounded-[28px] border border-[#1f4d3f]/10 bg-white/80 shadow-[0_30px_90px_rgba(31,77,63,0.18)]">
+                <Image
+                  src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
+                  alt="Student studying for certification exam"
+                  width={640}
+                  height={480}
+                  className="h-full w-full object-cover"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why This Works - 3 Columns */}
-      <section className="py-20 bg-gradient-to-br from-white to-slate-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">
-              Why BCBAs Choose Our Platform
+      {/* Two Exam Cards */}
+      <section id="exams" className="py-24 sm:py-32 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#1f4d3f] mb-4">
+              Choose Your Path
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-semibold text-gray-900">
+              BCBA or RBT?
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Traditional study guides waste your time on what you already know. We're different.
+            <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+              Both platforms include mock exams, progress tracking, and instant feedback.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="relative overflow-hidden border-2 border-emerald-100 hover:border-emerald-300 transition-all hover:shadow-2xl bg-gradient-to-br from-emerald-50 to-white">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center mb-6">
-                  <Brain className="w-8 h-8 text-white" />
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* BCBA Card */}
+            <article className="group rounded-[28px] border border-[#1f4d3f]/10 bg-[#fbfaf8] overflow-hidden flex flex-col shadow-[0_20px_60px_rgba(31,77,63,0.08)]">
+              <div className="bg-[#1f4d3f] px-8 py-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                    <GraduationCap className="text-white" size={28} strokeWidth={1.6} />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-white">BCBA Exam Prep</h3>
+                    <p className="text-emerald-200 text-sm">Board Certified Behavior Analyst</p>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Adapts to YOU</h3>
-                <p className="text-lg text-slate-700 leading-relaxed">
-                  AI analyzes your weak spots and serves up exactly what you need to study next. No wasted time on content you've mastered.
-                </p>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="p-8 flex flex-col flex-1">
+                <ul className="space-y-3 mb-6 flex-1">
+                  <li className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 className="text-[#1f4d3f] mt-0.5 flex-shrink-0" size={18} />
+                    <span>Full-length 185-question mock exams</span>
+                  </li>
+                  <li className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 className="text-[#1f4d3f] mt-0.5 flex-shrink-0" size={18} />
+                    <span>6th edition task list coverage</span>
+                  </li>
+                  <li className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 className="text-[#1f4d3f] mt-0.5 flex-shrink-0" size={18} />
+                    <span>Domain-specific mini exams</span>
+                  </li>
+                  <li className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 className="text-[#1f4d3f] mt-0.5 flex-shrink-0" size={18} />
+                    <span>Score reports and progress tracking</span>
+                  </li>
+                </ul>
+                <a
+                  href="https://study.behaviorschool.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] px-6 py-3 text-sm font-semibold text-white hover:bg-[#173a2f] transition"
+                >
+                  Start BCBA Practice
+                  <ArrowRight size={16} />
+                </a>
+              </div>
+            </article>
 
-            <Card className="relative overflow-hidden border-2 border-blue-100 hover:border-blue-300 transition-all hover:shadow-2xl bg-gradient-to-br from-blue-50 to-white">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center mb-6">
-                  <Target className="w-8 h-8 text-white" />
+            {/* RBT Card */}
+            <article className="group rounded-[28px] border border-[#e4b63d]/30 bg-[#fffcf5] overflow-hidden flex flex-col shadow-[0_20px_60px_rgba(228,182,61,0.12)]">
+              <div className="bg-[#e4b63d] px-8 py-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-white/30 flex items-center justify-center">
+                    <BadgeCheck className="text-[#1f4d3f]" size={28} strokeWidth={1.6} />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#1f4d3f]">RBT Exam Prep</h3>
+                    <p className="text-[#1f4d3f]/70 text-sm">Registered Behavior Technician</p>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Pinpoint Gaps</h3>
-                <p className="text-lg text-slate-700 leading-relaxed">
-                  See exactly which task list items you're struggling with. Get instant feedback that teaches, not just tells you the answer.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="relative overflow-hidden border-2 border-purple-100 hover:border-purple-300 transition-all hover:shadow-2xl bg-gradient-to-br from-purple-50 to-white">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 bg-purple-500 rounded-2xl flex items-center justify-center mb-6">
-                  <TrendingUp className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Track Progress</h3>
-                <p className="text-lg text-slate-700 leading-relaxed">
-                  Watch your mastery grow in real-time. Know exactly when you're ready to pass the exam with confidence.
-                </p>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="p-8 flex flex-col flex-1">
+                <ul className="space-y-3 mb-6 flex-1">
+                  <li className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 className="text-[#e4b63d] mt-0.5 flex-shrink-0" size={18} />
+                    <span>Full-length 85-question mock exams</span>
+                  </li>
+                  <li className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 className="text-[#e4b63d] mt-0.5 flex-shrink-0" size={18} />
+                    <span>2nd edition task list coverage</span>
+                  </li>
+                  <li className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 className="text-[#e4b63d] mt-0.5 flex-shrink-0" size={18} />
+                    <span>Flashcards and SAFMEDS practice</span>
+                  </li>
+                  <li className="flex items-start gap-3 text-slate-700">
+                    <CheckCircle2 className="text-[#e4b63d] mt-0.5 flex-shrink-0" size={18} />
+                    <span>Score reports and progress tracking</span>
+                  </li>
+                </ul>
+                <a
+                  href="https://schoolrbt.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#e4b63d] px-6 py-3 text-sm font-semibold text-[#1f4d3f] hover:bg-[#d4a82d] transition"
+                >
+                  Start RBT Practice
+                  <ArrowRight size={16} />
+                </a>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      {/* Features - Big & Bold */}
-      <section className="py-20 bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <Badge className="bg-emerald-500 text-white mb-4 text-base px-4 py-2">EVERYTHING YOU NEED</Badge>
-            <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Study Smarter, Not Harder
+      {/* Features */}
+      <section className="py-24 sm:py-32 bg-[#f9f7f2]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#1f4d3f] mb-4">
+              What You Get
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-semibold text-gray-900">
+              Practice tools that work
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Zap, title: 'Full-Length Mock Exams', desc: 'Timed sessions that mirror the real BCBA exam. Get comfortable with the format before test day.' },
-              { icon: CheckCircle2, title: 'Mini Practice Tests', desc: 'Quick 10-15 minute sessions perfect for studying on your lunch break or commute.' },
-              { icon: Brain, title: 'Adaptive Learning', desc: 'Questions adjust to your skill level. Focus on what you don\'t know, skip what you\'ve mastered.' },
-              { icon: Target, title: 'Skill Breakdowns', desc: 'See your mastery by task list item. Know exactly which sections need more work.' },
-              { icon: TrendingUp, title: 'Progress Tracking', desc: 'Watch your scores improve over time. Stay motivated with clear progress indicators.' },
-              { icon: Award, title: 'Detailed Explanations', desc: 'Every answer includes research-backed rationales and references to help you truly understand.' },
-            ].map((feature, i) => (
-              <div key={i} className="bg-slate-800 rounded-2xl p-8 hover:bg-slate-700 transition-all border border-slate-700">
-                <feature.icon className="w-12 h-12 text-emerald-400 mb-4" />
-                <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-slate-300 text-lg leading-relaxed">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center">
-            <Button asChild size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-white text-xl px-12 py-7 font-bold shadow-2xl transform hover:scale-105 transition-all">
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                Start Practicing FREE →
-              </Link>
-            </Button>
-            <p className="mt-4 text-slate-400">No credit card. No hidden fees. Just results.</p>
+              {
+                icon: Target,
+                title: "Realistic Format",
+                description: "Questions and timing that match the actual exam.",
+              },
+              {
+                icon: BarChart3,
+                title: "Progress Tracking",
+                description: "See your scores improve over time.",
+              },
+              {
+                icon: Clock,
+                title: "Timed Practice",
+                description: "Build pacing confidence before test day.",
+              },
+              {
+                icon: BookOpen,
+                title: "Explanations",
+                description: "Learn from every question with rationales.",
+              },
+            ].map((feature) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={feature.title}
+                  className="rounded-2xl border border-[#1f4d3f]/10 bg-white p-6 shadow-sm"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-[#1f4d3f]/10 flex items-center justify-center mb-4">
+                    <Icon className="text-[#1f4d3f]" size={20} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                  <p className="text-sm text-slate-600">{feature.description}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-emerald-600 to-blue-600">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-            Ready to Pass Your BCBA Exam?
+      {/* CTA */}
+      <section className="py-20 bg-[#1f4d3f]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
+            Ready to start practicing?
           </h2>
-          <p className="text-2xl text-emerald-50 mb-10 leading-relaxed">
-            Study smarter with targeted practice and clear progress signals.
+          <p className="text-emerald-100 text-lg mb-8 max-w-2xl mx-auto">
+            No signup required to begin. Create an account when you're ready to track your progress.
           </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-emerald-50 text-xl px-12 py-7 font-bold shadow-2xl">
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                Take FREE Mock Exam
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 text-xl px-12 py-7 font-semibold">
-              <Link href="https://study.behaviorschool.com" target="_blank" rel="noopener noreferrer">
-                Try Mini Test First
-              </Link>
-            </Button>
-          </div>
-          
-          <div className="mt-10 flex items-center justify-center gap-8 text-emerald-100">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5" />
-              <span>100% Free</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5" />
-              <span>No Sign-Up Required</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5" />
-              <span>Start Now</span>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="https://study.behaviorschool.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-[#1f4d3f] bg-white rounded-full hover:bg-emerald-50 transition-colors"
+            >
+              BCBA Practice
+            </a>
+            <a
+              href="https://schoolrbt.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-[#1f4d3f] bg-[#e4b63d] rounded-full hover:bg-[#d4a82d] transition-colors"
+            >
+              RBT Practice
+            </a>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
