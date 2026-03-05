@@ -113,9 +113,10 @@ interface ACTFBABIPWizardProps {
   startFromPhase?: number;
   onPhase0Complete?: (profileData: ACTFBAData["profile"]) => void;
   embedded?: boolean; // If true, hide the card wrapper for embedding in hero
+  demoMode?: boolean;
 }
 
-export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded = false }: ACTFBABIPWizardProps) {
+export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded = false, demoMode = false }: ACTFBABIPWizardProps) {
   const [phase, setPhase] = useState(startFromPhase);
   const [data, setData] = useState<ACTFBAData>(() => {
     // If starting from a later phase, try to load saved data
@@ -158,6 +159,25 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
 
   const updateProfile = <K extends keyof ACTFBAData["profile"]>(key: K, value: ACTFBAData["profile"][K]) => {
     setData((prev) => ({ ...prev, profile: { ...prev.profile, [key]: value } }));
+  };
+
+  const autofillBipFields = () => {
+    setData((prev) => {
+      const firstObservation = prev.abcObservations.find((obs) => obs.behavior.trim()) || prev.abcObservations[0];
+      const towardMoves = prev.actMatrix.outerToward.filter(Boolean).join(", ");
+      const innerAway = prev.actMatrix.innerAway.filter(Boolean).join(", ");
+
+      return {
+        ...prev,
+        targetBehavior: prev.targetBehavior || firstObservation?.behavior || "",
+        operationalDefinition:
+          prev.operationalDefinition ||
+          (firstObservation?.behavior ? `Student ${firstObservation.behavior.toLowerCase()} within 2 minutes of task presentation.` : ""),
+        hypothesizedFunction: prev.hypothesizedFunction || "Escape/avoidance",
+        privateEventFunction: prev.privateEventFunction || (innerAway ? `Avoiding internal experiences of ${innerAway.toLowerCase()}.` : ""),
+        replacementBehaviors: prev.replacementBehaviors || towardMoves,
+      };
+    });
   };
 
   const isPhaseValid = useMemo(() => {
@@ -234,9 +254,20 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
           </div>
         )}
 
+        {demoMode && !embedded && (
+          <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+            You’re viewing a guided demo with sample data. Edit any field, or start a real case when you’re ready.
+            <div className="mt-2 flex flex-wrap gap-3">
+              <a href="/act-fba-bip" className="text-[#1E3A34] font-semibold">Start a real case</a>
+              <a href="https://plan.behaviorschool.com" className="text-[#1E3A34] font-semibold">Use inside the learning platform</a>
+            </div>
+          </div>
+        )}
+
         {/* Phase 0: Student Information (basic profile fields only) */}
         {phase === 0 && (
           <div className="space-y-4">
+            <p className="text-sm text-slate-600">Capture the basics so the report prints cleanly and matches the student record.</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label>Student Name *</Label>
@@ -291,6 +322,7 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
         {/* Phase 1: Open-Ended Interview & Values Identification */}
         {phase === 1 && (
           <div className="space-y-4">
+            <p className="text-sm text-slate-600">Use these prompts to surface values, avoidance patterns, and key context.</p>
             <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
               <p className="text-sm font-semibold text-slate-900">Open-Ended Interview</p>
               {questions.map((question) => (
@@ -354,11 +386,14 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
 
         {/* Phase 2: ACT Matrix */}
         {phase === 2 && (
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="space-y-3">
+            <p className="text-sm text-slate-600">Map toward vs. away moves to connect internal experiences with observable behavior.</p>
+            <div className="grid gap-4 md:grid-cols-2">
             <MatrixEditor title="Inner + Away" subtitle="Thoughts and feelings struggled with" value={data.actMatrix.innerAway} onChange={(items) => update("actMatrix", { ...data.actMatrix, innerAway: items })} />
             <MatrixEditor title="Inner + Toward" subtitle="What matters internally" value={data.actMatrix.innerToward} onChange={(items) => update("actMatrix", { ...data.actMatrix, innerToward: items })} />
             <MatrixEditor title="Outer + Away" subtitle="Avoidance behaviors" value={data.actMatrix.outerAway} onChange={(items) => update("actMatrix", { ...data.actMatrix, outerAway: items })} />
             <MatrixEditor title="Outer + Toward" subtitle="Values-aligned actions" value={data.actMatrix.outerToward} onChange={(items) => update("actMatrix", { ...data.actMatrix, outerToward: items })} />
+          </div>
           </div>
         )}
 
@@ -367,6 +402,7 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
         {/* Phase 3: Values Assessment */}
         {phase === 3 && (
           <div className="space-y-4">
+            <p className="text-sm text-slate-600">Select the top values that should guide replacement behaviors and supports.</p>
             <div className="space-y-2">
               <Label>Search Values</Label>
               <Input value={valueSearch} onChange={(e) => setValueSearch(e.target.value)} placeholder="Search 120+ values" />
@@ -402,8 +438,9 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
         )}
 
         {/* Phase 4: ABC Observation */}
-        {phase === 12 && (
+        {phase === 4 && (
           <div className="space-y-4">
+            <p className="text-sm text-slate-600">Record what happened before, during, and after behavior with latency.</p>
             {data.abcObservations.map((obs, index) => (
               <div key={index} className="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
                 <p className="text-sm font-semibold text-slate-900">Observation {index + 1}</p>
@@ -420,8 +457,9 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
           </div>
         )}
 
-        {phase === 12 && (
+        {phase === 5 && (
           <div className="space-y-4">
+            <p className="text-sm text-slate-600">Compare latency under validating vs. challenging conditions to clarify fusion triggers.</p>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label>Validating Condition Mean Latency (sec)</Label>
@@ -447,7 +485,7 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
           </div>
         )}
 
-        {phase === 12 && (
+        {phase === 6 && (
           <div className="space-y-4">
             <p className="text-sm text-slate-600">Complete both forms to populate all 6 CPFQ subscales (acceptance, defusion, present-moment, self-as-context, values, committed action).</p>
             <div className="grid gap-4 lg:grid-cols-2">
@@ -507,7 +545,7 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
           </div>
         )}
 
-        {phase === 12 && (
+        {phase === 7 && (
           <div className="space-y-4">
             {data.verbalRelations.map((entry, index) => {
               const frameHints = entry.statement ? suggestFrames(entry.statement).map((x) => x.frame).join(", ") : "";
@@ -556,7 +594,7 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
           </div>
         )}
 
-        {phase === 12 && (
+        {phase === 8 && (
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Accept (willingness, grounding)</Label>
@@ -573,8 +611,14 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
           </div>
         )}
 
-        {phase === 12 && (
+        {phase === 9 && (
           <div className="space-y-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-slate-600">Define the target behavior and ACT-informed function statements.</p>
+              <Button type="button" variant="outline" onClick={autofillBipFields}>
+                Auto-fill from earlier steps
+              </Button>
+            </div>
             <div className="space-y-2">
               <Label>Target Behavior</Label>
               <Input value={data.targetBehavior} onChange={(e) => update("targetBehavior", e.target.value)} />
@@ -598,7 +642,7 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
           </div>
         )}
 
-        {phase === 12 && (
+        {phase === 10 && (
           <div className="space-y-4">
             {(Object.entries(ACT_STRATEGY_BANK) as [StrategyCategory, readonly string[]][]).map(([category, strategies]) => (
               <div key={category} className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
@@ -656,7 +700,7 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
           </div>
         )}
 
-        {phase === 12 && (
+        {phase === 11 && (
           <div className="space-y-4">
             <div className="grid gap-3 md:grid-cols-2">
               {[
@@ -702,7 +746,21 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
               <Input value={data.reviewCadence} onChange={(e) => update("reviewCadence", e.target.value)} placeholder="e.g., Weekly for 6 weeks, then biweekly" />
             </div>
 
-            {!emailGate.submitted && (
+            {!emailGate.submitted && demoMode && (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <p className="text-sm font-semibold text-slate-900">Generate the demo report</p>
+                <p className="text-xs text-slate-600">This uses sample data so you can see the full output.</p>
+                <Button
+                  className="mt-3 bg-[#1E3A34] hover:bg-[#173029]"
+                  onClick={() => setReport(generateACTBIP(data))}
+                >
+                  Generate Demo Report
+                  <MoveRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            )}
+
+            {!emailGate.submitted && !demoMode && (
               <div className="rounded-xl border border-[#1E3A34]/30 bg-[#1E3A34]/5 p-4">
                 <p className="text-sm font-semibold text-slate-900">Email Capture Before Final Output</p>
                 <p className="text-xs text-slate-600">Enter an email to unlock the full generated report.</p>

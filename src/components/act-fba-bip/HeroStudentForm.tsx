@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GRADE_LEVEL_OPTIONS, INITIAL_WIZARD_DATA, type GradeLevel } from "@/components/act-fba-bip/actBipGenerator";
+import { DEMO_WIZARD_DATA, GRADE_LEVEL_OPTIONS, INITIAL_WIZARD_DATA, type GradeLevel } from "@/components/act-fba-bip/actBipGenerator";
 
 const gradeMap: Record<string, GradeLevel> = {
   "1st": "1-3",
@@ -48,8 +48,16 @@ export function HeroStudentForm() {
 
     localStorage.setItem("act-fba-bip-data", JSON.stringify(updatedData));
     localStorage.setItem("act-fba-bip-student-info", JSON.stringify(updatedData.profile));
+    localStorage.setItem("act-fba-bip-demo", "false");
 
     router.push("/act-fba-bip/wizard");
+  };
+
+  const handleDemo = () => {
+    localStorage.setItem("act-fba-bip-data", JSON.stringify(DEMO_WIZARD_DATA));
+    localStorage.setItem("act-fba-bip-student-info", JSON.stringify(DEMO_WIZARD_DATA.profile));
+    localStorage.setItem("act-fba-bip-demo", "true");
+    router.push("/act-fba-bip/wizard?demo=true");
   };
 
   const isValid = studentName.trim().length > 1;
@@ -112,6 +120,17 @@ export function HeroStudentForm() {
       >
         Next
       </Button>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={handleDemo}
+        className="w-full"
+      >
+        Try a Guided Demo
+      </Button>
+      <p className="text-xs text-slate-500">
+        Demo mode loads a sample case you can click through before using a real student.
+      </p>
     </div>
   );
 }
