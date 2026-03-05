@@ -54,7 +54,7 @@ export function EmailCapture() {
           <Loader2 size={18} className="animate-spin" />
         ) : (
           <>
-            Get the Playbook <ArrowRight size={16} />
+            Subscribe <ArrowRight size={16} />
           </>
         )}
       </button>

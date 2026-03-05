@@ -260,10 +260,10 @@ export default function Home() {
             <FileText className="text-white" size={24} />
           </div>
           <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
-            Get the School BCBA Playbook
+            Stay in the Loop
           </h2>
           <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-            Free templates, referral systems, and practical workflows — the same tools we use in our paid products, delivered to your inbox.
+            Get weekly tips, new tool announcements, and practical strategies for school-based behavior support.
           </p>
           <div className="flex justify-center">
             <EmailCapture />
