@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ACTFBABIPWizard } from "@/components/act-fba-bip/ACTFBABIPWizard";
 import { DEMO_WIZARD_DATA } from "@/components/act-fba-bip/actBipGenerator";
 
@@ -9,14 +9,17 @@ export const dynamic = "force-dynamic";
 
 export default function ACTFBABIPWizardPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [hasStudentInfo, setHasStudentInfo] = useState<boolean | null>(null);
+  const [demoMode, setDemoMode] = useState(false);
 
   useEffect(() => {
-    const isDemo = searchParams.get("demo") === "true";
-    const demoFlag = localStorage.getItem("act-fba-bip-demo") === "true";
+    const params = new URLSearchParams(window.location.search);
+    const isDemo = params.get("demo") === "true";
+    setDemoMode(isDemo);
 
+    const demoFlag = localStorage.getItem("act-fba-bip-demo") === "true";
     const stored = localStorage.getItem("act-fba-bip-student-info");
+
     if (!stored && (isDemo || demoFlag)) {
       localStorage.setItem("act-fba-bip-data", JSON.stringify(DEMO_WIZARD_DATA));
       localStorage.setItem("act-fba-bip-student-info", JSON.stringify(DEMO_WIZARD_DATA.profile));
@@ -30,7 +33,7 @@ export default function ACTFBABIPWizardPage() {
       return;
     }
     setHasStudentInfo(true);
-  }, [router, searchParams]);
+  }, [router]);
 
   if (hasStudentInfo === null) {
     return (
@@ -42,8 +45,6 @@ export default function ACTFBABIPWizardPage() {
       </div>
     );
   }
-
-  const demoMode = searchParams.get("demo") === "true";
 
   return (
     <main className="min-h-screen bg-slate-50 py-8 px-4">
