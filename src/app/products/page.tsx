@@ -26,7 +26,7 @@ const products = [
     icon: GraduationCap,
   },
   {
-    name: "ACE CEU Platform",
+    name: "Learning Platform",
     href: "https://learning.behaviorschool.com",
     description:
       "ACE-approved courses curated for school-based practice with clean tracking.",

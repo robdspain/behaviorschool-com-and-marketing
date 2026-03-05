@@ -128,7 +128,7 @@ export default function Home() {
                 icon: GraduationCap,
               },
               {
-                title: "ACE CEU Platform",
+                title: "Learning Platform",
                 description:
                   "ACE-approved courses curated for school-based practice with clean tracking.",
                 href: "https://learning.behaviorschool.com",
