@@ -55,28 +55,29 @@ export default function CalABA2026Page() {
       {/* ============================================
           SECTION 1: HERO — Welcome / Thank You
           ============================================ */}
-      <section className="relative overflow-hidden bg-[#1f4d3f]">
+      <section className="relative overflow-hidden bg-[#f7f3ee]">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f4d3f12_1px,transparent_1px),linear-gradient(to_bottom,#1f4d3f12_1px,transparent_1px)] bg-[size:48px_48px]" />
         </div>
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#e4b63d]/40 bg-[#e4b63d]/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#e4b63d] mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#1f4d3f]/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#1f4d3f] mb-6">
             CalABA 2026 · Sacramento
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1f4d3f] leading-tight mb-4">
             You scanned the right QR code.
           </h1>
           <p className="text-xl sm:text-2xl text-[#e4b63d] font-semibold mb-4">
             Beyond Observable Behavior
           </p>
-          <p className="text-lg text-emerald-100/80 mb-6 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
             Measuring and Modifying the Function of Thought in School-Based Assessment
           </p>
-          <p className="text-base text-emerald-100/70 mb-8 max-w-2xl mx-auto">
-            <strong className="text-white">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
+          <p className="text-base text-slate-600 mb-8 max-w-2xl mx-auto">
+            <strong className="text-[#1f4d3f]">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
           </p>
-          <p className="text-emerald-100/60 text-base max-w-xl mx-auto mb-10">
+          <p className="text-slate-500 text-base max-w-xl mx-auto mb-10">
             Here&apos;s everything from the presentation — references, the free tool to try right now, and the complete downloadable materials.
           </p>
 
