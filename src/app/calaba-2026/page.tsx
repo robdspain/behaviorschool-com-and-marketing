@@ -246,7 +246,6 @@ export default function CalABA2026Page() {
                 <div className="space-y-2 text-sm text-slate-300">
                   <p>Presentation slides (PDF)</p>
                   <p>Assessment templates (CPFQ, ACT Matrix, Values Sort)</p>
-                  <p>APA References list</p>
                   <p>KCUSD data collection templates</p>
                 </div>
               </div>
@@ -254,10 +253,9 @@ export default function CalABA2026Page() {
           </div>
 
           {/* Quick access links */}
-          <div className="grid sm:grid-cols-4 gap-3">
+          <div className="grid sm:grid-cols-3 gap-3">
             {[
               { icon: FileText, label: "64 Slides", href: "https://docs.google.com/presentation/d/1Je5rD1o5N6Tog3Kr646mm8hT3BERrb_0IXFIVoksnnk/edit" },
-              { icon: BookOpen, label: "References PDF", href: "/calaba-2026/references.pdf" },
               { icon: Download, label: "ACT Assessment", href: "/calaba-2026/assessment-tools/fusion-fa" },
               { icon: Users, label: "Data Templates", href: "#download" },
             ].map((item) => (
