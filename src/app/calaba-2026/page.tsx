@@ -78,7 +78,7 @@ export default function CalABA2026Page() {
             <strong className="text-[#1f4d3f]">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
           </p>
           <p className="text-slate-500 text-base max-w-xl mx-auto mb-10">
-            Here&apos;s everything from the presentation - references, the free tool to try right now, and the complete downloadable materials.
+            Here&apos;s everything from the presentation — slides, assessment templates, and the complete downloadable materials.
           </p>
 
           {/* Two CTAs only */}
