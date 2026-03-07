@@ -371,17 +371,6 @@ export default function CalABA2026Page() {
         </div>
       </div>
 
-      {/* Transformation Program CTA */}
-      <div className="py-10 px-4 bg-white border-t border-slate-100 text-center">
-        <Link
-          href="/transformation-program"
-          className="inline-flex items-center gap-3 bg-[#1f4d3f] text-white font-bold px-10 py-4 rounded-xl hover:bg-[#123628] transition-colors text-base shadow-md"
-        >
-          The School BCBA Transformation Program
-          <ArrowRight className="w-5 h-5" />
-        </Link>
-      </div>
-
       {/* ============================================
           SECTION 6: OTHER TOOLS
           ============================================ */}
