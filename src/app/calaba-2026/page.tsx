@@ -111,7 +111,7 @@ export default function CalABA2026Page() {
           </div>
           <div className="rounded-2xl border border-[#1E3A34]/15 bg-white p-6 shadow-sm">
             <p className="text-sm text-slate-600 mb-1">
-              <span className="font-semibold text-slate-800">Rob Spain, BCBA, IBA</span> &amp; <span className="font-semibold text-slate-800">Cristal Lopez, BCBA</span>
+              <span className="font-semibold text-slate-800">Rob Spain, BCBA, IBA</span> &amp; <span className="font-semibold text-slate-800">Cristal Lopez, BCaBA</span>
             </p>
             <p className="text-xs text-slate-400 mb-4 italic">With contributions from Megan Caluza, BCBA · Presented CalABA 2026 · Draft - not yet peer reviewed</p>
             <p className="text-sm text-slate-600 mb-6 leading-relaxed">

@@ -279,7 +279,7 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                   value={currentThought.text}
                   onChange={(e) => setCurrentThought(prev => ({ ...prev, text: e.target.value }))}
                   placeholder={`e.g., "I think I'm going to get in trouble anyway"`}
-                  className="w-full mt-2 bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                  className="w-full mt-2 bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-[#1f4d3f] focus:ring-1 focus:ring-[#1f4d3f] outline-none"
                   rows={2}
                 />
               </label>
@@ -294,7 +294,7 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                     value={currentThought.who}
                     onChange={(e) => setCurrentThought(prev => ({ ...prev, who: e.target.value }))}
                     placeholder="Teacher, peers..."
-                    className="w-full mt-1 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-purple-500 outline-none"
+                    className="w-full mt-1 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-[#1f4d3f] outline-none"
                   />
                 </label>
                 <label className="block">
@@ -306,7 +306,7 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                     value={currentThought.where}
                     onChange={(e) => setCurrentThought(prev => ({ ...prev, where: e.target.value }))}
                     placeholder="Classroom, hallway..."
-                    className="w-full mt-1 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-purple-500 outline-none"
+                    className="w-full mt-1 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-[#1f4d3f] outline-none"
                   />
                 </label>
                 <label className="block">
@@ -318,7 +318,7 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                     value={currentThought.when}
                     onChange={(e) => setCurrentThought(prev => ({ ...prev, when: e.target.value }))}
                     placeholder="Morning, after lunch..."
-                    className="w-full mt-1 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-purple-500 outline-none"
+                    className="w-full mt-1 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-[#1f4d3f] outline-none"
                   />
                 </label>
               </div>
@@ -326,7 +326,7 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
               <button
                 onClick={addThought}
                 disabled={!currentThought.text.trim()}
-                className="w-full bg-purple-500 hover:bg-purple-400 disabled:bg-slate-600 disabled:cursor-not-allowed text-white py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-[#1f4d3f] hover:bg-green-400 disabled:bg-slate-600 disabled:cursor-not-allowed text-white py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
               >
                 <Plus className="w-5 h-5" /> Add Thought/Feeling
               </button>
@@ -340,17 +340,17 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                 </span>
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {matrix.thoughtsFeelings.map((t) => (
-                    <div key={t.id} className="bg-purple-500/10 border border-purple-500/30 rounded-lg px-4 py-3">
+                    <div key={t.id} className="bg-[#1f4d3f]/10 border border-[#1f4d3f]/30 rounded-lg px-4 py-3">
                       <div className="flex items-start justify-between gap-2">
                         <div>
-                          <p className="text-purple-200">"{t.text}"</p>
+                          <p className="text-green-200">"{t.text}"</p>
                           {(t.context.who || t.context.where || t.context.when) && (
-                            <p className="text-purple-300/60 text-xs mt-1">
+                            <p className="text-green-300/60 text-xs mt-1">
                               {[t.context.who && `Who: ${t.context.who}`, t.context.where && `Where: ${t.context.where}`, t.context.when && `When: ${t.context.when}`].filter(Boolean).join(" • ")}
                             </p>
                           )}
                         </div>
-                        <button onClick={() => removeItem("thoughtsFeelings", t.id)} className="text-purple-400 hover:text-purple-300 flex-shrink-0">
+                        <button onClick={() => removeItem("thoughtsFeelings", t.id)} className="text-green-400 hover:text-green-300 flex-shrink-0">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -535,13 +535,13 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                 </div>
 
                 {/* Bottom Left - OUTER + AWAY */}
-                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
-                  <h4 className="text-purple-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Away</h4>
+                <div className="bg-[#1f4d3f]/10 border border-[#1f4d3f]/30 rounded-xl p-4">
+                  <h4 className="text-green-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Away</h4>
                   <p className="text-slate-400 text-xs mb-3">Avoidance behaviors</p>
                   <div className="space-y-1 max-h-40 overflow-y-auto">
                     {matrix.awayMoves.length > 0 ? (
                       matrix.awayMoves.map((a, i) => (
-                        <div key={i} className="text-sm text-purple-200">
+                        <div key={i} className="text-sm text-green-200">
                           • {a}
                         </div>
                       ))
@@ -667,14 +667,14 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                   currentSection === 0 ? "bg-cyan-500/20" :
                   currentSection === 1 ? "bg-rose-500/20" :
-                  currentSection === 2 ? "bg-purple-500/20" :
+                  currentSection === 2 ? "bg-[#1f4d3f]/20" :
                   currentSection === 3 ? "bg-amber-500/20" :
                   currentSection === 4 ? "bg-emerald-500/20" :
                   "bg-cyan-500/20"
                 }`}>
                   {currentSection === 0 && <Sparkles className="w-5 h-5 text-cyan-400" />}
                   {currentSection === 1 && <Heart className="w-5 h-5 text-rose-400" />}
-                  {currentSection === 2 && <Brain className="w-5 h-5 text-purple-400" />}
+                  {currentSection === 2 && <Brain className="w-5 h-5 text-green-400" />}
                   {currentSection === 3 && <ArrowLeft className="w-5 h-5 text-amber-400" />}
                   {currentSection === 4 && <ArrowRight className="w-5 h-5 text-emerald-400" />}
                   {currentSection === 5 && <CheckCircle className="w-5 h-5 text-cyan-400" />}
@@ -744,11 +744,11 @@ ${matrix.towardMoves.length > 0 ? matrix.towardMoves.map(t => `• ${t}`).join("
                     </div>
 
                     {/* Outer + Away */}
-                    <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-2">
-                      <div className="text-purple-400 font-medium mb-1 text-[10px] uppercase tracking-wide">
+                    <div className="bg-[#1f4d3f]/10 border border-[#1f4d3f]/20 rounded-lg p-2">
+                      <div className="text-green-400 font-medium mb-1 text-[10px] uppercase tracking-wide">
                         Outer+Away
                       </div>
-                      <div className="text-purple-300/70">
+                      <div className="text-green-300/70">
                         {matrix.awayMoves.length} recorded
                       </div>
                     </div>
