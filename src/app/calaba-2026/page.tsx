@@ -53,7 +53,7 @@ export default function CalABA2026Page() {
     <div className="min-h-screen bg-bs-background">
 
       {/* ============================================
-          SECTION 1: HERO — Welcome / Thank You
+          SECTION 1: HERO - Welcome / Thank You
           ============================================ */}
       <section className="relative overflow-hidden bg-[#f7f3ee]">
         <div className="absolute inset-0">
@@ -78,7 +78,7 @@ export default function CalABA2026Page() {
             <strong className="text-[#1f4d3f]">Presenters:</strong> Rob Spain, BCBA · Cristal Lopez, BCaBA · Megan Caluza, BCBA
           </p>
           <p className="text-slate-500 text-base max-w-xl mx-auto mb-10">
-            Here&apos;s everything from the presentation — references, the free tool to try right now, and the complete downloadable materials.
+            Here&apos;s everything from the presentation - references, the free tool to try right now, and the complete downloadable materials.
           </p>
 
           {/* Two CTAs only */}
@@ -98,47 +98,44 @@ export default function CalABA2026Page() {
       {/* ============================================
           SECTION 2: REFERENCES
           ============================================ */}
-      <div id="references" className="py-16 px-4 bg-white border-b border-slate-200">
+      {/* ============================================
+          DRAFT ARTICLE SECTION
+          ============================================ */}
+      <div className="py-16 px-4 bg-[#f0f7f4] border-b border-slate-200">
         <div className="max-w-3xl mx-auto">
-          <div className="mb-8">
-            <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">From the Symposium</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">Presentation References</h2>
-            <p className="text-slate-500 text-sm">Full citation list from the CalABA 2026 symposium.</p>
+          <div className="flex items-start gap-4 mb-6">
+            <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#1E3A34" }}>
+              <FileText className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Draft Manuscript</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Beyond Observable Behavior</h2>
+              <p className="text-slate-600 text-sm">Measuring and Modifying the Function of Thought in School-Based Behavioral Assessment and Intervention</p>
+            </div>
           </div>
-
-          <div className="rounded-xl border border-slate-200 bg-slate-50 divide-y divide-slate-200 overflow-hidden">
-            {[
-              "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and Commitment Therapy: The Process and Practice of Mindful Change (2nd ed.). Guilford Press.",
-              "Brock, M. E., & Carter, E. W. (2015). Effectiveness of teachers as peer support facilitators for students with disabilities. Exceptional Children, 82(2), 143–159.",
-              "Kearney, C. A. (2016). Managing School Absenteeism at Multiple Tiers. Oxford University Press.",
-              "Luoma, J. B., Hayes, S. C., & Walser, R. D. (2017). Learning ACT: An Acceptance and Commitment Therapy Skills-Training Manual for Therapists (2nd ed.). New Harbinger Publications.",
-              "Tarbox, J., Dixon, D. R., Sturmey, P., & Matson, J. L. (Eds.). (2014). Handbook of Early Intensive Behavioral Intervention in Autism. Springer.",
-              "Dixon, M. R., Paliliunas, D., Belisle, J., Speelman, R. C., Gunnarsson, K. F., & Shaffer, J. L. (2019). The effect of brief mindfulness training on momentary impulsivity. Journal of Contextual Behavioral Science, 11, 15–20.",
-              "Belisle, J., Dixon, M. R., Stanley, C. R., Munoz, B., & Daar, J. H. (2016). Teaching foundational perspective-taking skills to children with autism using the PEAK-T curriculum. Journal of Applied Behavior Analysis, 49(3), 681–686.",
-              "Greco, L. A., & Hayes, S. C. (Eds.). (2008). Acceptance and Mindfulness Treatments for Children and Adolescents. New Harbinger Publications.",
-              "BACB (2022). Ethics Code for Behavior Analysts. Behavior Analyst Certification Board.",
-            ].map((citation, i) => (
-              <div key={i} className="px-5 py-4 flex gap-4 items-start hover:bg-white transition-colors">
-                <span className="text-xs font-bold text-slate-400 mt-0.5 w-5 shrink-0 text-right">{i + 1}</span>
-                <p className="text-sm text-slate-700 leading-relaxed">{citation}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-5 flex items-center gap-3">
-            <a
-              href="/calaba-2026/references.pdf"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 hover:text-emerald-800 border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 px-4 py-2 rounded-lg transition-colors"
+          <div className="rounded-2xl border border-[#1E3A34]/15 bg-white p-6 shadow-sm">
+            <p className="text-sm text-slate-600 mb-1">
+              <span className="font-semibold text-slate-800">Rob Spain, BCBA, IBA</span> &amp; <span className="font-semibold text-slate-800">Cristal Lopez, BCBA</span>
+            </p>
+            <p className="text-xs text-slate-400 mb-4 italic">With contributions from Megan Caluza, BCBA · Presented CalABA 2026 · Draft - not yet peer reviewed</p>
+            <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+              Quasi-experimental longitudinal case series (<em>N</em> = 4, grades 5–12). Participants demonstrated a <strong>58.3% mean increase in psychological flexibility</strong> and a <strong>75% mean reduction in targeted maladaptive behaviors</strong> over 8 months using the AIM ACT framework. RCI criteria met by 100% of participants at a median of 5 months.
+            </p>
+            <Link
+              href="/calaba-2026/paper"
+              className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#1E3A34" }}
             >
-              <Download className="w-4 h-4" />
-              Download as PDF
-            </a>
+              <BookOpen className="w-4 h-4" />
+              Read the Draft Article
+            </Link>
           </div>
         </div>
       </div>
 
+      
       {/* ============================================
-          SECTION 3: TRY THE TOOL — FEATURED CTA
+          SECTION 3: TRY THE TOOL - FEATURED CTA
           ============================================ */}
       <div id="try-the-tool" className="py-20 px-4 bg-gradient-to-br from-emerald-900 to-emerald-800 text-white">
         <div className="max-w-3xl mx-auto text-center">
@@ -150,7 +147,7 @@ export default function CalABA2026Page() {
             The tool from the presentation. Free. Takes 10 minutes. Generates a complete, printable BIP with ACT-informed strategies.
           </p>
           <p className="text-emerald-200 text-sm mb-10 max-w-xl mx-auto">
-            Values assessment, psychological flexibility analysis, defusion techniques, acceptance strategies, and committed action goals — all matched to grade level.
+            Values assessment, psychological flexibility analysis, defusion techniques, acceptance strategies, and committed action goals - all matched to grade level.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -185,7 +182,7 @@ export default function CalABA2026Page() {
           {/* Share */}
           <div className="mt-8 max-w-2xl mx-auto">
             <ShareBar
-              title="Free ACT-Informed FBA Tool — CalABA 2026"
+              title="Free ACT-Informed FBA Tool - CalABA 2026"
               text="Attended Rob Spain's CalABA talk on ACT-Informed FBAs? The free tool and all presentation references are here:"
               url="https://behaviorschool.com/calaba-2026"
               hashtags={["CalABA", "BCBA", "SchoolBCBA"]}
@@ -245,7 +242,7 @@ export default function CalABA2026Page() {
               <div className="text-center py-6">
                 <CheckCircle className="w-12 h-12 text-cyan-400 mx-auto mb-3" />
                 <p className="text-lg font-bold text-white mb-2">Check your email!</p>
-                <p className="text-slate-200 mb-4">Check your inbox — the tool link and references are on their way.</p>
+                <p className="text-slate-200 mb-4">Check your inbox - the tool link and references are on their way.</p>
                 <div className="space-y-2 text-sm text-slate-300">
                   <p>Presentation slides (PDF)</p>
                   <p>Assessment templates (CPFQ, ACT Matrix, Values Sort)</p>
@@ -327,7 +324,7 @@ export default function CalABA2026Page() {
                 href="https://plan.behaviorschool.com/signup?plan=founding-annual"
                 className="block w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-4 rounded-xl text-center transition-colors"
               >
-                Get Started — $149/year
+                Get Started - $149/year
               </Link>
             </div>
 
@@ -353,7 +350,7 @@ export default function CalABA2026Page() {
                 href="https://plan.behaviorschool.com/signup?plan=founding-monthly"
                 className="block w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl text-center transition-colors border border-slate-600"
               >
-                Get Started — $19/month
+                Get Started - $19/month
               </Link>
             </div>
           </div>
@@ -449,7 +446,7 @@ export default function CalABA2026Page() {
               <CheckCircle className="w-4 h-4" />
               Built by School BCBAs
             </div>
-            <div className="flex items-center gap-2 bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">
+            <div className="flex items-center gap-2 bg-green-100 text-[#123628] px-4 py-2 rounded-full text-sm font-medium">
               <Zap className="w-4 h-4" />
               Free Forever
             </div>
