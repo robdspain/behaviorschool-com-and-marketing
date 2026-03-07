@@ -117,14 +117,7 @@ export default function CalABA2026Page() {
             <p className="text-sm text-slate-600 mb-6 leading-relaxed">
               Quasi-experimental longitudinal case series (<em>N</em> = 4, grades 5–12). Participants demonstrated a <strong>58.3% mean increase in psychological flexibility</strong> and a <strong>75% mean reduction in targeted maladaptive behaviors</strong> over 8 months using the AIM ACT framework. RCI criteria met by 100% of participants at a median of 5 months.
             </p>
-            <Link
-              href="/calaba-2026/paper"
-              className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-              style={{ backgroundColor: "#1E3A34" }}
-            >
-              <BookOpen className="w-4 h-4" />
-              Read the Draft Article
-            </Link>
+
           </div>
         </div>
       </div>
