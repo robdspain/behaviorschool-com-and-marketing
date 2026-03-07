@@ -259,25 +259,29 @@ export default function CalABA2026PaperPage() {
         <section className="mb-10">
           <h2 className="text-xl font-bold mb-4" style={{ color: "#1E3A34" }}>References</h2>
           <div className="space-y-2 text-sm text-slate-600 leading-relaxed">
-            <p>A-Tjak, J. G., et al. (2015). A meta-analysis of the efficacy of acceptance and commitment therapy. <em>Psychotherapy and Psychosomatics, 84</em>(1), 30–36.</p>
-            <p>Belisle, J., &amp; Dixon, M. R. (2020). Relational density theory. <em>Perspectives on Behavior Science, 43</em>(2), 259–283.</p>
-            <p>Cooper, J. O., Heron, T. E., &amp; Heward, W. L. (2020). <em>Applied behavior analysis</em> (3rd ed.). Pearson.</p>
-            <p>Dixon, M. R., Paliliunas, D., &amp; Belisle, J. (2019). <em>ACT for children and adolescents.</em> Context Press.</p>
-            <p>Greco, L. A., &amp; Hayes, S. C. (Eds.). (2008). <em>Acceptance and mindfulness treatments for children and adolescents.</em> New Harbinger.</p>
-            <p>Hanley, G. P., Iwata, B. A., &amp; McCord, B. E. (2003). Functional analysis of problem behavior. <em>Journal of Applied Behavior Analysis, 36</em>(2), 147–185.</p>
-            <p>Hanley, G. P., et al. (2014). Producing meaningful improvements in problem behavior via synthesized analyses. <em>Journal of Applied Behavior Analysis, 47</em>(1), 16–36.</p>
-            <p>Hayes, S. C., Barnes-Holmes, D., &amp; Roche, B. (Eds.). (2001). <em>Relational frame theory.</em> Kluwer Academic.</p>
-            <p>Hayes, S. C., &amp; Ciarrochi, J. (2015). <em>The thriving adolescent.</em> New Harbinger.</p>
-            <p>Hayes, S. C., Strosahl, K. D., &amp; Wilson, K. G. (2012). <em>Acceptance and commitment therapy</em> (2nd ed.). Guilford.</p>
-            <p>Jacobson, N. S., &amp; Truax, P. (1991). Clinical significance. <em>Journal of Consulting and Clinical Psychology, 59</em>(1), 12–19.</p>
-            <p>Kazdin, A. E. (2011). <em>Single-case research designs</em> (2nd ed.). Oxford University Press.</p>
-            <p>Kiresuk, T. J., &amp; Sherman, R. E. (1968). Goal attainment scaling. <em>Community Mental Health Journal, 4</em>(6), 443–453.</p>
-            <p>Luoma, J. B., Hayes, S. C., &amp; Walser, R. D. (2017). <em>Learning ACT</em> (2nd ed.). New Harbinger.</p>
-            <p>O'Neill, R. E., et al. (1997). <em>Functional assessment and program development for problem behavior</em> (2nd ed.). Brooks/Cole.</p>
-            <p>Polk, K. L., &amp; Schoendorff, B. (Eds.). (2014). <em>The ACT matrix.</em> Context Press.</p>
+            <p>Belisle, J., &amp; Dixon, M. R. (2020). Relational density theory: Nonlinearity of equivalence relating examined through higher-order volumetric-mass-density. <em>Perspectives on Behavior Science, 43</em>(2), 259–283. https://doi.org/10.1007/s40614-020-00248-w</p>
+            <p>Coyne, L. W., McHugh, L., &amp; Martinez, E. R. (2011). Acceptance and commitment therapy (ACT): Advances and applications with children, adolescents, and families. <em>Child and Adolescent Psychiatric Clinics of North America, 20</em>(2), 379–399. https://doi.org/10.1016/j.chc.2011.01.010</p>
+            <p>Dixon, M. R., Belisle, J., Rehfeldt, R. A., &amp; Root, W. B. (2018). Why we are still not acting to save the world: The upward challenge of a post-Skinnerian behavior science. <em>Perspectives on Behavior Science, 41</em>(1), 241–267. https://doi.org/10.1007/s40614-018-0162-9</p>
+            <p>Dixon, M. R., Hayes, S. C., &amp; Belisle, J. (2023). <em>Acceptance and commitment therapy for behavior analysts: A practice guide from theory to treatment.</em> Routledge.</p>
+            <p>Greco, L. A., &amp; Hayes, S. C. (Eds.). (2008). <em>Acceptance and mindfulness treatments for children and adolescents: A practitioner&apos;s guide.</em> New Harbinger.</p>
+            <p>Greco, L. A., Lambert, W., &amp; Baer, R. A. (2008). Psychological inflexibility in childhood and adolescence: Development and evaluation of the Avoidance and Fusion Questionnaire for Youth. <em>Psychological Assessment, 20</em>(2), 93–102. https://doi.org/10.1037/1040-3590.20.2.93</p>
+            <p>Hanley, G. P., Iwata, B. A., &amp; McCord, B. E. (2003). Functional analysis of problem behavior: A review. <em>Journal of Applied Behavior Analysis, 36</em>(2), 147–185. https://doi.org/10.1901/jaba.2003.36-147</p>
+            <p>Hanley, G. P., Jin, C. S., Vanselow, N. R., &amp; Hanratty, L. A. (2014). Producing meaningful improvements in problem behavior via synthesized analyses and treatments. <em>Journal of Applied Behavior Analysis, 47</em>(1), 16–36. https://doi.org/10.1002/jaba.106</p>
+            <p>Hayes, S. C., Barnes-Holmes, D., &amp; Roche, B. (Eds.). (2001). <em>Relational frame theory: A post-Skinnerian account of human language and cognition.</em> Kluwer Academic/Plenum.</p>
+            <p>Hayes, S. C., Luoma, J. B., Bond, F. W., Masuda, A., &amp; Lillis, J. (2006). Acceptance and commitment therapy: Model, processes and outcomes. <em>Behaviour Research and Therapy, 44</em>(1), 1–25. https://doi.org/10.1016/j.brat.2005.06.006</p>
+            <p>Hayes, S. C., Strosahl, K. D., &amp; Wilson, K. G. (2012). <em>Acceptance and commitment therapy: The process and practice of mindful change</em> (2nd ed.). Guilford Press.</p>
+            <p>Horner, R. H., Sugai, G., &amp; Anderson, C. M. (2010). Examining the evidence base for school-wide positive behavior support. <em>Focus on Exceptional Children, 42</em>(8), 1–14.</p>
+            <p>Ingram, K., Lewis-Palmer, T., &amp; Sugai, G. (2005). Function-based intervention planning: Comparing effectiveness of FBA function-based vs. non-function-based plans. <em>Journal of Positive Behavior Interventions, 7</em>(4), 224–236. https://doi.org/10.1177/1098300705007004040</p>
+            <p>Iwata, B. A., Dorsey, M. F., Slifer, K. J., Bauman, K. E., &amp; Richman, G. S. (1982/1994). Toward a functional analysis of self-injury. <em>Journal of Applied Behavior Analysis, 27</em>(2), 197–209. https://doi.org/10.1901/jaba.1994.27-197</p>
+            <p>Jacobson, N. S., &amp; Truax, P. (1991). Clinical significance: A statistical approach to defining meaningful change in psychotherapy research. <em>Journal of Consulting and Clinical Psychology, 59</em>(1), 12–19.</p>
+            <p>Kiresuk, T. J., &amp; Sherman, R. E. (1968). Goal attainment scaling: A general method for evaluating comprehensive community mental health programs. <em>Community Mental Health Journal, 4</em>(6), 443–453.</p>
+            <p>Ledford, J. R., &amp; Gast, D. L. (2018). <em>Single case research methodology</em> (3rd ed.). Routledge.</p>
+            <p>Paliliunas, D., Belisle, J., &amp; Dixon, M. R. (2018). A randomized control trial to evaluate the use of acceptance and commitment therapy (ACT) to increase academic performance and psychological flexibility in graduate students. <em>Behavior Analysis in Practice, 11</em>(3), 241–253. https://doi.org/10.1007/s40617-018-0252-x</p>
+            <p>Polk, K. L., &amp; Schoendorff, B. (Eds.). (2014). <em>The ACT matrix: A new approach to building psychological flexibility across settings and populations.</em> New Harbinger.</p>
             <p>Skinner, B. F. (1957). <em>Verbal behavior.</em> Appleton-Century-Crofts.</p>
-            <p>Törneke, N., Luciano, C., &amp; Valdivia Salas, S. (2008). Rule-governed behavior and psychological problems. <em>International Journal of Psychology and Psychological Therapy, 8</em>(2), 141–156.</p>
-            <p>Umbreit, J., et al. (2007). <em>Functional behavioral assessment and function-based intervention.</em> Pearson.</p>
+            <p>Sugai, G., &amp; Horner, R. H. (2009). Responsiveness-to-intervention and school-wide positive behavior supports. <em>Exceptionality, 17</em>(4), 223–237. https://doi.org/10.1080/09362830903235375</p>
+            <p>Törneke, N. (2010). <em>Learning RFT: An introduction to relational frame theory and its clinical application.</em> New Harbinger.</p>
+            <p>Wolf, M. M. (1978). Social validity: The case for subjective measurement or how applied behavior analysis is finding its heart. <em>Journal of Applied Behavior Analysis, 11</em>(2), 203–214. https://doi.org/10.1901/jaba.1978.11-203</p>
           </div>
         </section>
 
