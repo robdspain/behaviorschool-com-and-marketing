@@ -42,19 +42,6 @@ export async function POST(req: NextRequest) {
 
 <p>Thank you for attending the session today. Here's everything I promised:</p>
 
-<h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">The ACT-Informed FBA Tool</h3>
-<p>This is the tool I demonstrated — it walks you through a complete, ACT-informed FBA and generates a printable BIP. Free, no account required.</p>
-<p>
-  <a href="https://behaviorschool.com/act-fba-bip" style="display:inline-block; background:#1a4731; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
-    Try the ACT-FBA Tool →
-  </a>
-</p>
-<p style="font-size:14px; color:#555;">Tip: Click "Load Sample Case" to see a pre-filled 7th-grade escape case and jump straight to the output.</p>
-
-<h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Presentation References</h3>
-<p>All citations from today's talk are on the session page:</p>
-<p><a href="https://behaviorschool.com/calaba-2026" style="color:#1a4731;">behaviorschool.com/calaba-2026</a></p>
-
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">The School BCBA Transformation Program</h3>
 <p>If today's content resonated with you, I'm running a 6-week cohort starting March 26 for school-based BCBAs who want to implement this systematically with their teams.</p>
 <ul style="color:#555; font-size:15px;">
