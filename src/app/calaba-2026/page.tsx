@@ -122,65 +122,7 @@ export default function CalABA2026Page() {
         </div>
       </div>
 
-      
-      {/* ============================================
-          SECTION 3: TRY THE TOOL - FEATURED CTA
-          ============================================ */}
-      <div id="try-the-tool" className="py-20 px-4 bg-gradient-to-br from-emerald-900 to-emerald-800 text-white">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-xs font-bold uppercase tracking-widest text-emerald-300 mb-3">Free Tool from the Presentation</p>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-5">
-            Try the ACT-Informed FBA Tool
-          </h2>
-          <p className="text-emerald-100 text-lg mb-3 max-w-xl mx-auto">
-            The tool from the presentation. Free. Takes 10 minutes. Generates a complete, printable BIP with ACT-informed strategies.
-          </p>
-          <p className="text-emerald-200 text-sm mb-10 max-w-xl mx-auto">
-            Values assessment, psychological flexibility analysis, defusion techniques, acceptance strategies, and committed action goals - all matched to grade level.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/act-fba-bip"
-              className="inline-flex items-center gap-2 bg-white text-emerald-900 font-bold px-8 py-4 rounded-xl hover:bg-emerald-50 transition-colors text-lg"
-            >
-              Start the Tool
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/act-fba-bip?demo=true"
-              className="inline-flex items-center gap-2 text-emerald-200 hover:text-white font-medium px-6 py-4 transition-colors text-sm"
-            >
-              Or load a sample case and see the output in 30 seconds →
-            </Link>
-          </div>
-
-          <div className="mt-10 grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            {[
-              { label: "100% Free", sub: "No account required" },
-              { label: "10 Minutes", sub: "Full FBA + BIP output" },
-              { label: "Printable", sub: "Copy-ready for IEP teams" },
-            ].map((item) => (
-              <div key={item.label} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                <p className="font-bold text-white text-base">{item.label}</p>
-                <p className="text-emerald-200 text-xs mt-1">{item.sub}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Share */}
-          <div className="mt-8 max-w-2xl mx-auto">
-            <ShareBar
-              title="Free ACT-Informed FBA Tool - CalABA 2026"
-              text="Attended Rob Spain's CalABA talk on ACT-Informed FBAs? The free tool and all presentation references are here:"
-              url="https://behaviorschool.com/calaba-2026"
-              hashtags={["CalABA", "BCBA", "SchoolBCBA"]}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* ============================================
+            {/* ============================================
           SECTION 4: DOWNLOAD MATERIALS
           ============================================ */}
       <div id="download" className="py-16 px-4 bg-gradient-to-br from-slate-800 to-slate-900 text-white">
