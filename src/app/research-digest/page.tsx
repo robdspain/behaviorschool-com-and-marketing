@@ -67,15 +67,6 @@ const SAMPLE_PAPERS = [
     tagColor: '#5a2d82',
     oa: true,
   },
-  {
-    journal: 'Behavior Analysis in Practice',
-    year: '2023',
-    title: 'Disability-Affirming Supervision: Future Directions in Applied Behavior Analysis',
-    summary: 'Proposes supervision practices that honor disabled supervisees\' identities and experiences. Relevant for BCBAs who supervise RBTs with disabilities or those working toward more inclusive practices.',
-    tag: 'Supervision',
-    tagColor: '#7a3b1e',
-    oa: false,
-  },
 ]
 
 const TOPICS = [
@@ -135,7 +126,7 @@ export default function ResearchDigestPage() {
             The ABA Research Digest<br />for School BCBAs
           </h1>
           <p style={{ margin: '0 0 36px', fontSize: 17, color: 'rgba(255,255,255,0.8)', lineHeight: 1.7 }}>
-            Every Monday morning: 5–8 peer-reviewed behavior analytic studies — summarized in plain language so you can stay current without spending your weekend reading abstracts.
+            Every Monday morning: 5 peer-reviewed behavior analytic studies — summarized in plain language so you can stay current without spending your weekend reading abstracts.
           </p>
 
           {/* Signup form */}
@@ -192,7 +183,7 @@ export default function ResearchDigestPage() {
             Research that actually applies to your job
           </h2>
           <p style={{ margin: '0 0 40px', fontSize: 16, color: '#555', lineHeight: 1.7 }}>
-            Most ABA journals publish dozens of articles a month. Most of them aren&apos;t relevant to a BCBA working in a K–12 building. We filter for school-relevant research across 8 topic areas — then summarize each one in 2–3 sentences you can read in under 10 minutes.
+            Most ABA journals publish dozens of articles a month. Most of them aren&apos;t relevant to a BCBA working in a K–12 building. We filter for school-relevant research across 8 topic areas — then pick the 5 most relevant — summarized in 2–3 sentences each. Total read time: under 3 minutes.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 20 }}>
@@ -228,7 +219,7 @@ export default function ResearchDigestPage() {
             <div style={{ background: '#1f4d3f', padding: '22px 28px' }}>
               <p style={{ margin: '0 0 4px', fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#e4b63d' }}>BehaviorSchool</p>
               <p style={{ margin: 0, fontSize: 18, fontWeight: 700, color: '#fff' }}>ABA Research Digest</p>
-              <p style={{ margin: '4px 0 0', fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>Issue #12 &nbsp;&middot;&nbsp; March 10, 2026 &nbsp;&middot;&nbsp; 6 papers</p>
+              <p style={{ margin: '4px 0 0', fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>Issue #12 &nbsp;&middot;&nbsp; March 10, 2026 &nbsp;&middot;&nbsp; 5 papers</p>
             </div>
 
             {/* Papers */}
