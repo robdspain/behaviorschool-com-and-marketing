@@ -83,9 +83,9 @@ export default function CalABA2026Page() {
 
           {/* Two CTAs only */}
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="/calaba-2026/calaba-2026-materials.zip" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-[#1f4d3f] hover:bg-emerald-50 transition-colors">
+            <a href="/calaba-2026/beyond-observable-behavior.xlsx" download className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-[#1f4d3f] hover:bg-emerald-50 transition-colors">
               <Download className="w-5 h-5" />
-              Download Slides + Citations
+              Download Data File
             </a>
           </div>
         </div>
@@ -193,8 +193,8 @@ export default function CalABA2026Page() {
       <div id="download" className="py-16 px-4 bg-gradient-to-br from-slate-800 to-slate-900 text-white">
         <div className="max-w-xl mx-auto text-center">
           <p className="text-sm font-semibold text-cyan-300 mb-3 uppercase tracking-widest">Symposium Materials</p>
-          <h2 className="text-2xl font-bold mb-3">Download the Full Slide Deck + Handouts</h2>
-          <p className="text-slate-300 text-sm mb-8">Slides, assessment templates, references, and KCUSD data collection tools.</p>
+          <h2 className="text-2xl font-bold mb-3">Download the Data File</h2>
+          <p className="text-slate-300 text-sm mb-8">The data collection spreadsheet from the presentation.</p>
 
           <div className="bg-slate-800 border-2 border-cyan-500/40 rounded-2xl p-8 text-left shadow-2xl mb-8">
             {!downloadSubmitted ? (
@@ -238,12 +238,11 @@ export default function CalABA2026Page() {
               <div className="text-center py-6">
                 <CheckCircle className="w-12 h-12 text-cyan-400 mx-auto mb-3" />
                 <p className="text-lg font-bold text-white mb-2">Check your email!</p>
-                <p className="text-slate-200 mb-4">Check your inbox - the tool link and references are on their way.</p>
-                <div className="space-y-2 text-sm text-slate-300">
-                  <p>Presentation slides (PDF)</p>
-                  <p>Assessment templates (CPFQ, ACT Matrix, Values Sort)</p>
-                  <p>KCUSD data collection templates</p>
-                </div>
+                <p className="text-slate-200 mb-4">Your download link is on its way.</p>
+                <a href="/calaba-2026/beyond-observable-behavior.xlsx" download
+                  className="inline-flex items-center gap-2 bg-cyan-500 text-slate-900 font-bold px-6 py-3 rounded-xl mt-2">
+                  <Download className="w-4 h-4" /> Download Now
+                </a>
               </div>
             )}
           </div>
@@ -253,7 +252,7 @@ export default function CalABA2026Page() {
             {[
               { icon: FileText, label: "64 Slides", href: "https://docs.google.com/presentation/d/1Je5rD1o5N6Tog3Kr646mm8hT3BERrb_0IXFIVoksnnk/edit" },
               { icon: Download, label: "ACT Assessment", href: "/calaba-2026/assessment-tools/fusion-fa" },
-              { icon: Users, label: "Data Templates", href: "#download" },
+              { icon: Download, label: "Data File", href: "/calaba-2026/beyond-observable-behavior.xlsx", download: true },
             ].map((item) => (
               <a
                 key={item.label}
