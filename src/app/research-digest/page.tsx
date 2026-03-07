@@ -135,7 +135,7 @@ export default function ResearchDigestPage() {
             method="POST"
             style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}
           >
-            <input type="hidden" name="audience_id" value={process.env.NEXT_PUBLIC_RESEND_AUDIENCE_ID || ''} />
+            <input type="hidden" name="audience_id" value="" />
             <input
               type="email"
               name="email"
@@ -313,7 +313,7 @@ export default function ResearchDigestPage() {
             method="POST"
             style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}
           >
-            <input type="hidden" name="audience_id" value={process.env.NEXT_PUBLIC_RESEND_AUDIENCE_ID || ''} />
+            <input type="hidden" name="audience_id" value="" />
             <input
               type="email"
               name="email"
