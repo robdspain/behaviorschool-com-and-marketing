@@ -343,12 +343,7 @@ export default function CalABA2026Page() {
                 description: "500+ evidence-based goals by domain and grade",
                 href: "/iep-goals",
               },
-              {
-                Icon: Brain,
-                title: "ACT-Informed FBA + BIP",
-                description: "The tool from the presentation",
-                href: "/act-fba-bip",
-              },
+
             ].map((tool) => (
               <Link
                 key={tool.title}
