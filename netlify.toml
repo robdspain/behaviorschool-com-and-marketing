@@ -18,9 +18,6 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[functions]
-  node_bundler = "esbuild"
-
 # Auto-submit sitemap to search engines after successful publish
 [[plugins]]
   package = "netlify-plugin-submit-sitemap"
