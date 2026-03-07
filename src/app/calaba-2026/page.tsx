@@ -83,10 +83,6 @@ export default function CalABA2026Page() {
 
           {/* Two CTAs only */}
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/act-fba-bip" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#e4b63d] px-8 py-4 text-base font-semibold text-[#1f4d3f] hover:bg-[#d4a82d] transition-colors">
-              Try the ACT-FBA Tool
-              <ArrowRight className="w-5 h-5" />
-            </Link>
             <a href="/calaba-2026/calaba-2026-materials.zip" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-[#1f4d3f] hover:bg-emerald-50 transition-colors">
               <Download className="w-5 h-5" />
               Download Slides + Citations
