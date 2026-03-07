@@ -372,6 +372,26 @@ export default function CalABA2026Page() {
       </div>
 
       {/* ============================================
+          TRANSFORMATION PROGRAM CTA
+          ============================================ */}
+      <div className="py-14 px-4 bg-[#1f4d3f] text-white text-center">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#e4b63d] mb-3">6-Week Cohort · Starting March 26</p>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">The School BCBA Transformation Program</h2>
+          <p className="text-emerald-100 text-base mb-8 max-w-xl mx-auto">
+            Implement the AIM ACT framework systematically with your team. Six sessions, Thursday evenings, maximum 20 participants.
+          </p>
+          <Link
+            href="/transformation-program"
+            className="inline-flex items-center gap-2 bg-[#e4b63d] text-[#1f4d3f] font-bold px-8 py-4 rounded-xl hover:bg-amber-400 transition-colors text-base"
+          >
+            Learn More
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+        </div>
+      </div>
+
+      {/* ============================================
           SECTION 6: OTHER TOOLS
           ============================================ */}
       <div className="py-16 px-4 bg-white border-t border-slate-100">
