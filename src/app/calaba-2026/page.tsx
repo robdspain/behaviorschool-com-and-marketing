@@ -91,36 +91,6 @@ export default function CalABA2026Page() {
         </div>
       </section>
 
-      {/* ============================================
-          SECTION 2: REFERENCES
-          ============================================ */}
-      {/* ============================================
-          DRAFT ARTICLE SECTION
-          ============================================ */}
-      <div className="py-16 px-4 bg-[#f0f7f4] border-b border-slate-200">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex items-start gap-4 mb-6">
-            <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#1E3A34" }}>
-              <FileText className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Draft Manuscript</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Beyond Observable Behavior</h2>
-              <p className="text-slate-600 text-sm">Measuring and Modifying the Function of Thought in School-Based Behavioral Assessment and Intervention</p>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-[#1E3A34]/15 bg-white p-6 shadow-sm">
-            <p className="text-sm text-slate-600 mb-1">
-              <span className="font-semibold text-slate-800">Rob Spain, BCBA, IBA</span> &amp; <span className="font-semibold text-slate-800">Cristal Lopez, BCaBA</span>
-            </p>
-            <p className="text-xs text-slate-400 mb-4 italic">With contributions from Megan Caluza, BCBA · Presented CalABA 2026 · Draft - not yet peer reviewed</p>
-            <p className="text-sm text-slate-600 mb-6 leading-relaxed">
-              Quasi-experimental longitudinal case series (<em>N</em> = 4, grades 5–12). Participants demonstrated a <strong>58.3% mean increase in psychological flexibility</strong> and a <strong>75% mean reduction in targeted maladaptive behaviors</strong> over 8 months using the AIM ACT framework. RCI criteria met by 100% of participants at a median of 5 months.
-            </p>
-
-          </div>
-        </div>
-      </div>
 
             {/* ============================================
           SECTION 4: DOWNLOAD MATERIALS
