@@ -4,18 +4,16 @@
 
 [build.environment]
   NODE_VERSION = "20"
-
-[functions]
-  node_bundler = "esbuild"
   PNPM_VERSION = "9.12.3"
   ENABLE_EXPERIMENTAL_COREPACK = "1"
   NPM_FLAGS = "--prefer-offline --no-audit"
   PNPM_FLAGS = "--no-frozen-lockfile"
   SECRETS_SCAN_ENABLED = "false"
-  # Placeholder values so module-level Supabase instantiation does not throw at build time.
-  # Real values are set in Netlify site env vars for production runtime.
   NEXT_PUBLIC_SUPABASE_URL = "https://placeholder.supabase.co"
   NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder_anon_key"
+
+[functions]
+  node_bundler = "esbuild"
 
 # Next.js plugin for proper SSR/API route support
 [[plugins]]
