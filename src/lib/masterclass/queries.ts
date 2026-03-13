@@ -17,10 +17,14 @@ import type {
 } from './types';
 
 // Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = supabaseUrl && supabaseAnonKey
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : (new Proxy({}, {
+      get: () => (...args: any[]) => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } })
+    }) as any);
 
 // ============================================================================
 // ENROLLMENT OPERATIONS
