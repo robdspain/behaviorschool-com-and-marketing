@@ -33,18 +33,8 @@ export function ContactClient() {
 
   return (
     <div className="min-h-screen bg-bs-background">
-      {/* Breadcrumbs Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
-        <Breadcrumbs
-          items={[
-            { label: "Home", href: "/" },
-            { label: "Contact", href: "/contact" },
-          ]}
-        />
-      </div>
-
       {/* Main Contact Section */}
-      <section className="py-16 lg:py-20">
+      <section className="pt-6 pb-12 lg:pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">

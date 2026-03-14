@@ -1,715 +1,823 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  Brain,
+  CheckSquare,
+  ClipboardList,
+  Compass,
+  Gauge,
+  Heart,
+  Layers,
+  Milestone,
+  MoveRight,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  UserCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
 import { ProgressIndicator } from "@/components/iep-goal-writer/ProgressIndicator";
-import type { ACTFBAData, GradeLevel, BehaviorFunction, ACTProcess, ValueDomain } from "./actBipGenerator";
+import { STUDENT_ITEMS, CAREGIVER_ITEMS, SUBSCALE_META } from "@/data/cpfq-items";
+import { INTERVIEW_QUESTIONS } from "@/data/interview-questions";
+import { VALUES, CATEGORY_META } from "@/data/values";
+import { suggestFrames } from "@/data/relational-frames";
 import {
+  ACT_STRATEGY_BANK,
+  GRADE_LEVEL_OPTIONS,
+  INITIAL_WIZARD_DATA,
+  INTERVIEW_QUESTION_IDS,
+  RELATIONAL_CATEGORY_LABELS,
+  WIZARD_PHASES,
   generateACTBIP,
-  ACT_PROCESS_LABELS,
-  VALUE_LABELS,
-  ACT_SETTING_EVENT_OPTIONS,
-  ANTECEDENT_OPTIONS,
-  SETTING_EVENT_OPTIONS,
-  CONSEQUENCE_OPTIONS,
+  parseList,
+  type ACTFBAData,
+  type GradeLevel,
+  type RelationalCategory,
+  type StrategyCategory,
+  type GeneratedACTBIP,
 } from "./actBipGenerator";
-import type { GeneratedACTBIP } from "./actBipGenerator";
 import { ACTBIPOutput } from "./ACTBIPOutput";
 
-const FUNCTION_OPTIONS: Array<{ value: BehaviorFunction; label: string; emoji: string; description: string }> = [
-  { value: "attention", label: "Attention", emoji: "👋", description: "Behavior gets a reaction from adults or peers" },
-  { value: "escape", label: "Escape / Avoidance", emoji: "🚪", description: "Behavior removes a demand, task, or situation" },
-  { value: "tangible", label: "Tangible / Access", emoji: "🎯", description: "Behavior results in getting a preferred item or activity" },
-  { value: "sensory", label: "Sensory / Automatic", emoji: "✨", description: "Behavior produces internal sensory stimulation" },
+const phaseIcons = [
+  UserCheck,     // Phase 0: Student Information
+  Compass,       // Phase 1: Open-Ended Interview
+  Heart,         // Phase 2: ACT Matrix
+  Heart,         // Phase 3: Values Assessment
+  ClipboardList, // Phase 4: ABC Observation
+  Gauge,         // Phase 5: Latency-Based FA
+  Brain,         // Phase 6: CPFQ
+  Layers,        // Phase 7: Verbal Relations
+  Milestone,     // Phase 8: AIM Curriculum
+  BookOpen,      // Phase 9: BIP Generation
+  Sparkles,      // Phase 10: ACT Strategies
+  CheckSquare,   // Phase 11: Implementation Materials
+  Target,        // Phase 12: Progress Monitoring
 ];
 
-const GRADE_LEVEL_OPTIONS: Array<{ value: GradeLevel; label: string }> = [
-  { value: "prek-k", label: "Pre-K – Kindergarten" },
-  { value: "1-3", label: "Grades 1–3" },
-  { value: "4-5", label: "Grades 4–5" },
-  { value: "6-8", label: "Grades 6–8" },
-  { value: "9-12", label: "Grades 9–12" },
-];
-
-const steps = [
-  "Student Info",
-  "Behaviors",
-  "Antecedents",
-  "Consequences",
-  "Function",
-  "Values",
-  "Psych Flex",
-  "ACT Analysis",
-  "Replacement",
-  "Context",
-  "Review",
-];
-
-const emptyBehavior = { name: "", operationalDefinition: "", frequency: "", duration: "", intensity: "moderate" as const };
-const emptyReplacement = { behavior: "", valueConnection: "" };
-
-const SAMPLE_STUDENT: ACTFBAData = {
-  studentName: "Marcus T.",
-  studentAge: "13",
-  studentGrade: "7",
-  gradeLevel: "6-8",
-  school: "Sample Middle School",
-  dateOfFBA: new Date().toISOString().split("T")[0],
-  teamMembers: "BCBA, Special Ed Teacher, School Psychologist",
-  targetBehaviors: [
-    {
-      name: "Task Refusal",
-      operationalDefinition: "Marcus pushes materials away, puts his head down, or says 'I'm not doing this' within 2 minutes of an independent work task being presented. Occurs 4–6 times per day.",
-      frequency: "4-6x daily",
-      duration: "5–20 minutes per episode",
-      intensity: "moderate"
-    }
-  ],
-  antecedents: [
-    "Independent academic task presented",
-    "Transition between activities",
-    "Request to complete written work"
-  ],
-  customAntecedents: "",
-  settingEvents: [
-    "Prior peer conflict earlier in the day",
-    "Unstructured/less predictable schedule"
-  ],
-  customSettingEvents: "",
-  consequences: [
-    "Task removed or modified",
-    "Adult attention and prompting",
-    "Sent to alternative setting (office, hallway)"
-  ],
-  customConsequences: "",
-  functions: ["escape"],
-  functionNotes: "Behavior consistently results in removal from academic demands. Hypothesized primary function: escape from tasks perceived as difficult or potentially embarrassing.",
-  studentValues: ["competence", "belonging", "growth"],
-  valuesNotes: "Marcus reports wanting to 'be good at things' and to 'have friends who respect him.' He shows interest in sports and gaming. Avoids situations where he might appear incompetent in front of peers.",
-  inflexibilityProcesses: ["cognitive_fusion", "experiential_avoidance", "self_as_content"],
-  inflexibilityNotes: "Marcus frequently says 'I'm stupid' and 'I can't do this' — fused with a self-story of academic incompetence. Behavior appears to function as escape from the internal experience of inadequacy.",
-  actSettingEvents: [
-    "Increased cognitive fusion with academic self-stories",
-    "Low psychological flexibility in response to academic frustration"
-  ],
-  customACTSettingEvents: "",
-  actFunctionalAnalysis: "Marcus's task refusal functions as experiential avoidance — specifically escaping the internal experience of feeling incompetent or embarrassed. He is fused with the thought 'I can't do this/I'm stupid,' and task refusal provides short-term relief from that internal discomfort. The behavior moves him AWAY from his values of competence and belonging, creating a paradox: the very behavior meant to protect him from feeling incompetent reinforces his sense that he cannot handle academic challenges.",
-  replacementBehaviors: [
-    {
-      behavior: "Request help using a 'help card' — place card on desk to signal need without calling attention",
-      valueConnection: "Competence"
-    },
-    {
-      behavior: "Use the 'pause and breathe' script: 'I need a minute' — then return to task within 2 minutes",
-      valueConnection: "Growth"
-    }
-  ],
-  studentStrengths: "Creative problem-solver, strong verbal skills, loyal to friends, shows leadership in unstructured settings, responds well to humor",
-  preferredActivities: "Gaming, sports discussions, drawing, technology, peer-preferred tasks",
-  communicationLevel: "Fully verbal; communicates with full sentences; sarcasm and humor are common",
-  previousInterventions: "Token economy (inconsistent implementation), social stories (not generalized), CICO (some success with preferred adults, discontinued due to staffing)",
-  safetyConcerrns: false,
-  safetyConcernDetails: ""
+const gradeMap: Record<string, GradeLevel> = {
+  "1st": "1-3",
+  "2nd": "1-3",
+  "3rd": "1-3",
+  "4th": "4-5",
+  "5th": "4-5",
+  "6th": "6-8",
+  "7th": "6-8",
+  "8th": "6-8",
+  "9th": "9-12",
+  "10th": "9-12",
+  "11th": "9-12",
+  "12th": "9-12",
 };
 
-const initialData: ACTFBAData = {
-  studentName: "",
-  studentAge: "",
-  studentGrade: "",
-  gradeLevel: "4-5",
-  school: "",
-  dateOfFBA: "",
-  teamMembers: "",
-  targetBehaviors: [{ ...emptyBehavior }],
-  antecedents: [],
-  customAntecedents: "",
-  settingEvents: [],
-  customSettingEvents: "",
-  consequences: [],
-  customConsequences: "",
-  functions: [],
-  functionNotes: "",
-  studentValues: [],
-  valuesNotes: "",
-  inflexibilityProcesses: [],
-  inflexibilityNotes: "",
-  actSettingEvents: [],
-  customACTSettingEvents: "",
-  actFunctionalAnalysis: "",
-  replacementBehaviors: [{ ...emptyReplacement }],
-  studentStrengths: "",
-  preferredActivities: "",
-  communicationLevel: "",
-  previousInterventions: "",
-  safetyConcerrns: false,
-  safetyConcernDetails: "",
-};
+function responseLabel(value: number): string {
+  if (value === 0) return "Never";
+  if (value === 1) return "Rarely";
+  if (value === 2) return "Sometimes";
+  if (value === 3) return "Often";
+  return "Always";
+}
 
-export function ACTFBABIPWizard() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [data, setData] = useState<ACTFBAData>(initialData);
-  const [generatedBIP, setGeneratedBIP] = useState<GeneratedACTBIP | null>(null);
-  const [emailGate, setEmailGate] = useState({ name: "", email: "", submitted: false, loading: false });
+function MatrixEditor({
+  title,
+  subtitle,
+  value,
+  onChange,
+}: {
+  title: string;
+  subtitle: string;
+  value: string[];
+  onChange: (items: string[]) => void;
+}) {
+  return (
+    <div className="space-y-2 rounded-xl border border-slate-200 bg-white p-3">
+      <p className="text-sm font-semibold text-slate-900">{title}</p>
+      <p className="text-xs text-slate-500">{subtitle}</p>
+      <textarea
+        rows={4}
+        value={value.join("\n")}
+        onChange={(e) => onChange(parseList(e.target.value))}
+        className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-[#1E3A34] focus:outline-none focus:ring-1 focus:ring-[#1E3A34]"
+        placeholder="One item per line"
+      />
+    </div>
+  );
+}
 
-  const update = useCallback(<K extends keyof ACTFBAData>(key: K, value: ACTFBAData[K]) => {
-    setData((prev) => ({ ...prev, [key]: value }));
-  }, []);
+interface ACTFBABIPWizardProps {
+  startFromPhase?: number;
+  onPhase0Complete?: (profileData: ACTFBAData["profile"]) => void;
+  embedded?: boolean; // If true, hide the card wrapper for embedding in hero
+  demoMode?: boolean;
+}
 
-  const toggleArrayItem = useCallback((key: "antecedents" | "settingEvents" | "consequences" | "actSettingEvents", item: string) => {
-    setData((prev) => ({
-      ...prev,
-      [key]: (prev[key] as string[]).includes(item)
-        ? (prev[key] as string[]).filter((i) => i !== item)
-        : [...(prev[key] as string[]), item],
-    }));
-  }, []);
+export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded = false, demoMode = false }: ACTFBABIPWizardProps) {
+  const [phase, setPhase] = useState(startFromPhase);
+  const [data, setData] = useState<ACTFBAData>(() => {
+    // If starting from a later phase, try to load saved data
+    if (typeof window !== "undefined" && startFromPhase > 0) {
+      const saved = localStorage.getItem("act-fba-bip-data");
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          return INITIAL_WIZARD_DATA;
+        }
+      }
+    }
+    return INITIAL_WIZARD_DATA;
+  });
+  const [valueSearch, setValueSearch] = useState("");
+  const [report, setReport] = useState<GeneratedACTBIP | null>(null);
+  const [emailGate, setEmailGate] = useState({ name: "", email: "", loading: false, submitted: false });
 
-  const toggleFunction = useCallback((func: BehaviorFunction) => {
-    setData((prev) => ({
-      ...prev,
-      functions: prev.functions.includes(func) ? prev.functions.filter((f) => f !== func) : [...prev.functions, func],
-    }));
-  }, []);
-
-  const toggleValue = useCallback((value: ValueDomain) => {
-    setData((prev) => ({
-      ...prev,
-      studentValues: prev.studentValues.includes(value) ? prev.studentValues.filter((v) => v !== value) : [...prev.studentValues, value],
-    }));
-  }, []);
-
-  const toggleProcess = useCallback((process: ACTProcess) => {
-    setData((prev) => ({
-      ...prev,
-      inflexibilityProcesses: prev.inflexibilityProcesses.includes(process) ? prev.inflexibilityProcesses.filter((p) => p !== process) : [...prev.inflexibilityProcesses, process],
-    }));
-  }, []);
-
-  const updateBehavior = useCallback((index: number, field: string, value: string) => {
-    setData((prev) => ({
-      ...prev,
-      targetBehaviors: prev.targetBehaviors.map((b, i) => i === index ? { ...b, [field]: value } : b),
-    }));
-  }, []);
-
-  const updateReplacement = useCallback((index: number, field: string, value: string) => {
-    setData((prev) => ({
-      ...prev,
-      replacementBehaviors: prev.replacementBehaviors.map((r, i) => i === index ? { ...r, [field]: value } : r),
-    }));
-  }, []);
-
-  const isStepValid = useMemo(() => {
-    const b = data.targetBehaviors[0];
-    return [
-      // 0: Student Info
-      data.studentName.trim().length > 1,
-      // 1: Behaviors
-      !!(b && b.name.trim().length > 2 && b.operationalDefinition.trim().length > 5),
-      // 2: Antecedents
-      data.antecedents.length > 0 || data.customAntecedents.trim().length > 3,
-      // 3: Consequences
-      data.consequences.length > 0 || data.customConsequences.trim().length > 3,
-      // 4: Function
-      data.functions.length > 0,
-      // 5: Values
-      data.studentValues.length > 0,
-      // 6: Psych Flex
-      data.inflexibilityProcesses.length > 0,
-      // 7: ACT Analysis
-      true, // optional text
-      // 8: Replacement
-      !!(data.replacementBehaviors[0] && data.replacementBehaviors[0].behavior.trim().length > 3),
-      // 9: Context
-      true,
-      // 10: Review
-      true,
-    ];
+  useEffect(() => {
+    // Persist wizard state so we can resume on /act-fba-bip/wizard
+    if (typeof window !== "undefined") {
+      localStorage.setItem("act-fba-bip-data", JSON.stringify(data));
+    }
   }, [data]);
 
-  const handleGenerate = () => {
-    const bip = generateACTBIP(data);
-    setGeneratedBIP(bip);
+  const questions = useMemo(
+    () => INTERVIEW_QUESTIONS.filter((q) => INTERVIEW_QUESTION_IDS.includes(q.id)),
+    []
+  );
+
+  const filteredValues = useMemo(
+    () => VALUES.filter((v) => v.name.toLowerCase().includes(valueSearch.toLowerCase())),
+    [valueSearch]
+  );
+
+  const update = <K extends keyof ACTFBAData>(key: K, value: ACTFBAData[K]) => {
+    setData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleReset = () => {
-    setData(initialData);
-    setCurrentStep(0);
-    setGeneratedBIP(null);
-    setEmailGate({ name: "", email: "", submitted: false, loading: false });
+  const updateProfile = <K extends keyof ACTFBAData["profile"]>(key: K, value: ACTFBAData["profile"][K]) => {
+    setData((prev) => ({ ...prev, profile: { ...prev.profile, [key]: value } }));
   };
 
-  const onNext = () => {
-    if (currentStep < steps.length - 1 && isStepValid[currentStep]) setCurrentStep((p) => p + 1);
-  };
-  const onBack = () => {
-    if (currentStep > 0) setCurrentStep((p) => p - 1);
+  const autofillBipFields = () => {
+    setData((prev) => {
+      const firstObservation = prev.abcObservations.find((obs) => obs.behavior.trim()) || prev.abcObservations[0];
+      const towardMoves = prev.actMatrix.outerToward.filter(Boolean).join(", ");
+      const innerAway = prev.actMatrix.innerAway.filter(Boolean).join(", ");
+
+      return {
+        ...prev,
+        targetBehavior: prev.targetBehavior || firstObservation?.behavior || "",
+        operationalDefinition:
+          prev.operationalDefinition ||
+          (firstObservation?.behavior ? `Student ${firstObservation.behavior.toLowerCase()} within 2 minutes of task presentation.` : ""),
+        hypothesizedFunction: prev.hypothesizedFunction || "Escape/avoidance",
+        privateEventFunction: prev.privateEventFunction || (innerAway ? `Avoiding internal experiences of ${innerAway.toLowerCase()}.` : ""),
+        replacementBehaviors: prev.replacementBehaviors || towardMoves,
+      };
+    });
   };
 
-  // Show full output after email gate submitted and BIP generated
-  if (generatedBIP) {
-    return <ACTBIPOutput bip={generatedBIP} onReset={handleReset} />;
+  const isPhaseValid = useMemo(() => {
+    const checks = [
+      // Phase 0: Student Information
+      data.profile.studentName.trim().length > 1,
+      // Phase 1: Open-Ended Interview
+      true, // Interview is optional
+      // Phase 2: ACT Matrix
+      data.actMatrix.innerAway.length + data.actMatrix.innerToward.length + data.actMatrix.outerAway.length + data.actMatrix.outerToward.length > 0,
+      // Phase 3: Values Assessment
+      data.selectedValues.length >= 3,
+      // Phase 4: ABC Observation
+      data.abcObservations.some((o) => o.behavior.trim() && o.latencySeconds > 0),
+      // Phase 5: Latency-Based FA
+      data.validatingLatencyAvg.trim().length > 0 && data.challengingLatencyAvg.trim().length > 0,
+      // Phase 6: CPFQ
+      Object.keys(data.studentCpfqResponses).length > 0 && Object.keys(data.caregiverCpfqResponses).length > 0,
+      // Phase 7: Verbal Relations
+      data.verbalRelations.some((v) => v.statement.trim().length > 0),
+      // Phase 8: AIM Curriculum
+      data.aimAcceptPlan.trim().length > 0 && data.aimIdentifyPlan.trim().length > 0 && data.aimMovePlan.trim().length > 0,
+      // Phase 9: ACT-Informed BIP Generation
+      data.targetBehavior.trim().length > 0 && data.privateEventFunction.trim().length > 0,
+      // Phase 10: ACT Strategies
+      data.selectedStrategies.length >= 3,
+      // Phase 11: Implementation Materials
+      true,
+      // Phase 12: Progress Monitoring
+      data.decisionRules.trim().length > 0,
+    ];
+    return checks;
+  }, [data]);
+
+  if (report) {
+    return <ACTBIPOutput report={report} onReset={() => {
+      setData(INITIAL_WIZARD_DATA);
+      setPhase(0);
+      setReport(null);
+      setEmailGate({ name: "", email: "", loading: false, submitted: false });
+    }} />;
   }
 
+  const currentIcon = phaseIcons[phase];
+  const Icon = currentIcon;
+
   return (
-    <div className="rounded-3xl border border-purple-200/80 bg-white shadow-[0_25px_60px_-45px_rgba(15,23,42,0.6)]">
-      <div className="border-b border-purple-100 bg-gradient-to-r from-purple-800 via-purple-700 to-emerald-700 px-6 py-6 text-white">
-        <div className="flex flex-col gap-2">
-          <span className="text-xs uppercase tracking-[0.3em] text-purple-100">ACT-Informed</span>
-          <h2 className="text-2xl font-semibold sm:text-3xl">FBA & Behavior Intervention Plan</h2>
-          <p className="text-sm text-purple-50/90">Acceptance and Commitment Training–informed assessment and intervention planning.</p>
+    <div className={embedded ? "" : "rounded-3xl border border-[#1E3A34]/20 bg-white shadow-sm"}>
+      {!embedded && (
+        <div className="rounded-t-3xl bg-[#1E3A34] px-6 py-5 text-white">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/70">CalABA 2026</p>
+          <h2 className="text-2xl font-semibold">ACT-Informed FBA/BIP Wizard</h2>
+          <p className="text-sm text-white/80">13-phase assessment, intervention, and implementation workflow</p>
         </div>
-      </div>
+      )}
 
-      <div className="px-6 py-6">
-        <div className="mb-6 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-4">
-          <ProgressIndicator steps={steps} currentStep={currentStep} />
-        </div>
-
-        {/* Load Sample Case Banner */}
-        <div className="mb-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 flex items-start gap-4">
-          <div className="flex-1">
-            <p className="text-sm font-semibold text-emerald-900">Try with a real case from the presentation</p>
-            <p className="text-xs text-emerald-700 mt-1">Pre-fills a 7th-grade escape-motivated student with ACT analysis — jump straight to the output.</p>
+      <div className={embedded ? "space-y-5" : "space-y-5 p-6"}>
+        {!embedded && (
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+            <ProgressIndicator
+              steps={WIZARD_PHASES.map((title, index) => `P${index + 1}`)}
+              currentStep={phase}
+            />
           </div>
-          <button
-            type="button"
-            onClick={() => { setData(SAMPLE_STUDENT); setCurrentStep(10); }}
-            className="shrink-0 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 transition"
-          >
-            Load Sample Case →
-          </button>
-        </div>
+        )}
 
-        <div className="rounded-2xl border border-slate-200 bg-white px-4 py-5 sm:px-6">
-          <div className="flex items-center justify-between">
+        {!embedded && (
+          <div className="flex items-center justify-between rounded-xl border border-[#e4b63d]/50 bg-[#e4b63d]/10 px-4 py-3">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-purple-700">Step {currentStep + 1} of {steps.length}</p>
-              <h3 className="text-lg font-semibold text-slate-900 sm:text-xl">{steps[currentStep]}</h3>
+              <p className="text-xs uppercase tracking-[0.15em] text-slate-600">Phase {phase + 1} of 13</p>
+              <h3 className="text-lg font-semibold text-slate-900">{WIZARD_PHASES[phase]}</h3>
             </div>
-            <span className="rounded-full bg-purple-50 px-3 py-1 text-xs font-semibold text-purple-700">{steps[currentStep]}</span>
+            <Icon className="h-5 w-5 text-[#1E3A34]" />
           </div>
+        )}
 
-          <div className="mt-5 space-y-5">
-            {/* Step 0: Student Info */}
-            {currentStep === 0 && (
-              <div className="space-y-4">
-                <p className="text-sm text-slate-600">Basic information about the student and assessment context.</p>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label className="text-sm font-semibold">Student Name *</Label>
-                    <Input value={data.studentName} onChange={(e) => update("studentName", e.target.value)} placeholder="First name or initials" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-sm font-semibold">Age</Label>
-                    <Input value={data.studentAge} onChange={(e) => update("studentAge", e.target.value)} placeholder="e.g., 10" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-sm font-semibold">Grade</Label>
-                    <Input value={data.studentGrade} onChange={(e) => update("studentGrade", e.target.value)} placeholder="e.g., 4th" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-sm font-semibold">Grade Level Band *</Label>
-                    <div className="grid gap-2">
-                      {GRADE_LEVEL_OPTIONS.map((gl) => (
-                        <button key={gl.value} type="button" onClick={() => update("gradeLevel", gl.value)} className={cn("rounded-lg border px-3 py-2 text-sm text-left transition", data.gradeLevel === gl.value ? "border-purple-500 bg-purple-50 text-purple-800 ring-1 ring-purple-500" : "border-slate-200 bg-white text-slate-600 hover:border-purple-200")}>
-                          {gl.label}
-                        </button>
+        {demoMode && !embedded && (
+          <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+            You’re viewing a guided demo with sample data. Edit any field, or start a real case when you’re ready.
+            <div className="mt-2 flex flex-wrap gap-3">
+              <a href="/act-fba-bip" className="text-[#1E3A34] font-semibold">Start a real case</a>
+              <a href="https://plan.behaviorschool.com" className="text-[#1E3A34] font-semibold">Use inside the learning platform</a>
+            </div>
+          </div>
+        )}
+
+        {/* Phase 0: Student Information (basic profile fields only) */}
+        {phase === 0 && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600">Capture the basics so the report prints cleanly and matches the student record.</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label>Student Name *</Label>
+                <Input value={data.profile.studentName} onChange={(e) => updateProfile("studentName", e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Age</Label>
+                <Input value={data.profile.studentAge} onChange={(e) => updateProfile("studentAge", e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Grade</Label>
+                <Input
+                  value={data.profile.studentGrade}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    updateProfile("studentGrade", raw);
+                    if (gradeMap[raw]) updateProfile("gradeLevel", gradeMap[raw]);
+                  }}
+                  placeholder="e.g., 6th"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Grade Band</Label>
+                <select
+                  value={data.profile.gradeLevel}
+                  onChange={(e) => updateProfile("gradeLevel", e.target.value as GradeLevel)}
+                  className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm"
+                >
+                  {GRADE_LEVEL_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label>School</Label>
+                <Input value={data.profile.school} onChange={(e) => updateProfile("school", e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Assessment Date</Label>
+                <Input type="date" value={data.profile.assessmentDate} onChange={(e) => updateProfile("assessmentDate", e.target.value)} />
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <Label>Assessor and Team</Label>
+                <Input value={data.profile.teamMembers} onChange={(e) => updateProfile("teamMembers", e.target.value)} placeholder="BCBA, teacher, caregiver" />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Phase 1: Open-Ended Interview & Values Identification */}
+        {phase === 1 && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600">Use these prompts to surface values, avoidance patterns, and key context.</p>
+            <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
+              <p className="text-sm font-semibold text-slate-900">Open-Ended Interview</p>
+              {questions.map((question) => (
+                <div key={question.id} className="space-y-1">
+                  <Label className="text-sm">{question.text}</Label>
+                  {question.type === "choice" || question.type === "multi-choice" ? (
+                    <select
+                      value={data.interviewResponses[question.id] || ""}
+                      onChange={(e) =>
+                        update("interviewResponses", {
+                          ...data.interviewResponses,
+                          [question.id]: e.target.value,
+                        })
+                      }
+                      className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm"
+                    >
+                      <option value="">Select</option>
+                      {question.options?.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
                       ))}
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-sm font-semibold">School</Label>
-                    <Input value={data.school} onChange={(e) => update("school", e.target.value)} placeholder="School name" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-sm font-semibold">Date of FBA</Label>
-                    <Input type="date" value={data.dateOfFBA} onChange={(e) => update("dateOfFBA", e.target.value)} />
-                  </div>
-                  <div className="space-y-2 sm:col-span-2">
-                    <Label className="text-sm font-semibold">Team Members</Label>
-                    <Input value={data.teamMembers} onChange={(e) => update("teamMembers", e.target.value)} placeholder="e.g., BCBA, teacher, parent, school psychologist" />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 1: Target Behaviors */}
-            {currentStep === 1 && (
-              <div className="space-y-5">
-                <p className="text-sm text-slate-600">Define the target behavior(s) identified in the FBA. Be specific and observable.</p>
-                {data.targetBehaviors.map((b, i) => (
-                  <div key={i} className="space-y-3 rounded-xl border border-slate-200 bg-slate-50/50 p-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-slate-900">Behavior {i + 1}</span>
-                      {data.targetBehaviors.length > 1 && (
-                        <button type="button" onClick={() => update("targetBehaviors", data.targetBehaviors.filter((_, idx) => idx !== i))} className="text-xs text-red-600 hover:text-red-800">Remove</button>
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-sm font-semibold">Behavior Name *</Label>
-                      <Input value={b.name} onChange={(e) => updateBehavior(i, "name", e.target.value)} placeholder="e.g., Task refusal" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-sm font-semibold">Operational Definition *</Label>
-                      <textarea value={b.operationalDefinition} onChange={(e) => updateBehavior(i, "operationalDefinition", e.target.value)} placeholder="Observable, measurable definition..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={3} />
-                    </div>
-                    <div className="grid gap-3 sm:grid-cols-3">
-                      <div className="space-y-2">
-                        <Label className="text-sm font-semibold">Frequency</Label>
-                        <Input value={b.frequency} onChange={(e) => updateBehavior(i, "frequency", e.target.value)} placeholder="e.g., 3-5x/day" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label className="text-sm font-semibold">Duration</Label>
-                        <Input value={b.duration} onChange={(e) => updateBehavior(i, "duration", e.target.value)} placeholder="e.g., 5-15 min" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label className="text-sm font-semibold">Intensity</Label>
-                        <div className="flex gap-2">
-                          {(["low", "moderate", "high"] as const).map((level) => (
-                            <button key={level} type="button" onClick={() => updateBehavior(i, "intensity", level)} className={cn("flex-1 rounded-lg border px-2 py-2 text-xs font-semibold capitalize transition", b.intensity === level ? level === "high" ? "border-red-400 bg-red-50 text-red-700" : level === "moderate" ? "border-amber-400 bg-amber-50 text-amber-700" : "border-emerald-400 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-white text-slate-500 hover:border-slate-300")}>
-                              {level}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {data.targetBehaviors.length < 3 && (
-                  <button type="button" onClick={() => update("targetBehaviors", [...data.targetBehaviors, { ...emptyBehavior }])} className="w-full rounded-xl border border-dashed border-purple-300 bg-purple-50/50 px-4 py-3 text-sm font-semibold text-purple-700 hover:bg-purple-50">+ Add Another Behavior</button>
-                )}
-              </div>
-            )}
-
-            {/* Step 2: Antecedents & Setting Events */}
-            {currentStep === 2 && (
-              <div className="space-y-5">
-                <p className="text-sm text-slate-600">What happens before the behavior? Select all that apply.</p>
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold text-slate-900">Antecedents (Triggers)</p>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    {ANTECEDENT_OPTIONS.map((option) => (
-                      <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.antecedents.includes(option) ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-600 hover:border-purple-200")}>
-                        <input type="checkbox" checked={data.antecedents.includes(option)} onChange={() => toggleArrayItem("antecedents", option)} className="h-4 w-4 rounded border-slate-300 text-purple-600" />
-                        {option}
-                      </label>
-                    ))}
-                  </div>
-                  <div className="space-y-2 pt-2">
-                    <Label className="text-sm font-semibold">Other Antecedents</Label>
-                    <Input value={data.customAntecedents} onChange={(e) => update("customAntecedents", e.target.value)} placeholder="Describe other triggers..." />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold text-slate-900">Setting Events</p>
-                  <p className="text-xs text-slate-500">Background conditions that make the behavior more likely.</p>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    {SETTING_EVENT_OPTIONS.map((option) => (
-                      <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.settingEvents.includes(option) ? "border-amber-500 bg-amber-50 text-amber-800" : "border-slate-200 bg-white text-slate-600 hover:border-amber-200")}>
-                        <input type="checkbox" checked={data.settingEvents.includes(option)} onChange={() => toggleArrayItem("settingEvents", option)} className="h-4 w-4 rounded border-slate-300 text-amber-600" />
-                        {option}
-                      </label>
-                    ))}
-                  </div>
-                  <div className="space-y-2 pt-2">
-                    <Label className="text-sm font-semibold">Other Setting Events</Label>
-                    <Input value={data.customSettingEvents} onChange={(e) => update("customSettingEvents", e.target.value)} placeholder="Describe other setting events..." />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Consequences */}
-            {currentStep === 3 && (
-              <div className="space-y-5">
-                <p className="text-sm text-slate-600">What typically happens right after the behavior?</p>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {CONSEQUENCE_OPTIONS.map((option) => (
-                    <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.consequences.includes(option) ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-600 hover:border-purple-200")}>
-                      <input type="checkbox" checked={data.consequences.includes(option)} onChange={() => toggleArrayItem("consequences", option)} className="h-4 w-4 rounded border-slate-300 text-purple-600" />
-                      {option}
-                    </label>
-                  ))}
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Other Consequences</Label>
-                  <Input value={data.customConsequences} onChange={(e) => update("customConsequences", e.target.value)} placeholder="Describe other consequences..." />
-                </div>
-              </div>
-            )}
-
-            {/* Step 4: Function */}
-            {currentStep === 4 && (
-              <div className="space-y-5">
-                <p className="text-sm text-slate-600">Based on the FBA, what function(s) does the behavior serve?</p>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {FUNCTION_OPTIONS.map((func) => (
-                    <button key={func.value} type="button" onClick={() => toggleFunction(func.value)} className={cn("flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.functions.includes(func.value) ? "border-purple-500 bg-purple-50 ring-1 ring-purple-500" : "border-slate-200 bg-white hover:border-purple-200")}>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xl">{func.emoji}</span>
-                        <span className="text-sm font-semibold text-slate-900">{func.label}</span>
-                      </div>
-                      <span className="text-xs text-slate-500">{func.description}</span>
-                    </button>
-                  ))}
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Function Notes</Label>
-                  <textarea value={data.functionNotes} onChange={(e) => update("functionNotes", e.target.value)} placeholder="Additional notes about the hypothesized function..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={3} />
-                </div>
-              </div>
-            )}
-
-            {/* Step 5: Values Assessment (ACT) */}
-            {currentStep === 5 && (
-              <div className="space-y-5">
-                <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">🧭 ACT Values Assessment</p>
-                  <p className="mt-1 text-xs text-purple-700">What matters to this student? Values are directions, not destinations. Select all that apply — you&apos;ll connect replacement behaviors to these values later.</p>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {(Object.entries(VALUE_LABELS) as [ValueDomain, typeof VALUE_LABELS[ValueDomain]][]).map(([key, val]) => (
-                    <button key={key} type="button" onClick={() => toggleValue(key)} className={cn("flex flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.studentValues.includes(key) ? "border-purple-500 bg-purple-50 ring-1 ring-purple-500" : "border-slate-200 bg-white hover:border-purple-200")}>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xl">{val.emoji}</span>
-                        <span className="text-sm font-semibold text-slate-900">{val.label}</span>
-                      </div>
-                      <span className="text-xs text-slate-500">{val.description}</span>
-                    </button>
-                  ))}
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Values Notes</Label>
-                  <textarea value={data.valuesNotes} onChange={(e) => update("valuesNotes", e.target.value)} placeholder="Additional observations about the student's values (from interview, observation, preference assessment)..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={3} />
-                </div>
-                {data.studentValues.length > 0 && (
-                  <div className="rounded-xl border border-purple-100 bg-purple-50/70 px-4 py-3 text-sm text-purple-800">
-                    <span className="font-semibold">Selected values:</span>{" "}
-                    {data.studentValues.map((v) => `${VALUE_LABELS[v].emoji} ${VALUE_LABELS[v].label}`).join(", ")}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Step 6: Psychological Flexibility Assessment (ACT) */}
-            {currentStep === 6 && (
-              <div className="space-y-5">
-                <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4">
-                  <p className="text-sm font-semibold text-amber-900">🔍 Psychological Flexibility Assessment</p>
-                  <p className="mt-1 text-xs text-amber-700">Which ACT processes of inflexibility are contributing to the behavior? These represent the &quot;stuck points&quot; that the intervention will target.</p>
-                </div>
-                <div className="space-y-3">
-                  {(Object.entries(ACT_PROCESS_LABELS) as [ACTProcess, typeof ACT_PROCESS_LABELS[ACTProcess]][]).map(([key, val]) => (
-                    <button key={key} type="button" onClick={() => toggleProcess(key)} className={cn("flex w-full flex-col items-start gap-1 rounded-xl border p-4 text-left transition", data.inflexibilityProcesses.includes(key) ? "border-amber-500 bg-amber-50 ring-1 ring-amber-500" : "border-slate-200 bg-white hover:border-amber-200")}>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xl">{val.emoji}</span>
-                        <span className="text-sm font-semibold text-slate-900">{val.label}</span>
-                      </div>
-                      <span className="text-xs text-slate-500">{val.description}</span>
-                    </button>
-                  ))}
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Inflexibility Notes</Label>
-                  <textarea value={data.inflexibilityNotes} onChange={(e) => update("inflexibilityNotes", e.target.value)} placeholder="Additional observations about psychological inflexibility patterns..." className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500" rows={3} />
-                </div>
-              </div>
-            )}
-
-            {/* Step 7: ACT Functional Analysis + ACT Setting Events */}
-            {currentStep === 7 && (
-              <div className="space-y-5">
-                <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">🔬 ACT Lens: Functional Analysis</p>
-                  <p className="mt-1 text-xs text-purple-700">How does the behavior relate to experiential avoidance or values-inconsistent action? This adds the ACT perspective to the standard functional analysis.</p>
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">ACT Functional Analysis</Label>
-                  <textarea value={data.actFunctionalAnalysis} onChange={(e) => update("actFunctionalAnalysis", e.target.value)} placeholder={`e.g., "${data.studentName || "The student"}'s behavior appears to function as experiential avoidance — escaping difficult internal experiences (anxiety, self-doubt) rather than sitting with discomfort and acting on values. The behavior moves them AWAY from what they care about (${data.studentValues.map((v) => VALUE_LABELS[v].label.toLowerCase()).join(", ") || "identified values"})."`} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={5} />
-                </div>
-
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold text-slate-900">ACT-Specific Setting Events</p>
-                  <p className="text-xs text-slate-500">Psychological inflexibility patterns that set the stage for behavior.</p>
-                  <div className="grid gap-2">
-                    {ACT_SETTING_EVENT_OPTIONS.map((option) => (
-                      <label key={option} className={cn("flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition cursor-pointer", data.actSettingEvents.includes(option) ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-600 hover:border-purple-200")}>
-                        <input type="checkbox" checked={data.actSettingEvents.includes(option)} onChange={() => toggleArrayItem("actSettingEvents", option)} className="h-4 w-4 rounded border-slate-300 text-purple-600" />
-                        {option}
-                      </label>
-                    ))}
-                  </div>
-                  <div className="space-y-2 pt-2">
-                    <Label className="text-sm font-semibold">Other ACT Setting Events</Label>
-                    <Input value={data.customACTSettingEvents} onChange={(e) => update("customACTSettingEvents", e.target.value)} placeholder="Other inflexibility-related setting events..." />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 8: Values-Aligned Replacement Behaviors */}
-            {currentStep === 8 && (
-              <div className="space-y-5">
-                <div className="rounded-xl border border-purple-200 bg-purple-50/70 p-4">
-                  <p className="text-sm font-semibold text-purple-900">🎯 Values-Aligned Replacement Behaviors</p>
-                  <p className="mt-1 text-xs text-purple-700">Instead of just functional equivalents, define replacement behaviors that move the student TOWARD their values.</p>
-                </div>
-                {data.replacementBehaviors.map((rb, i) => (
-                  <div key={i} className="space-y-3 rounded-xl border border-slate-200 bg-slate-50/50 p-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-slate-900">Replacement Behavior {i + 1}</span>
-                      {data.replacementBehaviors.length > 1 && (
-                        <button type="button" onClick={() => update("replacementBehaviors", data.replacementBehaviors.filter((_, idx) => idx !== i))} className="text-xs text-red-600 hover:text-red-800">Remove</button>
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-sm font-semibold">Replacement Behavior *</Label>
-                      <Input value={rb.behavior} onChange={(e) => updateReplacement(i, "behavior", e.target.value)} placeholder="e.g., Request a break and then return to the task" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-sm font-semibold">Connected Value</Label>
-                      {data.studentValues.length > 0 ? (
-                        <div className="flex flex-wrap gap-2">
-                          {data.studentValues.map((v) => (
-                            <button key={v} type="button" onClick={() => updateReplacement(i, "valueConnection", VALUE_LABELS[v].label)} className={cn("rounded-lg border px-3 py-1.5 text-xs font-semibold transition", rb.valueConnection === VALUE_LABELS[v].label ? "border-purple-500 bg-purple-50 text-purple-800" : "border-slate-200 bg-white text-slate-500 hover:border-purple-200")}>
-                              {VALUE_LABELS[v].emoji} {VALUE_LABELS[v].label}
-                            </button>
-                          ))}
-                        </div>
-                      ) : (
-                        <Input value={rb.valueConnection} onChange={(e) => updateReplacement(i, "valueConnection", e.target.value)} placeholder="Which value does this connect to?" />
-                      )}
-                    </div>
-                  </div>
-                ))}
-                {data.replacementBehaviors.length < 3 && (
-                  <button type="button" onClick={() => update("replacementBehaviors", [...data.replacementBehaviors, { ...emptyReplacement }])} className="w-full rounded-xl border border-dashed border-purple-300 bg-purple-50/50 px-4 py-3 text-sm font-semibold text-purple-700 hover:bg-purple-50">+ Add Another Replacement Behavior</button>
-                )}
-                <div className="rounded-xl border border-purple-100 bg-purple-50/70 px-4 py-3 text-sm text-purple-800">
-                  <p className="font-semibold">💡 ACT Tip</p>
-                  <p>In ACT, replacement behaviors aren&apos;t just functional equivalents — they&apos;re &quot;toward moves&quot; that bring the student closer to what they value. Connect each replacement to a specific value.</p>
-                </div>
-              </div>
-            )}
-
-            {/* Step 9: Additional Context */}
-            {currentStep === 9 && (
-              <div className="space-y-5">
-                <p className="text-sm text-slate-600">This helps personalize the BIP strategies.</p>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Student Strengths</Label>
-                  <textarea value={data.studentStrengths} onChange={(e) => update("studentStrengths", e.target.value)} placeholder="e.g., Creative, loves to draw, kind to younger students" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={2} />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Preferred Activities / Reinforcers</Label>
-                  <textarea value={data.preferredActivities} onChange={(e) => update("preferredActivities", e.target.value)} placeholder="e.g., iPad, drawing, extra recess" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={2} />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Communication Level</Label>
-                  <Input value={data.communicationLevel} onChange={(e) => update("communicationLevel", e.target.value)} placeholder="e.g., Verbal, uses full sentences" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm font-semibold">Previous Interventions Tried</Label>
-                  <textarea value={data.previousInterventions} onChange={(e) => update("previousInterventions", e.target.value)} placeholder="e.g., Token economy, social stories, CICO" className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500" rows={2} />
-                </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-3">
-                  <div className="flex items-center gap-3">
-                    <input type="checkbox" id="safety-act" checked={data.safetyConcerrns} onChange={(e) => update("safetyConcerrns", e.target.checked)} className="h-4 w-4 rounded border-slate-300 text-red-600" />
-                    <Label htmlFor="safety-act" className="text-sm font-semibold text-red-700">Safety Concerns Present</Label>
-                  </div>
-                  {data.safetyConcerrns && (
-                    <textarea value={data.safetyConcernDetails} onChange={(e) => update("safetyConcernDetails", e.target.value)} placeholder="Describe safety concerns..." className="w-full rounded-xl border border-red-200 bg-white px-3 py-2 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500" rows={3} />
+                    </select>
+                  ) : question.type === "scale" ? (
+                    <Input
+                      value={data.interviewResponses[question.id] || ""}
+                      onChange={(e) =>
+                        update("interviewResponses", {
+                          ...data.interviewResponses,
+                          [question.id]: e.target.value,
+                        })
+                      }
+                      placeholder="1-10"
+                    />
+                  ) : (
+                    <textarea
+                      rows={2}
+                      value={data.interviewResponses[question.id] || ""}
+                      onChange={(e) =>
+                        update("interviewResponses", {
+                          ...data.interviewResponses,
+                          [question.id]: e.target.value,
+                        })
+                      }
+                      className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm"
+                    />
                   )}
                 </div>
+              ))}
+              <div className="space-y-2">
+                <Label>Thought-Mediated Behaviors</Label>
+                <textarea rows={3} value={data.thoughtMediatedBehaviors} onChange={(e) => update("thoughtMediatedBehaviors", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
               </div>
-            )}
+              <div className="space-y-2">
+                <Label>Candidate Values from Interview</Label>
+                <textarea rows={3} value={data.interviewValuesCandidates} onChange={(e) => update("interviewValuesCandidates", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+              </div>
+            </div>
+          </div>
+        )}
 
-            {/* Step 10: Review */}
-            {currentStep === 10 && (
-              <div className="space-y-5">
-                <p className="text-sm text-slate-600">Review your ACT-informed FBA data before generating.</p>
-                <div className="space-y-3">
-                  {[
-                    { label: "Student", value: `${data.studentName}${data.studentGrade ? `, Grade ${data.studentGrade}` : ""} (${GRADE_LEVEL_OPTIONS.find((g) => g.value === data.gradeLevel)?.label})` },
-                    { label: "Target Behavior", value: data.targetBehaviors.map((b) => b.name).filter(Boolean).join("; ") || "—" },
-                    { label: "Function(s)", value: data.functions.map((f) => f.charAt(0).toUpperCase() + f.slice(1)).join(", ") || "—" },
-                    { label: "Student Values", value: data.studentValues.map((v) => `${VALUE_LABELS[v].emoji} ${VALUE_LABELS[v].label}`).join(", ") || "—" },
-                    { label: "Inflexibility Processes", value: data.inflexibilityProcesses.map((p) => ACT_PROCESS_LABELS[p].label).join(", ") || "—" },
-                    { label: "Replacement Behavior(s)", value: data.replacementBehaviors.map((r) => `${r.behavior}${r.valueConnection ? ` → ${r.valueConnection}` : ""}`).filter(Boolean).join("; ") || "—" },
-                    { label: "Safety Concerns", value: data.safetyConcerrns ? "Yes" : "No" },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-start gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3">
-                      <span className="min-w-[160px] text-sm font-semibold text-slate-700">{item.label}</span>
-                      <span className="text-sm text-slate-600">{item.value}</span>
+        {/* Phase 2: ACT Matrix */}
+        {phase === 2 && (
+          <div className="space-y-3">
+            <p className="text-sm text-slate-600">Map toward vs. away moves to connect internal experiences with observable behavior.</p>
+            <div className="grid gap-4 md:grid-cols-2">
+            <MatrixEditor title="Inner + Away" subtitle="Thoughts and feelings struggled with" value={data.actMatrix.innerAway} onChange={(items) => update("actMatrix", { ...data.actMatrix, innerAway: items })} />
+            <MatrixEditor title="Inner + Toward" subtitle="What matters internally" value={data.actMatrix.innerToward} onChange={(items) => update("actMatrix", { ...data.actMatrix, innerToward: items })} />
+            <MatrixEditor title="Outer + Away" subtitle="Avoidance behaviors" value={data.actMatrix.outerAway} onChange={(items) => update("actMatrix", { ...data.actMatrix, outerAway: items })} />
+            <MatrixEditor title="Outer + Toward" subtitle="Values-aligned actions" value={data.actMatrix.outerToward} onChange={(items) => update("actMatrix", { ...data.actMatrix, outerToward: items })} />
+          </div>
+          </div>
+        )}
+
+
+
+        {/* Phase 3: Values Assessment */}
+        {phase === 3 && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600">Select the top values that should guide replacement behaviors and supports.</p>
+            <div className="space-y-2">
+              <Label>Search Values</Label>
+              <Input value={valueSearch} onChange={(e) => setValueSearch(e.target.value)} placeholder="Search 120+ values" />
+            </div>
+            <div className="max-h-[360px] overflow-y-auto rounded-xl border border-slate-200 p-3">
+              <div className="grid gap-2 md:grid-cols-2">
+                {filteredValues.map((value) => {
+                  const selected = data.selectedValues.includes(value.id);
+                  return (
+                    <button
+                      key={value.id}
+                      type="button"
+                      onClick={() =>
+                        update(
+                          "selectedValues",
+                          selected ? data.selectedValues.filter((id) => id !== value.id) : [...data.selectedValues, value.id]
+                        )
+                      }
+                      className={`rounded-lg border px-3 py-2 text-left text-sm ${selected ? "border-[#1E3A34] bg-[#1E3A34]/10" : "border-slate-200 bg-white"}`}
+                    >
+                      <p className="font-semibold text-slate-900">{value.name}</p>
+                      <p className="text-xs text-slate-500">{CATEGORY_META[value.category].label}</p>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Values Sort Rationale (top 3-5)</Label>
+              <textarea rows={3} value={data.valuesRationale} onChange={(e) => update("valuesRationale", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+          </div>
+        )}
+
+        {/* Phase 4: ABC Observation */}
+        {phase === 4 && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600">Record what happened before, during, and after behavior with latency.</p>
+            {data.abcObservations.map((obs, index) => (
+              <div key={index} className="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-sm font-semibold text-slate-900">Observation {index + 1}</p>
+                <div className="grid gap-3 md:grid-cols-2">
+                  <Input placeholder="Antecedent" value={obs.antecedent} onChange={(e) => update("abcObservations", data.abcObservations.map((item, i) => (i === index ? { ...item, antecedent: e.target.value } : item)))} />
+                  <Input placeholder="Precursor" value={obs.precursor} onChange={(e) => update("abcObservations", data.abcObservations.map((item, i) => (i === index ? { ...item, precursor: e.target.value } : item)))} />
+                  <Input placeholder="Behavior" value={obs.behavior} onChange={(e) => update("abcObservations", data.abcObservations.map((item, i) => (i === index ? { ...item, behavior: e.target.value } : item)))} />
+                  <Input placeholder="Consequence" value={obs.consequence} onChange={(e) => update("abcObservations", data.abcObservations.map((item, i) => (i === index ? { ...item, consequence: e.target.value } : item)))} />
+                  <Input type="number" min={0} placeholder="Latency seconds" value={obs.latencySeconds || ""} onChange={(e) => update("abcObservations", data.abcObservations.map((item, i) => (i === index ? { ...item, latencySeconds: Number(e.target.value) } : item)))} />
+                </div>
+              </div>
+            ))}
+            <Button variant="outline" onClick={() => update("abcObservations", [...data.abcObservations, { antecedent: "", precursor: "", behavior: "", consequence: "", latencySeconds: 0 }])}>Add Observation</Button>
+          </div>
+        )}
+
+        {phase === 5 && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600">Compare latency under validating vs. challenging conditions to clarify fusion triggers.</p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label>Validating Condition Mean Latency (sec)</Label>
+                <Input value={data.validatingLatencyAvg} onChange={(e) => update("validatingLatencyAvg", e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Challenging Condition Mean Latency (sec)</Label>
+                <Input value={data.challengingLatencyAvg} onChange={(e) => update("challengingLatencyAvg", e.target.value)} />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Validating Condition Notes</Label>
+              <textarea rows={3} value={data.validatingConditionNotes} onChange={(e) => update("validatingConditionNotes", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+            <div className="space-y-2">
+              <Label>Challenging Condition Notes</Label>
+              <textarea rows={3} value={data.challengingConditionNotes} onChange={(e) => update("challengingConditionNotes", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+            <div className="space-y-2">
+              <Label>Fusion Hierarchy (lowest to highest trigger intensity)</Label>
+              <textarea rows={4} value={data.fusionHierarchy} onChange={(e) => update("fusionHierarchy", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+          </div>
+        )}
+
+        {phase === 6 && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600">Complete both forms to populate all 6 CPFQ subscales (acceptance, defusion, present-moment, self-as-context, values, committed action).</p>
+            <div className="grid gap-4 lg:grid-cols-2">
+              <div className="space-y-3 rounded-xl border border-slate-200 p-3">
+                <p className="text-sm font-semibold text-slate-900">Student Self-Report</p>
+                <div className="max-h-[360px] space-y-3 overflow-y-auto pr-1">
+                  {STUDENT_ITEMS.map((item) => (
+                    <div key={item.id} className="rounded-lg border border-slate-200 p-2">
+                      <p className="text-xs text-slate-700">{item.text}</p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {[0, 1, 2, 3, 4].map((val) => (
+                          <button
+                            type="button"
+                            key={val}
+                            onClick={() => update("studentCpfqResponses", { ...data.studentCpfqResponses, [item.id]: val })}
+                            className={`rounded-md border px-2 py-1 text-xs ${data.studentCpfqResponses[item.id] === val ? "border-[#1E3A34] bg-[#1E3A34]/10" : "border-slate-200"}`}
+                          >
+                            {responseLabel(val)}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
-                <div className="rounded-xl border border-purple-100 bg-purple-50/70 px-4 py-3 text-sm text-purple-800">
-                  <p className="font-semibold">Ready to generate!</p>
-                  <p>Your ACT-informed FBA/BIP will include: values assessment, psychological flexibility assessment, ACT functional analysis, values-aligned replacement behaviors, acceptance strategies, defusion techniques, committed action goals, metaphors & exercises catalog, + all standard BIP sections.</p>
-                </div>
+              </div>
 
-                {/* Email gate — shown inline on Step 10 before generate */}
-                {!emailGate.submitted && (
-                  <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-6 mt-4">
-                    <p className="text-sm font-semibold text-emerald-900 mb-1">Your report is ready to generate.</p>
-                    <p className="text-xs text-emerald-700 mb-4">Enter your email and we&apos;ll send you a copy plus occasional school behavior resources. Unsubscribe anytime.</p>
-                    <div className="flex flex-col gap-3">
-                      <input
-                        type="text"
-                        placeholder="Name (optional)"
-                        value={emailGate.name}
-                        onChange={e => setEmailGate(g => ({ ...g, name: e.target.value }))}
-                        className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-                      />
-                      <input
-                        type="email"
-                        placeholder="Email address *"
-                        value={emailGate.email}
-                        onChange={e => setEmailGate(g => ({ ...g, email: e.target.value }))}
-                        className="rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-                        required
-                      />
-                      <button
-                        type="button"
-                        disabled={!emailGate.email || emailGate.loading}
-                        onClick={async () => {
-                          if (!emailGate.email) return;
-                          setEmailGate(g => ({ ...g, loading: true }));
-                          try {
-                            await fetch("/api/fba-tool-signup", {
-                              method: "POST",
-                              headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify({ name: emailGate.name, email: emailGate.email }),
-                            });
-                          } catch { /* silently continue */ }
-                          setEmailGate(g => ({ ...g, submitted: true, loading: false }));
-                          handleGenerate();
-                        }}
-                        className="rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-50 transition"
+              <div className="space-y-3 rounded-xl border border-slate-200 p-3">
+                <p className="text-sm font-semibold text-slate-900">Caregiver/Teacher Report</p>
+                <div className="max-h-[360px] space-y-3 overflow-y-auto pr-1">
+                  {CAREGIVER_ITEMS.map((item) => (
+                    <div key={item.id} className="rounded-lg border border-slate-200 p-2">
+                      <p className="text-xs text-slate-700">{item.text}</p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {[0, 1, 2, 3, 4].map((val) => (
+                          <button
+                            type="button"
+                            key={val}
+                            onClick={() => update("caregiverCpfqResponses", { ...data.caregiverCpfqResponses, [item.id]: val })}
+                            className={`rounded-md border px-2 py-1 text-xs ${data.caregiverCpfqResponses[item.id] === val ? "border-[#1E3A34] bg-[#1E3A34]/10" : "border-slate-200"}`}
+                          >
+                            {responseLabel(val)}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="grid gap-2 rounded-xl border border-[#e4b63d]/60 bg-[#e4b63d]/10 p-3 md:grid-cols-2 lg:grid-cols-3">
+              {Object.values(SUBSCALE_META).map((meta) => (
+                <div key={meta.label} className="rounded border border-[#e4b63d]/50 bg-white px-2 py-1 text-xs text-slate-700">
+                  {meta.label}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {phase === 7 && (
+          <div className="space-y-4">
+            {data.verbalRelations.map((entry, index) => {
+              const frameHints = entry.statement ? suggestFrames(entry.statement).map((x) => x.frame).join(", ") : "";
+              return (
+                <div key={index} className="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <div className="space-y-2 md:col-span-2">
+                      <Label>Student Statement</Label>
+                      <Input value={entry.statement} onChange={(e) => update("verbalRelations", data.verbalRelations.map((item, i) => (i === index ? { ...item, statement: e.target.value } : item)))} />
+                      {frameHints && <p className="text-xs text-slate-500">Pattern hint from relational-frame parser: {frameHints}</p>}
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Category</Label>
+                      <select
+                        value={entry.category}
+                        onChange={(e) =>
+                          update(
+                            "verbalRelations",
+                            data.verbalRelations.map((item, i) =>
+                              i === index ? { ...item, category: e.target.value as RelationalCategory } : item
+                            )
+                          )
+                        }
+                        className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm"
                       >
-                        {emailGate.loading ? "Sending..." : "Generate My ACT FBA/BIP →"}
-                      </button>
+                        {Object.entries(RELATIONAL_CATEGORY_LABELS).map(([key, label]) => (
+                          <option key={key} value={key}>
+                            {label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Impact on Behavior</Label>
+                      <Input value={entry.impact} onChange={(e) => update("verbalRelations", data.verbalRelations.map((item, i) => (i === index ? { ...item, impact: e.target.value } : item)))} />
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <Label>Flexible Alternative Statement</Label>
+                      <Input value={entry.flexAlternative} onChange={(e) => update("verbalRelations", data.verbalRelations.map((item, i) => (i === index ? { ...item, flexAlternative: e.target.value } : item)))} />
                     </div>
                   </div>
-                )}
+                </div>
+              );
+            })}
+            <Button variant="outline" onClick={() => update("verbalRelations", [...data.verbalRelations, { statement: "", category: "self-deictic", impact: "", flexAlternative: "" }])}>Add Relation</Button>
+          </div>
+        )}
+
+        {phase === 8 && (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label>Accept (willingness, grounding)</Label>
+              <textarea rows={3} value={data.aimAcceptPlan} onChange={(e) => update("aimAcceptPlan", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+            <div className="space-y-2">
+              <Label>Identify (defusion, values)</Label>
+              <textarea rows={3} value={data.aimIdentifyPlan} onChange={(e) => update("aimIdentifyPlan", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+            <div className="space-y-2">
+              <Label>Move (committed action)</Label>
+              <textarea rows={3} value={data.aimMovePlan} onChange={(e) => update("aimMovePlan", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+          </div>
+        )}
+
+        {phase === 9 && (
+          <div className="space-y-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-slate-600">Define the target behavior and ACT-informed function statements.</p>
+              <Button type="button" variant="outline" onClick={autofillBipFields}>
+                Auto-fill from earlier steps
+              </Button>
+            </div>
+            <div className="space-y-2">
+              <Label>Target Behavior</Label>
+              <Input value={data.targetBehavior} onChange={(e) => update("targetBehavior", e.target.value)} />
+            </div>
+            <div className="space-y-2">
+              <Label>Operational Definition</Label>
+              <textarea rows={3} value={data.operationalDefinition} onChange={(e) => update("operationalDefinition", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+            <div className="space-y-2">
+              <Label>Hypothesized Public Function</Label>
+              <Input value={data.hypothesizedFunction} onChange={(e) => update("hypothesizedFunction", e.target.value)} placeholder="attention, escape, tangible, sensory, etc." />
+            </div>
+            <div className="space-y-2">
+              <Label>Private Event Function (ACT lens)</Label>
+              <textarea rows={3} value={data.privateEventFunction} onChange={(e) => update("privateEventFunction", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+            <div className="space-y-2">
+              <Label>Replacement Behaviors</Label>
+              <textarea rows={3} value={data.replacementBehaviors} onChange={(e) => update("replacementBehaviors", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+          </div>
+        )}
+
+        {phase === 10 && (
+          <div className="space-y-4">
+            {(Object.entries(ACT_STRATEGY_BANK) as [StrategyCategory, readonly string[]][]).map(([category, strategies]) => (
+              <div key={category} className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-sm font-semibold text-slate-900 capitalize">{category.replace("-", " ")}</p>
+                <div className="flex flex-wrap gap-2">
+                  {strategies.map((strategy) => {
+                    const exists = data.selectedStrategies.some((s) => s.category === category && s.strategy === strategy);
+                    return (
+                      <button
+                        key={strategy}
+                        type="button"
+                        onClick={() => {
+                          if (exists) {
+                            update(
+                              "selectedStrategies",
+                              data.selectedStrategies.filter((s) => !(s.category === category && s.strategy === strategy))
+                            );
+                          } else {
+                            update("selectedStrategies", [...data.selectedStrategies, { category, strategy, implementation: "" }]);
+                          }
+                        }}
+                        className={`rounded-md border px-3 py-1 text-sm ${exists ? "border-[#1E3A34] bg-[#1E3A34]/10" : "border-slate-200 bg-white"}`}
+                      >
+                        {strategy}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+
+            {data.selectedStrategies.length > 0 && (
+              <div className="space-y-3">
+                {data.selectedStrategies.map((item, idx) => (
+                  <div key={`${item.category}-${item.strategy}`} className="space-y-1 rounded-lg border border-slate-200 p-3">
+                    <p className="text-sm font-semibold text-slate-900">
+                      {item.strategy} ({item.category})
+                    </p>
+                    <textarea
+                      rows={2}
+                      value={item.implementation}
+                      onChange={(e) =>
+                        update(
+                          "selectedStrategies",
+                          data.selectedStrategies.map((s, i) => (i === idx ? { ...s, implementation: e.target.value } : s))
+                        )
+                      }
+                      className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm"
+                      placeholder="Implementation plan"
+                    />
+                  </div>
+                ))}
               </div>
             )}
           </div>
-        </div>
+        )}
 
-        {/* Navigation */}
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <Button variant="outline" onClick={onBack} disabled={currentStep === 0}>Back</Button>
-          <div className="flex flex-1 items-center justify-end gap-3">
-            {currentStep < steps.length - 1 && (
-              <Button onClick={onNext} disabled={!isStepValid[currentStep]} className="bg-purple-600 hover:bg-purple-700">Next</Button>
+        {phase === 11 && (
+          <div className="space-y-4">
+            <div className="grid gap-3 md:grid-cols-2">
+              {[
+                ["bstChecklist", "BST Checklist"],
+                ["visualGuides", "Visual Guides"],
+                ["dataTemplates", "Data Collection Templates"],
+                ["caregiverHandout", "Caregiver Handout"],
+              ].map(([key, label]) => (
+                <label key={key} className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={data.implementationMaterials[key as keyof ACTFBAData["implementationMaterials"]] as boolean}
+                    onChange={(e) =>
+                      update("implementationMaterials", {
+                        ...data.implementationMaterials,
+                        [key]: e.target.checked,
+                      })
+                    }
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
+            <div className="space-y-2">
+              <Label>Implementation Notes</Label>
+              <textarea rows={4} value={data.implementationMaterials.implementationNotes} onChange={(e) => update("implementationMaterials", { ...data.implementationMaterials, implementationNotes: e.target.value })} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+          </div>
+        )}
+
+        {phase === 12 && (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label>Progress Metrics (include CPFQ pre/post and behavioral metrics)</Label>
+              <textarea rows={3} value={data.progressMetrics} onChange={(e) => update("progressMetrics", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+            <div className="space-y-2">
+              <Label>Decision Rules</Label>
+              <textarea rows={3} value={data.decisionRules} onChange={(e) => update("decisionRules", e.target.value)} className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm" />
+            </div>
+            <div className="space-y-2">
+              <Label>Review Cadence</Label>
+              <Input value={data.reviewCadence} onChange={(e) => update("reviewCadence", e.target.value)} placeholder="e.g., Weekly for 6 weeks, then biweekly" />
+            </div>
+
+            {!emailGate.submitted && demoMode && (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <p className="text-sm font-semibold text-slate-900">Generate the demo report</p>
+                <p className="text-xs text-slate-600">This uses sample data so you can see the full output.</p>
+                <Button
+                  className="mt-3 bg-[#1E3A34] hover:bg-[#173029]"
+                  onClick={() => setReport(generateACTBIP(data))}
+                >
+                  Generate Demo Report
+                  <MoveRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            )}
+
+            {!emailGate.submitted && !demoMode && (
+              <div className="rounded-xl border border-[#1E3A34]/30 bg-[#1E3A34]/5 p-4">
+                <p className="text-sm font-semibold text-slate-900">Email Capture Before Final Output</p>
+                <p className="text-xs text-slate-600">Enter an email to unlock the full generated report.</p>
+                <div className="mt-3 space-y-2">
+                  <Input placeholder="Name (optional)" value={emailGate.name} onChange={(e) => setEmailGate((prev) => ({ ...prev, name: e.target.value }))} />
+                  <Input placeholder="Email *" type="email" value={emailGate.email} onChange={(e) => setEmailGate((prev) => ({ ...prev, email: e.target.value }))} />
+                  <Button
+                    disabled={!emailGate.email || emailGate.loading}
+                    className="bg-[#1E3A34] hover:bg-[#173029]"
+                    onClick={async () => {
+                      setEmailGate((prev) => ({ ...prev, loading: true }));
+                      try {
+                        await fetch("/api/fba-tool-signup", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ name: emailGate.name, email: emailGate.email }),
+                        });
+                      } catch {
+                        // continue even if signup endpoint fails
+                      }
+                      setEmailGate((prev) => ({ ...prev, loading: false, submitted: true }));
+                      setReport(generateACTBIP(data));
+                    }}
+                  >
+                    {emailGate.loading ? "Submitting" : "Generate Full Report"}
+                    <MoveRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
             )}
           </div>
+        )}
+
+        <div className="flex items-center justify-between border-t border-slate-200 pt-4">
+          {!embedded && (
+            <Button variant="outline" disabled={phase === 0} onClick={() => setPhase((prev) => Math.max(0, prev - 1))}>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back
+            </Button>
+          )}
+
+          {phase < WIZARD_PHASES.length - 1 && (
+            <Button
+              onClick={() => {
+                if (phase === 0 && onPhase0Complete) {
+                  onPhase0Complete(data.profile);
+                  return;
+                }
+                setPhase((prev) => Math.min(WIZARD_PHASES.length - 1, prev + 1));
+              }}
+              disabled={!isPhaseValid[phase]}
+              className="bg-[#1E3A34] hover:bg-[#173029]"
+            >
+              Next
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          )}
         </div>
       </div>
     </div>

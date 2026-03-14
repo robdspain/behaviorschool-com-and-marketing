@@ -22,6 +22,10 @@ import {
   Printer,
   Sparkles,
   Target,
+  Users2,
+  GraduationCap,
+  ShieldCheck,
+  HeartPulse,
 } from "lucide-react";
 
 const steps = ["Sort Cards", "Pick Top Values", "Reflect", "Summary"];
@@ -360,6 +364,14 @@ const categoryStyles: Record<ValueCard["category"], string> = {
   wellbeing: "bg-violet-50 text-violet-700 border-violet-200",
 };
 
+const categoryIcons: Record<ValueCard["category"], React.ComponentType<{ className?: string }>> = {
+  relationships: Users2,
+  growth: Sparkles,
+  school: GraduationCap,
+  character: ShieldCheck,
+  wellbeing: HeartPulse,
+};
+
 const pileConfig: Record<PileId, { title: string; hint: string; tone: string }> = {
   unassigned: {
     title: "Value Deck",
@@ -439,8 +451,11 @@ function ValuesCard({
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-2xl" aria-hidden>
-              {card.emoji}
+            <span className={`w-9 h-9 rounded-xl flex items-center justify-center border ${categoryStyles[card.category]}`} aria-hidden>
+              {(() => {
+                const Icon = categoryIcons[card.category];
+                return <Icon className="w-4 h-4" />;
+              })()}
             </span>
             <div>
               <p className="text-base font-semibold text-slate-900">{card.label}</p>

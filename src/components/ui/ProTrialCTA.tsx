@@ -10,7 +10,7 @@ interface ProTrialCTAProps {
 }
 
 export function ProTrialCTA({ source = "tool-page", variant = "banner", className = "" }: ProTrialCTAProps) {
-  const baseUrl = `https://plan.behaviorschool.com/signup?source=${encodeURIComponent(source)}`;
+  const baseUrl = `https://plan.behaviorschool.com?source=${encodeURIComponent(source)}`;
 
   if (variant === "inline") {
     return (
@@ -36,7 +36,7 @@ export function ProTrialCTA({ source = "tool-page", variant = "banner", classNam
         </div>
         <h3 className="text-xl font-bold mb-2">Unlock All Tools</h3>
         <p className="text-slate-300 text-sm mb-4">
-          Get unlimited access to FBA-to-BIP, IEP Goal Writer, Goal Bank, ACT tools, and more.
+          Get unlimited access to FBA-to-BIP, IEP Goal Writer, Goal Bank, ACT-informed FBA → BIP, and more.
         </p>
         <ul className="space-y-2 mb-5">
           {["Unlimited FBAs & BIPs", "AI-powered IEP goals", "500+ goal bank", "ACT assessment tools"].map((item) => (

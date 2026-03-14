@@ -14,6 +14,7 @@
   NEXT_PUBLIC_SUPABASE_URL = "https://placeholder.supabase.co"
   NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder_anon_key"
 
+# Next.js plugin for proper SSR/API route support
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
@@ -44,17 +45,6 @@
   to = "/supervisors"
   status = 301
 
-[functions]
-  node_bundler = "esbuild"
-  external_node_modules = []
-
 # Schedule newsletter worker every 5 minutes
-[[scheduled.functions]]
-  name = "nm-worker"
-  cron = "*/5 * * * *"
 
 # Fallback trigger to refresh salary data yearly (and ensure site rebuild)
-[[scheduled.functions]]
-  name = "salary-refresh"
-  # Run at 00:10 UTC on Jan 1 each year
-  cron = "10 0 1 1 *"

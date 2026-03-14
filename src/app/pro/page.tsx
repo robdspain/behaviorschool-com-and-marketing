@@ -8,7 +8,6 @@ import {
   Shield,
   CheckCircle,
   Star,
-  Sparkles,
   Zap,
   FileText,
   Target,
@@ -22,7 +21,6 @@ import ShimmerButton from "@/components/magicui/shimmer-button";
 import NumberTicker from "@/components/magicui/number-ticker";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 import ShineBorder from "@/components/magicui/shine-border";
-import AnimatedGradientText from "@/components/magicui/animated-gradient-text";
 
 const FEATURES = [
   {
@@ -74,15 +72,47 @@ const FEATURES = [
     ),
   },
   {
-    icon: Brain,
-    title: "ACT Module",
+    icon: Shield,
+    title: "Interview Suite",
     description:
-      "Acceptance & Commitment Training tools designed specifically for school-based behavioral support. Build psychological flexibility.",
+      "Guided teacher, parent, and student interviews to capture function, context, and student voice.",
     bullets: [
-      "ACT Matrix worksheets",
-      "Values identification exercises",
-      "Defusion & mindfulness activities",
-      "Progress tracking tools",
+      "Teacher, parent, and student interview flows",
+      "Age-appropriate student prompts",
+      "Auto summary for reports",
+      "Built into the FBA pipeline",
+    ],
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-cyan-500/20 to-emerald-600/20 blur-xl" />
+    ),
+  },
+  {
+    icon: Zap,
+    title: "Observation Tools",
+    description:
+      "Collect ABC data and structured observations to ground the FBA and BIP in real classroom data.",
+    bullets: [
+      "ABC, frequency, duration",
+      "Time sampling: partial, whole, momentary",
+      "Observation planning built-in",
+      "Session summaries + totals",
+    ],
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-500/20 via-zinc-500/20 to-slate-700/20 blur-xl" />
+    ),
+  },
+  {
+    icon: Brain,
+    title: "ACT-Informed FBA → BIP",
+    description:
+      "Integrate ACT principles into functional assessments and behavior intervention planning for a more complete student support plan.",
+    bullets: [
+      "ACT-informed hypothesis prompts",
+      "Values-aligned intervention planning",
+      "Acceptance-based replacement behaviors",
+      "Export-ready ACT rationale section",
     ],
     className: "col-span-3 lg:col-span-2",
     background: (
@@ -108,15 +138,15 @@ const PRICING = [
     highlight: false,
   },
   {
-    name: "Individual",
-    price: 29,
+    name: "BCBA Starter",
+    price: 19,
     period: "/mo",
     description: "For BCBAs & school psychologists",
     features: [
       "Unlimited FBA-to-BIP",
       "Unlimited IEP Goals",
       "Full Goal Bank (1,000+ goals)",
-      "ACT Module",
+      "ACT-informed FBA → BIP",
       "PDF & Word export",
       "Email support",
     ],
@@ -130,7 +160,7 @@ const PRICING = [
     period: "/seat/mo",
     description: "For school & district teams",
     features: [
-      "Everything in Individual",
+      "Everything in BCBA Starter",
       "5+ seats",
       "Team collaboration",
       "Admin dashboard & usage reports",
@@ -147,7 +177,7 @@ const PRICING = [
 const FAQ = [
   {
     q: "What tools do school BCBAs need?",
-    a: "School BCBAs need tools for behavior assessment (FBAs), intervention planning (BIPs), IEP goal writing, data collection and analysis, progress monitoring, and team collaboration. BehaviorSchool Pro provides AI-powered tools for FBA-to-BIP generation, IEP goal creation, a searchable goal bank with 1,000+ expert-written goals, and ACT-based intervention resources. These tools save hours on documentation while maintaining clinical quality and legal compliance.",
+    a: "School BCBAs need tools for behavior assessment (FBAs), intervention planning (BIPs), IEP goal writing, data collection and analysis, progress monitoring, and team collaboration. BehaviorSchool Pro provides AI-powered tools for FBA-to-BIP generation, IEP goal creation, a searchable goal bank with 1,000+ expert-written goals, and ACT-informed FBA-to-BIP workflows. These tools save hours on documentation while maintaining clinical quality and legal compliance.",
   },
   {
     q: "How can AI help with FBAs and BIPs?",
@@ -203,102 +233,62 @@ export default function ProPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-700 pt-32 pb-20 sm:pt-36 sm:pb-24">
-        {/* Animated grid background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/50 to-transparent" />
-        </div>
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <AnimatedGradientText className="mb-6">
-              <Sparkles className="h-4 w-4 mr-2" />
-              <span className="text-emerald-900 dark:text-white font-semibold">BehaviorSchool Pro</span>
-            </AnimatedGradientText>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6"
-          >
-            <span className="text-white">Stop Spending Hours on</span>
-            <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-amber-300 via-amber-200 to-yellow-300 bg-clip-text text-transparent animate-gradient">
-              Paperwork
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-2xl mx-auto text-lg sm:text-xl text-emerald-100 mb-10 leading-relaxed"
-          >
-            AI-powered behavior tools that write BIPs, generate IEP goals, and give you a searchable goal bank — so you can focus on students, not documents.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Link href="/pro/waitlist">
-              <ShimmerButton
-                className="h-14 px-8 text-lg font-bold rounded-xl w-full sm:w-auto"
-                background="linear-gradient(135deg, #E3B23C 0%, #d4a12d 100%)"
-                shimmerColor="#f0c040"
-              >
-                <span className="text-emerald-900">Start Free Trial</span>
-              </ShimmerButton>
-            </Link>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-6 text-emerald-200 text-sm"
-          >
-            14-day free trial · No credit card required
-          </motion.p>
-
-          {/* Quick stats with Number Tickers */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-3 gap-6 mt-14 max-w-lg mx-auto"
-          >
+      <section className="bg-white pt-24 pb-16 sm:pt-28 sm:pb-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-white flex items-center justify-center gap-1">
-                <NumberTicker value={2} delay={0.5} />
-                <span>min</span>
+              <p className="text-sm font-semibold tracking-widest uppercase text-emerald-700 mb-4">BehaviorSchool Pro</p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+                Stop spending hours on paperwork.
+              </h1>
+              <p className="text-lg sm:text-xl text-slate-600 mb-8">
+                AI-powered behavior tools that draft BIPs, generate IEP goals, and give you a searchable goal bank—so you can focus on students, not documents.
               </p>
-              <p className="text-emerald-200 text-xs mt-1">Avg. BIP generation</p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/pro/waitlist">
+                  <Button className="h-12 px-6 text-base font-semibold">Start Free Trial</Button>
+                </Link>
+                <Link
+                  href="/products"
+                  className="h-12 px-6 inline-flex items-center justify-center text-base font-semibold text-slate-700 border border-slate-300 rounded-md hover:border-slate-400"
+                >
+                  See tools
+                </Link>
+              </div>
+              <p className="mt-4 text-sm text-slate-500">14-day free trial · No credit card required</p>
             </div>
-            <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-white flex items-center justify-center gap-0">
-                <NumberTicker value={1000} delay={0.6} />
-                <span>+</span>
-              </p>
-              <p className="text-emerald-200 text-xs mt-1">Goal bank entries</p>
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8">
+              <div className="grid gap-6">
+                <div className="flex items-start gap-4">
+                  <div className="h-10 w-10 rounded-lg bg-emerald-100 flex items-center justify-center">
+                    <FileText className="h-5 w-5 text-emerald-700" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-900">FBA to BIP drafting</h3>
+                    <p className="text-sm text-slate-600">Structured plans in minutes, fully editable.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="h-10 w-10 rounded-lg bg-amber-100 flex items-center justify-center">
+                    <Target className="h-5 w-5 text-amber-700" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-900">IEP goal generation</h3>
+                    <p className="text-sm text-slate-600">SMART goals aligned to grade and function.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <BookOpen className="h-5 w-5 text-blue-700" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-900">Goal bank + exports</h3>
+                    <p className="text-sm text-slate-600">Search 1,000+ goals and export to Word or PDF.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-white flex items-center justify-center gap-0">
-                <NumberTicker value={100} delay={0.7} />
-                <span>%</span>
-              </p>
-              <p className="text-emerald-200 text-xs mt-1">FERPA compliant</p>
-            </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -311,7 +301,7 @@ export default function ProPage() {
                 Everything Your Team Needs
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Four powerful tools, one platform. Built by BCBAs for school behavior teams.
+                Six powerful tools, one platform. Built by BCBAs for school behavior teams.
               </p>
             </div>
           </FadeInSection>
@@ -440,7 +430,7 @@ export default function ProPage() {
                       <NumberTicker value={plan.price} delay={0.5 + i * 0.1} />
                       <span className="text-base font-normal text-slate-500">{plan.period}</span>
                     </p>
-                    {plan.name === "Individual" && (
+                    {plan.name === "BCBA Starter" && (
                       <p className="text-xs text-slate-400 mb-4">Billed annually</p>
                     )}
                     {plan.name === "Free" && <div className="mb-4" />}

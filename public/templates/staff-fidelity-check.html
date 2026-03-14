@@ -3,47 +3,99 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Staff Fidelity Quick-Check</title>
+    <title>Staff Fidelity Check</title>
     <meta name="robots" content="noindex,nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; }
-      html, body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; color:var(--ink); }
-      .wrap { max-width: 700px; margin: 2rem auto; padding: 1.25rem; }
-      h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
-      table { width:100%; border-collapse: collapse; }
-      th, td { border:1px solid var(--line); padding: 0.5rem; text-align: left; }
-      th { background:#f8fafc; }
-      @media print { .noprint { display:none; } body { margin: 0.5in; } }
+      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --accent:#1f4d3f; --accent-soft:#ecf4f1; --bg:#f8fafc; }
+      * { box-sizing: border-box; }
+      html, body { margin:0; padding:0; }
+      body { font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: var(--bg); }
+      .wrap { max-width: 980px; margin: 28px auto; padding: 0 18px 32px; }
+      .hero { display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 16px; align-items:end; background:white; border:1px solid var(--line); border-radius:16px; padding:18px 20px; }
+      h1 { font-family: "Fraunces", serif; font-size:28px; margin:0 0 6px; }
+      .sub { color:var(--muted); font-size:14px; margin:0; }
+      .meta { display:flex; gap:10px; flex-wrap:wrap; font-size:12px; color:var(--muted); }
+      .meta span { background: var(--accent-soft); color: var(--accent); padding: 4px 8px; border-radius:999px; font-weight:600; }
+      .card { background:white; border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin-top:14px; }
+      .section-title { font-size:13px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--accent); margin:0 0 10px; }
+      label { display:block; font-weight:600; font-size:13px; margin-bottom:6px; }
+      input[type="text"], textarea { width:100%; border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:14px; background:white; }
+      textarea { resize: vertical; min-height: 90px; }
+      .row { margin-bottom: 12px; }
+      .two-col { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+      .checklist { margin: 0; padding-left: 18px; color: var(--muted); font-size: 12px; }
+      .btn { appearance:none; border:0; background:var(--accent); color:white; font-weight:700; padding:10px 16px; border-radius:10px; cursor:pointer; }
+      .footer { margin-top:18px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; display:flex; flex-wrap:wrap; gap:12px 18px; }
+      .footer a { color: var(--accent); text-decoration:none; font-weight:600; }
+      @media (max-width: 860px){ .hero{grid-template-columns:1fr;} .two-col{grid-template-columns:1fr;} }
+      @media print { body{background:white;} .noprint{display:none!important;} .wrap{margin:0.5in; padding:0;} .card{break-inside:avoid;} }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <h1>Staff Fidelity Quick-Check</h1>
-      <table>
-        <thead>
-          <tr><th>Item</th><th>Yes</th><th>No</th><th>Notes</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Teacher prompted per plan</td><td>□</td><td>□</td><td></td></tr>
-          <tr><td>≥ X opportunities to practice</td><td>□</td><td>□</td><td></td></tr>
-          <tr><td>Reinforcement matched to value</td><td>□</td><td>□</td><td></td></tr>
-          <tr><td>Data collected daily</td><td>□</td><td>□</td><td></td></tr>
-        </tbody>
-      </table>
-      <p>Date: ____________  Observer: __________________  Class: __________________</p>
-      <button class="noprint" onclick="window.print()">Print</button>
-      
-      <nav class="noprint" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line);">
-        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem;">More resources from Behavior School:</p>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem;">
-          <li><a href="https://behaviorschool.com" style="color: #059669; text-decoration: none;">Home</a></li>
-          <li><a href="https://behaviorschool.com/products" style="color: #059669; text-decoration: none;">Tools & Products</a></li>
-          <li><a href="https://behaviorschool.com/behavior-plans" style="color: #059669; text-decoration: none;">Behavior Plans</a></li>
-          <li><a href="https://behaviorschool.com/act-matrix" style="color: #059669; text-decoration: none;">ACT Matrix</a></li>
-          <li><a href="https://behaviorschool.com/blog" style="color: #059669; text-decoration: none;">Blog</a></li>
-          <li><a href="https://behaviorschool.com/templates" style="color: #059669; text-decoration: none;">All Templates</a></li>
+      <div class="hero">
+        <div>
+          <h1>Staff Fidelity Check</h1>
+          <p class="sub">Quick rubric to confirm key steps were implemented as designed.</p>
+        </div>
+        <div class="meta">
+          <span>Observation</span>
+          <span>Simple rubric</span>
+          <span>Print‑ready</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="section-title">Session Details</p>
+        <div class="row two-col">
+          <div><label>Student</label><input type="text" placeholder="Student" /></div>
+          <div><label>Date</label><input type="text" placeholder="MM/DD/YYYY" /></div>
+        </div>
+        <div class="row two-col">
+          <div><label>Observer</label><input type="text" placeholder="Observer name" /></div>
+          <div><label>Setting</label><input type="text" placeholder="e.g., Gen Ed classroom" /></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="section-title">Implementation Checklist</p>
+        <div class="row">
+          <label>Key steps observed</label>
+          <textarea placeholder="List the critical components of the plan."></textarea>
+        </div>
+        <ul class="checklist">
+          <li>Antecedent strategy implemented</li>
+          <li>Replacement behavior prompted</li>
+          <li>Reinforcement delivered as planned</li>
+          <li>Data collected during target times</li>
         </ul>
-      </nav>
+      </div>
+
+      <div class="card">
+        <p class="section-title">Notes & Next Steps</p>
+        <div class="row">
+          <label>What went well</label>
+          <textarea placeholder="Highlight strengths."></textarea>
+        </div>
+        <div class="row">
+          <label>Coaching priorities</label>
+          <textarea placeholder="What should be practiced next time?"></textarea>
+        </div>
+      </div>
+
+      <div class="noprint" style="margin-top: 14px; display:flex; gap:10px; align-items:center;">
+        <button class="btn" onclick="window.print()">Print</button>
+      </div>
+
+      <div class="footer noprint">
+        <span>More resources:</span>
+        <a href="https://behaviorschool.com">Home</a>
+        <a href="https://behaviorschool.com/resources">Resources</a>
+        <a href="https://behaviorschool.com/templates">All Templates</a>
+      </div>
     </div>
   </body>
 </html>

@@ -1,26 +1,33 @@
 "use client";
 
-import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Target, Users, BookOpen, ArrowRight, Download, Star } from "lucide-react";
+import { ClipboardList, Layers, Sparkles, Target, Star, FileText, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import SimpleDownloadButton from "@/components/SimpleDownloadButton";
-import { ScrollNav } from "@/components/ui/scroll-nav";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.6 }
+  transition: { duration: 0.5 }
 };
 
 export default function ACTMatrixPage() {
+  const [demo, setDemo] = useState({
+    studentName: "",
+    values: "",
+    towardMoves: "",
+    awayMoves: "",
+    innerBarriers: "",
+  });
+
   return (
     <div id="act-matrix-page" className="min-h-screen bg-white">
       {/* Breadcrumbs */}
-      <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
+      <nav aria-label="Breadcrumb" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
         <Breadcrumbs 
           items={[
             { label: "Resources", href: "/resources" },
@@ -29,85 +36,62 @@ export default function ACTMatrixPage() {
         />
       </nav>
 
-      <ScrollNav 
-        items={[
-          { id: "what-is-it", label: "What is it?" },
-          { id: "how-to-use", label: "How to Use" },
-          { id: "examples", label: "Examples" },
-          { id: "download", label: "Download PDF" },
-        ]}
-      />
-      
-      {/* Hero Section */}
-      <section className="relative pt-12 pb-20 overflow-hidden bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full text-sm font-bold border border-emerald-200">
-                <Star className="w-4 h-4 fill-emerald-600" />
+      {/* Compact Hero */}
+      <section className="pb-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
+            <div className="space-y-5">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold border border-emerald-200">
+                <Star className="w-3.5 h-3.5" />
                 <span>Values-Based Framework</span>
               </div>
-              
-              <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
-                ACT Matrix <br />
-                <span className="text-emerald-600">for Schools</span>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
+                ACT Matrix for Schools
               </h1>
-              
-              <p className="text-xl text-slate-600 max-w-2xl leading-relaxed">
-                The complete guide with free PDF download, examples, and step-by-step implementation for school-based behavior analysts.
+              <p className="text-lg text-slate-600 max-w-2xl">
+                A practical, student-centered tool that helps teams map values, toward moves, and away moves—then turn them into action.
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-wrap gap-3">
                 <SimpleDownloadButton 
                   resource="act-matrix"
                   fileName="ACT-Matrix-for-Schools-Guide.pdf"
                   title="ACT Matrix for Schools Guide"
                   buttonText="Download Free Guide"
-                  className="bg-emerald-600 hover:bg-emerald-700 h-14 text-lg font-bold w-full sm:w-auto"
+                  className="bg-emerald-600 hover:bg-emerald-700 h-12 text-base font-bold"
                 />
-                <Button variant="outline" asChild className="h-14 px-8 text-lg font-bold border-2">
-                  <Link href="#examples">See Examples</Link>
+                <Button variant="outline" asChild className="h-12 px-6 text-base font-bold border-2">
+                  <Link href="#tool">Jump to Tool</Link>
                 </Button>
               </div>
+              <div className="flex flex-wrap gap-4 text-sm text-slate-600">
+                <span className="flex items-center gap-2"><Target className="w-4 h-4 text-emerald-600" /> Values clarity</span>
+                <span className="flex items-center gap-2"><Layers className="w-4 h-4 text-emerald-600" /> Toward vs away</span>
+                <span className="flex items-center gap-2"><ClipboardList className="w-4 h-4 text-emerald-600" /> Action-ready</span>
+              </div>
             </div>
-            
+
             <motion.div 
-              className="relative"
-              initial={{ opacity: 0, scale: 0.9 }}
+              className="bg-white border border-slate-200 rounded-2xl p-6 shadow-lg"
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-2xl relative z-10 overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/10 rounded-full -mr-16 -mt-16" />
-                <div className="grid grid-cols-2 gap-8 text-center relative aspect-square">
-                  <div className="absolute inset-x-0 top-1/2 border-t-2 border-slate-100 z-10"></div>
-                  <div className="absolute inset-y-0 left-1/2 border-l-2 border-slate-100 z-10"></div>
-                  
-                  <div className="flex flex-col justify-end pb-4 pr-4">
-                    <div className="text-red-500 font-bold uppercase tracking-wider text-[10px] mb-2">Away Moves</div>
-                    <div className="text-slate-400 text-xs italic">Avoiding • Acting Out</div>
-                  </div>
-                  
-                  <div className="flex flex-col justify-end pb-4 pl-4">
-                    <div className="text-emerald-600 font-bold uppercase tracking-wider text-[10px] mb-2">Toward Moves</div>
-                    <div className="text-slate-400 text-xs italic">Asking for help • Trying</div>
-                  </div>
-                  
-                  <div className="flex flex-col justify-start pt-4 pr-4">
-                    <div className="text-slate-400 text-xs italic">"I can't" • Anxiety</div>
-                    <div className="text-red-500 font-bold uppercase tracking-wider text-[10px] mt-2">Internal Barriers</div>
-                  </div>
-                  
-                  <div className="flex flex-col justify-start pt-4 pl-4">
-                    <div className="text-slate-400 text-xs italic">Who matters? • Goals</div>
-                    <div className="text-emerald-600 font-bold uppercase tracking-wider text-[10px] mt-2">Values</div>
-                  </div>
+              <div className="grid grid-cols-2 gap-4 text-center">
+                <div className="rounded-xl border border-slate-100 p-4">
+                  <div className="text-xs uppercase tracking-wide text-red-500 font-bold mb-2">Away Moves</div>
+                  <div className="text-xs text-slate-500">Avoiding, acting out, shutting down</div>
                 </div>
-                
-                <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                  <div className="bg-yellow-50 border-4 border-yellow-400 rounded-full w-20 h-20 flex items-center justify-center shadow-lg">
-                    <span className="text-yellow-800 font-black text-[10px] uppercase tracking-tighter">Student<br/>Values</span>
-                  </div>
+                <div className="rounded-xl border border-slate-100 p-4">
+                  <div className="text-xs uppercase tracking-wide text-emerald-600 font-bold mb-2">Toward Moves</div>
+                  <div className="text-xs text-slate-500">Asking for help, trying, repairing</div>
+                </div>
+                <div className="rounded-xl border border-slate-100 p-4">
+                  <div className="text-xs uppercase tracking-wide text-slate-500 font-bold mb-2">Internal Barriers</div>
+                  <div className="text-xs text-slate-500">Anxiety, fear, "I can’t" thoughts</div>
+                </div>
+                <div className="rounded-xl border border-slate-100 p-4">
+                  <div className="text-xs uppercase tracking-wide text-emerald-600 font-bold mb-2">Values</div>
+                  <div className="text-xs text-slate-500">Who matters? What kind of student?</div>
                 </div>
               </div>
             </motion.div>
@@ -115,66 +99,140 @@ export default function ACTMatrixPage() {
         </div>
       </section>
 
-      {/* What is it section */}
-      <section id="what-is-it" className="py-24 scroll-mt-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">What is the ACT Matrix?</h2>
-            <p className="text-xl text-slate-600 leading-relaxed">
-              A simple visual framework from Acceptance and Commitment Training (ACT) that helps students organize their experiences around what matters most.
-            </p>
-          </motion.div>
-          
-          <div className="prose prose-lg max-w-none text-slate-700">
-            <p>
-              Unlike traditional behavior interventions that focus primarily on reducing problem behaviors, the ACT Matrix builds **psychological flexibility**—the ability to stay present with difficult experiences while choosing actions based on personal values.
-            </p>
-            <div className="grid md:grid-cols-2 gap-8 my-12">
-              <div className="bg-emerald-50 rounded-2xl p-8 border border-emerald-100">
-                <h3 className="text-emerald-900 font-bold mt-0">Why it works</h3>
-                <ul className="text-emerald-800 text-sm">
-                  <li>Builds intrinsic motivation</li>
-                  <li>Increases student agency</li>
-                  <li>Improves emotional regulation</li>
-                  <li>Practical for all grade levels</li>
-                </ul>
+      {/* ACT-FBA/BIP Live Demo */}
+      <section id="tool" className="py-10 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-4">
+            <Sparkles className="w-5 h-5 text-emerald-600" />
+            <h2 className="text-2xl font-bold text-slate-900">ACT-FBA/BIP Live Demo</h2>
+          </div>
+          <p className="text-slate-600 mb-6">
+            This demo shows how the ACT Matrix auto-populates in real time as you complete a student interview.
+          </p>
+
+          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-6">
+            {/* Interview Form */}
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <FileText className="w-4 h-4 text-emerald-600" />
+                <h3 className="font-semibold text-slate-900">Student Interview</h3>
               </div>
-              <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
-                <h3 className="text-blue-900 font-bold mt-0">School Usage</h3>
-                <ul className="text-blue-800 text-sm">
-                  <li>Individual behavior plans</li>
-                  <li>Small group SEL</li>
-                  <li>Crisis de-escalation</li>
-                  <li>Teacher consultation</li>
-                </ul>
+
+              <div className="space-y-4 text-sm">
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Student Name</label>
+                  <input
+                    type="text"
+                    value={demo.studentName}
+                    onChange={(e) => setDemo({ ...demo, studentName: e.target.value })}
+                    placeholder="e.g., Alex"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Values (who/what matters)</label>
+                  <textarea
+                    rows={3}
+                    value={demo.values}
+                    onChange={(e) => setDemo({ ...demo, values: e.target.value })}
+                    placeholder="e.g., Being helpful, being a good friend, making parents proud"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Toward Moves (outer/doing)</label>
+                  <textarea
+                    rows={3}
+                    value={demo.towardMoves}
+                    onChange={(e) => setDemo({ ...demo, towardMoves: e.target.value })}
+                    placeholder="e.g., Asks for help, takes a break, returns to task"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Away Moves (outer/doing)</label>
+                  <textarea
+                    rows={3}
+                    value={demo.awayMoves}
+                    onChange={(e) => setDemo({ ...demo, awayMoves: e.target.value })}
+                    placeholder="e.g., Refuses tasks, leaves seat, yells"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-slate-700 mb-1">Inner Barriers (thoughts/feelings)</label>
+                  <textarea
+                    rows={3}
+                    value={demo.innerBarriers}
+                    onChange={(e) => setDemo({ ...demo, innerBarriers: e.target.value })}
+                    placeholder={`e.g., "I can't do this", fear of embarrassment`}
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Live Matrix */}
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-slate-900">Live ACT Matrix</h3>
+                <span className="text-xs text-slate-500">Auto-filled in real time</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-0 border border-slate-300 rounded-xl overflow-hidden">
+                <div className="bg-emerald-50 p-4 border-b border-r border-slate-300">
+                  <div className="text-xs uppercase tracking-wide text-emerald-700 font-bold mb-2">Toward Moves</div>
+                  <div className="text-sm text-slate-700 whitespace-pre-wrap min-h-[90px]">
+                    {demo.towardMoves || "—"}
+                  </div>
+                </div>
+                <div className="bg-amber-50 p-4 border-b border-slate-300">
+                  <div className="text-xs uppercase tracking-wide text-amber-700 font-bold mb-2">Away Moves</div>
+                  <div className="text-sm text-slate-700 whitespace-pre-wrap min-h-[90px]">
+                    {demo.awayMoves || "—"}
+                  </div>
+                </div>
+                <div className="bg-emerald-50/60 p-4 border-r border-slate-300">
+                  <div className="text-xs uppercase tracking-wide text-emerald-700 font-bold mb-2">Values (Inner Toward)</div>
+                  <div className="text-sm text-slate-700 whitespace-pre-wrap min-h-[90px]">
+                    {demo.values || "—"}
+                  </div>
+                </div>
+                <div className="bg-amber-50/60 p-4">
+                  <div className="text-xs uppercase tracking-wide text-amber-700 font-bold mb-2">Inner Barriers</div>
+                  <div className="text-sm text-slate-700 whitespace-pre-wrap min-h-[90px]">
+                    {demo.innerBarriers || "—"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 text-xs text-slate-500">
+                This mirrors how the ACT-FBA/BIP tool auto-populates the matrix from interview responses.
+              </div>
+
+              <div className="mt-6">
+                <a href="/act-fba-bip" className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm">
+                  Try the full ACT-FBA/BIP workflow <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How to use */}
-      <section id="how-to-use" className="py-24 bg-slate-50 scroll-mt-24">
+      {/* Quick Start */}
+      <section className="py-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">How to Use the Matrix</h2>
-            <p className="text-lg text-slate-600">A step-by-step process for school implementation</p>
-          </div>
-          
-          <div className="grid gap-6">
+          <div className="grid md:grid-cols-3 gap-4">
             {[
-              { title: "Values Exploration", desc: "Help students identify what truly matters to them (e.g., being helpful, learning)." },
-              { title: "Identify Toward Moves", desc: "Explore actions that move students toward their values, even when challenging." },
-              { title: "Recognize Away Moves", desc: "Identify behaviors that provide short-term relief but don't align with values." },
-              { title: "Map Internal Experiences", desc: "Explore the thoughts and feelings that show up when moving toward or away." },
-              { title: "Practice Daily Choices", desc: "Use the matrix as a guide for daily decisions in difficult moments." }
+              { title: "Identify Values", desc: "Start with what matters to the student. Anchor goals in their values." },
+              { title: "Name Toward Moves", desc: "List behaviors that move them toward what matters—even when it’s hard." },
+              { title: "Name Away Moves", desc: "Identify behaviors that provide short-term relief but move away from values." },
             ].map((step, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 flex gap-6 items-center shadow-sm border border-slate-100">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl flex-shrink-0">{i+1}</div>
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900">{step.title}</h3>
-                  <p className="text-slate-600">{step.desc}</p>
-                </div>
+              <div key={i} className="bg-white border border-slate-200 rounded-xl p-5">
+                <div className="text-xs uppercase tracking-wide text-emerald-600 font-bold mb-2">Step {i + 1}</div>
+                <h3 className="font-semibold text-slate-900 mb-2">{step.title}</h3>
+                <p className="text-sm text-slate-600">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -182,88 +240,45 @@ export default function ACTMatrixPage() {
       </section>
 
       {/* Examples */}
-      <section id="examples" className="py-24 scroll-mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Real School Examples</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
-              <h3 className="text-2xl font-bold mb-4">The "Math Struggle"</h3>
-              <p className="text-slate-600 mb-6 font-medium">Value: Learning & Growing</p>
-              <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="bg-red-50 p-4 rounded-xl"><strong>Away:</strong> Skipping class, distracting others.</div>
-                <div className="bg-emerald-50 p-4 rounded-xl"><strong>Toward:</strong> Asking for help, practicing problems.</div>
+      <section className="py-10 bg-slate-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Quick Examples</h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl p-5 border border-slate-200">
+              <h3 className="font-semibold text-slate-900 mb-2">Math Struggle</h3>
+              <p className="text-sm text-slate-600 mb-3">Value: Learning & growth</p>
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="bg-red-50 p-3 rounded-lg"><strong>Away:</strong> Skipping class, distracting peers.</div>
+                <div className="bg-emerald-50 p-3 rounded-lg"><strong>Toward:</strong> Asking for help, practicing problems.</div>
               </div>
             </div>
-            <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
-              <h3 className="text-2xl font-bold mb-4">Social Anxiety</h3>
-              <p className="text-slate-600 mb-6 font-medium">Value: Friendship & Connection</p>
-              <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="bg-red-50 p-4 rounded-xl"><strong>Away:</strong> Eating lunch alone, staying quiet.</div>
-                <div className="bg-emerald-50 p-4 rounded-xl"><strong>Toward:</strong> Joining a group, offering help.</div>
+            <div className="bg-white rounded-xl p-5 border border-slate-200">
+              <h3 className="font-semibold text-slate-900 mb-2">Social Anxiety</h3>
+              <p className="text-sm text-slate-600 mb-3">Value: Friendship & connection</p>
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="bg-red-50 p-3 rounded-lg"><strong>Away:</strong> Eating alone, staying quiet.</div>
+                <div className="bg-emerald-50 p-3 rounded-lg"><strong>Toward:</strong> Joining a group, offering help.</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-slate-600">Common questions about using the ACT Matrix in schools</p>
-          </div>
-          
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-              <h3 className="text-lg font-bold text-slate-900 mb-3">What is the ACT Matrix?</h3>
-              <p className="text-slate-600">
-                The ACT Matrix is a visual framework from Acceptance and Commitment Therapy that helps students identify their values and distinguish between values-aligned actions and avoidance behaviors.
-              </p>
-            </div>
-            
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-              <h3 className="text-lg font-bold text-slate-900 mb-3">Who can use this tool?</h3>
-              <p className="text-slate-600">
-                School counselors, BCBAs, special educators, social workers, and school psychologists working with students on goal setting, behavior change, and values exploration.
-              </p>
-            </div>
-            
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-              <h3 className="text-lg font-bold text-slate-900 mb-3">How do I introduce the Matrix to students?</h3>
-              <p className="text-slate-600">
-                Start with identifying a value that matters to them, then help them notice when their actions move toward or away from that value. Use simple examples from their daily life at school.
-              </p>
-            </div>
-            
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-              <h3 className="text-lg font-bold text-slate-900 mb-3">Is the download free?</h3>
-              <p className="text-slate-600">
-                Yes. The ACT Matrix guide, worksheets, and implementation materials are completely free for educators. No registration required.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section id="download" className="py-24 bg-slate-900 text-white scroll-mt-24 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
-        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-bold mb-8">Download the Resource Pack</h2>
-          <p className="text-xl text-slate-300 mb-12 leading-relaxed">
-            Get instant access to printable worksheets, implementation guides, and real school examples.
-          </p>
+      {/* Compact CTA */}
+      <section className="py-10">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-3">Download the Resource Pack</h2>
+          <p className="text-slate-600 mb-6">Printable worksheets, implementation tips, and ready-to-use examples.</p>
           <SimpleDownloadButton 
             resource="act-matrix"
             fileName="ACT-Matrix-for-Schools-Guide.pdf"
             title="ACT Matrix Resource Pack"
             buttonText="Download Free PDF"
-            className="bg-emerald-600 text-white hover:bg-emerald-700 h-16 text-xl font-bold rounded-2xl px-10 shadow-2xl w-full max-w-md mx-auto"
+            className="bg-emerald-600 text-white hover:bg-emerald-700 h-12 text-base font-bold rounded-xl px-8"
           />
+          <p className="text-center text-xs text-slate-500 mt-4">
+            Free tool from <a href="/" className="text-emerald-700 font-medium">BehaviorSchool</a> · No login required
+          </p>
         </div>
       </section>
     </div>

@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase-client";
 import { 
   ArrowLeft, ArrowRight, Play, Pause, RotateCcw, Plus, Trash2, 
   BarChart3, Target, Clock, AlertTriangle, CheckCircle, User,
-  Brain, Heart, Zap, Shield, FileText, Download, LogIn, Users,
+  Brain, Heart, Zap, Shield, FileText, Download, Users,
   ClipboardList, Sparkles, Loader2
 } from "lucide-react";
-import { FcGoogle } from "react-icons/fc";
 
 // Types
 interface QuestionnaireAnswers {
@@ -126,10 +124,8 @@ const CONTEXT_OPTIONS = [
 ];
 
 export default function FusionFAWorkflow() {
-  // Auth state
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading] = useState(false);
+  const isAuthenticated = true; // Public page — no auth gate
   
   // Workflow state
   const [step, setStep] = useState<Step>("cpfq");
@@ -183,44 +179,6 @@ export default function FusionFAWorkflow() {
   const [timerStates, setTimerStates] = useState<Record<string, { accumulated: number; isRunning: boolean }>>({});
   const [activeTimer, setActiveTimer] = useState<{ statementId: string; condition: "validating" | "challenging" } | null>(null);
   const [timerInterval, setTimerIntervalState] = useState<NodeJS.Timeout | null>(null);
-
-  // Check auth on mount
-  useEffect(() => {
-    const supabase = createClient();
-    
-    const checkAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setIsAuthenticated(!!session);
-        setUserEmail(session?.user?.email || null);
-      } catch (error) {
-        console.error("Auth check failed:", error);
-        setIsAuthenticated(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkAuth();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setIsAuthenticated(!!session);
-      setUserEmail(session?.user?.email || null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const handleLogin = async () => {
-    const supabase = createClient();
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/calaba-2026/assessment-tools/fusion-fa`,
-      },
-    });
-  };
 
   // Toggle selection helpers
   const toggleSelection = (field: keyof QuestionnaireAnswers, value: string) => {
@@ -1026,7 +984,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
         <div className="max-w-md w-full">
           <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8">
             <div className="text-center mb-6">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4">
+              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-cyan-500 to-[#1f4d3f] rounded-2xl flex items-center justify-center mb-4">
                 <Brain className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-2xl font-bold text-white mb-2">Fusion Hierarchy Assessment</h1>
@@ -1071,19 +1029,13 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
             <ArrowLeft className="w-4 h-4" /> Back to CalABA 2026
           </Link>
           
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-cyan-300">
-                Fusion Hierarchy Assessment
-              </h1>
-              <p className="text-slate-300 text-sm">
-                Complete ACT-informed functional assessment with latency-based analysis
-              </p>
-            </div>
-            <div className="text-right text-sm text-slate-400">
-              <div>Signed in as</div>
-              <div className="text-cyan-400">{userEmail}</div>
-            </div>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-cyan-300">
+              Fusion Hierarchy Assessment
+            </h1>
+            <p className="text-slate-300 text-sm">
+              Complete ACT-informed functional assessment with latency-based analysis
+            </p>
           </div>
         </div>
       </section>
@@ -1180,7 +1132,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
             {/* CPFQ */}
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                <Users className="w-5 h-5 text-purple-400" /> CPFQ - Comprehensive Psychological Flexibility Questionnaire
+                <Users className="w-5 h-5 text-green-400" /> CPFQ - Comprehensive Psychological Flexibility Questionnaire
               </h3>
               <p className="text-slate-400 text-sm mb-4">
                 Parent/Caregiver report on student's psychological flexibility
@@ -1243,7 +1195,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                                 }))}
                                 className={`w-10 h-10 rounded-lg font-bold transition-all ${
                                   parentCpfq.responses[q.id] === val
-                                    ? "bg-purple-600 text-white"
+                                    ? "bg-[#1f4d3f] text-white"
                                     : "bg-slate-700 text-slate-400 hover:bg-slate-600"
                                 }`}
                               >
@@ -1434,18 +1386,18 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
             </div>
 
             {/* Avoidance Behaviors */}
-            <div className="bg-slate-800 border border-purple-500/30 rounded-xl p-6">
+            <div className="bg-slate-800 border border-[#1f4d3f]/30 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-                <Shield className="w-5 h-5 text-purple-400" /> Avoidance Behaviors
+                <Shield className="w-5 h-5 text-green-400" /> Avoidance Behaviors
               </h3>
               <p className="text-slate-400 text-sm mb-4">"When those difficult thoughts and feelings show up, what do you usually do?"</p>
               
               {answers.avoidanceBehaviors.length > 0 && (
                 <div className="mb-4 space-y-2">
                   {answers.avoidanceBehaviors.map((behavior, idx) => (
-                    <div key={idx} className="flex items-center justify-between bg-purple-500/20 border border-purple-500/30 rounded-lg px-4 py-2">
-                      <span className="text-purple-200">{behavior}</span>
-                      <button onClick={() => setAnswers({ ...answers, avoidanceBehaviors: answers.avoidanceBehaviors.filter((_, i) => i !== idx) })} className="text-purple-400 hover:text-purple-300">
+                    <div key={idx} className="flex items-center justify-between bg-[#1f4d3f]/20 border border-[#1f4d3f]/30 rounded-lg px-4 py-2">
+                      <span className="text-green-200">{behavior}</span>
+                      <button onClick={() => setAnswers({ ...answers, avoidanceBehaviors: answers.avoidanceBehaviors.filter((_, i) => i !== idx) })} className="text-green-400 hover:text-green-300">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -1474,7 +1426,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                       setCustomAvoidance("");
                     }
                   }}
-                  className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg"
+                  className="bg-[#1f4d3f] hover:bg-[#1f4d3f] text-white px-4 py-2 rounded-lg"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -1523,11 +1475,11 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                   </div>
                 </div>
 
-                <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4">
-                  <h4 className="text-purple-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Away</h4>
+                <div className="bg-[#1f4d3f]/10 border border-[#1f4d3f]/30 rounded-xl p-4">
+                  <h4 className="text-green-400 font-bold text-sm uppercase tracking-wide mb-1">Outer + Away</h4>
                   <p className="text-slate-400 text-xs mb-3">Avoidance behaviors</p>
                   <div className="space-y-1">
-                    {answers.avoidanceBehaviors.map(b => <div key={b} className="text-purple-200 text-sm">• {b}</div>)}
+                    {answers.avoidanceBehaviors.map(b => <div key={b} className="text-green-200 text-sm">• {b}</div>)}
                     {answers.avoidanceBehaviors.length === 0 && <p className="text-slate-500 text-sm italic">No behaviors recorded</p>}
                   </div>
                 </div>
@@ -1839,7 +1791,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                 </h3>
                 <button
                   onClick={generateAllScripts}
-                  className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2"
+                  className="bg-[#1f4d3f] hover:bg-[#1f4d3f] text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2"
                 >
                   <Sparkles className="w-4 h-4" /> Generate All Scripts (AI)
                 </button>
@@ -1875,7 +1827,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                       <button
                         onClick={() => generateAIScripts(statement.id)}
                         disabled={statement.scriptsLoading}
-                        className="text-purple-400 hover:text-purple-300 text-xs flex items-center gap-1 disabled:opacity-50"
+                        className="text-green-400 hover:text-green-300 text-xs flex items-center gap-1 disabled:opacity-50"
                       >
                         {statement.scriptsLoading ? (
                           <><Loader2 className="w-3 h-3 animate-spin" /> Generating...</>
@@ -1890,9 +1842,9 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                     {/* Relation type and explanation */}
                     <div className="bg-slate-900/50 rounded-lg p-3 mt-2">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded uppercase font-semibold">{relationType}</span>
+                        <span className="text-xs bg-[#1f4d3f]/20 text-green-400 px-2 py-0.5 rounded uppercase font-semibold">{relationType}</span>
                         {statement.scriptsGenerated && (
-                          <span className="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded flex items-center gap-1">
+                          <span className="text-[10px] bg-[#1f4d3f]/20 text-green-400 px-2 py-0.5 rounded flex items-center gap-1">
                             <Sparkles className="w-3 h-3" /> AI Generated
                           </span>
                         )}
@@ -2049,8 +2001,8 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                   {getAfqyInterpretation(getAfqyScore()).level.split(' ').slice(-1)}
                 </div>
               </div>
-              <div className="bg-slate-800 border border-purple-500/30 rounded-xl p-4 text-center">
-                <div className="text-xs text-purple-400 uppercase tracking-wide mb-1">Parent CPFQ</div>
+              <div className="bg-slate-800 border border-[#1f4d3f]/30 rounded-xl p-4 text-center">
+                <div className="text-xs text-green-400 uppercase tracking-wide mb-1">Parent CPFQ</div>
                 <div className="text-2xl font-bold text-white">{getParentCpfqScore() ?? "—"}/32</div>
                 <div className="text-sm text-slate-400">Parent report</div>
               </div>
@@ -2169,7 +2121,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
 
                 {/* Session Focus */}
                 <div className="bg-slate-900/50 rounded-lg p-4">
-                  <h5 className="text-purple-300 font-medium mb-2">Session Focus Recommendation</h5>
+                  <h5 className="text-green-300 font-medium mb-2">Session Focus Recommendation</h5>
                   <p className="text-sm text-slate-300">
                     {getResults().filter(r => getFusionLevel(r.delta).priority).length > 0 
                       ? `Prioritize defusion work for ${getResults().filter(r => getFusionLevel(r.delta).priority).length} high-fusion statement(s). Target ratio: 5 min validation / 15 min defusion.`
@@ -2282,8 +2234,8 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                     <div className="text-cyan-300 font-bold">10-25 min</div>
                     <div className="text-slate-400">Defusion</div>
                   </div>
-                  <div className="bg-purple-900/30 rounded p-2 text-center">
-                    <div className="text-purple-300 font-bold">25-30 min</div>
+                  <div className="bg-[#0a1f14]/30 rounded p-2 text-center">
+                    <div className="text-green-300 font-bold">25-30 min</div>
                     <div className="text-slate-400">Values/Action</div>
                   </div>
                 </div>

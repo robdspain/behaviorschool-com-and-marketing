@@ -54,14 +54,6 @@ export async function POST(req: NextRequest) {
   <p style="margin:0; font-size:13px; color:#555; font-family:sans-serif;">Confidence: <strong>${result?.confidence ?? "?"}%</strong></p>
 </div>
 
-<h3 style="font-family:sans-serif; color:#1a4731; margin-top:32px;">Next Step: ACT-Informed FBA</h3>
-<p>This analysis identifies the function. To build a complete, values-aligned BIP, use the ACT-Informed FBA Generator — free, no account required.</p>
-<p>
-  <a href="https://behaviorschool.com/act-fba-bip" style="display:inline-block; background:#1a4731; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
-    Try the ACT-FBA Tool →
-  </a>
-</p>
-
 <h3 style="font-family:sans-serif; color:#1a4731; margin-top:32px;">The School BCBA Transformation Program</h3>
 <p>Want to implement this systematically with your whole team? I'm running a 6-week cohort for school-based BCBAs starting March 26.</p>
 <ul style="color:#555; font-size:15px;">
@@ -82,7 +74,7 @@ export async function POST(req: NextRequest) {
   BehaviorSchool<br>
   <a href="https://behaviorschool.com" style="color:#888;">behaviorschool.com</a>
 </p>
-<p style="font-size:12px; color:#aaa;">You're receiving this because you used the ABC Function Finder at BehaviorSchool. <a href="#" style="color:#aaa;">Unsubscribe</a></p>
+<p style="font-size:12px; color:#aaa;">You're receiving this because you used the ABC Function Finder at BehaviorSchool. <a href="mailto:support@behaviorschool.com?subject=Unsubscribe" style="color:#aaa;">Unsubscribe</a></p>
 
 </body>
 </html>

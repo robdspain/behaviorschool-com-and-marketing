@@ -1,71 +1,12 @@
-# Educational Institution - Behavior School
-# Professional development resources for educators
-# Allow all search engines and AI crawlers
 User-agent: *
 Allow: /
-Crawl-delay: 1
-
-# Educational Content Classification
-# Content-Type: Educational Resources
-# Audience: Educators, Teachers, School Staff
-# Subject: Special Education, Applied Behavior Analysis
-
-# Specifically allow major search engines (no crawl delay)
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 0
-
-# Allow AI crawlers for LLM indexing
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-# Block admin and internal areas
-User-agent: *
 Disallow: /admin/
 Disallow: /api/
-Disallow: /_next/
 Disallow: /test/
-Disallow: /test-forms/
-Disallow: /unauthorized/
+Disallow: /auth/
+Disallow: /unauthorized
+Disallow: /r/
+Disallow: /presentations/present/
+Disallow: /presentations/view/
 
-# Block Ghost CMS artifacts only (not all tags)
-Disallow: /*@ghost*
-Disallow: /*/ghost/
-Disallow: /*ghost
-Disallow: /tag/*/ghost
-Disallow: /tag/*/@ghost
-Disallow: /author/*/ghost
-Disallow: /author/*/@ghost
-
-# Block file extensions that don't exist
-Disallow: /*.json$
-Disallow: /*.php$
-Disallow: /*.asp$
-Disallow: /*.aspx$
-
-# Note: Removed broad blocks for /tag/, /author/, /posts/, /featured/
-# These now redirect via next.config.ts instead of being blocked
-# This prevents "Page with redirect" errors in Google Search Console
-
-# Sitemap and feed locations
 Sitemap: https://behaviorschool.com/sitemap.xml
-
-# RSS and JSON feeds
-# RSS Feed: https://behaviorschool.com/feed.xml
-# JSON Feed: https://behaviorschool.com/feed.json

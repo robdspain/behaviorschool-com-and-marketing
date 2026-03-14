@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 // Cache sitemap for 1 hour to reduce server load from crawler requests
-export const revalidate = 3600
+export const dynamic = "force-static"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://behaviorschool.com'
@@ -62,7 +62,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let includeSitemap = new Set<string>()
   let deleted = new Set<string>()
   try {
-    const res = await fetch(`${siteOrigin}/api/admin/indexing`, { cache: 'no-store' })
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 2000)
+    const res = await fetch(`${siteOrigin}/api/admin/indexing`, { cache: 'no-store', signal: controller.signal })
+    clearTimeout(timeout)
     const json = await res.json().catch(() => ({ items: [] }))
     const nset = new Set<string>()
     const iset = new Set<string>()

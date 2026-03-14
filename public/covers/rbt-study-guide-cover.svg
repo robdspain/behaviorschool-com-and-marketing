@@ -1,0 +1,9 @@
+<svg width="800" height="1120" viewBox="0 0 800 1120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1120" fill="#123628"/>
+  <rect x="60" y="60" width="680" height="1000" fill="#1f4d3f" stroke="#e4b63d" stroke-width="6"/>
+  <text x="100" y="180" fill="#e4b63d" font-family="Helvetica, Arial, sans-serif" font-size="44" font-weight="700">Behavior School</text>
+  <text x="100" y="300" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="800">RBT Exam</text>
+  <text x="100" y="380" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="800">Study Guide</text>
+  <text x="100" y="470" fill="#e4b63d" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="600">Free Study Plan · 4 Weeks</text>
+  <text x="100" y="950" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="22">behavior.school</text>
+</svg>

@@ -53,13 +53,16 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
                   transition={{ duration: 0.2 }}
                 />
               </motion.button>
+              {/* Invisible bridge fills the gap between button and dropdown so mouseLeave doesn't fire */}
+              <div className="absolute left-0 top-full w-full h-2" />
               <AnimatePresence>
                 {openKey === key && section.children && (
                   <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    className="absolute left-0 top-full pt-2 w-56"
+                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
                   >
                     <Dropdown links={section.children} />
                   </motion.div>

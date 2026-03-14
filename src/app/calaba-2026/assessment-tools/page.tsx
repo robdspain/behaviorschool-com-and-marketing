@@ -40,8 +40,8 @@ export default function CalABAAssessmentToolsPage() {
             className="group bg-slate-800 border-2 border-slate-600 hover:border-cyan-500 rounded-2xl p-6 transition-all"
           >
             <div className="flex items-start gap-4">
-              <div className="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Brain className="w-7 h-7 text-purple-400" />
+              <div className="w-14 h-14 bg-[#1f4d3f]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Brain className="w-7 h-7 text-green-400" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 mb-2">
@@ -52,8 +52,8 @@ export default function CalABAAssessmentToolsPage() {
                   Identifies the relationship between private events and observable behavior.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded">Inner vs Outer</span>
-                  <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded">Toward vs Away</span>
+                  <span className="text-xs bg-[#1f4d3f]/20 text-green-300 px-2 py-1 rounded">Inner vs Outer</span>
+                  <span className="text-xs bg-[#1f4d3f]/20 text-green-300 px-2 py-1 rounded">Toward vs Away</span>
                 </div>
                 <span className="text-cyan-400 text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                   Try the Matrix <ArrowRight className="w-4 h-4" />

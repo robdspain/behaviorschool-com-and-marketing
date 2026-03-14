@@ -89,15 +89,7 @@ export function ScrollNav({ items, className }: ScrollNavProps) {
                 </li>
               ))}
             </ul>
-            <div className="hidden sm:block ml-4 flex-shrink-0">
-               <a 
-                 href="#enroll" 
-                 onClick={(e) => scrollToSection(e, 'enroll')}
-                 className="text-xs font-bold text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-full transition-colors whitespace-nowrap"
-               >
-                 Save $500 Today
-               </a>
-            </div>
+
           </nav>
           <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none sm:hidden" />
         </div>

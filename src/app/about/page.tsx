@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import AboutContent from "./AboutContent";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 // Person structured data for Rob Spain
 const robSpainPersonSchema = {
@@ -148,13 +147,6 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(robSpainPersonSchema) }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
-        <Breadcrumbs
-          items={[
-            { label: "About" }
-          ]}
-        />
-      </div>
       <AboutContent />
     </div>
   );

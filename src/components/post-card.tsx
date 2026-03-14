@@ -60,9 +60,10 @@ export interface PostCardProps extends React.HTMLAttributes<HTMLDivElement> {
   post: Post;
   hrefBase?: string;
   useExternalUrl?: boolean;
+  hideImage?: boolean;
 }
 
-export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl = false, ...props }: PostCardProps) {
+export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl = false, hideImage = false, ...props }: PostCardProps) {
   const [isAuthed, setIsAuthed] = useState(false);
   useEffect(() => {
     const run = async () => {
@@ -103,7 +104,7 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
 
   return (
     <Card className={cn("group overflow-hidden h-full flex flex-col", className)} {...props}>
-      {imageSrc ? (
+      {!hideImage && imageSrc ? (
         <div className="w-full bg-slate-50 h-48 sm:h-56 lg:h-64 flex items-center justify-center overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

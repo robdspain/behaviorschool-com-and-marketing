@@ -26,7 +26,7 @@ export default function WaitlistPage() {
         </h1>
 
         <p className="text-lg text-gray-600 mb-8">
-          AI-powered FBA-to-BIP, IEP Goal Generator, Goal Bank, and ACT tools
+          AI-powered FBA-to-BIP, IEP Goal Generator, Goal Bank, and ACT-informed FBA → BIP
           — built by school BCBAs, for school BCBAs. Join the waitlist to get
           early access and founding member pricing.
         </p>

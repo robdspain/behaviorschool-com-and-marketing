@@ -5,59 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Daily Check Card</title>
     <meta name="robots" content="noindex,nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; }
-      html, body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; color:var(--ink); }
-      .wrap { max-width: 700px; margin: 2rem auto; padding: 1.25rem; }
-      h1 { font-size: 1.5rem; margin: 0 0 0.5rem; }
-      .card { border:1px solid var(--line); border-radius: 10px; padding: 1rem; margin: 1rem 0; }
-      label { display:block; font-weight: 600; margin: 0.25rem 0; }
-      input, textarea { width: 100%; border:1px solid var(--line); border-radius:8px; padding: 0.5rem; font-size: 1rem; }
-      .row { margin: 0.5rem 0; }
-      .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-      .check { display:flex; gap:0.5rem; align-items:center; }
-      .boxes { display:flex; gap:0.5rem; }
-      .box { width: 18px; height: 18px; border: 1px solid var(--line); border-radius: 3px; }
-      @media print { .noprint { display:none; } body { margin: 0.5in; } .card { break-inside: avoid; } }
+      :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --accent:#1f4d3f; --accent-soft:#ecf4f1; --bg:#f8fafc; }
+      * { box-sizing: border-box; }
+      html, body { margin:0; padding:0; }
+      body { font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: var(--bg); }
+      .wrap { max-width: 920px; margin: 28px auto; padding: 0 18px 32px; }
+      .hero { display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; align-items:end; background:white; border:1px solid var(--line); border-radius:16px; padding:18px 20px; }
+      h1 { font-family: "Fraunces", serif; font-size:28px; margin:0 0 6px; }
+      .sub { color:var(--muted); font-size:14px; margin:0; }
+      .meta { display:flex; gap:10px; flex-wrap:wrap; font-size:12px; color:var(--muted); }
+      .meta span { background: var(--accent-soft); color: var(--accent); padding: 4px 8px; border-radius:999px; font-weight:600; }
+      .grid { display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-top:14px; }
+      .card { background:white; border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+      .section-title { font-size:13px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--accent); margin:0 0 10px; }
+      label { display:block; font-weight:600; font-size:13px; margin-bottom:6px; }
+      input[type="text"], textarea { width:100%; border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:14px; background:white; }
+      textarea { resize: vertical; min-height: 90px; }
+      .row { margin-bottom: 12px; }
+      .hint { color:var(--muted); font-size:12px; margin-top:6px; }
+      .two-col { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+      .btn { appearance:none; border:0; background:var(--accent); color:white; font-weight:700; padding:10px 16px; border-radius:10px; cursor:pointer; }
+      .footer { margin-top:18px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; display:flex; flex-wrap:wrap; gap:12px 18px; }
+      .footer a { color: var(--accent); text-decoration:none; font-weight:600; }
+      @media (max-width: 860px){ .hero{grid-template-columns:1fr;} .grid, .two-col{grid-template-columns:1fr;} }
+      @media print { body{background:white;} .noprint{display:none!important;} .wrap{margin:0.5in; padding:0;} .card{break-inside:avoid;} }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <h1>Daily Check Card</h1>
-      <div class="card">
-        <div class="row">
-          <label>Toward move for today</label>
-          <input type="text" placeholder="e.g., Raise help card within 30s when stuck" />
+      <div class="hero">
+        <div>
+          <h1>Daily Check‑In Card</h1>
+          <p class="sub">Quick daily snapshot to track toward moves, barriers, and support.</p>
         </div>
-        <div class="row">
-          <label>Times I did it</label>
-          <div class="boxes" aria-label="opportunities">
-            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
-            <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
-          </div>
-        </div>
-        <div class="row grid">
-          <div class="check"><input type="checkbox" /> Prompt used?</div>
-          <div class="check"><input type="checkbox" /> Value match?</div>
-        </div>
-        <div class="row">
-          <label>Notes</label>
-          <textarea rows="3" placeholder="Barriers, wins, plan for tomorrow…"></textarea>
+        <div class="meta">
+          <span>Daily routine</span>
+          <span>Student‑friendly</span>
+          <span>Print‑ready</span>
         </div>
       </div>
-      <button class="noprint" onclick="window.print()">Print</button>
-      
-      <nav class="noprint" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line);">
-        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem;">More resources from Behavior School:</p>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem;">
-          <li><a href="https://behaviorschool.com" style="color: #059669; text-decoration: none;">Home</a></li>
-          <li><a href="https://behaviorschool.com/products" style="color: #059669; text-decoration: none;">Tools & Products</a></li>
-          <li><a href="https://behaviorschool.com/behavior-plans" style="color: #059669; text-decoration: none;">Behavior Plans</a></li>
-          <li><a href="https://behaviorschool.com/act-matrix" style="color: #059669; text-decoration: none;">ACT Matrix</a></li>
-          <li><a href="https://behaviorschool.com/blog" style="color: #059669; text-decoration: none;">Blog</a></li>
-          <li><a href="https://behaviorschool.com/templates" style="color: #059669; text-decoration: none;">All Templates</a></li>
-        </ul>
-      </nav>
+
+      <div class="grid">
+        <div class="card">
+          <p class="section-title">Student</p>
+          <div class="row two-col">
+            <div><label>Name</label><input type="text" placeholder="Student" /></div>
+            <div><label>Date</label><input type="text" placeholder="MM/DD/YYYY" /></div>
+          </div>
+          <div class="row">
+            <label>Today I want to be a student who…</label>
+            <input type="text" placeholder="e.g., tries even when it’s hard" />
+          </div>
+        </div>
+        <div class="card">
+          <p class="section-title">Toward Moves</p>
+          <div class="row">
+            <label>One toward move I can do today</label>
+            <input type="text" placeholder="e.g., ask for help instead of shutting down" />
+          </div>
+          <div class="row">
+            <label>When I did it today</label>
+            <textarea placeholder="What situation did you use the toward move in?"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <p class="section-title">Barriers</p>
+          <div class="row">
+            <label>What got in the way?</label>
+            <textarea placeholder="Thoughts, feelings, or situations that made it hard."></textarea>
+          </div>
+        </div>
+        <div class="card">
+          <p class="section-title">Support</p>
+          <div class="row">
+            <label>What helped today?</label>
+            <textarea placeholder="Prompt, break, visual cue, check‑in, etc."></textarea>
+          </div>
+          <div class="row">
+            <label>Next time I need…</label>
+            <input type="text" placeholder="One thing that would help." />
+          </div>
+        </div>
+      </div>
+
+      <div class="noprint" style="margin-top: 14px; display:flex; gap:10px; align-items:center;">
+        <button class="btn" onclick="window.print()">Print</button>
+        <span class="hint">Use for daily check‑ins or data discussions.</span>
+      </div>
+
+      <div class="footer noprint">
+        <span>More resources:</span>
+        <a href="https://behaviorschool.com">Home</a>
+        <a href="https://behaviorschool.com/act-matrix">ACT Matrix Demo</a>
+        <a href="https://behaviorschool.com/iep-goal-writer">IEP Goal Writer</a>
+        <a href="https://behaviorschool.com/templates">All Templates</a>
+      </div>
     </div>
   </body>
 </html>

@@ -3,9 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView, type Variants } from "framer-motion";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ScrollNav } from "@/components/ui/scroll-nav";
 import {
@@ -16,7 +14,6 @@ import {
   GraduationCap,
   CheckCircle,
   ExternalLink,
-  Sparkles,
   Clock,
   FileCheck,
   Shield,
@@ -30,18 +27,18 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1
+      staggerChildren: 0.07,
+      delayChildren: 0.05
     }
   }
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.2, 0.65, 0.3, 0.9] }
+    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
   }
 };
 
@@ -51,43 +48,92 @@ export default function SupervisorsPage() {
 
   return (
     <div className="min-h-screen bg-bs-background">
-      {/* Sophisticated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-emerald-400/10 to-blue-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 0],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-400/10 to-emerald-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1.1, 1, 1.1],
-            rotate: [0, -180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      </div>
 
-      {/* Breadcrumbs */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
-        <Breadcrumbs
-          items={[
-            { label: "Tools", href: "/products" },
-            { label: "BCBA Supervision" }
-          ]}
-        />
-      </div>
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section ref={heroRef} className="relative overflow-hidden bg-[#f7f3ee] pt-14">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f4d3f12_1px,transparent_1px),linear-gradient(to_bottom,#1f4d3f12_1px,transparent_1px)] bg-[size:48px_48px]" />
+        </div>
+        {/* Top headline band */}
+        <div className="relative max-w-5xl mx-auto px-6 pt-8 pb-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#1f4d3f]/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#1f4d3f] mb-6">
+              BCBA Supervision
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1f4d3f] mb-5 leading-tight tracking-tight">
+              Stop Tracking Hours<br className="hidden sm:block" /> in Spreadsheets.
+            </h1>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              BACB-compliant supervision tracking built for school-based BCBAs — hours, competencies, verification forms, and supervisee progress in one place.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Role cards — flush to hero bottom */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+          className="relative max-w-5xl mx-auto px-6 pb-0"
+        >
+          <div className="grid sm:grid-cols-2 gap-5">
+            {/* Supervisor card */}
+            <div className="rounded-t-2xl bg-white p-8 flex flex-col gap-5 shadow-xl border border-[#1f4d3f]/10">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-2">I am a Supervisor</p>
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Track your supervisees</h2>
+                <p className="text-sm text-slate-600">
+                  Log hours, monitor competency progress, generate BACB verification forms, and oversee your entire caseload in one place.
+                </p>
+              </div>
+              <ul className="space-y-2 text-sm text-slate-700">
+                {["BACB monthly & final verification forms","Real-time supervisee hour totals","Competency tracking & notes","Digital signature workflow"].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/supervisors/for-supervisors"
+                className="mt-auto inline-flex items-center justify-center rounded-xl bg-[#1E3A34] px-6 py-3 text-sm font-bold text-white hover:bg-emerald-800 transition-colors"
+              >
+                Create supervisor account
+              </Link>
+            </div>
+
+            {/* Supervisee card */}
+            <div className="rounded-t-2xl bg-[#fbfaf8] border border-[#1f4d3f]/10 p-8 flex flex-col gap-5 shadow-xl">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-[#1f4d3f] mb-2">I am a Supervisee</p>
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Log &amp; verify your hours</h2>
+                <p className="text-sm text-slate-600">
+                  Track your BCBA or RBT fieldwork hours, submit for supervisor review, and prepare for your exam — all in one tool.
+                </p>
+              </div>
+              <ul className="space-y-2 text-sm text-slate-700">
+                {["Log restricted & unrestricted hours","BCBA & RBT pathways supported","Downloadable verification forms","Pair with exam prep at study.behaviorschool.com"].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/supervisors/for-supervisees"
+                className="mt-auto inline-flex items-center justify-center rounded-xl border border-[#1f4d3f]/40 px-6 py-3 text-sm font-bold text-[#1f4d3f] hover:bg-[#1f4d3f]/10 transition-colors"
+              >
+                Start tracking my hours
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </section>
 
       <ScrollNav 
         items={[
@@ -97,71 +143,14 @@ export default function SupervisorsPage() {
         ]}
       />
 
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-blue-800" />
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/30 via-transparent to-blue-900/30" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex items-center justify-center gap-3 mb-8"
-          >
-            <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-6 py-3 text-lg font-medium">
-              <Sparkles className="w-5 h-5 mr-2" />
-              Premium BCBA Supervision Platform
-            </Badge>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-none"
-          >
-            Transform Your
-            <span className="block bg-gradient-to-r from-emerald-200 via-white to-emerald-100 bg-clip-text text-transparent">
-              Supervision Practice
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="text-2xl text-emerald-50 max-w-4xl mx-auto mb-12 leading-relaxed font-medium"
-          >
-            Streamline BCBA supervision with digital competency tracking, automated workflows, and BACB-compliant documentation.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12"
-          >
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-white/20 text-white border-white/50 backdrop-blur-md hover:bg-white/30 px-10 py-5 text-xl font-bold rounded-2xl"
-              asChild
-            >
-              <a href="#platform">Join Premium Waitlist</a>
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Platform Section */}
-      <section id="platform" className="py-32 bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/30 relative scroll-mt-24">
+      <section id="platform" className="py-20 bg-gradient-to-br from-white via-slate-50/50 to-emerald-50/30 relative scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
             className="text-center mb-20"
           >
             <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 rounded-full text-lg font-medium mb-8">
@@ -177,10 +166,10 @@ export default function SupervisorsPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.15 }}
             className="bg-white rounded-3xl p-12 md:p-16 shadow-2xl border border-emerald-100/50 backdrop-blur-sm relative"
           >
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -211,7 +200,7 @@ export default function SupervisorsPage() {
 
                 <div className="pt-4">
                   <Link
-                    href="https://study.behaviorschool.com"
+                    href="https://supervision.behaviorschool.com/register"
                     className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-emerald-600 text-white rounded-xl shadow-lg hover:bg-emerald-700 transition-all duration-300"
                   >
                     Try Progress Monitoring Free
@@ -220,27 +209,69 @@ export default function SupervisorsPage() {
                 </div>
               </div>
 
+              {/* Product UI Mockup */}
               <div className="relative">
-                <motion.div
-                  className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <h4 className="text-xl font-bold mb-6">Supervisee Dashboard</h4>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm">
-                      <span className="text-emerald-100 font-medium">Study Streak</span>
-                      <span className="font-bold text-xl">21 days</span>
-                    </div>
-                    <div className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm">
-                      <span className="text-emerald-100 font-medium">Practice Accuracy</span>
-                      <span className="font-bold text-xl">87%</span>
-                    </div>
-                    <div className="flex justify-between items-center p-4 bg-white/15 rounded-xl backdrop-blur-sm">
-                      <span className="text-emerald-100 font-medium">Hours This Week</span>
-                      <span className="font-bold text-xl">15.5h</span>
+                <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-2xl bg-white">
+                  {/* Browser chrome */}
+                  <div className="bg-slate-100 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-400" />
+                    <div className="w-3 h-3 rounded-full bg-amber-400" />
+                    <div className="w-3 h-3 rounded-full bg-green-400" />
+                    <div className="mx-auto bg-white rounded-md px-3 py-1 text-xs text-slate-400 font-mono border border-slate-200">
+                      supervision.behaviorschool.com/dashboard
                     </div>
                   </div>
-                </motion.div>
+                  {/* Dashboard UI */}
+                  <div className="p-5 bg-slate-50 space-y-3">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-1">
+                      <div>
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Supervisor Dashboard</p>
+                        <p className="text-base font-bold text-slate-900">My Supervisees</p>
+                      </div>
+                      <div className="text-xs bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded-full">3 Active</div>
+                    </div>
+                    {/* Supervisee rows */}
+                    {[
+                      { name: "Sarah M.", pathway: "BCBA", hours: 1420, required: 2000, accuracy: 84, status: "On Track" },
+                      { name: "Jordan T.", pathway: "RBT", hours: 380, required: 500, accuracy: 71, status: "Needs Attention" },
+                      { name: "Alex R.", pathway: "BCBA", hours: 1890, required: 2000, accuracy: 91, status: "Exam Ready" },
+                    ].map((s) => {
+                      const pct = Math.round((s.hours / s.required) * 100);
+                      const statusColor = s.status === "Exam Ready" ? "text-emerald-700 bg-emerald-50" : s.status === "On Track" ? "text-blue-700 bg-blue-50" : "text-amber-700 bg-amber-50";
+                      return (
+                        <div key={s.name} className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-8 h-8 rounded-full bg-[#1E3A34] text-white flex items-center justify-center text-xs font-bold">
+                                {s.name.charAt(0)}
+                              </div>
+                              <div>
+                                <p className="text-sm font-semibold text-slate-900">{s.name}</p>
+                                <p className="text-xs text-slate-400">{s.pathway} Candidate</p>
+                              </div>
+                            </div>
+                            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${statusColor}`}>{s.status}</span>
+                          </div>
+                          <div className="space-y-1.5">
+                            <div className="flex justify-between text-xs text-slate-500">
+                              <span>Fieldwork Hours</span>
+                              <span className="font-semibold text-slate-700">{s.hours} / {s.required}h</span>
+                            </div>
+                            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                              <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${pct}%` }} />
+                            </div>
+                            <div className="flex justify-between text-xs text-slate-400">
+                              <span>Study Accuracy</span>
+                              <span className={s.accuracy >= 85 ? "text-emerald-600 font-semibold" : "text-amber-600 font-semibold"}>{s.accuracy}%</span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <p className="text-xs text-slate-400 text-center mt-3">Actual supervisor dashboard — supervision.behaviorschool.com</p>
               </div>
             </div>
           </motion.div>
@@ -248,13 +279,13 @@ export default function SupervisorsPage() {
       </section>
 
       {/* Premium Features */}
-      <section id="features" className="py-32 bg-slate-900 relative overflow-hidden scroll-mt-24">
+      <section id="features" className="py-20 bg-slate-900 relative overflow-hidden scroll-mt-24">
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
             className="text-center mb-20"
           >
             <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 text-emerald-300 rounded-full text-lg font-medium mb-8 backdrop-blur-sm border border-emerald-500/30">
@@ -274,7 +305,7 @@ export default function SupervisorsPage() {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.1 }}
           >
             {[
               {
@@ -316,9 +347,8 @@ export default function SupervisorsPage() {
             ].map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600 rounded-3xl p-8 shadow-2xl hover:shadow-emerald-500/10 transition-all duration-500 group"
+                className="bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600 rounded-3xl p-8 shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300 group"
                 variants={itemVariants}
-                whileHover={{ y: -10 }}
               >
                 <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
                   <feature.icon className="w-8 h-8 text-white" />
@@ -332,7 +362,7 @@ export default function SupervisorsPage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-32 bg-gradient-to-br from-white to-slate-50 scroll-mt-24">
+      <section id="faq" className="py-20 bg-gradient-to-br from-white to-slate-50 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 text-center mb-16">
             Frequently Asked Questions
@@ -345,7 +375,7 @@ export default function SupervisorsPage() {
               },
               {
                 q: "What supervision features are available right now?",
-                a: "Currently, you can monitor supervisee progress through our study platform, including study analytics, practice exam scores, and competency development tracking."
+                a: "Supervisors can track and log RBT/BCBA fieldwork hours, monitor supervisee exam readiness scores, view study accuracy and weak areas pulled live from the study platform, generate BACB-compliant verification forms, and get AI-powered session prep suggestions. Sign in at supervision.behaviorschool.com to get started."
               },
               {
                 q: "Can I import existing hours or competency records?",

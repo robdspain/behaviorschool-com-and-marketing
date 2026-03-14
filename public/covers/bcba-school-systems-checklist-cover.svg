@@ -1,0 +1,11 @@
+<svg width="800" height="1120" viewBox="0 0 800 1120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1120" fill="#f6f2ea"/>
+  <rect x="60" y="60" width="680" height="1000" fill="#1f4d3f" rx="28"/>
+  <rect x="100" y="110" width="600" height="900" fill="#123628" rx="20"/>
+  <text x="120" y="190" fill="#e4b63d" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="700">Behavior School</text>
+  <text x="120" y="300" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="56" font-weight="800">BCBA School</text>
+  <text x="120" y="370" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="56" font-weight="800">Systems Checklist</text>
+  <text x="120" y="470" fill="#e4b63d" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="600">47-point checklist for sustainable</text>
+  <text x="120" y="505" fill="#e4b63d" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="600">school behavior systems</text>
+  <text x="120" y="950" fill="#ffffff" font-family="Helvetica, Arial, sans-serif" font-size="20">behaviorschool.com</text>
+</svg>
