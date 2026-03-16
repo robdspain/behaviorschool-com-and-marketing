@@ -145,7 +145,8 @@
       "tags": [
         "QABF",
         "district",
-        "RBT"
+        "RBT",
+        "calaba-2026"
       ],
       "notes": "Requested access to QABF spreadsheet via Google Sheets on 2026-02-09.",
       "lastContactDate": "2026-02-09T12:00:00Z",
@@ -414,7 +415,7 @@
     },
     {
       "id": "14",
-      "name": "Aglombardi8 Bcba",
+      "name": "Aglombardi Bcba",
       "email": "aglombardi8.bcba@gmail.com",
       "phone": "",
       "company": "",
@@ -426,7 +427,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -498,7 +499,7 @@
     },
     {
       "id": "18",
-      "name": "Alexandriajones",
+      "name": "Alexandria Jones",
       "email": "alexandriajones@clovisusd.k12.ca.us",
       "phone": "",
       "company": "Clovis USD",
@@ -510,7 +511,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list Org: Clovis USD",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -519,7 +520,7 @@
     },
     {
       "id": "19",
-      "name": "Alicia Justine716",
+      "name": "Alicia Justine",
       "email": "alicia.justine716@gmail.com",
       "phone": "",
       "company": "",
@@ -531,7 +532,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -729,7 +730,7 @@
     },
     {
       "id": "29",
-      "name": "Amber Valentino2",
+      "name": "Amber Valentino",
       "email": "amber.valentino2@gmail.com",
       "phone": "",
       "company": "",
@@ -741,7 +742,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -876,7 +877,7 @@
     },
     {
       "id": "36",
-      "name": "Ashillingsburg",
+      "name": "Alice Shillingsburg, PhD, BCBA-D",
       "email": "ashillingsburg@unmc.edu",
       "phone": "",
       "company": "",
@@ -888,7 +889,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:LinkedIn/UNMC]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -1044,7 +1045,7 @@
     },
     {
       "id": "44",
-      "name": "Barb",
+      "name": "Barbara Gross, M.A., M.Ed., BCBA",
       "email": "barb@mobehaviorconsulting.com",
       "phone": "",
       "company": "",
@@ -1056,7 +1057,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:LinkedIn/SECE]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -1212,7 +1213,7 @@
     },
     {
       "id": "52",
-      "name": "Bkraemer",
+      "name": "Bonnie R. Kraemer, Ph.D., BCBA-D",
       "email": "bkraemer@sdsu.edu",
       "phone": "",
       "company": "",
@@ -1224,7 +1225,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:SDSU]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -1590,7 +1591,7 @@
     },
     {
       "id": "70",
-      "name": "Carr",
+      "name": "James Carr, Ph.D., BCBA-D",
       "email": "carr@bacb.com",
       "phone": "",
       "company": "",
@@ -1600,9 +1601,10 @@
       "status": "new",
       "tags": [
         "BAE-SIG",
-        "CalABA"
+        "CalABA",
+        "do-not-email"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:BACB/GuideStar] | BACB CEO - do not send marketing emails.",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -2136,7 +2138,7 @@
     },
     {
       "id": "96",
-      "name": "Ctarbox",
+      "name": "Courtney Tarbox, M.S., BCBA",
       "email": "ctarbox@firststepsforkids.com",
       "phone": "",
       "company": "",
@@ -2148,7 +2150,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:FirstSteps]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -2220,7 +2222,7 @@
     },
     {
       "id": "100",
-      "name": "Daniel",
+      "name": "Daniel Fausto",
       "email": "daniel@snnla.org",
       "phone": "",
       "company": "",
@@ -2232,7 +2234,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:LinkedIn/SNN]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -2388,7 +2390,7 @@
     },
     {
       "id": "108",
-      "name": "Dmendoza",
+      "name": "Daniel Mendoza, M.S., BCBA",
       "email": "dmendoza@calaba.org",
       "phone": "",
       "company": "CalABA",
@@ -2400,7 +2402,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:CalABA/SNN]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -2493,7 +2495,7 @@
     },
     {
       "id": "113",
-      "name": "Drnataliabaires",
+      "name": "Natalia Baires, Ph.D., BCBA-D",
       "email": "drnataliabaires@gmail.com",
       "phone": "",
       "company": "",
@@ -2505,7 +2507,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:SIU/ABA Technologies]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -2640,7 +2642,7 @@
     },
     {
       "id": "120",
-      "name": "Elizabethecheveste",
+      "name": "Elizabeth Echeveste",
       "email": "elizabethecheveste@maderausd.org",
       "phone": "",
       "company": "",
@@ -2652,7 +2654,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list Org: Madera USD",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -3018,7 +3020,7 @@
     },
     {
       "id": "138",
-      "name": "Hello",
+      "name": "Mellanie Page, M.Ed., BCBA",
       "email": "hello@mellaniepage.com",
       "phone": "",
       "company": "",
@@ -3030,7 +3032,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:ABA Collective]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -3081,7 +3083,7 @@
     },
     {
       "id": "141",
-      "name": "Hnorthcross",
+      "name": "Holly Northcross",
       "email": "hnorthcross@fcoe.org",
       "phone": "",
       "company": "",
@@ -3093,7 +3095,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:LinkedIn/FCOE] Org: Fresno County Office of Ed",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -3207,7 +3209,7 @@
     },
     {
       "id": "147",
-      "name": "Hwhite",
+      "name": "Holly White",
       "email": "hwhite@pacific.edu",
       "phone": "",
       "company": "",
@@ -3219,7 +3221,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:UPacific Psychology]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -3753,7 +3755,7 @@
     },
     {
       "id": "173",
-      "name": "Jessica Crider1006",
+      "name": "Jessica Crider",
       "email": "jessica.crider1006@gmail.com",
       "phone": "",
       "company": "",
@@ -3765,7 +3767,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -3858,7 +3860,7 @@
     },
     {
       "id": "178",
-      "name": "Jillian Mcgarry7",
+      "name": "Jillian Mcgarry",
       "email": "jillian.mcgarry7@gmail.com",
       "phone": "",
       "company": "",
@@ -3870,7 +3872,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -4635,7 +4637,7 @@
     },
     {
       "id": "215",
-      "name": "Killeen",
+      "name": "Peter R. Killeen, Ph.D.",
       "email": "killeen@asu.edu",
       "phone": "",
       "company": "",
@@ -4647,7 +4649,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:ASU Psychology]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -4740,7 +4742,7 @@
     },
     {
       "id": "220",
-      "name": "Kristen",
+      "name": "Kristen Carmi, M.A., BCBA",
       "email": "kristen@sbcadvocates.com",
       "phone": "",
       "company": "",
@@ -4752,7 +4754,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:sbcadvocates.com]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -4824,7 +4826,7 @@
     },
     {
       "id": "224",
-      "name": "L Valverde13",
+      "name": "L Valverde",
       "email": "l.valverde13@gmail.com",
       "phone": "",
       "company": "",
@@ -4836,7 +4838,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:cleaned-numbers]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -5118,7 +5120,7 @@
     },
     {
       "id": "238",
-      "name": "Liz",
+      "name": "Liz Herrera Knapp, BCBA",
       "email": "liz@kbcsbehavior.com",
       "phone": "",
       "company": "",
@@ -5130,7 +5132,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:CalABA/BehaviorLive]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -5160,7 +5162,7 @@
     },
     {
       "id": "240",
-      "name": "Lizherreraknapp",
+      "name": "Liz Herrera Knapp, BCBA",
       "email": "lizherreraknapp@gmail.com",
       "phone": "",
       "company": "",
@@ -5172,7 +5174,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:CalABA/BehaviorLive]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6126,7 +6128,7 @@
     },
     {
       "id": "286",
-      "name": "Mrose",
+      "name": "Melissa Rose",
       "email": "mrose@fcoe.org",
       "phone": "",
       "company": "",
@@ -6138,7 +6140,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list Org: Fresno County Office of Ed",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6231,7 +6233,7 @@
     },
     {
       "id": "291",
-      "name": "Mwallac",
+      "name": "Michele D. Wallace, Ph.D., BCBA-D",
       "email": "mwallac@calstatela.edu",
       "phone": "",
       "company": "",
@@ -6243,7 +6245,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:Cal State LA]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6504,7 +6506,7 @@
     },
     {
       "id": "304",
-      "name": "Pjames",
+      "name": "Portia James, M.A., BCBA",
       "email": "pjames@behaviorgenius.com",
       "phone": "",
       "company": "",
@@ -6516,7 +6518,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:Forbes/Voyage LA]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6567,7 +6569,7 @@
     },
     {
       "id": "307",
-      "name": "Raegan Delgado777",
+      "name": "Raegan Delgado",
       "email": "raegan.delgado777@gmail.com",
       "phone": "",
       "company": "",
@@ -6579,7 +6581,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6651,7 +6653,7 @@
     },
     {
       "id": "311",
-      "name": "Rebeca Estrada0313",
+      "name": "Rebeca Estrada",
       "email": "rebeca.estrada0313@gmail.com",
       "phone": "",
       "company": "",
@@ -6663,7 +6665,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6672,7 +6674,7 @@
     },
     {
       "id": "312",
-      "name": "Rebecca Branch112",
+      "name": "Rebecca Branch",
       "email": "rebecca.branch112@gmail.com",
       "phone": "",
       "company": "",
@@ -6684,7 +6686,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6693,7 +6695,7 @@
     },
     {
       "id": "313",
-      "name": "Rebecca Pauly",
+      "name": "Rebecca Pauly, BCBA",
       "email": "rebecca.pauly@babac.org",
       "phone": "",
       "company": "",
@@ -6705,7 +6707,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:Sharecare]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6714,7 +6716,7 @@
     },
     {
       "id": "314",
-      "name": "Rebeccapauly8",
+      "name": "Rebecca Pauly, BCBA",
       "email": "rebeccapauly8@gmail.com",
       "phone": "",
       "company": "",
@@ -6726,7 +6728,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:Sharecare]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6735,7 +6737,7 @@
     },
     {
       "id": "315",
-      "name": "Reginald Ponio",
+      "name": "Reginald Ponio, MA, BCBA",
       "email": "reginald.ponio@babac.org",
       "phone": "",
       "company": "",
@@ -6747,7 +6749,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:LinkedIn/BABAC]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6861,7 +6863,7 @@
     },
     {
       "id": "321",
-      "name": "Robin",
+      "name": "Robin Martinez, M.A., BCBA",
       "email": "robin@radedcollective.com",
       "phone": "",
       "company": "",
@@ -6873,7 +6875,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:radedcollective.com]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6966,7 +6968,7 @@
     },
     {
       "id": "326",
-      "name": "Roxannafimbrez",
+      "name": "Roxanna Fimbrez",
       "email": "roxannafimbrez@clovisusd.k12.ca.us",
       "phone": "",
       "company": "Clovis USD",
@@ -6978,7 +6980,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list Org: Clovis USD",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -6987,7 +6989,7 @@
     },
     {
       "id": "327",
-      "name": "Rpauly",
+      "name": "Rebecca Pauly, BCBA",
       "email": "rpauly@shapingbehavior.com",
       "phone": "",
       "company": "",
@@ -6999,7 +7001,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:Sharecare]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -7008,7 +7010,7 @@
     },
     {
       "id": "328",
-      "name": "Rponio",
+      "name": "Reginald Ponio, MA, BCBA",
       "email": "rponio@pinnacleautism.com",
       "phone": "",
       "company": "",
@@ -7020,7 +7022,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:LinkedIn/Momentum]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -7659,7 +7661,7 @@
     },
     {
       "id": "359",
-      "name": "Stephanie Germain",
+      "name": "Stephanie Germain, BCBA",
       "email": "stephanie.germain@ocsb.ca",
       "phone": "",
       "company": "",
@@ -7671,7 +7673,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:UCLA PEERS/OCSB]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -7827,7 +7829,7 @@
     },
     {
       "id": "367",
-      "name": "Thrive",
+      "name": "Lori Ochoa, Ph.D., BCBA-D",
       "email": "thrive@drloriochoa.com",
       "phone": "",
       "company": "",
@@ -7839,7 +7841,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:drloriochoa.com]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -7953,7 +7955,7 @@
     },
     {
       "id": "373",
-      "name": "Tran Cindy1",
+      "name": "Tran Cindy",
       "email": "tran.cindy1@gmail.com",
       "phone": "",
       "company": "",
@@ -7965,7 +7967,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -7995,7 +7997,7 @@
     },
     {
       "id": "375",
-      "name": "Tyzha H1",
+      "name": "Tyzha H",
       "email": "tyzha.h1@gmail.com",
       "phone": "",
       "company": "",
@@ -8007,7 +8009,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:cleaned-numbers]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -8037,7 +8039,7 @@
     },
     {
       "id": "377",
-      "name": "Valerie Rogers",
+      "name": "Valerie Rogers, Ph.D., BCBA-D",
       "email": "valerie.rogers@abrite.org",
       "phone": "",
       "company": "",
@@ -8049,7 +8051,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:CalABA/ABRITE]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -8100,7 +8102,7 @@
     },
     {
       "id": "380",
-      "name": "Vega Ang28",
+      "name": "Vega Ang",
       "email": "vega.ang28@gmail.com",
       "phone": "",
       "company": "",
@@ -8112,7 +8114,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched-auto:dot-separated]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -8121,7 +8123,7 @@
     },
     {
       "id": "381",
-      "name": "Vibanez",
+      "name": "Vivian Iba\u00f1ez, Ph.D.",
       "email": "vibanez@ufl.edu",
       "phone": "",
       "company": "",
@@ -8133,7 +8135,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:UF Psychology]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -8205,7 +8207,7 @@
     },
     {
       "id": "385",
-      "name": "Vollmera",
+      "name": "Timothy R. Vollmer, Ph.D., BCBA-D",
       "email": "vollmera@ufl.edu",
       "phone": "",
       "company": "",
@@ -8217,7 +8219,7 @@
         "BAE-SIG",
         "CalABA"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "BAE SIG email list [name-enriched:UF BARC]",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
@@ -8946,6 +8948,440 @@
       "updatedAt": "2026-03-16T19:43:30.983407Z",
       "stripeCustomerId": null,
       "revenue": 0
+    },
+    {
+      "id": "manual-torimatteo22_at_gmail_com",
+      "name": "Victoria Matteo",
+      "email": "torimatteo22@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026"
+      ],
+      "notes": "Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:19:39.737625Z"
+    },
+    {
+      "id": "manual-amybri_duque_at_gmail_com",
+      "name": "Amy Duque",
+      "email": "amybri.duque@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026"
+      ],
+      "notes": "Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:19:39.737994Z"
+    },
+    {
+      "id": "manual-basupervisionservices_at_gmail_com",
+      "name": "Angela Auclair",
+      "email": "basupervisionservices@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026",
+        "supervisor"
+      ],
+      "notes": "Behavior Analyst Supervision Services. Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:19:39.738008Z"
+    },
+    {
+      "id": "manual-maryann_valente_at_gmail_com",
+      "name": "Maryann Valente",
+      "email": "maryann.valente@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026"
+      ],
+      "notes": "Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:19:39.738014Z"
+    },
+    {
+      "id": "manual-studentdl25_at_gmail_com",
+      "name": "Diana",
+      "email": "studentdl25@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026"
+      ],
+      "notes": "Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:22:16.266743+00:00"
+    },
+    {
+      "id": "manual-bougiebxanalyst_at_gmail_com",
+      "name": "Stacie Dizzley-Streeter",
+      "email": "bougiebxanalyst@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026"
+      ],
+      "notes": "Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:22:16.266995+00:00"
+    },
+    {
+      "id": "manual-calebwhite0303_at_gmail_com",
+      "name": "Caleb White",
+      "email": "calebwhite0303@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026"
+      ],
+      "notes": "Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:22:16.267002+00:00"
+    },
+    {
+      "id": "manual-marlenreyes08_at_gmail_com",
+      "name": "Marlen Reyes",
+      "email": "marlenreyes08@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026"
+      ],
+      "notes": "Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:22:16.267005+00:00"
+    },
+    {
+      "id": "manual-hlacharite_at_gmail_com",
+      "name": "Heather Lacharite",
+      "email": "hlacharite@gmail.com",
+      "source": "conference",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026"
+      ],
+      "notes": "Added manually by Rob 2026-03-16",
+      "createdAt": "2026-03-16T22:22:16.267009+00:00"
+    },
+    {
+      "id": "manual-lmoreno1_at_srcs_org",
+      "name": "Luis Moreno Garin",
+      "email": "lmoreno1@srcs.org",
+      "source": "organic",
+      "type": "prospect",
+      "tags": [
+        "calaba-2026",
+        "clinic-to-school"
+      ],
+      "notes": "BCBA. New to school setting \u2014 all prior experience from clinic. Signed up Oct 10 2025. High-fit for Transformation Program.",
+      "createdAt": "2026-03-16T22:22:29.352177+00:00"
+    },
+    {
+      "id": "manual-7841dff6c8f7",
+      "name": "Allison DaSilva",
+      "email": "allison.dasilva@fresnounified.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Fresno Unified. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.836984+00:00"
+    },
+    {
+      "id": "manual-1058216f71af",
+      "name": "Angie Bolanos Cascio",
+      "email": "angie.bolanoscascio@wusd.ws",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Washington USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837207+00:00"
+    },
+    {
+      "id": "manual-462683672f71",
+      "name": "Chelsee Bznuni",
+      "email": "chelseebznuni@clovisusd.k12.ca.us",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Clovis USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837215+00:00"
+    },
+    {
+      "id": "manual-e37bda89b5a0",
+      "name": "Dylan Albiani",
+      "email": "dylan.albiani@kesd.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Kings Canyon USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837221+00:00"
+    },
+    {
+      "id": "manual-071dd91d2a94",
+      "name": "Emily Fonseca",
+      "email": "emily_fonseca@sangerusd.net",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Sanger USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837232+00:00"
+    },
+    {
+      "id": "manual-c854bf3cc464",
+      "name": "Geoffrey Browning",
+      "email": "geoffreybrowning@clovisusd.k12.ca.us",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Clovis USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837239+00:00"
+    },
+    {
+      "id": "manual-9666c716973b",
+      "name": "Hannah Wehner",
+      "email": "hannahwehner@maderausd.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Madera USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837249+00:00"
+    },
+    {
+      "id": "manual-14fef60a5a37",
+      "name": "Jamie Barriga",
+      "email": "jamiebarriga@maderausd.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Madera USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837258+00:00"
+    },
+    {
+      "id": "manual-a9067a4b9a19",
+      "name": "Janell Odom",
+      "email": "janell.odom@fresnounified.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Fresno Unified. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837263+00:00"
+    },
+    {
+      "id": "manual-42f7114bedd8",
+      "name": "Jasmine Pelayo",
+      "email": "jasmine.pelayo@fresnounified.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Fresno Unified. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837267+00:00"
+    },
+    {
+      "id": "manual-e8e0632d94ed",
+      "name": "Jasmine Torrecillas",
+      "email": "jasmine.torrecillas@fresnounified.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Fresno Unified. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837272+00:00"
+    },
+    {
+      "id": "manual-e385a7ddbf36",
+      "name": "Jason Stricker",
+      "email": "jason_stricker@sangerusd.net",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Sanger USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837276+00:00"
+    },
+    {
+      "id": "manual-f6418eb95fbd",
+      "name": "Jessica Martinez",
+      "email": "jemartinez@mcsos.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Madera County Schools. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837281+00:00"
+    },
+    {
+      "id": "manual-e67d40e56e83",
+      "name": "Kathy Wandler",
+      "email": "kathywandler@maderausd.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Madera USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837285+00:00"
+    },
+    {
+      "id": "manual-e201e2be75e0",
+      "name": "Krystal Palacios",
+      "email": "krystal.palacios@selmausd.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Selma USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837290+00:00"
+    },
+    {
+      "id": "manual-32e7fc6d6138",
+      "name": "Cristal Lopez",
+      "email": "lopez-cr@kcusd.com",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: KCUSD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837294+00:00"
+    },
+    {
+      "id": "manual-ba723b990070",
+      "name": "Michelle Dove",
+      "email": "michelle.dove@chancelight.com",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: ChanceLight. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837298+00:00"
+    },
+    {
+      "id": "manual-9df0f1aa43ce",
+      "name": "Ashley Moreno",
+      "email": "moreno-as@kcusd.com",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: KCUSD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837303+00:00"
+    },
+    {
+      "id": "manual-d8a15385b7f0",
+      "name": "Nancy Ramirez",
+      "email": "nancy_ramirez@sangerusd.net",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Sanger USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837310+00:00"
+    },
+    {
+      "id": "manual-de68d3a886ae",
+      "name": "Maribel R. Ochoa",
+      "email": "ochoa-ma@kcusd.com",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: KCUSD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837314+00:00"
+    },
+    {
+      "id": "manual-3e48e9a2722f",
+      "name": "Robby Wood",
+      "email": "robby.wood@fresnounified.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Fresno Unified. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837318+00:00"
+    },
+    {
+      "id": "manual-3a24e02ebb12",
+      "name": "Robbyn Wood",
+      "email": "robbyn.wood@fresnounified.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Fresno Unified. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837323+00:00"
+    },
+    {
+      "id": "manual-92d5fa5878a4",
+      "name": "Robert Jost",
+      "email": "robert.jost@fresnounified.org",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Fresno Unified. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837336+00:00"
+    },
+    {
+      "id": "manual-e4a5bcbc3c75",
+      "name": "Sonia Newton",
+      "email": "sonianewton@clovisusd.k12.ca.us",
+      "source": "manual",
+      "type": "prospect",
+      "tags": [
+        "school-bcba",
+        "central-valley"
+      ],
+      "notes": "Org: Clovis USD. School-based BCBA/behavior staff. Added from Rob's contact list.",
+      "createdAt": "2026-03-16T22:43:12.837343+00:00"
     }
   ]
 }
