@@ -7,7 +7,7 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 
-const EARLY_BIRD_DEADLINE = new Date('2026-03-22T00:00:00-07:00');
+const EARLY_BIRD_DEADLINE = new Date('2026-03-21T00:00:00-07:00');
 const isEarlyBird = new Date() < EARLY_BIRD_DEADLINE;
 
 const FULL_PAY_LINK = isEarlyBird
@@ -384,7 +384,7 @@ export default function TransformationProgramPage() {
 
           {isEarlyBird && (
             <p className="text-emerald-300 text-sm font-semibold mb-6">
-              Early bird pricing ends March 21
+              Early bird pricing ends March 20
             </p>
           )}
 
