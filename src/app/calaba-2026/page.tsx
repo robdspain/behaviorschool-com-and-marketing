@@ -295,12 +295,7 @@ export default function CalABA2026Page() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              {
-                Icon: FileText,
-                title: "FBA-to-BIP",
-                description: "Standard FBA to behavior intervention plan generator",
-                href: "/fba-to-bip",
-              },
+
               {
                 Icon: ClipboardList,
                 title: "IEP Goal Writer",

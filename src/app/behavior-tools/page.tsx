@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   FileText,
-  Target,
   Brain,
   ClipboardCheck,
   Sparkles,
@@ -70,20 +69,7 @@ const tools = [
       "Best practice alignment",
     ],
   },
-  {
-    title: "FBA-to-BIP Generator",
-    description:
-      "Transform your Functional Behavior Assessment data into a comprehensive Behavior Intervention Plan. AI-powered, function-based recommendations with evidence-based strategies.",
-    href: "/fba-to-bip",
-    icon: Target,
-    status: "live" as const,
-    features: [
-      "Function-based interventions",
-      "Data collection plans",
-      "Progress monitoring tools",
-      "PDF export",
-    ],
-  },
+
   {
     title: "Behavior Plan Writer",
     description:
@@ -202,12 +188,6 @@ export default function BehaviorToolsPage() {
               >
                 Try IEP Goal Writer
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link
-                href="/fba-to-bip"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-emerald-700 rounded-xl text-lg font-semibold border-2 border-emerald-200 hover:border-emerald-300 hover:bg-emerald-50 transition-colors"
-              >
-                FBA-to-BIP Generator
               </Link>
             </div>
           </motion.div>
