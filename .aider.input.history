@@ -1,0 +1,144 @@
+
+# 2026-03-16 12:39:31.702017
++Enhance the CRM dashboard with follow-up management.
++
++CHANGES NEEDED:
++
++1. Add fields to Contact interface (both files):
++   - followUpDate: string | null  (ISO date string)
++   - linkedInUrl: string | null
++   - programInterest: string | null  (e.g. 'transformation-program', 'bcba-exam-prep', etc.)
++
++2. API (route.ts): handle the new fields in POST and PATCH (include in newContact creation and merge).
++
++3. page.tsx — Follow-up Queue section (add ABOVE the contact grid):
++   - Show contacts where followUpDate is set
++   - Split into two groups: OVERDUE (date < today, red border) and UPCOMING THIS WEEK (date within 7 days, amber border)
++   - Each card: name, email, company/role, follow-up date, programInterest badge, quick action buttons (Email, LinkedIn if url set)
++   - If no follow-ups: show empty state 'No follow-ups scheduled'
++   - Collapsible section header showing count
++
++4. page.tsx — Add sort option: 'followUpDate-asc' = 'Most Urgent Follow-ups'
++
++5. page.tsx — Contact cards: show followUpDate if set with a Calendar icon + colored badge (red=overdue, amber=this week, green=later)
++
++6. page.tsx — Fix 'Edit Contact' button (currently just alerts). Replace the alert with a real edit modal that pre-fills all fields including the new ones. Add followUpDate datepicker and linkedInUrl text input to both add and edit modals.
++
++7. page.tsx — Add 'followUpDate' filter: 'Needs Follow-up Today', 'Overdue', 'This Week'
++
++IMPORTANT RULES:
++- No purple/violet/indigo colors anywhere - use emerald/amber/slate only
++- No sticky/fixed nav
++- No bold text in body paragraphs
++- No emojis in UI (use Lucide icons instead)
++- Keep all existing functionality intact
+
+# 2026-03-16 12:39:31.702736
++Enhance the CRM dashboard with follow-up management.
++
++CHANGES NEEDED:
++
++1. Add fields to Contact interface (both files):
++   - followUpDate: string | null  (ISO date string)
++   - linkedInUrl: string | null
++   - programInterest: string | null  (e.g. 'transformation-program', 'bcba-exam-prep', etc.)
++
++2. API (route.ts): handle the new fields in POST and PATCH (include in newContact creation and merge).
++
++3. page.tsx — Follow-up Queue section (add ABOVE the contact grid):
++   - Show contacts where followUpDate is set
++   - Split into two groups: OVERDUE (date < today, red border) and UPCOMING THIS WEEK (date within 7 days, amber border)
++   - Each card: name, email, company/role, follow-up date, programInterest badge, quick action buttons (Email, LinkedIn if url set)
++   - If no follow-ups: show empty state 'No follow-ups scheduled'
++   - Collapsible section header showing count
++
++4. page.tsx — Add sort option: 'followUpDate-asc' = 'Most Urgent Follow-ups'
++
++5. page.tsx — Contact cards: show followUpDate if set with a Calendar icon + colored badge (red=overdue, amber=this week, green=later)
++
++6. page.tsx — Fix 'Edit Contact' button (currently just alerts). Replace the alert with a real edit modal that pre-fills all fields including the new ones. Add followUpDate datepicker and linkedInUrl text input to both add and edit modals.
++
++7. page.tsx — Add 'followUpDate' filter: 'Needs Follow-up Today', 'Overdue', 'This Week'
++
++IMPORTANT RULES:
++- No purple/violet/indigo colors anywhere - use emerald/amber/slate only
++- No sticky/fixed nav
++- No bold text in body paragraphs
++- No emojis in UI (use Lucide icons instead)
++- Keep all existing functionality intact
+
+# 2026-03-16 12:40:20.285984
++Enhance the CRM with follow-up management.
++
++CHANGES:
++
++1. Add to Contact interface (BOTH files): followUpDate: string | null, linkedInUrl: string | null, programInterest: string | null
++
++2. route.ts: include new fields in POST newContact and PATCH merge. Add followUpDate filter in GET: if filter param 'followUp=overdue', return contacts where followUpDate < today; if 'followUp=this-week', return within 7 days.
++
++3. page.tsx — Follow-up Queue: Add a collapsible section ABOVE the contact grid. Show contacts with followUpDate set, split into OVERDUE (red border, date past) and THIS WEEK (amber border, within 7 days). Each item shows: name, role/company, follow-up date, programInterest badge, mailto link, linkedInUrl link if set. Header shows counts. Empty state: 'No follow-ups scheduled'.
++
++4. page.tsx — Contact cards: add Calendar icon + followUpDate badge (red=overdue, amber=this week, slate=future) when followUpDate is set.
++
++5. page.tsx — Fix Edit button (currently alerts). Replace with real edit modal pre-filling all fields. Add followUpDate (input type=date) and linkedInUrl (text input) and programInterest (text input) to both Add and Edit modals.
++
++6. page.tsx — Add sort option 'followUpDate-asc' labeled 'Upcoming Follow-ups'.
++
++RULES: no purple/violet/indigo. Use emerald/amber/slate/red only. No emojis in UI. No sticky nav. No bold in body text. Keep all existing functionality.
+
+# 2026-03-16 12:40:20.286757
++Enhance the CRM with follow-up management.
++
++CHANGES:
++
++1. Add to Contact interface (BOTH files): followUpDate: string | null, linkedInUrl: string | null, programInterest: string | null
++
++2. route.ts: include new fields in POST newContact and PATCH merge. Add followUpDate filter in GET: if filter param 'followUp=overdue', return contacts where followUpDate < today; if 'followUp=this-week', return within 7 days.
++
++3. page.tsx — Follow-up Queue: Add a collapsible section ABOVE the contact grid. Show contacts with followUpDate set, split into OVERDUE (red border, date past) and THIS WEEK (amber border, within 7 days). Each item shows: name, role/company, follow-up date, programInterest badge, mailto link, linkedInUrl link if set. Header shows counts. Empty state: 'No follow-ups scheduled'.
++
++4. page.tsx — Contact cards: add Calendar icon + followUpDate badge (red=overdue, amber=this week, slate=future) when followUpDate is set.
++
++5. page.tsx — Fix Edit button (currently alerts). Replace with real edit modal pre-filling all fields. Add followUpDate (input type=date) and linkedInUrl (text input) and programInterest (text input) to both Add and Edit modals.
++
++6. page.tsx — Add sort option 'followUpDate-asc' labeled 'Upcoming Follow-ups'.
++
++RULES: no purple/violet/indigo. Use emerald/amber/slate/red only. No emojis in UI. No sticky nav. No bold in body text. Keep all existing functionality.
+
+# 2026-03-16 12:40:51.110825
++Enhance the CRM with follow-up management.
++
++CHANGES:
++
++1. Add to Contact interface (BOTH files): followUpDate: string | null, linkedInUrl: string | null, programInterest: string | null
++
++2. route.ts: include new fields in POST newContact and PATCH merge. Add followUpDate filter in GET: if filter param 'followUp=overdue', return contacts where followUpDate < today; if 'followUp=this-week', return within 7 days.
++
++3. page.tsx — Follow-up Queue: Add a collapsible section ABOVE the contact grid. Show contacts with followUpDate set, split into OVERDUE (red border/badge, date past) and THIS WEEK (amber border/badge, within 7 days). Each item shows: name, role/company, follow-up date, programInterest badge, mailto link, linkedInUrl link if set. Header shows counts. Empty state: 'No follow-ups scheduled'.
++
++4. page.tsx — Contact cards: add Calendar icon + followUpDate badge (red=overdue, amber=this week, slate=future) when followUpDate is set.
++
++5. page.tsx — Fix Edit button (currently just calls alert). Replace with real edit modal pre-filling all fields. Add followUpDate (input type=date), linkedInUrl (text input), and programInterest (text input) to both Add and Edit modals.
++
++6. page.tsx — Add sort option 'followUpDate-asc' labeled 'Upcoming Follow-ups'.
++
++RULES: NO purple/violet/indigo colors. Use emerald/amber/slate/red only. No emojis in UI (use Lucide icons). No sticky nav. No bold text in body paragraphs. Keep all existing functionality intact.
+
+# 2026-03-16 12:40:51.111726
++Enhance the CRM with follow-up management.
++
++CHANGES:
++
++1. Add to Contact interface (BOTH files): followUpDate: string | null, linkedInUrl: string | null, programInterest: string | null
++
++2. route.ts: include new fields in POST newContact and PATCH merge. Add followUpDate filter in GET: if filter param 'followUp=overdue', return contacts where followUpDate < today; if 'followUp=this-week', return within 7 days.
++
++3. page.tsx — Follow-up Queue: Add a collapsible section ABOVE the contact grid. Show contacts with followUpDate set, split into OVERDUE (red border/badge, date past) and THIS WEEK (amber border/badge, within 7 days). Each item shows: name, role/company, follow-up date, programInterest badge, mailto link, linkedInUrl link if set. Header shows counts. Empty state: 'No follow-ups scheduled'.
++
++4. page.tsx — Contact cards: add Calendar icon + followUpDate badge (red=overdue, amber=this week, slate=future) when followUpDate is set.
++
++5. page.tsx — Fix Edit button (currently just calls alert). Replace with real edit modal pre-filling all fields. Add followUpDate (input type=date), linkedInUrl (text input), and programInterest (text input) to both Add and Edit modals.
++
++6. page.tsx — Add sort option 'followUpDate-asc' labeled 'Upcoming Follow-ups'.
++
++RULES: NO purple/violet/indigo colors. Use emerald/amber/slate/red only. No emojis in UI (use Lucide icons). No sticky nav. No bold text in body paragraphs. Keep all existing functionality intact.

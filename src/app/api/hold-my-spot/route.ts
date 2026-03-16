@@ -5,8 +5,8 @@ export async function POST(req: NextRequest) {
   const { name, email, phone, district, approval_date } = body;
 
   // Send Telegram notification to Rob
-  const TELEGRAM_BOT_TOKEN = '8477833399:AAE-Fhxh2_uRzpDJMSZz_EtAI7qGxr9glbw';
-  const TELEGRAM_CHAT_ID = '8181098703';
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '8181098703';
   const message = `HOLD MY SPOT REQUEST\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nDistrict: ${district}\nExpected approval: ${approval_date || 'Not specified'}\n\nReply within 24h to confirm spot.`;
 
   await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   });
 
   // Also send confirmation email via Resend
-  const RESEND_API_KEY = 're_9jS7EXqT_J4sbfJz6aCjBSNRQ2yDijLcu';
+  const RESEND_API_KEY = process.env.RESEND_API_KEY;
   await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${RESEND_API_KEY}` },

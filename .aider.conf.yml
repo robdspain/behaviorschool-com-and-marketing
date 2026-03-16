@@ -1,0 +1,4 @@
+model: openai-codex/gpt-5.3-codex
+map-tokens: 1024
+auto-commits: false
+dirty-commits: false
