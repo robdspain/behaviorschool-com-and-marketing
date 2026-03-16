@@ -19,6 +19,9 @@ interface Contact {
   tags: string[];
   notes: string;
   lastContactDate: string | null;
+  followUpDate: string | null;
+  linkedInUrl: string | null;
+  programInterest: string | null;
   createdAt: string;
   updatedAt: string;
   stripeCustomerId: string | null;
@@ -57,6 +60,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status') || '';
     const source = searchParams.get('source') || '';
     const tags = searchParams.get('tags')?.split(',').filter(Boolean) || [];
+    const followUp = searchParams.get('followUp') || '';
     const sortBy = searchParams.get('sortBy') || 'createdAt';
     const sortOrder = searchParams.get('sortOrder') || 'desc';
 
@@ -93,6 +97,21 @@ export async function GET(request: NextRequest) {
       contacts = contacts.filter((c) =>
         tags.some((tag) => c.tags.includes(tag))
       );
+    }
+
+    // Follow-up date filter
+    if (followUp) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const weekFromNow = new Date(today);
+      weekFromNow.setDate(weekFromNow.getDate() + 7);
+      if (followUp === 'overdue') {
+        contacts = contacts.filter((c) => c.followUpDate && new Date(c.followUpDate) < today);
+      } else if (followUp === 'this-week') {
+        contacts = contacts.filter((c) => c.followUpDate && new Date(c.followUpDate) >= today && new Date(c.followUpDate) <= weekFromNow);
+      } else if (followUp === 'any') {
+        contacts = contacts.filter((c) => !!c.followUpDate);
+      }
     }
 
     // Sort
@@ -186,6 +205,9 @@ export async function POST(request: NextRequest) {
       tags: body.tags || [],
       notes: body.notes || '',
       lastContactDate: body.lastContactDate || null,
+      followUpDate: body.followUpDate || null,
+      linkedInUrl: body.linkedInUrl || null,
+      programInterest: body.programInterest || null,
       createdAt: now,
       updatedAt: now,
       stripeCustomerId: body.stripeCustomerId || null,

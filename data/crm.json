@@ -8920,6 +8920,32 @@
       "revenue": 0,
       "createdAt": "2026-02-13T00:00:00Z",
       "updatedAt": "2026-02-13T00:00:00Z"
+    },
+    {
+      "id": "425",
+      "name": "Kiara Lopez-Giambastiani",
+      "email": "klopez-giambastiani@solanocoe.net",
+      "phone": null,
+      "company": "Solano County Office of Education",
+      "role": "Behavior Analyst, M.A., BCBA",
+      "type": "prospect",
+      "source": "conference",
+      "status": "contacted",
+      "tags": [
+        "BCBA",
+        "school-based",
+        "CalABA",
+        "transformation-program"
+      ],
+      "notes": "Met at CalABA 2026. 20+ year career in ABA. Supervises 7 classrooms at a non-public school (ages 5-22). Oversees FBAs, BIPs, BSPs, IEP process. M.A. Special Education (SF State), BCBA via Florida Tech. Bay Area (Vallejo/Walnut Creek area). Strong fit for Transformation Program \u2014 lives the school-based BCBA pain point. Follow up Thursday 3/19 at noon.",
+      "lastContactDate": "2026-03-16T00:00:00.000Z",
+      "followUpDate": "2026-03-19",
+      "linkedInUrl": "https://www.linkedin.com/in/kiara-lopez-giambastiani-m-a-bcba-456b75a/",
+      "programInterest": "transformation-program",
+      "createdAt": "2026-03-16T19:43:30.983407Z",
+      "updatedAt": "2026-03-16T19:43:30.983407Z",
+      "stripeCustomerId": null,
+      "revenue": 0
     }
   ]
 }
