@@ -239,14 +239,14 @@ export function AdminSidebar() {
 
           {/* Footer */}
           <div className="p-4 border-t-2 border-slate-200">
-            <Link
-              href="/auth/signout"
-              className={`flex items-center ${collapsed ? 'justify-center' : 'gap-3 px-4'} py-3 rounded-xl text-slate-700 hover:bg-red-50 hover:text-red-700 border-2 border-transparent hover:border-red-200 transition-all duration-200 font-medium`}
+            <button
+              onClick={async () => { await fetch('/api/admin/auth', { method: 'DELETE' }); window.location.href = '/admin/login'; }}
+              className={`w-full flex items-center ${collapsed ? 'justify-center' : 'gap-3 px-4'} py-3 rounded-xl text-slate-700 hover:bg-red-50 hover:text-red-700 border-2 border-transparent hover:border-red-200 transition-all duration-200 font-medium`}
               title="Sign Out"
             >
               <LogOut className="w-5 h-5" />
               {!collapsed && <span>Sign Out</span>}
-            </Link>
+            </button>
           </div>
         </div>
       </aside>

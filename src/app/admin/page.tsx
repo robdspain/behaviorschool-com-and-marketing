@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
@@ -39,30 +38,30 @@ export default function AdminDashboard() {
   const [archivedLoading, setArchivedLoading] = useState(false)
   const [showArchived, setShowArchived] = useState(false)
   const [nlSummary, setNlSummary] = useState<{ totals: { opens: number; clicks: number }; daily: Array<{ date: string; opens: number; clicks: number }> } | null>(null)
-  const supabase = createClient()
   const router = useRouter()
 
   useEffect(() => {
-    // Set page title
     document.title = 'Dashboard | Behavior School Admin'
-    
+
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      console.log('[Admin Dashboard] Session check:', session ? 'authenticated' : 'not authenticated')
-      
-      if (!session) {
-        console.log('[Admin Dashboard] No session, redirecting to login')
+      try {
+        const res = await fetch('/api/admin/auth')
+        const data = await res.json()
+        if (!data.authenticated) {
+          router.push('/admin/login')
+        } else {
+          setIsAuthenticated(true)
+          fetchStats()
+        }
+      } catch {
         router.push('/admin/login')
-      } else {
-        setIsAuthenticated(true)
-        // Fetch dashboard stats
-        fetchStats()
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
 
     checkAuth()
-  }, [supabase, router])
+  }, [router])
 
   const fetchStats = async () => {
     try {

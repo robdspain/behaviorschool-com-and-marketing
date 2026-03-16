@@ -1,124 +1,89 @@
 'use client';
 
-import { createClient } from '@/lib/supabase-client';
-import { useSearchParams } from 'next/navigation';
-import { FcGoogle } from 'react-icons/fc';
-import { AlertCircle } from 'lucide-react';
-import { Suspense, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import { Lock, Eye, EyeOff } from 'lucide-react';
 
-function LoginContent() {
-  const supabase = createClient();
+function LoginForm() {
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const error = searchParams?.get('error');
+  const redirect = searchParams?.get('redirect') || '/admin';
 
   useEffect(() => {
-    // Set page title
-    document.title = 'Admin Login | Behavior School'
+    document.title = 'Admin Login | Behavior School';
   }, []);
 
-  const handleGoogleLogin = async () => {
-    try {
-      // Clear any existing auth state before starting new flow
-      await supabase.auth.signOut({ scope: 'local' });
-      
-      console.log('[Login] Starting OAuth flow with implicit grant');
-      
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/admin`,
-          skipBrowserRedirect: false,
-          queryParams: {
-            prompt: 'select_account',
-          }
-        },
-      });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!password) return;
+    setLoading(true);
+    setError('');
 
-      if (error) {
-        console.error('[Login] OAuth error:', error);
-        alert(`Authentication failed: ${error.message}`);
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        router.push(redirect);
       } else {
-        console.log('[Login] OAuth initiated successfully');
+        setError('Incorrect password. Try again.');
       }
-    } catch (err) {
-      console.error('[Login] OAuth exception:', err);
-      alert('An unexpected error occurred during authentication');
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/20">
-      <div className="w-full max-w-md p-8">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
-          {/* Header */}
+    <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="w-full max-w-sm">
+        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
           <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center mb-4">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
+            <div className="mx-auto w-14 h-14 bg-emerald-600 rounded-2xl flex items-center justify-center mb-4">
+              <Lock className="w-7 h-7 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Admin Login</h1>
-            <p className="text-slate-600">Sign in to access the admin dashboard</p>
+            <h1 className="text-2xl font-bold text-slate-900">Admin Login</h1>
+            <p className="text-slate-500 text-sm mt-1">behaviorschool.com/admin</p>
           </div>
 
-          {/* Error Message */}
-          {error && (
-            <div className="mb-6 p-4 bg-red-50 border-2 border-red-300 rounded-xl flex items-start gap-3">
-              <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-bold text-red-900 mb-1">Authentication Error</p>
-                <p className="text-sm text-red-800 mb-2">
-                  {error === 'unauthorized' && 'You need to sign in to access this page.'}
-                  {error === 'missing_code' && 'OAuth code was missing from the callback.'}
-                  {(error.includes('code verifier') || error.includes('invalid request')) && (
-                    <>
-                      Auth configuration issue detected. Try clearing your browser cache or{' '}
-                      <a href="/admin/clear-auth" className="font-semibold underline hover:text-red-700">
-                        click here to reset
-                      </a>
-                      .
-                    </>
-                  )}
-                  {error !== 'unauthorized' && error !== 'missing_code' && !error.includes('code verifier') && !error.includes('invalid request') && decodeURIComponent(error)}
-                </p>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm text-slate-600 mb-1.5">Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 pr-11 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  placeholder="Enter admin password"
+                  autoFocus
+                  autoComplete="current-password"
+                />
+                <button type="button" onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
               </div>
             </div>
-          )}
 
-          {/* Login Button */}
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white border-2 border-slate-300 hover:border-slate-400 hover:bg-slate-50 rounded-xl transition-all duration-200 text-slate-700 font-semibold text-lg shadow-sm hover:shadow-md"
-          >
-            <FcGoogle className="h-6 w-6" />
-            <span>Continue with Google</span>
-          </button>
+            {error && (
+              <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{error}</p>
+            )}
 
-          {/* Info Text */}
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-800 text-center">
-              <strong>Admin access only.</strong> You must be authorized to access the admin dashboard.
-            </p>
-          </div>
-
-          {/* Debug Info (only in development) */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600 font-mono">
-              <p><strong>Debug Info:</strong></p>
-              <p>Origin: {typeof window !== 'undefined' ? window.location.origin : 'N/A'}</p>
-              <p>Redirect: {typeof window !== 'undefined' ? `${window.location.origin}/auth/callback?next=/admin` : 'N/A'}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Footer */}
-        <div className="text-center mt-6">
-          <a 
-            href="https://behaviorschool.com"
-            className="text-sm text-slate-600 hover:text-slate-900 underline transition-colors"
-          >
-            ← Back to Home
-          </a>
+            <button type="submit" disabled={loading || !password}
+              className="w-full py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+              {loading ? 'Signing in...' : 'Sign In'}
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -127,17 +92,8 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <Suspense 
-      fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/20">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
-            <p className="mt-4 text-slate-600">Loading...</p>
-          </div>
-        </div>
-      }
-    >
-      <LoginContent />
+    <Suspense fallback={<div className="min-h-screen bg-slate-50" />}>
+      <LoginForm />
     </Suspense>
   );
 }
