@@ -6,6 +6,7 @@ import { Briefcase, DollarSign, GraduationCap, FileText, Users, BookOpen, ArrowR
 import { Button } from "@/components/ui/button";
 import { TrustBar } from "@/components/ui/trust-bar";
 import { ScrollNav } from "@/components/ui/scroll-nav";
+import { Hero } from "@/components/ui/hero";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -17,49 +18,16 @@ export default function SchoolBCBAContent() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-32 pb-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-green-800 opacity-95"></div>
-        
-        <div className="relative container mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
-          >
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-semibold border border-white/30">
-              <GraduationCap className="h-4 w-4 mr-2" />
-              Complete School BCBA Resource Hub
-            </div>
+      <Hero
+        eyebrow="Complete School BCBA Resource Hub"
+        title="Everything You Need to"
+        highlight="Excel as a School-Based BCBA"
+        subtitle="From getting your first school BCBA job to mastering systems-level impact—free tools, comprehensive guides, and proven frameworks."
+        primaryCta={{ href: "/iep-behavior-goals", label: "Free IEP Goals Generator" }}
+        variant="brand"
+      />
 
-            <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
-              Everything You Need to <br className="hidden md:block" />
-              <span className="bg-gradient-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">
-                Excel as a School-Based BCBA
-              </span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-emerald-50 max-w-4xl mx-auto leading-relaxed">
-              From getting your first school BCBA job to mastering systems-level impact—free tools, comprehensive guides, and proven frameworks.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-emerald-50 text-lg px-8 py-6 shadow-xl">
-                <Link href="/iep-behavior-goals">
-                  Free IEP Goals Generator
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-6">
-                <Link href="/transformation-program">
-                  8-Week Training Program
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <ScrollNav 
+      <ScrollNav
         items={[
           { id: "career-roadmap", label: "Career Roadmap" },
           { id: "free-tools", label: "Free Tools" },
@@ -67,7 +35,7 @@ export default function SchoolBCBAContent() {
         ]}
       />
 
-      <TrustBar 
+      <TrustBar
         stats={[
           { icon: School, label: "School-Focused", subLabel: "Specifically for Education" },
           { icon: Brain, label: "Evidence-Based", subLabel: "Science-Driven Practice" },

@@ -3,8 +3,8 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
-  PNPM_VERSION = "9.12.3"
+  NODE_VERSION = "22"
+  PNPM_VERSION = "9.15.0"
   ENABLE_EXPERIMENTAL_COREPACK = "1"
   NPM_FLAGS = "--prefer-offline --no-audit"
   PNPM_FLAGS = "--no-frozen-lockfile"

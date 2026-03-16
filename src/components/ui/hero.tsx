@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -25,102 +27,164 @@ export function Hero({
   variant = 'light',
 }: HeroProps) {
   const isDark = variant === 'dark' || variant === 'brand';
+
   return (
     <section
       className={cn(
-        "relative pt-8 pb-12 lg:pt-12 lg:pb-16 overflow-hidden",
-        variant === 'dark' ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900' : variant === 'light' ? 'bg-white' : undefined,
+        "relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden selection:bg-emerald-500/30",
+        variant === 'dark' ? 'bg-[#0A0A0A]' : variant === 'light' ? 'bg-[#FAFAFA]' : undefined,
         className
       )}
-      style={variant === 'brand' ? { backgroundColor: '#1F4D3F' } : undefined}
+      style={variant === 'brand' ? { backgroundColor: '#0A1512' } : undefined}
     >
-      {variant === 'light' ? (
-        <>
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-blue-50" />
-          <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-br from-emerald-100 to-transparent opacity-30 blur-3xl" />
-          <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-gradient-to-tr from-blue-100 to-transparent opacity-20 blur-2xl" />
-        </>
-      ) : variant === 'dark' ? (
-        <>
-          <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
-          <div className="absolute top-0 right-0 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-emerald-500/20 blur-3xl" />
-          <div className="absolute -bottom-10 left-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-blue-500/20 blur-2xl" />
-        </>
-      ) : null}
+      {/* Dynamic Background Elements - 2026 Aesthetic */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {isDark ? (
+          <>
+            {/* Dark mode abstract gradients */}
+            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[70%] rounded-full bg-emerald-600/20 blur-[120px] mix-blend-screen animate-pulse duration-[8000ms]" />
+            <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[80%] rounded-full bg-blue-600/20 blur-[150px] mix-blend-screen animate-pulse duration-[10000ms] delay-1000" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              {eyebrow ? (
-                <Badge className={cn(
-                  "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium",
-                  isDark ? 'bg-white/10 text-white border-white/20' : 'bg-emerald-100 text-emerald-800 border-emerald-200'
-                )}>
-                  <Zap className="w-4 h-4 mr-1" />
-                  {eyebrow}
-                </Badge>
-              ) : null}
+            {/* Neo-brutalist grid */}
+            <div
+              className="absolute inset-0 opacity-[0.03]"
+              style={{
+                backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
+                backgroundSize: '40px 40px'
+              }}
+            />
+          </>
+        ) : (
+          <>
+            {/* Light mode vibrant gradients with glassmorphism feel */}
+            <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-emerald-300/40 blur-[100px] animate-pulse duration-[8000ms]" />
+            <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] rounded-full bg-teal-300/30 blur-[120px] animate-pulse duration-[12000ms] delay-500" />
+            <div className="absolute top-[20%] right-[10%] w-[30%] h-[40%] rounded-full bg-blue-200/40 blur-[80px] animate-pulse duration-[10000ms] delay-1000" />
+
+            {/* Subtle dot matrix */}
+            <div
+              className="absolute inset-0 opacity-[0.4]"
+              style={{
+                backgroundImage: 'radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)',
+                backgroundSize: '32px 32px'
+              }}
+            />
+          </>
+        )}
+      </div>
+
+      <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-center">
+
+          {/* Text Content */}
+          <div className="space-y-10 z-10">
+            <div className="space-y-6">
+              {eyebrow && (
+                <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-both">
+                  <Badge
+                    variant="outline"
+                    className={cn(
+                      "inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium tracking-wide border transition-all hover:scale-105 backdrop-blur-md",
+                      isDark
+                        ? 'bg-white/5 text-emerald-300 border-white/10 hover:bg-white/10'
+                        : 'bg-white/60 text-emerald-700 border-emerald-200/50 shadow-sm hover:bg-white/80'
+                    )}
+                  >
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    {eyebrow}
+                  </Badge>
+                </div>
+              )}
+
               <h1 className={cn(
-                "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.05]",
-                isDark ? 'text-white' : 'text-slate-900'
+                "animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200 fill-mode-both",
+                "text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] font-extrabold tracking-tight leading-[1.05]"
               )}>
-                {title}{" "}
-                {highlight ? (
+                <span className={cn(
+                  "block mb-2",
+                  isDark ? 'text-white' : 'text-slate-900'
+                )}>{title}</span>
+
+                {highlight && (
                   <span className={cn(
-                    "text-transparent bg-clip-text bg-gradient-to-r",
-                    isDark ? 'from-emerald-300 to-emerald-400' : 'from-emerald-600 to-emerald-500'
-                  )}>{highlight}</span>
-                ) : null}
+                    "inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r",
+                    isDark
+                      ? 'from-emerald-400 via-teal-300 to-emerald-500 bg-[length:200%_auto] animate-gradient'
+                      : 'from-emerald-600 via-teal-500 to-emerald-600 bg-[length:200%_auto] animate-gradient'
+                  )}>
+                    {highlight}
+                  </span>
+                )}
               </h1>
-              {subtitle ? (
-                <p className={cn("text-lg sm:text-xl lg:text-2xl leading-relaxed max-w-2xl",
-                  isDark ? 'text-white' : 'text-slate-600'
-                )}>{subtitle}</p>
-              ) : null}
+
+              {subtitle && (
+                <p className={cn(
+                  "animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both",
+                  "text-xl sm:text-2xl leading-relaxed max-w-2xl font-light",
+                  isDark ? 'text-slate-300' : 'text-slate-600'
+                )}>
+                  {subtitle}
+                </p>
+              )}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both flex flex-col sm:flex-row gap-5">
               <Button
                 asChild
                 size="lg"
                 className={cn(
-                  "h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl",
-                  variant === 'dark'
-                    ? 'bg-white text-slate-900 hover:bg-slate-100'
-                    : 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white'
+                  "h-16 px-10 text-lg font-semibold rounded-2xl transition-all duration-300 group overflow-hidden relative",
+                  isDark
+                    ? 'bg-white text-slate-900 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]'
+                    : 'bg-slate-900 text-white hover:scale-[1.02] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]'
                 )}
               >
                 <Link href={primaryCta.href}>
-                  {primaryCta.label}
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <span className="relative z-10 flex items-center">
+                    {primaryCta.label}
+                    <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                  {/* Hover gradient effect inside button */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-emerald-500/20 to-teal-500/20" />
                 </Link>
               </Button>
             </div>
           </div>
 
-          <div className="relative">
-            <div className="relative z-10">
-              <Image
-                src="/optimized/Hero/Hero-group1-optimized.webp"
-                alt="School-based BCBAs and behavior analysts collaborating on student behavior support plans"
-                width={576}
-                height={384}
-                className="w-full h-auto rounded-2xl shadow-2xl"
-                loading="eager"
-                priority={true}
-                fetchPriority="high"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 576px"
-              />
-            </div>
+          {/* Visual Element - Glassmorphism Card */}
+          <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-300 fill-mode-both lg:ml-auto w-full max-w-[600px]">
+            {/* Glow behind image */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-emerald-500/30 to-blue-500/30 rounded-[2.5rem] blur-[40px] opacity-60" />
 
-            <div className={cn("absolute -top-6 -right-6 w-24 h-24 rounded-2xl opacity-80 animate-pulse", variant === 'dark' ? 'bg-emerald-400/20' : 'bg-gradient-to-br from-yellow-200 to-yellow-100')} />
-            <div className={cn("absolute -bottom-4 -left-4 w-20 h-20 rounded-xl opacity-60", variant === 'dark' ? 'bg-blue-400/20' : 'bg-gradient-to-br from-purple-200 to-purple-100')} />
+            <div className={cn(
+              "relative z-10 rounded-[2rem] p-2 sm:p-4 backdrop-blur-xl border shadow-2xl overflow-hidden group",
+              isDark
+                ? 'bg-white/5 border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]'
+                : 'bg-white/40 border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)]'
+            )}>
+              {/* Inner shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+              <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3]">
+                <Image
+                  src="/optimized/Hero/Hero-group1-optimized.webp"
+                  alt="School-based BCBAs collaborating"
+                  fill
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                  loading="eager"
+                  priority={true}
+                  fetchPriority="high"
+                  sizes="(max-width: 768px) 100vw, 600px"
+                />
+
+                {/* Overlay gradient for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
   );
 }
-
-
