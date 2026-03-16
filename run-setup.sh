@@ -8,9 +8,13 @@ NC='\033[0m' # No Color
 
 echo -e "${BLUE}🚀 Setting up Supabase checkout tables...${NC}\n"
 
-# Supabase project details
-PROJECT_REF="dugolglucuzolzvuqxmi"
-SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1Z29sZ2x1Y3V6b2x6dnVxeG1pIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NTAxNzM1OCwiZXhwIjoyMDcwNTkzMzU4fQ.qQJMOeKnCXbj6UNFRtUt-3jXTWiyHkvYYIwwbte2l0c"
+# Supabase project details - set via environment variables
+PROJECT_REF="${SUPABASE_PROJECT_REF:-dugolglucuzolzvuqxmi}"
+SERVICE_ROLE_KEY="${SUPABASE_SERVICE_ROLE_KEY:-}"
+
+if [[ -z "$SERVICE_ROLE_KEY" ]]; then
+    echo -e "${RED}Warning: SUPABASE_SERVICE_ROLE_KEY not set. Manual setup required.${NC}"
+fi
 
 # Read the SQL file
 SQL_CONTENT=$(<supabase-checkout-setup.sql)
