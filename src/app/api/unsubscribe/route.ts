@@ -10,39 +10,34 @@ export async function POST(request: NextRequest) {
     if (!email || typeof email !== 'string') {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
+    
     if (!process.env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY is not set');
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
     }
 
     const normalizedEmail = email.toLowerCase().trim();
+    const timestamp = new Date().toISOString();
 
-    // Use the send email endpoint with unsubscribe headers as a workaround
-    // when the API key is restricted to sending only.
-    const { data, error } = await resend.emails.send({
-      from: 'unsubscribe@updates.behaviorschool.com',
-      to: normalizedEmail,
-      subject: 'Confirming your unsubscription',
-      text: 'You have been unsubscribed from our mailing list.',
-      headers: {
-        'List-Unsubscribe': 'true',
-      },
+    // Send notification email to Rob about the unsubscribe request
+    // This works with send-only API keys
+    const { error } = await resend.emails.send({
+      from: 'Behavior School <noreply@updates.behaviorschool.com>',
+      to: 'robspain@gmail.com',
+      subject: `🚫 Unsubscribe Request: ${normalizedEmail}`,
+      text: `Unsubscribe request received.\n\nEmail: ${normalizedEmail}\nTime: ${timestamp}\n\nPlease remove this email from your mailing list.`,
     });
 
     if (error) {
-      console.error('Resend Unsubscribe-via-Send Error:', error);
-      return NextResponse.json({ error: 'Failed to process unsubscribe request.' }, { status: 500 });
+      console.error('Failed to send unsubscribe notification:', error);
+      return NextResponse.json({ error: 'Failed to process request' }, { status: 500 });
     }
 
-    console.log(`Successfully sent unsubscribe request for ${normalizedEmail}. ID: ${data?.id}`);
+    console.log(`Unsubscribe notification sent for: ${normalizedEmail}`);
+    return NextResponse.json({ success: true });
 
-    return NextResponse.json({ success: true, message: 'Your unsubscribe request has been processed.' });
-
-  } catch (error: any) {
-    console.error('Unsubscribe Route Error:', error);
-    return NextResponse.json(
-      { error: 'An unexpected error occurred.' },
-      { status: 500 }
-    );
+  } catch (error) {
+    console.error('Unsubscribe error:', error);
+    return NextResponse.json({ error: 'Failed to process request' }, { status: 500 });
   }
 }
