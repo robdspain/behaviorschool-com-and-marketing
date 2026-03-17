@@ -97,7 +97,9 @@ function UnsubscribeForm() {
         </form>
         
         <p className="text-xs text-gray-500 mt-6 text-center">
-          Behavior School LLC
+          Behavior School LLC<br />
+          8 The Green #20473<br />
+          Dover, DE 19901
         </p>
       </div>
     </div>
