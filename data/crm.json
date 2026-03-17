@@ -6583,21 +6583,33 @@
       "name": "Pwschenkkan",
       "email": "pwschenkkan@gmail.com",
       "phone": "",
-      "company": "",
+      "company": "Boost",
       "role": "",
       "type": "prospect",
       "source": "conference",
       "status": "new",
       "tags": [
         "BAE-SIG",
-        "CalABA"
+        "CalABA",
+        "calaba",
+        "public-policy",
+        "bcba-d",
+        "sbt-pfa",
+        "legislative"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "CalABA Public Policy Committee. BCBA-D. Works at Boost. Involved in PPS credential advocacy for BCBAs. Contact for learning platform RBT PD opportunity. Also uses publicpolicy@calaba.org for CalABA work. Connected with SBT PFA Facebook group.",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
       "createdAt": "2026-02-13T00:00:00Z",
-      "updatedAt": "2026-02-13T00:00:00Z"
+      "updatedAt": "2026-03-17T09:02:18.081990",
+      "firstName": "Penny",
+      "lastName": "Schenkkan",
+      "linkedInUrl": "https://www.linkedin.com/in/penelopeschenkkan/",
+      "location": "San Francisco, California",
+      "title": "BCBA-D",
+      "programInterest": "learning-platform-instructor",
+      "followUpDate": "2026-03-17"
     },
     {
       "id": "306",
