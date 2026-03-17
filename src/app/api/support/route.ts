@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
           },
           body: JSON.stringify({
             from: "Behavior School Support <support@behaviorschool.com>",
-            to: ["robspain@gmail.com"],
+            to: ["rob@behaviorschool.com"],
             subject: `[Support] ${category || "General"}: ${(message || "").slice(0, 60)}`,
             html: `
               <h2>New Support Request</h2>

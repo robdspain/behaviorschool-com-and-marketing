@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     // Notify Rob that someone confirmed
     await resend.emails.send({
       from: 'Behavior School <noreply@updates.behaviorschool.com>',
-      to: 'robspain@gmail.com',
+      to: 'rob@behaviorschool.com',
       subject: `✅ Subscription Confirmed: ${email}`,
       text: `A new subscriber has confirmed their email!\n\nEmail: ${email}\nConfirmed at: ${new Date().toISOString()}\n\nAdd them to your active mailing list.`,
     });
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: 'Behavior School <rob@updates.behaviorschool.com>',
       to: email,
-      replyTo: 'robspain@gmail.com',
+      replyTo: 'rob@behaviorschool.com',
       subject: 'Welcome to Behavior School!',
       headers: {
         'List-Unsubscribe': `<https://behaviorschool.com/unsubscribe?email=${encodeURIComponent(email)}>`,

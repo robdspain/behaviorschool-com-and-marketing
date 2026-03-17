@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
     // Notify Rob of new signup attempt
     await resend.emails.send({
       from: 'Behavior School <noreply@updates.behaviorschool.com>',
-      to: 'robspain@gmail.com',
+      to: 'rob@behaviorschool.com',
       subject: `📬 New Signup (pending): ${normalizedEmail}`,
       text: `New email signup (awaiting confirmation)\n\nEmail: ${normalizedEmail}\nName: ${name || 'Not provided'}\nSource: ${source || 'Unknown'}\nTime: ${new Date().toISOString()}\n\nThey will be added to your list once they click the confirmation link.`,
     });

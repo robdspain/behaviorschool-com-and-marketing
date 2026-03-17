@@ -60,7 +60,7 @@ export async function sendWelcomeEmail(email: string, name?: string) {
     const { data, error } = await resend.emails.send({
       from: 'Behavior School <rob@updates.behaviorschool.com>',
       to: [email],
-      replyTo: 'robspain@gmail.com',
+      replyTo: 'rob@behaviorschool.com',
       subject: 'Welcome to Behavior School!',
       headers: getComplianceHeaders(email),
       html: `
@@ -121,7 +121,7 @@ export async function sendMarketingEmail(
     const { data, error } = await resend.emails.send({
       from: options?.from || 'Rob Spain <rob@updates.behaviorschool.com>',
       to: recipients,
-      replyTo: options?.replyTo || 'robspain@gmail.com',
+      replyTo: options?.replyTo || 'rob@behaviorschool.com',
       subject,
       headers: getComplianceHeaders(primaryRecipient),
       html: `
@@ -204,7 +204,7 @@ export async function sendContactFormEmail(
   try {
     const { data, error } = await resend.emails.send({
       from: 'Contact Form <noreply@updates.behaviorschool.com>',
-      to: ['robspain@gmail.com'],
+      to: ['rob@behaviorschool.com'],
       replyTo: email,
       subject: `New Contact Form: ${name}`,
       html: `

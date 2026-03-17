@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     // This works with send-only API keys
     const { error } = await resend.emails.send({
       from: 'Behavior School <noreply@updates.behaviorschool.com>',
-      to: 'robspain@gmail.com',
+      to: 'rob@behaviorschool.com',
       subject: `🚫 Unsubscribe Request: ${normalizedEmail}`,
       text: `Unsubscribe request received.\n\nEmail: ${normalizedEmail}\nTime: ${timestamp}\n\nPlease remove this email from your mailing list.`,
     });

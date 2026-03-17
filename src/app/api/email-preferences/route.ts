@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     // Send notification to Rob about the preference change
     const { error } = await resend.emails.send({
       from: 'Behavior School <noreply@updates.behaviorschool.com>',
-      to: 'robspain@gmail.com',
+      to: 'rob@behaviorschool.com',
       subject: `📧 Email Preferences Updated: ${normalizedEmail}`,
       text: `Email preference update received.
 
