@@ -119,7 +119,7 @@ export default function TransformationProgramPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
           >
-            A 6-week live cohort that gives school-based BCBAs the systems, tools, and frameworks to run their caseload — instead of drowning in it.
+            6 weeks from now, you'll leave work at contract time — with systems that actually run without you.
           </motion.p>
           <motion.div
             className="flex flex-wrap items-center justify-center gap-3 mb-8"
@@ -197,6 +197,7 @@ export default function TransformationProgramPage() {
               { quote: "I'm not confident my FBA hypotheses are right.", sub: "Functional analysis in a school setting is complicated." },
               { quote: "My BIPs don't get implemented the way I wrote them.", sub: "There's a gap between what you plan and what happens in the classroom." },
               { quote: "The district wants me to do things that conflict with my ethics.", sub: "You're being pulled between fidelity to practice and keeping your job." },
+              { quote: "I can't remember the last time I left at contract time.", sub: "The work expands to fill every evening and weekend you give it." },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -302,7 +303,8 @@ export default function TransformationProgramPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-black mb-4">By week 6, you will have</h2>
-            <p className="text-emerald-300 text-lg">Concrete deliverables and real systems — not just new ideas.</p>
+            <p className="text-emerald-300 text-lg mb-6">Leave work at contract time. Stop writing FBAs at 10 PM. Have staff implement plans correctly the first time.</p>
+            <p className="text-slate-400 text-base">Concrete deliverables and real systems — not just new ideas.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -379,12 +381,17 @@ export default function TransformationProgramPage() {
             rel="noopener noreferrer"
             className="block w-full rounded-2xl bg-[#e4b63d] hover:bg-amber-400 text-[#123628] font-black text-xl py-5 px-8 text-center transition shadow-xl mb-4"
           >
-            Reserve Your Spot
+            Join the March 26 Cohort
           </a>
 
           {isEarlyBird && (
-            <p className="text-emerald-300 text-sm font-semibold mb-6">
-              Early bird pricing ends March 20
+            <p className="text-emerald-300 text-sm font-semibold mb-2">
+              Early bird pricing ends Friday, March 20
+            </p>
+          )}
+          {isEarlyBird && (
+            <p className="text-slate-400 text-xs mb-6">
+              After Friday, price goes to $2,997. If you've been thinking about it, this is the week.
             </p>
           )}
 
