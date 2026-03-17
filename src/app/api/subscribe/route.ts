@@ -3,9 +3,7 @@ import { Resend } from 'resend';
 import crypto from 'crypto';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// In production, store these in a database (Convex, Supabase, etc.)
-// For now, this demonstrates the flow - you'd replace with actual DB calls
+const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL || "https://quixotic-fox-157.convex.cloud";
 
 function generateConfirmationToken(email: string): string {
   const secret = process.env.EMAIL_CONFIRMATION_SECRET || 'your-secret-key';
@@ -71,7 +69,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to send confirmation email' }, { status: 500 });
     }
 
-    // Log the pending subscription (in production, save to DB with status: 'pending')
+    // Save to Convex (status will be 'new' until confirmed)
+    try {
+      await fetch(`${CONVEX_URL}/api/mutation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          path: "newsletter:subscribeToNewsletter",
+          args: {
+            email: normalizedEmail,
+            name: name || undefined,
+            source: source || "website",
+            tags: ["pending-confirmation"],
+          },
+        }),
+      });
+    } catch (convexErr) {
+      console.error('Convex save error (non-blocking):', convexErr);
+    }
+    
     console.log(`Confirmation email sent to: ${normalizedEmail}, source: ${source || 'unknown'}`);
 
     // Notify Rob of new signup attempt

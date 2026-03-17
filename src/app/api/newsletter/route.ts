@@ -1,13 +1,13 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+
+const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL || "https://quixotic-fox-157.convex.cloud";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email } = body;
+    const { email, name, source } = body;
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,37 +18,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Path to the subscribers file
-    const dataDir = path.join(process.cwd(), 'data');
-    const subscribersFile = path.join(dataDir, 'newsletter-subscribers.json');
+    // Subscribe via Convex HTTP API
+    const convexResponse = await fetch(`${CONVEX_URL}/api/mutation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        path: "newsletter:subscribeToNewsletter",
+        args: {
+          email: email.toLowerCase().trim(),
+          name: name || undefined,
+          source: source || "blog",
+          tags: ["blog-signup"],
+        },
+      }),
+    });
 
-    // Ensure data directory exists
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
+    if (!convexResponse.ok) {
+      const errorText = await convexResponse.text();
+      console.error('Convex error:', errorText);
+      throw new Error('Failed to subscribe');
     }
 
-    // Load existing subscribers or initialize empty array
-    let subscribers: { email: string; subscribedAt: string }[] = [];
-    if (fs.existsSync(subscribersFile)) {
-      const fileContent = fs.readFileSync(subscribersFile, 'utf-8');
-      subscribers = JSON.parse(fileContent);
-    }
-
-    // Check if email already exists
-    const exists = subscribers.some((sub) => sub.email === email);
-    if (!exists) {
-      // Add new subscriber
-      subscribers.push({
-        email,
-        subscribedAt: new Date().toISOString(),
-      });
-
-      // Write back to file
-      fs.writeFileSync(subscribersFile, JSON.stringify(subscribers, null, 2));
-    }
+    const result = await convexResponse.json();
 
     return NextResponse.json(
-      { message: 'Successfully subscribed' },
+      { 
+        message: 'Successfully subscribed',
+        isNew: result?.value?.isNew ?? true,
+      },
       { status: 200 }
     );
   } catch (error) {
@@ -58,4 +57,11 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+export async function GET() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
 }
