@@ -1,125 +1,94 @@
-export const dynamic = "force-dynamic";
+import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
+import crypto from 'crypto';
 
-import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-import Mailgun from "mailgun.js";
-import { createClient } from "@/lib/supabase-server";
+const resend = new Resend(process.env.RESEND_API_KEY);
 
+// In production, store these in a database (Convex, Supabase, etc.)
+// For now, this demonstrates the flow - you'd replace with actual DB calls
 
-const BodySchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(2).max(80).optional().or(z.literal("")),
-  message: z.string().min(10).max(2000),
-  company: z.string().max(0).optional(),
-});
-
-// Simple in-memory token bucket keyed by ip. Resets periodically.
-// Note: In serverless, this may not persist across invocations; good enough as a minimal guard.
-const RATE_LIMIT_WINDOW_MS = 60_000;
-const RATE_LIMIT_MAX = 10;
-const ipToHits: Map<string, { count: number; windowStart: number }> = new Map();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = ipToHits.get(ip);
-  if (!entry) {
-    ipToHits.set(ip, { count: 1, windowStart: now });
-    return false;
-  }
-  if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
-    ipToHits.set(ip, { count: 1, windowStart: now });
-    return false;
-  }
-  entry.count += 1;
-  return entry.count > RATE_LIMIT_MAX;
+function generateConfirmationToken(email: string): string {
+  const secret = process.env.EMAIL_CONFIRMATION_SECRET || 'your-secret-key';
+  const timestamp = Date.now();
+  const data = `${email}:${timestamp}`;
+  const hash = crypto.createHmac('sha256', secret).update(data).digest('hex');
+  // Token = base64(email:timestamp:hash)
+  return Buffer.from(`${email}:${timestamp}:${hash}`).toString('base64url');
 }
 
-export async function POST(req: NextRequest) {
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    req.headers.get("x-real-ip") ??
-    req.headers.get("cf-connecting-ip") ??
-    "unknown";
-
-  if (isRateLimited(ip)) {
-    return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
-  }
-
-  let json: unknown;
+export async function POST(request: NextRequest) {
   try {
-    json = await req.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
-  }
+    const { email, name, source } = await request.json();
 
-  const parsed = BodySchema.safeParse(json);
-  if (!parsed.success) {
-    return NextResponse.json({ error: "Invalid input", details: parsed.error.flatten() }, { status: 400 });
-  }
-
-  const { email, name, message, company } = parsed.data;
-  if (company && company.length > 0) {
-    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
-  }
-
-  const supabase = await createClient();
-  const { data: contactTemplate, error: contactTemplateError } = await supabase
-    .from('email_templates')
-    .select('*')
-    .eq('name', 'contact_form_submission')
-    .single();
-
-  if (contactTemplateError) {
-    console.error('Error fetching contact form email template:', contactTemplateError);
-    return NextResponse.json({ error: "Failed to load email template" }, { status: 500 });
-  }
-
-  const templateData = {
-    name: name || 'Not provided',
-    email,
-    message,
-    company: company || 'Not provided',
-  };
-
-  const renderTemplate = (template: string, data: Record<string, string>) => {
-    let rendered = template;
-    for (const key in data) {
-      rendered = rendered.replace(new RegExp(`\$\{${key}\}`, 'g'), data[key]);
+    if (!email || typeof email !== 'string') {
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
-    return rendered;
-  };
 
-  const emailSubject = renderTemplate(contactTemplate.subject, templateData);
-  const emailText = contactTemplate.body_text ? renderTemplate(contactTemplate.body_text, templateData) : '';
-  const emailHtml = contactTemplate.body_html ? renderTemplate(contactTemplate.body_html, templateData) : '';
+    const normalizedEmail = email.toLowerCase().trim();
+    const token = generateConfirmationToken(normalizedEmail);
+    const confirmUrl = `https://behaviorschool.com/confirm-subscription?token=${token}`;
 
-  const apiKey = process.env.MAILGUN_API_KEY;
-  const domain = process.env.MAILGUN_DOMAIN;
-  const fromEmail = process.env.MAILGUN_FROM_EMAIL;
-  const toEmail = process.env.CONTACT_FORM_TO_EMAIL;
+    // Send confirmation email
+    const { error } = await resend.emails.send({
+      from: 'Behavior School <noreply@updates.behaviorschool.com>',
+      to: normalizedEmail,
+      subject: 'Confirm your subscription to Behavior School',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #1f4d3f;">Almost there!</h2>
+          <p>Hey${name ? ` ${name}` : ''},</p>
+          <p>Thanks for signing up for Behavior School updates. Please confirm your email address by clicking the button below:</p>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${confirmUrl}" 
+               style="background-color: #1f4d3f; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+              Confirm My Subscription
+            </a>
+          </div>
+          
+          <p style="color: #666; font-size: 14px;">
+            Or copy and paste this link into your browser:<br>
+            <a href="${confirmUrl}" style="color: #1f4d3f; word-break: break-all;">${confirmUrl}</a>
+          </p>
+          
+          <p style="color: #666; font-size: 14px; margin-top: 30px;">
+            If you didn't sign up for this, you can safely ignore this email.
+          </p>
+          
+          <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 30px 0;">
+          
+          <p style="color: #999; font-size: 12px;">
+            Behavior School LLC<br>
+            8 The Green #20473<br>
+            Dover, DE 19901
+          </p>
+        </div>
+      `,
+    });
 
-  if (!apiKey || !domain || !fromEmail || !toEmail) {
-    return NextResponse.json({ error: "Service misconfigured" }, { status: 500 });
-  }
+    if (error) {
+      console.error('Failed to send confirmation email:', error);
+      return NextResponse.json({ error: 'Failed to send confirmation email' }, { status: 500 });
+    }
 
-  const mailgun = new Mailgun(FormData);
-  const mg = mailgun.client({ username: "api", key: apiKey });
+    // Log the pending subscription (in production, save to DB with status: 'pending')
+    console.log(`Confirmation email sent to: ${normalizedEmail}, source: ${source || 'unknown'}`);
 
-  const mailgunData = {
-    from: fromEmail,
-    to: toEmail,
-    subject: emailSubject,
-    text: emailText,
-    html: emailHtml,
-  };
+    // Notify Rob of new signup attempt
+    await resend.emails.send({
+      from: 'Behavior School <noreply@updates.behaviorschool.com>',
+      to: 'robspain@gmail.com',
+      subject: `📬 New Signup (pending): ${normalizedEmail}`,
+      text: `New email signup (awaiting confirmation)\n\nEmail: ${normalizedEmail}\nName: ${name || 'Not provided'}\nSource: ${source || 'Unknown'}\nTime: ${new Date().toISOString()}\n\nThey will be added to your list once they click the confirmation link.`,
+    });
 
-  try {
-    await mg.messages.create(domain, mailgunData);
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Please check your email to confirm your subscription.' 
+    });
+
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to send email" }, { status: 502 });
+    console.error('Subscribe error:', error);
+    return NextResponse.json({ error: 'Failed to process subscription' }, { status: 500 });
   }
 }
-
-
