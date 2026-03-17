@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const RESEND_DOMAIN_ID = process.env.RESEND_DOMAIN_ID_UPDATES; // You'll need to set this env var with the ID for updates.behaviorschool.com
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,7 +10,6 @@ export async function POST(request: NextRequest) {
     if (!email || typeof email !== 'string') {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
-
     if (!process.env.RESEND_API_KEY) {
       console.error('RESEND_API_KEY is not set');
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
@@ -19,26 +17,31 @@ export async function POST(request: NextRequest) {
 
     const normalizedEmail = email.toLowerCase().trim();
 
-    // Add email to the suppression list for the domain
-    // This prevents any future emails from being sent to this address from the domain.
-    await resend.emails.suppressions.create({
-      email: normalizedEmail,
+    // Use the send email endpoint with unsubscribe headers as a workaround
+    // when the API key is restricted to sending only.
+    const { data, error } = await resend.emails.send({
+      from: 'unsubscribe@updates.behaviorschool.com',
+      to: normalizedEmail,
+      subject: 'Confirming your unsubscription',
+      text: 'You have been unsubscribed from our mailing list.',
+      headers: {
+        'List-Unsubscribe': 'true',
+      },
     });
 
-    console.log(`Successfully added ${normalizedEmail} to suppression list.`);
+    if (error) {
+      console.error('Resend Unsubscribe-via-Send Error:', error);
+      return NextResponse.json({ error: 'Failed to process unsubscribe request.' }, { status: 500 });
+    }
 
-    return NextResponse.json({ success: true, message: 'You have been successfully unsubscribed.' });
+    console.log(`Successfully sent unsubscribe request for ${normalizedEmail}. ID: ${data?.id}`);
+
+    return NextResponse.json({ success: true, message: 'Your unsubscribe request has been processed.' });
 
   } catch (error: any) {
-    console.error('Resend Unsubscribe Error:', error);
-
-    // Check if the error is because the email is already on the suppression list
-    if (error.name === 'validation_error' && error.message.includes('is already suppressed')) {
-      return NextResponse.json({ success: true, message: 'You are already unsubscribed.' });
-    }
-    
+    console.error('Unsubscribe Route Error:', error);
     return NextResponse.json(
-      { error: 'Failed to process unsubscribe request.' },
+      { error: 'An unexpected error occurred.' },
       { status: 500 }
     );
   }

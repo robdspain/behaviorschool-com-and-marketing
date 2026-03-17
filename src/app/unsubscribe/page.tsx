@@ -97,7 +97,7 @@ function UnsubscribeForm() {
         </form>
         
         <p className="text-xs text-gray-500 mt-6 text-center">
-          Behavior School LLC, Fresno, CA
+          Behavior School LLC
         </p>
       </div>
     </div>
