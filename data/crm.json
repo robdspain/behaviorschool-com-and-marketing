@@ -6454,24 +6454,36 @@
     },
     {
       "id": "299",
-      "name": "Nrs Bcba",
+      "name": "Nicola Schneider",
       "email": "nrs.bcba@gmail.com",
-      "phone": "",
-      "company": "",
+      "phone": "973-513-0687",
+      "company": "NRS Compassionate Behavior Services / PFA-SBT Community",
       "role": "",
       "type": "prospect",
       "source": "conference",
       "status": "new",
       "tags": [
         "BAE-SIG",
-        "CalABA"
+        "CalABA",
+        "pfa-sbt",
+        "sbt-community-admin",
+        "calaba",
+        "bae-sig-donor",
+        "school-consultation",
+        "ace-provider"
       ],
-      "notes": "BAE SIG email list",
+      "notes": "Runs the PFA-SBT Community Facebook group (https://www.facebook.com/groups/403556143453216). Created SBT guidebook & workbook for school-based implementation. Donated swag + guidebook to BAE SIG raffle at CalABA 2026. 15+ years experience. Specializes in school consultation, PFA/SBT, universal protocols, curriculum dev. Also has NJ Principal/Supervisor certification. Website: compassionatebehavior.org / pfasbtcommunity.com. KEY CONTACT for learning platform RBT PD opportunity.",
       "lastContactDate": "",
       "stripeCustomerId": null,
       "revenue": 0,
       "createdAt": "2026-02-13T00:00:00Z",
-      "updatedAt": "2026-02-13T00:00:00Z"
+      "updatedAt": "2026-03-17T09:54:21.357484",
+      "firstName": "Nicky",
+      "lastName": "Schneider",
+      "title": "MA, BCBA, LBA-NJ",
+      "location": "New Jersey",
+      "programInterest": "learning-platform-instructor",
+      "followUpDate": "2026-03-17"
     },
     {
       "id": "300",
