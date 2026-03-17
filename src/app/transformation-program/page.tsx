@@ -119,7 +119,7 @@ export default function TransformationProgramPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15 }}
           >
-            6 weeks from now, you'll leave work at contract time — with systems that actually run without you.
+            By the end of this program, you'll leave work at contract time — with systems that actually run without you.
           </motion.p>
           <motion.div
             className="flex flex-wrap items-center justify-center gap-3 mb-8"
