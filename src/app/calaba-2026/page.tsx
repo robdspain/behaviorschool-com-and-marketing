@@ -219,7 +219,7 @@ export default function CalABA2026Page() {
                 ))}
               </div>
               <Link
-                href="https://plan.behaviorschool.com/signup?plan=founding-annual"
+                href="https://plan.behaviorschool.com"
                 className="block w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-4 rounded-xl text-center transition-colors"
               >
                 Get Started - $149/year
@@ -245,7 +245,7 @@ export default function CalABA2026Page() {
                 ))}
               </div>
               <Link
-                href="https://plan.behaviorschool.com/signup?plan=founding-monthly"
+                href="https://plan.behaviorschool.com"
                 className="block w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl text-center transition-colors border border-slate-600"
               >
                 Get Started - $19/month

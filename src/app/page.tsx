@@ -16,7 +16,7 @@ export default function Home() {
         title="Everything a Behavior Analyst"
         highlight="Actually Needs"
         subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school-based behavior professionals."
-        primaryCta={{ href: "https://plan.behaviorschool.com/signup", label: "Start Free Trial" }}
+        primaryCta={{ href: "https://plan.behaviorschool.com", label: "Join Waitlist" }}
         variant="brand"
       />
 
