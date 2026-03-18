@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { AlertTriangle, CheckCircle, Printer, ArrowRight, Plus, Trash2, Sparkles, TrendingUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShareBar } from "@/components/ui/ShareBar";
@@ -525,13 +526,13 @@ export function ABCWizard() {
           <p className="text-sm text-gray-600 mb-3">
             This analysis identifies the function. To build a complete, values-aligned BIP, use the ACT-Informed FBA Generator.
           </p>
-          <a
+          <Link
             href="/act-fba-bip"
             className="inline-flex items-center gap-2 bg-[#1a4731] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#2d6b4f] transition-colors"
           >
             Try ACT-FBA Tool
             <ArrowRight size={14} />
-          </a>
+          </Link>
         </div>
       </div>
 
