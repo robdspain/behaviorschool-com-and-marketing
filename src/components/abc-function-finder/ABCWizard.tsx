@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AlertTriangle, CheckCircle, Printer, ArrowRight, Plus, Trash2 } from "lucide-react";
 import { ShareBar } from "@/components/ui/ShareBar";
+import { EmailResultsGate } from "@/components/ui/EmailResultsGate";
 
 type Observation = { a: string; b: string; c: string };
 
@@ -464,6 +465,17 @@ export function ABCWizard() {
             <ArrowRight size={14} />
           </a>
         </div>
+      </div>
+
+      {/* Email Results Gate */}
+      <div className="print:hidden">
+        <EmailResultsGate
+          toolName="ABC Function Analysis"
+          toolSource="abc-function-finder"
+          resultsSummary={`${functionLabel} function (${result.confidence}% confidence). ${result.summary}`}
+          ctaText="Email me this analysis"
+          successText="Your report is on the way!"
+        />
       </div>
 
       {/* Share */}

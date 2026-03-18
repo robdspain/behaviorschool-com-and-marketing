@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CheckCircle, Trophy, Zap, BarChart3, ArrowRight, Star, TrendingUp } from "lucide-react";
+import { CheckCircle, Trophy, Zap, BarChart3, ArrowRight, Star, TrendingUp, Mail, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import confetti from "canvas-confetti";
@@ -18,6 +18,48 @@ interface TestResults {
 export default function ResultsPage() {
   const [results, setResults] = useState<TestResults | null>(null);
   const [hasShownConfetti, setHasShownConfetti] = useState(false);
+  
+  // Email capture state
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [emailError, setEmailError] = useState("");
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !results) return;
+    
+    setIsSubmitting(true);
+    setEmailError("");
+    
+    try {
+      const response = await fetch("/api/crm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          firstName: firstName || undefined,
+          source: "free-bcba-practice-test",
+          role: "BCBA Candidate",
+          segment: "study",
+          metadata: {
+            score: results.score,
+            total: results.total,
+            percentage: results.percentage,
+            completionTime: results.time,
+          },
+        }),
+      });
+      
+      if (!response.ok) throw new Error("Failed");
+      setEmailSubmitted(true);
+    } catch {
+      setEmailError("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     // Load results from localStorage
@@ -157,6 +199,84 @@ export default function ResultsPage() {
                   Completion Time
                 </div>
               </div>
+            </div>
+
+            {/* Email Capture */}
+            <div className="bg-slate-50 rounded-2xl p-8 border-2 border-slate-200 mb-12">
+              {emailSubmitted ? (
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-6 h-6 text-emerald-600" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-emerald-900 text-lg">Check your inbox!</p>
+                    <p className="text-sm text-emerald-700">
+                      We sent your score report and personalized study plan to {email}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col sm:flex-row items-start gap-6">
+                  <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-7 h-7 text-emerald-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-slate-900 text-xl mb-2">
+                      Get Your Score Report + Study Plan
+                    </h3>
+                    <p className="text-slate-600 mb-4">
+                      We&apos;ll email you a detailed breakdown of your performance plus a personalized 
+                      study plan based on your score.
+                    </p>
+                    
+                    <form onSubmit={handleEmailSubmit} className="space-y-3">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <input
+                          type="text"
+                          placeholder="First name (optional)"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className="flex-1 px-4 py-3 border border-slate-300 rounded-xl text-base focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                        />
+                        <input
+                          type="email"
+                          placeholder="Your email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className="flex-1 px-4 py-3 border border-slate-300 rounded-xl text-base focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                        />
+                      </div>
+                      
+                      <button
+                        type="submit"
+                        disabled={isSubmitting || !email}
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 bg-emerald-600 text-white px-8 py-3 rounded-xl text-base font-semibold hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Download className="w-5 h-5" />
+                            Email My Results
+                          </>
+                        )}
+                      </button>
+                      
+                      {emailError && (
+                        <p className="text-sm text-red-600">{emailError}</p>
+                      )}
+                      
+                      <p className="text-xs text-slate-500">
+                        Free. No spam. Unsubscribe anytime.
+                      </p>
+                    </form>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Performance Insights */}
