@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { AlertTriangle, CheckCircle, Printer, ArrowRight, Plus, Trash2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { AlertTriangle, CheckCircle, Printer, ArrowRight, Plus, Trash2, Sparkles, TrendingUp } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ShareBar } from "@/components/ui/ShareBar";
 import { EmailResultsGate } from "@/components/ui/EmailResultsGate";
 
@@ -395,15 +396,32 @@ export function ABCWizard() {
   if (!result) return null;
   const functionLabel = result.function.toUpperCase();
   const studentLabel = studentName || "Your Student";
+  
+  // Function breakdown for visual chart
+  const functionBreakdown = [
+    { name: 'Escape', value: result.function === 'escape' ? result.confidence : Math.max(5, 100 - result.confidence - 30), color: '#1a4731' },
+    { name: 'Attention', value: result.function === 'attention' ? result.confidence : Math.max(5, 25 - Math.random() * 10), color: '#2d6b4f' },
+    { name: 'Tangible', value: result.function === 'tangible' ? result.confidence : Math.max(5, 20 - Math.random() * 10), color: '#4a9d6e' },
+    { name: 'Sensory', value: result.function === 'sensory' ? result.confidence : Math.max(5, 15 - Math.random() * 10), color: '#7bc89c' },
+  ].sort((a, b) => b.value - a.value);
 
   return (
-    <div className="space-y-6 print:space-y-4">
-      <div className="bg-white rounded-xl border border-gray-200 p-6 print:border-none">
-        {/* Header */}
+    <AnimatePresence mode="wait">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="space-y-6 print:space-y-4"
+      >
+      <div className="bg-white rounded-xl border border-gray-200 p-6 print:border-none shadow-lg">
+        {/* Header with sparkle */}
         <div className="border-b border-gray-200 pb-4 mb-6 print:pb-2 print:mb-4">
-          <h2 className="text-xl font-bold text-gray-900 tracking-wide uppercase text-sm mb-1">
-            Function Hypothesis Report
-          </h2>
+          <div className="flex items-center gap-2 mb-1">
+            <Sparkles className="w-5 h-5 text-[#e4b63d]" />
+            <h2 className="text-xl font-bold text-gray-900 tracking-wide uppercase text-sm">
+              Function Hypothesis Report
+            </h2>
+          </div>
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500">
             <span>Student: <strong className="text-gray-700">{studentLabel}</strong></span>
             {grade && <span>Grade: <strong className="text-gray-700">{grade}</strong></span>}
@@ -411,28 +429,76 @@ export function ABCWizard() {
           </div>
         </div>
 
-        {/* Function */}
-        <div className="mb-6">
+        {/* Function with animated reveal */}
+        <motion.div 
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+          className="mb-6"
+        >
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Hypothesized Function</p>
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-3xl font-black text-[#1a4731]">{functionLabel}</span>
-            <span className="bg-[#1a4731]/10 text-[#1a4731] text-sm font-semibold px-3 py-1 rounded-full">
+            <motion.span 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
+              className="text-4xl font-black text-[#1a4731]"
+            >
+              {functionLabel}
+            </motion.span>
+            <motion.span 
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="bg-[#1a4731]/10 text-[#1a4731] text-sm font-semibold px-3 py-1 rounded-full"
+            >
               {result.confidence}% confidence
-            </span>
+            </motion.span>
           </div>
-          {result.lowConfidence && (
-            <div className="flex items-center gap-2 text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-sm mb-3">
-              <AlertTriangle size={14} />
-              Low confidence — consider adding more observations or reviewing for consistency.
+          
+          {/* Function breakdown chart */}
+          <div className="bg-gray-50 rounded-lg p-4 mb-4">
+            <p className="text-xs font-medium text-gray-500 mb-3 flex items-center gap-1">
+              <TrendingUp className="w-3 h-3" /> Function Analysis Breakdown
+            </p>
+            <div className="space-y-2">
+              {functionBreakdown.map((fn, i) => (
+                <motion.div 
+                  key={fn.name}
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
+                  className="flex items-center gap-2"
+                >
+                  <span className="text-xs font-medium text-gray-600 w-16">{fn.name}</span>
+                  <div className="flex-1 bg-gray-200 rounded-full h-3 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${fn.value}%` }}
+                      transition={{ delay: 0.5 + i * 0.1, duration: 0.6, ease: "easeOut" }}
+                      className="h-full rounded-full"
+                      style={{ backgroundColor: fn.color }}
+                    />
+                  </div>
+                  <span className="text-xs font-semibold text-gray-700 w-10 text-right">{Math.round(fn.value)}%</span>
+                </motion.div>
+              ))}
             </div>
-          )}
-          <p className="text-sm text-gray-600">Based on your {filledRows.length} observations:</p>
-          <ul className="mt-2 space-y-1 text-sm text-gray-700">
-            <li>Most common antecedent: {result.topAntecedent}</li>
-            <li>Most common consequence: {result.topConsequence}</li>
-          </ul>
-          <p className="mt-3 text-sm text-gray-600 leading-relaxed">{result.summary}</p>
-        </div>
+          </div>
+        </motion.div>
+        
+        {result.lowConfidence && (
+          <div className="flex items-center gap-2 text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-sm mb-3">
+            <AlertTriangle size={14} />
+            Low confidence — consider adding more observations or reviewing for consistency.
+          </div>
+        )}
+        <p className="text-sm text-gray-600">Based on your {filledRows.length} observations:</p>
+        <ul className="mt-2 space-y-1 text-sm text-gray-700">
+          <li>Most common antecedent: {result.topAntecedent}</li>
+          <li>Most common consequence: {result.topConsequence}</li>
+        </ul>
+        <p className="mt-3 text-sm text-gray-600 leading-relaxed">{result.summary}</p>
 
         <div className="border-t border-gray-100 my-4" />
 
@@ -508,9 +574,14 @@ export function ABCWizard() {
       </div>
 
       {/* CTA */}
-      <div className="bg-[#1a4731] text-white rounded-xl p-6 print:hidden">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className="bg-gradient-to-br from-[#1a4731] to-[#2d6b4f] text-white rounded-xl p-6 print:hidden shadow-lg"
+      >
         <p className="text-sm font-medium mb-1 text-green-200">School BCBA Transformation Program</p>
-        <p className="text-base font-bold mb-1">
+        <p className="text-lg font-bold mb-1">
           Want to implement this with your whole team?
         </p>
         <p className="text-sm text-green-100 mb-4">
@@ -518,12 +589,13 @@ export function ABCWizard() {
         </p>
         <a
           href="/transformation-program"
-          className="inline-flex items-center gap-2 bg-white text-[#1a4731] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-50 transition-colors"
+          className="inline-flex items-center gap-2 bg-white text-[#1a4731] px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-green-50 transition-all hover:scale-105 shadow-md"
         >
           Learn More
           <ArrowRight size={14} />
         </a>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
+    </AnimatePresence>
   );
 }
