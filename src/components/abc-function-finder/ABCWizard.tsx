@@ -196,7 +196,9 @@ export function ABCWizard() {
     setError("");
     const analysis = analyzeFunction(filledRows);
     setResult(analysis);
-    setStep(2);
+    // Skip email gate (step 2), go directly to results (step 3)
+    // Email capture is now optional at the bottom of results
+    setStep(3);
   }
 
   async function handleEmailSubmit(e: React.FormEvent) {

@@ -223,7 +223,8 @@ export default function CaseloadAnalyzer() {
     if (currentQ < QUESTIONS.length - 1) {
       setCurrentQ(currentQ + 1);
     } else {
-      setShowEmailGate(true);
+      // Go directly to results - email capture is optional at bottom
+      setShowResults(true);
     }
   };
 
@@ -243,8 +244,8 @@ export default function CaseloadAnalyzer() {
           data: { score: total, level: getScoreLevel(total), role: roleLabel, answers },
         }),
       });
-      setShowResults(true);
-      setShowEmailGate(false);
+      // Show confirmation that email was sent
+      setShowEmailGate(true);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -291,8 +292,46 @@ export default function CaseloadAnalyzer() {
           </div>
         ))}
 
+        {/* Optional Email Capture */}
+        {!showEmailGate && (
+          <div style={{ background: "#f9f9f6", border: "1px solid #e0e0d8", borderRadius: 12, padding: "24px", marginTop: 32 }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#1a3a2a", marginBottom: 8 }}>
+              📧 Save your results
+            </h3>
+            <p style={{ color: "#555", marginBottom: 16, fontSize: "0.9rem" }}>
+              Get a copy of this analysis emailed to you with additional resources.
+            </p>
+            <form onSubmit={handleEmailSubmit} style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email"
+                required
+                style={{ flex: 1, minWidth: 200, padding: "10px 14px", border: "1.5px solid #ccc", borderRadius: 6, fontSize: "0.95rem" }}
+              />
+              <button
+                type="submit"
+                disabled={submitting}
+                style={{ background: "#1a4731", color: "white", border: "none", padding: "10px 20px", borderRadius: 6, fontWeight: 600, fontSize: "0.9rem", cursor: "pointer" }}
+              >
+                {submitting ? "Sending..." : "Email Results"}
+              </button>
+            </form>
+            {error && <p style={{ color: "red", marginTop: 8, fontSize: "0.85rem" }}>{error}</p>}
+          </div>
+        )}
+
+        {showEmailGate && (
+          <div style={{ background: "#e8f5ee", border: "1px solid #86efac", borderRadius: 12, padding: "20px", marginTop: 32, textAlign: "center" }}>
+            <p style={{ color: "#166534", fontWeight: 600, margin: 0 }}>
+              ✓ Results sent to {email}
+            </p>
+          </div>
+        )}
+
         {/* CTA */}
-        <div style={{ background: "#1a3a2a", color: "white", borderRadius: 12, padding: "32px", marginTop: 40, textAlign: "center" }}>
+        <div style={{ background: "#1a3a2a", color: "white", borderRadius: 12, padding: "32px", marginTop: 32, textAlign: "center" }}>
           <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: 8 }}>
             The School BCBA Transformation Program addresses all of these systematically.
           </h3>
