@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const CONVEX_SITE_URL = process.env.NEXT_PUBLIC_CONVEX_SITE_URL || 'https://third-loris-453.convex.site';
+// Convert cloud URL to site URL for HTTP actions
+const CONVEX_CLOUD_URL = process.env.NEXT_PUBLIC_CONVEX_URL || 'https://quixotic-fox-157.convex.cloud';
+const CONVEX_SITE_URL = CONVEX_CLOUD_URL.replace('.convex.cloud', '.convex.site');
 
 export async function POST(request: NextRequest) {
   try {
