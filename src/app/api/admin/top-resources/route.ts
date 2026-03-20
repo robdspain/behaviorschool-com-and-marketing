@@ -3,15 +3,22 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-function getSupabase() { return createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE!
-); }
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE;
+  if (!url || !key) return null;
+  return createClient(url, key);
+}
 
 export async function GET() {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ success: true, topResources: [] });
+  }
+  
   try {
     // Get download counts grouped by resource/source
-    const { data: downloads, error: downloadError } = await getSupabase()
+    const { data: downloads, error: downloadError } = await supabase
       .from('download_submissions')
       .select('resource, source');
 

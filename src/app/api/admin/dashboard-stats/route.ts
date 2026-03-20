@@ -5,10 +5,25 @@ import { createClient } from '@supabase/supabase-js';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE!
-  );
+  // Return zeros if Supabase isn't configured
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE;
+  
+  if (!url || !key) {
+    return NextResponse.json({
+      success: true,
+      stats: {
+        totalSubmissions: 0,
+        weekSubmissions: 0,
+        totalTemplates: 0,
+        activeTemplates: 0,
+        draftTemplates: 0,
+        totalDownloads: 0,
+      }
+    });
+  }
+
+  const supabase = createClient(url, key);
   
   try {
     // Get total submissions count

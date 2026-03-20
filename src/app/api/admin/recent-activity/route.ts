@@ -3,10 +3,12 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-function getSupabase() { return createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE!
-); }
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE;
+  if (!url || !key) return null;
+  return createClient(url, key);
+}
 
 interface Activity {
   type: string
@@ -16,11 +18,16 @@ interface Activity {
 }
 
 export async function GET() {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ success: true, activities: [] });
+  }
+  
   try {
     const activities: Activity[] = [];
 
     // Get archived activity IDs to filter them out
-    const { data: archivedData } = await getSupabase()
+    const { data: archivedData } = await supabase
       .from('archived_activities')
       .select('activity_type, activity_id');
 
@@ -29,7 +36,7 @@ export async function GET() {
     );
 
     // Get recent submissions (last 10)
-    const { data: submissions, error: submissionsError } = await getSupabase()
+    const { data: submissions, error: submissionsError } = await supabase
       .from('signup_submissions')
       .select('id, first_name, last_name, submitted_at')
       .order('submitted_at', { ascending: false })
@@ -50,7 +57,7 @@ export async function GET() {
     }
 
     // Get recent email template updates (last 5)
-    const { data: templates, error: templatesError } = await getSupabase()
+    const { data: templates, error: templatesError } = await supabase
       .from('email_templates')
       .select('id, name, updated_at')
       .order('updated_at', { ascending: false })
@@ -71,7 +78,7 @@ export async function GET() {
     }
 
     // Get recent downloads (last 5)
-    const { data: downloads, error: downloadsError } = await getSupabase()
+    const { data: downloads, error: downloadsError } = await supabase
       .from('download_submissions')
       .select('id, resource, created_at')
       .order('created_at', { ascending: false })
