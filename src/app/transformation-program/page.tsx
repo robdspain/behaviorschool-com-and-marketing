@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
@@ -102,16 +101,15 @@ export default function TransformationProgramPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pb-20 sm:pb-28 overflow-hidden bg-[#f7f3ee]">
+      <section className="relative pb-20 sm:pb-28 overflow-hidden bg-[#FAFAFA]">
         <div className="absolute inset-0 pointer-events-none">
           <div
-            className="absolute inset-0 opacity-[0.35]"
+            className="absolute inset-0 opacity-[0.55]"
             style={{
               backgroundImage: 'radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)',
-              backgroundSize: '32px 32px'
+              backgroundSize: '24px 24px'
             }}
           />
-
         </div>
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16">
           <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
@@ -174,18 +172,14 @@ export default function TransformationProgramPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="absolute -inset-4 bg-gradient-to-tr from-[#1f4d3f]/30 to-[#e4b63d]/30 rounded-[2rem] blur-[40px] opacity-60" />
-              <div className="relative rounded-[1.75rem] p-2 sm:p-3 bg-white/70 border border-white/70 shadow-xl">
-                <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3]">
-                  <Image
+              <div className="relative rounded-[1.75rem] p-3 bg-white border border-[#1f4d3f]/10 shadow-lg">
+                <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3] bg-[#f1f5f9]">
+                  <img
                     src="/optimized/Hero/Hero-group1-optimized.webp"
                     alt="School-based BCBAs collaborating"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 90vw, 520px"
-                    priority
+                    className="w-full h-full object-cover"
+                    loading="eager"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                 </div>
               </div>
             </motion.div>
