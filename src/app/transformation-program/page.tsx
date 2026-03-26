@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
@@ -96,23 +97,15 @@ export default function TransformationProgramPage() {
   return (
     <div className="min-h-screen bg-white relative pt-16">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <Breadcrumbs items={[{ label: "Transformation Program" }]} />
-      </div>
-
       {/* Hero Section */}
-      <section className="relative pb-20 sm:pb-28 overflow-hidden bg-[#f7f3ee]">
-        <div className="absolute inset-0 pointer-events-none">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: 'linear-gradient(to right, #1f4d3f12 1px, transparent 1px), linear-gradient(to bottom, #1f4d3f12 1px, transparent 1px)',
-              backgroundSize: '48px 48px'
-            }}
-          />
+      <section className="relative overflow-hidden bg-[#f7f3ee]">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f4d3f12_1px,transparent_1px),linear-gradient(to_bottom,#1f4d3f12_1px,transparent_1px)] bg-[size:48px_48px]" />
         </div>
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16">
-          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-20 sm:pb-28">
+          <Breadcrumbs items={[{ label: "Transformation Program" }]} />
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center mt-12 sm:mt-16">
             <div className="text-center lg:text-left">
               <motion.div
                 className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8"
@@ -174,11 +167,13 @@ export default function TransformationProgramPage() {
             >
               <div className="relative rounded-[1.75rem] p-3 bg-white border border-[#1f4d3f]/10 shadow-lg">
                 <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3] bg-[#f1f5f9]">
-                  <img
-                    src="/optimized/Community/comein-coffee-people-optimized.webp"
-                    alt="Behavior School community"
-                    className="w-full h-full object-cover"
-                    loading="eager"
+                  <Image
+                    src="/optimized/Hero/11D67BC4-55A4-4549-A776-84E87EDED35F.webp"
+                    alt="School-based BCBA systems in action"
+                    width={640}
+                    height={480}
+                    className="h-full w-full object-cover"
+                    priority
                   />
                 </div>
               </div>
