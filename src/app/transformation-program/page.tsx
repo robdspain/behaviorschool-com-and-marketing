@@ -2,12 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 
-const EARLY_BIRD_DEADLINE = new Date('2026-03-21T00:00:00-07:00');
+const EARLY_BIRD_DEADLINE = new Date('2026-04-03T00:00:00-07:00');
 const isEarlyBird = new Date() < EARLY_BIRD_DEADLINE;
 
 const FULL_PAY_LINK = isEarlyBird
@@ -113,57 +114,83 @@ export default function TransformationProgramPage() {
           <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-emerald-300/30 blur-[110px]" />
           <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] rounded-full bg-teal-300/25 blur-[120px]" />
         </div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-12 sm:pt-16">
-          <motion.div
-            className="flex flex-wrap items-center justify-center gap-3 mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {['Live cohort', '6 weeks', 'BCBAs only', 'School-based'].map((item) => (
-              <span key={item} className="px-3 py-1.5 rounded-full border border-[#1f4d3f]/20 bg-white text-xs font-semibold text-[#1f4d3f] uppercase tracking-wide">
-                {item}
-              </span>
-            ))}
-          </motion.div>
-          <motion.h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1a1a1a] leading-tight mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            You Became a BCBA to Help Kids.{' '}
-            <span className="text-[#1f4d3f]">Not to Drown in Paperwork.</span>
-          </motion.h1>
-          <motion.p
-            className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            By the end of this program, you will leave work at contract time, with systems that actually run without you.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <a
-              href="#curriculum"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16">
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
+            <div className="text-center lg:text-left">
+              <motion.div
+                className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {['Live cohort', '6 weeks', 'BCBAs only', 'School-based'].map((item) => (
+                  <span key={item} className="px-3 py-1.5 rounded-full border border-[#1f4d3f]/20 bg-white text-xs font-semibold text-[#1f4d3f] uppercase tracking-wide">
+                    {item}
+                  </span>
+                ))}
+              </motion.div>
+              <motion.h1
+                className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1a1a1a] leading-tight mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                You Became a BCBA to Help Kids.{' '}
+                <span className="text-[#1f4d3f]">Not to Drown in Paperwork.</span>
+              </motion.h1>
+              <motion.p
+                className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                By the end of this program, you will leave work at contract time, with systems that actually run without you.
+              </motion.p>
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <a
+                  href="#curriculum"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
+                >
+                  See What You&apos;ll Build <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href={CALENDLY_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
+                >
+                  Book a 15-min Call First
+                </a>
+              </motion.div>
+            </div>
+
+            <motion.div
+              className="relative max-w-[520px] mx-auto lg:ml-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              See What You&apos;ll Build <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href={CALENDLY_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
-            >
-              Book a 15-min Call First
-            </a>
-          </motion.div>
+              <div className="absolute -inset-4 bg-gradient-to-tr from-[#1f4d3f]/30 to-[#e4b63d]/30 rounded-[2rem] blur-[40px] opacity-60" />
+              <div className="relative rounded-[1.75rem] p-2 sm:p-3 bg-white/70 border border-white/70 shadow-xl">
+                <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3]">
+                  <Image
+                    src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
+                    alt="School-based BCBA transformation systems"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 90vw, 520px"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
 
         {/* Cohort dates callout */}
@@ -173,15 +200,14 @@ export default function TransformationProgramPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2">
                   <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" />
-                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, March 2026</span>
+                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, April 2026</span>
                 </div>
                 <p className="text-[#1a1a1a] font-semibold text-sm mb-1">Thursdays &middot; 6:00 to 8:00 PM PT</p>
                 <div className="flex flex-wrap gap-x-3 gap-y-1">
-                  {['Mar 26', 'Apr 9', 'Apr 16', 'Apr 23', 'Apr 30', 'May 7'].map((d) => (
+                  {['Apr 9', 'Apr 16', 'Apr 23', 'Apr 30', 'May 7', 'May 14'].map((d) => (
                     <span key={d} className="text-[#1f4d3f] font-semibold text-sm">{d}</span>
                   ))}
                 </div>
-                <p className="text-slate-500 text-xs mt-2">Easter week (Apr 2) off</p>
               </div>
               {/* Spots remaining */}
               <div className="flex-shrink-0 text-center bg-[#1f4d3f]/5 rounded-xl px-5 py-3 border border-[#1f4d3f]/10">
@@ -367,7 +393,7 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: "March 26, 2026. Sessions run Thursdays 6 to 8 PM PT, ending May 7. Easter week (Apr 2) is off. Maximum 20 participants." },
+            { question: "When does the next cohort start?", answer: "April 9, 2026. Sessions run Thursdays 6 to 8 PM PT, ending May 14. Maximum 20 participants." },
             { question: "What if I miss a live session?", answer: "All sessions are recorded and available in your student portal within 24 hours." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. We accept purchase orders and can provide a formal invoice for your business office. Email rob@behaviorschool.com to request district paperwork." },
             { question: "Is a W-9 available?", answer: "Yes, available on request. Email rob@behaviorschool.com and we'll send it same day." },
@@ -381,7 +407,7 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Join the March 26 Cohort</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Join the April 9 Cohort</h2>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             6 weeks. 20 seats max. School-based BCBAs only.
           </p>
@@ -395,12 +421,12 @@ export default function TransformationProgramPage() {
             rel="noopener noreferrer"
             className="block w-full rounded-full bg-[#e4b63d] hover:bg-[#d4a637] text-[#123628] font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
           >
-            Join the March 26 Cohort
+            Join the April 9 Cohort
           </a>
 
           {isEarlyBird && (
             <p className="text-white/60 text-sm mb-2">
-              Early bird pricing ends Friday, March 20
+              Early bird pricing ends Friday, April 3
             </p>
           )}
           {isEarlyBird && (
@@ -459,7 +485,7 @@ This program addresses three problems directly:
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
 3. Caseload sustainability: systems that prevent the burnout that leads to BCBA turnover ($40-60K to replace).
 
-6 sessions, Thursdays 6 to 8 PM PT, March 26 to May 7, 2026. Cost: $2,499.
+6 sessions, Thursdays 6 to 8 PM PT, April 9 to May 14, 2026. Cost: $2,499.
 Details: behaviorschool.com/transformation-program`}</div>
               </div>
             </div>
