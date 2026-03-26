@@ -101,13 +101,13 @@ export default function TransformationProgramPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pb-20 sm:pb-28 overflow-hidden bg-[#FAFAFA]">
+      <section className="relative pb-20 sm:pb-28 overflow-hidden bg-[#f7f3ee]">
         <div className="absolute inset-0 pointer-events-none">
           <div
-            className="absolute inset-0 opacity-[0.55]"
+            className="absolute inset-0"
             style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)',
-              backgroundSize: '24px 24px'
+              backgroundImage: 'linear-gradient(to right, #1f4d3f12 1px, transparent 1px), linear-gradient(to bottom, #1f4d3f12 1px, transparent 1px)',
+              backgroundSize: '48px 48px'
             }}
           />
         </div>
@@ -175,8 +175,8 @@ export default function TransformationProgramPage() {
               <div className="relative rounded-[1.75rem] p-3 bg-white border border-[#1f4d3f]/10 shadow-lg">
                 <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3] bg-[#f1f5f9]">
                   <img
-                    src="/optimized/Hero/Hero-group1-optimized.webp"
-                    alt="School-based BCBAs collaborating"
+                    src="/optimized/Community/comein-coffee-people-optimized.webp"
+                    alt="Behavior School community"
                     className="w-full h-full object-cover"
                     loading="eager"
                   />
