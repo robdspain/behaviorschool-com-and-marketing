@@ -8,11 +8,6 @@ const TOOL_CONFIGS: Record<string, { subject: string; toolName: string; toolUrl:
     toolName: "ACT Matrix Builder",
     toolUrl: "https://behaviorschool.com/act-matrix-builder",
   },
-  "caseload-analyzer": {
-    subject: "Your BCBA Caseload Analysis Results",
-    toolName: "BCBA Caseload Analyzer",
-    toolUrl: "https://behaviorschool.com/caseload-analyzer",
-  },
   "iep-goal-writer": {
     subject: "Your IEP Behavior Goals — save this link",
     toolName: "IEP Behavior Goal Writer",
