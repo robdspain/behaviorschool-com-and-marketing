@@ -102,7 +102,18 @@ export default function TransformationProgramPage() {
 
       {/* Hero Section */}
       <section className="relative pb-20 sm:pb-28 overflow-hidden bg-[#f7f3ee]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-12 sm:pt-16">
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute inset-0 opacity-[0.35]"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)',
+              backgroundSize: '32px 32px'
+            }}
+          />
+          <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-emerald-300/30 blur-[110px]" />
+          <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] rounded-full bg-teal-300/25 blur-[120px]" />
+        </div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-12 sm:pt-16">
           <motion.div
             className="flex flex-wrap items-center justify-center gap-3 mb-8"
             initial={{ opacity: 0, y: 20 }}
