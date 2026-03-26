@@ -111,8 +111,7 @@ export default function TransformationProgramPage() {
               backgroundSize: '32px 32px'
             }}
           />
-          <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-emerald-300/30 blur-[110px]" />
-          <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] rounded-full bg-teal-300/25 blur-[120px]" />
+
         </div>
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16">
           <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
@@ -179,8 +178,8 @@ export default function TransformationProgramPage() {
               <div className="relative rounded-[1.75rem] p-2 sm:p-3 bg-white/70 border border-white/70 shadow-xl">
                 <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3]">
                   <Image
-                    src="/optimized/OperatingSystem/DD83BB21-6F33-4A94-BF67-311EDDE6D309.webp"
-                    alt="School-based BCBA transformation systems"
+                    src="/optimized/Hero/Hero-group1-optimized.webp"
+                    alt="School-based BCBAs collaborating"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 90vw, 520px"
