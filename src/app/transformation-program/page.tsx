@@ -94,7 +94,7 @@ function AnimatedSpots({ remaining }: { remaining: number }) {
 
 export default function TransformationProgramPage() {
   return (
-    <div className="min-h-screen bg-white relative pt-8">
+    <div className="min-h-screen bg-white relative pt-0">
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-[#f7f3ee]">
@@ -102,8 +102,8 @@ export default function TransformationProgramPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f4d3f12_1px,transparent_1px),linear-gradient(to_bottom,#1f4d3f12_1px,transparent_1px)] bg-[size:48px_48px]" />
         </div>
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-20 sm:pb-28">
-          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center mt-12 sm:mt-16">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-20 sm:pb-28">
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center mt-8 sm:mt-10">
             <div className="text-center lg:text-left">
               <motion.div
                 className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8"
