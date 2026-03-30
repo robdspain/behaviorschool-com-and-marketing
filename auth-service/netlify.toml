@@ -1,5 +1,4 @@
 [build]
-  base    = "auth-service"
   command = "npm install && npm run build"
   publish = ".next"
 
