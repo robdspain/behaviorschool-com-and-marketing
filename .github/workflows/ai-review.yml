@@ -1,0 +1,102 @@
+name: AI Code Review
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ai-review:
+    name: Gemini Code Review
+    runs-on: ubuntu-latest
+    # Never block deploys — this is advisory only
+    continue-on-error: true
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Review with Gemini Flash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          python3 << 'PYEOF'
+          import subprocess, json, urllib.request, os, sys
+
+          # Diff only source files, cap at 40 KB to stay within Gemini token limits
+          diff_proc = subprocess.run(
+              [
+                  "git", "diff", "HEAD^", "HEAD", "--",
+                  "*.ts", "*.tsx", "*.js", "*.jsx",
+                  "*.mjs", "*.cjs", "*.prisma", "*.py",
+              ],
+              capture_output=True,
+              text=True,
+          )
+          diff = diff_proc.stdout[:40000]
+
+          if not diff.strip():
+              print("No code changes to review — skipping.")
+              sys.exit(0)
+
+          api_key = os.environ.get("GEMINI_API_KEY", "")
+          if not api_key:
+              print("GEMINI_API_KEY secret not set — skipping review.")
+              sys.exit(0)
+
+          url = (
+              "https://generativelanguage.googleapis.com/v1beta/"
+              f"models/gemini-1.5-flash:generateContent?key={api_key}"
+          )
+
+          prompt = (
+              "You are a senior software engineer reviewing a git diff. "
+              "Provide concise, actionable feedback focusing on: bugs, "
+              "security vulnerabilities, performance problems, and significant "
+              "code quality issues. Use GitHub-flavored markdown with short sections. "
+              "If the change looks solid, say so briefly and skip nitpicks.\n\n"
+              f"```diff\n{diff}\n```"
+          )
+
+          payload = {"contents": [{"parts": [{"text": prompt}]}]}
+          req = urllib.request.Request(
+              url,
+              data=json.dumps(payload).encode(),
+              headers={"Content-Type": "application/json"},
+          )
+
+          try:
+              with urllib.request.urlopen(req, timeout=60) as resp:
+                  data = json.loads(resp.read())
+                  review = data["candidates"][0]["content"]["parts"][0]["text"]
+          except Exception as exc:
+              review = f"_Gemini review failed: {exc}_"
+
+          # Post as a commit comment via GitHub REST API
+          sha = os.environ["SHA"]
+          repo = os.environ["REPO"]
+          gh_token = os.environ["GH_TOKEN"]
+          comment_url = f"https://api.github.com/repos/{repo}/commits/{sha}/comments"
+          body = f"## 🤖 Gemini AI Code Review\n\n{review}"
+
+          comment_req = urllib.request.Request(
+              comment_url,
+              data=json.dumps({"body": body}).encode(),
+              headers={
+                  "Content-Type": "application/json",
+                  "Authorization": f"Bearer {gh_token}",
+                  "X-GitHub-Api-Version": "2022-11-28",
+              },
+          )
+          try:
+              with urllib.request.urlopen(comment_req, timeout=30) as resp:
+                  print(f"✅ Review comment posted (HTTP {resp.status})")
+          except Exception as exc:
+              print(f"Failed to post comment: {exc}")
+              sys.exit(1)
+          PYEOF
