@@ -1,8 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  // Standalone output for optimal Netlify deployment
-  output: "standalone",
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;
