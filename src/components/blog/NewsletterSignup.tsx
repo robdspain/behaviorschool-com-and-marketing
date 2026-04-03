@@ -33,10 +33,10 @@ export function BlogNewsletterSignup() {
       <div className="bg-[#1E3A34] rounded-lg p-8 my-8">
         <div className="max-w-2xl mx-auto text-center">
           <h3 className="text-2xl font-bold text-[#FAF3E0] mb-2">
-            Thanks for subscribing!
+            You&apos;re in!
           </h3>
           <p className="text-[#FAF3E0]/80">
-            You will receive weekly tips in your inbox.
+            Check your inbox every Tuesday for research articles and school BCBA resources.
           </p>
         </div>
       </div>
@@ -47,10 +47,10 @@ export function BlogNewsletterSignup() {
     <div className="bg-[#1E3A34] rounded-lg p-8 my-8">
       <div className="max-w-2xl mx-auto">
         <h3 className="text-2xl font-bold text-[#FAF3E0] mb-2 text-center">
-          Get school BCBA tips delivered weekly
+          Behavior School Newsletter
         </h3>
         <p className="text-[#FAF3E0]/80 mb-6 text-center">
-          Evidence-based strategies, free resources, and practical tips for school-based behavior analysts.
+          Every Tuesday: 3 research articles + school BCBA application. No fluff.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -68,7 +68,7 @@ export function BlogNewsletterSignup() {
             disabled={status === 'loading'}
             className="px-6 py-3 bg-[#E3B23C] text-[#1E3A34] font-semibold rounded hover:bg-[#E3B23C]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
           >
-            {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+            {status === 'loading' ? 'Subscribing...' : 'Get the weekly newsletter'}
           </button>
         </form>
 
@@ -79,7 +79,7 @@ export function BlogNewsletterSignup() {
         )}
 
         <p className="text-xs text-[#FAF3E0]/60 mt-4 text-center">
-          Unsubscribe anytime. We never share your email.
+          Behavior School newsletter — unsubscribe anytime. We never share your email.
         </p>
       </div>
     </div>
