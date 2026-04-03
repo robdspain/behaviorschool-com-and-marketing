@@ -2,17 +2,13 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
+import { logDataAccess, extractRequestMeta } from '@/lib/audit-logger';
 
 // GET /api/admin/ace/feedback - List all feedback responses
 export async function GET(request: NextRequest) {
+  const requestMeta = extractRequestMeta(request);
   try {
     const supabase = await createClient();
-
-    // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
 
     const { searchParams } = new URL(request.url);
     const eventId = searchParams.get('event_id');
@@ -40,14 +36,20 @@ export async function GET(request: NextRequest) {
 
     const { data, error } = await query;
 
-    if (error) throw error;
+    if (error) {
+      logDataAccess({ action: 'READ', resourceType: 'ace_feedback_responses', success: false, httpStatus: 500, errorMessage: error.message, reasonForAccess: 'admin_feedback_list', ...requestMeta });
+      throw error;
+    }
+
+    // L1: Log student feedback data read
+    logDataAccess({ action: 'READ', resourceType: 'ace_feedback_responses', success: true, httpStatus: 200, reasonForAccess: 'admin_feedback_list', ...requestMeta });
 
     // Transform data for the frontend
     const transformedData = data?.map(fb => ({
       ...fb,
-      event_title: fb.event?.title,
-      participant_name: fb.participant ? `${fb.participant.first_name} ${fb.participant.last_name}` : null,
-      participant_email: fb.participant?.email,
+      event_title: (fb.event as { title?: string } | null)?.title,
+      participant_name: fb.participant ? `${(fb.participant as { first_name?: string }).first_name} ${(fb.participant as { last_name?: string }).last_name}` : null,
+      participant_email: (fb.participant as { email?: string } | null)?.email,
     }));
 
     return NextResponse.json({ success: true, data: transformedData }, { status: 200 });
@@ -62,6 +64,7 @@ export async function GET(request: NextRequest) {
 
 // POST /api/admin/ace/feedback - Submit feedback
 export async function POST(request: NextRequest) {
+  const requestMeta = extractRequestMeta(request);
   try {
     const supabase = await createClient();
 
@@ -91,7 +94,13 @@ export async function POST(request: NextRequest) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      logDataAccess({ action: 'CREATE', resourceType: 'ace_feedback_responses', studentId: body.participant_id, success: false, httpStatus: 500, errorMessage: error.message, ...requestMeta });
+      throw error;
+    }
+
+    // L1: Log feedback submission (student creates their own record)
+    logDataAccess({ action: 'CREATE', resourceType: 'ace_feedback_responses', resourceId: data?.id, studentId: body.participant_id, changesAfter: { event_id: body.event_id }, success: true, httpStatus: 201, reasonForAccess: 'participant_feedback_submission', ...requestMeta });
 
     // Update registration to mark feedback as completed
     await supabase
@@ -112,14 +121,9 @@ export async function POST(request: NextRequest) {
 
 // PATCH /api/admin/ace/feedback - Review feedback (coordinator)
 export async function PATCH(request: NextRequest) {
+  const requestMeta = extractRequestMeta(request);
   try {
     const supabase = await createClient();
-
-    // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
 
     const body = await request.json();
 
@@ -139,7 +143,13 @@ export async function PATCH(request: NextRequest) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      logDataAccess({ action: 'UPDATE', resourceType: 'ace_feedback_responses', resourceId: feedback_id, success: false, httpStatus: 500, errorMessage: error.message, ...requestMeta });
+      throw error;
+    }
+
+    // L1: Log coordinator review update
+    logDataAccess({ action: 'UPDATE', resourceType: 'ace_feedback_responses', resourceId: feedback_id, changesAfter: updates, success: true, httpStatus: 200, reasonForAccess: 'admin_feedback_review', ...requestMeta });
 
     return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (error) {

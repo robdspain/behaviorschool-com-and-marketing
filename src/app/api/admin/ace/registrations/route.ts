@@ -4,12 +4,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
 import { validateRegistrationEligibility } from '@/lib/ace/registration-validation';
 import type { AceCredentialType, AceEventType } from '@/lib/ace/types';
+import { logDataAccess, logAdminAction, extractRequestMeta } from '@/lib/audit-logger';
 
 /**
  * GET /api/admin/ace/registrations
  * Fetch all registrations or registrations for a specific event
  */
 export async function GET(request: NextRequest) {
+  const requestMeta = extractRequestMeta(request);
   try {
     const supabase = await createClient();
     const { searchParams } = new URL(request.url);
@@ -32,8 +34,12 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error('Error fetching registrations:', error);
+      logDataAccess({ action: 'READ', resourceType: 'ace_registrations', success: false, httpStatus: 500, errorMessage: error.message, reasonForAccess: 'admin_registrations_list', ...requestMeta });
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    // L1: Log bulk student registration data read
+    logDataAccess({ action: 'READ', resourceType: 'ace_registrations', success: true, httpStatus: 200, reasonForAccess: 'admin_registrations_list', ...requestMeta });
 
     return NextResponse.json({ data });
   } catch (error) {
@@ -50,6 +56,7 @@ export async function GET(request: NextRequest) {
  * Create a new registration with CE/PD eligibility validation
  */
 export async function POST(request: NextRequest) {
+  const requestMeta = extractRequestMeta(request);
   try {
     const supabase = await createClient();
     const body = await request.json();
@@ -159,11 +166,15 @@ export async function POST(request: NextRequest) {
 
     if (regError) {
       console.error('Error creating registration:', regError);
+      logAdminAction({ action: 'ADMIN_CREATE_USER', resourceType: 'ace_registrations', studentId: user_id, success: false, httpStatus: 500, errorMessage: regError.message, reasonForAccess: 'admin_create_registration', ...requestMeta });
       return NextResponse.json(
         { error: regError.message },
         { status: 500 }
       );
     }
+
+    // L3: Log admin registration creation
+    logAdminAction({ action: 'ADMIN_CREATE_USER', resourceType: 'ace_registrations', resourceId: registration?.id, studentId: user_id, changesAfter: { event_id, confirmation_code: confirmationCode }, success: true, httpStatus: 201, reasonForAccess: 'admin_create_registration', ...requestMeta });
 
     return NextResponse.json({ data: registration }, { status: 201 });
   } catch (error) {
@@ -180,6 +191,7 @@ export async function POST(request: NextRequest) {
  * Cancel a registration
  */
 export async function DELETE(request: NextRequest) {
+  const requestMeta = extractRequestMeta(request);
   try {
     const supabase = await createClient();
     const { searchParams } = new URL(request.url);
@@ -204,8 +216,12 @@ export async function DELETE(request: NextRequest) {
 
     if (error) {
       console.error('Error cancelling registration:', error);
+      logDataAccess({ action: 'UPDATE', resourceType: 'ace_registrations', resourceId: registrationId, success: false, httpStatus: 500, errorMessage: error.message, ...requestMeta });
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    // L3: Log admin cancellation action
+    logAdminAction({ action: 'ADMIN_UPDATE_USER', resourceType: 'ace_registrations', resourceId: registrationId, changesAfter: { is_cancelled: true, cancellation_reason: 'Admin cancelled' }, success: true, httpStatus: 200, reasonForAccess: 'admin_cancel_registration', ...requestMeta });
 
     return NextResponse.json({ success: true });
   } catch (error) {
