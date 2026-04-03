@@ -41,7 +41,7 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
         },
       }),
       crossDomain({ siteUrl }),
-      convex({ authConfig }),
+      convex({ authConfig, jwt: { expirationSeconds: 1800 } }),
     ],
   });
 };

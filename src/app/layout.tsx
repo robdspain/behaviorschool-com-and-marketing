@@ -9,6 +9,7 @@ import PerformanceMonitor from "@/components/PerformanceMonitor";
 import Script from "next/script";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import { RevenueBanner } from "@/components/ui/revenue-banner";
+import { Providers } from "@/components/providers";
 
 // Ensure OG image URLs never resolve to localhost in production crawls
 const RAW_SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
@@ -507,6 +508,7 @@ export default function RootLayout({
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded focus:shadow">
           Skip to content
         </a>
+        <Providers>
         <ToastProvider>
           <div className="min-h-screen flex flex-col w-full max-w-full">
             <RevenueBanner />
@@ -516,6 +518,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </ToastProvider>
+        </Providers>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
