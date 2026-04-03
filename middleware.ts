@@ -1,99 +1,33 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import { isAuthorizedAdmin } from '@/lib/admin-config'
+
+// Routes requiring authentication
+function isProtectedRoute(request: NextRequest): boolean {
+  const { pathname } = request.nextUrl;
+  return (
+    pathname.startsWith('/masterclass/course') ||
+    pathname.startsWith('/masterclass/certificate')
+  );
+}
 
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  })
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return request.cookies.get(name)?.value
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          request.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          })
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          })
-        },
-        remove(name: string, options: CookieOptions) {
-          request.cookies.set({
-            name,
-            value: '',
-            ...options,
-          })
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          })
-          response.cookies.set({
-            name,
-            value: '',
-            ...options,
-          })
-        },
-      },
-    }
-  )
-
-  // Refresh session if needed
-  const { data: { user } } = await supabase.auth.getUser()
-
-  // Protect masterclass course routes
-  if (request.nextUrl.pathname.startsWith('/masterclass/course') ||
-      request.nextUrl.pathname.startsWith('/masterclass/certificate')) {
-    if (!user) {
-      // Not authenticated, redirect to masterclass landing
-      const redirectUrl = new URL('/masterclass', request.url)
-      return NextResponse.redirect(redirectUrl)
-    }
-
-    // Check if user is an authorized admin - admins can access without enrollment
-    const isAdmin = isAuthorizedAdmin(user.email)
-
-    if (!isAdmin) {
-      // Not an admin, check if user is enrolled
-      const { data: enrollment } = await supabase
-        .from('masterclass_enrollments')
-        .select('id')
-        .eq('user_id', user.id)
-        .single()
-
-      if (!enrollment && request.nextUrl.pathname !== '/masterclass/enroll') {
-        // Not enrolled, redirect to enrollment
-        const redirectUrl = new URL('/masterclass/enroll', request.url)
-        return NextResponse.redirect(redirectUrl)
-      }
-    }
-    // Admins bypass enrollment check and can access directly
-  }
+  const response = NextResponse.next();
 
   // Add noindex header for admin and test pages
-  const pathname = request.nextUrl.pathname
+  const { pathname } = request.nextUrl;
   if (pathname.startsWith('/admin') || pathname.startsWith('/test')) {
-    response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
 
-  return response
+  if (isProtectedRoute(request)) {
+    // Check for Better Auth JWT cookie (set by convex plugin)
+    const jwtCookie = request.cookies.get('convex_jwt')?.value;
+    if (!jwtCookie) {
+      // Not authenticated — redirect to masterclass landing
+      return NextResponse.redirect(new URL('/masterclass', request.url));
+    }
+  }
+
+  return response;
 }
 
 export const config = {
