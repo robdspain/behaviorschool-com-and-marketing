@@ -16,7 +16,8 @@ function getStripe() {
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  // Use the ACE-specific webhook secret, not the legacy one
+  const webhookSecret = process.env.STRIPE_ACE_WEBHOOK_SECRET;
 
   if (!signature) {
     return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
@@ -44,17 +45,21 @@ export async function POST(request: NextRequest) {
         const session = event.data.object as Stripe.Checkout.Session;
         const registrationId = session.metadata?.registration_id;
 
-        if (registrationId) {
-          await client.mutation(api.aceRegistrations.markPaymentComplete, {
-            id: registrationId as Id<'aceRegistrations'>,
-            stripeSessionId: session.id,
-            stripePaymentIntentId: session.payment_intent as string,
-          });
-
-          console.log(`Registration ${registrationId} payment confirmed`);
-
-          // TODO: Send confirmation email
+        // Product gate: only process ACE sessions (identified by registration_id in metadata)
+        if (!registrationId) {
+          console.log(`Skipping non-ACE checkout session: ${session.id}`);
+          return NextResponse.json({ received: true });
         }
+
+        await client.mutation(api.aceRegistrations.markPaymentComplete, {
+          id: registrationId as Id<'aceRegistrations'>,
+          stripeSessionId: session.id,
+          stripePaymentIntentId: session.payment_intent as string,
+        });
+
+        console.log(`Registration ${registrationId} payment confirmed`);
+
+        // TODO: Send confirmation email
         break;
       }
 
@@ -62,11 +67,15 @@ export async function POST(request: NextRequest) {
         const session = event.data.object as Stripe.Checkout.Session;
         const registrationId = session.metadata?.registration_id;
 
-        if (registrationId) {
-          await client.mutation(api.aceRegistrations.cancel, {
-            id: registrationId as Id<'aceRegistrations'>,
-          });
+        // Product gate: only process ACE sessions
+        if (!registrationId) {
+          console.log(`Skipping non-ACE expired session: ${session.id}`);
+          return NextResponse.json({ received: true });
         }
+
+        await client.mutation(api.aceRegistrations.cancel, {
+          id: registrationId as Id<'aceRegistrations'>,
+        });
         break;
       }
 
