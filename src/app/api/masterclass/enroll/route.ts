@@ -1,7 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { getAuthUser } from '@/lib/auth-server';
+import { supabase } from '@/lib/masterclass/queries';
 
 /**
  * POST /api/masterclass/enroll
@@ -10,12 +11,9 @@ import { createClient } from '@/lib/supabase-server';
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const user = await getAuthUser();
 
-    // Get authenticated user
-    const { data: { user }, error: authError } = await getSupabase().auth.getUser();
-
-    if (authError || !user) {
+    if (!user) {
       return NextResponse.json(
         { error: 'Unauthorized. Please sign in first.' },
         { status: 401 }
@@ -40,11 +38,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user already enrolled
+    // Check if user already enrolled (by email — stable across auth providers)
     const { data: existingEnrollment } = await supabase
       .from('masterclass_enrollments')
       .select('id')
-      .eq('user_id', user.id)
+      .eq('email', user.email.toLowerCase())
       .single();
 
     if (existingEnrollment) {
@@ -63,7 +61,7 @@ export async function POST(request: NextRequest) {
       .from('masterclass_enrollments')
       .insert({
         user_id: user.id,
-        email: user.email!,
+        email: user.email.toLowerCase(),
         name: name.trim(),
         bacb_cert_number: bacbCertNumber.trim(),
         created_at: new Date().toISOString(),

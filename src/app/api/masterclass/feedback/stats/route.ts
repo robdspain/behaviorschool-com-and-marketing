@@ -1,7 +1,9 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { getAuthUser } from '@/lib/auth-server';
+import { isAuthorizedAdmin } from '@/lib/admin-config';
+import { supabase } from '@/lib/masterclass/queries';
 
 /**
  * GET /api/masterclass/feedback/stats
@@ -9,11 +11,8 @@ import { createClient } from '@/lib/supabase-server';
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
-
-    // Check if user is admin
-    const { data: { session } } = await getSupabase().auth.getSession();
-    if (!session) {
+    const user = await getAuthUser();
+    if (!user || !isAuthorizedAdmin(user.email)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
