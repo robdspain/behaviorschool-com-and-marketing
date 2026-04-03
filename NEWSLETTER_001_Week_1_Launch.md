@@ -109,7 +109,7 @@ Struggling to remember the 7 dimensions of ABA? Use this mnemonic: **"All Behavi
 
 ---
 
-**Join the conversation:** Connect with 1,000+ BCBAs in our community forum, share experiences, and get support from behavior analysts nationwide.
+**Join the conversation:** Connect with BCBAs in our community forum, share experiences, and get support from behavior analysts nationwide.
 
 [**Join Community →**](https://community.behaviorschool.com)
 

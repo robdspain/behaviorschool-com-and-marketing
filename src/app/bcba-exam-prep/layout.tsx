@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "BCBA Exam Prep Free | Behavior School",
-  description: "Beat the 54% BCBA pass rate with unlimited free practice questions, adaptive learning, and school-based scenarios. Join 2,000+ BCBAs who passed.",
+  description: "Free BCBA exam prep with unlimited practice questions, adaptive learning, and school-based scenarios. Built for BCBAs who work in schools.",
   keywords: "BCBA exam study guide free download, BCBA exam pass rates 2024, how to pass the BCBA exam, BCBA exam prep, BCBA practice test, BCBA study guide, behavior analyst certification, BCBA test prep, applied behavior analysis exam, school BCBA certification, free BCBA study materials, BCBA certification exam preparation",
   alternates: { canonical: "https://behaviorschool.com/bcba-exam-prep" },
   openGraph: {
     title: "BCBA Exam Prep Free | Behavior School",
-    description: "Beat the 54% BCBA pass rate with unlimited free practice questions, adaptive learning, and school-based scenarios. Join 2,000+ BCBAs who passed.",
+    description: "Free BCBA exam prep with unlimited practice questions, adaptive learning, and school-based scenarios. Built for BCBAs who work in schools.",
     url: "/bcba-exam-prep",
     type: "website",
     siteName: "Behavior School",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BCBA Exam Prep Free | Behavior School",
-    description: "Beat the 54% BCBA pass rate with unlimited free practice questions, adaptive learning, and school-based scenarios. Join 2,000+ BCBAs who passed.",
+    description: "Free BCBA exam prep with unlimited practice questions, adaptive learning, and school-based scenarios. Built for BCBAs who work in schools.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },

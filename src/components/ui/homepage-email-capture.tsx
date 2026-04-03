@@ -104,7 +104,7 @@ export function HomepageEmailCapture() {
                 )}
 
                 <p className="text-xs text-slate-500 mt-4">
-                  Join 500+ BCBAs getting weekly study tips. Unsubscribe anytime.
+                  School BCBAs getting weekly study tips. Unsubscribe anytime.
                 </p>
               </form>
             )}

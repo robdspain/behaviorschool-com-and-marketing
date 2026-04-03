@@ -347,7 +347,7 @@ export default function AboutContent() {
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">School BCBA Community</h3>
               <p className="text-slate-600 mb-8 leading-relaxed">
-                Join 500+ school-based behavior professionals sharing tools, strategies, and support in our private network.
+                Join school-based behavior professionals sharing tools, strategies, and support in our private network.
               </p>
               <Link
                 href="/community"

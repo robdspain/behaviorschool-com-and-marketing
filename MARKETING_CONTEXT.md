@@ -126,7 +126,7 @@ We understand the difference between:
 - "From assessment to intervention in minutes, not weeks"
 - "The only behavior tools that understand IEP compliance"
 - "Your clinical skills matter more than your typing speed"
-- "Join 500+ school BCBAs who got their evenings back"
+- "Join school BCBAs who got their evenings back"
 - "FERPA-compliant AI built for behavior analysts"
 
 ### Words That Resonate
