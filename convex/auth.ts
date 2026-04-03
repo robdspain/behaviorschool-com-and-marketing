@@ -13,6 +13,13 @@ export const authComponent = createClient<DataModel>(components.betterAuth);
 export const createAuth = (ctx: GenericCtx<DataModel>) => {
   return betterAuth({
     baseURL: siteUrl,
+    advanced: {
+      defaultCookieAttributes: {
+        domain: ".behaviorschool.com",
+        sameSite: "lax",
+        secure: true,
+      },
+    },
     trustedOrigins: [
       "https://behaviorschool.com",
       "https://www.behaviorschool.com",
