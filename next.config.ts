@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   typescript: {
@@ -535,4 +536,22 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  // Sentry organization/project — set in Netlify env vars
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+
+  // Auth token for source map upload (set in Netlify env vars, NOT NEXT_PUBLIC_)
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
+  // Upload source maps so stack traces are readable in Sentry dashboard
+  sourcemaps: {
+    disable: false,
+  },
+
+  // Suppress verbose Sentry build output
+  silent: true,
+
+  // Disable the Sentry tunneling route (not needed for this app)
+  tunnelRoute: undefined,
+});
