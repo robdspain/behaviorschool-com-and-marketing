@@ -7,13 +7,8 @@ import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, 
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 
-const EARLY_BIRD_DEADLINE = new Date('2026-04-03T00:00:00-07:00');
-const isEarlyBird = new Date() < EARLY_BIRD_DEADLINE;
-
-const FULL_PAY_LINK = isEarlyBird
-  ? 'https://buy.stripe.com/14AaEWdmIekU2Mc1OK6Vq01'
-  : 'https://buy.stripe.com/eVqbJ05UgdgQ0E46506Vq03';
-const FULL_PAY_PRICE = isEarlyBird ? '$2,499' : '$2,997';
+const FULL_PAY_LINK = 'https://buy.stripe.com/14AaEWdmIekU2Mc1OK6Vq01';
+const FULL_PAY_PRICE = '$2,497';
 const INSTALLMENT_LINK = 'https://buy.stripe.com/00w5kCaawdgQ72sdxs6Vq02';
 const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformation-system-phone-call';
 
@@ -398,7 +393,7 @@ export default function TransformationProgramPage() {
             6 weeks. 20 seats max. School-based BCBAs only.
           </p>
           <p className="text-[#e4b63d] font-bold text-2xl mb-8">
-            {FULL_PAY_PRICE} {isEarlyBird && <span className="text-white/60 text-base font-semibold ml-2">(Early bird, saves $498)</span>}
+            {FULL_PAY_PRICE}
           </p>
 
           <a
@@ -409,17 +404,6 @@ export default function TransformationProgramPage() {
           >
             Join the April 9 Cohort
           </a>
-
-          {isEarlyBird && (
-            <p className="text-white/60 text-sm mb-2">
-              Early bird pricing ends Friday, April 3
-            </p>
-          )}
-          {isEarlyBird && (
-            <p className="text-white/40 text-xs mb-6">
-              After Friday, price goes to $2,997. If you have been thinking about it, this is the week.
-            </p>
-          )}
 
           <p className="text-white/50 text-sm mb-2">
             Prefer to pay monthly?{' '}
@@ -471,7 +455,7 @@ This program addresses three problems directly:
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
 3. Caseload sustainability: systems that prevent the burnout that leads to BCBA turnover ($40-60K to replace).
 
-6 sessions, Thursdays 6 to 8 PM PT, April 9 to May 14, 2026. Cost: $2,499.
+6 sessions, Thursdays 6 to 8 PM PT, April 9 to May 14, 2026. Cost: $2,497.
 Details: behaviorschool.com/transformation-program`}</div>
               </div>
             </div>
