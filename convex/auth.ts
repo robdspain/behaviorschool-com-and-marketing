@@ -26,7 +26,7 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
     },
     plugins: [
       crossDomain({ siteUrl }),
-      convex({ authConfig }),
+      convex({ authConfig, jwt: { expirationSeconds: 1800 } }),
     ],
   });
 };
