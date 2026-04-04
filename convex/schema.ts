@@ -534,4 +534,13 @@ export default defineSchema({
   })
     .index("by_user", ["userId"])
     .index("by_provider", ["providerId"]),
+
+  // ============================================================================
+  // FERPA A4: Password history for reuse prevention (last 12 passwords)
+  // ============================================================================
+  passwordHistory: defineTable({
+    userId: v.string(),
+    passwordHash: v.string(),
+    createdAt: v.number(),
+  }).index("by_user_created", ["userId", "createdAt"]),
 });
