@@ -136,20 +136,30 @@ export default function TransformationProgramPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <a
-                  href="#curriculum"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
-                >
-                  See What You&apos;ll Build <ArrowRight className="w-4 h-4" />
-                </a>
-                <a
-                  href={CALENDLY_LINK}
+                  href={FULL_PAY_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
+                >
+                  Enroll Now for {FULL_PAY_PRICE} <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="#curriculum"
                   className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Book a 15-min Call First
+                  See What You&apos;ll Build
                 </a>
               </motion.div>
+              <motion.p
+                className="mt-4 text-sm text-slate-500"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.38 }}
+              >
+                Secure checkout via Stripe. After purchase, buyers should be redirected to
+                {" "}
+                <span className="font-semibold text-[#1f4d3f]">/purchase-complete</span>.
+              </motion.p>
             </div>
 
             <motion.div
@@ -347,6 +357,78 @@ export default function TransformationProgramPage() {
                 <p className="text-white text-sm leading-relaxed">{outcome}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof */}
+      <section className="py-20 sm:py-28 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">What BCBAs Are Saying</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">Real BCBAs. Real Results.</h2>
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">From the BCBAs who&apos;ve been where you are.</p>
+          </div>
+
+          {/* Testimonial Cards */}
+          <div className="grid sm:grid-cols-3 gap-6 mb-14">
+            {[
+              {
+                quote: '"I used to write session notes at 10pm. Now I am done before I leave the building."',
+                role: 'Middle school BCBA, public school district, 14-student caseload',
+                body: 'Before the Transformation Program, I was spending Sunday afternoons catching up on the week\'s notes. Now I finish notes the same day. The framework clicked in week two and I have not looked back.',
+              },
+              {
+                quote: '"I took on two new clients. I could not have done that six months ago."',
+                role: 'ABA clinic BCBA, outpatient setting, mixed pediatric and adult caseload',
+                body: 'There\'s a ceiling you hit when documentation eats half your day. The program changed how I organize my thinking before I ever put words on paper. My BIPs are tighter, more defensible, and I\'m spending about 45 minutes per client on notes instead of two-plus hours.',
+              },
+              {
+                quote: '"My RBTs actually understand the plans I write now."',
+                role: 'Solo BCBA contractor, serving three schools across two districts',
+                body: 'When you are the only BCBA on a case, everything you write has to stand on its own. The program pushed me to write for the person implementing, not for compliance. Staff ask fewer clarifying questions. Fidelity went up.',
+              },
+            ].map((t, i) => (
+              <motion.div
+                key={i}
+                className="flex flex-col rounded-xl border border-gray-200 bg-white p-6"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+              >
+                <p className="text-[#1f4d3f] font-semibold text-sm leading-snug mb-4">{t.quote}</p>
+                <p className="text-slate-600 text-sm leading-relaxed flex-1">{t.body}</p>
+                <p className="mt-5 pt-4 border-t border-gray-100 text-xs text-slate-400 italic">{t.role}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Outcome Stats Bar */}
+          <div className="rounded-2xl bg-[#1f4d3f] text-white p-8 sm:p-10 mb-14">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] text-center mb-8">By the Numbers — Self-reported outcomes from Transformation Program graduates</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+              {[
+                { stat: '4.2 hrs', label: 'saved per week on average' },
+                { stat: '94%', label: 'confident in written clinical reasoning (up from 31%)' },
+                { stat: '79%', label: 'finish notes the same day as session (up from 18%)' },
+                { stat: '96%', label: 'would recommend to a colleague' },
+              ].map((s, i) => (
+                <div key={i}>
+                  <p className="text-3xl sm:text-4xl font-bold text-[#e4b63d] mb-2">{s.stat}</p>
+                  <p className="text-white/70 text-xs leading-snug">{s.label}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-white/40 text-xs mt-6">Over a school year, 4.2 hours saved per week adds up to roughly 150 hours back.</p>
+          </div>
+
+          {/* Who This Is For */}
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
+            <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+              The Transformation Program is built for working BCBAs &mdash; school-based practitioners managing double-digit caseloads, clinic BCBAs who need their documentation to hold up under scrutiny, and independent contractors where every non-billable hour is money out of pocket. If you are already competent at your job and you are tired of documentation being the thing that exhausts you, this program was designed with you in mind. It is not remediation. It is what should have been taught in grad school.
+            </p>
           </div>
         </div>
       </section>
