@@ -1,9 +1,8 @@
 [build]
-  command = "rm -rf .next tsconfig.tsbuildinfo && pnpm install --no-frozen-lockfile && pnpm run build"
+  command = "rm -rf .next tsconfig.tsbuildinfo && pnpm install --no-frozen-lockfile --prod=false && NODE_ENV=production pnpm run build"
   publish = ".next"
 
 [build.environment]
-  NODE_ENV = "production"
   NODE_VERSION = "22"
   PNPM_VERSION = "9.15.0"
   ENABLE_EXPERIMENTAL_COREPACK = "1"
