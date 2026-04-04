@@ -9,6 +9,7 @@
   ENABLE_EXPERIMENTAL_COREPACK = "1"
   NPM_FLAGS = "--prefer-offline --no-audit"
   PNPM_FLAGS = "--no-frozen-lockfile"
+  NODE_OPTIONS = "--max-old-space-size=3072"
   SECRETS_SCAN_ENABLED = "false"
   NEXT_PUBLIC_SUPABASE_URL = "https://placeholder.supabase.co"
   NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder_anon_key"
