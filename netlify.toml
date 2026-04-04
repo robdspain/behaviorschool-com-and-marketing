@@ -50,3 +50,8 @@
 # Schedule newsletter worker every 5 minutes
 
 # Fallback trigger to refresh salary data yearly (and ensure site rebuild)
+
+# Weekly revenue summary — every Monday at 8 AM ET (13:00 UTC)
+[[scheduled.functions]]
+  name = "weekly-revenue-summary"
+  cron = "0 13 * * 1"
