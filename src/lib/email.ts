@@ -1,4 +1,9 @@
-import { Resend } from 'resend';
+import {
+  getResend,
+  RESEND_FROM_NO_REPLY,
+  RESEND_FROM_ROB,
+  RESEND_REPLY_TO_ROB,
+} from '@/lib/resend';
 
 // ============================================
 // EMAIL COMPLIANCE RULES (CAN-SPAM + Gmail 2024)
@@ -17,10 +22,6 @@ United States`;
 
 const UNSUBSCRIBE_URL = 'https://behaviorschool.com/unsubscribe';
 const PREFERENCES_URL = 'https://behaviorschool.com/email-preferences';
-
-function getResend() {
-  return new Resend(process.env.RESEND_API_KEY || 'placeholder');
-}
 
 // Standard headers for ALL marketing emails (Gmail 2024 requirement)
 function getComplianceHeaders(recipientEmail: string) {
@@ -58,9 +59,9 @@ export async function sendWelcomeEmail(email: string, name?: string) {
   const resend = getResend();
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Behavior School <rob@updates.behaviorschool.com>',
+      from: RESEND_FROM_ROB,
       to: [email],
-      replyTo: 'rob@behaviorschool.com',
+      replyTo: RESEND_REPLY_TO_ROB,
       subject: 'Welcome to Behavior School!',
       headers: getComplianceHeaders(email),
       html: `
@@ -119,9 +120,9 @@ export async function sendMarketingEmail(
   
   try {
     const { data, error } = await resend.emails.send({
-      from: options?.from || 'Rob Spain <rob@updates.behaviorschool.com>',
+      from: options?.from || RESEND_FROM_ROB,
       to: recipients,
-      replyTo: options?.replyTo || 'rob@behaviorschool.com',
+      replyTo: options?.replyTo || RESEND_REPLY_TO_ROB,
       subject,
       headers: getComplianceHeaders(primaryRecipient),
       html: `
@@ -167,7 +168,7 @@ export async function sendTransactionalEmail(
   
   try {
     const { data, error } = await resend.emails.send({
-      from: options?.from || 'Behavior School <noreply@updates.behaviorschool.com>',
+      from: options?.from || RESEND_FROM_NO_REPLY,
       to: Array.isArray(to) ? to : [to],
       replyTo: options?.replyTo,
       subject,
@@ -203,7 +204,7 @@ export async function sendContactFormEmail(
   const resend = getResend();
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Contact Form <noreply@updates.behaviorschool.com>',
+      from: RESEND_FROM_NO_REPLY,
       to: ['rob@behaviorschool.com'],
       replyTo: email,
       subject: `New Contact Form: ${name}`,

@@ -1,8 +1,41 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { BrainCircuit, GraduationCap, BookMarked, ArrowRight } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
 import { Hero } from "@/components/ui/hero";
+import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
+
+export const metadata: Metadata = {
+  title: "BehaviorSchool | School BCBA Tools & Resources",
+  description:
+    "AI-powered tools, BCBA exam prep, and CE courses for school-based behavior analysts. Built by a BCBA for real school practice.",
+  alternates: {
+    canonical: "https://behaviorschool.com",
+  },
+  openGraph: {
+    title: "BehaviorSchool | School BCBA Tools & Resources",
+    description:
+      "AI-powered tools, BCBA exam prep, and CE courses for school-based behavior analysts. Built by a BCBA for real school practice.",
+    type: "website",
+    url: "https://behaviorschool.com",
+    images: [
+      {
+        url: "/optimized/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "BehaviorSchool tools and resources for school BCBAs",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BehaviorSchool | School BCBA Tools & Resources",
+    description:
+      "AI-powered tools, BCBA exam prep, and CE courses for school-based behavior analysts.",
+    images: ["/optimized/og-image.webp"],
+  },
+};
 
 export default function Home() {
   const recentPosts = getPublishedPosts().slice(0, 3);
@@ -19,6 +52,45 @@ export default function Home() {
         primaryCta={{ href: "https://plan.behaviorschool.com", label: "Join Waitlist" }}
         variant="brand"
       />
+
+      <section className="border-b border-emerald-100 bg-emerald-50/70">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+          <div className="flex flex-col gap-4 rounded-2xl border border-emerald-200 bg-white/80 px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4">
+              <Link href="/bacb-ace-provider" className="shrink-0" aria-label="View BACB ACE Provider details">
+                <Image
+                  src="/BACB-ACE/BACB_ACE-Logo-New.webp"
+                  alt="BACB ACE Provider logo"
+                  width={72}
+                  height={72}
+                  className="h-14 w-14 rounded-xl object-contain sm:h-[72px] sm:w-[72px]"
+                />
+              </Link>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                  Trusted Continuing Education
+                </p>
+                <p className="mt-1 text-base font-semibold text-slate-900 sm:text-lg">
+                  Behavior School is a BACB ACE Provider.
+                </p>
+                <p className="text-sm text-slate-600">
+                  Provider #{" "}
+                  <Link href="/bacb-ace-provider" className="font-medium text-emerald-700 hover:text-emerald-800 hover:underline">
+                    OP-25-11420
+                  </Link>
+                  {" "}for eligible CE content and events.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/bacb-ace-provider"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
+            >
+              Verify provider details <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* ─── WHAT WE OFFER ────────────────────────────────────────── */}
       <section className="py-20 sm:py-28 bg-gray-50">
@@ -177,6 +249,8 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      <HomepageEmailCapture />
 
       {/* ─── CREATOR BIO ──────────────────────────────────────────── */}
       <section className="py-16 sm:py-20 bg-white border-t border-gray-100">

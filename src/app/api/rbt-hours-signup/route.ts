@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from '@/lib/resend';
 
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -90,8 +91,9 @@ export async function POST(req: NextRequest) {
     }
 
     const { error } = await resend.emails.send({
-      from: "Rob Spain, BCBA <rob@behaviorschool.com>",
+      from: RESEND_FROM_ROB,
       to: recipients,
+      replyTo: RESEND_REPLY_TO_ROB,
       subject: "Your RBT Supervision Hour Summary — BehaviorSchool",
       html: htmlBody,
       text: `${name ? `Hi ${name.split(" ")[0]},` : "Hi,"}

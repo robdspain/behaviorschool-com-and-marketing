@@ -9,12 +9,12 @@ export const metadata: Metadata = {
     type: "website",
     title: "School BCBA Training Program | Behavior School",
     description: "6-week school BCBA training program to reduce burnout and build behavior support systems. Transform from crisis manager to ethical leader. Join next cohort.",
-    url: "/transformation-program",
+    url: "https://behaviorschool.com/transformation-program",
     siteName: "Behavior School",
     locale: "en_US",
     images: [
       {
-        url: "/hero-chaos-to-confidence.jpg",
+        url: "/optimized/Course/course-hero.webp",
         width: 1200,
         height: 630,
         alt: "School BCBA professionals working confidently with systematic approach - Behavior School transformation program",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "School BCBA Training Program | Behavior School",
     description: "6-week school BCBA training program to reduce burnout and build behavior support systems. Transform from crisis manager to ethical leader. Join next cohort.",
-    images: ["/hero-chaos-to-confidence.jpg"],
+    images: ["/optimized/Course/course-hero.webp"],
     creator: "@BehaviorSchool",
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },

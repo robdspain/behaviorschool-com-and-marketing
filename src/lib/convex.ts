@@ -6,10 +6,25 @@
 // We use plain fetch() for HTTP calls — no convex SDK needed here.
 // ============================================================================
 
-const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL ?? "";
+export function getConvexUrl() {
+  if (typeof window === "undefined") {
+    return process.env.VITE_CONVEX_URL ?? process.env.NEXT_PUBLIC_CONVEX_URL ?? "";
+  }
+
+  return process.env.NEXT_PUBLIC_CONVEX_URL ?? "";
+}
+
+const CONVEX_URL = getConvexUrl();
 
 if (!CONVEX_URL) {
-  console.warn("NEXT_PUBLIC_CONVEX_URL is not set — ACE API routes will not function");
+  console.warn("No Convex URL is set — ACE API routes will not function");
+} else if (
+  typeof window === "undefined"
+  && process.env.VITE_CONVEX_URL
+  && process.env.NEXT_PUBLIC_CONVEX_URL
+  && process.env.VITE_CONVEX_URL !== process.env.NEXT_PUBLIC_CONVEX_URL
+) {
+  console.warn("Using VITE_CONVEX_URL for server-side ACE routes because it differs from NEXT_PUBLIC_CONVEX_URL");
 }
 
 /** Minimal HTTP client matching the ConvexHttpClient interface used by ACE routes */

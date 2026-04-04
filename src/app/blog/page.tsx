@@ -4,6 +4,7 @@ import { Container } from "@/components/container";
 import { Section } from "@/components/section";
 import { PostList } from "@/components/post-list";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { BlogNewsletterSignup } from "@/components/blog/NewsletterSignup";
 
 export const revalidate = 60;
 
@@ -76,7 +77,10 @@ export default async function BlogPage() {
             </div>
           </div>
         {posts.length > 0 ? (
-          <PostList posts={posts} columns={3} useExternalUrl={false} hideImages />
+          <>
+            <PostList posts={posts} columns={3} useExternalUrl={false} hideImages />
+            <BlogNewsletterSignup />
+          </>
         ) : (
           <p className="text-muted-foreground">No posts found.</p>
         )}
@@ -106,4 +110,3 @@ export default async function BlogPage() {
     </div>
   );
 }
-

@@ -30,7 +30,7 @@ export function NavBar() {
               <span className="relative h-9 w-9 rounded-full bg-[#1f4d3f]/10 flex items-center justify-center">
                 <Image
                   src="/Logos/Logo.webp"
-                  alt="Behavior School"
+                  alt="BehaviorSchool logo"
                   width={24}
                   height={24}
                 />
@@ -46,7 +46,7 @@ export function NavBar() {
                 href="https://plan.behaviorschool.com"
                 className="inline-flex items-center justify-center rounded-full bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white hover:bg-[#173a2f] transition"
               >
-                Start Free Trial
+                Join Waitlist
               </Link>
               <Link
                 href="/contact"
@@ -103,4 +103,3 @@ export function NavBar() {
     </nav>
   );
 }
-

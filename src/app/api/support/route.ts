@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
+import { RESEND_FROM_SUPPORT } from '@/lib/resend';
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: "Behavior School Support <support@behaviorschool.com>",
+            from: RESEND_FROM_SUPPORT,
             to: ["rob@behaviorschool.com"],
             subject: `[Support] ${category || "General"}: ${(message || "").slice(0, 60)}`,
             html: `

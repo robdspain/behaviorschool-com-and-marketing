@@ -86,7 +86,7 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
               <p className="text-sm">
                 We use privacy-focused analytics to improve your experience. No personal data is collected or shared.
                 <a 
-                  href="/privacy" 
+                  href="/privacy-policy" 
                   className="text-emerald-400 hover:text-emerald-300 underline ml-1"
                   target="_blank"
                   rel="noopener"

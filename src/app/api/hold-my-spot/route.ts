@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from '@/lib/resend';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -21,8 +22,9 @@ export async function POST(req: NextRequest) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${RESEND_API_KEY}` },
     body: JSON.stringify({
-      from: 'Rob Spain <rob@behaviorschool.com>',
+      from: RESEND_FROM_ROB,
       to: email,
+      reply_to: RESEND_REPLY_TO_ROB,
       subject: 'Your spot is held — School BCBA Transformation Program',
       html: `<p>Hi ${name},</p><p>Your spot in the School BCBA Transformation Program is held while you complete your district approval process.</p><p>I'll follow up within 24 hours to confirm. In the meantime, if you need any documentation for your district (W-9, formal program description, invoice template), just reply to this email.</p><p>— Rob Spain, BCBA<br>BehaviorSchool<br>rob@behaviorschool.com</p>`,
     }),

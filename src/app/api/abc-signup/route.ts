@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from '@/lib/resend';
 
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -32,8 +33,9 @@ export async function POST(req: NextRequest) {
     const gradeLabel = grade || "";
 
     const { error } = await resend.emails.send({
-      from: "Rob Spain, BCBA <rob@behaviorschool.com>",
+      from: RESEND_FROM_ROB,
       to: [email],
+      replyTo: RESEND_REPLY_TO_ROB,
       subject: "Your ABC Function Analysis — BehaviorSchool",
       html: `
 <!DOCTYPE html>

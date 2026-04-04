@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from '@/lib/resend';
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,8 +14,9 @@ export async function POST(req: NextRequest) {
     const firstName = name?.split(" ")[0] || "";
 
     await resend.emails.send({
-      from: "Rob Spain, BCBA <rob@behaviorschool.com>",
+      from: RESEND_FROM_ROB,
       to: [email],
+      replyTo: RESEND_REPLY_TO_ROB,
       subject: "Your ACT-Informed BIP — and a question",
       html: `
 <!DOCTYPE html>

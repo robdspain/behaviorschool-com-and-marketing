@@ -18,8 +18,8 @@ export default function BehaviorStudyToolsPage() {
 
   const faqData = [
     {
-      question: "What are Behavior Study Tools?",
-      answer: "Behavior Study Tools provide an AI-powered platform for BCBA exam preparation, offering unlimited practice questions, adaptive learning, and performance tracking to help you master concepts and pass your exam. The platform is designed specifically for behavior analysts who need efficient, science-based study methods that adapt to their learning pace and schedule."
+      question: "What is BehaviorSchool?",
+      answer: "BehaviorSchool provides an AI-powered platform for BCBA exam preparation, offering unlimited practice questions, adaptive learning, and performance tracking to help you master concepts and pass your exam. The platform is designed specifically for behavior analysts who need efficient, science-based study methods that adapt to their learning pace and schedule."
     },
     {
       question: "How do these tools help me pass the BCBA exam?",
@@ -43,7 +43,7 @@ export default function BehaviorStudyToolsPage() {
     },
     {
       question: "How is this different from other BCBA study materials?",
-      answer: "Unlike static flashcards or outdated test banks, Behavior Study Tools uses AI to generate fresh questions tailored to your learning needs. The platform combines adaptive learning technology with evidence-based study methods, providing personalized explanations and real-time progress tracking that traditional study materials can't offer."
+      answer: "Unlike static flashcards or outdated test banks, BehaviorSchool uses AI to generate fresh questions tailored to your learning needs. The platform combines adaptive learning technology with evidence-based study methods, providing personalized explanations and real-time progress tracking that traditional study materials can't offer."
     },
     {
       question: "What topics and domains are covered in the free practice questions?",
@@ -54,7 +54,7 @@ export default function BehaviorStudyToolsPage() {
       answer: "With AI-powered question generation, the platform creates fresh practice questions continuously. You'll never run out of new material or worry about memorizing answers from a limited question bank. Each study session can include completely new questions while maintaining alignment with the Task List."
     },
     {
-      question: "Can I use Behavior Study Tools on mobile devices?",
+      question: "Can I use BehaviorSchool on mobile devices?",
       answer: "Yes, the platform is fully responsive and works seamlessly on desktop computers, tablets, and smartphones. You can study anywhere, anytime, and your progress syncs across all devices so you never lose your place."
     },
     {
@@ -79,18 +79,19 @@ export default function BehaviorStudyToolsPage() {
     }
   ];
   return (
-    <div className="min-h-screen bg-bs-background">
+    <div className="min-h-screen bg-bs-background font-sans">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
         <Breadcrumbs 
           items={[
             { label: "Products", href: "/products" },
-            { label: "Behavior Study Tools" }
+            { label: "BehaviorSchool" }
           ]}
         />
       </div>
 
       <ScrollNav 
+        className="bg-white/95 backdrop-blur-sm border-white/60"
         items={[
           { id: "mock-exam", label: "Free Mock Exam" },
           { id: "features", label: "Features" },
@@ -107,15 +108,15 @@ export default function BehaviorStudyToolsPage() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <div>
-                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.05] text-slate-900">
-                    Behavior Study Tools
+                  <h1 className="text-5xl font-extrabold tracking-tight leading-[1.05] text-slate-900 sm:text-6xl lg:text-[80px]">
+                    BehaviorSchool
                   </h1>
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-emerald-600">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-600">
                   Free BCBA Mock Exam & Unlimited Practice Questions
                 </h2>
                 <p className="text-lg sm:text-xl leading-relaxed text-slate-600">
-                  Welcome to Behavior School&apos;s Study Tools, designed to make preparing for the BCBA® exam feel less overwhelming. Our system is built for busy behavior analysts who want a study system that&apos;s as focused and practical as the science we practice.
+                  Welcome to BehaviorSchool&apos;s study tools, designed to make preparing for the BCBA® exam feel less overwhelming. Our system is built for busy behavior analysts who want a study system that&apos;s as focused and practical as the science we practice.
                 </p>
               </div>
 
@@ -368,7 +369,7 @@ export default function BehaviorStudyToolsPage() {
                   Designed for Behavior Analysts
                 </h2>
                 <p className="text-base text-slate-600 leading-relaxed">
-                  Behavior Study Tools was created by school-based BCBAs who understand the realities of balancing work, family, and exam prep. The system emphasizes:
+                  BehaviorSchool was created by school-based BCBAs who understand the realities of balancing work, family, and exam prep. The system emphasizes:
                 </p>
                 <ul className="space-y-4">
                   {[
@@ -478,7 +479,7 @@ export default function BehaviorStudyToolsPage() {
               </div>
             </div>
             <p className="text-base text-slate-600 leading-relaxed text-center">
-              Behavior Study Tools is different. Our free BCBA mock exam gets you started immediately, then our platform combines efficient practice, clear explanations, adaptive learning, and real-time data tracking. Instead of passive studying, it actively teaches you how to think like a BCBA through scenario-based questions that mirror the actual exam. That&apos;s the innovation future behavior analysts deserve.
+              BehaviorSchool is different. Our free BCBA mock exam gets you started immediately, then our platform combines efficient practice, clear explanations, adaptive learning, and real-time data tracking. Instead of passive studying, it actively teaches you how to think like a BCBA through scenario-based questions that mirror the actual exam. That&apos;s the innovation future behavior analysts deserve.
             </p>
           </div>
         </div>
@@ -492,7 +493,7 @@ export default function BehaviorStudyToolsPage() {
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-slate-600 mb-4">
-              Here are some common questions about Behavior Study Tools.
+              Here are some common questions about BehaviorSchool.
             </p>
           </div>
           
@@ -589,7 +590,7 @@ export default function BehaviorStudyToolsPage() {
               Ready to Transform Your BCBA Journey?
             </h2>
             <p className="text-base text-emerald-100 max-w-2xl mx-auto">
-              Join behavior analysts using Behavior Study Tools to prepare for the BCBA exam and advance their careers.
+              Join behavior analysts using BehaviorSchool to prepare for the BCBA exam and advance their careers.
             </p>
             <div>
               <Link
@@ -625,7 +626,7 @@ export default function BehaviorStudyToolsPage() {
         const webPageJsonLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Behavior Study Tools - Smarter Studying for Future BCBAs",
+          name: "BehaviorSchool - Smarter Studying for Future BCBAs",
           url: `${SITE_URL}/behavior-study-tools`,
           description: "AI-powered BCBA exam preparation platform with unlimited practice questions, adaptive learning, and performance tracking designed for behavior analysts.",
           isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Behavior School" },
@@ -649,7 +650,7 @@ export default function BehaviorStudyToolsPage() {
             {
               "@type": "ListItem",
               position: 3,
-              name: "Behavior Study Tools",
+              name: "BehaviorSchool",
               item: `${SITE_URL}/behavior-study-tools`,
             },
           ],

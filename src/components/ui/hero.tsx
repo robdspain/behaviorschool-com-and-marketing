@@ -133,7 +133,7 @@ export function Hero({
                 asChild
                 size="lg"
                 className={cn(
-                  "h-16 px-10 text-lg font-semibold rounded-2xl transition-all duration-300 group overflow-hidden relative",
+                  "h-16 w-full sm:w-auto px-10 text-lg font-semibold rounded-2xl transition-all duration-300 group overflow-hidden relative",
                   isDark
                     ? 'bg-white text-slate-900 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]'
                     : 'bg-slate-900 text-white hover:scale-[1.02] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]'

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free Behavior Study Tools 2025 | BCBA Exam Prep Resources",
+  title: "BehaviorSchool | Free BCBA Mock Exam & Practice Questions",
   description: "Free study tools for BCBA exam prep: unlimited practice questions, study guides, and adaptive learning. School-based scenarios and ABA ethics included.",
   keywords: "free bcba mock exam, free bcba practice questions, bcba exam prep free, bcba practice test online free, bcba mock test, free section b mock exam, board certified behavior analyst practice exam, bcba exam questions free, behavior analysis study tools, adaptive learning, BACB exam preparation",
   alternates: { canonical: "/behavior-study-tools" },
   openGraph: {
     type: "website",
-    title: "Free Behavior Study Tools 2025 | BCBA Exam Prep Resources",
+    title: "BehaviorSchool | Free BCBA Mock Exam & Practice Questions",
     description: "Free study tools for BCBA exam prep: unlimited practice questions, study guides, and adaptive learning. School-based scenarios and ABA ethics included.",
     url: "/behavior-study-tools",
     images: [
@@ -15,13 +15,13 @@ export const metadata: Metadata = {
         url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "Behavior Study Tools - BCBA Practice Exams and Mock Tests",
+        alt: "BehaviorSchool - BCBA practice exams and mock tests",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Behavior Study Tools 2025 | BCBA Exam Prep Resources",
+    title: "BehaviorSchool | Free BCBA Mock Exam & Practice Questions",
     description: "Free study tools for BCBA exam prep: unlimited practice questions, study guides, and adaptive learning. School-based scenarios and ABA ethics included.",
     images: ["/optimized/og-image.webp"],
   },
@@ -38,7 +38,7 @@ export default function BehaviorStudyToolsLayout({
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Behavior Study Tools - BCBA Exam Prep",
+    name: "BehaviorSchool - BCBA Exam Prep",
     alternateName: "BCBA Exam Preparation Platform",
     description: "AI-powered BCBA exam preparation platform with unlimited practice questions, adaptive learning, and performance tracking designed specifically for behavior analysts preparing for BACB certification.",
     provider: {
@@ -98,7 +98,7 @@ export default function BehaviorStudyToolsLayout({
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: "Behavior Study Tools",
+    name: "BehaviorSchool",
     description: "Comprehensive BCBA exam preparation platform featuring AI-powered practice questions, adaptive learning algorithms, and detailed performance analytics for behavior analyst certification success.",
     image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
     brand: {

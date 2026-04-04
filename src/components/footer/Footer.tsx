@@ -79,7 +79,7 @@ export function Footer() {
             © 2026 Behavior School. All rights reserved.
           </p>
           <p className="text-gray-600 text-sm mt-1">
-            BehaviorStudyTools.com is a product of Behavior School LLC
+            Behavior School LLC builds BehaviorSchool.com and BehaviorStudyTools.com.
           </p>
         </div>
 
@@ -144,10 +144,10 @@ export function Footer() {
             >
               Contact Us
             </Link>
-            <Link href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/privacy-policy" className="text-gray-600 hover:text-gray-900 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/terms-of-service" className="text-gray-600 hover:text-gray-900 transition-colors">
               Terms of Service
             </Link>
             <Link
