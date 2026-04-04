@@ -1,10 +1,17 @@
 export const dynamic = "force-dynamic";
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { recordRequestAuditEvent } from '@/lib/audit-log';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const supabase = createSupabaseAdminClient();
 
     const { data, error } = await supabase
@@ -14,12 +21,31 @@ export async function GET() {
       .limit(50);
 
     if (error) {
+      await recordRequestAuditEvent(request, {
+        category: 'student_data',
+        actionType: 'read',
+        resource: 'checkout_access_logs',
+        status: 'failure',
+        actorUserId: admin.id,
+        actorEmail: admin.email,
+        metadata: { error: error.message },
+      });
       console.error('Error fetching logs:', error);
       return NextResponse.json(
         { error: 'Failed to fetch logs', details: error.message, code: error.code },
         { status: 500 }
       );
     }
+
+    await recordRequestAuditEvent(request, {
+      category: 'student_data',
+      actionType: 'read',
+      resource: 'checkout_access_logs',
+      status: 'success',
+      actorUserId: admin.id,
+      actorEmail: admin.email,
+      metadata: { rowCount: data?.length ?? 0 },
+    });
 
     return NextResponse.json({ logs: data || [] });
   } catch (error) {

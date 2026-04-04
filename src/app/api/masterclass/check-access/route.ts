@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/auth-server';
-import { isAuthorizedAdmin } from '@/lib/admin-config';
+import { isAuthorizedAdmin, requiresAdminMfa } from '@/lib/admin-config';
 import { supabase } from '@/lib/masterclass/queries';
 
 /**
@@ -27,14 +27,17 @@ export async function GET(request: NextRequest) {
 
     // Check if user is an authorized admin
     const isAdmin = isAuthorizedAdmin(user.email);
+    const requiresMfaEnrollment = requiresAdminMfa(user);
 
     if (isAdmin) {
       return NextResponse.json({
         hasAccess: true,
         isAdmin: true,
+        requiresMfaEnrollment,
         user: {
           id: user.id,
           email: user.email,
+          twoFactorEnabled: user.twoFactorEnabled,
         },
       });
     }
@@ -53,6 +56,7 @@ export async function GET(request: NextRequest) {
           error: 'Not enrolled',
           hasAccess: false,
           isAdmin: false,
+          requiresMfaEnrollment: false,
         },
         { status: 403 }
       );
@@ -61,11 +65,13 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       hasAccess: true,
       isAdmin: false,
+      requiresMfaEnrollment: false,
       enrollmentId: enrollment.id,
       user: {
         id: user.id,
         email: enrollment.email,
         name: enrollment.name,
+        twoFactorEnabled: user.twoFactorEnabled,
       },
     });
   } catch (error) {

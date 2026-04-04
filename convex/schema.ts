@@ -8,6 +8,28 @@ import { v } from "convex/values";
 // ============================================================================
 
 export default defineSchema({
+  auditLogs: defineTable({
+    timestamp: v.number(),
+    category: v.union(
+      v.literal("auth"),
+      v.literal("student_data"),
+      v.literal("admin_action")
+    ),
+    actionType: v.string(),
+    resource: v.string(),
+    status: v.union(v.literal("success"), v.literal("failure")),
+    actorUserId: v.optional(v.string()),
+    actorEmail: v.optional(v.string()),
+    resourceId: v.optional(v.string()),
+    method: v.optional(v.string()),
+    ipAddress: v.optional(v.string()),
+    userAgent: v.optional(v.string()),
+    metadata: v.optional(v.any()),
+  })
+    .index("by_timestamp", ["timestamp"])
+    .index("by_category", ["category"])
+    .index("by_actor_user_id", ["actorUserId"]),
+
   // ============================================================================
   // ACE USERS
   // ============================================================================

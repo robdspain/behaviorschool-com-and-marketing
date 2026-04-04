@@ -1,11 +1,14 @@
 import { createClient, type GenericCtx } from "@convex-dev/better-auth";
 import { convex, crossDomain } from "@convex-dev/better-auth/plugins";
+import { createAuthMiddleware } from "@better-auth/core/api";
 import { betterAuth } from "better-auth/minimal";
 import { hashPassword } from "better-auth/crypto";
+import { twoFactor } from "better-auth/plugins";
 import type { GenericActionCtx } from "convex/server";
 import { components, internal } from "./_generated/api";
 import type { DataModel } from "./_generated/dataModel";
 import authConfig from "./auth.config";
+import { writeAuditLog } from "./audit_logger";
 
 const siteUrl = process.env.SITE_URL ?? "https://behaviorschool.com";
 
@@ -17,6 +20,31 @@ export const authComponent = createClient<DataModel>(components.betterAuth);
  */
 const PASSWORD_COMPLEXITY_RE =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\[\]{};:'",.<>/?\\|`~]).{12,}$/;
+
+function getRequestIp(headers: Headers) {
+  const forwardedFor = headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0]?.trim();
+  }
+
+  return headers.get("x-real-ip") ?? undefined;
+}
+
+function getHeader(headers: Headers | undefined, key: string) {
+  return headers?.get(key) ?? undefined;
+}
+
+function getResponseStatus(returned: unknown) {
+  if (returned instanceof Response) {
+    return returned.status;
+  }
+
+  return 200;
+}
+
+function isSuccessfulResponse(returned: unknown) {
+  return getResponseStatus(returned) < 400;
+}
 
 export const createAuth = (ctx: GenericCtx<DataModel>) => {
   return betterAuth({
@@ -129,6 +157,45 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
     plugins: [
       crossDomain({ siteUrl }),
       convex({ authConfig, jwt: { expirationSeconds: 1800 } }),
+      twoFactor({
+        issuer: "Behavior School",
+      }),
     ],
+    hooks: {
+      after: createAuthMiddleware(async (authContext) => {
+        if (!["/sign-in/email", "/sign-out", "/change-password", "/set-password", "/reset-password", "/two-factor/enable", "/two-factor/verify-totp", "/two-factor/disable"].includes(authContext.path)) {
+          return;
+        }
+
+        const status = isSuccessfulResponse(authContext.context.returned) ? "success" : "failure";
+        const actor = authContext.context.newSession?.user ?? authContext.context.session?.user ?? null;
+        const actionByPath: Record<string, string> = {
+          "/sign-in/email": status === "success" ? "login_success" : "login_failure",
+          "/sign-out": "logout",
+          "/change-password": "password_change",
+          "/set-password": "password_set",
+          "/reset-password": "password_reset",
+          "/two-factor/enable": status === "success" ? "mfa_enrollment_started" : "mfa_enrollment_failed",
+          "/two-factor/verify-totp": status === "success" ? "mfa_totp_verified" : "mfa_totp_verification_failed",
+          "/two-factor/disable": status === "success" ? "mfa_disabled" : "mfa_disable_failed",
+        };
+
+        await writeAuditLog({
+          category: "auth",
+          actionType: actionByPath[authContext.path] ?? authContext.path.replaceAll("/", "").trim(),
+          resource: "better_auth",
+          status,
+          actorUserId: actor?.id,
+          actorEmail: actor?.email,
+          method: authContext.method,
+          ipAddress: authContext.headers ? getRequestIp(authContext.headers) : undefined,
+          userAgent: getHeader(authContext.headers, "user-agent"),
+          metadata: {
+            path: authContext.path,
+            responseStatus: getResponseStatus(authContext.context.returned),
+          },
+        });
+      }),
+    },
   });
 };

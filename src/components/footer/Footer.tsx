@@ -144,6 +144,9 @@ export function Footer() {
             >
               Contact Us
             </Link>
+            <Link href="/ferpa-compliance" className="text-gray-600 hover:text-gray-900 transition-colors">
+              FERPA Compliance
+            </Link>
             <Link href="/privacy-policy" className="text-gray-600 hover:text-gray-900 transition-colors">
               Privacy Policy
             </Link>

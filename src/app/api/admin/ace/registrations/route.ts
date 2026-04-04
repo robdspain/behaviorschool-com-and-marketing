@@ -4,6 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
 import { validateRegistrationEligibility } from '@/lib/ace/registration-validation';
 import type { AceCredentialType, AceEventType } from '@/lib/ace/types';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { recordRequestAuditEvent } from '@/lib/audit-log';
 
 /**
  * GET /api/admin/ace/registrations
@@ -11,6 +13,11 @@ import type { AceCredentialType, AceEventType } from '@/lib/ace/types';
  */
 export async function GET(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const supabase = await createClient();
     const { searchParams } = new URL(request.url);
     const eventId = searchParams.get('event_id');
@@ -31,9 +38,28 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query;
 
     if (error) {
+      await recordRequestAuditEvent(request, {
+        category: 'student_data',
+        actionType: 'read',
+        resource: 'ace_registrations',
+        status: 'failure',
+        actorUserId: admin.id,
+        actorEmail: admin.email,
+        metadata: { error: error.message, eventId },
+      });
       console.error('Error fetching registrations:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    await recordRequestAuditEvent(request, {
+      category: 'student_data',
+      actionType: 'read',
+      resource: 'ace_registrations',
+      status: 'success',
+      actorUserId: admin.id,
+      actorEmail: admin.email,
+      metadata: { eventId, rowCount: data?.length ?? 0 },
+    });
 
     return NextResponse.json({ data });
   } catch (error) {
@@ -51,6 +77,11 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const supabase = await createClient();
     const body = await request.json();
     const { event_id, user_id } = body;
@@ -158,12 +189,32 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (regError) {
+      await recordRequestAuditEvent(request, {
+        category: 'admin_action',
+        actionType: 'create',
+        resource: 'ace_registrations',
+        status: 'failure',
+        actorUserId: admin.id,
+        actorEmail: admin.email,
+        metadata: { event_id, user_id, error: regError.message },
+      });
       console.error('Error creating registration:', regError);
       return NextResponse.json(
         { error: regError.message },
         { status: 500 }
       );
     }
+
+    await recordRequestAuditEvent(request, {
+      category: 'admin_action',
+      actionType: 'create',
+      resource: 'ace_registrations',
+      resourceId: String(registration.id),
+      status: 'success',
+      actorUserId: admin.id,
+      actorEmail: admin.email,
+      metadata: { event_id, user_id },
+    });
 
     return NextResponse.json({ data: registration }, { status: 201 });
   } catch (error) {
@@ -181,6 +232,11 @@ export async function POST(request: NextRequest) {
  */
 export async function DELETE(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const supabase = await createClient();
     const { searchParams } = new URL(request.url);
     const registrationId = searchParams.get('id');
@@ -203,9 +259,30 @@ export async function DELETE(request: NextRequest) {
       .eq('id', registrationId);
 
     if (error) {
+      await recordRequestAuditEvent(request, {
+        category: 'admin_action',
+        actionType: 'update',
+        resource: 'ace_registrations',
+        resourceId: String(registrationId),
+        status: 'failure',
+        actorUserId: admin.id,
+        actorEmail: admin.email,
+        metadata: { cancelled: true, error: error.message },
+      });
       console.error('Error cancelling registration:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    await recordRequestAuditEvent(request, {
+      category: 'admin_action',
+      actionType: 'update',
+      resource: 'ace_registrations',
+      resourceId: String(registrationId),
+      status: 'success',
+      actorUserId: admin.id,
+      actorEmail: admin.email,
+      metadata: { cancelled: true },
+    });
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -216,4 +293,3 @@ export async function DELETE(request: NextRequest) {
     );
   }
 }
-

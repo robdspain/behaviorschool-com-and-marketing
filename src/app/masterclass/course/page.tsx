@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { AdminMfaEnrollmentPrompt } from '@/components/masterclass/AdminMfaEnrollmentPrompt';
 import { SidebarNavigation } from '@/components/masterclass/SidebarNavigation';
 import { ProgressBar } from '@/components/masterclass/ProgressBar';
 import { VideoSection } from '@/components/masterclass/VideoSection';
@@ -15,6 +16,8 @@ export default function CoursePage() {
   const router = useRouter();
   const [enrollmentId, setEnrollmentId] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adminEmail, setAdminEmail] = useState<string | null>(null);
+  const [requiresMfaEnrollment, setRequiresMfaEnrollment] = useState(false);
   const [currentSection, setCurrentSection] = useState(1);
   const [progress, setProgress] = useState<MasterclassProgress[]>([]);
   const [overallProgress, setOverallProgress] = useState(0);
@@ -38,8 +41,12 @@ export default function CoursePage() {
         }
 
         setIsAdmin(data.isAdmin);
+        setRequiresMfaEnrollment(Boolean(data.requiresMfaEnrollment));
+
         if (!data.isAdmin && data.enrollmentId) {
           setEnrollmentId(data.enrollmentId);
+        } else if (data.isAdmin) {
+          setAdminEmail(data.user?.email ?? null);
         }
       } catch (err) {
         console.error('Failed to check access:', err);
@@ -259,6 +266,13 @@ export default function CoursePage() {
 
   return (
     <div className="h-screen flex flex-col bg-slate-50">
+      {isAdmin && requiresMfaEnrollment && adminEmail ? (
+        <AdminMfaEnrollmentPrompt
+          email={adminEmail}
+          onComplete={() => setRequiresMfaEnrollment(false)}
+        />
+      ) : null}
+
       {/* Progress Bar */}
       <ProgressBar
         progress={overallProgress}

@@ -1,6 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from 'next/server'
+import { verifyAdminSession } from '@/lib/admin-auth'
+import { recordRequestAuditEvent } from '@/lib/audit-log'
 import { createSupabaseAdminClient } from '@/lib/supabase-admin'
 
 function toCSV(rows: any[]): string {
@@ -18,12 +20,28 @@ function toCSV(rows: any[]): string {
 }
 
 export async function GET(req: Request) {
+  const admin = await verifyAdminSession()
+  if (!admin) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const db = createSupabaseAdminClient()
   const { searchParams } = new URL(req.url)
   const includeLists = searchParams.get('include_lists') !== '0'
 
   const { data: subs, error } = await db.from('nm_subscribers').select('*').order('created_at', { ascending: false })
-  if (error) return NextResponse.json({ error: String(error) }, { status: 500 })
+  if (error) {
+    await recordRequestAuditEvent(req, {
+      category: 'admin_action',
+      actionType: 'export',
+      resource: 'nm_subscribers',
+      status: 'failure',
+      actorUserId: admin.id,
+      actorEmail: admin.email,
+      metadata: { includeLists, error: String(error) },
+    })
+    return NextResponse.json({ error: String(error) }, { status: 500 })
+  }
 
   let listMap: Record<string, string[]> = {}
   if (includeLists && subs && subs.length) {
@@ -53,6 +71,15 @@ export async function GET(req: Request) {
   }))
 
   const csv = toCSV(rows)
+  await recordRequestAuditEvent(req, {
+    category: 'admin_action',
+    actionType: 'export',
+    resource: 'nm_subscribers',
+    status: 'success',
+    actorUserId: admin.id,
+    actorEmail: admin.email,
+    metadata: { includeLists, rowCount: rows.length, format: 'csv' },
+  })
   return new NextResponse(csv, {
     status: 200,
     headers: {
@@ -61,4 +88,3 @@ export async function GET(req: Request) {
     }
   })
 }
-

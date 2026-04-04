@@ -316,6 +316,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // /resources intentionally excluded until ready (noindex)
     // /templates intentionally excluded until ready (noindex)
 
+    // For Schools
+    {
+      url: `${baseUrl}/ferpa-compliance`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.6,
+    },
+
     // Legal Pages
     {
       url: `${baseUrl}/privacy`,

@@ -19,6 +19,19 @@ export function isAuthorizedAdmin(email: string | null | undefined): boolean {
   return (AUTHORIZED_ADMIN_EMAILS as readonly string[]).includes(normalizedEmail);
 }
 
+export interface AdminMfaUser {
+  email?: string | null;
+  twoFactorEnabled?: boolean | null;
+}
+
+export function requiresAdminMfa(user: AdminMfaUser | null | undefined): boolean {
+  if (!user || !isAuthorizedAdmin(user.email)) {
+    return false;
+  }
+
+  return !Boolean(user.twoFactorEnabled);
+}
+
 /**
  * Get a user-friendly error message for unauthorized access
  */

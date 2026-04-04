@@ -4,6 +4,7 @@ export interface AuthUser {
   id: string;
   email: string;
   name?: string | null;
+  twoFactorEnabled: boolean;
 }
 
 /**
@@ -31,6 +32,7 @@ export async function getAuthUser(): Promise<AuthUser | null> {
       id: data.user.id,
       email: data.user.email,
       name: data.user.name ?? null,
+      twoFactorEnabled: Boolean(data.user.twoFactorEnabled),
     };
   } catch {
     return null;
