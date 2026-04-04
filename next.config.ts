@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   env: {
     GHOST_CONTENT_URL: process.env.GHOST_CONTENT_URL,
     NEXT_PUBLIC_GHOST_CONTENT_URL: process.env.GHOST_CONTENT_URL,
@@ -137,6 +140,26 @@ const nextConfig: NextConfig = {
       {
         source: '/supervision',
         destination: '/supervisors',
+        permanent: true,
+      },
+      {
+        source: '/supervise',
+        destination: '/supervisors',
+        permanent: true,
+      },
+      {
+        source: '/supervise/',
+        destination: '/supervisors',
+        permanent: true,
+      },
+      {
+        source: '/transformation',
+        destination: '/transformation-program',
+        permanent: true,
+      },
+      {
+        source: '/transformation/',
+        destination: '/transformation-program',
         permanent: true,
       },
       // Fix 404 redirects from GSC

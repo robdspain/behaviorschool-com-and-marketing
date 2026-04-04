@@ -23,18 +23,17 @@ export function TimeDelayPopup({
   showOnMobile = true,
 }: TimeDelayPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasShown, setHasShown] = useState(false);
+  const [hasShown, setHasShown] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !!sessionStorage.getItem("time_delay_popup_dismissed");
+  });
 
   useEffect(() => {
-    // Check if user has already dismissed this popup
-    if (sessionStorage.getItem("time_delay_popup_dismissed")) {
-      setHasShown(true);
-      return;
-    }
+    if (hasShown) return;
 
     // Set timer to show popup after delay
     const timer = setTimeout(() => {
-      if (!hasShown && !sessionStorage.getItem("time_delay_popup_dismissed")) {
+      if (!sessionStorage.getItem("time_delay_popup_dismissed")) {
         setIsOpen(true);
         setHasShown(true);
       }

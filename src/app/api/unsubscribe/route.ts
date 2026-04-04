@@ -1,7 +1,7 @@
+export const dynamic = 'force-dynamic';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 // Convert cloud URL to site URL for HTTP actions
 const CONVEX_CLOUD_URL = process.env.NEXT_PUBLIC_CONVEX_URL || 'https://quixotic-fox-157.convex.cloud';
 const CONVEX_SITE_URL = CONVEX_CLOUD_URL.replace('.convex.cloud', '.convex.site');
@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
     // Send notification email to Rob about the unsubscribe
     if (process.env.RESEND_API_KEY) {
       try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
         await resend.emails.send({
           from: 'Behavior School <noreply@updates.behaviorschool.com>',
           to: 'rob@behaviorschool.com',

@@ -1,8 +1,10 @@
+export const dynamic = 'force-dynamic';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import crypto from 'crypto';
+import { RESEND_FROM_NO_REPLY } from '@/lib/resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL || "https://quixotic-fox-157.convex.cloud";
 
 function generateConfirmationToken(email: string): string {
@@ -27,8 +29,9 @@ export async function POST(request: NextRequest) {
     const confirmUrl = `https://behaviorschool.com/confirm-subscription?token=${token}`;
 
     // Send confirmation email
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const { error } = await resend.emails.send({
-      from: 'Behavior School <noreply@updates.behaviorschool.com>',
+      from: RESEND_FROM_NO_REPLY,
       to: normalizedEmail,
       subject: 'Confirm your subscription to Behavior School',
       html: `
@@ -92,7 +95,7 @@ export async function POST(request: NextRequest) {
 
     // Notify Rob of new signup attempt
     await resend.emails.send({
-      from: 'Behavior School <noreply@updates.behaviorschool.com>',
+      from: RESEND_FROM_NO_REPLY,
       to: 'rob@behaviorschool.com',
       subject: `📬 New Signup (pending): ${normalizedEmail}`,
       text: `New email signup (awaiting confirmation)\n\nEmail: ${normalizedEmail}\nName: ${name || 'Not provided'}\nSource: ${source || 'Unknown'}\nTime: ${new Date().toISOString()}\n\nThey will be added to your list once they click the confirmation link.`,

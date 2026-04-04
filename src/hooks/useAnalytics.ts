@@ -23,7 +23,7 @@ import {
 
 export const useAnalytics = () => {
   const pathname = usePathname();
-  const startTimeRef = useRef<number>(Date.now());
+  const startTimeRef = useRef<number>(0);
   const scrollDepthRef = useRef<Set<number>>(new Set());
 
   // Track page view on mount
