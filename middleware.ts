@@ -9,7 +9,16 @@ function isProtectedRoute(request: NextRequest): boolean {
   );
 }
 
+const COMMUNITY_HOST = 'community.behaviorschool.com'
+const COMMUNITY_TARGET = 'https://behaviorschool.com/community'
+
 export async function middleware(request: NextRequest) {
+  const host = request.headers.get('host')?.split(':')[0]?.toLowerCase()
+
+  if (host === COMMUNITY_HOST) {
+    return NextResponse.redirect(COMMUNITY_TARGET, 308)
+  }
+
   const response = NextResponse.next();
 
   // Add noindex header for admin and test pages
