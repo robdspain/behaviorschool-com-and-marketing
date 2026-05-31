@@ -7,14 +7,14 @@ import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, 
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 
-const FULL_PAY_LINK = 'https://buy.stripe.com/14AaEWdmIekU2Mc1OK6Vq01';
-const FULL_PAY_PRICE = '$2,497';
-const INSTALLMENT_LINK = 'https://buy.stripe.com/00w5kCaawdgQ72sdxs6Vq02';
+const OFFER_PRICE = '$1,997';
+const PAYMENT_PLAN = '3 payments of $697';
 const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformation-system-phone-call';
+const DISTRICT_EMAIL_LINK = 'mailto:support@behaviorschool.com?subject=District%20PO%20or%20Invoice%20-%20Transformation%20Program';
 
 // Update this number manually as spots are confirmed
-const TOTAL_SPOTS = 20;
-const SPOTS_TAKEN = 3; // increment as people register
+const TOTAL_SPOTS = 12;
+const SPOTS_TAKEN = 0; // increment as people register
 const SPOTS_REMAINING = TOTAL_SPOTS - SPOTS_TAKEN;
 
 const weeklyModules = [
@@ -106,7 +106,7 @@ export default function TransformationProgramPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {['Live cohort', '6 weeks', 'BCBAs only', 'School-based'].map((item) => (
+                {['Live cohort', '6 weeks', 'School BCBAs', 'Starts July 1'].map((item) => (
                   <span key={item} className="px-3 py-1.5 rounded-full border border-[#1f4d3f]/20 bg-white text-xs font-semibold text-[#1f4d3f] uppercase tracking-wide">
                     {item}
                   </span>
@@ -136,30 +136,20 @@ export default function TransformationProgramPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <a
-                  href={FULL_PAY_LINK}
+                  href={CALENDLY_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Enroll Now for {FULL_PAY_PRICE} <ArrowRight className="w-4 h-4" />
+                  Book a Fit Call <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
-                  href="#curriculum"
+                  href="#waitlist"
                   className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  See What You&apos;ll Build
+                  Join Founding Cohort Waitlist
                 </a>
               </motion.div>
-              <motion.p
-                className="mt-4 text-sm text-slate-500"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.38 }}
-              >
-                Secure checkout via Stripe. After purchase, buyers should be redirected to
-                {" "}
-                <span className="font-semibold text-[#1f4d3f]">/purchase-complete</span>.
-              </motion.p>
             </div>
 
             <motion.div
@@ -172,7 +162,7 @@ export default function TransformationProgramPage() {
                 <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3] bg-[#f1f5f9]">
                   <Image
                     src="/optimized/Hero/11D67BC4-55A4-4549-A776-84E87EDED35F.webp"
-                    alt="School-based BCBA systems in action"
+                    alt="School BCBA systems in action"
                     width={640}
                     height={480}
                     className="h-full w-full object-cover"
@@ -191,11 +181,11 @@ export default function TransformationProgramPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2">
                   <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" />
-                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, April 2026</span>
+                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, July 2026</span>
                 </div>
-                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">Thursdays &middot; 6:00 to 8:00 PM PT</p>
+                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">Starts Wednesday, July 1, 2026 &middot; 6:00 to 8:00 PM PT</p>
                 <div className="flex flex-wrap gap-x-3 gap-y-1">
-                  {['Apr 9', 'Apr 16', 'Apr 23', 'Apr 30', 'May 7', 'May 14'].map((d) => (
+                  {['Jul 1', 'Jul 8', 'Jul 15', 'Jul 22', 'Jul 29', 'Aug 5'].map((d) => (
                     <span key={d} className="text-[#1f4d3f] font-semibold text-sm">{d}</span>
                   ))}
                 </div>
@@ -216,7 +206,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">The Reality</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-4">Sound Familiar?</h2>
-          <p className="text-slate-600 text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">These are the real problems school-based BCBAs bring to this program.</p>
+          <p className="text-slate-600 text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">These are the real problems school BCBAs bring to this program.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { quote: "I'm writing FBAs and BIPs at 10 PM every night.", sub: "Paperwork is eating your evenings and your weekends." },
@@ -251,7 +241,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Eligibility</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-4">Who This Program Is For</h2>
-          <p className="text-center text-slate-600 mb-12 text-lg leading-relaxed">This cohort is for school-based BCBAs who are serious about building systems that last.</p>
+          <p className="text-center text-slate-600 mb-12 text-lg leading-relaxed">This cohort is for school BCBAs who are serious about building systems that last.</p>
           <div className="grid sm:grid-cols-2 gap-5">
             {[
               "You hold a BCBA certification and work in a K-12 school or district",
@@ -456,10 +446,11 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: "April 9, 2026. Sessions run Thursdays 6 to 8 PM PT, ending May 14. Maximum 20 participants." },
+            { question: "When does the next cohort start?", answer: "July 1, 2026. Sessions run weekly from 6 to 8 PM PT for six weeks, ending August 5. Maximum 12 participants." },
             { question: "What if I miss a live session?", answer: "All sessions are recorded and available in your student portal within 24 hours." },
-            { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. We accept purchase orders and can provide a formal invoice for your business office. Email rob@behaviorschool.com to request district paperwork." },
-            { question: "Is a W-9 available?", answer: "Yes, available on request. Email rob@behaviorschool.com and we'll send it same day." },
+            { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Email support@behaviorschool.com within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
+            { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Email support@behaviorschool.com to request district paperwork." },
+            { question: "Is a W-9 available?", answer: "Yes, available on request. Email support@behaviorschool.com and we'll send it same day." },
             { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via Calendly or email rob@behaviorschool.com to discuss district group pricing." },
             { question: "Is this program approved for CEUs?", answer: "CEU applicability is being evaluated. Contact us for the most current information." },
           ]} />
@@ -470,35 +461,35 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Join the April 9 Cohort</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Join the July 1 Cohort</h2>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
-            6 weeks. 20 seats max. School-based BCBAs only.
+            6 weeks. 12 seats max. School BCBAs only.
           </p>
           <p className="text-[#e4b63d] font-bold text-2xl mb-8">
-            {FULL_PAY_PRICE}
+            {OFFER_PRICE} founding tuition
           </p>
 
           <a
-            href={FULL_PAY_LINK}
+            href={CALENDLY_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full rounded-full bg-[#e4b63d] hover:bg-[#d4a637] text-[#123628] font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
           >
-            Join the April 9 Cohort
+            Book a Fit Call
           </a>
 
           <p className="text-white/50 text-sm mb-2">
-            Prefer to pay monthly?{' '}
-            <a href={INSTALLMENT_LINK} target="_blank" rel="noopener noreferrer" className="text-[#e4b63d] font-semibold underline underline-offset-2">
-              3 installments of $833/month
-            </a>
+            Payment plan available: <span className="text-[#e4b63d] font-semibold">{PAYMENT_PLAN}</span>.
           </p>
 
-          <p className="text-white/40 text-xs mb-12">
-            Questions before enrolling?{' '}
-            <a href={CALENDLY_LINK} target="_blank" rel="noopener noreferrer" className="text-[#e4b63d] font-semibold underline underline-offset-2">
-              Book a 15-minute call
+          <p className="text-white/40 text-xs mb-4">
+            District PO or invoice needed?{' '}
+            <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
+              Email support@behaviorschool.com
             </a>
+          </p>
+          <p className="text-white/40 text-xs mb-12">
+            Refund policy: five calendar days from payment. After that, cohort seats are committed and non-refundable except where required by law.
           </p>
 
           <details className="text-left bg-white/5 rounded-xl border border-white/10 overflow-hidden">
@@ -520,24 +511,24 @@ export default function TransformationProgramPage() {
                 Download PD Documentation Packet (program description, invoice template, credentials)
               </a>
               <p className="text-xs text-white/40">
-                Need a W-9 or want to pay by purchase order?{' '}
-                <a href="mailto:rob@behaviorschool.com?subject=District%20Enrollment%20-%20Transformation%20Program" className="text-[#e4b63d] font-semibold underline underline-offset-2">
-                  Email rob@behaviorschool.com
+                Need a W-9, purchase order, or invoice?{' '}
+                <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
+                  Email support@behaviorschool.com
                 </a>{' '}
-                and we&apos;ll send everything same day.
+                and we&apos;ll send the paperwork. Seats are held once a signed PO or written district payment approval is received.
               </p>
               <div className="bg-white/5 rounded-lg border border-white/10 p-4">
                 <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-3">Copy and forward to your supervisor</p>
                 <div className="bg-[#0d1f17] border border-white/10 rounded-lg p-4 text-xs text-white/60 leading-relaxed font-mono whitespace-pre-line select-all">{`Subject: PD Approval Request, School BCBA Transformation Program
 
-I'd like to attend a 6-week PD cohort for school-based BCBAs led by Rob Spain, BCBA (25+ years in school settings, CalABA invited speaker).
+I'd like to attend a 6-week PD cohort for school BCBAs led by Rob Spain, BCBA (25+ years in school settings, CalABA invited speaker).
 
 This program addresses three problems directly:
 1. Assessment and FBA quality: builds a replicable, legally defensible process I can apply across my caseload.
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
 3. Caseload sustainability: systems that prevent the burnout that leads to BCBA turnover ($40-60K to replace).
 
-6 sessions, Thursdays 6 to 8 PM PT, April 9 to May 14, 2026. Cost: $2,497.
+6 sessions, weekly from 6 to 8 PM PT, July 1 to August 5, 2026. Cost: $1,997.
 Details: behaviorschool.com/transformation-program`}</div>
               </div>
             </div>

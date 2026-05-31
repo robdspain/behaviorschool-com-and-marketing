@@ -45,12 +45,12 @@ export async function POST(req: NextRequest) {
 <p>Thank you for attending the session today. Here's everything I promised:</p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">The School BCBA Transformation Program</h3>
-<p>If today's content resonated with you, I'm running a 6-week cohort starting March 26 for school-based BCBAs who want to implement this systematically with their teams.</p>
+<p>If today's content resonated with you, I'm running a 6-week cohort starting July 1 for school BCBAs who want to implement this systematically with their teams.</p>
 <ul style="color:#555; font-size:15px;">
-  <li>6 sessions — Thursdays, 6–8 PM Pacific</li>
-  <li>March 26 – May 7, 2026</li>
-  <li>Maximum 20 participants</li>
-  <li>Early bird: $2,499 through March 21 (then $2,997)</li>
+  <li>6 sessions — weekly, 6–8 PM Pacific</li>
+  <li>July 1 – August 5, 2026</li>
+  <li>Maximum 12 participants</li>
+  <li>Founding tuition: $1,997</li>
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#e4b63d; color:#1a1a1a; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
@@ -81,8 +81,8 @@ PRESENTATION REFERENCES
 https://behaviorschool.com/calaba-2026
 
 THE SCHOOL BCBA TRANSFORMATION PROGRAM
-6 weeks, Thursdays 6–8 PM Pacific, March 26 – May 7
-Early bird: $2,499 through March 21
+6 weeks, weekly 6–8 PM Pacific, July 1 – August 5
+Founding tuition: $1,997
 https://behaviorschool.com/transformation-program
 
 —

@@ -52,12 +52,12 @@ export async function POST(req: NextRequest) {
 <p>I'd love to hear how it went — just reply to this email.</p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Want to go deeper?</h3>
-<p>I'm running a 6-week cohort for school-based BCBAs starting March 26. We cover assessment, BIP design, implementation, and team training — systematically.</p>
+<p>I'm running a 6-week cohort for school BCBAs starting July 1. We cover assessment, BIP design, implementation, and team training — systematically.</p>
 <ul style="color:#555; font-size:15px; line-height:2;">
-  <li>6 sessions — Thursdays, 6–8 PM Pacific</li>
-  <li>March 26 – May 7, 2026</li>
-  <li>Maximum 20 participants</li>
-  <li>Early bird: $2,499 through March 21</li>
+  <li>6 sessions — weekly, 6–8 PM Pacific</li>
+  <li>July 1 – August 5, 2026</li>
+  <li>Maximum 12 participants</li>
+  <li>Founding tuition: $1,997</li>
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#1a4731; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">

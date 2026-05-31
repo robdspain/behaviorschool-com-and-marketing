@@ -586,7 +586,7 @@ export function ABCWizard() {
           Want to implement this with your whole team?
         </p>
         <p className="text-sm text-green-100 mb-4">
-          6 weeks starting March 26. Early bird $2,499 through March 21.
+          6 weeks starting July 1. Founding tuition $1,997.
         </p>
         <a
           href="/transformation-program"

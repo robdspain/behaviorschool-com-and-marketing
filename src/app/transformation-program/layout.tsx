@@ -46,7 +46,7 @@ export default function TransformationProgramLayout({
     "@type": "Course",
     name: "School BCBA Transformation System",
     alternateName: "School BCBA Transformation System for Schools",
-    description: "Intensive 6-week cohort-based training program designed to transform overwhelmed school-based BCBAs into ethical leaders who master crisis management, build teacher buy-in, and implement school-wide behavior support systems.",
+    description: "Intensive 6-week cohort-based training program designed to transform overwhelmed school BCBAs into ethical leaders who master crisis management, build teacher buy-in, and implement school-wide behavior support systems.",
     provider: {
       "@type": "EducationalOrganization",
       name: "Behavior School",
@@ -70,7 +70,7 @@ export default function TransformationProgramLayout({
     courseMode: "online",
     educationalLevel: "Graduate",
     teaches: [
-      "Ethical leadership in school-based behavior analysis",
+      "Ethical leadership in school behavior analysis",
       "Crisis management strategies for schools",
       "Building teacher buy-in for behavior interventions", 
       "School-wide behavior support system implementation",
@@ -79,14 +79,14 @@ export default function TransformationProgramLayout({
     ],
     about: {
       "@type": "Thing",
-      name: "School-Based Applied Behavior Analysis Leadership",
+      name: "School Applied Behavior Analysis Leadership",
       description: "Advanced training in ethical leadership, crisis management, and systems implementation for behavior analysts working in educational settings"
     },
-    timeRequired: "P8W",
+    timeRequired: "P6W",
     educationalCredentialAwarded: "Certificate of Completion",
     numberOfCredits: null,
     occupationalCredentialAwarded: null,
-    coursePrerequisites: "BCBA certification or enrollment in BCBA-eligible graduate program",
+    coursePrerequisites: "BCBA certification",
     audience: {
       "@type": "EducationalAudience",
       audienceType: "Professional",
@@ -99,7 +99,7 @@ export default function TransformationProgramLayout({
     hasCourseInstance: {
       "@type": "CourseInstance",
       courseMode: "online",
-      courseWorkload: "P8W",
+      courseWorkload: "P6W",
       instructor: {
         "@type": "Person",
         name: "Rob Spain",
@@ -117,7 +117,7 @@ export default function TransformationProgramLayout({
         "@type": "AlignmentObject",
         alignmentType: "teaches", 
         educationalFramework: "IDEA Special Education Law",
-        targetName: "School-Based Behavior Support Services"
+        targetName: "School Behavior Support Services"
       }
     ]
   } as const;
@@ -126,14 +126,14 @@ export default function TransformationProgramLayout({
     "@context": "https://schema.org",
     "@type": "EducationalProgram",
     name: "School BCBA Transformation System",
-    description: "Comprehensive 6-week training program transforming school-based behavior analysts from overwhelmed practitioners to confident ethical leaders with systematic approaches to crisis management and behavior support.",
+    description: "Comprehensive 6-week training program transforming school behavior analysts from overwhelmed practitioners to confident ethical leaders with systematic approaches to crisis management and behavior support.",
     provider: {
       "@type": "EducationalOrganization", 
       name: "Behavior School"
     },
     programType: "Professional Development",
     educationalProgramMode: "online",
-    timeToComplete: "P8W",
+    timeToComplete: "P6W",
     programPrerequisites: [
       {
         "@type": "EducationalOccupationalCredential",
@@ -152,7 +152,9 @@ export default function TransformationProgramLayout({
     },
     offers: {
       "@type": "Offer",
-      description: "6-week intensive cohort training for school-based BCBAs",
+      description: "6-week intensive cohort training for school BCBAs",
+      price: "1997",
+      priceCurrency: "USD",
       category: "Professional Development Course"
     }
   } as const;

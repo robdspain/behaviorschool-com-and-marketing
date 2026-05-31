@@ -38,10 +38,10 @@ function WaitlistForm() {
     <div className="bg-slate-50 rounded-3xl border border-slate-200 p-8 md:p-12 max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Get Notified About Future Cohorts
+          Join the Founding Cohort Waitlist
         </h2>
         <p className="text-slate-600 text-base">
-          No spots are currently available. Drop your email and we&rsquo;ll reach out when the next cohort opens.
+          Drop your email and we&rsquo;ll reach out with July 1 cohort details and next steps.
         </p>
       </div>
 
@@ -144,7 +144,7 @@ function ApplicationForm() {
           </div>
           <div>
             <label htmlFor="currentRole" className="block text-sm font-semibold text-slate-700 mb-1">Current Role / Title</label>
-            <input id="currentRole" name="currentRole" type="text" required placeholder="School-Based BCBA, District Behavior Specialist…" className={fieldClass} />
+            <input id="currentRole" name="currentRole" type="text" required placeholder="School BCBA, District Behavior Specialist…" className={fieldClass} />
           </div>
           <div>
             <label htmlFor="whyJoin" className="block text-sm font-semibold text-slate-700 mb-1">
@@ -178,7 +178,7 @@ function ApplicationForm() {
 
 export function ProgramApplication() {
   return (
-    <section className="py-12 bg-white">
+    <section id="waitlist" className="py-12 bg-white scroll-mt-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {isCohortOpen ? <ApplicationForm /> : <WaitlistForm />}
       </div>

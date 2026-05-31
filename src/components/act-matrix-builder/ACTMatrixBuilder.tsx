@@ -464,7 +464,7 @@ export default function ACTMatrixBuilder() {
               Want to apply ACT frameworks systematically to your whole caseload?
             </h3>
             <p style={{ color: "#a7d4b8", marginBottom: 24, fontSize: "0.95rem" }}>
-              The School BCBA Transformation Program cohort starts March 26. Early bird pricing available through March 21.
+              The School BCBA Transformation Program cohort starts July 1. Founding tuition is $1,997.
             </p>
             <a
               href="/transformation-program"

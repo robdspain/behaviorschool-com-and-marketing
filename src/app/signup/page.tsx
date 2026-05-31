@@ -444,7 +444,7 @@ export default function SignupPage() {
             <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-xl p-8 text-white">
               <h2 className="text-2xl font-bold mb-4">Limited Spots Available</h2>
               <p className="mb-6">
-                Only 20 spots available for this cohort. Join BCBAs who are already transforming their practice.
+                Only 12 spots available for this cohort. Join BCBAs who are already transforming their practice.
               </p>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">

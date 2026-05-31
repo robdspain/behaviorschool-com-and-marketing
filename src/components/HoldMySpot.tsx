@@ -37,7 +37,7 @@ export function HoldMySpot() {
         Getting district approval?
       </div>
       <h3 className="text-xl font-bold mb-2">Hold My Spot</h3>
-      <p className="text-gray-600 text-sm mb-6">Lock in early bird pricing while you get district approval. No payment now — Rob will hold your seat for up to 2 weeks.</p>
+      <p className="text-gray-600 text-sm mb-6">Lock in founding cohort pricing while you get district approval. No payment now — Rob will hold your seat for up to 2 weeks.</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>

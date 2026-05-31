@@ -57,12 +57,12 @@ export async function POST(req: NextRequest) {
 </div>
 
 <h3 style="font-family:sans-serif; color:#1a4731; margin-top:32px;">The School BCBA Transformation Program</h3>
-<p>Want to implement this systematically with your whole team? I'm running a 6-week cohort for school-based BCBAs starting March 26.</p>
+<p>Want to implement this systematically with your whole team? I'm running a 6-week cohort for school BCBAs starting July 1.</p>
 <ul style="color:#555; font-size:15px;">
-  <li>6 sessions — Thursdays, 6–8 PM Pacific</li>
-  <li>March 26 – May 7, 2026</li>
-  <li>Maximum 20 participants</li>
-  <li>Early bird: $2,499 through March 21</li>
+  <li>6 sessions — weekly, 6–8 PM Pacific</li>
+  <li>July 1 – August 5, 2026</li>
+  <li>Maximum 12 participants</li>
+  <li>Founding tuition: $1,997</li>
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#e4b63d; color:#1a1a1a; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
@@ -96,7 +96,7 @@ NEXT STEP: ACT-INFORMED FBA
 https://behaviorschool.com/act-fba-bip
 
 THE SCHOOL BCBA TRANSFORMATION PROGRAM
-6 weeks starting March 26. Early bird $2,499 through March 21.
+6 weeks starting July 1. Founding tuition $1,997.
 https://behaviorschool.com/transformation-program
 
 —

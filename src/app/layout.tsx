@@ -284,7 +284,7 @@ export default function RootLayout({
           itemOffered: {
             "@type": "Course",
             name: "School BCBA Transformation System",
-            description: "6-week intensive training program for school-based BCBAs to master ethical leadership, crisis management, teacher collaboration, and school-wide behavior support implementation.",
+            description: "6-week intensive training program for school BCBAs to master ethical leadership, crisis management, teacher collaboration, and school-wide behavior support implementation.",
             image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
             provider: {
               "@type": "Organization",
@@ -292,7 +292,7 @@ export default function RootLayout({
             },
             courseMode: "online",
             educationalCredentialAwarded: "Certificate of Completion",
-            timeRequired: "P8W",
+            timeRequired: "P6W",
             availableChannel: {
               "@type": "ServiceChannel",
               serviceUrl: `${SITE_URL}/transformation-program`,

@@ -772,14 +772,14 @@ export default function SchoolBasedBCBAPage() {
             },
             "offers": {
               "@type": "Course",
-              "name": "8-Week School BCBA Transformation System",
+              "name": "6-Week School BCBA Transformation System",
               "description": "Transform from crisis manager to systems leader with practical tools, live cohort support, and proven behavior support systems",
               "provider": {
                 "@type": "EducationalOrganization",
                 "name": "Behavior School"
               },
               "educationalCredentialAwarded": "16 BACB CEUs",
-              "timeRequired": "P8W"
+              "timeRequired": "P6W"
             }
           }),
         }}

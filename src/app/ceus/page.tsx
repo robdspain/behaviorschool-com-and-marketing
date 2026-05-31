@@ -44,7 +44,7 @@ const courses = [
       "An intensive 6-week cohort-based training program for school BCBAs who want to build systematic behavior support programs. Covers FBA systems, IEP goal frameworks, staff training, and data-driven decision making.",
     href: "/transformation-program",
     ceus: "CEUs Included",
-    price: "$2,997",
+    price: "$1,997",
     status: "live" as const,
     features: [
       "6-week live cohort format",
