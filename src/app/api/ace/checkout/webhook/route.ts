@@ -14,9 +14,15 @@ function getStripe() {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.text();
+  let body: string;
+  try {
+    body = await request.text();
+  } catch (error) {
+    console.error('Webhook body read failed:', error);
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+  }
+
   const signature = request.headers.get('stripe-signature');
-  // Use the ACE-specific webhook secret, not the legacy one
   const webhookSecret = process.env.STRIPE_ACE_WEBHOOK_SECRET;
 
   if (!signature) {
@@ -24,13 +30,14 @@ export async function POST(request: NextRequest) {
   }
 
   if (!webhookSecret) {
+    console.error('Stripe ACE webhook secret is not configured');
     return NextResponse.json({ error: 'Webhook secret not configured' }, { status: 500 });
   }
 
   let event: Stripe.Event;
-  const stripe = getStripe();
 
   try {
+    const stripe = getStripe();
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (err) {
     console.error('Webhook signature verification failed:', err);
@@ -92,9 +99,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true });
   } catch (error) {
     console.error('Webhook processing error:', error);
-    return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
+    // Stripe disables endpoints that keep returning 5xx. The event has already
+    // been verified, so acknowledge it and rely on logs/Stripe event replay for
+    // any downstream ACE reconciliation.
+    return NextResponse.json({ received: true, processingError: true });
   }
 }
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export const runtime = 'nodejs';

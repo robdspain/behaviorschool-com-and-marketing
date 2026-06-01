@@ -45,9 +45,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/the-act-matrix-a-framework-for-school-based-bcbas',
     '/values-goal-assistant-landing',
     '/iep-behavior-goals',
+    '/iep-goal-qualitychecker',
     '/school-based-behavior-support',
     '/iep-goal-generator',
     '/behavior-study-tools',
+    '/community',
   ])
   // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
   const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view']
@@ -181,12 +183,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/iep-goal-qualitychecker`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
       url: `${baseUrl}/bcba-readiness-quiz`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
@@ -205,12 +201,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/community`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.75,
     },
     {
       url: `${baseUrl}/about`,

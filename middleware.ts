@@ -10,7 +10,7 @@ function isProtectedRoute(request: NextRequest): boolean {
 }
 
 const COMMUNITY_HOST = 'community.behaviorschool.com'
-const COMMUNITY_TARGET = 'https://behaviorschool.com/community'
+const COMMUNITY_TARGET = 'https://behaviorschool.com/transformation-program'
 
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host')?.split(':')[0]?.toLowerCase()

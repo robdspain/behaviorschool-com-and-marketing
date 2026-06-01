@@ -316,8 +316,23 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/community',
+        destination: '/transformation-program',
+        permanent: true,
+      },
+      {
         source: '/community/',
-        destination: '/community',
+        destination: '/transformation-program',
+        permanent: true,
+      },
+      {
+        source: '/iep-goal-qualitychecker',
+        destination: '/iep-goal-writer',
+        permanent: true,
+      },
+      {
+        source: '/iep-goal-qualitychecker/',
+        destination: '/iep-goal-writer',
         permanent: true,
       },
       // Block Ghost CMS URLs with redirects to proper pages
@@ -530,6 +545,33 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, max-age=0',
+          },
+        ],
+      },
+      {
+        source: '/sitemap.xml',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=3600',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
         source: '/(.*)',
         headers: [
           {
@@ -547,11 +589,6 @@ const nextConfig: NextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
-          },
-          // Performance headers
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
