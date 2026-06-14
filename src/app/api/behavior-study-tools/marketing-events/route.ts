@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     const event = {
       event_name: cleanString(body.event, 120),
       source: cleanString(body.source, 120) || 'behaviorstudytools.com',
-      page_path: cleanString(body.path, 500),
+      page_path: cleanString(body.pagePath || body.path, 500),
       page_url: cleanString(body.url, 1000),
       page_title: cleanString(body.title, 300),
       visitor_id: cleanString(body.visitorId, 120),

@@ -12,6 +12,7 @@ import {
   Clipboard,
   ExternalLink,
   Eye,
+  GraduationCap,
   Link2,
   ListChecks,
   Megaphone,
@@ -68,13 +69,30 @@ type MarketingReportSummary = {
   totalEvents: number
   pageViews: number
   ctaClicks: number
+  appStarts: number
+  diagnosticSelections: number
+  internalSeoClicks: number
+  bcbaStarts: number
+  rbtStarts: number
   uniqueVisitors: number
   sessions: number
   clickRate: number
+  appStartRate: number
   topPages: MarketingReportItem[]
   topCtas: MarketingReportItem[]
   topIntents: MarketingReportItem[]
   topSources: MarketingReportItem[]
+  topStudyPaths: MarketingReportItem[]
+  topDestinations: MarketingReportItem[]
+  pagePerformance: PagePerformanceItem[]
+  pagesNeedingCta: PagePerformanceItem[]
+}
+
+type PagePerformanceItem = {
+  path: string
+  pageViews: number
+  ctaClicks: number
+  clickRate: number
 }
 
 type MarketingReportEvent = {
@@ -83,6 +101,7 @@ type MarketingReportEvent = {
   location?: string | null
   intent?: string | null
   source?: string | null
+  destination?: string | null
   received_at?: string | null
 }
 
@@ -364,20 +383,71 @@ ${todayPlan.ctaHref}`
 
             {reportSummary ? (
               <>
-                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-6">
                   <ReportMetric label="Page views" value={`${reportSummary.pageViews}`} icon={<Eye className="w-5 h-5" />} />
                   <ReportMetric label="CTA clicks" value={`${reportSummary.ctaClicks}`} icon={<MousePointerClick className="w-5 h-5" />} />
                   <ReportMetric label="Click rate" value={`${reportSummary.clickRate}%`} icon={<Activity className="w-5 h-5" />} />
-                  <ReportMetric label="Visitors" value={`${reportSummary.uniqueVisitors}`} icon={<Users className="w-5 h-5" />} />
-                  <ReportMetric label="Sessions" value={`${reportSummary.sessions}`} icon={<BarChart3 className="w-5 h-5" />} />
+                  <ReportMetric label="App starts" value={`${reportSummary.appStarts || 0}`} icon={<ArrowRight className="w-5 h-5" />} />
+                  <ReportMetric label="BCBA starts" value={`${reportSummary.bcbaStarts || 0}`} icon={<GraduationCap className="w-5 h-5" />} />
+                  <ReportMetric label="RBT starts" value={`${reportSummary.rbtStarts || 0}`} icon={<Users className="w-5 h-5" />} />
+                </div>
+
+                <div className="mt-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+                  <div className="rounded-lg border border-emerald-900/15 bg-emerald-50 p-5">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                      <div>
+                        <p className="text-sm font-black uppercase tracking-wide text-emerald-800">Conversion loop health</p>
+                        <h3 className="mt-2 text-2xl font-black text-slate-950">
+                          {reportSummary.appStarts
+                            ? `${reportSummary.appStarts} app-start clicks from tracked pages.`
+                            : 'No tracked app-start clicks yet.'}
+                        </h3>
+                        <p className="mt-2 text-sm leading-6 text-slate-700">
+                          App-start rate is {reportSummary.appStartRate || 0}%. Diagnostic selections: {reportSummary.diagnosticSelections || 0}. Internal SEO clicks: {reportSummary.internalSeoClicks || 0}.
+                        </p>
+                      </div>
+                      <a
+                        href="https://behaviorstudytools.com"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#123f31] px-4 py-3 font-bold text-white hover:bg-[#0d3025]"
+                      >
+                        Test homepage CTA
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                    {reportSummary.pagesNeedingCta?.length ? (
+                      <div className="mt-5 rounded-lg border border-amber-300 bg-white p-4">
+                        <p className="font-black text-slate-950">Fix these viewed pages first</p>
+                        <div className="mt-3 space-y-2">
+                          {reportSummary.pagesNeedingCta.map((page) => (
+                            <div key={page.path} className="flex items-center justify-between gap-3 text-sm">
+                              <span className="truncate font-bold text-slate-800">{page.path}</span>
+                              <span className="shrink-0 rounded-full bg-amber-100 px-2 py-1 text-xs font-black text-amber-900">{page.pageViews} views, 0 starts</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="mt-5 rounded-lg border border-emerald-200 bg-white p-4 text-sm font-bold text-emerald-900">
+                        No high-view pages without starts in this window.
+                      </p>
+                    )}
+                  </div>
+                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
+                    <RankedList title="Study path split" items={reportSummary.topStudyPaths || []} emptyText="No BCBA/RBT path clicks yet." />
+                    <RankedList title="Top sources" items={reportSummary.topSources} emptyText="No source data yet." />
+                  </div>
                 </div>
 
                 <div className="mt-6 grid gap-5 lg:grid-cols-4">
                   <RankedList title="Top pages" items={reportSummary.topPages} emptyText="No page views yet." />
                   <RankedList title="Top CTAs" items={reportSummary.topCtas} emptyText="No CTA clicks yet." />
                   <RankedList title="Top intents" items={reportSummary.topIntents} emptyText="No onboarding intent yet." />
-                  <RankedList title="Top sources" items={reportSummary.topSources} emptyText="No source data yet." />
+                  <RankedList title="Top destinations" items={reportSummary.topDestinations || []} emptyText="No destination data yet." />
                 </div>
+
+                <PagePerformanceTable items={reportSummary.pagePerformance || []} />
 
                 <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
                   <div className="flex items-center justify-between gap-3">
@@ -394,7 +464,7 @@ ${todayPlan.ctaHref}`
                             {event.event_name || 'event'} <span className="font-medium text-slate-500">· {event.page_path || event.location || 'Unknown page'}</span>
                           </div>
                           <div className="text-xs font-semibold text-slate-500">
-                            {event.intent || event.source || 'No intent'}
+                            {event.intent || event.location || event.source || 'No intent'}
                           </div>
                         </div>
                       ))
@@ -788,6 +858,47 @@ function RankedList({ title, items, emptyText }: { title: string; items: Marketi
         ) : (
           <p className="text-sm font-semibold text-slate-600">{emptyText}</p>
         )}
+      </div>
+    </div>
+  )
+}
+
+function PagePerformanceTable({ items }: { items: PagePerformanceItem[] }) {
+  return (
+    <div className="mt-6 rounded-lg border border-slate-200 bg-white">
+      <div className="border-b border-slate-200 px-4 py-3">
+        <h3 className="font-black text-slate-950">Page-level conversion</h3>
+        <p className="mt-1 text-sm text-slate-600">Use this to decide which headline, CTA, or proof section to improve next.</p>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-slate-200 text-sm">
+          <thead className="bg-slate-50 text-left text-xs font-black uppercase tracking-wide text-slate-500">
+            <tr>
+              <th className="px-4 py-3">Page</th>
+              <th className="px-4 py-3 text-right">Views</th>
+              <th className="px-4 py-3 text-right">Starts</th>
+              <th className="px-4 py-3 text-right">Rate</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100">
+            {items.length ? (
+              items.map((item) => (
+                <tr key={item.path} className="hover:bg-slate-50">
+                  <td className="max-w-[360px] truncate px-4 py-3 font-bold text-slate-900">{item.path}</td>
+                  <td className="px-4 py-3 text-right font-semibold text-slate-700">{item.pageViews}</td>
+                  <td className="px-4 py-3 text-right font-semibold text-slate-700">{item.ctaClicks}</td>
+                  <td className="px-4 py-3 text-right font-black text-emerald-800">{item.clickRate}%</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="px-4 py-6 text-center font-semibold text-slate-600">
+                  No page-level events yet.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   )
