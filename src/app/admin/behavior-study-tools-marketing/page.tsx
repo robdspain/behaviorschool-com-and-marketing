@@ -135,6 +135,7 @@ type SignalCounts = {
   customerSignals: number
   competitorSignals: number
   seoImprovements: number
+  seoSignals?: number
 }
 
 type DailyGrowthAction = {
@@ -571,7 +572,12 @@ ${todayPlan.ctaHref}`
                   onRefresh={loadDailyGrowthReport}
                 />
 
-                <GrowthSignalImportPanel onImported={loadDailyGrowthReport} />
+                <GrowthSignalImportPanel
+                  onImported={() => {
+                    loadDailyGrowthReport()
+                    loadMarketingReport()
+                  }}
+                />
 
                 <SocialPublishingPanel
                   response={socialPosts}
@@ -1286,6 +1292,7 @@ function GrowthSignalImportPanel({ onImported }: { onImported: () => void }) {
   const [provider, setProvider] = useState('gsc')
   const [signalDate, setSignalDate] = useState(todayDate())
   const [csv, setCsv] = useState('')
+  const [seoCollecting, setSeoCollecting] = useState(false)
   const [status, setStatus] = useState<{ type: 'idle' | 'saving' | 'saved' | 'error'; message: string }>({
     type: 'idle',
     message: '',
@@ -1308,6 +1315,37 @@ function GrowthSignalImportPanel({ onImported }: { onImported: () => void }) {
   const handleTemplate = () => {
     setCsv(templates[provider])
     setStatus({ type: 'idle', message: '' })
+  }
+
+  const handleSeoCollect = async () => {
+    setSeoCollecting(true)
+    setStatus({ type: 'saving', message: 'Collecting Search Console and Ahrefs metrics...' })
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/seo-metrics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ limit: 100 }),
+      })
+      const data = await response.json().catch(() => ({}))
+      if (!response.ok) {
+        throw new Error(data.error || 'SEO collection failed')
+      }
+      const warnings = Array.isArray(data.warnings) && data.warnings.length
+        ? ` Warnings: ${data.warnings.join(' ')}`
+        : ''
+      setStatus({
+        type: data.imported ? 'saved' : 'error',
+        message: `Collected ${data.imported || 0} SEO signals from live sources.${warnings}`,
+      })
+      onImported()
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: error instanceof Error ? error.message : 'SEO collection failed',
+      })
+    } finally {
+      setSeoCollecting(false)
+    }
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -1352,14 +1390,25 @@ function GrowthSignalImportPanel({ onImported }: { onImported: () => void }) {
             Import GSC query/page movement, Ahrefs keyword movement, social feedback, competitor signals, or trend research. The daily brief will convert these rows into page edits and post ideas.
           </p>
         </div>
-        <button
-          type="button"
-          onClick={handleTemplate}
-          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border-2 border-emerald-900/20 bg-white px-4 py-3 font-bold text-emerald-950 hover:bg-emerald-50"
-        >
-          <Clipboard className="h-4 w-4" />
-          Use sample CSV
-        </button>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <button
+            type="button"
+            onClick={handleSeoCollect}
+            disabled={seoCollecting}
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#123f31] px-4 py-3 font-bold text-white hover:bg-[#0d3025] disabled:cursor-not-allowed disabled:bg-slate-300"
+          >
+            <Search className="h-4 w-4" />
+            {seoCollecting ? 'Collecting' : 'Collect SEO now'}
+          </button>
+          <button
+            type="button"
+            onClick={handleTemplate}
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border-2 border-emerald-900/20 bg-white px-4 py-3 font-bold text-emerald-950 hover:bg-emerald-50"
+          >
+            <Clipboard className="h-4 w-4" />
+            Use sample CSV
+          </button>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-5 grid gap-4">
@@ -1881,6 +1930,7 @@ function GrowthLoopPanel({ summary }: { summary: MarketingReportSummary }) {
             <MiniMetric label="Published" value={`${signalCounts?.publishedLinks ?? 0}`} detail="links saved" />
             <MiniMetric label="Customer" value={`${signalCounts?.customerSignals ?? 0}`} detail="pain points" />
             <MiniMetric label="Competitor" value={`${signalCounts?.competitorSignals ?? 0}`} detail="signals found" />
+            <MiniMetric label="SEO data" value={`${signalCounts?.seoSignals ?? 0}`} detail="GSC/Ahrefs rows" />
           </div>
         </div>
       </div>

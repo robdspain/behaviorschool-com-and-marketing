@@ -42,6 +42,14 @@ type MarketingActivityRow = {
   created_at: string | null
 }
 
+type GrowthSignalRow = {
+  source: string | null
+  signal_type: string | null
+  metric_name: string | null
+  metric_value: number | null
+  created_at: string | null
+}
+
 type GrowthRecommendation = {
   priority: 'high' | 'medium' | 'low'
   area: 'CTA' | 'SEO' | 'Social' | 'Lifecycle' | 'Retention' | 'Research'
@@ -305,6 +313,7 @@ function buildDataHealth({
   ctaClicks,
   lifecycle,
   recentActivity,
+  growthSignals,
 }: {
   events: MarketingEventRow[]
   ctaClicks: MarketingEventRow[]
@@ -315,10 +324,15 @@ function buildDataHealth({
     retentionEvents: number
   }
   recentActivity: MarketingActivityRow[]
+  growthSignals: GrowthSignalRow[]
 }): DataHealthItem[] {
   const hasCustomerSignals = recentActivity.some((entry) => isFilled(entry.customer_signal))
   const hasCompetitorSignals = recentActivity.some((entry) => isFilled(entry.competitor_signal))
   const hasSeoLogs = recentActivity.some((entry) => isFilled(entry.seo_improvement))
+  const seoSignals = growthSignals.filter((signal) =>
+    ['google_search_console', 'gsc', 'ahrefs'].includes(signal.source || '') ||
+    signal.signal_type === 'seo_metric'
+  )
   const attributedClicks = ctaClicks.filter((event) => isFilled(event.location) && isFilled(event.destination)).length
 
   return [
@@ -358,9 +372,15 @@ function buildDataHealth({
     },
     {
       source: 'SEO performance inputs',
-      status: hasSeoLogs ? 'partial' : 'missing',
-      message: hasSeoLogs ? 'SEO improvements are being logged manually.' : 'Search Console/Ahrefs metrics are not connected in this report yet.',
-      nextStep: 'Add daily GSC query/page exports or API ingestion for clicks, impressions, CTR, position, and Ahrefs keyword movement.',
+      status: seoSignals.length ? 'connected' : hasSeoLogs ? 'partial' : 'missing',
+      message: seoSignals.length
+        ? `${seoSignals.length} Search Console/Ahrefs growth signals are available.`
+        : hasSeoLogs
+          ? 'SEO improvements are being logged manually.'
+          : 'Search Console/Ahrefs metrics are not connected in this report yet.',
+      nextStep: seoSignals.length
+        ? 'Use the strongest SEO signal to update one page headline, FAQ, internal link, or CTA today.'
+        : 'Connect daily GSC/Ahrefs collection or paste query/page exports for clicks, impressions, CTR, position, and keyword movement.',
     },
   ]
 }
@@ -413,8 +433,21 @@ export async function GET() {
     console.warn('Behavior Study Tools activity report read failed:', activityError.message)
   }
 
+  const { data: growthSignalData, error: growthSignalError } = await supabaseAdmin
+    .from('behavior_study_tools_growth_signals')
+    .select('source,signal_type,metric_name,metric_value,created_at')
+    .gte('signal_date', since.slice(0, 10))
+    .in('signal_type', ['seo_metric', 'daily_growth_report'])
+    .order('created_at', { ascending: false })
+    .limit(200)
+
+  if (growthSignalError) {
+    console.warn('Behavior Study Tools growth signal health read failed:', growthSignalError.message)
+  }
+
   const events = (data || []) as MarketingEventRow[]
   const recentActivity = ((activityData || []) as MarketingActivityRow[])
+  const growthSignals = ((growthSignalData || []) as GrowthSignalRow[])
   const pageViews = events.filter((event) => event.event_name === 'page_view')
   const ctaClicks = events.filter((event) => event.event_name === 'cta_click')
   const diagnosticSelections = events.filter((event) => event.event_name === 'diagnostic_option_select')
@@ -522,6 +555,7 @@ export async function GET() {
       ctaClicks,
       lifecycle,
       recentActivity,
+      growthSignals,
     }),
     signalCounts: {
       activitiesLogged: recentActivity.length,
@@ -529,6 +563,7 @@ export async function GET() {
       customerSignals: recentActivity.filter((entry) => isFilled(entry.customer_signal)).length,
       competitorSignals: recentActivity.filter((entry) => isFilled(entry.competitor_signal)).length,
       seoImprovements: recentActivity.filter((entry) => isFilled(entry.seo_improvement)).length,
+      seoSignals: growthSignals.filter((signal) => ['google_search_console', 'gsc', 'ahrefs'].includes(signal.source || '') || signal.signal_type === 'seo_metric').length,
     },
   }
 

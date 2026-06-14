@@ -62,6 +62,11 @@
   name = "bst-trend-research"
   cron = "45 12 * * *"
 
+# Behavior Study Tools SEO metrics - daily before trends and growth report
+[[scheduled.functions]]
+  name = "bst-seo-metrics"
+  cron = "30 12 * * *"
+
 # Behavior Study Tools growth monitor - daily at 6 AM PT / 9 AM ET (13:00 UTC)
 [[scheduled.functions]]
   name = "bst-daily-growth-monitor"
