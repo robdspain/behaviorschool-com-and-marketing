@@ -5,6 +5,7 @@ import type { FormEvent, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   Activity,
+  AlertTriangle,
   ArrowRight,
   BarChart3,
   CalendarCheck,
@@ -23,6 +24,7 @@ import {
   ShieldCheck,
   Sparkles,
   Target,
+  TrendingUp,
   Users,
 } from 'lucide-react'
 import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
@@ -86,6 +88,10 @@ type MarketingReportSummary = {
   topDestinations: MarketingReportItem[]
   pagePerformance: PagePerformanceItem[]
   pagesNeedingCta: PagePerformanceItem[]
+  lifecycle?: LifecycleSummary
+  recommendations?: GrowthRecommendationItem[]
+  dataHealth?: DataHealthItem[]
+  signalCounts?: SignalCounts
 }
 
 type PagePerformanceItem = {
@@ -93,6 +99,42 @@ type PagePerformanceItem = {
   pageViews: number
   ctaClicks: number
   clickRate: number
+}
+
+type LifecycleSummary = {
+  signups: number
+  freeTrialStarts: number
+  paidConversions: number
+  retentionEvents: number
+  retainedVisitors: number
+  signupVisitorCount: number
+  appStartToSignupRate: number
+  trialToPaidRate: number
+  signupRetentionRate: number
+}
+
+type GrowthRecommendationItem = {
+  priority: 'high' | 'medium' | 'low'
+  area: 'CTA' | 'SEO' | 'Social' | 'Lifecycle' | 'Retention' | 'Research'
+  title: string
+  reason: string
+  action: string
+  href?: string
+}
+
+type DataHealthItem = {
+  source: string
+  status: 'connected' | 'partial' | 'missing'
+  message: string
+  nextStep: string
+}
+
+type SignalCounts = {
+  activitiesLogged: number
+  publishedLinks: number
+  customerSignals: number
+  competitorSignals: number
+  seoImprovements: number
 }
 
 type MarketingReportEvent = {
@@ -391,6 +433,8 @@ ${todayPlan.ctaHref}`
                   <ReportMetric label="BCBA starts" value={`${reportSummary.bcbaStarts || 0}`} icon={<GraduationCap className="w-5 h-5" />} />
                   <ReportMetric label="RBT starts" value={`${reportSummary.rbtStarts || 0}`} icon={<Users className="w-5 h-5" />} />
                 </div>
+
+                <GrowthLoopPanel summary={reportSummary} />
 
                 <div className="mt-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
                   <div className="rounded-lg border border-emerald-900/15 bg-emerald-50 p-5">
@@ -817,6 +861,153 @@ function Metric({ label, value, icon }: { label: string; value: string; icon: Re
     <div className="rounded-lg border border-slate-200 bg-white p-4">
       <div className="flex items-center gap-2 text-emerald-700">{icon}<span className="text-xs font-black uppercase tracking-wide">{label}</span></div>
       <p className="mt-2 text-sm font-bold leading-5 text-slate-900">{value}</p>
+    </div>
+  )
+}
+
+function GrowthLoopPanel({ summary }: { summary: MarketingReportSummary }) {
+  const lifecycle = summary.lifecycle
+  const recommendations = summary.recommendations || []
+  const dataHealth = summary.dataHealth || []
+  const signalCounts = summary.signalCounts
+
+  return (
+    <div className="mt-6 grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">
+      <div className="rounded-xl border border-emerald-900/15 bg-[#102f27] p-5 text-white">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div>
+            <p className="text-sm font-black uppercase tracking-wide text-amber-200">Daily improvement queue</p>
+            <h3 className="mt-2 text-2xl font-black">Fix the clearest conversion leak first.</h3>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-emerald-50">
+              This queue combines page navigation, CTA starts, lifecycle events, and the signals logged by the marketing operator.
+            </p>
+          </div>
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-wide text-amber-100">
+            <TrendingUp className="h-4 w-4" />
+            Self-improvement loop
+          </span>
+        </div>
+
+        <div className="mt-5 space-y-3">
+          {recommendations.length ? (
+            recommendations.map((item) => (
+              <article key={`${item.area}-${item.title}`} className="rounded-lg border border-white/15 bg-white p-4 text-slate-950">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <PriorityBadge priority={item.priority} />
+                      <span className="rounded-full bg-emerald-50 px-2 py-1 text-xs font-black uppercase tracking-wide text-emerald-800">{item.area}</span>
+                    </div>
+                    <h4 className="mt-3 font-black text-slate-950">{item.title}</h4>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">{item.reason}</p>
+                    <p className="mt-2 text-sm font-bold leading-6 text-emerald-900">{item.action}</p>
+                  </div>
+                  {item.href && (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-bold text-slate-800 hover:bg-slate-50"
+                    >
+                      Open
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))
+          ) : (
+            <div className="rounded-lg border border-white/15 bg-white/10 p-5">
+              <p className="font-bold text-white">No obvious leak yet. Keep publishing and logging signals.</p>
+              <p className="mt-2 text-sm leading-6 text-emerald-50">The queue becomes more useful as traffic, app starts, and lifecycle events accumulate.</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="grid gap-5">
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Lifecycle funnel</p>
+          <h3 className="mt-2 text-xl font-black text-slate-950">Track after the app start.</h3>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <MiniMetric label="Signups" value={`${lifecycle?.signups ?? 0}`} detail={`${lifecycle?.appStartToSignupRate ?? 0}% of app starts`} />
+            <MiniMetric label="Free trials" value={`${lifecycle?.freeTrialStarts ?? 0}`} detail="Needs app/payment events" />
+            <MiniMetric label="Paid" value={`${lifecycle?.paidConversions ?? 0}`} detail={`${lifecycle?.trialToPaidRate ?? 0}% trial to paid`} />
+            <MiniMetric label="Retention" value={`${lifecycle?.retainedVisitors ?? 0}`} detail={`${lifecycle?.signupRetentionRate ?? 0}% signup retention`} />
+          </div>
+          <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm font-semibold leading-6 text-amber-950">
+            Wire these app events next: <span className="font-black">account_created</span>, <span className="font-black">free_trial_start</span>, <span className="font-black">subscription_started</span>, <span className="font-black">practice_session_started</span>.
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Data health</p>
+          <h3 className="mt-2 text-xl font-black text-slate-950">Know what is proved and what is missing.</h3>
+          <div className="mt-4 space-y-3">
+            {dataHealth.length ? (
+              dataHealth.map((item) => <DataHealthRow key={item.source} item={item} />)
+            ) : (
+              <p className="text-sm font-semibold text-slate-600">No data health checks yet.</p>
+            )}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+          <p className="text-sm font-black uppercase tracking-wide text-slate-500">Signal loop</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <MiniMetric label="Actions" value={`${signalCounts?.activitiesLogged ?? 0}`} detail="logged in window" />
+            <MiniMetric label="Published" value={`${signalCounts?.publishedLinks ?? 0}`} detail="links saved" />
+            <MiniMetric label="Customer" value={`${signalCounts?.customerSignals ?? 0}`} detail="pain points" />
+            <MiniMetric label="Competitor" value={`${signalCounts?.competitorSignals ?? 0}`} detail="signals found" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function PriorityBadge({ priority }: { priority: GrowthRecommendationItem['priority'] }) {
+  const styles = {
+    high: 'bg-red-100 text-red-800',
+    medium: 'bg-amber-100 text-amber-900',
+    low: 'bg-slate-100 text-slate-700',
+  }
+
+  return (
+    <span className={`rounded-full px-2 py-1 text-xs font-black uppercase tracking-wide ${styles[priority]}`}>
+      {priority}
+    </span>
+  )
+}
+
+function DataHealthRow({ item }: { item: DataHealthItem }) {
+  const statusStyles = {
+    connected: 'bg-emerald-100 text-emerald-800',
+    partial: 'bg-amber-100 text-amber-900',
+    missing: 'bg-red-100 text-red-800',
+  }
+
+  return (
+    <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <p className="font-black text-slate-950">{item.source}</p>
+        <span className={`inline-flex w-fit items-center gap-1 rounded-full px-2 py-1 text-xs font-black uppercase tracking-wide ${statusStyles[item.status]}`}>
+          {item.status === 'connected' ? <CheckCircle2 className="h-3.5 w-3.5" /> : <AlertTriangle className="h-3.5 w-3.5" />}
+          {item.status}
+        </span>
+      </div>
+      <p className="mt-2 text-sm leading-5 text-slate-600">{item.message}</p>
+      <p className="mt-1 text-sm font-bold leading-5 text-emerald-800">{item.nextStep}</p>
+    </div>
+  )
+}
+
+function MiniMetric({ label, value, detail }: { label: string; value: string; detail: string }) {
+  return (
+    <div className="rounded-lg border border-slate-200 bg-white p-3">
+      <p className="text-xs font-black uppercase tracking-wide text-slate-500">{label}</p>
+      <p className="mt-1 text-2xl font-black text-slate-950">{value}</p>
+      <p className="mt-1 text-xs font-semibold text-slate-500">{detail}</p>
     </div>
   )
 }
