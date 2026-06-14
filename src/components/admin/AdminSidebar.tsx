@@ -16,7 +16,8 @@ import {
   Send,
   GraduationCap,
   Layers,
-  Presentation
+  Presentation,
+  Megaphone
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -50,6 +51,7 @@ const navigation: NavItem[] = [
   },
   { name: "Email Templates", href: "/admin/email-templates", icon: Mail },
   { name: "Newsletter (Listmonk)", href: "/admin/listmonk", icon: Send },
+  { name: "BST Marketing", href: "/admin/behavior-study-tools-marketing", icon: Megaphone, badge: "Daily" },
   { name: "Blog", href: "/admin/content", icon: FileText },
   { name: "Presentations", href: "/admin/presentations", icon: Presentation },
   { name: "Sitemap", href: "/admin/sitemap", icon: Layers },

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX } from 'lucide-react'
+import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -241,7 +241,7 @@ export default function AdminDashboard() {
       description: 'Manage contacts, sales pipeline, and tasks',
       href: '/admin/crm',
       icon: TrendingUp,
-      color: 'purple',
+      color: 'emerald',
       stats: 'Leads & Deals'
     },
     {
@@ -251,6 +251,14 @@ export default function AdminDashboard() {
       icon: BarChart3,
       color: 'blue',
       stats: 'Social Media'
+    },
+    {
+      title: 'BST Marketing Operator',
+      description: 'Daily post plan, SEO targets, CTAs, and competitor signals',
+      href: '/admin/behavior-study-tools-marketing',
+      icon: Megaphone,
+      color: 'emerald',
+      stats: 'Daily'
     },
     {
       title: 'Email Templates',
@@ -344,7 +352,7 @@ export default function AdminDashboard() {
           <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Downloads</h3>
-              <BarChart3 className="w-5 h-5 text-purple-600" />
+              <BarChart3 className="w-5 h-5 text-emerald-600" />
             </div>
             {statsLoading ? (
               <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
@@ -396,6 +404,71 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+
+        {/* Behavior Study Tools Growth Campaign */}
+        <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
+                  <Megaphone className="w-5 h-5 text-emerald-700" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900">Behavior Study Tools Growth Campaign</h2>
+                  <p className="text-sm text-slate-600">Web-first campaign package for BCBA and RBT candidates while iOS approval is pending.</p>
+                </div>
+              </div>
+            </div>
+            <Link href="/admin/behavior-study-tools-marketing" className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#1a4731] text-white font-semibold hover:bg-[#153824]">
+              Open daily operator
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div className="border border-slate-200 rounded-lg p-5">
+              <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><ClipboardList className="w-4 h-4 text-emerald-700" /> Launch Timeline</h3>
+              <ul className="space-y-3 text-sm text-slate-700">
+                <li><strong>Now:</strong> send all CTAs to the web app and free practice flows.</li>
+                <li><strong>Daily:</strong> publish one pain-point post and log one search, customer, or competitor signal.</li>
+                <li><strong>Weekly:</strong> improve one SEO page headline, CTA, FAQ, or internal link from the signals.</li>
+                <li><strong>iOS approval:</strong> add App Store CTAs after the web campaign is already converting.</li>
+              </ul>
+            </div>
+
+            <div className="border border-slate-200 rounded-lg p-5">
+              <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><Mail className="w-4 h-4 text-emerald-700" /> Email Sequence</h3>
+              <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700">
+                <li>Stop Guessing What to Study Next</li>
+                <li>Start with a Free BCBA Practice Exam</li>
+                <li>Use Results to Find Your Weakest Domain</li>
+                <li>RBT Candidates Have a Clear Path Too</li>
+                <li>What to Review Before Your Next Mock Exam</li>
+              </ol>
+            </div>
+
+            <div className="border border-slate-200 rounded-lg p-5">
+              <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><TrendingUp className="w-4 h-4 text-emerald-700" /> Tracking & Copy Blocks</h3>
+              <div className="space-y-3 text-sm text-slate-700">
+                <p><strong>Campaign:</strong> bst_web_growth</p>
+                <p><strong>UTM base:</strong> utm_source=behaviorschool&amp;utm_medium=owned&amp;utm_campaign=bst_web_growth</p>
+                <p><strong>Primary CTA:</strong> Start Behavior Study Tools in the web app</p>
+                <p><strong>Support:</strong> support@behaviorschool.com and study.behaviorschool.com/support</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 border-t border-slate-200 pt-5">
+            <h3 className="font-bold text-slate-900 mb-3">Social Launch Prompts</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-700">
+              <p><strong>LinkedIn:</strong> Many candidates study harder without knowing what to fix. Behavior Study Tools turns practice into a clear next study task.</p>
+              <p><strong>Instagram/Facebook:</strong> Start with practice, review what you missed, and find the domain that needs attention before your next mock.</p>
+              <p><strong>Bluesky/X:</strong> BCBA and RBT practice should tell you what to study next. Start in the Behavior Study Tools web app.</p>
+              <p><strong>Newsletter:</strong> Behavior Study Tools helps candidates practice, review, and track readiness without waiting for the iOS app.</p>
+            </div>
+          </div>
+        </div>
+
         {/* Admin Sections Grid */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Admin Sections</h2>
@@ -405,19 +478,16 @@ export default function AdminDashboard() {
               const colorClasses = {
                 emerald: 'hover:border-emerald-300',
                 blue: 'hover:border-blue-300',
-                purple: 'hover:border-purple-300',
                 orange: 'hover:border-orange-300'
               }
               const iconBgClasses = {
                 emerald: 'bg-emerald-100',
                 blue: 'bg-blue-100',
-                purple: 'bg-purple-100',
                 orange: 'bg-orange-100'
               }
               const iconColorClasses = {
                 emerald: 'text-emerald-600',
                 blue: 'text-blue-600',
-                purple: 'text-purple-600',
                 orange: 'text-orange-600'
               }
               
@@ -508,7 +578,7 @@ export default function AdminDashboard() {
                       case 'template':
                         return { icon: Mail, bg: 'bg-blue-100', color: 'text-blue-600' }
                       case 'download':
-                        return { icon: TrendingUp, bg: 'bg-purple-100', color: 'text-purple-600' }
+                        return { icon: TrendingUp, bg: 'bg-emerald-100', color: 'text-emerald-600' }
                       default:
                         return { icon: FileText, bg: 'bg-slate-100', color: 'text-slate-600' }
                     }
@@ -569,7 +639,7 @@ export default function AdminDashboard() {
                       case 'template':
                         return { icon: Mail, bg: 'bg-blue-100', color: 'text-blue-600' }
                       case 'download':
-                        return { icon: TrendingUp, bg: 'bg-purple-100', color: 'text-purple-600' }
+                        return { icon: TrendingUp, bg: 'bg-emerald-100', color: 'text-emerald-600' }
                       default:
                         return { icon: FileText, bg: 'bg-slate-100', color: 'text-slate-600' }
                     }
