@@ -142,6 +142,11 @@ function sourceFreshness(signals: GrowthSignalRow[], source: string, aliases = [
 }
 
 function strongestSeoSignal(signals: GrowthSignalRow[]) {
+  const actionSignal = signals
+    .filter((signal) => signal.source === 'seo_action_queue' && signal.signal_type === 'page_improvement_action')
+    .sort((a, b) => (b.metric_value ?? 0) - (a.metric_value ?? 0))[0]
+  if (actionSignal) return actionSignal
+
   const seoSignals = signals.filter((signal) =>
     ['google_search_console', 'gsc', 'ahrefs'].includes(signal.source || '')
   )
@@ -363,6 +368,7 @@ export async function GET(request: NextRequest) {
   const sourceStatus = [
     sourceFreshness(signals, 'google_search_console', ['google_search_console', 'gsc']),
     sourceFreshness(signals, 'ahrefs'),
+    sourceFreshness(signals, 'seo_action_queue'),
     sourceFreshness(signals, 'social', ['social', 'linkedin', 'instagram', 'facebook', 'tiktok', 'youtube', 'email']),
     sourceFreshness(signals, 'trend_research'),
     sourceFreshness(signals, 'competitor_research'),

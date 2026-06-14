@@ -237,6 +237,32 @@ type SocialPostResponse = {
   warning?: string
 }
 
+type SeoActionItem = {
+  id: string
+  signalDate: string | null
+  pageTitle: string
+  pageHref: string | null
+  keyword: string | null
+  priority: 'high' | 'medium' | 'low' | string
+  evidence: string
+  suggestedHeadline: string
+  suggestedMeta: string
+  suggestedFaq: string
+  suggestedCta: string
+  recommendation: string | null
+  status: string | null
+  createdAt: string | null
+}
+
+type SeoActionResponse = {
+  success?: boolean
+  stored?: boolean
+  created?: number
+  actions?: SeoActionItem[]
+  warning?: string
+  error?: string
+}
+
 type SocialFeedbackDraft = {
   clicks: string
   comments: string
@@ -284,6 +310,8 @@ export default function BehaviorStudyToolsMarketingPage() {
   const [dailyGrowthLoading, setDailyGrowthLoading] = useState(false)
   const [socialPosts, setSocialPosts] = useState<SocialPostResponse | null>(null)
   const [socialPostsLoading, setSocialPostsLoading] = useState(false)
+  const [seoActions, setSeoActions] = useState<SeoActionResponse | null>(null)
+  const [seoActionsLoading, setSeoActionsLoading] = useState(false)
   const router = useRouter()
   const todayPlan = useMemo(() => {
     const today = dayOrder[new Date().getDay()]
@@ -432,12 +460,31 @@ export default function BehaviorStudyToolsMarketingPage() {
     }
   }, [])
 
+  const loadSeoActions = useCallback(async () => {
+    setSeoActionsLoading(true)
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/seo-actions?limit=8')
+      const data = await response.json()
+      setSeoActions(data)
+    } catch {
+      setSeoActions({
+        success: false,
+        stored: false,
+        actions: [],
+        warning: 'SEO action queue could not be loaded.',
+      })
+    } finally {
+      setSeoActionsLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (!isAuthenticated) return
     loadMarketingReport()
     loadDailyGrowthReport()
     loadSocialPosts()
-  }, [isAuthenticated, loadMarketingReport, loadDailyGrowthReport, loadSocialPosts])
+    loadSeoActions()
+  }, [isAuthenticated, loadMarketingReport, loadDailyGrowthReport, loadSocialPosts, loadSeoActions])
 
   const copyBlock = `${todayPlan.hook}
 
@@ -598,6 +645,17 @@ ${todayPlan.ctaHref}`
 
                 <GrowthSignalImportPanel
                   onImported={() => {
+                    loadDailyGrowthReport()
+                    loadMarketingReport()
+                    loadSeoActions()
+                  }}
+                />
+
+                <SeoActionQueuePanel
+                  response={seoActions}
+                  loading={seoActionsLoading}
+                  onRefresh={() => {
+                    loadSeoActions()
                     loadDailyGrowthReport()
                     loadMarketingReport()
                   }}
@@ -1572,6 +1630,136 @@ function GrowthSignalImportPanel({ onImported }: { onImported: () => void }) {
         )}
       </form>
     </section>
+  )
+}
+
+function SeoActionQueuePanel({
+  response,
+  loading,
+  onRefresh,
+}: {
+  response: SeoActionResponse | null
+  loading: boolean
+  onRefresh: () => void
+}) {
+  const [generating, setGenerating] = useState(false)
+  const [message, setMessage] = useState('')
+  const actions = response?.actions || []
+
+  const generateActions = async () => {
+    setGenerating(true)
+    setMessage('')
+    try {
+      const res = await fetch('/api/admin/behavior-study-tools/seo-actions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'generate', limit: 20 }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'SEO actions could not be generated')
+      setMessage(data.created ? `Created ${data.created} page-improvement actions.` : 'No new SEO actions. Existing actions already cover the latest signals.')
+      onRefresh()
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'SEO actions could not be generated')
+    } finally {
+      setGenerating(false)
+    }
+  }
+
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-white p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">SEO page action queue</p>
+          <h3 className="mt-2 text-2xl font-black text-slate-950">Turn search movement into page edits.</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            GSC and Ahrefs signals become concrete page-level changes: headline, meta description, FAQ, CTA, and the page to update.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={generateActions}
+          disabled={generating}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#123f31] px-4 py-3 font-bold text-white hover:bg-[#0d3025] disabled:cursor-not-allowed disabled:bg-slate-300"
+        >
+          {generating ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+          {generating ? 'Generating' : 'Generate actions'}
+        </button>
+      </div>
+
+      {(message || response?.warning || response?.error) && (
+        <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-950">
+          {message || response?.warning || response?.error}
+        </p>
+      )}
+
+      <div className="mt-5 grid gap-4">
+        {loading ? (
+          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm font-bold text-slate-600">Loading SEO actions...</div>
+        ) : actions.length ? (
+          actions.map((action) => <SeoActionCard key={action.id} action={action} />)
+        ) : (
+          <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-5">
+            <p className="font-bold text-slate-900">No SEO page actions yet.</p>
+            <p className="mt-2 text-sm text-slate-600">Collect SEO metrics, then generate actions to turn search movement into specific page changes.</p>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function SeoActionCard({ action }: { action: SeoActionItem }) {
+  const priorityClass = {
+    high: 'bg-red-100 text-red-800',
+    medium: 'bg-amber-100 text-amber-900',
+    low: 'bg-slate-100 text-slate-700',
+  }[action.priority] || 'bg-slate-100 text-slate-700'
+
+  return (
+    <article className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className={`rounded-full px-2 py-1 text-xs font-black uppercase tracking-wide ${priorityClass}`}>
+              {action.priority}
+            </span>
+            <span className="rounded-full bg-white px-2 py-1 text-xs font-black uppercase tracking-wide text-emerald-800">
+              {action.keyword || 'SEO page'}
+            </span>
+          </div>
+          <h4 className="mt-3 font-black text-slate-950">{action.pageTitle || 'Behavior Study Tools page'}</h4>
+          <p className="mt-1 text-sm leading-6 text-slate-600">{action.evidence || action.recommendation}</p>
+        </div>
+        {action.pageHref && (
+          <a
+            href={action.pageHref}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-800 hover:bg-slate-50"
+          >
+            Open page
+            <ExternalLink className="h-4 w-4" />
+          </a>
+        )}
+      </div>
+
+      <div className="mt-4 grid gap-3 lg:grid-cols-2">
+        <SeoActionCopy label="Headline" value={action.suggestedHeadline} />
+        <SeoActionCopy label="CTA" value={action.suggestedCta} />
+        <SeoActionCopy label="Meta description" value={action.suggestedMeta} />
+        <SeoActionCopy label="FAQ answer" value={action.suggestedFaq} />
+      </div>
+    </article>
+  )
+}
+
+function SeoActionCopy({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg border border-slate-200 bg-white p-3">
+      <p className="text-xs font-black uppercase tracking-wide text-slate-500">{label}</p>
+      <p className="mt-2 text-sm font-semibold leading-6 text-slate-800">{value || 'No suggestion generated yet.'}</p>
+    </div>
   )
 }
 
