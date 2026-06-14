@@ -66,3 +66,8 @@
 [[scheduled.functions]]
   name = "bst-daily-growth-monitor"
   cron = "0 13 * * *"
+
+# Behavior Study Tools social publisher - daily after growth report
+[[scheduled.functions]]
+  name = "bst-social-publisher"
+  cron = "15 13 * * *"
