@@ -434,6 +434,8 @@ ${todayPlan.ctaHref}`
                   <ReportMetric label="RBT starts" value={`${reportSummary.rbtStarts || 0}`} icon={<Users className="w-5 h-5" />} />
                 </div>
 
+                <ConversionSnapshotPanel summary={reportSummary} />
+
                 <GrowthLoopPanel summary={reportSummary} />
 
                 <div className="mt-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
@@ -865,6 +867,172 @@ function Metric({ label, value, icon }: { label: string; value: string; icon: Re
   )
 }
 
+function ConversionSnapshotPanel({ summary }: { summary: MarketingReportSummary }) {
+  const lifecycle = summary.lifecycle
+  const recommendations = summary.recommendations || []
+  const primaryRecommendation = recommendations[0]
+  const dataHealth = summary.dataHealth || []
+  const healthySources = dataHealth.filter((item) => item.status === 'connected').length
+  const coverageLabel = dataHealth.length ? `${healthySources}/${dataHealth.length} sources connected` : 'No health checks yet'
+  const stages = [
+    {
+      label: 'Visits',
+      value: summary.pageViews,
+      detail: `${summary.uniqueVisitors} visitors`,
+    },
+    {
+      label: 'App starts',
+      value: summary.appStarts,
+      detail: `${summary.appStartRate}% of visits`,
+    },
+    {
+      label: 'Signups',
+      value: lifecycle?.signups ?? 0,
+      detail: `${lifecycle?.appStartToSignupRate ?? 0}% of starts`,
+    },
+    {
+      label: 'Paid',
+      value: lifecycle?.paidConversions ?? 0,
+      detail: `${lifecycle?.trialToPaidRate ?? 0}% of trials`,
+    },
+  ]
+  const bottleneck = (() => {
+    if (summary.pageViews > 0 && !summary.appStarts) {
+      return {
+        label: 'Marketing CTA',
+        detail: 'People are landing on pages, but not starting the app.',
+      }
+    }
+    if (summary.appStarts > 0 && !(lifecycle?.signups ?? 0)) {
+      return {
+        label: 'Onboarding',
+        detail: 'App starts are visible, but signup events are not converting or not tracked yet.',
+      }
+    }
+    if ((lifecycle?.freeTrialStarts ?? 0) > 0 && !(lifecycle?.paidConversions ?? 0)) {
+      return {
+        label: 'Trial to paid',
+        detail: 'Trials are visible, but paid conversion is not proven yet.',
+      }
+    }
+    if ((lifecycle?.signups ?? 0) > 0 && !(lifecycle?.retentionEvents ?? 0)) {
+      return {
+        label: 'Retention',
+        detail: 'Signup is visible, but practice or return events are not yet visible.',
+      }
+    }
+    return {
+      label: 'Traffic quality',
+      detail: 'The loop is connected enough to focus on stronger traffic and clearer page intent.',
+    }
+  })()
+  const pathBalance = summary.rbtStarts
+    ? `${summary.bcbaStarts} BCBA / ${summary.rbtStarts} RBT starts`
+    : summary.bcbaStarts
+      ? `${summary.bcbaStarts} BCBA starts, no RBT starts yet`
+      : 'No BCBA/RBT split yet'
+
+  return (
+    <section className="mt-6 rounded-xl border border-emerald-950/10 bg-[#fbfaf5] p-5">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Conversation loop audit</p>
+          <h3 className="mt-2 text-2xl font-black text-slate-950">Make the next action obvious.</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            Follow the candidate from page visit to app start, signup, paid conversion, and return practice. The weakest step gets the next edit.
+          </p>
+        </div>
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
+          <p className="text-xs font-black uppercase tracking-wide text-amber-900">Current bottleneck</p>
+          <p className="mt-1 text-lg font-black text-slate-950">{bottleneck.label}</p>
+          <p className="mt-1 max-w-md text-sm font-semibold leading-5 text-slate-700">{bottleneck.detail}</p>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-3 md:grid-cols-4">
+        {stages.map((stage, index) => (
+          <div key={stage.label} className="relative rounded-lg border border-slate-200 bg-white p-4">
+            {index < stages.length - 1 && (
+              <div className="absolute right-[-18px] top-1/2 hidden h-px w-8 bg-slate-300 md:block" />
+            )}
+            <p className="text-xs font-black uppercase tracking-wide text-slate-500">{stage.label}</p>
+            <p className="mt-2 text-3xl font-black text-slate-950">{stage.value}</p>
+            <p className="mt-1 text-xs font-semibold text-slate-500">{stage.detail}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_1fr_1.15fr]">
+        <AuditCard
+          icon={<Target className="h-5 w-5" />}
+          label="CTA clarity"
+          title={summary.appStarts ? 'Web app starts are tracked.' : 'No app starts yet.'}
+          detail={summary.appStarts ? `${summary.appStarts} tracked app starts. Keep CTAs direct and web-first until iOS approval.` : 'Use one primary CTA per page: start free BCBA practice or start RBT practice.'}
+          status={summary.appStarts ? 'connected' : 'missing'}
+        />
+        <AuditCard
+          icon={<Users className="h-5 w-5" />}
+          label="Path clarity"
+          title={pathBalance}
+          detail="BCBA and RBT paths should both be visible in marketing copy, with CTAs that send candidates to the matching app flow."
+          status={summary.rbtStarts ? 'connected' : summary.ctaClicks ? 'partial' : 'missing'}
+        />
+        <div className="rounded-lg border border-emerald-900/15 bg-[#123f31] p-4 text-white">
+          <div className="flex items-center gap-2 text-amber-100">
+            <ListChecks className="h-5 w-5" />
+            <p className="text-xs font-black uppercase tracking-wide">Do next</p>
+          </div>
+          <h4 className="mt-3 text-lg font-black">
+            {primaryRecommendation?.title || 'Publish, click through, and log one signal.'}
+          </h4>
+          <p className="mt-2 text-sm font-semibold leading-6 text-emerald-50">
+            {primaryRecommendation?.action || "Use the daily post, test the CTA, then record the customer or competitor signal that should drive tomorrow's page edit."}
+          </p>
+          <p className="mt-3 rounded-lg border border-white/15 bg-white/10 px-3 py-2 text-xs font-black uppercase tracking-wide text-amber-100">
+            {coverageLabel}
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function AuditCard({
+  icon,
+  label,
+  title,
+  detail,
+  status,
+}: {
+  icon: ReactNode
+  label: string
+  title: string
+  detail: string
+  status: DataHealthItem['status']
+}) {
+  const styles = {
+    connected: 'border-emerald-200 bg-emerald-50 text-emerald-800',
+    partial: 'border-amber-200 bg-amber-50 text-amber-900',
+    missing: 'border-red-200 bg-red-50 text-red-800',
+  }
+
+  return (
+    <div className="rounded-lg border border-slate-200 bg-white p-4">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-emerald-700">
+          {icon}
+          <p className="text-xs font-black uppercase tracking-wide">{label}</p>
+        </div>
+        <span className={`rounded-full border px-2 py-1 text-xs font-black uppercase tracking-wide ${styles[status]}`}>
+          {status}
+        </span>
+      </div>
+      <h4 className="mt-3 font-black text-slate-950">{title}</h4>
+      <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{detail}</p>
+    </div>
+  )
+}
+
 function GrowthLoopPanel({ summary }: { summary: MarketingReportSummary }) {
   const lifecycle = summary.lifecycle
   const recommendations = summary.recommendations || []
@@ -936,7 +1104,7 @@ function GrowthLoopPanel({ summary }: { summary: MarketingReportSummary }) {
             <MiniMetric label="Retention" value={`${lifecycle?.retainedVisitors ?? 0}`} detail={`${lifecycle?.signupRetentionRate ?? 0}% signup retention`} />
           </div>
           <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm font-semibold leading-6 text-amber-950">
-            Wire these app events next: <span className="font-black">account_created</span>, <span className="font-black">free_trial_start</span>, <span className="font-black">subscription_started</span>, <span className="font-black">practice_session_started</span>.
+            After the app deploy finishes, verify these events are flowing: <span className="font-black">account_created</span>, <span className="font-black">free_trial_start</span>, <span className="font-black">subscription_started</span>, <span className="font-black">practice_session_started</span>.
           </p>
         </div>
 
