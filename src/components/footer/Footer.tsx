@@ -115,7 +115,7 @@ export function Footer() {
       {/* Lower Section - Navigation Links */}
       <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-center space-x-6 text-sm">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-center text-sm">
             <Link href="/products" className="text-gray-600 hover:text-gray-900 transition-colors">
               Tools
             </Link>

@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import {
+  Activity,
   ArrowRight,
   BarChart3,
   CalendarCheck,
@@ -15,11 +16,13 @@ import {
   ListChecks,
   Megaphone,
   MousePointerClick,
+  RefreshCw,
   Save,
   Search,
   ShieldCheck,
   Sparkles,
   Target,
+  Users,
 } from 'lucide-react'
 import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
 
@@ -56,6 +59,43 @@ type RemoteMarketingActivityEntry = {
   created_at?: string
 }
 
+type MarketingReportItem = {
+  label: string
+  count: number
+}
+
+type MarketingReportSummary = {
+  totalEvents: number
+  pageViews: number
+  ctaClicks: number
+  uniqueVisitors: number
+  sessions: number
+  clickRate: number
+  topPages: MarketingReportItem[]
+  topCtas: MarketingReportItem[]
+  topIntents: MarketingReportItem[]
+  topSources: MarketingReportItem[]
+}
+
+type MarketingReportEvent = {
+  event_name?: string | null
+  page_path?: string | null
+  location?: string | null
+  intent?: string | null
+  source?: string | null
+  received_at?: string | null
+}
+
+type MarketingReportResponse = {
+  success?: boolean
+  stored?: boolean
+  windowDays?: number
+  generatedAt?: string
+  summary?: MarketingReportSummary | null
+  events?: MarketingReportEvent[]
+  warning?: string
+}
+
 function todayDate() {
   return new Date().toISOString().slice(0, 10)
 }
@@ -67,6 +107,8 @@ export default function BehaviorStudyToolsMarketingPage() {
   const [activityEntries, setActivityEntries] = useState<MarketingActivityEntry[]>([])
   const [activitySaved, setActivitySaved] = useState(false)
   const [activitySaving, setActivitySaving] = useState(false)
+  const [marketingReport, setMarketingReport] = useState<MarketingReportResponse | null>(null)
+  const [reportLoading, setReportLoading] = useState(false)
   const router = useRouter()
   const todayPlan = useMemo(() => {
     const today = dayOrder[new Date().getDay()]
@@ -160,6 +202,30 @@ export default function BehaviorStudyToolsMarketingPage() {
     loadActivity()
   }, [isAuthenticated])
 
+  const loadMarketingReport = useCallback(async () => {
+    setReportLoading(true)
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/marketing-report')
+      const data = await response.json()
+      setMarketingReport(data)
+    } catch {
+      setMarketingReport({
+        success: false,
+        stored: false,
+        summary: null,
+        events: [],
+        warning: 'Marketing report could not be loaded.',
+      })
+    } finally {
+      setReportLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isAuthenticated) return
+    loadMarketingReport()
+  }, [isAuthenticated, loadMarketingReport])
+
   const copyBlock = `${todayPlan.hook}
 
 ${todayPlan.post}
@@ -222,6 +288,9 @@ ${todayPlan.ctaHref}`
     }))
   }
 
+  const reportSummary = marketingReport?.summary || null
+  const recentEvents = marketingReport?.events || []
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
@@ -273,6 +342,79 @@ ${todayPlan.ctaHref}`
 
       <main className="px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-7xl space-y-8">
+          <section className="rounded-xl border-2 border-emerald-950/10 bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">Conversion report</p>
+                <h2 className="mt-2 text-3xl font-black text-slate-950">See what is getting candidates into the app.</h2>
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+                  Last {marketingReport?.windowDays || 30} days from BehaviorStudyTools.com tracking. Use this before changing a headline, CTA, or campaign post.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={loadMarketingReport}
+                disabled={reportLoading}
+                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-emerald-900/20 bg-white px-4 py-3 font-bold text-emerald-950 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <RefreshCw className={`w-4 h-4 ${reportLoading ? 'animate-spin' : ''}`} />
+                {reportLoading ? 'Refreshing' : 'Refresh report'}
+              </button>
+            </div>
+
+            {reportSummary ? (
+              <>
+                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+                  <ReportMetric label="Page views" value={`${reportSummary.pageViews}`} icon={<Eye className="w-5 h-5" />} />
+                  <ReportMetric label="CTA clicks" value={`${reportSummary.ctaClicks}`} icon={<MousePointerClick className="w-5 h-5" />} />
+                  <ReportMetric label="Click rate" value={`${reportSummary.clickRate}%`} icon={<Activity className="w-5 h-5" />} />
+                  <ReportMetric label="Visitors" value={`${reportSummary.uniqueVisitors}`} icon={<Users className="w-5 h-5" />} />
+                  <ReportMetric label="Sessions" value={`${reportSummary.sessions}`} icon={<BarChart3 className="w-5 h-5" />} />
+                </div>
+
+                <div className="mt-6 grid gap-5 lg:grid-cols-4">
+                  <RankedList title="Top pages" items={reportSummary.topPages} emptyText="No page views yet." />
+                  <RankedList title="Top CTAs" items={reportSummary.topCtas} emptyText="No CTA clicks yet." />
+                  <RankedList title="Top intents" items={reportSummary.topIntents} emptyText="No onboarding intent yet." />
+                  <RankedList title="Top sources" items={reportSummary.topSources} emptyText="No source data yet." />
+                </div>
+
+                <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="font-black text-slate-950">Recent tracking events</h3>
+                    <span className={`rounded-full px-2 py-1 text-xs font-bold ${marketingReport?.stored ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-900'}`}>
+                      {marketingReport?.stored ? 'Server data' : 'Waiting for database'}
+                    </span>
+                  </div>
+                  <div className="mt-4 grid gap-2">
+                    {recentEvents.length ? (
+                      recentEvents.slice(0, 8).map((event, index) => (
+                        <div key={`${event.received_at}-${index}`} className="flex flex-col gap-1 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm md:flex-row md:items-center md:justify-between">
+                          <div className="font-bold text-slate-900">
+                            {event.event_name || 'event'} <span className="font-medium text-slate-500">· {event.page_path || event.location || 'Unknown page'}</span>
+                          </div>
+                          <div className="text-xs font-semibold text-slate-500">
+                            {event.intent || event.source || 'No intent'}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-sm font-semibold text-slate-600">No events recorded yet. Apply the migration, deploy both sites, then click through a live CTA to confirm tracking.</p>
+                    )}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="mt-6 rounded-lg border border-dashed border-amber-300 bg-amber-50 p-5">
+                <p className="font-black text-slate-950">Tracking is wired. Database storage is the remaining production step.</p>
+                <p className="mt-2 text-sm leading-6 text-slate-700">
+                  Apply the new Supabase migration, then this report will show page views, CTA clicks, top SEO pages, source data, and recent events.
+                  {marketingReport?.warning ? ` Current status: ${marketingReport.warning}` : ''}
+                </p>
+              </div>
+            )}
+          </section>
+
           <section className="grid gap-6 xl:grid-cols-[1fr_0.9fr]">
             <div className="rounded-xl border-2 border-emerald-950/10 bg-white p-6 shadow-sm">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -605,6 +747,48 @@ function Metric({ label, value, icon }: { label: string; value: string; icon: Re
     <div className="rounded-lg border border-slate-200 bg-white p-4">
       <div className="flex items-center gap-2 text-emerald-700">{icon}<span className="text-xs font-black uppercase tracking-wide">{label}</span></div>
       <p className="mt-2 text-sm font-bold leading-5 text-slate-900">{value}</p>
+    </div>
+  )
+}
+
+function ReportMetric({ label, value, icon }: { label: string; value: string; icon: ReactNode }) {
+  return (
+    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-xs font-black uppercase tracking-wide text-slate-500">{label}</span>
+        <span className="text-emerald-700">{icon}</span>
+      </div>
+      <p className="mt-3 text-3xl font-black text-slate-950">{value}</p>
+    </div>
+  )
+}
+
+function RankedList({ title, items, emptyText }: { title: string; items: MarketingReportItem[]; emptyText: string }) {
+  const maxCount = Math.max(...items.map((item) => item.count), 1)
+
+  return (
+    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+      <h3 className="font-black text-slate-950">{title}</h3>
+      <div className="mt-4 space-y-3">
+        {items.length ? (
+          items.map((item) => (
+            <div key={`${title}-${item.label}`}>
+              <div className="flex items-center justify-between gap-3 text-sm">
+                <span className="truncate font-bold text-slate-800">{item.label}</span>
+                <span className="font-black text-emerald-800">{item.count}</span>
+              </div>
+              <div className="mt-1 h-2 overflow-hidden rounded-full bg-white">
+                <div
+                  className="h-full rounded-full bg-amber-400"
+                  style={{ width: `${Math.max(8, Math.round((item.count / maxCount) * 100))}%` }}
+                />
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-sm font-semibold text-slate-600">{emptyText}</p>
+        )}
+      </div>
     </div>
   )
 }
