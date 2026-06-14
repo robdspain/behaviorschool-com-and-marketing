@@ -57,6 +57,11 @@
   name = "weekly-revenue-summary"
   cron = "0 13 * * 1"
 
+# Behavior Study Tools trend research - daily before the growth report
+[[scheduled.functions]]
+  name = "bst-trend-research"
+  cron = "45 12 * * *"
+
 # Behavior Study Tools growth monitor - daily at 6 AM PT / 9 AM ET (13:00 UTC)
 [[scheduled.functions]]
   name = "bst-daily-growth-monitor"

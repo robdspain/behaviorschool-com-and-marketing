@@ -514,6 +514,8 @@ ${todayPlan.ctaHref}`
                   onRefresh={loadDailyGrowthReport}
                 />
 
+                <GrowthSignalImportPanel onImported={loadDailyGrowthReport} />
+
                 <GrowthLoopPanel summary={reportSummary} />
 
                 <div className="mt-6 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
@@ -1214,6 +1216,158 @@ function SourceFreshnessRow({ source }: { source: DailyGrowthSourceStatus }) {
         {source.status}
       </span>
     </div>
+  )
+}
+
+function GrowthSignalImportPanel({ onImported }: { onImported: () => void }) {
+  const [provider, setProvider] = useState('gsc')
+  const [signalDate, setSignalDate] = useState(todayDate())
+  const [csv, setCsv] = useState('')
+  const [status, setStatus] = useState<{ type: 'idle' | 'saving' | 'saved' | 'error'; message: string }>({
+    type: 'idle',
+    message: '',
+  })
+  const templates: Record<string, string> = {
+    gsc: 'query,page,clicks,impressions,ctr,position\nbcba practice exam,https://behaviorstudytools.com/free-bcba-practice-exam,12,740,1.6%,9.4',
+    ahrefs: 'keyword,url,position,previous position,volume,traffic\nbcba mock exam 6th edition,https://behaviorstudytools.com/bcba-mock-exam-6th-edition,11,14,350,18',
+    social: 'channel,post url,topic,clicks,comments,saves,replies\nLinkedIn,https://linkedin.com/posts/example,BCBA exam anxiety,24,6,8,3',
+    competitor: 'competitor,url,topic,metric value,recommendation\nABA Wizard,https://example.com,Mobile practice flow,1,Clarify that Behavior Study Tools supports BCBA and RBT web practice.',
+    trend: 'topic,url,metric value,recommendation\nRBT exam prep school setting,https://news.example.com,1,Create a short post connecting school-based scenarios to RBT practice.',
+  }
+  const providerLabels: Record<string, string> = {
+    gsc: 'Google Search Console',
+    ahrefs: 'Ahrefs',
+    social: 'Social feedback',
+    competitor: 'Competitor signal',
+    trend: 'Trend research',
+  }
+
+  const handleTemplate = () => {
+    setCsv(templates[provider])
+    setStatus({ type: 'idle', message: '' })
+  }
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!csv.trim()) {
+      setStatus({ type: 'error', message: 'Paste CSV rows before importing.' })
+      return
+    }
+
+    setStatus({ type: 'saving', message: 'Importing signals...' })
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/growth-signals/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ provider, signalDate, csv }),
+      })
+      const data = await response.json().catch(() => ({}))
+      if (!response.ok) {
+        throw new Error(data.error || 'Import failed')
+      }
+      setStatus({
+        type: 'saved',
+        message: `Imported ${data.imported || 0} ${providerLabels[provider].toLowerCase()} signals.`,
+      })
+      setCsv('')
+      onImported()
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: error instanceof Error ? error.message : 'Import failed',
+      })
+    }
+  }
+
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-[#fbfaf5] p-5">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Signal importer</p>
+          <h3 className="mt-2 text-2xl font-black text-slate-950">Paste the numbers that should drive tomorrow&apos;s changes.</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            Import GSC query/page movement, Ahrefs keyword movement, social feedback, competitor signals, or trend research. The daily brief will convert these rows into page edits and post ideas.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={handleTemplate}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border-2 border-emerald-900/20 bg-white px-4 py-3 font-bold text-emerald-950 hover:bg-emerald-50"
+        >
+          <Clipboard className="h-4 w-4" />
+          Use sample CSV
+        </button>
+      </div>
+
+      <form onSubmit={handleSubmit} className="mt-5 grid gap-4">
+        <div className="grid gap-4 md:grid-cols-[1fr_220px]">
+          <label className="grid gap-2 text-sm font-bold text-slate-700">
+            Source
+            <select
+              value={provider}
+              onChange={(event) => {
+                setProvider(event.target.value)
+                setStatus({ type: 'idle', message: '' })
+              }}
+              className="rounded-lg border border-slate-300 bg-white px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+            >
+              {Object.entries(providerLabels).map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
+            </select>
+          </label>
+          <label className="grid gap-2 text-sm font-bold text-slate-700">
+            Signal date
+            <input
+              type="date"
+              value={signalDate}
+              onChange={(event) => setSignalDate(event.target.value)}
+              className="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+            />
+          </label>
+        </div>
+
+        <label className="grid gap-2 text-sm font-bold text-slate-700">
+          CSV export
+          <textarea
+            value={csv}
+            onChange={(event) => {
+              setCsv(event.target.value)
+              setStatus({ type: 'idle', message: '' })
+            }}
+            placeholder={templates[provider]}
+            rows={6}
+            className="resize-y rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+          />
+        </label>
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs font-semibold leading-5 text-slate-500">
+            Common columns are mapped automatically: query, page, clicks, impressions, CTR, position, keyword, URL, platform, comments, saves, replies, topic, and recommendation.
+          </p>
+          <button
+            type="submit"
+            disabled={status.type === 'saving'}
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#123f31] px-4 py-3 font-bold text-white hover:bg-[#0d3025] disabled:cursor-not-allowed disabled:bg-slate-300"
+          >
+            {status.type === 'saving' ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+            {status.type === 'saving' ? 'Importing' : 'Import signals'}
+          </button>
+        </div>
+
+        {status.message && (
+          <p className={`rounded-lg px-3 py-2 text-sm font-bold ${
+            status.type === 'error'
+              ? 'bg-red-50 text-red-800'
+              : status.type === 'saved'
+                ? 'bg-emerald-50 text-emerald-800'
+                : 'bg-slate-100 text-slate-700'
+          }`}>
+            {status.message}
+          </p>
+        )}
+      </form>
+    </section>
   )
 }
 
