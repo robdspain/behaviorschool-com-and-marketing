@@ -29,6 +29,27 @@ type PagePerformance = {
   clickRate: number
 }
 
+type JourneySummary = {
+  sessions: number
+  bouncedSessions: number
+  ctaSessions: number
+  appStartSessions: number
+  signupSessions: number
+  paidSessions: number
+  bounceRate: number
+  ctaSessionRate: number
+  appStartSessionRate: number
+  signupSessionRate: number
+  paidSessionRate: number
+  topLandingPages: Array<{ label: string; count: number }>
+  dropOffs: Array<{
+    page: string
+    sessions: number
+    reason: string
+    nextStep: string
+  }>
+}
+
 type MarketingActivityRow = {
   activity_date: string | null
   channel: string | null
@@ -151,8 +172,75 @@ function eventMatches(event: MarketingEventRow, names: Set<string>) {
   return names.has(event.event_name || '')
 }
 
+function eventTime(event: MarketingEventRow) {
+  const parsed = event.received_at ? new Date(event.received_at).getTime() : 0
+  return Number.isFinite(parsed) ? parsed : 0
+}
+
 function isFilled(value: string | null | undefined) {
   return Boolean(value && value.trim())
+}
+
+function buildJourneySummary(events: MarketingEventRow[]): JourneySummary {
+  const sessions = new Map<string, MarketingEventRow[]>()
+  events.forEach((event) => {
+    const key = event.session_id || event.visitor_id || `unknown:${event.received_at || Math.random()}`
+    const rows = sessions.get(key) || []
+    rows.push(event)
+    sessions.set(key, rows)
+  })
+
+  const landingPages = new Map<string, number>()
+  const dropOffPages = new Map<string, number>()
+  let bouncedSessions = 0
+  let ctaSessions = 0
+  let appStartSessions = 0
+  let signupSessions = 0
+  let paidSessions = 0
+
+  sessions.forEach((rows) => {
+    const sorted = rows.sort((a, b) => eventTime(a) - eventTime(b))
+    const pageViews = sorted.filter((event) => event.event_name === 'page_view')
+    const ctaClicks = sorted.filter((event) => event.event_name === 'cta_click')
+    const appStarts = ctaClicks.filter((event) => event.destination?.includes('study.behaviorschool.com'))
+    const signups = sorted.filter((event) => eventMatches(event, SIGNUP_EVENTS))
+    const paid = sorted.filter((event) => eventMatches(event, PAID_EVENTS))
+    const landing = pageViews[0]?.page_path || sorted[0]?.page_path || 'Unknown'
+    const lastPage = [...pageViews].pop()?.page_path || landing
+
+    addCount(landingPages, landing)
+    if (ctaClicks.length) ctaSessions += 1
+    if (appStarts.length) appStartSessions += 1
+    if (signups.length) signupSessions += 1
+    if (paid.length) paidSessions += 1
+
+    if (!ctaClicks.length) {
+      bouncedSessions += 1
+      addCount(dropOffPages, lastPage)
+    }
+  })
+
+  const sessionCount = sessions.size
+  return {
+    sessions: sessionCount,
+    bouncedSessions,
+    ctaSessions,
+    appStartSessions,
+    signupSessions,
+    paidSessions,
+    bounceRate: rate(bouncedSessions, sessionCount),
+    ctaSessionRate: rate(ctaSessions, sessionCount),
+    appStartSessionRate: rate(appStartSessions, sessionCount),
+    signupSessionRate: rate(signupSessions, appStartSessions),
+    paidSessionRate: rate(paidSessions, signupSessions),
+    topLandingPages: topItems(landingPages, 5),
+    dropOffs: topItems(dropOffPages, 5).map((item) => ({
+      page: item.label,
+      sessions: item.count,
+      reason: 'Session ended before a tracked CTA click.',
+      nextStep: 'Make the first CTA visible, specific to BCBA/RBT intent, and repeated after the first proof section.',
+    })),
+  }
 }
 
 function buildGrowthRecommendations({
@@ -512,6 +600,7 @@ export async function GET() {
     trialToPaidRate: rate(paidConversionEvents.length, freeTrialEvents.length),
     signupRetentionRate: rate(retainedVisitors.size, signupVisitors.size),
   }
+  const journey = buildJourneySummary(events)
   const recommendationInputSummary = {
     pageViews: pageViews.length,
     ctaClicks: ctaClicks.length,
@@ -542,6 +631,7 @@ export async function GET() {
     topDestinations: topItems(destinations),
     pagePerformance,
     pagesNeedingCta,
+    journey,
     lifecycle,
     recommendations: buildGrowthRecommendations({
       summary: recommendationInputSummary,

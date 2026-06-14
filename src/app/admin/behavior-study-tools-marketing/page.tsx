@@ -88,6 +88,7 @@ type MarketingReportSummary = {
   topDestinations: MarketingReportItem[]
   pagePerformance: PagePerformanceItem[]
   pagesNeedingCta: PagePerformanceItem[]
+  journey?: JourneySummary
   lifecycle?: LifecycleSummary
   recommendations?: GrowthRecommendationItem[]
   dataHealth?: DataHealthItem[]
@@ -111,6 +112,27 @@ type LifecycleSummary = {
   appStartToSignupRate: number
   trialToPaidRate: number
   signupRetentionRate: number
+}
+
+type JourneySummary = {
+  sessions: number
+  bouncedSessions: number
+  ctaSessions: number
+  appStartSessions: number
+  signupSessions: number
+  paidSessions: number
+  bounceRate: number
+  ctaSessionRate: number
+  appStartSessionRate: number
+  signupSessionRate: number
+  paidSessionRate: number
+  topLandingPages: MarketingReportItem[]
+  dropOffs: Array<{
+    page: string
+    sessions: number
+    reason: string
+    nextStep: string
+  }>
 }
 
 type GrowthRecommendationItem = {
@@ -565,6 +587,8 @@ ${todayPlan.ctaHref}`
                 </div>
 
                 <ConversionSnapshotPanel summary={reportSummary} />
+
+                <JourneyFrictionPanel journey={reportSummary.journey} />
 
                 <DailyGrowthBriefPanel
                   response={dailyGrowthReport}
@@ -1141,6 +1165,74 @@ function ConversionSnapshotPanel({ summary }: { summary: MarketingReportSummary 
             {coverageLabel}
           </p>
         </div>
+      </div>
+    </section>
+  )
+}
+
+function JourneyFrictionPanel({ journey }: { journey?: JourneySummary }) {
+  if (!journey) {
+    return (
+      <section className="mt-6 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5">
+        <p className="font-black text-slate-950">Journey audit is waiting for session data.</p>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          Once page views and CTA clicks are flowing, this section will show where sessions stop before app start, signup, and paid conversion.
+        </p>
+      </section>
+    )
+  }
+
+  const primaryDropOff = journey.dropOffs[0]
+
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-white p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Journey friction</p>
+          <h3 className="mt-2 text-2xl font-black text-slate-950">
+            {primaryDropOff ? `Sessions are stopping on ${primaryDropOff.page}.` : 'No obvious page drop-off yet.'}
+          </h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            This follows each session from landing page to CTA click, app start, signup, and paid conversion. Use it to remove the next unnecessary step.
+          </p>
+        </div>
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
+          <p className="text-xs font-black uppercase tracking-wide text-amber-900">Session drop-off</p>
+          <p className="mt-1 text-2xl font-black text-slate-950">{journey.bounceRate}%</p>
+          <p className="mt-1 text-sm font-semibold text-slate-700">{journey.bouncedSessions} of {journey.sessions} sessions ended before CTA.</p>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-3 md:grid-cols-5">
+        <MiniMetric label="CTA sessions" value={`${journey.ctaSessionRate}%`} detail={`${journey.ctaSessions} sessions`} />
+        <MiniMetric label="App starts" value={`${journey.appStartSessionRate}%`} detail={`${journey.appStartSessions} sessions`} />
+        <MiniMetric label="Signup from start" value={`${journey.signupSessionRate}%`} detail={`${journey.signupSessions} signups`} />
+        <MiniMetric label="Paid from signup" value={`${journey.paidSessionRate}%`} detail={`${journey.paidSessions} paid`} />
+        <MiniMetric label="Sessions" value={`${journey.sessions}`} detail="tracked journeys" />
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_1fr]">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <p className="text-sm font-black uppercase tracking-wide text-slate-500">Highest drop-off pages</p>
+          <div className="mt-3 space-y-3">
+            {journey.dropOffs.length ? (
+              journey.dropOffs.map((dropOff) => (
+                <div key={dropOff.page} className="rounded-lg border border-slate-200 bg-white p-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="font-black text-slate-950">{dropOff.page}</p>
+                    <span className="rounded-full bg-amber-100 px-2 py-1 text-xs font-black text-amber-900">{dropOff.sessions} sessions</span>
+                  </div>
+                  <p className="mt-1 text-sm font-semibold text-slate-600">{dropOff.reason}</p>
+                  <p className="mt-2 text-sm font-bold text-emerald-900">{dropOff.nextStep}</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm font-semibold text-slate-600">No drop-off pages found in this window.</p>
+            )}
+          </div>
+        </div>
+
+        <RankedList title="Top landing pages" items={journey.topLandingPages} emptyText="No landing pages tracked yet." />
       </div>
     </section>
   )
