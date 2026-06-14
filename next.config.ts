@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: process.cwd(),
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -33,7 +34,6 @@ const nextConfig: NextConfig = {
     webVitalsAttribution: ['CLS', 'LCP'],
     optimizeCss: true,
     scrollRestoration: true,
-    inlineCss: true,
   },
   // Compiler optimizations
   compiler: {
@@ -54,22 +54,34 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/free-bcba-mock-practice-test',
-        destination: '/free-bcba-practice-test',
+        destination: '/free-bcba-practice-exam',
         permanent: true,
       },
       {
-        source: '/free-bcba-practice-exam',
-        destination: '/free-bcba-practice-test',
+        source: '/free-bcba-practice-test',
+        destination: '/free-bcba-practice-exam',
         permanent: true,
       },
       {
         source: '/free-bcba-practice',
-        destination: '/free-bcba-practice-test',
+        destination: '/free-bcba-practice-exam',
         permanent: true,
       },
       {
         source: '/bcba-mock-exam-guide',
         destination: '/bcba-exam-prep',
+        permanent: true,
+      },
+
+      // -- Competitor Comparison Canonicals --
+      {
+        source: '/compare/behaviorschool-vs-bds',
+        destination: '/compare/behaviorschool-vs-bds-modules',
+        permanent: true,
+      },
+      {
+        source: '/bds-modules-alternative',
+        destination: '/compare/behaviorschool-vs-bds-modules',
         permanent: true,
       },
 
@@ -604,9 +616,9 @@ export default withSentryConfig(nextConfig, {
   // Auth token for source map upload (set in Netlify env vars, NOT NEXT_PUBLIC_)
   authToken: process.env.SENTRY_AUTH_TOKEN,
 
-  // Upload source maps so stack traces are readable in Sentry dashboard
+  // Keep Netlify's generated Next server handler under the function size limit.
   sourcemaps: {
-    disable: false,
+    disable: true,
   },
 
   // Suppress verbose Sentry build output
