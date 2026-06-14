@@ -121,9 +121,9 @@ function topItems(map: Map<string, number>, limit = 5) {
     .map(([label, count]) => ({ label, count }))
 }
 
-function sourceFreshness(signals: GrowthSignalRow[], source: string) {
+function sourceFreshness(signals: GrowthSignalRow[], source: string, aliases = [source]) {
   const latest = signals
-    .filter((signal) => signal.source === source)
+    .filter((signal) => aliases.includes(signal.source || '') || (source === 'social' && signal.signal_type === 'social_feedback'))
     .map((signal) => cleanDate(signal.signal_date || signal.created_at))
     .filter(Boolean)
     .sort()
@@ -361,9 +361,9 @@ export async function GET(request: NextRequest) {
   ctaClicks.forEach((event) => addCount(studyPaths, getStudyPath(event)))
 
   const sourceStatus = [
-    sourceFreshness(signals, 'google_search_console'),
+    sourceFreshness(signals, 'google_search_console', ['google_search_console', 'gsc']),
     sourceFreshness(signals, 'ahrefs'),
-    sourceFreshness(signals, 'social'),
+    sourceFreshness(signals, 'social', ['social', 'linkedin', 'instagram', 'facebook', 'tiktok', 'youtube', 'email']),
     sourceFreshness(signals, 'trend_research'),
     sourceFreshness(signals, 'competitor_research'),
   ]

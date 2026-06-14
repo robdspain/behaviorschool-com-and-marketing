@@ -214,6 +214,16 @@ type SocialPostResponse = {
   warning?: string
 }
 
+type SocialFeedbackDraft = {
+  clicks: string
+  comments: string
+  saves: string
+  shares: string
+  signups: string
+  trials: string
+  paidConversions: string
+}
+
 type MarketingReportEvent = {
   event_name?: string | null
   page_path?: string | null
@@ -1435,9 +1445,28 @@ function SocialPublishingPanel({
 }) {
   const [running, setRunning] = useState(false)
   const [message, setMessage] = useState('')
+  const [selectedPostId, setSelectedPostId] = useState('')
+  const [feedbackDraft, setFeedbackDraft] = useState<SocialFeedbackDraft>({
+    clicks: '',
+    comments: '',
+    saves: '',
+    shares: '',
+    signups: '',
+    trials: '',
+    paidConversions: '',
+  })
   const posts = response?.posts || []
+  const scoredPosts = posts
+    .map((post) => ({ post, score: socialScore(post.feedbackMetrics) }))
+    .sort((a, b) => b.score - a.score)
+  const bestPost = scoredPosts.find((item) => item.score > 0)
+  const weakPost = posts.find((post) => metricNumber(post.feedbackMetrics, 'impressions') > 0 && metricNumber(post.feedbackMetrics, 'clicks') === 0)
 
-  const runAction = async (action: 'generate_today' | 'publish_due' | 'run_daily') => {
+  useEffect(() => {
+    if (!selectedPostId && posts[0]?.id) setSelectedPostId(posts[0].id)
+  }, [posts, selectedPostId])
+
+  const runAction = async (action: 'generate_today' | 'publish_due' | 'run_daily' | 'refresh_feedback') => {
     setRunning(true)
     setMessage('')
     try {
@@ -1452,10 +1481,49 @@ function SocialPublishingPanel({
         ? "Today's post is queued."
         : action === 'publish_due'
           ? 'Due posts were sent to the publisher.'
-          : 'Daily social queue run complete.')
+          : action === 'refresh_feedback'
+            ? data.warning || 'Social feedback was checked.'
+            : 'Daily social queue run complete.')
       onRefresh()
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Social post action failed')
+    } finally {
+      setRunning(false)
+    }
+  }
+
+  const submitFeedback = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!selectedPostId) return
+    setRunning(true)
+    setMessage('')
+    try {
+      const res = await fetch('/api/admin/behavior-study-tools/social-posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'record_feedback',
+          postId: selectedPostId,
+          metrics: Object.fromEntries(
+            Object.entries(feedbackDraft).map(([key, value]) => [key, value ? Number(value) : 0])
+          ),
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Feedback could not be recorded')
+      setMessage('Feedback saved. The daily brief can now compare this post.')
+      setFeedbackDraft({
+        clicks: '',
+        comments: '',
+        saves: '',
+        shares: '',
+        signups: '',
+        trials: '',
+        paidConversions: '',
+      })
+      onRefresh()
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Feedback could not be recorded')
     } finally {
       setRunning(false)
     }
@@ -1468,7 +1536,7 @@ function SocialPublishingPanel({
           <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Social publishing queue</p>
           <h3 className="mt-2 text-2xl font-black text-slate-950">Generate, publish, then measure feedback.</h3>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            Daily posts are generated from the content plan and latest growth signals. Configure <span className="font-black">BST_SOCIAL_POST_WEBHOOK_URL</span> to send queued posts to Buffer, Zapier, Make, or another publisher.
+            Daily posts are generated from the content plan and latest growth signals. Configure <span className="font-black">BST_SOCIAL_POST_WEBHOOK_URL</span> to publish and <span className="font-black">BST_SOCIAL_FEEDBACK_WEBHOOK_URL</span> to pull clicks, comments, saves, signups, and paid conversion feedback.
           </p>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
@@ -1490,6 +1558,15 @@ function SocialPublishingPanel({
             {running ? <RefreshCw className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
             Publish due
           </button>
+          <button
+            type="button"
+            onClick={() => runAction('refresh_feedback')}
+            disabled={running}
+            className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-amber-300 bg-amber-50 px-4 py-3 font-bold text-amber-950 hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <BarChart3 className="h-4 w-4" />
+            Check feedback
+          </button>
         </div>
       </div>
 
@@ -1498,6 +1575,70 @@ function SocialPublishingPanel({
           {message || response?.warning}
         </p>
       )}
+
+      <div className="mt-5 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+        <div className="rounded-lg border border-emerald-900/15 bg-emerald-50 p-4">
+          <p className="text-xs font-black uppercase tracking-wide text-emerald-800">Current winner</p>
+          {bestPost ? (
+            <>
+              <h4 className="mt-2 font-black text-slate-950">{bestPost.post.hook}</h4>
+              <p className="mt-1 text-sm font-semibold text-slate-700">
+                Score {bestPost.score}. Reuse this pain point in the next SEO block or post.
+              </p>
+            </>
+          ) : (
+            <p className="mt-2 text-sm font-semibold text-slate-700">No measured winner yet. Record clicks or engagement after the first post goes live.</p>
+          )}
+          {weakPost && (
+            <div className="mt-4 rounded-lg border border-amber-200 bg-white p-3">
+              <p className="text-xs font-black uppercase tracking-wide text-amber-800">Rewrite candidate</p>
+              <p className="mt-1 text-sm font-bold text-slate-900">{weakPost.hook}</p>
+              <p className="mt-1 text-xs font-semibold text-slate-600">
+                {metricNumber(weakPost.feedbackMetrics, 'impressions')} impressions and 0 clicks.
+              </p>
+            </div>
+          )}
+        </div>
+
+        <form onSubmit={submitFeedback} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end">
+            <label className="grid flex-1 gap-2 text-sm font-bold text-slate-700">
+              Post to measure
+              <select
+                value={selectedPostId}
+                onChange={(event) => setSelectedPostId(event.target.value)}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+              >
+                {posts.map((post) => (
+                  <option key={post.id} value={post.id}>{post.platform} - {post.hook}</option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="submit"
+              disabled={running || !selectedPostId}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#123f31] px-4 py-3 font-bold text-white hover:bg-[#0d3025] disabled:cursor-not-allowed disabled:bg-slate-300"
+            >
+              <Save className="h-4 w-4" />
+              Save feedback
+            </button>
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3 xl:grid-cols-7">
+            {Object.keys(feedbackDraft).map((field) => (
+              <label key={field} className="grid gap-1 text-xs font-black uppercase tracking-wide text-slate-500">
+                {field.replace(/([A-Z])/g, ' $1')}
+                <input
+                  type="number"
+                  min="0"
+                  value={feedbackDraft[field as keyof SocialFeedbackDraft]}
+                  onChange={(event) => setFeedbackDraft((current) => ({ ...current, [field]: event.target.value }))}
+                  className="rounded-lg border border-slate-300 bg-white px-2 py-2 text-sm font-bold text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+                />
+              </label>
+            ))}
+          </div>
+        </form>
+      </div>
 
       <div className="mt-5 grid gap-3">
         {loading ? (
@@ -1536,6 +1677,14 @@ function SocialPostRow({ post }: { post: SocialPostItem }) {
           </div>
           <h4 className="mt-3 font-black text-slate-950">{post.hook}</h4>
           <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">{post.body}</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <FeedbackPill label="Score" value={socialScore(post.feedbackMetrics)} />
+            <FeedbackPill label="Clicks" value={metricNumber(post.feedbackMetrics, 'clicks')} />
+            <FeedbackPill label="Comments" value={metricNumber(post.feedbackMetrics, 'comments')} />
+            <FeedbackPill label="Saves" value={metricNumber(post.feedbackMetrics, 'saves')} />
+            <FeedbackPill label="Trials" value={metricNumber(post.feedbackMetrics, 'trials')} />
+            <FeedbackPill label="Paid" value={metricNumber(post.feedbackMetrics, 'paidConversions')} />
+          </div>
           {post.errorMessage && <p className="mt-2 text-sm font-bold text-red-700">{post.errorMessage}</p>}
         </div>
         <div className="flex shrink-0 flex-col gap-2">
@@ -1564,6 +1713,41 @@ function SocialPostRow({ post }: { post: SocialPostItem }) {
         </div>
       </div>
     </article>
+  )
+}
+
+function metricNumber(metrics: Record<string, unknown>, key: string) {
+  const value = metrics?.[key]
+  if (typeof value === 'number' && Number.isFinite(value)) return value
+  if (typeof value === 'string' && value.trim()) {
+    const parsed = Number(value)
+    if (Number.isFinite(parsed)) return parsed
+  }
+  return 0
+}
+
+function socialScore(metrics: Record<string, unknown>) {
+  const stored = metricNumber(metrics, 'engagementScore')
+  if (stored) return stored
+  return (
+    metricNumber(metrics, 'reactions') +
+    metricNumber(metrics, 'clicks') * 4 +
+    metricNumber(metrics, 'comments') * 3 +
+    metricNumber(metrics, 'saves') * 5 +
+    metricNumber(metrics, 'shares') * 4 +
+    metricNumber(metrics, 'replies') * 3 +
+    metricNumber(metrics, 'signups') * 12 +
+    metricNumber(metrics, 'trials') * 15 +
+    metricNumber(metrics, 'conversions') * 20 +
+    metricNumber(metrics, 'paidConversions') * 35
+  )
+}
+
+function FeedbackPill({ label, value }: { label: string; value: number }) {
+  return (
+    <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-xs font-black text-slate-700">
+      {label}: {value}
+    </span>
   )
 }
 
