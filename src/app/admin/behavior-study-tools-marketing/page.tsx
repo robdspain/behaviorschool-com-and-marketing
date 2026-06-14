@@ -137,6 +137,57 @@ type SignalCounts = {
   seoImprovements: number
 }
 
+type DailyGrowthAction = {
+  priority: 'high' | 'medium' | 'low'
+  lane: 'Conversion' | 'SEO' | 'Social' | 'Retention' | 'Research' | 'Data'
+  title: string
+  evidence: string
+  action: string
+  href?: string
+}
+
+type DailyGrowthSourceStatus = {
+  source: string
+  status: 'fresh' | 'stale' | 'missing'
+  latest: string | null
+  ageDays: number | null
+}
+
+type DailyGrowthReport = {
+  windowDays: number
+  generatedAt: string
+  conversion: {
+    pageViews: number
+    ctaClicks: number
+    appStarts: number
+    signups: number
+    freeTrialStarts: number
+    paidConversions: number
+    retentionEvents: number
+    visitorToStartRate: number
+    appStartToSignupRate: number
+    trialToPaidRate: number
+  }
+  signalCoverage: {
+    sourceStatus: DailyGrowthSourceStatus[]
+    growthSignals: number
+    activityLogs: number
+    structuredSeoSignals: number
+    structuredSocialSignals: number
+  }
+  topPages: MarketingReportItem[]
+  topChannels: MarketingReportItem[]
+  pathSplit: MarketingReportItem[]
+  actions: DailyGrowthAction[]
+}
+
+type DailyGrowthReportResponse = {
+  success?: boolean
+  stored?: boolean
+  warning?: string | null
+  report?: DailyGrowthReport | null
+}
+
 type MarketingReportEvent = {
   event_name?: string | null
   page_path?: string | null
@@ -170,6 +221,8 @@ export default function BehaviorStudyToolsMarketingPage() {
   const [activitySaving, setActivitySaving] = useState(false)
   const [marketingReport, setMarketingReport] = useState<MarketingReportResponse | null>(null)
   const [reportLoading, setReportLoading] = useState(false)
+  const [dailyGrowthReport, setDailyGrowthReport] = useState<DailyGrowthReportResponse | null>(null)
+  const [dailyGrowthLoading, setDailyGrowthLoading] = useState(false)
   const router = useRouter()
   const todayPlan = useMemo(() => {
     const today = dayOrder[new Date().getDay()]
@@ -282,10 +335,29 @@ export default function BehaviorStudyToolsMarketingPage() {
     }
   }, [])
 
+  const loadDailyGrowthReport = useCallback(async () => {
+    setDailyGrowthLoading(true)
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/daily-growth-report')
+      const data = await response.json()
+      setDailyGrowthReport(data)
+    } catch {
+      setDailyGrowthReport({
+        success: false,
+        stored: false,
+        report: null,
+        warning: 'Daily growth report could not be loaded.',
+      })
+    } finally {
+      setDailyGrowthLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (!isAuthenticated) return
     loadMarketingReport()
-  }, [isAuthenticated, loadMarketingReport])
+    loadDailyGrowthReport()
+  }, [isAuthenticated, loadMarketingReport, loadDailyGrowthReport])
 
   const copyBlock = `${todayPlan.hook}
 
@@ -435,6 +507,12 @@ ${todayPlan.ctaHref}`
                 </div>
 
                 <ConversionSnapshotPanel summary={reportSummary} />
+
+                <DailyGrowthBriefPanel
+                  response={dailyGrowthReport}
+                  loading={dailyGrowthLoading}
+                  onRefresh={loadDailyGrowthReport}
+                />
 
                 <GrowthLoopPanel summary={reportSummary} />
 
@@ -994,6 +1072,148 @@ function ConversionSnapshotPanel({ summary }: { summary: MarketingReportSummary 
         </div>
       </div>
     </section>
+  )
+}
+
+function DailyGrowthBriefPanel({
+  response,
+  loading,
+  onRefresh,
+}: {
+  response: DailyGrowthReportResponse | null
+  loading: boolean
+  onRefresh: () => void
+}) {
+  const report = response?.report || null
+  const primaryAction = report?.actions?.[0]
+  const sourceStatus = report?.signalCoverage.sourceStatus || []
+
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-white p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Daily self-improvement brief</p>
+          <h3 className="mt-2 text-2xl font-black text-slate-950">
+            {primaryAction?.title || "Collect today's signals, then improve one page."}
+          </h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            This combines conversion behavior, retention events, Search Console/Ahrefs imports, social feedback, customer notes, and competitor signals into one daily action list.
+          </p>
+          {response?.warning && (
+            <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-950">
+              {response.warning}
+            </p>
+          )}
+        </div>
+        <button
+          type="button"
+          onClick={onRefresh}
+          disabled={loading}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border-2 border-emerald-900/20 bg-white px-4 py-3 font-bold text-emerald-950 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+          {loading ? 'Refreshing' : 'Refresh brief'}
+        </button>
+      </div>
+
+      {report ? (
+        <>
+          <div className="mt-5 grid gap-3 md:grid-cols-4">
+            <MiniMetric label="Start rate" value={`${report.conversion.visitorToStartRate}%`} detail={`${report.conversion.appStarts} starts from ${report.conversion.pageViews} visits`} />
+            <MiniMetric label="Signup rate" value={`${report.conversion.appStartToSignupRate}%`} detail={`${report.conversion.signups} signups from app starts`} />
+            <MiniMetric label="Paid rate" value={`${report.conversion.trialToPaidRate}%`} detail={`${report.conversion.paidConversions} paid from ${report.conversion.freeTrialStarts} trials`} />
+            <MiniMetric label="Retention" value={`${report.conversion.retentionEvents}`} detail="practice, quiz, mock, or return events" />
+          </div>
+
+          <div className="mt-5 grid gap-4 xl:grid-cols-[1fr_0.8fr]">
+            <div className="space-y-3">
+              {report.actions.length ? (
+                report.actions.slice(0, 4).map((action) => (
+                  <article key={`${action.lane}-${action.title}`} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <PriorityBadge priority={action.priority} />
+                          <span className="rounded-full bg-white px-2 py-1 text-xs font-black uppercase tracking-wide text-emerald-800">{action.lane}</span>
+                        </div>
+                        <h4 className="mt-3 font-black text-slate-950">{action.title}</h4>
+                        <p className="mt-1 text-sm leading-6 text-slate-600">{action.evidence}</p>
+                        <p className="mt-2 text-sm font-bold leading-6 text-emerald-900">{action.action}</p>
+                      </div>
+                      {action.href && (
+                        <a
+                          href={action.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-800 hover:bg-slate-50"
+                        >
+                          Open
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-5">
+                  <p className="font-bold text-slate-900">No action list yet.</p>
+                  <p className="mt-2 text-sm text-slate-600">Import SEO/social signals or wait for traffic events to build a stronger daily recommendation.</p>
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-lg border border-slate-200 bg-[#fbfaf5] p-4">
+              <p className="text-sm font-black uppercase tracking-wide text-slate-500">Signal freshness</p>
+              <div className="mt-4 space-y-3">
+                {sourceStatus.length ? (
+                  sourceStatus.map((source) => <SourceFreshnessRow key={source.source} source={source} />)
+                ) : (
+                  <p className="text-sm font-semibold text-slate-600">No source freshness checks yet.</p>
+                )}
+              </div>
+              <div className="mt-4 rounded-lg border border-white bg-white p-3">
+                <p className="text-xs font-black uppercase tracking-wide text-slate-500">Structured inputs</p>
+                <p className="mt-2 text-sm font-semibold text-slate-700">
+                  {report.signalCoverage.structuredSeoSignals} SEO signals, {report.signalCoverage.structuredSocialSignals} social signals, {report.signalCoverage.activityLogs} activity logs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="mt-5 rounded-lg border border-dashed border-amber-300 bg-amber-50 p-5">
+          <p className="font-black text-slate-950">Daily report is waiting for backend data.</p>
+          <p className="mt-2 text-sm leading-6 text-slate-700">
+            Apply the growth-signal migration, deploy the API, and configure the daily monitor secret to generate daily snapshots.
+          </p>
+        </div>
+      )}
+    </section>
+  )
+}
+
+function SourceFreshnessRow({ source }: { source: DailyGrowthSourceStatus }) {
+  const styles = {
+    fresh: 'bg-emerald-100 text-emerald-800',
+    stale: 'bg-amber-100 text-amber-900',
+    missing: 'bg-red-100 text-red-800',
+  }
+  const label = source.source
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase())
+
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2">
+      <div>
+        <p className="text-sm font-black text-slate-950">{label}</p>
+        <p className="text-xs font-semibold text-slate-500">
+          {source.latest ? `Latest ${source.latest}${source.ageDays !== null ? ` (${source.ageDays}d)` : ''}` : 'No signal imported'}
+        </p>
+      </div>
+      <span className={`rounded-full px-2 py-1 text-xs font-black uppercase tracking-wide ${styles[source.status]}`}>
+        {source.status}
+      </span>
+    </div>
   )
 }
 
