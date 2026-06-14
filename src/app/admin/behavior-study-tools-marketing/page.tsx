@@ -1,17 +1,21 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
+import type { FormEvent, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   ArrowRight,
   BarChart3,
+  CalendarCheck,
   CheckCircle2,
   Clipboard,
   ExternalLink,
   Eye,
+  Link2,
+  ListChecks,
   Megaphone,
   MousePointerClick,
+  Save,
   Search,
   ShieldCheck,
   Sparkles,
@@ -20,12 +24,68 @@ import {
 import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
 
 const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const activityStorageKey = 'bst_marketing_activity_log'
+
+type MarketingActivityEntry = {
+  id: string
+  activityDate: string
+  channel: string
+  primaryAction: string
+  publishedUrl: string
+  customerSignal: string
+  competitorSignal: string
+  seoImprovement: string
+  nextStep: string
+  status: string
+  stored?: boolean
+  createdAt: string
+}
+
+type MarketingActivityForm = Omit<MarketingActivityEntry, 'id' | 'stored' | 'createdAt'>
+type RemoteMarketingActivityEntry = {
+  id?: string
+  activity_date?: string
+  channel?: string
+  primary_action?: string
+  published_url?: string
+  customer_signal?: string
+  competitor_signal?: string
+  seo_improvement?: string
+  next_step?: string
+  status?: string
+  created_at?: string
+}
+
+function todayDate() {
+  return new Date().toISOString().slice(0, 10)
+}
 
 export default function BehaviorStudyToolsMarketingPage() {
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [activityEntries, setActivityEntries] = useState<MarketingActivityEntry[]>([])
+  const [activitySaved, setActivitySaved] = useState(false)
+  const [activitySaving, setActivitySaving] = useState(false)
   const router = useRouter()
+  const todayPlan = useMemo(() => {
+    const today = dayOrder[new Date().getDay()]
+    return (
+      behaviorStudyToolsMarketing.postPlan.find((post) => post.day === today) ||
+      behaviorStudyToolsMarketing.postPlan[0]
+    )
+  }, [])
+  const [activityForm, setActivityForm] = useState<MarketingActivityForm>({
+    activityDate: todayDate(),
+    channel: '',
+    primaryAction: '',
+    publishedUrl: '',
+    customerSignal: '',
+    competitorSignal: '',
+    seoImprovement: '',
+    nextStep: '',
+    status: 'logged',
+  })
 
   useEffect(() => {
     document.title = 'Behavior Study Tools Marketing | Behavior School Admin'
@@ -49,13 +109,56 @@ export default function BehaviorStudyToolsMarketingPage() {
     checkAuth()
   }, [router])
 
-  const todayPlan = useMemo(() => {
-    const today = dayOrder[new Date().getDay()]
-    return (
-      behaviorStudyToolsMarketing.postPlan.find((post) => post.day === today) ||
-      behaviorStudyToolsMarketing.postPlan[0]
-    )
-  }, [])
+  useEffect(() => {
+    if (!todayPlan) return
+    setActivityForm((current) => ({
+      ...current,
+      channel: current.channel || todayPlan.platform,
+      primaryAction: current.primaryAction || todayPlan.hook,
+      nextStep: current.nextStep || `Improve or share ${todayPlan.ctaLabel.toLowerCase()}.`,
+    }))
+  }, [todayPlan])
+
+  useEffect(() => {
+    if (!isAuthenticated) return
+
+    const loadActivity = async () => {
+      const localEntries = (() => {
+        try {
+          return JSON.parse(window.localStorage.getItem(activityStorageKey) || '[]') as MarketingActivityEntry[]
+        } catch {
+          return []
+        }
+      })()
+      setActivityEntries(localEntries)
+
+      try {
+        const response = await fetch('/api/admin/behavior-study-tools/marketing-activity')
+        const data = await response.json()
+        if (data.success && Array.isArray(data.entries) && data.entries.length) {
+          const remoteEntries = (data.entries as RemoteMarketingActivityEntry[]).map((entry) => ({
+            id: String(entry.id || `${entry.activity_date}-${entry.created_at}`),
+            activityDate: entry.activity_date || '',
+            channel: entry.channel || '',
+            primaryAction: entry.primary_action || '',
+            publishedUrl: entry.published_url || '',
+            customerSignal: entry.customer_signal || '',
+            competitorSignal: entry.competitor_signal || '',
+            seoImprovement: entry.seo_improvement || '',
+            nextStep: entry.next_step || '',
+            status: entry.status || 'logged',
+            stored: true,
+            createdAt: entry.created_at || '',
+          }))
+          setActivityEntries(remoteEntries)
+        }
+      } catch {
+        // Local entries are enough for the operator when server persistence is unavailable.
+      }
+    }
+
+    loadActivity()
+  }, [isAuthenticated])
 
   const copyBlock = `${todayPlan.hook}
 
@@ -72,6 +175,51 @@ ${todayPlan.ctaHref}`
     } catch {
       setCopied(false)
     }
+  }
+
+  const handleActivityChange = (field: keyof MarketingActivityForm, value: string) => {
+    setActivitySaved(false)
+    setActivityForm((current) => ({ ...current, [field]: value }))
+  }
+
+  const handleActivitySubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!activityForm.channel.trim() || !activityForm.primaryAction.trim()) return
+
+    setActivitySaving(true)
+    const optimisticEntry: MarketingActivityEntry = {
+      ...activityForm,
+      id: `${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      stored: false,
+    }
+
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/marketing-activity', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(activityForm),
+      })
+      const data = await response.json().catch(() => ({}))
+      optimisticEntry.stored = Boolean(data.stored)
+    } catch {
+      optimisticEntry.stored = false
+    }
+
+    const nextEntries = [optimisticEntry, ...activityEntries].slice(0, 20)
+    setActivityEntries(nextEntries)
+    window.localStorage.setItem(activityStorageKey, JSON.stringify(nextEntries))
+    setActivitySaved(true)
+    setActivitySaving(false)
+    setActivityForm((current) => ({
+      ...current,
+      publishedUrl: '',
+      customerSignal: '',
+      competitorSignal: '',
+      seoImprovement: '',
+      nextStep: '',
+      status: 'logged',
+    }))
   }
 
   if (loading) {
@@ -196,6 +344,152 @@ ${todayPlan.ctaHref}`
                   RBT path
                   <ExternalLink className="w-4 h-4" />
                 </a>
+              </div>
+            </div>
+          </section>
+
+          <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+            <form onSubmit={handleActivitySubmit} className="rounded-xl border-2 border-emerald-950/10 bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3">
+                <ListChecks className="w-6 h-6 text-emerald-700" />
+                <div>
+                  <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">Today&apos;s growth log</p>
+                  <h2 className="text-2xl font-black text-slate-950">Record what moved the campaign forward.</h2>
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <label className="grid gap-2 text-sm font-bold text-slate-700">
+                  Date
+                  <input
+                    type="date"
+                    value={activityForm.activityDate}
+                    onChange={(event) => handleActivityChange('activityDate', event.target.value)}
+                    className="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-bold text-slate-700">
+                  Channel
+                  <input
+                    type="text"
+                    value={activityForm.channel}
+                    onChange={(event) => handleActivityChange('channel', event.target.value)}
+                    placeholder="LinkedIn, Instagram, Email..."
+                    className="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+                  />
+                </label>
+              </div>
+
+              <label className="mt-4 grid gap-2 text-sm font-bold text-slate-700">
+                Primary action
+                <input
+                  type="text"
+                  value={activityForm.primaryAction}
+                  onChange={(event) => handleActivityChange('primaryAction', event.target.value)}
+                  placeholder="Published weak-domain post"
+                  className="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+                />
+              </label>
+
+              <label className="mt-4 grid gap-2 text-sm font-bold text-slate-700">
+                Published link
+                <input
+                  type="url"
+                  value={activityForm.publishedUrl}
+                  onChange={(event) => handleActivityChange('publishedUrl', event.target.value)}
+                  placeholder="https://..."
+                  className="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+                />
+              </label>
+
+              <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                <TextAreaField
+                  label="Customer signal"
+                  value={activityForm.customerSignal}
+                  placeholder="Question, objection, comment, signup feedback..."
+                  onChange={(value) => handleActivityChange('customerSignal', value)}
+                />
+                <TextAreaField
+                  label="Competitor signal"
+                  value={activityForm.competitorSignal}
+                  placeholder="Review theme, competitor page change, ad angle..."
+                  onChange={(value) => handleActivityChange('competitorSignal', value)}
+                />
+              </div>
+
+              <TextAreaField
+                label="SEO improvement made"
+                value={activityForm.seoImprovement}
+                placeholder="Headline changed, CTA clarified, FAQ added, internal link fixed..."
+                onChange={(value) => handleActivityChange('seoImprovement', value)}
+              />
+
+              <label className="mt-4 grid gap-2 text-sm font-bold text-slate-700">
+                Next step
+                <input
+                  type="text"
+                  value={activityForm.nextStep}
+                  onChange={(event) => handleActivityChange('nextStep', event.target.value)}
+                  placeholder="Tomorrow, improve the mock exam page CTA"
+                  className="rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+                />
+              </label>
+
+              <button
+                type="submit"
+                disabled={activitySaving || !activityForm.channel.trim() || !activityForm.primaryAction.trim()}
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#123f31] px-4 py-3 font-bold text-white hover:bg-[#0d3025] disabled:cursor-not-allowed disabled:bg-slate-300"
+              >
+                {activitySaved ? <CheckCircle2 className="w-5 h-5" /> : <Save className="w-5 h-5" />}
+                {activitySaving ? 'Saving...' : activitySaved ? 'Logged' : "Log today's action"}
+              </button>
+              <p className="mt-3 text-xs font-semibold text-slate-500">
+                Saved locally now. If the Supabase activity table exists, it also stores server-side.
+              </p>
+            </form>
+
+            <div className="rounded-xl border-2 border-emerald-950/10 bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3">
+                <CalendarCheck className="w-6 h-6 text-emerald-700" />
+                <div>
+                  <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">Recent campaign actions</p>
+                  <h2 className="text-2xl font-black text-slate-950">Use yesterday&apos;s signals to improve today&apos;s page.</h2>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                {activityEntries.length ? (
+                  activityEntries.slice(0, 6).map((entry) => (
+                    <article key={entry.id} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-wide text-slate-500">{entry.activityDate} · {entry.channel}</p>
+                          <h3 className="mt-1 font-black text-slate-950">{entry.primaryAction}</h3>
+                        </div>
+                        <span className={`inline-flex w-fit items-center rounded-full px-2 py-1 text-xs font-bold ${entry.stored ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-900'}`}>
+                          {entry.stored ? 'Server saved' : 'Local saved'}
+                        </span>
+                      </div>
+                      {entry.publishedUrl && (
+                        <a href={entry.publishedUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-emerald-800 hover:text-emerald-950">
+                          <Link2 className="w-4 h-4" />
+                          Open published link
+                        </a>
+                      )}
+                      <div className="mt-3 grid gap-3 text-sm text-slate-700 md:grid-cols-2">
+                        {entry.customerSignal && <p><strong>Customer:</strong> {entry.customerSignal}</p>}
+                        {entry.competitorSignal && <p><strong>Competitor:</strong> {entry.competitorSignal}</p>}
+                        {entry.seoImprovement && <p><strong>SEO:</strong> {entry.seoImprovement}</p>}
+                        {entry.nextStep && <p><strong>Next:</strong> {entry.nextStep}</p>}
+                      </div>
+                    </article>
+                  ))
+                ) : (
+                  <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
+                    <p className="font-bold text-slate-900">No campaign actions logged yet.</p>
+                    <p className="mt-2 text-sm text-slate-600">Post once, record the signal, and make tomorrow&apos;s page improvement obvious.</p>
+                  </div>
+                )}
               </div>
             </div>
           </section>
@@ -326,5 +620,30 @@ function Guideline({ icon, title, text }: { icon: ReactNode; title: string; text
         <p className="mt-1 text-sm leading-6 text-slate-700">{text}</p>
       </div>
     </div>
+  )
+}
+
+function TextAreaField({
+  label,
+  value,
+  placeholder,
+  onChange,
+}: {
+  label: string
+  value: string
+  placeholder: string
+  onChange: (value: string) => void
+}) {
+  return (
+    <label className="mt-4 grid gap-2 text-sm font-bold text-slate-700">
+      {label}
+      <textarea
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        rows={3}
+        className="resize-y rounded-lg border border-slate-300 px-3 py-2 font-medium text-slate-950 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-100"
+      />
+    </label>
   )
 }

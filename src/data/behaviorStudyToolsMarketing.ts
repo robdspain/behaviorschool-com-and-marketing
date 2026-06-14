@@ -1,3 +1,23 @@
+function trackedStudyUrl(path: string, params: Record<string, string>) {
+  const search = new URLSearchParams({
+    utm_source: "behaviorschool_admin",
+    utm_medium: "owned_marketing",
+    utm_campaign: "bst_web_growth",
+    ...params,
+  });
+  return `https://study.behaviorschool.com${path}?${search.toString()}`;
+}
+
+function trackedLandingUrl(path: string, params: Record<string, string>) {
+  const search = new URLSearchParams({
+    utm_source: "behaviorschool_admin",
+    utm_medium: "owned_marketing",
+    utm_campaign: "bst_web_growth",
+    ...params,
+  });
+  return `https://behaviorstudytools.com${path}?${search.toString()}`;
+}
+
 export const behaviorStudyToolsMarketing = {
   productName: "Behavior Study Tools",
   primaryMessage:
@@ -8,7 +28,10 @@ export const behaviorStudyToolsMarketing = {
     "Behavior Study Tools turns practice attempts into a clear next step: weak domains, readiness signals, reviewed explanations, and a plan for the next session.",
   primaryCta: {
     label: "Start the web app",
-    href: "https://study.behaviorschool.com/onboarding/bcba?intent=readiness-check",
+    href: trackedStudyUrl("/onboarding/bcba", {
+      intent: "readiness-check",
+      utm_content: "admin_primary_cta",
+    }),
   },
   secondaryCta: {
     label: "Open public landing page",
@@ -16,7 +39,9 @@ export const behaviorStudyToolsMarketing = {
   },
   rbtCta: {
     label: "Start the RBT path",
-    href: "https://study.behaviorschool.com/onboarding/rbt",
+    href: trackedStudyUrl("/onboarding/rbt", {
+      utm_content: "admin_rbt_cta",
+    }),
   },
   weeklyOperatingRule:
     "Each day, publish one useful study pain point, send traffic to one focused CTA, and record one search, customer, or competitor signal to improve the next page.",
@@ -124,7 +149,10 @@ export const behaviorStudyToolsMarketing = {
       post:
         "A lot of BCBA candidates finish practice questions and still do not know what to do next. Behavior Study Tools is built around that moment: see the missed domain, review the rationale, and choose the next study task.",
       ctaLabel: "Start a readiness check",
-      ctaHref: "https://study.behaviorschool.com/onboarding/bcba?intent=readiness-check",
+      ctaHref: trackedStudyUrl("/onboarding/bcba", {
+        intent: "readiness-check",
+        utm_content: "monday_linkedin_readiness",
+      }),
       asset: "Readiness dashboard screen",
     },
     {
@@ -134,7 +162,9 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Show the user opening results, finding the weakest domain, and starting a short practice session. Close with: Do not guess what to study next.",
       ctaLabel: "Try free BCBA practice",
-      ctaHref: "https://behaviorstudytools.com/free-bcba-practice-exam",
+      ctaHref: trackedLandingUrl("/free-bcba-practice-exam", {
+        utm_content: "tuesday_instagram_free_practice",
+      }),
       asset: "Results screen on phone",
     },
     {
@@ -144,7 +174,10 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Walk through one question review. Show why the correct answer is correct and why a distractor is wrong. Connect it to 6th Edition-aligned practice.",
       ctaLabel: "Start practice",
-      ctaHref: "https://study.behaviorschool.com/onboarding/bcba?intent=timed-practice-set",
+      ctaHref: trackedStudyUrl("/onboarding/bcba", {
+        intent: "timed-practice-set",
+        utm_content: "wednesday_youtube_timed_practice",
+      }),
       asset: "Question review screen",
     },
     {
@@ -154,7 +187,10 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Send a short email to the BehaviorSchool audience about readiness: domain accuracy, response time, consistency, and mock endurance. Invite them to start in the web app while iOS approval is pending.",
       ctaLabel: "Start the web app",
-      ctaHref: "https://study.behaviorschool.com/onboarding/bcba?intent=readiness-check",
+      ctaHref: trackedStudyUrl("/onboarding/bcba", {
+        intent: "readiness-check",
+        utm_content: "thursday_email_readiness",
+      }),
       asset: "Readiness score screen",
     },
     {
@@ -164,7 +200,10 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Show a fast before and after: scattered notes, then dashboard with weak domains and a next session. Keep the message simple: study the gap that costs points.",
       ctaLabel: "Find your weak domain",
-      ctaHref: "https://study.behaviorschool.com/onboarding/bcba?intent=weak-domain-check",
+      ctaHref: trackedStudyUrl("/onboarding/bcba", {
+        intent: "weak-domain-check",
+        utm_content: "friday_tiktok_weak_domain",
+      }),
       asset: "Dashboard and study plan screens",
     },
     {
@@ -174,7 +213,9 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Post that Behavior Study Tools includes an RBT path with practice, review, and supervisor-friendly progress. Invite RBT candidates to start directly in the web app.",
       ctaLabel: "Start RBT practice",
-      ctaHref: "https://study.behaviorschool.com/onboarding/rbt",
+      ctaHref: trackedStudyUrl("/onboarding/rbt", {
+        utm_content: "saturday_facebook_rbt_path",
+      }),
       asset: "RBT path screen",
     },
     {
@@ -184,7 +225,9 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Check Search Console, customer questions, ad comments, and competitor pages. Pick one page headline or CTA to improve before Monday.",
       ctaLabel: "Review SEO pages",
-      ctaHref: "https://behaviorstudytools.com",
+      ctaHref: trackedLandingUrl("/", {
+        utm_content: "sunday_review_homepage",
+      }),
       asset: "Search Console and page screenshots",
     },
   ],
