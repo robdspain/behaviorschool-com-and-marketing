@@ -6,6 +6,8 @@ import Image from "next/image";
 import { ArrowRight, Check, Brain, Target, TrendingUp, BookOpen, Users, ChevronUp, ChevronDown } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ScrollNav } from "@/components/ui/scroll-nav";
+import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -15,6 +17,10 @@ const fadeInUp = {
 
 export default function BehaviorStudyToolsPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const freeMockHref = behaviorStudyToolsAppHref("/free-mock-exam/full", {
+    intent: "full_mock",
+    utm_content: "legacy_hub_free_mock",
+  });
 
   const faqData = [
     {
@@ -80,6 +86,7 @@ export default function BehaviorStudyToolsPage() {
   ];
   return (
     <div className="min-h-screen bg-bs-background font-sans">
+      <BstMarketingTracker />
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
         <Breadcrumbs 
@@ -123,7 +130,11 @@ export default function BehaviorStudyToolsPage() {
               <div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="https://study.behaviorschool.com/free-mock-exam"
+                    href={freeMockHref}
+                    data-bst-cta="true"
+                    data-bst-location="legacy_hub_hero"
+                    data-bst-intent="full_mock"
+                    data-bst-study-path="bcba"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-[#1a4731] hover:bg-[#153824] text-white rounded-lg transition-colors"
                   >
                     Free Full Mock Exam
@@ -187,7 +198,11 @@ export default function BehaviorStudyToolsPage() {
               </div>
 
               <Link
-                href="https://study.behaviorschool.com/free-mock-exam"
+                href={freeMockHref}
+                data-bst-cta="true"
+                data-bst-location="legacy_hub_mock_section"
+                data-bst-intent="full_mock"
+                data-bst-study-path="bcba"
                 className="inline-flex items-center px-10 py-4 text-xl font-bold bg-[#1a4731] hover:bg-[#153824] text-white rounded-lg transition-colors"
               >
                 Free Full Mock Exam (185 Questions)
@@ -271,7 +286,11 @@ export default function BehaviorStudyToolsPage() {
                     {area.questions}
                   </span>
                   <Link
-                    href="https://study.behaviorschool.com/free-mock-exam"
+                    href={freeMockHref}
+                    data-bst-cta="true"
+                    data-bst-location={`legacy_hub_exam_section_${area.section.toLowerCase().replace(/\s+/g, "_")}`}
+                    data-bst-intent="section_practice"
+                    data-bst-study-path="bcba"
                     className="text-emerald-600 hover:text-emerald-700 font-semibold text-sm"
                   >
                     Practice Now →
@@ -341,7 +360,11 @@ export default function BehaviorStudyToolsPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="https://study.behaviorschool.com/free-mock-exam"
+                  href={freeMockHref}
+                  data-bst-cta="true"
+                  data-bst-location="legacy_hub_features_cta"
+                  data-bst-intent="full_mock"
+                  data-bst-study-path="bcba"
                   className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-slate-50 transition-colors"
                 >
                   Free Full Mock Exam
@@ -436,7 +459,11 @@ export default function BehaviorStudyToolsPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="https://study.behaviorschool.com/free-mock-exam"
+                  href={freeMockHref}
+                  data-bst-cta="true"
+                  data-bst-location="legacy_hub_fluency_cta"
+                  data-bst-intent="mini_mock"
+                  data-bst-study-path="bcba"
                   className="inline-flex items-center px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors"
                 >
                   Free Mini Mock Exam
@@ -594,7 +621,11 @@ export default function BehaviorStudyToolsPage() {
             </p>
             <div>
               <Link
-                href="https://study.behaviorschool.com/free-mock-exam"
+                href={freeMockHref}
+                data-bst-cta="true"
+                data-bst-location="legacy_hub_final_cta"
+                data-bst-intent="full_mock"
+                data-bst-study-path="bcba"
                 className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 hover:bg-slate-100 rounded-xl transition-all duration-200"
               >
                 Take Free Full Mock Exam

@@ -26,6 +26,7 @@ interface FreeQuizWidgetProps {
 export function FreeQuizWidget({
   questions,
   ctaUrl = "https://study.behaviorschool.com",
+  ctaText = "Save My Progress & Continue",
 }: FreeQuizWidgetProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -199,8 +200,20 @@ export function FreeQuizWidget({
     const seconds = totalTime % 60;
     const isPerfectScore = correctAnswers === questions.length;
 
-    // Build context URL for study app
-    const studyAuthUrl = `${ctaUrl}/auth?source=free-quiz&score=${correctAnswers}&total=${questions.length}&time=${totalTime}&action=signup`;
+    const studyAuthUrl = new URL(ctaUrl);
+    if (!studyAuthUrl.pathname.includes("/auth")) {
+      studyAuthUrl.pathname = "/auth";
+    }
+    studyAuthUrl.searchParams.set("source", "free-quiz");
+    studyAuthUrl.searchParams.set("score", String(correctAnswers));
+    studyAuthUrl.searchParams.set("total", String(questions.length));
+    studyAuthUrl.searchParams.set("time", String(totalTime));
+    studyAuthUrl.searchParams.set("action", "signup");
+
+    const loginUrl = new URL(ctaUrl);
+    loginUrl.pathname = "/auth";
+    loginUrl.searchParams.set("action", "login");
+    loginUrl.searchParams.set("source", "free-quiz");
 
     return (
       <div className="w-full max-w-4xl mx-auto">
@@ -323,10 +336,17 @@ export function FreeQuizWidget({
           )}
 
           <div className="space-y-4">
-            <Link href={studyAuthUrl} className="block">
+            <Link
+              href={studyAuthUrl.toString()}
+              className="block"
+              data-bst-cta="true"
+              data-bst-location="free_quiz_results_save"
+              data-bst-intent="save_progress"
+              data-bst-study-path="bcba"
+            >
               <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg sm:text-xl py-6 sm:py-7 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl">
                 <Save className="mr-2 h-5 w-5 sm:h-6 sm:w-6" />
-                Save My Progress & Continue
+                {ctaText}
                 <div className="ml-2 px-3 py-1 bg-white/20 rounded-full text-xs font-bold">
                   Free Forever
                 </div>
@@ -342,7 +362,16 @@ export function FreeQuizWidget({
               {dailyLimitReached ? `Reset in ${timeUntilReset}` : 'Try Again as Guest'}
             </Button>
             <p className="text-center text-sm text-slate-600 pt-2">
-              Already have an account? <Link href={`${ctaUrl}/auth?action=login`} className="text-emerald-700 hover:text-emerald-800 font-semibold">Sign in</Link>
+              Already have an account? <Link
+                href={loginUrl.toString()}
+                className="text-emerald-700 hover:text-emerald-800 font-semibold"
+                data-bst-cta="true"
+                data-bst-location="free_quiz_results_login"
+                data-bst-intent="login"
+                data-bst-study-path="bcba"
+              >
+                Sign in
+              </Link>
             </p>
           </div>
         </div>

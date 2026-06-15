@@ -5,6 +5,7 @@ import {
   getBehaviorStudyToolsSeoOverride,
   seoOverrideFaq,
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
 const PAGE_HREF = "https://behaviorstudytools.com/bcba-mock-exam-6th-edition";
 
@@ -35,6 +36,10 @@ export default async function BCBAMockExamSixthEditionPage() {
       title={override?.heroHeadline || "BCBA mock exams built for 6th Edition study decisions."}
       description={override?.metaDescription || "A mock exam should do more than produce a score. BehaviorSchool helps candidates practice timing, build endurance, review rationales, and decide which domains need the next study block."}
       primaryCta={override?.primaryCta || "Start a free mock exam"}
+      primaryHref={behaviorStudyToolsAppHref("/free-mock-exam/full", {
+        intent: "full_mock",
+        utm_content: "bcba_mock_6th_primary_cta",
+      })}
       imageAlt="BehaviorSchool Study mock exam and readiness dashboard"
       features={[
         {

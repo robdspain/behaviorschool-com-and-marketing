@@ -5,6 +5,7 @@ import {
   getBehaviorStudyToolsSeoOverride,
   seoOverrideFaq,
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
 const PAGE_HREF = "https://behaviorstudytools.com/bcba-study-app-school-based-bcbas";
 
@@ -35,7 +36,10 @@ export default async function SchoolBasedBCBAStudyAppPage() {
       title={override?.heroHeadline || "A BCBA study app built for candidates who work in schools."}
       description={override?.metaDescription || "School-based candidates need more than generic question drilling. BehaviorSchool connects adaptive BCBA practice with school-relevant scenarios, progress reports, and next-step readiness signals."}
       primaryCta={override?.primaryCta || "Start school-based practice"}
-      primaryHref="https://study.behaviorschool.com/free-practice"
+      primaryHref={behaviorStudyToolsAppHref("/onboarding/bcba", {
+        intent: "school_based_bcba",
+        utm_content: "school_based_bcba_primary_cta",
+      })}
       imageAlt="BehaviorSchool Study app for school-based BCBA candidates"
       features={[
         {

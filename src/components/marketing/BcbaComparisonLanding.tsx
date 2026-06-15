@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BarChart3, Check, ClipboardCheck, FileText, ShieldCheck, X } from "lucide-react";
+import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
 type Row = {
   label: string;
@@ -17,7 +19,10 @@ type BcbaComparisonLandingProps = {
   rows: Row[];
 };
 
-const appHref = "https://study.behaviorschool.com/free-mock-exam";
+const appHref = behaviorStudyToolsAppHref("/onboarding/bcba", {
+  intent: "comparison_page_start",
+  utm_content: "comparison_primary_cta",
+});
 
 export function BcbaComparisonLanding({
   competitor,
@@ -29,6 +34,7 @@ export function BcbaComparisonLanding({
 }: BcbaComparisonLandingProps) {
   return (
     <main className="min-h-screen bg-white text-slate-900">
+      <BstMarketingTracker />
       <section className="bg-[#f7f3ee]">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-32">
           <div>
@@ -44,6 +50,10 @@ export function BcbaComparisonLanding({
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href={appHref}
+                data-bst-cta="true"
+                data-bst-location="comparison_hero_primary"
+                data-bst-intent="start_practice"
+                data-bst-study-path="bcba"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#173a2f]"
               >
                 {primaryCta}
@@ -128,6 +138,10 @@ export function BcbaComparisonLanding({
           </p>
           <Link
             href={appHref}
+            data-bst-cta="true"
+            data-bst-location="comparison_final_cta"
+            data-bst-intent="start_practice"
+            data-bst-study-path="bcba"
             className="mt-6 inline-flex items-center justify-center gap-2 rounded-md bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#143d32] transition hover:bg-[#d8aa30]"
           >
             Start free practice

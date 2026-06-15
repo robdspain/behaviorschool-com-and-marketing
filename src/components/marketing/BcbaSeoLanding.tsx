@@ -11,6 +11,8 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
+import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
 
 type Feature = {
   title: string;
@@ -29,7 +31,10 @@ type BcbaSeoLandingProps = {
   faqs: Feature[];
 };
 
-const DEFAULT_APP_HREF = "https://study.behaviorschool.com/free-mock-exam";
+const DEFAULT_APP_HREF = behaviorStudyToolsAppHref("/onboarding/bcba", {
+  intent: "seo_page_start",
+  utm_content: "seo_landing_primary_cta",
+});
 
 const trustSignals = [
   { icon: BadgeCheck, label: "6th Edition aligned" },
@@ -51,6 +56,7 @@ export function BcbaSeoLanding({
 }: BcbaSeoLandingProps) {
   return (
     <main className="min-h-screen bg-white text-slate-900">
+      <BstMarketingTracker />
       <section className="relative overflow-hidden bg-[#f7f3ee]">
         <div className="absolute inset-x-0 top-0 h-2 bg-[#1f4d3f]" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-32">
@@ -67,6 +73,10 @@ export function BcbaSeoLanding({
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href={primaryHref}
+                data-bst-cta="true"
+                data-bst-location="seo_hero_primary"
+                data-bst-intent="start_practice"
+                data-bst-study-path="bcba"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#173a2f]"
               >
                 {primaryCta}
@@ -166,6 +176,10 @@ export function BcbaSeoLanding({
           </p>
           <Link
             href={primaryHref}
+            data-bst-cta="true"
+            data-bst-location="seo_final_cta"
+            data-bst-intent="start_practice"
+            data-bst-study-path="bcba"
             className="mt-6 inline-flex items-center justify-center gap-2 rounded-md bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#143d32] transition hover:bg-[#d8aa30]"
           >
             {primaryCta}

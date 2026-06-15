@@ -8,6 +8,8 @@ import {
   applySeoMetadataOverride,
   getBehaviorStudyToolsSeoOverride,
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
+import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
 
 const PAGE_HREF = "https://behaviorstudytools.com/free-bcba-practice-exam";
 
@@ -211,9 +213,18 @@ export default async function FreeBCBAPracticeExamPage() {
 
   const SITE_URL = "https://behaviorstudytools.com";
   const primaryCta = override?.primaryCta || "Take Full 185-Question Mock Exam";
+  const fullMockHref = behaviorStudyToolsAppHref("/free-mock-exam/full", {
+    intent: "full_mock",
+    utm_content: "free_practice_exam_full_mock_cta",
+  });
+  const quizAuthHref = behaviorStudyToolsAppHref("/auth", {
+    intent: "save_quiz_progress",
+    utm_content: "free_practice_exam_quiz_results",
+  });
 
   return (
     <div className="min-h-screen bg-bs-background">
+      <BstMarketingTracker />
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
         <Breadcrumbs items={[{ label: "BCBA Exam Prep", href: "/bcba-exam-prep" }, { label: "Free Practice Exam" }]} />
@@ -259,8 +270,8 @@ export default async function FreeBCBAPracticeExamPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <FreeQuizWidget
             questions={questions}
-            ctaUrl="https://study.behaviorschool.com/free-mock-exam/full"
-            ctaText={primaryCta}
+            ctaUrl={quizAuthHref}
+            ctaText="Save my score and continue"
           />
         </div>
       </section>
@@ -464,7 +475,11 @@ export default async function FreeBCBAPracticeExamPage() {
             Experience the complete BCBA exam with 185 questions across all 9 domains. 4-hour timed simulation with instant scoring and detailed performance analytics — completely free, no signup required.
           </p>
           <Link
-            href="https://study.behaviorschool.com/free-mock-exam/full"
+            href={fullMockHref}
+            data-bst-cta="true"
+            data-bst-location="free_practice_final_cta"
+            data-bst-intent="full_mock"
+            data-bst-study-path="bcba"
             className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 rounded-xl shadow-xl hover:shadow-2xl hover:bg-emerald-50 transition-all duration-200 transform hover:-translate-y-1"
           >
             {primaryCta}
