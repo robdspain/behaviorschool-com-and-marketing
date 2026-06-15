@@ -1,12 +1,61 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Target, Clock, Brain } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { FreeQuizWidget } from "@/components/quiz/FreeQuizWidget";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
+import {
+  applySeoMetadataOverride,
+  getBehaviorStudyToolsSeoOverride,
+} from "@/lib/behavior-study-tools/seo-draft-overrides";
 
-export default function FreeBCBAPracticeExamPage() {
+const PAGE_HREF = "https://behaviorstudytools.com/free-bcba-practice-exam";
+
+const baseMetadata: Metadata = {
+  title: "Free BCBA Practice Exam | 10 Questions with Rationales | Behavior School",
+  description: "Take a free BCBA practice exam with 10 challenging questions, instant feedback, detailed rationales, and a clear path into the full mock exam.",
+  keywords: [
+    "bcba practice test",
+    "quick bcba practice test",
+    "free bcba practice test",
+    "bcba practice exam",
+    "bcba mock exam",
+    "bcba exam practice tests",
+    "practice bcba exam questions",
+    "bcba exam questions free",
+    "BACB task list",
+  ],
+  alternates: { canonical: PAGE_HREF },
+  openGraph: {
+    type: "article",
+    title: "Free BCBA Practice Exam with Rationales",
+    description: "Take a quick BCBA practice exam with 10 challenging questions, instant feedback, and detailed rationales.",
+    url: PAGE_HREF,
+    images: [
+      {
+        url: "/optimized/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Quick BCBA Practice Test",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free BCBA Practice Exam with Rationales",
+    description: "Take a quick BCBA practice exam: 10 questions, instant feedback, detailed rationales.",
+    images: ["/optimized/og-image.webp"],
+  },
+  robots: { index: true, follow: true },
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const override = await getBehaviorStudyToolsSeoOverride(PAGE_HREF);
+  return applySeoMetadataOverride({ base: baseMetadata, pageHref: PAGE_HREF, override });
+}
+
+export default async function FreeBCBAPracticeExamPage() {
+  const override = await getBehaviorStudyToolsSeoOverride(PAGE_HREF);
   const questions = [
     {
       id: "q1",
@@ -160,7 +209,8 @@ export default function FreeBCBAPracticeExamPage() {
     },
   ];
 
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const SITE_URL = "https://behaviorstudytools.com";
+  const primaryCta = override?.primaryCta || "Take Full 185-Question Mock Exam";
 
   return (
     <div className="min-h-screen bg-bs-background">
@@ -179,10 +229,10 @@ export default function FreeBCBAPracticeExamPage() {
               Free Practice Exam
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight mb-6">
-              Quick BCBA Practice Test with Instant Feedback
+              {override?.heroHeadline || "Quick BCBA Practice Test with Instant Feedback"}
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
-              Take a quick BCBA practice test designed for efficient exam prep. This free BCBA practice test includes 10 challenging questions aligned to the BACB task list with detailed explanations to build your confidence for exam day.
+              {override?.metaDescription || "Take a quick BCBA practice test designed for efficient exam prep. This free BCBA practice test includes 10 challenging questions aligned to the BACB task list with detailed explanations to build your confidence for exam day."}
             </p>
           </div>
 
@@ -210,7 +260,7 @@ export default function FreeBCBAPracticeExamPage() {
           <FreeQuizWidget
             questions={questions}
             ctaUrl="https://study.behaviorschool.com/free-mock-exam/full"
-            ctaText="Take Full 185-Question Mock Exam"
+            ctaText={primaryCta}
           />
         </div>
       </section>
@@ -320,6 +370,17 @@ export default function FreeBCBAPracticeExamPage() {
           </div>
 
           <div className="space-y-6">
+            {override?.faqAnswer ? (
+              <div className="bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-100 rounded-xl p-6">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  How does this help me pass?
+                </h3>
+                <p className="text-slate-700 leading-relaxed">
+                  {override.faqAnswer}
+                </p>
+              </div>
+            ) : null}
+
             {/* FAQ 1 */}
             <div className="bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-100 rounded-xl p-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">
@@ -406,7 +467,7 @@ export default function FreeBCBAPracticeExamPage() {
             href="https://study.behaviorschool.com/free-mock-exam/full"
             className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 rounded-xl shadow-xl hover:shadow-2xl hover:bg-emerald-50 transition-all duration-200 transform hover:-translate-y-1"
           >
-            Start Full 185-Question Mock Exam
+            {primaryCta}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
           <p className="mt-6 text-emerald-100 text-sm font-medium">
@@ -437,6 +498,14 @@ export default function FreeBCBAPracticeExamPage() {
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: [
+            ...(override?.faqAnswer ? [{
+              "@type": "Question",
+              name: "How does this help me pass?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: override.faqAnswer
+              }
+            }] : []),
             {
               "@type": "Question",
               name: "Is the free BCBA mock practice test really free?",

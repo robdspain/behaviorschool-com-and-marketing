@@ -6,7 +6,7 @@ import path from 'path'
 export const dynamic = "force-static"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://behaviorschool.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://behaviorschool.com'
   const currentDate = new Date().toISOString()
   const normalize = (p: string) => {
     try {
@@ -35,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const legacyRedirectPaths = new Set<string>([
     '/bcba-mock-practice-test',
     '/free-bcba-mock-practice-test',
-    '/free-bcba-practice-exam',
+    '/free-bcba-practice-test',
     '/free-bcba-practice',
     '/bcba-mock-exam-guide',
     '/school-based-bcba',
@@ -50,6 +50,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/iep-goal-generator',
     '/behavior-study-tools',
     '/community',
+    '/compare/behaviorschool-vs-bds',
+    '/bds-modules-alternative',
   ])
   // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
   const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view']
@@ -59,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ])
 
   // Load admin indexing settings and exclude any paths explicitly set to noindex
-  const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL || baseUrl
+  const siteOrigin = baseUrl
   let noindex = new Set<string>()
   let includeSitemap = new Set<string>()
   let deleted = new Set<string>()
@@ -107,6 +109,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/free-bcba-practice-exam`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/bcba-mock-exam-6th-edition`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/bcba-study-app-school-based-bcbas`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/compare/behaviorschool-vs-aba-wizard`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/compare/behaviorschool-vs-bds-modules`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
     },
     {
       url: `${baseUrl}/behavior-tools`,
@@ -233,12 +265,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Removed legacy blog route that redirects: /bcbas-in-schools -> /school-bcba
     {
       url: `${baseUrl}/bcba-study-fluency`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/free-bcba-practice-test`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.75,
