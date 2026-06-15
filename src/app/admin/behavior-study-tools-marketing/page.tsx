@@ -263,6 +263,34 @@ type SeoActionResponse = {
   error?: string
 }
 
+type SeoDraftItem = {
+  id: string
+  signalDate: string | null
+  pageTitle: string
+  pageHref: string | null
+  targetFile: string
+  keyword: string | null
+  priority: 'high' | 'medium' | 'low' | string
+  evidence: string
+  heroHeadline: string
+  metaDescription: string
+  faqAnswer: string
+  primaryCta: string
+  implementationNotes: string[]
+  recommendation: string | null
+  status: string | null
+  createdAt: string | null
+}
+
+type SeoDraftResponse = {
+  success?: boolean
+  stored?: boolean
+  created?: number
+  drafts?: SeoDraftItem[]
+  warning?: string
+  error?: string
+}
+
 type SocialFeedbackDraft = {
   clicks: string
   comments: string
@@ -312,6 +340,8 @@ export default function BehaviorStudyToolsMarketingPage() {
   const [socialPostsLoading, setSocialPostsLoading] = useState(false)
   const [seoActions, setSeoActions] = useState<SeoActionResponse | null>(null)
   const [seoActionsLoading, setSeoActionsLoading] = useState(false)
+  const [seoDrafts, setSeoDrafts] = useState<SeoDraftResponse | null>(null)
+  const [seoDraftsLoading, setSeoDraftsLoading] = useState(false)
   const router = useRouter()
   const todayPlan = useMemo(() => {
     const today = dayOrder[new Date().getDay()]
@@ -478,13 +508,32 @@ export default function BehaviorStudyToolsMarketingPage() {
     }
   }, [])
 
+  const loadSeoDrafts = useCallback(async () => {
+    setSeoDraftsLoading(true)
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/seo-drafts?limit=6')
+      const data = await response.json()
+      setSeoDrafts(data)
+    } catch {
+      setSeoDrafts({
+        success: false,
+        stored: false,
+        drafts: [],
+        warning: 'SEO content drafts could not be loaded.',
+      })
+    } finally {
+      setSeoDraftsLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (!isAuthenticated) return
     loadMarketingReport()
     loadDailyGrowthReport()
     loadSocialPosts()
     loadSeoActions()
-  }, [isAuthenticated, loadMarketingReport, loadDailyGrowthReport, loadSocialPosts, loadSeoActions])
+    loadSeoDrafts()
+  }, [isAuthenticated, loadMarketingReport, loadDailyGrowthReport, loadSocialPosts, loadSeoActions, loadSeoDrafts])
 
   const copyBlock = `${todayPlan.hook}
 
@@ -648,6 +697,7 @@ ${todayPlan.ctaHref}`
                     loadDailyGrowthReport()
                     loadMarketingReport()
                     loadSeoActions()
+                    loadSeoDrafts()
                   }}
                 />
 
@@ -656,6 +706,17 @@ ${todayPlan.ctaHref}`
                   loading={seoActionsLoading}
                   onRefresh={() => {
                     loadSeoActions()
+                    loadSeoDrafts()
+                    loadDailyGrowthReport()
+                    loadMarketingReport()
+                  }}
+                />
+
+                <SeoDraftReviewPanel
+                  response={seoDrafts}
+                  loading={seoDraftsLoading}
+                  onRefresh={() => {
+                    loadSeoDrafts()
                     loadDailyGrowthReport()
                     loadMarketingReport()
                   }}
@@ -1706,6 +1767,176 @@ function SeoActionQueuePanel({
         )}
       </div>
     </section>
+  )
+}
+
+function SeoDraftReviewPanel({
+  response,
+  loading,
+  onRefresh,
+}: {
+  response: SeoDraftResponse | null
+  loading: boolean
+  onRefresh: () => void
+}) {
+  const [running, setRunning] = useState(false)
+  const [message, setMessage] = useState('')
+  const drafts = response?.drafts || []
+
+  const runAction = async (payload: Record<string, unknown>) => {
+    setRunning(true)
+    setMessage('')
+    try {
+      const res = await fetch('/api/admin/behavior-study-tools/seo-drafts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'SEO draft action failed')
+      setMessage(payload.action === 'generate'
+        ? data.created ? `Created ${data.created} content drafts.` : 'No new drafts. Existing drafts already cover the action queue.'
+        : `Draft marked ${payload.status}.`)
+      onRefresh()
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'SEO draft action failed')
+    } finally {
+      setRunning(false)
+    }
+  }
+
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-[#fbfaf5] p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">SEO content drafts</p>
+          <h3 className="mt-2 text-2xl font-black text-slate-950">Review the page copy before it becomes a change.</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            Drafts are generated from the SEO action queue and preserve the proposed page copy, target file, evidence, and approval state.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => runAction({ action: 'generate', limit: 10 })}
+          disabled={running}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#123f31] px-4 py-3 font-bold text-white hover:bg-[#0d3025] disabled:cursor-not-allowed disabled:bg-slate-300"
+        >
+          {running ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Clipboard className="h-4 w-4" />}
+          {running ? 'Working' : 'Generate drafts'}
+        </button>
+      </div>
+
+      {(message || response?.warning || response?.error) && (
+        <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-950">
+          {message || response?.warning || response?.error}
+        </p>
+      )}
+
+      <div className="mt-5 grid gap-4">
+        {loading ? (
+          <div className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-bold text-slate-600">Loading SEO drafts...</div>
+        ) : drafts.length ? (
+          drafts.map((draft) => (
+            <SeoDraftCard
+              key={draft.id}
+              draft={draft}
+              running={running}
+              onStatus={(status) => runAction({ action: 'set_status', id: draft.id, status })}
+            />
+          ))
+        ) : (
+          <div className="rounded-lg border border-dashed border-slate-300 bg-white p-5">
+            <p className="font-bold text-slate-900">No approval-ready SEO drafts yet.</p>
+            <p className="mt-2 text-sm text-slate-600">Generate actions from SEO metrics, then generate drafts from the action queue.</p>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function SeoDraftCard({
+  draft,
+  running,
+  onStatus,
+}: {
+  draft: SeoDraftItem
+  running: boolean
+  onStatus: (status: string) => void
+}) {
+  const statusClass = {
+    draft: 'bg-blue-100 text-blue-800',
+    reviewing: 'bg-amber-100 text-amber-900',
+    approved: 'bg-emerald-100 text-emerald-800',
+    applied: 'bg-slate-900 text-white',
+    rejected: 'bg-red-100 text-red-800',
+  }[draft.status || 'draft'] || 'bg-slate-100 text-slate-700'
+
+  return (
+    <article className="rounded-lg border border-slate-200 bg-white p-4">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className={`rounded-full px-2 py-1 text-xs font-black uppercase tracking-wide ${statusClass}`}>
+              {draft.status || 'draft'}
+            </span>
+            <span className="rounded-full bg-emerald-50 px-2 py-1 text-xs font-black uppercase tracking-wide text-emerald-800">
+              {draft.keyword || 'SEO page'}
+            </span>
+          </div>
+          <h4 className="mt-3 font-black text-slate-950">{draft.pageTitle || 'Behavior Study Tools page'}</h4>
+          <p className="mt-1 text-sm font-semibold leading-6 text-slate-600">{draft.evidence}</p>
+          <p className="mt-2 text-xs font-black uppercase tracking-wide text-slate-500">{draft.targetFile}</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {draft.pageHref && (
+            <a
+              href={draft.pageHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-800 hover:bg-slate-50"
+            >
+              Open page
+              <ExternalLink className="h-4 w-4" />
+            </a>
+          )}
+          <button
+            type="button"
+            onClick={() => onStatus('approved')}
+            disabled={running}
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#123f31] px-3 py-2 text-sm font-bold text-white hover:bg-[#0d3025] disabled:cursor-not-allowed disabled:bg-slate-300"
+          >
+            Approve
+          </button>
+          <button
+            type="button"
+            onClick={() => onStatus('applied')}
+            disabled={running}
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 bg-slate-900 px-3 py-2 text-sm font-bold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            Applied
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-3 lg:grid-cols-2">
+        <SeoActionCopy label="Hero headline" value={draft.heroHeadline} />
+        <SeoActionCopy label="Primary CTA" value={draft.primaryCta} />
+        <SeoActionCopy label="Meta description" value={draft.metaDescription} />
+        <SeoActionCopy label="FAQ answer" value={draft.faqAnswer} />
+      </div>
+
+      {draft.implementationNotes.length > 0 && (
+        <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <p className="text-xs font-black uppercase tracking-wide text-slate-500">Implementation notes</p>
+          <ul className="mt-2 space-y-1 text-sm font-semibold leading-6 text-slate-700">
+            {draft.implementationNotes.map((note) => (
+              <li key={note}>{note}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </article>
   )
 }
 

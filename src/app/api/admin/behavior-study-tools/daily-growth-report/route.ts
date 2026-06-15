@@ -369,6 +369,7 @@ export async function GET(request: NextRequest) {
     sourceFreshness(signals, 'google_search_console', ['google_search_console', 'gsc']),
     sourceFreshness(signals, 'ahrefs'),
     sourceFreshness(signals, 'seo_action_queue'),
+    sourceFreshness(signals, 'seo_content_draft'),
     sourceFreshness(signals, 'social', ['social', 'linkedin', 'instagram', 'facebook', 'tiktok', 'youtube', 'email']),
     sourceFreshness(signals, 'trend_research'),
     sourceFreshness(signals, 'competitor_research'),
