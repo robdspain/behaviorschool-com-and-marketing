@@ -257,6 +257,32 @@ type SocialPostResponse = {
   warning?: string
 }
 
+type IntegrationStatusValue = 'connected' | 'partial' | 'missing'
+
+type IntegrationStatusItem = {
+  id: string
+  label: string
+  status: IntegrationStatusValue
+  message: string
+  nextStep: string
+  envVars: string[]
+  impact: string
+}
+
+type IntegrationStatusReport = {
+  generatedAt: string
+  ready: boolean
+  counts: Record<IntegrationStatusValue, number>
+  nextCriticalAction: IntegrationStatusItem | null
+  items: IntegrationStatusItem[]
+}
+
+type IntegrationStatusResponse = {
+  success?: boolean
+  status?: IntegrationStatusReport
+  warning?: string
+}
+
 type SeoActionItem = {
   id: string
   signalDate: string | null
@@ -358,6 +384,8 @@ export default function BehaviorStudyToolsMarketingPage() {
   const [dailyGrowthLoading, setDailyGrowthLoading] = useState(false)
   const [socialPosts, setSocialPosts] = useState<SocialPostResponse | null>(null)
   const [socialPostsLoading, setSocialPostsLoading] = useState(false)
+  const [integrationStatus, setIntegrationStatus] = useState<IntegrationStatusResponse | null>(null)
+  const [integrationStatusLoading, setIntegrationStatusLoading] = useState(false)
   const [seoActions, setSeoActions] = useState<SeoActionResponse | null>(null)
   const [seoActionsLoading, setSeoActionsLoading] = useState(false)
   const [seoDrafts, setSeoDrafts] = useState<SeoDraftResponse | null>(null)
@@ -510,6 +538,22 @@ export default function BehaviorStudyToolsMarketingPage() {
     }
   }, [])
 
+  const loadIntegrationStatus = useCallback(async () => {
+    setIntegrationStatusLoading(true)
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/integration-status')
+      const data = await response.json()
+      setIntegrationStatus(data)
+    } catch {
+      setIntegrationStatus({
+        success: false,
+        warning: 'Integration status could not be loaded.',
+      })
+    } finally {
+      setIntegrationStatusLoading(false)
+    }
+  }, [])
+
   const loadSeoActions = useCallback(async () => {
     setSeoActionsLoading(true)
     try {
@@ -551,9 +595,18 @@ export default function BehaviorStudyToolsMarketingPage() {
     loadMarketingReport()
     loadDailyGrowthReport()
     loadSocialPosts()
+    loadIntegrationStatus()
     loadSeoActions()
     loadSeoDrafts()
-  }, [isAuthenticated, loadMarketingReport, loadDailyGrowthReport, loadSocialPosts, loadSeoActions, loadSeoDrafts])
+  }, [
+    isAuthenticated,
+    loadMarketingReport,
+    loadDailyGrowthReport,
+    loadSocialPosts,
+    loadIntegrationStatus,
+    loadSeoActions,
+    loadSeoDrafts,
+  ])
 
   const copyBlock = `${todayPlan.hook}
 
@@ -712,6 +765,12 @@ ${todayPlan.ctaHref}`
                   response={dailyGrowthReport}
                   loading={dailyGrowthLoading}
                   onRefresh={loadDailyGrowthReport}
+                />
+
+                <IntegrationStatusPanel
+                  response={integrationStatus}
+                  loading={integrationStatusLoading}
+                  onRefresh={loadIntegrationStatus}
                 />
 
                 <GrowthSignalImportPanel
@@ -1605,6 +1664,134 @@ function SourceFreshnessRow({ source }: { source: DailyGrowthSourceStatus }) {
         {source.status}
       </span>
     </div>
+  )
+}
+
+function IntegrationStatusPanel({
+  response,
+  loading,
+  onRefresh,
+}: {
+  response: IntegrationStatusResponse | null
+  loading: boolean
+  onRefresh: () => void
+}) {
+  const report = response?.status || null
+  const nextAction = report?.nextCriticalAction || null
+  const readyCount = report?.counts.connected ?? 0
+  const totalCount = report?.items.length ?? 0
+
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-[#fbfaf5] p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Integration readiness</p>
+          <h3 className="mt-2 text-2xl font-black text-slate-950">
+            {report?.ready ? 'The daily growth loop is fully wired.' : 'Wire the missing signals before scaling spend.'}
+          </h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            This checks the production settings behind conversion tracking, daily SEO monitoring, social posting, feedback imports, and competitor keyword signals.
+          </p>
+          {response?.warning && (
+            <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-950">
+              {response.warning}
+            </p>
+          )}
+        </div>
+        <button
+          type="button"
+          onClick={onRefresh}
+          disabled={loading}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border-2 border-emerald-900/20 bg-white px-4 py-3 font-bold text-emerald-950 hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+          {loading ? 'Checking' : 'Check wiring'}
+        </button>
+      </div>
+
+      {report ? (
+        <>
+          <div className="mt-5 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
+            <div className={`rounded-lg border p-4 ${report.ready ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+              <div className="flex items-center gap-2">
+                {report.ready ? (
+                  <CheckCircle2 className="h-5 w-5 text-emerald-800" />
+                ) : (
+                  <AlertTriangle className="h-5 w-5 text-amber-900" />
+                )}
+                <p className={`text-xs font-black uppercase tracking-wide ${report.ready ? 'text-emerald-800' : 'text-amber-900'}`}>
+                  Production wiring
+                </p>
+              </div>
+              <p className="mt-2 text-3xl font-black text-slate-950">{readyCount}/{totalCount}</p>
+              <p className="mt-1 text-sm font-semibold leading-6 text-slate-700">
+                {report.counts.missing} missing, {report.counts.partial} partial. Fix missing items before increasing paid or social traffic.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-emerald-900/15 bg-[#123f31] p-4 text-white">
+              <div className="flex items-center gap-2 text-amber-100">
+                <ListChecks className="h-5 w-5" />
+                <p className="text-xs font-black uppercase tracking-wide">Fix first</p>
+              </div>
+              <h4 className="mt-3 text-lg font-black">{nextAction?.label || 'Keep monitoring the loop.'}</h4>
+              <p className="mt-2 text-sm font-semibold leading-6 text-emerald-50">
+                {nextAction?.nextStep || 'All required integrations are configured. Confirm the next scheduled run and watch the daily brief.'}
+              </p>
+              {nextAction?.impact && (
+                <p className="mt-3 rounded-lg border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold leading-5 text-amber-100">
+                  {nextAction.impact}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-3 lg:grid-cols-2">
+            {report.items.map((item) => (
+              <IntegrationStatusRow key={item.id} item={item} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className="mt-5 rounded-lg border border-dashed border-amber-300 bg-amber-50 p-5">
+          <p className="font-black text-slate-950">Integration status is waiting for the admin API.</p>
+          <p className="mt-2 text-sm leading-6 text-slate-700">
+            Once this loads, it will show exactly which environment variables or webhooks are preventing the daily marketing loop from being fully automatic.
+          </p>
+        </div>
+      )}
+    </section>
+  )
+}
+
+function IntegrationStatusRow({ item }: { item: IntegrationStatusItem }) {
+  const statusStyles = {
+    connected: 'bg-emerald-100 text-emerald-800',
+    partial: 'bg-amber-100 text-amber-900',
+    missing: 'bg-red-100 text-red-800',
+  }
+
+  return (
+    <article className="rounded-lg border border-slate-200 bg-white p-4">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h4 className="font-black text-slate-950">{item.label}</h4>
+          <p className="mt-1 text-sm leading-6 text-slate-600">{item.message}</p>
+        </div>
+        <span className={`inline-flex w-fit items-center gap-1 rounded-full px-2 py-1 text-xs font-black uppercase tracking-wide ${statusStyles[item.status]}`}>
+          {item.status === 'connected' ? <CheckCircle2 className="h-3.5 w-3.5" /> : <AlertTriangle className="h-3.5 w-3.5" />}
+          {item.status}
+        </span>
+      </div>
+      <p className="mt-3 text-sm font-bold leading-6 text-emerald-900">{item.nextStep}</p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {item.envVars.map((envVar) => (
+          <span key={`${item.id}-${envVar}`} className="rounded-full bg-slate-100 px-2 py-1 text-xs font-black text-slate-600">
+            {envVar}
+          </span>
+        ))}
+      </div>
+    </article>
   )
 }
 
