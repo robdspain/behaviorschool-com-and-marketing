@@ -86,3 +86,8 @@
 [[scheduled.functions]]
   name = "bst-social-publisher"
   cron = "15 13 * * *"
+
+# Behavior Study Tools social feedback refresh - daily after publisher
+[[scheduled.functions]]
+  name = "bst-social-feedback-refresh"
+  cron = "30 13 * * *"
