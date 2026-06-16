@@ -89,6 +89,7 @@ type MarketingReportSummary = {
   pagePerformance: PagePerformanceItem[]
   pagesNeedingCta: PagePerformanceItem[]
   journey?: JourneySummary
+  ctaAudit?: CtaAuditSummary
   lifecycle?: LifecycleSummary
   recommendations?: GrowthRecommendationItem[]
   dataHealth?: DataHealthItem[]
@@ -132,6 +133,25 @@ type JourneySummary = {
     sessions: number
     reason: string
     nextStep: string
+  }>
+}
+
+type CtaAuditSummary = {
+  totalClicks: number
+  attributedClicks: number
+  attributionRate: number
+  webAppClicks: number
+  missingLocation: number
+  missingDestination: number
+  unknownStudyPath: number
+  nonWebAppDestinations: number
+  bcbaClicks: number
+  rbtClicks: number
+  topUnattributedPages: MarketingReportItem[]
+  recommendations: Array<{
+    priority: 'high' | 'medium' | 'low'
+    title: string
+    detail: string
   }>
 }
 
@@ -683,6 +703,8 @@ ${todayPlan.ctaHref}`
                 </div>
 
                 <ConversionSnapshotPanel summary={reportSummary} />
+
+                <CtaAuditPanel audit={reportSummary.ctaAudit} />
 
                 <JourneyFrictionPanel journey={reportSummary.journey} />
 
@@ -1285,6 +1307,93 @@ function ConversionSnapshotPanel({ summary }: { summary: MarketingReportSummary 
           </p>
         </div>
       </div>
+    </section>
+  )
+}
+
+function CtaAuditPanel({ audit }: { audit?: CtaAuditSummary }) {
+  if (!audit) {
+    return (
+      <section className="mt-6 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5">
+        <p className="font-black text-slate-950">CTA audit is waiting for tracked clicks.</p>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          Deploy the CTA tracker, click through the public pages, and this panel will show whether the dashboard can trust each CTA location and destination.
+        </p>
+      </section>
+    )
+  }
+
+  const primaryRecommendation = audit.recommendations[0]
+  const auditReady = audit.totalClicks > 0 && audit.missingLocation === 0 && audit.missingDestination === 0 && audit.unknownStudyPath === 0
+
+  return (
+    <section className="mt-6 rounded-xl border border-slate-200 bg-white p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-wide text-emerald-700">CTA event tracking audit</p>
+          <h3 className="mt-2 text-2xl font-black text-slate-950">
+            {auditReady ? 'CTA data is ready for decisions.' : 'Fix CTA tracking gaps before scaling traffic.'}
+          </h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
+            This checks whether public-page buttons identify the page section, destination, and BCBA/RBT path. If this is weak, conversion rates can point to the wrong fix.
+          </p>
+        </div>
+        <div className={`rounded-lg border px-4 py-3 ${auditReady ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+          <p className={`text-xs font-black uppercase tracking-wide ${auditReady ? 'text-emerald-800' : 'text-amber-900'}`}>
+            Attribution rate
+          </p>
+          <p className="mt-1 text-3xl font-black text-slate-950">{audit.attributionRate}%</p>
+          <p className="mt-1 text-sm font-semibold text-slate-700">{audit.attributedClicks} of {audit.totalClicks} clicks attributed.</p>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-3 md:grid-cols-4">
+        <MiniMetric label="Web app clicks" value={`${audit.webAppClicks}`} detail="should go to study.behaviorschool.com" />
+        <MiniMetric label="BCBA clicks" value={`${audit.bcbaClicks}`} detail="candidate path identified" />
+        <MiniMetric label="RBT clicks" value={`${audit.rbtClicks}`} detail="RBT path demand" />
+        <MiniMetric label="Unknown path" value={`${audit.unknownStudyPath}`} detail="needs data-bst-study-path" />
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_1fr_1.1fr]">
+        <AuditCard
+          icon={<MousePointerClick className="h-5 w-5" />}
+          label="CTA labels"
+          title={audit.missingLocation ? `${audit.missingLocation} clicks missing location.` : 'Every click has a location.'}
+          detail="Each CTA should tell the dashboard whether it came from hero, feature proof, quiz results, final CTA, or another specific section."
+          status={audit.missingLocation ? 'partial' : 'connected'}
+        />
+        <AuditCard
+          icon={<ExternalLink className="h-5 w-5" />}
+          label="Destination"
+          title={audit.missingDestination ? `${audit.missingDestination} clicks missing destination.` : 'Every click has a destination.'}
+          detail={audit.nonWebAppDestinations ? `${audit.nonWebAppDestinations} tracked clicks leave the web-app funnel.` : 'Current tracked app CTAs can be audited against the web app funnel.'}
+          status={audit.missingDestination || audit.nonWebAppDestinations ? 'partial' : 'connected'}
+        />
+        <div className="rounded-lg border border-emerald-900/15 bg-[#123f31] p-4 text-white">
+          <div className="flex items-center gap-2 text-amber-100">
+            <AlertTriangle className="h-5 w-5" />
+            <p className="text-xs font-black uppercase tracking-wide">Next audit fix</p>
+          </div>
+          <h4 className="mt-3 text-lg font-black">{primaryRecommendation?.title || 'No CTA audit action yet.'}</h4>
+          <p className="mt-2 text-sm font-semibold leading-6 text-emerald-50">
+            {primaryRecommendation?.detail || 'Click through each public page after deploy and confirm the events appear here.'}
+          </p>
+        </div>
+      </div>
+
+      {audit.topUnattributedPages.length > 0 && (
+        <div className="mt-5 rounded-lg border border-amber-200 bg-amber-50 p-4">
+          <p className="text-sm font-black uppercase tracking-wide text-amber-900">Pages with incomplete CTA data</p>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {audit.topUnattributedPages.map((page) => (
+              <div key={page.label} className="flex items-center justify-between gap-3 rounded-md bg-white px-3 py-2 text-sm">
+                <span className="truncate font-bold text-slate-900">{page.label}</span>
+                <span className="shrink-0 rounded-full bg-amber-100 px-2 py-1 text-xs font-black text-amber-900">{page.count} clicks</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   )
 }

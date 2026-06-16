@@ -50,6 +50,25 @@ type JourneySummary = {
   }>
 }
 
+type CtaAuditSummary = {
+  totalClicks: number
+  attributedClicks: number
+  attributionRate: number
+  webAppClicks: number
+  missingLocation: number
+  missingDestination: number
+  unknownStudyPath: number
+  nonWebAppDestinations: number
+  bcbaClicks: number
+  rbtClicks: number
+  topUnattributedPages: Array<{ label: string; count: number }>
+  recommendations: Array<{
+    priority: 'high' | 'medium' | 'low'
+    title: string
+    detail: string
+  }>
+}
+
 type MarketingActivityRow = {
   activity_date: string | null
   channel: string | null
@@ -240,6 +259,91 @@ function buildJourneySummary(events: MarketingEventRow[]): JourneySummary {
       reason: 'Session ended before a tracked CTA click.',
       nextStep: 'Make the first CTA visible, specific to BCBA/RBT intent, and repeated after the first proof section.',
     })),
+  }
+}
+
+function buildCtaAudit(ctaClicks: MarketingEventRow[]): CtaAuditSummary {
+  const topUnattributedPages = new Map<string, number>()
+  let attributedClicks = 0
+  let webAppClicks = 0
+  let missingLocation = 0
+  let missingDestination = 0
+  let unknownStudyPath = 0
+  let nonWebAppDestinations = 0
+  let bcbaClicks = 0
+  let rbtClicks = 0
+
+  ctaClicks.forEach((event) => {
+    const hasLocation = isFilled(event.location)
+    const hasDestination = isFilled(event.destination)
+    const destination = event.destination || ''
+    const studyPath = getStudyPath(event)
+    const isWebApp = destination.includes('study.behaviorschool.com')
+
+    if (hasLocation && hasDestination) attributedClicks += 1
+    if (isWebApp) webAppClicks += 1
+    if (!hasLocation) missingLocation += 1
+    if (!hasDestination) missingDestination += 1
+    if (studyPath === 'unknown') unknownStudyPath += 1
+    if (hasDestination && !isWebApp) nonWebAppDestinations += 1
+    if (studyPath === 'bcba') bcbaClicks += 1
+    if (studyPath === 'rbt') rbtClicks += 1
+
+    if (!hasLocation || !hasDestination || studyPath === 'unknown') {
+      addCount(topUnattributedPages, event.page_path)
+    }
+  })
+
+  const recommendations: CtaAuditSummary['recommendations'] = []
+  if (missingDestination || missingLocation) {
+    recommendations.push({
+      priority: 'high',
+      title: 'Fix CTA attribution before judging page performance.',
+      detail: `${missingLocation} clicks are missing location and ${missingDestination} clicks are missing destination.`,
+    })
+  }
+  if (unknownStudyPath) {
+    recommendations.push({
+      priority: 'high',
+      title: 'Add BCBA/RBT path labels to remaining app CTAs.',
+      detail: `${unknownStudyPath} CTA clicks do not identify whether the candidate chose BCBA or RBT.`,
+    })
+  }
+  if (ctaClicks.length && !rbtClicks) {
+    recommendations.push({
+      priority: 'medium',
+      title: 'RBT path is still invisible in click behavior.',
+      detail: 'Add one above-the-fold RBT path CTA or one RBT-specific proof card on the main landing page.',
+    })
+  }
+  if (nonWebAppDestinations) {
+    recommendations.push({
+      priority: 'medium',
+      title: 'Some tracked CTAs leave the web-app funnel.',
+      detail: `${nonWebAppDestinations} CTA clicks went somewhere other than study.behaviorschool.com.`,
+    })
+  }
+  if (!recommendations.length) {
+    recommendations.push({
+      priority: 'low',
+      title: 'CTA tracking is decision-ready.',
+      detail: 'Use the weakest page and lowest-converting CTA location to choose the next copy test.',
+    })
+  }
+
+  return {
+    totalClicks: ctaClicks.length,
+    attributedClicks,
+    attributionRate: rate(attributedClicks, ctaClicks.length),
+    webAppClicks,
+    missingLocation,
+    missingDestination,
+    unknownStudyPath,
+    nonWebAppDestinations,
+    bcbaClicks,
+    rbtClicks,
+    topUnattributedPages: topItems(topUnattributedPages, 5),
+    recommendations,
   }
 }
 
@@ -601,6 +705,7 @@ export async function GET() {
     signupRetentionRate: rate(retainedVisitors.size, signupVisitors.size),
   }
   const journey = buildJourneySummary(events)
+  const ctaAudit = buildCtaAudit(ctaClicks)
   const recommendationInputSummary = {
     pageViews: pageViews.length,
     ctaClicks: ctaClicks.length,
@@ -632,6 +737,7 @@ export async function GET() {
     pagePerformance,
     pagesNeedingCta,
     journey,
+    ctaAudit,
     lifecycle,
     recommendations: buildGrowthRecommendations({
       summary: recommendationInputSummary,
