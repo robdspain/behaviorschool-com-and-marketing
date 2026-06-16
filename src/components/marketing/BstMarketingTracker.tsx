@@ -62,6 +62,18 @@ function studyPathFromDestination(destination: string) {
   return "bcba";
 }
 
+function appendJourneyIds(destination: string, visitorId: string, sessionId: string) {
+  try {
+    const url = new URL(destination);
+    if (url.hostname !== "study.behaviorschool.com") return destination;
+    url.searchParams.set("bst_visitor", visitorId);
+    url.searchParams.set("bst_session", sessionId);
+    return url.toString();
+  } catch {
+    return destination;
+  }
+}
+
 export function BstMarketingTracker({ source = "behaviorstudytools.com" }: BstMarketingTrackerProps) {
   useEffect(() => {
     const visitorId = getStoredId(window.localStorage, visitorStorageKey, "bstv");
@@ -86,7 +98,11 @@ export function BstMarketingTracker({ source = "behaviorstudytools.com" }: BstMa
       const link = target?.closest<HTMLAnchorElement>("a[data-bst-cta]");
       if (!link) return;
 
-      const destination = link.href;
+      const destination = appendJourneyIds(link.href, visitorId, sessionId);
+      if (destination !== link.href) {
+        link.href = destination;
+      }
+
       sendMarketingEvent({
         ...basePayload,
         event: "cta_click",
