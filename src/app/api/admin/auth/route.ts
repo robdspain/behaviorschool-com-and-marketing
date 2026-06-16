@@ -3,15 +3,8 @@ export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'behavior-school-admin-2024';
 const COOKIE_NAME = 'bs_admin_session';
 const SESSION_MAX_AGE = 60 * 60 * 24; // 24 hours
-
-function makeToken(): string {
-  const ts = Date.now().toString(36);
-  const rand = Math.random().toString(36).slice(2);
-  return `${ts}.${rand}`;
-}
 
 function isValidToken(token: string): boolean {
   // Token format: "<timestamp_base36>.<random>"
@@ -23,25 +16,13 @@ function isValidToken(token: string): boolean {
   return Date.now() - ts < SESSION_MAX_AGE * 1000;
 }
 
-// POST /api/admin/auth — login with password
+// POST /api/admin/auth — legacy password login is disabled. Use Google OAuth.
 export async function POST(request: NextRequest) {
-  const { password } = await request.json().catch(() => ({ password: '' }));
-
-  if (!password || password !== ADMIN_PASSWORD) {
-    return NextResponse.json({ ok: false, error: 'Invalid password' }, { status: 401 });
-  }
-
-  const token = makeToken();
-  const cookieStore = await cookies();
-  cookieStore.set(COOKIE_NAME, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: SESSION_MAX_AGE,
-    path: '/',
-  });
-
-  return NextResponse.json({ ok: true });
+  await request.json().catch(() => ({}));
+  return NextResponse.json(
+    { ok: false, error: 'Admin password login has been replaced with Google sign-in.' },
+    { status: 410 },
+  );
 }
 
 // GET /api/admin/auth — check if session is valid
