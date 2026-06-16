@@ -21,6 +21,19 @@ type GoogleUserInfo = {
   hd?: string
 }
 
+function oauthBaseUrl(request: NextRequest) {
+  const configured = process.env.ADMIN_OAUTH_BASE_URL || process.env.NEXTAUTH_URL
+  if (configured) return configured.replace(/\/$/, '')
+
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host')
+  if (host) {
+    const proto = request.headers.get('x-forwarded-proto') || 'https'
+    return `${proto}://${host}`
+  }
+
+  return request.nextUrl.origin
+}
+
 function makeToken(): string {
   const ts = Date.now().toString(36)
   const rand = randomBytes(18).toString('hex')
@@ -51,7 +64,7 @@ async function fetchGoogleUser(code: string, request: NextRequest) {
     throw new Error('google_not_configured')
   }
 
-  const redirectUri = new URL('/api/admin/auth/google/callback', request.url).toString()
+  const redirectUri = new URL('/api/admin/auth/google/callback', oauthBaseUrl(request)).toString()
   const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -104,7 +117,7 @@ export async function GET(request: NextRequest) {
     }
 
     const returnTo = safeReturnTo(request.cookies.get(RETURN_TO_COOKIE)?.value)
-    const response = NextResponse.redirect(new URL(returnTo, request.url))
+    const response = NextResponse.redirect(new URL(returnTo, oauthBaseUrl(request)))
     response.cookies.set(SESSION_COOKIE, makeToken(), {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

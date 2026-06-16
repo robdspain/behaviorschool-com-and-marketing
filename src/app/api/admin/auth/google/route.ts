@@ -7,6 +7,19 @@ const STATE_COOKIE = 'bs_admin_oauth_state'
 const RETURN_TO_COOKIE = 'bs_admin_oauth_return_to'
 const OAUTH_MAX_AGE = 10 * 60
 
+function oauthBaseUrl(request: NextRequest) {
+  const configured = process.env.ADMIN_OAUTH_BASE_URL || process.env.NEXTAUTH_URL
+  if (configured) return configured.replace(/\/$/, '')
+
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host')
+  if (host) {
+    const proto = request.headers.get('x-forwarded-proto') || 'https'
+    return `${proto}://${host}`
+  }
+
+  return request.nextUrl.origin
+}
+
 function safeReturnTo(value: string | null) {
   if (!value || !value.startsWith('/admin')) return '/admin'
   if (value.startsWith('//')) return '/admin'
@@ -20,7 +33,7 @@ export async function GET(request: NextRequest) {
   }
 
   const state = randomBytes(24).toString('hex')
-  const redirectUri = new URL('/api/admin/auth/google/callback', request.url).toString()
+  const redirectUri = new URL('/api/admin/auth/google/callback', oauthBaseUrl(request)).toString()
   const returnTo = safeReturnTo(request.nextUrl.searchParams.get('returnTo') || request.nextUrl.searchParams.get('redirect'))
   const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth')
 
