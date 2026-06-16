@@ -45,8 +45,8 @@ function loginRedirect(request: NextRequest, error: string) {
 }
 
 async function fetchGoogleUser(code: string, request: NextRequest) {
-  const clientId = process.env.GOOGLE_CLIENT_ID || process.env.ADMIN_GOOGLE_CLIENT_ID
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET || process.env.ADMIN_GOOGLE_CLIENT_SECRET
+  const clientId = process.env.GOOGLE_CLIENT_ID || process.env.ADMIN_GOOGLE_CLIENT_ID || process.env.AUTH_GOOGLE_ID
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET || process.env.ADMIN_GOOGLE_CLIENT_SECRET || process.env.AUTH_GOOGLE_SECRET
   if (!clientId || !clientSecret) {
     throw new Error('google_not_configured')
   }

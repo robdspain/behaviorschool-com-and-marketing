@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import { ShieldCheck } from 'lucide-react';
 
 const errorMessages: Record<string, string> = {
-  google_not_configured: 'Google sign-in is not configured yet. Add the Google OAuth client ID and secret.',
+  google_not_configured: 'Google sign-in is not configured yet. Add GOOGLE_CLIENT_ID/SECRET or AUTH_GOOGLE_ID/SECRET.',
   allowlist_missing: 'No admin Google allowlist is configured. Add ADMIN_GOOGLE_ALLOWED_EMAILS.',
   invalid_state: 'That Google sign-in session expired. Try again.',
   missing_code: 'Google did not return a sign-in code. Try again.',

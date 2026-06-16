@@ -14,7 +14,7 @@ function safeReturnTo(value: string | null) {
 }
 
 export async function GET(request: NextRequest) {
-  const clientId = process.env.GOOGLE_CLIENT_ID || process.env.ADMIN_GOOGLE_CLIENT_ID
+  const clientId = process.env.GOOGLE_CLIENT_ID || process.env.ADMIN_GOOGLE_CLIENT_ID || process.env.AUTH_GOOGLE_ID
   if (!clientId) {
     return NextResponse.redirect(new URL('/admin/login?error=google_not_configured', request.url))
   }
