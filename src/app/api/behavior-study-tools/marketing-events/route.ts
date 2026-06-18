@@ -7,6 +7,7 @@ const allowedOrigins = new Set([
   'https://behaviorstudytools.com',
   'https://www.behaviorstudytools.com',
   'https://study.behaviorschool.com',
+  'https://main--behaviorstudytool.netlify.app',
   'http://localhost:5173',
   'http://localhost:5174',
   'http://localhost:3000',
@@ -15,12 +16,29 @@ const allowedOrigins = new Set([
   'http://127.0.0.1:3000',
 ])
 
+function isAllowedOrigin(origin: string | null) {
+  if (!origin) return false
+  if (allowedOrigins.has(origin)) return true
+
+  try {
+    const { hostname, protocol } = new URL(origin)
+    return protocol === 'https:' && /^deploy-preview-\d+--behaviorstudytool\.netlify\.app$/.test(hostname)
+  } catch {
+    return false
+  }
+}
+
+function resolveAllowedOrigin(origin: string | null) {
+  return origin && isAllowedOrigin(origin) ? origin : 'https://behaviorstudytools.com'
+}
+
 function corsHeaders(origin: string | null) {
-  const allowedOrigin = origin && allowedOrigins.has(origin) ? origin : 'https://behaviorstudytools.com'
+  const allowedOrigin = resolveAllowedOrigin(origin)
   return {
     'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Max-Age': '86400',
   }
 }
