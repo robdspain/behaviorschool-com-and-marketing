@@ -12,7 +12,7 @@ export const COURSE_METADATA = {
   description: 'Essential skills for school-based behavior analysts',
   duration: '1 hour',
   ceuCredits: 1.0,
-  bacbProvider: 'OP-25-11420',
+  bacbProvider: '',
   totalSections: 4,
 };
 

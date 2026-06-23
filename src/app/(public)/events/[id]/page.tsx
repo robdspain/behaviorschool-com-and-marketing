@@ -23,10 +23,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${event.title} | Behavior School CE Events`,
-    description: event.description || `Earn ${event.total_ceus} CEUs in ${event.ce_category} with this BACB-approved continuing education event.`,
+    description: event.description || `Earn ${event.total_ceus} CEUs in ${event.ce_category} with this professional development event.`,
     openGraph: {
       title: event.title,
-      description: `${event.total_ceus} CEUs | ${event.ce_category} | BACB Approved`,
+      description: `${event.total_ceus} CEUs | ${event.ce_category} | Professional Development`,
     },
   };
 }

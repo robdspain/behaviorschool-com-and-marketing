@@ -671,7 +671,7 @@ export default function Page() {
             description: "Complete step-by-step pathway to becoming a School BCBA with district-ready competencies, portfolio artifacts, and timeline planner.",
             totalTime: "P12M",
             supply: [
-              { "@type": "HowToSupply", name: "Graduate coursework (BACB-approved)" },
+              { "@type": "HowToSupply", name: "Qualifying graduate coursework" },
               { "@type": "HowToSupply", name: "Supervised fieldwork (1500-2000 hours)" },
               { "@type": "HowToSupply", name: "Portfolio artifacts (BIP, IEP goals, coaching plans)" }
             ],

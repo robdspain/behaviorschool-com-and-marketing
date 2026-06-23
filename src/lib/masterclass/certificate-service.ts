@@ -49,7 +49,6 @@ function buildTemplateData(
     completionDate: certificate.completion_date,
     ceuCredits: Number(certificate.ceu_credits),
     bacbCertNumber: certificate.bacb_cert_number,
-    providerNumber: config.bacb_provider_number,
     organizationName: config.organization_name,
     organizationWebsite: config.organization_website || undefined,
     certificateSubtitle: config.certificate_subtitle || undefined,

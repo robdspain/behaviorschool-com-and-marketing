@@ -15,7 +15,7 @@ function usePageMeta() {
 
   // Map of route segments to display labels
   const labels: Record<string, string> = {
-    ace: 'ACE CEU Platform',
+    ace: 'CE Platform',
     providers: 'Providers',
     events: 'Events',
     instructors: 'Instructors',

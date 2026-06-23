@@ -29,7 +29,7 @@ const products = [
     name: "Learning Platform",
     href: "https://learning.behaviorschool.com",
     description:
-      "ACE-approved courses curated for school-based practice with clean tracking.",
+      "professional development courses curated for school-based practice with clean tracking.",
     icon: BookMarked,
   },
   {

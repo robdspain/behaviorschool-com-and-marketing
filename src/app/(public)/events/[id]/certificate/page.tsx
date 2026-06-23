@@ -232,15 +232,10 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
 
             {/* Provider Info */}
             <div className="text-center border-t pt-6">
-              <p className="text-slate-500 text-sm mb-1">ACE Provider</p>
+              <p className="text-slate-500 text-sm mb-1">Issued by</p>
               <p className="font-medium text-slate-900">
                 {certificate.provider_name}
               </p>
-              {certificate.provider_number && (
-                <p className="text-sm text-slate-500">
-                  Provider #{certificate.provider_number}
-                </p>
-              )}
             </div>
           </div>
         </Card>

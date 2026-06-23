@@ -150,7 +150,7 @@ export function SidebarNavigation({
             <span>Earn 1.0 BACB CEU</span>
           </div>
           <p className="text-xs text-slate-500">
-            Provider: OP-25-11420
+
           </p>
         </div>
       </div>

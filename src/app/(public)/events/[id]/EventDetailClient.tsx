@@ -393,16 +393,11 @@ export default function EventDetailClient({ event }: EventDetailClientProps) {
               {event.provider && (
                 <div className="border-t px-6 py-4 text-center">
                   <p className="text-xs text-slate-500">
-                    Approved ACE Provider
+                    Professional Development
                   </p>
                   <p className="text-sm font-medium text-slate-700">
                     {event.provider.provider_name}
                   </p>
-                  {event.provider.bacb_provider_number && (
-                    <p className="text-xs text-slate-500">
-                      Provider #{event.provider.bacb_provider_number}
-                    </p>
-                  )}
                 </div>
               )}
             </Card>
@@ -413,7 +408,7 @@ export default function EventDetailClient({ event }: EventDetailClientProps) {
               <ul className="space-y-3">
                 <li className="flex items-center gap-2 text-sm text-slate-700">
                   <CheckCircle className="w-4 h-4 text-emerald-600" />
-                  BACB-approved CE certificate
+                  certificate of completion
                 </li>
                 <li className="flex items-center gap-2 text-sm text-slate-700">
                   <CheckCircle className="w-4 h-4 text-emerald-600" />

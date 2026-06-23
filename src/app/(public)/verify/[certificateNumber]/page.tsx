@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { certificateNumber } = await params;
   return {
     title: `Verify Certificate ${certificateNumber} | Behavior School`,
-    description: 'Verify the authenticity of a BACB-approved continuing education certificate from Behavior School.',
+    description: 'Verify the authenticity of a professional development certificate from Behavior School.',
   };
 }
 
@@ -151,15 +151,10 @@ export default async function VerifyCertificatePage({ params }: PageProps) {
 
               {/* Provider */}
               <div className="border-t pt-6">
-                <p className="text-sm text-slate-500 text-center mb-1">ACE Provider</p>
+                <p className="text-sm text-slate-500 text-center mb-1">Issued by</p>
                 <p className="text-center font-semibold text-slate-900">
                   {certificate.provider_name}
                 </p>
-                {certificate.provider_number && (
-                  <p className="text-sm text-slate-600 text-center">
-                    Provider #{certificate.provider_number}
-                  </p>
-                )}
               </div>
 
               {/* Instructor */}

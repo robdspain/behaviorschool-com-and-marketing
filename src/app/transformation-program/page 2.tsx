@@ -1039,7 +1039,7 @@ export default function TransformationProgramPage() {
                     <span className="text-2xl font-bold text-emerald-700">16 BACB CEUs</span>
                   </div>
                   <p className="text-sm text-emerald-700 text-center">Including Supervision & Ethics CEUs</p>
-                  <p className="text-xs text-slate-600 text-center mt-1">BACB ACE Provider: OP-25-11420</p>
+                  <p className="text-xs text-slate-600 text-center mt-1">Professional Development: </p>
                 </div>
 
                 <div className="text-lg font-semibold mb-2">Investment:</div>
@@ -1153,7 +1153,7 @@ export default function TransformationProgramPage() {
           "educationalCredentialAwarded": {
             "@type": "EducationalOccupationalCredential",
             "name": "16 BACB Continuing Education Units (CEUs)",
-            "credentialCategory": "BACB Authorized Continuing Education",
+            "credentialCategory": "Professional Development",
             "recognizedBy": {
               "@type": "Organization",
               "name": "Behavior Analyst Certification Board (BACB)"

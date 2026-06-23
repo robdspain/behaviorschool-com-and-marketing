@@ -70,13 +70,13 @@ export default function CEEventsClient({ initialEvents }: { initialEvents: Event
               Continuing Education Events
             </h1>
             <p className="text-xl text-emerald-100 max-w-2xl mx-auto mb-6">
-              BACB-approved continuing education — CEUs for BCBAs &amp; BCaBAs · PDUs for RBTs.
+              professional development — CEUs for BCBAs &amp; BCaBAs · PDUs for RBTs.
               Maintain your certification with quality professional development.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center gap-2 bg-emerald-800/50 px-4 py-2 rounded-full">
                 <CheckCircle className="w-4 h-4" />
-                <span>BACB Approved Provider</span>
+                <span>Professional Development</span>
               </div>
               <div className="flex items-center gap-2 bg-emerald-800/50 px-4 py-2 rounded-full">
                 <Award className="w-4 h-4" />
@@ -185,8 +185,8 @@ export default function CEEventsClient({ initialEvents }: { initialEvents: Event
             <div>
               <h3 className="font-semibold text-slate-900 mb-2">About Our CE Program</h3>
               <p className="text-slate-600 mb-4">
-                Behavior School is a BACB Approved Continuing Education (ACE) Provider. 
-                All events meet BACB requirements for continuing education and professional development.
+                Behavior School offers practical professional development for school-based behavior analysts.
+                Provider status details are temporarily unavailable while renewal is processed.
               </p>
               <ul className="text-sm text-slate-600 space-y-1">
                 <li>✓ Certificates issued within 45 days of event completion</li>

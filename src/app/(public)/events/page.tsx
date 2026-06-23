@@ -8,10 +8,10 @@ import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'Continuing Education Events | Behavior School',
-  description: 'Browse and register for BACB-approved continuing education events. BCBAs & BCaBAs earn CEUs · RBTs earn PDUs. Live and on-demand courses.',
+  description: 'Browse and register for professional development events. BCBAs & BCaBAs earn CEUs · RBTs earn PDUs. Live and on-demand courses.',
   openGraph: {
     title: 'CE Events for Behavior Analysts | Behavior School',
-    description: 'BACB-approved continuing education courses. Live and on-demand options available.',
+    description: 'professional development courses. Live and on-demand options available.',
   },
 };
 
@@ -80,7 +80,7 @@ export default async function EventsPage() {
               Continuing Education Events
             </h1>
             <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
-              BACB-approved CE courses for BCBAs, BCaBAs, and RBTs. 
+              professional development courses for BCBAs, BCaBAs, and RBTs.
               CEUs for BCBAs &amp; BCaBAs · PDUs for RBTs — expert-led live and on-demand training.
             </p>
           </div>
@@ -98,8 +98,8 @@ export default async function EventsPage() {
               <div className="text-emerald-200">Total CEUs Available</div>
             </div>
             <div className="bg-emerald-800/50 rounded-lg p-6 text-center">
-              <div className="text-3xl font-bold">ACE</div>
-              <div className="text-emerald-200">BACB Approved</div>
+              <div className="text-3xl font-bold">CE</div>
+              <div className="text-emerald-200">Professional Development</div>
             </div>
           </div>
         </div>
@@ -219,10 +219,7 @@ export default async function EventsPage() {
                   {/* Provider Badge */}
                   {event.provider && (
                     <div className="bg-slate-50 px-6 py-3 text-xs text-slate-500 border-t">
-                      ACE Provider: {event.provider.provider_name}
-                      {event.provider.bacb_provider_number && (
-                        <> • #{event.provider.bacb_provider_number}</>
-                      )}
+                      Provider information unavailable
                     </div>
                   )}
                 </Card>

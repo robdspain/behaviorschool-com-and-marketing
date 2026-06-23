@@ -7,7 +7,6 @@ export interface MasterclassCertificateTemplateData {
   completionDate: string;
   ceuCredits: number;
   bacbCertNumber: string;
-  providerNumber: string;
   organizationName: string;
   organizationWebsite?: string;
   certificateSubtitle?: string;
@@ -87,17 +86,9 @@ export async function generateMasterclassCertificatePdf(
     color: rgb(0.16, 0.16, 0.16),
   });
 
-  page.drawText(`BACB Provider #: ${data.providerNumber}`, {
-    x: leftColumnX,
-    y: detailY - lineGap,
-    font: helvetica,
-    size: 12,
-    color: rgb(0.16, 0.16, 0.16),
-  });
-
   page.drawText(`Organization: ${data.organizationName}`, {
     x: leftColumnX,
-    y: detailY - lineGap * 2,
+    y: detailY - lineGap,
     font: helvetica,
     size: 12,
     color: rgb(0.16, 0.16, 0.16),

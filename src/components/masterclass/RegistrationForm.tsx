@@ -269,10 +269,10 @@ export function RegistrationForm({ onSuccess, onExistingUser }: RegistrationForm
           </p>
         </form>
 
-        {/* BACB Provider Info */}
+        {/* Provider Info */}
         <div className="mt-8 pt-6 border-t border-slate-200 text-center">
           <p className="text-xs text-slate-500">
-            BACB ACE Provider: <span className="font-semibold text-slate-700">OP-25-11420</span>
+            Professional Development: <span className="font-semibold text-slate-700"></span>
           </p>
         </div>
       </div>

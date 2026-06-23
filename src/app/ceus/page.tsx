@@ -30,7 +30,7 @@ const courses = [
     price: "Free",
     status: "live" as const,
     features: [
-      "BACB-approved continuing education",
+      "professional development",
       "Video-based lessons",
       "Knowledge assessment",
       "Downloadable certificate",
@@ -78,7 +78,7 @@ export default function CEUsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div {...fadeInUp}>
             <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6">
-              BACB ACE Provider
+              Professional Development
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               CEUs &amp; Professional Development{" "}
@@ -98,10 +98,10 @@ export default function CEUsPage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
-                href="/bacb-ace-provider"
+                href="/contact"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-700 rounded-xl text-lg font-semibold border-2 border-blue-200 hover:border-blue-300 hover:bg-blue-50 transition-colors"
               >
-                About Our ACE Provider Status
+                Questions About CE Status
               </Link>
             </div>
           </motion.div>
@@ -113,7 +113,7 @@ export default function CEUsPage() {
         <div className="max-w-5xl mx-auto px-4 flex flex-wrap justify-center gap-8 text-center">
           <div className="flex items-center gap-2 text-gray-600">
             <Award className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-medium">BACB ACE Provider</span>
+            <span className="text-sm font-medium">Professional Development</span>
           </div>
           <div className="flex items-center gap-2 text-gray-600">
             <GraduationCap className="h-5 w-5 text-blue-600" />
@@ -218,7 +218,7 @@ export default function CEUsPage() {
             Coming Soon: More CEU Courses
           </h2>
           <p className="text-lg text-gray-600 mb-10">
-            We&apos;re developing additional BACB-approved CEU courses on these
+            We&apos;re developing additional professional development courses on these
             high-demand topics. Sign up to get notified when they launch.
           </p>
           <div className="grid sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto mb-10">

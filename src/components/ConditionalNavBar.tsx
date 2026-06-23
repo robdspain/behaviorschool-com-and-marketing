@@ -12,7 +12,7 @@ export function ConditionalNavBar() {
   // Also hide navbar on admin pages (they have their own admin header)
   const hideAdminNavbar = pathname.startsWith('/admin');
 
-  // Hide navbar on ACE platform pages (they have their own sidebar/header layout)
+  // Hide navbar on CE platform pages (they have their own sidebar/header layout)
   const hideAceNavbar = pathname.startsWith('/ace');
 
   if (hideNavbarPages.includes(pathname) || hideAdminNavbar || hideAceNavbar) {

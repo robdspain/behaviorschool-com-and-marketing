@@ -77,7 +77,7 @@ const faqData: FAQCategory[] = [
         question: "Can I get CEU credits for the program?",
         answer: (
           <>
-            Yes! Behavior School LLC is a <Link href="/bacb-ace-provider" className="text-emerald-600 hover:text-emerald-700 underline">BACB Authorized Continuing Education (ACE) Provider</Link> (Provider #OP-25-11420). Eligible program components offer BACB-approved CEU credits to help you maintain your BCBA certification.
+            Continuing education details are temporarily unavailable while provider renewal is processed. We will update program credit information when renewal is complete.
           </>
         )
       }

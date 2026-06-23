@@ -53,45 +53,6 @@ export default function Home() {
         variant="brand"
       />
 
-      <section className="border-b border-emerald-100 bg-emerald-50/70">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="flex flex-col gap-4 rounded-2xl border border-emerald-200 bg-white/80 px-5 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/bacb-ace-provider" className="shrink-0" aria-label="View BACB ACE Provider details">
-                <Image
-                  src="/BACB-ACE/BACB_ACE-Logo-New.webp"
-                  alt="BACB ACE Provider logo"
-                  width={72}
-                  height={72}
-                  className="h-14 w-14 rounded-xl object-contain sm:h-[72px] sm:w-[72px]"
-                />
-              </Link>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
-                  Trusted Continuing Education
-                </p>
-                <p className="mt-1 text-base font-semibold text-slate-900 sm:text-lg">
-                  Behavior School is a BACB ACE Provider.
-                </p>
-                <p className="text-sm text-slate-600">
-                  Provider #{" "}
-                  <Link href="/bacb-ace-provider" className="font-medium text-emerald-700 hover:text-emerald-800 hover:underline">
-                    OP-25-11420
-                  </Link>
-                  {" "}for eligible CE content and events.
-                </p>
-              </div>
-            </div>
-            <Link
-              href="/bacb-ace-provider"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
-            >
-              Verify provider details <ArrowRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* ─── WHAT WE OFFER ────────────────────────────────────────── */}
       <section className="py-20 sm:py-28 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -144,9 +105,9 @@ export default function Home() {
               <div className="w-12 h-12 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center mb-6">
                 <BookMarked className="text-[#1f4d3f]" size={24} strokeWidth={1.75} />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">ACE CEU Platform</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Continuing Education</h3>
               <p className="text-gray-600 leading-relaxed flex-1">
-                Stay current with our library of ACE-approved courses on a wide range of behavior analytic topics.
+                Stay current with practical professional development on a wide range of behavior analytic topics.
               </p>
               <a
                 href="https://learning.behaviorschool.com"

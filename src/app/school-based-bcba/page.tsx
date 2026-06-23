@@ -119,7 +119,7 @@ export default function SchoolBasedBCBAPage() {
             {/* Badge */}
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200">
               <Award className="w-4 h-4 text-emerald-700 mr-2" />
-              <span className="text-sm font-semibold text-emerald-700">BACB ACE Provider #OP-25-5048</span>
+              <span className="text-sm font-semibold text-emerald-700">Professional Development #</span>
             </div>
 
             {/* Main Headline */}
@@ -591,7 +591,7 @@ export default function SchoolBasedBCBAPage() {
             <div className="flex items-center justify-center gap-6 text-sm text-emerald-100">
               <div className="flex items-center gap-2">
                 <Award className="w-5 h-5" />
-                <span>BACB ACE Provider</span>
+                <span>Professional Development</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5" />

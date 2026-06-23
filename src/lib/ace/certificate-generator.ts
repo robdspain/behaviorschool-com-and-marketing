@@ -313,7 +313,6 @@ export function generateCertificateHTML(data: CertificateData): string {
         <div class="footer">
           <div>
             <strong>${data.providerName}</strong>
-            ${data.providerNumber ? `<br/>ACE Provider #: ${data.providerNumber}` : ''}
           </div>
           <div class="certificate-number">
             Certificate #: ${data.certificateNumber}
@@ -387,4 +386,3 @@ export function previewCertificate(html: string) {
     previewWindow.document.close();
   }
 }
-

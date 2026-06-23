@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${event.title} | CE Events | Behavior School`,
-    description: event.description || `Earn ${event.total_ceus} CEUs with this BACB-approved continuing education event.`,
+    description: event.description || `Earn ${event.total_ceus} CEUs with this professional development event.`,
     openGraph: {
       title: event.title,
       description: event.description || `Earn ${event.total_ceus} CEUs`,

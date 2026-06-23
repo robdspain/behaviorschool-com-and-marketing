@@ -76,11 +76,11 @@ export function AceSidebar({
               className="flex h-8 w-8 items-center justify-center rounded-lg text-white text-sm font-bold"
               style={{ backgroundColor: '#1F4D3F' }}
             >
-              A
+              CE
             </div>
             <div>
               <p className="text-sm font-semibold text-gray-900 leading-tight">
-                ACE CEU
+                CE
               </p>
               <p className="text-[10px] text-gray-500 leading-tight">Platform</p>
             </div>
@@ -218,11 +218,11 @@ export function AceMobileSidebar({ providerStatus = 'active' }: MobileSidebarPro
                   className="flex h-8 w-8 items-center justify-center rounded-lg text-white text-sm font-bold"
                   style={{ backgroundColor: '#1F4D3F' }}
                 >
-                  A
+                  CE
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-gray-900 leading-tight">
-                    ACE CEU
+                    CE
                   </p>
                   <p className="text-[10px] text-gray-500 leading-tight">
                     Platform

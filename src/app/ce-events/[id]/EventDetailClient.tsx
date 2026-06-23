@@ -197,9 +197,6 @@ export default function EventDetailClient({ event }: { event: EventWithProvider 
               {event.provider && (
                 <p className="text-slate-600">
                   Presented by <strong>{event.provider.provider_name}</strong>
-                  {event.provider.bacb_provider_number && (
-                    <span className="text-slate-500"> (Provider #{event.provider.bacb_provider_number})</span>
-                  )}
                 </p>
               )}
             </div>
