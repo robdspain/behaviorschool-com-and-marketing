@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { BrainCircuit, GraduationCap, BookMarked, ArrowRight } from "lucide-react";
+import { BrainCircuit, GraduationCap, ArrowRight } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
 import { Hero } from "@/components/ui/hero";
 import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
@@ -65,7 +65,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Card 1 — Pro */}
             <div className="bg-white rounded-xl border border-gray-200 p-8 flex flex-col">
               <div className="w-12 h-12 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center mb-6">
@@ -100,22 +100,6 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Card 3 — CEUs */}
-            <div className="bg-white rounded-xl border border-gray-200 p-8 flex flex-col">
-              <div className="w-12 h-12 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center mb-6">
-                <BookMarked className="text-[#1f4d3f]" size={24} strokeWidth={1.75} />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Continuing Education</h3>
-              <p className="text-gray-600 leading-relaxed flex-1">
-                Stay current with practical professional development on a wide range of behavior analytic topics.
-              </p>
-              <a
-                href="https://learning.behaviorschool.com"
-                className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-[#1f4d3f] hover:underline"
-              >
-                Browse Courses <ArrowRight size={14} />
-              </a>
-            </div>
           </div>
         </div>
       </section>
