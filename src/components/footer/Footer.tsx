@@ -83,6 +83,29 @@ export function Footer() {
           </p>
         </div>
 
+        {/* ACE Provider Information */}
+        <div className="mt-6 text-center">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link href="/bacb-ace-provider" aria-label="BACB ACE Provider Information">
+              <Image
+                src="/BACB-ACE/BACB_ACE-Logo-New.png"
+                alt="BACB Authorized Continuing Education Provider Logo - Behavior School"
+                width={100}
+                height={100}
+                className="cursor-pointer transition-opacity hover:opacity-80"
+              />
+            </Link>
+            <div>
+              <p className="text-sm font-bold text-gray-600">
+                <Link href="/bacb-ace-provider" className="transition-colors hover:text-emerald-700">
+                  BACB ACE Provider: Behavior School LLC
+                </Link>
+              </p>
+              <p className="text-sm text-gray-600">ACE Provider #: OP-26-12729</p>
+              <p className="text-sm text-gray-600">Renewal date: June 30, 2027</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Lower Section - Navigation Links */}
