@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 
 const canonical = "https://behaviorschool.com/bcba-test-questions";
@@ -23,6 +24,8 @@ export default function Page() {
       secondaryLinks={[
         { label: "Free BCBA practice exam", href: "/free-bcba-practice-exam" },
         { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
+        { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
+        { label: "BCBA practice exam", href: "/bcba-practice-exam" },
         { label: "BCBA exam prep", href: "/bcba-exam-prep" },
       ]}
       sections={[
@@ -60,8 +63,11 @@ export default function Page() {
         },
       ]}
     >
-      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+      <section id="sample-bcba-exam-questions" className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
         <h2 className="text-2xl font-bold text-slate-950">Sample BCBA test questions</h2>
+        <p className="mt-3 leading-relaxed text-slate-700">
+          These sample BCBA exam questions show the level of reasoning to practice before a full mock exam. Each item should be reviewed for the concept, the distractor pattern, and the rationale.
+        </p>
         <div className="mt-5 space-y-6">
           {[
             {
@@ -92,6 +98,30 @@ export default function Page() {
               <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.rationale}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">Sample BCBA exam questions vs. a full practice exam</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl border border-slate-200 p-5">
+            <h3 className="font-semibold text-slate-950">Use sample BCBA exam questions for concept checks</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              Sample questions are useful when you need quick feedback on ethics, measurement, assessment, experimental design, or behavior-change procedures.
+            </p>
+            <Link href="/bcba-exam-practice-questions" className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
+              Study BCBA exam practice questions
+            </Link>
+          </div>
+          <div className="rounded-xl border border-slate-200 p-5">
+            <h3 className="font-semibold text-slate-950">Use a free BCBA mock exam for stamina</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              A mock exam is better when you need timing, endurance, and a realistic check of whether your practice-question accuracy holds across longer blocks.
+            </p>
+            <Link href="/free-bcba-mock-exam" className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
+              Plan a free BCBA mock exam
+            </Link>
+          </div>
         </div>
       </section>
     </SeoArticlePage>

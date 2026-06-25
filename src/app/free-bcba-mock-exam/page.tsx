@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 
 const canonical = "https://behaviorschool.com/free-bcba-mock-exam";
@@ -22,6 +23,8 @@ export default function Page() {
       primaryCta={{ label: "Start the free practice exam", href: "/free-bcba-practice-exam" }}
       secondaryLinks={[
         { label: "BCBA practice exam", href: "/bcba-practice-exam" },
+        { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
+        { label: "BCBA test questions", href: "/bcba-test-questions" },
         { label: "BCBA mock exam 6th edition", href: "/bcba-mock-exam-6th-edition" },
         { label: "Free BCBA exam prep", href: "/bcba-exam-prep" },
       ]}
@@ -89,6 +92,43 @@ export default function Page() {
               </tr>
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">BCBA mock exam free: when to take one</h2>
+        <p className="mt-3 leading-relaxed text-slate-700">
+          Searchers looking for a BCBA mock exam free usually need one of two things: a realistic readiness check or a quick practice set before committing to a full timed exam. Use the table below to choose the right next step.
+        </p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: "If you are just starting",
+              body: "Begin with BCBA exam practice questions so you can learn the rationale behind each answer before timing becomes the main issue.",
+              href: "/bcba-exam-practice-questions",
+              label: "Practice questions first",
+            },
+            {
+              title: "If you know the concepts",
+              body: "Take a free BCBA mock exam to test pacing, endurance, and whether you can apply concepts across mixed domains.",
+              href: "/bcba-practice-exam",
+              label: "Open the practice exam",
+            },
+            {
+              title: "If you keep missing similar items",
+              body: "Use sample BCBA exam questions to identify distractor patterns before returning to a longer mock exam.",
+              href: "/bcba-test-questions",
+              label: "Review sample questions",
+            },
+          ].map((item) => (
+            <div key={item.title} className="rounded-xl border border-slate-200 p-5">
+              <h3 className="font-semibold text-slate-950">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.body}</p>
+              <Link href={item.href} className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
+                {item.label}
+              </Link>
+            </div>
+          ))}
         </div>
       </section>
     </SeoArticlePage>

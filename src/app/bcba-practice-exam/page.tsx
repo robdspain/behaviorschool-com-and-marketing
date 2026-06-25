@@ -918,11 +918,117 @@ export default function BCBAPracticeExamPage() {
           </div>
         </section>
 
+        {/* BCBA Exam Query Cluster */}
+        <section className="py-20 bg-slate-50">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              BCBA Exam Practice Questions, Mock Exams, and Sample Questions
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              If Google showed you this page for BCBA exam practice questions, a BCBA mock exam free search, or sample BCBA exam questions, use these resources to pick the right practice format.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: "BCBA exam practice questions",
+                description:
+                  "Use focused practice-question sets when you need rationales, concept review, and repeated exposure to new applied scenarios.",
+                href: "/bcba-exam-practice-questions",
+                cta: "Study practice questions",
+                icon: BookOpen,
+              },
+              {
+                title: "BCBA test questions",
+                description:
+                  "Review sample question stems, answer choices, and explanations so you can identify distractors before test day.",
+                href: "/bcba-test-questions",
+                cta: "Review sample questions",
+                icon: Brain,
+              },
+              {
+                title: "BCBA mock exam free",
+                description:
+                  "Use a mock exam when you need timing practice, endurance, and a readiness check across mixed domains.",
+                href: "/free-bcba-mock-exam",
+                cta: "Plan a mock exam",
+                icon: BarChart3,
+              },
+              {
+                title: "Free BCBA practice exam",
+                description:
+                  "Start with a shorter free practice exam when you want immediate feedback before a full 185-question simulation.",
+                href: "/free-bcba-practice-exam",
+                cta: "Take the free exam",
+                icon: Target,
+              },
+            ].map((resource) => (
+              <Link
+                key={resource.href}
+                href={resource.href}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-colors hover:border-purple-300 hover:bg-purple-50"
+              >
+                <resource.icon className="h-7 w-7 text-purple-600" />
+                <h3 className="mt-4 text-lg font-bold text-slate-900">{resource.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.description}</p>
+                <span className="mt-4 inline-flex text-sm font-semibold text-purple-700">
+                  {resource.cta}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Related BCBA Resources Navigation */}
         <section className="py-12">
           <div className="bg-slate-100 rounded-2xl p-8">
             <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">Related BCBA Resources</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Link
+                href="/bcba-exam-practice-questions"
+                className="flex items-center justify-center px-6 py-4 bg-purple-50 border-2 border-purple-200 rounded-xl hover:bg-purple-100 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <BookOpen className="h-6 w-6 text-purple-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">Practice Questions</div>
+                  <div className="text-sm text-slate-600">BCBA exam practice questions</div>
+                </div>
+              </Link>
+
+              <Link
+                href="/bcba-test-questions"
+                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-purple-50 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <Brain className="h-6 w-6 text-purple-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">Test Questions</div>
+                  <div className="text-sm text-slate-600">Sample BCBA exam questions</div>
+                </div>
+              </Link>
+
+              <Link
+                href="/free-bcba-mock-exam"
+                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-purple-50 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <BarChart3 className="h-6 w-6 text-purple-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">Free Mock Exam</div>
+                  <div className="text-sm text-slate-600">BCBA mock exam free</div>
+                </div>
+              </Link>
+
+              <Link
+                href="/free-bcba-practice-exam"
+                className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-purple-50 transition-colors duration-200 text-center"
+              >
+                <div>
+                  <Target className="h-6 w-6 text-purple-600 mx-auto mb-2" />
+                  <div className="font-medium text-slate-900">Free Practice Exam</div>
+                  <div className="text-sm text-slate-600">10-question practice test</div>
+                </div>
+              </Link>
+
               <Link
                 href="/bcba-study-tools"
                 className="flex items-center justify-center px-6 py-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl hover:bg-emerald-100 transition-colors duration-200 text-center"

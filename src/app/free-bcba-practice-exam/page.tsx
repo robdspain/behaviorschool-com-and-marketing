@@ -369,6 +369,54 @@ export default async function FreeBCBAPracticeExamPage() {
         </div>
       </section>
 
+      {/* BCBA Exam Cluster Section */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+              From Free BCBA Practice Exam to Full Mock Exam
+            </h2>
+            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+              Use the 10-question exam as a quick concept check, then move into BCBA exam practice questions, sample BCBA exam questions, or a free BCBA mock exam depending on what your score shows.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: "BCBA exam practice questions",
+                description: "Review applied questions by domain with rationales before moving to longer timed practice.",
+                href: "/bcba-exam-practice-questions",
+              },
+              {
+                title: "Sample BCBA exam questions",
+                description: "Study sample stems, distractors, answers, and explanations for common exam concepts.",
+                href: "/bcba-test-questions",
+              },
+              {
+                title: "BCBA mock exam free",
+                description: "Use a full mock exam when you are ready to test pacing, stamina, and mixed-domain readiness.",
+                href: "/free-bcba-mock-exam",
+              },
+              {
+                title: "BCBA practice exam",
+                description: "Compare practice formats and choose the best next step for your current study stage.",
+                href: "/bcba-practice-exam",
+              },
+            ].map((resource) => (
+              <Link
+                key={resource.href}
+                href={resource.href}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
+              >
+                <h3 className="font-bold text-slate-900">{resource.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{resource.description}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
