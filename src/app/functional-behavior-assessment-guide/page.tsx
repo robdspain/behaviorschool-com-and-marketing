@@ -55,6 +55,32 @@ export default function Page() {
           answer: "A strong BIP should be based on functional information. The depth of assessment depends on the student's needs, context, and legal or district requirements.",
         },
       ]}
-    />
+    >
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">Simple FBA hypothesis template</h2>
+        <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-5">
+          <p className="text-sm font-semibold text-slate-950">
+            When <span className="text-emerald-800">antecedent/context</span> occurs, the student
+            <span className="text-emerald-800"> engages in observable behavior</span>, which results in
+            <span className="text-emerald-800"> consequence</span>. The behavior is likely maintained by
+            <span className="text-emerald-800"> function</span>.
+          </p>
+        </div>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl border border-slate-200 p-5">
+            <h3 className="font-semibold text-slate-950">Example hypothesis</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              When independent writing tasks are presented, the student leaves the table, which results in a delay or removal of the writing task. The behavior is likely maintained by escape from difficult work.
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-200 p-5">
+            <h3 className="font-semibold text-slate-950">What to verify</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              Check whether the pattern appears across staff, settings, task types, and days. A good hypothesis should be specific enough to guide the BIP and testable with data.
+            </p>
+          </div>
+        </div>
+      </section>
+    </SeoArticlePage>
   );
 }

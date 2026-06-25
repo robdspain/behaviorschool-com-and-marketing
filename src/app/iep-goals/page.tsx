@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { AnimatedSections } from "./AnimatedSections";
 
@@ -273,6 +274,23 @@ export default function IEPGoalsPage() {
         
         {/* Animated Content */}
         <AnimatedSections />
+
+        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8" aria-labelledby="iep-goal-examples">
+          <div className="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
+            <h2 id="iep-goal-examples" className="text-2xl font-semibold text-slate-900">
+              Need examples before using the goal writer?
+            </h2>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+              Review measurable IEP behavior goal examples by function, then use the writer to adapt the goal to the student's baseline, setting, and progress-monitoring plan.
+            </p>
+            <Link
+              href="/iep-behavior-goal-examples"
+              className="mt-5 inline-flex rounded-lg bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-800"
+            >
+              View IEP behavior goal examples
+            </Link>
+          </div>
+        </section>
       </div>
     </>
   );

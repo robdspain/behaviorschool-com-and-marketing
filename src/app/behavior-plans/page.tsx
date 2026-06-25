@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { BehaviorPlanWizard } from "@/components/behavior-plan-writer/BehaviorPlanWizard";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ShareButtons } from "@/components/ui/share-buttons";
@@ -189,6 +190,37 @@ export default function BehaviorPlanWriterPage() {
               <li>✓ Progress monitoring schedule</li>
               <li>✓ Staff training guidelines</li>
             </ul>
+          </div>
+        </section>
+
+        <section className="mt-12" aria-labelledby="behavior-plan-resources">
+          <h2 id="behavior-plan-resources" className="text-2xl font-semibold text-slate-900">
+            Plan stronger from FBA to BIP
+          </h2>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            {[
+              {
+                title: "Functional Behavior Assessment Guide",
+                href: "/functional-behavior-assessment-guide",
+                description:
+                  "Review the assessment steps, data sources, and hypothesis template before drafting a plan.",
+              },
+              {
+                title: "Behavior Intervention Plan Examples",
+                href: "/behavior-intervention-plan-examples",
+                description:
+                  "Compare function-based examples for escape-maintained and attention-maintained behavior.",
+              },
+            ].map((resource) => (
+              <Link
+                key={resource.href}
+                href={resource.href}
+                className="rounded-2xl border border-slate-200 bg-white p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
+              >
+                <h3 className="text-base font-semibold text-slate-900">{resource.title}</h3>
+                <p className="mt-2 text-sm text-slate-600">{resource.description}</p>
+              </Link>
+            ))}
           </div>
         </section>
 

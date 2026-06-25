@@ -59,6 +59,38 @@ export default function Page() {
           answer: "Yes, but use it diagnostically. Early mock performance can show which domains deserve the next study block.",
         },
       ]}
-    />
+    >
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">Mock exam strategy by score pattern</h2>
+        <div className="mt-5 overflow-x-auto">
+          <table className="w-full min-w-[640px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-slate-200 text-slate-600">
+                <th className="py-3 pr-4 font-semibold">Mock result</th>
+                <th className="py-3 pr-4 font-semibold">What it usually means</th>
+                <th className="py-3 font-semibold">Next study action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tr>
+                <td className="py-4 pr-4 font-semibold text-slate-950">High accuracy, slow timing</td>
+                <td className="py-4 pr-4">You understand the concepts but need fluency and endurance.</td>
+                <td className="py-4">Use timed 10-question blocks and review only items that took too long.</td>
+              </tr>
+              <tr>
+                <td className="py-4 pr-4 font-semibold text-slate-950">Low accuracy in one domain</td>
+                <td className="py-4 pr-4">A specific content area is limiting your total score.</td>
+                <td className="py-4">Study that domain, then retest with new questions before another full mock.</td>
+              </tr>
+              <tr>
+                <td className="py-4 pr-4 font-semibold text-slate-950">Misses across many domains</td>
+                <td className="py-4 pr-4">You may need concept review before heavy mock testing.</td>
+                <td className="py-4">Return to core definitions, examples, and rationales before timed practice.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </SeoArticlePage>
   );
 }

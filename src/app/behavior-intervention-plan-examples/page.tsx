@@ -56,6 +56,41 @@ export default function Page() {
           answer: "Clear definitions, function-based strategies, measurable goals, implementation supports, and data-based review make a BIP stronger.",
         },
       ]}
-    />
+    >
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">Function-based BIP example framework</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {[
+            {
+              title: "Escape-maintained disruption",
+              items: [
+                "Prevention: shorten initial task, offer choice, preteach help routine.",
+                "Replacement: request help, break, or smaller chunk of work.",
+                "Reinforcement: praise and brief break for appropriate requests and task completion.",
+                "Data: frequency of disruption and percentage of independent work completed.",
+              ],
+            },
+            {
+              title: "Attention-maintained calling out",
+              items: [
+                "Prevention: scheduled check-ins and high rates of positive attention.",
+                "Replacement: raise hand, use help card, or request teacher attention.",
+                "Reinforcement: immediate attention for replacement response, neutral redirection for calling out.",
+                "Data: call-outs per period and replacement requests per opportunity.",
+              ],
+            },
+          ].map((example) => (
+            <div key={example.title} className="rounded-xl border border-slate-200 p-5">
+              <h3 className="font-semibold text-slate-950">{example.title}</h3>
+              <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
+                {example.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+    </SeoArticlePage>
   );
 }

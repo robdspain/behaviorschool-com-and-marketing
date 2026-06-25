@@ -54,6 +54,39 @@ export default function Page() {
           answer: "The IEP team writes goals. BCBAs often support drafting, measurement, baseline interpretation, and progress-monitoring systems.",
         },
       ]}
-    />
+    >
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">IEP behavior goal examples by function</h2>
+        <div className="mt-5 space-y-4">
+          {[
+            {
+              function: "Escape",
+              goal:
+                "Given a nonpreferred academic task and a visual support, the student will request help or a break before leaving the area in 80% of observed opportunities across four consecutive weeks.",
+            },
+            {
+              function: "Attention",
+              goal:
+                "Given whole-group instruction, the student will use an agreed attention request instead of calling out in 4 of 5 observed opportunities across three consecutive data days.",
+            },
+            {
+              function: "Access to tangibles or activities",
+              goal:
+                "Given a preferred item is unavailable, the student will request a turn, choose an alternative, or wait with a visual timer for two minutes in 80% of opportunities.",
+            },
+            {
+              function: "Automatic or sensory",
+              goal:
+                "Given access to matched sensory supports, the student will use an agreed regulation strategy for three minutes before returning to the assigned routine in 4 of 5 opportunities.",
+            },
+          ].map((item) => (
+            <div key={item.function} className="rounded-xl border border-slate-200 p-5">
+              <h3 className="font-semibold text-slate-950">{item.function}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.goal}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </SeoArticlePage>
   );
 }

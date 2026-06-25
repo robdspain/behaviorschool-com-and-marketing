@@ -490,6 +490,42 @@ export default function BCBAExamPrepPage() {
           </motion.div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Link
+              href="/bcba-test-questions"
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+            >
+              <div className="flex items-center mb-3">
+                <BookOpen className="w-6 h-6 text-emerald-600 mr-2" />
+                <h3 className="text-lg font-semibold text-slate-900">BCBA Test Questions</h3>
+              </div>
+              <p className="text-slate-600 text-sm">
+                Review sample BCBA test questions with rationales and school-based examples.
+              </p>
+            </Link>
+            <Link
+              href="/free-bcba-mock-exam"
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+            >
+              <div className="flex items-center mb-3">
+                <BarChart3 className="w-6 h-6 text-emerald-600 mr-2" />
+                <h3 className="text-lg font-semibold text-slate-900">Free BCBA Mock Exam</h3>
+              </div>
+              <p className="text-slate-600 text-sm">
+                Use mock exam score patterns to decide what to study next.
+              </p>
+            </Link>
+            <Link
+              href="/bcba-exam-practice-questions"
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
+            >
+              <div className="flex items-center mb-3">
+                <Brain className="w-6 h-6 text-emerald-600 mr-2" />
+                <h3 className="text-lg font-semibold text-slate-900">Exam Practice Questions</h3>
+              </div>
+              <p className="text-slate-600 text-sm">
+                Build a practice routine around domains, rationales, and error analysis.
+              </p>
+            </Link>
+            <Link
               href="/bcba-study-fluency"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >

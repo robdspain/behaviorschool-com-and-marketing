@@ -59,6 +59,41 @@ export default function Page() {
           answer: "Yes. Rationales help you learn the decision rule behind the answer, which is more valuable than memorizing a single item.",
         },
       ]}
-    />
+    >
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">Sample BCBA test questions</h2>
+        <div className="mt-5 space-y-6">
+          {[
+            {
+              question:
+                "A student leaves the instructional area most often after independent writing tasks are presented. The behavior is followed by removal of the task for several minutes. Which function is most likely?",
+              answer: "Escape from task demands.",
+              rationale:
+                "The antecedent is a difficult academic demand and the consequence is removal of that demand. The pattern points to escape-maintained behavior.",
+            },
+            {
+              question:
+                "A BCBA wants to compare two reading interventions by alternating them rapidly and measuring correct words per minute. Which design is the best fit?",
+              answer: "Alternating treatments design.",
+              rationale:
+                "Alternating treatments designs are used to compare two or more interventions efficiently when rapid alternation is appropriate.",
+            },
+            {
+              question:
+                "A team measures how long it takes a student to begin work after a direction is given. Which measure are they collecting?",
+              answer: "Latency.",
+              rationale:
+                "Latency measures the time between a stimulus or instruction and the beginning of the response.",
+            },
+          ].map((item) => (
+            <div key={item.question} className="rounded-xl border border-slate-200 p-5">
+              <h3 className="font-semibold text-slate-950">{item.question}</h3>
+              <p className="mt-3 text-sm font-semibold text-emerald-800">Answer: {item.answer}</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.rationale}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </SeoArticlePage>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
@@ -28,6 +29,7 @@ type SeoArticlePageProps = {
   primaryCta: SeoArticleLink;
   secondaryLinks: SeoArticleLink[];
   canonical: string;
+  children?: ReactNode;
 };
 
 export function SeoArticlePage({
@@ -40,6 +42,7 @@ export function SeoArticlePage({
   primaryCta,
   secondaryLinks,
   canonical,
+  children,
 }: SeoArticlePageProps) {
   const structuredData = {
     "@context": "https://schema.org",
@@ -138,6 +141,8 @@ export function SeoArticlePage({
               ) : null}
             </section>
           ))}
+
+          {children}
 
           <section className="rounded-2xl border border-emerald-200 bg-emerald-50 p-7">
             <h2 className="text-2xl font-bold text-emerald-950">Frequently asked questions</h2>

@@ -72,6 +72,18 @@ export default function SchoolBCBAContent() {
               badge="Popular"
             />
             <Card
+              icon={<FileText className="h-8 w-8 text-cyan-600" />}
+              title="School BCBA Job Description"
+              desc="Use this role breakdown to understand district expectations, daily responsibilities, and common school-based deliverables."
+              href="/school-bcba/job-description"
+            />
+            <Card
+              icon={<Users className="h-8 w-8 text-rose-600" />}
+              title="School BCBA Interview Questions"
+              desc="Prepare for school BCBA interviews with sample questions, answer themes, and district-focused talking points."
+              href="/school-bcba/interview-questions"
+            />
+            <Card
               icon={<DollarSign className="h-8 w-8 text-green-600" />}
               title="School BCBA Salary by State"
               desc="Comprehensive salary data by state, cost-of-living adjustments, and negotiation strategies."

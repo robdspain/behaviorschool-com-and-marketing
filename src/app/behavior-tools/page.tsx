@@ -10,12 +10,13 @@ import {
   Sparkles,
   CheckCircle2,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  transition: { duration: 0.6, ease: "easeOut" as const },
 };
 
 const staggerContainer = {
@@ -26,14 +27,25 @@ const staggerContainer = {
   },
 };
 
-const tools = [
+type ToolStatus = "live" | "coming-soon";
+
+type ToolCard = {
+  title: string;
+  description: string;
+  href: string;
+  icon: LucideIcon;
+  status: ToolStatus;
+  features: string[];
+};
+
+const tools: ToolCard[] = [
   {
     title: "IEP Goal Writer",
     description:
       "Generate values-aligned, measurable IEP behavior goals in seconds. Our AI-powered wizard creates copy-ready goals based on student needs, function of behavior, and educational context.",
     href: "/iep-goal-writer",
     icon: FileText,
-    status: "live" as const,
+    status: "live",
     features: [
       "Values-based goal alignment",
       "SMART goal formatting",
@@ -47,7 +59,7 @@ const tools = [
       "Explore our library of pre-written IEP behavior goals, templates, and best practices for school-based behavior analysts and special education teams.",
     href: "/iep-goals",
     icon: ClipboardCheck,
-    status: "live" as const,
+    status: "live",
     features: [
       "Pre-written goal examples",
       "Domain-specific templates",
@@ -61,7 +73,7 @@ const tools = [
       "Evaluate your existing IEP goals against SMART criteria and best practices. Get instant feedback on measurability, specificity, and alignment.",
     href: "/iep-goal-qualitychecker",
     icon: CheckCircle2,
-    status: "live" as const,
+    status: "live",
     features: [
       "SMART criteria scoring",
       "Measurability analysis",
@@ -76,7 +88,7 @@ const tools = [
       "Create comprehensive behavior intervention plans with evidence-based strategies, data collection systems, and staff training materials.",
     href: "/behavior-plans",
     icon: Sparkles,
-    status: "live" as const,
+    status: "live",
     features: [
       "Step-by-step wizard",
       "Function-based interventions",
@@ -85,12 +97,54 @@ const tools = [
     ],
   },
   {
+    title: "Functional Behavior Assessment Guide",
+    description:
+      "Review FBA steps, data sources, and hypothesis examples before turning assessment results into a practical behavior plan.",
+    href: "/functional-behavior-assessment-guide",
+    icon: ClipboardCheck,
+    status: "live",
+    features: [
+      "FBA steps",
+      "Hypothesis template",
+      "School data sources",
+      "BIP planning links",
+    ],
+  },
+  {
+    title: "Behavior Intervention Plan Examples",
+    description:
+      "See function-based BIP examples for escape-maintained and attention-maintained behavior in school settings.",
+    href: "/behavior-intervention-plan-examples",
+    icon: Sparkles,
+    status: "live",
+    features: [
+      "Function-based examples",
+      "Replacement skills",
+      "Reinforcement ideas",
+      "Data collection prompts",
+    ],
+  },
+  {
+    title: "IEP Behavior Goal Examples",
+    description:
+      "Browse measurable IEP behavior goal examples by function, including escape, attention, access, and sensory patterns.",
+    href: "/iep-behavior-goal-examples",
+    icon: FileText,
+    status: "live",
+    features: [
+      "Measurable goals",
+      "Function-based wording",
+      "Baseline-ready examples",
+      "Progress monitoring language",
+    ],
+  },
+  {
     title: "ACT Matrix",
     description:
       "Interactive Acceptance and Commitment Therapy Matrix tool designed for school-based behavior analysts. Help students and staff identify values and committed actions.",
     href: "/act-matrix",
     icon: Brain,
-    status: "live" as const,
+    status: "live",
     features: [
       "Interactive matrix tool",
       "Values identification",
@@ -104,7 +158,7 @@ const tools = [
       "Generate age-appropriate ACT metaphors for use with students. Customize by age, context, and therapeutic goal.",
     href: "/act-tools/metaphor-creator",
     icon: Brain,
-    status: "live" as const,
+    status: "live",
     features: [
       "Age-appropriate metaphors",
       "Context customization",
@@ -118,7 +172,7 @@ const tools = [
       "Digital values card sort activity for students and staff. Identify core values to guide behavior support and goal setting.",
     href: "/act-tools/values-sort",
     icon: Brain,
-    status: "live" as const,
+    status: "live",
     features: [
       "Digital card sort",
       "Values ranking",
@@ -132,7 +186,7 @@ const tools = [
       "AI-powered tool that writes behavior-focused IEP goals in seconds. Input the student's needs and get IDEA-aligned, measurable goals ready to drop into any IEP.",
     href: "/iep-goal-writer",
     icon: ClipboardCheck,
-    status: "live" as const,
+    status: "live",
     features: [
       "AI-generated goals",
       "IDEA-aligned",
@@ -146,7 +200,7 @@ const tools = [
       "Test your BCBA exam knowledge with free practice questions covering ethics, measurement, assessment, intervention, and more.",
     href: "/free-bcba-practice",
     icon: ClipboardCheck,
-    status: "live" as const,
+    status: "live",
     features: [
       "Free practice questions",
       "Detailed explanations",
