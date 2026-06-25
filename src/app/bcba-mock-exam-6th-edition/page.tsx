@@ -74,6 +74,28 @@ export default async function BCBAMockExamSixthEditionPage() {
           body: "Supervisor reports make progress easier to discuss in supervision, university cohorts, or employment settings.",
         },
       ]}
+      relatedLinks={[
+        {
+          title: "BCBA mock exam free",
+          body: "Start with the free public mock exam page when you need a realistic readiness check before a full app workflow.",
+          href: "/free-bcba-mock-exam",
+        },
+        {
+          title: "BCBA exam practice questions",
+          body: "Use mixed practice questions when you need shorter study sessions before or between full mock exams.",
+          href: "/bcba-exam-practice-questions",
+        },
+        {
+          title: "Sample BCBA exam questions",
+          body: "Review sample question formats and rationales before deciding whether to practice by domain or take a timed exam.",
+          href: "/bcba-test-questions",
+        },
+        {
+          title: "BCBA practice exam",
+          body: "Move into a broader practice exam when you want repeated exam-style practice with scoring and explanations.",
+          href: "/bcba-practice-exam",
+        },
+      ]}
       faqs={[
         ...seoOverrideFaq(override),
         {

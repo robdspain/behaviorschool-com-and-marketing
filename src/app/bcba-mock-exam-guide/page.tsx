@@ -919,11 +919,34 @@ export default function BCBAMockExamGuidePage() {
                     </ul>
                   </div>
                   <Button asChild size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                    <Link href="/bcba-mock-practice-test">
+                    <Link href="/free-bcba-mock-exam">
                       Start Your FREE Mock Exam →
                     </Link>
                   </Button>
                 </div>
+              </div>
+            </div>
+
+            <div className="mb-6 rounded-xl border border-emerald-200 bg-white p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">
+                BCBA mock exam free, practice questions, and sample BCBA exam questions
+              </h3>
+              <p className="text-slate-700 mb-5">
+                If you are comparing practice formats, use these exact-match resources to move from strategy into the right kind of BCBA exam practice.
+              </p>
+              <div className="grid gap-4 md:grid-cols-3">
+                <Link href="/free-bcba-mock-exam" className="rounded-lg border border-slate-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+                  <h4 className="font-bold text-slate-900">BCBA mock exam free</h4>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">Use this when you need a realistic readiness check and timed mock exam path.</p>
+                </Link>
+                <Link href="/bcba-exam-practice-questions" className="rounded-lg border border-slate-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+                  <h4 className="font-bold text-slate-900">BCBA exam practice questions</h4>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">Use shorter question sets between full mocks to build fluency and review rationales.</p>
+                </Link>
+                <Link href="/bcba-test-questions" className="rounded-lg border border-slate-200 p-4 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+                  <h4 className="font-bold text-slate-900">Sample BCBA exam questions</h4>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">Review example formats before choosing domain practice or a full practice exam.</p>
+                </Link>
               </div>
             </div>
 
@@ -1030,7 +1053,7 @@ export default function BCBAMockExamGuidePage() {
               Take our FREE 185-question BCBA mock exam designed specifically for school-based behavior analysts. Get instant results with domain-by-domain breakdown and personalized study recommendations.
             </p>
             <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-slate-100 text-lg px-8 py-6">
-              <Link href="/bcba-mock-practice-test">
+              <Link href="/free-bcba-mock-exam">
                 Start Your FREE Mock Exam Now →
               </Link>
             </Button>

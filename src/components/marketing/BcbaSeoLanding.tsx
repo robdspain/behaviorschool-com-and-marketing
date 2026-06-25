@@ -19,6 +19,12 @@ type Feature = {
   body: string;
 };
 
+type RelatedLink = {
+  title: string;
+  body: string;
+  href: string;
+};
+
 type BcbaSeoLandingProps = {
   eyebrow: string;
   title: string;
@@ -29,6 +35,7 @@ type BcbaSeoLandingProps = {
   features: Feature[];
   sections: Feature[];
   faqs: Feature[];
+  relatedLinks?: RelatedLink[];
 };
 
 const DEFAULT_APP_HREF = behaviorStudyToolsAppHref("/onboarding/bcba", {
@@ -53,6 +60,7 @@ export function BcbaSeoLanding({
   features,
   sections,
   faqs,
+  relatedLinks = [],
 }: BcbaSeoLandingProps) {
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -156,6 +164,36 @@ export function BcbaSeoLanding({
           </div>
         </div>
       </section>
+
+      {relatedLinks.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#1f4d3f]">Related BCBA exam resources</p>
+            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+              Practice questions, mock exams, and sample BCBA exam questions
+            </h2>
+            <p className="mt-5 leading-8 text-slate-600">
+              Use these public resources when you need a faster path from a search result to the right BCBA exam practice format.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {relatedLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md"
+              >
+                <h3 className="text-lg font-bold text-slate-950">{link.title}</h3>
+                <p className="mt-2 leading-7 text-slate-600">{link.body}</p>
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#1f4d3f]">
+                  Open resource
+                  <ArrowRight size={16} />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">

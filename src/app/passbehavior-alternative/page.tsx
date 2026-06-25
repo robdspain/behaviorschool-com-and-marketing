@@ -92,6 +92,33 @@ export default function PassBehaviorAlternativePage() {
         </div>
       </section>
 
+      <section className="py-16 sm:py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              BCBA exam practice questions, mock exams, and sample questions
+            </h2>
+            <p className="mt-4 text-slate-700 leading-relaxed">
+              If you need a PassBehavior replacement today, start with the public resource that matches how you want to study.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <Link href="/bcba-exam-practice-questions" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+              <h3 className="font-bold text-slate-900">BCBA exam practice questions</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">Use mixed question sets when you want shorter sessions with rationales before a full exam.</p>
+            </Link>
+            <Link href="/free-bcba-mock-exam" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+              <h3 className="font-bold text-slate-900">BCBA mock exam free</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">Take the free mock exam route when you need a timed readiness check and next-step guidance.</p>
+            </Link>
+            <Link href="/bcba-test-questions" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+              <h3 className="font-bold text-slate-900">Sample BCBA exam questions</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">Review sample question formats before choosing domain practice, mock exams, or a full practice test.</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
