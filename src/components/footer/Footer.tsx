@@ -124,13 +124,11 @@ export function Footer() {
             <Link href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors">
               FAQ
             </Link>
-            <Link
-              href="https://study.behaviorschool.com/free-bcba-practice-exam"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              BCBA Practice Exams (Free)
+            <Link href="/bcba-exam-prep" className="text-gray-600 hover:text-gray-900 transition-colors">
+              BCBA Exam Prep
+            </Link>
+            <Link href="/bcba-practice-exam" className="text-gray-600 hover:text-gray-900 transition-colors">
+              BCBA Practice Exam
             </Link>
             <Link href="/bcba-test-questions" className="text-gray-600 hover:text-gray-900 transition-colors">
               BCBA Test Questions

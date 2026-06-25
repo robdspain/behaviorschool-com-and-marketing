@@ -92,12 +92,20 @@ export default function Home() {
               <p className="text-gray-600 leading-relaxed flex-1">
                 Master the 6th Edition Task List with mock exams, detailed analytics, and our adaptive learning algorithm.
               </p>
-              <a
-                href="https://study.behaviorschool.com"
-                className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-[#1f4d3f] hover:underline"
-              >
-                Start Studying <ArrowRight size={14} />
-              </a>
+              <div className="mt-6 grid gap-2 text-sm">
+                <Link href="/bcba-exam-prep" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  BCBA exam prep <ArrowRight size={14} />
+                </Link>
+                <Link href="/bcba-practice-exam" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  BCBA practice exam <ArrowRight size={14} />
+                </Link>
+                <Link href="/bcba-test-questions" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  Sample BCBA exam questions <ArrowRight size={14} />
+                </Link>
+                <Link href="/free-bcba-mock-exam" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  BCBA mock exam free <ArrowRight size={14} />
+                </Link>
+              </div>
             </div>
 
           </div>
