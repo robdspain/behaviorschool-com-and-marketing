@@ -150,6 +150,9 @@ You don't need to spend hundreds of dollars to prepare effectively. Here are the
 ### Free Practice Questions
 
 - **[BehaviorSchool Free Practice Exam](/free-bcba-practice-exam)** — Free practice questions with detailed explanations for every answer, covering all 6th Edition Task List areas
+- **[BCBA exam practice questions](/bcba-exam-practice-questions)** — Shorter mixed-question practice when you need rationales, concept review, and daily repetition
+- **[Sample BCBA exam questions](/bcba-test-questions)** — Example question formats and explanations before you commit to a longer practice session
+- **[BCBA mock exam free](/free-bcba-mock-exam)** — A timed mock exam path when you need to check stamina, pacing, and readiness
 - **BACB Newsletter archives** — The BACB periodically publishes sample questions and exam preparation guidance
 - **University study materials** — Many VCS programs share study resources with students; ask your program
 
@@ -233,7 +236,7 @@ Passing the BCBA exam opens the door to a career that changes lives — includin
 **Start here:**
 
 1. Download the [6th Edition Task List](https://www.bacb.com/bcba/bcba-requirements/) from the BACB website
-2. Take a [free diagnostic practice exam](/free-bcba-practice-exam) to identify your starting point
+2. Take a [free diagnostic practice exam](/free-bcba-practice-exam) or a broader [BCBA practice exam](/bcba-practice-exam) to identify your starting point
 3. Build your 12–16 week study schedule using the template above
 4. Set up your study tools: flashcards, practice questions, and a tracking system
 5. Find an accountability partner or study group

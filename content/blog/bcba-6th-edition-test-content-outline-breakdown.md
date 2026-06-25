@@ -266,6 +266,17 @@ If you work in schools, you have an advantage on the BCBA exam — and some blin
 
 ---
 
+## Practice the 6th Edition Outline With the Right Question Format
+
+Different parts of the 6th Edition outline call for different practice formats:
+
+- **[BCBA exam practice questions](/bcba-exam-practice-questions)** are best after you study a domain and need mixed examples with rationales.
+- **[Sample BCBA exam questions](/bcba-test-questions)** are useful when you want to inspect wording, scenario structure, and distractor patterns before a longer session.
+- **[BCBA mock exam free](/free-bcba-mock-exam)** is the better choice when you need to test pacing and endurance across domains.
+- **[BCBA practice exam](/bcba-practice-exam)** gives you a broader exam-style practice path after you have mapped your weak domains.
+
+---
+
 ## Frequently Asked Questions
 
 **Is the BCBA exam still based on the 6th Edition TCO in 2026?**

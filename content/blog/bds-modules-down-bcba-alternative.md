@@ -40,6 +40,15 @@ It also includes SAFMEDS-style flashcard sessions for fluency-building, which is
 
 There's a free tier to get started, so you can try it without committing.
 
+## Choose the Right BCBA Practice Format
+
+If you are replacing BDS Modules in the middle of exam prep, start with the format that matches your immediate problem:
+
+- **[BCBA exam practice questions](/bcba-exam-practice-questions)** — use these when you need shorter daily sessions, concept review, and rationales before a full-length exam.
+- **[BCBA mock exam free](/free-bcba-mock-exam)** — use this when you need a timed readiness check and want to practice stamina under realistic conditions.
+- **[Sample BCBA exam questions](/bcba-test-questions)** — use these when you want to preview question formats, wording, and explanation style before choosing a full practice path.
+- **[BCBA practice exam](/bcba-practice-exam)** — use this when you want broader practice with scoring, explanations, and repeated exam-style review.
+
 ## The Most Important Thing
 
 Whatever platform you use, the most important factor in BCBA exam success is consistent daily practice. An hour of focused study every day beats a weekend cramming session every time. Pick a tool you can actually use every day, track your progress across domains, and adjust based on the data.
