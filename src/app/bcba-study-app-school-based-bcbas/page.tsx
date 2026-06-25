@@ -7,7 +7,8 @@ import {
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
 import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
-const PAGE_HREF = "https://behaviorstudytools.com/bcba-study-app-school-based-bcbas";
+const PAGE_HREF = "https://behaviorschool.com/bcba-study-app-school-based-bcbas";
+const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/bcba-study-app-school-based-bcbas";
 
 const baseMetadata: Metadata = {
   title: "BCBA Study App for School-Based BCBAs | BehaviorSchool Study",
@@ -24,12 +25,12 @@ const baseMetadata: Metadata = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const override = await getBehaviorStudyToolsSeoOverride(PAGE_HREF);
+  const override = await getBehaviorStudyToolsSeoOverride(SEO_OVERRIDE_HREF);
   return applySeoMetadataOverride({ base: baseMetadata, pageHref: PAGE_HREF, override });
 }
 
 export default async function SchoolBasedBCBAStudyAppPage() {
-  const override = await getBehaviorStudyToolsSeoOverride(PAGE_HREF);
+  const override = await getBehaviorStudyToolsSeoOverride(SEO_OVERRIDE_HREF);
   return (
     <BcbaSeoLanding
       eyebrow="School-based BCBA exam prep"

@@ -5,7 +5,8 @@ import {
   getBehaviorStudyToolsSeoOverride,
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
 
-const PAGE_HREF = "https://behaviorstudytools.com/compare/behaviorschool-vs-bds-modules";
+const PAGE_HREF = "https://behaviorschool.com/compare/behaviorschool-vs-bds-modules";
+const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/compare/behaviorschool-vs-bds-modules";
 
 const baseMetadata: Metadata = {
   title: "BehaviorSchool vs BDS Modules | BCBA Exam Prep Comparison",
@@ -22,12 +23,12 @@ const baseMetadata: Metadata = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const override = await getBehaviorStudyToolsSeoOverride(PAGE_HREF);
+  const override = await getBehaviorStudyToolsSeoOverride(SEO_OVERRIDE_HREF);
   return applySeoMetadataOverride({ base: baseMetadata, pageHref: PAGE_HREF, override });
 }
 
 export default async function BehaviorSchoolVsBDSModulesPage() {
-  const override = await getBehaviorStudyToolsSeoOverride(PAGE_HREF);
+  const override = await getBehaviorStudyToolsSeoOverride(SEO_OVERRIDE_HREF);
   return (
     <BcbaComparisonLanding
       competitor="BDS Modules"

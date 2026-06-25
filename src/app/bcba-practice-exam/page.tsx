@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Zap, Target, TrendingUp, Clock, BarChart3, Brain, Lightbulb, ArrowRight, Star, Award, Users, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "BCBA Practice Exam Free 2025 | Unlimited Questions + Scoring",
-  description: "Free unlimited BCBA practice exams with instant scoring. Adaptive difficulty, detailed explanations, and performance tracking. Start practicing today.",
+  title: "Free BCBA Practice Exam & Mock Questions | Behavior School",
+  description: "Take a free BCBA practice exam with unlimited mock questions, instant scoring, detailed explanations, and 6th Edition-aligned study support.",
   robots: {
     index: true,
     follow: true,
@@ -30,11 +30,11 @@ export const metadata: Metadata = {
     "bcba practice exam pdf"
   ],
   alternates: {
-    canonical: "https://behaviorschool.com/bcba-exam-prep"
+    canonical: "https://behaviorschool.com/bcba-practice-exam"
   },
   openGraph: {
-    title: "Revolutionary Non-Repetitive BCBA Study Fluency System",
-    description: "Never see the same question twice! Our revolutionary app builds BCBA exam fluency through unlimited AI-generated questions, RESA-based progression, and intelligent content generation.",
+    title: "Free BCBA Practice Exam & Mock Questions | Behavior School",
+    description: "Practice BCBA exam questions with instant scoring, detailed explanations, and 6th Edition-aligned study support.",
     url: "https://behaviorschool.com/bcba-practice-exam",
     siteName: "Behavior School",
     images: [
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Revolutionary Non-Repetitive BCBA Study Fluency System",
-    description: "Never see the same question twice! Our revolutionary app builds BCBA exam fluency through unlimited AI-generated questions, RESA-based progression, and intelligent content generation.",
+    title: "Free BCBA Practice Exam & Mock Questions | Behavior School",
+    description: "Practice BCBA exam questions with instant scoring, detailed explanations, and 6th Edition-aligned study support.",
     images: ["/optimized/og-image.webp"],
   },
 };

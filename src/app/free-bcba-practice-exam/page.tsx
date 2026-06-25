@@ -11,7 +11,8 @@ import {
 import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
 
-const PAGE_HREF = "https://behaviorstudytools.com/free-bcba-practice-exam";
+const PAGE_HREF = "https://behaviorschool.com/free-bcba-practice-exam";
+const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/free-bcba-practice-exam";
 
 const baseMetadata: Metadata = {
   title: "Free BCBA Practice Exam | 10 Questions with Rationales | Behavior School",
@@ -52,12 +53,12 @@ const baseMetadata: Metadata = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const override = await getBehaviorStudyToolsSeoOverride(PAGE_HREF);
+  const override = await getBehaviorStudyToolsSeoOverride(SEO_OVERRIDE_HREF);
   return applySeoMetadataOverride({ base: baseMetadata, pageHref: PAGE_HREF, override });
 }
 
 export default async function FreeBCBAPracticeExamPage() {
-  const override = await getBehaviorStudyToolsSeoOverride(PAGE_HREF);
+  const override = await getBehaviorStudyToolsSeoOverride(SEO_OVERRIDE_HREF);
   const questions = [
     {
       id: "q1",
@@ -211,7 +212,7 @@ export default async function FreeBCBAPracticeExamPage() {
     },
   ];
 
-  const SITE_URL = "https://behaviorstudytools.com";
+  const SITE_URL = "https://behaviorschool.com";
   const primaryCta = override?.primaryCta || "Take Full 185-Question Mock Exam";
   const fullMockHref = behaviorStudyToolsAppHref("/free-mock-exam/full", {
     intent: "full_mock",
