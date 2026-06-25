@@ -129,6 +129,36 @@ export function BcbaComparisonLanding({
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="max-w-3xl">
+          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#1f4d3f]">BCBA exam practice paths</p>
+          <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+            Pick the resource that matches your next study decision
+          </h2>
+          <p className="mt-5 leading-8 text-slate-600">
+            Use the comparison to choose a platform, then use these public BCBA exam resources to practice in the right format.
+          </p>
+        </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <Link href="/bcba-practice-exam" className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md">
+            <h3 className="text-lg font-bold text-slate-950">BCBA practice exam</h3>
+            <p className="mt-2 leading-7 text-slate-600">Use a broader practice exam when you need scoring, rationales, and repeated exam-style review.</p>
+          </Link>
+          <Link href="/bcba-exam-prep" className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md">
+            <h3 className="text-lg font-bold text-slate-950">BCBA exam prep</h3>
+            <p className="mt-2 leading-7 text-slate-600">Start with the full prep hub when you need a study plan, resource map, and next-step guidance.</p>
+          </Link>
+          <Link href="/bcba-test-questions" className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md">
+            <h3 className="text-lg font-bold text-slate-950">Sample BCBA exam questions</h3>
+            <p className="mt-2 leading-7 text-slate-600">Review sample question formats before choosing a mock exam, practice question set, or full practice exam.</p>
+          </Link>
+          <Link href="/free-bcba-mock-exam" className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md">
+            <h3 className="text-lg font-bold text-slate-950">BCBA mock exam free</h3>
+            <p className="mt-2 leading-7 text-slate-600">Use the free mock exam path when you need to test timing, stamina, and readiness.</p>
+          </Link>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="rounded-lg bg-[#1f4d3f] p-8 text-white">
           <FileText className="mb-4 text-[#e4b63d]" size={32} />
