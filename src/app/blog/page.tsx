@@ -67,9 +67,9 @@ export default async function BlogPage() {
             <div className="bg-white/80 border-2 border-slate-200 rounded-2xl p-4">
               <div className="flex flex-wrap gap-2">
                 <a className="px-3 py-2 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-sm font-semibold hover:bg-emerald-100" href="/bcba-exam-prep">BCBA Exam Prep Guide</a>
-                <a className="px-3 py-2 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 text-sm font-semibold hover:bg-blue-100" href="/behavior-study-tools">Study Tools Platform</a>
+                <a className="px-3 py-2 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 text-sm font-semibold hover:bg-blue-100" href="/bcba-test-questions">Sample BCBA Exam Questions</a>
                 <a className="px-3 py-2 rounded-lg bg-purple-50 text-purple-800 border border-purple-200 text-sm font-semibold hover:bg-purple-100" href="/bcba-practice-exam">BCBA Practice Exam</a>
-                <a className="px-3 py-2 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-sm font-semibold hover:bg-amber-100" href="/free-bcba-mock-practice-test">Free Mock Exam</a>
+                <a className="px-3 py-2 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-sm font-semibold hover:bg-amber-100" href="/free-bcba-mock-exam">BCBA Mock Exam Free</a>
                 <a className="px-3 py-2 rounded-lg bg-pink-50 text-pink-800 border border-pink-200 text-sm font-semibold hover:bg-pink-100" href="/school-bcba">School‑Based BCBA</a>
                 <a className="px-3 py-2 rounded-lg bg-slate-50 text-slate-800 border border-slate-200 text-sm font-semibold hover:bg-slate-100" href="/iep-goals">IEP Goals</a>
                 <a className="px-3 py-2 rounded-lg bg-teal-50 text-teal-800 border border-teal-200 text-sm font-semibold hover:bg-teal-100" href="/act-matrix">ACT Matrix</a>

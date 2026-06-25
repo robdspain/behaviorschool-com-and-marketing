@@ -106,7 +106,7 @@ This approach alone often improves outcomes by **10–15%**.
 ### 3) Use practice questions as your primary study tool
 Reading teaches recognition. Practice questions teach application. Your goal isn’t to “know the content” — it’s to **recognize the correct behavior‑analytic response in novel scenarios**.
 
-[BehaviorSchool Study Tools](/behavior-study-tools) are built around domain‑organized practice questions with instant feedback, so you can target weak areas fast.
+Start with [BCBA exam practice questions](/bcba-exam-practice-questions) when you need shorter sessions with rationales. Review [sample BCBA exam questions](/bcba-test-questions) when you want to inspect wording and scenario structure. Use a [BCBA mock exam free](/free-bcba-mock-exam) path when you need timing and stamina data.
 
 ### 4) Build a weekly study schedule
 A schedule is a commitment device. If you don’t have one, you’re leaving success to motivation.
@@ -160,7 +160,9 @@ The pass rate is not a sentence. It’s a benchmark. You can beat it by studying
 
 1. **Take a baseline practice exam** → [BCBA Practice Exam](/bcba-practice-exam)
 2. **Build a study schedule** → [Free BCBA Exam Prep Strategies](/blog/free-bcba-exam-prep-study-strategies)
-3. **Use targeted practice questions** → [BehaviorSchool Study Tools](/behavior-study-tools)
+3. **Use targeted practice questions** → [BCBA Exam Practice Questions](/bcba-exam-practice-questions)
+4. **Review sample question formats** → [Sample BCBA Exam Questions](/bcba-test-questions)
+5. **Check pacing and stamina** → [BCBA Mock Exam Free](/free-bcba-mock-exam)
 
 If you want a complete, week‑by‑week plan aligned to the 6th Edition TCO, read our **BCBA 6th Edition Study Schedule** (drafted Feb 22, 2026).
 
