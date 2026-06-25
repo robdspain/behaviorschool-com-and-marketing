@@ -132,6 +132,24 @@ export function Footer() {
             >
               BCBA Practice Exams (Free)
             </Link>
+            <Link href="/bcba-test-questions" className="text-gray-600 hover:text-gray-900 transition-colors">
+              BCBA Test Questions
+            </Link>
+            <Link href="/free-bcba-mock-exam" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Free BCBA Mock Exam
+            </Link>
+            <Link href="/school-bcba/interview-questions" className="text-gray-600 hover:text-gray-900 transition-colors">
+              School BCBA Interview Questions
+            </Link>
+            <Link href="/functional-behavior-assessment-guide" className="text-gray-600 hover:text-gray-900 transition-colors">
+              FBA Guide
+            </Link>
+            <Link href="/behavior-intervention-plan-examples" className="text-gray-600 hover:text-gray-900 transition-colors">
+              BIP Examples
+            </Link>
+            <Link href="/iep-behavior-goal-examples" className="text-gray-600 hover:text-gray-900 transition-colors">
+              IEP Goal Examples
+            </Link>
             <Link
               href="https://study.behaviorschool.com/contact"
               target="_blank"

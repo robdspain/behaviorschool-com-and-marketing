@@ -117,6 +117,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.95,
     },
     {
+      url: `${baseUrl}/free-bcba-mock-exam`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/bcba-test-questions`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/bcba-exam-practice-questions`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/free-bcba-practice-exam`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -191,6 +209,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/school-bcba/job-description`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/school-bcba/interview-questions`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/school-bcba/salary-by-state`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
@@ -216,6 +246,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // - /bcba-mock-practice-test -> /bcba-practice-exam
     {
       url: `${baseUrl}/behavior-plans`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/behavior-intervention-plan-examples`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/functional-behavior-assessment-guide`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/iep-behavior-goal-examples`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.85,
