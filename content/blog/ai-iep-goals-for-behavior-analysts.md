@@ -1,5 +1,5 @@
 ---
-title: "AI IEP Goals for Behavior Analysts: A Practical BCBA Guide"
+title: "AI IEP Goals for Behavior Analysts: Prompts, Examples, and Review Rules"
 excerpt: "How behavior analysts can use AI to draft stronger IEP behavior goals without losing function-based thinking, measurement quality, or professional judgment."
 date: "2026-06-26T09:00:00.000Z"
 author: Rob Spain
@@ -11,8 +11,8 @@ tags:
   - School-Based ABA
   - blog
 status: published
-meta_title: "AI IEP Goals for Behavior Analysts | BCBA Guide"
-meta_description: "A practical BCBA guide to using AI for IEP behavior goals while keeping goals measurable, function-based, FERPA-conscious, and clinically reviewed."
+meta_title: "AI IEP Goals for Behavior Analysts: Prompt + Review Guide"
+meta_description: "Use AI to draft IEP behavior goals faster without losing function-based thinking. Includes BCBA review criteria, safer prompts, and examples."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain, BCBA.*

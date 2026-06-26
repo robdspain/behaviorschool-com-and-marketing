@@ -1,5 +1,5 @@
 ---
-title: "FERPA-Safe AI IEP Goals: Guidance for School BCBAs"
+title: "FERPA-Safe AI IEP Goals: What School BCBAs Can Use"
 excerpt: "How school BCBAs can use AI to support IEP behavior goal writing while protecting student privacy and keeping human review at the center."
 date: "2026-06-26T09:30:00.000Z"
 author: Rob Spain
@@ -11,8 +11,8 @@ tags:
   - School-Based ABA
   - blog
 status: published
-meta_title: "FERPA-Safe AI IEP Goals for School BCBAs"
-meta_description: "Practical guidance for school BCBAs using AI for IEP behavior goals while protecting student privacy, de-identifying prompts, and reviewing outputs."
+meta_title: "FERPA-Safe AI IEP Goals: What School BCBAs Can Use"
+meta_description: "Learn what school BCBAs can safely include in AI prompts for IEP goals, what to remove, and how to keep human review and privacy intact."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain, BCBA.*

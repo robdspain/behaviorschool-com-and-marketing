@@ -5,9 +5,9 @@ import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 const canonical = "https://behaviorschool.com/free-bcba-mock-exam";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Exam | 6th Edition Practice | Behavior School",
+  title: "Free BCBA Mock Exam | Timed Practice + Rationales",
   description:
-    "Take a free BCBA mock exam pathway with practice questions, rationales, readiness signals, and 6th Edition-aligned study support.",
+    "Try a free BCBA mock exam path with timed practice, rationales, readiness signals, and 6th Edition-aligned review. Start with no credit card.",
   alternates: { canonical },
   robots: { index: true, follow: true },
 };

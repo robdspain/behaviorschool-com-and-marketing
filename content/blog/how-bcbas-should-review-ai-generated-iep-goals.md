@@ -1,5 +1,5 @@
 ---
-title: "How BCBAs Should Review AI-Generated IEP Goals"
+title: "AI-Generated IEP Goals: A BCBA Review Checklist"
 excerpt: "A review checklist for behavior analysts using AI-generated IEP goals, including observability, function alignment, measurement, baseline fit, and privacy."
 date: "2026-06-26T09:15:00.000Z"
 author: Rob Spain
@@ -11,8 +11,8 @@ tags:
   - School-Based ABA
   - blog
 status: published
-meta_title: "BCBA Checklist for AI-Generated IEP Goals"
-meta_description: "Use this BCBA checklist to review AI-generated IEP behavior goals for observability, measurement, function alignment, baseline fit, and privacy."
+meta_title: "AI-Generated IEP Goals: BCBA Review Checklist"
+meta_description: "Before an AI-written IEP goal reaches the team, check observability, function alignment, baseline fit, measurement, and privacy. Use this BCBA checklist."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain, BCBA.*

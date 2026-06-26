@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Exam Prep & Practice Questions | Behavior School",
-  description: "Free BCBA exam prep with practice questions, mock exams, adaptive study tools, and school-based scenarios for BCBAs preparing for the exam.",
+  title: "Free BCBA Exam Prep | Practice Questions + Study Plan",
+  description: "Free BCBA exam prep with practice questions, mock exams, study schedule guidance, and school-based scenarios. Start with the right practice path.",
   keywords: "BCBA exam study guide free download, BCBA exam pass rates 2024, how to pass the BCBA exam, BCBA exam prep, BCBA practice test, BCBA study guide, behavior analyst certification, BCBA test prep, applied behavior analysis exam, school BCBA certification, free BCBA study materials, BCBA certification exam preparation",
   alternates: { canonical: "https://behaviorschool.com/bcba-exam-prep" },
   openGraph: {
-    title: "Free BCBA Exam Prep & Practice Questions | Behavior School",
-    description: "Free BCBA exam prep with practice questions, mock exams, adaptive study tools, and school-based scenarios for BCBAs preparing for the exam.",
+    title: "Free BCBA Exam Prep: Practice Questions + Study Plan",
+    description: "Free BCBA exam prep with practice questions, mock exams, study schedule guidance, and school-based scenarios.",
     url: "/bcba-exam-prep",
     type: "website",
     siteName: "Behavior School",
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Exam Prep & Practice Questions | Behavior School",
-    description: "Free BCBA exam prep with practice questions, mock exams, adaptive study tools, and school-based scenarios for BCBAs preparing for the exam.",
+    title: "Free BCBA Exam Prep: Practice Questions + Study Plan",
+    description: "Free BCBA exam prep with practice questions, mock exams, study schedule guidance, and school-based scenarios.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },

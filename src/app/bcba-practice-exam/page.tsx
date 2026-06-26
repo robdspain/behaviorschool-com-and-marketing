@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Zap, Target, TrendingUp, Clock, BarChart3, Brain, Lightbulb, ArrowRight, Star, Award, Users, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Practice Exam & Mock Questions | Behavior School",
-  description: "Take a free BCBA practice exam with unlimited mock questions, instant scoring, detailed explanations, and 6th Edition-aligned study support.",
+  title: "Free BCBA Practice Exam | Instant Score + Rationales",
+  description: "Take a free BCBA practice exam with instant scoring, rationales, mock questions, and 6th Edition-aligned study support. No credit card required.",
   robots: {
     index: true,
     follow: true,
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/bcba-practice-exam"
   },
   openGraph: {
-    title: "Free BCBA Practice Exam & Mock Questions | Behavior School",
-    description: "Practice BCBA exam questions with instant scoring, detailed explanations, and 6th Edition-aligned study support.",
+    title: "Free BCBA Practice Exam: Instant Score + Rationales",
+    description: "Take a free BCBA practice exam with instant scoring, rationales, mock questions, and 6th Edition-aligned study support.",
     url: "https://behaviorschool.com/bcba-practice-exam",
     siteName: "Behavior School",
     images: [
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Practice Exam & Mock Questions | Behavior School",
-    description: "Practice BCBA exam questions with instant scoring, detailed explanations, and 6th Edition-aligned study support.",
+    title: "Free BCBA Practice Exam: Instant Score + Rationales",
+    description: "Take a free BCBA practice exam with instant scoring, rationales, mock questions, and 6th Edition-aligned study support.",
     images: ["/optimized/og-image.webp"],
   },
 };

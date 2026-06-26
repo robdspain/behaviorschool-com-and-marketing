@@ -13,18 +13,18 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI for Behavior Analysts | ABA Tools for BCBAs",
+  title: "AI for Behavior Analysts | IEP Goals, BIPs & BCBA Tools",
   description:
-    "A practical guide to AI for behavior analysts, including BCBA exam prep, FBA and BIP workflows, IEP goal writing, supervision support, and ethical guardrails.",
+    "See BCBA-built AI workflows for IEP goals, FBA-to-BIP planning, exam prep, and FERPA-conscious school documentation. Practical examples, not hype.",
   keywords:
     "AI for behavior analysts, AI for BCBAs, ABA AI tools, behavior analyst AI, AI BCBA exam prep, AI behavior plan tools",
   alternates: {
     canonical: "https://behaviorschool.com/ai-for-behavior-analysts",
   },
   openGraph: {
-    title: "AI for Behavior Analysts | Behavior School",
+    title: "AI for Behavior Analysts: IEP Goals, BIPs & BCBA Tools",
     description:
-      "Practical AI tools and guardrails for BCBAs, school behavior teams, supervisors, and exam candidates.",
+      "BCBA-built AI workflows for IEP goals, FBA-to-BIP planning, exam prep, and FERPA-conscious school documentation.",
     url: "https://behaviorschool.com/ai-for-behavior-analysts",
     siteName: "Behavior School",
     type: "website",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI for Behavior Analysts | Behavior School",
+    title: "AI for Behavior Analysts: IEP Goals, BIPs & BCBA Tools",
     description:
-      "See practical AI workflows for BCBA exam prep, FBA to BIP, IEP goals, and school-based behavior support.",
+      "See practical AI workflows for IEP goals, FBA-to-BIP planning, exam prep, and school documentation.",
     images: ["/BehaviorStudyTools/Hero-BST-Home.webp"],
   },
 };
@@ -164,12 +164,13 @@ export default function AIForBehaviorAnalystsPage() {
               AI tools for ABA work
             </div>
             <h1 className="mt-6 max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-[#1f4d3f] sm:text-5xl lg:text-6xl">
-              AI for behavior analysts should make the work clearer, not sloppier.
+              AI for behavior analysts: IEP goals, BIPs, exam prep, and school documentation.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
               Behavior School builds practical AI-supported tools for BCBAs, school behavior teams,
-              supervisors, and exam candidates. The goal is better thinking: clearer study data,
-              stronger drafts, tighter documentation, and human review at every important step.
+              supervisors, and exam candidates. The goal is better thinking, not sloppier work:
+              clearer study data, stronger drafts, tighter documentation, and human review at every
+              important step.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
