@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Clock, GraduationCap, Sparkles } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 export type SeoArticleSection = {
@@ -29,6 +30,7 @@ type SeoArticlePageProps = {
   primaryCta: SeoArticleLink;
   secondaryLinks: SeoArticleLink[];
   canonical: string;
+  heroVisual?: boolean;
   children?: ReactNode;
 };
 
@@ -42,6 +44,7 @@ export function SeoArticlePage({
   primaryCta,
   secondaryLinks,
   canonical,
+  heroVisual = false,
   children,
 }: SeoArticlePageProps) {
   const structuredData = {
@@ -89,34 +92,84 @@ export function SeoArticlePage({
       </section>
 
       <section className="container mx-auto px-6 pb-14">
-        <div className="max-w-4xl">
-          <div className="mb-5 inline-flex rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-700">
-            {eyebrow}
-          </div>
-          <h1 className="text-4xl font-bold leading-tight text-slate-950 md:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-6 max-w-3xl text-xl leading-relaxed text-slate-600">
-            {description}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href={primaryCta.href}
-              className="inline-flex items-center rounded-lg bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800"
-            >
-              {primaryCta.label}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-            {secondaryLinks.slice(0, 2).map((link) => (
+        <div className={heroVisual ? "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_460px]" : "max-w-4xl"}>
+          <div className="max-w-4xl">
+            <div className="mb-5 inline-flex rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-700">
+              {eyebrow}
+            </div>
+            <h1 className="text-4xl font-bold leading-tight text-slate-950 md:text-6xl">
+              {title}
+            </h1>
+            <p className="mt-6 max-w-3xl text-xl leading-relaxed text-slate-600">
+              {description}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                key={link.href}
-                href={link.href}
-                className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-800 transition-colors hover:border-emerald-300 hover:text-emerald-800"
+                href={primaryCta.href}
+                className="inline-flex items-center rounded-lg bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800"
               >
-                {link.label}
+                {primaryCta.label}
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-            ))}
+              {secondaryLinks.slice(0, 2).map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-800 transition-colors hover:border-emerald-300 hover:text-emerald-800"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
+
+          {heroVisual ? (
+            <div className="relative">
+              <div className="absolute -inset-4 rounded-[2rem] bg-emerald-200/35 blur-2xl" />
+              <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl">
+                <Image
+                  src="/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp"
+                  alt="BehaviorSchool BCBA practice dashboard with exam question review"
+                  width={1536}
+                  height={1024}
+                  className="aspect-[4/3] w-full object-cover"
+                  priority
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/85 via-slate-950/45 to-transparent p-5 text-white">
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {[
+                      { icon: GraduationCap, label: "6th Edition" },
+                      { icon: Clock, label: "Timed practice" },
+                      { icon: Sparkles, label: "AI study signals" },
+                    ].map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <div key={item.label} className="flex items-center gap-2 rounded-lg bg-white/12 px-3 py-2 text-xs font-bold backdrop-blur">
+                          <Icon className="h-4 w-4 text-emerald-200" />
+                          {item.label}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+              <div className="relative mx-5 -mt-8 flex items-center gap-4 rounded-2xl border border-emerald-100 bg-white p-4 shadow-lg">
+                <Image
+                  src="/profile-Rob.webp"
+                  alt="Rob Spain, BCBA and founder of BehaviorSchool"
+                  width={96}
+                  height={96}
+                  className="h-16 w-16 rounded-full object-cover"
+                />
+                <div>
+                  <p className="text-sm font-bold text-slate-950">Built by a practicing BCBA</p>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                    Exam prep, rationales, and study paths designed for real behavior analysts.
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 

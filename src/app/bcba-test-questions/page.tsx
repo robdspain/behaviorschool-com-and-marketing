@@ -20,6 +20,7 @@ export default function Page() {
       eyebrow="BCBA test prep"
       breadcrumbLabel="BCBA Test Questions"
       canonical={canonical}
+      heroVisual
       primaryCta={{ label: "Practice BCBA questions", href: "/bcba-practice-exam" }}
       secondaryLinks={[
         { label: "Free BCBA practice exam", href: "/free-bcba-practice-exam" },
