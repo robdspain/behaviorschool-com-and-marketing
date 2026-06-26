@@ -1030,7 +1030,7 @@ export default function BCBAPracticeExamPage() {
               </Link>
 
               <Link
-                href="/bcba-study-tools"
+                href="/study"
                 className="flex items-center justify-center px-6 py-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl hover:bg-emerald-100 transition-colors duration-200 text-center"
               >
                 <div>
@@ -1041,7 +1041,7 @@ export default function BCBAPracticeExamPage() {
               </Link>
 
               <Link
-                href="/school-based-bcba"
+                href="/school-bcba"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -1063,7 +1063,7 @@ export default function BCBAPracticeExamPage() {
               </Link>
 
               <Link
-                href="/behavior-study-tools"
+                href="/study"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -1073,7 +1073,7 @@ export default function BCBAPracticeExamPage() {
                 </div>
               </Link>
               <Link
-                href="/bcba-mock-exam-guide"
+                href="/bcba-exam-prep"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -1195,7 +1195,7 @@ export default function BCBAPracticeExamPage() {
                   <li><strong>Review and analyze:</strong> Use our detailed analytics to identify improvement areas</li>
                 </ul>
                 <p className="text-slate-600 mt-4">
-                  Our adaptive system tracks your progress and suggests optimal practice schedules. Planning to work in schools? Check our <Link href="/school-based-bcba" className="text-purple-600 hover:text-purple-700 underline font-medium">school-based BCBA guide</Link> for specialized preparation.
+                  Our adaptive system tracks your progress and suggests optimal practice schedules. Planning to work in schools? Check our <Link href="/school-bcba" className="text-purple-600 hover:text-purple-700 underline font-medium">school-based BCBA guide</Link> for specialized preparation.
                 </p>
               </div>
             </div>

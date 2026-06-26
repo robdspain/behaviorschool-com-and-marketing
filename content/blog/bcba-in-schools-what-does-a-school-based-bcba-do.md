@@ -159,7 +159,7 @@ The path to becoming a school-based BCBA is the same as any BCBA:
 3. **Supervised fieldwork** (per current BACB requirements)
 4. **Pass the BCBA exam**
 
-If you're preparing for the exam, check out our [BCBA practice exam](/bcba-practice-exam) and [study tools](/bcba-study-tools) — they're designed to help you pass on your first attempt.
+If you're preparing for the exam, check out our [BCBA practice exam](/bcba-practice-exam) and [study tools](/study) — they're designed to help you pass on your first attempt.
 
 ### Additional Qualifications That Help
 
@@ -194,7 +194,7 @@ While not always required, these qualifications strengthen your candidacy for sc
 - **Build relationships first.** Teachers will implement your plans if they trust you. Spend time in their classrooms, understand their pressures, and be helpful before being prescriptive.
 - **Start small.** Don't try to overhaul the school's behavior system in month one. Pick quick wins that build credibility.
 - **Collect data that matters to administrators.** Suspension rates, time out of class, academic engagement — speak their language.
-- **Find your people.** Connect with other school BCBAs through professional organizations, online communities, and conferences. The [BehaviorSchool community](/community) is a great place to start.
+- **Find your people.** Connect with other school BCBAs through professional organizations, online communities, and conferences. The [BehaviorSchool community](https://community.behaviorschool.com) is a great place to start.
 - **Stay current.** School-based ABA is evolving rapidly. Invest in ongoing learning through [continuing education](/bacb-ace-provider) and professional development.
 
 ## The Growing Demand for School BCBAs
@@ -253,8 +253,8 @@ BehaviorSchool was built specifically for BCBAs who work in schools. Here's what
 - **[FBA-to-BIP Generator](/fba-to-bip)** — Turn your FBA data into a complete, function-based BIP
 - **[IEP Goal Writer](/iep-goal-writer)** — Generate measurable behavior goals aligned with FBA findings
 - **[BCBA Practice Exam](/bcba-practice-exam)** — Prepare for the BCBA exam with school-relevant scenarios
-- **[Study Tools](/bcba-study-tools)** — Adaptive study app built for busy professionals
-- **[Community](/community)** — Connect with other school-based BCBAs
+- **[Study Tools](/study)** — Adaptive study app built for busy professionals
+- **[Community](https://community.behaviorschool.com)** — Connect with other school-based BCBAs
 
 **Ready to level up your school-based practice?** [Explore BehaviorSchool's tools](/toolkit) — designed by school BCBAs, for school BCBAs.
 

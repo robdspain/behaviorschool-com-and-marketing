@@ -89,7 +89,7 @@ Cramming doesn't work for an exam this broad. **Spaced repetition** — reviewin
 **How to implement spaced repetition:**
 
 - Study a topic → review it the next day → review it 3 days later → review it 1 week later → review it 2 weeks later
-- Use a spaced repetition app or system (Anki, or BehaviorSchool's [study tools](/bcba-study-tools) which build this in automatically)
+- Use a spaced repetition app or system (Anki, or BehaviorSchool's [study tools](/study) which build this in automatically)
 - Interleave topics: don't study all of reinforcement in one sitting, then all of punishment the next. Mix related and unrelated topics within each session
 
 ### 4. Build a Study Schedule (and Stick to It)
@@ -158,7 +158,7 @@ You don't need to spend hundreds of dollars to prepare effectively. Here are the
 
 ### Free Study Materials
 
-- **[BehaviorSchool Study Tools](/bcba-study-tools)** — Adaptive study app with flashcards, practice questions, and progress tracking
+- **[BehaviorSchool Study Tools](/study)** — Adaptive study app with flashcards, practice questions, and progress tracking
 - **BACB 6th Edition Task List** — Free on the BACB website; this IS your study outline
 - **BACB Ethics Code** — Free on the BACB website; required reading
 - **YouTube channels** — Several BCBAs create free exam prep content (search for "BCBA exam prep 6th edition")
@@ -241,7 +241,7 @@ Passing the BCBA exam opens the door to a career that changes lives — includin
 4. Set up your study tools: flashcards, practice questions, and a tracking system
 5. Find an accountability partner or study group
 
-**Want adaptive, AI-powered study tools that adjust to your weak areas?** [Check out BehaviorSchool's BCBA study platform](/bcba-study-tools) — built by BCBAs who've been where you are, designed to get you where you want to be.
+**Want adaptive, AI-powered study tools that adjust to your weak areas?** [Check out BehaviorSchool's BCBA study platform](/study) — built by BCBAs who've been where you are, designed to get you where you want to be.
 
 ## Frequently Asked Questions About BCBA Exam Prep
 

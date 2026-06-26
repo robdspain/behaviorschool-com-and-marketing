@@ -613,7 +613,7 @@ export default function BCBAStudyFluencyPage() {
               </Link>
               
               <Link 
-                href="/school-based-bcba" 
+                href="/school-bcba"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-blue-50 transition-colors duration-200 text-center"
               >
                 <div>

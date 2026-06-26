@@ -243,7 +243,7 @@ export function ComparisonPageLayout({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h3 className="text-lg font-semibold text-slate-700 mb-4">Other Comparisons</h3>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Link href="/compare/behaviorschool-vs-bds" className="px-4 py-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg text-sm font-medium text-slate-600 transition-colors">
+            <Link href="/compare/behaviorschool-vs-bds-modules" className="px-4 py-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg text-sm font-medium text-slate-600 transition-colors">
               BehaviorSchool vs BDS
             </Link>
             <Link href="/compare/behaviorschool-vs-magicschool" className="px-4 py-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg text-sm font-medium text-slate-600 transition-colors">

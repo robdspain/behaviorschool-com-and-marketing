@@ -350,7 +350,7 @@ export default function AboutContent() {
                 Join school-based behavior professionals sharing tools, strategies, and support in our private network.
               </p>
               <Link
-                href="/community"
+                href="https://community.behaviorschool.com"
                 className="inline-flex items-center justify-center w-full px-6 py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-200"
               >
                 Join the Community

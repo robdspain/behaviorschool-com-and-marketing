@@ -106,7 +106,7 @@ export default function SchoolBCBAContent() {
               icon={<Users className="h-8 w-8 text-orange-600" />}
               title="BCBAs in Schools"
               desc="Comprehensive guide to the school BCBA role: challenges, solutions, and systems-level strategies."
-              href="/bcbas-in-schools"
+              href="/school-bcba"
             />
           </div>
         </div>

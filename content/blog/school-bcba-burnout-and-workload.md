@@ -233,7 +233,7 @@ Join communities where other school BCBAs gather:
 - School-Based BCBAs Facebook group
 - Reddit r/bcba (filter for school posts)
 - Local BCBA meetups or study groups
-- [BehaviorSchool community](/community) (school BCBA-specific)
+- [BehaviorSchool community](https://community.behaviorschool.com) (school BCBA-specific)
 
 Even virtual peer support reduces isolation. Knowing you are not the only one struggling makes a difference.
 
@@ -303,4 +303,4 @@ This is the most common scenario. You love helping kids and schools, but the vol
 
 ---
 
-*You are not alone. Thousands of school BCBAs are fighting the same fight. [Join the BehaviorSchool community](/community) for peer support, time-saving tools, and strategies to survive and thrive.*
+*You are not alone. Thousands of school BCBAs are fighting the same fight. [Join the BehaviorSchool community](https://community.behaviorschool.com) for peer support, time-saving tools, and strategies to survive and thrive.*

@@ -27,7 +27,7 @@ export default function NotFound() {
               </Link>
             </Button>
             <Button variant="outline" asChild className="w-full sm:w-auto">
-              <Link href="/behavior-study-tools">
+              <Link href="/study">
                 BCBA Resources
               </Link>
             </Button>

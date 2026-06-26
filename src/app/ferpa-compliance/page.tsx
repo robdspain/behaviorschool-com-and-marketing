@@ -264,10 +264,10 @@ export default function FerpaCompliancePage() {
 
         {/* Related links */}
         <div className="border-t border-slate-200 pt-8 text-sm text-slate-500 flex flex-wrap gap-4 print:hidden">
-          <Link href="/privacy-policy" className="hover:text-emerald-700 transition-colors">
+          <Link href="/privacy" className="hover:text-emerald-700 transition-colors">
             Privacy Policy
           </Link>
-          <Link href="/terms-of-service" className="hover:text-emerald-700 transition-colors">
+          <Link href="/terms" className="hover:text-emerald-700 transition-colors">
             Terms of Service
           </Link>
           <Link href="/districts" className="hover:text-emerald-700 transition-colors">

@@ -525,7 +525,7 @@ export function BCBAStudyToolsClient() {
             </Link>
 
             <Link
-              href="/school-based-bcba"
+              href="/school-bcba"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-slate-200 group"
             >
               <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">

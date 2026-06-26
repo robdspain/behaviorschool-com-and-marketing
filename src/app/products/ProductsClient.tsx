@@ -124,7 +124,7 @@ export function ProductsClient() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link 
-                    href="/behavior-study-tools" 
+                    href="/study"
                     className="inline-flex items-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
                     aria-label="Learn more about Behavior Study Tools"
                   >
@@ -513,7 +513,7 @@ export function ProductsClient() {
               { '@type': 'ListItem', position: 2, name: 'Free Mock Practice Test', url: 'https://behaviorschool.com/free-bcba-mock-practice-test' },
               { '@type': 'ListItem', position: 3, name: 'IEP Goal Writer', url: 'https://behaviorschool.com/iep-goals' },
               { '@type': 'ListItem', position: 4, name: 'Behavior Plan Writer', url: 'https://behaviorschool.com/behavior-plans' },
-              { '@type': 'ListItem', position: 5, name: 'Study Tools Platform', url: 'https://behaviorschool.com/behavior-study-tools' },
+              { '@type': 'ListItem', position: 5, name: 'Study Tools Platform', url: 'https://behaviorschool.com/study' },
               { '@type': 'ListItem', position: 6, name: 'School-Based BCBA Hub', url: 'https://behaviorschool.com/school-bcba' },
             ],
           }),

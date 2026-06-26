@@ -28,13 +28,13 @@ export function LandingNavBar() {
           {/* Minimal CTA Navigation */}
           <div className="hidden sm:flex items-center space-x-6">
             <Link 
-              href="/community" 
+              href="/transformation-program"
               className="text-emerald-700 hover:text-emerald-800 text-sm font-medium transition-colors duration-200"
             >
               Community
             </Link>
             <Link 
-              href="/behavior-study-tools" 
+              href="/study"
               className="text-emerald-700 hover:text-emerald-800 text-sm font-medium transition-colors duration-200"
             >
               Study Tools

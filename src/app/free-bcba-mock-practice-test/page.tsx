@@ -1065,7 +1065,7 @@ export default function BCBAMockPracticeTestPage() {
                   <li><strong>Adjust study plan:</strong> Allocate more time to problematic domains</li>
                 </ul>
                 <p className="text-slate-600 mt-4">
-                  Remember: Mock exams are diagnostic tools. Low initial scores are normal and expected - they guide your preparation, not predict failure. For specialized career paths, consider reading our <Link href="/school-based-bcba" className="text-blue-600 hover:text-blue-700 underline font-medium">school-based BCBA guide</Link> for additional preparation insights.
+                  Remember: Mock exams are diagnostic tools. Low initial scores are normal and expected - they guide your preparation, not predict failure. For specialized career paths, consider reading our <Link href="/school-bcba" className="text-blue-600 hover:text-blue-700 underline font-medium">school-based BCBA guide</Link> for additional preparation insights.
                 </p>
               </div>
             </div>
@@ -1078,7 +1078,7 @@ export default function BCBAMockPracticeTestPage() {
             <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">Related BCBA Resources</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link 
-                href="/school-based-bcba" 
+                href="/school-bcba"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -1100,7 +1100,7 @@ export default function BCBAMockPracticeTestPage() {
               </Link>
               
               <Link 
-                href="/behavior-study-tools" 
+                href="/study"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -1110,7 +1110,7 @@ export default function BCBAMockPracticeTestPage() {
                 </div>
               </Link>
               <Link 
-                href="/bcba-mock-exam-guide" 
+                href="/bcba-exam-prep"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>

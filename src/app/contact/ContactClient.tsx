@@ -140,7 +140,7 @@ export function ContactClient() {
                     <p className="text-slate-600 mb-3">
                       Expert consultation on IEP goals, behavior intervention plans, and implementing evidence-based practices in schools.
                     </p>
-                    <Link href="/school-based-bcba" className="text-emerald-700 hover:text-emerald-800 font-semibold text-sm">
+                    <Link href="/school-bcba" className="text-emerald-700 hover:text-emerald-800 font-semibold text-sm">
                       Learn about School-Based BCBA →
                     </Link>
                   </div>
