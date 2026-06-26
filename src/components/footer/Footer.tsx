@@ -127,6 +127,9 @@ export function Footer() {
             <Link href="/bcba-exam-prep" className="text-gray-600 hover:text-gray-900 transition-colors">
               BCBA Exam Prep
             </Link>
+            <Link href="/ai-for-behavior-analysts" className="text-gray-600 hover:text-gray-900 transition-colors">
+              AI for Behavior Analysts
+            </Link>
             <Link href="/bcba-practice-exam" className="text-gray-600 hover:text-gray-900 transition-colors">
               BCBA Practice Exam
             </Link>

@@ -153,6 +153,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/ai-for-behavior-analysts`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/compare/behaviorschool-vs-aba-wizard`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
