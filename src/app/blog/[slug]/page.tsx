@@ -69,6 +69,59 @@ function extractFAQs(html: string): { question: string; answer: string }[] {
   return faqs;
 }
 
+function getArticleCta(post: { tags?: { name: string }[] | null }) {
+  const tags = (post.tags || []).map((tag) => tag.name.toLowerCase());
+  const hasTag = (needle: string) => tags.some((tag) => tag.includes(needle));
+
+  if (hasTag("ai")) {
+    return {
+      eyebrow: "Put this into practice",
+      title: "Explore AI tools built around behavior analytic work.",
+      body: "Use the AI for Behavior Analysts hub to connect this idea to IEP goals, FBA-to-BIP workflows, exam prep, and privacy-conscious school practice.",
+      href: "/ai-for-behavior-analysts",
+      label: "Open the AI hub",
+    };
+  }
+
+  if (hasTag("iep")) {
+    return {
+      eyebrow: "Try the workflow",
+      title: "Draft behavior goals with a more function-based frame.",
+      body: "The IEP Goal Writer helps turn behavior needs, present levels, and replacement skills into measurable draft goals you can review with your team.",
+      href: "/iep-goal-writer",
+      label: "Open the IEP Goal Writer",
+    };
+  }
+
+  if (hasTag("bcba exam") || hasTag("exam prep") || hasTag("study")) {
+    return {
+      eyebrow: "Keep studying",
+      title: "Turn the article into exam practice.",
+      body: "Use Behavior School's BCBA exam prep tools for practice questions, mock exams, rationales, and study planning aligned to the task list.",
+      href: "/bcba-exam-prep",
+      label: "Explore BCBA exam prep",
+    };
+  }
+
+  if (hasTag("fba") || hasTag("bip") || hasTag("behavior intervention")) {
+    return {
+      eyebrow: "Build the plan",
+      title: "Move from assessment data to a clearer behavior plan.",
+      body: "Use the FBA-to-BIP workflow to connect hypothesis statements, replacement skills, and intervention strategies into a practical school plan.",
+      href: "/fba-to-bip",
+      label: "Open FBA to BIP",
+    };
+  }
+
+  return {
+    eyebrow: "Keep going",
+    title: "Explore tools for school-based behavior work.",
+    body: "Behavior School brings together practical resources for BCBAs, special education teams, exam candidates, and school-based behavior support.",
+    href: "/products",
+    label: "Explore Behavior School tools",
+  };
+}
+
 // Generate metadata for SEO and social sharing
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -170,6 +223,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return notFound();
+  const articleCta = getArticleCta(post);
 
   const ghostBase = (process.env.NEXT_PUBLIC_GHOST_CONTENT_URL || 'https://ghost.behaviorschool.com').replace(/\/$/, '');
   const ghostContentPrefix = `${ghostBase}/content/images/`;
@@ -356,6 +410,24 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           dangerouslySetInnerHTML={{ __html: normalizeHtml(post.html, post.feature_image as string) }}
         />
       ) : null}
+
+      <aside className="mt-10 rounded-lg border border-emerald-100 bg-emerald-50/70 p-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+          {articleCta.eyebrow}
+        </p>
+        <h2 className="mt-2 text-xl font-semibold text-slate-950">
+          {articleCta.title}
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-slate-700">
+          {articleCta.body}
+        </p>
+        <a
+          href={articleCta.href}
+          className="mt-4 inline-flex text-sm font-semibold text-emerald-700 hover:text-emerald-900"
+        >
+          {articleCta.label}
+        </a>
+      </aside>
       
       <div className="mt-12">
         <BlogNewsletterSignup />
