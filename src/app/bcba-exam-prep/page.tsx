@@ -171,7 +171,7 @@ export default function BCBAExamPrepPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
               >
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                   <Link
                     href="/free-bcba-practice-exam"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
@@ -184,6 +184,13 @@ export default function BCBAExamPrepPage() {
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white hover:bg-slate-50 text-emerald-700 border-2 border-emerald-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Review Sample Questions
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                  <Link
+                    href="/failed-bcba-exam-help"
+                    className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                  >
+                    Failed? Build a Retake Plan
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </div>
