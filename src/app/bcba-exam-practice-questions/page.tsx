@@ -5,23 +5,37 @@ import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 const canonical = "https://behaviorschool.com/bcba-exam-practice-questions";
 
 export const metadata: Metadata = {
-  title: "BCBA Exam Practice Questions | Free Study Guide | Behavior School",
+  title: "BCBA Exam Practice Questions | Free Rationales + Study Path",
   description:
-    "Use BCBA exam practice questions to review concepts, build fluency, and prepare for 6th Edition exam scenarios with rationales.",
+    "Practice BCBA exam questions with rationales, domain review, and a clear next step into timed mock exams. Start free with no credit card.",
   alternates: { canonical },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "BCBA Exam Practice Questions: Free Rationales + Study Path",
+    description:
+      "Practice BCBA exam questions with rationales, domain review, and a clear next step into timed mock exams.",
+    url: canonical,
+    siteName: "Behavior School",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BCBA Exam Practice Questions: Free Rationales + Study Path",
+    description:
+      "Practice BCBA exam questions with rationales, domain review, and a clear next step into timed mock exams.",
+  },
 };
 
 export default function Page() {
   return (
     <SeoArticlePage
-      title="BCBA Exam Practice Questions"
-      description="BCBA exam practice questions are most effective when they are reviewed by concept, timing, and rationale. This guide shows how to use practice questions to build readiness."
+      title="BCBA Exam Practice Questions with Rationales and a Study Path"
+      description="BCBA exam practice questions are most effective when they are reviewed by concept, timing, and rationale. Start with free questions, then use your score pattern to choose domain practice or a timed mock exam."
       eyebrow="6th Edition study"
       breadcrumbLabel="BCBA Exam Practice Questions"
       canonical={canonical}
       heroVisual
-      primaryCta={{ label: "Start practice questions", href: "/bcba-practice-exam" }}
+      primaryCta={{ label: "Start free practice", href: "/free-bcba-practice-exam" }}
       secondaryLinks={[
         { label: "BCBA test questions", href: "/bcba-test-questions" },
         { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },

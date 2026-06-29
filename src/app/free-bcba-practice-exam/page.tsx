@@ -15,8 +15,8 @@ const PAGE_HREF = "https://behaviorschool.com/free-bcba-practice-exam";
 const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/free-bcba-practice-exam";
 
 const baseMetadata: Metadata = {
-  title: "Free BCBA Practice Exam | 10 Questions with Rationales | Behavior School",
-  description: "Take a free BCBA practice exam with 10 challenging questions, instant feedback, detailed rationales, and a clear path into the full mock exam.",
+  title: "Free BCBA Practice Exam | 10 Questions, Score + Rationales",
+  description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path. No credit card required.",
   keywords: [
     "bcba practice test",
     "quick bcba practice test",
@@ -31,22 +31,22 @@ const baseMetadata: Metadata = {
   alternates: { canonical: PAGE_HREF },
   openGraph: {
     type: "article",
-    title: "Free BCBA Practice Exam with Rationales",
-    description: "Take a quick BCBA practice exam with 10 challenging questions, instant feedback, and detailed rationales.",
+    title: "Free BCBA Practice Exam: 10 Questions, Score + Rationales",
+    description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path.",
     url: PAGE_HREF,
     images: [
       {
         url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "Quick BCBA Practice Test",
+        alt: "Free BCBA Practice Exam",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Practice Exam with Rationales",
-    description: "Take a quick BCBA practice exam: 10 questions, instant feedback, detailed rationales.",
+    title: "Free BCBA Practice Exam: 10 Questions, Score + Rationales",
+    description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },
@@ -241,10 +241,10 @@ export default async function FreeBCBAPracticeExamPage() {
               Free Practice Exam
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight mb-6">
-              {override?.heroHeadline || "Quick BCBA Practice Test with Instant Feedback"}
+              {override?.heroHeadline || "Free BCBA Practice Exam with Instant Score and Rationales"}
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
-              {override?.metaDescription || "Take a quick BCBA practice test designed for efficient exam prep. This free BCBA practice test includes 10 challenging questions aligned to the BACB task list with detailed explanations to build your confidence for exam day."}
+              {override?.metaDescription || "Take a free 10-question BCBA practice exam designed for efficient exam prep. Get instant scoring, detailed explanations, and a clear next step into domain practice or a full mock exam."}
             </p>
           </div>
 
@@ -553,9 +553,9 @@ export default async function FreeBCBAPracticeExamPage() {
         const webPageJsonLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Quick BCBA Practice Test (Free 10-Question Exam)",
+          name: "Free BCBA Practice Exam (10 Questions with Rationales)",
           url: `${SITE_URL}/free-bcba-practice-exam`,
-          description: "Take a quick BCBA practice test with 10 challenging questions and detailed answers. Free BCBA practice test for efficient exam prep.",
+          description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path.",
           isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Behavior School" },
         } as const;
         const faqJsonLd = {
