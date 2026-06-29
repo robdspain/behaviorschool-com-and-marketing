@@ -111,6 +111,46 @@ export default function Page() {
           ))}
         </div>
       </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">Turn your practice score into the next study action</h2>
+        <p className="mt-3 leading-relaxed text-slate-700">
+          The useful question is not just whether you got an item right. The useful question is what your answer pattern says to do next.
+        </p>
+        <div className="mt-5 overflow-x-auto">
+          <table className="w-full min-w-[680px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-slate-200 text-slate-600">
+                <th className="py-3 pr-4 font-semibold">Practice pattern</th>
+                <th className="py-3 pr-4 font-semibold">What it usually means</th>
+                <th className="py-3 font-semibold">Best next step</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tr>
+                <td className="py-4 pr-4 font-semibold text-slate-950">Correct but slow</td>
+                <td className="py-4 pr-4">You may understand the concept but still need fluency.</td>
+                <td className="py-4">Repeat the domain with a timer and review items that took longer than 90 seconds.</td>
+              </tr>
+              <tr>
+                <td className="py-4 pr-4 font-semibold text-slate-950">Wrong after choosing a plausible distractor</td>
+                <td className="py-4 pr-4">The issue is often discrimination, not memorization.</td>
+                <td className="py-4">Write why the distractor was tempting and what detail in the stem ruled it out.</td>
+              </tr>
+              <tr>
+                <td className="py-4 pr-4 font-semibold text-slate-950">Wrong across several domains</td>
+                <td className="py-4 pr-4">Mixed practice may be too early.</td>
+                <td className="py-4">Return to domain practice before taking another mock exam.</td>
+              </tr>
+              <tr>
+                <td className="py-4 pr-4 font-semibold text-slate-950">High accuracy in short sets</td>
+                <td className="py-4 pr-4">You are ready to test endurance and pacing.</td>
+                <td className="py-4">Move into a longer timed mock and review performance by domain afterward.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </SeoArticlePage>
   );
 }

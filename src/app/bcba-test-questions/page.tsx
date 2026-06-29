@@ -139,6 +139,27 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="text-2xl font-bold text-slate-950">Rationale review checklist</h2>
+        <p className="mt-3 leading-relaxed text-slate-700">
+          A rationale should teach the decision rule behind the answer. Use this checklist when a BCBA test question feels confusing or when two answers look close.
+        </p>
+        <ul className="mt-5 grid gap-3 md:grid-cols-2">
+          {[
+            "Name the behavior analytic concept being tested.",
+            "Circle the antecedent, behavior, and consequence details in the stem.",
+            "Identify the one word or phrase that made the correct answer best.",
+            "Write why your chosen distractor was weaker than the correct answer.",
+            "Create a second example from a school, clinic, or supervision context.",
+            "Retest the concept with a new item instead of memorizing the original question.",
+          ].map((item) => (
+            <li key={item} className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm font-medium leading-relaxed text-slate-800">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </section>
     </SeoArticlePage>
   );
 }

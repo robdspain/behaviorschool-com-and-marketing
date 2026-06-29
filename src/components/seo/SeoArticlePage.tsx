@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { ArrowRight, CheckCircle2, Clock, GraduationCap, Sparkles } from "lucide-react";
+import { ArrowRight, CalendarDays, CheckCircle2, Clock, GraduationCap, ShieldCheck, Sparkles, UserRound } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 export type SeoArticleSection = {
@@ -31,6 +31,7 @@ type SeoArticlePageProps = {
   secondaryLinks: SeoArticleLink[];
   canonical: string;
   heroVisual?: boolean;
+  dateModified?: string;
   children?: ReactNode;
 };
 
@@ -45,8 +46,14 @@ export function SeoArticlePage({
   secondaryLinks,
   canonical,
   heroVisual = false,
+  dateModified = "2026-06-29",
   children,
 }: SeoArticlePageProps) {
+  const breadcrumbItems = [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://behaviorschool.com" },
+    { "@type": "ListItem", position: 2, name: breadcrumbLabel, item: canonical },
+  ];
+
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -55,10 +62,23 @@ export function SeoArticlePage({
         headline: title,
         description,
         url: canonical,
+        dateModified,
         author: {
-          "@type": "Organization",
-          name: "Behavior School",
-          url: "https://behaviorschool.com",
+          "@type": "Person",
+          name: "Rob Spain",
+          jobTitle: "BCBA",
+          url: "https://behaviorschool.com/about/rob-spain",
+          affiliation: {
+            "@type": "Organization",
+            name: "Behavior School",
+            url: "https://behaviorschool.com",
+          },
+        },
+        reviewedBy: {
+          "@type": "Person",
+          name: "Rob Spain",
+          jobTitle: "BCBA",
+          url: "https://behaviorschool.com/about/rob-spain",
         },
         publisher: {
           "@type": "Organization",
@@ -66,6 +86,10 @@ export function SeoArticlePage({
           url: "https://behaviorschool.com",
         },
         mainEntityOfPage: canonical,
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbItems,
       },
       {
         "@type": "FAQPage",
@@ -103,6 +127,20 @@ export function SeoArticlePage({
             <p className="mt-6 max-w-3xl text-xl leading-relaxed text-slate-600">
               {description}
             </p>
+            <div className="mt-6 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
+              <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                <UserRound className="h-4 w-4 text-emerald-700" />
+                <span>Reviewed by Rob Spain, BCBA</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                <CalendarDays className="h-4 w-4 text-emerald-700" />
+                <span>Updated {dateModified}</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2">
+                <ShieldCheck className="h-4 w-4 text-emerald-700" />
+                <span>Built for applied ABA decisions</span>
+              </div>
+            </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href={primaryCta.href}
@@ -211,6 +249,21 @@ export function SeoArticlePage({
         </article>
 
         <aside className="h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-6 rounded-xl border border-emerald-100 bg-emerald-50 p-4">
+            <h2 className="text-sm font-bold uppercase tracking-wide text-emerald-900">Why this page exists</h2>
+            <p className="mt-2 text-sm leading-relaxed text-emerald-950">
+              This resource is written for behavior analysts who need a useful next action, not another
+              generic definition page. The examples, rationales, and links point you toward practice,
+              review, or documentation decisions.
+            </p>
+            <Link
+              href="/about/rob-spain"
+              className="mt-3 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-950"
+            >
+              About the BCBA reviewer
+            </Link>
+          </div>
+
           <h2 className="text-lg font-bold text-slate-950">Related resources</h2>
           <div className="mt-4 space-y-3">
             {secondaryLinks.map((link) => (
