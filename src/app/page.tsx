@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { BrainCircuit, GraduationCap, ArrowRight } from "lucide-react";
+import { BrainCircuit, GraduationCap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
 import { Hero } from "@/components/ui/hero";
 import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
@@ -49,9 +49,38 @@ export default function Home() {
         title="Everything a Behavior Analyst"
         highlight="Actually Needs"
         subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school-based behavior professionals."
-        primaryCta={{ href: "https://plan.behaviorschool.com", label: "Join Waitlist" }}
+        primaryCta={{ href: "/free-bcba-practice-exam", label: "Take Free BCBA Practice Exam" }}
         variant="brand"
       />
+
+      {/* ─── HIGH-INTENT BCBA PRACTICE PATH ───────────────────────── */}
+      <section className="border-y border-emerald-100 bg-emerald-50/70 py-10">
+        <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">
+              Free BCBA Exam Prep
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-gray-950 sm:text-3xl">
+              Start with 10 free BCBA questions, instant score, and rationales.
+            </h2>
+            <div className="mt-4 grid gap-2 text-sm font-medium text-gray-700 sm:grid-cols-3">
+              {["No credit card", "Score immediately", "Know what to study next"].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 flex-none text-emerald-700" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          <Link
+            href="/free-bcba-practice-exam"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-[#173a30]"
+          >
+            Take the free exam
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+      </section>
 
       {/* ─── WHAT WE OFFER ────────────────────────────────────────── */}
       <section className="py-20 sm:py-28 bg-gray-50">
@@ -90,9 +119,12 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">BCBA Exam Prep</h3>
               <p className="text-gray-600 leading-relaxed flex-1">
-                Master the 6th Edition Task List with mock exams, detailed analytics, and our adaptive learning algorithm.
+                Start with free BCBA practice questions, then move into mock exams, detailed analytics, and adaptive study paths.
               </p>
               <div className="mt-6 grid gap-2 text-sm">
+                <Link href="/free-bcba-practice-exam" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  Free 10-question BCBA exam <ArrowRight size={14} />
+                </Link>
                 <Link href="/bcba-exam-prep" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
                   BCBA exam prep <ArrowRight size={14} />
                 </Link>

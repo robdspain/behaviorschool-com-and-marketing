@@ -144,9 +144,27 @@ export default function BCBAExamPrepPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  With only 54% passing in 2024, you need smarter prep. Get FREE AI-powered practice exams, customized study schedule (300-500 hours over 3-6 months), and school-specific scenarios designed for behavior analysts in education.
+                  With only 54% passing in 2024, you need smarter prep. Start with a free 10-question BCBA practice exam, review the rationales, then choose domain practice or a full mock exam based on your score pattern.
                 </motion.p>
               </div>
+
+              <motion.div
+                className="grid gap-3 rounded-2xl border-2 border-emerald-100 bg-white/90 p-5 shadow-lg sm:grid-cols-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.72 }}
+              >
+                {[
+                  { label: "10 free questions", detail: "Instant score" },
+                  { label: "Detailed rationales", detail: "Learn the decision rule" },
+                  { label: "Next study path", detail: "Domain or mock exam" },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-xl bg-emerald-50 px-4 py-3">
+                    <p className="font-bold text-emerald-950">{item.label}</p>
+                    <p className="mt-1 text-sm text-emerald-800">{item.detail}</p>
+                  </div>
+                ))}
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -155,23 +173,23 @@ export default function BCBAExamPrepPage() {
               >
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="https://study.behaviorschool.com/free-mock-exam"
+                    href="/free-bcba-practice-exam"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
-                    Practice by Domain (Mini Exams)
+                    Take the Free 10-Question Exam
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
-                    href="https://study.behaviorschool.com/free-mock-exam"
+                    href="/bcba-test-questions"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white hover:bg-slate-50 text-emerald-700 border-2 border-emerald-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
-                    Choose Your Domain
+                    Review Sample Questions
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </div>
                 <p className="mt-3 text-sm text-slate-600 flex items-center">
                   <Check className="w-4 h-4 text-emerald-500 mr-2" />
-                  No Credit Card Required • Unlimited Questions • AI-Adaptive Difficulty
+                  No credit card required • Instant score • Rationales written for applied decision-making
                 </p>
               </motion.div>
             </motion.div>
@@ -400,14 +418,14 @@ export default function BCBAExamPrepPage() {
             className="text-center"
           >
             <Link
-              href="https://study.behaviorschool.com/free-mock-exam"
+              href="/free-bcba-practice-exam"
               className="inline-flex items-center px-10 py-5 text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
             >
-              Practice by Domain (Mini Exams)
+              Start the Free Practice Exam
               <ArrowRight className="ml-3 w-6 h-6" />
             </Link>
             <p className="mt-4 text-slate-600">
-              Start with free practice questions and adaptive learning technology
+              Get a score first, then choose domain practice or a longer mock exam.
             </p>
           </motion.div>
         </div>
@@ -667,14 +685,14 @@ export default function BCBAExamPrepPage() {
               Access comprehensive BCBA exam prep with unlimited practice questions, adaptive learning, and detailed explanations.
             </p>
             <Link
-              href="https://study.behaviorschool.com/free-mock-exam"
+              href="/free-bcba-practice-exam"
               className="inline-flex items-center px-10 py-5 text-xl font-bold bg-white text-emerald-600 hover:bg-emerald-50 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
             >
-              Start Domain Practice Now
+              Take the Free Practice Exam
               <ArrowRight className="ml-3 w-6 h-6" />
             </Link>
             <p className="mt-6 text-emerald-100">
-              Free access • Unlimited questions • Personalized study plans • Mobile optimized
+              Free access • Instant score • Detailed rationales • Mobile optimized
             </p>
             <p className="mt-4 text-emerald-100 text-sm">
               <Link href="/bcba-exam-prep" className="underline hover:text-white">
