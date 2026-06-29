@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
+import { getPublishedPosts } from '@/lib/blog'
 
 // Cache sitemap for 1 hour to reduce server load from crawler requests
 export const dynamic = "force-static"
@@ -31,6 +32,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   } catch (error) {
     console.warn('Could not load videos for sitemap:', error)
   }
+
+  const isHighIntentBlogPost = (post: { slug: string; tags?: string[] }) => {
+    const searchableText = `${post.slug} ${(post.tags || []).join(' ')}`.toLowerCase()
+    return /\b(bcba|exam|practice|study|ai|iep|fba|bip|school|rbt|ceu)\b/.test(searchableText)
+  }
+
+  const blogPages: MetadataRoute.Sitemap = getPublishedPosts().map((post) => {
+    const highIntent = isHighIntentBlogPost(post)
+    return {
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: post.date || currentDate,
+      changeFrequency: highIntent ? 'weekly' : 'monthly',
+      priority: highIntent ? 0.8 : 0.65,
+    }
+  })
+
   // Legacy paths that now permanently redirect. Never include these in the sitemap.
   const legacyRedirectPaths = new Set<string>([
     '/bcba-mock-practice-test',
@@ -465,5 +482,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...filteredBase, ...videoPages, ...dynamicAdds]
+  return [...filteredBase, ...blogPages, ...videoPages, ...dynamicAdds]
 }
