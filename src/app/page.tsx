@@ -7,16 +7,16 @@ import { Hero } from "@/components/ui/hero";
 import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
 
 export const metadata: Metadata = {
-  title: "BehaviorSchool | School BCBA Tools & Resources",
+  title: "BehaviorSchool | Free BCBA Practice Exam & School BCBA Tools",
   description:
-    "AI-powered tools, BCBA exam prep, and CE courses for school-based behavior analysts. Built by a BCBA for real school practice.",
+    "Take a free BCBA practice exam with instant scoring, then explore AI-powered school BCBA tools, exam prep, and CE resources built by a BCBA.",
   alternates: {
     canonical: "https://behaviorschool.com",
   },
   openGraph: {
-    title: "BehaviorSchool | School BCBA Tools & Resources",
+    title: "BehaviorSchool | Free BCBA Practice Exam & School BCBA Tools",
     description:
-      "AI-powered tools, BCBA exam prep, and CE courses for school-based behavior analysts. Built by a BCBA for real school practice.",
+      "Take a free BCBA practice exam with instant scoring, then explore AI-powered school BCBA tools, exam prep, and CE resources built by a BCBA.",
     type: "website",
     url: "https://behaviorschool.com",
     images: [
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BehaviorSchool | School BCBA Tools & Resources",
+    title: "BehaviorSchool | Free BCBA Practice Exam & School BCBA Tools",
     description:
-      "AI-powered tools, BCBA exam prep, and CE courses for school-based behavior analysts.",
+      "Take a free BCBA practice exam with instant scoring, then explore school BCBA tools and exam prep.",
     images: ["/optimized/og-image.webp"],
   },
 };

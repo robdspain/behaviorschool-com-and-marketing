@@ -246,6 +246,11 @@ export default async function FreeBCBAPracticeExamPage() {
             <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
               {override?.metaDescription || "Take a free 10-question BCBA practice exam designed for efficient exam prep. Get instant scoring, detailed explanations, and a clear next step into domain practice or a full mock exam."}
             </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm font-medium text-slate-700">
+              <span className="rounded-lg border border-slate-200 bg-white px-4 py-2">Reviewed by Rob Spain, BCBA</span>
+              <span className="rounded-lg border border-slate-200 bg-white px-4 py-2">10 questions before signup</span>
+              <span className="rounded-lg border border-slate-200 bg-white px-4 py-2">Instant score and rationales</span>
+            </div>
           </div>
 
           {/* Feature Pills - Clean Badges */}
@@ -444,20 +449,20 @@ export default async function FreeBCBAPracticeExamPage() {
             {/* FAQ 1 */}
             <div className="bg-gradient-to-br from-emerald-50 to-white border-2 border-emerald-100 rounded-xl p-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">
-                Is the free BCBA mock practice test really free?
+                Is the free BCBA practice exam really free?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                Yes, completely free with no signup required. Access all 185 questions instantly without creating an account or providing payment information.
+                Yes. You can take the 10-question BCBA practice exam on this page for free before creating an account or entering payment information.
               </p>
             </div>
 
             {/* FAQ 2 */}
             <div className="bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 rounded-xl p-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">
-                How many questions are on the BCBA mock exam?
+                How many questions are on this free BCBA practice exam?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                Our free mock exam has 185 questions matching the real BCBA exam format (175 scored + 10 unscored). This quick practice test has 10 questions to help you get started.
+                This page starts with 10 exam-style questions so you can check your current reasoning quickly. After you finish, you can move into longer mock exam practice.
               </p>
             </div>
 
@@ -484,20 +489,20 @@ export default async function FreeBCBAPracticeExamPage() {
             {/* FAQ 5 */}
             <div className="bg-gradient-to-br from-pink-50 to-white border-2 border-pink-100 rounded-xl p-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">
-                Do I need to sign up to take the free mock exam?
+                Do I need to sign up to take the free practice exam?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                No signup required! Start practicing immediately and track your progress locally in your browser.
+                No signup is required to start the 10-question practice exam. If you want to save your score or continue into longer practice, you can create an account afterward.
               </p>
             </div>
 
             {/* FAQ 6 */}
             <div className="bg-gradient-to-br from-teal-50 to-white border-2 border-teal-100 rounded-xl p-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">
-                How long should I take to complete the mock exam?
+                How long should I take on each question?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                The real BCBA exam allows 4 hours for 185 questions. We recommend timing yourself for realistic practice - approximately 1.3 minutes per question.
+                The real BCBA exam allows about 1.3 minutes per question. For this short practice exam, notice both accuracy and response time so you know whether to study concepts, fluency, or endurance next.
               </p>
             </div>
           </div>
@@ -556,7 +561,36 @@ export default async function FreeBCBAPracticeExamPage() {
           name: "Free BCBA Practice Exam (10 Questions with Rationales)",
           url: `${SITE_URL}/free-bcba-practice-exam`,
           description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path.",
+          author: {
+            "@type": "Person",
+            name: "Rob Spain",
+            jobTitle: "BCBA",
+            url: `${SITE_URL}/about/rob-spain`,
+          },
+          reviewedBy: {
+            "@type": "Person",
+            name: "Rob Spain",
+            jobTitle: "BCBA",
+            url: `${SITE_URL}/about/rob-spain`,
+          },
+          dateModified: "2026-06-29",
           isPartOf: { "@type": "WebSite", url: SITE_URL, name: "Behavior School" },
+        } as const;
+        const quizJsonLd = {
+          "@context": "https://schema.org",
+          "@type": "Quiz",
+          name: "Free BCBA Practice Exam",
+          url: `${SITE_URL}/free-bcba-practice-exam`,
+          about: "BCBA exam prep practice questions with rationales",
+          educationalLevel: "Professional certification exam preparation",
+          assesses: "Applied behavior analysis concepts from the BCBA task list",
+          author: {
+            "@type": "Person",
+            name: "Rob Spain",
+            jobTitle: "BCBA",
+            url: `${SITE_URL}/about/rob-spain`,
+          },
+          provider: { "@type": "Organization", name: "Behavior School", url: SITE_URL },
         } as const;
         const faqJsonLd = {
           "@context": "https://schema.org",
@@ -572,18 +606,18 @@ export default async function FreeBCBAPracticeExamPage() {
             }] : []),
             {
               "@type": "Question",
-              name: "Is the free BCBA mock practice test really free?",
+              name: "Is the free BCBA practice exam really free?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes, completely free with no signup required. Access all 185 questions instantly without creating an account or providing payment information."
+                text: "Yes. You can take the 10-question BCBA practice exam on this page for free before creating an account or entering payment information."
               }
             },
             {
               "@type": "Question",
-              name: "How many questions are on the BCBA mock exam?",
+              name: "How many questions are on this free BCBA practice exam?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Our free mock exam has 185 questions matching the real BCBA exam format (175 scored + 10 unscored). This quick practice test has 10 questions to help you get started."
+                text: "This page starts with 10 exam-style questions so you can check your current reasoning quickly. After you finish, you can move into longer mock exam practice."
               }
             },
             {
@@ -604,18 +638,18 @@ export default async function FreeBCBAPracticeExamPage() {
             },
             {
               "@type": "Question",
-              name: "Do I need to sign up to take the free mock exam?",
+              name: "Do I need to sign up to take the free practice exam?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "No signup required! Start practicing immediately and track your progress locally in your browser."
+                text: "No signup is required to start the 10-question practice exam. If you want to save your score or continue into longer practice, you can create an account afterward."
               }
             },
             {
               "@type": "Question",
-              name: "How long should I take to complete the mock exam?",
+              name: "How long should I take on each question?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "The real BCBA exam allows 4 hours for 185 questions. We recommend timing yourself for realistic practice - approximately 1.3 minutes per question."
+                text: "The real BCBA exam allows about 1.3 minutes per question. For this short practice exam, notice both accuracy and response time so you know whether to study concepts, fluency, or endurance next."
               }
             }
           ]
@@ -624,6 +658,7 @@ export default async function FreeBCBAPracticeExamPage() {
           <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(quizJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
           </>
         );
