@@ -194,9 +194,9 @@ export default function BCBAExamPrepPage() {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </div>
-                <p className="mt-3 text-sm text-slate-600 flex items-center">
-                  <Check className="w-4 h-4 text-emerald-500 mr-2" />
-                  No credit card required • Instant score • Rationales written for applied decision-making
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  <Check className="mr-2 inline h-4 w-4 text-emerald-500" />
+                  No credit card required • Instant score • Rationales written for applied decision-making • <Link href="/bcba-study-schedule" className="font-semibold text-emerald-700 hover:text-emerald-900">Build a BCBA study schedule</Link>
                 </p>
               </motion.div>
             </motion.div>

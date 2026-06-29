@@ -38,6 +38,7 @@ export default function FailedBcbaExamHelpPage() {
       primaryCta={{ label: "Start free retake practice", href: "/free-bcba-practice-exam" }}
       secondaryLinks={[
         { label: "BCBA exam prep guide", href: "/bcba-exam-prep" },
+        { label: "BCBA study schedule", href: "/bcba-study-schedule" },
         { label: "Free BCBA practice exam", href: "/free-bcba-practice-exam" },
         { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
         { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
