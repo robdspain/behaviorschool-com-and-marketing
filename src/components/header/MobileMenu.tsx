@@ -68,11 +68,10 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
         })}
         <div className="px-3 pt-1">
           <Button asChild className="w-full border border-emerald-600 text-emerald-700 hover:bg-emerald-50 bg-white">
-            <Link href="/subscribe" onClick={onClose}>Subscribe</Link>
+            <Link href="/free-bcba-practice-exam" onClick={onClose}>Take Free BCBA Practice Exam</Link>
           </Button>
         </div>
       </div>
     </div>
   );
 }
-
