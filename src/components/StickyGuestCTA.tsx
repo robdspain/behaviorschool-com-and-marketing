@@ -34,7 +34,7 @@ export default function StickyGuestCTA() {
 
   if (!visible) return null;
 
-  const returnParam = encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked&quiz=' + encodeURIComponent('Mini-Mock Exam (10 Questions)'));
+  const returnParam = encodeURIComponent('https://behaviorschool.com/free-bcba-mock-exam?results=locked&quiz=' + encodeURIComponent('Mini-Mock Exam (10 Questions)'));
   const guest10 = `https://study.behaviorschool.com/quiz/guest?limit=10&return=${returnParam}`;
 
   return (

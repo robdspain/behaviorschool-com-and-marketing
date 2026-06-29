@@ -47,7 +47,7 @@ export function ProductsClient() {
           {/* Primary CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10">
             <Link
-              href="/free-bcba-mock-practice-test"
+              href="/free-bcba-mock-exam"
               className="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-md hover:shadow-lg"
               aria-label="Start free BCBA mock exam"
             >
@@ -135,7 +135,7 @@ export function ProductsClient() {
 
                 <div className="mt-2 space-y-2">
                   <Link
-                    href="/free-bcba-mock-practice-test"
+                    href="/free-bcba-mock-exam"
                     className="inline-flex items-center text-emerald-700 hover:text-emerald-800 font-semibold"
                   >
                     Free BCBA Mock Exam (185 Questions)
@@ -510,7 +510,7 @@ export function ProductsClient() {
             '@type': 'ItemList',
             itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'BCBA Mock Exams', url: 'https://behaviorschool.com/bcba-practice-exam' },
-              { '@type': 'ListItem', position: 2, name: 'Free Mock Practice Test', url: 'https://behaviorschool.com/free-bcba-mock-practice-test' },
+              { '@type': 'ListItem', position: 2, name: 'Free BCBA Mock Exam', url: 'https://behaviorschool.com/free-bcba-mock-exam' },
               { '@type': 'ListItem', position: 3, name: 'IEP Goal Writer', url: 'https://behaviorschool.com/iep-goals' },
               { '@type': 'ListItem', position: 4, name: 'Behavior Plan Writer', url: 'https://behaviorschool.com/behavior-plans' },
               { '@type': 'ListItem', position: 5, name: 'Study Tools Platform', url: 'https://behaviorschool.com/study' },

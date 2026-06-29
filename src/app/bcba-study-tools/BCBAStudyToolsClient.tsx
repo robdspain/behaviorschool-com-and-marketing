@@ -189,7 +189,7 @@ export function BCBAStudyToolsClient() {
               className="flex justify-center"
             >
               <Link
-                href="/bcba-mock-practice-test"
+                href="/free-bcba-mock-exam"
                 className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
               >
                 Start Free Mock Exam
@@ -438,7 +438,7 @@ export function BCBAStudyToolsClient() {
                 Our comprehensive BCBA study toolkit includes unlimited practice questions, domain mini-exams, full-length mock tests, performance analytics, study guides, and interactive learning tools. All resources are designed specifically for the BCBA exam format and content areas.
               </p>
               <p className="text-slate-600">
-                You can start with our <Link href="/bcba-mock-practice-test" className="text-emerald-600 hover:text-emerald-700 underline font-medium">free BCBA mock practice test</Link> to experience the quality of our resources.
+                You can start with our <Link href="/free-bcba-mock-exam" className="text-emerald-600 hover:text-emerald-700 underline font-medium">free BCBA mock exam</Link> to experience the quality of our resources.
               </p>
             </div>
 

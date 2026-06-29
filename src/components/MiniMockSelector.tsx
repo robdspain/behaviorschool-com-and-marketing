@@ -24,7 +24,7 @@ export default function MiniMockSelector({ location = "free-mock-mini" }: { loca
     const selectedDomain = DOMAINS.find(d => d.id === domain);
     const limit = selectedDomain?.questions || 10;
     const label = `Mini-Mock Exam Domain ${domain}`;
-    const ret = encodeURIComponent(`https://behaviorschool.com/free-bcba-mock-practice-test?results=locked&quiz=${encodeURIComponent(label)}`);
+    const ret = encodeURIComponent(`https://behaviorschool.com/free-bcba-mock-exam?results=locked&quiz=${encodeURIComponent(label)}`);
     const url = `https://study.behaviorschool.com/quiz/guest?limit=${limit}&domain=${encodeURIComponent(domain)}&return=${ret}`;
     try { trackButtonClick('mini_select_start', location, { domain, href: url }); } catch {}
     window.open(url, '_blank', 'noopener,noreferrer');

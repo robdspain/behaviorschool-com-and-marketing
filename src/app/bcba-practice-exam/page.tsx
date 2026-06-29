@@ -330,7 +330,7 @@ export default function BCBAPracticeExamPage() {
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-4">Detailed Practice Exam Analytics</h3>
               <p className="text-slate-600 mb-4">
-                Get comprehensive performance analytics for every practice exam. Track your progress across all 9 BCBA domains with detailed reports and improvement recommendations. Try our <Link href="/bcba-mock-practice-test" className="text-blue-600 hover:text-blue-700 underline font-medium">free full-length mock exam</Link>.
+                Get comprehensive performance analytics for every practice exam. Track your progress across all 9 BCBA domains with detailed reports and improvement recommendations. Try our <Link href="/free-bcba-mock-exam" className="text-blue-600 hover:text-blue-700 underline font-medium">free full-length mock exam</Link>.
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex items-center space-x-2">
@@ -1052,7 +1052,7 @@ export default function BCBAPracticeExamPage() {
               </Link>
 
               <Link
-                href="/bcba-mock-practice-test"
+                href="/free-bcba-mock-exam"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -1108,7 +1108,7 @@ export default function BCBAPracticeExamPage() {
                   Our unique system ensures you never see the same question twice with unlimited AI generation. Our system automatically creates new, unique content to keep challenging you with fresh questions every time.
                 </p>
                 <p className="text-slate-600">
-                  Try our <Link href="/bcba-mock-practice-test" className="text-purple-600 hover:text-purple-700 underline font-medium">free full-length practice exam</Link> to experience the difference!
+                  Try our <Link href="/free-bcba-mock-exam" className="text-purple-600 hover:text-purple-700 underline font-medium">free full-length practice exam</Link> to experience the difference!
                 </p>
               </div>
 
