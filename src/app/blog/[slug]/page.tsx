@@ -177,11 +177,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const featureImage = transformImageUrl(post.feature_image as string | undefined);
   const title = decodeHtmlEntities(post.meta_title || post.title || "Blog Post");
   const description = decodeHtmlEntities(post.meta_description || post.excerpt || post.title || "");
+  const pageTitle = post.meta_title ? title : `${title} | Behavior School`;
 
   const isIndexable = post.status ? post.status === 'published' : true;
 
   return {
-    title: `${title} | Behavior School`,
+    title: pageTitle,
     description: description,
     keywords: post.tags?.map(t => t.name).join(', '),
     alternates: {
@@ -231,6 +232,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const normalizeHtml = (html: string, featureImage?: string): string => {
     if (!html) return '';
     let out = html;
+
+    // The article template already renders the canonical H1 above the body.
+    out = out.replace(/^\s*<h1[^>]*>[\s\S]*?<\/h1>\s*/i, '');
     
     // Remove the first occurrence of the feature image to prevent duplication
     // since we're displaying it separately in the header
