@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout';
 
 export const metadata: Metadata = {
-  title: 'BehaviorSchool vs ABA Exam Review (StudyABA) 2026 | BCBA Exam Prep Comparison',
+  title: 'BehaviorSchool vs StudyABA | BCBA Exam Prep Comparison 2026',
   description: 'Compare BehaviorSchool vs ABA Exam Review for BCBA exam prep. Mock exams, study guides, AI tools, and pricing compared side-by-side for behavior analysts.',
   keywords: 'BehaviorSchool vs ABA Exam Review, StudyABA alternative, BCBA exam prep comparison, behavioranalyststudy review, BCBA mock exam, BCBA study guide comparison, best BCBA practice exam',
   alternates: { canonical: 'https://behaviorschool.com/compare/behaviorschool-vs-studyaba' },

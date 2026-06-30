@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import SchoolBCBAContent from "./SchoolBCBAContent";
 
 export const metadata: Metadata = {
-  title: "School-Based BCBA: Complete Career Guide, Jobs & Resources | Behavior School",
+  title: "School-Based BCBA Career Guide, Jobs & Resources",
   description:
-    "Everything you need as a school-based BCBA: job guides, salary data by state, career pathways, free tools, and practical training. Build your school BCBA career with confidence.",
+    "Explore school-based BCBA jobs, salary data, career pathways, free tools, and practical training resources for behavior analysts working in schools.",
   keywords: [
     "school-based BCBA",
     "school BCBA",

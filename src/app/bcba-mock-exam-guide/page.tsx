@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, BookOpen, Clock, Target, TrendingUp, AlertCircle, Award, FileText, Calendar } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "BCBA Mock Exam Guide 2025 | How to Use Practice Tests to Pass Your BCBA",
-  description: "Master BCBA mock exams with our complete guide. Learn when to take them, how to analyze results & proven 3-phase study strategies to pass your first attempt.",
+  title: "BCBA Mock Exam Guide | Practice Test Strategy 2025",
+  description: "Master BCBA mock exams with a complete strategy. Learn when to take practice tests, analyze results, and use a 3-phase study plan to improve readiness.",
   keywords: [
     "BCBA mock exam guide",
     "how to use BCBA practice tests",

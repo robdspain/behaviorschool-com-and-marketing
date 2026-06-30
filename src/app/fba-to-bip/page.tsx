@@ -48,7 +48,7 @@ const structuredData = {
       "@type": "SoftwareApplication",
       name: "FBA to BIP Generator",
       description:
-        "Free FBA-to-BIP generator that turns Functional Behavior Assessment data into a complete, evidence-based Behavior Intervention Plan with antecedent strategies, teaching strategies, reinforcement, data collection, and more.",
+        "Free FBA-to-BIP generator that turns Functional Behavior Assessment data into an evidence-based Behavior Intervention Plan.",
       applicationCategory: "EducationalApplication",
       operatingSystem: "Web",
       url: pageUrl,
@@ -80,7 +80,7 @@ const structuredData = {
 export const metadata: Metadata = {
   title: "FBA to BIP Generator - Free Tool | Behavior School",
   description:
-    "Free FBA-to-BIP generator for BCBAs and educators. Enter FBA data and get a complete, evidence-based Behavior Intervention Plan in minutes. Start free today!",
+    "Free FBA-to-BIP generator for BCBAs and educators. Enter FBA data and create an evidence-based Behavior Intervention Plan in minutes.",
   keywords: [
     "FBA to BIP generator",
     "behavior intervention plan generator",

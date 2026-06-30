@@ -17,8 +17,8 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "The ACT Matrix: A Framework for School-Based BCBAs | Complete Implementation Guide",
-  description: "Complete guide to implementing the ACT Matrix framework in school-based BCBA practice. Learn values-based intervention strategies, see real examples, and access free resources for psychological flexibility in schools.",
+  title: "ACT Matrix Framework for School-Based BCBAs",
+  description: "Learn how to use the ACT Matrix in school-based BCBA practice with values-based intervention strategies, examples, and free resources.",
   robots: {
     index: true,
     follow: true,

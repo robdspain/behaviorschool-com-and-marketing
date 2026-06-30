@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout';
 
 export const metadata: Metadata = {
-  title: 'BehaviorSchool vs BDS (Behavior Development Solutions) 2026 | Honest Comparison',
+  title: 'BehaviorSchool vs BDS | BCBA Exam Prep Comparison 2026',
   description: 'Compare BehaviorSchool vs BDS for BCBA exam prep. See features, pricing, AI tools, and which platform is best for school-based behavior analysts in 2026.',
   keywords: 'BehaviorSchool vs BDS, Behavior Development Solutions review, BCBA exam prep comparison, BDS alternative, best BCBA exam prep 2026, BCBA practice exam',
   alternates: { canonical: 'https://behaviorschool.com/compare/behaviorschool-vs-bds' },

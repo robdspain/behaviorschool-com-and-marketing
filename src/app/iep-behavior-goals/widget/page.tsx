@@ -4,7 +4,7 @@ import WidgetContent from "./WidgetContent";
 
 export const metadata: Metadata = {
   title: "Free IEP Behavior Goals Generator | Behavior School",
-  description: "Generate evidence-based IEP behavior goals instantly. Free tool for special education teachers and behavior analysts. Create measurable, standards-aligned goals in seconds.",
+  description: "Generate measurable, evidence-based IEP behavior goals instantly with this free tool for special education teachers and behavior analysts.",
   robots: {
     index: true,
     follow: true,
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Free IEP Behavior Goals Generator | Behavior School",
-    description: "Generate evidence-based IEP behavior goals instantly. Free tool for special education teachers and behavior analysts. Create measurable, standards-aligned goals in seconds.",
+    description: "Generate measurable, evidence-based IEP behavior goals instantly with this free tool for special education teachers and behavior analysts.",
     type: "website",
     url: "https://behaviorschool.com/iep-goals",
     images: [
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Free IEP Behavior Goals Generator | Behavior School",
-    description: "Generate evidence-based IEP behavior goals instantly. Free tool for special education teachers and behavior analysts. Create measurable, standards-aligned goals in seconds.",
+    description: "Generate measurable, evidence-based IEP behavior goals instantly with this free tool for special education teachers and behavior analysts.",
     images: ["https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"],
     creator: "@BehaviorSchool",
     site: "@BehaviorSchool"

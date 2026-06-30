@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Beyond Observable Behavior -  Draft Article | CalABA 2026 | BehaviorSchool",
+  title: "Beyond Observable Behavior | CalABA 2026 Draft",
   description:
-    "Draft article: Beyond Observable Behavior -  Measuring and Modifying the Function of Thought in School-Based Behavioral Assessment and Intervention. Rob Spain, BCBA, IBA.",
+    "Draft article for CalABA 2026 on measuring and modifying the function of thought in school-based behavioral assessment and intervention.",
 };
 
 export default function CalABA2026PaperPage() {

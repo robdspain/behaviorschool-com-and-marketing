@@ -14,10 +14,12 @@ const results = [];
 for (const f of pageFiles) {
   const s = fs.readFileSync(f, "utf8");
   const hasMeta = /export\s+const\s+metadata/.test(s);
+  const metadataStart = s.search(/export\s+const\s+metadata/);
+  const source = metadataStart >= 0 ? s.slice(metadataStart) : "";
   let title = null,
     desc = null;
-  const titleMatch = [...s.matchAll(/\btitle:\s*`([^`]+)`|\btitle:\s*"([^"]+)"|\btitle:\s*'([^']+)'/g)];
-  const descMatch = [...s.matchAll(/\bdescription:\s*`([^`]+)`|\bdescription:\s*"([^"]+)"|\bdescription:\s*'([^']+)'/g)];
+  const titleMatch = [...source.matchAll(/\btitle:\s*`([^`]+)`|\btitle:\s*"([^"]+)"|\btitle:\s*'([^']+)'/g)];
+  const descMatch = [...source.matchAll(/\bdescription:\s*`([^`]+)`|\bdescription:\s*"([^"]+)"|\bdescription:\s*'([^']+)'/g)];
   if (titleMatch.length) title = titleMatch[0][1] || titleMatch[0][2] || titleMatch[0][3] || "";
   if (descMatch.length) desc = descMatch[0][1] || descMatch[0][2] || descMatch[0][3] || "";
   results.push({
@@ -49,4 +51,3 @@ list("Missing title", missingTitle);
 list("Descriptions >160", tooLongDesc);
 list("Descriptions <120 (but present)", tooShortDesc);
 list("Missing description", missingDesc);
-

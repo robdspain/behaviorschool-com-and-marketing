@@ -19,7 +19,7 @@ import {
 export const metadata: Metadata = {
   title: "How to Become a School BCBA: Complete 2025 Pathway Guide",
   description:
-    "Step-by-step pathway to becoming a School BCBA with district-ready competencies, essential artifacts, timeline planner, and credential requirements. Complete qualification guide for K-12 behavior analysts.",
+    "Step-by-step pathway to becoming a School BCBA with district-ready competencies, key artifacts, timeline planning, and credential requirements.",
   alternates: { canonical: "https://behaviorschool.com/school-bcba/how-to-become" },
   robots: { index: true, follow: true },
   keywords: "how to become school BCBA, school BCBA requirements, BCBA certification pathway, school behavior analyst training, BCBA fieldwork, school BCBA qualifications",

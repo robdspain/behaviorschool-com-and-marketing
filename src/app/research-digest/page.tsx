@@ -17,7 +17,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'ABA Research Digest for School BCBAs | BehaviorSchool',
-  description: 'A free weekly email summarizing peer-reviewed behavior analytic research — written for BCBAs working in K–12 schools. No jargon. Just the science you can use Monday morning.',
+  description: 'A free weekly email summarizing peer-reviewed behavior analytic research for BCBAs working in K-12 schools, with practical takeaways.',
   robots: 'noindex',
 }
 

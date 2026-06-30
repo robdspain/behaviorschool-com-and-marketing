@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout';
 
 export const metadata: Metadata = {
-  title: 'BehaviorSchool vs MagicSchool AI 2026 | IEP & Behavior Tools Comparison',
-  description: 'Compare BehaviorSchool vs MagicSchool AI for IEP goal writing, behavior tools, and school BCBA support. See why behavior analysts choose the specialized platform.',
+  title: 'BehaviorSchool vs MagicSchool AI | IEP Tools 2026',
+  description: 'Compare BehaviorSchool vs MagicSchool AI for IEP goal writing, behavior tools, and school BCBA support built for behavior analysts.',
   keywords: 'BehaviorSchool vs MagicSchool, MagicSchool AI alternative, IEP goal writer comparison, AI IEP tools, behavior analyst tools, MagicSchool AI review, best IEP goal generator',
   alternates: { canonical: 'https://behaviorschool.com/compare/behaviorschool-vs-magicschool' },
   openGraph: {

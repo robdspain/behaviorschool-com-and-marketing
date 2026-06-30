@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { FBADecisionMatrix } from "./FBADecisionMatrix";
 
 export const metadata: Metadata = {
-  title: "Free FBA Decision Matrix | Do You Need a Functional Behavior Assessment?",
-  description: "Free FBA Decision Matrix tool - answer 7 quick questions to determine if a Functional Behavior Assessment is needed or if alternative interventions should be tried first.",
+  title: "Free FBA Decision Matrix | Functional Behavior Assessment Tool",
+  description: "Use this free FBA decision tool to answer 7 quick questions and decide whether a Functional Behavior Assessment is needed or if supports should come first.",
   keywords: [
     "FBA decision matrix",
     "functional behavior assessment decision tree",
@@ -21,15 +21,15 @@ export const metadata: Metadata = {
     "behavior intervention decision"
   ],
   openGraph: {
-    title: "Free FBA Decision Matrix | Do You Need a Functional Behavior Assessment?",
-    description: "Free FBA Decision Matrix tool - answer 7 quick questions to determine if a Functional Behavior Assessment is needed or if alternative interventions should be tried first.",
+    title: "Free FBA Decision Matrix | Functional Behavior Assessment Tool",
+    description: "Use this free FBA decision tool to answer 7 quick questions and decide whether a Functional Behavior Assessment is needed or if supports should come first.",
     type: "website",
     url: "https://behaviorschool.com/fba-decision-matrix",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free FBA Decision Matrix | Do You Need a Functional Behavior Assessment?",
-    description: "Free FBA Decision Matrix tool - answer 7 quick questions to determine if a Functional Behavior Assessment is needed or if alternative interventions should be tried first.",
+    title: "Free FBA Decision Matrix | Functional Behavior Assessment Tool",
+    description: "Use this free FBA decision tool to decide whether an FBA is needed or if supports should come first.",
   },
   alternates: {
     canonical: "https://behaviorschool.com/fba-decision-matrix"

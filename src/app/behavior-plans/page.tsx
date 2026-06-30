@@ -42,7 +42,7 @@ const structuredData = {
       "@type": "SoftwareApplication",
       name: "Behavior Plan Writer",
       description:
-        "Free behavior intervention plan (BIP) generator that creates comprehensive, evidence-based plans with function-matched strategies, data collection systems, and implementation guides.",
+        "Free behavior intervention plan generator that creates evidence-based BIPs with function-matched strategies and implementation guides.",
       applicationCategory: "EducationalApplication",
       operatingSystem: "Web",
       url: pageUrl,
@@ -74,7 +74,7 @@ const structuredData = {
 export const metadata: Metadata = {
   title: "Behavior Plan Writer - Free BIP Generator | Behavior School",
   description:
-    "Free behavior intervention plan (BIP) writer for BCBAs and educators. Create comprehensive, evidence-based plans with function-matched strategies in minutes. Start now!",
+    "Free behavior intervention plan writer for BCBAs and educators. Create evidence-based BIPs with function-matched strategies in minutes.",
   keywords: [
     "behavior plan writer",
     "BIP generator",

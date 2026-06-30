@@ -3,9 +3,9 @@ import Link from "next/link";
 import { ArrowRight, Search, FileText, Briefcase, Award } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "School BCBA vs School-Based BCBA: What's the Difference? | Career Guide 2025",
+  title: "School BCBA vs School-Based BCBA | Career Guide 2025",
   description:
-    "Understand the key differences between School BCBA and School-Based BCBA terminology. Learn which title to use for job searches, how to position yourself, and why the wording matters for career success.",
+    "Learn how School BCBA and School-Based BCBA terms differ in job searches, positioning, and career visibility for behavior analysts in schools.",
   alternates: { canonical: "https://behaviorschool.com/school-bcba/vs-school-based-bcba" },
   robots: { index: true, follow: true },
 };

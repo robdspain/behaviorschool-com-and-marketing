@@ -4,7 +4,7 @@ import ACTMatrixBuilder from "@/components/act-matrix-builder/ACTMatrixBuilder";
 export const metadata: Metadata = {
   title: "ACT Matrix Builder | Free Interactive Tool | BehaviorSchool",
   description:
-    "Build an ACT Matrix for any student. Fill in all four quadrants and get printable output with recommended ACT strategies. Free for BCBAs and school behavior teams.",
+    "Build an ACT Matrix for any student, complete all four quadrants, and get printable ACT strategy recommendations for BCBAs and school teams.",
   openGraph: {
     title: "ACT Matrix Builder | Free Interactive Tool | BehaviorSchool",
     description:

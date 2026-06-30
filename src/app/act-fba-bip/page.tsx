@@ -56,7 +56,7 @@ const structuredData = {
       "@type": "SoftwareApplication",
       name: "ACT-Informed FBA to BIP Generator",
       description:
-        "Free ACT-informed FBA and BIP generator. Combines standard Functional Behavior Assessment with Acceptance and Commitment Training — including values assessment, psychological flexibility assessment, defusion techniques, acceptance strategies, and committed action goals.",
+        "Free ACT-informed FBA and BIP generator with values assessment, defusion techniques, acceptance strategies, and committed action goals.",
       applicationCategory: "EducationalApplication",
       operatingSystem: "Web",
       url: pageUrl,
@@ -88,7 +88,7 @@ const structuredData = {
 export const metadata: Metadata = {
   title: "ACT-Informed FBA & BIP Generator | Behavior School",
   description:
-    "Free ACT-informed FBA and BIP generator with values-based strategies, acceptance techniques, and defusion exercises. For BCBAs and behavior teams. Start free!",
+    "Free ACT-informed FBA and BIP generator with values-based strategies, defusion exercises, and committed action goals for BCBAs and school teams.",
   keywords: [
     "ACT behavior intervention plan",
     "values-based BIP",
