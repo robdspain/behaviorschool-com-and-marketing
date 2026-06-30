@@ -71,7 +71,9 @@ function WaitlistForm() {
       )}
 
       {status === 'error' && (
-        <p className="mt-3 text-red-600 text-sm text-center">Something went wrong. Please try again or email rob@behaviorschool.com.</p>
+        <p className="mt-3 text-red-600 text-sm text-center">
+          Something went wrong. Please try again or reach out through the contact page.
+        </p>
       )}
     </div>
   );
@@ -170,7 +172,9 @@ function ApplicationForm() {
       )}
 
       {status === 'error' && (
-        <p className="mt-3 text-red-600 text-sm text-center">Something went wrong. Please try again or email rob@behaviorschool.com.</p>
+        <p className="mt-3 text-red-600 text-sm text-center">
+          Something went wrong. Please try again or reach out through the contact page.
+        </p>
       )}
     </div>
   );
