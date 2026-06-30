@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "BCBA Supervision Platform | Behavior School",
-  description: "Streamline BCBA supervision with digital competency tracking, automated workflows, and BACB-compliant documentation. Start progress monitoring today. Free for supervisors.",
+  description: "Track BCBA supervision hours, competencies, sessions, and documentation with a free digital platform for supervisors.",
   keywords: [
     "BCBA supervision",
     "BCBA supervision platform",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://behaviorschool.com/supervisors" },
   openGraph: {
     type: "website",
-    title: "BCBA Supervision Platform | Digital Competency Tracking | Behavior School",
-    description: "Streamline BCBA supervision with digital competency tracking, automated workflows, and BACB-compliant documentation. Start progress monitoring today.",
+    title: "BCBA Supervision Platform | Behavior School",
+    description: "Track BCBA supervision hours, competencies, sessions, and documentation with a free digital platform for supervisors.",
     url: "https://behaviorschool.com/supervisors",
     siteName: "Behavior School",
     images: [
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BCBA Supervision Platform | Behavior School",
-    description: "Streamline BCBA supervision with digital competency tracking, automated workflows, and BACB-compliant documentation. Start progress monitoring today.",
+    description: "Track BCBA supervision hours, competencies, sessions, and documentation with a free digital platform for supervisors.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { 

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "CEUs & Professional Development for BCBAs | Free Masterclass | Behavior School",
+  title: "BCBA CEUs and Professional Development | Behavior School",
   description:
     "Earn continuing education with courses designed for school-based behavior analysts. Start with our free masterclass or join the Transformation Program.",
   openGraph: {

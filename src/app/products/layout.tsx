@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Behavior School Products - BCBA Study Tools, Supervision & IEP Solutions",
-  description: "Comprehensive tools for behavior analysts: AI-powered BCBA exam prep, supervision systems, IEP goal writing, and behavior plan creation. Transform your practice with Behavior School.",
+  title: "Behavior School Products | BCBA Study, Supervision, IEP Tools",
+  description: "Explore BCBA exam prep, supervision tracking, IEP goal writing, and behavior plan tools built for behavior analysts.",
   keywords: "BCBA exam prep, behavior analysis tools, supervision systems, IEP goals, behavior plans, ABA software, study tools",
   alternates: { canonical: "/products" },
   openGraph: {
     type: "website",
-    title: "Behavior School Products - BCBA Study Tools, Supervision & IEP Solutions",
+    title: "Behavior School Products | BCBA Study, Supervision, IEP Tools",
     description: "Comprehensive tools for behavior analysts: AI-powered BCBA exam prep, supervision systems, IEP goal writing, and behavior plan creation.",
     url: "/products",
     images: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School Products - BCBA Study Tools, Supervision & IEP Solutions",
+    title: "Behavior School Products | BCBA Study, Supervision, IEP Tools",
     description: "Comprehensive tools for behavior analysts: AI-powered BCBA exam prep, supervision systems, IEP goal writing, and behavior plan creation.",
     images: ["/optimized/og-image.webp"],
   },

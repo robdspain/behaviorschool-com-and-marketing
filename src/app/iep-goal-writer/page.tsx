@@ -5,7 +5,7 @@ import { Target, BarChart3, Zap } from "lucide-react";
 export const metadata: Metadata = {
   title: "IEP Behavior Goal Writer | Values Wizard | BehaviorSchool",
   description:
-    "Create Level 5 SMART IEP behavior goals in under 5 minutes. Values-based approach creates student-driven goals with baseline, fluency, generalization, and maintenance components. Free for BCBAs and special education teachers.",
+    "Create SMART IEP behavior goals with baseline, fluency, generalization, and maintenance components. Free for BCBAs and teachers.",
   openGraph: {
     title: "IEP Behavior Goal Writer | Values Wizard | BehaviorSchool",
     description:

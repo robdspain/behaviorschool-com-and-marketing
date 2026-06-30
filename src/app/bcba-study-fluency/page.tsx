@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Zap, Target, TrendingUp, BarChart3, Brain, ArrowRight, Star, Award, Users, Timer } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "BCBA Study Fluency Tracking - Precision Response Time Analytics",
-  description: "Track your BCBA exam fluency with millisecond precision. Our app measures response times, thinking patterns, and builds behavioral fluency through RESA-based progression (Retention, Endurance, Stability, Application).",
+  title: "BCBA Study Fluency Tracking | Response Time Analytics",
+  description: "Track BCBA exam fluency, response time, hesitation patterns, and study stamina with precision analytics.",
   robots: {
     index: true,
     follow: true,
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/bcba-study-fluency"
   },
   openGraph: {
-    title: "BCBA Study Fluency Tracking - Precision Response Time Analytics",
-    description: "Track your BCBA exam fluency with millisecond precision. Measure response times, thinking patterns, and build behavioral fluency through evidence-based progression.",
+    title: "BCBA Study Fluency Tracking | Response Time Analytics",
+    description: "Track BCBA exam fluency, response time, hesitation patterns, and study stamina with precision analytics.",
     url: "https://behaviorschool.com/bcba-study-fluency",
     siteName: "Behavior School",
     images: [
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BCBA Study Fluency Tracking - Precision Response Time Analytics",
-    description: "Track your BCBA exam fluency with millisecond precision. Measure response times, thinking patterns, and build behavioral fluency through evidence-based progression.",
+    title: "BCBA Study Fluency Tracking | Response Time Analytics",
+    description: "Track BCBA exam fluency, response time, hesitation patterns, and study stamina with precision analytics.",
     images: ["/optimized/og-image.webp"],
   },
 };

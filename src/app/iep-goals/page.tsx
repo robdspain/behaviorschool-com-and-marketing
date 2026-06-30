@@ -4,8 +4,8 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { AnimatedSections } from "./AnimatedSections";
 
 export const metadata: Metadata = {
-  title: "FREE IEP Behavior Goal Writer | Full Goal Writer Coming Soon | Behavior School",
-  description: "FREE IEP behavior goal writer! Create compliant behavior goals in minutes. Full IEP goal writer with academic & social goals coming soon. No registration required.",
+  title: "Free IEP Behavior Goal Writer | Behavior School",
+  description: "Create measurable IEP behavior goals in minutes with a free goal writer for BCBAs, teachers, and school teams.",
   robots: {
     index: true,
     follow: true,
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
     "progressive behavior goals"
   ],
   openGraph: {
-    title: "Free IEP Behavior Goal Generator | Create Compliant Goals in Minutes | Behavior School",
-    description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized for increasing positive behaviors and decreasing problem behaviors. No registration required - start creating now.",
+    title: "Free IEP Behavior Goal Writer | Behavior School",
+    description: "Create measurable IEP behavior goals in minutes with a free goal writer for BCBAs, teachers, and school teams.",
     type: "website",
     url: "https://behaviorschool.com/iep-goals",
     images: [
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free IEP Behavior Goal Generator | Create Compliant Goals in Minutes | Behavior School",
-    description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized for increasing positive behaviors and decreasing problem behaviors. No registration required - start creating now.",
+    title: "Free IEP Behavior Goal Writer | Behavior School",
+    description: "Create measurable IEP behavior goals in minutes with a free goal writer for BCBAs, teachers, and school teams.",
     images: ["https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"]
   },
   alternates: {
