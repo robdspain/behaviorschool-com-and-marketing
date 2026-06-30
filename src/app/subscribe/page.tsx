@@ -84,7 +84,7 @@ export default function SubscribePage() {
         <div className="mt-12 bg-slate-50 rounded-2xl border border-slate-200 p-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-6 text-center">Explore Our Free Tools While You&apos;re Here</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <a href="/iep-behavior-goals" className="block p-4 bg-white border border-slate-200 rounded-lg hover:border-emerald-500 hover:shadow-md transition-all">
+            <a href="/iep-goals" className="block p-4 bg-white border border-slate-200 rounded-lg hover:border-emerald-500 hover:shadow-md transition-all">
               <h3 className="font-semibold text-slate-900 mb-2">IEP Goals Generator</h3>
               <p className="text-sm text-slate-600">Create compliant, measurable behavior goals</p>
             </a>

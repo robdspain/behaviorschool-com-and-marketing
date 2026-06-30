@@ -214,7 +214,7 @@ export default function Home() {
                     </p>
                   )}
                   <Link
-                    href={`/posts/${post.slug}`}
+                    href={`/blog/${post.slug}`}
                     className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold text-[#1f4d3f] hover:underline"
                   >
                     Read More <ArrowRight size={14} />

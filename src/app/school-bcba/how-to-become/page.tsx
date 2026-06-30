@@ -292,7 +292,7 @@ export default function Page() {
                               </div>
                               <div>
                                 <p className="font-semibold text-slate-800 text-sm">IEP Goal Set (Validated Quality)</p>
-                                <p className="text-xs text-slate-600">Validate with <Link href="/iep-goal-qualitychecker" className="text-blue-700 underline">Goal Quality Checker</Link> to ensure measurability</p>
+                                <p className="text-xs text-slate-600">Validate with <Link href="/iep-goal-writer" className="text-blue-700 underline">Goal Quality Checker</Link> to ensure measurability</p>
                               </div>
                             </div>
                             <div className="flex items-start gap-3">
@@ -350,7 +350,7 @@ export default function Page() {
                             </li>
                             <li className="flex items-start gap-2">
                               <CheckCircle2 className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                              <span>Use <Link href="/school-bcba/job-guide-2025" className="text-purple-700 underline">Job Guide 2025</Link> for resume templates and cover letter examples</span>
+                              <span>Use <Link href="/school-bcba/job-guide" className="text-purple-700 underline">Job Guide 2025</Link> for resume templates and cover letter examples</span>
                             </li>
                           </ul>
                         </div>
@@ -526,7 +526,7 @@ export default function Page() {
                   <p className="text-sm text-slate-700 mb-4">
                     Generate measurable, function-based behavior goals that meet IEP compliance standards. Perfect for building your portfolio or studying goal writing.
                   </p>
-                  <Link href="/iep-behavior-goals">
+                  <Link href="/iep-goals">
                     <button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
                       Try IEP Goal Writer
                       <ChevronRight className="w-4 h-4" />
@@ -558,7 +558,7 @@ export default function Page() {
                   <p className="text-sm text-slate-700 mb-4">
                     Validate your IEP goals against best practice criteria: measurability, baseline data, conditions, criteria. Ensure 90-100% quality before interviews.
                   </p>
-                  <Link href="/iep-goal-qualitychecker">
+                  <Link href="/iep-goal-writer">
                     <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
                       Try Goal Quality Checker
                       <ChevronRight className="w-4 h-4" />
@@ -574,7 +574,7 @@ export default function Page() {
                   <p className="text-sm text-slate-700 mb-4">
                     Download our comprehensive portfolio checklist with examples, templates, and step-by-step instructions for every required artifact.
                   </p>
-                  <Link href="/school-bcba/job-guide-2025">
+                  <Link href="/school-bcba/job-guide">
                     <button className="w-full bg-slate-600 hover:bg-slate-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
                       View Job Guide 2025
                       <ChevronRight className="w-4 h-4" />
@@ -598,7 +598,7 @@ export default function Page() {
                 </h3>
                 <ul className="space-y-3">
                   <li>
-                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba/job-guide-2025">
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba/job-guide">
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       <span className="text-sm font-medium">School BCBA Job Guide 2025</span>
                     </Link>

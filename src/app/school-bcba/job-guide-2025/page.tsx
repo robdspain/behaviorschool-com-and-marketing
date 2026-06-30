@@ -49,7 +49,7 @@ export default function Page() {
           <ul>
             <li>90‑day systems implementation plan showing MTSS/PBIS alignment and measurable outcomes</li>
             <li>Sample BIP with clear function statement, prevention/teaching/consequence strategies, and data plan</li>
-            <li>IEP goal portfolio with <Link href="/iep-goal-qualitychecker" className="text-emerald-700 underline">quality-checked goals</Link> and progress monitoring data</li>
+            <li>IEP goal portfolio with <Link href="/iep-goal-writer" className="text-emerald-700 underline">quality-checked goals</Link> and progress monitoring data</li>
             <li>Coaching cycle documentation (goal → model → practice → feedback → fidelity assessment)</li>
             <li>Progress dashboard demonstrating data visualization and decision-making protocols</li>
             <li>Crisis response protocol showing trauma-informed de-escalation strategies</li>
@@ -87,7 +87,7 @@ export default function Page() {
           <h3>Practical Prep Steps</h3>
           <ul>
             <li>Build goal portfolio using the <Link href="/iep-goals" className="text-emerald-700 underline">IEP Goal Writer</Link></li>
-            <li>Validate all goals through the <Link href="/iep-goal-qualitychecker" className="text-emerald-700 underline">Goal Quality Checker</Link></li>
+            <li>Validate all goals through the <Link href="/iep-goal-writer" className="text-emerald-700 underline">Goal Quality Checker</Link></li>
             <li>Create a one‑page philosophy statement: your approach, systems framework, and 90‑day plan highlights</li>
             <li>Prepare data visualization examples showing measurable student progress</li>
             <li>Document coaching cycles with clear fidelity assessment protocols</li>
@@ -117,7 +117,7 @@ export default function Page() {
             <ul className="space-y-1 text-sm">
               <li><Link className="text-emerald-700 hover:underline" href="/school-bcba/salary-by-state">Salary by State Guide</Link></li>
               <li><Link className="text-emerald-700 hover:underline" href="/iep-goals">IEP Goal Writer</Link></li>
-              <li><Link className="text-emerald-700 hover:underline" href="/iep-goal-qualitychecker">Goal Quality Checker</Link></li>
+              <li><Link className="text-emerald-700 hover:underline" href="/iep-goal-writer">Goal Quality Checker</Link></li>
               <li><Link className="text-emerald-700 hover:underline" href="/behavior-plans">Behavior Plan Writer</Link></li>
             </ul>
           </div>

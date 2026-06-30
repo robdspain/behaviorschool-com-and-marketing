@@ -42,7 +42,7 @@ export default function ValuesGoalAssistantLandingPage() {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link 
-              href="/iep-behavior-goals"
+              href="/iep-goals"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-500 hover:from-blue-700 hover:to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
             >
               Try Behavior Goals Now
@@ -425,7 +425,7 @@ export default function ValuesGoalAssistantLandingPage() {
             Join our interest list to be the first to know when the Behavior Goal Assistant is available!
           </p>
           <Link 
-            href="/iep-behavior-goals"
+            href="/iep-goals"
             className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-700 hover:bg-blue-50 font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
           >
             Try Behavior Goals Now

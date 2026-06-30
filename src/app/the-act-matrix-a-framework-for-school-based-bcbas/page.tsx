@@ -572,7 +572,7 @@ export default function ACTMatrixFrameworkPage() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-based-behavior-support">
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba">
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       <span className="text-sm font-medium">Behavior Support Systems</span>
                     </Link>

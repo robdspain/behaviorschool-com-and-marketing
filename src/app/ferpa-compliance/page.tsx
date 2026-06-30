@@ -222,7 +222,7 @@ export default function FerpaCompliancePage() {
               we&apos;ll respond within 2 business days.
             </p>
             <Link
-              href="mailto:hello@behaviorschool.com?subject=DPA%20Request%20-%20Behavior%20School"
+              href="/contact"
               className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
             >
               <Mail size={18} />
@@ -235,7 +235,7 @@ export default function FerpaCompliancePage() {
             <p className="text-slate-700 mb-2">
               To request a DPA, SDPA, or vendor security questionnaire:
             </p>
-            <p className="text-slate-700 font-medium">hello@behaviorschool.com</p>
+            <p className="text-slate-700 font-medium">Use the contact form at behaviorschool.com/contact.</p>
             <p className="text-slate-500 text-sm mt-1">We respond within 2 business days.</p>
           </div>
         </section>
@@ -249,11 +249,11 @@ export default function FerpaCompliancePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="mailto:hello@behaviorschool.com"
+              href="/contact"
               className="inline-flex items-center gap-2 text-emerald-700 font-medium hover:text-emerald-800 print:text-slate-900"
             >
               <Mail size={16} className="print:hidden" />
-              hello@behaviorschool.com
+              Contact Behavior School
             </Link>
           </div>
           <p className="text-slate-600 text-sm mt-4">
@@ -270,8 +270,8 @@ export default function FerpaCompliancePage() {
           <Link href="/terms" className="hover:text-emerald-700 transition-colors">
             Terms of Service
           </Link>
-          <Link href="/districts" className="hover:text-emerald-700 transition-colors">
-            District Tools
+          <Link href="/products" className="hover:text-emerald-700 transition-colors">
+            Behavior School Products
           </Link>
         </div>
       </div>

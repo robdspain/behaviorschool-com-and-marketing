@@ -148,7 +148,7 @@ const faqData: FAQCategory[] = [
             <ul className="list-disc ml-6 mt-2 space-y-1">
               <li><Link href="/free-bcba-mock-exam" className="text-emerald-600 hover:text-emerald-700 underline">Free BCBA Mock Exam</Link></li>
               <li><Link href="/study" className="text-emerald-600 hover:text-emerald-700 underline">AI-Powered Study Platform</Link></li>
-              <li><Link href="/iep-behavior-goals" className="text-emerald-600 hover:text-emerald-700 underline">IEP Behavior Goal Generator</Link></li>
+              <li><Link href="/iep-goals" className="text-emerald-600 hover:text-emerald-700 underline">IEP Behavior Goal Generator</Link></li>
               <li><Link href="/blog" className="text-emerald-600 hover:text-emerald-700 underline">Educational Blog Articles</Link></li>
               <li><Link href="/act-matrix" className="text-emerald-600 hover:text-emerald-700 underline">ACT Matrix Resources</Link></li>
             </ul>

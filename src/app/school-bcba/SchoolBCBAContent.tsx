@@ -23,7 +23,7 @@ export default function SchoolBCBAContent() {
         title="Everything You Need to"
         highlight="Excel as a School-Based BCBA"
         subtitle="From getting your first school BCBA job to mastering systems-level impact—free tools, comprehensive guides, and proven frameworks."
-        primaryCta={{ href: "/iep-behavior-goals", label: "Free IEP Goals Generator" }}
+        primaryCta={{ href: "/iep-goals", label: "Free IEP Goals Generator" }}
         variant="brand"
       />
 
@@ -100,7 +100,7 @@ export default function SchoolBCBAContent() {
               icon={<BookOpen className="h-8 w-8 text-indigo-600" />}
               title="ACT Matrix for School BCBAs"
               desc="Values-based framework that complements ABA for deeper student engagement and motivation."
-              href="/the-act-matrix-a-framework-for-school-based-bcbas"
+              href="/act-matrix"
             />
             <Card
               icon={<Users className="h-8 w-8 text-orange-600" />}
@@ -159,7 +159,7 @@ export default function SchoolBCBAContent() {
             <LMCard
               title="IEP Behavior Goals Generator"
               desc="Generate high-quality, measurable, SMART behavior goals aligned with state standards. Save hours on IEP writing."
-              href="/iep-behavior-goals"
+              href="/iep-goals"
               features={["SMART goal framework", "State standards aligned", "Progress monitoring built-in"]}
             />
             <LMCard

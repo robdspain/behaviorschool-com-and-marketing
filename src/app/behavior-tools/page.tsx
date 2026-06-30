@@ -71,7 +71,7 @@ const tools: ToolCard[] = [
     title: "IEP Goal Quality Checker",
     description:
       "Evaluate your existing IEP goals against SMART criteria and best practices. Get instant feedback on measurability, specificity, and alignment.",
-    href: "/iep-goal-qualitychecker",
+    href: "/iep-goal-writer",
     icon: CheckCircle2,
     status: "live",
     features: [

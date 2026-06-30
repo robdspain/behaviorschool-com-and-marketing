@@ -67,7 +67,7 @@ export function SeoArticlePage({
           "@type": "Person",
           name: "Rob Spain",
           jobTitle: "BCBA",
-          url: "https://behaviorschool.com/about/rob-spain",
+          url: "https://behaviorschool.com/about",
           affiliation: {
             "@type": "Organization",
             name: "Behavior School",
@@ -78,7 +78,7 @@ export function SeoArticlePage({
           "@type": "Person",
           name: "Rob Spain",
           jobTitle: "BCBA",
-          url: "https://behaviorschool.com/about/rob-spain",
+          url: "https://behaviorschool.com/about",
         },
         publisher: {
           "@type": "Organization",
@@ -257,7 +257,7 @@ export function SeoArticlePage({
               review, or documentation decisions.
             </p>
             <Link
-              href="/about/rob-spain"
+              href="/about"
               className="mt-3 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-950"
             >
               About the BCBA reviewer

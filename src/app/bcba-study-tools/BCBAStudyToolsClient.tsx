@@ -462,7 +462,7 @@ export function BCBAStudyToolsClient() {
                 Yes! Our study tools are designed by practicing school-based BCBAs and include specific content relevant to educational settings. The practice questions cover scenarios commonly encountered in schools.
               </p>
               <p className="text-slate-600">
-                For additional school-specific resources, explore our <Link href="/iep-behavior-goals" className="text-emerald-600 hover:text-emerald-700 underline font-medium">IEP behavior goals generator</Link> and <Link href="/behavior-plans" className="text-emerald-600 hover:text-emerald-700 underline font-medium">behavior intervention planning tools</Link>.
+                For additional school-specific resources, explore our <Link href="/iep-goals" className="text-emerald-600 hover:text-emerald-700 underline font-medium">IEP behavior goals generator</Link> and <Link href="/behavior-plans" className="text-emerald-600 hover:text-emerald-700 underline font-medium">behavior intervention planning tools</Link>.
               </p>
             </div>
 

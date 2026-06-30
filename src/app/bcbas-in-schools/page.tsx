@@ -671,7 +671,7 @@ export default function BCBAsInSchoolsPage() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba/job-guide-2025">
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba/job-guide">
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       <span className="text-sm font-medium">2025 Job Guide</span>
                     </Link>

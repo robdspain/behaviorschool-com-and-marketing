@@ -300,7 +300,7 @@ export default function Page() {
                   <span className="flex items-center justify-center w-8 h-8 bg-emerald-100 text-emerald-700 rounded-full font-bold mr-4 flex-shrink-0">2</span>
                   <div>
                     <strong className="text-slate-900">Quality check:</strong> Run drafts against a goal-quality checklist (measurement dimensions + monitoring cadence per HLPs). {" "}
-                    <Link href="/iep-goal-qualitychecker" className="text-emerald-700 underline hover:text-emerald-800">Goal Quality Checker</Link>
+                    <Link href="/iep-goal-writer" className="text-emerald-700 underline hover:text-emerald-800">Goal Quality Checker</Link>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -451,7 +451,7 @@ export default function Page() {
                   <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/iep-goals">
                     IEP Goal Writer <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link></li>
-                  <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/iep-goal-qualitychecker">
+                  <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/iep-goal-writer">
                     Goal Quality Checker <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link></li>
                   <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/behavior-plans">

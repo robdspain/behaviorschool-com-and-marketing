@@ -295,7 +295,7 @@ export default function Page() {
                     <div>
                       <h3 className="font-bold text-slate-900 mb-2">Bring Evidence of Systems-Level Impact</h3>
                       <p className="text-slate-700 text-sm leading-relaxed">
-                        Present a 90-day implementation plan with sample artifacts: <Link href="/iep-behavior-goals" className="text-emerald-700 font-semibold hover:underline">IEP goals</Link>, <Link href="/behavior-plans" className="text-emerald-700 font-semibold hover:underline">behavior intervention plans</Link>, staff coaching cycles, and progress monitoring templates. Districts value candidates who demonstrate readiness to drive immediate impact.
+                        Present a 90-day implementation plan with sample artifacts: <Link href="/iep-goals" className="text-emerald-700 font-semibold hover:underline">IEP goals</Link>, <Link href="/behavior-plans" className="text-emerald-700 font-semibold hover:underline">behavior intervention plans</Link>, staff coaching cycles, and progress monitoring templates. Districts value candidates who demonstrate readiness to drive immediate impact.
                       </p>
                     </div>
                   </div>
@@ -323,7 +323,7 @@ export default function Page() {
                     <div>
                       <h3 className="font-bold text-slate-900 mb-2">Research District Comparables & Job Market</h3>
                       <p className="text-slate-700 text-sm leading-relaxed">
-                        Study surrounding district salary schedules (often public). If you're in California, compare your offer to LAUSD, SFUSD, and San Diego Unified. Use the <Link href="/school-bcba/job-guide-2025" className="text-purple-700 font-semibold hover:underline">2025 Job Guide</Link> for interview prep and positioning strategies.
+                        Study surrounding district salary schedules (often public). If you're in California, compare your offer to LAUSD, SFUSD, and San Diego Unified. Use the <Link href="/school-bcba/job-guide" className="text-purple-700 font-semibold hover:underline">2025 Job Guide</Link> for interview prep and positioning strategies.
                       </p>
                     </div>
                   </div>
@@ -429,7 +429,7 @@ export default function Page() {
                 <p className="text-slate-700 text-sm leading-relaxed">
                   <strong>Pro Tip:</strong> Many districts promote experienced School BCBAs to <strong>Director of Special Education</strong> or <strong>Behavior Program Coordinator</strong> roles. These positions typically require CA administrative credentials or similar state requirements, but offer substantial salary increases and district-wide impact.
                 </p>
-                <Link href="/school-bcba/job-guide-2025" className="inline-flex items-center gap-2 mt-4 text-emerald-700 font-semibold hover:underline text-sm">
+                <Link href="/school-bcba/job-guide" className="inline-flex items-center gap-2 mt-4 text-emerald-700 font-semibold hover:underline text-sm">
                   View 2025 Job Guide for Career Advancement Tips
                   <ChevronRight className="w-4 h-4" />
                 </Link>
@@ -562,7 +562,7 @@ export default function Page() {
                 </h3>
                 <ul className="space-y-3">
                   <li>
-                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba/job-guide-2025">
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba/job-guide">
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       <span className="text-sm font-medium">School BCBA Job Guide 2025</span>
                     </Link>
@@ -599,7 +599,7 @@ export default function Page() {
                 </p>
                 <ul className="space-y-3">
                   <li>
-                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-behavior-goals">
+                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-goals">
                       IEP Goals Generator →
                     </Link>
                   </li>
@@ -609,7 +609,7 @@ export default function Page() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-goal-qualitychecker">
+                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-goal-writer">
                       IEP Goal Quality Checker →
                     </Link>
                   </li>

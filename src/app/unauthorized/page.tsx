@@ -50,7 +50,7 @@ function UnauthorizedContent() {
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-sm text-gray-600 mb-3 font-medium">Explore our free resources:</p>
             <div className="space-y-2">
-              <Link href="/iep-behavior-goals" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">
+              <Link href="/iep-goals" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">
                 IEP Behavior Goals Generator
               </Link>
               <Link href="/bcba-exam-prep" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">

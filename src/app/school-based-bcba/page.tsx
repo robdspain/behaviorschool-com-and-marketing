@@ -168,7 +168,7 @@ export default function SchoolBasedBCBAPage() {
                 className="text-lg px-8 py-6 border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 font-semibold"
                 asChild
               >
-                <Link href="/iep-behavior-goals">
+                <Link href="/iep-goals">
                   <Zap className="w-5 h-5 mr-2" />
                   Try Free Tools
                 </Link>
@@ -311,7 +311,7 @@ export default function SchoolBasedBCBAPage() {
                   Craft measurable, IDEA-compliant behavior goals that improve student outcomes and meet legal requirements.
                 </p>
                 <Button variant="outline" size="sm" className="border-purple-600 text-purple-700 hover:bg-purple-50 font-semibold" asChild>
-                  <Link href="/iep-behavior-goals">
+                  <Link href="/iep-goals">
                     Try Goal Generator
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
@@ -501,7 +501,7 @@ export default function SchoolBasedBCBAPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {[
-                { icon: Target, color: "emerald", title: "IEP Goal Generator", desc: "Create SMART, measurable behavior goals in seconds", link: "/iep-behavior-goals", cta: "Generate a Free Goal" },
+                { icon: Target, color: "emerald", title: "IEP Goal Generator", desc: "Create SMART, measurable behavior goals in seconds", link: "/iep-goals", cta: "Generate a Free Goal" },
                 { icon: FileText, color: "blue", title: "Behavior Plan Writer", desc: "Build teacher-ready BIPs with evidence-based strategies", link: "/behavior-plans", cta: "Create a Free BIP" },
                 { icon: Users, color: "purple", title: "Supervision Tracker", desc: "Monitor fieldwork hours and competencies with precision", link: "/supervisors", cta: "Try Supervision Tools" },
                 { icon: BookOpen, color: "orange", title: "BCBA Exam Prep", desc: "Free practice questions and mock exams for certification", link: "/bcba-exam-prep", cta: "Start Studying Free" }
@@ -571,7 +571,7 @@ export default function SchoolBasedBCBAPage() {
                 className="border-2 border-white text-white hover:bg-white hover:text-[#1F4D3F] font-bold py-6 text-base shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all" 
                 asChild
               >
-                <Link href="/iep-behavior-goals">
+                <Link href="/iep-goals">
                   Try Free IEP Goal Generator
                 </Link>
               </Button>
@@ -671,7 +671,7 @@ export default function SchoolBasedBCBAPage() {
                 <Link href="/school-bcba" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
                   School BCBA Hub →
                 </Link>
-                <Link href="/school-based-behavior-support" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
+                <Link href="/school-bcba" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
                   School-Based Behavior Support →
                 </Link>
               </div>

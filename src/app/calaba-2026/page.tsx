@@ -384,7 +384,7 @@ export default function CalABA2026Page() {
       {/* Footer */}
       <div className="border-t border-slate-200 py-8 px-4 text-center bg-white">
         <p className="text-sm text-slate-500">
-          © {new Date().getFullYear()} Behavior School · Questions? <a href="mailto:rob@behaviorschool.com" className="text-emerald-600 hover:underline">rob@behaviorschool.com</a>
+          © {new Date().getFullYear()} Behavior School · Questions? <a href="/contact" className="text-emerald-600 hover:underline">Contact Behavior School</a>
         </p>
       </div>
     </div>

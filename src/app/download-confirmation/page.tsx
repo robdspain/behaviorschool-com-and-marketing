@@ -103,7 +103,7 @@ function DownloadConfirmationContent() {
             More Free Tools for BCBAs
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
-            <Link href="/iep-behavior-goals" className="p-4 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+            <Link href="/iep-goals" className="p-4 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
               <h3 className="font-semibold text-slate-900 mb-2">IEP Behavior Goals Generator</h3>
               <p className="text-sm text-slate-600">Create compliant, measurable IEP behavior goals in minutes</p>
             </Link>

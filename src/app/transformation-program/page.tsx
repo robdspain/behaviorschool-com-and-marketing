@@ -10,7 +10,7 @@ import { ProgramApplication } from '@/components/ProgramApplication';
 const OFFER_PRICE = '$1,997';
 const PAYMENT_PLAN = '3 payments of $697';
 const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformation-system-phone-call';
-const DISTRICT_EMAIL_LINK = 'mailto:support@behaviorschool.com?subject=District%20PO%20or%20Invoice%20-%20Transformation%20Program';
+const DISTRICT_EMAIL_LINK = '/contact';
 
 // Update this number manually as spots are confirmed
 const TOTAL_SPOTS = 12;
@@ -448,10 +448,10 @@ export default function TransformationProgramPage() {
           <FAQAccordion items={[
             { question: "When does the next cohort start?", answer: "July 1, 2026. Sessions run weekly from 6 to 8 PM PT for six weeks, ending August 5. Maximum 12 participants." },
             { question: "What if I miss a live session?", answer: "All sessions are recorded and available in your student portal within 24 hours." },
-            { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Email support@behaviorschool.com within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
-            { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Email support@behaviorschool.com to request district paperwork." },
-            { question: "Is a W-9 available?", answer: "Yes, available on request. Email support@behaviorschool.com and we'll send it same day." },
-            { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via Calendly or email rob@behaviorschool.com to discuss district group pricing." },
+            { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
+            { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
+            { question: "Is a W-9 available?", answer: "Yes, available on request. Contact us and we'll send it same day." },
+            { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via Calendly or the contact form to discuss district group pricing." },
             { question: "Is this program approved for CEUs?", answer: "CEU applicability is being evaluated. Contact us for the most current information." },
           ]} />
         </div>
@@ -485,7 +485,7 @@ export default function TransformationProgramPage() {
           <p className="text-white/40 text-xs mb-4">
             District PO or invoice needed?{' '}
             <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
-              Email support@behaviorschool.com
+              Contact us
             </a>
           </p>
           <p className="text-white/40 text-xs mb-12">
@@ -513,7 +513,7 @@ export default function TransformationProgramPage() {
               <p className="text-xs text-white/40">
                 Need a W-9, purchase order, or invoice?{' '}
                 <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
-                  Email support@behaviorschool.com
+                  Contact us
                 </a>{' '}
                 and we&apos;ll send the paperwork. Seats are held once a signed PO or written district payment approval is received.
               </p>
