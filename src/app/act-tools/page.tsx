@@ -4,7 +4,7 @@ import { Brain, Heart, Compass, ArrowRight, Sparkles } from "lucide-react";
 import { ProTrialCTA } from "@/components/ui/ProTrialCTA";
 
 export const metadata: Metadata = {
-  title: "ACT Tools for Schools | Values, Matrix & Defusion | Behavior School",
+  title: "ACT Tools for Schools | Values, Matrix and Defusion",
   description:
     "Free ACT tools for school behavior support, including values assessment, ACT Matrix activities, defusion exercises, and resources for BCBAs and educators.",
   keywords: [
