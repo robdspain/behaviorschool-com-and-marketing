@@ -91,7 +91,7 @@ export default function SchoolBasedBCBAPage() {
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Sparkles className="w-5 h-5 text-yellow-300" />
-            <span className="font-semibold">Transform Your School BCBA Practice in 8 Weeks</span>
+            <span className="font-semibold">Transform Your School BCBA Practice in 6 Weeks</span>
           </div>
           <Button 
             size="sm" 
@@ -561,7 +561,7 @@ export default function SchoolBasedBCBAPage() {
                 asChild
               >
                 <Link href="/transformation-program">
-                  Join the 8-Week Program
+                  Join the 6-Week Program
                 </Link>
               </Button>
               

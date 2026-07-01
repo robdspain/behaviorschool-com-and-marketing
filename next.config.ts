@@ -39,6 +39,30 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  async rewrites() {
+    return [
+      {
+        source: '/',
+        destination: '/study',
+        has: [
+          {
+            type: 'host',
+            value: 'behaviorstudytools.com',
+          },
+        ],
+      },
+      {
+        source: '/',
+        destination: '/study',
+        has: [
+          {
+            type: 'host',
+            value: 'www.behaviorstudytools.com',
+          },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       // ============================================
