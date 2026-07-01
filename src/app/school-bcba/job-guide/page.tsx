@@ -3,14 +3,17 @@ import Link from "next/link";
 import { OnThisPageTOC } from "@/components/OnThisPageTOC";
 import { TrackableLink } from "@/components/TrackableLink";
 import { ArrowRight, Briefcase, FileText, Target, Users, CheckCircle } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+const canonical = "https://behaviorschool.com/school-bcba/job-guide";
+
+export const metadata: Metadata = buildPageMetadata({
   title: "School BCBA Job Guide: Role, Artifacts, Interview Prep",
   description:
     "What districts expect from School BCBAs—MTSS/PBIS alignment, FBA→BIP, IEP goals, coaching, fidelity—and the artifacts that prove systems-level impact.",
-  alternates: { canonical: "https://behaviorschool.com/school-bcba/job-guide" },
-  robots: { index: true, follow: true },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

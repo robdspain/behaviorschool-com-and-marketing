@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import ACTMatrixBuilder from "@/components/act-matrix-builder/ACTMatrixBuilder";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "ACT Matrix Builder | Free Interactive Tool | BehaviorSchool",
   description:
     "Build an ACT Matrix for any student, complete all four quadrants, and get printable ACT strategy recommendations for BCBAs and school teams.",
-  openGraph: {
-    title: "ACT Matrix Builder | Free Interactive Tool | BehaviorSchool",
-    description:
-      "Build an ACT Matrix for any student. Fill in all four quadrants and get printable output with recommended ACT strategies. Free for BCBAs and school behavior teams.",
-    url: "https://behaviorschool.com/act-matrix-builder",
-  },
-};
+  canonical: "https://behaviorschool.com/act-matrix-builder",
+});
 
 export default function ACTMatrixBuilderPage() {
   return (

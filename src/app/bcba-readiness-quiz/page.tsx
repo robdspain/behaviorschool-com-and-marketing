@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { BCBAReadinessQuiz } from "./BCBAReadinessQuiz";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "BCBA Exam Readiness Quiz | Behavior School",
   description:
     "Take our free 2-minute BCBA Exam Readiness Quiz. Find out if you're ready for the certification exam with a personalized score and study recommendations!",
@@ -15,20 +16,8 @@ export const metadata: Metadata = {
     "BCBA exam confidence",
     "behavior analyst exam prep",
   ],
-  openGraph: {
-    title: "BCBA Exam Readiness Quiz — How Prepared Are You?",
-    description:
-      "Free 2-minute self-assessment. Find out your BCBA exam readiness score and get personalized study recommendations.",
-    type: "website",
-    url: "https://behaviorschool.com/bcba-readiness-quiz",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "BCBA Exam Readiness Quiz — How Prepared Are You?",
-    description:
-      "Free 2-minute self-assessment. Find out your BCBA exam readiness score and get personalized study recommendations.",
-  },
-};
+  canonical: "https://behaviorschool.com/bcba-readiness-quiz",
+});
 
 export default function BCBAReadinessQuizPage() {
   return (

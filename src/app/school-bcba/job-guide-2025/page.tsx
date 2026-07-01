@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+const canonical = "https://behaviorschool.com/school-bcba/job-guide-2025";
+
+export const metadata: Metadata = buildPageMetadata({
   title: "2025 School BCBA Job Guide: Roles, Salaries & Interview Prep",
   description:
     "Complete 2025 School BCBA job guide: market trends, salary data by state, interview strategies, portfolio artifacts, and district hiring insights.",
-  alternates: { canonical: "https://behaviorschool.com/school-bcba/job-guide-2025" },
-  robots: { index: true, follow: true },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

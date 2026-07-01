@@ -1,15 +1,13 @@
 import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase-server';
 import CEEventsClient from './CEEventsClient';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Continuing Education Events | Behavior School',
   description: 'Browse professional development events for behavior analysts. BCBAs and BCaBAs earn CEUs, and RBTs earn PDUs through Behavior School.',
-  openGraph: {
-    title: 'CE Events | Behavior School',
-    description: 'professional development for behavior analysts',
-  },
-};
+  canonical: 'https://behaviorschool.com/ce-events',
+});
 
 async function getApprovedEvents() {
   const supabase = await createClient();

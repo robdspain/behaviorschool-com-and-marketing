@@ -5,15 +5,13 @@ import { Calendar, Clock, Users, Award, MapPin, Video, BookOpen } from 'lucide-r
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Continuing Education Events | Behavior School',
   description: 'Browse and register for professional development events. BCBAs & BCaBAs earn CEUs · RBTs earn PDUs. Live and on-demand courses.',
-  openGraph: {
-    title: 'CE Events for Behavior Analysts | Behavior School',
-    description: 'professional development courses. Live and on-demand options available.',
-  },
-};
+  canonical: 'https://behaviorschool.com/events',
+});
 
 async function getPublicEvents() {
   const supabase = await createClient();

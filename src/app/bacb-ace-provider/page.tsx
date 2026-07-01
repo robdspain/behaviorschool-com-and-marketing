@@ -4,23 +4,14 @@ import Link from "next/link";
 import { ArrowRight, Award, CalendarDays, CheckCircle2, ExternalLink, UserRound } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "BACB Authorized Continuing Education Provider | Behavior School",
   description:
     "Behavior School LLC is a BACB Authorized Continuing Education Provider, provider number OP-26-12729.",
-  alternates: {
-    canonical: "https://behaviorschool.com/bacb-ace-provider",
-  },
-  openGraph: {
-    title: "BACB Authorized Continuing Education Provider | Behavior School",
-    description:
-      "Behavior School LLC is a BACB Authorized Continuing Education Provider, provider number OP-26-12729.",
-    url: "https://behaviorschool.com/bacb-ace-provider",
-    siteName: "Behavior School",
-    type: "website",
-  },
-};
+  canonical: "https://behaviorschool.com/bacb-ace-provider",
+});
 
 export default function BacbAceProviderPage() {
   const structuredData = {

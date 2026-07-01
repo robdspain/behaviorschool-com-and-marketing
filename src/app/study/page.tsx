@@ -19,15 +19,18 @@ import {
 } from "lucide-react";
 import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
 import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata = {
+const canonical = "https://behaviorschool.com/study";
+
+export const metadata = buildPageMetadata({
   title: "Behavior Study Tools | BCBA & RBT Exam Prep App",
   description:
     "Behavior Study Tools helps BCBA and RBT candidates study with mock exams, adaptive practice, rationales, readiness analytics, and supervision tracking.",
-  alternates: {
-    canonical: "https://behaviorstudytools.com",
-  },
-};
+  canonical,
+  image: "https://behaviorschool.com/BehaviorStudyTools/Hero-BST-Home.webp",
+  imageAlt: "Behavior Study Tools app dashboard for BCBA and RBT exam prep",
+});
 
 const bcbaStartHref = behaviorStudyToolsAppHref("/onboarding/bcba", {
   intent: "homepage_primary",

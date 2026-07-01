@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Search, FileText, Briefcase, Award } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+const canonical = "https://behaviorschool.com/school-bcba/vs-school-based-bcba";
+
+export const metadata: Metadata = buildPageMetadata({
   title: "School BCBA vs School-Based BCBA | Career Guide 2025",
   description:
     "Learn how School BCBA and School-Based BCBA terms differ in job searches, positioning, and career visibility for behavior analysts in schools.",
-  alternates: { canonical: "https://behaviorschool.com/school-bcba/vs-school-based-bcba" },
-  robots: { index: true, follow: true },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

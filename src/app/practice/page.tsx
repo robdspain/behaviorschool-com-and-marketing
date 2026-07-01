@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { ArrowRight, PlayCircle, Shield, Target, TrendingUp } from 'lucide-react'
+import { buildPageMetadata } from '@/lib/seo/metadata'
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: 'BCBA Practice | Free Mini or Full Mock (Guest) | Results gated',
   description: 'Start a free guest BCBA practice test: one mini (10) or one full mock. Auth required to view results and analytics.',
-  alternates: { canonical: 'https://behaviorschool.com/practice' },
-}
+  canonical: 'https://behaviorschool.com/practice',
+})
 
 export default function PracticePage() {
   return (
@@ -109,4 +110,3 @@ function Value({ icon, title, text }: { icon: React.ReactNode; title: string; te
     </div>
   )
 }
-

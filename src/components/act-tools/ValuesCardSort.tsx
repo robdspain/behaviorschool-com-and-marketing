@@ -678,7 +678,7 @@ export default function ValuesCardSort() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-20">
         <div className="text-center space-y-4">
           <p className="text-xs font-semibold tracking-[0.3em] text-emerald-600 uppercase">ACT Tools</p>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">Values Card Sort</h1>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">Values Card Sort</h2>
           <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
             Sort values into piles, pick your top 3-5, and celebrate what matters most right now.
           </p>

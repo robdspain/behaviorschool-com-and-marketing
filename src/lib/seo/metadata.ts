@@ -6,6 +6,7 @@ type PageMetadataOptions = {
   title: string;
   description: string;
   canonical: string;
+  keywords?: Metadata["keywords"];
   type?: "website" | "article";
   image?: string;
   imageAlt?: string;
@@ -15,6 +16,7 @@ export function buildPageMetadata({
   title,
   description,
   canonical,
+  keywords,
   type = "website",
   image = DEFAULT_OG_IMAGE,
   imageAlt = "Behavior School",
@@ -22,6 +24,7 @@ export function buildPageMetadata({
   return {
     title,
     description,
+    ...(keywords ? { keywords } : {}),
     alternates: { canonical },
     robots: { index: true, follow: true },
     openGraph: {

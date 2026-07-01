@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { FBADecisionMatrix } from "./FBADecisionMatrix";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Free FBA Decision Matrix | Functional Behavior Assessment Tool",
   description: "Use this free FBA decision tool to answer 7 quick questions and decide whether a Functional Behavior Assessment is needed or if supports should come first.",
   keywords: [
@@ -20,32 +21,8 @@ export const metadata: Metadata = {
     "special education FBA",
     "behavior intervention decision"
   ],
-  openGraph: {
-    title: "Free FBA Decision Matrix | Functional Behavior Assessment Tool",
-    description: "Use this free FBA decision tool to answer 7 quick questions and decide whether a Functional Behavior Assessment is needed or if supports should come first.",
-    type: "website",
-    url: "https://behaviorschool.com/fba-decision-matrix",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Free FBA Decision Matrix | Functional Behavior Assessment Tool",
-    description: "Use this free FBA decision tool to decide whether an FBA is needed or if supports should come first.",
-  },
-  alternates: {
-    canonical: "https://behaviorschool.com/fba-decision-matrix"
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-};
+  canonical: "https://behaviorschool.com/fba-decision-matrix",
+});
 
 const faqSchema = {
   "@context": "https://schema.org",

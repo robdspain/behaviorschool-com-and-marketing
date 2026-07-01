@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
 import ValuesWizard from "@/components/iep-goal-writer/ValuesWizard";
 import { Target, BarChart3, Zap } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "IEP Behavior Goal Writer | Values Wizard | BehaviorSchool",
   description:
     "Create SMART IEP behavior goals with baseline, fluency, generalization, and maintenance components. Free for BCBAs and teachers.",
-  openGraph: {
-    title: "IEP Behavior Goal Writer | Values Wizard | BehaviorSchool",
-    description:
-      "Create Level 5 SMART IEP behavior goals in under 5 minutes with the Values Wizard. Free for BCBAs and teachers.",
-    url: "https://behaviorschool.com/iep-goal-writer",
-  },
-};
+  canonical: "https://behaviorschool.com/iep-goal-writer",
+});
 
 export default function IEPGoalWriterPage() {
   return (

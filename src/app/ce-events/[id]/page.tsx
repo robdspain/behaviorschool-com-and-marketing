@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase-server';
 import EventDetailClient from './EventDetailClient';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -41,14 +42,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  return {
+  return buildPageMetadata({
     title: `${event.title} | CE Events | Behavior School`,
     description: event.description || `Earn ${event.total_ceus} CEUs with this professional development event.`,
-    openGraph: {
-      title: event.title,
-      description: event.description || `Earn ${event.total_ceus} CEUs`,
-    },
-  };
+    canonical: `https://behaviorschool.com/ce-events/${id}`,
+  });
 }
 
 export default async function EventDetailPage({ params }: Props) {

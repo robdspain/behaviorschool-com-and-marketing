@@ -1,22 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ShieldCheck, Lock, Clock, Database, Ban, Mail } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "FERPA Compliance | Behavior School",
   description:
     "Behavior School's student data privacy and FERPA compliance overview for district IT directors, compliance officers, and technology committees.",
-  alternates: {
-    canonical: "https://behaviorschool.com/ferpa-compliance",
-  },
-  openGraph: {
-    title: "FERPA Compliance | Behavior School",
-    description:
-      "Security controls and data privacy practices for district IT directors and compliance officers reviewing Behavior School.",
-    type: "website",
-    url: "https://behaviorschool.com/ferpa-compliance",
-  },
-};
+  canonical: "https://behaviorschool.com/ferpa-compliance",
+});
 
 const controls = [
   {

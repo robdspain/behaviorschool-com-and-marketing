@@ -3,8 +3,9 @@ import VideoCard from '@/components/VideoCard';
 import type { Video, VideoCategory } from '@/types/video';
 import fs from 'fs';
 import path from 'path';
+import { buildPageMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Free BCBA Exam Prep Videos | Behavior School',
   description: 'Watch free BCBA exam prep videos covering ethics, reinforcement, experimental design, and study strategies from an experienced school BCBA. Start learning!',
   keywords: [
@@ -14,13 +15,8 @@ export const metadata: Metadata = {
     'BCBA ethics videos',
     'school BCBA tips'
   ],
-  openGraph: {
-    title: 'Free BCBA Exam Prep Videos | Behavior School',
-    description: 'Watch free BCBA exam prep videos covering ethics, reinforcement, experimental design, and study strategies from an experienced school BCBA. Start learning!',
-    type: 'website',
-    url: 'https://behaviorschool.com/videos',
-  },
-};
+  canonical: 'https://behaviorschool.com/videos',
+});
 
 // Load videos from JSON file
 function getVideos(): Video[] {
