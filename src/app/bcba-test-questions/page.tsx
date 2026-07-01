@@ -1,30 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/bcba-test-questions";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "BCBA Test Questions | Free Samples + Rationales",
   description:
     "Try free BCBA test questions with answers, rationales, and school-based examples. Review distractors before moving into timed practice.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-  openGraph: {
-    title: "BCBA Test Questions: Free Samples + Rationales",
-    description:
-      "Try free BCBA test questions with answers, rationales, and school-based examples before timed practice.",
-    url: canonical,
-    siteName: "Behavior School",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "BCBA Test Questions: Free Samples + Rationales",
-    description:
-      "Try free BCBA test questions with answers, rationales, and school-based examples before timed practice.",
-  },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

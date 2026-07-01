@@ -11,8 +11,8 @@ tags:
   - 6th Edition
   - blog
 status: published
-meta_title: "BCBA 6th Edition Test Content Outline: Domain-by-Domain Breakdown (2025–2026)"
-meta_description: "Master the BCBA 6th Edition Test Content Outline with this complete breakdown of all 9 domains, exam weights, task counts, and what changed from the 5th edition. Updated for 2025–2026."
+meta_title: "BCBA 6th Edition Test Content Outline Guide"
+meta_description: "Review the BCBA 6th Edition Test Content Outline, including 9 domains, exam weights, task counts, and key changes from the 5th edition."
 ---
 
 *AI-assisted draft; reviewed and edited by Rob Spain, BCBA, IBA. All exam structure information is sourced directly from the BACB's published 6th Edition Test Content Outline and Task List, available at bacb.com. Domain weight estimates reflect task count distribution and are not official BACB-published percentages.*

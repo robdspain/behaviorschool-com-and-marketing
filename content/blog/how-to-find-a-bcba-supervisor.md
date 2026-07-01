@@ -13,7 +13,7 @@ tags:
   - blog
 status: published
 meta_title: "How to Find a BCBA Supervisor: A Guide for Aspiring BCBAs"
-meta_description: "Finding a BCBA supervisor is harder than it should be. Learn what the BACB registry can and can't do, what to look for in a supervisor, and where to actually find one."
+meta_description: "Learn how to find a BCBA supervisor, what the BACB registry can and can't do, and what to look for before starting fieldwork."
 slug: how-to-find-a-bcba-supervisor
 keywords:
   - how to find a BCBA supervisor

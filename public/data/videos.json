@@ -11,13 +11,13 @@
       "thumbnailUrl": "/images/video-thumbnails/ethics-traps.jpg",
       "publishedAt": "2026-02-07T00:00:00Z",
       "order": 1,
-      "metaDescription": "Master 5 common BCBA ethics questions that trip up most exam candidates. Learn the surprising correct answers with real-world scenarios from an experienced school BCBA.",
+      "metaDescription": "Practice 5 common BCBA ethics questions with real-world school scenarios and explanations from an experienced BCBA.",
       "keywords": ["BCBA ethics", "BCBA exam prep", "behavior analyst ethics", "dual relationships", "confidentiality"]
     },
     {
       "id": "reinforcement-vs-punishment",
       "slug": "reinforcement-vs-punishment-bcba-exam-matrix",
-      "title": "Reinforcement vs Punishment: The Question That Separates Passers from Failers",
+      "title": "Reinforcement vs Punishment for the BCBA Exam",
       "description": "If you can't nail the 2x2 matrix in under 10 seconds, you're not ready for the BCBA exam. Deep dive into positive/negative reinforcement/punishment with tricky examples that show up in 15-20 exam questions.",
       "category": "Exam Prep",
       "videoUrl": "https://www.youtube.com/watch?v=PLACEHOLDER",
@@ -31,7 +31,7 @@
     {
       "id": "experimental-design",
       "slug": "experimental-design-made-simple-bcba-exam",
-      "title": "Experimental Design Made Simple: The 3 Things You MUST Know",
+      "title": "Experimental Design Made Simple for the BCBA Exam",
       "description": "Experimental design sounds complicated—but the BCBA exam only cares about three things. Master reversal, multiple baseline, and multielement designs and ace every single-subject design question.",
       "category": "Exam Prep",
       "videoUrl": "https://www.youtube.com/watch?v=PLACEHOLDER",
@@ -39,7 +39,7 @@
       "thumbnailUrl": "/images/video-thumbnails/experimental-design.jpg",
       "publishedAt": "2026-02-07T00:00:00Z",
       "order": 3,
-      "metaDescription": "Simplify BCBA experimental design with 3 core concepts: reversal, multiple baseline, and multielement designs. Learn when to use each for your exam and practice.",
+      "metaDescription": "Simplify BCBA experimental design with reversal, multiple baseline, and multielement designs for exam practice.",
       "keywords": ["experimental design", "BCBA exam", "single-subject design", "reversal design", "multiple baseline"]
     },
     {

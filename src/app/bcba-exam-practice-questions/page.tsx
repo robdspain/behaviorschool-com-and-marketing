@@ -1,30 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/bcba-exam-practice-questions";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "BCBA Exam Practice Questions | Free Rationales + Study Path",
   description:
     "Practice BCBA exam questions with rationales, domain review, and a clear next step into timed mock exams. Start free with no credit card.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-  openGraph: {
-    title: "BCBA Exam Practice Questions: Free Rationales + Study Path",
-    description:
-      "Practice BCBA exam questions with rationales, domain review, and a clear next step into timed mock exams.",
-    url: canonical,
-    siteName: "Behavior School",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "BCBA Exam Practice Questions: Free Rationales + Study Path",
-    description:
-      "Practice BCBA exam questions with rationales, domain review, and a clear next step into timed mock exams.",
-  },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

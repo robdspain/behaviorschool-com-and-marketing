@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/iep-behavior-goal-examples";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "IEP Behavior Goal Examples | Measurable School Goals",
   description:
     "IEP behavior goal examples for school teams, including measurable replacement behavior goals, baseline language, criteria, and data collection tips.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

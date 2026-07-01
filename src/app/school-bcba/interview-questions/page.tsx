@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/school-bcba/interview-questions";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "School BCBA Interview Questions | Behavior School",
   description:
     "Prepare for school BCBA interviews with common district questions, sample answer themes, and portfolio artifacts to bring.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/behavior-intervention-plan-examples";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Behavior Intervention Plan Examples | BIP Guide",
   description:
     "Behavior intervention plan examples for school teams, including function-based strategies, replacement skills, reinforcement, and data collection.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

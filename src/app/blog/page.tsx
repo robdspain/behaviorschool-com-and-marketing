@@ -77,6 +77,40 @@ export default async function BlogPage() {
               </div>
             </div>
           </div>
+
+          <div className="mb-10 grid gap-4 lg:grid-cols-2">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <h2 className="text-lg font-bold text-slate-900">School ABA practice guides</h2>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <a className="text-sm font-semibold text-emerald-800 hover:text-emerald-950" href="/blog/trauma-informed-and-trauma-assumed-practices-in-a-school-based-setting">Trauma-informed ABA in schools</a>
+                <a className="text-sm font-semibold text-emerald-800 hover:text-emerald-950" href="/blog/integrating-skill-based-treatment-sbt-and-acceptance-commitment-training-act-in-schools">SBT and ACT in schools</a>
+                <a className="text-sm font-semibold text-emerald-800 hover:text-emerald-950" href="/blog/how-functional-language-progresses-a-guide-to-stage-specific-interventions">Functional language stages</a>
+                <a className="text-sm font-semibold text-emerald-800 hover:text-emerald-950" href="/blog/values-vs-preference-assessments-in-school-based-aba-interventions">Values vs preference assessments</a>
+              </div>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <h2 className="text-lg font-bold text-slate-900">FBA, ACT, and PBIS guides</h2>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <a className="text-sm font-semibold text-blue-800 hover:text-blue-950" href="/blog/deep-research-functional-behavior-assessments-fbas-leading-to-act-based-interventions">FBAs leading to ACT interventions</a>
+                <a className="text-sm font-semibold text-blue-800 hover:text-blue-950" href="/blog/functional-behavior-assessment-in-public-schools">FBA tools and methods for schools</a>
+                <a className="text-sm font-semibold text-blue-800 hover:text-blue-950" href="/blog/bcbas-in-schools-for-pbis">BCBAs in schools for PBIS</a>
+                <a className="text-sm font-semibold text-blue-800 hover:text-blue-950" href="/blog/how-to-write-a-behavior-intervention-plan">How to write a BIP</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-10 rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5">
+            <h2 className="text-lg font-bold text-slate-900">Rob Spain&apos;s School BCBA field notes</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-700">
+              For school BCBA systems, PBIS implementation, and FBA/BIP workflow articles written from Rob&apos;s district practice, read the companion resource library on robspain.com.
+            </p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <a className="text-sm font-semibold text-emerald-800 hover:text-emerald-950" href="https://robspain.com/bcba-in-schools/">BCBA in schools</a>
+              <a className="text-sm font-semibold text-emerald-800 hover:text-emerald-950" href="https://robspain.com/blog/how-bcbas-support-pbis-without-becoming-tier-3-crisis/">PBIS without Tier 3 overload</a>
+              <a className="text-sm font-semibold text-emerald-800 hover:text-emerald-950" href="https://robspain.com/blog/school-bcba-fba-bip-requests/">FBA/BIP request systems</a>
+              <a className="text-sm font-semibold text-emerald-800 hover:text-emerald-950" href="https://robspain.com/transformation-program/">Transformation Program</a>
+            </div>
+          </div>
         {posts.length > 0 ? (
           <>
             <PostList posts={posts} columns={3} useExternalUrl={false} hideImages />

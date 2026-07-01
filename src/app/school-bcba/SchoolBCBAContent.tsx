@@ -143,6 +143,36 @@ export default function SchoolBCBAContent() {
         </div>
       </section>
 
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-emerald-200 bg-emerald-50/80 p-8">
+            <p className="text-sm font-bold uppercase tracking-widest text-emerald-700">
+              From Rob Spain&apos;s field notes
+            </p>
+            <h2 className="mt-3 text-2xl font-bold text-slate-950 md:text-3xl">
+              Read the school BCBA systems articles behind these tools.
+            </h2>
+            <p className="mt-3 max-w-3xl text-slate-700 leading-relaxed">
+              BehaviorSchool gives you the tools. Robspain.com is where Rob writes about school BCBA role clarity, PBIS implementation, FBA/BIP triage, and the systems leadership model behind the Transformation Program.
+            </p>
+            <div className="mt-6 grid gap-3 md:grid-cols-2">
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/bcba-in-schools/">
+                BCBA in schools guide
+              </a>
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/blog/how-bcbas-support-pbis-without-becoming-tier-3-crisis/">
+                How BCBAs support PBIS without becoming Tier 3
+              </a>
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/blog/school-bcba-fba-bip-requests/">
+                Why FBA/BIP requests need a system
+              </a>
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/transformation-program/">
+                School BCBA Transformation Program
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Free Tools Section */}
       <section id="free-tools" className="py-24 bg-slate-50 scroll-mt-24">
         <div className="container mx-auto px-6">

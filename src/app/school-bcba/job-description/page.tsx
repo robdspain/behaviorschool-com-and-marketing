@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/school-bcba/job-description";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "School BCBA Job Description | Duties, Skills, Examples",
   description:
     "School BCBA job description with common duties, required skills, district expectations, and examples of school-based BCBA responsibilities.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

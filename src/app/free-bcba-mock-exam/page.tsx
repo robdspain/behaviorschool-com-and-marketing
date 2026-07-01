@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/free-bcba-mock-exam";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Free BCBA Mock Exam | Timed Practice + Rationales",
   description:
     "Try a free BCBA mock exam path with timed practice, rationales, readiness signals, and 6th Edition-aligned review. Start with no credit card.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-};
+  canonical,
+  type: "article",
+});
 
 export default function Page() {
   return (

@@ -14,7 +14,7 @@ tags:
   - blog
 status: published
 meta_title: "How to Write a Behavior Intervention Plan: Step-by-Step Guide"
-meta_description: "Learn how to write a behavior intervention plan with this step-by-step guide from a practicing BCBA. Covers FBA linkage, hypothesis, strategies, and implementation support."
+meta_description: "Learn how to write a behavior intervention plan from FBA linkage through hypothesis, strategies, implementation, and team support."
 slug: how-to-write-a-behavior-intervention-plan
 keywords:
   - how to write a behavior intervention plan

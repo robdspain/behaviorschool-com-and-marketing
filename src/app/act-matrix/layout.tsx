@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ACT Matrix for Schools | Free PDF Download & Examples | Behavior School",
-  description: "Complete ACT Matrix guide for school-based behavior analysts. Free PDF download with examples, explained step-by-step. Learn how the ACT Matrix improves student values-based interventions in schools.",
+  title: "ACT Matrix for Schools | Free PDF and Examples",
+  description: "ACT Matrix guide for school behavior analysts with a free PDF, examples, and steps for values-based student support.",
 };
 
 export default function ACTMatrixLayout({

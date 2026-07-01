@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service - Behavior School",
-  description: "Please read these terms carefully before using Behavior Study Tools. Comprehensive terms covering user accounts, subscriptions, acceptable use, and legal requirements.",
+  description: "Terms for using Behavior School and Behavior Study Tools, including accounts, subscriptions, acceptable use, and legal requirements.",
   keywords: "terms of service, user agreement, Behavior School, study tools terms, legal terms, service agreement",
   alternates: { canonical: "/terms" },
   openGraph: {

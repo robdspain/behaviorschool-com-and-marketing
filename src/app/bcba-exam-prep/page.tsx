@@ -224,6 +224,46 @@ export default function BCBAExamPrepPage() {
         </div>
       </section>
 
+      <section className="bg-white py-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-5 lg:grid-cols-3">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Readiness checks</p>
+              <div className="mt-3 grid gap-2">
+                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="/bcba-readiness-quiz">
+                  BCBA Exam Readiness Quiz
+                </Link>
+                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="/bcba-burnout-quiz">
+                  BCBA Burnout Risk Quiz
+                </Link>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Compare study tools</p>
+              <div className="mt-3 grid gap-2">
+                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="/compare/behaviorschool-vs-bds-modules">
+                  BehaviorSchool vs BDS Modules
+                </Link>
+                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="/compare/behaviorschool-vs-aba-wizard">
+                  BehaviorSchool vs ABA Wizard
+                </Link>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Practice paths</p>
+              <div className="mt-3 grid gap-2">
+                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="/free-bcba-practice-exam">
+                  Free BCBA Practice Exam
+                </Link>
+                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="/bcba-test-questions">
+                  BCBA Test Questions
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-16 bg-white relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

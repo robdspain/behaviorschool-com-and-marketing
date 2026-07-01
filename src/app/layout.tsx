@@ -114,285 +114,82 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
-  const orgJsonLd = {
+  const siteGraphJsonLd = {
     "@context": "https://schema.org",
-    "@type": ["Organization", "EducationalOrganization", "ProfessionalService"],
-    name: "Behavior School",
-    legalName: "Behavior School LLC",
-    alternateName: ["Behavior School", "Professional Development for School-Based Behavior Analysts", "BehaviorSchool.com"],
-    url: SITE_URL,
-    logo: `${SITE_URL}/Logos/Logo.webp`,
-    slogan: "Tools, Training, and Community for School-Based Behavior Analysts",
-    description: "Educational institution providing professional development, certification training, and research-based resources for school-based behavior analysts, special education teachers, and educational professionals in applied behavior analysis.",
-    educationalCredentialAwarded: ["Continuing Education Units", "Professional Development Certificates"],
-    hasEducationalUse: "Professional Development",
-    foundingDate: "2020",
-    accreditedBy: {
-      "@type": "Organization",
-      name: "Evidence-Based Professional Development Standards"
-    },
-    hasCredential: [
+    "@graph": [
       {
-        "@type": "EducationalOccupationalCredential",
-        name: "BACB-Aligned Training Provider",
-        credentialCategory: "Educational Standards",
-        recognizedBy: {
-          "@type": "Organization",
-          name: "Behavior Analyst Certification Board (BACB)"
+        "@type": "EducationalOrganization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "Behavior School",
+        legalName: "Behavior School LLC",
+        alternateName: ["Behavior School", "BehaviorSchool.com"],
+        url: SITE_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/Logos/Logo.webp`,
+          width: 512,
+          height: 512
+        },
+        image: `${SITE_URL}/optimized/og-image.webp`,
+        description: "Professional development, study tools, and resources for school-based BCBAs and behavior analysts in education.",
+        foundingDate: "2020",
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer support",
+          email: "support@behaviorschool.com",
+          availableLanguage: "English"
+        },
+        founder: {
+          "@type": "Person",
+          name: "Rob Spain",
+          jobTitle: ["BCBA", "IBA", "Behavior Analyst"],
+          url: "https://robspain.com",
+          sameAs: [
+            "https://www.linkedin.com/in/robspain/",
+            "https://x.com/robspainBCBA",
+            "https://www.instagram.com/robdspain/"
+          ]
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "US"
+        },
+        sameAs: [
+          "https://www.linkedin.com/company/behavior-school",
+          "https://x.com/behaviorschool",
+          "https://community.behaviorschool.com"
+        ],
+        knowsAbout: [
+          "Applied Behavior Analysis",
+          "BCBA Certification",
+          "School-Based Behavior Support",
+          "Behavior Intervention Plans",
+          "IEP Goal Writing",
+          "BCBA Supervision",
+          "Functional Behavior Assessment"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        name: "Behavior School",
+        alternateName: ["Behavior School", "BehaviorSchool.com"],
+        url: SITE_URL,
+        inLanguage: "en-US",
+        description: "Behavior School provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school-based behavior analysts.",
+        publisher: {
+          "@id": `${SITE_URL}/#organization`
+        },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${SITE_URL}/blog?q={search_term_string}`
+          },
+          "query-input": "required name=search_term_string"
         }
       }
-    ],
-    award: [
-      "Leader in School-Based Behavior Analysis Training",
-      "Innovative Educational Platform Development",
-      "Excellence in Professional Development Delivery"
-    ],
-    expertise: [
-      "Applied Behavior Analysis in Educational Settings",
-      "School-Based BCBA Training and Supervision",
-      "Evidence-Based Behavior Intervention Strategies",
-      "PBIS Implementation and Training",
-      "Special Education Professional Development",
-      "Functional Behavior Assessment Training"
-    ],
-    founder: {
-      "@type": "Person",
-      name: "Rob Spain",
-      jobTitle: ["BCBA", "IBA", "Educational Consultant", "Behavior Analyst"],
-      description: "Board Certified Behavior Analyst with over 25 years of experience in school-based applied behavior analysis, special education, and professional development training.",
-      url: "https://robspain.com",
-      hasCredential: [
-        {
-          "@type": "EducationalOccupationalCredential",
-          name: "Board Certified Behavior Analyst (BCBA)",
-          credentialCategory: "Professional Certification",
-          recognizedBy: {
-            "@type": "Organization",
-            name: "Behavior Analyst Certification Board (BACB)"
-          }
-        },
-        {
-          "@type": "EducationalOccupationalCredential",
-          name: "Illinois Behavior Analyst (IBA)",
-          credentialCategory: "State License",
-          recognizedBy: {
-            "@type": "Organization",
-            name: "Illinois Department of Financial and Professional Regulation"
-          }
-        }
-      ],
-      knowsAbout: [
-        "Applied Behavior Analysis",
-        "School-Based Behavior Analysis",
-        "Special Education",
-        "PBIS Implementation",
-        "Functional Behavior Assessment",
-        "Behavior Intervention Plans",
-        "Professional Development",
-        "Educational Leadership"
-      ],
-      alumniOf: {
-        "@type": "EducationalOrganization",
-        name: "Graduate Training in Applied Behavior Analysis"
-      },
-      memberOf: [
-        {
-          "@type": "Organization",
-          name: "Association for Behavior Analysis International (ABAI)"
-        },
-        {
-          "@type": "Organization",
-          name: "Illinois Association for Behavior Analysis (IlABA)"
-        }
-      ],
-      sameAs: [
-        "https://www.linkedin.com/in/robspain/",
-        "https://x.com/robspainBCBA",
-        "https://www.instagram.com/robdspain/"
-      ]
-    },
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "US"
-    },
-    sameAs: [
-      "https://www.linkedin.com/company/behavior-school",
-      "https://x.com/behaviorschool",
-      "https://community.behaviorschool.com"
-    ],
-    serviceArea: {
-      "@type": "GeoCircle",
-      geoMidpoint: {
-        "@type": "GeoCoordinates",
-        latitude: "39.8283",
-        longitude: "-98.5795"
-      },
-      geoRadius: "10000000"
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Behavior School Services",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          name: "BCBA Exam Prep & Practice Tests",
-          image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
-          itemOffered: {
-            "@type": "Service",
-            name: "BCBA Exam Prep & Practice Tests",
-            description: "Comprehensive BCBA exam preparation with AI-powered practice questions, study materials, and mock exams designed specifically for behavior analysts.",
-            image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
-            provider: {
-              "@type": "Organization",
-              name: "Behavior School"
-            },
-            areaServed: "Worldwide",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/behavior-study-tools`,
-              serviceSmsNumber: null,
-              servicePhone: null
-            }
-          }
-        },
-        {
-          "@type": "Offer",
-          name: "BCBA Supervision Tools & Training",
-          image: `${SITE_URL}/Supervision/Supervision1.webp`,
-          itemOffered: {
-            "@type": "Service",
-            name: "BCBA Supervision Tools & Training",
-            description: "Digital tools and training for BCBA supervisors including fieldwork tracking, competency assessments, and supervision workflows for behavior analysts.",
-            image: `${SITE_URL}/Supervision/Supervision1.webp`,
-            provider: {
-              "@type": "Organization",
-              name: "Behavior School"
-            },
-            areaServed: "Worldwide",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/supervisors`,
-              serviceSmsNumber: null,
-              servicePhone: null
-            }
-          }
-        },
-        {
-          "@type": "Offer",
-          name: "School BCBA Transformation System",
-          image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
-          itemOffered: {
-            "@type": "Course",
-            name: "School BCBA Transformation System",
-            description: "6-week intensive training program for school BCBAs to master ethical leadership, crisis management, teacher collaboration, and school-wide behavior support implementation.",
-            image: `${SITE_URL}/optimized/Transformation/Transformation-Hero.webp`,
-            provider: {
-              "@type": "Organization",
-              name: "Behavior School"
-            },
-            courseMode: "online",
-            educationalCredentialAwarded: "Certificate of Completion",
-            timeRequired: "P6W",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/transformation-program`,
-              serviceSmsNumber: null,
-              servicePhone: null
-            }
-          }
-        },
-        {
-          "@type": "Offer",
-          name: "IEP Goal Writing Tools",
-          image: `${SITE_URL}/IEP-Goal/IEP-Goal-Writing.webp`,
-          itemOffered: {
-            "@type": "Service",
-            name: "IEP Goal Writing Tools",
-            description: "Professional tools for writing measurable IEP goals, behavior goals, and SMART IEP objectives for students with behavioral needs in educational settings.",
-            image: `${SITE_URL}/IEP-Goal/IEP-Goal-Writing.webp`,
-            provider: {
-              "@type": "Organization",
-              name: "Behavior School"
-            },
-            areaServed: "United States",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/iep-goals`,
-              serviceSmsNumber: null,
-              servicePhone: null
-            }
-          }
-        },
-        {
-          "@type": "Offer",
-          name: "Behavior Intervention Plan Development",
-          image: `${SITE_URL}/optimized/BIP-Writer/BIP-Writer-Team.webp`,
-          itemOffered: {
-            "@type": "Service",
-            name: "Behavior Intervention Plan Development",
-            description: "Templates, tools, and training for developing comprehensive behavior intervention plans (BIPs) based on functional behavior assessments in school settings.",
-            image: `${SITE_URL}/optimized/BIP-Writer/BIP-Writer-Team.webp`,
-            provider: {
-              "@type": "Organization",
-              name: "Behavior School"
-            },
-            areaServed: "United States",
-            availableChannel: {
-              "@type": "ServiceChannel",
-              serviceUrl: `${SITE_URL}/behavior-plans`,
-              serviceSmsNumber: null,
-              servicePhone: null
-            }
-          }
-        }
-      ]
-    },
-    knowsAbout: [
-      "Applied Behavior Analysis",
-      "BCBA Certification",
-      "School-Based Behavior Support",
-      "Behavior Intervention Plans",
-      "IEP Goal Writing",
-      "BCBA Supervision",
-      "Educational Psychology",
-      "School Psychology",
-      "MTSS Implementation",
-      "PBIS Training",
-      "Crisis Management in Schools",
-      "Functional Behavior Assessment"
     ]
-  } as const;
-
-  const webSiteJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Behavior School",
-    alternateName: ["Behavior School", "Behavior School - BCBA Training & Exam Prep", "BehaviorSchool.com"],
-    url: SITE_URL,
-    inLanguage: "en-US",
-    description: "Behavior School: Professional development platform for school-based BCBAs and behavior analysts in education. BCBA exam prep, supervision tools, IEP goals, behavior plans, and training programs.",
-    about: {
-      "@type": "Thing",
-      name: "Applied Behavior Analysis in Schools",
-      description: "School-based behavior analysis, BCBA training, and professional development for educators"
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Behavior School",
-      logo: `${SITE_URL}/optimized/Logos/logo-gold-transparent.webp`
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/blog?q={search_term_string}`
-      },
-      "query-input": "required name=search_term_string"
-    },
-    mainEntity: {
-      "@type": "Organization",
-      name: "Behavior School"
-    }
   } as const;
   return (
     <html lang="en">
@@ -521,84 +318,7 @@ export default function RootLayout({
         </Providers>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "@id": `${SITE_URL}#Organization`,
-            name: "Behavior School",
-            url: SITE_URL,
-            logo: {
-              "@type": "ImageObject",
-              url: `${SITE_URL}/Logos/Logo.webp`,
-              width: 512,
-              height: 512,
-              caption: "Behavior School Logo"
-            },
-            image: {
-              "@type": "ImageObject", 
-              url: `${SITE_URL}/Logos/Logo.webp`,
-              width: 512,
-              height: 512
-            },
-            sameAs: [
-              "https://www.linkedin.com/company/behavior-school",
-              "https://x.com/behaviorschool",
-              "https://community.behaviorschool.com"
-            ]
-          }) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "@id": `${SITE_URL}#LocalBusiness`,
-            name: "Behavior School",
-            description: "Professional development and training platform for school-based BCBAs and behavior analysts in education",
-            url: SITE_URL,
-            logo: `${SITE_URL}/Logos/Logo.webp`,
-            image: `${SITE_URL}/optimized/og-image.webp`,
-            telephone: null,
-            priceRange: "$",
-            address: {
-              "@type": "PostalAddress",
-              addressCountry: "US"
-            },
-            geo: {
-              "@type": "GeoCoordinates",
-              latitude: "39.8283",
-              longitude: "-98.5795"
-            },
-            areaServed: {
-              "@type": "Country",
-              name: "United States"
-            },
-            serviceArea: {
-              "@type": "GeoCircle", 
-              geoMidpoint: {
-                "@type": "GeoCoordinates",
-                latitude: "39.8283",
-                longitude: "-98.5795"
-              },
-              geoRadius: "10000000"
-            },
-            openingHours: "Mo-Fr 09:00-17:00",
-            currenciesAccepted: "USD",
-            paymentAccepted: "Credit Card, PayPal",
-            founder: {
-              "@type": "Person",
-              name: "Rob Spain",
-              jobTitle: "BCBA, IBA"
-            }
-          }) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteGraphJsonLd) }}
         />
         {/* <Script id="sw-register" strategy="afterInteractive">
           {`

@@ -1,30 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/bcba-study-schedule";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "BCBA Study Schedule | 8, 12, and 16 Week Plans",
   description:
     "Build a BCBA study schedule for 8, 12, or 16 weeks. Includes weekly priorities, practice questions, mock exam timing, and retake adjustments.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-  openGraph: {
-    title: "BCBA Study Schedule: 8, 12, and 16 Week Plans",
-    description:
-      "A practical BCBA study schedule with weekly priorities, domain practice, mock exam timing, and retake adjustments.",
-    url: canonical,
-    siteName: "Behavior School",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "BCBA Study Schedule: 8, 12, and 16 Week Plans",
-    description:
-      "Plan your BCBA exam prep with weekly priorities, practice questions, and mock exam checkpoints.",
-  },
-};
+  canonical,
+  type: "article",
+});
 
 export default function BCBAStudySchedulePage() {
   return (

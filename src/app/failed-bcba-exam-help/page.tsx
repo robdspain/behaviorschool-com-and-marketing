@@ -1,30 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const canonical = "https://behaviorschool.com/failed-bcba-exam-help";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Failed the BCBA Exam? Retake Strategy + Free Practice",
   description:
     "Failed the BCBA exam? Build a 30-day retake strategy with score report review, weak-domain practice, mock exam timing, and free BCBA practice questions.",
-  alternates: { canonical },
-  robots: { index: true, follow: true },
-  openGraph: {
-    title: "Failed the BCBA Exam? Retake Strategy + Free Practice",
-    description:
-      "Turn a failed BCBA exam attempt into a focused retake plan using score report review, domain practice, and timed mock exams.",
-    url: canonical,
-    siteName: "Behavior School",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Failed the BCBA Exam? Retake Strategy + Free Practice",
-    description:
-      "Build a clearer BCBA retake strategy with domain practice, mock exams, and score report review.",
-  },
-};
+  canonical,
+  type: "article",
+});
 
 export default function FailedBcbaExamHelpPage() {
   return (
