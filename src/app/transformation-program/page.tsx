@@ -75,7 +75,7 @@ const weeklyModules = [
 ];
 
 function AnimatedSpots({ remaining }: { remaining: number }) {
-  const [displayed, setDisplayed] = useState(remaining + 3);
+  const [displayed, setDisplayed] = useState(remaining);
   useEffect(() => {
     const timer = setTimeout(() => setDisplayed(remaining), 600);
     return () => clearTimeout(timer);
