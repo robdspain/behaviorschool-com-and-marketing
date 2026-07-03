@@ -193,7 +193,7 @@ export default function SchoolBasedBCBAPage() {
               <div className="relative bg-white rounded-xl p-6 shadow-lg">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-emerald-700">Week 1-8 Transformation</span>
+                    <span className="text-sm font-semibold text-emerald-700">Week 1-6 Transformation</span>
                     <TrendingUp className="w-5 h-5 text-emerald-600" />
                   </div>
                   <div className="space-y-3">
@@ -424,17 +424,17 @@ export default function SchoolBasedBCBAPage() {
         </div>
       </section>
 
-      {/* 8-Week Transformation System - Infographic Style */}
+      {/* 6-Week Transformation System - Infographic Style */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-yellow-100 border border-yellow-300 mb-4">
                 <Sparkles className="w-4 h-4 text-yellow-700 mr-2" />
-                <span className="text-sm font-bold text-yellow-800 uppercase tracking-wide">8-Week Transformation</span>
+                <span className="text-sm font-bold text-yellow-800 uppercase tracking-wide">6-Week Transformation</span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                How the 8-Week Transformation Works
+                How the 6-Week Transformation Works
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
                 Shift from overwhelmed crisis manager to confident ethical leader with practical tools, live support, and proven systems
@@ -635,7 +635,7 @@ export default function SchoolBasedBCBAPage() {
                   color: "purple"
                 },
                 {
-                  question: "How does the 8-Week Transformation System help?",
+                  question: "How does the 6-Week Transformation System help?",
                   answer: "The program provides ethical leadership frameworks, practical tools for scaling MTSS/PBIS, ACT-based stress resilience skills, supervision and coaching systems, teacher training scripts, and ongoing peer support to shift from crisis management to systems leadership.",
                   color: "orange"
                 },
@@ -736,7 +736,7 @@ export default function SchoolBasedBCBAPage() {
                 },
                 {
                   "@type": "Question",
-                  "name": "How does the 8-Week Transformation System help?",
+                  "name": "How does the 6-Week Transformation System help?",
                   "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "The program provides ethical leadership frameworks, practical tools for scaling MTSS/PBIS, ACT-based stress resilience skills, supervision and coaching systems, teacher training scripts, and ongoing peer support to shift from crisis management to systems leadership."

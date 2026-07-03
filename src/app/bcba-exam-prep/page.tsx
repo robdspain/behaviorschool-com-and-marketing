@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Brain, Target, TrendingUp, BookOpen, Users, ChevronUp, ChevronDown, BarChart3, Calendar, Info } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -549,6 +550,12 @@ export default function BCBAExamPrepPage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SchoolBcbasTransformationCta source="bcba_exam_prep" />
         </div>
       </section>
 

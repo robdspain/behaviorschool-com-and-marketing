@@ -531,7 +531,7 @@ export default function BCBAsInSchoolsPage() {
                 <div className="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
                   <div className="flex items-center gap-2 mb-4">
                     <Brain className="w-8 h-8 text-white" />
-                    <h3 className="font-bold text-xl">8-Week Transformation System</h3>
+                    <h3 className="font-bold text-xl">6-Week Transformation System</h3>
                   </div>
                   <ul className="text-sm space-y-2 mb-4 text-emerald-100">
                     <li className="flex items-start gap-2">

@@ -5,6 +5,6 @@ export const menuSections: MenuSection[] = [
   { label: "Free Practice", href: "/free-bcba-practice-exam" },
   { label: "Study", href: "/study" },
   { label: "Supervise", href: "/supervisors" },
-  { label: "Transformation", href: "/transformation-program" },
+  { label: "August Cohort", href: "/transformation-program" },
   { label: "About", href: "/about" },
 ];

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
 const canonical = "https://behaviorschool.com/free-bcba-mock-exam";
 
@@ -132,6 +133,8 @@ export default function Page() {
           ))}
         </div>
       </section>
+
+      <SchoolBcbasTransformationCta variant="compact" source="free_bcba_mock_exam" />
     </SeoArticlePage>
   );
 }

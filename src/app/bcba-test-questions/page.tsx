@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
 const canonical = "https://behaviorschool.com/bcba-test-questions";
 
@@ -147,6 +148,8 @@ export default function Page() {
           ))}
         </ul>
       </section>
+
+      <SchoolBcbasTransformationCta variant="compact" source="bcba_test_questions" />
     </SeoArticlePage>
   );
 }

@@ -53,6 +53,38 @@ export default function Home() {
         variant="brand"
       />
 
+      {/* ─── AUGUST COHORT CTA ───────────────────────────────────── */}
+      <section className="border-y border-[#1f4d3f]/10 bg-[#123628] py-10 text-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d]">
+              School BCBA Transformation Program
+            </p>
+            <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
+              August cohort now open: build FBA, BIP, staff training, and caseload systems.
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
+              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. Starts August 12. Limited to 12 seats.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+            <Link
+              href="/transformation-program?utm_source=homepage&utm_medium=hero_band&utm_campaign=august_2026_cohort"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#123628] shadow-lg transition hover:bg-[#d7aa32]"
+            >
+              Apply for August cohort
+              <ArrowRight size={16} />
+            </Link>
+            <Link
+              href="/school-bcba-training-program"
+              className="inline-flex items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+            >
+              See the training path
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ─── HIGH-INTENT BCBA PRACTICE PATH ───────────────────────── */}
       <section className="border-y border-emerald-100 bg-emerald-50/70 py-10">
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">

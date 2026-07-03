@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Zap, Target, TrendingUp, Clock, BarChart3, Brain, Lightbulb, ArrowRight, Star, Award, Users, BookOpen } from "lucide-react";
+import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
 export const metadata: Metadata = {
   title: "Free BCBA Practice Exam | Instant Score + Rationales",
@@ -1199,6 +1200,12 @@ export default function BCBAPracticeExamPage() {
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SchoolBcbasTransformationCta source="bcba_practice_exam" />
           </div>
         </section>
 
