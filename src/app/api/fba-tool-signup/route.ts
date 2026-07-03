@@ -35,10 +35,10 @@ export async function POST(req: NextRequest) {
 <p><a href="https://behaviorschool.com/act-fba-bip" style="color:#1a4731; font-weight:600;">behaviorschool.com/act-fba-bip</a></p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Want to go deeper?</h3>
-<p>If this framework resonated, I'm running a 6-week cohort for school BCBAs starting July 1. We cover this process systematically — assessment, BIP design, implementation, and team training.</p>
+<p>If this framework resonated, I'm running a 6-week cohort for school BCBAs starting August 12. We cover this process systematically — assessment, BIP design, implementation, and team training.</p>
 <ul style="color:#555; font-size:15px; line-height:2;">
   <li>6 sessions — weekly, 6–8 PM Pacific</li>
-  <li>July 1 – August 5, 2026</li>
+  <li>August 12 – September 16, 2026</li>
   <li>Maximum 12 participants</li>
   <li>Founding tuition: $1,997</li>
 </ul>
@@ -62,7 +62,7 @@ One quick question: How did it go? Reply to this email — I read every response
 BOOKMARK THE TOOL: https://behaviorschool.com/act-fba-bip
 
 WANT TO GO DEEPER?
-School BCBA Transformation Program — 6 weeks starting July 1.
+School BCBA Transformation Program — 6 weeks starting August 12.
 Weekly 6–8 PM Pacific · Max 12 participants · Founding tuition $1,997
 https://behaviorschool.com/transformation-program
 

@@ -7,7 +7,7 @@ import { CheckCircle } from 'lucide-react';
 // Set this to `true` when a cohort is open for enrollment.
 // When false → shows the Waitlist Form.
 // When true  → shows the Application Form.
-const isCohortOpen = false;
+const isCohortOpen = true;
 // ──────────────────────────────────────────────────────────────────────────────
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
@@ -38,10 +38,10 @@ function WaitlistForm() {
     <div className="bg-slate-50 rounded-3xl border border-slate-200 p-8 md:p-12 max-w-2xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Join the Founding Cohort Waitlist
+          Join the Next Cohort Waitlist
         </h2>
         <p className="text-slate-600 text-base">
-          Drop your email and we&rsquo;ll reach out with July 1 cohort details and next steps.
+          Drop your email and we&rsquo;ll reach out with next cohort details and next steps.
         </p>
       </div>
 

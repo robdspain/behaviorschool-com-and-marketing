@@ -549,7 +549,7 @@ procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
             </h2>
             <p className="text-white/80 mb-2 leading-relaxed">
               The <strong className="text-white">School BCBA Transformation Program</strong> walks you through this and
-              much more — live, 6 weeks, starting July 1.
+              much more — live, 6 weeks, starting August 12.
             </p>
             <p className="text-white/60 mb-8 text-sm">
               Founding tuition: <strong className="text-white">$1,997</strong>.

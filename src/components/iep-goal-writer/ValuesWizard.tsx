@@ -619,7 +619,7 @@ function GoalOutput({ state, onReset }: { state: WizardState; onReset: () => voi
           Want to build behavior-based IEP goals systematically?
         </h3>
         <p className="text-slate-400 text-sm mb-4">
-          The School BCBA Transformation Program cohort starts July 1. Founding tuition is $1,997.
+          The School BCBA Transformation Program cohort starts August 12. Founding tuition is $1,997.
         </p>
         <a
           href="/transformation-program"

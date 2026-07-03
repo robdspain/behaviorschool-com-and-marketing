@@ -16,6 +16,12 @@ const DISTRICT_EMAIL_LINK = '/contact';
 const TOTAL_SPOTS = 12;
 const SPOTS_TAKEN = 0; // increment as people register
 const SPOTS_REMAINING = TOTAL_SPOTS - SPOTS_TAKEN;
+const COHORT_LABEL = 'August 2026';
+const COHORT_START_BADGE = 'Starts Aug 12';
+const COHORT_START_FULL = 'Starts Wednesday, August 12, 2026';
+const COHORT_END_FULL = 'September 16';
+const COHORT_DATE_RANGE = 'August 12 to September 16, 2026';
+const COHORT_SESSION_DATES = ['Aug 12', 'Aug 19', 'Aug 26', 'Sep 2', 'Sep 9', 'Sep 16'];
 
 const weeklyModules = [
   {
@@ -106,7 +112,7 @@ export default function TransformationProgramPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {['Live cohort', '6 weeks', 'School BCBAs', 'Starts July 1'].map((item) => (
+                {['Live cohort', '6 weeks', 'School BCBAs', COHORT_START_BADGE].map((item) => (
                   <span key={item} className="px-3 py-1.5 rounded-full border border-[#1f4d3f]/20 bg-white text-xs font-semibold text-[#1f4d3f] uppercase tracking-wide">
                     {item}
                   </span>
@@ -147,7 +153,7 @@ export default function TransformationProgramPage() {
                   href="#waitlist"
                   className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Join Founding Cohort Waitlist
+                  Apply for the Next Cohort
                 </a>
               </motion.div>
             </div>
@@ -181,11 +187,11 @@ export default function TransformationProgramPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-2">
                   <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" />
-                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, July 2026</span>
+                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, {COHORT_LABEL}</span>
                 </div>
-                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">Starts Wednesday, July 1, 2026 &middot; 6:00 to 8:00 PM PT</p>
+                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">{COHORT_START_FULL} &middot; 6:00 to 8:00 PM PT</p>
                 <div className="flex flex-wrap gap-x-3 gap-y-1">
-                  {['Jul 1', 'Jul 8', 'Jul 15', 'Jul 22', 'Jul 29', 'Aug 5'].map((d) => (
+                  {COHORT_SESSION_DATES.map((d) => (
                     <span key={d} className="text-[#1f4d3f] font-semibold text-sm">{d}</span>
                   ))}
                 </div>
@@ -446,7 +452,7 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: "July 1, 2026. Sessions run weekly from 6 to 8 PM PT for six weeks, ending August 5. Maximum 12 participants." },
+            { question: "When does the next cohort start?", answer: `August 12, 2026. Sessions run weekly from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}. Maximum 12 participants.` },
             { question: "What if I miss a live session?", answer: "All sessions are recorded and available in your student portal within 24 hours." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
@@ -461,7 +467,7 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Join the July 1 Cohort</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the August 12 Cohort</h2>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             6 weeks. 12 seats max. School BCBAs only.
           </p>
@@ -528,7 +534,7 @@ This program addresses three problems directly:
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
 3. Caseload sustainability: systems that prevent the burnout that leads to BCBA turnover ($40-60K to replace).
 
-6 sessions, weekly from 6 to 8 PM PT, July 1 to August 5, 2026. Cost: $1,997.
+6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: $1,997.
 Details: behaviorschool.com/transformation-program`}</div>
               </div>
             </div>
