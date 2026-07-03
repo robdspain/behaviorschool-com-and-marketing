@@ -21,13 +21,13 @@ export function NewsletterSignup() {
 
       if (response.ok) {
         setStatus('success');
-        setMessage('Success! Check your email to confirm your subscription.');
+        setMessage('You are in. Watch for the next Behavior School newsletter.');
         setEmail('');
       } else {
         // Fallback: still show success to user, log for later
         console.warn('Newsletter API returned error, storing locally');
         setStatus('success');
-        setMessage('Thanks for subscribing! We\'ll be in touch soon.');
+        setMessage('You are in. Watch for the next Behavior School newsletter.');
         setEmail('');
       }
     } catch (error) {

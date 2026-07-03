@@ -1,60 +1,33 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
-import { sendWelcomeEmail } from '@/lib/email';
+import { subscribeToNewsletter } from '@/lib/newsletter';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const body = await request.json();
+    const result = await subscribeToNewsletter({
+      email: body.email,
+      name: body.name,
+      source: body.source || 'blog',
+      page: body.page,
+      tags: ['blog-signup'],
+      sendWelcome: true,
+    });
 
-    if (!email || !email.includes('@')) {
+    return NextResponse.json({
+      message: result.message,
+      isNew: result.isNew ?? true,
+    });
+  } catch (error) {
+    console.error('Newsletter API error:', error);
+    if (error instanceof Error && error.message === 'invalid_email') {
       return NextResponse.json(
         { message: 'Valid email required' },
         { status: 400 }
       );
     }
 
-    const supabase = createSupabaseAdminClient();
-
-    // Store newsletter subscriber
-    const { error } = await supabase
-      .from('newsletter_subscribers')
-      .insert({
-        email: email.toLowerCase(),
-        source: 'blog',
-        subscribed_at: new Date().toISOString(),
-        status: 'active'
-      });
-
-    if (error) {
-      // If duplicate email, that's okay - return success anyway
-      if (error.code === '23505') {
-        return NextResponse.json({
-          message: 'Already subscribed!'
-        });
-      }
-      
-      console.error('Newsletter subscription error:', error);
-      return NextResponse.json(
-        { message: 'Failed to subscribe' },
-        { status: 500 }
-      );
-    }
-
-    // Send welcome email via Resend
-    const emailResult = await sendWelcomeEmail(email);
-    
-    if (!emailResult.success) {
-      console.error('Welcome email failed:', emailResult.error);
-      // Don't fail the subscription if email fails
-    }
-
-    return NextResponse.json({
-      message: 'Successfully subscribed! Check your email for a welcome message.'
-    });
-  } catch (error) {
-    console.error('Newsletter API error:', error);
     return NextResponse.json(
       { message: 'Internal server error' },
       { status: 500 }

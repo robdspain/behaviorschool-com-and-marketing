@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import crypto from 'crypto';
 import { sendWelcomeEmail } from '@/lib/email';
-import { RESEND_FROM_NO_REPLY, upsertNewsletterSubscriber } from '@/lib/resend';
+import { RESEND_FROM_NO_REPLY } from '@/lib/resend';
+import { subscribeToNewsletter } from '@/lib/newsletter';
 
 const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL || "https://quixotic-fox-157.convex.cloud";
 
@@ -76,7 +77,11 @@ export async function POST(request: NextRequest) {
     
     console.log(`Email confirmed: ${email}`);
 
-    await upsertNewsletterSubscriber(email);
+    await subscribeToNewsletter({
+      email,
+      source: 'email-confirmation',
+      tags: ['confirmed'],
+    });
 
     // Notify Rob that someone confirmed
     const resend = new Resend(process.env.RESEND_API_KEY);

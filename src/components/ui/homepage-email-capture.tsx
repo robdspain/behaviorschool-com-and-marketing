@@ -30,7 +30,7 @@ export function HomepageEmailCapture() {
         setStatus('success');
         setMessage(response.status === 409 
           ? "You're already subscribed! Check your inbox." 
-          : 'Success! Check your email to confirm.');
+          : 'You are in. Watch for the next Behavior School newsletter.');
         trackEmailSignup('newsletter', email, { source: 'homepage' });
         setEmail('');
       } else {
