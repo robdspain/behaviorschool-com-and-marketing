@@ -34,6 +34,13 @@ type NurtureCandidate = {
   age_days: number;
 };
 
+type AudienceSummary = {
+  totalProfiles: number;
+  includedProfiles: number;
+  excludedProfiles: number;
+  exclusionReasons: Record<string, number>;
+};
+
 type NurtureSummary = {
   fetchedAt: string;
   windowDays: number;
@@ -41,9 +48,11 @@ type NurtureSummary = {
     stages: LifecycleStage[];
     dropoffs: LifecycleDropoff[];
   };
+  audience?: AudienceSummary;
   queue: {
     candidateCount: number;
     sendableCount: number;
+    audience?: AudienceSummary | null;
     candidates: NurtureCandidate[];
   };
   events: {
@@ -153,6 +162,10 @@ export default function BehaviorStudyToolsAdminPage() {
     () => Object.entries(summary?.feedback.reasonCounts || {}).sort((a, b) => b[1] - a[1]),
     [summary?.feedback.reasonCounts],
   );
+  const exclusionReasons = useMemo(
+    () => Object.entries(summary?.audience?.exclusionReasons || {}).sort((a, b) => b[1] - a[1]),
+    [summary?.audience?.exclusionReasons],
+  );
 
   if (loadingAuth) {
     return (
@@ -199,10 +212,11 @@ export default function BehaviorStudyToolsAdminPage() {
         </div>
       </header>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         <MetricCard icon={Mail} label="Nurture emails" value="5" detail="Signup to purchase" />
         <MetricCard icon={Users} label="New registrations" value={String(summary?.lifecycle.stages?.[0]?.count ?? '...')} detail={`${windowDays}-day window`} />
-        <MetricCard icon={Target} label="Queued candidates" value={String(summary?.queue.candidateCount ?? '...')} detail="Dry-run preview" />
+        <MetricCard icon={Target} label="Queued candidates" value={String(summary?.queue.candidateCount ?? '...')} detail="Real users only" />
+        <MetricCard icon={Users} label="Excluded QA/internal" value={String(summary?.audience?.excludedProfiles ?? '...')} detail="Removed from nurture" />
         <MetricCard icon={BarChart3} label="Feedback captured" value={String(summary?.feedback.total ?? '...')} detail="Why users stall" />
       </section>
 
@@ -216,6 +230,12 @@ export default function BehaviorStudyToolsAdminPage() {
             <p className="mt-1 text-sm text-slate-600">
               Last refresh: {summary?.fetchedAt ? new Date(summary.fetchedAt).toLocaleString() : 'Loading'}
             </p>
+            {summary?.audience ? (
+              <p className="mt-1 text-sm text-slate-600">
+                Showing {summary.audience.includedProfiles} real profiles from {summary.audience.totalProfiles} loaded;
+                {' '}{summary.audience.excludedProfiles} QA/internal profiles are excluded from nurture metrics.
+              </p>
+            ) : null}
           </div>
           <div className="flex flex-wrap gap-2">
             {[7, 14, 30].map((days) => (
@@ -289,7 +309,7 @@ export default function BehaviorStudyToolsAdminPage() {
             <h2 className="text-lg font-semibold text-slate-950">Nurture queue</h2>
           </div>
           <p className="mt-2 text-sm text-slate-600">
-            {summary?.queue.sendableCount ?? 0} users are currently sendable in dry-run mode.
+            {summary?.queue.sendableCount ?? 0} real users are currently sendable in dry-run mode.
           </p>
           <div className="mt-4 space-y-3">
             {(summary?.queue.candidates || []).slice(0, 8).map((candidate) => (
@@ -303,6 +323,29 @@ export default function BehaviorStudyToolsAdminPage() {
           </div>
         </div>
       </section>
+
+      {exclusionReasons.length > 0 ? (
+        <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="flex items-center gap-2">
+            <Users className="h-5 w-5 text-slate-600" />
+            <h2 className="text-lg font-semibold text-slate-950">Audience quality guardrail</h2>
+          </div>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            QA, App Review, and internal accounts are removed before funnel, dropoff, and nurture
+            queue calculations. This keeps daily adjustments focused on actual learners.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {exclusionReasons.map(([reason, count]) => (
+              <div key={reason} className="rounded-lg bg-slate-50 px-4 py-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  {reason.replaceAll('_', ' ')}
+                </p>
+                <p className="mt-1 text-2xl font-bold text-slate-950">{count}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex items-center gap-2">
