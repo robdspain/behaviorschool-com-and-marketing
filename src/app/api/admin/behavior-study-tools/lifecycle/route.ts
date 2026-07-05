@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const COOKIE_NAME = 'bs_admin_session';
 const SESSION_MAX_AGE = 60 * 60 * 24;
 const DEFAULT_SUMMARY_URL =
-  'https://learning.behaviorschool.com/.netlify/functions/behavior-study-tools-lifecycle';
+  'https://study.behaviorschool.com/.netlify/functions/signup-nurture-summary';
 
 function isValidToken(token: string): boolean {
   const [tsPart] = token.split('.');
@@ -24,13 +24,30 @@ export async function GET(request: NextRequest) {
   }
 
   const windowDays = request.nextUrl.searchParams.get('windowDays') || '14';
-  const summaryUrl = process.env.STUDY_TOOLS_LIFECYCLE_URL || DEFAULT_SUMMARY_URL;
+  const summaryUrl = process.env.STUDY_NURTURE_SUMMARY_URL || DEFAULT_SUMMARY_URL;
+  const nurtureSecret = process.env.SIGNUP_NURTURE_SECRET;
   const url = new URL(summaryUrl);
   url.searchParams.set('windowDays', windowDays);
 
   try {
-    const response = await fetch(url.toString(), { cache: 'no-store' });
-    const payload = await response.json();
+    const response = await fetch(url.toString(), {
+      cache: 'no-store',
+      headers: nurtureSecret ? { 'X-Signup-Nurture-Secret': nurtureSecret } : undefined,
+    });
+    const text = await response.text();
+    let payload: unknown;
+    try {
+      payload = text ? JSON.parse(text) : {};
+    } catch {
+      return NextResponse.json(
+        {
+          error: 'Behavior Study Tools lifecycle source returned non-JSON',
+          status: response.status,
+        },
+        { status: 502 },
+      );
+    }
+
     return NextResponse.json(payload, { status: response.status });
   } catch (error) {
     return NextResponse.json(
