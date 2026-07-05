@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import crypto from 'crypto';
 import { RESEND_FROM_NO_REPLY } from '@/lib/resend';
-import { subscribeToNewsletter } from '@/lib/newsletter';
+import { subscribeToNewsletter } from '@/lib/convex-newsletter';
 
 function generateConfirmationToken(email: string): string {
   const secret = process.env.EMAIL_CONFIRMATION_SECRET || 'your-secret-key';
@@ -77,6 +77,7 @@ export async function POST(request: NextRequest) {
         name,
         source: source || 'website',
         tags: ['pending-confirmation'],
+        status: 'pending',
       });
     } catch (subscribeErr) {
       console.error('Newsletter save error (non-blocking):', subscribeErr);

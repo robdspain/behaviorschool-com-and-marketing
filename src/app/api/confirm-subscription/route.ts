@@ -5,9 +5,7 @@ import { Resend } from 'resend';
 import crypto from 'crypto';
 import { sendWelcomeEmail } from '@/lib/email';
 import { RESEND_FROM_NO_REPLY } from '@/lib/resend';
-import { subscribeToNewsletter } from '@/lib/newsletter';
-
-const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL || "https://quixotic-fox-157.convex.cloud";
+import { confirmNewsletterSubscription, subscribeToNewsletter } from '@/lib/convex-newsletter';
 
 // Token expires after 48 hours
 const TOKEN_EXPIRY_MS = 48 * 60 * 60 * 1000;
@@ -61,16 +59,8 @@ export async function POST(request: NextRequest) {
 
     const email = verification.email!;
 
-    // Mark as confirmed in Convex
     try {
-      await fetch(`${CONVEX_URL}/api/mutation`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          path: "newsletter:confirmSubscription",
-          args: { email },
-        }),
-      });
+      await confirmNewsletterSubscription(email);
     } catch (convexErr) {
       console.error('Convex confirm error (non-blocking):', convexErr);
     }

@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import { subscribeToNewsletter } from '@/lib/newsletter';
+import { subscribeToNewsletter } from '@/lib/convex-newsletter';
 
 export async function POST(request: NextRequest) {
   try {
