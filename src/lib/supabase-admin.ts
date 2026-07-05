@@ -16,7 +16,21 @@ if (!supabaseUrl || !supabaseServiceKey) {
   console.warn('Supabase admin client not configured - missing URL or service key');
 }
 
-export const supabaseAdmin = supabaseUrl && supabaseServiceKey 
+function isValidSupabaseUrl(value: string | undefined): value is string {
+  if (!value) return false;
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === 'https:' && parsed.hostname.includes('.');
+  } catch {
+    return false;
+  }
+}
+
+if (supabaseUrl && !isValidSupabaseUrl(supabaseUrl)) {
+  console.warn('Supabase admin client not configured - invalid URL');
+}
+
+export const supabaseAdmin = isValidSupabaseUrl(supabaseUrl) && supabaseServiceKey
   ? createClient(supabaseUrl, supabaseServiceKey, {
       auth: {
         autoRefreshToken: false,

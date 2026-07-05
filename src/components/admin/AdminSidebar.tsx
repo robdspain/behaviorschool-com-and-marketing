@@ -17,7 +17,8 @@ import {
   GraduationCap,
   Layers,
   Presentation,
-  Megaphone
+  Megaphone,
+  BarChart3
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -51,6 +52,7 @@ const navigation: NavItem[] = [
   },
   { name: "Email Templates", href: "/admin/email-templates", icon: Mail },
   { name: "Newsletter (Listmonk)", href: "/admin/listmonk", icon: Send },
+  { name: "Study Tools Nurture", href: "/admin/behavior-study-tools", icon: BarChart3, badge: "Live" },
   { name: "BST Marketing", href: "/admin/behavior-study-tools-marketing", icon: Megaphone, badge: "Daily" },
   { name: "Blog", href: "/admin/content", icon: FileText },
   { name: "Presentations", href: "/admin/presentations", icon: Presentation },
