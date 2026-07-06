@@ -84,6 +84,14 @@ type NurtureSummary = {
     suppression?: SuppressionSummary | null;
     candidates: NurtureCandidate[];
   };
+  conversionEvents?: {
+    setup_completed: number;
+    diagnostic_completed: number;
+    first_practice: number;
+    paywall_viewed: number;
+    checkout_started: number;
+    paid: number;
+  };
   events: {
     total: number;
     counts: Record<string, number>;
@@ -106,9 +114,9 @@ const sequenceEmails = [
   {
     day: 'Day 1',
     title: 'Baseline Diagnostic',
-    subject: 'Not sure where to start? Take the quick diagnostic',
-    segment: 'No diagnostic, no quiz, or onboarding incomplete',
-    objective: 'Help them do one useful thing instead of guessing where to start.',
+    subject: 'Take the 2-minute diagnostic so we can build your BCBA study path',
+    segment: 'Setup completed, no diagnostic or practice attempt',
+    objective: 'Turn setup into a personalized weak-area result and next study block.',
   },
   {
     day: 'Day 3',
@@ -238,6 +246,7 @@ export default function BehaviorStudyToolsAdminPage() {
     [summary?.suppression?.suppressionReasons],
   );
   const dailyAction = summary?.dailyAction;
+  const conversionEvents = summary?.conversionEvents;
 
   const sendNurtureBatch = async () => {
     const suggestedLimit = Math.max(0, Math.min(dailyAction?.suggestedLimit || summary?.queue.sendableCount || 0, 5));
@@ -322,6 +331,26 @@ export default function BehaviorStudyToolsAdminPage() {
         <MetricCard icon={Target} label="Queued candidates" value={String(summary?.queue.candidateCount ?? '...')} detail="Real users only" />
         <MetricCard icon={Users} label="Excluded QA/internal" value={String(summary?.audience?.excludedProfiles ?? '...')} detail="Removed from nurture" />
         <MetricCard icon={ShieldCheck} label="Suppressed sends" value={String(summary?.suppression?.suppressedProfiles ?? '...')} detail="Paused or unsubscribed" />
+      </section>
+
+      <section className="space-y-4">
+        <div className="flex items-center gap-2">
+          <CheckCircle2 className="h-5 w-5 text-emerald-700" />
+          <div>
+            <h2 className="text-lg font-semibold text-slate-950">Free-to-paid conversion events</h2>
+            <p className="mt-1 text-sm text-slate-600">
+              These are the product moments that should move a free user toward paid: setup, diagnostic insight, first practice, paywall view, checkout, and purchase.
+            </p>
+          </div>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
+          <MetricCard icon={CheckCircle2} label="Setup done" value={String(conversionEvents?.setup_completed ?? '...')} detail="setup_completed" />
+          <MetricCard icon={Target} label="Diagnostic done" value={String(conversionEvents?.diagnostic_completed ?? '...')} detail="diagnostic_completed" />
+          <MetricCard icon={ArrowRight} label="First practice" value={String(conversionEvents?.first_practice ?? '...')} detail="first_practice" />
+          <MetricCard icon={TrendingDown} label="Paywall viewed" value={String(conversionEvents?.paywall_viewed ?? '...')} detail="paywall_viewed" />
+          <MetricCard icon={ExternalLink} label="Checkout started" value={String(conversionEvents?.checkout_started ?? '...')} detail="checkout_started" />
+          <MetricCard icon={ShieldCheck} label="Paid users" value={String(conversionEvents?.paid ?? '...')} detail="paid conversion" />
+        </div>
       </section>
 
       <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
