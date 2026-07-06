@@ -4,11 +4,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   ArrowRight,
-  BarChart3,
   CheckCircle2,
   ExternalLink,
   Mail,
   RefreshCw,
+  Send,
+  ShieldCheck,
   Target,
   TrendingDown,
   Users,
@@ -41,6 +42,20 @@ type AudienceSummary = {
   exclusionReasons: Record<string, number>;
 };
 
+type SuppressionSummary = {
+  suppressedProfiles: number;
+  suppressionReasons: Record<string, number>;
+};
+
+type DailyAction = {
+  priority: 'send_next_batch' | 'product_fix' | 'monitor';
+  stage: string;
+  recommendation: string;
+  sendableCount: number;
+  suggestedLimit: number;
+  campaignStep: string | null;
+};
+
 type NurtureSummary = {
   fetchedAt: string;
   windowDays: number;
@@ -49,10 +64,13 @@ type NurtureSummary = {
     dropoffs: LifecycleDropoff[];
   };
   audience?: AudienceSummary;
+  suppression?: SuppressionSummary;
+  dailyAction?: DailyAction;
   queue: {
     candidateCount: number;
     sendableCount: number;
     audience?: AudienceSummary | null;
+    suppression?: SuppressionSummary | null;
     candidates: NurtureCandidate[];
   };
   events: {
@@ -118,6 +136,8 @@ export default function BehaviorStudyToolsAdminPage() {
   const [summary, setSummary] = useState<NurtureSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [actionResult, setActionResult] = useState<string | null>(null);
 
   const loadSummary = async (days = windowDays) => {
     setLoading(true);
@@ -166,6 +186,43 @@ export default function BehaviorStudyToolsAdminPage() {
     () => Object.entries(summary?.audience?.exclusionReasons || {}).sort((a, b) => b[1] - a[1]),
     [summary?.audience?.exclusionReasons],
   );
+  const suppressionReasons = useMemo(
+    () => Object.entries(summary?.suppression?.suppressionReasons || {}).sort((a, b) => b[1] - a[1]),
+    [summary?.suppression?.suppressionReasons],
+  );
+  const dailyAction = summary?.dailyAction;
+
+  const sendNurtureBatch = async () => {
+    const suggestedLimit = Math.max(0, Math.min(dailyAction?.suggestedLimit || summary?.queue.sendableCount || 0, 5));
+    if (suggestedLimit === 0) return;
+
+    const confirmed = window.confirm(`Send the next ${suggestedLimit} Behavior Study Tools nurture email${suggestedLimit === 1 ? '' : 's'} now?`);
+    if (!confirmed) return;
+
+    setSending(true);
+    setError(null);
+    setActionResult(null);
+    try {
+      const response = await fetch('/.netlify/functions/behavior-study-tools-lifecycle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'send_nurture_batch',
+          confirm: 'SEND_REAL_NURTURE',
+          limit: suggestedLimit,
+          windowDays,
+        }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || 'Unable to send nurture batch');
+      setActionResult(`Sent ${payload.sent || 0} of ${payload.attempted || 0}; ${payload.failed || 0} failed.`);
+      await loadSummary(windowDays);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to send nurture batch');
+    } finally {
+      setSending(false);
+    }
+  };
 
   if (loadingAuth) {
     return (
@@ -217,7 +274,46 @@ export default function BehaviorStudyToolsAdminPage() {
         <MetricCard icon={Users} label="New registrations" value={String(summary?.lifecycle.stages?.[0]?.count ?? '...')} detail={`${windowDays}-day window`} />
         <MetricCard icon={Target} label="Queued candidates" value={String(summary?.queue.candidateCount ?? '...')} detail="Real users only" />
         <MetricCard icon={Users} label="Excluded QA/internal" value={String(summary?.audience?.excludedProfiles ?? '...')} detail="Removed from nurture" />
-        <MetricCard icon={BarChart3} label="Feedback captured" value={String(summary?.feedback.total ?? '...')} detail="Why users stall" />
+        <MetricCard icon={ShieldCheck} label="Suppressed sends" value={String(summary?.suppression?.suppressedProfiles ?? '...')} detail="Paused or unsubscribed" />
+      </section>
+
+      <section className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <Target className="h-5 w-5 text-emerald-800" />
+              <h2 className="text-lg font-semibold text-slate-950">Today&apos;s nurture action</h2>
+            </div>
+            <p className="mt-2 text-sm font-semibold text-emerald-900">
+              {dailyAction?.stage || 'Loading lifecycle recommendation'}
+            </p>
+            <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-700">
+              {dailyAction?.recommendation || 'Checking the live funnel and queue.'}
+            </p>
+            {actionResult ? (
+              <p className="mt-3 rounded-lg bg-white px-3 py-2 text-sm font-semibold text-emerald-800">
+                {actionResult}
+              </p>
+            ) : null}
+          </div>
+          <div className="flex flex-col items-start gap-2 sm:flex-row lg:items-center">
+            <div className="rounded-lg bg-white px-4 py-3 text-sm">
+              <p className="font-bold text-slate-950">{dailyAction?.sendableCount ?? summary?.queue.sendableCount ?? 0} sendable</p>
+              <p className="text-xs text-slate-600">
+                {dailyAction?.campaignStep ? dailyAction.campaignStep.replaceAll('_', ' ') : 'No active step'}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => void sendNurtureBatch()}
+              disabled={sending || !dailyAction || dailyAction.suggestedLimit === 0}
+              className="inline-flex items-center rounded-lg bg-emerald-800 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-900 disabled:cursor-not-allowed disabled:bg-slate-300"
+            >
+              {sending ? 'Sending...' : `Send next ${dailyAction?.suggestedLimit || 0}`}
+              <Send className="ml-2 h-4 w-4" />
+            </button>
+          </div>
+        </div>
       </section>
 
       <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -309,7 +405,7 @@ export default function BehaviorStudyToolsAdminPage() {
             <h2 className="text-lg font-semibold text-slate-950">Nurture queue</h2>
           </div>
           <p className="mt-2 text-sm text-slate-600">
-            {summary?.queue.sendableCount ?? 0} real users are currently sendable in dry-run mode.
+            {summary?.queue.sendableCount ?? 0} real users are currently sendable. Manual sends are capped at 5 per review.
           </p>
           <div className="mt-4 space-y-3">
             {(summary?.queue.candidates || []).slice(0, 8).map((candidate) => (
@@ -346,6 +442,30 @@ export default function BehaviorStudyToolsAdminPage() {
           </div>
         </section>
       ) : null}
+
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="h-5 w-5 text-emerald-700" />
+          <h2 className="text-lg font-semibold text-slate-950">Suppression guardrail</h2>
+        </div>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          Users who unsubscribe, pause reminders, report the wrong exam path, or need support are kept out of future nurture sends while still remaining visible in lifecycle metrics.
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {suppressionReasons.length > 0 ? suppressionReasons.map(([reason, count]) => (
+            <div key={reason} className="rounded-lg bg-slate-50 px-4 py-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                {reason.replaceAll('_', ' ')}
+              </p>
+              <p className="mt-1 text-2xl font-bold text-slate-950">{count}</p>
+            </div>
+          )) : (
+            <div className="rounded-lg bg-slate-50 px-4 py-3 text-sm text-slate-600">
+              No active suppressions.
+            </div>
+          )}
+        </div>
+      </section>
 
       <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex items-center gap-2">
