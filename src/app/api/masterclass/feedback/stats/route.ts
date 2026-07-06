@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
     const satisfactionDistribution = [0, 0, 0, 0, 0];
     const recommendDistribution = [0, 0, 0, 0, 0];
 
-    allFeedback?.forEach((fb) => {
+    allFeedback?.forEach((fb: { overall_satisfaction?: number | null; would_recommend?: number | null }) => {
       if (fb.overall_satisfaction) {
         satisfactionDistribution[fb.overall_satisfaction - 1]++;
       }

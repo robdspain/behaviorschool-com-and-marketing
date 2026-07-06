@@ -10,11 +10,11 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const client = getConvexClient();
-    const { id } = params;
+    const { id } = await params;
 
     const certificate = await client.query(api.aceCertificates.getById, {
       id: id as Id<"aceCertificates">,
@@ -46,11 +46,11 @@ export async function GET(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const client = getConvexClient();
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
 
     const { action, reason, revokedBy, status } = body;

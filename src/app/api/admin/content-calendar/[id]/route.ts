@@ -10,9 +10,9 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    const supabase = createClient()
+    const supabase = await createClient()
     
-    const { data: { session } } = await getSupabase().auth.getSession()
+    const { data: { session } } = await supabase.auth.getSession()
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -42,9 +42,9 @@ export async function PUT(
 ) {
   try {
     const { id } = await params
-    const supabase = createClient()
+    const supabase = await createClient()
     
-    const { data: { session } } = await getSupabase().auth.getSession()
+    const { data: { session } } = await supabase.auth.getSession()
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -77,9 +77,9 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params
-    const supabase = createClient()
+    const supabase = await createClient()
     
-    const { data: { session } } = await getSupabase().auth.getSession()
+    const { data: { session } } = await supabase.auth.getSession()
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }

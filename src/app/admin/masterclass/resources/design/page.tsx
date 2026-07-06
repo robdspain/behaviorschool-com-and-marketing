@@ -364,7 +364,7 @@ export default function DesignResourcesPage() {
 
 // Modal for Add/Edit Resource
 // Placed at the end to keep component concise above
-export function ResourceModal({ open, onOpenChange, form, setForm, onSubmit, submitting, sections, editing }: {
+function ResourceModal({ open, onOpenChange, form, setForm, onSubmit, submitting, sections, editing }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
   form: { name: string; url: string; file_type: string; section_id: number | null };

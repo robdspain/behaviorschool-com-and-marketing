@@ -6,11 +6,11 @@ import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 // PATCH - Update a task
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createSupabaseAdminClient();
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
 
     const { data, error } = await supabase
@@ -41,11 +41,11 @@ export async function PATCH(
 // DELETE - Delete a task
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createSupabaseAdminClient();
-    const { id } = params;
+    const { id } = await params;
 
     const { error } = await supabase
       .from('crm_tasks')

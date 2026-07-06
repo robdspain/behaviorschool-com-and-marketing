@@ -192,14 +192,15 @@ function Step1Values({ state, setState }: { state: WizardState; setState: (s: Wi
 
 function Step2Behavior({ state, setState }: { state: WizardState; setState: (s: WizardState) => void }) {
   const value = VALUES.find(v => v.id === state.selectedValue);
+  const ValueIcon = value?.icon;
   const examples = state.selectedValue ? BEHAVIOR_EXAMPLES[state.selectedValue] : [];
   
   return (
     <div>
       <div className="text-center mb-6">
         <h2 className="text-xl font-bold text-slate-900 mb-2">Step 2: What Behavior?</h2>
-        <p className="text-slate-600">
-          Value: {value?.emoji} {value?.label}
+        <p className="text-slate-600 inline-flex items-center justify-center gap-2">
+          Value: {ValueIcon && <ValueIcon className="h-4 w-4" />} {value?.label}
         </p>
       </div>
       

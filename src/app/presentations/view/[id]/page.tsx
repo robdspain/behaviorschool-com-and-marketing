@@ -1,21 +1,29 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
-export default function PublicPresentationPage({ params, searchParams }: { params: { id: string }, searchParams: { token?: string } }) {
+export default function PublicPresentationPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ token?: string }>;
+}) {
+  const resolvedParams = use(params);
+  const resolvedSearchParams = use(searchParams);
   const [data, setData] = useState<{ title: string; slides: Array<{ title: string; content: string[]; imageUrl?: string }>|null } | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const token = searchParams?.token || '';
+  const token = resolvedSearchParams?.token || '';
   useEffect(() => {
     (async () => {
       try {
-        const resp = await fetch(`/api/presentations/share/${params.id}?token=${encodeURIComponent(token)}`);
+        const resp = await fetch(`/api/presentations/share/${resolvedParams.id}?token=${encodeURIComponent(token)}`);
         const j = await resp.json();
         if (!resp.ok) throw new Error(j.error || 'Failed to load');
         setData({ title: j.title, slides: j.slides });
       } catch (e) { setError(e instanceof Error ? e.message : 'Error'); }
     })();
-  }, [params.id, token]);
+  }, [resolvedParams.id, token]);
   if (error) return <div className="p-6 text-red-700">{error}</div>;
   if (!data?.slides) return <div className="p-6 text-slate-700">Loading…</div>;
   return (
@@ -37,4 +45,3 @@ export default function PublicPresentationPage({ params, searchParams }: { param
     </div>
   );
 }
-

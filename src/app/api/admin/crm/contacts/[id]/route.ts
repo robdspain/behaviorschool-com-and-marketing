@@ -6,11 +6,11 @@ import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 // DELETE - Permanently delete a contact
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createSupabaseAdminClient();
-    const { id } = params;
+    const { id } = await params;
 
     const { error } = await supabase
       .from('crm_contacts')
@@ -41,11 +41,11 @@ export async function DELETE(
 // PATCH - Update a contact
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createSupabaseAdminClient();
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
 
     const { data, error } = await supabase

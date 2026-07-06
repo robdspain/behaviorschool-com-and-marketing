@@ -6,11 +6,11 @@ import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 // POST - Archive a contact (soft delete)
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = createSupabaseAdminClient();
-    const { id } = params;
+    const { id } = await params;
 
     const { data, error } = await supabase
       .from('crm_contacts')

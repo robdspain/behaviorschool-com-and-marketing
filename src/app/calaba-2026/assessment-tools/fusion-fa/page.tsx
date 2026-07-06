@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { FcGoogle } from "react-icons/fc";
 import { 
   ArrowLeft, ArrowRight, Play, Pause, RotateCcw, Plus, Trash2, 
   BarChart3, Target, Clock, AlertTriangle, CheckCircle, User,
@@ -126,6 +127,9 @@ const CONTEXT_OPTIONS = [
 export default function FusionFAWorkflow() {
   const [isLoading] = useState(false);
   const isAuthenticated = true; // Public page — no auth gate
+  const handleLogin = () => {
+    window.location.href = `/api/admin/auth/google?returnTo=${encodeURIComponent("/calaba-2026/assessment-tools/fusion-fa")}`;
+  };
   
   // Workflow state
   const [step, setStep] = useState<Step>("cpfq");

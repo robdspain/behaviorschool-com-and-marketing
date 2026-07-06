@@ -25,6 +25,8 @@ import {
 import type { AceEvent, AceEventCategory } from '@/lib/ace/types';
 
 interface EventWithProvider extends AceEvent {
+  ethics_ceus?: number | null;
+  instructor_disclosures?: string | null;
   provider?: {
     provider_name: string;
     bacb_provider_number?: string;

@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Loader2, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProgressIndicator } from "@/components/iep-goal-writer/ProgressIndicator";
 import type { FBAData, GeneratedBIP } from "./bipGenerator";
@@ -142,6 +143,17 @@ const initialData: FBAData = {
   successCriteria: "",
 };
 
+type ParsedFBAData = Partial<FBAData> & {
+  functionOfBehavior?: string;
+  baselineData?: string;
+  consequences?: string | string[];
+};
+
+function toStringArray(value: string | string[] | undefined) {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
 export function FBAToBIPWizard() {
   const [mode, setMode] = useState<'form' | 'paste'>('form');
   const [fbaText, setFbaText] = useState('');
@@ -153,14 +165,15 @@ export function FBAToBIPWizard() {
   const [generatedBIP, setGeneratedBIP] = useState<GeneratedBIP | null>(null);
   // ... (email gate state remains the same) ...
 
-  const hydrateData = (parsedData: Partial<FBAData>) => {
+  const hydrateData = (parsedData: ParsedFBAData) => {
     const functionMap = {
       attention: "to get attention from adults",
       escape: "to avoid tasks or demands",
       tangible: "to get tangible items or activities",
       sensory: "sensory regulation"
     };
-    const primaryFunc = functionMap[parsedData.functionOfBehavior?.toLowerCase() || ''] || '';
+    const functionKey = parsedData.functionOfBehavior?.toLowerCase() as keyof typeof functionMap | undefined;
+    const primaryFunc = functionKey ? functionMap[functionKey] || '' : '';
 
     setData(prev => ({
       ...prev,
@@ -169,8 +182,8 @@ export function FBAToBIPWizard() {
       targetBehaviorDefinition: parsedData.targetBehaviorDefinition || prev.targetBehaviorDefinition,
       problemBehaviorBaseline: parsedData.baselineData || prev.problemBehaviorBaseline,
       primaryFunction: primaryFunc,
-      antecedents: parsedData.antecedents ? [parsedData.antecedents] : prev.antecedents,
-      currentConsequences: parsedData.consequences ? [parsedData.consequences] : prev.currentConsequences,
+      antecedents: parsedData.antecedents ? toStringArray(parsedData.antecedents) : prev.antecedents,
+      currentConsequences: parsedData.consequences ? toStringArray(parsedData.consequences) : prev.currentConsequences,
       replacementBehavior: parsedData.replacementBehavior || prev.replacementBehavior,
     }));
   };

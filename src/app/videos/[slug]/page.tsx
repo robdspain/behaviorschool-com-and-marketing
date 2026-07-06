@@ -33,8 +33,9 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for each video page
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const video = getVideoBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const video = getVideoBySlug(slug);
 
   if (!video) {
     return {
@@ -56,8 +57,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function VideoPage({ params }: { params: { slug: string } }) {
-  const video = getVideoBySlug(params.slug);
+export default async function VideoPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const video = getVideoBySlug(slug);
 
   if (!video) {
     notFound();

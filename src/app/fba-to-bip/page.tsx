@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Check, Brain, FileText, BarChart, Zap, ShieldCheck } from 'lucide-react';
+import { Check, Brain, FileText, BarChart, Zap, ShieldCheck, type LucideIcon } from 'lucide-react';
 import { FBAToBIPWizard } from "@/components/fba-to-bip/FBAToBIPWizard";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ShareButtons } from "@/components/ui/share-buttons";
@@ -119,7 +119,13 @@ export const metadata: Metadata = {
   },
 };
 
-const FeatureCard = ({ icon: Icon, title, description }) => (
+type MarketingCardProps = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+};
+
+const FeatureCard = ({ icon: Icon, title, description }: MarketingCardProps) => (
   <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-emerald-300 transition-all duration-300">
     <div className="flex items-center justify-center h-12 w-12 rounded-full bg-emerald-100 mb-4">
       <Icon className="h-6 w-6 text-emerald-700" />
@@ -129,7 +135,7 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
   </div>
 );
 
-const Step = ({ icon: Icon, title, description }) => (
+const Step = ({ icon: Icon, title, description }: MarketingCardProps) => (
   <div className="flex items-start gap-4">
     <div className="flex-shrink-0 w-10 h-10 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold">
       <Icon className="w-5 h-5" />

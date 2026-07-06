@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
       const einBuffer = await einFile.arrayBuffer();
       const einPath = `providers/${providerId}/ein_${Date.now()}_${einFile.name}`;
 
-      const { error: uploadError } = await getSupabase().storage
+      const { error: uploadError } = await supabase.storage
         .from('ace-documents')
         .upload(einPath, einBuffer, {
           contentType: einFile.type,
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const { data: { publicUrl } } = getSupabase().storage
+      const { data: { publicUrl } } = supabase.storage
         .from('ace-documents')
         .getPublicUrl(einPath);
 
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
       const incBuffer = await incorporationFile.arrayBuffer();
       const incPath = `providers/${providerId}/incorporation_${Date.now()}_${incorporationFile.name}`;
 
-      const { error: uploadError } = await getSupabase().storage
+      const { error: uploadError } = await supabase.storage
         .from('ace-documents')
         .upload(incPath, incBuffer, {
           contentType: incorporationFile.type,
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const { data: { publicUrl } } = getSupabase().storage
+      const { data: { publicUrl } } = supabase.storage
         .from('ace-documents')
         .getPublicUrl(incPath);
 
@@ -140,7 +140,7 @@ export async function PUT(req: NextRequest) {
     const supabase = await createClient();
 
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

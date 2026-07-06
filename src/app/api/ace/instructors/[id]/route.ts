@@ -6,12 +6,13 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const client = getConvexClient();
     const qualification = await client.query(api.aceInstructors.getById, {
-      id: params.id as Id<"aceInstructorQualifications">,
+      id: id as Id<"aceInstructorQualifications">,
     });
 
     if (!qualification) {
@@ -36,9 +37,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const {
       isBcba,
@@ -60,7 +62,7 @@ export async function PUT(
 
     // Check if qualification exists
     const existing = await client.query(api.aceInstructors.getById, {
-      id: params.id as Id<"aceInstructorQualifications">,
+      id: id as Id<"aceInstructorQualifications">,
     });
 
     if (!existing) {
@@ -71,7 +73,7 @@ export async function PUT(
     }
 
     await client.mutation(api.aceInstructors.update, {
-      id: params.id as Id<"aceInstructorQualifications">,
+      id: id as Id<"aceInstructorQualifications">,
       isBcba,
       isBcbaD,
       isPhDAba,

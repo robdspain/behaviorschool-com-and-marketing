@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
     
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -112,7 +112,7 @@ export async function DELETE(request: NextRequest) {
     const supabase = await createClient();
     
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -146,4 +146,3 @@ export async function DELETE(request: NextRequest) {
     );
   }
 }
-

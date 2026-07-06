@@ -12,17 +12,26 @@ export interface Post {
   id: string;
   slug: string;
   title: string;
+  url?: string;
   html: string;
+  plaintext?: string | null;
   excerpt: string | null;
   feature_image: string | null;
   published_at: string;
   updated_at: string;
+  status?: 'draft' | 'published';
   tags: Tag[];
   authors: Author[];
+  primary_tag?: Tag | null;
+  primary_author?: Author | null;
   reading_time: number;
   meta_title?: string | null;
   meta_description?: string | null;
+  og_title?: string | null;
+  og_description?: string | null;
   og_image?: string | null;
+  twitter_title?: string | null;
+  twitter_description?: string | null;
   twitter_image?: string | null;
 }
 
@@ -35,6 +44,7 @@ export interface Author {
   name: string;
   slug: string;
   profile_image?: string | null;
+  url?: string;
 }
 
 export interface PaginationMeta {

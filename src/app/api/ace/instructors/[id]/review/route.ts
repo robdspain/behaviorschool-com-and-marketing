@@ -6,9 +6,10 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const { action, notes, reviewerId } = body;
 
@@ -38,7 +39,7 @@ export async function POST(
 
     // Verify qualification exists
     const qualification = await client.query(api.aceInstructors.getById, {
-      id: params.id as Id<"aceInstructorQualifications">,
+      id: id as Id<"aceInstructorQualifications">,
     });
 
     if (!qualification) {
@@ -50,13 +51,13 @@ export async function POST(
 
     if (action === 'approve') {
       await client.mutation(api.aceInstructors.approve, {
-        id: params.id as Id<"aceInstructorQualifications">,
+        id: id as Id<"aceInstructorQualifications">,
         verifiedBy: reviewerId as Id<"aceUsers">,
         notes,
       });
     } else {
       await client.mutation(api.aceInstructors.reject, {
-        id: params.id as Id<"aceInstructorQualifications">,
+        id: id as Id<"aceInstructorQualifications">,
         verifiedBy: reviewerId as Id<"aceUsers">,
         notes,
       });

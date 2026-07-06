@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
     
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     const eventId = searchParams.get('event_id');
     const participantId = searchParams.get('participant_id');
     
-    let query = getSupabase().from('ace_certificates').select('*');
+    let query = supabase.from('ace_certificates').select('*');
     
     if (eventId) {
       query = query.eq('event_id', eventId);
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient();
     
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -165,7 +165,7 @@ export async function DELETE(request: NextRequest) {
     const supabase = await createClient();
     
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession();
+    const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -206,4 +206,3 @@ export async function DELETE(request: NextRequest) {
     );
   }
 }
-

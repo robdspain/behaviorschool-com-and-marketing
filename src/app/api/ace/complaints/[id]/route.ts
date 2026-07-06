@@ -10,11 +10,11 @@ export const dynamic = 'force-dynamic';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const client = getConvexClient();
-    const { id } = params;
+    const { id } = await params;
 
     const complaint = await client.query(api.aceComplaints.getById, {
       id: id as Id<"aceComplaints">,
@@ -43,11 +43,11 @@ export async function GET(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const client = getConvexClient();
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
 
     const { status, resolution_notes, resolved_by } = body;

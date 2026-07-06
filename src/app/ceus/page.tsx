@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import {
   ArrowRight,
   Award,
@@ -14,10 +15,9 @@ import {
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
 const courses = [

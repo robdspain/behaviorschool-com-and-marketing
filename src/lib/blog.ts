@@ -82,7 +82,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
 export function getAllPosts(): BlogPostMetadata[] {
   const slugs = getAllPostSlugs();
   const posts = slugs
-    .map(slug => {
+    .map((slug): BlogPostMetadata | null => {
       const post = getPostBySlug(slug);
       if (!post) return null;
       

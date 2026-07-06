@@ -13,6 +13,12 @@ const verifySchema = z.object({
 
 type VerifyFormInputs = z.infer<typeof verifySchema>;
 
+function fieldErrorMessage(error: unknown) {
+  return typeof error === 'object' && error !== null && 'message' in error
+    ? String((error as { message?: unknown }).message || '')
+    : '';
+}
+
 export default function VerifyProviderPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,7 +70,7 @@ export default function VerifyProviderPage() {
             {...register('provider_id')}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
-          {errors.provider_id && <p className="text-red-500 text-xs mt-1">{errors.provider_id.message}</p>}
+          {errors.provider_id && <p className="text-red-500 text-xs mt-1">{fieldErrorMessage(errors.provider_id)}</p>}
         </div>
         <div>
           <label htmlFor="ein" className="block text-sm font-medium text-gray-700">EIN Document</label>
@@ -74,7 +80,7 @@ export default function VerifyProviderPage() {
             {...register('ein')}
             className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
           />
-          {errors.ein && <p className="text-red-500 text-xs mt-1">{errors.ein.message}</p>}
+          {errors.ein && <p className="text-red-500 text-xs mt-1">{fieldErrorMessage(errors.ein)}</p>}
         </div>
         <div>
           <label htmlFor="incorporation_doc" className="block text-sm font-medium text-gray-700">Incorporation Document</label>
@@ -84,7 +90,7 @@ export default function VerifyProviderPage() {
             {...register('incorporation_doc')}
             className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
           />
-          {errors.incorporation_doc && <p className="text-red-500 text-xs mt-1">{errors.incorporation_doc.message}</p>}
+          {errors.incorporation_doc && <p className="text-red-500 text-xs mt-1">{fieldErrorMessage(errors.incorporation_doc)}</p>}
         </div>
         <button
           type="submit"

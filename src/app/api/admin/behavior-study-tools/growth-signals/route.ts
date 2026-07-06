@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
   const signals = rawSignals
     .slice(0, MAX_BATCH_SIZE)
     .map((signal: GrowthSignalInput) => cleanSignal(signal))
-    .filter((signal) => signal.source && signal.signal_type)
+    .filter((signal: ReturnType<typeof cleanSignal>) => signal.source && signal.signal_type)
 
   if (!signals.length) {
     return NextResponse.json({ error: 'Each signal requires source and signalType' }, { status: 400 })

@@ -6,10 +6,10 @@ export const dynamic = 'force-dynamic'
 // GET all content calendar posts
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createClient()
     
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession()
+    const { data: { session } } = await supabase.auth.getSession()
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -62,10 +62,10 @@ export async function GET(request: NextRequest) {
 // POST create new content calendar post
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createClient()
     
     // Check authentication
-    const { data: { session } } = await getSupabase().auth.getSession()
+    const { data: { session } } = await supabase.auth.getSession()
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }

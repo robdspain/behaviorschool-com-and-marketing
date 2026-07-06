@@ -5,9 +5,6 @@ import { createClient } from '@/lib/supabase-server';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-// Module-level Supabase client moved to lazy getter to prevent build-time errors
-function getSupabase() { return createClient(); }
-
 // Define the schema for the request body
 const renewalSchema = z.object({
   provider_id: z.string().uuid(),
@@ -25,6 +22,7 @@ const getNextRenewalDate = (currentExpiration: Date | string | null): Date => {
 
 export async function POST(req: NextRequest) {
   try {
+    const supabase = await createClient();
     const body = await req.json();
     const validatedBody = renewalSchema.safeParse(body);
 
@@ -46,7 +44,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Payment processing failed.' }, { status: 402 });
     }
     
-    const { data: provider, error: providerError } = await getSupabase()
+    const { data: provider, error: providerError } = await supabase
         .from('ace_providers')
         .select('expiration_date')
         .eq('id', provider_id)
@@ -60,7 +58,7 @@ export async function POST(req: NextRequest) {
     const nextRenewalDate = getNextRenewalDate(provider.expiration_date);
 
     // Update the provider record in the database
-    const { data: updateData, error: updateError } = await getSupabase()
+    const { data: updateData, error: updateError } = await supabase
       .from('ace_providers')
       .update({
         last_renewal_date: new Date().toISOString(),
