@@ -31,8 +31,10 @@ type LifecycleDropoff = {
 type NurtureCandidate = {
   email: string;
   campaign_step: string;
+  sequence?: string | null;
   subject: string;
   age_days: number;
+  trigger?: string | null;
 };
 
 type FeedbackItem = {
@@ -97,7 +99,7 @@ const sequenceEmails = [
   {
     day: 'Day 0',
     title: 'Finish Setup',
-    subject: "Let's get your BCBA study path set up",
+    subject: 'Finish your 2-minute setup so we can build your BCBA study path',
     segment: 'New signup, free plan, onboarding incomplete',
     objective: 'Get the user from signup into a real study setup.',
   },
@@ -128,6 +130,41 @@ const sequenceEmails = [
     subject: 'Want more room to practice?',
     segment: 'Engaged free users with repeated product actions',
     objective: 'Offer the paid plan only after the free practice is helping.',
+  },
+  {
+    day: 'Behavior',
+    title: 'Pricing / Checkout Abandon',
+    subject: 'Any questions before you upgrade?',
+    segment: 'Recent checkout or pricing intent, free plan',
+    objective: 'Recover people who reached the buying decision but did not complete it.',
+  },
+  {
+    day: 'Behavior',
+    title: 'Mock Exam Unlock',
+    subject: 'Ready to use a mock exam as a checkpoint?',
+    segment: '20+ questions answered and no mock exam recorded',
+    objective: 'Move engaged users into a high-value exam-readiness moment.',
+  },
+  {
+    day: 'Behavior',
+    title: 'Exam Date Urgency',
+    subject: 'Your exam date is close. Let the app narrow the plan.',
+    segment: 'Projected exam date within 21 days',
+    objective: 'Turn urgency into focused study, then a clear premium value decision.',
+  },
+  {
+    day: 'Behavior',
+    title: 'Inactive Free Winback',
+    subject: 'Want to restart with one short BCBA practice set?',
+    segment: 'Practiced before, inactive 7+ days, free plan',
+    objective: 'Restart the habit before asking for paid conversion.',
+  },
+  {
+    day: 'Feedback',
+    title: 'Price Objection',
+    subject: 'If price is the question, start with the decision point',
+    segment: 'Clicked price hesitation feedback',
+    objective: 'Answer the objection plainly without sounding defensive or salesy.',
   },
 ];
 
@@ -280,7 +317,7 @@ export default function BehaviorStudyToolsAdminPage() {
       </header>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        <MetricCard icon={Mail} label="Nurture emails" value="5" detail="Signup to purchase" />
+        <MetricCard icon={Mail} label="Nurture emails" value={String(sequenceEmails.length)} detail="Signup to paid" />
         <MetricCard icon={Users} label="New registrations" value={String(summary?.lifecycle.stages?.[0]?.count ?? '...')} detail={`${windowDays}-day window`} />
         <MetricCard icon={Target} label="Queued candidates" value={String(summary?.queue.candidateCount ?? '...')} detail="Real users only" />
         <MetricCard icon={Users} label="Excluded QA/internal" value={String(summary?.audience?.excludedProfiles ?? '...')} detail="Removed from nurture" />
@@ -422,8 +459,11 @@ export default function BehaviorStudyToolsAdminPage() {
               <div key={`${candidate.email}-${candidate.campaign_step}`} className="rounded-lg bg-slate-50 p-3">
                 <p className="text-sm font-semibold text-slate-950">{candidate.subject}</p>
                 <p className="mt-1 text-xs text-slate-600">
-                  {candidate.email} • {candidate.campaign_step} • {candidate.age_days}d old
+                  {candidate.email} • {candidate.sequence || candidate.campaign_step} • {candidate.age_days}d old
                 </p>
+                {candidate.trigger ? (
+                  <p className="mt-1 text-xs text-slate-500">{candidate.trigger}</p>
+                ) : null}
               </div>
             ))}
           </div>
@@ -482,9 +522,9 @@ export default function BehaviorStudyToolsAdminPage() {
           <CheckCircle2 className="h-5 w-5 text-emerald-700" />
           <h2 className="text-lg font-semibold text-slate-950">Email sequence</h2>
         </div>
-        <div className="mt-4 grid gap-3 lg:grid-cols-5">
+        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
           {sequenceEmails.map((email) => (
-            <div key={email.day} className="rounded-lg border border-slate-200 p-4">
+            <div key={`${email.day}-${email.title}`} className="rounded-lg border border-slate-200 p-4">
               <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">{email.day}</p>
               <h3 className="mt-2 font-semibold text-slate-950">{email.title}</h3>
               <p className="mt-2 text-sm font-medium text-slate-700">{email.subject}</p>
