@@ -35,6 +35,15 @@ type NurtureCandidate = {
   age_days: number;
 };
 
+type FeedbackItem = {
+  email: string | null;
+  campaign_step: string | null;
+  reason: string;
+  detail: string | null;
+  source: string | null;
+  created_at: string;
+};
+
 type AudienceSummary = {
   totalProfiles: number;
   includedProfiles: number;
@@ -80,6 +89,7 @@ type NurtureSummary = {
   feedback: {
     total: number;
     reasonCounts: Record<string, number>;
+    recent?: FeedbackItem[];
   };
 };
 
@@ -498,6 +508,31 @@ export default function BehaviorStudyToolsAdminPage() {
               <p className="text-sm text-slate-600">No feedback has been captured yet.</p>
             )}
           </div>
+          {(summary?.feedback.recent || []).length > 0 ? (
+            <div className="mt-5 space-y-3">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Latest feedback
+              </h3>
+              {(summary?.feedback.recent || []).slice(0, 5).map((item) => (
+                <div
+                  key={`${item.email || 'unknown'}-${item.reason}-${item.created_at}`}
+                  className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2"
+                >
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                    <span className="font-semibold text-slate-700">{item.reason.replaceAll('_', ' ')}</span>
+                    <span>{item.source || 'unknown source'}</span>
+                    <span>{new Date(item.created_at).toLocaleString()}</span>
+                  </div>
+                  {item.detail ? (
+                    <p className="mt-2 text-sm leading-6 text-slate-700">{item.detail}</p>
+                  ) : null}
+                  <p className="mt-1 text-xs text-slate-500">
+                    {item.email || 'No email'} • {item.campaign_step || 'No step'}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
         <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-slate-950">Daily operating loop</h2>
