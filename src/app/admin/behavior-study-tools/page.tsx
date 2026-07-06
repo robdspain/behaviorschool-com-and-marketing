@@ -33,6 +33,7 @@ type NurtureCandidate = {
   campaign_step: string;
   sequence?: string | null;
   subject: string;
+  cta_url?: string | null;
   age_days: number;
   trigger?: string | null;
 };
@@ -184,6 +185,21 @@ const researchBackbone = [
   'Measure dropoffs daily and adjust the next message or CTA.',
 ];
 
+const diagnosticFollowUpUrl = 'https://study.behaviorschool.com/auth?redirect=/diagnostic/bcba&utm_source=manual&utm_medium=email&utm_campaign=bst_personal_setup_rescue';
+
+function buildManualFollowUpBody(candidate: NurtureCandidate) {
+  const link = candidate.cta_url || diagnosticFollowUpUrl;
+  return [
+    "I noticed you signed up but haven't finished setup yet.",
+    '',
+    'Want me to help build your BCBA study path?',
+    '',
+    `Start here: ${link}`,
+    '',
+    'Rob',
+  ].join('\n');
+}
+
 export default function BehaviorStudyToolsAdminPage() {
   const router = useRouter();
   const [loadingAuth, setLoadingAuth] = useState(true);
@@ -247,6 +263,12 @@ export default function BehaviorStudyToolsAdminPage() {
   );
   const dailyAction = summary?.dailyAction;
   const conversionEvents = summary?.conversionEvents;
+  const manualFollowUpCandidates = useMemo(
+    () => (summary?.queue.candidates || [])
+      .filter((candidate) => candidate.campaign_step === 'day_0_welcome' || candidate.sequence === 'setup_rescue')
+      .slice(0, 3),
+    [summary?.queue.candidates],
+  );
 
   const sendNurtureBatch = async () => {
     const suggestedLimit = Math.max(0, Math.min(dailyAction?.suggestedLimit || summary?.queue.sendableCount || 0, 5));
@@ -496,6 +518,52 @@ export default function BehaviorStudyToolsAdminPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <Mail className="h-5 w-5 text-amber-700" />
+              <h2 className="text-lg font-semibold text-slate-950">Manual setup follow-up</h2>
+            </div>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-700">
+              Keep this personal and capped. These are the first three queued setup-rescue users to review before sending any broader nurture batch.
+            </p>
+          </div>
+          <span className="rounded-full bg-white px-3 py-1 text-sm font-bold text-amber-800">
+            {manualFollowUpCandidates.length} ready
+          </span>
+        </div>
+
+        <div className="mt-4 grid gap-3 lg:grid-cols-3">
+          {manualFollowUpCandidates.length > 0 ? manualFollowUpCandidates.map((candidate) => {
+            const body = buildManualFollowUpBody(candidate);
+            const subject = 'Want help building your BCBA study path?';
+            return (
+              <div key={`${candidate.email}-manual-follow-up`} className="rounded-lg border border-amber-200 bg-white p-4">
+                <p className="text-sm font-semibold text-slate-950">{candidate.email}</p>
+                <p className="mt-1 text-xs text-slate-600">
+                  {candidate.age_days}d old • {candidate.campaign_step.replaceAll('_', ' ')}
+                </p>
+                <pre className="mt-3 whitespace-pre-wrap rounded-lg bg-slate-50 p-3 text-xs leading-5 text-slate-700">
+                  {body}
+                </pre>
+                <a
+                  href={`mailto:${encodeURIComponent(candidate.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
+                  className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-amber-700 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-800"
+                >
+                  Open email draft
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+              </div>
+            );
+          }) : (
+            <div className="rounded-lg bg-white px-4 py-3 text-sm text-slate-600">
+              No setup-rescue candidates in the current queue.
+            </div>
+          )}
         </div>
       </section>
 
