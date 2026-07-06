@@ -97,9 +97,9 @@ const sequenceEmails = [
   {
     day: 'Day 0',
     title: 'Finish Setup',
-    subject: 'Your BCBA study plan is ready to set up',
+    subject: 'Finish your 2-minute BCBA study setup',
     segment: 'New signup, free plan, onboarding incomplete',
-    objective: 'Move the user from registered to activated.',
+    objective: 'Move the user from registered to activated with one clear setup CTA.',
   },
   {
     day: 'Day 1',
