@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       from: RESEND_FROM_ROB,
       to: [email],
       replyTo: RESEND_REPLY_TO_ROB,
-      subject: "Your ABC Function Analysis — BehaviorSchool",
+      subject: "Your ABC function summary",
       html: `
 <!DOCTYPE html>
 <html>
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
 <p>${name ? `Hi ${name.split(" ")[0]},` : "Hi,"}</p>
 
-<p>Here's your ABC function analysis from BehaviorSchool.</p>
+<p>Here is the ABC function summary from the tool.</p>
 
 <div style="background:#f8f9fa; border-left:4px solid #1a4731; padding:16px 20px; margin:24px 0; border-radius:4px;">
   <p style="margin:0 0 4px; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:1px; font-family:sans-serif;">Function Hypothesis Report</p>
@@ -56,8 +56,8 @@ export async function POST(req: NextRequest) {
   <p style="margin:0; font-size:13px; color:#555; font-family:sans-serif;">Confidence: <strong>${result?.confidence ?? "?"}%</strong></p>
 </div>
 
-<h3 style="font-family:sans-serif; color:#1a4731; margin-top:32px;">The School BCBA Transformation Program</h3>
-<p>Want to implement this systematically with your whole team? I'm running a 6-week cohort for school BCBAs starting August 12.</p>
+<h3 style="font-family:sans-serif; color:#1a4731; margin-top:32px;">If you want help building this into your school workflow</h3>
+<p>I'm running a 6-week cohort for school BCBAs starting August 12. We work through assessment, BIP design, implementation, and team training in a structured way.</p>
 <ul style="color:#555; font-size:15px;">
   <li>6 sessions — weekly, 6–8 PM Pacific</li>
   <li>August 12 – September 16, 2026</li>
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#e4b63d; color:#1a1a1a; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
-    Learn More →
+    See the cohort
   </a>
 </p>
 
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
       `,
       text: `${name ? `Hi ${name.split(" ")[0]},` : "Hi,"}
 
-Here's your ABC function analysis from BehaviorSchool.
+Here is the ABC function summary from the tool.
 
 FUNCTION HYPOTHESIS REPORT
 Student: ${studentLabel}${gradeLabel ? ` | Grade: ${gradeLabel}` : ""}
@@ -95,7 +95,7 @@ Confidence: ${result?.confidence ?? "?"}%
 NEXT STEP: ACT-INFORMED FBA
 https://behaviorschool.com/act-fba-bip
 
-THE SCHOOL BCBA TRANSFORMATION PROGRAM
+SCHOOL BCBA TRANSFORMATION PROGRAM
 6 weeks starting August 12. Founding tuition $1,997.
 https://behaviorschool.com/transformation-program
 

@@ -25,8 +25,8 @@ export async function POST(req: NextRequest) {
       from: RESEND_FROM_ROB,
       to: email,
       reply_to: RESEND_REPLY_TO_ROB,
-      subject: 'Your spot is held — School BCBA Transformation Program',
-      html: `<p>Hi ${name},</p><p>Your spot in the School BCBA Transformation Program is held while you complete your district approval process.</p><p>I'll follow up within 24 hours to confirm. In the meantime, if you need any documentation for your district (W-9, formal program description, invoice template), just reply to this email.</p><p>— Rob Spain, BCBA<br>BehaviorSchool<br>rob@behaviorschool.com</p>`,
+      subject: 'I have your School BCBA program spot request',
+      html: `<p>Hi ${name},</p><p>I have your request to hold a spot in the School BCBA Transformation Program while you work through district approval.</p><p>I'll follow up within 24 hours to confirm the details. If you need a W-9, formal program description, or invoice language for your district, reply here and I will send it over.</p><p>Rob Spain, BCBA<br>BehaviorSchool<br>rob@behaviorschool.com</p>`,
     }),
   });
 

@@ -243,10 +243,10 @@ export async function POST(request: NextRequest) {
 
     // Keep legacy hardcoded immediate confirmation as fallback
     if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && (!emailTemplates || emailTemplates.length === 0)) {
-      const confirmSubject = `${firstName}, your application has been received!`;
+      const confirmSubject = `${firstName}, I received your application`;
       const confirmText = `Hi ${firstName},
 
-Thanks for applying to the School BCBA Transformation System! Your application has been received and we're excited to learn more about your goals.
+Thanks for applying to the School BCBA Transformation System. I received your application and will review it.
 
 NEXT STEP: Schedule your consultation call
 
@@ -255,12 +255,11 @@ https://calendly.com/robspain/behavior-school-transformation-system-phone-call
 
 What to expect on the call:
 → We'll discuss your specific challenges and goals
-→ You'll see exactly how the system can help you
-→ Get all your questions answered (no pressure!)
+→ We will talk through whether the program is a fit
+→ You can ask questions before making any decision
 
-This will be a 15-minute conversation to make sure we're a great fit for each other.
+This is a 15-minute conversation to make sure the program fits what you need.
 
-Looking forward to connecting,
 Rob Spain
 Creator, School BCBA Transformation System
 Behavior School`;
@@ -285,7 +284,7 @@ Behavior School`;
           <tr>
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">Thanks for applying to the <strong>School BCBA Transformation System</strong>! Your application has been received and we're excited to learn more about your goals.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">Thanks for applying to the <strong>School BCBA Transformation System</strong>. I received your application and will review it.</p>
               <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 16px; margin: 24px 0;">
                 <p style="margin: 0; font-size: 16px; color: #166534; font-weight: 600;">NEXT STEP: Schedule your consultation call</p>
               </div>
@@ -300,16 +299,15 @@ Behavior School`;
               <p style="margin: 20px 0 10px; font-size: 16px; color: #334155; font-weight: 600;">What to expect on the call:</p>
               <ul style="margin: 0 0 20px; padding-left: 20px; color: #334155;">
                 <li style="margin-bottom: 8px;">We'll discuss your specific challenges and goals</li>
-                <li style="margin-bottom: 8px;">You'll see exactly how the system can help you</li>
-                <li style="margin-bottom: 8px;">Get all your questions answered (no pressure!)</li>
+                <li style="margin-bottom: 8px;">We will talk through whether the program is a fit</li>
+                <li style="margin-bottom: 8px;">You can ask questions before making any decision</li>
               </ul>
-              <p style="margin: 20px 0 0; font-size: 14px; color: #64748b;"><em>This will be a 15-minute conversation to make sure we're a great fit for each other.</em></p>
+              <p style="margin: 20px 0 0; font-size: 14px; color: #64748b;"><em>This is a 15-minute conversation to make sure the program fits what you need.</em></p>
             </td>
           </tr>
           <tr>
             <td style="padding: 0 40px 40px;">
               <div style="border-top: 1px solid #e2e8f0; padding-top: 24px;">
-                <p style="margin: 0 0 8px; font-size: 16px; color: #0f172a; font-weight: 600;">Looking forward to connecting,</p>
                 <p style="margin: 0 0 4px; font-size: 16px; color: #0f172a; font-weight: 600;">Rob Spain</p>
                 <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Transformation System<br>Behavior School</p>
               </div>
@@ -369,24 +367,21 @@ Behavior School`;
       const rfc2822Time = deliveryTime.toUTCString();
 
       // Personal follow-up email content
-      const followUpSubject = `${firstName}, let's get your School BCBA transformation started`;
+      const followUpSubject = `${firstName}, next step for your School BCBA application`;
       const followUpText = `Hi ${firstName},
 
-I just saw your application for the School BCBA Transformation System come through, and I wanted to reach out personally.
+I just saw your application for the School BCBA Transformation System come through.
 
-I know what it's like to feel overwhelmed by the demands of a school BCBA role—the endless FBAs, the pressure to show measurable results, and the challenge of getting buy-in from teachers and administrators. That's exactly why I created this system.
+The next useful step is a short fit call. We can talk through what is hard right now, what you want to change, and whether the program is the right tool for that.
 
-If you haven't already booked your consultation call, I'd love to jump on a quick call with you to:
+If you haven't booked yet, choose a time here:
 → Understand your specific challenges and goals
-→ Show you exactly how the system can transform your practice
-→ Answer any questions you have about the program
+→ Talk through what support would actually help
+→ Answer questions before you decide
 
 If you haven't already scheduled, book a time that works for you here:
 https://calendly.com/robspain/behavior-school-transformation-system-phone-call
 
-These spots fill up quickly, so grab a time while they're available.
-
-Looking forward to connecting,
 Rob Spain
 Creator, School BCBA Transformation System
 Behavior School`;
@@ -416,16 +411,16 @@ Behavior School`;
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
 
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I just saw your application for the <strong>School BCBA Transformation System</strong> come through, and I wanted to reach out personally.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I just saw your application for the <strong>School BCBA Transformation System</strong> come through.</p>
 
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I know what it's like to feel overwhelmed by the demands of a school BCBA role—the endless FBAs, the pressure to show measurable results, and the challenge of getting buy-in from teachers and administrators. <strong>That's exactly why I created this system.</strong></p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">The next useful step is a short fit call. We can talk through what is hard right now, what you want to change, and whether the program is the right tool for that.</p>
 
-              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">If you haven't already booked your consultation call, I'd love to jump on a quick call with you to:</p>
+              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">If you haven't booked yet, choose a time here:</p>
 
               <ul style="margin: 0 0 24px; padding-left: 20px; color: #334155;">
                 <li style="margin-bottom: 8px; font-size: 16px;">Understand your specific challenges and goals</li>
-                <li style="margin-bottom: 8px; font-size: 16px;">Show you exactly how the system can transform your practice</li>
-                <li style="margin-bottom: 8px; font-size: 16px;">Answer any questions you have about the program</li>
+                <li style="margin-bottom: 8px; font-size: 16px;">Talk through what support would actually help</li>
+                <li style="margin-bottom: 8px; font-size: 16px;">Answer questions before you decide</li>
               </ul>
 
               <!-- CTA Button -->
@@ -437,7 +432,7 @@ Behavior School`;
                 </tr>
               </table>
 
-              <p style="margin: 24px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>If you haven't already scheduled, these spots fill up quickly, so grab a time while they're available.</em></p>
+              <p style="margin: 24px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>If none of the times work, reply and tell me what your schedule looks like.</em></p>
             </td>
           </tr>
 
@@ -445,7 +440,6 @@ Behavior School`;
           <tr>
             <td style="padding: 0 40px 40px;">
               <div style="border-top: 1px solid #e2e8f0; padding-top: 24px;">
-                <p style="margin: 0 0 8px; font-size: 16px; color: #0f172a; font-weight: 600;">Looking forward to connecting,</p>
                 <p style="margin: 0 0 4px; font-size: 16px; color: #0f172a; font-weight: 600;">Rob Spain</p>
                 <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Transformation System<br>Behavior School</p>
               </div>
@@ -502,19 +496,19 @@ Behavior School`;
       const delivery24h = new Date(Date.now() + 24 * 60 * 60 * 1000);
       const rfc24h = delivery24h.toUTCString();
 
-      const reminder24Subject = `${firstName}, did you get a chance to book your call?`;
+      const reminder24Subject = `${firstName}, did you want to talk through the program?`;
       const reminder24Text = `Hi ${firstName},
 
-I wanted to follow up on your application for the School BCBA Transformation System.
+I wanted to follow up on your School BCBA Transformation System application.
 
-I noticed you haven't scheduled your consultation call yet. No worries - I know how busy school schedules can be!
+I did not see a fit call scheduled yet. No problem if now is not the right time.
 
-I'd really love to hear about your challenges and show you how the system can help. The call is just 15 minutes and there's absolutely no pressure.
+If you do want to talk it through, the call is 15 minutes. We can look at what you are trying to change and whether the program makes sense.
 
 Book your call here:
 https://calendly.com/robspain/behavior-school-transformation-system-phone-call
 
-If you have any questions or concerns before booking, just hit reply to this email. I read every single one.
+If you have a question before booking, reply here.
 
 Talk soon,
 Rob Spain
@@ -540,9 +534,9 @@ Creator, School BCBA Transformation System`;
           <tr>
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to follow up on your application for the School BCBA Transformation System.</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I noticed you haven't scheduled your consultation call yet. No worries - I know how busy school schedules can be!</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I'd really love to hear about your challenges and show you how the system can help. <strong>The call is just 15 minutes and there's absolutely no pressure.</strong></p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to follow up on your School BCBA Transformation System application.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I did not see a fit call scheduled yet. No problem if now is not the right time.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">If you do want to talk it through, the call is 15 minutes. We can look at what you are trying to change and whether the program makes sense.</p>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
                 <tr>
                   <td align="center">
@@ -550,7 +544,7 @@ Creator, School BCBA Transformation System`;
                   </td>
                 </tr>
               </table>
-              <p style="margin: 20px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>If you have any questions or concerns before booking, just hit reply to this email. I read every single one.</em></p>
+              <p style="margin: 20px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>If you have a question before booking, reply here.</em></p>
             </td>
           </tr>
           <tr>
@@ -598,10 +592,10 @@ Creator, School BCBA Transformation System`;
       const delivery48h = new Date(Date.now() + 48 * 60 * 60 * 1000);
       const rfc48h = delivery48h.toUTCString();
 
-      const caseStudy48Subject = `${firstName}, what the transformation actually looks like`;
+      const caseStudy48Subject = `${firstName}, what changes when the systems are in place`;
       const caseStudy48Text = `Hi ${firstName},
 
-I wanted to share what I've seen happen when school BCBAs shift from crisis mode to systems leadership.
+I wanted to share the pattern behind the program.
 
 Here's a pattern I see over and over again:
 
@@ -618,15 +612,15 @@ This isn't one person's story — it's a pattern I've seen repeat across distric
 
 The systems that make this shift possible are what I teach in the School BCBA Transformation System.
 
-If you're ready to stop feeling overwhelmed and start feeling confident, let's talk:
+If you want to see whether this would fit your role, book a 15-minute call:
 https://calendly.com/robspain/behavior-school-transformation-system-phone-call
 
-Just 15 minutes. No pressure. Let's see if this is right for you.
+Just 15 minutes. We can decide whether it is actually a fit.
 
 Rob Spain
 Creator, School BCBA Transformation System
 
-P.S. The "5-Minute FBA Framework" is one of 12 systems you'll get access to. It's consistently the one BCBAs tell me made the biggest difference. Want to hear more? Book your call above.`;
+P.S. The "5-Minute FBA Framework" is one of the systems we use in the program. If that is the kind of support you need, the call is the right next step.`;
 
       const caseStudy48Html = `
 <!DOCTYPE html>
@@ -648,7 +642,7 @@ P.S. The "5-Minute FBA Framework" is one of 12 systems you'll get access to. It'
           <tr>
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to share what I've seen happen when school BCBAs shift from crisis mode to systems leadership.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to share the pattern behind the program.</p>
               <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">Here's a pattern I see over and over again: A BCBA is drowning in FBAs, working 60-hour weeks, feeling like they're always playing catch-up. Teachers resist their recommendations. Admin questions their value.</p>
               <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; margin: 24px 0;">
                 <p style="margin: 0 0 12px; font-size: 16px; color: #166534; font-weight: 600;">Then they start building systems instead of being the system:</p>
@@ -659,9 +653,9 @@ P.S. The "5-Minute FBA Framework" is one of 12 systems you'll get access to. It'
                   <li>They leave work at a reasonable hour with everything under control</li>
                 </ul>
               </div>
-              <p style="margin: 20px 0; font-size: 16px; color: #334155;"><strong>This isn't one person's story — it's a pattern I've seen repeat across districts and states.</strong></p>
+              <p style="margin: 20px 0; font-size: 16px; color: #334155;"><strong>This is the shift the program is designed to support.</strong></p>
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">The systems that make this shift possible are what I teach in the School BCBA Transformation System.</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">If you're ready to stop feeling overwhelmed and start feeling confident, let's talk:</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">If you want to see whether this would fit your role, book a 15-minute call:</p>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 24px 0;">
                 <tr>
                   <td align="center">
@@ -669,9 +663,9 @@ P.S. The "5-Minute FBA Framework" is one of 12 systems you'll get access to. It'
                   </td>
                 </tr>
               </table>
-              <p style="margin: 20px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>Just 15 minutes. No pressure. Let's see if this is right for you.</em></p>
+              <p style="margin: 20px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>Just 15 minutes. We can decide whether it is actually a fit.</em></p>
               <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; margin: 24px 0;">
-                <p style="margin: 0; font-size: 14px; color: #92400e;"><strong>P.S.</strong> The "5-Minute FBA Framework" is consistently the system BCBAs tell me made the biggest difference. It's one of 12 you'll get access to. Want to hear more? Book your call above.</p>
+                <p style="margin: 0; font-size: 14px; color: #92400e;"><strong>P.S.</strong> The "5-Minute FBA Framework" is one of the systems we use in the program. If that is the kind of support you need, the call is the right next step.</p>
               </div>
             </td>
           </tr>

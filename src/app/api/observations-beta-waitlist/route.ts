@@ -68,11 +68,11 @@ export async function POST(req: NextRequest) {
 
 <p>${firstName ? `Hi ${firstName},` : "Hi,"}</p>
 
-<p>You're on the list. When Observations Pro opens TestFlight in May, you'll be the first to know.</p>
+<p>You are on the list. When Observations Pro opens TestFlight, you will be one of the first people I contact.</p>
 
-<p>Beta testers get early access before the public launch, and your feedback will shape what gets built next. If something's clunky or missing, I want to hear it.</p>
+<p>Beta testers will get early access before the public launch. I am especially looking for honest notes about what feels clunky, what is missing, and what would actually save time during observations.</p>
 
-<p>Until then — if you have questions or want to tell me what your observation workflow looks like right now, just reply to this email. That kind of thing genuinely helps.</p>
+<p>If you want to tell me what your observation workflow looks like right now, just reply to this email. That kind of detail helps a lot.</p>
 
 <p>— Rob Spain, BCBA<br>
 <a href="https://behaviorschool.com" style="color:#1a4731;">BehaviorSchool</a></p>

@@ -470,7 +470,7 @@ async function buildPurchaseConfirmationEmail(
     };
   }
 
-  const subject = `🎉 Purchase confirmed — ${purchase.productName}`;
+  const subject = `Purchase confirmed - ${purchase.productName}`;
   const text = `Hi ${variables.firstName},
 
 Your purchase is confirmed.
@@ -491,7 +491,7 @@ ${TRANSFORMATION_PROGRAM_URL}
 
 Questions? Reply to this email or contact ${SUPPORT_EMAIL}.
 
-Best,
+Rob Spain, BCBA
 BehaviorSchool
 `;
 

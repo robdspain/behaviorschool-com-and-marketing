@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
 <p>${name ? `Hi ${name.split(" ")[0]},` : "Hi,"}</p>
 
-<p>Here's your RBT supervision hour summary from BehaviorSchool.</p>
+<p>Here is your RBT supervision hour summary.</p>
 
 <div style="background:#f8f9fa; border-left:4px solid #1a4731; padding:16px 20px; margin:24px 0; border-radius:4px; font-family:sans-serif;">
   <p style="margin:0 0 4px; font-size:12px; color:#888; text-transform:uppercase; letter-spacing:1px;">Your RBT Hour Progress</p>
@@ -66,10 +66,10 @@ export async function POST(req: NextRequest) {
 </div>
 
 <h3 style="font-family:sans-serif; color:#1a4731; margin-top:32px;">Preparing for your RBT exam?</h3>
-<p>SchoolRBT.com has 500+ practice questions built specifically for school settings.</p>
+<p>SchoolRBT has practice questions built for school-based examples and everyday RBT situations.</p>
 <p>
   <a href="https://rbtstudy.behaviorschool.com" style="display:inline-block; background:#1a4731; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
-    Try SchoolRBT Free →
+    Try SchoolRBT
   </a>
 </p>
 
@@ -94,11 +94,11 @@ export async function POST(req: NextRequest) {
       from: RESEND_FROM_ROB,
       to: recipients,
       replyTo: RESEND_REPLY_TO_ROB,
-      subject: "Your RBT Supervision Hour Summary — BehaviorSchool",
+      subject: "Your RBT supervision hour summary",
       html: htmlBody,
       text: `${name ? `Hi ${name.split(" ")[0]},` : "Hi,"}
 
-Here's your RBT supervision hour summary.
+Here is your RBT supervision hour summary.
 
 PATHWAY: ${result?.pathway || "RBT"}
 Hours completed: ${result?.hoursCompleted?.toLocaleString() || 0}

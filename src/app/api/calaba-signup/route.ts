@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       from: RESEND_FROM_ROB,
       to: [email],
       replyTo: RESEND_REPLY_TO_ROB,
-      subject: "Here's the ACT-FBA tool from today's talk",
+      subject: "The ACT-FBA link from today's session",
       html: `
 <!DOCTYPE html>
 <html>
@@ -42,10 +42,10 @@ export async function POST(req: NextRequest) {
 
 <p>${name ? `Hi ${name.split(" ")[0]},` : "Hi,"}</p>
 
-<p>Thank you for attending the session today. Here's everything I promised:</p>
+<p>Thanks for being in the session today. Here are the links I promised.</p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">The School BCBA Transformation Program</h3>
-<p>If today's content resonated with you, I'm running a 6-week cohort starting August 12 for school BCBAs who want to implement this systematically with their teams.</p>
+<p>If today's content fits the work you are trying to build, I'm running a 6-week cohort starting August 12 for school BCBAs who want to implement it with their teams.</p>
 <ul style="color:#555; font-size:15px;">
   <li>6 sessions — weekly, 6–8 PM Pacific</li>
   <li>August 12 – September 16, 2026</li>
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#e4b63d; color:#1a1a1a; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
-    Learn More →
+    See the cohort
   </a>
 </p>
 
@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
       `,
       text: `${name ? `Hi ${name.split(" ")[0]},` : "Hi,"}
 
-Thank you for attending the session today. Here's everything I promised:
+Thanks for being in the session today. Here are the links I promised:
 
 THE ACT-INFORMED FBA TOOL
 https://behaviorschool.com/act-fba-bip

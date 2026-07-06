@@ -32,17 +32,17 @@ export async function POST(request: NextRequest) {
     const { error } = await resend.emails.send({
       from: RESEND_FROM_NO_REPLY,
       to: normalizedEmail,
-      subject: 'Confirm your subscription to Behavior School',
+      subject: 'Confirm your Behavior School email',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #1f4d3f;">Almost there!</h2>
+          <h2 style="color: #1f4d3f;">Confirm your email</h2>
           <p>Hey${name ? ` ${name}` : ''},</p>
-          <p>Thanks for signing up for Behavior School updates. Please confirm your email address by clicking the button below:</p>
+          <p>Thanks for signing up for Behavior School updates. Please confirm your email address so I know this is really you.</p>
           
           <div style="text-align: center; margin: 30px 0;">
             <a href="${confirmUrl}" 
                style="background-color: #1f4d3f; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
-              Confirm My Subscription
+              Confirm my email
             </a>
           </div>
           

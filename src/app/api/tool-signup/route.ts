@@ -5,12 +5,12 @@ import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from '@/lib/resend';
 
 const TOOL_CONFIGS: Record<string, { subject: string; toolName: string; toolUrl: string }> = {
   "act-matrix-builder": {
-    subject: "Your ACT Matrix — save this link",
+    subject: "Your ACT Matrix link",
     toolName: "ACT Matrix Builder",
     toolUrl: "https://behaviorschool.com/act-matrix-builder",
   },
   "iep-goal-writer": {
-    subject: "Your IEP Behavior Goals — save this link",
+    subject: "Your IEP behavior goals link",
     toolName: "IEP Behavior Goal Writer",
     toolUrl: "https://behaviorschool.com/iep-goal-writer",
   },
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     const config = TOOL_CONFIGS[tool] || {
-      subject: "Thanks for using BehaviorSchool tools",
+      subject: "Your BehaviorSchool tool link",
       toolName: "BehaviorSchool Tool",
       toolUrl: "https://behaviorschool.com",
     };
@@ -46,13 +46,13 @@ export async function POST(req: NextRequest) {
 
 <p>${firstName ? `Hi ${firstName},` : "Hi,"}</p>
 
-<p>Your results from the <strong>${config.toolName}</strong> are ready. Bookmark this link to run it again for any student:</p>
+<p>Here is the link for the <strong>${config.toolName}</strong>. Save it if you want to run it again for another student:</p>
 <p><a href="${config.toolUrl}" style="color:#1a4731; font-weight:600;">${config.toolUrl}</a></p>
 
-<p>I'd love to hear how it went — just reply to this email.</p>
+<p>If something worked well or felt off, reply and tell me. That feedback is useful.</p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Want to go deeper?</h3>
-<p>I'm running a 6-week cohort for school BCBAs starting August 12. We cover assessment, BIP design, implementation, and team training — systematically.</p>
+<p>I'm running a 6-week cohort for school BCBAs starting August 12. We cover assessment, BIP design, implementation, and team training in a structured way.</p>
 <ul style="color:#555; font-size:15px; line-height:2;">
   <li>6 sessions — weekly, 6–8 PM Pacific</li>
   <li>August 12 – September 16, 2026</li>
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#1a4731; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
-    Learn More →
+    See the cohort
   </a>
 </p>
 

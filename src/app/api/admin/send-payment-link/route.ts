@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
         .insert({
           template_name: 'transformation_payment_link',
           recipient_email: recipientEmail,
-          subject: '🎉 Your Payment Link for the Transformation Program',
+          subject: 'Your Transformation Program payment link',
           status: 'failed',
           error_message: error instanceof Error ? error.message : 'Unknown error',
           sent_by: session?.user?.id || null

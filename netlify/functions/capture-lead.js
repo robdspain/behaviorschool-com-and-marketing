@@ -21,9 +21,9 @@ const BCBA_PLAN = [
 ];
 
 const SUBJECTS = {
-  rbt: "Your Free 7-Day RBT Study Plan is here 🎓",
-  bcba: "Your Free 7-Day BCBA Study Plan is here 🎓",
-  both: "Your Free 7-Day RBT + BCBA Study Plans are here 🎓",
+  rbt: "Your 7-day RBT study plan",
+  bcba: "Your 7-day BCBA study plan",
+  both: "Your 7-day RBT and BCBA study plans",
 };
 
 function json(statusCode, payload) {
@@ -82,12 +82,12 @@ function buildEmailHtml({ name, role }) {
 
   if (role === "rbt" || role === "both") {
     tables.push(buildScheduleTable("RBT 7-Day Plan", RBT_PLAN));
-    buttons.push(buildButton("https://rbtstudy.behaviorschool.com", "Start Studying Free Today"));
+    buttons.push(buildButton("https://rbtstudy.behaviorschool.com", "Start with RBT practice"));
   }
 
   if (role === "bcba" || role === "both") {
     tables.push(buildScheduleTable("BCBA 7-Day Plan", BCBA_PLAN));
-    buttons.push(buildButton("https://study.behaviorschool.com", "Start Studying Free Today"));
+    buttons.push(buildButton("https://study.behaviorschool.com", "Start with BCBA practice"));
   }
 
   return `
@@ -95,13 +95,13 @@ function buildEmailHtml({ name, role }) {
       <div style="max-width:640px;margin:0 auto;">
         <div style="font-size:20px;font-weight:800;color:#1f4d3f;">Behavior Study Tools</div>
         <p style="margin-top:24px;font-size:16px;">Hi ${safeName},</p>
-        <p style="margin-top:8px;font-size:16px;">Here is your personalized 7-day study plan.</p>
+        <p style="margin-top:8px;font-size:16px;">Here is the 7-day plan you asked for. Use it as a simple first pass, then adjust based on what you miss in practice.</p>
         ${tables.join("")}
         <div style="margin:16px 0 8px;">
           ${buttons.join("")}
         </div>
         <p style="margin-top:28px;font-size:12px;color:#6b6b6b;">
-          Behavior Study Tools - study.behaviorschool.com - Unsubscribe
+          Behavior Study Tools - study.behaviorschool.com
         </p>
       </div>
     </div>

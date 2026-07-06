@@ -62,24 +62,24 @@ export async function sendWelcomeEmail(email: string, name?: string) {
       from: RESEND_FROM_ROB,
       to: [email],
       replyTo: RESEND_REPLY_TO_ROB,
-      subject: 'Welcome to Behavior School!',
+      subject: 'Welcome to Behavior School',
       headers: getComplianceHeaders(email),
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #059669;">Welcome to Behavior School!</h2>
+          <h2 style="color: #059669;">Welcome to Behavior School</h2>
           <p>Hey${name ? ` ${name}` : ''},</p>
-          <p>Thanks for subscribing to our newsletter! You'll now receive:</p>
+          <p>Thanks for confirming your email. I will send practical school-BCBA resources, tools, and occasional program updates.</p>
           <ul>
             <li>Weekly evidence-based ABA strategies</li>
             <li>Free BCBA exam prep tips</li>
             <li>IEP goal templates and behavior tools</li>
-            <li>Exclusive community updates</li>
+            <li>Community and training updates when they are relevant</li>
           </ul>
           <div style="background: #f0fdf4; border-left: 4px solid #059669; padding: 20px; margin: 20px 0;">
-            <p style="margin: 0;"><strong>Get Started:</strong></p>
+            <p style="margin: 0;"><strong>Good place to start:</strong></p>
             <p style="margin: 10px 0 0 0;">
               <a href="https://behaviorschool.com/blog" style="color: #059669; text-decoration: none;">
-                Read Our Latest Blog Posts
+                Read the latest resources
               </a>
             </p>
           </div>

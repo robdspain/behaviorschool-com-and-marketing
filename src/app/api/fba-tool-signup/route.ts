@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       from: RESEND_FROM_ROB,
       to: [email],
       replyTo: RESEND_REPLY_TO_ROB,
-      subject: "Your ACT-Informed BIP — and a question",
+      subject: "Your ACT-informed BIP link",
       html: `
 <!DOCTYPE html>
 <html>
@@ -26,16 +26,16 @@ export async function POST(req: NextRequest) {
 
 <p>${firstName ? `Hi ${firstName},` : "Hi,"}</p>
 
-<p>Your ACT-informed FBA &amp; BIP is ready — I hope the tool was useful.</p>
+<p>Your ACT-informed FBA and BIP link is below. You can come back to the tool when you need to run another case.</p>
 
-<p>One quick question: <strong>How did it go?</strong> Reply directly to this email — I read every response and it helps me improve the tool.</p>
+<p>One quick question: <strong>what felt useful, and what felt clunky?</strong> Reply directly to this email. I read those notes and use them to improve the tool.</p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Bookmark the tool</h3>
 <p>You can run this for any student, anytime:</p>
 <p><a href="https://behaviorschool.com/act-fba-bip" style="color:#1a4731; font-weight:600;">behaviorschool.com/act-fba-bip</a></p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Want to go deeper?</h3>
-<p>If this framework resonated, I'm running a 6-week cohort for school BCBAs starting August 12. We cover this process systematically — assessment, BIP design, implementation, and team training.</p>
+<p>If this framework fits the kind of work you are trying to do, I'm running a 6-week cohort for school BCBAs starting August 12. We cover assessment, BIP design, implementation, and team training.</p>
 <ul style="color:#555; font-size:15px; line-height:2;">
   <li>6 sessions — weekly, 6–8 PM Pacific</li>
   <li>August 12 – September 16, 2026</li>
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#1a4731; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
-    Learn More →
+    See the cohort
   </a>
 </p>
 
@@ -55,9 +55,9 @@ export async function POST(req: NextRequest) {
 </html>`,
       text: `${firstName ? `Hi ${firstName},` : "Hi,"}
 
-Your ACT-informed FBA & BIP is ready — I hope the tool was useful.
+Your ACT-informed FBA and BIP link is below. You can come back to the tool when you need to run another case.
 
-One quick question: How did it go? Reply to this email — I read every response.
+One quick question: what felt useful, and what felt clunky? Reply to this email - I read those notes.
 
 BOOKMARK THE TOOL: https://behaviorschool.com/act-fba-bip
 

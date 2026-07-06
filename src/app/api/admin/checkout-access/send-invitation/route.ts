@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
           <tr>
             <td style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 40px 30px; border-radius: 16px 16px 0 0; text-align: center;">
               <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">
-                Welcome to the Transformation Program!
+                Checkout access is ready
               </h1>
             </td>
           </tr>
@@ -80,11 +80,11 @@ export async function POST(request: NextRequest) {
               </p>
 
               <p style="margin: 0 0 20px; color: #334155; font-size: 16px; line-height: 1.6;">
-                Great news! Your access to the School BCBA Transformation Program checkout has been approved. You're now just one step away from starting your transformation journey.
+                Your checkout access for the School BCBA Transformation Program is ready.
               </p>
 
               <p style="margin: 0 0 30px; color: #334155; font-size: 16px; line-height: 1.6;">
-                Click the button below to access your personalized checkout page:
+                Use the button below when you are ready to complete enrollment.
               </p>
 
               <!-- CTA Button -->
@@ -92,33 +92,33 @@ export async function POST(request: NextRequest) {
                 <tr>
                   <td style="border-radius: 8px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
                     <a href="${checkoutUrl}" style="display: inline-block; padding: 16px 48px; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 18px;">
-                      Access Checkout →
+                      Open checkout
                     </a>
                   </td>
                 </tr>
               </table>
 
               <p style="margin: 30px 0 20px; color: #64748b; font-size: 14px; line-height: 1.6; padding: 20px; background-color: #f1f5f9; border-radius: 8px; border-left: 4px solid #10b981;">
-                <strong style="color: #334155;">Important:</strong> Since you've been pre-approved, simply enter your email address (<strong>${email}</strong>) on the checkout page to proceed directly to payment.
+                <strong style="color: #334155;">Important:</strong> Enter this email address on the checkout page: <strong>${email}</strong>.
               </p>
 
               <div style="margin: 30px 0; padding: 20px; background-color: #ecfdf5; border-radius: 8px; border: 1px solid #d1fae5;">
-                <h3 style="margin: 0 0 10px; color: #059669; font-size: 18px;">What's Next?</h3>
+                <h3 style="margin: 0 0 10px; color: #059669; font-size: 18px;">What happens next</h3>
                 <ul style="margin: 0; padding-left: 20px; color: #334155; font-size: 14px; line-height: 1.8;">
-                  <li>Click the button above to access checkout</li>
-                  <li>Enter your email to verify your pre-approval</li>
-                  <li>Complete your secure payment via Stripe</li>
-                  <li>Receive immediate access to the program</li>
+                  <li>Open the checkout page</li>
+                  <li>Enter your email to verify access</li>
+                  <li>Complete payment through Stripe</li>
+                  <li>Watch for the next email with program access details</li>
                 </ul>
               </div>
 
               <p style="margin: 30px 0 0; color: #334155; font-size: 16px; line-height: 1.6;">
-                We're excited to have you join us and can't wait to support you on your journey to becoming an exceptional School BCBA!
+                If anything does not work at checkout, reply to this email and I will help.
               </p>
 
               <p style="margin: 20px 0 0; color: #334155; font-size: 16px; line-height: 1.6;">
-                Best regards,<br>
-                <strong>The Behavior School Team</strong>
+                Rob Spain, BCBA<br>
+                <strong>Behavior School</strong>
               </p>
             </td>
           </tr>
@@ -158,23 +158,23 @@ export async function POST(request: NextRequest) {
     const textContent = `
 Hi ${first_name || 'there'},
 
-Great news! Your access to the School BCBA Transformation Program checkout has been approved.
+Your checkout access for the School BCBA Transformation Program is ready.
 
 Access your checkout page here:
 ${checkoutUrl}
 
-Since you've been pre-approved, simply enter your email address (${email}) on the checkout page to proceed directly to payment.
+Enter this email address on the checkout page: ${email}
 
-What's Next?
-- Click the link above to access checkout
-- Enter your email to verify your pre-approval
-- Complete your secure payment via Stripe
-- Receive immediate access to the program
+What happens next:
+- Open the checkout page
+- Enter your email to verify access
+- Complete payment through Stripe
+- Watch for the next email with program access details
 
-We're excited to have you join us!
+If anything does not work at checkout, reply to this email and I will help.
 
-Best regards,
-The Behavior School Team
+Rob Spain, BCBA
+Behavior School
 
 ---
 Questions? Reply to this email or visit behaviorschool.com
@@ -183,7 +183,7 @@ Questions? Reply to this email or visit behaviorschool.com
     const messageData = {
       from: `Behavior School <${process.env.MAILGUN_FROM_EMAIL}>`,
       to: email,
-      subject: '🎉 Your Transformation Program Checkout Access is Ready!',
+      subject: 'Your School BCBA program checkout access is ready',
       text: textContent,
       html: htmlContent,
     };
