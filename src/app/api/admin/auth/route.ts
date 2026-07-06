@@ -2,19 +2,9 @@ export const dynamic = 'force-dynamic';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { isValidAdminSessionToken } from '@/lib/adminSession';
 
 const COOKIE_NAME = 'bs_admin_session';
-const SESSION_MAX_AGE = 60 * 60 * 24; // 24 hours
-
-function isValidToken(token: string): boolean {
-  // Token format: "<timestamp_base36>.<random>"
-  // Valid for SESSION_MAX_AGE seconds
-  const [tsPart] = token.split('.');
-  if (!tsPart) return false;
-  const ts = parseInt(tsPart, 36);
-  if (isNaN(ts)) return false;
-  return Date.now() - ts < SESSION_MAX_AGE * 1000;
-}
 
 // POST /api/admin/auth — legacy password login is disabled. Use Google OAuth.
 export async function POST(request: NextRequest) {
@@ -29,7 +19,7 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
-  const authenticated = !!token && isValidToken(token);
+  const authenticated = isValidAdminSessionToken(token);
   return NextResponse.json({ authenticated });
 }
 

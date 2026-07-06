@@ -1,12 +1,11 @@
-import { randomBytes } from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
+import { ADMIN_SESSION_MAX_AGE, makeAdminSessionToken } from '@/lib/adminSession'
 
 export const dynamic = 'force-dynamic'
 
 const SESSION_COOKIE = 'bs_admin_session'
 const STATE_COOKIE = 'bs_admin_oauth_state'
 const RETURN_TO_COOKIE = 'bs_admin_oauth_return_to'
-const SESSION_MAX_AGE = 60 * 60 * 24
 
 type GoogleTokenResponse = {
   access_token?: string
@@ -32,12 +31,6 @@ function oauthBaseUrl(request: NextRequest) {
   }
 
   return request.nextUrl.origin
-}
-
-function makeToken(): string {
-  const ts = Date.now().toString(36)
-  const rand = randomBytes(18).toString('hex')
-  return `${ts}.${rand}`
 }
 
 function allowedEmails() {
@@ -118,11 +111,11 @@ export async function GET(request: NextRequest) {
 
     const returnTo = safeReturnTo(request.cookies.get(RETURN_TO_COOKIE)?.value)
     const response = NextResponse.redirect(new URL(returnTo, oauthBaseUrl(request)))
-    response.cookies.set(SESSION_COOKIE, makeToken(), {
+    response.cookies.set(SESSION_COOKIE, makeAdminSessionToken(), {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: SESSION_MAX_AGE,
+      maxAge: ADMIN_SESSION_MAX_AGE,
       path: '/',
     })
     response.cookies.delete(STATE_COOKIE)

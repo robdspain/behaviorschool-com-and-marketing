@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 const COOKIE_NAME = 'bs_admin_session';
 const SESSION_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_SUMMARY_URL =
@@ -28,11 +30,36 @@ function parseCookies(header = '') {
   }, {});
 }
 
+function sessionSecret() {
+  return (
+    process.env.ADMIN_SESSION_SECRET ||
+    process.env.GOOGLE_CLIENT_SECRET ||
+    process.env.ADMIN_GOOGLE_CLIENT_SECRET ||
+    process.env.AUTH_GOOGLE_SECRET ||
+    ''
+  );
+}
+
+function sign(value) {
+  const secret = sessionSecret();
+  if (!secret) return null;
+  return crypto.createHmac('sha256', secret).update(value).digest('base64url');
+}
+
 function isValidToken(token) {
-  const [tsPart] = String(token || '').split('.');
-  if (!tsPart) return false;
+  const [tsPart, nonce, signature] = String(token || '').split('.');
+  if (!tsPart || !nonce || !signature) return false;
   const ts = parseInt(tsPart, 36);
-  return !Number.isNaN(ts) && Date.now() - ts < SESSION_MAX_AGE_MS;
+  if (Number.isNaN(ts) || Date.now() - ts > SESSION_MAX_AGE_MS) return false;
+
+  const expected = sign(`${tsPart}.${nonce}`);
+  if (!expected) return false;
+
+  const expectedBuffer = Buffer.from(expected);
+  const signatureBuffer = Buffer.from(signature);
+  if (expectedBuffer.length !== signatureBuffer.length) return false;
+
+  return crypto.timingSafeEqual(expectedBuffer, signatureBuffer);
 }
 
 exports.handler = async (event) => {

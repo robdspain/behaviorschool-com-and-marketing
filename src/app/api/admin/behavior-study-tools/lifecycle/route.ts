@@ -2,24 +2,16 @@ export const dynamic = 'force-dynamic';
 
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { isValidAdminSessionToken } from '@/lib/adminSession';
 
 const COOKIE_NAME = 'bs_admin_session';
-const SESSION_MAX_AGE = 60 * 60 * 24;
 const DEFAULT_SUMMARY_URL =
   'https://study.behaviorschool.com/.netlify/functions/signup-nurture-summary';
-
-function isValidToken(token: string): boolean {
-  const [tsPart] = token.split('.');
-  if (!tsPart) return false;
-  const ts = parseInt(tsPart, 36);
-  if (Number.isNaN(ts)) return false;
-  return Date.now() - ts < SESSION_MAX_AGE * 1000;
-}
 
 export async function GET(request: NextRequest) {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
-  if (!token || !isValidToken(token)) {
+  if (!isValidAdminSessionToken(token)) {
     return NextResponse.json({ error: 'Admin authentication required' }, { status: 401 });
   }
 

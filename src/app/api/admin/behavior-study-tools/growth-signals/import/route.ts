@@ -1,23 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { isValidAdminSessionToken } from '@/lib/adminSession'
 import { supabaseAdmin } from '@/lib/supabase-admin'
 
 export const dynamic = 'force-dynamic'
 
 const COOKIE_NAME = 'bs_admin_session'
-const SESSION_MAX_AGE = 60 * 60 * 24
 const MAX_IMPORT_ROWS = 250
 
 type ImportProvider = 'gsc' | 'ahrefs' | 'social' | 'trend' | 'competitor'
 type CsvRow = Record<string, string>
 
-function isValidToken(token: string): boolean {
-  const [tsPart] = token.split('.')
-  if (!tsPart) return false
-  const ts = parseInt(tsPart, 36)
-  if (Number.isNaN(ts)) return false
-  return Date.now() - ts < SESSION_MAX_AGE * 1000
-}
 
 async function isAdminAuthenticated(request: NextRequest) {
   const monitorSecret = process.env.BST_DAILY_MONITOR_SECRET
@@ -26,7 +19,7 @@ async function isAdminAuthenticated(request: NextRequest) {
 
   const cookieStore = await cookies()
   const token = cookieStore.get(COOKIE_NAME)?.value
-  return !!token && isValidToken(token)
+  return isValidAdminSessionToken(token)
 }
 
 function cleanString(value: unknown, max = 1000) {
