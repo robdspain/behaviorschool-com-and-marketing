@@ -120,6 +120,13 @@ const sequenceEmails = [
     objective: 'Turn setup into a personalized weak-area result and next study block.',
   },
   {
+    day: 'Day 1',
+    title: 'Diagnostic Result Follow-up',
+    subject: 'Use your BCBA diagnostic result for today’s study block',
+    segment: 'Diagnostic completed, no first practice session',
+    objective: 'Turn the diagnostic insight into one short practice block instead of asking them to retake it.',
+  },
+  {
     day: 'Day 3',
     title: 'Study Rhythm',
     subject: 'Can you do 10 BCBA questions today?',
