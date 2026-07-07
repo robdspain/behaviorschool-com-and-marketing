@@ -188,13 +188,12 @@ const researchBackbone = [
 const diagnosticFollowUpUrl = 'https://study.behaviorschool.com/auth?redirect=/diagnostic/bcba&utm_source=manual&utm_medium=email&utm_campaign=bst_personal_setup_rescue';
 
 function buildManualFollowUpBody(candidate: NurtureCandidate) {
-  const link = candidate.cta_url || diagnosticFollowUpUrl;
   return [
     "I noticed you signed up but haven't finished setup yet.",
     '',
     'Want me to help build your BCBA study path?',
     '',
-    `Start here: ${link}`,
+    `Start here: ${diagnosticFollowUpUrl}`,
     '',
     'Rob',
   ].join('\n');
