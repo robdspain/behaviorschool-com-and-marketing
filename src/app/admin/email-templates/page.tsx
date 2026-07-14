@@ -321,6 +321,7 @@ export default function EmailTemplatesPage() {
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                   >
                     <option value="signup">Signup</option>
+                    <option value="payment">Payment</option>
                     <option value="notification">Notification</option>
                     <option value="marketing">Marketing</option>
                   </select>

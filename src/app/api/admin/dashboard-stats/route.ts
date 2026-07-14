@@ -1,10 +1,18 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { api, getConvexClient } from '@/lib/convex';
 
 // Force dynamic - needs runtime env vars
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+  const templateStats = await getConvexClient()
+    .query(api.email.templateStats, {})
+    .catch((error) => {
+      console.error('Error fetching Convex template stats:', error);
+      return { totalTemplates: 0, activeTemplates: 0, draftTemplates: 0 };
+    });
+
   // Return zeros if Supabase isn't configured
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE;
@@ -15,9 +23,9 @@ export async function GET() {
       stats: {
         totalSubmissions: 0,
         weekSubmissions: 0,
-        totalTemplates: 0,
-        activeTemplates: 0,
-        draftTemplates: 0,
+        totalTemplates: templateStats.totalTemplates,
+        activeTemplates: templateStats.activeTemplates,
+        draftTemplates: templateStats.draftTemplates,
         totalDownloads: 0,
       }
     });
@@ -48,28 +56,6 @@ export async function GET() {
       console.error('Error fetching week submissions:', weekError);
     }
 
-    // Get email templates count
-    const { count: totalTemplates, error: templatesError } = await supabase
-      .from('email_templates')
-      .select('*', { count: 'exact', head: true });
-
-    if (templatesError) {
-      console.error('Error fetching templates count:', templatesError);
-    }
-
-    // Get active templates count
-    const { count: activeTemplates, error: activeError } = await supabase
-      .from('email_templates')
-      .select('*', { count: 'exact', head: true })
-      .eq('is_active', true);
-
-    if (activeError) {
-      console.error('Error fetching active templates:', activeError);
-    }
-
-    // Get draft templates count
-    const draftTemplates = (totalTemplates || 0) - (activeTemplates || 0);
-
     // Get download submissions count
     const { count: downloadCount, error: downloadError } = await supabase
       .from('download_submissions')
@@ -84,9 +70,9 @@ export async function GET() {
       stats: {
         totalSubmissions: totalSubmissions || 0,
         weekSubmissions: weekSubmissions || 0,
-        totalTemplates: totalTemplates || 0,
-        activeTemplates: activeTemplates || 0,
-        draftTemplates: draftTemplates || 0,
+        totalTemplates: templateStats.totalTemplates,
+        activeTemplates: templateStats.activeTemplates,
+        draftTemplates: templateStats.draftTemplates,
         totalDownloads: downloadCount || 0,
       }
     });
@@ -98,4 +84,3 @@ export async function GET() {
     );
   }
 }
-

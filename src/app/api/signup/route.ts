@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { api, getConvexClient } from '@/lib/convex';
 
 // Rate limiting: track IPs and timestamps
 const submissionTracker = new Map<string, number>();
@@ -111,24 +112,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch all email templates for the signup sequence
-    const { data: emailTemplates, error: templatesError } = await supabase
-      .from('email_templates')
-      .select('*')
-      .eq('category', 'signup')
-      .eq('is_active', true)
-      .order('send_delay_minutes', { ascending: true });
-
-    if (templatesError) {
-      console.error('Error fetching email templates:', templatesError);
-    }
-
-    // Fetch admin notification template separately
-    const { data: adminTemplate } = await supabase
-      .from('email_templates')
-      .select('*')
-      .eq('name', 'signup_admin_notification')
-      .single();
+    const convex = getConvexClient();
+    const emailTemplates = await convex.query(api.email.listTemplates, {
+      category: 'signup',
+      activeOnly: true,
+      showArchived: false,
+    });
+    const adminTemplate = await convex.query(api.email.getTemplateByName, {
+      name: 'signup_admin_notification',
+    });
 
     // Prepare data for templates
     const templateData = {
@@ -152,6 +144,24 @@ export async function POST(request: NextRequest) {
       return rendered;
     };
 
+    const logEmailSafe = async (args: {
+      templateId?: string;
+      templateName?: string;
+      recipientEmail: string;
+      recipientName?: string;
+      subject: string;
+      status: string;
+      mailgunId?: string;
+      errorMessage?: string;
+      metadata?: Record<string, unknown>;
+    }) => {
+      try {
+        await convex.mutation(api.email.logEmail, args);
+      } catch (logError) {
+        console.error('Error logging email send:', logError);
+      }
+    };
+
     // Log signup notification for immediate visibility
     console.log('NEW SIGNUP NOTIFICATION:', {
       name: `${firstName} ${lastName}`,
@@ -166,8 +176,8 @@ export async function POST(request: NextRequest) {
     // Send admin notification email (if configured and template found)
     if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && adminTemplate) {
       const adminEmailSubject = renderTemplate(adminTemplate.subject, templateData);
-      const adminEmailText = adminTemplate.body_text ? renderTemplate(adminTemplate.body_text, templateData) : '';
-      const adminEmailHtml = adminTemplate.body_html ? renderTemplate(adminTemplate.body_html, templateData) : '';
+      const adminEmailText = adminTemplate.bodyText ? renderTemplate(adminTemplate.bodyText, templateData) : '';
+      const adminEmailHtml = adminTemplate.bodyHtml ? renderTemplate(adminTemplate.bodyHtml, templateData) : '';
 
       const mailgunResponse = await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
         method: 'POST',
@@ -191,20 +201,44 @@ export async function POST(request: NextRequest) {
           statusText: mailgunResponse.statusText,
           error: errorText
         });
+        await logEmailSafe({
+          templateId: adminTemplate._id,
+          templateName: adminTemplate.name,
+          recipientEmail: process.env.NOTIFICATION_EMAIL || 'admin@behaviorschool.com',
+          subject: adminEmailSubject,
+          status: 'failed',
+          errorMessage: errorText,
+          metadata: { source: 'signup_admin_notification', signupEmail: email },
+        });
+      } else {
+        const resultText = await mailgunResponse.text();
+        let mailgunId: string | undefined;
+        try {
+          mailgunId = JSON.parse(resultText).id;
+        } catch {}
+        await logEmailSafe({
+          templateId: adminTemplate._id,
+          templateName: adminTemplate.name,
+          recipientEmail: process.env.NOTIFICATION_EMAIL || 'admin@behaviorschool.com',
+          subject: adminEmailSubject,
+          status: 'sent',
+          mailgunId,
+          metadata: { source: 'signup_admin_notification', signupEmail: email },
+        });
       }
     }
 
     // Send all emails from database templates
     if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY && emailTemplates) {
       for (const template of emailTemplates) {
-        const deliveryTime = template.send_delay_minutes === 0
+        const deliveryTime = template.sendDelayMinutes === 0
           ? new Date()
-          : new Date(Date.now() + template.send_delay_minutes * 60 * 1000);
+          : new Date(Date.now() + template.sendDelayMinutes * 60 * 1000);
         const rfc2822Time = deliveryTime.toUTCString();
 
         const emailSubject = renderTemplate(template.subject, templateData);
-        const emailText = template.body_text ? renderTemplate(template.body_text, templateData) : '';
-        const emailHtml = template.body_html ? renderTemplate(template.body_html, templateData) : '';
+        const emailText = template.bodyText ? renderTemplate(template.bodyText, templateData) : '';
+        const emailHtml = template.bodyHtml ? renderTemplate(template.bodyHtml, templateData) : '';
 
         const emailParams: Record<string, string> = {
           from: `Rob Spain - Behavior School <robspain@${process.env.MAILGUN_DOMAIN}>`,
@@ -215,7 +249,7 @@ export async function POST(request: NextRequest) {
         };
 
         // Only add deliverytime if it's not immediate
-        if (template.send_delay_minutes > 0) {
+        if (template.sendDelayMinutes > 0) {
           emailParams['o:deliverytime'] = rfc2822Time;
         }
 
@@ -233,10 +267,41 @@ export async function POST(request: NextRequest) {
           console.error(`Mailgun error for template ${template.name}:`, {
             status: emailResponse.status,
             error: errorText,
-            scheduledFor: template.send_delay_minutes > 0 ? rfc2822Time : 'immediate'
+            scheduledFor: template.sendDelayMinutes > 0 ? rfc2822Time : 'immediate'
+          });
+          await logEmailSafe({
+            templateId: template._id,
+            templateName: template.name,
+            recipientEmail: email,
+            recipientName: `${firstName} ${lastName}`,
+            subject: emailSubject,
+            status: 'failed',
+            errorMessage: errorText,
+            metadata: {
+              source: 'signup_sequence',
+              scheduledFor: template.sendDelayMinutes > 0 ? rfc2822Time : 'immediate',
+            },
           });
         } else {
-          console.log(`✅ Email sent: ${template.name} (delay: ${template.send_delay_minutes} min)`);
+          const resultText = await emailResponse.text();
+          let mailgunId: string | undefined;
+          try {
+            mailgunId = JSON.parse(resultText).id;
+          } catch {}
+          await logEmailSafe({
+            templateId: template._id,
+            templateName: template.name,
+            recipientEmail: email,
+            recipientName: `${firstName} ${lastName}`,
+            subject: emailSubject,
+            status: 'sent',
+            mailgunId,
+            metadata: {
+              source: 'signup_sequence',
+              scheduledFor: template.sendDelayMinutes > 0 ? rfc2822Time : 'immediate',
+            },
+          });
+          console.log(`Email sent: ${template.name} (delay: ${template.sendDelayMinutes} min)`);
         }
       }
     }
@@ -347,8 +412,31 @@ Behavior School`;
           statusText: immediateConfirmation.statusText,
           error: errorText
         });
+        await logEmailSafe({
+          templateName: 'legacy_signup_immediate_confirmation',
+          recipientEmail: email,
+          recipientName: `${firstName} ${lastName}`,
+          subject: confirmSubject,
+          status: 'failed',
+          errorMessage: errorText,
+          metadata: { source: 'legacy_signup_fallback' },
+        });
       } else {
-        console.log('✅ Immediate confirmation email sent to:', email);
+        const resultText = await immediateConfirmation.text();
+        let mailgunId: string | undefined;
+        try {
+          mailgunId = JSON.parse(resultText).id;
+        } catch {}
+        await logEmailSafe({
+          templateName: 'legacy_signup_immediate_confirmation',
+          recipientEmail: email,
+          recipientName: `${firstName} ${lastName}`,
+          subject: confirmSubject,
+          status: 'sent',
+          mailgunId,
+          metadata: { source: 'legacy_signup_fallback' },
+        });
+        console.log('Immediate confirmation email sent to:', email);
       }
     }
 
@@ -486,8 +574,31 @@ Behavior School`;
           error: errorText,
           scheduledFor: rfc2822Time
         });
+        await logEmailSafe({
+          templateName: 'legacy_signup_10_minute_follow_up',
+          recipientEmail: email,
+          recipientName: `${firstName} ${lastName}`,
+          subject: followUpSubject,
+          status: 'failed',
+          errorMessage: errorText,
+          metadata: { source: 'legacy_signup_fallback', scheduledFor: rfc2822Time },
+        });
       } else {
-        console.log('✅ Follow-up email scheduled for:', rfc2822Time, `(10 minutes from now for ${email})`);
+        const resultText = await followUpResponse.text();
+        let mailgunId: string | undefined;
+        try {
+          mailgunId = JSON.parse(resultText).id;
+        } catch {}
+        await logEmailSafe({
+          templateName: 'legacy_signup_10_minute_follow_up',
+          recipientEmail: email,
+          recipientName: `${firstName} ${lastName}`,
+          subject: followUpSubject,
+          status: 'sent',
+          mailgunId,
+          metadata: { source: 'legacy_signup_fallback', scheduledFor: rfc2822Time },
+        });
+        console.log('Follow-up email scheduled for:', rfc2822Time, `(10 minutes from now for ${email})`);
       }
     }
 
@@ -568,7 +679,7 @@ Creator, School BCBA Transformation System`;
 </body>
 </html>`;
 
-      await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
+      const reminder24Response = await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
         method: 'POST',
         headers: {
           'Authorization': `Basic ${Buffer.from(`api:${process.env.MAILGUN_API_KEY}`).toString('base64')}`,
@@ -584,43 +695,62 @@ Creator, School BCBA Transformation System`;
         }),
       });
 
-      console.log('✅ 24-hour reminder scheduled for:', rfc24h);
+      if (!reminder24Response.ok) {
+        const errorText = await reminder24Response.text();
+        await logEmailSafe({
+          templateName: 'legacy_signup_24_hour_reminder',
+          recipientEmail: email,
+          recipientName: `${firstName} ${lastName}`,
+          subject: reminder24Subject,
+          status: 'failed',
+          errorMessage: errorText,
+          metadata: { source: 'legacy_signup_fallback', scheduledFor: rfc24h },
+        });
+      } else {
+        const resultText = await reminder24Response.text();
+        let mailgunId: string | undefined;
+        try {
+          mailgunId = JSON.parse(resultText).id;
+        } catch {}
+        await logEmailSafe({
+          templateName: 'legacy_signup_24_hour_reminder',
+          recipientEmail: email,
+          recipientName: `${firstName} ${lastName}`,
+          subject: reminder24Subject,
+          status: 'sent',
+          mailgunId,
+          metadata: { source: 'legacy_signup_fallback', scheduledFor: rfc24h },
+        });
+      }
+
+      console.log('24-hour reminder scheduled for:', rfc24h);
     }
 
-    // Schedule 48-hour case study email
+    // Schedule 48-hour systems follow-up email
     if (process.env.MAILGUN_DOMAIN && process.env.MAILGUN_API_KEY) {
       const delivery48h = new Date(Date.now() + 48 * 60 * 60 * 1000);
       const rfc48h = delivery48h.toUTCString();
 
-      const caseStudy48Subject = `${firstName}, what changes when the systems are in place`;
+      const systems48Subject = `${firstName}, thinking about systems after your application`;
       const caseStudy48Text = `Hi ${firstName},
 
-I wanted to share the pattern behind the program.
+I wanted to follow up with one more thought after your School BCBA Transformation System application.
 
-Here's a pattern I see over and over again:
+The program is built around a practical question:
 
-A BCBA is drowning in FBAs, working 60-hour weeks, feeling like they're always playing catch-up. Teachers resist their recommendations. Admin questions their value.
+What systems would make your school-based BCBA role more sustainable and easier to explain to teachers and administrators?
 
-Then they start building systems instead of being the system:
-
-→ They create sustainable behavior tracking that runs itself
-→ Teachers start ASKING for support (instead of avoiding them)
-→ Their district expands the role because admin finally sees the value
-→ They leave work at a reasonable hour with everything under control
-
-This isn't one person's story — it's a pattern I've seen repeat across districts and states.
-
-The systems that make this shift possible are what I teach in the School BCBA Transformation System.
+That includes things like FBA/BIP workflows, consultation routines, documentation habits, and ways to decide what needs your attention first.
 
 If you want to see whether this would fit your role, book a 15-minute call:
 https://calendly.com/robspain/behavior-school-transformation-system-phone-call
 
-Just 15 minutes. We can decide whether it is actually a fit.
+We can talk through what is hard right now, what you need, and whether the program is actually a fit.
 
 Rob Spain
 Creator, School BCBA Transformation System
 
-P.S. The "5-Minute FBA Framework" is one of the systems we use in the program. If that is the kind of support you need, the call is the right next step.`;
+P.S. If you have a question before booking, you can reply to this email.`;
 
       const caseStudy48Html = `
 <!DOCTYPE html>
@@ -642,19 +772,17 @@ P.S. The "5-Minute FBA Framework" is one of the systems we use in the program. I
           <tr>
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to share the pattern behind the program.</p>
-              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">Here's a pattern I see over and over again: A BCBA is drowning in FBAs, working 60-hour weeks, feeling like they're always playing catch-up. Teachers resist their recommendations. Admin questions their value.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to follow up with one more thought after your School BCBA Transformation System application.</p>
+              <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">The program is built around a practical question: what systems would make your school-based BCBA role more sustainable and easier to explain to teachers and administrators?</p>
               <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; margin: 24px 0;">
-                <p style="margin: 0 0 12px; font-size: 16px; color: #166534; font-weight: 600;">Then they start building systems instead of being the system:</p>
+                <p style="margin: 0 0 12px; font-size: 16px; color: #166534; font-weight: 600;">That includes things like:</p>
                 <ul style="margin: 0; padding-left: 20px; color: #166534;">
-                  <li style="margin-bottom: 8px;">They create sustainable behavior tracking that runs itself</li>
-                  <li style="margin-bottom: 8px;">Teachers start ASKING for support (instead of avoiding them)</li>
-                  <li style="margin-bottom: 8px;">Their district expands the role because admin sees the value</li>
-                  <li>They leave work at a reasonable hour with everything under control</li>
+                  <li style="margin-bottom: 8px;">FBA/BIP workflows</li>
+                  <li style="margin-bottom: 8px;">Consultation routines</li>
+                  <li style="margin-bottom: 8px;">Documentation habits</li>
+                  <li>Ways to decide what needs your attention first</li>
                 </ul>
               </div>
-              <p style="margin: 20px 0; font-size: 16px; color: #334155;"><strong>This is the shift the program is designed to support.</strong></p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">The systems that make this shift possible are what I teach in the School BCBA Transformation System.</p>
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">If you want to see whether this would fit your role, book a 15-minute call:</p>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 24px 0;">
                 <tr>
@@ -663,9 +791,9 @@ P.S. The "5-Minute FBA Framework" is one of the systems we use in the program. I
                   </td>
                 </tr>
               </table>
-              <p style="margin: 20px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>Just 15 minutes. We can decide whether it is actually a fit.</em></p>
+              <p style="margin: 20px 0 0; font-size: 14px; color: #64748b; text-align: center;"><em>We can talk through what is hard right now, what you need, and whether the program is actually a fit.</em></p>
               <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; margin: 24px 0;">
-                <p style="margin: 0; font-size: 14px; color: #92400e;"><strong>P.S.</strong> The "5-Minute FBA Framework" is one of the systems we use in the program. If that is the kind of support you need, the call is the right next step.</p>
+                <p style="margin: 0; font-size: 14px; color: #92400e;"><strong>P.S.</strong> If you have a question before booking, you can reply to this email.</p>
               </div>
             </td>
           </tr>
@@ -689,7 +817,7 @@ P.S. The "5-Minute FBA Framework" is one of the systems we use in the program. I
 </body>
 </html>`;
 
-      await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
+      const caseStudy48Response = await fetch(`https://api.mailgun.net/v3/${process.env.MAILGUN_DOMAIN}/messages`, {
         method: 'POST',
         headers: {
           'Authorization': `Basic ${Buffer.from(`api:${process.env.MAILGUN_API_KEY}`).toString('base64')}`,
@@ -698,14 +826,42 @@ P.S. The "5-Minute FBA Framework" is one of the systems we use in the program. I
         body: new URLSearchParams({
           from: `Rob Spain - Behavior School <robspain@${process.env.MAILGUN_DOMAIN}>`,
           to: email,
-          subject: caseStudy48Subject,
+          subject: systems48Subject,
           text: caseStudy48Text,
           html: caseStudy48Html,
           'o:deliverytime': rfc48h,
         }),
       });
 
-      console.log('✅ 48-hour case study email scheduled for:', rfc48h);
+      if (!caseStudy48Response.ok) {
+        const errorText = await caseStudy48Response.text();
+        await logEmailSafe({
+          templateName: 'legacy_signup_48_hour_systems_email',
+          recipientEmail: email,
+          recipientName: `${firstName} ${lastName}`,
+          subject: systems48Subject,
+          status: 'failed',
+          errorMessage: errorText,
+          metadata: { source: 'legacy_signup_fallback', scheduledFor: rfc48h },
+        });
+      } else {
+        const resultText = await caseStudy48Response.text();
+        let mailgunId: string | undefined;
+        try {
+          mailgunId = JSON.parse(resultText).id;
+        } catch {}
+        await logEmailSafe({
+          templateName: 'legacy_signup_48_hour_systems_email',
+          recipientEmail: email,
+          recipientName: `${firstName} ${lastName}`,
+          subject: systems48Subject,
+          status: 'sent',
+          mailgunId,
+          metadata: { source: 'legacy_signup_fallback', scheduledFor: rfc48h },
+        });
+      }
+
+      console.log('48-hour systems email scheduled for:', rfc48h);
     }
 
     return NextResponse.json(

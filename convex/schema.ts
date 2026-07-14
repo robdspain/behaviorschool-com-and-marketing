@@ -722,6 +722,47 @@ export default defineSchema({
     .index("by_discovery_call", ["discoveryCallId"])
     .index("by_status", ["status"]),
 
+  emailTemplates: defineTable({
+    legacyId: v.optional(v.string()),
+    name: v.string(),
+    description: v.optional(v.string()),
+    subject: v.string(),
+    bodyText: v.optional(v.string()),
+    bodyHtml: v.optional(v.string()),
+    category: v.string(),
+    sendDelayMinutes: v.number(),
+    isActive: v.boolean(),
+    archived: v.boolean(),
+    archivedAt: v.optional(v.string()),
+    archivedBy: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_name", ["name"])
+    .index("by_category", ["category"])
+    .index("by_archived", ["archived"])
+    .index("by_updated_at", ["updatedAt"]),
+
+  emailLogs: defineTable({
+    templateId: v.optional(v.id("emailTemplates")),
+    templateName: v.optional(v.string()),
+    recipientEmail: v.string(),
+    recipientName: v.optional(v.string()),
+    subject: v.string(),
+    status: v.string(),
+    sentAt: v.optional(v.string()),
+    sentBy: v.optional(v.string()),
+    mailgunId: v.optional(v.string()),
+    errorMessage: v.optional(v.string()),
+    metadata: v.optional(v.any()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_recipient_email", ["recipientEmail"])
+    .index("by_template_name", ["templateName"])
+    .index("by_status", ["status"])
+    .index("by_sent_at", ["sentAt"]),
+
   checkoutSettings: defineTable({
     settingKey: v.string(),
     settingValue: v.string(),

@@ -1,33 +1,45 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { api, getConvexClient } from '@/lib/convex';
+
+function toLogRow(log: any) {
+  return {
+    id: log._id,
+    template_id: log.templateId ?? null,
+    template_name: log.templateName ?? null,
+    recipient_email: log.recipientEmail,
+    recipient_name: log.recipientName ?? null,
+    subject: log.subject,
+    status: log.status,
+    sent_at: log.sentAt ?? log.createdAt,
+    sent_by: log.sentBy ?? null,
+    mailgun_id: log.mailgunId ?? null,
+    error_message: log.errorMessage ?? null,
+    metadata: log.metadata ?? null,
+    created_at: log.createdAt,
+    updated_at: log.updatedAt,
+  };
+}
 
 // GET - Fetch email logs for a specific recipient
 export async function GET(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
 
-    const supabase = createSupabaseAdminClient();
+    const data = await getConvexClient().query(api.email.listEmailLogs, {
+      email: email || undefined,
+      limit: 100,
+    });
 
-    let query = supabase
-      .from('email_logs')
-      .select('*')
-      .order('sent_at', { ascending: false });
-
-    if (email) {
-      query = query.eq('recipient_email', email);
-    }
-
-    const { data, error } = await query.limit(100);
-
-    if (error) {
-      console.error('Error fetching email logs:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ logs: data || [] });
+    return NextResponse.json({ logs: (data || []).map(toLogRow) });
   } catch (error) {
     console.error('Error in email logs API:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

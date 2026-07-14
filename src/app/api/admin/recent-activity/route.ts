@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { api, getConvexClient } from '@/lib/convex';
 
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -19,8 +20,23 @@ interface Activity {
 
 export async function GET() {
   const supabase = getSupabase();
+  const convexTemplateActivities = await getConvexClient()
+    .query(api.email.recentTemplateActivity, { limit: 5 })
+    .catch((error) => {
+      console.error('Error fetching Convex template activity:', error);
+      return [];
+    });
+
   if (!supabase) {
-    return NextResponse.json({ success: true, activities: [] });
+    return NextResponse.json({
+      success: true,
+      activities: convexTemplateActivities.map((template: any) => ({
+        type: 'template',
+        title: 'Email template updated',
+        description: `${template.name} template was modified`,
+        timestamp: template.updatedAt,
+      })),
+    });
   }
   
   try {
@@ -56,26 +72,18 @@ export async function GET() {
       });
     }
 
-    // Get recent email template updates (last 5)
-    const { data: templates, error: templatesError } = await supabase
-      .from('email_templates')
-      .select('id, name, updated_at')
-      .order('updated_at', { ascending: false })
-      .limit(5);
-
-    if (!templatesError && templates) {
-      templates.forEach(template => {
-        const activityId = `template:${template.id}`;
-        if (!archivedSet.has(activityId)) {
-          activities.push({
-            type: 'template',
-            title: 'Email template updated',
-            description: `${template.name} template was modified`,
-            timestamp: template.updated_at,
-          });
-        }
-      });
-    }
+    // Get recent email template updates (last 5) from Convex
+    convexTemplateActivities.forEach((template: any) => {
+      const activityId = `template:${template._id}`;
+      if (!archivedSet.has(activityId)) {
+        activities.push({
+          type: 'template',
+          title: 'Email template updated',
+          description: `${template.name} template was modified`,
+          timestamp: template.updatedAt,
+        });
+      }
+    });
 
     // Get recent downloads (last 5)
     const { data: downloads, error: downloadsError } = await supabase
@@ -118,4 +126,3 @@ export async function GET() {
     );
   }
 }
-

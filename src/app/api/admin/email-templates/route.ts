@@ -1,33 +1,44 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { api, getConvexClient } from '@/lib/convex';
+
+function toTemplateRow(template: any) {
+  return {
+    id: template._id,
+    name: template.name,
+    description: template.description ?? null,
+    subject: template.subject,
+    body_text: template.bodyText ?? null,
+    body_html: template.bodyHtml ?? null,
+    category: template.category,
+    is_active: template.isActive,
+    send_delay_minutes: template.sendDelayMinutes,
+    archived: template.archived,
+    archived_at: template.archivedAt ?? null,
+    archived_by: template.archivedBy ?? null,
+    created_at: template.createdAt,
+    updated_at: template.updatedAt,
+  };
+}
 
 // GET - Fetch all email templates
 export async function GET(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const showArchived = searchParams.get('show_archived') === 'true';
 
-    const supabase = createSupabaseAdminClient();
-    let query = supabase
-      .from('email_templates')
-      .select('*');
+    const client = getConvexClient();
+    await client.mutation(api.email.ensureDefaultTemplates, {});
+    const templates = await client.query(api.email.listTemplates, { showArchived });
 
-    // Filter by archived status
-    if (!showArchived) {
-      query = query.eq('archived', false);
-    }
-
-    const { data, error } = await query
-      .order('category', { ascending: true })
-      .order('send_delay_minutes', { ascending: true });
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ templates: data });
+    return NextResponse.json({ templates: (templates || []).map(toTemplateRow) });
   } catch (error) {
     console.error('Error fetching email templates:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -37,6 +48,11 @@ export async function GET(request: NextRequest) {
 // POST - Create a new email template
 export async function POST(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { name, description, subject, body_text, body_html, category, send_delay_minutes, is_active } = body;
 
@@ -45,29 +61,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name and subject are required' }, { status: 400 });
     }
 
-    const supabase = createSupabaseAdminClient();
-    const { data, error } = await supabase
-      .from('email_templates')
-      .insert({
-        name,
-        description,
-        subject,
-        body_text,
-        body_html,
-        category: category || 'signup',
-        send_delay_minutes: send_delay_minutes || 0,
-        is_active: is_active !== undefined ? is_active : true
-      })
-      .select()
-      .single();
+    const client = getConvexClient();
+    const id = await client.mutation(api.email.createTemplate, {
+      name,
+      description: description || undefined,
+      subject,
+      bodyText: body_text || undefined,
+      bodyHtml: body_html || undefined,
+      category: category || 'signup',
+      sendDelayMinutes: Number(send_delay_minutes || 0),
+      isActive: is_active !== undefined ? Boolean(is_active) : true
+    });
+    const template = await client.query(api.email.getTemplate, { id });
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ template: data }, { status: 201 });
+    return NextResponse.json({ template: toTemplateRow(template) }, { status: 201 });
   } catch (error) {
     console.error('Error creating email template:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
