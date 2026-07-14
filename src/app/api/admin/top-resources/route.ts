@@ -1,48 +1,12 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-function getSupabase() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE;
-  if (!url || !key) return null;
-  return createClient(url, key);
-}
+import { api, getConvexClient } from '@/lib/convex';
 
 export async function GET() {
-  const supabase = getSupabase();
-  if (!supabase) {
-    return NextResponse.json({ success: true, topResources: [] });
-  }
-  
   try {
-    // Get download counts grouped by resource/source
-    const { data: downloads, error: downloadError } = await supabase
-      .from('download_submissions')
-      .select('resource, source');
-
-    if (downloadError) {
-      console.error('Error fetching downloads:', downloadError);
-      return NextResponse.json({ 
-        success: false, 
-        error: downloadError.message 
-      }, { status: 500 });
-    }
-
-    // Count downloads per resource/source
-    const resourceStats: Record<string, { downloads: number, views: number }> = {};
-
-    downloads?.forEach((download) => {
-      const key = download.resource || download.source;
-      if (key) {
-        if (!resourceStats[key]) {
-          resourceStats[key] = { downloads: 0, views: 0 };
-        }
-        resourceStats[key].downloads += 1;
-        // Estimate views as downloads * 1.5 (conversion rate)
-        resourceStats[key].views = Math.round(resourceStats[key].downloads * 1.5);
-      }
+    const resources = await getConvexClient().query(api.downloads.topResources, {
+      limit: 10,
     });
 
     // Create a mapping of resource identifiers to display names
@@ -61,17 +25,15 @@ export async function GET() {
     };
 
     // Convert to array and map to friendly names
-    const topResources = Object.entries(resourceStats)
-      .map(([key, stats]) => ({
-        name: resourceNameMap[key] || key.split('-').map(word => 
+    const topResources = (resources || [])
+      .map((resource: { key: string; downloads: number }) => ({
+        name: resourceNameMap[resource.key] || resource.key.split('-').map(word =>
           word.charAt(0).toUpperCase() + word.slice(1)
         ).join(' '),
-        views: stats.views,
-        downloads: stats.downloads,
-        originalKey: key
-      }))
-      .sort((a, b) => b.downloads - a.downloads)
-      .slice(0, 10); // Top 10 resources
+        views: null,
+        downloads: resource.downloads,
+        originalKey: resource.key
+      }));
 
     return NextResponse.json({
       success: true,
@@ -85,4 +47,3 @@ export async function GET() {
     );
   }
 }
-

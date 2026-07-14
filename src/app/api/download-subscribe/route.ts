@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { api, getConvexClient } from '@/lib/convex';
 import { upsertListmonkSubscriber, getListmonkConfig } from '@/lib/listmonk';
 
 export async function POST(request: NextRequest) {
@@ -32,33 +32,18 @@ export async function POST(request: NextRequest) {
                'unknown';
     const userAgent = request.headers.get('user-agent') || 'unknown';
 
-    // Save to database
-    const supabase = createSupabaseAdminClient();
-    
-    const { data, error } = await supabase
-      .from('download_submissions')
-      .insert({
-        email,
-        name: name || null,
-        resource,
-        source,
-        user_agent: userAgent,
-        ip_address: ip
-      })
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Database error:', error);
-      return NextResponse.json(
-        { error: 'Failed to save subscription' },
-        { status: 500 }
-      );
-    }
+    const id = await getConvexClient().mutation(api.downloads.createDownloadSubmission, {
+      email,
+      name: name || undefined,
+      resource,
+      source,
+      userAgent,
+      ipAddress: ip,
+    });
 
     // Log the subscription for immediate visibility
     console.log('📥 NEW DOWNLOAD SUBSCRIPTION:', {
-      id: data.id,
+      id,
       email: email,
       resource: resource,
       source: source,
@@ -88,7 +73,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Subscription recorded successfully',
-      id: data.id
+      id
     });
 
   } catch (error) {

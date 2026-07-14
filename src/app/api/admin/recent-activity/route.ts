@@ -1,15 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { api, getConvexClient } from '@/lib/convex';
-
-function getSupabase() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE || process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key);
-}
 
 interface Activity {
   type: string
@@ -19,7 +11,6 @@ interface Activity {
 }
 
 export async function GET() {
-  const supabase = getSupabase();
   const convex = getConvexClient();
   const convexTemplateActivities = await convex
     .query(api.email.recentTemplateActivity, { limit: 5 })
@@ -33,39 +24,24 @@ export async function GET() {
       console.error('Error fetching Convex signup activity:', error);
       return [];
     });
-
-  if (!supabase) {
-    return NextResponse.json({
-      success: true,
-      activities: [
-        ...convexSignupActivities.map((submission: any) => ({
-          type: 'submission',
-          title: 'New submission received',
-          description: `${submission.firstName} ${submission.lastName} submitted the signup form`,
-          timestamp: submission.submittedAt,
-        })),
-        ...convexTemplateActivities.map((template: any) => ({
-          type: 'template',
-          title: 'Email template updated',
-          description: `${template.name} template was modified`,
-          timestamp: template.updatedAt,
-        })),
-      ]
-        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-        .slice(0, 10),
+  const convexDownloadActivities = await convex
+    .query(api.downloads.recentDownloads, { limit: 5 })
+    .catch((error) => {
+      console.error('Error fetching Convex download activity:', error);
+      return [];
     });
-  }
+  const archivedActivities = await convex
+    .query(api.activityArchive.listArchivedActivities, {})
+    .catch((error) => {
+      console.error('Error fetching Convex archived activity:', error);
+      return [];
+    });
   
   try {
     const activities: Activity[] = [];
 
-    // Get archived activity IDs to filter them out
-    const { data: archivedData } = await supabase
-      .from('archived_activities')
-      .select('activity_type, activity_id');
-
     const archivedSet = new Set(
-      archivedData?.map(a => `${a.activity_type}:${a.activity_id}`) || []
+      archivedActivities.map((activity: any) => `${activity.activity_type}:${activity.activity_id}`)
     );
 
     // Get recent submissions from Convex.
@@ -94,26 +70,17 @@ export async function GET() {
       }
     });
 
-    // Get recent downloads (last 5)
-    const { data: downloads, error: downloadsError } = await supabase
-      .from('download_submissions')
-      .select('id, resource, created_at')
-      .order('created_at', { ascending: false })
-      .limit(5);
-
-    if (!downloadsError && downloads) {
-      downloads.forEach(download => {
-        const activityId = `download:${download.id}`;
-        if (!archivedSet.has(activityId)) {
-          activities.push({
-            type: 'download',
-            title: 'Resource downloaded',
-            description: `${download.resource} was downloaded`,
-            timestamp: download.created_at,
-          });
-        }
-      });
-    }
+    convexDownloadActivities.forEach((download: any) => {
+      const activityId = `download:${download._id}`;
+      if (!archivedSet.has(activityId)) {
+        activities.push({
+          type: 'download',
+          title: 'Resource downloaded',
+          description: `${download.resource} was downloaded`,
+          timestamp: download.createdAt,
+        });
+      }
+    });
 
     // Sort all activities by timestamp (most recent first)
     activities.sort((a, b) =>

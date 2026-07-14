@@ -789,6 +789,36 @@ export default defineSchema({
     .index("by_archived", ["archived"])
     .index("by_submitted_at", ["submittedAt"]),
 
+  downloadSubmissions: defineTable({
+    legacyId: v.optional(v.string()),
+    email: v.string(),
+    emailLower: v.string(),
+    name: v.optional(v.string()),
+    resource: v.string(),
+    source: v.string(),
+    userAgent: v.optional(v.string()),
+    ipAddress: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_email_lower", ["emailLower"])
+    .index("by_resource", ["resource"])
+    .index("by_created_at", ["createdAt"]),
+
+  archivedActivities: defineTable({
+    activityType: v.string(),
+    activityId: v.string(),
+    title: v.string(),
+    description: v.string(),
+    originalTimestamp: v.string(),
+    archivedAt: v.string(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_activity", ["activityType", "activityId"])
+    .index("by_archived_at", ["archivedAt"]),
+
   checkoutSettings: defineTable({
     settingKey: v.string(),
     settingValue: v.string(),

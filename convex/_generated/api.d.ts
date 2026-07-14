@@ -8,11 +8,13 @@
  * @module
  */
 
+import type * as activityArchive from "../activityArchive.js";
 import type * as audit from "../audit.js";
 import type * as audit_logger from "../audit_logger.js";
 import type * as auth from "../auth.js";
 import type * as checkoutAccess from "../checkoutAccess.js";
 import type * as crm from "../crm.js";
+import type * as downloads from "../downloads.js";
 import type * as email from "../email.js";
 import type * as http from "../http.js";
 import type * as passwordHistory from "../passwordHistory.js";
@@ -25,11 +27,13 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  activityArchive: typeof activityArchive;
   audit: typeof audit;
   audit_logger: typeof audit_logger;
   auth: typeof auth;
   checkoutAccess: typeof checkoutAccess;
   crm: typeof crm;
+  downloads: typeof downloads;
   email: typeof email;
   http: typeof http;
   passwordHistory: typeof passwordHistory;
