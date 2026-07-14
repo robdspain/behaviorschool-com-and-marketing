@@ -11,6 +11,7 @@ const PRODUCT_NAME = 'School BCBA Transformation Program';
 const PRODUCT_DESCRIPTION = 'August 2026 cohort, August 12 to September 16, 2026';
 const FULL_PAYMENT_AMOUNT_CENTS = 199700;
 const INSTALLMENT_AMOUNT_CENTS = 69700;
+const CHECKOUT_ERROR_MESSAGE = 'Unable to start checkout right now. Please contact Behavior School for help completing enrollment.';
 
 function getStripe() {
   if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY.includes('placeholder')) {
@@ -126,7 +127,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Transformation checkout error:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to create checkout session.' },
+      { error: CHECKOUT_ERROR_MESSAGE },
       { status: 500 },
     );
   }
