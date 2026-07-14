@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CalendarDays, CheckCircle2, CreditCard, Lock, ShieldCheck } from 'lucide-react';
+import { ArrowRight, CalendarDays, CheckCircle2, CreditCard, ShieldCheck } from 'lucide-react';
 
 const COHORT_LABEL = 'August 2026 cohort';
 const COHORT_DATES = 'August 12 to September 16, 2026';
@@ -19,16 +19,9 @@ const fadeInUp = {
 };
 
 export function TransformationCheckoutClient() {
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [accessError, setAccessError] = useState('');
   const [checkoutError, setCheckoutError] = useState('');
   const [checkoutStatus, setCheckoutStatus] = useState<'success' | 'cancelled' | null>(null);
-  const [isChecking, setIsChecking] = useState(false);
   const [loadingOption, setLoadingOption] = useState<CheckoutOption | null>(null);
-
-  const normalizedEmail = useMemo(() => email.trim().toLowerCase(), [email]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -37,33 +30,6 @@ export function TransformationCheckoutClient() {
       setCheckoutStatus(status);
     }
   }, []);
-
-  const handleAccessSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsChecking(true);
-    setAccessError('');
-
-    try {
-      const response = await fetch('/api/verify-checkout-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ password, email: normalizedEmail }),
-      });
-
-      if (response.ok) {
-        setIsAuthenticated(true);
-      } else {
-        const data = await response.json();
-        setAccessError(data.message || 'Access denied. Please check your credentials.');
-      }
-    } catch {
-      setAccessError('Something went wrong. Please try again.');
-    } finally {
-      setIsChecking(false);
-    }
-  };
 
   const startCheckout = async (option: CheckoutOption) => {
     setLoadingOption(option);
@@ -77,7 +43,6 @@ export function TransformationCheckoutClient() {
         },
         body: JSON.stringify({
           option,
-          email: normalizedEmail || undefined,
         }),
       });
 
@@ -112,83 +77,6 @@ export function TransformationCheckoutClient() {
     );
   }
 
-  if (!isAuthenticated) {
-    return (
-      <main className="min-h-screen bg-[#f9f7f2] px-4 py-16 sm:px-6">
-        <motion.div className="mx-auto max-w-md" initial="initial" animate="animate" variants={fadeInUp}>
-          <div className="rounded-2xl border border-[#1f4d3f]/10 bg-white p-8 shadow-xl">
-            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-[#1f4d3f]/10">
-              <Lock className="h-7 w-7 text-[#1f4d3f]" aria-hidden="true" />
-            </div>
-            <h1 className="text-center text-2xl font-bold text-[#123628]">Private Checkout Access</h1>
-            <p className="mt-4 text-center text-sm leading-6 text-slate-600">
-              Enter the email that was approved for checkout or the access password Rob provided.
-            </p>
-
-            {accessError && (
-              <div className="mt-5 rounded-lg border border-red-200 bg-red-50 p-3">
-                <p className="text-center text-sm text-red-700">{accessError}</p>
-              </div>
-            )}
-
-            {checkoutStatus === 'cancelled' && (
-              <div className="mt-5 rounded-lg border border-amber-200 bg-amber-50 p-3">
-                <p className="text-center text-sm text-amber-800">Checkout was cancelled. You can unlock this page again when you are ready.</p>
-              </div>
-            )}
-
-            <form onSubmit={handleAccessSubmit} className="mt-6 space-y-4">
-              <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
-                  Approved email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-[#1f4d3f] focus:outline-none focus:ring-2 focus:ring-[#1f4d3f]/20"
-                  placeholder="name@example.com"
-                />
-              </div>
-
-              <div className="relative py-1">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase tracking-widest">
-                  <span className="bg-white px-3 text-slate-400">or</span>
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">
-                  Access password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-[#1f4d3f] focus:outline-none focus:ring-2 focus:ring-[#1f4d3f]/20"
-                  placeholder="Enter password"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isChecking || (!normalizedEmail && !password)}
-                className="inline-flex w-full items-center justify-center rounded-full bg-[#1f4d3f] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#123628] disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {isChecking ? 'Checking access...' : 'Open checkout options'}
-              </button>
-            </form>
-          </div>
-        </motion.div>
-      </main>
-    );
-  }
-
   return (
     <main className="min-h-screen bg-[#f9f7f2] px-4 py-12 sm:px-6">
       <motion.div
@@ -215,6 +103,12 @@ export function TransformationCheckoutClient() {
         {checkoutError && (
           <div className="mx-auto mt-8 max-w-2xl rounded-lg border border-red-200 bg-red-50 p-4 text-center text-sm text-red-700">
             {checkoutError}
+          </div>
+        )}
+
+        {checkoutStatus === 'cancelled' && (
+          <div className="mx-auto mt-8 max-w-2xl rounded-lg border border-amber-200 bg-amber-50 p-4 text-center text-sm text-amber-800">
+            Checkout was cancelled. Choose a payment option below when you are ready.
           </div>
         )}
 

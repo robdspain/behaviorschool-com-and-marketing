@@ -97,15 +97,11 @@ export async function POST(request: NextRequest) {
                 </tr>
               </table>
 
-              <p style="margin: 30px 0 20px; color: #64748b; font-size: 14px; line-height: 1.6; padding: 20px; background-color: #f1f5f9; border-radius: 8px; border-left: 4px solid #10b981;">
-                <strong style="color: #334155;">Important:</strong> Enter this email address on the checkout page: <strong>${email}</strong>.
-              </p>
-
               <div style="margin: 30px 0; padding: 20px; background-color: #ecfdf5; border-radius: 8px; border: 1px solid #d1fae5;">
                 <h3 style="margin: 0 0 10px; color: #059669; font-size: 18px;">What happens next</h3>
                 <ul style="margin: 0; padding-left: 20px; color: #334155; font-size: 14px; line-height: 1.8;">
                   <li>Open the checkout page</li>
-                  <li>Enter your email to verify access</li>
+                  <li>Choose pay in full or the payment plan</li>
                   <li>Complete payment through Stripe</li>
                   <li>Watch for the next email with program access details</li>
                 </ul>
@@ -162,11 +158,9 @@ Your checkout access for the School BCBA Transformation Program is ready.
 Access your checkout page here:
 ${checkoutUrl}
 
-Enter this email address on the checkout page: ${email}
-
 What happens next:
 - Open the checkout page
-- Enter your email to verify access
+- Choose pay in full or the payment plan
 - Complete payment through Stripe
 - Watch for the next email with program access details
 
