@@ -3,7 +3,20 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminSession } from '@/lib/admin-auth';
 import { recordRequestAuditEvent } from '@/lib/audit-log';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { api, getConvexClient } from '@/lib/convex';
+
+function toLogRow(log: any) {
+  return {
+    id: log._id,
+    access_type: log.accessType,
+    identifier: log.identifier,
+    success: log.success,
+    ip_address: log.ipAddress ?? null,
+    user_agent: log.userAgent ?? null,
+    error_message: log.errorMessage ?? null,
+    created_at: log.createdAt,
+  };
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,30 +25,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const supabase = createSupabaseAdminClient();
-
-    const { data, error } = await supabase
-      .from('checkout_access_logs')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(50);
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'student_data',
-        actionType: 'read',
-        resource: 'checkout_access_logs',
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { error: error.message },
-      });
-      console.error('Error fetching logs:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch logs', details: error.message, code: error.code },
-        { status: 500 }
-      );
-    }
+    const logs = await getConvexClient().query(api.checkoutAccess.listLogs, { limit: 50 });
 
     await recordRequestAuditEvent(request, {
       category: 'student_data',
@@ -44,10 +34,10 @@ export async function GET(request: NextRequest) {
       status: 'success',
       actorUserId: admin.id,
       actorEmail: admin.email,
-      metadata: { rowCount: data?.length ?? 0 },
+      metadata: { rowCount: logs?.length ?? 0, source: 'convex' },
     });
 
-    return NextResponse.json({ logs: data || [] });
+    return NextResponse.json({ logs: (logs || []).map(toLogRow) });
   } catch (error) {
     console.error('Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Internal server error';

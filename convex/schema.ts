@@ -722,6 +722,41 @@ export default defineSchema({
     .index("by_discovery_call", ["discoveryCallId"])
     .index("by_status", ["status"]),
 
+  checkoutSettings: defineTable({
+    settingKey: v.string(),
+    settingValue: v.string(),
+    description: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  }).index("by_setting_key", ["settingKey"]),
+
+  checkoutAccess: defineTable({
+    email: v.string(),
+    emailLower: v.string(),
+    firstName: v.optional(v.string()),
+    lastName: v.optional(v.string()),
+    approvedBy: v.optional(v.string()),
+    notes: v.optional(v.string()),
+    isActive: v.boolean(),
+    expiresAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_email_lower", ["emailLower"])
+    .index("by_active", ["isActive"]),
+
+  checkoutAccessLogs: defineTable({
+    accessType: v.string(),
+    identifier: v.string(),
+    success: v.boolean(),
+    ipAddress: v.optional(v.string()),
+    userAgent: v.optional(v.string()),
+    errorMessage: v.optional(v.string()),
+    createdAt: v.string(),
+  })
+    .index("by_created_at", ["createdAt"])
+    .index("by_success", ["success"]),
+
   // ============================================================================
   // FERPA A4: Password history for reuse prevention (last 12 passwords)
   // ============================================================================

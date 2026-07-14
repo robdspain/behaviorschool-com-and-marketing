@@ -3,7 +3,22 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminSession } from '@/lib/admin-auth';
 import { recordRequestAuditEvent } from '@/lib/audit-log';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { api, getConvexClient } from '@/lib/convex';
+
+function toUserRow(user: any) {
+  return {
+    id: user._id,
+    email: user.email,
+    first_name: user.firstName ?? null,
+    last_name: user.lastName ?? null,
+    approved_by: user.approvedBy ?? null,
+    notes: user.notes ?? null,
+    is_active: user.isActive,
+    expires_at: user.expiresAt ?? null,
+    created_at: user.createdAt,
+    updated_at: user.updatedAt,
+  };
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,29 +27,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const supabase = createSupabaseAdminClient();
-
-    const { data, error } = await supabase
-      .from('checkout_access')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'student_data',
-        actionType: 'read',
-        resource: 'checkout_access',
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { error: error.message },
-      });
-      console.error('Error fetching users:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch users', details: error.message, code: error.code },
-        { status: 500 }
-      );
-    }
+    const users = await getConvexClient().query(api.checkoutAccess.listUsers, {});
 
     await recordRequestAuditEvent(request, {
       category: 'student_data',
@@ -43,10 +36,10 @@ export async function GET(request: NextRequest) {
       status: 'success',
       actorUserId: admin.id,
       actorEmail: admin.email,
-      metadata: { rowCount: data?.length ?? 0 },
+      metadata: { rowCount: users?.length ?? 0, source: 'convex' },
     });
 
-    return NextResponse.json({ users: data || [] });
+    return NextResponse.json({ users: (users || []).map(toUserRow) });
   } catch (error) {
     console.error('Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Internal server error';
@@ -64,7 +57,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const supabase = createSupabaseAdminClient();
     const body = await request.json();
     const { email, first_name, last_name, notes, expires_at } = body;
 
@@ -75,49 +67,30 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
-      .from('checkout_access')
-      .insert({
-        email: email.toLowerCase(),
-        first_name,
-        last_name,
-        notes,
-        expires_at: expires_at || null,
-        is_active: true,
-        approved_by: 'Admin',
-      })
-      .select()
-      .single();
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'admin_action',
-        actionType: 'create',
-        resource: 'checkout_access',
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { email: email?.toLowerCase(), error: error.message },
-      });
-      console.error('Error adding user:', error);
-      return NextResponse.json(
-        { error: 'Failed to add user. Email may already exist.' },
-        { status: 500 }
-      );
-    }
+    const client = getConvexClient();
+    const id = await client.mutation(api.checkoutAccess.addUser, {
+      email,
+      firstName: first_name || undefined,
+      lastName: last_name || undefined,
+      notes: notes || undefined,
+      expiresAt: expires_at || undefined,
+      approvedBy: admin.email || 'Admin',
+    });
+    const users = await client.query(api.checkoutAccess.listUsers, {});
+    const user = users.find((row: any) => row._id === id);
 
     await recordRequestAuditEvent(request, {
       category: 'admin_action',
       actionType: 'create',
       resource: 'checkout_access',
-      resourceId: String(data.id),
+      resourceId: String(id),
       status: 'success',
       actorUserId: admin.id,
       actorEmail: admin.email,
-      metadata: { email: data.email },
+      metadata: { email: String(email).toLowerCase(), source: 'convex' },
     });
 
-    return NextResponse.json({ success: true, user: data });
+    return NextResponse.json({ success: true, user: toUserRow(user) });
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json(
@@ -134,7 +107,6 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const supabase = createSupabaseAdminClient();
     const body = await request.json();
     const { id, is_active } = body;
 
@@ -145,28 +117,10 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const { error } = await supabase
-      .from('checkout_access')
-      .update({ is_active })
-      .eq('id', id);
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'admin_action',
-        actionType: 'update',
-        resource: 'checkout_access',
-        resourceId: String(id),
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { is_active, error: error.message },
-      });
-      console.error('Error updating user:', error);
-      return NextResponse.json(
-        { error: 'Failed to update user' },
-        { status: 500 }
-      );
-    }
+    await getConvexClient().mutation(api.checkoutAccess.updateUserStatus, {
+      id,
+      isActive: Boolean(is_active),
+    });
 
     await recordRequestAuditEvent(request, {
       category: 'admin_action',
@@ -176,7 +130,7 @@ export async function PUT(request: NextRequest) {
       status: 'success',
       actorUserId: admin.id,
       actorEmail: admin.email,
-      metadata: { is_active },
+      metadata: { is_active, source: 'convex' },
     });
 
     return NextResponse.json({ success: true });
@@ -196,7 +150,6 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const supabase = createSupabaseAdminClient();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
@@ -207,28 +160,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const { error } = await supabase
-      .from('checkout_access')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'admin_action',
-        actionType: 'delete',
-        resource: 'checkout_access',
-        resourceId: String(id),
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { error: error.message },
-      });
-      console.error('Error deleting user:', error);
-      return NextResponse.json(
-        { error: 'Failed to delete user' },
-        { status: 500 }
-      );
-    }
+    await getConvexClient().mutation(api.checkoutAccess.deleteUser, { id });
 
     await recordRequestAuditEvent(request, {
       category: 'admin_action',
@@ -238,6 +170,7 @@ export async function DELETE(request: NextRequest) {
       status: 'success',
       actorUserId: admin.id,
       actorEmail: admin.email,
+      metadata: { source: 'convex' },
     });
 
     return NextResponse.json({ success: true });

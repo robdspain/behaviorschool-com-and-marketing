@@ -5,6 +5,7 @@ import formData from 'form-data';
 import Mailgun from 'mailgun.js';
 import { createClient } from '@/lib/supabase-server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { api, getConvexClient } from '@/lib/convex';
 
 
 export async function POST(request: NextRequest) {
@@ -47,14 +48,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch checkout password
-    const { data: passwordData } = await adminClient
-      .from('checkout_settings')
-      .select('setting_value')
-      .eq('setting_key', 'checkout_password')
-      .single();
-
-    const checkoutPassword = passwordData?.setting_value || 'SchoolBCBA2025';
+    const checkoutPassword = await getConvexClient().query(api.checkoutAccess.getPassword, {});
 
     // Replace template variables
     const replaceVariables = (text: string) => {

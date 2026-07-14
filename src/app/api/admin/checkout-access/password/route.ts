@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminSession } from '@/lib/admin-auth';
 import { recordRequestAuditEvent } from '@/lib/audit-log';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { api, getConvexClient } from '@/lib/convex';
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,30 +12,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const supabase = createSupabaseAdminClient();
-
-    const { data, error } = await supabase
-      .from('checkout_settings')
-      .select('setting_value')
-      .eq('setting_key', 'checkout_password')
-      .single();
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'student_data',
-        actionType: 'read',
-        resource: 'checkout_settings.checkout_password',
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { error: error.message },
-      });
-      console.error('Error fetching password:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch password' },
-        { status: 500 }
-      );
-    }
+    const password = await getConvexClient().query(api.checkoutAccess.getPassword, {});
 
     await recordRequestAuditEvent(request, {
       category: 'student_data',
@@ -44,9 +21,10 @@ export async function GET(request: NextRequest) {
       status: 'success',
       actorUserId: admin.id,
       actorEmail: admin.email,
+      metadata: { source: 'convex' },
     });
 
-    return NextResponse.json({ password: data?.setting_value || 'SchoolBCBA2025' });
+    return NextResponse.json({ password });
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json(
@@ -63,7 +41,6 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const supabase = createSupabaseAdminClient();
     const { password } = await request.json();
 
     if (!password || password.length < 6) {
@@ -73,27 +50,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const { error } = await supabase
-      .from('checkout_settings')
-      .update({ setting_value: password })
-      .eq('setting_key', 'checkout_password');
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'auth',
-        actionType: 'password_change',
-        resource: 'checkout_settings.checkout_password',
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { error: error.message },
-      });
-      console.error('Error updating password:', error);
-      return NextResponse.json(
-        { error: 'Failed to update password' },
-        { status: 500 }
-      );
-    }
+    await getConvexClient().mutation(api.checkoutAccess.setPassword, { password });
 
     await recordRequestAuditEvent(request, {
       category: 'auth',
@@ -102,6 +59,7 @@ export async function PUT(request: NextRequest) {
       status: 'success',
       actorUserId: admin.id,
       actorEmail: admin.email,
+      metadata: { source: 'convex' },
     });
 
     return NextResponse.json({ success: true });

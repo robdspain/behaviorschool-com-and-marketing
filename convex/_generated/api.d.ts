@@ -11,6 +11,7 @@
 import type * as audit from "../audit.js";
 import type * as audit_logger from "../audit_logger.js";
 import type * as auth from "../auth.js";
+import type * as checkoutAccess from "../checkoutAccess.js";
 import type * as crm from "../crm.js";
 import type * as http from "../http.js";
 import type * as passwordHistory from "../passwordHistory.js";
@@ -25,6 +26,7 @@ declare const fullApi: ApiFromModules<{
   audit: typeof audit;
   audit_logger: typeof audit_logger;
   auth: typeof auth;
+  checkoutAccess: typeof checkoutAccess;
   crm: typeof crm;
   http: typeof http;
   passwordHistory: typeof passwordHistory;
