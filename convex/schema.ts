@@ -819,6 +819,41 @@ export default defineSchema({
     .index("by_activity", ["activityType", "activityId"])
     .index("by_archived_at", ["archivedAt"]),
 
+  contentCalendarPosts: defineTable({
+    legacyId: v.optional(v.string()),
+    title: v.string(),
+    caption: v.optional(v.string()),
+    platforms: v.array(v.string()),
+    contentType: v.string(),
+    mediaUrl: v.optional(v.string()),
+    scheduledDate: v.string(),
+    timezone: v.string(),
+    status: v.string(),
+    tags: v.array(v.string()),
+    notes: v.optional(v.string()),
+    characterCounts: v.optional(v.any()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_status", ["status"])
+    .index("by_content_type", ["contentType"])
+    .index("by_scheduled_date", ["scheduledDate"]),
+
+  postingTimeRecommendations: defineTable({
+    legacyId: v.optional(v.string()),
+    platform: v.string(),
+    dayOfWeek: v.number(),
+    timeWindow: v.string(),
+    priority: v.string(),
+    reason: v.string(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_platform", ["platform"])
+    .index("by_day", ["dayOfWeek"]),
+
   checkoutSettings: defineTable({
     settingKey: v.string(),
     settingValue: v.string(),

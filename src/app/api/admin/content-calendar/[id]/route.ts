@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase-server'
+import { verifyAdminSession } from '@/lib/admin-auth'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -10,22 +11,15 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    const supabase = await createClient()
-    
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
+    const admin = await verifyAdminSession()
+    if (!admin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { data, error } = await supabase
-      .from('content_calendar')
-      .select('*')
-      .eq('id', id)
-      .single()
+    const data = await getConvexClient().query(api.contentCalendar.getPost, { id })
 
-    if (error) {
-      console.error('Error fetching post:', error)
-      return NextResponse.json({ error: error.message }, { status: 404 })
+    if (!data) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
 
     return NextResponse.json({ success: true, post: data })
@@ -42,26 +36,26 @@ export async function PUT(
 ) {
   try {
     const { id } = await params
-    const supabase = await createClient()
-    
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
+    const admin = await verifyAdminSession()
+    if (!admin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const body = await request.json()
-
-    const { data, error } = await supabase
-      .from('content_calendar')
-      .update(body)
-      .eq('id', id)
-      .select()
-      .single()
-
-    if (error) {
-      console.error('Error updating post:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    const data = await getConvexClient().mutation(api.contentCalendar.updatePost, {
+      id,
+      title: body.title,
+      caption: body.caption || undefined,
+      platforms: body.platforms,
+      contentType: body.content_type,
+      mediaUrl: body.media_url || undefined,
+      scheduledDate: body.scheduled_date,
+      timezone: body.timezone,
+      status: body.status,
+      tags: body.tags,
+      notes: body.notes || undefined,
+      characterCounts: body.character_counts,
+    })
 
     return NextResponse.json({ success: true, post: data })
   } catch (error) {
@@ -77,22 +71,12 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params
-    const supabase = await createClient()
-    
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
+    const admin = await verifyAdminSession()
+    if (!admin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { error } = await supabase
-      .from('content_calendar')
-      .delete()
-      .eq('id', id)
-
-    if (error) {
-      console.error('Error deleting post:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    await getConvexClient().mutation(api.contentCalendar.deletePost, { id })
 
     return NextResponse.json({ success: true, message: 'Post deleted' })
   } catch (error) {

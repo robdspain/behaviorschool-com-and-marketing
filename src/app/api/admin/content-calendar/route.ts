@@ -1,16 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase-server'
+import { verifyAdminSession } from '@/lib/admin-auth'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
 // GET all content calendar posts
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient()
-    
-    // Check authentication
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
+    const admin = await verifyAdminSession()
+    if (!admin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -22,35 +20,13 @@ export async function GET(request: NextRequest) {
     const startDate = searchParams.get('start_date')
     const endDate = searchParams.get('end_date')
 
-    // Build query
-    let query = supabase
-      .from('content_calendar')
-      .select('*')
-      .order('scheduled_date', { ascending: true })
-
-    // Apply filters
-    if (platform) {
-      query = query.contains('platforms', [platform])
-    }
-    if (status) {
-      query = query.eq('status', status)
-    }
-    if (contentType) {
-      query = query.eq('content_type', contentType)
-    }
-    if (startDate) {
-      query = query.gte('scheduled_date', startDate)
-    }
-    if (endDate) {
-      query = query.lte('scheduled_date', endDate)
-    }
-
-    const { data, error } = await query
-
-    if (error) {
-      console.error('Error fetching content calendar:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    const data = await getConvexClient().query(api.contentCalendar.listPosts, {
+      platform: platform || undefined,
+      status: status || undefined,
+      contentType: contentType || undefined,
+      startDate: startDate || undefined,
+      endDate: endDate || undefined,
+    })
 
     return NextResponse.json({ success: true, posts: data })
   } catch (error) {
@@ -62,11 +38,8 @@ export async function GET(request: NextRequest) {
 // POST create new content calendar post
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient()
-    
-    // Check authentication
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
+    const admin = await verifyAdminSession()
+    if (!admin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -93,28 +66,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { data, error } = await supabase
-      .from('content_calendar')
-      .insert({
-        title,
-        caption,
-        platforms,
-        content_type,
-        media_url,
-        scheduled_date,
-        timezone: timezone || 'America/Los_Angeles',
-        status: status || 'draft',
-        tags: tags || [],
-        notes,
-        character_counts: character_counts || {}
-      })
-      .select()
-      .single()
-
-    if (error) {
-      console.error('Error creating post:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
+    const data = await getConvexClient().mutation(api.contentCalendar.createPost, {
+      title,
+      caption: caption || undefined,
+      platforms,
+      contentType: content_type,
+      mediaUrl: media_url || undefined,
+      scheduledDate: scheduled_date,
+      timezone: timezone || 'America/Los_Angeles',
+      status: status || 'draft',
+      tags: tags || [],
+      notes: notes || undefined,
+      characterCounts: character_counts || {},
+    })
 
     return NextResponse.json({ success: true, post: data }, { status: 201 })
   } catch (error) {
