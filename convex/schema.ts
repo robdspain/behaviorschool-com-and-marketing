@@ -707,6 +707,8 @@ export default defineSchema({
     recipient: v.string(),
     subject: v.string(),
     checkoutLink: v.optional(v.string()),
+    providerMessageId: v.optional(v.string()),
+    errorMessage: v.optional(v.string()),
     status: v.union(
       v.literal("draft"),
       v.literal("sent"),

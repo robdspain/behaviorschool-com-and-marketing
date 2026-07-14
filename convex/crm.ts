@@ -549,6 +549,7 @@ export const logCheckoutFollowUpSent = mutation({
     subject: v.string(),
     checkoutLink: v.string(),
     sentAt: v.optional(v.string()),
+    providerMessageId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const timestamp = nowIso();
@@ -563,6 +564,7 @@ export const logCheckoutFollowUpSent = mutation({
       recipient: args.recipient,
       subject: args.subject,
       checkoutLink: args.checkoutLink,
+      providerMessageId: args.providerMessageId,
       status: "sent",
       sentAt,
       createdAt: timestamp,
@@ -598,6 +600,46 @@ export const logCheckoutFollowUpSent = mutation({
       subject: args.subject,
       body: `Checkout follow-up sent to ${args.recipient}.`,
       metadata: { checkoutLink: args.checkoutLink, status: "sent" },
+    });
+
+    return { emailLogId };
+  },
+});
+
+export const logCheckoutFollowUpFailed = mutation({
+  args: {
+    discoveryCallId: v.id("crmDiscoveryCalls"),
+    recipient: v.string(),
+    subject: v.string(),
+    checkoutLink: v.string(),
+    errorMessage: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const timestamp = nowIso();
+    const discoveryCall = await ctx.db.get(args.discoveryCallId);
+    if (!discoveryCall) throw new Error("Discovery call not found");
+
+    const emailLogId = await ctx.db.insert("crmEmailLogs", {
+      contactId: discoveryCall.contactId,
+      discoveryCallId: args.discoveryCallId,
+      taskId: discoveryCall.followUpTaskId,
+      recipient: args.recipient,
+      subject: args.subject,
+      checkoutLink: args.checkoutLink,
+      errorMessage: args.errorMessage,
+      status: "failed",
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    });
+
+    await insertActivity(ctx, {
+      contactId: discoveryCall.contactId,
+      taskId: discoveryCall.followUpTaskId,
+      discoveryCallId: args.discoveryCallId,
+      activityType: "email_failed",
+      subject: `Failed: ${args.subject}`,
+      body: args.errorMessage,
+      metadata: { checkoutLink: args.checkoutLink, status: "failed" },
     });
 
     return { emailLogId };

@@ -149,13 +149,14 @@ export default function DiscoveryCallsPage() {
         recipient: call.email,
         subject: "Transformation Program payment options",
         checkoutLink: call.checkout_link || checkoutLink,
+        firstName: call.contact_name.split(" ")[0] || "",
         sentAt: new Date().toISOString(),
       }),
     });
 
     if (!response.ok) {
       const body = await response.json();
-      setError(body.message || "Failed to log follow-up");
+      setError(body.message || "Failed to send follow-up");
       return;
     }
 
@@ -388,7 +389,7 @@ export default function DiscoveryCallsPage() {
                           className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
                         >
                           <MailCheck className="h-4 w-4" />
-                          Mark Email Sent
+                          Send Email
                         </button>
                       ) : (
                         <div className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700">
