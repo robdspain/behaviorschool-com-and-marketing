@@ -51,6 +51,7 @@ export default function CheckoutAccessPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   // New user form
   const [newUser, setNewUser] = useState({
@@ -66,6 +67,23 @@ export default function CheckoutAccessPage() {
   }, []);
 
   const fetchData = async () => {
+    setErrorMessage('');
+
+    const readJson = async (response: Response, label: string) => {
+      if (!response.ok) {
+        let detail = '';
+        try {
+          const data = await response.json();
+          detail = data?.error ? `: ${data.error}` : '';
+        } catch {
+          detail = '';
+        }
+        throw new Error(`${label} failed (${response.status})${detail}`);
+      }
+
+      return response.json();
+    };
+
     try {
       const [passwordRes, usersRes, logsRes] = await Promise.all([
         fetch('/api/admin/checkout-access/password'),
@@ -73,22 +91,24 @@ export default function CheckoutAccessPage() {
         fetch('/api/admin/checkout-access/logs'),
       ]);
 
-      if (passwordRes.ok) {
-        const passwordData = await passwordRes.json();
-        setPassword(passwordData.password);
-      }
+      const [passwordData, usersData, logsData] = await Promise.all([
+        readJson(passwordRes, 'Password load'),
+        readJson(usersRes, 'Approved users load'),
+        readJson(logsRes, 'Access logs load'),
+      ]);
 
-      if (usersRes.ok) {
-        const usersData = await usersRes.json();
-        setApprovedUsers(usersData.users);
-      }
-
-      if (logsRes.ok) {
-        const logsData = await logsRes.json();
-        setAccessLogs(logsData.logs);
-      }
+      setPassword(passwordData.password);
+      setApprovedUsers(usersData.users || []);
+      setAccessLogs(logsData.logs || []);
     } catch (error) {
       console.error('Error fetching data:', error);
+      setApprovedUsers([]);
+      setAccessLogs([]);
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : 'Admin checkout access data could not be loaded.'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -224,6 +244,17 @@ export default function CheckoutAccessPage() {
         <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center gap-2">
           <CheckCircle className="w-5 h-5 text-emerald-600" />
           <p className="text-emerald-700">{successMessage}</p>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div
+          className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2"
+          role="alert"
+          aria-live="polite"
+        >
+          <XCircle className="w-5 h-5 text-red-600" />
+          <p className="text-red-700">{errorMessage}</p>
         </div>
       )}
 
