@@ -6,9 +6,6 @@ export const metadata: Metadata = {
   description: 'Simple pricing for Behavior School tools and programs.',
 };
 
-const transformationCheckout = 'https://buy.stripe.com/14AaEWdmIekU2Mc1OK6Vq01';
-const transformationInstallments = 'https://buy.stripe.com/00w5kCaawdgQ72sdxs6Vq02';
-
 export default function PricingPage() {
   return (
     <main className="min-h-screen bg-[#f9f7f2] py-16 px-4">
@@ -43,25 +40,26 @@ export default function PricingPage() {
             <span className="absolute -top-3 left-6 rounded-full bg-[#e4b63d] px-3 py-1 text-xs font-semibold text-[#123628]">Featured</span>
             <h2 className="text-xl font-bold text-[#123628]">Transformation Program</h2>
             <p className="mt-1 text-slate-600 text-sm">6-week live cohort for school BCBAs</p>
-            <p className="mt-5 text-3xl font-bold text-[#123628]">$2,497</p>
+            <p className="mt-5 text-3xl font-bold text-[#123628]">$1,997</p>
+            <p className="mt-1 text-sm font-semibold text-slate-600">Payment plan: 3 payments of $697</p>
             <ul className="mt-5 space-y-2 text-sm text-slate-700">
               <li>Live weekly coaching</li>
               <li>Templates and implementation systems</li>
               <li>District-ready documentation support</li>
             </ul>
             <div className="mt-6 space-y-2">
-              <a
-                href={transformationCheckout}
+              <Link
+                href="/transformation-program"
                 className="inline-flex w-full items-center justify-center rounded-full bg-[#1f4d3f] px-4 py-3 text-sm font-semibold text-white hover:bg-[#123628]"
               >
-                Enroll now
-              </a>
-              <a
-                href={transformationInstallments}
+                View program details
+              </Link>
+              <Link
+                href="/contact"
                 className="inline-flex w-full items-center justify-center rounded-full border border-[#1f4d3f]/30 px-4 py-3 text-sm font-semibold text-[#1f4d3f] hover:bg-[#1f4d3f]/5"
               >
-                3 monthly payments
-              </a>
+                Request private checkout
+              </Link>
             </div>
           </article>
 

@@ -48,7 +48,6 @@ export async function POST(request: NextRequest) {
     }
 
     const checkoutUrl = 'https://behaviorschool.com/transformation-program/checkout';
-    const stripeUrl = 'https://buy.stripe.com/bJe00i82o6Ss72seBw6Vq00';
 
     const htmlContent = `
 <!DOCTYPE html>

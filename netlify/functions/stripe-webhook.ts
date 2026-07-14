@@ -19,7 +19,7 @@ type HandlerResponse = {
 type Handler = (event: HandlerEvent) => Promise<HandlerResponse>;
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2026-01-28.clover",
+  apiVersion: "2026-02-25.clover",
 });
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -729,6 +729,60 @@ async function sendTransformationWelcomeEmail(purchase: PurchaseContext): Promis
   }
 }
 
+function addUtcMonths(unixSeconds: number, months: number): number {
+  const date = new Date(unixSeconds * 1000);
+  const day = date.getUTCDate();
+  const next = new Date(date.getTime());
+  next.setUTCMonth(next.getUTCMonth() + months);
+
+  // JavaScript rolls dates like Jan 31 + 1 month into March. Clamp to the last
+  // day of the intended target month so billing anchors remain predictable.
+  if (next.getUTCDate() !== day) {
+    next.setUTCDate(0);
+  }
+
+  return Math.floor(next.getTime() / 1000);
+}
+
+async function scheduleThreePaymentPlanCancellation(session: Stripe.Checkout.Session): Promise<void> {
+  if (
+    session.mode !== "subscription" ||
+    session.metadata?.checkout_option !== "installments" ||
+    session.metadata?.installment_total_payments !== "3" ||
+    !session.subscription
+  ) {
+    return;
+  }
+
+  const subscriptionId =
+    typeof session.subscription === "string" ? session.subscription : session.subscription.id;
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+
+  if (subscription.cancel_at) {
+    return;
+  }
+
+  const cancelAt = addUtcMonths(subscription.current_period_start, 3);
+  await stripe.subscriptions.update(subscriptionId, {
+    cancel_at: cancelAt,
+    metadata: {
+      ...subscription.metadata,
+      program: "transformation_program",
+      checkout_option: "installments",
+      installment_total_payments: "3",
+      installment_cancel_at: String(cancelAt),
+    },
+  });
+
+  await sendTelegram(
+    `🧾 <b>PAYMENT PLAN SCHEDULED</b>\n\n` +
+      `📦 Product: School BCBA Transformation Program\n` +
+      `💰 Plan: 3 monthly payments of ${formatMoney(69700)}\n` +
+      `📅 Subscription set to cancel after third payment period\n` +
+      `🔗 Subscription: ${subscriptionId}`,
+  );
+}
+
 async function processCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
   const amount = session.amount_total || 0;
   const email = normalizeEmail(session.customer_email || session.customer_details?.email) || "Unknown";
@@ -751,6 +805,8 @@ async function processCheckoutSessionCompleted(session: Stripe.Checkout.Session)
     console.log("[Stripe Webhook] Checkout session did not match Transformation Program provisioning rules");
     return;
   }
+
+  await scheduleThreePaymentPlanCancellation(session);
 
   const supabase = getSupabaseAdminClient();
   if (await hasPurchaseAudit(supabase, purchase.stripeSessionId)) {
