@@ -1,74 +1,41 @@
 export const dynamic = "force-dynamic";
 
-import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { NextRequest, NextResponse } from "next/server";
+import { api, getConvexClient } from "@/lib/convex";
 
-// PATCH - Update a task
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createSupabaseAdminClient();
     const { id } = await params;
     const body = await request.json();
-
-    const { data, error } = await supabase
-      .from('crm_tasks')
-      .update(body)
-      .eq('id', id)
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Error updating task:', error);
-      return NextResponse.json(
-        { message: 'Failed to update task' },
-        { status: 500 }
-      );
-    }
-
+    const data = await getConvexClient().mutation(api.crm.updateTask, {
+      id,
+      title: body.title,
+      description: body.description,
+      dueDate: body.due_date ?? body.dueDate,
+      priority: body.priority,
+      status: body.status,
+      taskType: body.task_type ?? body.taskType,
+    });
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error("Error updating task:", error);
+    return NextResponse.json({ message: "Failed to update task" }, { status: 500 });
   }
 }
 
-// DELETE - Delete a task
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createSupabaseAdminClient();
     const { id } = await params;
-
-    const { error } = await supabase
-      .from('crm_tasks')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      console.error('Error deleting task:', error);
-      return NextResponse.json(
-        { message: 'Failed to delete task' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json(
-      { message: 'Task deleted successfully' },
-      { status: 200 }
-    );
+    await getConvexClient().mutation(api.crm.deleteTask, { id });
+    return NextResponse.json({ message: "Task deleted successfully" }, { status: 200 });
   } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error("Error deleting task:", error);
+    return NextResponse.json({ message: "Failed to delete task" }, { status: 500 });
   }
 }

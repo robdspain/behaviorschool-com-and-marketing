@@ -1,271 +1,209 @@
 export const dynamic = "force-dynamic";
 
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { NextRequest, NextResponse } from "next/server";
+import { api, getConvexClient } from "@/lib/convex";
 
-const CRM_DATA_PATH = path.join(process.cwd(), 'data', 'crm.json');
-
-interface Contact {
-  id: string;
-  name: string;
+type ConvexContact = {
+  _id: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone: string | null;
-  company: string | null;
-  role: string | null;
-  type: 'lead' | 'customer' | 'partner' | 'prospect';
-  source: 'website' | 'conference' | 'referral' | 'email' | 'social';
-  status: 'new' | 'contacted' | 'qualified' | 'converted' | 'inactive';
-  tags: string[];
-  notes: string;
-  lastContactDate: string | null;
-  followUpDate: string | null;
-  linkedInUrl: string | null;
-  programInterest: string | null;
+  phone?: string;
+  organization?: string;
+  role?: string;
+  status: string;
+  leadSource?: string;
+  tags?: string[];
+  notes?: string;
+  lastContactedAt?: string;
+  followUpDate?: string;
+  stripeCustomerId?: string;
+  revenue?: number;
   createdAt: string;
   updatedAt: string;
-  stripeCustomerId: string | null;
-  revenue: number;
+};
+
+const sourceValues = new Set(["website", "conference", "referral", "email", "social"]);
+
+function splitName(name: string) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  return {
+    firstName: parts.shift() ?? "",
+    lastName: parts.join(" "),
+  };
 }
 
-interface CRMData {
-  contacts: Contact[];
+function toLegacyStatus(status: string) {
+  if (status === "contacted") return "contacted";
+  if (status === "qualified" || status === "onboarding") return "qualified";
+  if (status === "customer") return "converted";
+  if (status === "inactive" || status === "churned") return "inactive";
+  return "new";
 }
 
-async function readCRMData(): Promise<CRMData> {
-  try {
-    const data = await fs.readFile(CRM_DATA_PATH, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading CRM data:', error);
-    return { contacts: [] };
-  }
+function fromLegacyStatus(status?: string) {
+  if (status === "contacted") return "contacted";
+  if (status === "qualified") return "qualified";
+  if (status === "converted") return "customer";
+  if (status === "inactive") return "inactive";
+  return "lead";
 }
 
-async function writeCRMData(data: CRMData): Promise<void> {
-  try {
-    await fs.writeFile(CRM_DATA_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('Error writing CRM data:', error);
-    throw error;
-  }
+function toLegacyContact(contact: ConvexContact) {
+  const source = contact.leadSource && sourceValues.has(contact.leadSource)
+    ? contact.leadSource
+    : "website";
+
+  return {
+    id: contact._id,
+    name: [contact.firstName, contact.lastName].filter(Boolean).join(" ").trim(),
+    email: contact.email,
+    phone: contact.phone ?? null,
+    company: contact.organization ?? null,
+    role: contact.role ?? null,
+    type: contact.status === "customer" ? "customer" : "lead",
+    source,
+    status: toLegacyStatus(contact.status),
+    tags: contact.tags ?? [],
+    notes: contact.notes ?? "",
+    lastContactDate: contact.lastContactedAt ?? null,
+    followUpDate: contact.followUpDate ?? null,
+    linkedInUrl: null,
+    programInterest: contact.tags?.find((tag) => tag.includes("program")) ?? null,
+    createdAt: contact.createdAt,
+    updatedAt: contact.updatedAt,
+    stripeCustomerId: contact.stripeCustomerId ?? null,
+    revenue: contact.revenue ?? 0,
+  };
 }
 
-// GET - List, search, and filter contacts
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const query = searchParams.get('q')?.toLowerCase() || '';
-    const type = searchParams.get('type') || '';
-    const status = searchParams.get('status') || '';
-    const source = searchParams.get('source') || '';
-    const tags = searchParams.get('tags')?.split(',').filter(Boolean) || [];
-    const followUp = searchParams.get('followUp') || '';
-    const sortBy = searchParams.get('sortBy') || 'createdAt';
-    const sortOrder = searchParams.get('sortOrder') || 'desc';
+    const client = getConvexClient();
+    let contacts = (await client.query(api.crm.listContacts, {
+      query: searchParams.get("q") || undefined,
+    })) as ConvexContact[];
 
-    const data = await readCRMData();
-    let contacts = data.contacts;
+    const type = searchParams.get("type") || "";
+    const status = searchParams.get("status") || "";
+    const source = searchParams.get("source") || "";
+    const tags = searchParams.get("tags")?.split(",").filter(Boolean) || [];
+    const followUp = searchParams.get("followUp") || "";
+    const sortBy = searchParams.get("sortBy") || "createdAt";
+    const sortOrder = searchParams.get("sortOrder") || "desc";
 
-    // Search filter (name, email, company)
-    if (query) {
-      contacts = contacts.filter(
-        (c) =>
-          c.name.toLowerCase().includes(query) ||
-          c.email.toLowerCase().includes(query) ||
-          c.company?.toLowerCase().includes(query)
-      );
-    }
+    let legacyContacts = contacts.map(toLegacyContact);
 
-    // Type filter
-    if (type) {
-      contacts = contacts.filter((c) => c.type === type);
-    }
-
-    // Status filter
-    if (status) {
-      contacts = contacts.filter((c) => c.status === status);
-    }
-
-    // Source filter
-    if (source) {
-      contacts = contacts.filter((c) => c.source === source);
-    }
-
-    // Tags filter (match any of the provided tags)
+    if (type) legacyContacts = legacyContacts.filter((contact) => contact.type === type);
+    if (status) legacyContacts = legacyContacts.filter((contact) => contact.status === status);
+    if (source) legacyContacts = legacyContacts.filter((contact) => contact.source === source);
     if (tags.length > 0) {
-      contacts = contacts.filter((c) =>
-        tags.some((tag) => c.tags.includes(tag))
+      legacyContacts = legacyContacts.filter((contact) =>
+        tags.some((tag) => contact.tags.includes(tag))
       );
     }
 
-    // Follow-up date filter
     if (followUp) {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const weekFromNow = new Date(today);
       weekFromNow.setDate(weekFromNow.getDate() + 7);
-      if (followUp === 'overdue') {
-        contacts = contacts.filter((c) => c.followUpDate && new Date(c.followUpDate) < today);
-      } else if (followUp === 'this-week') {
-        contacts = contacts.filter((c) => c.followUpDate && new Date(c.followUpDate) >= today && new Date(c.followUpDate) <= weekFromNow);
-      } else if (followUp === 'any') {
-        contacts = contacts.filter((c) => !!c.followUpDate);
+      if (followUp === "overdue") {
+        legacyContacts = legacyContacts.filter((contact) => contact.followUpDate && new Date(contact.followUpDate) < today);
+      } else if (followUp === "this-week") {
+        legacyContacts = legacyContacts.filter((contact) => contact.followUpDate && new Date(contact.followUpDate) >= today && new Date(contact.followUpDate) <= weekFromNow);
+      } else if (followUp === "any") {
+        legacyContacts = legacyContacts.filter((contact) => !!contact.followUpDate);
       }
     }
 
-    // Sort
-    contacts.sort((a, b) => {
-      let aVal: any = a[sortBy as keyof Contact];
-      let bVal: any = b[sortBy as keyof Contact];
-
-      // Handle dates
-      if (sortBy === 'createdAt' || sortBy === 'updatedAt' || sortBy === 'lastContactDate') {
-        aVal = aVal ? new Date(aVal).getTime() : 0;
-        bVal = bVal ? new Date(bVal).getTime() : 0;
+    legacyContacts.sort((a, b) => {
+      let aVal: string | number = String(a[sortBy as keyof typeof a] ?? "");
+      let bVal: string | number = String(b[sortBy as keyof typeof b] ?? "");
+      if (sortBy === "createdAt" || sortBy === "updatedAt" || sortBy === "lastContactDate" || sortBy === "followUpDate") {
+        aVal = aVal ? new Date(String(aVal)).getTime() : 0;
+        bVal = bVal ? new Date(String(bVal)).getTime() : 0;
       }
-
-      // Handle numbers
-      if (sortBy === 'revenue') {
-        aVal = aVal || 0;
-        bVal = bVal || 0;
+      if (sortBy === "revenue") {
+        aVal = Number(aVal) || 0;
+        bVal = Number(bVal) || 0;
       }
-
-      // Handle strings
-      if (typeof aVal === 'string') {
+      if (typeof aVal === "string") {
         aVal = aVal.toLowerCase();
-        bVal = bVal?.toLowerCase() || '';
+        bVal = String(bVal ?? "").toLowerCase();
       }
-
-      if (sortOrder === 'asc') {
-        return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
-      } else {
-        return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
-      }
+      if (sortOrder === "asc") return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+      return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
     });
 
-    return NextResponse.json({
-      contacts,
-      total: contacts.length,
-    });
+    return NextResponse.json({ contacts: legacyContacts, total: legacyContacts.length });
   } catch (error) {
-    console.error('Error in GET /api/crm:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch contacts' },
-      { status: 500 }
-    );
+    console.error("Error in GET /api/crm:", error);
+    return NextResponse.json({ error: "Failed to fetch contacts" }, { status: 500 });
   }
 }
 
-// POST - Add new contact
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-
-    // Validate required fields
     if (!body.name || !body.email) {
-      return NextResponse.json(
-        { error: 'Name and email are required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Name and email are required" }, { status: 400 });
     }
 
-    const data = await readCRMData();
-
-    // Check for duplicate email
-    const existingContact = data.contacts.find(
-      (c) => c.email.toLowerCase() === body.email.toLowerCase()
-    );
-
-    if (existingContact) {
-      return NextResponse.json(
-        { error: 'Contact with this email already exists' },
-        { status: 409 }
-      );
-    }
-
-    // Generate new ID
-    const maxId = data.contacts.length > 0
-      ? Math.max(...data.contacts.map((c) => parseInt(c.id)))
-      : 0;
-    const newId = (maxId + 1).toString();
-
-    // Create new contact
-    const now = new Date().toISOString();
-    const newContact: Contact = {
-      id: newId,
-      name: body.name,
-      email: body.email.toLowerCase(),
-      phone: body.phone || null,
-      company: body.company || null,
-      role: body.role || null,
-      type: body.type || 'lead',
-      source: body.source || 'website',
-      status: body.status || 'new',
+    const { firstName, lastName } = splitName(body.name);
+    const client = getConvexClient();
+    const id = await client.mutation(api.crm.upsertContact, {
+      firstName,
+      lastName,
+      email: body.email,
+      phone: body.phone || undefined,
+      organization: body.company || undefined,
+      role: body.role || undefined,
+      status: fromLegacyStatus(body.status),
+      leadSource: body.source || "website",
       tags: body.tags || [],
-      notes: body.notes || '',
-      lastContactDate: body.lastContactDate || null,
-      followUpDate: body.followUpDate || null,
-      linkedInUrl: body.linkedInUrl || null,
-      programInterest: body.programInterest || null,
-      createdAt: now,
-      updatedAt: now,
-      stripeCustomerId: body.stripeCustomerId || null,
+      notes: body.notes || undefined,
+      followUpDate: body.followUpDate || undefined,
+      stripeCustomerId: body.stripeCustomerId || undefined,
       revenue: body.revenue || 0,
-    };
-
-    data.contacts.push(newContact);
-    await writeCRMData(data);
-
-    return NextResponse.json(newContact, { status: 201 });
+    });
+    const contact = await client.query(api.crm.getContact, { id });
+    return NextResponse.json(toLegacyContact(contact), { status: 201 });
   } catch (error) {
-    console.error('Error in POST /api/crm:', error);
-    return NextResponse.json(
-      { error: 'Failed to create contact' },
-      { status: 500 }
-    );
+    console.error("Error in POST /api/crm:", error);
+    return NextResponse.json({ error: "Failed to create contact" }, { status: 500 });
   }
 }
 
-// PATCH - Update existing contact
 export async function PATCH(request: NextRequest) {
   try {
     const body = await request.json();
-
     if (!body.id) {
-      return NextResponse.json(
-        { error: 'Contact ID is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Contact ID is required" }, { status: 400 });
     }
 
-    const data = await readCRMData();
-    const contactIndex = data.contacts.findIndex((c) => c.id === body.id);
+    const name = body.name ? splitName(body.name) : {};
+    const client = getConvexClient();
+    const contact = await client.mutation(api.crm.updateContact, {
+      id: body.id,
+      ...name,
+      email: body.email || undefined,
+      phone: body.phone || undefined,
+      organization: body.company || undefined,
+      role: body.role || undefined,
+      status: body.status ? fromLegacyStatus(body.status) : undefined,
+      leadSource: body.source || undefined,
+      tags: body.tags || undefined,
+      notes: body.notes || undefined,
+      followUpDate: body.followUpDate || undefined,
+      stripeCustomerId: body.stripeCustomerId || undefined,
+      revenue: body.revenue,
+    });
 
-    if (contactIndex === -1) {
-      return NextResponse.json(
-        { error: 'Contact not found' },
-        { status: 404 }
-      );
-    }
-
-    // Update contact (merge with existing data)
-    const now = new Date().toISOString();
-    const updatedContact: Contact = {
-      ...data.contacts[contactIndex],
-      ...body,
-      updatedAt: now,
-    };
-
-    data.contacts[contactIndex] = updatedContact;
-    await writeCRMData(data);
-
-    return NextResponse.json(updatedContact);
+    return NextResponse.json(toLegacyContact(contact));
   } catch (error) {
-    console.error('Error in PATCH /api/crm:', error);
-    return NextResponse.json(
-      { error: 'Failed to update contact' },
-      { status: 500 }
-    );
+    console.error("Error in PATCH /api/crm:", error);
+    return NextResponse.json({ error: "Failed to update contact" }, { status: 500 });
   }
 }

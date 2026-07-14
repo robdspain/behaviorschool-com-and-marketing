@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList } from 'lucide-react'
+import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList, PhoneCall, Clock, MailCheck, CalendarClock } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -27,6 +27,18 @@ interface Activity {
   original_timestamp?: string
 }
 
+interface CrmDashboard {
+  discovery: {
+    callsToday: number
+    followUpNotSent: number
+    followUpSent: number
+    checkoutOpened: number
+    checkoutStarted: number
+    paidEnrolled: number
+    overdueFollowUps: number
+  }
+}
+
 export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -38,6 +50,7 @@ export default function AdminDashboard() {
   const [archivedLoading, setArchivedLoading] = useState(false)
   const [showArchived, setShowArchived] = useState(false)
   const [nlSummary, setNlSummary] = useState<{ totals: { opens: number; clicks: number }; daily: Array<{ date: string; opens: number; clicks: number }> } | null>(null)
+  const [crmDashboard, setCrmDashboard] = useState<CrmDashboard | null>(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -112,6 +125,16 @@ export default function AdminDashboard() {
       } catch {}
     }
     if (isAuthenticated) fetchNewsletterSummary()
+  }, [isAuthenticated])
+
+  useEffect(() => {
+    const fetchCrmDashboard = async () => {
+      try {
+        const res = await fetch('/api/admin/crm/dashboard')
+        if (res.ok) setCrmDashboard(await res.json())
+      } catch {}
+    }
+    if (isAuthenticated) fetchCrmDashboard()
   }, [isAuthenticated])
 
   const fetchArchivedActivity = async () => {
@@ -377,6 +400,57 @@ export default function AdminDashboard() {
                 <p className="text-sm text-slate-600 mt-1">Email templates</p>
               </>
             )}
+          </div>
+        </div>
+
+        {/* Discovery Call Workflow */}
+        <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900">Discovery Call Follow-up</h2>
+              <p className="text-sm text-slate-600 mt-1">Track calls, checkout follow-up, and overdue follow-up tasks.</p>
+            </div>
+            <Link href="/admin/crm/discovery-calls" className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
+              Open discovery calls
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className="border border-slate-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-slate-600">Calls Today</h3>
+                <PhoneCall className="w-5 h-5 text-emerald-600" />
+              </div>
+              <p className="text-2xl font-bold text-slate-900">{crmDashboard?.discovery.callsToday ?? 0}</p>
+            </div>
+            <div className="border border-slate-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-slate-600">Follow-up Not Sent</h3>
+                <Clock className="w-5 h-5 text-amber-600" />
+              </div>
+              <p className="text-2xl font-bold text-slate-900">{crmDashboard?.discovery.followUpNotSent ?? 0}</p>
+            </div>
+            <div className="border border-slate-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-slate-600">Follow-up Sent</h3>
+                <MailCheck className="w-5 h-5 text-blue-600" />
+              </div>
+              <p className="text-2xl font-bold text-slate-900">{crmDashboard?.discovery.followUpSent ?? 0}</p>
+            </div>
+            <div className="border border-slate-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-slate-600">Overdue Follow-ups</h3>
+                <CalendarClock className="w-5 h-5 text-red-600" />
+              </div>
+              <p className="text-2xl font-bold text-red-600">{crmDashboard?.discovery.overdueFollowUps ?? 0}</p>
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-slate-600">
+            <div>Checkout opened: {crmDashboard?.discovery.checkoutOpened ?? 0}</div>
+            <div>Checkout started: {crmDashboard?.discovery.checkoutStarted ?? 0}</div>
+            <div>Paid/enrolled: {crmDashboard?.discovery.paidEnrolled ?? 0}</div>
           </div>
         </div>
 

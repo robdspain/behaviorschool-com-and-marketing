@@ -18,7 +18,8 @@ import {
   Layers,
   Presentation,
   Megaphone,
-  BarChart3
+  BarChart3,
+  PhoneCall
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -46,6 +47,8 @@ const navigation: NavItem[] = [
     icon: Users,
     children: [
       { name: "Submissions", href: "/admin/submissions", icon: Users },
+      { name: "CRM", href: "/admin/crm", icon: Users },
+      { name: "Discovery Calls", href: "/admin/crm/discovery-calls", icon: PhoneCall },
       { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
       { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
     ]

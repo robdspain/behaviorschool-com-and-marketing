@@ -1,6 +1,6 @@
 import { createClient, type GenericCtx } from "@convex-dev/better-auth";
 import { convex, crossDomain } from "@convex-dev/better-auth/plugins";
-import { createAuthMiddleware } from "@better-auth/core/api";
+import { createAuthMiddleware } from "better-auth/api";
 import { betterAuth } from "better-auth/minimal";
 import { hashPassword } from "better-auth/crypto";
 import { twoFactor } from "better-auth/plugins";
@@ -134,7 +134,7 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
         create: {
           after: async (account) => {
             if (account.providerId === "credential" && account.password) {
-              await (ctx as GenericActionCtx<DataModel>).runMutation(internal.passwordHistory.store, {
+              await (ctx as GenericActionCtx<DataModel>).runMutation((internal as any).passwordHistory.store, {
                 userId: account.userId,
                 passwordHash: account.password,
               });
@@ -144,7 +144,7 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
         update: {
           after: async (account) => {
             if (account.password && account.userId) {
-              await (ctx as GenericActionCtx<DataModel>).runMutation(internal.passwordHistory.store, {
+              await (ctx as GenericActionCtx<DataModel>).runMutation((internal as any).passwordHistory.store, {
                 userId: account.userId,
                 passwordHash: account.password,
               });
@@ -180,7 +180,7 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
           "/two-factor/disable": status === "success" ? "mfa_disabled" : "mfa_disable_failed",
         };
 
-        await writeAuditLog({
+        await writeAuditLog(ctx as any, {
           category: "auth",
           actionType: actionByPath[authContext.path] ?? authContext.path.replaceAll("/", "").trim(),
           resource: "better_auth",

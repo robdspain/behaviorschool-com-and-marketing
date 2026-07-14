@@ -558,6 +558,169 @@ export default defineSchema({
     .index("by_provider", ["providerId"]),
 
   // ============================================================================
+  // CRM
+  // ============================================================================
+  crmContacts: defineTable({
+    firstName: v.string(),
+    lastName: v.string(),
+    email: v.string(),
+    emailLower: v.string(),
+    phone: v.optional(v.string()),
+    organization: v.optional(v.string()),
+    role: v.optional(v.string()),
+    caseloadSize: v.optional(v.number()),
+    status: v.union(
+      v.literal("lead"),
+      v.literal("contacted"),
+      v.literal("qualified"),
+      v.literal("onboarding"),
+      v.literal("customer"),
+      v.literal("churned"),
+      v.literal("inactive")
+    ),
+    leadSource: v.optional(v.string()),
+    tags: v.array(v.string()),
+    notes: v.optional(v.string()),
+    leadScore: v.number(),
+    priority: v.union(
+      v.literal("low"),
+      v.literal("medium"),
+      v.literal("high"),
+      v.literal("urgent")
+    ),
+    lastContactedAt: v.optional(v.string()),
+    followUpDate: v.optional(v.string()),
+    stripeCustomerId: v.optional(v.string()),
+    revenue: v.number(),
+    isArchived: v.boolean(),
+    archivedAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_email_lower", ["emailLower"])
+    .index("by_status", ["status"])
+    .index("by_archived", ["isArchived"]),
+
+  crmTasks: defineTable({
+    title: v.string(),
+    description: v.optional(v.string()),
+    contactId: v.id("crmContacts"),
+    discoveryCallId: v.optional(v.id("crmDiscoveryCalls")),
+    dueDate: v.string(),
+    priority: v.union(
+      v.literal("low"),
+      v.literal("medium"),
+      v.literal("high"),
+      v.literal("urgent")
+    ),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("completed"),
+      v.literal("overdue")
+    ),
+    taskType: v.string(),
+    completedAt: v.optional(v.string()),
+    isArchived: v.boolean(),
+    archivedAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_contact", ["contactId"])
+    .index("by_status", ["status"])
+    .index("by_due_date", ["dueDate"])
+    .index("by_archived", ["isArchived"]),
+
+  crmDeals: defineTable({
+    title: v.string(),
+    contactId: v.id("crmContacts"),
+    discoveryCallId: v.optional(v.id("crmDiscoveryCalls")),
+    value: v.number(),
+    stage: v.string(),
+    probability: v.number(),
+    expectedCloseDate: v.optional(v.string()),
+    paymentOption: v.optional(v.string()),
+    isArchived: v.boolean(),
+    archivedAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_contact", ["contactId"])
+    .index("by_stage", ["stage"])
+    .index("by_archived", ["isArchived"]),
+
+  crmActivities: defineTable({
+    contactId: v.optional(v.id("crmContacts")),
+    taskId: v.optional(v.id("crmTasks")),
+    dealId: v.optional(v.id("crmDeals")),
+    discoveryCallId: v.optional(v.id("crmDiscoveryCalls")),
+    activityType: v.string(),
+    subject: v.string(),
+    body: v.optional(v.string()),
+    activityDate: v.string(),
+    metadata: v.optional(v.any()),
+    createdAt: v.string(),
+  })
+    .index("by_contact", ["contactId"])
+    .index("by_activity_date", ["activityDate"])
+    .index("by_discovery_call", ["discoveryCallId"]),
+
+  crmDiscoveryCalls: defineTable({
+    contactId: v.id("crmContacts"),
+    callDateTime: v.string(),
+    role: v.string(),
+    schoolSettingNotes: v.string(),
+    fitAssessment: v.union(
+      v.literal("perfect_fit"),
+      v.literal("strong_fit"),
+      v.literal("not_fit"),
+      v.literal("needs_follow_up")
+    ),
+    programDiscussed: v.string(),
+    paymentOptionDiscussed: v.union(
+      v.literal("pay_in_full"),
+      v.literal("payment_plan"),
+      v.literal("both"),
+      v.literal("not_discussed"),
+      v.literal("other")
+    ),
+    nextStep: v.string(),
+    checkoutLink: v.optional(v.string()),
+    followUpStatus: v.union(
+      v.literal("pending"),
+      v.literal("sent"),
+      v.literal("not_required")
+    ),
+    followUpTaskId: v.optional(v.id("crmTasks")),
+    followUpEmailLogId: v.optional(v.id("crmEmailLogs")),
+    dealId: v.optional(v.id("crmDeals")),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_contact", ["contactId"])
+    .index("by_call_date", ["callDateTime"])
+    .index("by_follow_up_status", ["followUpStatus"]),
+
+  crmEmailLogs: defineTable({
+    contactId: v.id("crmContacts"),
+    discoveryCallId: v.optional(v.id("crmDiscoveryCalls")),
+    taskId: v.optional(v.id("crmTasks")),
+    recipient: v.string(),
+    subject: v.string(),
+    checkoutLink: v.optional(v.string()),
+    status: v.union(
+      v.literal("draft"),
+      v.literal("sent"),
+      v.literal("failed")
+    ),
+    sentAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_contact", ["contactId"])
+    .index("by_discovery_call", ["discoveryCallId"])
+    .index("by_status", ["status"]),
+
+  // ============================================================================
   // FERPA A4: Password history for reuse prevention (last 12 passwords)
   // ============================================================================
   passwordHistory: defineTable({

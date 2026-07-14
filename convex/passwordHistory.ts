@@ -1,4 +1,4 @@
-import { internalMutation, internalQuery } from "convex/server";
+import { internalMutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
 
 // FERPA A4: Keep last N password hashes per user for reuse enforcement

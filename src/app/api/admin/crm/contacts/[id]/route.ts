@@ -1,74 +1,49 @@
 export const dynamic = "force-dynamic";
 
-import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { NextRequest, NextResponse } from "next/server";
+import { api, getConvexClient } from "@/lib/convex";
 
-// DELETE - Permanently delete a contact
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createSupabaseAdminClient();
     const { id } = await params;
-
-    const { error } = await supabase
-      .from('crm_contacts')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      console.error('Error deleting contact:', error);
-      return NextResponse.json(
-        { message: 'Failed to delete contact' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json(
-      { message: 'Contact deleted successfully' },
-      { status: 200 }
-    );
+    await getConvexClient().mutation(api.crm.deleteContact, { id });
+    return NextResponse.json({ message: "Contact deleted successfully" }, { status: 200 });
   } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error("Error deleting contact:", error);
+    return NextResponse.json({ message: "Failed to delete contact" }, { status: 500 });
   }
 }
 
-// PATCH - Update a contact
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createSupabaseAdminClient();
     const { id } = await params;
     const body = await request.json();
-
-    const { data, error } = await supabase
-      .from('crm_contacts')
-      .update(body)
-      .eq('id', id)
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Error updating contact:', error);
-      return NextResponse.json(
-        { message: 'Failed to update contact' },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json(data, { status: 200 });
+    const contact = await getConvexClient().mutation(api.crm.updateContact, {
+      id,
+      firstName: body.first_name ?? body.firstName,
+      lastName: body.last_name ?? body.lastName,
+      email: body.email,
+      phone: body.phone,
+      organization: body.organization,
+      role: body.role,
+      caseloadSize: body.caseload_size ?? body.caseloadSize,
+      status: body.status,
+      leadSource: body.lead_source ?? body.leadSource,
+      tags: body.tags,
+      notes: body.custom_fields?.notes ?? body.notes,
+      leadScore: body.lead_score ?? body.leadScore,
+      priority: body.priority,
+      lastContactedAt: body.last_contacted_at ?? body.lastContactedAt,
+    });
+    return NextResponse.json(contact, { status: 200 });
   } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error("Error updating contact:", error);
+    return NextResponse.json({ message: "Failed to update contact" }, { status: 500 });
   }
 }
