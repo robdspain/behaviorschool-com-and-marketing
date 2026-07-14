@@ -44,7 +44,7 @@ interface AccessLog {
 }
 
 export default function CheckoutAccessPage() {
-  const [password, setPassword] = useState('SchoolBCBA2025');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [approvedUsers, setApprovedUsers] = useState<CheckoutAccess[]>([]);
   const [accessLogs, setAccessLogs] = useState<AccessLog[]>([]);
@@ -104,9 +104,12 @@ export default function CheckoutAccessPage() {
       console.error('Error fetching data:', error);
       setApprovedUsers([]);
       setAccessLogs([]);
+      const message = error instanceof Error ? error.message : '';
       setErrorMessage(
-        error instanceof Error
-          ? error.message
+        message.includes('(401)')
+          ? 'Admin session required. Please sign in again to manage checkout access.'
+          : message
+            ? message
           : 'Admin checkout access data could not be loaded.'
       );
     } finally {
@@ -231,6 +234,38 @@ export default function CheckoutAccessPage() {
     );
   }
 
+  if (errorMessage) {
+    return (
+      <div className="p-8 max-w-3xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Checkout Access Management</h1>
+          <p className="text-slate-600">
+            Manage who can access the transformation program checkout page
+          </p>
+        </div>
+
+        <div
+          className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2"
+          role="alert"
+          aria-live="polite"
+        >
+          <XCircle className="w-5 h-5 text-red-600 mt-0.5" />
+          <div>
+            <p className="text-red-700">{errorMessage}</p>
+            {errorMessage.includes('sign in') && (
+              <a
+                href="/admin/login"
+                className="inline-flex mt-3 text-sm font-semibold text-red-700 underline underline-offset-4"
+              >
+                Go to admin login
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-8 max-w-7xl mx-auto">
       <div className="mb-8">
@@ -244,17 +279,6 @@ export default function CheckoutAccessPage() {
         <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center gap-2">
           <CheckCircle className="w-5 h-5 text-emerald-600" />
           <p className="text-emerald-700">{successMessage}</p>
-        </div>
-      )}
-
-      {errorMessage && (
-        <div
-          className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2"
-          role="alert"
-          aria-live="polite"
-        >
-          <XCircle className="w-5 h-5 text-red-600" />
-          <p className="text-red-700">{errorMessage}</p>
         </div>
       )}
 
