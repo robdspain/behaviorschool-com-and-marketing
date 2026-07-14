@@ -1,7 +1,6 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createSupabaseAdminClient } from '@/lib/supabase-admin';
 import { api, getConvexClient } from '@/lib/convex';
 
 // Rate limiting: track IPs and timestamps
@@ -9,8 +8,6 @@ const submissionTracker = new Map<string, number>();
 
 export async function POST(request: NextRequest) {
   try {
-    // Use Supabase admin client so RLS can remain strict on public tables
-    const supabase = createSupabaseAdminClient();
     const body = await request.json();
     const { firstName, lastName, email, phone, role, currentChallenges, website } = body;
 
@@ -84,35 +81,29 @@ export async function POST(request: NextRequest) {
     // Record this IP submission
     submissionTracker.set(ip, now);
 
-    // Store in Supabase
-    const { error: signupError } = await supabase
-      .from('signup_submissions')
-      .insert([
-        {
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          phone: phone || null,
-          organization: 'Not collected',
-          role: role,
-          caseload_size: null,
-          current_challenges: currentChallenges || null,
-          status: 'new',
-          submitted_at: new Date().toISOString()
-        }
-      ])
-      .select()
-      .single();
+    const convex = getConvexClient();
+    const submittedAt = new Date().toISOString();
 
-    if (signupError) {
-      console.error('Supabase error:', signupError);
+    try {
+      await convex.mutation(api.submissions.createSignupSubmission, {
+        firstName,
+        lastName,
+        email,
+        phone: phone || undefined,
+        organization: 'Not collected',
+        role,
+        currentChallenges: currentChallenges || undefined,
+        status: 'new',
+        submittedAt,
+      });
+    } catch (signupError) {
+      console.error('Convex signup submission error:', signupError);
       return NextResponse.json(
         { message: 'Failed to save application. Please try again.' },
         { status: 500 }
       );
     }
 
-    const convex = getConvexClient();
     const emailTemplates = await convex.query(api.email.listTemplates, {
       category: 'signup',
       activeOnly: true,
@@ -132,7 +123,7 @@ export async function POST(request: NextRequest) {
       role,
       caseloadSize: 'Not collected',
       currentChallenges: currentChallenges || 'Not provided',
-      submittedAt: new Date().toLocaleString(),
+      submittedAt: new Date(submittedAt).toLocaleString(),
     };
 
     // Function to replace placeholders in template

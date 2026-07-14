@@ -6,7 +6,7 @@ import { api, getConvexClient } from '@/lib/convex';
 
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE;
+  const key = process.env.SUPABASE_SERVICE_ROLE || process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
   return createClient(url, key);
 }
@@ -20,22 +20,39 @@ interface Activity {
 
 export async function GET() {
   const supabase = getSupabase();
-  const convexTemplateActivities = await getConvexClient()
+  const convex = getConvexClient();
+  const convexTemplateActivities = await convex
     .query(api.email.recentTemplateActivity, { limit: 5 })
     .catch((error) => {
       console.error('Error fetching Convex template activity:', error);
+      return [];
+    });
+  const convexSignupActivities = await convex
+    .query(api.submissions.recentSignupActivity, { limit: 10 })
+    .catch((error) => {
+      console.error('Error fetching Convex signup activity:', error);
       return [];
     });
 
   if (!supabase) {
     return NextResponse.json({
       success: true,
-      activities: convexTemplateActivities.map((template: any) => ({
-        type: 'template',
-        title: 'Email template updated',
-        description: `${template.name} template was modified`,
-        timestamp: template.updatedAt,
-      })),
+      activities: [
+        ...convexSignupActivities.map((submission: any) => ({
+          type: 'submission',
+          title: 'New submission received',
+          description: `${submission.firstName} ${submission.lastName} submitted the signup form`,
+          timestamp: submission.submittedAt,
+        })),
+        ...convexTemplateActivities.map((template: any) => ({
+          type: 'template',
+          title: 'Email template updated',
+          description: `${template.name} template was modified`,
+          timestamp: template.updatedAt,
+        })),
+      ]
+        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+        .slice(0, 10),
     });
   }
   
@@ -51,26 +68,18 @@ export async function GET() {
       archivedData?.map(a => `${a.activity_type}:${a.activity_id}`) || []
     );
 
-    // Get recent submissions (last 10)
-    const { data: submissions, error: submissionsError } = await supabase
-      .from('signup_submissions')
-      .select('id, first_name, last_name, submitted_at')
-      .order('submitted_at', { ascending: false })
-      .limit(10);
-
-    if (!submissionsError && submissions) {
-      submissions.forEach(sub => {
-        const activityId = `submission:${sub.id}`;
-        if (!archivedSet.has(activityId)) {
-          activities.push({
-            type: 'submission',
-            title: 'New submission received',
-            description: `${sub.first_name} ${sub.last_name} submitted the signup form`,
-            timestamp: sub.submitted_at,
-          });
-        }
-      });
-    }
+    // Get recent submissions from Convex.
+    convexSignupActivities.forEach((submission: any) => {
+      const activityId = `submission:${submission._id}`;
+      if (!archivedSet.has(activityId)) {
+        activities.push({
+          type: 'submission',
+          title: 'New submission received',
+          description: `${submission.firstName} ${submission.lastName} submitted the signup form`,
+          timestamp: submission.submittedAt,
+        });
+      }
+    });
 
     // Get recent email template updates (last 5) from Convex
     convexTemplateActivities.forEach((template: any) => {

@@ -6,23 +6,35 @@ import { api, getConvexClient } from '@/lib/convex';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const templateStats = await getConvexClient()
+  const convex = getConvexClient();
+  const templateStats = await convex
     .query(api.email.templateStats, {})
     .catch((error) => {
       console.error('Error fetching Convex template stats:', error);
       return { totalTemplates: 0, activeTemplates: 0, draftTemplates: 0 };
     });
 
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  const submissionStats = await convex
+    .query(api.submissions.submissionStats, {
+      weekStartIso: oneWeekAgo.toISOString(),
+    })
+    .catch((error) => {
+      console.error('Error fetching Convex submission stats:', error);
+      return { totalSubmissions: 0, weekSubmissions: 0 };
+    });
+
   // Return zeros if Supabase isn't configured
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE;
+  const key = process.env.SUPABASE_SERVICE_ROLE || process.env.SUPABASE_SERVICE_ROLE_KEY;
   
   if (!url || !key) {
     return NextResponse.json({
       success: true,
       stats: {
-        totalSubmissions: 0,
-        weekSubmissions: 0,
+        totalSubmissions: submissionStats.totalSubmissions,
+        weekSubmissions: submissionStats.weekSubmissions,
         totalTemplates: templateStats.totalTemplates,
         activeTemplates: templateStats.activeTemplates,
         draftTemplates: templateStats.draftTemplates,
@@ -34,28 +46,6 @@ export async function GET() {
   const supabase = createClient(url, key);
   
   try {
-    // Get total submissions count
-    const { count: totalSubmissions, error: submissionsError } = await supabase
-      .from('signup_submissions')
-      .select('*', { count: 'exact', head: true });
-
-    if (submissionsError) {
-      console.error('Error fetching submissions count:', submissionsError);
-    }
-
-    // Get submissions from last week
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-    const { count: weekSubmissions, error: weekError } = await supabase
-      .from('signup_submissions')
-      .select('*', { count: 'exact', head: true })
-      .gte('submitted_at', oneWeekAgo.toISOString());
-
-    if (weekError) {
-      console.error('Error fetching week submissions:', weekError);
-    }
-
     // Get download submissions count
     const { count: downloadCount, error: downloadError } = await supabase
       .from('download_submissions')
@@ -68,8 +58,8 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       stats: {
-        totalSubmissions: totalSubmissions || 0,
-        weekSubmissions: weekSubmissions || 0,
+        totalSubmissions: submissionStats.totalSubmissions,
+        weekSubmissions: submissionStats.weekSubmissions,
         totalTemplates: templateStats.totalTemplates,
         activeTemplates: templateStats.activeTemplates,
         draftTemplates: templateStats.draftTemplates,

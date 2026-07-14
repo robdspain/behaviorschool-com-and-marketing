@@ -16,6 +16,7 @@ import type * as crm from "../crm.js";
 import type * as email from "../email.js";
 import type * as http from "../http.js";
 import type * as passwordHistory from "../passwordHistory.js";
+import type * as submissions from "../submissions.js";
 
 import type {
   ApiFromModules,
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   email: typeof email;
   http: typeof http;
   passwordHistory: typeof passwordHistory;
+  submissions: typeof submissions;
 }>;
 
 /**

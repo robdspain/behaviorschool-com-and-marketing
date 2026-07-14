@@ -1,39 +1,46 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { verifyAdminSession } from '@/lib/admin-auth'
+import { api, getConvexClient } from '@/lib/convex'
+
+function toSubmissionRow(submission: any) {
+  return {
+    id: submission._id,
+    first_name: submission.firstName,
+    last_name: submission.lastName,
+    email: submission.email,
+    phone: submission.phone ?? null,
+    organization: submission.organization ?? null,
+    role: submission.role,
+    caseload_size: submission.caseloadSize ?? null,
+    current_challenges: submission.currentChallenges ?? null,
+    bcba_cert_number: submission.bcbaCertNumber ?? null,
+    status: submission.status,
+    submitted_at: submission.submittedAt,
+    archived: submission.archived,
+    archived_at: submission.archivedAt ?? null,
+    archived_by: submission.archivedBy ?? null,
+    created_at: submission.createdAt,
+    updated_at: submission.updatedAt,
+  }
+}
 
 export async function GET(request: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE;
-  if (!url || !key) {
-    return NextResponse.json({ success: true, submissions: [] });
-  }
-  
   try {
-    const supabase = createClient(url, key)
+    const admin = await verifyAdminSession()
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
 
-    // Get query parameter for showing archived
     const { searchParams } = new URL(request.url)
     const showArchived = searchParams.get('show_archived') === 'true'
 
-    let query = supabase
-      .from('signup_submissions')
-      .select('*')
+    const submissions = await getConvexClient().query(api.submissions.listSignupSubmissions, {
+      showArchived,
+    })
 
-    // Filter by archived status
-    if (!showArchived) {
-      query = query.eq('archived', false)
-    }
-
-    const { data, error } = await query.order('submitted_at', { ascending: false })
-
-    if (error) {
-      console.error('Supabase error:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-
-    return NextResponse.json({ submissions: data ?? [] })
+    return NextResponse.json({ submissions: (submissions || []).map(toSubmissionRow) })
   } catch (err) {
     console.error('Error fetching submissions:', err)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
@@ -42,10 +49,10 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE!
-    )
+    const admin = await verifyAdminSession()
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
 
     const body = await request.json()
     const { id, archived, status } = body
@@ -54,35 +61,16 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 })
     }
 
-    // Build update object based on what's being updated
-    const updateData: Record<string, unknown> = {}
+    const submission = await getConvexClient().mutation(api.submissions.updateSignupSubmission, {
+      id,
+      archived: archived === undefined ? undefined : Boolean(archived),
+      status: status === undefined ? undefined : String(status),
+      archivedBy: admin.email || admin.id || 'Admin',
+    })
 
-    if (archived !== undefined) {
-      updateData.archived = archived
-      updateData.archived_at = archived ? new Date().toISOString() : null
-      updateData.archived_by = 'Admin' // You can enhance this to use actual admin user info
-    }
-
-    if (status !== undefined) {
-      updateData.status = status
-    }
-
-    const { data, error } = await supabase
-      .from('signup_submissions')
-      .update(updateData)
-      .eq('id', id)
-      .select()
-      .single()
-
-    if (error) {
-      console.error('Supabase error:', error)
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-
-    return NextResponse.json({ success: true, submission: data })
+    return NextResponse.json({ success: true, submission: toSubmissionRow(submission) })
   } catch (err) {
     console.error('Error updating submission:', err)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
-

@@ -763,6 +763,32 @@ export default defineSchema({
     .index("by_status", ["status"])
     .index("by_sent_at", ["sentAt"]),
 
+  signupSubmissions: defineTable({
+    legacyId: v.optional(v.string()),
+    firstName: v.string(),
+    lastName: v.string(),
+    email: v.string(),
+    emailLower: v.string(),
+    phone: v.optional(v.string()),
+    organization: v.optional(v.string()),
+    role: v.string(),
+    caseloadSize: v.optional(v.string()),
+    currentChallenges: v.optional(v.string()),
+    bcbaCertNumber: v.optional(v.string()),
+    status: v.string(),
+    submittedAt: v.string(),
+    archived: v.boolean(),
+    archivedAt: v.optional(v.string()),
+    archivedBy: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_email_lower", ["emailLower"])
+    .index("by_status", ["status"])
+    .index("by_archived", ["archived"])
+    .index("by_submitted_at", ["submittedAt"]),
+
   checkoutSettings: defineTable({
     settingKey: v.string(),
     settingValue: v.string(),
