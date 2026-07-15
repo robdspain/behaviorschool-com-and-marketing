@@ -39,6 +39,7 @@ import type {
   MasterclassQuizQuestion,
   MasterclassResource,
   CourseSectionWithQuestionCount,
+  MasterclassAdminId,
 } from '@/lib/masterclass/admin-types';
 
 
@@ -117,7 +118,7 @@ function SortableSection({ section, allQuestions, onEdit, onDelete, onToggleExpa
   onToggleExpand: () => void;
   onAddQuestion: () => void;
   onEditQuestion: (question: MasterclassQuizQuestion) => void;
-  onDeleteQuestion: (questionId: number) => void;
+  onDeleteQuestion: (questionId: MasterclassAdminId) => void;
 }) {
   const {
     attributes,
@@ -222,7 +223,7 @@ export default function DesignCoursePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [savingResources, setSavingResources] = useState(false);
-  const [quizBlocks, setQuizBlocks] = useState<{ sectionId: number; section_number: number; title: string; questionCount: number }[]>([]);
+  const [quizBlocks, setQuizBlocks] = useState<{ sectionId: MasterclassAdminId; section_number: number; title: string; questionCount: number }[]>([]);
   const [savingQuizBlocks, setSavingQuizBlocks] = useState(false);
 
   const sensors = useSensors(
@@ -279,7 +280,7 @@ export default function DesignCoursePage() {
         try {
           const saved = localStorage.getItem('masterclass_quiz_block_order');
           if (saved) {
-            const order = JSON.parse(saved) as number[]; // array of sectionId
+            const order = JSON.parse(saved) as MasterclassAdminId[];
             built.sort((a, b) => order.indexOf(a.sectionId) - order.indexOf(b.sectionId));
           }
         } catch {}
@@ -324,18 +325,18 @@ export default function DesignCoursePage() {
 
     // Dragging a question
     if (active.id.toString().startsWith('question-')) {
-      const activeQuestionId = parseInt(active.id.toString().replace('question-', ''));
+      const activeQuestionId = active.id.toString().replace('question-', '');
       const overId = over.id.toString();
 
       // Dragging a question to another question (reordering within or between sections)
       if (overId.startsWith('question-')) {
-        const overQuestionId = parseInt(overId.replace('question-', ''));
+        const overQuestionId = overId.replace('question-', '');
 
         setSections(prevSections => {
           const newSections = prevSections.map(section => ({ ...section, questionIds: [...section.questionIds] }));
 
-          let activeSectionId: number | undefined;
-          let overSectionId: number | undefined;
+          let activeSectionId: MasterclassAdminId | undefined;
+          let overSectionId: MasterclassAdminId | undefined;
 
           // Find the section of the active question
           for (const section of newSections) {
@@ -382,12 +383,12 @@ export default function DesignCoursePage() {
 
       // Dragging a question to a section (empty or not) - add to end of section
       else if (overId.startsWith('section-')) {
-        const overSectionId = parseInt(overId.replace('section-', ''));
+        const overSectionId = overId.replace('section-', '');
 
         setSections(prevSections => {
           const newSections = prevSections.map(section => ({ ...section, questionIds: [...section.questionIds] }));
 
-          let activeSectionId: number | undefined;
+          let activeSectionId: MasterclassAdminId | undefined;
 
           // Find the section of the active question
           for (const section of newSections) {
@@ -445,7 +446,7 @@ export default function DesignCoursePage() {
     });
   };
 
-  const toggleSection = (sectionId: number) => {
+  const toggleSection = (sectionId: MasterclassAdminId) => {
     setSections(sections.map(s =>
       s.id === sectionId ? { ...s, isExpanded: !s.isExpanded } : s
     ));
@@ -518,7 +519,7 @@ export default function DesignCoursePage() {
     }
   };
 
-  const deleteResource = async (id: number) => {
+  const deleteResource = async (id: MasterclassAdminId) => {
     if (!confirm('Delete this resource?')) return;
     try {
       const res = await fetch(`/api/admin/masterclass/resources?id=${id}`, { method: 'DELETE' });
@@ -785,7 +786,7 @@ function ResourceBlock({ resource, sections, onDelete, onUpdate }: { resource: M
     name: resource.name,
     url: resource.url,
     file_type: resource.file_type,
-    section_id: resource.section_id ?? null as number | null,
+    section_id: resource.section_id ?? null,
   });
   const [saving, setSaving] = useState(false);
 
@@ -891,7 +892,7 @@ function ResourceBlock({ resource, sections, onDelete, onUpdate }: { resource: M
               <label className="block text-sm font-medium text-slate-700 mb-1">Attach to Section</label>
               <select
                 value={form.section_id ?? ''}
-                onChange={e => setForm({ ...form, section_id: e.target.value ? Number(e.target.value) : null })}
+                onChange={e => setForm({ ...form, section_id: e.target.value || null })}
                 className="w-full border rounded-md px-3 py-2"
               >
                 <option value="">Unassigned</option>
@@ -918,7 +919,7 @@ function ResourceBlock({ resource, sections, onDelete, onUpdate }: { resource: M
   );
 }
 
-function QuizBlock({ block, onManage }: { block: { sectionId: number; section_number: number; title: string; questionCount: number }; onManage: () => void }) {
+function QuizBlock({ block, onManage }: { block: { sectionId: MasterclassAdminId; section_number: number; title: string; questionCount: number }; onManage: () => void }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: `quiz-${block.sectionId}` });
   const style: CSSProperties = {
     transform: CSS.Transform.toString(transform),

@@ -1,8 +1,5 @@
-/**
- * Supabase query helpers for Masterclass Admin operations
- */
-
-import { createClient } from '@/lib/supabase-server';
+import { api, getConvexClient } from "@/lib/convex";
+import type { Id } from "@/lib/convex";
 import type {
   MasterclassCourseSection,
   MasterclassQuizQuestion,
@@ -12,451 +9,234 @@ import type {
   QuizQuestionFormData,
   CertificateConfigFormData,
   CourseSectionWithQuestionCount,
-} from './admin-types';
+} from "./admin-types";
 
+type SectionId = Id<"masterclassCourseSections">;
+type QuestionId = Id<"masterclassQuizQuestions">;
+type ConfigId = Id<"masterclassCertificateConfigs">;
 
+function asSectionId(id: string | number) {
+  return String(id) as SectionId;
+}
+
+function asQuestionId(id: string | number) {
+  return String(id) as QuestionId;
+}
+
+function asConfigId(id: string | number) {
+  return String(id) as ConfigId;
+}
+
+function withSectionDefaults(section: MasterclassCourseSection): MasterclassCourseSection {
+  return {
+    ...section,
+    questionIds: section.questionIds ?? [],
+  };
+}
 
 // ============================================================================
 // Course Sections
 // ============================================================================
 
-/**
- * Get all course sections with question counts
- */
 export async function getAllSections(): Promise<CourseSectionWithQuestionCount[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_admin_course_overview')
-    .select('*')
-    .order('order_index');
-
-  if (error) throw new Error(`Failed to fetch sections: ${error.message}`);
-  return data || [];
+  const data = await getConvexClient().query(api.masterclassAdmin.listSections, {});
+  return (data ?? []).map(withSectionDefaults);
 }
 
-/**
- * Get active course sections for public display
- */
 export async function getActiveSections(): Promise<MasterclassCourseSection[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_course_sections')
-    .select('*')
-    .eq('is_active', true)
-    .order('order_index');
-
-  if (error) throw new Error(`Failed to fetch active sections: ${error.message}`);
-  return data || [];
+  const data = await getConvexClient().query(api.masterclassAdmin.listActiveSections, {});
+  return (data ?? []).map(withSectionDefaults);
 }
 
-/**
- * Get section by ID
- */
-export async function getSectionById(id: number): Promise<MasterclassCourseSection | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_course_sections')
-    .select('*')
-    .eq('id', id)
-    .single();
-
-  if (error && error.code !== 'PGRST116') {
-    throw new Error(`Failed to fetch section: ${error.message}`);
-  }
-  return data;
+export async function getSectionById(id: string | number): Promise<MasterclassCourseSection | null> {
+  const data = await getConvexClient().query(api.masterclassAdmin.getSection, {
+    id: asSectionId(id),
+  });
+  return data ? withSectionDefaults(data) : null;
 }
 
-/**
- * Get section by section number
- */
 export async function getSectionByNumber(sectionNumber: number): Promise<MasterclassCourseSection | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_course_sections')
-    .select('*')
-    .eq('section_number', sectionNumber)
-    .single();
-
-  if (error && error.code !== 'PGRST116') {
-    throw new Error(`Failed to fetch section: ${error.message}`);
-  }
-  return data;
+  const data = await getConvexClient().query(api.masterclassAdmin.getSectionByNumber, {
+    sectionNumber,
+  });
+  return data ? withSectionDefaults(data) : null;
 }
 
-/**
- * Create new course section
- */
 export async function createSection(sectionData: CourseSectionFormData): Promise<MasterclassCourseSection> {
-  const supabase = await createClient();
-  // Get next section number if not provided
-  if (!sectionData.section_number) {
-    const { data: maxSection } = await supabase
-      .from('masterclass_course_sections')
-      .select('section_number')
-      .order('section_number', { ascending: false })
-      .limit(1)
-      .single();
-
-    sectionData.section_number = (maxSection?.section_number || 0) + 1;
-  }
-
-  // Get next order index if not provided
-  if (!sectionData.order_index) {
-    const { data: maxOrder } = await supabase
-      .from('masterclass_course_sections')
-      .select('order_index')
-      .order('order_index', { ascending: false })
-      .limit(1)
-      .single();
-
-    sectionData.order_index = (maxOrder?.order_index || 0) + 1;
-  }
-
-  const { data, error } = await supabase
-    .from('masterclass_course_sections')
-    .insert({
-      section_number: sectionData.section_number,
-      title: sectionData.title,
-      description: sectionData.description,
-      video_url: sectionData.video_url,
-      duration: sectionData.duration,
-      order_index: sectionData.order_index,
-      is_active: sectionData.is_active ?? true,
-    })
-    .select()
-    .single();
-
-  if (error) throw new Error(`Failed to create section: ${error.message}`);
-  return data;
+  const data = await getConvexClient().mutation(api.masterclassAdmin.createSection, {
+    sectionNumber: sectionData.section_number,
+    title: sectionData.title,
+    description: sectionData.description,
+    videoUrl: sectionData.video_url,
+    duration: sectionData.duration,
+    orderIndex: sectionData.order_index,
+    isActive: sectionData.is_active,
+  });
+  if (!data) throw new Error("Failed to create section");
+  return withSectionDefaults(data);
 }
 
-/**
- * Update existing course section
- */
 export async function updateSection(
-  id: number,
+  id: string | number,
   sectionData: Partial<CourseSectionFormData>
 ): Promise<MasterclassCourseSection> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_course_sections')
-    .update({
-      title: sectionData.title,
-      description: sectionData.description,
-      video_url: sectionData.video_url,
-      duration: sectionData.duration,
-      order_index: sectionData.order_index,
-      is_active: sectionData.is_active,
-    })
-    .eq('id', id)
-    .select()
-    .single();
-
-  if (error) throw new Error(`Failed to update section: ${error.message}`);
-  return data;
+  const data = await getConvexClient().mutation(api.masterclassAdmin.updateSection, {
+    id: asSectionId(id),
+    title: sectionData.title,
+    description: sectionData.description,
+    videoUrl: sectionData.video_url,
+    duration: sectionData.duration,
+    orderIndex: sectionData.order_index,
+    isActive: sectionData.is_active,
+  });
+  if (!data) throw new Error("Section not found");
+  return withSectionDefaults(data);
 }
 
-/**
- * Delete course section (soft delete by setting is_active = false)
- */
-export async function deleteSection(id: number): Promise<void> {
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from('masterclass_course_sections')
-    .update({ is_active: false })
-    .eq('id', id);
-
-  if (error) throw new Error(`Failed to delete section: ${error.message}`);
+export async function deleteSection(id: string | number): Promise<void> {
+  await getConvexClient().mutation(api.masterclassAdmin.deleteSection, {
+    id: asSectionId(id),
+  });
 }
 
-/**
- * Reorder sections
- */
-export async function reorderSections(sectionIds: number[]): Promise<void> {
-  const supabase = await createClient();
-  const updates = sectionIds.map((id, index) => ({
-    id,
-    order_index: index + 1,
-  }));
-
-  for (const update of updates) {
-    await supabase
-      .from('masterclass_course_sections')
-      .update({ order_index: update.order_index })
-      .eq('id', update.id);
-  }
+export async function reorderSections(sectionIds: Array<string | number>): Promise<void> {
+  await getConvexClient().mutation(api.masterclassAdmin.reorderSections, {
+    sectionIds: sectionIds.map(asSectionId),
+  });
 }
 
 // ============================================================================
 // Quiz Questions
 // ============================================================================
 
-/**
- * Get all questions for a section
- */
 export async function getQuestionsBySection(sectionNumber: number): Promise<MasterclassQuizQuestion[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_quiz_questions')
-    .select('*')
-    .eq('section_number', sectionNumber)
-    .eq('is_active', true)
-    .order('question_number');
-
-  if (error) throw new Error(`Failed to fetch questions: ${error.message}`);
-  return data || [];
+  const data = await getConvexClient().query(api.masterclassAdmin.listQuestionsBySection, {
+    sectionNumber,
+  });
+  return data ?? [];
 }
 
-/**
- * Get all active questions (for course display)
- */
 export async function getAllActiveQuestions(): Promise<MasterclassQuizQuestion[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_quiz_questions')
-    .select('*')
-    .eq('is_active', true)
-    .order('section_number, question_number');
-
-  if (error) throw new Error(`Failed to fetch questions: ${error.message}`);
-  return data || [];
+  const data = await getConvexClient().query(api.masterclassAdmin.listAllActiveQuestions, {});
+  return data ?? [];
 }
 
-/**
- * Get question by ID
- */
-export async function getQuestionById(id: number): Promise<MasterclassQuizQuestion | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_quiz_questions')
-    .select('*')
-    .eq('id', id)
-    .single();
-
-  if (error && error.code !== 'PGRST116') {
-    throw new Error(`Failed to fetch question: ${error.message}`);
-  }
-  return data;
+export async function getQuestionById(id: string | number): Promise<MasterclassQuizQuestion | null> {
+  return getConvexClient().query(api.masterclassAdmin.getQuestion, {
+    id: asQuestionId(id),
+  });
 }
 
-/**
- * Create new quiz question
- */
 export async function createQuestion(questionData: QuizQuestionFormData): Promise<MasterclassQuizQuestion> {
-  const supabase = await createClient();
-  // Get next question number if not provided
-  if (!questionData.question_number) {
-    const { data: maxQuestion } = await supabase
-      .from('masterclass_quiz_questions')
-      .select('question_number')
-      .eq('section_number', questionData.section_number)
-      .order('question_number', { ascending: false })
-      .limit(1)
-      .single();
-
-    questionData.question_number = (maxQuestion?.question_number || 0) + 1;
-  }
-
-  const { data, error } = await supabase
-    .from('masterclass_quiz_questions')
-    .insert({
-      section_number: questionData.section_number,
-      question_number: questionData.question_number,
-      question_text: questionData.question_text,
-      option_a: questionData.option_a,
-      option_b: questionData.option_b,
-      option_c: questionData.option_c,
-      option_d: questionData.option_d,
-      correct_answer: questionData.correct_answer,
-      explanation: questionData.explanation || null,
-      is_active: questionData.is_active ?? true,
-    })
-    .select()
-    .single();
-
-  if (error) throw new Error(`Failed to create question: ${error.message}`);
+  const data = await getConvexClient().mutation(api.masterclassAdmin.createQuestion, {
+    sectionNumber: questionData.section_number,
+    questionNumber: questionData.question_number,
+    questionText: questionData.question_text,
+    optionA: questionData.option_a,
+    optionB: questionData.option_b,
+    optionC: questionData.option_c,
+    optionD: questionData.option_d,
+    correctAnswer: questionData.correct_answer,
+    explanation: questionData.explanation,
+    isActive: questionData.is_active,
+  });
+  if (!data) throw new Error("Failed to create question");
   return data;
 }
 
-/**
- * Update existing quiz question
- */
 export async function updateQuestion(
-  id: number,
+  id: string | number,
   questionData: Partial<QuizQuestionFormData>
 ): Promise<MasterclassQuizQuestion> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_quiz_questions')
-    .update({
-      question_text: questionData.question_text,
-      option_a: questionData.option_a,
-      option_b: questionData.option_b,
-      option_c: questionData.option_c,
-      option_d: questionData.option_d,
-      correct_answer: questionData.correct_answer,
-      explanation: questionData.explanation,
-      is_active: questionData.is_active,
-    })
-    .eq('id', id)
-    .select()
-    .single();
-
-  if (error) throw new Error(`Failed to update question: ${error.message}`);
+  const data = await getConvexClient().mutation(api.masterclassAdmin.updateQuestion, {
+    id: asQuestionId(id),
+    questionText: questionData.question_text,
+    optionA: questionData.option_a,
+    optionB: questionData.option_b,
+    optionC: questionData.option_c,
+    optionD: questionData.option_d,
+    correctAnswer: questionData.correct_answer,
+    explanation: questionData.explanation,
+    isActive: questionData.is_active,
+  });
+  if (!data) throw new Error("Question not found");
   return data;
 }
 
-/**
- * Delete quiz question (soft delete)
- */
-export async function deleteQuestion(id: number): Promise<void> {
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from('masterclass_quiz_questions')
-    .update({ is_active: false })
-    .eq('id', id);
-
-  if (error) throw new Error(`Failed to delete question: ${error.message}`);
+export async function deleteQuestion(id: string | number): Promise<void> {
+  await getConvexClient().mutation(api.masterclassAdmin.deleteQuestion, {
+    id: asQuestionId(id),
+  });
 }
 
-/**
- * Reorder questions within a section
- */
-export async function reorderQuestions(questionIds: number[]): Promise<void> {
-  const supabase = await createClient();
-  const updates = questionIds.map((id, index) => ({
-    id,
-    question_number: index + 1,
-  }));
-
-  for (const update of updates) {
-    await supabase
-      .from('masterclass_quiz_questions')
-      .update({ question_number: update.question_number })
-      .eq('id', update.id);
-  }
+export async function reorderQuestions(questionIds: Array<string | number>): Promise<void> {
+  await getConvexClient().mutation(api.masterclassAdmin.reorderQuestions, {
+    questionIds: questionIds.map(asQuestionId),
+  });
 }
 
 // ============================================================================
 // Resources
 // ============================================================================
 
-/**
- * Get resources by section IDs (ordered)
- */
-export async function getResourcesBySectionIds(sectionIds: number[]): Promise<MasterclassResource[]> {
+export async function getResourcesBySectionIds(sectionIds: Array<string | number>): Promise<MasterclassResource[]> {
   if (!sectionIds.length) return [];
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_resources')
-    .select('*')
-    .in('section_id', sectionIds)
-    .order('order_index');
-  if (error) throw new Error(`Failed to fetch resources: ${error.message}`);
-  return data || [];
+  const data = await getConvexClient().query(api.masterclassAdmin.listResourcesBySectionIds, {
+    sectionIds: sectionIds.map(String),
+  });
+  return data ?? [];
 }
 
 // ============================================================================
 // Certificate Configuration
 // ============================================================================
 
-/**
- * Get active certificate configuration
- */
 export async function getActiveCertificateConfig(): Promise<MasterclassCertificateConfig | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_certificate_config')
-    .select('*')
-    .eq('is_active', true)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .single();
-
-  if (error && error.code !== 'PGRST116') {
-    throw new Error(`Failed to fetch certificate config: ${error.message}`);
-  }
-  return data;
+  return getConvexClient().query(api.masterclassAdmin.getActiveCertificateConfig, {});
 }
 
-/**
- * Get certificate configuration by ID
- */
-export async function getCertificateConfigById(id: number): Promise<MasterclassCertificateConfig | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_certificate_config')
-    .select('*')
-    .eq('id', id)
-    .single();
-
-  if (error && error.code !== 'PGRST116') {
-    throw new Error(`Failed to fetch certificate config: ${error.message}`);
-  }
-  return data;
+export async function getCertificateConfigById(id: string | number): Promise<MasterclassCertificateConfig | null> {
+  return getConvexClient().query(api.masterclassAdmin.getCertificateConfig, {
+    id: asConfigId(id),
+  });
 }
 
-/**
- * Create new certificate configuration
- */
 export async function createCertificateConfig(
   configData: CertificateConfigFormData
 ): Promise<MasterclassCertificateConfig> {
-  const supabase = await createClient();
-  // Deactivate all existing configs
-  await supabase
-    .from('masterclass_certificate_config')
-    .update({ is_active: false })
-    .eq('is_active', true);
-
-  const { data, error } = await supabase
-    .from('masterclass_certificate_config')
-    .insert({
-      course_title: configData.course_title,
-      ceu_credits: configData.ceu_credits,
-      bacb_provider_number: configData.bacb_provider_number,
-      certificate_subtitle: configData.certificate_subtitle || null,
-      completion_statement: configData.completion_statement,
-      signature_name: configData.signature_name || null,
-      signature_title: configData.signature_title || null,
-      organization_name: configData.organization_name,
-      organization_website: configData.organization_website,
-      template_version: 1,
-      is_active: true,
-    })
-    .select()
-    .single();
-
-  if (error) throw new Error(`Failed to create certificate config: ${error.message}`);
+  const data = await getConvexClient().mutation(api.masterclassAdmin.createCertificateConfig, {
+    courseTitle: configData.course_title,
+    ceuCredits: configData.ceu_credits,
+    bacbProviderNumber: configData.bacb_provider_number,
+    certificateSubtitle: configData.certificate_subtitle,
+    completionStatement: configData.completion_statement,
+    signatureName: configData.signature_name,
+    signatureTitle: configData.signature_title,
+    organizationName: configData.organization_name,
+    organizationWebsite: configData.organization_website,
+    introductionVideoUrl: configData.introduction_video_url,
+  });
+  if (!data) throw new Error("Failed to create certificate configuration");
   return data;
 }
 
-/**
- * Update certificate configuration
- */
 export async function updateCertificateConfig(
-  id: number,
+  id: string | number,
   configData: Partial<CertificateConfigFormData>
 ): Promise<MasterclassCertificateConfig> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('masterclass_certificate_config')
-    .update({
-      course_title: configData.course_title,
-      ceu_credits: configData.ceu_credits,
-      bacb_provider_number: configData.bacb_provider_number,
-      certificate_subtitle: configData.certificate_subtitle,
-      completion_statement: configData.completion_statement,
-      signature_name: configData.signature_name,
-      signature_title: configData.signature_title,
-      organization_name: configData.organization_name,
-      organization_website: configData.organization_website,
-      introduction_video_url: configData.introduction_video_url,
-    })
-    .eq('id', id)
-    .select()
-    .single();
-
-  if (error) throw new Error(`Failed to update certificate config: ${error.message}`);
+  const data = await getConvexClient().mutation(api.masterclassAdmin.updateCertificateConfig, {
+    id: asConfigId(id),
+    courseTitle: configData.course_title,
+    ceuCredits: configData.ceu_credits,
+    bacbProviderNumber: configData.bacb_provider_number,
+    certificateSubtitle: configData.certificate_subtitle,
+    completionStatement: configData.completion_statement,
+    signatureName: configData.signature_name,
+    signatureTitle: configData.signature_title,
+    organizationName: configData.organization_name,
+    organizationWebsite: configData.organization_website,
+    introductionVideoUrl: configData.introduction_video_url,
+  });
+  if (!data) throw new Error("Certificate configuration not found");
   return data;
 }

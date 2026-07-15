@@ -8,6 +8,7 @@ import type {
   MasterclassQuizQuestion,
   QuizQuestionFormData,
   MasterclassCourseSection,
+  MasterclassAdminId,
 } from '@/lib/masterclass/admin-types';
 
 export default function QuestionsAdminPage() {
@@ -136,7 +137,7 @@ export default function QuestionsAdminPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: MasterclassAdminId) => {
     if (!confirm('Are you sure you want to delete this question?')) return;
 
     try {

@@ -6,8 +6,10 @@
 // Database Table Types
 // ============================================================================
 
+export type MasterclassAdminId = string | number;
+
 export interface MasterclassCourseSection {
-  id: number;
+  id: MasterclassAdminId;
   section_number: number;
   title: string;
   description: string;
@@ -17,7 +19,7 @@ export interface MasterclassCourseSection {
   is_active: boolean;
   created_at: string;
   updated_at: string;
-  questionIds: number[]; // Added for DND
+  questionIds: MasterclassAdminId[]; // Added for DND
   isExpanded?: boolean; // Added for UI state
 }
 
@@ -26,7 +28,7 @@ export interface CourseSectionWithQuestionCount extends MasterclassCourseSection
 }
 
 export interface MasterclassQuizQuestion {
-  id: number;
+  id: MasterclassAdminId;
   section_number: number;
   question_number: number;
   question_text: string;
@@ -42,8 +44,8 @@ export interface MasterclassQuizQuestion {
 }
 
 export interface MasterclassResource {
-  id: number;
-  section_id: number | null; // Null if it's a standalone resource
+  id: MasterclassAdminId;
+  section_id: MasterclassAdminId | null; // Null if it's a standalone resource
   name: string;
   url: string;
   file_type: string; // e.g., 'pdf', 'doc', 'link', 'image'
@@ -53,7 +55,7 @@ export interface MasterclassResource {
 }
 
 export interface MasterclassCertificateConfig {
-  id: number;
+  id: MasterclassAdminId;
   course_title: string;
   ceu_credits: number;
   bacb_provider_number: string;

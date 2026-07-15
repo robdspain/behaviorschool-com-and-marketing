@@ -34,7 +34,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { MasterclassResource, MasterclassCourseSection } from '@/lib/masterclass/admin-types';
+import type { MasterclassResource, MasterclassCourseSection, MasterclassAdminId } from '@/lib/masterclass/admin-types';
 
 function getFileIcon(fileType: string) {
   const t = fileType.toLowerCase();
@@ -121,7 +121,7 @@ export default function DesignResourcesPage() {
   const [saving, setSaving] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<MasterclassResource | null>(null);
-  const [form, setForm] = useState<{ name: string; url: string; file_type: string; section_id: number | null }>({ name: '', url: '', file_type: 'link', section_id: null });
+  const [form, setForm] = useState<{ name: string; url: string; file_type: string; section_id: MasterclassAdminId | null }>({ name: '', url: '', file_type: 'link', section_id: null });
   const [submitting, setSubmitting] = useState(false);
 
   const sensors = useSensors(
@@ -208,7 +208,7 @@ export default function DesignResourcesPage() {
     setModalOpen(true);
   };
 
-  const handleDeleteResource = async (resourceId: number) => {
+  const handleDeleteResource = async (resourceId: MasterclassAdminId) => {
     if (!confirm('Are you sure you want to delete this resource?')) {
       return;
     }
@@ -367,8 +367,8 @@ export default function DesignResourcesPage() {
 function ResourceModal({ open, onOpenChange, form, setForm, onSubmit, submitting, sections, editing }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
-  form: { name: string; url: string; file_type: string; section_id: number | null };
-  setForm: (v: { name: string; url: string; file_type: string; section_id: number | null }) => void;
+  form: { name: string; url: string; file_type: string; section_id: MasterclassAdminId | null };
+  setForm: (v: { name: string; url: string; file_type: string; section_id: MasterclassAdminId | null }) => void;
   onSubmit: () => void;
   submitting: boolean;
   sections: MasterclassCourseSection[];
@@ -396,7 +396,7 @@ function ResourceModal({ open, onOpenChange, form, setForm, onSubmit, submitting
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Attach to Section</label>
-              <select value={form.section_id ?? ''} onChange={(e) => setForm({ ...form, section_id: e.target.value ? Number(e.target.value) : null })} className="w-full border rounded-md px-3 py-2">
+              <select value={form.section_id ?? ''} onChange={(e) => setForm({ ...form, section_id: e.target.value || null })} className="w-full border rounded-md px-3 py-2">
                 <option value="">Unassigned</option>
                 {sections.map((s) => (
                   <option key={s.id} value={s.id}>

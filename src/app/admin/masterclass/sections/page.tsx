@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Plus, Edit, Trash2, Video, Check, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import type { CourseSectionWithQuestionCount, CourseSectionFormData } from '@/lib/masterclass/admin-types';
+import type { CourseSectionWithQuestionCount, CourseSectionFormData, MasterclassAdminId } from '@/lib/masterclass/admin-types';
 
 export default function SectionsAdminPage() {
   const [sections, setSections] = useState<CourseSectionWithQuestionCount[]>([]);
@@ -106,7 +106,7 @@ export default function SectionsAdminPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: MasterclassAdminId) => {
     if (!confirm('Are you sure you want to delete this section? This will also delete all quiz questions for this section.')) {
       return;
     }

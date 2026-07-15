@@ -126,10 +126,36 @@ export const listSections = query({
   },
 });
 
+export const listActiveSections = query({
+  args: {},
+  handler: async (ctx) => {
+    const sections = await ctx.db
+      .query("masterclassCourseSections")
+      .withIndex("by_active", (q) => q.eq("isActive", true))
+      .collect();
+
+    return sections
+      .sort((a, b) => a.orderIndex - b.orderIndex)
+      .map((section) => toSectionRow(section));
+  },
+});
+
 export const getSection = query({
   args: { id: v.id("masterclassCourseSections") },
   handler: async (ctx, args) => {
     const section = await ctx.db.get(args.id);
+    return section ? toSectionRow(section) : null;
+  },
+});
+
+export const getSectionByNumber = query({
+  args: { sectionNumber: v.number() },
+  handler: async (ctx, args) => {
+    const section = await ctx.db
+      .query("masterclassCourseSections")
+      .withIndex("by_section_number", (q) => q.eq("sectionNumber", args.sectionNumber))
+      .first();
+
     return section ? toSectionRow(section) : null;
   },
 });
@@ -220,6 +246,24 @@ export const listQuestionsBySection = query({
     return questions
       .filter((question) => question.isActive && question.sectionNumber === args.sectionNumber)
       .sort((a, b) => a.questionNumber - b.questionNumber)
+      .map(toQuestionRow);
+  },
+});
+
+export const listAllActiveQuestions = query({
+  args: {},
+  handler: async (ctx) => {
+    const questions = await ctx.db
+      .query("masterclassQuizQuestions")
+      .withIndex("by_active", (q) => q.eq("isActive", true))
+      .collect();
+
+    return questions
+      .sort((a, b) =>
+        a.sectionNumber === b.sectionNumber
+          ? a.questionNumber - b.questionNumber
+          : a.sectionNumber - b.sectionNumber
+      )
       .map(toQuestionRow);
   },
 });
@@ -334,6 +378,62 @@ export const getActiveCertificateConfig = query({
   },
 });
 
+export const getCertificateConfig = query({
+  args: { id: v.id("masterclassCertificateConfigs") },
+  handler: async (ctx, args) => {
+    const config = await ctx.db.get(args.id);
+    return config ? toCertificateConfigRow(config) : null;
+  },
+});
+
+export const createCertificateConfig = mutation({
+  args: {
+    courseTitle: v.string(),
+    ceuCredits: v.number(),
+    bacbProviderNumber: v.string(),
+    certificateSubtitle: v.optional(v.string()),
+    completionStatement: v.string(),
+    signatureName: v.optional(v.string()),
+    signatureTitle: v.optional(v.string()),
+    organizationName: v.string(),
+    organizationWebsite: v.string(),
+    introductionVideoUrl: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const activeConfigs = await ctx.db
+      .query("masterclassCertificateConfigs")
+      .withIndex("by_active", (q) => q.eq("isActive", true))
+      .collect();
+    const timestamp = nowIso();
+
+    for (const config of activeConfigs) {
+      await ctx.db.patch(config._id, {
+        isActive: false,
+        updatedAt: timestamp,
+      });
+    }
+
+    const id = await ctx.db.insert("masterclassCertificateConfigs", {
+      courseTitle: args.courseTitle,
+      ceuCredits: args.ceuCredits,
+      bacbProviderNumber: args.bacbProviderNumber,
+      certificateSubtitle: args.certificateSubtitle || undefined,
+      completionStatement: args.completionStatement,
+      signatureName: args.signatureName || undefined,
+      signatureTitle: args.signatureTitle || undefined,
+      organizationName: args.organizationName,
+      organizationWebsite: args.organizationWebsite,
+      introductionVideoUrl: args.introductionVideoUrl || undefined,
+      templateVersion: 1,
+      isActive: true,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    });
+    const config = await ctx.db.get(id);
+    return config ? toCertificateConfigRow(config) : null;
+  },
+});
+
 export const updateCertificateConfig = mutation({
   args: {
     id: v.id("masterclassCertificateConfigs"),
@@ -374,6 +474,19 @@ export const listResources = query({
   handler: async (ctx) => {
     const resources = await ctx.db.query("masterclassResources").collect();
     return resources
+      .sort((a, b) => a.orderIndex - b.orderIndex)
+      .map(toResourceRow);
+  },
+});
+
+export const listResourcesBySectionIds = query({
+  args: { sectionIds: v.array(v.string()) },
+  handler: async (ctx, args) => {
+    if (args.sectionIds.length === 0) return [];
+    const sectionIds = new Set(args.sectionIds);
+    const resources = await ctx.db.query("masterclassResources").collect();
+    return resources
+      .filter((resource) => resource.sectionId !== undefined && sectionIds.has(resource.sectionId))
       .sort((a, b) => a.orderIndex - b.orderIndex)
       .map(toResourceRow);
   },
