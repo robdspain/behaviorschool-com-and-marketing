@@ -867,6 +867,24 @@ export default defineSchema({
     .index("by_in_sitemap", ["inSitemap"])
     .index("by_deleted", ["deleted"]),
 
+  analyticsEvents: defineTable({
+    legacyId: v.optional(v.string()),
+    eventType: v.string(),
+    eventName: v.string(),
+    sourcePage: v.string(),
+    userEmail: v.optional(v.string()),
+    resourceName: v.optional(v.string()),
+    value: v.number(),
+    additionalData: v.optional(v.any()),
+    userAgent: v.optional(v.string()),
+    ipAddress: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_created_at", ["createdAt"])
+    .index("by_event_type", ["eventType"]),
+
   masterclassResources: defineTable({
     legacyId: v.optional(v.string()),
     sectionId: v.optional(v.string()),

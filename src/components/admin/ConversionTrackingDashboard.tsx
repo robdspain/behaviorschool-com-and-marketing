@@ -21,7 +21,7 @@ interface ConversionData {
   courseInquiries: number;
   studyAppSignups: number;
   toolUsage: number;
-  conversionRate: number;
+  conversionRate: number | null;
   totalValue: number;
   period: string;
   trends: {

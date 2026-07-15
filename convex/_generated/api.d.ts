@@ -9,6 +9,7 @@
  */
 
 import type * as activityArchive from "../activityArchive.js";
+import type * as analytics from "../analytics.js";
 import type * as audit from "../audit.js";
 import type * as audit_logger from "../audit_logger.js";
 import type * as auth from "../auth.js";
@@ -31,6 +32,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   activityArchive: typeof activityArchive;
+  analytics: typeof analytics;
   audit: typeof audit;
   audit_logger: typeof audit_logger;
   auth: typeof auth;
