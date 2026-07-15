@@ -19,6 +19,7 @@ import type * as downloads from "../downloads.js";
 import type * as email from "../email.js";
 import type * as http from "../http.js";
 import type * as indexing from "../indexing.js";
+import type * as masterclassAdmin from "../masterclassAdmin.js";
 import type * as passwordHistory from "../passwordHistory.js";
 import type * as submissions from "../submissions.js";
 
@@ -40,6 +41,7 @@ declare const fullApi: ApiFromModules<{
   email: typeof email;
   http: typeof http;
   indexing: typeof indexing;
+  masterclassAdmin: typeof masterclassAdmin;
   passwordHistory: typeof passwordHistory;
   submissions: typeof submissions;
 }>;

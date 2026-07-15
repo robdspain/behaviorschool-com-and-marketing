@@ -867,6 +867,67 @@ export default defineSchema({
     .index("by_in_sitemap", ["inSitemap"])
     .index("by_deleted", ["deleted"]),
 
+  masterclassResources: defineTable({
+    legacyId: v.optional(v.string()),
+    sectionId: v.optional(v.string()),
+    name: v.string(),
+    url: v.string(),
+    fileType: v.string(),
+    orderIndex: v.number(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_section_id", ["sectionId"])
+    .index("by_order_index", ["orderIndex"]),
+
+  masterclassCourseSections: defineTable({
+    legacyId: v.optional(v.string()),
+    sectionNumber: v.number(),
+    title: v.string(),
+    description: v.string(),
+    videoUrl: v.string(),
+    duration: v.string(),
+    orderIndex: v.number(),
+    isActive: v.boolean(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_active", ["isActive"])
+    .index("by_section_number", ["sectionNumber"])
+    .index("by_order_index", ["orderIndex"]),
+
+  masterclassQuizQuestions: defineTable({
+    legacyId: v.optional(v.string()),
+    sectionNumber: v.number(),
+    questionNumber: v.number(),
+    questionText: v.string(),
+    optionA: v.string(),
+    optionB: v.string(),
+    optionC: v.string(),
+    optionD: v.string(),
+    correctAnswer: v.number(),
+    explanation: v.optional(v.string()),
+    isActive: v.boolean(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_active", ["isActive"])
+    .index("by_section_number", ["sectionNumber"]),
+
+  masterclassEnrollments: defineTable({
+    legacyId: v.optional(v.string()),
+    createdAt: v.string(),
+    completedAt: v.optional(v.string()),
+    certificateIssued: v.boolean(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_created_at", ["createdAt"])
+    .index("by_certificate_issued", ["certificateIssued"]),
+
   checkoutSettings: defineTable({
     settingKey: v.string(),
     settingValue: v.string(),
