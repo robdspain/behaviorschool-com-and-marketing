@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
+import { requireAdminApiSession } from "@/lib/admin-api-session";
 import { api, getConvexClient } from "@/lib/convex";
 
 function toContactRow(contact: any) {
@@ -27,6 +28,9 @@ function toContactRow(contact: any) {
 }
 
 export async function GET() {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const contacts = await getConvexClient().query(api.crm.listContacts, {});
     return NextResponse.json(contacts.map(toContactRow), { status: 200 });
@@ -37,6 +41,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const body = await request.json();
     const {

@@ -1,9 +1,13 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
+import { requireAdminApiSession } from "@/lib/admin-api-session";
 import { api, getConvexClient } from "@/lib/convex";
 
 export async function GET() {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const dashboard = await getConvexClient().query(api.crm.dashboard, {});
     return NextResponse.json({

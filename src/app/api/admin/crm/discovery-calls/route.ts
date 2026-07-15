@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
+import { requireAdminApiSession } from "@/lib/admin-api-session";
 import { api, getConvexClient } from "@/lib/convex";
 
 function toDiscoveryRow(row: any) {
@@ -31,6 +32,9 @@ function toDiscoveryRow(row: any) {
 }
 
 export async function GET() {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const rows = await getConvexClient().query(api.crm.listDiscoveryCalls, { limit: 100 });
     return NextResponse.json(rows.map(toDiscoveryRow), { status: 200 });
@@ -41,6 +45,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const body = await request.json();
     const required = [
