@@ -449,6 +449,10 @@ function ProviderModal({
     primary_email: provider?.primary_email || '',
     primary_phone: provider?.primary_phone || '',
     website: provider?.website || '',
+    coordinator_first_name: '',
+    coordinator_last_name: '',
+    coordinator_email: '',
+    coordinator_bacb_id: '',
     coordinator_years_certified: provider?.coordinator_years_certified || 5,
     coordinator_certification_date: formatDateForInput(provider?.coordinator_certification_date),
     coordinator_certification_expires: formatDateForInput(provider?.coordinator_certification_expires),
@@ -601,6 +605,57 @@ function ProviderModal({
               <Calendar className="w-4 h-4" />
               Coordinator Certification (2026 BACB)
             </h3>
+            {!isEdit && (
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Coordinator First Name *
+                  </label>
+                  <input
+                    type="text"
+                    required={!isEdit}
+                    value={formData.coordinator_first_name}
+                    onChange={e => setFormData({ ...formData, coordinator_first_name: e.target.value })}
+                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Coordinator Last Name *
+                  </label>
+                  <input
+                    type="text"
+                    required={!isEdit}
+                    value={formData.coordinator_last_name}
+                    onChange={e => setFormData({ ...formData, coordinator_last_name: e.target.value })}
+                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Coordinator Email *
+                  </label>
+                  <input
+                    type="email"
+                    required={!isEdit}
+                    value={formData.coordinator_email}
+                    onChange={e => setFormData({ ...formData, coordinator_email: e.target.value })}
+                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    Coordinator BACB ID
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.coordinator_bacb_id}
+                    onChange={e => setFormData({ ...formData, coordinator_bacb_id: e.target.value })}
+                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+            )}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
