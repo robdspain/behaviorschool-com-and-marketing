@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase-client'
+import { hasAdminClientSession } from '@/lib/admin-client-session'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useCallback } from 'react'
@@ -44,16 +44,15 @@ export default function AdminSitemapPage() {
   const [saving, setSaving] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitMsg, setSubmitMsg] = useState<string | null>(null)
-  const supabase = createClient()
   const router = useRouter()
 
   useEffect(() => {
     document.title = 'Site Map | Behavior School Admin'
 
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
+      const authenticated = await hasAdminClientSession()
 
-      if (!session) {
+      if (!authenticated) {
         router.push('/admin/login')
       } else {
         setIsAuthenticated(true)
@@ -62,7 +61,7 @@ export default function AdminSitemapPage() {
     }
 
     checkAuth()
-  }, [supabase, router])
+  }, [router])
 
   // Compute and verify links once authenticated
   useEffect(() => {

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase-client'
+import { hasAdminClientSession } from '@/lib/admin-client-session'
 import { Mail, ExternalLink, AlertTriangle } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import React from 'react'
@@ -86,21 +86,14 @@ export default function ListmonkAdminPage() {
   useEffect(() => {
     document.title = 'Newsletter (Listmonk) | Admin'
     const checkAuth = async () => {
-      try {
-        const sup = createClient()
-        const { data: { session } } = await sup.auth.getSession()
-        if (!session) {
-          router.push('/admin/login')
-          setLoading(false)
-          return
-        }
-        setIsAuthenticated(true)
+      const authenticated = await hasAdminClientSession()
+      if (!authenticated) {
+        router.push('/admin/login')
         setLoading(false)
-      } catch (e) {
-        console.error('Supabase init/auth error:', e)
-        setEnvError('Authentication client is not configured. Check NEXT_PUBLIC_SUPABASE_URL/NEXT_PUBLIC_SUPABASE_ANON_KEY.')
-        setLoading(false)
+        return
       }
+      setIsAuthenticated(true)
+      setLoading(false)
     }
     void checkAuth()
   }, [router])

@@ -1161,6 +1161,16 @@ export default defineSchema({
     .index("by_enrollment", ["enrollmentId"])
     .index("by_submitted_at", ["submittedAt"]),
 
+  presentationDocs: defineTable({
+    title: v.string(),
+    template: v.string(),
+    data: v.any(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_updated_at", ["updatedAt"])
+    .index("by_created_at", ["createdAt"]),
+
   masterclassCertificateConfigs: defineTable({
     legacyId: v.optional(v.string()),
     courseTitle: v.string(),

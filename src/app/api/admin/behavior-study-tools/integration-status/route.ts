@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { getConvexUrl } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -43,8 +43,7 @@ function item({
 }
 
 function buildIntegrationStatus() {
-  const hasSupabaseUrl = hasEnv('SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_URL')
-  const hasSupabaseKey = hasEnv('SUPABASE_SERVICE_ROLE', 'SUPABASE_SECRECT_KEY', 'SUPABASE_SERVICE_ROLE_KEY')
+  const hasConvexUrl = Boolean(getConvexUrl())
   const hasGoogleJson = hasEnv('BST_GOOGLE_SERVICE_ACCOUNT_JSON')
   const hasGooglePair =
     hasEnv('BST_GSC_SERVICE_ACCOUNT_EMAIL', 'GOOGLE_CLIENT_EMAIL') &&
@@ -60,18 +59,16 @@ function buildIntegrationStatus() {
 
   const items: IntegrationStatusItem[] = [
     item({
-      id: 'supabase-admin',
-      label: 'Supabase event storage',
-      status: supabaseAdmin ? 'connected' : hasSupabaseUrl || hasSupabaseKey ? 'partial' : 'missing',
-      message: supabaseAdmin
-        ? 'Server-side storage is configured for marketing events, activity logs, growth signals, SEO drafts, and social posts.'
-        : hasSupabaseUrl || hasSupabaseKey
-          ? 'Only part of the Supabase admin configuration is present.'
-          : 'Marketing data can be collected in the browser, but server storage is not configured.',
-      nextStep: supabaseAdmin
-        ? 'Confirm the latest Supabase migrations are applied and keep monitoring daily event volume.'
-        : 'Set the Supabase URL and service role key in production.',
-      envVars: ['SUPABASE_URL or NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SERVICE_ROLE or SUPABASE_SERVICE_ROLE_KEY'],
+      id: 'convex-admin',
+      label: 'Convex admin storage',
+      status: hasConvexUrl ? 'connected' : 'missing',
+      message: hasConvexUrl
+        ? 'Server-side admin storage is configured through Convex.'
+        : 'Admin storage is not configured.',
+      nextStep: hasConvexUrl
+        ? 'Keep monitoring daily event volume and admin workflow completion in Convex.'
+        : 'Set NEXT_PUBLIC_CONVEX_URL in production.',
+      envVars: ['NEXT_PUBLIC_CONVEX_URL'],
       impact: 'Without storage, conversion and SEO decisions are based on incomplete evidence.',
     }),
     item({

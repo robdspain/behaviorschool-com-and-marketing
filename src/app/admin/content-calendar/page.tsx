@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase-client'
+import { hasAdminClientSession } from '@/lib/admin-client-session'
 import { useRouter } from 'next/navigation'
 import { Calendar, Plus, Filter, Grid, List, Video, Clock, TrendingUp, AlertCircle } from 'lucide-react'
 
@@ -108,7 +108,6 @@ export default function ContentCalendarPage() {
     content_type: ''
   })
 
-  const supabase = createClient()
   const router = useRouter()
 
   useEffect(() => {
@@ -117,8 +116,8 @@ export default function ContentCalendarPage() {
   }, [])
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
+    const authenticated = await hasAdminClientSession()
+    if (!authenticated) {
       router.push('/admin/login')
     } else {
       setIsAuthenticated(true)

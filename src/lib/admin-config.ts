@@ -77,7 +77,6 @@ export const SIMPLE_AUTH_CONFIG = {
   // Check if simple auth is enabled
   isSimpleAuthEnabled(): boolean {
     return process.env.USE_SIMPLE_ADMIN_AUTH === 'true' || 
-           !process.env.NEXT_PUBLIC_SUPABASE_URL ||
            !process.env.GOOGLE_CLIENT_ID;
   },
   

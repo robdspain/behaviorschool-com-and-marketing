@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase-client'
+import { hasAdminClientSession } from '@/lib/admin-client-session'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { FileText, Plus, Edit, Trash2, Eye, Calendar, Tag, Search, ExternalLink } from 'lucide-react'
@@ -26,7 +26,6 @@ export default function ContentPage() {
   const [postsLoading, setPostsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState<'all' | 'published' | 'draft'>('all')
-  const supabase = createClient()
   const router = useRouter()
 
   useEffect(() => {
@@ -34,9 +33,9 @@ export default function ContentPage() {
     document.title = 'Content Management | Behavior School Admin'
     
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
+      const authenticated = await hasAdminClientSession()
       
-      if (!session) {
+      if (!authenticated) {
         router.push('/admin/login')
       } else {
         setIsAuthenticated(true)
@@ -46,7 +45,7 @@ export default function ContentPage() {
     }
 
     checkAuth()
-  }, [supabase, router])
+  }, [router])
 
   const fetchPosts = async () => {
     try {

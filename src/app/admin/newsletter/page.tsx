@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase-client'
+import { hasAdminClientSession } from '@/lib/admin-client-session'
 import { Mail, BarChart3 } from 'lucide-react'
 import { RichTextEditor } from '@/components/RichTextEditor'
 
@@ -41,9 +41,8 @@ export default function NewsletterAdminSupabase() {
   useEffect(() => {
     document.title = 'Newsletter | Admin'
     const checkAuth = async () => {
-      const sup = createClient()
-      const { data: { session } } = await sup.auth.getSession()
-      if (!session) {
+      const authenticated = await hasAdminClientSession()
+      if (!authenticated) {
         router.push('/admin/login')
         setLoading(false)
         return
@@ -135,7 +134,7 @@ export default function NewsletterAdminSupabase() {
             <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600"><Mail className="w-6 h-6" /></div>
             <div>
               <h1 className="text-2xl font-bold text-slate-900">Newsletter (Supabase)</h1>
-              <p className="text-slate-600">Manage subscribers stored in Supabase.</p>
+              <p className="text-slate-600">Manage subscribers, lists, templates, and campaigns.</p>
             </div>
           </div>
         </div>

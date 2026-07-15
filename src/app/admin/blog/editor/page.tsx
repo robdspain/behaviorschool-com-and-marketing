@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, Suspense } from 'react'
-import { createClient } from '@/lib/supabase-client'
+import { hasAdminClientSession } from '@/lib/admin-client-session'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X, Star, Sparkles } from 'lucide-react'
 import { RichTextEditor } from '@/components/RichTextEditor'
@@ -45,7 +45,6 @@ function BlogEditorContent() {
   const searchParams = useSearchParams()
   const postId = searchParams.get('id')
   const postSlugParam = searchParams.get('slug')
-  const supabase = createClient()
 
   // Helper function to transform Ghost URLs to use our media proxy
   const transformGhostImageUrl = (url: string | null | undefined): string => {
@@ -135,9 +134,9 @@ function BlogEditorContent() {
     document.title = postId ? 'Edit Post | Admin' : 'New Post | Admin'
 
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
+      const authenticated = await hasAdminClientSession()
 
-      if (!session) {
+      if (!authenticated) {
         router.push('/admin/login')
       } else {
         setIsAuthenticated(true)
@@ -172,7 +171,7 @@ function BlogEditorContent() {
     }
 
     checkAuth()
-  }, [postId, postSlugParam, supabase, router])
+  }, [postId, postSlugParam, router])
 
   const fetchTags = async () => {
     try {

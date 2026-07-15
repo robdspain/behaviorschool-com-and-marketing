@@ -2,20 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase-client';
+import { clearAdminClientSession } from '@/lib/admin-client-session';
 import { RefreshCw, CheckCircle } from 'lucide-react';
 
 export default function ClearAuthPage() {
   const [status, setStatus] = useState<'clearing' | 'cleared' | 'error'>('clearing');
   const router = useRouter();
-  const supabase = createClient();
 
   useEffect(() => {
     const clearAuth = async () => {
       try {
         // Clear all auth-related items from localStorage
         const keysToRemove = Object.keys(localStorage).filter(key => 
-          key.includes('supabase') || 
           key.includes('auth') || 
           key.includes('sb-') ||
           key.includes('pkce')
@@ -23,8 +21,7 @@ export default function ClearAuthPage() {
         
         keysToRemove.forEach(key => localStorage.removeItem(key));
 
-        // Sign out from Supabase
-        await supabase.auth.signOut();
+        await clearAdminClientSession();
 
         setStatus('cleared');
 
@@ -39,7 +36,7 @@ export default function ClearAuthPage() {
     };
 
     clearAuth();
-  }, [router, supabase]);
+  }, [router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50">
@@ -97,4 +94,3 @@ export default function ClearAuthPage() {
     </div>
   );
 }
-

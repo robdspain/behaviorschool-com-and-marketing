@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { supabaseAdmin } from "@/lib/supabase-admin";
+import { api, getConvexClient } from "@/lib/convex";
 
 export type BehaviorStudyToolsSeoOverride = {
   pageTitle: string;
@@ -16,10 +16,10 @@ export type BehaviorStudyToolsSeoOverride = {
 };
 
 type DraftRow = {
-  url: string | null;
-  keyword: string | null;
-  status: string | null;
-  metadata: Record<string, unknown> | null;
+  url?: string | null;
+  keyword?: string | null;
+  status?: string | null;
+  metadata?: Record<string, unknown> | null;
 };
 
 function cleanString(value: unknown, max = 1000) {
@@ -51,21 +51,21 @@ function toOverride(row: DraftRow): BehaviorStudyToolsSeoOverride {
 }
 
 export async function getBehaviorStudyToolsSeoOverride(pageHref: string): Promise<BehaviorStudyToolsSeoOverride | null> {
-  if (!supabaseAdmin) return null;
+  let data: DraftRow[] = [];
+  try {
+    data = await getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+      source: "seo_content_draft",
+      signalTypes: ["page_copy_draft"],
+      statuses: ["approved", "applied"],
+      limit: 100,
+    });
+  } catch {
+    return null;
+  }
 
-  const { data, error } = await supabaseAdmin
-    .from("behavior_study_tools_growth_signals")
-    .select("url,keyword,status,metadata")
-    .eq("source", "seo_content_draft")
-    .eq("signal_type", "page_copy_draft")
-    .eq("url", pageHref)
-    .in("status", ["approved", "applied"])
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (error || !data) return null;
-  const override = toOverride(data as DraftRow);
+  const row = data.find((item) => item.url === pageHref);
+  if (!row) return null;
+  const override = toOverride(row);
   return override.heroHeadline || override.metaDescription || override.faqAnswer || override.primaryCta
     ? override
     : null;
