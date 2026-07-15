@@ -37,9 +37,8 @@ export async function GET(request: NextRequest) {
     // Get attendance records by participant
     if (participantId) {
       const client = getConvexClient();
-      // Query by participant across all events
-      const records = await client.query(api.aceAttendance.getByEvent, {
-        eventId: participantId as Id<"aceEvents">,
+      const records = await client.query(api.aceAttendance.getByParticipant, {
+        participantId: participantId as Id<"aceUsers">,
       });
       return NextResponse.json({ success: true, data: records });
     }

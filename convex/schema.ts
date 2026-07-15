@@ -386,6 +386,8 @@ export default defineSchema({
     verificationCodeTimestamp: v.optional(v.number()),
     
     // Metadata
+    ipAddress: v.optional(v.string()),
+    userAgent: v.optional(v.string()),
     createdAt: v.number(),
     updatedAt: v.number(),
   })
