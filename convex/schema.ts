@@ -928,6 +928,27 @@ export default defineSchema({
     .index("by_created_at", ["createdAt"])
     .index("by_certificate_issued", ["certificateIssued"]),
 
+  masterclassCertificateConfigs: defineTable({
+    legacyId: v.optional(v.string()),
+    courseTitle: v.string(),
+    ceuCredits: v.number(),
+    bacbProviderNumber: v.string(),
+    certificateSubtitle: v.optional(v.string()),
+    completionStatement: v.string(),
+    signatureName: v.optional(v.string()),
+    signatureTitle: v.optional(v.string()),
+    organizationName: v.string(),
+    organizationWebsite: v.string(),
+    introductionVideoUrl: v.optional(v.string()),
+    templateVersion: v.number(),
+    isActive: v.boolean(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_active", ["isActive"])
+    .index("by_created_at", ["createdAt"]),
+
   checkoutSettings: defineTable({
     settingKey: v.string(),
     settingValue: v.string(),

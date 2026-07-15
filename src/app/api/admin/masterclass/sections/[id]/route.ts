@@ -1,11 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getSectionById,
-  updateSection,
-  deleteSection,
-} from '@/lib/masterclass/admin-queries';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { api, getConvexClient } from '@/lib/convex';
 import type { CourseSectionFormData } from '@/lib/masterclass/admin-types';
 
 /**
@@ -17,9 +14,13 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id: idParam } = await params;
-    const id = parseInt(idParam);
-    const section = await getSectionById(id);
+    const section = await getConvexClient().query(api.masterclassAdmin.getSection, { id: idParam });
 
     if (!section) {
       return NextResponse.json(
@@ -50,11 +51,23 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id: idParam } = await params;
-    const id = parseInt(idParam);
     const body = (await request.json()) as Partial<CourseSectionFormData>;
 
-    const section = await updateSection(id, body);
+    const section = await getConvexClient().mutation(api.masterclassAdmin.updateSection, {
+      id: idParam,
+      title: body.title,
+      description: body.description,
+      videoUrl: body.video_url,
+      duration: body.duration,
+      orderIndex: body.order_index,
+      isActive: body.is_active,
+    });
 
     return NextResponse.json({
       success: true,
@@ -79,9 +92,13 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id: idParam } = await params;
-    const id = parseInt(idParam);
-    await deleteSection(id);
+    await getConvexClient().mutation(api.masterclassAdmin.deleteSection, { id: idParam });
 
     return NextResponse.json({
       success: true,

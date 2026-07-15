@@ -1,11 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getQuestionsBySection,
-  createQuestion,
-  reorderQuestions,
-} from '@/lib/masterclass/admin-queries';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { api, getConvexClient } from '@/lib/convex';
 import type { QuizQuestionFormData } from '@/lib/masterclass/admin-types';
 
 /**
@@ -14,8 +11,13 @@ import type { QuizQuestionFormData } from '@/lib/masterclass/admin-types';
  */
 export async function GET(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const searchParams = request.nextUrl.searchParams;
-    const sectionNumber = searchParams.get('sectionNumber');
+    const sectionNumber = searchParams.get('sectionNumber') ?? searchParams.get('section');
 
     if (!sectionNumber) {
       return NextResponse.json(
@@ -24,7 +26,17 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const questions = await getQuestionsBySection(parseInt(sectionNumber));
+    const parsedSectionNumber = parseInt(sectionNumber, 10);
+    if (Number.isNaN(parsedSectionNumber)) {
+      return NextResponse.json(
+        { success: false, error: 'sectionNumber must be a number' },
+        { status: 400 }
+      );
+    }
+
+    const questions = await getConvexClient().query(api.masterclassAdmin.listQuestionsBySection, {
+      sectionNumber: parsedSectionNumber,
+    });
 
     return NextResponse.json({
       success: true,
@@ -45,6 +57,11 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = (await request.json()) as QuizQuestionFormData;
 
     // Validate required fields
@@ -71,7 +88,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const question = await createQuestion(body);
+    const question = await getConvexClient().mutation(api.masterclassAdmin.createQuestion, {
+      sectionNumber: body.section_number,
+      questionNumber: body.question_number,
+      questionText: body.question_text,
+      optionA: body.option_a,
+      optionB: body.option_b,
+      optionC: body.option_c,
+      optionD: body.option_d,
+      correctAnswer: body.correct_answer,
+      explanation: body.explanation,
+      isActive: body.is_active,
+    });
 
     return NextResponse.json({
       success: true,
@@ -93,6 +121,11 @@ export async function POST(request: NextRequest) {
  */
 export async function PUT(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { questionIds } = body;
 
@@ -103,7 +136,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    await reorderQuestions(questionIds);
+    await getConvexClient().mutation(api.masterclassAdmin.reorderQuestions, { questionIds });
 
     return NextResponse.json({
       success: true,

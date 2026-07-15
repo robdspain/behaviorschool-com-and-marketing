@@ -1,11 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getQuestionById,
-  updateQuestion,
-  deleteQuestion,
-} from '@/lib/masterclass/admin-queries';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { api, getConvexClient } from '@/lib/convex';
 import type { QuizQuestionFormData } from '@/lib/masterclass/admin-types';
 
 /**
@@ -17,9 +14,13 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id: idParam } = await params;
-    const id = parseInt(idParam);
-    const question = await getQuestionById(id);
+    const question = await getConvexClient().query(api.masterclassAdmin.getQuestion, { id: idParam });
 
     if (!question) {
       return NextResponse.json(
@@ -50,8 +51,12 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id: idParam } = await params;
-    const id = parseInt(idParam);
     const body = (await request.json()) as Partial<QuizQuestionFormData>;
 
     // Validate correct_answer if provided
@@ -62,7 +67,17 @@ export async function PUT(
       );
     }
 
-    const question = await updateQuestion(id, body);
+    const question = await getConvexClient().mutation(api.masterclassAdmin.updateQuestion, {
+      id: idParam,
+      questionText: body.question_text,
+      optionA: body.option_a,
+      optionB: body.option_b,
+      optionC: body.option_c,
+      optionD: body.option_d,
+      correctAnswer: body.correct_answer,
+      explanation: body.explanation,
+      isActive: body.is_active,
+    });
 
     return NextResponse.json({
       success: true,
@@ -87,9 +102,13 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id: idParam } = await params;
-    const id = parseInt(idParam);
-    await deleteQuestion(id);
+    await getConvexClient().mutation(api.masterclassAdmin.deleteQuestion, { id: idParam });
 
     return NextResponse.json({
       success: true,

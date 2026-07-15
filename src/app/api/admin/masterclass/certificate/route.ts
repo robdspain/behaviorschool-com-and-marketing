@@ -1,10 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getActiveCertificateConfig,
-  updateCertificateConfig,
-} from '@/lib/masterclass/admin-queries';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { api, getConvexClient } from '@/lib/convex';
 import type { CertificateConfigFormData } from '@/lib/masterclass/admin-types';
 
 /**
@@ -13,7 +11,12 @@ import type { CertificateConfigFormData } from '@/lib/masterclass/admin-types';
  */
 export async function GET() {
   try {
-    const config = await getActiveCertificateConfig();
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const config = await getConvexClient().query(api.masterclassAdmin.getActiveCertificateConfig, {});
 
     if (!config) {
       return NextResponse.json(
@@ -41,7 +44,12 @@ export async function GET() {
  */
 export async function PUT(request: NextRequest) {
   try {
-    const body = (await request.json()) as Partial<CertificateConfigFormData> & { id: number };
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = (await request.json()) as Partial<CertificateConfigFormData> & { id?: string | number };
 
     if (!body.id) {
       return NextResponse.json(
@@ -51,7 +59,19 @@ export async function PUT(request: NextRequest) {
     }
 
     const { id, ...configData } = body;
-    const config = await updateCertificateConfig(id, configData);
+    const config = await getConvexClient().mutation(api.masterclassAdmin.updateCertificateConfig, {
+      id: String(id),
+      courseTitle: configData.course_title,
+      ceuCredits: configData.ceu_credits,
+      bacbProviderNumber: configData.bacb_provider_number,
+      certificateSubtitle: configData.certificate_subtitle,
+      completionStatement: configData.completion_statement,
+      signatureName: configData.signature_name,
+      signatureTitle: configData.signature_title,
+      organizationName: configData.organization_name,
+      organizationWebsite: configData.organization_website,
+      introductionVideoUrl: configData.introduction_video_url,
+    });
 
     return NextResponse.json({
       success: true,

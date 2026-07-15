@@ -1,11 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getAllSections,
-  createSection,
-  reorderSections,
-} from '@/lib/masterclass/admin-queries';
+import { verifyAdminSession } from '@/lib/admin-auth';
+import { api, getConvexClient } from '@/lib/convex';
 import type { CourseSectionFormData } from '@/lib/masterclass/admin-types';
 
 /**
@@ -14,7 +11,12 @@ import type { CourseSectionFormData } from '@/lib/masterclass/admin-types';
  */
 export async function GET() {
   try {
-    const sections = await getAllSections();
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const sections = await getConvexClient().query(api.masterclassAdmin.listSections, {});
 
     return NextResponse.json({
       success: true,
@@ -35,6 +37,11 @@ export async function GET() {
  */
 export async function POST(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = (await request.json()) as CourseSectionFormData;
 
     // Validate required fields
@@ -45,7 +52,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const section = await createSection(body);
+    const section = await getConvexClient().mutation(api.masterclassAdmin.createSection, {
+      sectionNumber: body.section_number,
+      title: body.title,
+      description: body.description,
+      videoUrl: body.video_url,
+      duration: body.duration,
+      orderIndex: body.order_index,
+      isActive: body.is_active,
+    });
 
     return NextResponse.json({
       success: true,
@@ -67,6 +82,11 @@ export async function POST(request: NextRequest) {
  */
 export async function PUT(request: NextRequest) {
   try {
+    const admin = await verifyAdminSession();
+    if (!admin) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { sectionIds } = body;
 
@@ -77,7 +97,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    await reorderSections(sectionIds);
+    await getConvexClient().mutation(api.masterclassAdmin.reorderSections, { sectionIds });
 
     return NextResponse.json({
       success: true,
