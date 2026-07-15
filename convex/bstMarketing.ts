@@ -70,6 +70,29 @@ function toGrowthSignalRow(signal: any) {
   };
 }
 
+function toSocialPostRow(post: any) {
+  return {
+    id: post._id,
+    post_date: post.postDate,
+    scheduled_at: post.scheduledAt,
+    platform: post.platform,
+    status: post.status,
+    hook: post.hook,
+    body: post.body,
+    cta_label: post.ctaLabel ?? null,
+    cta_url: post.ctaUrl ?? null,
+    asset: post.asset ?? null,
+    source: post.source,
+    source_signal_id: post.sourceSignalId ?? null,
+    external_url: post.externalUrl ?? null,
+    publish_result: post.publishResult ?? {},
+    feedback_metrics: post.feedbackMetrics ?? {},
+    error_message: post.errorMessage ?? null,
+    published_at: post.publishedAt ?? null,
+    created_at: post.createdAt,
+  };
+}
+
 async function getActivityByLegacyId(ctx: any, legacyId: string) {
   return ctx.db
     .query("behaviorStudyToolsMarketingActivity")
@@ -289,6 +312,144 @@ export const importMarketingEvent = mutation({
     }
 
     return ctx.db.insert("behaviorStudyToolsMarketingEvents", payload);
+  },
+});
+
+const socialPostInput = v.object({
+  postDate: v.string(),
+  scheduledAt: v.string(),
+  platform: v.string(),
+  status: v.optional(v.string()),
+  hook: v.string(),
+  body: v.string(),
+  ctaLabel: v.optional(v.union(v.string(), v.null())),
+  ctaUrl: v.optional(v.union(v.string(), v.null())),
+  asset: v.optional(v.union(v.string(), v.null())),
+  source: v.optional(v.string()),
+  sourceSignalId: v.optional(v.union(v.string(), v.null())),
+  externalUrl: v.optional(v.union(v.string(), v.null())),
+  publishResult: v.optional(v.any()),
+  feedbackMetrics: v.optional(v.any()),
+  errorMessage: v.optional(v.union(v.string(), v.null())),
+  publishedAt: v.optional(v.union(v.string(), v.null())),
+});
+
+function socialPostPayload(args: any, timestamp: string) {
+  return {
+    postDate: args.postDate,
+    scheduledAt: args.scheduledAt,
+    platform: args.platform,
+    status: args.status || "queued",
+    hook: args.hook,
+    body: args.body,
+    ctaLabel: optionalString(args.ctaLabel),
+    ctaUrl: optionalString(args.ctaUrl),
+    asset: optionalString(args.asset),
+    source: args.source || "manual",
+    sourceSignalId: optionalString(args.sourceSignalId),
+    externalUrl: optionalString(args.externalUrl),
+    publishResult: args.publishResult ?? undefined,
+    feedbackMetrics: args.feedbackMetrics ?? undefined,
+    errorMessage: optionalString(args.errorMessage),
+    publishedAt: optionalString(args.publishedAt),
+    createdAt: timestamp,
+    updatedAt: timestamp,
+  };
+}
+
+export const listSocialPosts = query({
+  args: {
+    status: v.optional(v.string()),
+    statuses: v.optional(v.array(v.string())),
+    scheduledBefore: v.optional(v.string()),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 20;
+    const entries = args.scheduledBefore
+      ? await ctx.db
+        .query("behaviorStudyToolsSocialPosts")
+        .withIndex("by_scheduled_at", (q) => q.lte("scheduledAt", args.scheduledBefore!))
+        .collect()
+      : await ctx.db.query("behaviorStudyToolsSocialPosts").collect();
+
+    return entries
+      .filter((post) => !args.status || post.status === args.status)
+      .filter((post) => !args.statuses?.length || args.statuses.includes(post.status))
+      .sort((a, b) => b.scheduledAt.localeCompare(a.scheduledAt))
+      .slice(0, limit)
+      .map(toSocialPostRow);
+  },
+});
+
+export const findSocialPost = query({
+  args: {
+    id: v.optional(v.id("behaviorStudyToolsSocialPosts")),
+    externalUrl: v.optional(v.string()),
+    postDate: v.optional(v.string()),
+    platform: v.optional(v.string()),
+    statuses: v.optional(v.array(v.string())),
+  },
+  handler: async (ctx, args) => {
+    if (args.id) {
+      const post = await ctx.db.get(args.id);
+      return post ? toSocialPostRow(post) : null;
+    }
+
+    const posts = args.externalUrl
+      ? await ctx.db
+        .query("behaviorStudyToolsSocialPosts")
+        .withIndex("by_external_url", (q) => q.eq("externalUrl", args.externalUrl))
+        .collect()
+      : args.postDate
+        ? await ctx.db
+          .query("behaviorStudyToolsSocialPosts")
+          .withIndex("by_post_date", (q) => q.eq("postDate", args.postDate!))
+          .collect()
+        : await ctx.db.query("behaviorStudyToolsSocialPosts").collect();
+
+    const post = posts
+      .filter((entry) => !args.platform || entry.platform === args.platform)
+      .filter((entry) => !args.statuses?.length || args.statuses.includes(entry.status))
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];
+
+    return post ? toSocialPostRow(post) : null;
+  },
+});
+
+export const createSocialPost = mutation({
+  args: socialPostInput,
+  handler: async (ctx, args) => {
+    const timestamp = nowIso();
+    const id = await ctx.db.insert("behaviorStudyToolsSocialPosts", socialPostPayload(args, timestamp));
+    const post = await ctx.db.get(id);
+    return post ? toSocialPostRow(post) : null;
+  },
+});
+
+export const updateSocialPost = mutation({
+  args: {
+    id: v.id("behaviorStudyToolsSocialPosts"),
+    status: v.optional(v.string()),
+    externalUrl: v.optional(v.union(v.string(), v.null())),
+    publishResult: v.optional(v.any()),
+    feedbackMetrics: v.optional(v.any()),
+    errorMessage: v.optional(v.union(v.string(), v.null())),
+    publishedAt: v.optional(v.union(v.string(), v.null())),
+  },
+  handler: async (ctx, args) => {
+    const { id, ...updates } = args;
+    await ctx.db.patch(id, {
+      ...(updates.status !== undefined ? { status: updates.status } : {}),
+      ...(updates.externalUrl !== undefined ? { externalUrl: optionalString(updates.externalUrl) } : {}),
+      ...(updates.publishResult !== undefined ? { publishResult: updates.publishResult } : {}),
+      ...(updates.feedbackMetrics !== undefined ? { feedbackMetrics: updates.feedbackMetrics } : {}),
+      ...(updates.errorMessage !== undefined ? { errorMessage: optionalString(updates.errorMessage) } : {}),
+      ...(updates.publishedAt !== undefined ? { publishedAt: optionalString(updates.publishedAt) } : {}),
+      updatedAt: nowIso(),
+    });
+    const post = await ctx.db.get(id);
+    return post ? toSocialPostRow(post) : null;
   },
 });
 

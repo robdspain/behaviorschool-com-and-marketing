@@ -925,6 +925,33 @@ export default defineSchema({
     .index("by_event_name", ["eventName"])
     .index("by_source", ["source"]),
 
+  behaviorStudyToolsSocialPosts: defineTable({
+    legacyId: v.optional(v.string()),
+    postDate: v.string(),
+    scheduledAt: v.string(),
+    platform: v.string(),
+    status: v.string(),
+    hook: v.string(),
+    body: v.string(),
+    ctaLabel: v.optional(v.string()),
+    ctaUrl: v.optional(v.string()),
+    asset: v.optional(v.string()),
+    source: v.string(),
+    sourceSignalId: v.optional(v.string()),
+    externalUrl: v.optional(v.string()),
+    publishResult: v.optional(v.any()),
+    feedbackMetrics: v.optional(v.any()),
+    errorMessage: v.optional(v.string()),
+    publishedAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_post_date", ["postDate"])
+    .index("by_scheduled_at", ["scheduledAt"])
+    .index("by_status", ["status"])
+    .index("by_external_url", ["externalUrl"]),
+
   behaviorStudyToolsGrowthSignals: defineTable({
     legacyId: v.optional(v.string()),
     signalDate: v.string(),

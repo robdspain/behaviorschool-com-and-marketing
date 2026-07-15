@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
 
 export const dynamic = 'force-dynamic'
@@ -222,36 +222,25 @@ function postText({
 }
 
 async function latestDailySignal() {
-  if (!supabaseAdmin) return null
-  const { data } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .select('id,recommendation,metadata')
-    .eq('source', 'daily_monitor')
-    .eq('signal_type', 'daily_growth_report')
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle()
-
-  return (data || null) as DailyMonitorSignal | null
+  const signals = await getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+    source: 'daily_monitor',
+    signalTypes: ['daily_growth_report'],
+    limit: 1,
+  })
+  return ((signals || [])[0] || null) as DailyMonitorSignal | null
 }
 
 async function generateTodayPost() {
-  if (!supabaseAdmin) return { post: null, stored: false, skipped: 'supabase_not_configured' }
-
   const plan = todayPlan()
   const postDate = new Date().toISOString().slice(0, 10)
-  const existing = await supabaseAdmin
-    .from('behavior_study_tools_social_posts')
-    .select('*')
-    .eq('post_date', postDate)
-    .eq('platform', plan.platform)
-    .in('status', ['queued', 'published', 'needs_publisher'])
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle()
+  const existing = await getConvexClient().query(api.bstMarketing.findSocialPost, {
+    postDate,
+    platform: plan.platform,
+    statuses: ['queued', 'published', 'needs_publisher'],
+  })
 
-  if (existing.data) {
-    return { post: toApiPost(existing.data as SocialPostRow), stored: true, skipped: 'already_exists' }
+  if (existing) {
+    return { post: toApiPost(existing as SocialPostRow), stored: true, skipped: 'already_exists' }
   }
 
   const dailySignal = await latestDailySignal()
@@ -265,43 +254,32 @@ async function generateTodayPost() {
     insight,
   })
 
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_social_posts')
-    .insert({
-      post_date: postDate,
-      scheduled_at: new Date().toISOString(),
-      platform: plan.platform,
-      status: 'queued',
-      hook: plan.hook,
-      body,
-      cta_label: plan.ctaLabel,
-      cta_url: plan.ctaHref,
-      asset: plan.asset,
-      source: 'daily_generator',
-      source_signal_id: dailySignal?.id || null,
-    })
-    .select()
-    .single()
+  const data = await getConvexClient().mutation(api.bstMarketing.createSocialPost, {
+    postDate,
+    scheduledAt: new Date().toISOString(),
+    platform: plan.platform,
+    status: 'queued',
+    hook: plan.hook,
+    body,
+    ctaLabel: plan.ctaLabel,
+    ctaUrl: plan.ctaHref,
+    asset: plan.asset,
+    source: 'daily_generator',
+    sourceSignalId: dailySignal?.id || null,
+  })
 
-  if (error) throw error
   return { post: toApiPost(data as SocialPostRow), stored: true, skipped: null }
 }
 
 async function publishPost(row: SocialPostRow) {
   const webhookUrl = process.env.BST_SOCIAL_POST_WEBHOOK_URL
-  if (!supabaseAdmin) return toApiPost(row)
 
   if (!webhookUrl) {
-    const { data } = await supabaseAdmin
-      .from('behavior_study_tools_social_posts')
-      .update({
-        status: 'needs_publisher',
-        error_message: 'BST_SOCIAL_POST_WEBHOOK_URL is not configured.',
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', row.id)
-      .select()
-      .single()
+    const data = await getConvexClient().mutation(api.bstMarketing.updateSocialPost, {
+      id: row.id as never,
+      status: 'needs_publisher',
+      errorMessage: 'BST_SOCIAL_POST_WEBHOOK_URL is not configured.',
+    })
     return toApiPost((data || row) as SocialPostRow)
   }
 
@@ -326,46 +304,31 @@ async function publishPost(row: SocialPostRow) {
     }
 
     const externalUrl = cleanString(result?.url || result?.permalink || result?.externalUrl, 1000) || null
-    const { data } = await supabaseAdmin
-      .from('behavior_study_tools_social_posts')
-      .update({
-        status: 'published',
-        external_url: externalUrl,
-        publish_result: result || {},
-        error_message: null,
-        published_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', row.id)
-      .select()
-      .single()
+    const data = await getConvexClient().mutation(api.bstMarketing.updateSocialPost, {
+      id: row.id as never,
+      status: 'published',
+      externalUrl,
+      publishResult: result || {},
+      errorMessage: null,
+      publishedAt: new Date().toISOString(),
+    })
     return toApiPost((data || row) as SocialPostRow)
   } catch (error) {
-    const { data } = await supabaseAdmin
-      .from('behavior_study_tools_social_posts')
-      .update({
-        status: 'failed',
-        error_message: error instanceof Error ? error.message : 'Publish failed',
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', row.id)
-      .select()
-      .single()
+    const data = await getConvexClient().mutation(api.bstMarketing.updateSocialPost, {
+      id: row.id as never,
+      status: 'failed',
+      errorMessage: error instanceof Error ? error.message : 'Publish failed',
+    })
     return toApiPost((data || row) as SocialPostRow)
   }
 }
 
 async function publishDuePosts(limit = 5) {
-  if (!supabaseAdmin) return []
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_social_posts')
-    .select('*')
-    .eq('status', 'queued')
-    .lte('scheduled_at', new Date().toISOString())
-    .order('scheduled_at', { ascending: true })
-    .limit(limit)
-
-  if (error) throw error
+  const data = await getConvexClient().query(api.bstMarketing.listSocialPosts, {
+    status: 'queued',
+    scheduledBefore: new Date().toISOString(),
+    limit,
+  })
 
   const results = []
   for (const row of (data || []) as SocialPostRow[]) {
@@ -375,7 +338,6 @@ async function publishDuePosts(limit = 5) {
 }
 
 async function storeFeedback(row: SocialPostRow, input: FeedbackInput) {
-  if (!supabaseAdmin) return toApiPost(row)
   const metrics = feedbackMetrics(input)
   const mergedMetrics = {
     ...(row.feedback_metrics || {}),
@@ -383,31 +345,23 @@ async function storeFeedback(row: SocialPostRow, input: FeedbackInput) {
   }
   const externalUrl = cleanString(input.externalUrl, 1000) || row.external_url || null
 
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_social_posts')
-    .update({
-      feedback_metrics: mergedMetrics,
-      external_url: externalUrl,
-      error_message: null,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('id', row.id)
-    .select()
-    .single()
+  const data = await getConvexClient().mutation(api.bstMarketing.updateSocialPost, {
+    id: row.id as never,
+    feedbackMetrics: mergedMetrics,
+    externalUrl,
+    errorMessage: null,
+  })
 
-  if (error) throw error
-
-  await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .insert({
-      signal_date: new Date().toISOString().slice(0, 10),
+  await getConvexClient().mutation(api.bstMarketing.createGrowthSignals, {
+    signals: [{
+      signalDate: new Date().toISOString().slice(0, 10),
       source: row.platform.toLowerCase(),
-      signal_type: 'social_feedback',
+      signalType: 'social_feedback',
       channel: row.platform,
       url: externalUrl || row.cta_url,
       topic: row.hook,
-      metric_name: 'engagement_score',
-      metric_value: metrics.engagementScore,
+      metricName: 'engagement_score',
+      metricValue: metrics.engagementScore,
       metadata: {
         postId: row.id,
         postDate: row.post_date,
@@ -416,29 +370,22 @@ async function storeFeedback(row: SocialPostRow, input: FeedbackInput) {
       },
       recommendation: feedbackRecommendation(row, metrics),
       status: metrics.engagementScore > 0 ? 'needs_review' : 'monitoring',
-    })
+    }],
+  })
 
   return toApiPost((data || row) as SocialPostRow)
 }
 
 async function recordFeedback(input: FeedbackInput) {
-  if (!supabaseAdmin) return { post: null, stored: false, skipped: 'supabase_not_configured' }
-
   const postId = cleanString(input.postId || input.id, 80)
   const externalUrl = cleanString(input.externalUrl, 1000)
   if (!postId && !externalUrl) {
     throw new Error('postId or externalUrl is required to record feedback.')
   }
 
-  const baseQuery = supabaseAdmin
-    .from('behavior_study_tools_social_posts')
-    .select('*')
-    .limit(1)
-
-  const { data, error } = postId
-    ? await baseQuery.eq('id', postId).maybeSingle()
-    : await baseQuery.eq('external_url', externalUrl).maybeSingle()
-  if (error) throw error
+  const data = await getConvexClient().query(api.bstMarketing.findSocialPost, postId
+    ? { id: postId as never }
+    : { externalUrl })
   if (!data) throw new Error('Social post was not found for feedback.')
 
   const post = await storeFeedback(data as unknown as SocialPostRow, input)
@@ -446,8 +393,6 @@ async function recordFeedback(input: FeedbackInput) {
 }
 
 async function refreshFeedback(limit = 20) {
-  if (!supabaseAdmin) return { posts: [], warning: 'Supabase is not configured.' }
-
   const webhookUrl = process.env.BST_SOCIAL_FEEDBACK_WEBHOOK_URL
   if (!webhookUrl) {
     return {
@@ -456,14 +401,10 @@ async function refreshFeedback(limit = 20) {
     }
   }
 
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_social_posts')
-    .select('*')
-    .in('status', ['published', 'needs_publisher'])
-    .order('published_at', { ascending: false, nullsFirst: false })
-    .limit(limit)
-
-  if (error) throw error
+  const data = await getConvexClient().query(api.bstMarketing.listSocialPosts, {
+    statuses: ['published', 'needs_publisher'],
+    limit,
+  })
   const rows = (data || []) as SocialPostRow[]
   const response = await fetch(webhookUrl, {
     method: 'POST',
@@ -505,25 +446,16 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  if (!supabaseAdmin) {
-    return NextResponse.json({ success: true, stored: false, posts: [] })
-  }
-
   const { searchParams } = new URL(request.url)
   const status = cleanString(searchParams.get('status'), 40)
   const limit = Math.min(Number(searchParams.get('limit') || 20), 100)
-  let query = supabaseAdmin
-    .from('behavior_study_tools_social_posts')
-    .select('*')
-    .order('scheduled_at', { ascending: false })
-    .limit(Number.isFinite(limit) ? limit : 20)
-
-  if (status) query = query.eq('status', status)
-
-  const { data, error } = await query
-  if (error) {
-    return NextResponse.json({ success: true, stored: false, posts: [], warning: error.message })
-  }
+  const data = await getConvexClient().query(api.bstMarketing.listSocialPosts, {
+    status: status || undefined,
+    limit: Number.isFinite(limit) ? limit : 20,
+  }).catch((error) => {
+    console.warn('Behavior Study Tools social posts read failed:', error instanceof Error ? error.message : error)
+    return []
+  })
 
   return NextResponse.json({
     success: true,
@@ -567,10 +499,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, ...result })
     }
 
-    if (!supabaseAdmin) {
-      return NextResponse.json({ success: true, stored: false }, { status: 202 })
-    }
-
     const hook = cleanString(body.hook, 300)
     const rawBody = cleanString(body.body, 5000)
     const platform = cleanString(body.platform, 80)
@@ -578,24 +506,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'platform, hook, and body are required' }, { status: 400 })
     }
 
-    const { data, error } = await supabaseAdmin
-      .from('behavior_study_tools_social_posts')
-      .insert({
-        post_date: cleanDate(body.postDate),
-        scheduled_at: body.scheduledAt ? new Date(cleanString(body.scheduledAt, 80)).toISOString() : new Date().toISOString(),
-        platform,
-        status: cleanString(body.status, 40) || 'queued',
-        hook,
-        body: rawBody,
-        cta_label: cleanString(body.ctaLabel, 120) || null,
-        cta_url: cleanString(body.ctaUrl, 1000) || null,
-        asset: cleanString(body.asset, 300) || null,
-        source: cleanString(body.source, 80) || 'manual',
-      })
-      .select()
-      .single()
-
-    if (error) throw error
+    const data = await getConvexClient().mutation(api.bstMarketing.createSocialPost, {
+      postDate: cleanDate(body.postDate),
+      scheduledAt: body.scheduledAt ? new Date(cleanString(body.scheduledAt, 80)).toISOString() : new Date().toISOString(),
+      platform,
+      status: cleanString(body.status, 40) || 'queued',
+      hook,
+      body: rawBody,
+      ctaLabel: cleanString(body.ctaLabel, 120) || null,
+      ctaUrl: cleanString(body.ctaUrl, 1000) || null,
+      asset: cleanString(body.asset, 300) || null,
+      source: cleanString(body.source, 80) || 'manual',
+    })
     return NextResponse.json({ success: true, stored: true, post: toApiPost(data as SocialPostRow) }, { status: 201 })
   } catch (error) {
     return NextResponse.json({
