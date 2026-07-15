@@ -155,10 +155,12 @@ function SidebarNavItem({ item, isActive, onClick, collapsed }: { item: NavItem;
 export function AdminSidebar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return localStorage.getItem('admin_sidebar_collapsed') === '1';
-  });
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    setCollapsed(localStorage.getItem('admin_sidebar_collapsed') === '1');
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
