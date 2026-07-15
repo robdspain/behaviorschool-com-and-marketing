@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
 import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
@@ -322,28 +321,21 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  if (!supabaseAdmin) {
-    return NextResponse.json({
-      success: true,
-      stored: false,
-      generatedAt: new Date().toISOString(),
-      warning: 'Supabase is not configured.',
-      report: null,
-    })
-  }
-
   const { searchParams } = new URL(request.url)
   const persistSnapshot = searchParams.get('persist') === '1'
   const sinceIso = new Date(Date.now() - WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString()
   const sinceDate = sinceIso.slice(0, 10)
 
-  const [eventResult, activityData, signalData] = await Promise.all([
-    supabaseAdmin
-      .from('behavior_study_tools_marketing_events')
-      .select('event_name,page_path,visitor_id,session_id,location,intent,destination,source,received_at,payload')
-      .gte('received_at', sinceIso)
-      .order('received_at', { ascending: false })
-      .limit(5000),
+  const [eventData, activityData, signalData] = await Promise.all([
+    getConvexClient()
+      .query(api.bstMarketing.listMarketingEvents, {
+        sinceIso,
+        limit: 5000,
+      })
+      .catch((error) => {
+        console.warn('Behavior Study Tools marketing event read failed:', error instanceof Error ? error.message : error)
+        return []
+      }),
     getConvexClient()
       .query(api.bstMarketing.listMarketingActivity, {
         sinceDate,
@@ -364,8 +356,8 @@ export async function GET(request: NextRequest) {
       }),
   ])
 
-  const warning = eventResult.error?.message || null
-  const events = ((eventResult.data || []) as MarketingEventRow[])
+  const warning = null
+  const events = ((eventData || []) as MarketingEventRow[])
   const activities = ((activityData || []) as ActivityRow[])
   const signals = ((signalData || []) as GrowthSignalRow[])
 

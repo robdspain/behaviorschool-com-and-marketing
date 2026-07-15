@@ -903,6 +903,28 @@ export default defineSchema({
     .index("by_activity_date", ["activityDate"])
     .index("by_created_at", ["createdAt"]),
 
+  behaviorStudyToolsMarketingEvents: defineTable({
+    legacyId: v.optional(v.string()),
+    eventName: v.string(),
+    source: v.string(),
+    pagePath: v.optional(v.string()),
+    pageUrl: v.optional(v.string()),
+    pageTitle: v.optional(v.string()),
+    visitorId: v.optional(v.string()),
+    sessionId: v.optional(v.string()),
+    location: v.optional(v.string()),
+    intent: v.optional(v.string()),
+    destination: v.optional(v.string()),
+    payload: v.optional(v.any()),
+    receivedAt: v.string(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_received_at", ["receivedAt"])
+    .index("by_event_name", ["eventName"])
+    .index("by_source", ["source"]),
+
   behaviorStudyToolsGrowthSignals: defineTable({
     legacyId: v.optional(v.string()),
     signalDate: v.string(),

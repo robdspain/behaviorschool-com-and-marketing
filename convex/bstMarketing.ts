@@ -21,6 +21,25 @@ function toMarketingActivityRow(entry: any) {
   };
 }
 
+function toMarketingEventRow(entry: any) {
+  return {
+    id: entry._id,
+    event_name: entry.eventName,
+    source: entry.source,
+    page_path: entry.pagePath ?? null,
+    page_url: entry.pageUrl ?? null,
+    page_title: entry.pageTitle ?? null,
+    visitor_id: entry.visitorId ?? null,
+    session_id: entry.sessionId ?? null,
+    location: entry.location ?? null,
+    intent: entry.intent ?? null,
+    destination: entry.destination ?? null,
+    payload: entry.payload ?? {},
+    received_at: entry.receivedAt,
+    created_at: entry.createdAt,
+  };
+}
+
 function optionalString(value: string | null | undefined) {
   return value || undefined;
 }
@@ -61,6 +80,13 @@ async function getActivityByLegacyId(ctx: any, legacyId: string) {
 async function getGrowthSignalByLegacyId(ctx: any, legacyId: string) {
   return ctx.db
     .query("behaviorStudyToolsGrowthSignals")
+    .withIndex("by_legacy_id", (q: any) => q.eq("legacyId", legacyId))
+    .first();
+}
+
+async function getMarketingEventByLegacyId(ctx: any, legacyId: string) {
+  return ctx.db
+    .query("behaviorStudyToolsMarketingEvents")
     .withIndex("by_legacy_id", (q: any) => q.eq("legacyId", legacyId))
     .first();
 }
@@ -162,6 +188,107 @@ export const importMarketingActivity = mutation({
     }
 
     return ctx.db.insert("behaviorStudyToolsMarketingActivity", payload);
+  },
+});
+
+const marketingEventInput = v.object({
+  eventName: v.string(),
+  source: v.string(),
+  pagePath: v.optional(v.union(v.string(), v.null())),
+  pageUrl: v.optional(v.union(v.string(), v.null())),
+  pageTitle: v.optional(v.union(v.string(), v.null())),
+  visitorId: v.optional(v.union(v.string(), v.null())),
+  sessionId: v.optional(v.union(v.string(), v.null())),
+  location: v.optional(v.union(v.string(), v.null())),
+  intent: v.optional(v.union(v.string(), v.null())),
+  destination: v.optional(v.union(v.string(), v.null())),
+  payload: v.optional(v.any()),
+  receivedAt: v.optional(v.string()),
+});
+
+function marketingEventPayload(args: any, timestamp: string) {
+  return {
+    eventName: args.eventName,
+    source: args.source,
+    pagePath: optionalString(args.pagePath),
+    pageUrl: optionalString(args.pageUrl),
+    pageTitle: optionalString(args.pageTitle),
+    visitorId: optionalString(args.visitorId),
+    sessionId: optionalString(args.sessionId),
+    location: optionalString(args.location),
+    intent: optionalString(args.intent),
+    destination: optionalString(args.destination),
+    payload: args.payload ?? undefined,
+    receivedAt: args.receivedAt || timestamp,
+    createdAt: timestamp,
+    updatedAt: timestamp,
+  };
+}
+
+export const listMarketingEvents = query({
+  args: {
+    sinceIso: v.optional(v.string()),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 5000;
+    const entries = args.sinceIso
+      ? await ctx.db
+        .query("behaviorStudyToolsMarketingEvents")
+        .withIndex("by_received_at", (q) => q.gte("receivedAt", args.sinceIso!))
+        .collect()
+      : await ctx.db.query("behaviorStudyToolsMarketingEvents").collect();
+
+    return entries
+      .sort((a, b) => b.receivedAt.localeCompare(a.receivedAt))
+      .slice(0, limit)
+      .map(toMarketingEventRow);
+  },
+});
+
+export const createMarketingEvent = mutation({
+  args: marketingEventInput,
+  handler: async (ctx, args) => {
+    const timestamp = nowIso();
+    const id = await ctx.db.insert("behaviorStudyToolsMarketingEvents", marketingEventPayload(args, timestamp));
+    const entry = await ctx.db.get(id);
+    return entry ? toMarketingEventRow(entry) : null;
+  },
+});
+
+export const importMarketingEvent = mutation({
+  args: {
+    legacyId: v.string(),
+    eventName: v.string(),
+    source: v.string(),
+    pagePath: v.optional(v.union(v.string(), v.null())),
+    pageUrl: v.optional(v.union(v.string(), v.null())),
+    pageTitle: v.optional(v.union(v.string(), v.null())),
+    visitorId: v.optional(v.union(v.string(), v.null())),
+    sessionId: v.optional(v.union(v.string(), v.null())),
+    location: v.optional(v.union(v.string(), v.null())),
+    intent: v.optional(v.union(v.string(), v.null())),
+    destination: v.optional(v.union(v.string(), v.null())),
+    payload: v.optional(v.any()),
+    receivedAt: v.optional(v.string()),
+    createdAt: v.optional(v.string()),
+    updatedAt: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const existing = await getMarketingEventByLegacyId(ctx, args.legacyId);
+    const timestamp = nowIso();
+    const payload = {
+      legacyId: args.legacyId,
+      ...marketingEventPayload(args, args.createdAt || timestamp),
+      updatedAt: args.updatedAt || timestamp,
+    };
+
+    if (existing) {
+      await ctx.db.patch(existing._id, payload);
+      return existing._id;
+    }
+
+    return ctx.db.insert("behaviorStudyToolsMarketingEvents", payload);
   },
 });
 

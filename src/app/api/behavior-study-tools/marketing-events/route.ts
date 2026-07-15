@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -91,16 +91,24 @@ export async function POST(request: NextRequest) {
     }
 
     let stored = false
-    if (supabaseAdmin) {
-      const { error } = await supabaseAdmin
-        .from('behavior_study_tools_marketing_events')
-        .insert(event)
-
-      if (error) {
-        console.warn('Behavior Study Tools event was accepted but not stored:', error.message)
-      } else {
-        stored = true
-      }
+    try {
+      await getConvexClient().mutation(api.bstMarketing.createMarketingEvent, {
+        eventName: event.event_name,
+        source: event.source,
+        pagePath: event.page_path || null,
+        pageUrl: event.page_url || null,
+        pageTitle: event.page_title || null,
+        visitorId: event.visitor_id || null,
+        sessionId: event.session_id || null,
+        location: event.location || null,
+        intent: event.intent || null,
+        destination: event.destination || null,
+        payload: event.payload,
+        receivedAt: event.received_at,
+      })
+      stored = true
+    } catch (error) {
+      console.warn('Behavior Study Tools event was accepted but not stored:', error instanceof Error ? error.message : error)
     }
 
     console.info('Behavior Study Tools marketing event', {

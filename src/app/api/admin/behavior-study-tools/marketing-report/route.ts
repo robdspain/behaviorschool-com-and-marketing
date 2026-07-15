@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
 import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
@@ -576,36 +575,16 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  if (!supabaseAdmin) {
-    return NextResponse.json({
-      success: true,
-      stored: false,
-      windowDays: WINDOW_DAYS,
-      summary: null,
-      events: [],
-      warning: 'Supabase is not configured.',
-    })
-  }
-
   const since = new Date(Date.now() - WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString()
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_marketing_events')
-    .select('event_name,page_path,page_url,visitor_id,session_id,location,intent,destination,source,received_at,payload')
-    .gte('received_at', since)
-    .order('received_at', { ascending: false })
-    .limit(5000)
-
-  if (error) {
-    console.warn('Behavior Study Tools marketing report read failed:', error.message)
-    return NextResponse.json({
-      success: true,
-      stored: false,
-      windowDays: WINDOW_DAYS,
-      summary: null,
-      events: [],
-      warning: error.message,
+  const eventData = await getConvexClient()
+    .query(api.bstMarketing.listMarketingEvents, {
+      sinceIso: since,
+      limit: 5000,
     })
-  }
+    .catch((error) => {
+      console.warn('Behavior Study Tools marketing report read failed:', error instanceof Error ? error.message : error)
+      return []
+    })
 
   const activityData = await getConvexClient()
     .query(api.bstMarketing.listMarketingActivity, {
@@ -628,7 +607,7 @@ export async function GET() {
       return []
     })
 
-  const events = (data || []) as MarketingEventRow[]
+  const events = (eventData || []) as MarketingEventRow[]
   const recentActivity = ((activityData || []) as MarketingActivityRow[])
   const growthSignals = ((growthSignalData || []) as GrowthSignalRow[])
   const pageViews = events.filter((event) => event.event_name === 'page_view')
