@@ -885,6 +885,24 @@ export default defineSchema({
     .index("by_created_at", ["createdAt"])
     .index("by_event_type", ["eventType"]),
 
+  behaviorStudyToolsMarketingActivity: defineTable({
+    legacyId: v.optional(v.string()),
+    activityDate: v.string(),
+    channel: v.string(),
+    primaryAction: v.string(),
+    publishedUrl: v.string(),
+    customerSignal: v.string(),
+    competitorSignal: v.string(),
+    seoImprovement: v.string(),
+    nextStep: v.string(),
+    status: v.string(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_activity_date", ["activityDate"])
+    .index("by_created_at", ["createdAt"]),
+
   masterclassResources: defineTable({
     legacyId: v.optional(v.string()),
     sectionId: v.optional(v.string()),

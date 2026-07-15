@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
 import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -316,20 +317,22 @@ export async function GET(request: NextRequest) {
   const sinceIso = new Date(Date.now() - WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString()
   const sinceDate = sinceIso.slice(0, 10)
 
-  const [eventResult, activityResult, signalResult] = await Promise.all([
+  const [eventResult, activityData, signalResult] = await Promise.all([
     supabaseAdmin
       .from('behavior_study_tools_marketing_events')
       .select('event_name,page_path,visitor_id,session_id,location,intent,destination,source,received_at,payload')
       .gte('received_at', sinceIso)
       .order('received_at', { ascending: false })
       .limit(5000),
-    supabaseAdmin
-      .from('behavior_study_tools_marketing_activity')
-      .select('activity_date,channel,primary_action,published_url,customer_signal,competitor_signal,seo_improvement,next_step,status,created_at')
-      .gte('activity_date', sinceDate)
-      .order('activity_date', { ascending: false })
-      .order('created_at', { ascending: false })
-      .limit(100),
+    getConvexClient()
+      .query(api.bstMarketing.listMarketingActivity, {
+        sinceDate,
+        limit: 100,
+      })
+      .catch((error) => {
+        console.warn('Behavior Study Tools activity report read failed:', error instanceof Error ? error.message : error)
+        return []
+      }),
     supabaseAdmin
       .from('behavior_study_tools_growth_signals')
       .select('signal_date,source,signal_type,channel,url,keyword,topic,metric_name,metric_value,previous_value,change_value,change_percent,metadata,recommendation,status,created_at')
@@ -339,9 +342,9 @@ export async function GET(request: NextRequest) {
       .limit(500),
   ])
 
-  const warning = eventResult.error?.message || activityResult.error?.message || signalResult.error?.message || null
+  const warning = eventResult.error?.message || signalResult.error?.message || null
   const events = ((eventResult.data || []) as MarketingEventRow[])
-  const activities = ((activityResult.data || []) as ActivityRow[])
+  const activities = ((activityData || []) as ActivityRow[])
   const signals = ((signalResult.data || []) as GrowthSignalRow[])
 
   const pageViews = events.filter((event) => event.event_name === 'page_view')

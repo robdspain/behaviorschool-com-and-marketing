@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -37,23 +37,16 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  if (!supabaseAdmin) {
-    return NextResponse.json({ success: true, entries: [], stored: false })
+  try {
+    const entries = await getConvexClient().query(api.bstMarketing.listMarketingActivity, {
+      limit: 30,
+    })
+    return NextResponse.json({ success: true, entries, stored: true })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Marketing activity log read failed'
+    console.warn('Marketing activity log read failed:', message)
+    return NextResponse.json({ success: true, entries: [], stored: false, warning: message })
   }
-
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_marketing_activity')
-    .select('*')
-    .order('activity_date', { ascending: false })
-    .order('created_at', { ascending: false })
-    .limit(30)
-
-  if (error) {
-    console.warn('Marketing activity log read failed:', error.message)
-    return NextResponse.json({ success: true, entries: [], stored: false, warning: error.message })
-  }
-
-  return NextResponse.json({ success: true, entries: data || [], stored: true })
 }
 
 export async function POST(request: NextRequest) {
@@ -71,20 +64,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Channel and primary action are required' }, { status: 400 })
   }
 
-  if (!supabaseAdmin) {
-    return NextResponse.json({ success: true, entry, stored: false }, { status: 202 })
+  try {
+    const data = await getConvexClient().mutation(api.bstMarketing.createMarketingActivity, {
+      activityDate: entry.activity_date,
+      channel: entry.channel,
+      primaryAction: entry.primary_action,
+      publishedUrl: entry.published_url,
+      customerSignal: entry.customer_signal,
+      competitorSignal: entry.competitor_signal,
+      seoImprovement: entry.seo_improvement,
+      nextStep: entry.next_step,
+      status: entry.status,
+      createdAt: entry.created_at,
+    })
+    return NextResponse.json({ success: true, entry: data, stored: true }, { status: 201 })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Marketing activity log write failed'
+    console.warn('Marketing activity log write failed:', message)
+    return NextResponse.json({ success: true, entry, stored: false, warning: message }, { status: 202 })
   }
-
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_marketing_activity')
-    .insert(entry)
-    .select()
-    .single()
-
-  if (error) {
-    console.warn('Marketing activity log write failed:', error.message)
-    return NextResponse.json({ success: true, entry, stored: false, warning: error.message }, { status: 202 })
-  }
-
-  return NextResponse.json({ success: true, entry: data, stored: true }, { status: 201 })
 }

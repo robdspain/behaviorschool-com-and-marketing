@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
 import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -606,17 +607,15 @@ export async function GET() {
     })
   }
 
-  const { data: activityData, error: activityError } = await supabaseAdmin
-    .from('behavior_study_tools_marketing_activity')
-    .select('activity_date,channel,primary_action,published_url,customer_signal,competitor_signal,seo_improvement,next_step,status,created_at')
-    .gte('activity_date', since.slice(0, 10))
-    .order('activity_date', { ascending: false })
-    .order('created_at', { ascending: false })
-    .limit(50)
-
-  if (activityError) {
-    console.warn('Behavior Study Tools activity report read failed:', activityError.message)
-  }
+  const activityData = await getConvexClient()
+    .query(api.bstMarketing.listMarketingActivity, {
+      sinceDate: since.slice(0, 10),
+      limit: 50,
+    })
+    .catch((error) => {
+      console.warn('Behavior Study Tools activity report read failed:', error instanceof Error ? error.message : error)
+      return []
+    })
 
   const { data: growthSignalData, error: growthSignalError } = await supabaseAdmin
     .from('behavior_study_tools_growth_signals')

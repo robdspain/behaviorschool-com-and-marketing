@@ -13,6 +13,7 @@ import type * as analytics from "../analytics.js";
 import type * as audit from "../audit.js";
 import type * as audit_logger from "../audit_logger.js";
 import type * as auth from "../auth.js";
+import type * as bstMarketing from "../bstMarketing.js";
 import type * as checkoutAccess from "../checkoutAccess.js";
 import type * as contentCalendar from "../contentCalendar.js";
 import type * as crm from "../crm.js";
@@ -36,6 +37,7 @@ declare const fullApi: ApiFromModules<{
   audit: typeof audit;
   audit_logger: typeof audit_logger;
   auth: typeof auth;
+  bstMarketing: typeof bstMarketing;
   checkoutAccess: typeof checkoutAccess;
   contentCalendar: typeof contentCalendar;
   crm: typeof crm;
