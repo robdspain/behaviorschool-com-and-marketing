@@ -854,6 +854,19 @@ export default defineSchema({
     .index("by_platform", ["platform"])
     .index("by_day", ["dayOfWeek"]),
 
+  pageIndexSettings: defineTable({
+    path: v.string(),
+    index: v.boolean(),
+    inSitemap: v.boolean(),
+    deleted: v.boolean(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_path", ["path"])
+    .index("by_index", ["index"])
+    .index("by_in_sitemap", ["inSitemap"])
+    .index("by_deleted", ["deleted"]),
+
   checkoutSettings: defineTable({
     settingKey: v.string(),
     settingValue: v.string(),
