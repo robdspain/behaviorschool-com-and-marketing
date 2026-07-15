@@ -8,6 +8,8 @@
  * @module
  */
 
+import type * as aceComplaints from "../aceComplaints.js";
+import type * as aceFeedback from "../aceFeedback.js";
 import type * as aceProviders from "../aceProviders.js";
 import type * as aceUsers from "../aceUsers.js";
 import type * as activityArchive from "../activityArchive.js";
@@ -34,6 +36,8 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  aceComplaints: typeof aceComplaints;
+  aceFeedback: typeof aceFeedback;
   aceProviders: typeof aceProviders;
   aceUsers: typeof aceUsers;
   activityArchive: typeof activityArchive;

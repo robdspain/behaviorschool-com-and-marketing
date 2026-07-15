@@ -412,7 +412,12 @@ export default defineSchema({
     
     // Metadata
     submittedAt: v.number(),
+    coordinatorReviewDueDate: v.optional(v.number()),
+    coordinatorReviewedAt: v.optional(v.number()),
+    coordinatorNotes: v.optional(v.string()),
+    coordinatorActionTaken: v.optional(v.string()),
     createdAt: v.number(),
+    updatedAt: v.optional(v.number()),
   })
     .index("by_event", ["eventId"])
     .index("by_participant", ["participantId"]),
@@ -495,6 +500,10 @@ export default defineSchema({
     resolutionNotes: v.optional(v.string()),
     resolvedAt: v.optional(v.number()),
     resolvedBy: v.optional(v.id("aceUsers")),
+    responseDueDate: v.optional(v.number()),
+    navEscalationNotified: v.optional(v.boolean()),
+    navEscalationNotifiedAt: v.optional(v.number()),
+    navNotificationMethod: v.optional(v.string()),
     
     // Metadata
     submittedAt: v.number(),
