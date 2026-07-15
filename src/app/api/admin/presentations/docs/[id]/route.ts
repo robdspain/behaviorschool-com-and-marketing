@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdminApiSession } from '@/lib/admin-api-session';
 import { api, getConvexClient } from '@/lib/convex';
 import type { Id } from '@/lib/convex';
 
@@ -11,6 +12,9 @@ function asDocId(id: string): PresentationDocId {
 }
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const { id } = await params;
     const data = await getConvexClient().query(api.presentations.getDoc, {
@@ -25,6 +29,9 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 }
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const { id } = await params;
     const body = await req.json();
@@ -44,6 +51,9 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 }
 
 export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const { id } = await params;
     await getConvexClient().mutation(api.presentations.deleteDoc, {

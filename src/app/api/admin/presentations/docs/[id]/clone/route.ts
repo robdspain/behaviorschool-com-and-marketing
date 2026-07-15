@@ -1,12 +1,16 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdminApiSession } from '@/lib/admin-api-session';
 import { api, getConvexClient } from '@/lib/convex';
 import type { Id } from '@/lib/convex';
 
 type PresentationDocId = Id<"presentationDocs">;
 
 export async function POST(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const { id } = await params;
     const cloneId = await getConvexClient().mutation(api.presentations.cloneDoc, {

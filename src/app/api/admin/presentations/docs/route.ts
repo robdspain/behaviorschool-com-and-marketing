@@ -1,12 +1,16 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdminApiSession } from '@/lib/admin-api-session';
 import { api, getConvexClient } from '@/lib/convex';
 import type { Id } from '@/lib/convex';
 
 type PresentationDocId = Id<"presentationDocs">;
 
 export async function GET() {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const data = await getConvexClient().query(api.presentations.listDocs, {
       limit: 200,
@@ -19,6 +23,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const body = await req.json();
     const { id, title, template, data } = body || {};
