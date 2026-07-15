@@ -903,6 +903,32 @@ export default defineSchema({
     .index("by_activity_date", ["activityDate"])
     .index("by_created_at", ["createdAt"]),
 
+  behaviorStudyToolsGrowthSignals: defineTable({
+    legacyId: v.optional(v.string()),
+    signalDate: v.string(),
+    source: v.string(),
+    signalType: v.string(),
+    channel: v.optional(v.string()),
+    url: v.optional(v.string()),
+    keyword: v.optional(v.string()),
+    topic: v.optional(v.string()),
+    metricName: v.optional(v.string()),
+    metricValue: v.optional(v.number()),
+    previousValue: v.optional(v.number()),
+    changeValue: v.optional(v.number()),
+    changePercent: v.optional(v.number()),
+    metadata: v.optional(v.any()),
+    recommendation: v.optional(v.string()),
+    status: v.string(),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_legacy_id", ["legacyId"])
+    .index("by_signal_date", ["signalDate"])
+    .index("by_source", ["source"])
+    .index("by_signal_type", ["signalType"])
+    .index("by_created_at", ["createdAt"]),
+
   masterclassResources: defineTable({
     legacyId: v.optional(v.string()),
     sectionId: v.optional(v.string()),

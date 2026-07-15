@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -94,13 +94,29 @@ function toApiSignal(row: Record<string, unknown>) {
   }
 }
 
+function toConvexSignal(signal: ReturnType<typeof cleanSignal>) {
+  return {
+    signalDate: signal.signal_date,
+    source: signal.source,
+    signalType: signal.signal_type,
+    channel: signal.channel,
+    url: signal.url,
+    keyword: signal.keyword,
+    topic: signal.topic,
+    metricName: signal.metric_name,
+    metricValue: signal.metric_value,
+    previousValue: signal.previous_value,
+    changeValue: signal.change_value,
+    changePercent: signal.change_percent,
+    metadata: signal.metadata,
+    recommendation: signal.recommendation,
+    status: signal.status,
+  }
+}
+
 export async function GET(request: NextRequest) {
   if (!(await isAdminAuthenticated(request))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  if (!supabaseAdmin) {
-    return NextResponse.json({ success: true, signals: [], stored: false })
   }
 
   const { searchParams } = new URL(request.url)
@@ -108,28 +124,22 @@ export async function GET(request: NextRequest) {
   const since = cleanString(searchParams.get('since'), 40)
   const limit = Math.min(Number(searchParams.get('limit') || 100), 500)
 
-  let query = supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .select('*')
-    .order('signal_date', { ascending: false })
-    .order('created_at', { ascending: false })
-    .limit(Number.isFinite(limit) ? limit : 100)
-
-  if (source) query = query.eq('source', source)
-  if (since) query = query.gte('signal_date', cleanDate(since))
-
-  const { data, error } = await query
-
-  if (error) {
-    console.warn('Growth signal read failed:', error.message)
-    return NextResponse.json({ success: true, signals: [], stored: false, warning: error.message })
+  try {
+    const signals = await getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+      source: source || undefined,
+      sinceDate: since ? cleanDate(since) : undefined,
+      limit: Number.isFinite(limit) ? limit : 100,
+    })
+    return NextResponse.json({
+      success: true,
+      stored: true,
+      signals: (signals || []).map((row: Record<string, unknown>) => toApiSignal(row)),
+    })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Growth signal read failed'
+    console.warn('Growth signal read failed:', message)
+    return NextResponse.json({ success: true, signals: [], stored: false, warning: message })
   }
-
-  return NextResponse.json({
-    success: true,
-    stored: true,
-    signals: (data || []).map((row) => toApiSignal(row as Record<string, unknown>)),
-  })
 }
 
 export async function POST(request: NextRequest) {
@@ -152,23 +162,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Each signal requires source and signalType' }, { status: 400 })
   }
 
-  if (!supabaseAdmin) {
-    return NextResponse.json({ success: true, signals, stored: false }, { status: 202 })
+  try {
+    const data = await getConvexClient().mutation(api.bstMarketing.createGrowthSignals, {
+      signals: signals.map(toConvexSignal),
+    })
+    return NextResponse.json({
+      success: true,
+      stored: true,
+      signals: (data || []).map((row: Record<string, unknown>) => toApiSignal(row)),
+    }, { status: 201 })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Growth signal write failed'
+    console.warn('Growth signal write failed:', message)
+    return NextResponse.json({ success: true, signals, stored: false, warning: message }, { status: 202 })
   }
-
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .insert(signals)
-    .select()
-
-  if (error) {
-    console.warn('Growth signal write failed:', error.message)
-    return NextResponse.json({ success: true, signals, stored: false, warning: error.message }, { status: 202 })
-  }
-
-  return NextResponse.json({
-    success: true,
-    stored: true,
-    signals: (data || []).map((row) => toApiSignal(row as Record<string, unknown>)),
-  }, { status: 201 })
 }

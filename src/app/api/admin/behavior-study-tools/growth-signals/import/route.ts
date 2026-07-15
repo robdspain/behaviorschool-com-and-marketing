@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -224,6 +224,26 @@ function mapRow(provider: ImportProvider, row: CsvRow, signalDate: string) {
   }
 }
 
+function toConvexSignal(signal: ReturnType<typeof mapRow>) {
+  return {
+    signalDate: signal.signal_date,
+    source: signal.source,
+    signalType: signal.signal_type,
+    channel: signal.channel,
+    url: signal.url,
+    keyword: signal.keyword,
+    topic: signal.topic,
+    metricName: signal.metric_name,
+    metricValue: signal.metric_value,
+    previousValue: signal.previous_value,
+    changeValue: signal.change_value,
+    changePercent: signal.change_percent,
+    metadata: signal.metadata,
+    recommendation: signal.recommendation,
+    status: signal.status,
+  }
+}
+
 export async function POST(request: NextRequest) {
   if (!(await isAdminAuthenticated(request))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -252,24 +272,19 @@ export async function POST(request: NextRequest) {
 
   const signals = rows.slice(0, MAX_IMPORT_ROWS).map((row) => mapRow(provider, row, signalDate))
 
-  if (!supabaseAdmin) {
-    return NextResponse.json({ success: true, stored: false, imported: signals.length, signals }, { status: 202 })
+  try {
+    const data = await getConvexClient().mutation(api.bstMarketing.createGrowthSignals, {
+      signals: signals.map(toConvexSignal),
+    })
+    return NextResponse.json({
+      success: true,
+      stored: true,
+      imported: Array.isArray(data) ? data.length : 0,
+      signals: data || [],
+    }, { status: 201 })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Growth signal import failed'
+    console.warn('Growth signal import failed:', message)
+    return NextResponse.json({ success: true, stored: false, imported: signals.length, warning: message, signals }, { status: 202 })
   }
-
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .insert(signals)
-    .select()
-
-  if (error) {
-    console.warn('Growth signal import failed:', error.message)
-    return NextResponse.json({ success: true, stored: false, imported: signals.length, warning: error.message, signals }, { status: 202 })
-  }
-
-  return NextResponse.json({
-    success: true,
-    stored: true,
-    imported: data?.length || 0,
-    signals: data || [],
-  }, { status: 201 })
 }
