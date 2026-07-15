@@ -1,5 +1,3 @@
-import fs from "fs/promises";
-import path from "path";
 import formData from "form-data";
 import Mailgun from "mailgun.js";
 import Stripe from "stripe";
@@ -32,7 +30,7 @@ const TRANSFORMATION_PROGRAM_URL = `${SITE_URL}/transformation-program`;
 const SUPPORT_EMAIL = process.env.MAILGUN_FROM_EMAIL || "rob@behaviorschool.com";
 const PURCHASE_AUDIT_TEMPLATE = "transformation_program_purchase";
 const PURCHASE_CONFIRMATION_TEMPLATE = "transformation_program_purchase_confirmation";
-const CRM_DATA_PATH = path.join(process.cwd(), "data", "crm.json");
+const CONVEX_URL = process.env.VITE_CONVEX_URL || process.env.NEXT_PUBLIC_CONVEX_URL || "";
 const TRANSFORMATION_PAYMENT_LINK_IDS = new Set(
   (process.env.TRANSFORMATION_PROGRAM_PAYMENT_LINK_IDS || "")
     .split(",")
@@ -44,32 +42,6 @@ type EmailTemplateRecord = {
   subject: string;
   body_text: string | null;
   body_html: string | null;
-};
-
-type CrmContact = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string | null;
-  company: string | null;
-  role: string | null;
-  type: "lead" | "customer" | "partner" | "prospect";
-  source: "website" | "conference" | "referral" | "email" | "social";
-  status: "new" | "contacted" | "qualified" | "converted" | "inactive";
-  tags: string[];
-  notes: string;
-  lastContactDate: string | null;
-  followUpDate?: string | null;
-  linkedInUrl?: string | null;
-  programInterest?: string | null;
-  createdAt: string;
-  updatedAt: string;
-  stripeCustomerId: string | null;
-  revenue: number;
-};
-
-type CrmData = {
-  contacts: CrmContact[];
 };
 
 type PurchaseContext = {
@@ -84,6 +56,7 @@ type PurchaseContext = {
   stripePaymentIntentId: string | null;
   stripeCustomerId: string | null;
   paymentLinkId: string | null;
+  checkoutOption: string | null;
   productName: string;
   lineItemDescriptions: string[];
 };
@@ -198,21 +171,23 @@ function appendNote(existingNotes: string, note: string): string {
   return existingNotes ? `${existingNotes}\n\n${note}` : note;
 }
 
-async function readCrmData(): Promise<CrmData> {
-  try {
-    const raw = await fs.readFile(CRM_DATA_PATH, "utf-8");
-    const parsed = JSON.parse(raw) as Partial<CrmData>;
-    return {
-      contacts: Array.isArray(parsed.contacts) ? parsed.contacts : [],
-    };
-  } catch (error) {
-    console.error("[Stripe Webhook] Failed to read CRM data:", error);
-    return { contacts: [] };
+async function convexMutation(path: string, args: Record<string, unknown>): Promise<unknown> {
+  if (!CONVEX_URL) {
+    throw new Error("Convex URL is not configured");
   }
-}
 
-async function writeCrmData(data: CrmData): Promise<void> {
-  await fs.writeFile(CRM_DATA_PATH, JSON.stringify(data, null, 2), "utf-8");
+  const response = await fetch(`${CONVEX_URL}/api/mutation`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ path, args, format: "json" }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Convex mutation failed: ${response.status} ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.value;
 }
 
 async function getLineItemDescriptions(sessionId: string): Promise<string[]> {
@@ -236,6 +211,7 @@ async function resolvePurchaseContext(session: Stripe.Checkout.Session): Promise
   const lineItemDescriptions = await getLineItemDescriptions(session.id);
   const metadataProduct = session.metadata?.product?.trim();
   const metadataProgram = session.metadata?.program?.trim();
+  const checkoutOption = session.metadata?.checkout_option?.trim() || null;
   const paymentLinkId = getPaymentLinkId(session.payment_link);
   const candidates = [metadataProduct, metadataProgram, ...lineItemDescriptions].filter(
     (value): value is string => Boolean(value && value.trim()),
@@ -269,6 +245,7 @@ async function resolvePurchaseContext(session: Stripe.Checkout.Session): Promise
     stripeCustomerId:
       typeof session.customer === "string" ? session.customer : session.customer?.id || null,
     paymentLinkId,
+    checkoutOption,
     productName,
     lineItemDescriptions,
   };
@@ -642,56 +619,23 @@ async function writePurchaseAudit(
 }
 
 async function updateCrm(purchase: PurchaseContext): Promise<void> {
-  const crmData = await readCrmData();
-  const contactIndex = crmData.contacts.findIndex((contact) => contact.email.toLowerCase() === purchase.email);
   const now = new Date().toISOString();
-  const note = `Purchased ${purchase.productName} (${purchase.amountDisplay}) via Stripe session ${purchase.stripeSessionId} on ${now}.`;
-
-  if (contactIndex >= 0) {
-    const existing = crmData.contacts[contactIndex];
-    crmData.contacts[contactIndex] = {
-      ...existing,
-      name: existing.name || purchase.fullName,
-      type: "customer",
-      status: "converted",
-      source: existing.source || "website",
-      tags: Array.from(new Set([...(existing.tags || []), "customer", "transformation-program"])),
-      notes: appendNote(existing.notes || "", note),
-      lastContactDate: now,
-      updatedAt: now,
-      stripeCustomerId: purchase.stripeCustomerId || existing.stripeCustomerId,
-      revenue: Number(existing.revenue || 0) + purchase.amountCents / 100,
-      programInterest: existing.programInterest || "Transformation Program",
-    };
-  } else {
-    const maxId = crmData.contacts.length > 0
-      ? Math.max(...crmData.contacts.map((contact) => Number.parseInt(contact.id, 10)).filter(Number.isFinite))
-      : 0;
-
-    crmData.contacts.push({
-      id: String(maxId + 1),
-      name: purchase.fullName,
-      email: purchase.email,
-      phone: null,
-      company: null,
-      role: null,
-      type: "customer",
-      source: "website",
-      status: "converted",
-      tags: ["customer", "transformation-program"],
-      notes: note,
-      lastContactDate: now,
-      followUpDate: null,
-      linkedInUrl: null,
-      programInterest: "Transformation Program",
-      createdAt: now,
-      updatedAt: now,
-      stripeCustomerId: purchase.stripeCustomerId,
-      revenue: purchase.amountCents / 100,
-    });
-  }
-
-  await writeCrmData(crmData);
+  await convexMutation("crm:recordTransformationPurchase", {
+    email: purchase.email,
+    firstName: purchase.firstName,
+    lastName: purchase.lastName,
+    fullName: purchase.fullName,
+    amountCents: purchase.amountCents,
+    amountDisplay: purchase.amountDisplay,
+    stripeSessionId: purchase.stripeSessionId,
+    stripePaymentIntentId: purchase.stripePaymentIntentId,
+    stripeCustomerId: purchase.stripeCustomerId,
+    paymentLinkId: purchase.paymentLinkId,
+    checkoutOption: purchase.checkoutOption,
+    productName: purchase.productName,
+    lineItemDescriptions: purchase.lineItemDescriptions,
+    purchasedAt: now,
+  });
 }
 
 async function sendTransformationWelcomeEmail(purchase: PurchaseContext): Promise<void> {

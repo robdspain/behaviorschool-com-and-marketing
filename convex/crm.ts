@@ -646,6 +646,122 @@ export const logCheckoutFollowUpFailed = mutation({
   },
 });
 
+export const recordTransformationPurchase = mutation({
+  args: {
+    email: v.string(),
+    firstName: v.string(),
+    lastName: v.optional(v.string()),
+    fullName: v.optional(v.string()),
+    amountCents: v.number(),
+    amountDisplay: v.string(),
+    stripeSessionId: v.string(),
+    stripePaymentIntentId: v.optional(v.union(v.string(), v.null())),
+    stripeCustomerId: v.optional(v.union(v.string(), v.null())),
+    paymentLinkId: v.optional(v.union(v.string(), v.null())),
+    checkoutOption: v.optional(v.union(v.string(), v.null())),
+    productName: v.string(),
+    lineItemDescriptions: v.optional(v.array(v.string())),
+    purchasedAt: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const timestamp = nowIso();
+    const purchasedAt = args.purchasedAt ?? timestamp;
+    const emailLower = normalizeEmail(args.email);
+    const existingContact = await getContactByEmailLower(ctx, emailLower);
+    const revenue = args.amountCents / 100;
+    const note = `Purchased ${args.productName} (${args.amountDisplay}) via Stripe session ${args.stripeSessionId} on ${purchasedAt}.`;
+    let contactId: Id<"crmContacts">;
+
+    if (existingContact) {
+      contactId = existingContact._id;
+      await ctx.db.patch(contactId, compact({
+        firstName: existingContact.firstName || args.firstName.trim(),
+        lastName: existingContact.lastName || args.lastName?.trim() || "",
+        email: args.email.trim(),
+        emailLower,
+        status: "customer",
+        tags: Array.from(new Set([...(existingContact.tags || []), "customer", "transformation-program"])),
+        notes: existingContact.notes ? `${existingContact.notes}\n\n${note}` : note,
+        lastContactedAt: purchasedAt,
+        followUpDate: undefined,
+        stripeCustomerId: args.stripeCustomerId || existingContact.stripeCustomerId,
+        revenue: (existingContact.revenue || 0) + revenue,
+        isArchived: false,
+        updatedAt: timestamp,
+      }));
+    } else {
+      contactId = await ctx.db.insert("crmContacts", {
+        firstName: args.firstName.trim(),
+        lastName: args.lastName?.trim() ?? "",
+        email: args.email.trim(),
+        emailLower,
+        status: "customer",
+        leadSource: "stripe_purchase",
+        tags: ["customer", "transformation-program"],
+        notes: note,
+        leadScore: 0,
+        priority: "high",
+        lastContactedAt: purchasedAt,
+        stripeCustomerId: args.stripeCustomerId || undefined,
+        revenue,
+        isArchived: false,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      });
+    }
+
+    const deals = (await ctx.db.query("crmDeals").collect())
+      .filter((deal) => deal.contactId === contactId && !deal.isArchived)
+      .filter((deal) => !["closed_won", "closed_lost"].includes(deal.stage))
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+
+    let dealId: Id<"crmDeals">;
+    if (deals[0]) {
+      dealId = deals[0]._id;
+      await ctx.db.patch(dealId, {
+        value: revenue || deals[0].value,
+        stage: "closed_won",
+        probability: 100,
+        updatedAt: timestamp,
+      });
+    } else {
+      dealId = await ctx.db.insert("crmDeals", {
+        title: `${args.productName} - ${args.fullName || args.email}`,
+        contactId,
+        value: revenue,
+        stage: "closed_won",
+        probability: 100,
+        expectedCloseDate: purchasedAt.slice(0, 10),
+        paymentOption: args.checkoutOption === "installments" || args.amountCents === 69700 ? "payment_plan" : "pay_in_full",
+        isArchived: false,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      });
+    }
+
+    await insertActivity(ctx, {
+      contactId,
+      dealId,
+      activityType: "purchase",
+      subject: `Transformation Program purchase recorded - ${args.amountDisplay}`,
+      body: note,
+      metadata: {
+        stripeSessionId: args.stripeSessionId,
+        stripePaymentIntentId: args.stripePaymentIntentId,
+        stripeCustomerId: args.stripeCustomerId,
+        paymentLinkId: args.paymentLinkId,
+        checkoutOption: args.checkoutOption,
+        amountCents: args.amountCents,
+        amountDisplay: args.amountDisplay,
+        productName: args.productName,
+        lineItemDescriptions: args.lineItemDescriptions ?? [],
+      },
+    });
+
+    return { contactId, dealId };
+  },
+});
+
 export const listDiscoveryCalls = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, args) => {
