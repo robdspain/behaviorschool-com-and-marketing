@@ -47,6 +47,9 @@ export async function PATCH(
       leadScore: body.lead_score ?? body.leadScore,
       priority: body.priority,
       lastContactedAt: body.last_contacted_at ?? body.lastContactedAt,
+      followUpDate: body.follow_up_date ?? body.followUpDate,
+      stripeCustomerId: body.stripe_customer_id ?? body.stripeCustomerId,
+      revenue: body.revenue === undefined ? undefined : Number(body.revenue),
     });
     return NextResponse.json(contact, { status: 200 });
   } catch (error) {

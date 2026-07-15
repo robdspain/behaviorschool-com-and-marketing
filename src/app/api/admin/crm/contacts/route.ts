@@ -20,6 +20,10 @@ function toContactRow(contact: any) {
     custom_fields: contact.notes ? { notes: contact.notes } : null,
     lead_score: contact.leadScore ?? 0,
     priority: contact.priority ?? "medium",
+    notes: contact.notes ?? null,
+    follow_up_date: contact.followUpDate ?? null,
+    stripe_customer_id: contact.stripeCustomerId ?? null,
+    revenue: contact.revenue ?? 0,
     created_at: contact.createdAt,
     updated_at: contact.updatedAt,
     last_contacted_at: contact.lastContactedAt ?? null,
@@ -58,11 +62,14 @@ export async function POST(request: NextRequest) {
       leadSource,
       tags,
       notes,
+      followUpDate,
+      stripeCustomerId,
+      revenue,
     } = body;
 
-    if (!firstName || !lastName || !email) {
+    if (!firstName || !email) {
       return NextResponse.json(
-        { message: "First name, last name, and email are required" },
+        { message: "First name and email are required" },
         { status: 400 }
       );
     }
@@ -80,6 +87,9 @@ export async function POST(request: NextRequest) {
       leadSource: leadSource || undefined,
       tags: tags || [],
       notes: notes || undefined,
+      followUpDate: followUpDate || body.follow_up_date || undefined,
+      stripeCustomerId: stripeCustomerId || body.stripe_customer_id || undefined,
+      revenue: revenue === undefined ? undefined : Number(revenue),
     });
     const contact = await client.query(api.crm.getContact, { id });
     return NextResponse.json(toContactRow(contact), { status: 201 });

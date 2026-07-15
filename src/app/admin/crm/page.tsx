@@ -44,6 +44,26 @@ interface Contact {
   revenue: number;
 }
 
+interface AdminContactRow {
+  id: string;
+  first_name: string;
+  last_name: string | null;
+  email: string;
+  phone: string | null;
+  organization: string | null;
+  role: string | null;
+  status: string;
+  lead_source: string | null;
+  tags: string[] | null;
+  notes: string | null;
+  follow_up_date: string | null;
+  last_contacted_at: string | null;
+  stripe_customer_id: string | null;
+  revenue: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
 const emptyForm: Partial<Contact> = {
   name: '',
   email: '',
@@ -77,6 +97,85 @@ function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+const allowedSources = new Set(['website', 'conference', 'referral', 'email', 'social']);
+
+function splitName(name: string) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  return {
+    firstName: parts.shift() ?? '',
+    lastName: parts.join(' '),
+  };
+}
+
+function toLegacyStatus(status: string): Contact['status'] {
+  if (status === 'contacted') return 'contacted';
+  if (status === 'qualified' || status === 'onboarding') return 'qualified';
+  if (status === 'customer') return 'converted';
+  if (status === 'inactive' || status === 'churned') return 'inactive';
+  return 'new';
+}
+
+function fromLegacyStatus(status?: Contact['status']) {
+  if (status === 'contacted') return 'contacted';
+  if (status === 'qualified') return 'qualified';
+  if (status === 'converted') return 'customer';
+  if (status === 'inactive') return 'inactive';
+  return 'lead';
+}
+
+function toLegacyContact(row: AdminContactRow): Contact {
+  const source = row.lead_source && allowedSources.has(row.lead_source)
+    ? row.lead_source as Contact['source']
+    : 'website';
+  const tags = row.tags ?? [];
+
+  return {
+    id: row.id,
+    name: [row.first_name, row.last_name].filter(Boolean).join(' ').trim(),
+    email: row.email,
+    phone: row.phone,
+    company: row.organization,
+    role: row.role,
+    type: row.status === 'customer' ? 'customer' : 'lead',
+    source,
+    status: toLegacyStatus(row.status),
+    tags,
+    notes: row.notes ?? '',
+    lastContactDate: row.last_contacted_at,
+    followUpDate: row.follow_up_date,
+    linkedInUrl: null,
+    programInterest: tags.find((tag) => tag.includes('program')) ?? null,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    stripeCustomerId: row.stripe_customer_id,
+    revenue: row.revenue ?? 0,
+  };
+}
+
+function toAdminContactPayload(contact: Partial<Contact>) {
+  const { firstName, lastName } = splitName(contact.name ?? '');
+  const tags = [...(contact.tags ?? [])];
+  if (contact.programInterest && !tags.includes(contact.programInterest)) {
+    tags.push(contact.programInterest);
+  }
+
+  return {
+    firstName,
+    lastName,
+    email: contact.email,
+    phone: contact.phone || undefined,
+    organization: contact.company || undefined,
+    role: contact.role || undefined,
+    status: fromLegacyStatus(contact.status),
+    leadSource: contact.source || 'website',
+    tags,
+    notes: contact.notes || undefined,
+    followUpDate: contact.followUpDate || undefined,
+    stripeCustomerId: contact.stripeCustomerId || undefined,
+    revenue: contact.revenue ?? 0,
+  };
+}
+
 export default function CRMPage() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
@@ -101,18 +200,48 @@ export default function CRMPage() {
 
   const fetchContacts = async () => {
     try {
-      const params = new URLSearchParams();
-      if (searchQuery) params.append('q', searchQuery);
-      if (typeFilter) params.append('type', typeFilter);
-      if (statusFilter) params.append('status', statusFilter);
-      if (sourceFilter) params.append('source', sourceFilter);
-      if (selectedTags.length > 0) params.append('tags', selectedTags.join(','));
-      params.append('sortBy', sortBy);
-      params.append('sortOrder', sortOrder);
-      const response = await fetch(`/api/crm?${params.toString()}`);
+      const response = await fetch('/api/admin/crm/contacts');
       if (response.ok) {
-        const data = await response.json();
-        setContacts(data.contacts);
+        const data = await response.json() as AdminContactRow[];
+        let nextContacts = data.map(toLegacyContact);
+
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          nextContacts = nextContacts.filter((contact) =>
+            contact.name.toLowerCase().includes(query) ||
+            contact.email.toLowerCase().includes(query) ||
+            contact.company?.toLowerCase().includes(query)
+          );
+        }
+        if (typeFilter) nextContacts = nextContacts.filter((contact) => contact.type === typeFilter);
+        if (statusFilter) nextContacts = nextContacts.filter((contact) => contact.status === statusFilter);
+        if (sourceFilter) nextContacts = nextContacts.filter((contact) => contact.source === sourceFilter);
+        if (selectedTags.length > 0) {
+          nextContacts = nextContacts.filter((contact) =>
+            selectedTags.some((tag) => contact.tags.includes(tag))
+          );
+        }
+
+        nextContacts.sort((a, b) => {
+          let aVal: string | number = String(a[sortBy as keyof Contact] ?? '');
+          let bVal: string | number = String(b[sortBy as keyof Contact] ?? '');
+          if (sortBy === 'createdAt' || sortBy === 'updatedAt' || sortBy === 'lastContactDate' || sortBy === 'followUpDate') {
+            aVal = aVal ? new Date(String(aVal)).getTime() : 0;
+            bVal = bVal ? new Date(String(bVal)).getTime() : 0;
+          }
+          if (sortBy === 'revenue') {
+            aVal = Number(aVal) || 0;
+            bVal = Number(bVal) || 0;
+          }
+          if (typeof aVal === 'string') {
+            aVal = aVal.toLowerCase();
+            bVal = String(bVal ?? '').toLowerCase();
+          }
+          if (sortOrder === 'asc') return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+          return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
+        });
+
+        setContacts(nextContacts);
       }
     } catch (error) {
       console.error('Error fetching contacts:', error);
@@ -123,10 +252,10 @@ export default function CRMPage() {
 
   const handleAddContact = async () => {
     try {
-      const response = await fetch('/api/crm', {
+      const response = await fetch('/api/admin/crm/contacts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(toAdminContactPayload(formData)),
       });
       if (response.ok) {
         setShowAddModal(false);
@@ -143,10 +272,10 @@ export default function CRMPage() {
 
   const handleUpdateContact = async (contact: Partial<Contact>) => {
     try {
-      const response = await fetch('/api/crm', {
+      const response = await fetch(`/api/admin/crm/contacts/${contact.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contact),
+        body: JSON.stringify(toAdminContactPayload(contact)),
       });
       if (response.ok) {
         fetchContacts();
