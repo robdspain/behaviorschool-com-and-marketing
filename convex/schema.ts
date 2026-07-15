@@ -562,6 +562,7 @@ export default defineSchema({
     verifiedAt: v.optional(v.number()),
     isApproved: v.boolean(),
     qualificationReviewNotes: v.optional(v.string()),
+    expertiseReviewNotes: v.optional(v.string()),
     
     // Metadata
     createdAt: v.number(),
