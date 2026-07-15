@@ -1,180 +1,174 @@
 export const dynamic = "force-dynamic";
 
-import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { NextRequest, NextResponse } from "next/server";
+import { requireAdminApiSession } from "@/lib/admin-api-session";
+import { api, getConvexClient } from "@/lib/convex";
+import type { Id } from "@/lib/convex";
 
-/**
- * GET /api/admin/ace/participants
- * Fetch all ACE participants (users with role 'participant')
- */
+type AceUserRow = {
+  _id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  bacbId?: string;
+  role: string;
+  credentialType?: string;
+  credentialNumber?: string;
+  credentialVerified?: boolean;
+  credentialVerifiedAt?: number;
+  credentialExpiresAt?: number;
+  phone?: string;
+  organization?: string;
+  isActive: boolean;
+  createdAt: number;
+  updatedAt: number;
+  lastLoginAt?: number;
+};
+
+function parseDate(value: unknown) {
+  if (typeof value !== "string" || !value.trim()) return undefined;
+  const timestamp = new Date(value).getTime();
+  return Number.isFinite(timestamp) ? timestamp : undefined;
+}
+
+function isoDate(value?: number) {
+  return typeof value === "number" && Number.isFinite(value)
+    ? new Date(value).toISOString()
+    : undefined;
+}
+
+function toParticipantRow(user: AceUserRow | null) {
+  if (!user) return null;
+
+  return {
+    id: user._id,
+    first_name: user.firstName,
+    last_name: user.lastName,
+    email: user.email,
+    bacb_id: user.bacbId ?? null,
+    role: user.role,
+    credential_type: user.credentialType ?? null,
+    credential_number: user.credentialNumber ?? null,
+    credential_verified: user.credentialVerified ?? false,
+    credential_verified_at: isoDate(user.credentialVerifiedAt) ?? null,
+    credential_expires_at: isoDate(user.credentialExpiresAt) ?? null,
+    is_active: user.isActive,
+    phone: user.phone ?? null,
+    organization: user.organization ?? null,
+    created_at: isoDate(user.createdAt),
+    updated_at: isoDate(user.updatedAt),
+    last_login_at: isoDate(user.lastLoginAt) ?? null,
+  };
+}
+
 export async function GET() {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
-    const supabase = await createClient();
+    const data = await getConvexClient().query(api.aceUsers.listByRole, {
+      role: "participant",
+      limit: 500,
+    });
 
-    const { data, error } = await supabase
-      .from('ace_users')
-      .select('*')
-      .eq('role', 'participant')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching participants:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ data });
+    return NextResponse.json({ data: data.map(toParticipantRow) });
   } catch (error) {
-    console.error('Error in GET /api/admin/ace/participants:', error);
+    console.error("Error in GET /api/admin/ace/participants:", error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: "Internal server error" },
       { status: 500 }
     );
   }
 }
 
-/**
- * PATCH /api/admin/ace/participants
- * Update participant credential information
- */
 export async function PATCH(request: NextRequest) {
-  try {
-    const supabase = await createClient();
-    const body = await request.json();
-    const {
-      user_id,
-      credential_type,
-      credential_number,
-      credential_verified,
-      credential_verified_at,
-      credential_expires_at,
-    } = body;
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
 
-    if (!user_id) {
+  try {
+    const body = await request.json();
+    const userId = body.user_id || body.userId;
+
+    if (!userId) {
       return NextResponse.json(
-        { error: 'user_id is required' },
+        { error: "user_id is required" },
         { status: 400 }
       );
     }
 
-    // Build update object
-    const updates: Record<string, unknown> = {
-      updated_at: new Date().toISOString(),
-    };
+    const credentialVerified = body.credential_verified ?? body.credentialVerified;
+    const credentialVerifiedAt = parseDate(body.credential_verified_at ?? body.credentialVerifiedAt);
+    const credentialExpiresAt = parseDate(body.credential_expires_at ?? body.credentialExpiresAt);
 
-    if (credential_type !== undefined) {
-      updates.credential_type = credential_type;
-    }
+    const data = await getConvexClient().mutation(api.aceUsers.updateParticipantCredential, {
+      id: userId as Id<"aceUsers">,
+      credentialType: body.credential_type ?? body.credentialType,
+      credentialNumber: body.credential_number ?? body.credentialNumber,
+      credentialVerified,
+      credentialVerifiedAt,
+      clearCredentialVerifiedAt: credentialVerified === false || body.credential_verified_at === null,
+      credentialExpiresAt,
+      clearCredentialExpiresAt: body.credential_expires_at === null,
+    });
 
-    if (credential_number !== undefined) {
-      updates.credential_number = credential_number;
-    }
-
-    if (credential_verified !== undefined) {
-      updates.credential_verified = credential_verified;
-      
-      // Set verification timestamp if verifying
-      if (credential_verified && credential_verified_at) {
-        updates.credential_verified_at = credential_verified_at;
-      } else if (!credential_verified) {
-        updates.credential_verified_at = null;
-      }
-    }
-
-    if (credential_expires_at !== undefined) {
-      updates.credential_expires_at = credential_expires_at;
-    }
-
-    // Update the user
-    const { data, error } = await supabase
-      .from('ace_users')
-      .update(updates)
-      .eq('id', user_id)
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Error updating participant:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ data });
+    return NextResponse.json({ data: toParticipantRow(data) });
   } catch (error) {
-    console.error('Error in PATCH /api/admin/ace/participants:', error);
+    console.error("Error in PATCH /api/admin/ace/participants:", error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error instanceof Error ? error.message : "Internal server error" },
       { status: 500 }
     );
   }
 }
 
-/**
- * POST /api/admin/ace/participants
- * Create a new ACE participant
- */
 export async function POST(request: NextRequest) {
-  try {
-    const supabase = await createClient();
-    const body = await request.json();
-    const {
-      first_name,
-      last_name,
-      email,
-      credential_type,
-      credential_number,
-      phone,
-      organization,
-    } = body;
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
 
-    if (!first_name || !last_name || !email) {
+  try {
+    const body = await request.json();
+    const firstName = body.first_name ?? body.firstName;
+    const lastName = body.last_name ?? body.lastName;
+    const email = body.email;
+
+    if (!firstName || !lastName || !email) {
       return NextResponse.json(
-        { error: 'first_name, last_name, and email are required' },
+        { error: "first_name, last_name, and email are required" },
         { status: 400 }
       );
     }
 
-    // Check if user already exists
-    const { data: existingUser } = await supabase
-      .from('ace_users')
-      .select('id')
-      .eq('email', email)
-      .single();
+    const client = getConvexClient();
+    const existingUser = await client.query(api.aceUsers.getByEmail, {
+      email: String(email).toLowerCase(),
+    });
 
     if (existingUser) {
       return NextResponse.json(
-        { error: 'A user with this email already exists' },
+        { error: "A user with this email already exists" },
         { status: 400 }
       );
     }
 
-    // Create new participant
-    const { data, error } = await supabase
-      .from('ace_users')
-      .insert({
-        first_name,
-        last_name,
-        email,
-        role: 'participant',
-        credential_type: credential_type || 'pending',
-        credential_number,
-        phone,
-        organization,
-        is_active: true,
-      })
-      .select()
-      .single();
+    const id = await client.mutation(api.aceUsers.create, {
+      firstName,
+      lastName,
+      email,
+      role: "participant",
+      credentialType: body.credential_type ?? body.credentialType ?? "pending",
+      credentialNumber: body.credential_number ?? body.credentialNumber,
+      phone: body.phone || undefined,
+      organization: body.organization || undefined,
+      isActive: true,
+    });
+    const created = await client.query(api.aceUsers.getById, { id });
 
-    if (error) {
-      console.error('Error creating participant:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ data }, { status: 201 });
+    return NextResponse.json({ data: toParticipantRow(created) }, { status: 201 });
   } catch (error) {
-    console.error('Error in POST /api/admin/ace/participants:', error);
+    console.error("Error in POST /api/admin/ace/participants:", error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error instanceof Error ? error.message : "Internal server error" },
       { status: 500 }
     );
   }
 }
-
