@@ -35,6 +35,7 @@ import type * as masterclassAdmin from "../masterclassAdmin.js";
 import type * as masterclassRuntime from "../masterclassRuntime.js";
 import type * as passwordHistory from "../passwordHistory.js";
 import type * as presentations from "../presentations.js";
+import type * as schoolBcbaSurvey from "../schoolBcbaSurvey.js";
 import type * as submissions from "../submissions.js";
 
 import type {
@@ -71,6 +72,7 @@ declare const fullApi: ApiFromModules<{
   masterclassRuntime: typeof masterclassRuntime;
   passwordHistory: typeof passwordHistory;
   presentations: typeof presentations;
+  schoolBcbaSurvey: typeof schoolBcbaSurvey;
   submissions: typeof submissions;
 }>;
 

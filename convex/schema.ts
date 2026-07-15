@@ -820,6 +820,46 @@ export default defineSchema({
     .index("by_resource", ["resource"])
     .index("by_created_at", ["createdAt"]),
 
+  schoolBcbaSurveyResponses: defineTable({
+    surveySlug: v.string(),
+    role: v.string(),
+    roleOther: v.optional(v.string()),
+    schoolSetting: v.string(),
+    schoolSettingOther: v.optional(v.string()),
+    state: v.optional(v.string()),
+    yearsInSchools: v.string(),
+    caseloadRange: v.string(),
+    schoolsServedRange: v.string(),
+    weeklyHoursRange: v.string(),
+    workloadRating: v.string(),
+    burnoutFrequency: v.string(),
+    activityAllocation: v.object({
+      directStudentSupport: v.optional(v.string()),
+      documentation: v.optional(v.string()),
+      meetingsConsultation: v.optional(v.string()),
+      assessments: v.optional(v.string()),
+      staffTraining: v.optional(v.string()),
+      travelScheduling: v.optional(v.string()),
+      crisisResponse: v.optional(v.string()),
+      other: v.optional(v.string()),
+    }),
+    challengeAreas: v.array(v.string()),
+    supportsNeeded: v.string(),
+    additionalNotes: v.optional(v.string()),
+    referralSource: v.optional(v.string()),
+    wantsResults: v.boolean(),
+    consentToContact: v.boolean(),
+    firstName: v.optional(v.string()),
+    lastName: v.optional(v.string()),
+    email: v.optional(v.string()),
+    emailLower: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_survey_slug", ["surveySlug"])
+    .index("by_created_at", ["createdAt"])
+    .index("by_email_lower", ["emailLower"]),
+
   archivedActivities: defineTable({
     activityType: v.string(),
     activityId: v.string(),
