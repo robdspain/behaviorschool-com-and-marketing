@@ -80,6 +80,7 @@ export async function POST(request: NextRequest) {
       eventId: event_id as Id<'aceEvents'>,
       participantId: user._id,
       credentialType,
+      waitlist: true,
     });
 
     // If registration succeeded (shouldn't for full events, but handle the case)

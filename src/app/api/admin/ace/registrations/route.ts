@@ -1,295 +1,244 @@
 export const dynamic = "force-dynamic";
 
-import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
-import { validateRegistrationEligibility } from '@/lib/ace/registration-validation';
-import type { AceCredentialType, AceEventType } from '@/lib/ace/types';
-import { verifyAdminSession } from '@/lib/admin-auth';
-import { recordRequestAuditEvent } from '@/lib/audit-log';
+import { NextRequest, NextResponse } from "next/server";
+import { requireAdminApiSession } from "@/lib/admin-api-session";
+import { api, getConvexClient } from "@/lib/convex";
+import type { Id } from "@/lib/convex";
+import { recordRequestAuditEvent } from "@/lib/audit-log";
+
+type RegistrationRow = {
+  _id: string;
+  eventId: string;
+  participantId: string;
+  confirmationCode: string;
+  status: "pending" | "confirmed" | "cancelled" | "completed";
+  cancellationDate?: number;
+  cancellationReason?: string;
+  feeAmount?: number;
+  feePaid: boolean;
+  paymentDate?: number;
+  stripeSessionId?: string;
+  stripePaymentIntentId?: string;
+  credentialType?: string;
+  attendanceVerified: boolean;
+  quizCompleted: boolean;
+  feedbackCompleted: boolean;
+  certificateIssued: boolean;
+  createdAt: number;
+  updatedAt: number;
+  participant?: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    credentialType?: string;
+    credentialNumber?: string;
+    bacbId?: string;
+  } | null;
+  event?: {
+    _id: string;
+    title: string;
+    eventType?: string;
+    startDate: number;
+    totalCeus: number;
+  } | null;
+};
+
+function isoDateTime(value?: number) {
+  return typeof value === "number" && Number.isFinite(value)
+    ? new Date(value).toISOString()
+    : null;
+}
+
+function toRegistrationRow(row: RegistrationRow | null) {
+  if (!row) return null;
+  return {
+    id: row._id,
+    event_id: row.eventId,
+    user_id: row.participantId,
+    participant_id: row.participantId,
+    confirmation_code: row.confirmationCode,
+    status: row.status,
+    is_confirmed: row.status === "confirmed" || row.status === "completed",
+    is_cancelled: row.status === "cancelled",
+    cancellation_date: isoDateTime(row.cancellationDate),
+    cancellation_reason: row.cancellationReason ?? null,
+    fee_amount: row.feeAmount ?? 0,
+    payment_amount: row.feeAmount ?? 0,
+    fee_paid: row.feePaid,
+    payment_date: isoDateTime(row.paymentDate),
+    stripe_session_id: row.stripeSessionId ?? null,
+    stripe_payment_intent_id: row.stripePaymentIntentId ?? null,
+    credential_type: row.credentialType ?? null,
+    attendance_verified: row.attendanceVerified,
+    quiz_completed: row.quizCompleted,
+    feedback_completed: row.feedbackCompleted,
+    certificate_issued: row.certificateIssued,
+    created_at: isoDateTime(row.createdAt),
+    updated_at: isoDateTime(row.updatedAt),
+    user: row.participant
+      ? {
+          id: row.participant._id,
+          first_name: row.participant.firstName,
+          last_name: row.participant.lastName,
+          email: row.participant.email,
+          credential_type: row.participant.credentialType ?? null,
+          credential_number: row.participant.credentialNumber ?? row.participant.bacbId ?? null,
+        }
+      : null,
+    event: row.event
+      ? {
+          id: row.event._id,
+          title: row.event.title,
+          event_type: row.event.eventType ?? "ce",
+          start_date: isoDateTime(row.event.startDate),
+          total_ceus: row.event.totalCeus,
+        }
+      : null,
+  };
+}
 
 /**
  * GET /api/admin/ace/registrations
- * Fetch all registrations or registrations for a specific event
+ * Fetch all registrations or registrations for a specific event.
  */
 export async function GET(request: NextRequest) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
-    const admin = await verifyAdminSession();
-    if (!admin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const supabase = await createClient();
     const { searchParams } = new URL(request.url);
-    const eventId = searchParams.get('event_id');
-
-    let query = supabase
-      .from('ace_registrations')
-      .select(`
-        *,
-        user:ace_users(id, first_name, last_name, email, credential_type, credential_number),
-        event:ace_events(id, title, event_type, start_date, total_ceus)
-      `)
-      .order('created_at', { ascending: false });
-
-    if (eventId) {
-      query = query.eq('event_id', eventId);
-    }
-
-    const { data, error } = await query;
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'student_data',
-        actionType: 'read',
-        resource: 'ace_registrations',
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { error: error.message, eventId },
-      });
-      console.error('Error fetching registrations:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    const eventId = searchParams.get("event_id");
+    const rows = eventId
+      ? await getConvexClient().query(api.aceRegistrations.getByEvent, {
+          eventId: eventId as Id<"aceEvents">,
+          includeAllStatuses: true,
+        })
+      : await getConvexClient().query(api.aceRegistrations.getAll, {});
 
     await recordRequestAuditEvent(request, {
-      category: 'student_data',
-      actionType: 'read',
-      resource: 'ace_registrations',
-      status: 'success',
-      actorUserId: admin.id,
-      actorEmail: admin.email,
-      metadata: { eventId, rowCount: data?.length ?? 0 },
+      category: "student_data",
+      actionType: "read",
+      resource: "ace_registrations",
+      status: "success",
+      metadata: { eventId, rowCount: rows.length },
     });
 
-    return NextResponse.json({ data });
+    return NextResponse.json({ data: rows.map(toRegistrationRow) });
   } catch (error) {
-    console.error('Error in GET /api/admin/ace/registrations:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error("Error in GET /api/admin/ace/registrations:", error);
+    await recordRequestAuditEvent(request, {
+      category: "student_data",
+      actionType: "read",
+      resource: "ace_registrations",
+      status: "failure",
+      metadata: { error: error instanceof Error ? error.message : String(error) },
+    });
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 /**
  * POST /api/admin/ace/registrations
- * Create a new registration with CE/PD eligibility validation
+ * Create a new admin-confirmed registration with CE/PD eligibility validation.
  */
 export async function POST(request: NextRequest) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
-    const admin = await verifyAdminSession();
-    if (!admin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const supabase = await createClient();
     const body = await request.json();
-    const { event_id, user_id } = body;
+    const eventId = body.event_id;
+    const userId = body.user_id ?? body.participant_id;
 
-    if (!event_id || !user_id) {
-      return NextResponse.json(
-        { error: 'event_id and user_id are required' },
-        { status: 400 }
-      );
+    if (!eventId || !userId) {
+      return NextResponse.json({ error: "event_id and user_id are required" }, { status: 400 });
     }
 
-    // Fetch user credential type
-    const { data: user, error: userError } = await supabase
-      .from('ace_users')
-      .select('credential_type, credential_verified')
-      .eq('id', user_id)
-      .single();
-
-    if (userError || !user) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      );
-    }
-
-    // Fetch event type
-    const { data: event, error: eventError } = await supabase
-      .from('ace_events')
-      .select('event_type, title, status')
-      .eq('id', event_id)
-      .single();
-
-    if (eventError || !event) {
-      return NextResponse.json(
-        { error: 'Event not found' },
-        { status: 404 }
-      );
-    }
-
-    // Validate event is available for registration
-    if (event.status !== 'approved' && event.status !== 'draft') {
-      return NextResponse.json(
-        { error: 'This event is not available for registration' },
-        { status: 400 }
-      );
-    }
-
-    // Validate credential type eligibility
-    const credentialType = (user.credential_type || 'pending') as AceCredentialType;
-    const eventType = (event.event_type || 'ce') as AceEventType;
-
-    const eligibility = validateRegistrationEligibility(credentialType, eventType);
-
-    if (!eligibility.eligible) {
-      return NextResponse.json(
-        { 
-          error: eligibility.reason,
-          requiresCredentialVerification: eligibility.requiresCredentialVerification 
-        },
-        { status: 403 }
-      );
-    }
-
-    // Check if user credential is verified
-    if (!user.credential_verified) {
-      return NextResponse.json(
-        { 
-          error: 'Your credential must be verified before registering for events. Please contact support.',
-          requiresCredentialVerification: true
-        },
-        { status: 403 }
-      );
-    }
-
-    // Check for existing registration
-    const { data: existingReg } = await supabase
-      .from('ace_registrations')
-      .select('id')
-      .eq('event_id', event_id)
-      .eq('user_id', user_id)
-      .single();
-
-    if (existingReg) {
-      return NextResponse.json(
-        { error: 'You are already registered for this event' },
-        { status: 400 }
-      );
-    }
-
-    // Generate confirmation code
-    const confirmationCode = `REG-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-
-    // Create registration
-    const { data: registration, error: regError } = await supabase
-      .from('ace_registrations')
-      .insert({
-        event_id,
-        user_id,
-        confirmation_code: confirmationCode,
-        is_confirmed: true,
-        fee_paid: true, // For mastermind, no payment required
-        payment_amount: 0,
-      })
-      .select()
-      .single();
-
-    if (regError) {
-      await recordRequestAuditEvent(request, {
-        category: 'admin_action',
-        actionType: 'create',
-        resource: 'ace_registrations',
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { event_id, user_id, error: regError.message },
-      });
-      console.error('Error creating registration:', regError);
-      return NextResponse.json(
-        { error: regError.message },
-        { status: 500 }
-      );
-    }
-
-    await recordRequestAuditEvent(request, {
-      category: 'admin_action',
-      actionType: 'create',
-      resource: 'ace_registrations',
-      resourceId: String(registration.id),
-      status: 'success',
-      actorUserId: admin.id,
-      actorEmail: admin.email,
-      metadata: { event_id, user_id },
+    const result = await getConvexClient().mutation(api.aceRegistrations.register, {
+      eventId: eventId as Id<"aceEvents">,
+      participantId: userId as Id<"aceUsers">,
+      credentialType: body.credential_type || undefined,
+      adminConfirmed: true,
     });
 
-    return NextResponse.json({ data: registration }, { status: 201 });
+    if (!result.success) {
+      await recordRequestAuditEvent(request, {
+        category: "admin_action",
+        actionType: "create",
+        resource: "ace_registrations",
+        status: "failure",
+        metadata: { event_id: eventId, user_id: userId, error: result.error },
+      });
+      return NextResponse.json(
+        {
+          error: result.error,
+          requiresCredentialVerification: result.requiresCredentialVerification,
+        },
+        { status: result.requiresCredentialVerification ? 403 : 400 }
+      );
+    }
+
+    const registration = await getConvexClient().query(api.aceRegistrations.getById, {
+      id: result.registrationId as Id<"aceRegistrations">,
+    });
+
+    await recordRequestAuditEvent(request, {
+      category: "admin_action",
+      actionType: "create",
+      resource: "ace_registrations",
+      resourceId: String(result.registrationId),
+      status: "success",
+      metadata: { event_id: eventId, user_id: userId },
+    });
+
+    return NextResponse.json({ data: toRegistrationRow(registration) }, { status: 201 });
   } catch (error) {
-    console.error('Error in POST /api/admin/ace/registrations:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error("Error in POST /api/admin/ace/registrations:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 /**
  * DELETE /api/admin/ace/registrations
- * Cancel a registration
+ * Cancel a registration.
  */
 export async function DELETE(request: NextRequest) {
-  try {
-    const admin = await verifyAdminSession();
-    if (!admin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
 
-    const supabase = await createClient();
+  try {
     const { searchParams } = new URL(request.url);
-    const registrationId = searchParams.get('id');
+    const registrationId = searchParams.get("id");
 
     if (!registrationId) {
-      return NextResponse.json(
-        { error: 'Registration ID is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Registration ID is required" }, { status: 400 });
     }
 
-    // Mark as cancelled instead of deleting
-    const { error } = await supabase
-      .from('ace_registrations')
-      .update({
-        is_cancelled: true,
-        cancellation_date: new Date().toISOString(),
-        cancellation_reason: 'Admin cancelled',
-      })
-      .eq('id', registrationId);
-
-    if (error) {
-      await recordRequestAuditEvent(request, {
-        category: 'admin_action',
-        actionType: 'update',
-        resource: 'ace_registrations',
-        resourceId: String(registrationId),
-        status: 'failure',
-        actorUserId: admin.id,
-        actorEmail: admin.email,
-        metadata: { cancelled: true, error: error.message },
-      });
-      console.error('Error cancelling registration:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    await getConvexClient().mutation(api.aceRegistrations.cancel, {
+      id: registrationId as Id<"aceRegistrations">,
+      reason: "Admin cancelled",
+    });
 
     await recordRequestAuditEvent(request, {
-      category: 'admin_action',
-      actionType: 'update',
-      resource: 'ace_registrations',
+      category: "admin_action",
+      actionType: "update",
+      resource: "ace_registrations",
       resourceId: String(registrationId),
-      status: 'success',
-      actorUserId: admin.id,
-      actorEmail: admin.email,
+      status: "success",
       metadata: { cancelled: true },
     });
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error in DELETE /api/admin/ace/registrations:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    console.error("Error in DELETE /api/admin/ace/registrations:", error);
+    await recordRequestAuditEvent(request, {
+      category: "admin_action",
+      actionType: "update",
+      resource: "ace_registrations",
+      status: "failure",
+      metadata: { error: error instanceof Error ? error.message : String(error) },
+    });
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

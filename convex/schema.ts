@@ -264,6 +264,8 @@ export default defineSchema({
       v.literal("cancelled"),
       v.literal("completed")
     ),
+    cancellationDate: v.optional(v.number()),
+    cancellationReason: v.optional(v.string()),
     
     // Payment
     feeAmount: v.optional(v.number()),
