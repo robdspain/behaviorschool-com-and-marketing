@@ -135,6 +135,26 @@ function sourceFreshness(signals: GrowthSignalRow[], source: string, aliases = [
   }
 }
 
+function toConvexSignal(row: Record<string, unknown>) {
+  return {
+    signalDate: typeof row.signal_date === 'string' ? row.signal_date : new Date().toISOString().slice(0, 10),
+    source: typeof row.source === 'string' ? row.source : '',
+    signalType: typeof row.signal_type === 'string' ? row.signal_type : '',
+    channel: typeof row.channel === 'string' ? row.channel : null,
+    url: typeof row.url === 'string' ? row.url : null,
+    keyword: typeof row.keyword === 'string' ? row.keyword : null,
+    topic: typeof row.topic === 'string' ? row.topic : null,
+    metricName: typeof row.metric_name === 'string' ? row.metric_name : null,
+    metricValue: typeof row.metric_value === 'number' && Number.isFinite(row.metric_value) ? row.metric_value : null,
+    previousValue: typeof row.previous_value === 'number' && Number.isFinite(row.previous_value) ? row.previous_value : null,
+    changeValue: typeof row.change_value === 'number' && Number.isFinite(row.change_value) ? row.change_value : null,
+    changePercent: typeof row.change_percent === 'number' && Number.isFinite(row.change_percent) ? row.change_percent : null,
+    metadata: row.metadata && typeof row.metadata === 'object' && !Array.isArray(row.metadata) ? row.metadata : {},
+    recommendation: typeof row.recommendation === 'string' ? row.recommendation : null,
+    status: typeof row.status === 'string' ? row.status : 'new',
+  }
+}
+
 function strongestSeoSignal(signals: GrowthSignalRow[]) {
   const actionSignal = signals
     .filter((signal) => signal.source === 'seo_action_queue' && signal.signal_type === 'page_improvement_action')
@@ -317,7 +337,7 @@ export async function GET(request: NextRequest) {
   const sinceIso = new Date(Date.now() - WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString()
   const sinceDate = sinceIso.slice(0, 10)
 
-  const [eventResult, activityData, signalResult] = await Promise.all([
+  const [eventResult, activityData, signalData] = await Promise.all([
     supabaseAdmin
       .from('behavior_study_tools_marketing_events')
       .select('event_name,page_path,visitor_id,session_id,location,intent,destination,source,received_at,payload')
@@ -333,19 +353,21 @@ export async function GET(request: NextRequest) {
         console.warn('Behavior Study Tools activity report read failed:', error instanceof Error ? error.message : error)
         return []
       }),
-    supabaseAdmin
-      .from('behavior_study_tools_growth_signals')
-      .select('signal_date,source,signal_type,channel,url,keyword,topic,metric_name,metric_value,previous_value,change_value,change_percent,metadata,recommendation,status,created_at')
-      .gte('signal_date', sinceDate)
-      .order('signal_date', { ascending: false })
-      .order('created_at', { ascending: false })
-      .limit(500),
+    getConvexClient()
+      .query(api.bstMarketing.listGrowthSignals, {
+        sinceDate,
+        limit: 500,
+      })
+      .catch((error) => {
+        console.warn('Behavior Study Tools growth signal read failed:', error instanceof Error ? error.message : error)
+        return []
+      }),
   ])
 
-  const warning = eventResult.error?.message || signalResult.error?.message || null
+  const warning = eventResult.error?.message || null
   const events = ((eventResult.data || []) as MarketingEventRow[])
   const activities = ((activityData || []) as ActivityRow[])
-  const signals = ((signalResult.data || []) as GrowthSignalRow[])
+  const signals = ((signalData || []) as GrowthSignalRow[])
 
   const pageViews = events.filter((event) => event.event_name === 'page_view')
   const ctaClicks = events.filter((event) => event.event_name === 'cta_click')
@@ -401,9 +423,8 @@ export async function GET(request: NextRequest) {
   }
 
   if (persistSnapshot) {
-    await supabaseAdmin
-      .from('behavior_study_tools_growth_signals')
-      .insert({
+    await getConvexClient().mutation(api.bstMarketing.createGrowthSignals, {
+      signals: [toConvexSignal({
         signal_date: new Date().toISOString().slice(0, 10),
         source: 'daily_monitor',
         signal_type: 'daily_growth_report',
@@ -413,7 +434,8 @@ export async function GET(request: NextRequest) {
         metadata: report,
         recommendation: actions[0]?.action || 'Keep collecting traffic, SEO, social, and retention signals.',
         status: actions.some((action) => action.priority === 'high') ? 'needs_action' : 'monitoring',
-      })
+      })],
+    })
   }
 
   return NextResponse.json({

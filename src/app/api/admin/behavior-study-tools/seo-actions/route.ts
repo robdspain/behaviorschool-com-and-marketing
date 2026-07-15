@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
 
 export const dynamic = 'force-dynamic'
@@ -163,30 +163,41 @@ function toApiAction(row: SeoSignalRow) {
   }
 }
 
+function toConvexSignal(row: Record<string, unknown>) {
+  return {
+    signalDate: cleanString(row.signal_date, 40),
+    source: cleanString(row.source, 80),
+    signalType: cleanString(row.signal_type, 100),
+    channel: cleanString(row.channel, 100) || null,
+    url: cleanString(row.url, 1000) || null,
+    keyword: cleanString(row.keyword, 300) || null,
+    topic: cleanString(row.topic, 300) || null,
+    metricName: cleanString(row.metric_name, 120) || null,
+    metricValue: typeof row.metric_value === 'number' && Number.isFinite(row.metric_value) ? row.metric_value : null,
+    previousValue: typeof row.previous_value === 'number' && Number.isFinite(row.previous_value) ? row.previous_value : null,
+    changeValue: typeof row.change_value === 'number' && Number.isFinite(row.change_value) ? row.change_value : null,
+    changePercent: typeof row.change_percent === 'number' && Number.isFinite(row.change_percent) ? row.change_percent : null,
+    metadata: row.metadata && typeof row.metadata === 'object' && !Array.isArray(row.metadata) ? row.metadata : {},
+    recommendation: cleanString(row.recommendation, 1500) || null,
+    status: cleanString(row.status, 60) || 'new',
+  }
+}
+
 async function generateActions(limit = 20) {
-  if (!supabaseAdmin) return { stored: false, created: 0, actions: [] }
-
   const since = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
-  const [{ data: signals, error: signalError }, { data: existing, error: existingError }] = await Promise.all([
-    supabaseAdmin
-      .from('behavior_study_tools_growth_signals')
-      .select('*')
-      .gte('signal_date', since)
-      .eq('signal_type', 'seo_metric')
-      .in('source', ['google_search_console', 'gsc', 'ahrefs'])
-      .order('created_at', { ascending: false })
-      .limit(limit),
-    supabaseAdmin
-      .from('behavior_study_tools_growth_signals')
-      .select('metadata')
-      .gte('signal_date', since)
-      .eq('source', 'seo_action_queue')
-      .eq('signal_type', 'page_improvement_action')
-      .limit(500),
+  const [signals, existing] = await Promise.all([
+    getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+      sinceDate: since,
+      signalTypes: ['seo_metric'],
+      limit: Math.max(limit * 5, 100),
+    }),
+    getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+      sinceDate: since,
+      source: 'seo_action_queue',
+      signalTypes: ['page_improvement_action'],
+      limit: 500,
+    }),
   ])
-
-  if (signalError) throw signalError
-  if (existingError) throw existingError
 
   const existingSourceIds = new Set(
     ((existing || []) as Array<{ metadata: Record<string, unknown> | null }>)
@@ -195,6 +206,7 @@ async function generateActions(limit = 20) {
   )
 
   const actionRows = ((signals || []) as SeoSignalRow[])
+    .filter((signal) => ['google_search_console', 'gsc', 'ahrefs'].includes(signal.source || ''))
     .filter((signal) => !existingSourceIds.has(signal.id))
     .map((signal) => {
       const page = matchPage(signal)
@@ -234,12 +246,9 @@ async function generateActions(limit = 20) {
 
   if (!actionRows.length) return { stored: true, created: 0, actions: [] }
 
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .insert(actionRows)
-    .select('*')
-
-  if (error) throw error
+  const data = await getConvexClient().mutation(api.bstMarketing.createGrowthSignals, {
+    signals: actionRows.map(toConvexSignal),
+  })
   return {
     stored: true,
     created: data?.length || 0,
@@ -248,17 +257,11 @@ async function generateActions(limit = 20) {
 }
 
 async function listActions(limit = 20) {
-  if (!supabaseAdmin) return { stored: false, actions: [] }
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .select('*')
-    .eq('source', 'seo_action_queue')
-    .eq('signal_type', 'page_improvement_action')
-    .order('signal_date', { ascending: false })
-    .order('created_at', { ascending: false })
-    .limit(limit)
-
-  if (error) throw error
+  const data = await getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+    source: 'seo_action_queue',
+    signalTypes: ['page_improvement_action'],
+    limit,
+  })
   return {
     stored: true,
     actions: ((data || []) as SeoSignalRow[]).map(toApiAction),

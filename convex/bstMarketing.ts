@@ -211,6 +211,7 @@ export const listGrowthSignals = query({
     source: v.optional(v.string()),
     sinceDate: v.optional(v.string()),
     signalTypes: v.optional(v.array(v.string())),
+    statuses: v.optional(v.array(v.string())),
     limit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
@@ -225,6 +226,7 @@ export const listGrowthSignals = query({
     return entries
       .filter((signal) => !args.source || signal.source === args.source)
       .filter((signal) => !args.signalTypes?.length || args.signalTypes.includes(signal.signalType))
+      .filter((signal) => !args.statuses?.length || args.statuses.includes(signal.status))
       .sort((a, b) => {
         const dateCompare = b.signalDate.localeCompare(a.signalDate);
         if (dateCompare !== 0) return dateCompare;
@@ -287,5 +289,28 @@ export const importGrowthSignal = mutation({
     }
 
     return ctx.db.insert("behaviorStudyToolsGrowthSignals", payload);
+  },
+});
+
+export const updateGrowthSignalStatus = mutation({
+  args: {
+    id: v.id("behaviorStudyToolsGrowthSignals"),
+    status: v.string(),
+    source: v.optional(v.string()),
+    signalType: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db.get(args.id);
+    if (!existing) return null;
+    if (args.source && existing.source !== args.source) return null;
+    if (args.signalType && existing.signalType !== args.signalType) return null;
+
+    await ctx.db.patch(args.id, {
+      status: args.status,
+      updatedAt: nowIso(),
+    });
+
+    const updated = await ctx.db.get(args.id);
+    return updated ? toGrowthSignalRow(updated) : null;
   },
 });

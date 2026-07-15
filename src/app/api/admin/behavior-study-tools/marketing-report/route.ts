@@ -617,17 +617,16 @@ export async function GET() {
       return []
     })
 
-  const { data: growthSignalData, error: growthSignalError } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .select('source,signal_type,metric_name,metric_value,created_at')
-    .gte('signal_date', since.slice(0, 10))
-    .in('signal_type', ['seo_metric', 'daily_growth_report'])
-    .order('created_at', { ascending: false })
-    .limit(200)
-
-  if (growthSignalError) {
-    console.warn('Behavior Study Tools growth signal health read failed:', growthSignalError.message)
-  }
+  const growthSignalData = await getConvexClient()
+    .query(api.bstMarketing.listGrowthSignals, {
+      sinceDate: since.slice(0, 10),
+      signalTypes: ['seo_metric', 'daily_growth_report'],
+      limit: 200,
+    })
+    .catch((error) => {
+      console.warn('Behavior Study Tools growth signal health read failed:', error instanceof Error ? error.message : error)
+      return []
+    })
 
   const events = (data || []) as MarketingEventRow[]
   const recentActivity = ((activityData || []) as MarketingActivityRow[])

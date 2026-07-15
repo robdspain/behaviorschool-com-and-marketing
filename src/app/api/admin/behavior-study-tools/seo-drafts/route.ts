@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -126,32 +126,43 @@ function toApiDraft(row: SignalRow) {
   }
 }
 
+function toConvexSignal(row: Record<string, unknown>) {
+  return {
+    signalDate: cleanString(row.signal_date, 40),
+    source: cleanString(row.source, 80),
+    signalType: cleanString(row.signal_type, 100),
+    channel: cleanString(row.channel, 100) || null,
+    url: cleanString(row.url, 1000) || null,
+    keyword: cleanString(row.keyword, 300) || null,
+    topic: cleanString(row.topic, 300) || null,
+    metricName: cleanString(row.metric_name, 120) || null,
+    metricValue: typeof row.metric_value === 'number' && Number.isFinite(row.metric_value) ? row.metric_value : null,
+    previousValue: typeof row.previous_value === 'number' && Number.isFinite(row.previous_value) ? row.previous_value : null,
+    changeValue: typeof row.change_value === 'number' && Number.isFinite(row.change_value) ? row.change_value : null,
+    changePercent: typeof row.change_percent === 'number' && Number.isFinite(row.change_percent) ? row.change_percent : null,
+    metadata: row.metadata && typeof row.metadata === 'object' && !Array.isArray(row.metadata) ? row.metadata : {},
+    recommendation: cleanString(row.recommendation, 1500) || null,
+    status: cleanString(row.status, 60) || 'new',
+  }
+}
+
 async function generateDrafts(limit = 10) {
-  if (!supabaseAdmin) return { stored: false, created: 0, drafts: [] }
-
   const since = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
-  const [{ data: actions, error: actionError }, { data: existing, error: existingError }] = await Promise.all([
-    supabaseAdmin
-      .from('behavior_study_tools_growth_signals')
-      .select('*')
-      .gte('signal_date', since)
-      .eq('source', 'seo_action_queue')
-      .eq('signal_type', 'page_improvement_action')
-      .in('status', ['queued', 'reviewing', 'new'])
-      .order('metric_value', { ascending: false })
-      .order('created_at', { ascending: false })
-      .limit(limit),
-    supabaseAdmin
-      .from('behavior_study_tools_growth_signals')
-      .select('metadata')
-      .gte('signal_date', since)
-      .eq('source', 'seo_content_draft')
-      .eq('signal_type', 'page_copy_draft')
-      .limit(500),
+  const [actions, existing] = await Promise.all([
+    getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+      sinceDate: since,
+      source: 'seo_action_queue',
+      signalTypes: ['page_improvement_action'],
+      statuses: ['queued', 'reviewing', 'new'],
+      limit,
+    }),
+    getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+      sinceDate: since,
+      source: 'seo_content_draft',
+      signalTypes: ['page_copy_draft'],
+      limit: 500,
+    }),
   ])
-
-  if (actionError) throw actionError
-  if (existingError) throw existingError
 
   const existingActionIds = new Set(
     ((existing || []) as Array<{ metadata: Record<string, unknown> | null }>)
@@ -184,12 +195,9 @@ async function generateDrafts(limit = 10) {
 
   if (!rows.length) return { stored: true, created: 0, drafts: [] }
 
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .insert(rows)
-    .select('*')
-
-  if (error) throw error
+  const data = await getConvexClient().mutation(api.bstMarketing.createGrowthSignals, {
+    signals: rows.map(toConvexSignal),
+  })
   return {
     stored: true,
     created: data?.length || 0,
@@ -198,17 +206,11 @@ async function generateDrafts(limit = 10) {
 }
 
 async function listDrafts(limit = 10) {
-  if (!supabaseAdmin) return { stored: false, drafts: [] }
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .select('*')
-    .eq('source', 'seo_content_draft')
-    .eq('signal_type', 'page_copy_draft')
-    .order('signal_date', { ascending: false })
-    .order('created_at', { ascending: false })
-    .limit(limit)
-
-  if (error) throw error
+  const data = await getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+    source: 'seo_content_draft',
+    signalTypes: ['page_copy_draft'],
+    limit,
+  })
   return {
     stored: true,
     drafts: ((data || []) as SignalRow[]).map(toApiDraft),
@@ -216,22 +218,19 @@ async function listDrafts(limit = 10) {
 }
 
 async function updateDraftStatus(id: string, status: string) {
-  if (!supabaseAdmin) return { stored: false, draft: null }
   if (!id) throw new Error('Draft id is required.')
   if (!['draft', 'reviewing', 'approved', 'applied', 'rejected'].includes(status)) {
     throw new Error('Unsupported draft status.')
   }
 
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .update({ status })
-    .eq('id', id)
-    .eq('source', 'seo_content_draft')
-    .eq('signal_type', 'page_copy_draft')
-    .select('*')
-    .single()
+  const data = await getConvexClient().mutation(api.bstMarketing.updateGrowthSignalStatus, {
+    id: id as never,
+    status,
+    source: 'seo_content_draft',
+    signalType: 'page_copy_draft',
+  })
 
-  if (error) throw error
+  if (!data) throw new Error('Draft was not found.')
   return {
     stored: true,
     draft: toApiDraft(data as SignalRow),

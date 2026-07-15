@@ -2,7 +2,7 @@ import { createSign } from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
-import { supabaseAdmin } from '@/lib/supabase-admin'
+import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
@@ -66,6 +66,26 @@ function numberValue(value: unknown) {
     if (Number.isFinite(parsed)) return parsed
   }
   return null
+}
+
+function toConvexSignal(signal: SeoSignal) {
+  return {
+    signalDate: signal.signal_date,
+    source: signal.source,
+    signalType: signal.signal_type,
+    channel: signal.channel,
+    url: signal.url,
+    keyword: signal.keyword,
+    topic: signal.topic,
+    metricName: signal.metric_name,
+    metricValue: signal.metric_value,
+    previousValue: signal.previous_value,
+    changeValue: signal.change_value,
+    changePercent: signal.change_percent,
+    metadata: signal.metadata,
+    recommendation: signal.recommendation,
+    status: signal.status,
+  }
 }
 
 function dateDaysAgo(daysAgo: number) {
@@ -351,33 +371,28 @@ async function collectAhrefs(limit: number): Promise<CollectorResult> {
 }
 
 async function storeSeoSignals(source: CollectorResult['source'], signals: SeoSignal[]): Promise<CollectorResult> {
-  if (!supabaseAdmin) {
-    return { source, stored: false, imported: signals.length, signals }
-  }
   if (!signals.length) {
     return { source, stored: true, imported: 0, signals }
   }
 
-  const { data, error } = await supabaseAdmin
-    .from('behavior_study_tools_growth_signals')
-    .insert(signals)
-    .select()
-
-  if (error) {
+  try {
+    const data = await getConvexClient().mutation(api.bstMarketing.createGrowthSignals, {
+      signals: signals.map(toConvexSignal),
+    })
+    return {
+      source,
+      stored: true,
+      imported: data?.length || 0,
+      signals,
+    }
+  } catch (error) {
     return {
       source,
       stored: false,
       imported: 0,
       signals,
-      warning: error.message,
+      warning: error instanceof Error ? error.message : 'SEO metric storage failed',
     }
-  }
-
-  return {
-    source,
-    stored: true,
-    imported: data?.length || 0,
-    signals,
   }
 }
 
