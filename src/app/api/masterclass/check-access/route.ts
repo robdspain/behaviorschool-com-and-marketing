@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/auth-server';
 import { isAuthorizedAdmin, requiresAdminMfa } from '@/lib/admin-config';
-import { supabase } from '@/lib/masterclass/queries';
+import { getEnrollmentByEmail } from '@/lib/masterclass/queries';
 
 /**
  * GET /api/masterclass/check-access
@@ -44,13 +44,9 @@ export async function GET(request: NextRequest) {
 
     // Not admin — check enrollment by email (works for both legacy Supabase IDs
     // and new Better Auth user IDs since email is the stable identifier)
-    const { data: enrollment, error: enrollmentError } = await supabase
-      .from('masterclass_enrollments')
-      .select('id, name, email, created_at')
-      .eq('email', user.email.toLowerCase())
-      .single();
+    const enrollment = await getEnrollmentByEmail(user.email);
 
-    if (enrollmentError || !enrollment) {
+    if (!enrollment) {
       return NextResponse.json(
         {
           error: 'Not enrolled',

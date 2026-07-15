@@ -1044,14 +1044,122 @@ export default defineSchema({
 
   masterclassEnrollments: defineTable({
     legacyId: v.optional(v.string()),
+    userId: v.optional(v.string()),
+    email: v.optional(v.string()),
+    emailLower: v.optional(v.string()),
+    name: v.optional(v.string()),
+    bacbCertNumber: v.optional(v.string()),
     createdAt: v.string(),
     completedAt: v.optional(v.string()),
+    lastAccessedAt: v.optional(v.string()),
     certificateIssued: v.boolean(),
+    certificateId: v.optional(v.string()),
+    certificateGeneratedAt: v.optional(v.string()),
+    certificateEmailed: v.optional(v.boolean()),
+    certificateEmailedAt: v.optional(v.string()),
+    ipAddress: v.optional(v.string()),
+    userAgent: v.optional(v.string()),
+    referralSource: v.optional(v.string()),
+    feedbackSubmitted: v.optional(v.boolean()),
     updatedAt: v.string(),
   })
     .index("by_legacy_id", ["legacyId"])
+    .index("by_email_lower", ["emailLower"])
+    .index("by_certificate_id", ["certificateId"])
     .index("by_created_at", ["createdAt"])
     .index("by_certificate_issued", ["certificateIssued"]),
+
+  masterclassProgress: defineTable({
+    enrollmentId: v.string(),
+    sectionNumber: v.number(),
+    videoCompleted: v.boolean(),
+    videoWatchedPercentage: v.number(),
+    videoWatchTimeSeconds: v.number(),
+    videoCompletedAt: v.optional(v.string()),
+    quizAttempts: v.number(),
+    quizScore: v.optional(v.number()),
+    quizTotal: v.optional(v.number()),
+    quizPassed: v.boolean(),
+    quizCompletedAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_enrollment", ["enrollmentId"])
+    .index("by_enrollment_section", ["enrollmentId", "sectionNumber"]),
+
+  masterclassQuizResponses: defineTable({
+    enrollmentId: v.string(),
+    sectionNumber: v.number(),
+    attemptNumber: v.number(),
+    questionNumber: v.number(),
+    questionId: v.string(),
+    selectedAnswer: v.number(),
+    correctAnswer: v.number(),
+    isCorrect: v.boolean(),
+    timeSpentSeconds: v.optional(v.number()),
+    createdAt: v.string(),
+  })
+    .index("by_enrollment", ["enrollmentId"])
+    .index("by_enrollment_section", ["enrollmentId", "sectionNumber"]),
+
+  masterclassCertificates: defineTable({
+    certificateId: v.string(),
+    enrollmentId: v.string(),
+    recipientName: v.string(),
+    recipientEmail: v.string(),
+    bacbCertNumber: v.string(),
+    courseTitle: v.string(),
+    ceuCredits: v.number(),
+    completionDate: v.string(),
+    pdfUrl: v.optional(v.string()),
+    pdfGenerated: v.boolean(),
+    verificationCount: v.number(),
+    lastVerifiedAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_certificate_id", ["certificateId"])
+    .index("by_enrollment", ["enrollmentId"]),
+
+  masterclassAnalyticsEvents: defineTable({
+    enrollmentId: v.optional(v.string()),
+    eventType: v.string(),
+    eventData: v.optional(v.any()),
+    sectionNumber: v.optional(v.number()),
+    sessionId: v.optional(v.string()),
+    createdAt: v.string(),
+  })
+    .index("by_enrollment", ["enrollmentId"])
+    .index("by_created_at", ["createdAt"]),
+
+  masterclassFeedback: defineTable({
+    enrollmentId: v.string(),
+    participantEmail: v.string(),
+    participantName: v.string(),
+    overallSatisfaction: v.optional(v.number()),
+    contentQuality: v.optional(v.number()),
+    instructorEffectiveness: v.optional(v.number()),
+    relevanceToPractice: v.optional(v.number()),
+    wouldRecommend: v.optional(v.number()),
+    section1Rating: v.optional(v.number()),
+    section2Rating: v.optional(v.number()),
+    section3Rating: v.optional(v.number()),
+    section4Rating: v.optional(v.number()),
+    mostValuableLearning: v.optional(v.string()),
+    suggestionsForImprovement: v.optional(v.string()),
+    topicsForFutureCourses: v.optional(v.string()),
+    additionalComments: v.optional(v.string()),
+    learnedEthicsConcepts: v.optional(v.boolean()),
+    learnedTeacherCollaboration: v.optional(v.boolean()),
+    learnedDataSystems: v.optional(v.boolean()),
+    learnedCrisisManagement: v.optional(v.boolean()),
+    willApplyImmediately: v.optional(v.boolean()),
+    willApplyWithinMonth: v.optional(v.boolean()),
+    willShareWithTeam: v.optional(v.boolean()),
+    submittedAt: v.string(),
+  })
+    .index("by_enrollment", ["enrollmentId"])
+    .index("by_submitted_at", ["submittedAt"]),
 
   masterclassCertificateConfigs: defineTable({
     legacyId: v.optional(v.string()),

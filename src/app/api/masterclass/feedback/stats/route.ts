@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/auth-server';
 import { isAuthorizedAdmin } from '@/lib/admin-config';
-import { supabase } from '@/lib/masterclass/queries';
+import { getMasterclassFeedbackStats } from '@/lib/masterclass/queries';
 
 /**
  * GET /api/masterclass/feedback/stats
@@ -16,50 +16,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get stats from view
-    const { data: stats, error } = await supabase
-      .from('masterclass_feedback_stats')
-      .select('*')
-      .single();
-
-    if (error) {
-      console.error('Error fetching feedback stats:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch feedback statistics' },
-        { status: 500 }
-      );
-    }
-
-    // Get rating distribution
-    const { data: allFeedback, error: feedbackError } = await supabase
-      .from('masterclass_feedback')
-      .select('overall_satisfaction, would_recommend');
-
-    if (feedbackError) {
-      console.error('Error fetching feedback for distribution:', feedbackError);
-    }
-
-    // Calculate distributions
-    const satisfactionDistribution = [0, 0, 0, 0, 0];
-    const recommendDistribution = [0, 0, 0, 0, 0];
-
-    allFeedback?.forEach((fb: { overall_satisfaction?: number | null; would_recommend?: number | null }) => {
-      if (fb.overall_satisfaction) {
-        satisfactionDistribution[fb.overall_satisfaction - 1]++;
-      }
-      if (fb.would_recommend) {
-        recommendDistribution[fb.would_recommend - 1]++;
-      }
-    });
+    const stats = await getMasterclassFeedbackStats();
 
     return NextResponse.json(
       {
         success: true,
-        data: {
-          ...stats,
-          satisfaction_distribution: satisfactionDistribution,
-          recommend_distribution: recommendDistribution,
-        },
+        data: stats,
       },
       { status: 200 }
     );

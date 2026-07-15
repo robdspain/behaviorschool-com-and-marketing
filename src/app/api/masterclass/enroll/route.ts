@@ -2,7 +2,12 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser } from '@/lib/auth-server';
-import { supabase } from '@/lib/masterclass/queries';
+import {
+  createEnrollment,
+  getEnrollmentByEmail,
+  initializeEnrollmentProgress,
+  trackEvent,
+} from '@/lib/masterclass/queries';
 
 /**
  * POST /api/masterclass/enroll
@@ -39,11 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already enrolled (by email — stable across auth providers)
-    const { data: existingEnrollment } = await supabase
-      .from('masterclass_enrollments')
-      .select('id')
-      .eq('email', user.email.toLowerCase())
-      .single();
+    const existingEnrollment = await getEnrollmentByEmail(user.email);
 
     if (existingEnrollment) {
       return NextResponse.json(
@@ -57,57 +58,24 @@ export async function POST(request: NextRequest) {
     }
 
     // Create new enrollment
-    const { data: enrollment, error: enrollmentError } = await supabase
-      .from('masterclass_enrollments')
-      .insert({
-        user_id: user.id,
-        email: user.email.toLowerCase(),
-        name: name.trim(),
-        bacb_cert_number: bacbCertNumber.trim(),
-        created_at: new Date().toISOString(),
-        last_accessed_at: new Date().toISOString(),
-      })
-      .select('id')
-      .single();
+    const enrollment = await createEnrollment({
+      userId: user.id,
+      email: user.email.toLowerCase(),
+      name: name.trim(),
+      bacbCertNumber: bacbCertNumber.trim(),
+    });
 
-    if (enrollmentError) {
-      console.error('Enrollment error:', enrollmentError);
-      return NextResponse.json(
-        { error: 'Failed to create enrollment' },
-        { status: 500 }
-      );
-    }
-
-    // Initialize progress records for all 4 sections
-    const progressRecords = [1, 2, 3, 4].map(section => ({
-      enrollment_id: enrollment.id,
-      section_number: section,
-      video_completed: false,
-      video_watched_percentage: 0,
-      quiz_attempts: 0,
-      quiz_passed: false,
-    }));
-
-    const { error: progressError } = await supabase
-      .from('masterclass_progress')
-      .insert(progressRecords);
-
-    if (progressError) {
-      console.error('Progress initialization error:', progressError);
-      // Continue anyway, progress can be created on-demand
-    }
+    await initializeEnrollmentProgress(enrollment.id);
 
     // Log analytics event
-    await supabase
-      .from('masterclass_analytics_events')
-      .insert({
-        enrollment_id: enrollment.id,
-        event_type: 'enrollment_complete',
-        event_data: {
-          user_id: user.id,
-          email: user.email,
-        },
-      });
+    await trackEvent({
+      enrollmentId: enrollment.id,
+      eventType: 'enrollment_completed',
+      eventData: {
+        user_id: user.id,
+        email: user.email,
+      },
+    });
 
     return NextResponse.json(
       {

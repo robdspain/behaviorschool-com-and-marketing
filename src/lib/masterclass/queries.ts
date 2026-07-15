@@ -1,249 +1,162 @@
-/**
- * Supabase Query Helpers for Masterclass System
- *
- * These functions provide a clean interface for database operations
- */
-
-import { createClient } from '@supabase/supabase-js';
+import { api, getConvexClient } from '@/lib/convex';
 import type {
   MasterclassEnrollment,
   MasterclassProgress,
   MasterclassQuizResponse,
   MasterclassCertificate,
-  MasterclassAnalyticsEvent,
   EnrollmentFormData,
-  QuizSubmission,
   AnalyticsEvent,
 } from './types';
 
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+type QuizResponseInput = {
+  questionId: string;
+  questionNumber: number;
+  selectedAnswer: number;
+  correctAnswer: number;
+  isCorrect: boolean;
+  timeSpent?: number;
+};
 
-export const supabase = supabaseUrl && supabaseAnonKey
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : (new Proxy({}, {
-      get: () => (...args: any[]) => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } })
-    }) as any);
+type CertificateInput = {
+  recipientName: string;
+  recipientEmail: string;
+  bacbCertNumber: string;
+  courseTitle: string;
+  ceuCredits: number;
+  completionDate: string;
+};
 
-// ============================================================================
-// ENROLLMENT OPERATIONS
-// ============================================================================
+type MasterclassFeedbackInput = {
+  enrollment_id: string;
+  overall_satisfaction?: number;
+  content_quality?: number;
+  instructor_effectiveness?: number;
+  relevance_to_practice?: number;
+  would_recommend?: number;
+  section_1_rating?: number;
+  section_2_rating?: number;
+  section_3_rating?: number;
+  section_4_rating?: number;
+  most_valuable_learning?: string;
+  suggestions_for_improvement?: string;
+  topics_for_future_courses?: string;
+  additional_comments?: string;
+  learned_ethics_concepts?: boolean;
+  learned_teacher_collaboration?: boolean;
+  learned_data_systems?: boolean;
+  learned_crisis_management?: boolean;
+  will_apply_immediately?: boolean;
+  will_apply_within_month?: boolean;
+  will_share_with_team?: boolean;
+};
 
-/**
- * Create a new masterclass enrollment
- */
 export async function createEnrollment(
-  data: EnrollmentFormData
+  data: EnrollmentFormData & {
+    userId?: string;
+    ipAddress?: string;
+    userAgent?: string;
+    referralSource?: string;
+  }
 ): Promise<MasterclassEnrollment> {
-  const { data: enrollment, error } = await supabase
-    .from('masterclass_enrollments')
-    .insert({
-      email: data.email.toLowerCase().trim(),
-      name: data.name.trim(),
-      bacb_cert_number: data.bacbCertNumber.trim(),
-    })
-    .select()
-    .single();
+  const enrollment = await getConvexClient().mutation(api.masterclassRuntime.createEnrollment, {
+    email: data.email,
+    name: data.name,
+    bacbCertNumber: data.bacbCertNumber,
+    userId: data.userId,
+    ipAddress: data.ipAddress,
+    userAgent: data.userAgent,
+    referralSource: data.referralSource,
+  });
 
-  if (error) {
-    // Check if user already exists
-    if (error.code === '23505') { // Unique constraint violation
-      throw new Error('An enrollment with this email already exists. Please use the same email to continue.');
-    }
-    throw new Error(`Failed to create enrollment: ${error.message}`);
+  if (!enrollment) {
+    throw new Error('Failed to create enrollment');
   }
 
   return enrollment;
 }
 
-/**
- * Get enrollment by email
- */
+export async function initializeEnrollmentProgress(enrollmentId: string): Promise<void> {
+  await getConvexClient().mutation(api.masterclassRuntime.initializeProgress, {
+    enrollmentId,
+  });
+}
+
 export async function getEnrollmentByEmail(
   email: string
 ): Promise<MasterclassEnrollment | null> {
-  const { data, error } = await supabase
-    .from('masterclass_enrollments')
-    .select('*')
-    .eq('email', email.toLowerCase().trim())
-    .single();
-
-  if (error) {
-    if (error.code === 'PGRST116') { // Not found
-      return null;
-    }
-    throw new Error(`Failed to fetch enrollment: ${error.message}`);
-  }
-
-  return data;
+  return getConvexClient().query(api.masterclassRuntime.getEnrollmentByEmail, {
+    email,
+  });
 }
 
-/**
- * Get enrollment by ID
- */
 export async function getEnrollmentById(
   enrollmentId: string
 ): Promise<MasterclassEnrollment | null> {
-  const { data, error } = await supabase
-    .from('masterclass_enrollments')
-    .select('*')
-    .eq('id', enrollmentId)
-    .single();
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      return null;
-    }
-    throw new Error(`Failed to fetch enrollment: ${error.message}`);
-  }
-
-  return data;
+  return getConvexClient().query(api.masterclassRuntime.getEnrollmentById, {
+    enrollmentId,
+  });
 }
 
-/**
- * Update last accessed timestamp
- */
 export async function updateLastAccessed(enrollmentId: string): Promise<void> {
-  const { error } = await supabase
-    .from('masterclass_enrollments')
-    .update({ last_accessed_at: new Date().toISOString() })
-    .eq('id', enrollmentId);
-
-  if (error) {
-    console.error('Failed to update last accessed:', error);
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.updateLastAccessed, {
+    enrollmentId,
+  });
 }
 
-/**
- * Mark enrollment as completed
- */
 export async function markEnrollmentComplete(enrollmentId: string): Promise<void> {
-  const { error } = await supabase
-    .from('masterclass_enrollments')
-    .update({ completed_at: new Date().toISOString() })
-    .eq('id', enrollmentId);
-
-  if (error) {
-    throw new Error(`Failed to mark enrollment complete: ${error.message}`);
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.markEnrollmentComplete, {
+    enrollmentId,
+  });
 }
 
-/**
- * Mark certificate as emailed
- */
 export async function markCertificateEmailed(enrollmentId: string): Promise<void> {
-  const { error } = await supabase
-    .from('masterclass_enrollments')
-    .update({ certificate_emailed: true })
-    .eq('id', enrollmentId);
-
-  if (error) {
-    throw new Error(`Failed to mark certificate emailed: ${error.message}`);
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.markCertificateEmailed, {
+    enrollmentId,
+  });
 }
 
-// ============================================================================
-// PROGRESS OPERATIONS
-// ============================================================================
-
-/**
- * Get all progress for an enrollment
- */
 export async function getEnrollmentProgress(
   enrollmentId: string
 ): Promise<MasterclassProgress[]> {
-  const { data, error } = await supabase
-    .from('masterclass_progress')
-    .select('*')
-    .eq('enrollment_id', enrollmentId)
-    .order('section_number', { ascending: true });
-
-  if (error) {
-    throw new Error(`Failed to fetch progress: ${error.message}`);
-  }
-
-  return data || [];
+  return getConvexClient().query(api.masterclassRuntime.getEnrollmentProgress, {
+    enrollmentId,
+  });
 }
 
-/**
- * Get progress for a specific section
- */
 export async function getSectionProgress(
   enrollmentId: string,
   sectionNumber: number
 ): Promise<MasterclassProgress | null> {
-  const { data, error } = await supabase
-    .from('masterclass_progress')
-    .select('*')
-    .eq('enrollment_id', enrollmentId)
-    .eq('section_number', sectionNumber)
-    .single();
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      return null;
-    }
-    throw new Error(`Failed to fetch section progress: ${error.message}`);
-  }
-
-  return data;
+  return getConvexClient().query(api.masterclassRuntime.getSectionProgress, {
+    enrollmentId,
+    sectionNumber,
+  });
 }
 
-/**
- * Update video progress
- */
 export async function updateVideoProgress(
   enrollmentId: string,
   sectionNumber: number,
   watchedPercentage: number,
   watchTimeSeconds: number
 ): Promise<void> {
-  const { error } = await supabase
-    .from('masterclass_progress')
-    .upsert({
-      enrollment_id: enrollmentId,
-      section_number: sectionNumber,
-      video_watched_percentage: watchedPercentage,
-      video_watch_time_seconds: watchTimeSeconds,
-      updated_at: new Date().toISOString(),
-    }, {
-      onConflict: 'enrollment_id,section_number'
-    });
-
-  if (error) {
-    throw new Error(`Failed to update video progress: ${error.message}`);
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.updateVideoProgress, {
+    enrollmentId,
+    sectionNumber,
+    watchedPercentage,
+    watchTimeSeconds,
+  });
 }
 
-/**
- * Mark video as completed
- */
 export async function markVideoComplete(
   enrollmentId: string,
   sectionNumber: number
 ): Promise<void> {
-  const { error } = await supabase
-    .from('masterclass_progress')
-    .upsert({
-      enrollment_id: enrollmentId,
-      section_number: sectionNumber,
-      video_completed: true,
-      video_completed_at: new Date().toISOString(),
-      video_watched_percentage: 100,
-      updated_at: new Date().toISOString(),
-    }, {
-      onConflict: 'enrollment_id,section_number'
-    });
-
-  if (error) {
-    throw new Error(`Failed to mark video complete: ${error.message}`);
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.markVideoComplete, {
+    enrollmentId,
+    sectionNumber,
+  });
 }
 
-/**
- * Save quiz results
- */
 export async function saveQuizResults(
   enrollmentId: string,
   sectionNumber: number,
@@ -252,319 +165,167 @@ export async function saveQuizResults(
   passed: boolean,
   attemptNumber: number
 ): Promise<void> {
-  const { error } = await supabase
-    .from('masterclass_progress')
-    .upsert({
-      enrollment_id: enrollmentId,
-      section_number: sectionNumber,
-      quiz_attempts: attemptNumber,
-      quiz_score: score,
-      quiz_total: total,
-      quiz_passed: passed,
-      quiz_completed_at: passed ? new Date().toISOString() : null,
-      updated_at: new Date().toISOString(),
-    }, {
-      onConflict: 'enrollment_id,section_number'
-    });
-
-  if (error) {
-    throw new Error(`Failed to save quiz results: ${error.message}`);
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.saveQuizResults, {
+    enrollmentId,
+    sectionNumber,
+    score,
+    total,
+    passed,
+    attemptNumber,
+  });
 }
 
-// ============================================================================
-// QUIZ RESPONSE OPERATIONS
-// ============================================================================
-
-/**
- * Save individual quiz responses
- */
 export async function saveQuizResponses(
   enrollmentId: string,
   sectionNumber: number,
   attemptNumber: number,
-  responses: {
-    questionId: string;
-    questionNumber: number;
-    selectedAnswer: number;
-    correctAnswer: number;
-    isCorrect: boolean;
-    timeSpent?: number;
-  }[]
+  responses: QuizResponseInput[]
 ): Promise<void> {
-  const records = responses.map(r => ({
-    enrollment_id: enrollmentId,
-    section_number: sectionNumber,
-    attempt_number: attemptNumber,
-    question_number: r.questionNumber,
-    question_id: r.questionId,
-    selected_answer: r.selectedAnswer,
-    correct_answer: r.correctAnswer,
-    is_correct: r.isCorrect,
-    time_spent_seconds: r.timeSpent || null,
-  }));
-
-  const { error } = await supabase
-    .from('masterclass_quiz_responses')
-    .insert(records);
-
-  if (error) {
-    console.error('Failed to save quiz responses:', error);
-    // Don't throw - this is for analytics only
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.saveQuizResponses, {
+    enrollmentId,
+    sectionNumber,
+    attemptNumber,
+    responses,
+  });
 }
 
-/**
- * Get quiz responses for a section
- */
 export async function getQuizResponses(
   enrollmentId: string,
   sectionNumber: number
 ): Promise<MasterclassQuizResponse[]> {
-  const { data, error } = await supabase
-    .from('masterclass_quiz_responses')
-    .select('*')
-    .eq('enrollment_id', enrollmentId)
-    .eq('section_number', sectionNumber)
-    .order('attempt_number', { ascending: true })
-    .order('question_number', { ascending: true });
-
-  if (error) {
-    throw new Error(`Failed to fetch quiz responses: ${error.message}`);
-  }
-
-  return data || [];
+  return getConvexClient().query(api.masterclassRuntime.getQuizResponses, {
+    enrollmentId,
+    sectionNumber,
+  });
 }
 
-// ============================================================================
-// CERTIFICATE OPERATIONS
-// ============================================================================
-
-/**
- * Generate certificate record
- */
 export async function generateCertificate(
   enrollmentId: string,
   certificateId: string,
-  certificateData: {
-    recipientName: string;
-    recipientEmail: string;
-    bacbCertNumber: string;
-    courseTitle: string;
-    ceuCredits: number;
-    completionDate: string;
-  }
+  certificateData: CertificateInput
 ): Promise<MasterclassCertificate> {
-  const { data, error } = await supabase
-    .from('masterclass_certificates')
-    .insert({
-      certificate_id: certificateId,
-      enrollment_id: enrollmentId,
-      recipient_name: certificateData.recipientName,
-      recipient_email: certificateData.recipientEmail,
-      bacb_cert_number: certificateData.bacbCertNumber,
-      course_title: certificateData.courseTitle,
-      ceu_credits: certificateData.ceuCredits,
-      completion_date: certificateData.completionDate,
-      pdf_generated: false,
-    })
-    .select()
-    .single();
+  const certificate = await getConvexClient().mutation(api.masterclassRuntime.generateCertificate, {
+    enrollmentId,
+    certificateId,
+    recipientName: certificateData.recipientName,
+    recipientEmail: certificateData.recipientEmail,
+    bacbCertNumber: certificateData.bacbCertNumber,
+    courseTitle: certificateData.courseTitle,
+    ceuCredits: certificateData.ceuCredits,
+    completionDate: certificateData.completionDate,
+  });
 
-  if (error) {
-    throw new Error(`Failed to generate certificate: ${error.message}`);
+  if (!certificate) {
+    throw new Error('Failed to generate certificate');
   }
 
-  // Update enrollment
-  await supabase
-    .from('masterclass_enrollments')
-    .update({
-      certificate_issued: true,
-      certificate_id: certificateId,
-      certificate_generated_at: new Date().toISOString(),
-    })
-    .eq('id', enrollmentId);
-
-  return data;
+  return certificate;
 }
 
-/**
- * Get certificate by certificate ID
- */
 export async function getCertificateById(
   certificateId: string
 ): Promise<MasterclassCertificate | null> {
-  const { data, error } = await supabase
-    .from('masterclass_certificates')
-    .select('*')
-    .eq('certificate_id', certificateId)
-    .single();
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      return null;
-    }
-    throw new Error(`Failed to fetch certificate: ${error.message}`);
-  }
-
-  return data;
+  return getConvexClient().query(api.masterclassRuntime.getCertificateById, {
+    certificateId,
+  });
 }
 
-/**
- * Get certificate by enrollment ID
- */
 export async function getCertificateByEnrollment(
   enrollmentId: string
 ): Promise<MasterclassCertificate | null> {
-  const { data, error } = await supabase
-    .from('masterclass_certificates')
-    .select('*')
-    .eq('enrollment_id', enrollmentId)
-    .single();
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      return null;
-    }
-    throw new Error(`Failed to fetch certificate: ${error.message}`);
-  }
-
-  return data;
+  return getConvexClient().query(api.masterclassRuntime.getCertificateByEnrollment, {
+    enrollmentId,
+  });
 }
 
-/**
- * Update certificate PDF URL
- */
 export async function updateCertificatePDF(
   certificateId: string,
   pdfUrl: string
 ): Promise<void> {
-  const { error } = await supabase
-    .from('masterclass_certificates')
-    .update({
-      pdf_url: pdfUrl,
-      pdf_generated: true,
-    })
-    .eq('certificate_id', certificateId);
-
-  if (error) {
-    throw new Error(`Failed to update certificate PDF: ${error.message}`);
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.updateCertificatePDF, {
+    certificateId,
+    pdfUrl,
+  });
 }
 
-/**
- * Record certificate verification
- */
 export async function recordCertificateVerification(
   certificateId: string
 ): Promise<void> {
-  const { error } = await supabase.rpc('increment_certificate_verification', {
-    cert_id: certificateId
+  await getConvexClient().mutation(api.masterclassRuntime.recordCertificateVerification, {
+    certificateId,
   });
-
-  if (error) {
-    // Fallback to manual increment if function doesn't exist
-    const { data: cert } = await supabase
-      .from('masterclass_certificates')
-      .select('verification_count')
-      .eq('certificate_id', certificateId)
-      .single();
-
-    if (cert) {
-      await supabase
-        .from('masterclass_certificates')
-        .update({
-          verification_count: (cert.verification_count || 0) + 1,
-          last_verified_at: new Date().toISOString(),
-        })
-        .eq('certificate_id', certificateId);
-    }
-  }
 }
 
-// ============================================================================
-// ANALYTICS OPERATIONS
-// ============================================================================
-
-/**
- * Track analytics event
- */
 export async function trackEvent(event: AnalyticsEvent): Promise<void> {
-  const { error } = await supabase
-    .from('masterclass_analytics_events')
-    .insert({
-      enrollment_id: event.enrollmentId || null,
-      event_type: event.eventType,
-      event_data: event.eventData || null,
-      section_number: event.sectionNumber || null,
-      session_id: event.sessionId || null,
-    });
-
-  if (error) {
-    console.error('Failed to track event:', error);
-    // Don't throw - analytics failures shouldn't break user experience
-  }
+  await getConvexClient().mutation(api.masterclassRuntime.trackEvent, {
+    enrollmentId: event.enrollmentId || undefined,
+    eventType: event.eventType,
+    eventData: event.eventData || undefined,
+    sectionNumber: event.sectionNumber || undefined,
+    sessionId: event.sessionId || undefined,
+  });
 }
 
-// ============================================================================
-// HELPER FUNCTIONS
-// ============================================================================
-
-/**
- * Check if enrollment can generate certificate
- * (all 4 sections complete with passed quizzes)
- */
 export async function canGenerateCertificate(
   enrollmentId: string
 ): Promise<boolean> {
-  const { data, error } = await supabase.rpc('is_masterclass_complete', {
-    enrollment_uuid: enrollmentId
+  return getConvexClient().query(api.masterclassRuntime.canGenerateCertificate, {
+    enrollmentId,
   });
-
-  if (error) {
-    // Fallback to manual check
-    const progress = await getEnrollmentProgress(enrollmentId);
-    const completedSections = progress.filter(
-      p => p.video_completed && p.quiz_passed
-    );
-    return completedSections.length === 4;
-  }
-
-  return data as boolean;
 }
 
-/**
- * Calculate overall progress percentage
- */
 export async function calculateProgress(
   enrollmentId: string
 ): Promise<number> {
-  const { data, error } = await supabase.rpc('calculate_masterclass_progress', {
-    enrollment_uuid: enrollmentId
+  return getConvexClient().query(api.masterclassRuntime.calculateProgress, {
+    enrollmentId,
   });
-
-  if (error) {
-    // Fallback to manual calculation
-    const progress = await getEnrollmentProgress(enrollmentId);
-    const totalSteps = 8; // 4 sections × 2 steps (video + quiz)
-    const completedSteps = progress.reduce((acc, p) => {
-      return acc +
-        (p.video_completed ? 1 : 0) +
-        (p.quiz_passed ? 1 : 0);
-    }, 0);
-    return Math.round((completedSteps / totalSteps) * 100);
-  }
-
-  return data as number;
 }
 
-/**
- * Get next quiz attempt number
- */
 export async function getNextAttemptNumber(
   enrollmentId: string,
   sectionNumber: number
 ): Promise<number> {
   const progress = await getSectionProgress(enrollmentId, sectionNumber);
   return (progress?.quiz_attempts || 0) + 1;
+}
+
+export async function submitMasterclassFeedback(feedback: MasterclassFeedbackInput) {
+  return getConvexClient().mutation(api.masterclassRuntime.submitFeedback, {
+    enrollmentId: feedback.enrollment_id,
+    overallSatisfaction: feedback.overall_satisfaction,
+    contentQuality: feedback.content_quality,
+    instructorEffectiveness: feedback.instructor_effectiveness,
+    relevanceToPractice: feedback.relevance_to_practice,
+    wouldRecommend: feedback.would_recommend,
+    section1Rating: feedback.section_1_rating,
+    section2Rating: feedback.section_2_rating,
+    section3Rating: feedback.section_3_rating,
+    section4Rating: feedback.section_4_rating,
+    mostValuableLearning: feedback.most_valuable_learning,
+    suggestionsForImprovement: feedback.suggestions_for_improvement,
+    topicsForFutureCourses: feedback.topics_for_future_courses,
+    additionalComments: feedback.additional_comments,
+    learnedEthicsConcepts: feedback.learned_ethics_concepts,
+    learnedTeacherCollaboration: feedback.learned_teacher_collaboration,
+    learnedDataSystems: feedback.learned_data_systems,
+    learnedCrisisManagement: feedback.learned_crisis_management,
+    willApplyImmediately: feedback.will_apply_immediately,
+    willApplyWithinMonth: feedback.will_apply_within_month,
+    willShareWithTeam: feedback.will_share_with_team,
+  });
+}
+
+export async function getMasterclassFeedbackByEnrollment(enrollmentId: string) {
+  return getConvexClient().query(api.masterclassRuntime.getFeedbackByEnrollment, {
+    enrollmentId,
+  });
+}
+
+export async function listMasterclassFeedback() {
+  return getConvexClient().query(api.masterclassRuntime.listFeedback, {});
+}
+
+export async function getMasterclassFeedbackStats() {
+  return getConvexClient().query(api.masterclassRuntime.feedbackStats, {});
 }
