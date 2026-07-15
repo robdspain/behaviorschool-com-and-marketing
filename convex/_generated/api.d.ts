@@ -9,6 +9,7 @@
  */
 
 import type * as aceAttendance from "../aceAttendance.js";
+import type * as aceCertificates from "../aceCertificates.js";
 import type * as aceComplaints from "../aceComplaints.js";
 import type * as aceFeedback from "../aceFeedback.js";
 import type * as aceInstructors from "../aceInstructors.js";
@@ -41,6 +42,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   aceAttendance: typeof aceAttendance;
+  aceCertificates: typeof aceCertificates;
   aceComplaints: typeof aceComplaints;
   aceFeedback: typeof aceFeedback;
   aceInstructors: typeof aceInstructors;

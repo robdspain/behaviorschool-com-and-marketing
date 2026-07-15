@@ -67,7 +67,7 @@ export async function PUT(
         id: id as Id<"aceCertificates">,
         status: 'revoked',
         revocationReason: reason,
-        revokedBy: revokedBy || 'admin',
+        revokedBy: revokedBy || undefined,
       });
 
       return NextResponse.json({ success: true, data: updated });
