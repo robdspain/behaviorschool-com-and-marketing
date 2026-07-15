@@ -13,6 +13,7 @@ import type * as aceComplaints from "../aceComplaints.js";
 import type * as aceFeedback from "../aceFeedback.js";
 import type * as aceInstructors from "../aceInstructors.js";
 import type * as aceProviders from "../aceProviders.js";
+import type * as aceQuizzes from "../aceQuizzes.js";
 import type * as aceRegistrations from "../aceRegistrations.js";
 import type * as aceUsers from "../aceUsers.js";
 import type * as activityArchive from "../activityArchive.js";
@@ -44,6 +45,7 @@ declare const fullApi: ApiFromModules<{
   aceFeedback: typeof aceFeedback;
   aceInstructors: typeof aceInstructors;
   aceProviders: typeof aceProviders;
+  aceQuizzes: typeof aceQuizzes;
   aceRegistrations: typeof aceRegistrations;
   aceUsers: typeof aceUsers;
   activityArchive: typeof activityArchive;
