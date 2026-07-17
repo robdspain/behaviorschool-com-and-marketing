@@ -1,9 +1,24 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
 import Image from 'next/image';
-import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3 } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  ArrowDown,
+  ArrowRight,
+  BookOpenCheck,
+  BrainCircuit,
+  CalendarDays,
+  Check,
+  ClipboardCheck,
+  FileCheck,
+  Network,
+  SearchCheck,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Users,
+} from 'lucide-react';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 
@@ -11,432 +26,545 @@ const OFFER_PRICE = '$1,997';
 const PAYMENT_PLAN = '3 payments of $697';
 const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformation-system-phone-call';
 const DISTRICT_EMAIL_LINK = '/contact';
-
-// Update this number manually as spots are confirmed
-const TOTAL_SPOTS = 12;
-const SPOTS_TAKEN = 0; // increment as people register
-const SPOTS_REMAINING = TOTAL_SPOTS - SPOTS_TAKEN;
-const COHORT_LABEL = 'August 2026';
-const COHORT_START_BADGE = 'Starts Aug 12';
-const COHORT_START_FULL = 'Starts Wednesday, August 12, 2026';
-const COHORT_END_FULL = 'September 16';
 const COHORT_DATE_RANGE = 'August 12 to September 16, 2026';
-const COHORT_SESSION_DATES = ['Aug 12', 'Aug 19', 'Aug 26', 'Sep 2', 'Sep 9', 'Sep 16'];
 
-const weeklyModules = [
+const practiceGaps = [
   {
-    week: 1,
-    title: "Assessment Architecture",
-    pain: '"I have 12 students needing FBAs and no system."',
-    build: "A tiered assessment framework, plus a scalable intake process that filters behavioral concerns by severity level to route each student to the appropriate level of assessment, without burning you out.",
-    deliverable: "Your personal assessment decision tree, intake form, and referral routing guide.",
-    icon: ClipboardList,
+    icon: SearchCheck,
+    title: 'Assessment confidence',
+    copy: 'Decide when indirect and descriptive data are sufficient, when more assessment is warranted, and what question the next step must answer.',
   },
   {
-    week: 2,
-    title: "Data Collection Systems",
-    pain: '"My data sheets are all different and RBTs don\'t use them."',
-    build: "A standardized data collection toolkit built for your specific caseload, in formats RBTs will actually use consistently.",
-    deliverable: "Master data sheet library covering frequency, duration, interval, and ABC recording.",
-    icon: BarChart3,
+    icon: ShieldCheck,
+    title: 'School feasibility',
+    copy: 'Adapt assessment methods to schedules, staffing, space, safety, consent, and the responsibilities of your role.',
   },
   {
-    week: 3,
-    title: "FBA to Hypothesis",
-    pain: '"I write FBAs but I\'m not confident my function is right."',
-    build: "A hypothesis generation process with function verification steps you can defend in any IEP meeting.",
-    deliverable: "Your own FBA narrative template with built-in quality checks.",
-    icon: Target,
+    icon: BrainCircuit,
+    title: 'Intervention fit',
+    copy: 'Connect assessment evidence to plans that account for function, context, student skills, and the people responsible for implementation.',
   },
   {
-    week: 4,
-    title: "BIP Design by Function",
-    pain: '"My BIPs all look the same regardless of function."',
-    build: "Function-matched intervention menus for attention, escape, tangible, and automatic reinforcement.",
-    deliverable: "BIP template library organized by behavioral function.",
-    icon: FileCheck,
-  },
-  {
-    week: 5,
-    title: "Implementation and Staff Training",
-    pain: '"I write great BIPs but staff don\'t implement them correctly."',
-    build: "A 1-page implementation guide and fidelity checklist for each BIP, so everyone on your team knows exactly what to do.",
-    deliverable: "Staff communication plans.",
-    icon: Users,
-  },
-  {
-    week: 6,
-    title: "Progress Monitoring and Caseload Management",
-    pain: '"I don\'t know if my interventions are working until it\'s too late."',
-    build: "A progress monitoring dashboard with decision rules for data-based changes across your full caseload.",
-    deliverable: "Complete caseload management system with a built-in review schedule.",
-    icon: BookOpen,
+    icon: Network,
+    title: 'Systems leadership',
+    copy: 'Lead the decisions, communication, training, and review routines that turn a written plan into coordinated school practice.',
   },
 ];
 
-function AnimatedSpots({ remaining }: { remaining: number }) {
-  const [displayed, setDisplayed] = useState(remaining);
-  useEffect(() => {
-    const timer = setTimeout(() => setDisplayed(remaining), 600);
-    return () => clearTimeout(timer);
-  }, [remaining]);
+const assessmentContinuum = [
+  { label: 'Indirect', detail: 'Interviews and records' },
+  { label: 'Descriptive', detail: 'Direct observation' },
+  { label: 'Ecological', detail: 'Context and systems' },
+  { label: 'Adapted FA', detail: 'Focused experimental tests' },
+  { label: 'Formal FA', detail: 'Controlled analysis' },
+];
+
+const faFormats = [
+  ['Brief FA', 'Focused experimental comparisons when time and access are constrained.'],
+  ['Trial-based FA', 'Embedded trials that can be planned around ordinary school routines.'],
+  ['Latency FA', 'Latency as the dependent measure when repeated responding is unnecessary or impractical.'],
+  ['Precursor FA', 'Earlier, observable responses as a safer and more workable analysis target when appropriate.'],
+  ['Synthesized approaches', 'IISCA-informed assessment concepts, boundaries, and decisions relevant to school practice.'],
+  ['Analog and formal FA', 'When a more controlled analysis is justified and feasible within competence and local requirements.'],
+];
+
+const weeklyModules = [
+  {
+    week: '01',
+    title: 'From referral to assessment decision',
+    focus: 'Build a repeatable way to clarify the concern, review context, and select an assessment path proportionate to the case.',
+    applied: 'Apply the decision process to a current student, team, or referral system.',
+    artifact: 'Assessment decision framework and referral map',
+  },
+  {
+    week: '02',
+    title: 'Building confidence in behavioral function',
+    focus: 'Integrate interview, record review, direct observation, ecological variables, and competing hypotheses without overstating certainty.',
+    applied: 'Audit the evidence and confidence level in a current functional hypothesis.',
+    artifact: 'Hypothesis confidence rubric and evidence map',
+  },
+  {
+    week: '03',
+    title: 'School-adapted functional analysis',
+    focus: 'Study research-supported FA formats and plan practical adaptations around school constraints, safety, assent, and authorization.',
+    applied: 'Draft an analysis plan or a decision memo explaining why an FA is or is not indicated.',
+    artifact: 'Adapted FA planning and safety guide',
+  },
+  {
+    week: '04',
+    title: 'ACT-informed functional assessment',
+    focus: 'Examine values, private events, rigid rules, avoidance, precursors, and context when observable contingencies do not fully answer the question.',
+    applied: 'Use an ACT-informed interview or mapping process where it fits your role and case.',
+    artifact: 'ACT-informed assessment pathway',
+  },
+  {
+    week: '05',
+    title: 'From assessment evidence to intervention',
+    focus: 'Translate what the team knows into feasible prevention, teaching, reinforcement, response, and progress-monitoring decisions.',
+    applied: 'Review or revise one current plan against its assessment evidence.',
+    artifact: 'Evidence-to-intervention alignment check',
+  },
+  {
+    week: '06',
+    title: 'Leading implementation through teams',
+    focus: 'Build the communication, training, fidelity, review, and escalation routines needed to lead behavior support through other people.',
+    applied: 'Run or prepare a staff implementation cycle in your current setting.',
+    artifact: 'Team implementation system and 90-day plan',
+  },
+];
+
+const deliverables = [
+  'Assessment decision framework',
+  'Ecological and systems review',
+  'Hypothesis confidence rubric',
+  'Adapted FA planning guide',
+  'ACT-informed assessment pathway',
+  'Evidence-to-intervention check',
+  'Staff training and fidelity routine',
+  'Caseload review and escalation system',
+  '90-day implementation plan',
+];
+
+function Reveal({ children, className = '', delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
-    <motion.span
-      key={displayed}
-      initial={{ scale: 1.3, color: '#e4b63d' }}
-      animate={{ scale: 1, color: '#1f4d3f' }}
-      transition={{ duration: 0.4 }}
-      className="font-bold text-3xl tabular-nums"
+    <motion.div
+      className={`${className} motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:!blur-none`}
+      initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: '-8% 0px -8% 0px' }}
+      transition={{ duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] }}
     >
-      {displayed}
-    </motion.span>
+      {children}
+    </motion.div>
+  );
+}
+
+function SectionIntro({ label, title, copy }: { label: string; title: string; copy?: string }) {
+  return (
+    <Reveal className="max-w-3xl">
+      <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#1f4d3f]">
+        <span className="h-0.5 w-8 bg-[#d3a52f]" aria-hidden="true" />
+        {label}
+      </p>
+      <h2 className="text-balance text-3xl font-bold leading-tight tracking-normal text-gray-900 sm:text-5xl">
+        {title}
+      </h2>
+      {copy && <p className="mt-6 max-w-2xl text-lg leading-8 text-[#52605b]">{copy}</p>}
+    </Reveal>
   );
 }
 
 export default function TransformationProgramPage() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <div className="min-h-screen bg-white relative pt-0">
-
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#f7f3ee]">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f4d3f12_1px,transparent_1px),linear-gradient(to_bottom,#1f4d3f12_1px,transparent_1px)] bg-[size:48px_48px]" />
+    <main className="overflow-hidden bg-white text-gray-900">
+      <section className="relative overflow-hidden bg-[#0a1512] text-white">
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -left-[12%] -top-[35%] h-[70%] w-[55%] rounded-full bg-emerald-600/15 blur-[120px]" />
+          <div className="absolute -bottom-[35%] -right-[10%] h-[75%] w-[55%] rounded-full bg-blue-600/10 blur-[140px]" />
+          <div className="absolute inset-0 opacity-[0.035] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:40px_40px]" />
         </div>
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-20 sm:pb-28">
-          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center mt-8 sm:mt-10">
-            <div className="text-center lg:text-left">
-              <motion.div
-                className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                {['Live cohort', '6 weeks', 'School BCBAs', COHORT_START_BADGE].map((item) => (
-                  <span key={item} className="px-3 py-1.5 rounded-full border border-[#1f4d3f]/20 bg-white text-xs font-semibold text-[#1f4d3f] uppercase tracking-wide">
-                    {item}
-                  </span>
-                ))}
-              </motion.div>
-              <motion.h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1a1a1a] leading-tight mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                You Became a BCBA to Help Kids.{' '}
-                <span className="text-[#1f4d3f]">Not to Drown in Paperwork.</span>
-              </motion.h1>
-              <motion.p
-                className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                By the end of this program, you will leave work at contract time, with systems that actually run without you.
-              </motion.p>
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <a
-                  href={CALENDLY_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
-                >
-                  Book a Fit Call <ArrowRight className="w-4 h-4" />
-                </a>
-                <a
-                  href="#waitlist"
-                  className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
-                >
-                  Apply for the Next Cohort
-                </a>
-              </motion.div>
-            </div>
 
-            <motion.div
-              className="relative max-w-[520px] mx-auto lg:ml-auto"
-              initial={{ opacity: 0, y: 20 }}
+        <div className="relative mx-auto grid max-w-[1400px] items-center gap-12 px-6 py-16 sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-20 lg:px-12 lg:py-24">
+          <div className="max-w-2xl">
+            <motion.h1
+              className="text-balance text-5xl font-extrabold leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl"
+              initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.85, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="relative rounded-[1.75rem] p-3 bg-white border border-[#1f4d3f]/10 shadow-lg">
-                <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3] bg-[#f1f5f9]">
-                  <Image
-                    src="/optimized/Hero/11D67BC4-55A4-4549-A776-84E87EDED35F.webp"
-                    alt="School BCBA systems in action"
-                    width={640}
-                    height={480}
-                    className="h-full w-full object-cover"
-                    priority
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Cohort dates callout */}
-        <div className="max-w-2xl mx-auto px-4 mt-14">
-          <div className="rounded-2xl bg-white p-6 shadow-sm border border-[#1f4d3f]/10">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" />
-                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, {COHORT_LABEL}</span>
-                </div>
-                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">{COHORT_START_FULL} &middot; 6:00 to 8:00 PM PT</p>
-                <div className="flex flex-wrap gap-x-3 gap-y-1">
-                  {COHORT_SESSION_DATES.map((d) => (
-                    <span key={d} className="text-[#1f4d3f] font-semibold text-sm">{d}</span>
-                  ))}
-                </div>
-              </div>
-              {/* Spots remaining */}
-              <div className="flex-shrink-0 text-center bg-[#1f4d3f]/5 rounded-xl px-5 py-3 border border-[#1f4d3f]/10">
-                <AnimatedSpots remaining={SPOTS_REMAINING} />
-                <p className="text-[#1f4d3f] text-xs font-semibold uppercase tracking-widest mt-0.5">spots left</p>
-                <p className="text-slate-500 text-xs mt-1">of {TOTAL_SPOTS} total</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Who This Is For */}
-      <section className="py-20 sm:py-28 bg-[#f9f7f2]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Eligibility</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-4">Who This Program Is For</h2>
-          <p className="text-center text-slate-600 mb-12 text-lg leading-relaxed">This cohort is for school BCBAs who are serious about building systems that last.</p>
-          <div className="grid sm:grid-cols-2 gap-5">
-            {[
-              "You hold a BCBA certification and work in a K-12 school or district",
-              "Your caseload feels overwhelming and you want a real system for it",
-              "You're tired of rewriting the same documents with no template to start from",
-              "You want to lead your team effectively, not just complete compliance tasks",
-              "You're ready to do the work, not just watch videos and get a certificate",
-              "You want tools you can use the next day, not theory you'll forget in a week",
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 p-5 rounded-xl bg-white border border-gray-200">
-                <CheckCircle className="w-5 h-5 text-[#1f4d3f] flex-shrink-0 mt-0.5" />
-                <p className="text-slate-700 text-sm leading-relaxed">{item}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 rounded-xl border border-[#e4b63d]/30 bg-[#e4b63d]/5 p-5">
-            <p className="text-[#1a1a1a] text-sm text-center leading-relaxed">
-              This is not for RBTs, pre-certification BCaBAs, or general education professionals. It is designed specifically for certified BCBAs working in school settings.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Weekly Breakdown */}
-      <section id="curriculum" className="py-20 sm:py-28 bg-white scroll-mt-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">The 6-Week Curriculum</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">What You&apos;ll Build Each Week</h2>
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">Each session is mapped to a specific pain point and ends with a deliverable you can use immediately.</p>
-          </div>
-
-          <div className="space-y-6">
-            {weeklyModules.map((mod) => (
-              <motion.div
-                key={mod.week}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-              >
-                <div className="flex flex-col md:flex-row">
-                  <div className="bg-[#1f4d3f] text-white flex items-center justify-center md:flex-col gap-2 md:gap-1 px-6 py-4 md:py-8 md:w-24 flex-shrink-0">
-                    <span className="text-xs text-white/70 uppercase font-semibold tracking-widest">Week</span>
-                    <span className="text-3xl font-bold leading-none">{mod.week}</span>
-                  </div>
-                  <div className="p-6 md:p-8 flex-1 min-w-0">
-                    <div className="flex items-start gap-3 mb-5">
-                      <div className="w-10 h-10 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center flex-shrink-0">
-                        <mod.icon className="w-5 h-5 text-[#1f4d3f]" />
-                      </div>
-                      <h3 className="text-xl font-bold text-[#1a1a1a] leading-tight mt-1.5">{mod.title}</h3>
-                    </div>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div className="rounded-lg bg-[#e4b63d]/5 border border-[#e4b63d]/15 p-4">
-                        <p className="text-xs font-semibold text-[#1f4d3f] uppercase tracking-widest mb-2">The Pain</p>
-                        <p className="text-[#1a1a1a] text-sm leading-relaxed">{mod.pain}</p>
-                      </div>
-                      <div className="rounded-lg bg-[#f9f7f2] border border-gray-200 p-4">
-                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">What You Build</p>
-                        <p className="text-slate-700 text-sm leading-relaxed">{mod.build}</p>
-                      </div>
-                      <div className="rounded-lg bg-[#1f4d3f]/5 border border-[#1f4d3f]/10 p-4">
-                        <p className="text-xs font-semibold text-[#1f4d3f] uppercase tracking-widest mb-2">Your Deliverable</p>
-                        <p className="text-slate-700 text-sm leading-relaxed">{mod.deliverable}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Outcomes Section */}
-      <section id="outcomes" className="py-20 sm:py-28 bg-[#1f4d3f] text-white scroll-mt-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Outcomes</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">By Week 6, You Will Have</h2>
-            <p className="text-white/70 text-lg mb-2 max-w-2xl mx-auto leading-relaxed">Leave work at contract time. Stop writing FBAs at 10 PM. Have staff implement plans correctly the first time.</p>
-            <p className="text-white/50 text-base">Concrete deliverables and real systems, not just new ideas.</p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              "A tiered assessment framework for every student on your caseload",
-              "Full referral system",
-              "FBA templates with built-in quality checks you can stand behind in any IEP meeting",
-              "Function-matched BIP templates organized by behavioral function",
-              "Staff communication plans",
-              "A progress monitoring dashboard with clear decision rules across your full caseload",
-            ].map((outcome, i) => (
-              <motion.div
-                key={i}
-                className="flex items-start gap-3 bg-white/5 border border-white/10 rounded-xl p-5"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-              >
-                <CheckCircle className="w-5 h-5 text-[#e4b63d] flex-shrink-0 mt-0.5" />
-                <p className="text-white text-sm leading-relaxed">{outcome}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* About Rob */}
-      <section className="py-20 sm:py-28 bg-[#f9f7f2]">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Your Instructor</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-8">Rob Spain, BCBA, IBA</h2>
-          <div className="text-left space-y-4 text-slate-600 text-base leading-relaxed">
-            <p>Rob has spent 25+ years as a behavior analyst in school settings, including district-level practice, graduate teaching, and clinical work. He knows what it actually takes to run a caseload ethically in an environment that doesn&apos;t always make it easy.</p>
-            <p>He&apos;s a CalABA invited speaker, President of the BAE SIG, and the person BCBAs call when they&apos;re stuck on a hard case. This program is built from the systems he&apos;s actually used, not from theory.</p>
-          </div>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {['25+ Years School-Based Practice', 'CalABA Invited Speaker', 'BCBA / IBA Certified', 'BAE SIG President'].map((item) => (
-              <span key={item} className="px-4 py-2 rounded-full bg-white border border-[#1f4d3f]/15 text-[#1f4d3f] text-sm font-semibold">{item}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section id="faq" className="py-20 sm:py-28 bg-white scroll-mt-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
-          <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: `August 12, 2026. Sessions run weekly from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}. Maximum 12 participants.` },
-            { question: "What if I miss a live session?", answer: "All sessions are recorded and available in your student portal within 24 hours." },
-            { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
-            { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
-            { question: "Is a W-9 available?", answer: "Yes, available on request. Contact us and we'll send it same day." },
-            { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via Calendly or the contact form to discuss district group pricing." },
-            { question: "Is this program approved for CEUs?", answer: "CEU applicability is being evaluated. Contact us for the most current information." },
-          ]} />
-        </div>
-      </section>
-
-      {/* Enroll */}
-      <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the August 12 Cohort</h2>
-          <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
-            6 weeks. 12 seats max. School BCBAs only.
-          </p>
-          <p className="text-[#e4b63d] font-bold text-2xl mb-8">
-            {OFFER_PRICE} founding tuition
-          </p>
-
-          <a
-            href={CALENDLY_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full rounded-full bg-[#e4b63d] hover:bg-[#d4a637] text-[#123628] font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
-          >
-            Book a Fit Call
-          </a>
-
-          <p className="text-white/50 text-sm mb-2">
-            Payment plan available: <span className="text-[#e4b63d] font-semibold">{PAYMENT_PLAN}</span>.
-          </p>
-
-          <p className="text-white/40 text-xs mb-4">
-            District PO or invoice needed?{' '}
-            <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
-              Contact us
-            </a>
-          </p>
-          <p className="text-white/40 text-xs mb-12">
-            Refund policy: five calendar days from payment. After that, cohort seats are committed and non-refundable except where required by law.
-          </p>
-
-          <details className="text-left bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-            <summary className="cursor-pointer px-6 py-4 font-semibold text-white/70 text-sm flex items-center justify-between list-none">
-              <span>Getting district approval? We can help.</span>
-              <span className="text-white/40 text-xs">tap to expand</span>
-            </summary>
-            <div className="px-6 pb-6 border-t border-white/10 pt-4 space-y-4">
-              <p className="text-sm text-white/60 leading-relaxed">
-                Many BCBAs have their district cover this as professional development. Here&apos;s what you need:
-              </p>
+              Move from crisis responder to systems leader.
+            </motion.h1>
+            <motion.p
+              className="mt-7 max-w-2xl text-pretty text-lg font-light leading-8 text-slate-300 sm:text-xl"
+              initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            >
+              Build the assessment judgment, school-adapted functional-analysis skills, ACT-informed tools, and implementation systems needed to lead behavior support across classrooms and teams.
+            </motion.p>
+            <motion.div
+              className="mt-10 flex flex-col gap-3 sm:flex-row"
+              initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            >
               <a
-                href="/transformation-program-pd-packet.pdf"
+                href={CALENDLY_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-lg border border-white/10 hover:border-[#e4b63d] transition-colors text-sm font-semibold text-[#e4b63d]"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-white px-8 py-4 font-bold text-slate-900 shadow-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
-                <FileCheck className="w-4 h-4 flex-shrink-0" />
-                Download PD Documentation Packet (program description, invoice template, credentials)
+                Book a fit call <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
-              <p className="text-xs text-white/40">
-                Need a W-9, purchase order, or invoice?{' '}
-                <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
-                  Contact us
-                </a>{' '}
-                and we&apos;ll send the paperwork. Seats are held once a signed PO or written district payment approval is received.
-              </p>
-              <div className="bg-white/5 rounded-lg border border-white/10 p-4">
-                <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-3">Copy and forward to your supervisor</p>
-                <div className="bg-[#0d1f17] border border-white/10 rounded-lg p-4 text-xs text-white/60 leading-relaxed font-mono whitespace-pre-line select-all">{`Subject: PD Approval Request, School BCBA Transformation Program
+              <a
+                href="#curriculum"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-8 py-4 font-bold text-white backdrop-blur-sm transition-[transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                Explore the curriculum <ArrowDown className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </motion.div>
+          </div>
 
-I'd like to attend a 6-week PD cohort for school BCBAs led by Rob Spain, BCBA (25+ years in school settings, CalABA invited speaker).
-
-This program addresses three problems directly:
-1. Assessment and FBA quality: builds a replicable, legally defensible process I can apply across my caseload.
-2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
-3. Caseload sustainability: systems that prevent the burnout that leads to BCBA turnover ($40-60K to replace).
-
-6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: $1,997.
-Details: behaviorschool.com/transformation-program`}</div>
+          <motion.div
+            className="relative mx-auto w-full max-w-[600px] lg:ml-auto"
+            initial={reduceMotion ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 48, scale: 0.96 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="absolute -inset-4 rounded-[2.5rem] bg-emerald-500/20 blur-[42px]" aria-hidden="true" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-3 shadow-2xl backdrop-blur-xl sm:p-4">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem]">
+                <Image
+                  src="/optimized/Hero/Hero-group1-optimized.webp"
+                  alt="School-based behavior professionals collaborating"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 600px"
+                  className="object-cover transition-transform duration-1000 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" aria-hidden="true" />
               </div>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="relative border-t border-white/10 bg-white/[0.035] backdrop-blur-md">
+          <div className="mx-auto grid max-w-7xl grid-cols-2 px-5 sm:px-8 lg:grid-cols-4 lg:px-12">
+            {[
+              ['Dates', 'Aug 12–Sep 16'],
+              ['Format', '6 live sessions'],
+              ['Cohort', '12 participants'],
+              ['Tuition', OFFER_PRICE],
+            ].map(([label, value], index) => (
+              <div key={label} className={`py-5 ${index % 2 ? 'pl-5' : 'pr-5'} ${index > 0 ? 'lg:border-l lg:border-white/15 lg:pl-7' : ''}`}>
+                <p className="text-xs font-semibold uppercase tracking-widest text-emerald-300">{label}</p>
+                <p className="mt-1 text-sm font-semibold text-white sm:text-base">{value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-black/10 bg-[#f5f7f6] py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionIntro
+            label="The shift"
+            title="School practice asks for more than a standard FBA workflow."
+            copy="The work is not only completing an assessment or writing a plan. It is choosing the right level of assessment, adapting evidence-based methods to school reality, and leading people through implementation."
+          />
+          <div className="mt-16 border-y border-black/10">
+            {practiceGaps.map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.06}>
+                <div className="grid gap-5 border-b border-black/10 py-8 last:border-b-0 sm:grid-cols-[64px_220px_1fr] sm:items-center">
+                  <item.icon className="h-8 w-8 text-[#1f4d3f]" strokeWidth={1.6} aria-hidden="true" />
+                  <h3 className="text-xl font-semibold text-[#173f35]">{item.title}</h3>
+                  <p className="max-w-2xl leading-7 text-[#52605b]">{item.copy}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionIntro
+            label="One connected practice"
+            title="Assessment, intervention, and implementation belong in the same system."
+            copy="The program connects decisions that are often taught separately, then places systems leadership underneath the entire process."
+          />
+          <div className="relative mt-16 grid gap-5 lg:grid-cols-3">
+            <motion.div
+              className="absolute left-[13%] right-[13%] top-7 hidden h-px origin-left bg-[#d3a52f] lg:block"
+              initial={{ scaleX: reduceMotion ? 1 : 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.25, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden="true"
+            />
+            {[
+              ['01', 'Assessment', 'Clarify the question, select the level of assessment, and judge confidence in function.'],
+              ['02', 'Intervention', 'Translate evidence into feasible prevention, teaching, reinforcement, and response decisions.'],
+              ['03', 'Implementation', 'Train, monitor, review, and adjust with the people who carry the plan into daily practice.'],
+            ].map(([number, title, copy], index) => (
+              <Reveal key={title} delay={index * 0.12} className="relative bg-white pt-1">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#1f4d3f] bg-white text-sm font-bold text-[#1f4d3f] shadow-[0_0_0_8px_white]">
+                  {number}
+                </div>
+                <h3 className="mt-7 text-2xl font-semibold">{title}</h3>
+                <p className="mt-3 max-w-sm leading-7 text-[#52605b]">{copy}</p>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-12 border-l-2 border-[#d3a52f] bg-[#12372e] px-7 py-8 text-white sm:px-10">
+            <div className="grid gap-5 sm:grid-cols-[220px_1fr] sm:items-center">
+              <p className="text-xl font-semibold">Systems leadership</p>
+              <p className="max-w-3xl leading-7 text-white/75">Lead the communication, decision rules, staff development, and review routines that keep the process coherent across cases and teams.</p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-[#112f28] py-24 text-white sm:py-32">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <Reveal className="max-w-4xl">
+            <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#d9bd70]">
+              <span className="h-0.5 w-8 bg-[#d3a52f]" aria-hidden="true" /> Assessment judgment
+            </p>
+            <h2 className="text-balance text-3xl font-semibold leading-[1.08] sm:text-5xl">Not every student needs a functional analysis. More cases may benefit from one than you currently recognize.</h2>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-white/70">Learn to move through an assessment continuum deliberately, stopping when the evidence is sufficient and moving further when the question, confidence, risk, and feasibility justify it.</p>
+          </Reveal>
+
+          <div className="relative mt-16">
+            <div className="absolute left-5 top-0 h-full w-px bg-white/15 sm:left-0 sm:right-0 sm:top-5 sm:h-px sm:w-auto" aria-hidden="true" />
+            <motion.div
+              className="absolute left-5 top-0 w-px origin-top bg-[#d3a52f] sm:left-0 sm:right-auto sm:top-5 sm:h-px sm:w-full sm:origin-left"
+              initial={{ scaleY: reduceMotion ? 1 : 0, scaleX: reduceMotion ? 1 : 0 }}
+              whileInView={{ scaleY: 1, scaleX: 1 }}
+              viewport={{ once: true, margin: '-20%' }}
+              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              aria-hidden="true"
+            />
+            <div className="grid gap-8 sm:grid-cols-5 sm:gap-4">
+              {assessmentContinuum.map((item, index) => (
+                <Reveal key={item.label} delay={index * 0.09} className="relative pl-14 sm:pl-0 sm:pt-12">
+                  <span className="absolute left-3 top-1 flex h-5 w-5 items-center justify-center rounded-full border border-[#d3a52f] bg-[#112f28] sm:left-0 sm:top-3">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#d3a52f]" />
+                  </span>
+                  <p className="font-semibold">{item.label}</p>
+                  <p className="mt-1 text-sm leading-6 text-white/55">{item.detail}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+          <p className="mt-12 max-w-3xl border-l border-[#d3a52f] pl-5 text-sm leading-6 text-white/60">Any functional analysis must fit the practitioner’s competence, role, authorization, safety planning, assent practices, and local requirements.</p>
+        </div>
+      </section>
+
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto grid max-w-7xl gap-16 px-5 sm:px-8 lg:grid-cols-[.8fr_1.2fr] lg:px-12">
+          <SectionIntro
+            label="Functional analysis"
+            title="Bring established methods into school reality."
+            copy="Study formats found in the research literature but still difficult to translate into everyday school practice. The goal is not to run the same analysis for every case; it is to select and adapt methods with sound judgment."
+          />
+          <div className="border-t border-black/10">
+            {faFormats.map(([title, copy], index) => (
+              <Reveal key={title} delay={index * 0.05}>
+                <div className="grid gap-2 border-b border-black/10 py-6 sm:grid-cols-[180px_1fr]">
+                  <h3 className="font-semibold text-[#173f35]">{title}</h3>
+                  <p className="leading-7 text-[#52605b]">{copy}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-black/10 bg-[#eef2f0] py-24 sm:py-32">
+        <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start lg:px-12">
+          <div>
+            <SectionIntro
+              label="ACT-informed assessment"
+              title="When observable contingencies do not tell the whole story."
+              copy="ACT-informed tools can help organize assessment when language, rules, avoidance, private events, and values appear relevant to the student’s behavior and context."
+            />
+            <Reveal className="mt-8">
+              <p className="max-w-2xl leading-7 text-[#52605b]">The program focuses on using these concepts within behavior-analytic assessment and school practice, then connecting what you learn to observable goals, environmental supports, and team action.</p>
+            </Reveal>
+          </div>
+          <Reveal className="border-l-2 border-[#d3a52f] bg-white p-7 shadow-[0_18px_50px_rgba(19,45,37,.08)] sm:p-9">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#1f4d3f]">Questions you will practice</p>
+            <ul className="mt-7 space-y-5">
+              {[
+                'What does the student say or do when difficult private events show up?',
+                'Are rigid rules or avoidance patterns narrowing workable behavior?',
+                'What values and meaningful directions can inform goals and supports?',
+                'How can interview and mapping tools guide observable assessment and action?',
+              ].map((item) => (
+                <li key={item} className="flex gap-3 leading-7 text-[#394641]">
+                  <Sparkles className="mt-1 h-5 w-5 shrink-0 text-[#b78813]" strokeWidth={1.7} aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionIntro
+            label="Designed for school BCBAs"
+            title="For the BCBA who knows the basics and needs a stronger school practice."
+            copy="Your years in the field matter less than the work in front of you. This cohort is built for certified BCBAs responsible for behavior support in a K–12 school or district."
+          />
+          <div className="mt-14 grid gap-x-12 gap-y-0 border-y border-black/10 md:grid-cols-2">
+            {[
+              'You make assessment and intervention decisions for current school cases.',
+              'You want practical experience selecting and adapting functional-analysis methods.',
+              'You train staff and need implementation to extend beyond your direct involvement.',
+              'You encounter behavior involving avoidance, language, rules, or complex context.',
+              'You are entering school practice and want a strong operating system from the start.',
+              'You are ready to apply the work to a student, staff member, team, or system each week.',
+            ].map((item, index) => (
+              <Reveal key={item} delay={(index % 2) * 0.05}>
+                <div className="flex min-h-28 items-start gap-4 border-b border-black/10 py-7 md:last:border-b-0">
+                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#1f4d3f]" strokeWidth={2.2} aria-hidden="true" />
+                  <p className="max-w-lg leading-7 text-[#394641]">{item}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <p className="mt-7 max-w-3xl text-sm leading-6 text-[#6b746f]">This is an applied professional-development cohort for certified BCBAs. It is not exam preparation or a passive template library.</p>
+        </div>
+      </section>
+
+      <section id="curriculum" className="scroll-mt-20 bg-[#f5f7f6] py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionIntro
+            label="Six-week curriculum"
+            title="Practice the decisions a systems leader has to make."
+            copy="Each week connects instruction to applied work in your current setting, to the best of your ability and within your role, competence, permissions, and local requirements."
+          />
+          <div className="mt-16 border-t border-black/10">
+            {weeklyModules.map((module, index) => (
+              <Reveal key={module.week} delay={index * 0.04}>
+                <article className="grid gap-6 border-b border-black/10 py-9 lg:grid-cols-[72px_1.05fr_1fr] lg:gap-10">
+                  <p className="text-3xl font-semibold text-[#b78813]">{module.week}</p>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-[#173f35]">{module.title}</h3>
+                    <p className="mt-4 leading-7 text-[#52605b]">{module.focus}</p>
+                  </div>
+                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#68746f]">Applied work</p>
+                      <p className="mt-2 text-sm leading-6 text-[#394641]">{module.applied}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#68746f]">Working artifact</p>
+                      <p className="mt-2 text-sm font-semibold leading-6 text-[#173f35]">{module.artifact}</p>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#173f35] py-24 text-white sm:py-32">
+        <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[.8fr_1.2fr] lg:px-12">
+          <Reveal>
+            <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#d9bd70]">
+              <span className="h-0.5 w-8 bg-[#d3a52f]" aria-hidden="true" /> Applied resources
+            </p>
+            <h2 className="text-balance text-3xl font-semibold leading-[1.08] sm:text-5xl">What you build and practice.</h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/70">These working resources support the applied activities across the cohort. They are tools for judgment and implementation, not substitutes for individualized assessment.</p>
+          </Reveal>
+          <div className="grid sm:grid-cols-2">
+            {deliverables.map((item, index) => (
+              <Reveal key={item} delay={(index % 3) * 0.05}>
+                <div className="flex min-h-20 items-center gap-3 border-b border-white/15 py-5 sm:pr-6">
+                  <ClipboardCheck className="h-5 w-5 shrink-0 text-[#d9bd70]" strokeWidth={1.8} aria-hidden="true" />
+                  <p className="font-medium text-white/90">{item}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[360px_1fr] lg:items-center lg:px-12">
+          <Reveal className="relative aspect-[4/5] overflow-hidden rounded-lg bg-[#eef2f0]">
+            <Image src="/optimized/profile-Rob.webp" alt="Rob Spain" fill loading="eager" sizes="(min-width: 1024px) 360px, 100vw" className="object-cover" />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#1f4d3f]">
+              <span className="h-0.5 w-8 bg-[#d3a52f]" aria-hidden="true" /> Your instructor
+            </p>
+            <h2 className="text-4xl font-semibold sm:text-5xl">Rob Spain, BCBA, IBA</h2>
+            <div className="mt-7 max-w-2xl space-y-5 text-lg leading-8 text-[#52605b]">
+              <p>Rob brings more than 25 years of behavior-analytic work across school, district, teaching, and clinical settings.</p>
+              <p>He developed this cohort around the decisions school BCBAs face in practice: choosing an appropriate assessment path, adapting functional analysis to school constraints, connecting evidence to intervention, and leading implementation through teams.</p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section id="faq" className="scroll-mt-20 border-y border-black/10 bg-[#f5f7f6] py-24 sm:py-32">
+        <div className="mx-auto max-w-4xl px-5 sm:px-8">
+          <SectionIntro label="Questions" title="Program details, without the fine-print maze." />
+          <FAQAccordion
+            className="mt-12"
+            items={[
+              { question: 'When does the next cohort start?', answer: 'The next cohort runs August 12 through September 16, 2026. Six live sessions meet Wednesdays from 6:00 to 8:00 PM Pacific. Cohort capacity is 12 participants.' },
+              { question: 'What if I miss a live session?', answer: 'Sessions are recorded and made available in the student portal within 24 hours.' },
+              { question: 'Are CEUs included?', answer: 'Yes. CEUs are included with the program. Completion and participation requirements will be provided with enrollment materials.' },
+              { question: 'What applied work is expected between sessions?', answer: 'To the best of your ability, apply each week’s work directly to a student, staff member, team, or system in your current setting. All application must remain within your role, competence, permissions, safety procedures, and local requirements.' },
+              { question: 'Does every student need a functional analysis?', answer: 'No. Every case requires thoughtful functional assessment, but not every case requires an experimental functional analysis. You will practice deciding when existing evidence is sufficient and when an adapted FA may add useful confidence.' },
+              { question: 'What types of functional analysis does the program address?', answer: 'The program addresses research-supported formats that are practical or adaptable for school sites, including brief, trial-based, latency, precursor, synthesized or IISCA-informed, and analog functional analyses. Selection depends on the case, setting, competence, safety, authorization, and feasibility.' },
+              { question: 'Is this an IISCA or Skill-Based Treatment certification?', answer: <>No. The Transformation Program discusses synthesized functional analysis and Skill-Based Treatment where relevant, but it is not an IISCA, PFA, or SBT certification. Specialized training is available through <a className="font-semibold text-[#1f4d3f] underline decoration-[#d3a52f] underline-offset-4" href="https://ftfbc.com" target="_blank" rel="noopener noreferrer">FTF Behavioral Consulting</a>.</> },
+              { question: 'Is the program appropriate for a BCBA entering schools?', answer: 'Yes. A BCBA entering schools can use the cohort to build a strong school-specific operating system from the start. The program assumes BCBA-level knowledge and focuses on applying that knowledge in school contexts.' },
+              { question: 'Can my district pay?', answer: 'Yes. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received. A W-9 and program documentation are available on request.' },
+              { question: 'What is the refund window?', answer: 'You may request a refund within five calendar days of payment. After that window, cohort seats are committed and are not refundable except where required by law.' },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section id="enroll" className="scroll-mt-20 bg-[#0e2b24] py-24 text-white sm:py-32">
+        <div className="mx-auto max-w-5xl px-5 text-center sm:px-8">
+          <Reveal>
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#d9bd70]">August 2026 cohort</p>
+            <h2 className="mx-auto mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] sm:text-6xl">Build a stronger practice for the school system you are already leading.</h2>
+            <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-white/70">Six live sessions from August 12 to September 16. Cohort capacity is 12 certified BCBAs.</p>
+          </Reveal>
+          <Reveal delay={0.08} className="mx-auto mt-12 max-w-3xl border-y border-white/15 py-9">
+            <div className="grid gap-7 sm:grid-cols-2 sm:divide-x sm:divide-white/15">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/50">Pay in full</p>
+                <p className="mt-2 text-4xl font-semibold text-white">{OFFER_PRICE}</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/50">Payment plan</p>
+                <p className="mt-2 text-3xl font-semibold text-white">{PAYMENT_PLAN}</p>
+                <p className="mt-2 text-sm text-white/55">Billed automatically once per month for three months.</p>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.14} className="mx-auto mt-9 max-w-xl">
+            <a href={CALENDLY_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#d3a52f] px-7 py-4 text-lg font-bold text-[#102e27] transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-[#e2ba4c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+              Book a fit call <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <p className="mt-5 text-sm leading-6 text-white/55">District purchase order or invoice needed? <a href={DISTRICT_EMAIL_LINK} className="font-semibold text-[#d9bd70] underline underline-offset-4">Contact us for the paperwork.</a></p>
+          </Reveal>
+
+          <details className="mx-auto mt-12 max-w-3xl border border-white/15 text-left">
+            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+              District professional-development request
+              <FileCheck className="h-5 w-5 shrink-0 text-[#d9bd70]" aria-hidden="true" />
+            </summary>
+            <div className="border-t border-white/15 px-6 py-6 text-sm leading-7 text-white/65">
+              <p>Use the program documentation packet to share the cohort’s dates, curriculum, instructor credentials, and tuition with your supervisor or purchasing office.</p>
+              <a href="/transformation-program-pd-packet.pdf" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/25 px-4 py-2 font-semibold text-white transition-colors hover:border-[#d9bd70] hover:text-[#d9bd70]">
+                <BookOpenCheck className="h-4 w-4" aria-hidden="true" /> View the documentation packet
+              </a>
             </div>
           </details>
         </div>
       </section>
 
       <ProgramApplication />
-
-    </div>
+    </main>
   );
 }

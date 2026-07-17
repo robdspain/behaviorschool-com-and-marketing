@@ -61,10 +61,10 @@ export default function Home() {
               School BCBA Transformation Program
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
-              August cohort now open: build FBA, BIP, staff training, and caseload systems.
+              August cohort: move from crisis responder to systems leader.
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
-              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. Starts August 12. Limited to 12 seats.
+              A 6-week applied cohort focused on assessment judgment, school-adapted functional analysis, ACT-informed tools, and leading implementation through teams. Starts August 12. Cohort capacity is 12.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">

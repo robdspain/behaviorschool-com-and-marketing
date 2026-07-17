@@ -1,175 +1,59 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "School BCBA Training Program | Behavior School",
-  description: "6-week school BCBA training program to reduce burnout and build behavior support systems. Transform from crisis manager to ethical leader. Join next cohort.",
-  keywords: "school BCBA training, behavior analyst burnout solution, special education leadership, school psychology systems, BCBA ethics training, crisis management schools, staff training protocols, behavior support systems, school transformation program, cohort-based BCBA course",
-  alternates: { canonical: "https://behaviorschool.com/transformation-program" },
+  title: 'School BCBA Transformation Program | Behavior School',
+  description: 'A six-week applied cohort for school BCBAs focused on assessment judgment, school-adapted functional analysis, ACT-informed tools, and systems leadership.',
+  alternates: { canonical: '/transformation-program' },
   openGraph: {
-    type: "website",
-    title: "School BCBA Training Program | Behavior School",
-    description: "6-week school BCBA training program to reduce burnout and build behavior support systems. Transform from crisis manager to ethical leader. Join next cohort.",
-    url: "https://behaviorschool.com/transformation-program",
-    siteName: "Behavior School",
-    locale: "en_US",
-    images: [
-      {
-        url: "/optimized/Course/course-hero.webp",
-        width: 1200,
-        height: 630,
-        alt: "School BCBA professionals working confidently with systematic approach - Behavior School transformation program",
-      },
-    ],
+    title: 'School BCBA Transformation Program',
+    description: 'Move from crisis responder to systems leader through applied school-based assessment, functional analysis, intervention, and implementation practice.',
+    url: '/transformation-program',
+    type: 'website',
+    siteName: 'Behavior School',
+    images: [{ url: '/optimized/Course/course-hero.webp', width: 1200, height: 630, alt: 'School BCBA Transformation Program' }],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "School BCBA Training Program | Behavior School",
-    description: "6-week school BCBA training program to reduce burnout and build behavior support systems. Transform from crisis manager to ethical leader. Join next cohort.",
-    images: ["/optimized/Course/course-hero.webp"],
-    creator: "@BehaviorSchool",
-  },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-  other: {
-    "google-site-verification": process.env.GOOGLE_SITE_VERIFICATION || "",
+    card: 'summary_large_image',
+    title: 'School BCBA Transformation Program',
+    description: 'A six-week applied cohort focused on assessment judgment, functional analysis, ACT-informed tools, and systems leadership.',
+    images: ['/optimized/Course/course-hero.webp'],
   },
 };
 
-export default function TransformationProgramLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
-  
+export default function TransformationProgramLayout({ children }: { children: React.ReactNode }) {
+  const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://behaviorschool.com';
   const courseJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: "School BCBA Transformation System",
-    alternateName: "School BCBA Transformation System for Schools",
-    description: "Intensive 6-week cohort-based training program designed to transform overwhelmed school BCBAs into ethical leaders who master crisis management, build teacher buy-in, and implement school-wide behavior support systems.",
-    provider: {
-      "@type": "EducationalOrganization",
-      name: "Behavior School",
-      url: SITE_URL,
-      logo: `${SITE_URL}/optimized/Logos/logo-gold-transparent.webp`,
-      sameAs: [
-        "https://www.linkedin.com/company/behavior-school",
-        "https://x.com/behaviorschool"
-      ]
-    },
-    instructor: {
-      "@type": "Person",
-      name: "Rob Spain",
-      jobTitle: "BCBA, IBA",
-      url: "https://robspain.com",
-      worksFor: {
-        "@type": "Organization",
-        name: "Behavior School"
-      }
-    },
-    courseMode: "online",
-    educationalLevel: "Graduate",
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: 'School BCBA Transformation Program',
+    description: 'A six-week applied cohort for certified school BCBAs covering assessment decisions, school-adapted functional analysis, ACT-informed assessment, intervention alignment, and team implementation.',
+    provider: { '@type': 'EducationalOrganization', name: 'Behavior School', url: siteUrl },
+    instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
+    courseMode: 'online',
+    timeRequired: 'P6W',
+    coursePrerequisites: 'BCBA certification',
+    audience: { '@type': 'EducationalAudience', audienceType: 'Certified BCBAs working in K-12 schools or districts' },
     teaches: [
-      "Ethical leadership in school behavior analysis",
-      "Crisis management strategies for schools",
-      "Building teacher buy-in for behavior interventions", 
-      "School-wide behavior support system implementation",
-      "MTSS behavior support integration",
-      "Professional burnout prevention for BCBAs"
+      'School-based assessment decisions',
+      'School-adapted functional analysis',
+      'ACT-informed functional assessment',
+      'Evidence-to-intervention alignment',
+      'Staff training and implementation systems',
     ],
-    about: {
-      "@type": "Thing",
-      name: "School Applied Behavior Analysis Leadership",
-      description: "Advanced training in ethical leadership, crisis management, and systems implementation for behavior analysts working in educational settings"
-    },
-    timeRequired: "P6W",
-    educationalCredentialAwarded: "Certificate of Completion",
-    numberOfCredits: null,
-    occupationalCredentialAwarded: null,
-    coursePrerequisites: "BCBA certification",
-    audience: {
-      "@type": "EducationalAudience",
-      audienceType: "Professional",
-      educationalRole: "Board Certified Behavior Analyst"
-    },
-    isPartOf: {
-      "@type": "Course",
-      name: "Behavior School Professional Development Series"
-    },
     hasCourseInstance: {
-      "@type": "CourseInstance",
-      courseMode: "online",
-      courseWorkload: "P6W",
-      instructor: {
-        "@type": "Person",
-        name: "Rob Spain",
-        jobTitle: "BCBA, IBA"
-      }
+      '@type': 'CourseInstance',
+      courseMode: 'online',
+      startDate: '2026-08-12',
+      endDate: '2026-09-16',
+      instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
+      offers: { '@type': 'Offer', price: '1997', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
     },
-    educationalAlignment: [
-      {
-        "@type": "AlignmentObject",
-        alignmentType: "teaches",
-        educationalFramework: "BACB Professional and Ethical Compliance Code",
-        targetName: "Ethical Behavior Analysis Practice"
-      },
-      {
-        "@type": "AlignmentObject",
-        alignmentType: "teaches", 
-        educationalFramework: "IDEA Special Education Law",
-        targetName: "School Behavior Support Services"
-      }
-    ]
-  } as const;
-
-  const programJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "EducationalProgram",
-    name: "School BCBA Transformation System",
-    description: "Comprehensive 6-week training program transforming school behavior analysts from overwhelmed practitioners to confident ethical leaders with systematic approaches to crisis management and behavior support.",
-    provider: {
-      "@type": "EducationalOrganization", 
-      name: "Behavior School"
-    },
-    programType: "Professional Development",
-    educationalProgramMode: "online",
-    timeToComplete: "P6W",
-    programPrerequisites: [
-      {
-        "@type": "EducationalOccupationalCredential",
-        credentialCategory: "Professional Certification",
-        recognizedBy: {
-          "@type": "Organization",
-          name: "Behavior Analyst Certification Board (BACB)"
-        }
-      }
-    ],
-    occupationalCategory: {
-      "@type": "CategoryCode",
-      codeValue: "25-2057",
-      codingSystem: "O*NET-SOC",
-      name: "Special Education Teachers"
-    },
-    offers: {
-      "@type": "Offer",
-      description: "6-week intensive cohort training for school BCBAs",
-      price: "1997",
-      priceCurrency: "USD",
-      category: "Professional Development Course"
-    }
-  } as const;
+  };
 
   return (
-    <div>
+    <>
       {children}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(programJsonLd) }}
-      />
-    </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }} />
+    </>
   );
 }

@@ -35,10 +35,10 @@ function WaitlistForm() {
   }
 
   return (
-    <div className="bg-slate-50 rounded-3xl border border-slate-200 p-8 md:p-12 max-w-2xl mx-auto">
+    <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Join the Next Cohort Waitlist
+          Join the next cohort waitlist
         </h2>
         <p className="text-slate-600 text-base">
           Drop your email and we&rsquo;ll reach out with next cohort details and next steps.
@@ -57,13 +57,13 @@ function WaitlistForm() {
             type="email"
             name="email"
             required
-            placeholder="Email Address"
-            className="flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            autoComplete="email"
+            className="min-h-11 flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f4d3f] focus:border-transparent"
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="rounded-xl bg-[#1f4d3f] hover:bg-emerald-900 text-white font-bold px-6 py-3 text-sm transition disabled:opacity-60 whitespace-nowrap"
+            className="min-h-11 rounded-xl bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#123628] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f] disabled:opacity-60 whitespace-nowrap"
           >
             {status === 'loading' ? 'Submitting…' : 'Notify Me'}
           </button>
@@ -109,16 +109,16 @@ function ApplicationForm() {
   }
 
   const fieldClass =
-    'w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent';
+    'min-h-11 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f4d3f] focus:border-transparent';
 
   return (
-    <div className="bg-slate-50 rounded-3xl border border-slate-200 p-8 md:p-12 max-w-2xl mx-auto">
+    <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Apply for the Next Cohort
+          Apply for the August 2026 cohort
         </h2>
         <p className="text-slate-600 text-base">
-          Fill out the form below and we&rsquo;ll be in touch within 2 business days.
+          Tell us about your school role and what you want to strengthen. We&rsquo;ll respond within two business days.
         </p>
       </div>
 
@@ -132,21 +132,21 @@ function ApplicationForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="fullName" className="block text-sm font-semibold text-slate-700 mb-1">Full Name</label>
-            <input id="fullName" name="fullName" type="text" required placeholder="Jane Smith" className={fieldClass} />
+            <input id="fullName" name="fullName" type="text" required autoComplete="name" className={fieldClass} />
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
-            <input id="email" name="email" type="email" required placeholder="jane@example.com" className={fieldClass} />
+            <input id="email" name="email" type="email" required autoComplete="email" className={fieldClass} />
           </div>
           <div>
             <label htmlFor="bcbaCertNumber" className="block text-sm font-semibold text-slate-700 mb-1">
               BCBA Certification # <span className="text-slate-400 font-normal">(optional)</span>
             </label>
-            <input id="bcbaCertNumber" name="bcbaCertNumber" type="text" placeholder="1-12-34567" className={fieldClass} />
+            <input id="bcbaCertNumber" name="bcbaCertNumber" type="text" className={fieldClass} />
           </div>
           <div>
             <label htmlFor="currentRole" className="block text-sm font-semibold text-slate-700 mb-1">Current Role / Title</label>
-            <input id="currentRole" name="currentRole" type="text" required placeholder="School BCBA, District Behavior Specialist…" className={fieldClass} />
+            <input id="currentRole" name="currentRole" type="text" required autoComplete="organization-title" className={fieldClass} />
           </div>
           <div>
             <label htmlFor="whyJoin" className="block text-sm font-semibold text-slate-700 mb-1">
@@ -157,14 +157,13 @@ function ApplicationForm() {
               name="whyJoin"
               required
               rows={5}
-              placeholder="Tell us about your current challenges and what you hope to get out of the program…"
               className={`${fieldClass} resize-y`}
             />
           </div>
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="w-full rounded-xl bg-[#1f4d3f] hover:bg-emerald-900 text-white font-bold px-6 py-4 text-base transition disabled:opacity-60"
+            className="min-h-12 w-full rounded-xl bg-[#1f4d3f] px-6 py-4 text-base font-bold text-white transition-colors hover:bg-[#123628] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f] disabled:opacity-60"
           >
             {status === 'loading' ? 'Submitting…' : 'Submit Application'}
           </button>
@@ -182,7 +181,7 @@ function ApplicationForm() {
 
 export function ProgramApplication() {
   return (
-    <section id="waitlist" className="py-12 bg-white scroll-mt-24">
+    <section id="waitlist" className="scroll-mt-24 bg-white py-20 sm:py-28">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {isCohortOpen ? <ApplicationForm /> : <WaitlistForm />}
       </div>
