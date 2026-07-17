@@ -80,8 +80,8 @@ const weeklyModules = [
     title: 'Building confidence in behavioral function',
     problem: 'Interview, observation, and record-review data do not always agree, leaving you unsure how strongly to state the function.',
     focus: 'Integrate interview, record review, direct observation, ecological variables, and competing hypotheses without overstating certainty.',
-    applied: 'Audit the evidence and confidence level in a current functional hypothesis.',
-    artifact: 'Hypothesis confidence rubric and evidence map',
+    applied: 'Review the evidence supporting and contradicting a current functional hypothesis.',
+    artifact: 'Current-case assessment evidence summary',
   },
   {
     week: '03',
@@ -120,7 +120,7 @@ const weeklyModules = [
 const deliverables = [
   'Assessment decision framework',
   'Ecological and systems review',
-  'Hypothesis confidence rubric',
+  'Current-case assessment evidence summary',
   'Adapted FA planning guide',
   'ACT-informed contextual assessment map',
   'Evidence-to-intervention check',
