@@ -406,6 +406,30 @@ export default function TransformationProgramPage() {
         </div>
       </section>
 
+      <section id="small-cohorts" className="scroll-mt-20 border-y border-black/10 bg-[#f1e8cf] py-20 sm:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:items-end lg:gap-20 lg:px-12">
+          <Reveal>
+            <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#77590d]">
+              <span className="h-0.5 w-8 bg-[#b78813]" aria-hidden="true" /> The cohort advantage
+            </p>
+            <h2 className="max-w-2xl text-balance text-4xl font-semibold leading-[1.06] text-[#173f35] sm:text-5xl">
+              Small cohorts. Direct guidance. Applied to your actual work.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="max-w-2xl text-lg leading-8 text-[#394641]">
+              Work in a small cohort where there is time to examine real school-based challenges, receive direct feedback, and apply each part of the program to a student, staff member, or system you currently support.
+            </p>
+            <div className="mt-9 grid gap-x-8 gap-y-4 border-t border-[#173f35]/20 pt-7 text-sm font-semibold text-[#173f35] sm:grid-cols-2">
+              <p>Direct instructor access</p>
+              <p>Relevant case discussion</p>
+              <p>Feedback tied to your setting</p>
+              <p>Responsible discussion of complex cases</p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section id="curriculum" className="scroll-mt-20 bg-[#f5f7f6] py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionIntro
