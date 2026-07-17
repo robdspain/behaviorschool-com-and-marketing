@@ -68,16 +68,9 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
         })}
         <div className="px-3 pt-1">
           <Button asChild className="w-full bg-[#1f4d3f] text-white hover:bg-[#173a30]">
-            <Link href="/transformation-program" onClick={onClose}>August cohort now open</Link>
+            <Link href="/transformation-program" onClick={onClose}>Transformation Program</Link>
           </Button>
         </div>
-        <Link
-          href="/free-bcba-practice-exam"
-          className="block px-3 py-2 text-base font-medium text-emerald-800 hover:text-emerald-900 hover:bg-emerald-50 rounded-md"
-          onClick={onClose}
-        >
-          Take Free BCBA Practice Exam
-        </Link>
       </div>
     </div>
   );
