@@ -2,7 +2,6 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 const CHECKOUT_PASSWORD_KEY = "checkout_password";
-const DEFAULT_CHECKOUT_PASSWORD = "SchoolBCBA2025";
 
 function nowIso() {
   return new Date().toISOString();
@@ -34,7 +33,18 @@ export const getPassword = query({
   args: {},
   handler: async (ctx) => {
     const setting = await getPasswordSetting(ctx);
-    return setting?.settingValue ?? DEFAULT_CHECKOUT_PASSWORD;
+    return setting?.settingValue ?? null;
+  },
+});
+
+export const getPasswordStatus = query({
+  args: {},
+  handler: async (ctx) => {
+    const setting = await getPasswordSetting(ctx);
+    return {
+      configured: Boolean(setting?.settingValue),
+      updatedAt: setting?.updatedAt ?? null,
+    };
   },
 });
 
@@ -175,9 +185,11 @@ export const verifyAccess = mutation({
       accessType = "password";
       identifier = "password_attempt";
       const setting = await getPasswordSetting(ctx);
-      const configuredPassword = setting?.settingValue ?? DEFAULT_CHECKOUT_PASSWORD;
+      const configuredPassword = setting?.settingValue;
 
-      if (args.password === configuredPassword) {
+      if (!configuredPassword) {
+        errorMessage = "Checkout password is not configured";
+      } else if (args.password === configuredPassword) {
         accessGranted = true;
       } else {
         errorMessage = "Incorrect password";

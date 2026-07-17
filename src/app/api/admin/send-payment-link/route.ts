@@ -52,6 +52,13 @@ export async function POST(request: NextRequest) {
 
     const checkoutPassword = await client.query(api.checkoutAccess.getPassword, {});
 
+    if (!checkoutPassword) {
+      return NextResponse.json(
+        { error: 'Checkout password is not configured.' },
+        { status: 500 }
+      );
+    }
+
     // Replace template variables
     const replaceVariables = (text: string) => {
       return text

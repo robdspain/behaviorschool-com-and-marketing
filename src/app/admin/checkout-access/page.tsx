@@ -15,8 +15,6 @@ import {
   UserCheck,
   Clock,
   Send,
-  Eye,
-  EyeOff,
   CheckCircle,
   XCircle
 } from 'lucide-react';
@@ -45,7 +43,8 @@ interface AccessLog {
 
 export default function CheckoutAccessPage() {
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [passwordConfigured, setPasswordConfigured] = useState(false);
+  const [passwordUpdatedAt, setPasswordUpdatedAt] = useState<string | null>(null);
   const [approvedUsers, setApprovedUsers] = useState<CheckoutAccess[]>([]);
   const [accessLogs, setAccessLogs] = useState<AccessLog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -91,13 +90,15 @@ export default function CheckoutAccessPage() {
         fetch('/api/admin/checkout-access/logs'),
       ]);
 
-      const [passwordData, usersData, logsData] = await Promise.all([
+      const [passwordStatus, usersData, logsData] = await Promise.all([
         readJson(passwordRes, 'Password load'),
         readJson(usersRes, 'Approved users load'),
         readJson(logsRes, 'Access logs load'),
       ]);
 
-      setPassword(passwordData.password);
+      setPasswordConfigured(Boolean(passwordStatus.configured));
+      setPasswordUpdatedAt(passwordStatus.updatedAt || null);
+      setPassword('');
       setApprovedUsers(usersData.users || []);
       setAccessLogs(logsData.logs || []);
     } catch (error) {
@@ -127,7 +128,10 @@ export default function CheckoutAccessPage() {
       });
 
       if (response.ok) {
-        showSuccess('Password updated successfully!');
+        showSuccess('Checkout password updated successfully!');
+        setPassword('');
+        setPasswordConfigured(true);
+        setPasswordUpdatedAt(new Date().toISOString());
       }
     } catch (error) {
       console.error('Error updating password:', error);
@@ -290,32 +294,35 @@ export default function CheckoutAccessPage() {
             Master Checkout Password
           </CardTitle>
           <CardDescription>
-            This password can be shared with users after their onboarding call to grant them access to checkout.
+            Set or replace the checkout password. For security, the current password is not displayed after it is saved.
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <div className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+            Status: <span className="font-semibold text-slate-900">
+              {passwordConfigured ? 'Configured' : 'Not configured'}
+            </span>
+            {passwordUpdatedAt && (
+              <span className="ml-2 text-slate-500">
+                Updated {new Date(passwordUpdatedAt).toLocaleString()}
+              </span>
+            )}
+          </div>
           <div className="flex gap-4 items-end">
             <div className="flex-1">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative mt-2">
-                <Input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pr-10"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
+              <Label htmlFor="password">New password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter a new checkout password"
+                className="mt-2"
+                autoComplete="new-password"
+              />
             </div>
-            <Button onClick={updatePassword} disabled={isSaving}>
-              {isSaving ? 'Saving...' : 'Update Password'}
+            <Button onClick={updatePassword} disabled={isSaving || password.length < 6}>
+              {isSaving ? 'Saving...' : 'Set Password'}
             </Button>
           </div>
           <p className="text-sm text-slate-500 mt-4">

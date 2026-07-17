@@ -13,7 +13,14 @@ const supabase = createClient(supabaseUrl, supabaseServiceRole, {
 });
 
 async function setupCheckoutTables() {
-  console.log('Setting up checkout tables with new password: SchoolBCBA2025\n');
+  const checkoutPassword = process.env.CHECKOUT_PASSWORD;
+
+  if (!checkoutPassword || checkoutPassword.length < 6) {
+    console.error('Error: CHECKOUT_PASSWORD environment variable must be set and at least 6 characters');
+    process.exit(1);
+  }
+
+  console.log('Setting up checkout tables with password from CHECKOUT_PASSWORD environment variable\n');
 
   // Read the SQL file
   const fs = require('fs');
@@ -34,11 +41,11 @@ async function setupCheckoutTables() {
   }
 
   // Now update the password
-  console.log('\nUpdating password to: SchoolBCBA2025');
+  console.log('\nUpdating checkout password');
 
   const { data: updateData, error: updateError } = await supabase
     .from('checkout_settings')
-    .update({ setting_value: 'SchoolBCBA2025' })
+    .update({ setting_value: checkoutPassword })
     .eq('setting_key', 'checkout_password')
     .select();
 
@@ -47,7 +54,7 @@ async function setupCheckoutTables() {
     process.exit(1);
   }
 
-  console.log('✅ Password updated successfully to: SchoolBCBA2025');
+  console.log('✅ Password updated successfully.');
   console.log('\nYou can now use this password at:');
   console.log('https://behaviorschool.com/transformation-program/checkout');
 }

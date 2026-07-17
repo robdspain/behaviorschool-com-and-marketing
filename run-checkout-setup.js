@@ -12,7 +12,14 @@ if (!supabaseUrl || !supabaseServiceRole) {
 const supabase = createClient(supabaseUrl, supabaseServiceRole);
 
 async function runSetup() {
-  console.log('Creating checkout tables and setting password to: SchoolBCBA2025\n');
+  const checkoutPassword = process.env.CHECKOUT_PASSWORD;
+
+  if (!checkoutPassword || checkoutPassword.length < 6) {
+    console.error('Error: CHECKOUT_PASSWORD environment variable must be set and at least 6 characters');
+    process.exit(1);
+  }
+
+  console.log('Creating checkout tables and setting password from CHECKOUT_PASSWORD environment variable\n');
 
   // Read and parse the SQL file line by line
   const sql = fs.readFileSync('./supabase-checkout-setup.sql', 'utf8');
@@ -36,13 +43,13 @@ async function runSetup() {
   }
 
   // Now update the password directly
-  console.log('\nUpdating password to: SchoolBCBA2025');
+  console.log('\nUpdating checkout password');
 
   const { data, error } = await supabase
     .from('checkout_settings')
     .upsert({
       setting_key: 'checkout_password',
-      setting_value: 'SchoolBCBA2025',
+      setting_value: checkoutPassword,
       description: 'Master password for checkout access'
     }, {
       onConflict: 'setting_key'
@@ -54,7 +61,7 @@ async function runSetup() {
     process.exit(1);
   }
 
-  console.log('✅ Setup complete! Password is now: SchoolBCBA2025');
+  console.log('✅ Setup complete! Password updated.');
   console.log('\nCheckout URL: https://behaviorschool.com/transformation-program/checkout');
 }
 

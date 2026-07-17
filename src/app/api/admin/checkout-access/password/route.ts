@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const password = await getConvexClient().query(api.checkoutAccess.getPassword, {});
+    const status = await getConvexClient().query(api.checkoutAccess.getPasswordStatus, {});
 
     await recordRequestAuditEvent(request, {
       category: 'student_data',
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
       metadata: { source: 'convex' },
     });
 
-    return NextResponse.json({ password });
+    return NextResponse.json(status);
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json(

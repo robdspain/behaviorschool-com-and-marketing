@@ -335,7 +335,7 @@ Use Mailgun dashboard:
    Thank you for your interest in the School-Based BCBA Transformation Program!
    
    Checkout URL: https://behaviorschool.com/transformation-program/checkout
-   Password: SchoolBCBA2025
+   Password: [set the current checkout password in the admin dashboard]
    
    Visit the link and use the password to complete your enrollment.
    
@@ -405,4 +405,3 @@ Share these with me and I'll help debug!
 **Email Prerequisites:** Template + Mailgun + Logs table  
 
 **Once auth is fixed, email sending should work automatically!** 📧
-

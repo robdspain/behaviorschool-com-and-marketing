@@ -11,11 +11,18 @@ if (!supabaseUrl || !supabaseServiceRole) {
 const supabase = createClient(supabaseUrl, supabaseServiceRole);
 
 async function updateCheckoutPassword() {
-  console.log('Updating checkout password to: SchoolBCBA2025');
+  const checkoutPassword = process.env.CHECKOUT_PASSWORD;
+
+  if (!checkoutPassword || checkoutPassword.length < 6) {
+    console.error('Error: CHECKOUT_PASSWORD environment variable must be set and at least 6 characters');
+    process.exit(1);
+  }
+
+  console.log('Updating checkout password from CHECKOUT_PASSWORD environment variable');
 
   const { data, error } = await supabase
     .from('checkout_settings')
-    .update({ setting_value: 'SchoolBCBA2025' })
+    .update({ setting_value: checkoutPassword })
     .eq('setting_key', 'checkout_password')
     .select();
 
