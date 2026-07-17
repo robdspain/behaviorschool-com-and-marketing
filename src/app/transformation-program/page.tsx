@@ -55,15 +55,17 @@ const assessmentMethods = [
   { label: 'Define the concern', detail: 'Target behavior, context, risk, and the decision the team needs to make' },
   { label: 'Indirect assessment', detail: 'Interviews and records that inform hypotheses and next steps' },
   { label: 'Descriptive assessment', detail: 'Direct observation of naturally occurring behavior and context' },
+  { label: 'Classroom ecology', detail: 'Instruction, task fit, engagement, reinforcement, routines, and setting events' },
   { label: 'Functional analysis', detail: 'Systematic test and control conditions used to evaluate a functional relation' },
   { label: 'Treatment evaluation', detail: 'Direct measurement of whether the selected support produces meaningful change' },
 ];
 
 const faFormats = [
-  ['Brief FA', 'Uses short test and control conditions to evaluate function efficiently; inconclusive results may require additional analysis.'],
-  ['Precursor FA', 'After a precursor is shown to occur reliably before and share function with a more severe target, analyzing it may reduce the need to evoke the severe behavior.'],
-  ['Latency FA', 'Measures time from condition onset to the first target response and ends the session at that response, reducing repeated occurrences within a session.'],
-  ['Standard analog FA', 'Systematically compares test and control conditions, often with multielement or pairwise designs, to evaluate functional relations.'],
+  ['Brief FA', 'Short test and control sessions when FBA data point to likely functions, the team needs an experimental test, and risk is manageable.'],
+  ['Trial-based FA', 'Brief control and test trials embedded in classroom routines when time and disruption are important constraints.'],
+  ['Latency FA', 'Time to the first target response when repeated evocation would add risk or make the assessment impractical.'],
+  ['Precursor FA', 'Earlier, lower-intensity responses that reliably precede and share function with severe behavior can become the assessment endpoint.'],
+  ['Analog FA', 'A specialist-led, controlled arrangement when a high-stakes decision requires separated test and control conditions.'],
 ];
 
 const weeklyModules = [
@@ -85,11 +87,11 @@ const weeklyModules = [
   },
   {
     week: '03',
-    title: 'School-adapted functional analysis',
+    title: 'School-based functional analysis formats',
     problem: 'You suspect an experimental analysis could clarify a case, but schedules, staffing, safety, and authorization make the next step feel impractical.',
-    focus: 'Study research-supported FA formats and plan practical adaptations around school constraints, safety, assent, and authorization.',
+    focus: 'Study brief, trial-based, latency, precursor, and analog FA, then select and plan around school constraints, safety, assent, and authorization.',
     applied: 'Draft an analysis plan or a decision memo explaining why an FA is or is not indicated.',
-    artifact: 'Adapted FA planning and safety guide',
+    artifact: 'School-based FA planning and safety guide',
   },
   {
     week: '04',
@@ -121,7 +123,7 @@ const deliverables = [
   'Assessment decision framework',
   'Ecological and systems review',
   'Current-case assessment evidence summary',
-  'Adapted FA planning guide',
+  'School-based FA planning guide',
   'ACT-informed contextual assessment map',
   'Evidence-to-intervention check',
   'Staff training and fidelity routine',
@@ -191,7 +193,7 @@ export default function TransformationProgramPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
             >
-              When difficult cases keep routing back to you, another template is not enough. Build the assessment judgment, school-adapted functional-analysis skills, ACT-informed tools, and implementation systems needed to lead behavior support across classrooms and teams.
+              When difficult cases keep routing back to you, another template is not enough. Build the assessment judgment, school-based functional-analysis skills, ACT-informed tools, and implementation systems needed to lead behavior support across classrooms and teams.
             </motion.p>
             <motion.div
               className="mt-10 flex flex-col gap-3 sm:flex-row"
@@ -313,7 +315,7 @@ export default function TransformationProgramPage() {
 
           <div className="mt-16">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d9bd70]">Decision points, not a required sequence</p>
-            <div className="mt-7 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="mt-7 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
               {assessmentMethods.map((item, index) => (
                 <Reveal key={item.label} delay={index * 0.09} className="border-t border-[#d3a52f] pt-5">
                   <p className="font-semibold">{item.label}</p>
@@ -496,7 +498,7 @@ export default function TransformationProgramPage() {
               { question: 'Are CEUs included?', answer: 'Yes. Learning CEUs are included for eligible sessions completed under the program’s attendance and participation requirements. The exact number available and documentation requirements will be provided with enrollment materials.' },
               { question: 'What applied work is expected between sessions?', answer: 'To the best of your ability, apply each week’s work directly to a student, staff member, team, or system in your current setting. All application must remain within your role, competence, permissions, safety procedures, and local requirements.' },
               { question: 'Does every student need a functional analysis?', answer: 'No. Every case requires thoughtful functional assessment, but not every case requires an experimental functional analysis. Indirect and descriptive methods can inform hypotheses; a functional analysis is the method used to test a causal functional relation. You will practice deciding which methods fit the question, risk, feasibility, and evidence needed.' },
-              { question: 'What types of functional analysis does the program address?', answer: 'The program addresses research-supported formats that are practical or adaptable for school sites, including brief, latency, precursor, and analog functional analyses. Selection depends on the case, setting, competence, safety, authorization, and feasibility.' },
+              { question: 'What types of functional analysis does the program address?', answer: 'The program addresses research-supported formats used in or relevant to school settings, including brief, trial-based, latency, precursor, and analog functional analyses. Selection depends on the case, setting, competence, safety, authorization, and feasibility.' },
               { question: 'Is the program appropriate for a BCBA entering schools?', answer: 'Yes. A BCBA entering schools can use the cohort to build a strong school-specific operating system from the start. The program assumes BCBA-level knowledge and focuses on applying that knowledge in school contexts.' },
               { question: 'Can my district pay?', answer: 'Yes. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received. A W-9 and program documentation are available on request.' },
               { question: 'What is the refund window?', answer: 'You may request a refund within five calendar days of payment. After that window, cohort seats are committed and are not refundable except where required by law.' },
