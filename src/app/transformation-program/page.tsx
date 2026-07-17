@@ -113,7 +113,7 @@ const weeklyModules = [
     problem: 'A plan can depend too heavily on your direct presence while staff need clearer actions, feedback, and review routines.',
     focus: 'Build the communication, training, fidelity, review, and escalation routines needed to lead behavior support through other people.',
     applied: 'Run or prepare a staff implementation cycle in your current setting.',
-    artifact: 'Team implementation system and 90-day plan',
+    artifact: 'Team implementation system',
   },
 ];
 
@@ -126,7 +126,6 @@ const deliverables = [
   'Evidence-to-intervention check',
   'Staff training and fidelity routine',
   'Caseload review and escalation system',
-  '90-day implementation plan',
 ];
 
 function Reveal({ children, className = '', delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
