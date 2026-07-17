@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
+import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3 } from 'lucide-react';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 
@@ -203,41 +203,6 @@ export default function TransformationProgramPage() {
                 <p className="text-slate-500 text-xs mt-1">of {TOTAL_SPOTS} total</p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pain Points Section */}
-      <section className="py-20 sm:py-28 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">The Reality</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-4">Sound Familiar?</h2>
-          <p className="text-slate-600 text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">These are the real problems school BCBAs bring to this program.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { quote: "I'm writing FBAs and BIPs at 10 PM every night.", sub: "Paperwork is eating your evenings and your weekends." },
-              { quote: "I have 15 students on my caseload and no real system.", sub: "Every case feels like starting from scratch." },
-              { quote: "My data collection is inconsistent across students and staff.", sub: "RBTs aren't using the sheets, and you can't blame them." },
-              { quote: "I'm not confident my FBA hypotheses are right.", sub: "Functional analysis in a school setting is complicated." },
-              { quote: "My BIPs don't get implemented the way I wrote them.", sub: "There's a gap between what you plan and what happens in the classroom." },
-              { quote: "The district wants me to do things that conflict with my ethics.", sub: "You're being pulled between fidelity to practice and keeping your job." },
-              { quote: "I can't remember the last time I left at contract time.", sub: "The work expands to fill every evening and weekend you give it." },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                className="rounded-xl bg-white border border-gray-200 p-6"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-              >
-                <div className="flex gap-3 mb-3">
-                  <AlertCircle className="w-5 h-5 text-[#e4b63d] flex-shrink-0 mt-0.5" />
-                  <p className="text-[#1a1a1a] font-semibold leading-snug text-sm">{item.quote}</p>
-                </div>
-                <p className="text-slate-500 text-sm leading-relaxed">{item.sub}</p>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
