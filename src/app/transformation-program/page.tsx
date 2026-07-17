@@ -61,9 +61,8 @@ const assessmentContinuum = [
 
 const faFormats = [
   ['Brief FA', 'Focused experimental comparisons when time and access are constrained.'],
-  ['School-friendly or precursor functional analysis', 'Earlier, observable responses can provide a safer and more workable analysis target when appropriate.'],
+  ['Precursor FA', 'Earlier, observable responses can provide a safer and more workable analysis target when appropriate.'],
   ['Latency FA', 'Latency as the dependent measure when repeated responding is unnecessary or impractical.'],
-  ['Synthesized approaches', 'IISCA-informed assessment concepts, boundaries, and decisions relevant to school practice.'],
   ['Analog and formal FA', 'When a more controlled analysis is justified and feasible within competence and local requirements.'],
 ];
 
@@ -509,8 +508,7 @@ export default function TransformationProgramPage() {
               { question: 'Are CEUs included?', answer: 'Yes. CEUs are included with the program. Completion and participation requirements will be provided with enrollment materials.' },
               { question: 'What applied work is expected between sessions?', answer: 'To the best of your ability, apply each week’s work directly to a student, staff member, team, or system in your current setting. All application must remain within your role, competence, permissions, safety procedures, and local requirements.' },
               { question: 'Does every student need a functional analysis?', answer: 'No. Every case requires thoughtful functional assessment, but not every case requires an experimental functional analysis. You will practice deciding when existing evidence is sufficient and when an adapted FA may add useful confidence.' },
-              { question: 'What types of functional analysis does the program address?', answer: 'The program addresses research-supported formats that are practical or adaptable for school sites, including brief, latency, precursor, synthesized or IISCA-informed, and analog functional analyses. Selection depends on the case, setting, competence, safety, authorization, and feasibility.' },
-              { question: 'Is this an IISCA or Skill-Based Treatment certification?', answer: <>No. The Transformation Program discusses synthesized functional analysis and Skill-Based Treatment where relevant, but it is not an IISCA, PFA, or SBT certification. Specialized training is available through <a className="font-semibold text-[#1f4d3f] underline decoration-[#d3a52f] underline-offset-4" href="https://ftfbc.com" target="_blank" rel="noopener noreferrer">FTF Behavioral Consulting</a>.</> },
+              { question: 'What types of functional analysis does the program address?', answer: 'The program addresses research-supported formats that are practical or adaptable for school sites, including brief, latency, precursor, and analog functional analyses. Selection depends on the case, setting, competence, safety, authorization, and feasibility.' },
               { question: 'Is the program appropriate for a BCBA entering schools?', answer: 'Yes. A BCBA entering schools can use the cohort to build a strong school-specific operating system from the start. The program assumes BCBA-level knowledge and focuses on applying that knowledge in school contexts.' },
               { question: 'Can my district pay?', answer: 'Yes. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received. A W-9 and program documentation are available on request.' },
               { question: 'What is the refund window?', answer: 'You may request a refund within five calendar days of payment. After that window, cohort seats are committed and are not refundable except where required by law.' },
