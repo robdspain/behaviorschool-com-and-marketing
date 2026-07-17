@@ -71,6 +71,7 @@ const weeklyModules = [
   {
     week: '01',
     title: 'From referral to assessment decision',
+    problem: 'Referrals arrive with different levels of urgency, but without a shared process for deciding what happens next.',
     focus: 'Build a repeatable way to clarify the concern, review context, and select an assessment path proportionate to the case.',
     applied: 'Apply the decision process to a current student, team, or referral system.',
     artifact: 'Assessment decision framework and referral map',
@@ -78,6 +79,7 @@ const weeklyModules = [
   {
     week: '02',
     title: 'Building confidence in behavioral function',
+    problem: 'Interview, observation, and record-review data do not always agree, leaving you unsure how strongly to state the function.',
     focus: 'Integrate interview, record review, direct observation, ecological variables, and competing hypotheses without overstating certainty.',
     applied: 'Audit the evidence and confidence level in a current functional hypothesis.',
     artifact: 'Hypothesis confidence rubric and evidence map',
@@ -85,6 +87,7 @@ const weeklyModules = [
   {
     week: '03',
     title: 'School-adapted functional analysis',
+    problem: 'You suspect an experimental analysis could clarify a case, but schedules, staffing, safety, and authorization make the next step feel impractical.',
     focus: 'Study research-supported FA formats and plan practical adaptations around school constraints, safety, assent, and authorization.',
     applied: 'Draft an analysis plan or a decision memo explaining why an FA is or is not indicated.',
     artifact: 'Adapted FA planning and safety guide',
@@ -92,6 +95,7 @@ const weeklyModules = [
   {
     week: '04',
     title: 'ACT-informed functional assessment',
+    problem: 'The observable ABC pattern feels incomplete when avoidance, language, rules, or private events appear relevant to behavior.',
     focus: 'Examine values, private events, rigid rules, avoidance, precursors, and context when observable contingencies do not fully answer the question.',
     applied: 'Use an ACT-informed interview or mapping process where it fits your role and case.',
     artifact: 'ACT-informed assessment pathway',
@@ -99,6 +103,7 @@ const weeklyModules = [
   {
     week: '05',
     title: 'From assessment evidence to intervention',
+    problem: 'The assessment names a function, but the resulting BIP can still become generic, difficult to implement, or disconnected from the evidence.',
     focus: 'Translate what the team knows into feasible prevention, teaching, reinforcement, response, and progress-monitoring decisions.',
     applied: 'Review or revise one current plan against its assessment evidence.',
     artifact: 'Evidence-to-intervention alignment check',
@@ -106,6 +111,7 @@ const weeklyModules = [
   {
     week: '06',
     title: 'Leading implementation through teams',
+    problem: 'A plan can depend too heavily on your direct presence while staff need clearer actions, feedback, and review routines.',
     focus: 'Build the communication, training, fidelity, review, and escalation routines needed to lead behavior support through other people.',
     applied: 'Run or prepare a staff implementation cycle in your current setting.',
     artifact: 'Team implementation system and 90-day plan',
@@ -187,7 +193,7 @@ export default function TransformationProgramPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
             >
-              Build the assessment judgment, school-adapted functional-analysis skills, ACT-informed tools, and implementation systems needed to lead behavior support across classrooms and teams.
+              When difficult cases keep routing back to you, another template is not enough. Build the assessment judgment, school-adapted functional-analysis skills, ACT-informed tools, and implementation systems needed to lead behavior support across classrooms and teams.
             </motion.p>
             <motion.div
               className="mt-10 flex flex-col gap-3 sm:flex-row"
@@ -432,7 +438,7 @@ export default function TransformationProgramPage() {
           <SectionIntro
             label="Six-week curriculum"
             title="Practice the decisions a systems leader has to make."
-            copy="Each week connects instruction to applied work in your current setting, to the best of your ability and within your role, competence, permissions, and local requirements."
+            copy="Each week starts with a recurring school-practice problem, develops the judgment and methods needed to address it, and connects the work to your current setting within your role, competence, permissions, and local requirements."
           />
           <div className="mt-16 border-t border-black/10">
             {weeklyModules.map((module, index) => (
@@ -441,7 +447,14 @@ export default function TransformationProgramPage() {
                   <p className="text-3xl font-semibold text-[#b78813]">{module.week}</p>
                   <div>
                     <h3 className="text-2xl font-semibold text-[#173f35]">{module.title}</h3>
-                    <p className="mt-4 leading-7 text-[#52605b]">{module.focus}</p>
+                    <div className="mt-5 border-l-2 border-[#d3a52f] pl-4">
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a6710]">Problem this week addresses</p>
+                      <p className="mt-2 leading-7 text-[#394641]">{module.problem}</p>
+                    </div>
+                    <div className="mt-5">
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#68746f]">Practice focus</p>
+                      <p className="mt-2 leading-7 text-[#52605b]">{module.focus}</p>
+                    </div>
                   </div>
                   <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                     <div>
