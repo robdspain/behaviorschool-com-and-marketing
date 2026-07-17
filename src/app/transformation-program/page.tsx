@@ -26,7 +26,6 @@ const OFFER_PRICE = '$1,997';
 const PAYMENT_PLAN = '3 payments of $697';
 const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformation-system-phone-call';
 const DISTRICT_EMAIL_LINK = '/contact';
-const COHORT_DATE_RANGE = 'August 12 to September 16, 2026';
 
 const practiceGaps = [
   {
@@ -493,7 +492,7 @@ export default function TransformationProgramPage() {
           <FAQAccordion
             className="mt-12"
             items={[
-              { question: 'When does the next cohort start?', answer: 'The next cohort runs August 12 through September 16, 2026. Six live sessions meet Wednesdays from 6:00 to 8:00 PM Pacific. Cohort capacity is 12 participants.' },
+              { question: 'How is the cohort scheduled?', answer: 'The program includes six live weekly sessions. Current cohort dates and meeting times are confirmed before enrollment.' },
               { question: 'What if I miss a live session?', answer: 'Sessions are recorded and made available in the student portal within 24 hours.' },
               { question: 'Are CEUs included?', answer: 'Yes. Learning CEUs are included for eligible sessions completed under the program’s attendance and participation requirements. The exact number available and documentation requirements will be provided with enrollment materials.' },
               { question: 'What applied work is expected between sessions?', answer: 'To the best of your ability, apply each week’s work directly to a student, staff member, team, or system in your current setting. All application must remain within your role, competence, permissions, safety procedures, and local requirements.' },
@@ -510,9 +509,9 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="scroll-mt-20 bg-[#0e2b24] py-24 text-white sm:py-32">
         <div className="mx-auto max-w-5xl px-5 text-center sm:px-8">
           <Reveal>
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#d9bd70]">August 2026 cohort</p>
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#d9bd70]">Next small cohort</p>
             <h2 className="mx-auto mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] sm:text-6xl">Build a stronger practice for the school system you are already leading.</h2>
-            <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-white/70">Six live sessions from August 12 to September 16. Cohort capacity is 12 certified BCBAs.</p>
+            <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-white/70">Six live weekly sessions for certified BCBAs. Current cohort dates and meeting times are confirmed before enrollment.</p>
           </Reveal>
           <Reveal delay={0.08} className="mx-auto mt-12 max-w-3xl border-y border-white/15 py-9">
             <div className="grid gap-7 sm:grid-cols-2 sm:divide-x sm:divide-white/15">
