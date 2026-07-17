@@ -2,15 +2,7 @@
 %‚„œ”
 1 0 obj
 <<
-/Producer (ReportLab PDF Library \055 \050opensource\051)
-/Author (Behavior School LLC)
-/CreationDate (D\07220260717135124\05507\04700\047)
-/Creator (\050unspecified\051)
-/Keywords ()
-/ModDate (D\07220260717135124\05507\04700\047)
-/Subject (\050unspecified\051)
-/Title (School BCBA Transformation Program \055 Professional Development Documentation Packet)
-/Trapped (\057False)
+/Producer (pypdf)
 >>
 endobj
 2 0 obj
@@ -528,7 +520,7 @@ endobj
 endobj
 10 0 obj
 <<
-/Length 6918
+/Length 6953
 >>
 stream
 1 0 0 1 0 0 cm
@@ -726,7 +718,7 @@ BT
 1 0 0 1 0 3.5 Tm
 /F2 10.5 Tf
 14 TL
-(Building confidence in behavioral function) Tj
+(Testing the functional hypothesis before the BIP) Tj
 T*
 ET
 Q
@@ -739,9 +731,9 @@ BT
 1 0 0 1 0 15.5 Tm
 /F1 8.5 Tf
 12 TL
-(Integrate interviews\054 records\054 direct observation\054 contextual variables\054 and competing hypotheses without overstating) Tj
+(Examine how testing a functional hypothesis can clarify intervention selection before BIP development\054 including when) Tj
 T*
-(certainty\056) Tj
+(experimental analysis is warranted and feasible\056) Tj
 T*
 ET
 Q
@@ -1185,7 +1177,7 @@ endobj
 endobj
 12 0 obj
 <<
-/Length 4843
+/Length 4928
 >>
 stream
 1 0 0 1 0 0 cm
@@ -1266,11 +1258,11 @@ BT
 14 TL
 (Participants apply each week\047s work directly to a student\054 staff member\054 team\054 or system when appropriate and) Tj
 T*
-(permitted\056 Participants prepare a current\055case assessment evidence summary and use an FA planning) Tj
+(permitted\056 Participants define a testable functional hypothesis for a current case and decide whether and how it could be) Tj
 T*
-(guide\054 ACT\055informed contextual assessment map\054 evidence\055to\055intervention check\054 staff training and fidelity routine\054) Tj
+(tested safely and feasibly\056 They also use an FA planning guide\054 ACT\055informed contextual assessment map\054) Tj
 T*
-(caseload review system\056) Tj
+(evidence\055to\055intervention check\054 staff training and fidelity routine\054 and caseload review system\056) Tj
 T*
 ET
 Q
@@ -1633,17 +1625,17 @@ xref
 0 13
 0000000000 65535 f 
 0000000015 00000 n 
-0000000414 00000 n 
-0000000486 00000 n 
-0000000535 00000 n 
-0000000724 00000 n 
-0000005783 00000 n 
-0000005824 00000 n 
-0000005931 00000 n 
-0000006043 00000 n 
-0000006233 00000 n 
-0000013204 00000 n 
-0000013395 00000 n 
+0000000054 00000 n 
+0000000126 00000 n 
+0000000175 00000 n 
+0000000364 00000 n 
+0000005423 00000 n 
+0000005464 00000 n 
+0000005571 00000 n 
+0000005683 00000 n 
+0000005873 00000 n 
+0000012879 00000 n 
+0000013070 00000 n 
 trailer
 <<
 /Size 13
@@ -1651,5 +1643,5 @@ trailer
 /Info 1 0 R
 >>
 startxref
-18291
+18051
 %%EOF

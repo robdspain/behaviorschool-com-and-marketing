@@ -79,11 +79,11 @@ const weeklyModules = [
   },
   {
     week: '02',
-    title: 'Building confidence in behavioral function',
-    problem: 'Interview, observation, and record-review data do not always agree, leaving you unsure how strongly to state the function.',
-    focus: 'Integrate interview, record review, direct observation, ecological variables, and competing hypotheses without overstating certainty.',
-    applied: 'Review the evidence supporting and contradicting a current functional hypothesis.',
-    artifact: 'Current-case assessment evidence summary',
+    title: 'Testing the functional hypothesis before the BIP',
+    problem: 'A plausible functional hypothesis can still lead to a mismatched BIP when the relation has not been tested.',
+    focus: 'Examine how testing a functional hypothesis can clarify intervention selection before BIP development, including when experimental analysis is warranted and feasible.',
+    applied: 'For a current case, define the testable functional hypothesis and decide whether and how it could be tested safely and feasibly.',
+    artifact: 'Functional-hypothesis testing plan',
   },
   {
     week: '03',
@@ -122,7 +122,7 @@ const weeklyModules = [
 const deliverables = [
   'Assessment decision framework',
   'Ecological and systems review',
-  'Current-case assessment evidence summary',
+  'Functional-hypothesis testing plan',
   'School-based FA planning guide',
   'ACT-informed contextual assessment map',
   'Evidence-to-intervention check',
