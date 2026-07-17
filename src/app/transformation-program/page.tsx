@@ -51,19 +51,19 @@ const practiceGaps = [
   },
 ];
 
-const assessmentContinuum = [
-  { label: 'Indirect', detail: 'Interviews and records' },
-  { label: 'Descriptive', detail: 'Direct observation' },
-  { label: 'Ecological', detail: 'Context and systems' },
-  { label: 'Adapted FA', detail: 'Focused experimental tests' },
-  { label: 'Formal FA', detail: 'Controlled analysis' },
+const assessmentMethods = [
+  { label: 'Define the concern', detail: 'Target behavior, context, risk, and the decision the team needs to make' },
+  { label: 'Indirect assessment', detail: 'Interviews and records that inform hypotheses and next steps' },
+  { label: 'Descriptive assessment', detail: 'Direct observation of naturally occurring behavior and context' },
+  { label: 'Functional analysis', detail: 'Systematic test and control conditions used to evaluate a functional relation' },
+  { label: 'Treatment evaluation', detail: 'Direct measurement of whether the selected support produces meaningful change' },
 ];
 
 const faFormats = [
-  ['Brief FA', 'Focused experimental comparisons when time and access are constrained.'],
-  ['Precursor FA', 'Earlier, observable responses can provide a safer and more workable analysis target when appropriate.'],
-  ['Latency FA', 'Latency as the dependent measure when repeated responding is unnecessary or impractical.'],
-  ['Analog and formal FA', 'When a more controlled analysis is justified and feasible within competence and local requirements.'],
+  ['Brief FA', 'Uses short test and control conditions to evaluate function efficiently; inconclusive results may require additional analysis.'],
+  ['Precursor FA', 'After a precursor is shown to occur reliably before and share function with a more severe target, analyzing it may reduce the need to evoke the severe behavior.'],
+  ['Latency FA', 'Measures time from condition onset to the first target response and ends the session at that response, reducing repeated occurrences within a session.'],
+  ['Standard analog FA', 'Systematically compares test and control conditions, often with multielement or pairwise designs, to evaluate functional relations.'],
 ];
 
 const weeklyModules = [
@@ -94,15 +94,15 @@ const weeklyModules = [
   {
     week: '04',
     title: 'ACT-informed functional assessment',
-    problem: 'The observable ABC pattern feels incomplete when avoidance, language, rules, or private events appear relevant to behavior.',
-    focus: 'Examine values, private events, rigid rules, avoidance, precursors, and context when observable contingencies do not fully answer the question.',
+    problem: 'Descriptive ABC data alone may not capture how verbal behavior, reported private events, and avoidance patterns participate in context.',
+    focus: 'Use ACT-informed interview and mapping tools to examine rule-governed and avoidance patterns while keeping conclusions tied to observable behavior and testable hypotheses.',
     applied: 'Use an ACT-informed interview or mapping process where it fits your role and case.',
-    artifact: 'ACT-informed assessment pathway',
+    artifact: 'ACT-informed contextual assessment map',
   },
   {
     week: '05',
     title: 'From assessment evidence to intervention',
-    problem: 'The assessment names a function, but the resulting BIP can still become generic, difficult to implement, or disconnected from the evidence.',
+    problem: 'The assessment supports a functional hypothesis, but the resulting BIP can still become generic, difficult to implement, or disconnected from the evidence.',
     focus: 'Translate what the team knows into feasible prevention, teaching, reinforcement, response, and progress-monitoring decisions.',
     applied: 'Review or revise one current plan against its assessment evidence.',
     artifact: 'Evidence-to-intervention alignment check',
@@ -122,7 +122,7 @@ const deliverables = [
   'Ecological and systems review',
   'Hypothesis confidence rubric',
   'Adapted FA planning guide',
-  'ACT-informed assessment pathway',
+  'ACT-informed contextual assessment map',
   'Evidence-to-intervention check',
   'Staff training and fidelity routine',
   'Caseload review and escalation system',
@@ -308,26 +308,15 @@ export default function TransformationProgramPage() {
             <p className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#d9bd70]">
               <span className="h-0.5 w-8 bg-[#d3a52f]" aria-hidden="true" /> Assessment judgment
             </p>
-            <h2 className="text-balance text-3xl font-semibold leading-[1.08] sm:text-5xl">Not every student needs a functional analysis. More cases may benefit from one than you currently recognize.</h2>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-white/70">Learn to move through an assessment continuum deliberately, stopping when the evidence is sufficient and moving further when the question, confidence, risk, and feasibility justify it.</p>
+            <h2 className="text-balance text-3xl font-semibold leading-[1.08] sm:text-5xl">Not every case requires the same assessment sequence.</h2>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-white/70">Indirect and descriptive assessment can inform hypotheses and functional-analysis design, but they do not demonstrate a causal functional relation. Select methods based on the referral question, risk, feasibility, and evidence needed rather than treating assessment as a fixed ladder.</p>
           </Reveal>
 
-          <div className="relative mt-16">
-            <div className="absolute left-5 top-0 h-full w-px bg-white/15 sm:left-0 sm:right-0 sm:top-5 sm:h-px sm:w-auto" aria-hidden="true" />
-            <motion.div
-              className="absolute left-5 top-0 w-px origin-top bg-[#d3a52f] sm:left-0 sm:right-auto sm:top-5 sm:h-px sm:w-full sm:origin-left"
-              initial={{ scaleY: reduceMotion ? 1 : 0, scaleX: reduceMotion ? 1 : 0 }}
-              whileInView={{ scaleY: 1, scaleX: 1 }}
-              viewport={{ once: true, margin: '-20%' }}
-              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-              aria-hidden="true"
-            />
-            <div className="grid gap-8 sm:grid-cols-5 sm:gap-4">
-              {assessmentContinuum.map((item, index) => (
-                <Reveal key={item.label} delay={index * 0.09} className="relative pl-14 sm:pl-0 sm:pt-12">
-                  <span className="absolute left-3 top-1 flex h-5 w-5 items-center justify-center rounded-full border border-[#d3a52f] bg-[#112f28] sm:left-0 sm:top-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#d3a52f]" />
-                  </span>
+          <div className="mt-16">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d9bd70]">Decision points, not a required sequence</p>
+            <div className="mt-7 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
+              {assessmentMethods.map((item, index) => (
+                <Reveal key={item.label} delay={index * 0.09} className="border-t border-[#d3a52f] pt-5">
                   <p className="font-semibold">{item.label}</p>
                   <p className="mt-1 text-sm leading-6 text-white/55">{item.detail}</p>
                 </Reveal>
@@ -363,21 +352,21 @@ export default function TransformationProgramPage() {
           <div>
             <SectionIntro
               label="ACT-informed assessment"
-              title="When observable contingencies do not tell the whole story."
-              copy="ACT-informed tools can help organize assessment when language, rules, avoidance, private events, and values appear relevant to the student’s behavior and context."
+              title="When verbal behavior and private events are part of the context."
+              copy="ACT-informed tools can help organize discussion of overt and private behavior, rule-governed patterns, experiential avoidance, and values. They do not replace direct observation or experimental analysis when a functional relation must be tested."
             />
             <Reveal className="mt-8">
-              <p className="max-w-2xl leading-7 text-[#52605b]">The program focuses on using these concepts within behavior-analytic assessment and school practice, then connecting what you learn to observable goals, environmental supports, and team action.</p>
+              <p className="max-w-2xl leading-7 text-[#52605b]">The program uses these concepts as contextual assessment aids, connecting what the student reports to observable behavior, testable hypotheses, environmental supports, and team action.</p>
             </Reveal>
           </div>
           <Reveal className="border-l-2 border-[#d3a52f] bg-white p-7 shadow-[0_18px_50px_rgba(19,45,37,.08)] sm:p-9">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#1f4d3f]">Questions you will practice</p>
             <ul className="mt-7 space-y-5">
               {[
-                'What does the student say or do when difficult private events show up?',
-                'Are rigid rules or avoidance patterns narrowing workable behavior?',
+                'What does the student report, and what observable behavior occurs in that context?',
+                'Are rule-governed or avoidance patterns narrowing workable behavior?',
                 'What values and meaningful directions can inform goals and supports?',
-                'How can interview and mapping tools guide observable assessment and action?',
+                'How can interview and mapping tools guide observable hypotheses and action?',
               ].map((item) => (
                 <li key={item} className="flex gap-3 leading-7 text-[#394641]">
                   <Sparkles className="mt-1 h-5 w-5 shrink-0 text-[#b78813]" strokeWidth={1.7} aria-hidden="true" />
@@ -505,9 +494,9 @@ export default function TransformationProgramPage() {
             items={[
               { question: 'When does the next cohort start?', answer: 'The next cohort runs August 12 through September 16, 2026. Six live sessions meet Wednesdays from 6:00 to 8:00 PM Pacific. Cohort capacity is 12 participants.' },
               { question: 'What if I miss a live session?', answer: 'Sessions are recorded and made available in the student portal within 24 hours.' },
-              { question: 'Are CEUs included?', answer: 'Yes. CEUs are included with the program. Completion and participation requirements will be provided with enrollment materials.' },
+              { question: 'Are CEUs included?', answer: 'Yes. Learning CEUs are included for eligible sessions completed under the program’s attendance and participation requirements. The exact number available and documentation requirements will be provided with enrollment materials.' },
               { question: 'What applied work is expected between sessions?', answer: 'To the best of your ability, apply each week’s work directly to a student, staff member, team, or system in your current setting. All application must remain within your role, competence, permissions, safety procedures, and local requirements.' },
-              { question: 'Does every student need a functional analysis?', answer: 'No. Every case requires thoughtful functional assessment, but not every case requires an experimental functional analysis. You will practice deciding when existing evidence is sufficient and when an adapted FA may add useful confidence.' },
+              { question: 'Does every student need a functional analysis?', answer: 'No. Every case requires thoughtful functional assessment, but not every case requires an experimental functional analysis. Indirect and descriptive methods can inform hypotheses; a functional analysis is the method used to test a causal functional relation. You will practice deciding which methods fit the question, risk, feasibility, and evidence needed.' },
               { question: 'What types of functional analysis does the program address?', answer: 'The program addresses research-supported formats that are practical or adaptable for school sites, including brief, latency, precursor, and analog functional analyses. Selection depends on the case, setting, competence, safety, authorization, and feasibility.' },
               { question: 'Is the program appropriate for a BCBA entering schools?', answer: 'Yes. A BCBA entering schools can use the cohort to build a strong school-specific operating system from the start. The program assumes BCBA-level knowledge and focuses on applying that knowledge in school contexts.' },
               { question: 'Can my district pay?', answer: 'Yes. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received. A W-9 and program documentation are available on request.' },
@@ -533,7 +522,7 @@ export default function TransformationProgramPage() {
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/50">Payment plan</p>
                 <p className="mt-2 text-3xl font-semibold text-white">{PAYMENT_PLAN}</p>
-                <p className="mt-2 text-sm text-white/55">Billed automatically once per month for three months.</p>
+                <p className="mt-2 text-sm text-white/55">$2,091 total. Billed automatically once per month for three months.</p>
               </div>
             </div>
           </Reveal>
