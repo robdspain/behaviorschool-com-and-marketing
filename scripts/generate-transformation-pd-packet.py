@@ -54,6 +54,8 @@ styles.add(ParagraphStyle(name="ValueWhite", parent=styles["Value"], textColor=W
 styles.add(ParagraphStyle(name="Week", parent=styles["Normal"], fontName="Helvetica", fontSize=11, leading=14, alignment=TA_CENTER, textColor=WHITE))
 styles.add(ParagraphStyle(name="ModuleTitle", parent=styles["Normal"], fontName="Helvetica", fontSize=11.5, leading=14, textColor=GREEN, spaceAfter=3))
 styles.add(ParagraphStyle(name="ModuleBody", parent=styles["Normal"], fontName="Helvetica", fontSize=8.5, leading=12, textColor=MUTED))
+styles.add(ParagraphStyle(name="FormLabel", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=8, leading=10, textColor=MUTED, spaceAfter=8))
+styles.add(ParagraphStyle(name="FormLine", parent=styles["Normal"], fontName="Helvetica", fontSize=9, leading=14, textColor=colors.HexColor("#a2aaa6")))
 
 
 def footer(canvas, doc):
@@ -102,6 +104,21 @@ def module_row(number, title, copy):
         ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
     ]))
     return row
+
+
+def form_field(label, lines=2, width=3.22 * inch):
+    content = [Paragraph(label.upper(), styles["FormLabel"])]
+    content.extend(Paragraph("________________________________________", styles["FormLine"]) for _ in range(lines))
+    field = Table([[content]], colWidths=[width])
+    field.setStyle(TableStyle([
+        ("BOX", (0, 0), (-1, -1), 0.7, LINE),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 12),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 12),
+        ("TOPPADDING", (0, 0), (-1, -1), 11),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 11),
+    ]))
+    return field
 
 
 def build_packet():
@@ -210,6 +227,83 @@ def build_packet():
         ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
     ]))
     story.extend([Spacer(1, 8), contact])
+    story.extend([
+        PageBreak(),
+        Paragraph("BEHAVIOR SCHOOL | DISTRICT BILLING", styles["Eyebrow"]),
+        Paragraph("Professional Development Invoice", styles["H1Green"]),
+        Paragraph("For submission to a district business office or human-resources department", styles["Subtitle"]),
+        Table(
+            [
+                [form_field("Bill to - employee name"), form_field("Bill to - district or employer")],
+                [form_field("Invoice date"), form_field("Invoice number")],
+                [form_field("District accounts-payable address", 3, 6.57 * inch), ""],
+            ],
+            colWidths=[3.35 * inch, 3.35 * inch],
+            hAlign="LEFT",
+            style=TableStyle([
+                ("SPAN", (0, 2), (1, 2)),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+                ("TOPPADDING", (0, 0), (-1, -1), 0),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
+            ]),
+        ),
+        Spacer(1, 12),
+        Paragraph("Invoice detail", styles["H2Green"]),
+    ])
+
+    invoice_detail = Table(
+        [
+            [Paragraph("DESCRIPTION", styles["Label"]), Paragraph("SCHEDULE", styles["Label"]), Paragraph("AMOUNT", styles["Label"])],
+            [
+                Paragraph("<b>School BCBA Transformation Program</b><br/>Six live weekly professional-development sessions for certified BCBAs. Includes live instruction, session recordings, eligible Learning CEUs, and program materials.", styles["BodyPacket"]),
+                Paragraph("Confirmed before enrollment", styles["BodyPacket"]),
+                Paragraph("$1,997.00", styles["BodyPacket"]),
+            ],
+            [Paragraph("<b>Total due</b>", styles["BodyPacket"]), "", Paragraph("<b>$1,997.00</b>", styles["BodyPacket"])],
+        ],
+        colWidths=[3.75 * inch, 1.65 * inch, 1.3 * inch],
+        hAlign="LEFT",
+    )
+    invoice_detail.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), PALE),
+        ("GRID", (0, 0), (-1, -1), 0.5, LINE),
+        ("SPAN", (0, 2), (1, 2)),
+        ("ALIGN", (2, 0), (2, -1), "RIGHT"),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 9),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 9),
+    ]))
+    story.extend([
+        invoice_detail,
+        Spacer(1, 16),
+        Paragraph("District payment", styles["H2Green"]),
+        Paragraph("For purchase-order or invoice billing, send the completed invoice and district purchase-order information to rob@behaviorschool.com. A seat is held after a signed purchase order or written district payment approval is received.", styles["BodyPacket"]),
+        Paragraph("Online program information: behaviorschool.com/transformation-program", styles["BodyPacket"]),
+        PageBreak(),
+        Paragraph("TAX AND REMITTANCE INFORMATION", styles["Eyebrow"]),
+        Paragraph("Documentation for district vendor setup", styles["H1Green"]),
+        Spacer(1, 8),
+        Paragraph("W-9 information", styles["H2Green"]),
+        info_table([
+            ("Business name", "Behavior School LLC"),
+            ("EIN / tax ID", "Provided with the W-9 upon request"),
+            ("W-9 request", "Email rob@behaviorschool.com and include the district accounts-payable contact"),
+        ]),
+        Spacer(1, 18),
+        Paragraph("Remittance and contact", styles["H2Green"]),
+        info_table([
+            ("Vendor", "Behavior School LLC"),
+            ("Contact", "Rob Spain, BCBA - rob@behaviorschool.com"),
+            ("Website", "behaviorschool.com"),
+            ("Program", "behaviorschool.com/transformation-program"),
+        ]),
+        Spacer(1, 20),
+        Paragraph("This document is provided for professional-development reimbursement and district purchasing purposes.", styles["BodySmall"]),
+    ])
     doc.build(story)
 
 
