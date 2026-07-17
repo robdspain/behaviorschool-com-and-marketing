@@ -15,6 +15,8 @@ from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
     KeepTogether,
+    ListFlowable,
+    ListItem,
     PageBreak,
     PageTemplate,
     Paragraph,
@@ -56,6 +58,8 @@ styles.add(ParagraphStyle(name="ModuleTitle", parent=styles["Normal"], fontName=
 styles.add(ParagraphStyle(name="ModuleBody", parent=styles["Normal"], fontName="Helvetica", fontSize=8.5, leading=12, textColor=MUTED))
 styles.add(ParagraphStyle(name="FormLabel", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=8, leading=10, textColor=MUTED, spaceAfter=8))
 styles.add(ParagraphStyle(name="FormLine", parent=styles["Normal"], fontName="Helvetica", fontSize=9, leading=14, textColor=colors.HexColor("#a2aaa6")))
+styles.add(ParagraphStyle(name="ObjectiveLabel", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=8, leading=10, textColor=GREEN, spaceBefore=7, spaceAfter=4))
+styles.add(ParagraphStyle(name="Objective", parent=styles["Normal"], fontName="Helvetica", fontSize=8.7, leading=12.5, textColor=DARK))
 
 
 def footer(canvas, doc):
@@ -121,6 +125,25 @@ def form_field(label, lines=2, width=3.22 * inch):
     return field
 
 
+def objective_block(number, title, focus, objectives):
+    objective_list = ListFlowable(
+        [ListItem(Paragraph(objective, styles["Objective"])) for objective in objectives],
+        bulletType="bullet",
+        bulletFontName="Helvetica",
+        bulletFontSize=6,
+        bulletColor=GOLD,
+        leftIndent=17,
+        bulletOffsetY=1,
+        spaceAfter=10,
+    )
+    return KeepTogether([
+        module_row(number, title, focus),
+        Paragraph("LEARNING OBJECTIVES", styles["ObjectiveLabel"]),
+        objective_list,
+        Spacer(1, 5),
+    ])
+
+
 def build_packet():
     doc = BaseDocTemplate(
         str(OUTPUT),
@@ -140,9 +163,9 @@ def build_packet():
         Paragraph("BEHAVIOR SCHOOL | SMALL-COHORT PROGRAM", styles["Eyebrow"]),
         Paragraph("School BCBA<br/>Transformation Program", styles["Display"]),
         Paragraph("Professional Development Documentation Packet", styles["Subtitle"]),
-        Paragraph("Program purpose", styles["H2Green"]),
+        Paragraph("Program abstract", styles["H2Green"]),
         Paragraph(
-            "A six-week applied professional-development cohort for certified BCBAs responsible for behavior support in K-12 schools or districts. The program develops assessment judgment, school-based functional-analysis skills, ACT-informed contextual assessment tools, evidence-aligned intervention planning, and team implementation systems.",
+            "This six-week applied professional-development cohort prepares certified BCBAs to make school-based assessment and implementation decisions across student, staff, team, and system levels. The curriculum addresses referral triage, functional-hypothesis testing, school-relevant functional-analysis formats, ACT-informed contextual assessment, evidence-to-intervention alignment, and implementation through school teams.",
             styles["BodyPacket"],
         ),
         Paragraph(
@@ -190,6 +213,73 @@ def build_packet():
             Paragraph("Scope and safeguards", styles["H2Green"]),
             Paragraph("Not every student requires a functional analysis. Any analysis must fit the practitioner's competence, role, authorization, safety planning, assent practices, and local requirements.", styles["BodyPacket"]),
         ]),
+        PageBreak(),
+        Paragraph("WEEKLY LEARNING OBJECTIVES", styles["Eyebrow"]),
+        Paragraph("Assessment decisions and hypothesis testing", styles["H1Green"]),
+        Paragraph("By the end of each weekly session, participants will be able to complete the objectives listed for that topic within the boundaries of their role and competence.", styles["BodyPacket"]),
+        objective_block(
+            "01",
+            "From referral to assessment decision",
+            "Build a repeatable way to clarify the concern, review context, and select an assessment path proportionate to the case.",
+            [
+                "Identify the referral question, decision to be made, and information needed before selecting assessment methods.",
+                "Distinguish indirect, descriptive, ecological, and experimental assessment contributions without treating them as interchangeable evidence.",
+                "Select an assessment path that is proportionate to the question, risk, available evidence, school context, and feasibility.",
+            ],
+        ),
+        objective_block(
+            "02",
+            "Testing the functional hypothesis before the BIP",
+            "Examine how testing a functional hypothesis can clarify intervention selection before BIP development, including when experimental analysis is warranted and feasible.",
+            [
+                "State a functional hypothesis as a testable relation between environmental events and observable behavior.",
+                "Explain how testing a functional hypothesis can reduce reliance on an unverified explanation when selecting intervention components.",
+                "Determine whether additional hypothesis testing is warranted and feasible before a BIP is finalized or implemented.",
+            ],
+        ),
+        objective_block(
+            "03",
+            "School-based functional analysis formats",
+            "Study brief, trial-based, latency, precursor, and analog FA, then select and plan around school constraints, safety, assent, and authorization.",
+            [
+                "Distinguish brief, trial-based, latency, precursor, and analog functional-analysis formats by their arrangements and dependent measures.",
+                "Select a functional-analysis format that fits the referral question, target behavior, risk, setting, and available resources.",
+                "Specify the competence, authorization, assent, safety, and feasibility considerations that must be addressed before implementation.",
+            ],
+        ),
+        PageBreak(),
+        Paragraph("WEEKLY LEARNING OBJECTIVES", styles["Eyebrow"]),
+        Paragraph("Context, intervention, and systems leadership", styles["H1Green"]),
+        objective_block(
+            "04",
+            "ACT-informed functional assessment",
+            "Use ACT-informed interview and mapping tools to examine rule-governed and avoidance patterns while keeping conclusions tied to observable behavior and testable hypotheses.",
+            [
+                "Identify reported rules, avoidance patterns, private events, and contextual variables that may inform further assessment.",
+                "Use an ACT-informed interview or mapping process to organize contextual information without treating reported experience as demonstrated behavioral function.",
+                "Translate ACT-informed assessment information into observable, testable hypotheses that remain within the participant's school-based role.",
+            ],
+        ),
+        objective_block(
+            "05",
+            "From assessment evidence to intervention",
+            "Translate what the team knows into feasible prevention, teaching, reinforcement, response, and progress-monitoring decisions.",
+            [
+                "Evaluate whether proposed BIP components are aligned with the available assessment evidence and functional hypothesis.",
+                "Select feasible prevention, teaching, reinforcement, and response components for the student and implementation context.",
+                "Specify progress-monitoring measures and review points needed to evaluate implementation and guide revision.",
+            ],
+        ),
+        objective_block(
+            "06",
+            "Leading implementation through teams",
+            "Build the communication, training, fidelity, review, and escalation routines needed to lead behavior support through other people.",
+            [
+                "Define the observable staff actions, responsibilities, and communication needed to implement a behavior-support plan.",
+                "Design a practical staff-training and fidelity-review routine for a current school context.",
+                "Establish review and escalation steps for responding when implementation or student-response data indicate that the plan needs attention.",
+            ],
+        ),
         PageBreak(),
         Paragraph("PARTICIPATION AND PURCHASING", styles["Eyebrow"]),
         Paragraph("Documentation for supervisors and purchasing offices", styles["H1Green"]),
