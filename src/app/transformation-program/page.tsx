@@ -31,23 +31,23 @@ const COHORT_DATE_RANGE = 'August 12 to September 16, 2026';
 const practiceGaps = [
   {
     icon: SearchCheck,
-    title: 'Assessment confidence',
-    copy: 'Decide when indirect and descriptive data are sufficient, when more assessment is warranted, and what question the next step must answer.',
+    title: 'Every referral starts to feel urgent',
+    copy: 'Concerns arrive from different classrooms with different levels of risk, but there is no shared process for deciding what needs immediate action, deeper assessment, or team support.',
   },
   {
     icon: ShieldCheck,
-    title: 'School feasibility',
-    copy: 'Adapt assessment methods to schedules, staffing, space, safety, consent, and the responsibilities of your role.',
+    title: 'You have data, but not enough confidence',
+    copy: 'Interviews, records, and observations can point in different directions. You still have to decide what function the evidence supports and how certain the team should be.',
   },
   {
     icon: BrainCircuit,
-    title: 'Intervention fit',
-    copy: 'Connect assessment evidence to plans that account for function, context, student skills, and the people responsible for implementation.',
+    title: 'The next assessment step does not feel school-feasible',
+    copy: 'A case may need more than another interview or ABC form, while schedules, staffing, space, safety, assent, and authorization constrain what you can do next.',
   },
   {
     icon: Network,
-    title: 'Systems leadership',
-    copy: 'Lead the decisions, communication, training, and review routines that turn a written plan into coordinated school practice.',
+    title: 'The plan still depends on you',
+    copy: 'When staff need clearer actions, coaching, and review routines, difficult cases keep returning to the BCBA instead of moving through a coordinated team process.',
   },
 ];
 
@@ -241,29 +241,14 @@ export default function TransformationProgramPage() {
           </motion.div>
         </div>
 
-        <div className="relative border-t border-white/10 bg-white/[0.035] backdrop-blur-md">
-          <div className="mx-auto grid max-w-7xl grid-cols-2 px-5 sm:px-8 lg:grid-cols-4 lg:px-12">
-            {[
-              ['Dates', 'Aug 12–Sep 16'],
-              ['Format', '6 live sessions'],
-              ['Cohort', '12 participants'],
-              ['Tuition', OFFER_PRICE],
-            ].map(([label, value], index) => (
-              <div key={label} className={`py-5 ${index % 2 ? 'pl-5' : 'pr-5'} ${index > 0 ? 'lg:border-l lg:border-white/15 lg:pl-7' : ''}`}>
-                <p className="text-xs font-semibold uppercase tracking-widest text-emerald-300">{label}</p>
-                <p className="mt-1 text-sm font-semibold text-white sm:text-base">{value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       <section className="border-b border-black/10 bg-[#f5f7f6] py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionIntro
-            label="The shift"
-            title="School practice asks for more than a standard FBA workflow."
-            copy="The work is not only completing an assessment or writing a plan. It is choosing the right level of assessment, adapting evidence-based methods to school reality, and leading people through implementation."
+            label="What this solves"
+            title="You should not have to be the emergency response system for every difficult case."
+            copy="You already understand the foundations of FBA and BIP development. The harder part is making sound decisions under school constraints and building a team process that does not route every problem back to you."
           />
           <div className="mt-16 border-y border-black/10">
             {practiceGaps.map((item, index) => (
