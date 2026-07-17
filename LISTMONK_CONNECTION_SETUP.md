@@ -242,12 +242,12 @@ Create a test script to verify the connection:
 
 ```bash
 # On your server or local machine
-curl -u "admin:your-password" https://listmonk.behaviorschool.com/api/health
+curl -u "$LISTMONK_USERNAME:$LISTMONK_PASSWORD" https://listmonk.behaviorschool.com/api/health
 
 # Should return: {"data":"pong"}
 
 # Test lists endpoint
-curl -u "admin:your-password" https://listmonk.behaviorschool.com/api/lists
+curl -u "$LISTMONK_USERNAME:$LISTMONK_PASSWORD" https://listmonk.behaviorschool.com/api/lists
 ```
 
 ---
@@ -446,4 +446,3 @@ chmod +x test-listmonk.sh
 ---
 
 **Once everything is working, the admin dashboard at `/admin/listmonk` will automatically connect and show your newsletter stats!** 📊
-

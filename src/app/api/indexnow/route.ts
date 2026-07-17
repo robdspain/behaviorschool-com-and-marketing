@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ 
           valid: isValid, 
           key: isValid ? 'accessible' : 'not accessible',
-          keyUrl: 'https://behaviorschool.com/a07fc6c7-3148-489c-85e2-5d82ab778569.txt'
+          keyUrl: process.env.INDEXNOW_KEY ? `https://behaviorschool.com/${process.env.INDEXNOW_KEY}.txt` : null
         });
       
       case 'status':
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
             'https://bing.com/indexnow',
             'https://yandex.com/indexnow'
           ],
-          keyId: 'a07fc6c7-3148-489c-85e2-5d82ab778569',
+          keyConfigured: Boolean(process.env.INDEXNOW_KEY),
           timestamp: new Date().toISOString()
         });
       
@@ -103,4 +103,3 @@ export async function GET(request: NextRequest) {
     );
   }
 }
-

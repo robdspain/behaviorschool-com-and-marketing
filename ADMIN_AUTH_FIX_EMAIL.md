@@ -229,7 +229,7 @@ MAILGUN_FROM_EMAIL=noreply@behaviorschool.com
 ### Test Mailgun Credentials
 
 ```bash
-curl -s --user 'api:YOUR-API-KEY' \
+curl -s --user "api:$MAILGUN_API_KEY" \
   https://api.mailgun.net/v3/YOUR-DOMAIN/messages \
   -F from='Behavior School <noreply@behaviorschool.com>' \
   -F to='your@email.com' \

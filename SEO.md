@@ -321,8 +321,8 @@ IndexNow is a protocol that allows you to instantly notify search engines when y
 ### **Implementation Status: ✅ COMPLETE**
 
 #### **IndexNow Setup Completed:**
-- **✅ API Key Generated:** `a07fc6c7-3148-489c-85e2-5d82ab778569`
-- **✅ Key File Created:** `https://behaviorschool.com/a07fc6c7-3148-489c-85e2-5d82ab778569.txt`
+- **IndexNow key:** configured through `INDEXNOW_KEY`
+- **Key file:** published at `https://behaviorschool.com/$INDEXNOW_KEY.txt`
 - **✅ Multi-endpoint Support:** Bing, Yandex, and primary IndexNow API
 - **✅ Automated API Route:** `/api/indexnow` for programmatic submissions
 - **✅ Manual CLI Tool:** `scripts/indexnow-submit.js` for immediate submissions

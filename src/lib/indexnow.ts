@@ -5,7 +5,7 @@
  * Supports Bing, Yandex, and other IndexNow-compatible search engines.
  */
 
-const INDEXNOW_KEY = 'a07fc6c7-3148-489c-85e2-5d82ab778569';
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY || '';
 const SITE_URL = 'https://behaviorschool.com';
 
 // IndexNow endpoints for different search engines
@@ -47,6 +47,9 @@ export async function submitToIndexNow(
   options: IndexNowOptions = {}
 ): Promise<IndexNowResult> {
   const { timeout = 10000 } = options;
+  if (!INDEXNOW_KEY) {
+    throw new Error('INDEXNOW_KEY is not configured');
+  }
   
   // Normalize URLs to array
   const urlList = Array.isArray(urls) ? urls : [urls];
@@ -234,6 +237,7 @@ export async function submitLandingPageUpdate(path: string): Promise<IndexNowRes
  */
 export async function validateIndexNowKey(): Promise<boolean> {
   try {
+    if (!INDEXNOW_KEY) return false;
     const response = await fetch(`${SITE_URL}/${INDEXNOW_KEY}.txt`);
     if (!response.ok) return false;
     
@@ -243,4 +247,3 @@ export async function validateIndexNowKey(): Promise<boolean> {
     return false;
   }
 }
-

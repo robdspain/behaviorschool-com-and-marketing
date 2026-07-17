@@ -153,7 +153,7 @@ if (!adminEmails.includes(user?.email)) {
 ### Local Development (.env.local):
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://dugolglucuzolzvuqxmi.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<supabase-anon-key>
 ```
 
 ### Production (Netlify):
@@ -200,4 +200,3 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY ✅ Set
 **Last Updated:** October 12, 2025  
 **Deploy URL:** https://behaviorschool.com  
 **Next:** Test and verify login works!
-

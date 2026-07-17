@@ -7,7 +7,7 @@
 
 import https from 'https';
 
-const INDEXNOW_KEY = 'a07fc6c7-3148-489c-85e2-5d82ab778569';
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY || '';
 const SITE_URL = 'https://behaviorschool.com';
 
 // IndexNow endpoints for different search engines
@@ -82,6 +82,9 @@ async function makeRequest(url, data, timeout = 10000) {
  */
 async function submitToIndexNow(urls, options = {}) {
   const { timeout = 10000 } = options;
+  if (!INDEXNOW_KEY) {
+    throw new Error('INDEXNOW_KEY is not configured');
+  }
   
   const urlList = Array.isArray(urls) ? urls : [urls];
   const absoluteUrls = urlList.map(url => 
@@ -140,6 +143,10 @@ async function submitToIndexNow(urls, options = {}) {
  */
 async function validateIndexNowKey() {
   return new Promise((resolve, reject) => {
+    if (!INDEXNOW_KEY) {
+      resolve(false);
+      return;
+    }
     const keyUrl = `${SITE_URL}/${INDEXNOW_KEY}.txt`;
     
     console.log(`🔍 Validating IndexNow key at: ${keyUrl}`);

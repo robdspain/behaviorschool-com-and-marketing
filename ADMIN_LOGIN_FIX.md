@@ -115,7 +115,7 @@ This allows:
 Already configured in `.env.local`:
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://dugolglucuzolzvuqxmi.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<supabase-anon-key>
 ```
 
 These are also needed in **Netlify environment variables** for production:
@@ -213,4 +213,3 @@ The updated login page includes debug information in development mode:
 
 **Status:** ✅ Code Fixed | ⚠️ Awaiting Supabase Configuration  
 **Last Updated:** October 12, 2025
-

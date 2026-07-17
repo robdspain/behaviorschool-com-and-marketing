@@ -14,8 +14,13 @@
 
 const https = require('https');
 
-const INDEXNOW_KEY = 'a07fc6c7-3148-489c-85e2-5d82ab778569';
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY;
 const SITE_URL = 'https://behaviorschool.com';
+
+if (!INDEXNOW_KEY) {
+  console.error('INDEXNOW_KEY must be set in the environment.');
+  process.exit(1);
+}
 
 // Priority URLs to submit
 const PRIORITY_URLS = [
@@ -309,4 +314,3 @@ Note: Google does not support IndexNow. For Google, use Search Console.
 }
 
 main();
-

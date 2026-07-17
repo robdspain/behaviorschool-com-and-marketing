@@ -226,12 +226,13 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Ahrefs Analytics */}
-        <script
-          async
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="S+Vj3X2Qa6J/7godUSWIPg"
-        ></script>
+        {process.env.NEXT_PUBLIC_AHREFS_ANALYTICS_KEY ? (
+          <script
+            async
+            src="https://analytics.ahrefs.com/analytics.js"
+            data-key={process.env.NEXT_PUBLIC_AHREFS_ANALYTICS_KEY}
+          ></script>
+        ) : null}
         
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
