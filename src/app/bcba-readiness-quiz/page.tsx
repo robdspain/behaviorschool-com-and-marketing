@@ -3,15 +3,17 @@ import { BCBAReadinessQuiz } from "./BCBAReadinessQuiz";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "BCBA Exam Readiness Quiz | Behavior School",
+  title: "Free BCBA Readiness Check + Quiz | Behavior School",
   description:
-    "Take our free 2-minute BCBA Exam Readiness Quiz. Find out if you're ready for the certification exam with a personalized score and study recommendations!",
+    "Take a free BCBA readiness check and 2-minute quiz. Find weak areas, get a personalized score, and choose your next study step.",
   keywords: [
+    "free BCBA readiness check",
     "BCBA exam readiness",
     "BCBA exam prep quiz",
     "BCBA certification readiness",
     "am I ready for the BCBA exam",
     "BCBA study assessment",
+    "BCBA exam weak areas",
     "BCBA practice exam readiness",
     "BCBA exam confidence",
     "behavior analyst exam prep",
@@ -34,7 +36,15 @@ export default function BCBAReadinessQuizPage() {
                 name: "How do I know if I'm ready for the BCBA exam?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Take our free BCBA Exam Readiness Quiz to assess your study habits, content knowledge confidence, and preparation level. You'll receive a personalized readiness score from 0-100 with tailored study recommendations.",
+                  text: "Take our free BCBA readiness quiz to assess your study habits, content knowledge confidence, weak areas, and preparation level. You'll receive a personalized readiness score from 0-100 with tailored study recommendations.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is this a free BCBA readiness check?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes. The quiz is a free self-assessment that helps candidates identify readiness signals and likely weak areas before choosing practice questions, mock exams, or a study schedule.",
                 },
               },
               {

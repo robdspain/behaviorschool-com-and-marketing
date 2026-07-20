@@ -4,6 +4,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { randomBytes } from 'crypto';
 import { downloadTokens } from '@/lib/download-tokens';
 
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
@@ -18,10 +22,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
     }
 
-    const { email, resource } = requestData;
+    const email = typeof requestData.email === 'string'
+      ? requestData.email.trim().toLowerCase()
+      : '';
+    const { resource } = requestData;
     
     if (!email || !resource) {
       return NextResponse.json({ error: 'Email and resource required' }, { status: 400 });
+    }
+
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: 'Valid email address is required' }, { status: 400 });
     }
 
     // Generate secure download token
@@ -46,4 +57,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
-

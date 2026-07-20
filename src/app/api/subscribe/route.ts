@@ -15,6 +15,10 @@ function generateConfirmationToken(email: string): string {
   return Buffer.from(`${email}:${timestamp}:${hash}`).toString('base64url');
 }
 
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { email, name, source } = await request.json();
@@ -24,6 +28,10 @@ export async function POST(request: NextRequest) {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
+    if (!isValidEmail(normalizedEmail)) {
+      return NextResponse.json({ error: 'Valid email address is required' }, { status: 400 });
+    }
+
     const token = generateConfirmationToken(normalizedEmail);
     const confirmUrl = `https://behaviorschool.com/confirm-subscription?token=${token}`;
 

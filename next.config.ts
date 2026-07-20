@@ -96,6 +96,11 @@ const nextConfig: NextConfig = {
         destination: '/bcba-exam-prep',
         permanent: true,
       },
+      {
+        source: '/free-bcba-diagnostic',
+        destination: '/bcba-readiness-quiz',
+        permanent: true,
+      },
 
       // -- Competitor Comparison Canonicals --
       {

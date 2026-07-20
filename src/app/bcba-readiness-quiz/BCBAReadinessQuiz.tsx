@@ -432,7 +432,7 @@ export function BCBAReadinessQuiz() {
         emoji: "book",
         title: "You Need Structured Practice",
         description:
-          "You're in the early stages of exam prep. The good news? With the right tools and a solid study plan, you can build your knowledge quickly. Our AI-powered study app adapts to your weak areas and builds a personalized study schedule.",
+          "You're in the early stages of exam prep. The good news? With the right tools and a solid study plan, you can build your knowledge quickly. Behavior Study Tools helps you focus on weak areas and build a personalized study schedule.",
         cta: "Start Your Study Plan — $29.99/mo",
         ctaUrl: "https://study.behaviorschool.com?plan=monthly",
         badge: "Most Popular for New Studiers",
@@ -453,9 +453,9 @@ export function BCBAReadinessQuiz() {
     }
     return {
       emoji: "rocket",
-      title: "Almost There — Fine-Tune with AI",
+      title: "Almost There — Fine-Tune Your Practice",
       description:
-        "You're in great shape! At this stage, it's all about sharpening your weakest areas and building exam-day confidence. Our AI adapts to challenge you where it counts and simulates real exam conditions.",
+        "You're in great shape! At this stage, it's all about sharpening your weakest areas and building exam-day confidence. Behavior Study Tools helps you rehearse the areas that still need attention and practice under exam-like conditions.",
       cta: "Lock In Your Pass — $288/year",
       ctaUrl: "https://study.behaviorschool.com?plan=annual",
       badge: "Best for Exam-Ready Students",
@@ -477,12 +477,12 @@ export function BCBAReadinessQuiz() {
             <Sparkles className="w-4 h-4" /> Free · 2 Minutes · No Signup Required
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-bs-text mb-4 leading-tight">
-            BCBA Exam <span className="text-emerald-600">Readiness Quiz</span>
+            Free BCBA <span className="text-emerald-600">Readiness Check</span>
           </h1>
           <p className="text-lg text-bs-text-light mb-8 max-w-xl mx-auto">
             Answer 10 quick questions about your study habits and confidence
-            levels. Get a personalized readiness score with tailored
-            recommendations to help you pass.
+            levels. Get a personalized readiness score, weak-area signals, and
+            a practical next study step.
           </p>
           <motion.button
             onClick={() => setPhase("quiz")}
@@ -496,6 +496,14 @@ export function BCBAReadinessQuiz() {
             This is a self-assessment, not a practice exam. No BCBA exam
             questions are included.
           </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm font-semibold">
+            <Link href="/bcba-exam-weak-areas" className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-emerald-800 hover:bg-emerald-50">
+              Find BCBA weak areas
+            </Link>
+            <Link href="/bcba-6th-edition-practice-questions" className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-emerald-800 hover:bg-emerald-50">
+              6th Edition practice questions
+            </Link>
+          </div>
         </motion.div>
       </div>
     );

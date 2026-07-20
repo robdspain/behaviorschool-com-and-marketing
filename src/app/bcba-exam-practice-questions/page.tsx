@@ -7,9 +7,9 @@ import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbas
 const canonical = "https://behaviorschool.com/bcba-exam-practice-questions";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "BCBA Exam Practice Questions | Free Rationales + Study Path",
+  title: "BCBA Exam Practice Questions | 6th Edition Rationales",
   description:
-    "Practice BCBA exam questions with rationales, domain review, and a clear next step into timed mock exams. Start free with no credit card.",
+    "Practice BCBA exam questions with 6th Edition rationales, domain review, weak-area signals, and a clear next step into timed mock exams.",
   canonical,
   type: "article",
 });
@@ -17,24 +17,26 @@ export const metadata: Metadata = buildPageMetadata({
 export default function Page() {
   return (
     <SeoArticlePage
-      title="BCBA Exam Practice Questions with Rationales and a Study Path"
-      description="BCBA exam practice questions are most effective when they are reviewed by concept, timing, and rationale. Start with free questions, then use your score pattern to choose domain practice or a timed mock exam."
+      title="BCBA Exam Practice Questions with 6th Edition Rationales"
+      description="BCBA exam practice questions are most effective when they are reviewed by concept, timing, and rationale. Start with 6th Edition questions, then use your score pattern to choose domain practice, weak-area review, or a timed mock exam."
       eyebrow="6th Edition study"
       breadcrumbLabel="BCBA Exam Practice Questions"
       canonical={canonical}
       heroVisual
       primaryCta={{ label: "Start free practice", href: "/free-bcba-practice-exam" }}
       secondaryLinks={[
+        { label: "6th Edition practice questions", href: "/bcba-6th-edition-practice-questions" },
+        { label: "BCBA readiness check", href: "/bcba-readiness-quiz" },
+        { label: "BCBA exam weak areas", href: "/bcba-exam-weak-areas" },
         { label: "BCBA test questions", href: "/bcba-test-questions" },
         { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
         { label: "Free BCBA practice exam", href: "/free-bcba-practice-exam" },
         { label: "BCBA practice exam", href: "/bcba-practice-exam" },
-        { label: "BCBA study app", href: "/bcba-study-app-school-based-bcbas" },
       ]}
       sections={[
         {
-          heading: "Use practice questions by domain",
-          body: "Group practice by the content area you are trying to strengthen. Mixed sets are useful later, but early study is more efficient when the domain is clear.",
+          heading: "Use 6th Edition practice questions by domain",
+          body: "Group practice by the 6th Edition content area you are trying to strengthen. Mixed sets are useful later, but early study is more efficient when the domain is clear.",
           bullets: [
             "Start with a targeted domain set.",
             "Review explanations immediately after answering.",
