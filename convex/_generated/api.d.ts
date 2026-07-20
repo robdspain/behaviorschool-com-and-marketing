@@ -37,6 +37,7 @@ import type * as passwordHistory from "../passwordHistory.js";
 import type * as presentations from "../presentations.js";
 import type * as schoolBcbaSurvey from "../schoolBcbaSurvey.js";
 import type * as submissions from "../submissions.js";
+import type * as transformationNurture from "../transformationNurture.js";
 
 import type {
   ApiFromModules,
@@ -74,6 +75,7 @@ declare const fullApi: ApiFromModules<{
   presentations: typeof presentations;
   schoolBcbaSurvey: typeof schoolBcbaSurvey;
   submissions: typeof submissions;
+  transformationNurture: typeof transformationNurture;
 }>;
 
 /**

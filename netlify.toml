@@ -50,6 +50,11 @@
 
 # Schedule newsletter worker every 5 minutes
 
+# Transformation Program nurture sequence processor - every hour
+[[scheduled.functions]]
+  name = "transformation-nurture-worker"
+  cron = "12 * * * *"
+
 # Fallback trigger to refresh salary data yearly (and ensure site rebuild)
 
 # Weekly revenue summary — every Monday at 8 AM ET (13:00 UTC)

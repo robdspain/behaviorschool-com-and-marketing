@@ -736,6 +736,58 @@ export default defineSchema({
     .index("by_discovery_call", ["discoveryCallId"])
     .index("by_status", ["status"]),
 
+  transformationNurtureEnrollments: defineTable({
+    contactId: v.id("crmContacts"),
+    email: v.string(),
+    emailLower: v.string(),
+    firstName: v.optional(v.string()),
+    source: v.string(),
+    status: v.union(
+      v.literal("active"),
+      v.literal("completed"),
+      v.literal("converted"),
+      v.literal("paused"),
+      v.literal("canceled")
+    ),
+    startedAt: v.string(),
+    completedAt: v.optional(v.string()),
+    lastSentStep: v.optional(v.number()),
+    metadata: v.optional(v.any()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_email_lower", ["emailLower"])
+    .index("by_contact", ["contactId"])
+    .index("by_status", ["status"]),
+
+  transformationNurtureEmails: defineTable({
+    enrollmentId: v.id("transformationNurtureEnrollments"),
+    contactId: v.id("crmContacts"),
+    email: v.string(),
+    emailLower: v.string(),
+    firstName: v.optional(v.string()),
+    step: v.number(),
+    subject: v.string(),
+    scheduledFor: v.string(),
+    status: v.union(
+      v.literal("queued"),
+      v.literal("sent"),
+      v.literal("failed"),
+      v.literal("skipped"),
+      v.literal("canceled")
+    ),
+    sentAt: v.optional(v.string()),
+    providerMessageId: v.optional(v.string()),
+    errorMessage: v.optional(v.string()),
+    metadata: v.optional(v.any()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_status_scheduled", ["status", "scheduledFor"])
+    .index("by_enrollment", ["enrollmentId"])
+    .index("by_contact", ["contactId"])
+    .index("by_email_lower", ["emailLower"]),
+
   emailTemplates: defineTable({
     legacyId: v.optional(v.string()),
     name: v.string(),

@@ -636,6 +636,11 @@ async function updateCrm(purchase: PurchaseContext): Promise<void> {
     lineItemDescriptions: purchase.lineItemDescriptions,
     purchasedAt: now,
   });
+
+  await convexMutation("transformationNurture:markConvertedByEmail", {
+    email: purchase.email,
+    reason: `Transformation Program purchase recorded via Stripe session ${purchase.stripeSessionId}.`,
+  });
 }
 
 async function sendTransformationWelcomeEmail(purchase: PurchaseContext): Promise<void> {

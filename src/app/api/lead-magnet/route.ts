@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { api, getConvexClient } from "@/lib/convex";
 import { subscribeToNewsletter } from "@/lib/convex-newsletter";
+import { startTransformationNurture } from "@/lib/transformation-nurture";
 
 function splitName(name: string) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -62,6 +63,40 @@ export async function POST(request: NextRequest) {
       tags: tags.length ? Array.from(new Set(["lead-magnet", ...tags])) : ["lead-magnet"],
       status: "subscribed",
     });
+
+    const transformationIntent = [
+      resource,
+      body?.source,
+      body?.page,
+      ...(Array.isArray(body?.tags) ? body.tags : []),
+    ].some((value) => {
+      const text = typeof value === "string" ? value.toLowerCase() : "";
+      return text.includes("transformation")
+        || text.includes("district")
+        || text.includes("school-bcba")
+        || text.includes("school_bcba")
+        || text.includes("pd-packet")
+        || text.includes("approval");
+    });
+
+    if (transformationIntent) {
+      try {
+        await startTransformationNurture({
+          email: rawEmail,
+          name: resolvedName,
+          role: cleanString(body?.role, 200) || undefined,
+          source: `lead_magnet:${resource}`,
+          tags: Array.from(new Set(["lead-magnet", "transformation-program", resource, ...tags])),
+          notes: `Transformation lead magnet requested: ${resource}.`,
+          metadata: {
+            resource,
+            page: cleanString(body?.page, 400) || request.headers.get("referer"),
+          },
+        });
+      } catch (error) {
+        console.error("Unable to start Transformation nurture from lead magnet:", error);
+      }
+    }
 
     return NextResponse.json({
       ok: true,

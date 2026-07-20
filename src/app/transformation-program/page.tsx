@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useState, type FormEvent, type ReactNode } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
@@ -161,6 +161,135 @@ function SectionIntro({ label, title, copy }: { label: string; title: string; co
       </h2>
       {copy && <p className="mt-6 max-w-2xl text-lg leading-8 text-[#52605b]">{copy}</p>}
     </Reveal>
+  );
+}
+
+function DistrictPacketCapture() {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const website = String(formData.get('website') || '').trim();
+
+    if (website) {
+      setStatus('sent');
+      return;
+    }
+
+    setStatus('sending');
+    setMessage('');
+
+    const fullName = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const organization = String(formData.get('organization') || '').trim();
+
+    try {
+      const response = await fetch('/api/transformation-program/nurture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: fullName,
+          email,
+          organization,
+          source: 'transformation_program_district_packet',
+          requestedPacket: true,
+          tags: ['district-approval-packet', 'transformation-program'],
+          notes: organization
+            ? `Requested district approval packet. District/organization: ${organization}.`
+            : 'Requested district approval packet.',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('packet_request_failed');
+      }
+
+      setStatus('sent');
+      setMessage('I sent the packet and the fit-call link. You can also open the packet below.');
+      form.reset();
+    } catch {
+      setStatus('error');
+      setMessage('Something went wrong. You can still open the packet below or email rob@behaviorschool.com.');
+    }
+  }
+
+  return (
+    <div className="border border-white/15 bg-white/[0.04] p-6 text-left sm:p-7">
+      <div className="flex items-start gap-4">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#d3a52f] text-[#102e27]">
+          <FileCheck className="h-5 w-5" aria-hidden="true" />
+        </div>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#d9bd70]">District approval</p>
+          <h3 className="mt-2 text-2xl font-semibold text-white">Need district approval? Get the packet.</h3>
+          <p className="mt-3 text-sm leading-7 text-white/65">
+            Send the program description, six-week curriculum, learning objectives, invoice language, and W-9 request instructions to your supervisor or purchasing office.
+          </p>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="mt-6 grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
+        <input name="website" type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+        <label className="sr-only" htmlFor="district-packet-name">Name</label>
+        <input
+          id="district-packet-name"
+          name="name"
+          type="text"
+          required
+          autoComplete="name"
+          placeholder="Name"
+          className="min-h-12 border border-white/15 bg-white px-4 text-sm text-[#102e27] outline-none placeholder:text-slate-400 focus:border-[#d9bd70]"
+        />
+        <label className="sr-only" htmlFor="district-packet-email">Email</label>
+        <input
+          id="district-packet-email"
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          placeholder="Email"
+          className="min-h-12 border border-white/15 bg-white px-4 text-sm text-[#102e27] outline-none placeholder:text-slate-400 focus:border-[#d9bd70]"
+        />
+        <button
+          type="submit"
+          disabled={status === 'sending'}
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#d3a52f] px-5 py-3 text-sm font-bold text-[#102e27] transition-colors hover:bg-[#e2ba4c] disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <BookOpenCheck className="h-4 w-4" aria-hidden="true" />
+          {status === 'sending' ? 'Sending...' : 'Get packet'}
+        </button>
+        <label className="sr-only" htmlFor="district-packet-organization">District or organization</label>
+        <input
+          id="district-packet-organization"
+          name="organization"
+          type="text"
+          autoComplete="organization"
+          placeholder="District or organization"
+          className="min-h-12 border border-white/15 bg-white px-4 text-sm text-[#102e27] outline-none placeholder:text-slate-400 focus:border-[#d9bd70] sm:col-span-2"
+        />
+      </form>
+
+      {message && (
+        <p className={`mt-4 text-sm leading-6 ${status === 'error' ? 'text-red-200' : 'text-white/70'}`}>
+          {message}
+        </p>
+      )}
+
+      {(status === 'sent' || status === 'error') && (
+        <a
+          href="/transformation-program-pd-packet.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/25 px-4 py-2 text-sm font-semibold text-white transition-colors hover:border-[#d9bd70] hover:text-[#d9bd70]"
+        >
+          <BookOpenCheck className="h-4 w-4" aria-hidden="true" />
+          Open the documentation packet
+        </a>
+      )}
+    </div>
   );
 }
 
@@ -557,18 +686,9 @@ export default function TransformationProgramPage() {
             <p className="mt-5 text-sm leading-6 text-white/55">District purchase order or invoice needed? <a href={DISTRICT_EMAIL_LINK} className="font-semibold text-[#d9bd70] underline underline-offset-4">Contact us for the paperwork.</a></p>
           </Reveal>
 
-          <details className="mx-auto mt-12 max-w-3xl border border-white/15 text-left">
-            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
-              District professional-development request
-              <FileCheck className="h-5 w-5 shrink-0 text-[#d9bd70]" aria-hidden="true" />
-            </summary>
-            <div className="border-t border-white/15 px-6 py-6 text-sm leading-7 text-white/65">
-              <p>Use the program documentation packet to share the cohort’s dates, curriculum, instructor credentials, and tuition with your supervisor or purchasing office.</p>
-              <a href="/transformation-program-pd-packet.pdf" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/25 px-4 py-2 font-semibold text-white transition-colors hover:border-[#d9bd70] hover:text-[#d9bd70]">
-                <BookOpenCheck className="h-4 w-4" aria-hidden="true" /> View the documentation packet
-              </a>
-            </div>
-          </details>
+          <Reveal delay={0.18} className="mx-auto mt-12 max-w-3xl">
+            <DistrictPacketCapture />
+          </Reveal>
         </div>
       </section>
 

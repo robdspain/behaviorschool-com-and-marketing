@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
 import { api, getConvexClient } from "@/lib/convex";
+import { startTransformationNurture } from "@/lib/transformation-nurture";
 
 const SURVEY_SLUG = "2026-school-bcba-burnout-workload";
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -132,6 +133,28 @@ export async function POST(request: NextRequest) {
       lastName,
       email,
     });
+
+    if (consentToContact && email) {
+      try {
+        await startTransformationNurture({
+          email,
+          firstName,
+          lastName,
+          role: cleanString(body.role, 120),
+          source: "school_bcba_survey",
+          tags: ["school-bcba-survey", "transformation-program"],
+          notes: `School BCBA survey opt-in. Challenge areas: ${challengeAreas.join(", ")}.`,
+          metadata: {
+            surveyResponseId: id,
+            challengeAreas,
+            workloadRating: cleanString(body.workloadRating, 120),
+            burnoutFrequency: cleanString(body.burnoutFrequency, 120),
+          },
+        });
+      } catch (error) {
+        console.error("Unable to start Transformation nurture from school BCBA survey:", error);
+      }
+    }
 
     return NextResponse.json({ ok: true, id });
   } catch (error) {

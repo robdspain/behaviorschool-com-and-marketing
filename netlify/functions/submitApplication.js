@@ -116,6 +116,13 @@ Behavior School`;
       const errText = await confirmationRes.text();
       console.error('Resend applicant confirmation error:', errText);
       await notifyConfirmationFailure(apiKey, { fullName, email, errText });
+      await startNurtureSequence({
+        fullName,
+        email,
+        currentRole,
+        bcbaCertNumber,
+        whyJoin,
+      });
 
       return {
         statusCode: 200,
@@ -126,6 +133,14 @@ Behavior School`;
         }),
       };
     }
+
+    await startNurtureSequence({
+      fullName,
+      email,
+      currentRole,
+      bcbaCertNumber,
+      whyJoin,
+    });
 
     return {
       statusCode: 200,
@@ -174,5 +189,31 @@ async function notifyConfirmationFailure(apiKey, { fullName, email, errText }) {
     });
   } catch (err) {
     console.error('Failed to send confirmation failure alert:', err);
+  }
+}
+
+async function startNurtureSequence({ fullName, email, currentRole, bcbaCertNumber, whyJoin }) {
+  const base = process.env.PUBLIC_BASE_URL || process.env.URL || 'https://behaviorschool.com';
+
+  try {
+    const response = await fetch(`${base.replace(/\/$/, '')}/api/transformation-program/nurture`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: fullName,
+        email,
+        role: currentRole,
+        source: 'transformation_application',
+        requestedPacket: false,
+        tags: ['transformation-application', 'transformation-program'],
+        notes: `Transformation application submitted. BCBA cert: ${bcbaCertNumber || 'not provided'}. Why join: ${whyJoin || 'not provided'}`,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('Unable to start nurture sequence for application:', await response.text());
+    }
+  } catch (error) {
+    console.error('Unable to start nurture sequence for application:', error);
   }
 }

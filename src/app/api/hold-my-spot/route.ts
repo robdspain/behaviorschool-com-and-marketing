@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from '@/lib/resend';
+import { startTransformationNurture } from '@/lib/transformation-nurture';
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -66,6 +67,21 @@ export async function POST(req: NextRequest) {
 
   if (!notificationSent) {
     return NextResponse.json({ ok: false, error: 'Notification failed' }, { status: 500 });
+  }
+
+  try {
+    await startTransformationNurture({
+      email: normalizedEmail,
+      name,
+      phone,
+      organization: district,
+      source: 'hold_my_spot',
+      tags: ['hold-my-spot', 'district-approval', 'transformation-program'],
+      notes: `Hold-my-spot request. District: ${district}. Expected approval: ${approval_date || 'Not specified'}.`,
+      metadata: { approvalDate: approval_date || null },
+    });
+  } catch (error) {
+    console.error('Unable to start Transformation nurture from hold-my-spot:', error);
   }
 
   return NextResponse.json({ ok: true });
