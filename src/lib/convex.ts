@@ -8,7 +8,7 @@
 
 export function getConvexUrl() {
   if (typeof window === "undefined") {
-    return process.env.VITE_CONVEX_URL ?? process.env.NEXT_PUBLIC_CONVEX_URL ?? "";
+    return process.env.NEXT_PUBLIC_CONVEX_URL ?? process.env.VITE_CONVEX_URL ?? "";
   }
 
   return process.env.NEXT_PUBLIC_CONVEX_URL ?? "";
@@ -24,7 +24,7 @@ if (!CONVEX_URL) {
   && process.env.NEXT_PUBLIC_CONVEX_URL
   && process.env.VITE_CONVEX_URL !== process.env.NEXT_PUBLIC_CONVEX_URL
 ) {
-  console.warn("Using VITE_CONVEX_URL for server-side ACE routes because it differs from NEXT_PUBLIC_CONVEX_URL");
+  console.warn("Using NEXT_PUBLIC_CONVEX_URL for server-side Convex routes because it differs from VITE_CONVEX_URL");
 }
 
 /** Minimal HTTP client matching the ConvexHttpClient interface used by ACE routes */
@@ -38,6 +38,9 @@ export function getConvexClient() {
       });
       if (!res.ok) throw new Error(`Convex query failed: ${res.statusText}`);
       const data = await res.json();
+      if (data.status === "error") {
+        throw new Error(`Convex query failed: ${data.errorMessage || "Unknown Convex error"}`);
+      }
       return data.value;
     },
     mutation: async (fn: string, args?: Record<string, unknown>) => {
@@ -48,6 +51,9 @@ export function getConvexClient() {
       });
       if (!res.ok) throw new Error(`Convex mutation failed: ${res.statusText}`);
       const data = await res.json();
+      if (data.status === "error") {
+        throw new Error(`Convex mutation failed: ${data.errorMessage || "Unknown Convex error"}`);
+      }
       return data.value;
     },
   };
