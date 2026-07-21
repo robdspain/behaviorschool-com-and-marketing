@@ -48,51 +48,40 @@
   to = "/supervisors"
   status = 301
 
-# Schedule newsletter worker every 5 minutes
-
 # Transformation Program nurture sequence processor - every hour
-[[scheduled.functions]]
-  name = "transformation-nurture-worker"
-  cron = "12 * * * *"
+[functions."transformation-nurture-worker"]
+  schedule = "12 * * * *"
 
 # Fallback trigger to refresh salary data yearly (and ensure site rebuild)
 
 # Weekly revenue summary — every Monday at 8 AM ET (13:00 UTC)
-[[scheduled.functions]]
-  name = "weekly-revenue-summary"
-  cron = "0 13 * * 1"
+[functions."weekly-revenue-summary"]
+  schedule = "0 13 * * 1"
 
 # Behavior Study Tools trend research - daily before the growth report
-[[scheduled.functions]]
-  name = "bst-trend-research"
-  cron = "45 12 * * *"
+[functions."bst-trend-research"]
+  schedule = "45 12 * * *"
 
 # Behavior Study Tools SEO metrics - daily before trends and growth report
-[[scheduled.functions]]
-  name = "bst-seo-metrics"
-  cron = "30 12 * * *"
+[functions."bst-seo-metrics"]
+  schedule = "30 12 * * *"
 
 # Behavior Study Tools SEO action queue - daily after SEO metrics
-[[scheduled.functions]]
-  name = "bst-seo-action-generator"
-  cron = "40 12 * * *"
+[functions."bst-seo-action-generator"]
+  schedule = "40 12 * * *"
 
 # Behavior Study Tools SEO content drafts - daily after action queue
-[[scheduled.functions]]
-  name = "bst-seo-draft-generator"
-  cron = "42 12 * * *"
+[functions."bst-seo-draft-generator"]
+  schedule = "42 12 * * *"
 
 # Behavior Study Tools growth monitor - daily at 6 AM PT / 9 AM ET (13:00 UTC)
-[[scheduled.functions]]
-  name = "bst-daily-growth-monitor"
-  cron = "0 13 * * *"
+[functions."bst-daily-growth-monitor"]
+  schedule = "0 13 * * *"
 
 # Behavior Study Tools social publisher - daily after growth report
-[[scheduled.functions]]
-  name = "bst-social-publisher"
-  cron = "15 13 * * *"
+[functions."bst-social-publisher"]
+  schedule = "15 13 * * *"
 
 # Behavior Study Tools social feedback refresh - daily after publisher
-[[scheduled.functions]]
-  name = "bst-social-feedback-refresh"
-  cron = "30 13 * * *"
+[functions."bst-social-feedback-refresh"]
+  schedule = "30 13 * * *"
