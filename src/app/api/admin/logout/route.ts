@@ -7,7 +7,21 @@ const COOKIE_NAME = 'bs_admin_auth';
 export async function GET(request: NextRequest) {
   const baseUrl = (process.env.ADMIN_OAUTH_BASE_URL || process.env.NEXTAUTH_URL || request.url)
     .replace(/\/$/, '');
-  const response = NextResponse.redirect(new URL('/admin/login', baseUrl), 303);
+  const loginUrl = new URL('/admin/login', baseUrl).toString();
+  const response = new NextResponse(`<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0;url=${loginUrl}">
+    <title>Signing out</title>
+  </head>
+  <body>
+    <script>window.location.replace(${JSON.stringify(loginUrl)});</script>
+  </body>
+</html>`, {
+    status: 200,
+    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  });
   response.cookies.set(COOKIE_NAME, '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
