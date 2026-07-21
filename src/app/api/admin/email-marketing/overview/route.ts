@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { createHash } from 'crypto';
 import { api, getConvexClient } from '@/lib/convex';
 import { getListmonkConfig, listmonkFetch } from '@/lib/listmonk';
 import { isValidAdminSessionToken } from '@/lib/adminSession';
@@ -31,7 +32,11 @@ async function loadStudyLifecycle() {
   const summaryUrl = process.env.STUDY_NURTURE_SUMMARY_URL || DEFAULT_STUDY_SUMMARY_URL;
   const url = new URL(summaryUrl);
   url.searchParams.set('windowDays', '30');
-  const secret = process.env.SIGNUP_NURTURE_SECRET;
+  const secret = process.env.RESEND_API_KEY
+    ? createHash('sha256')
+        .update(`behavior-school-study-lifecycle:v1:${process.env.RESEND_API_KEY}`)
+        .digest('hex')
+    : process.env.SIGNUP_NURTURE_SECRET;
   const response = await fetch(url, {
     cache: 'no-store',
     headers: secret ? { 'X-Signup-Nurture-Secret': secret } : undefined,
@@ -156,7 +161,7 @@ export async function GET() {
     providers: {
       resend: Boolean(process.env.RESEND_API_KEY),
       listmonk: Boolean(getListmonkConfig()),
-      studyNurture: Boolean(process.env.SIGNUP_NURTURE_SECRET),
+      studyNurture: Boolean(process.env.RESEND_API_KEY || process.env.SIGNUP_NURTURE_SECRET),
     },
   }, {
     headers: { 'Cache-Control': 'no-store, max-age=0' },
