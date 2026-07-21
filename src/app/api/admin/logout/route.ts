@@ -5,7 +5,9 @@ export const dynamic = 'force-dynamic';
 const COOKIE_NAME = 'bs_admin_auth';
 
 export async function GET(request: NextRequest) {
-  const response = NextResponse.redirect(new URL('/admin/login', request.url), 303);
+  const baseUrl = (process.env.ADMIN_OAUTH_BASE_URL || process.env.NEXTAUTH_URL || request.url)
+    .replace(/\/$/, '');
+  const response = NextResponse.redirect(new URL('/admin/login', baseUrl), 303);
   response.cookies.set(COOKIE_NAME, '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
