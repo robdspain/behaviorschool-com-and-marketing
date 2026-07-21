@@ -18,8 +18,13 @@ export async function POST(request: NextRequest) {
 // GET /api/admin/auth — check if session is valid
 export async function GET() {
   const cookieStore = await cookies();
-  const token = cookieStore.get(COOKIE_NAME)?.value;
-  const authenticated = isValidAdminSessionToken(token);
+  const tokens = cookieStore.getAll(COOKIE_NAME).map((cookie) => cookie.value);
+  const authenticated = tokens.some((token) => isValidAdminSessionToken(token));
+  console.info('[admin-auth] session validation', {
+    authenticated,
+    candidateCount: tokens.length,
+    tokenPartCounts: tokens.map((token) => token.split('.').length),
+  });
   return NextResponse.json({ authenticated });
 }
 
