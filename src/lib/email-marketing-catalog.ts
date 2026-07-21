@@ -139,10 +139,31 @@ export const transformationSequence: EmailSequenceStep[] = [
 export const supervisionSequence: EmailSequenceStep[] = [
   {
     timing: 'Immediate',
+    title: 'Supervisor application received',
+    subject: 'We received your BehaviorSchool supervisor application',
+    audience: 'BCBA who submitted a Supervisor Marketplace application',
+    objective: 'Confirm receipt and set a clear expectation for review.',
+  },
+  {
+    timing: 'Immediate',
+    title: 'Supervisor application review',
+    subject: 'Supervisor application from {Applicant}',
+    audience: 'Behavior School administrator',
+    objective: 'Make sure every marketplace application receives a human review.',
+  },
+  {
+    timing: 'Immediate',
     title: 'New supervision request',
     subject: '{Supervisee} requested supervision',
     audience: 'Supervisor receiving a marketplace request',
     objective: 'Prompt a clear accept or decline decision.',
+  },
+  {
+    timing: 'Immediate',
+    title: 'Request sent',
+    subject: 'Your supervision request was sent to {Supervisor}',
+    audience: 'Supervisee who sent a marketplace request',
+    objective: 'Confirm delivery and explain that the next email will contain the decision.',
   },
   {
     timing: 'Immediate',
@@ -157,6 +178,13 @@ export const supervisionSequence: EmailSequenceStep[] = [
     subject: 'Update on your request to {Supervisor}',
     audience: 'Supervisee whose request was declined',
     objective: 'Close the request respectfully and return the user to the directory.',
+  },
+  {
+    timing: 'Immediate',
+    title: 'Connection code created',
+    subject: 'Your supervision connection code is {Code}',
+    audience: 'Supervisee who generated an invite code',
+    objective: 'Give the supervisee a durable copy of the code and explain exactly how to connect.',
   },
   {
     timing: 'Immediate',
