@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { ShieldCheck } from 'lucide-react';
 
@@ -15,6 +15,7 @@ const errorMessages: Record<string, string> = {
 };
 
 function LoginForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams?.get('redirect') || searchParams?.get('returnTo') || '/admin';
   const errorCode = searchParams?.get('error') || '';
@@ -23,7 +24,25 @@ function LoginForm() {
 
   useEffect(() => {
     document.title = 'Admin Login | Behavior School';
-  }, []);
+
+    let cancelled = false;
+    fetch('/api/admin/auth', {
+      cache: 'no-store',
+      credentials: 'same-origin',
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.error('[admin-auth-diagnostic] login session check', result.sessionDiagnostic);
+        if (!cancelled && result.authenticated === true) {
+          router.replace(redirect);
+        }
+      })
+      .catch(() => undefined);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [redirect, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f6f1e4] px-4">
