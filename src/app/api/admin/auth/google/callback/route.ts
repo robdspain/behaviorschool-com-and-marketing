@@ -118,8 +118,11 @@ export async function GET(request: NextRequest) {
       maxAge: ADMIN_SESSION_MAX_AGE,
       path: '/',
     })
-    response.cookies.delete(STATE_COOKIE)
-    response.cookies.delete(RETURN_TO_COOKIE)
+
+    // Keep this redirect to a single Set-Cookie mutation. The Netlify Next.js
+    // adapter can drop the first cookie when a redirect also expires multiple
+    // cookies, which leaves OAuth successful but the admin session unset. The
+    // state and return-to cookies are short-lived and safe to expire naturally.
     return response
   } catch (error) {
     const message = error instanceof Error ? error.message : 'google_login_failed'
