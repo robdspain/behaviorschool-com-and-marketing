@@ -23,14 +23,14 @@ export async function GET() {
   console.error('[admin-auth-diagnostic] session validation', {
     authenticated,
     candidateCount: tokens.length,
-    tokenPartCounts: tokens.map((token) => token.split('.').length),
+    tokenPartCounts: tokens.map((token) => token.split(/[._]/).length),
   });
   return NextResponse.json({
     authenticated,
     sessionDiagnostic: {
       cookiePresent: tokens.length > 0,
       candidateCount: tokens.length,
-      signedTokenPresent: tokens.some((token) => token.split('.').length === 3),
+      signedTokenPresent: tokens.some((token) => token.split(/[._]/).length === 3),
     },
   });
 }

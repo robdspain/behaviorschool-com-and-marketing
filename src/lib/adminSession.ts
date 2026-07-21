@@ -19,13 +19,19 @@ function sign(value: string) {
   return createHmac('sha256', secret).update(value).digest('base64url');
 }
 
+function signHex(value: string) {
+  const secret = sessionSecret();
+  if (!secret) return null;
+  return createHmac('sha256', secret).update(value).digest('hex');
+}
+
 export function makeAdminSessionToken() {
   const issuedAt = Date.now().toString(36);
   const nonce = randomBytes(18).toString('hex');
   const payload = `${issuedAt}.${nonce}`;
-  const signature = sign(payload);
+  const signature = signHex(payload);
   if (!signature) throw new Error('admin_session_secret_missing');
-  return `${payload}.${signature}`;
+  return `${issuedAt}_${nonce}_${signature}`;
 }
 
 export function makeAdminHandoffToken() {
@@ -61,18 +67,23 @@ export function isValidAdminHandoffToken(token: string | undefined | null) {
 export function isValidAdminSessionToken(token: string | undefined | null) {
   if (!token) return false;
 
-  const [issuedAt, nonce, signature] = token.split('.');
+  const isHexToken = token.includes('_');
+  const [issuedAt, nonce, signature] = token.split(isHexToken ? '_' : '.');
   if (!issuedAt || !nonce || !signature) return false;
 
   const timestamp = parseInt(issuedAt, 36);
   if (Number.isNaN(timestamp)) return false;
-  if (Date.now() - timestamp > SESSION_MAX_AGE * 1000) return false;
+  const age = Date.now() - timestamp;
+  if (age < 0 || age > SESSION_MAX_AGE * 1000) return false;
 
-  const expected = sign(`${issuedAt}.${nonce}`);
+  const expected = isHexToken
+    ? signHex(`${issuedAt}.${nonce}`)
+    : sign(`${issuedAt}.${nonce}`);
   if (!expected) return false;
 
-  const expectedBuffer = Buffer.from(expected);
-  const signatureBuffer = Buffer.from(signature);
+  const encoding = isHexToken ? 'hex' : 'utf8';
+  const expectedBuffer = Buffer.from(expected, encoding);
+  const signatureBuffer = Buffer.from(signature, encoding);
   if (expectedBuffer.length !== signatureBuffer.length) return false;
 
   return timingSafeEqual(expectedBuffer, signatureBuffer);
