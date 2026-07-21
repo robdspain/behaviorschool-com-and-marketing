@@ -124,7 +124,8 @@ export async function GET(request: NextRequest) {
   </head>
   <body>
     <p>Sign-in complete. Opening the Behavior School admin...</p>
-    <script>window.location.replace(${destinationJson})</script>
+    <p><a href=${destinationJson}>Continue to the admin</a></p>
+    <script>window.setTimeout(function () { window.location.replace(${destinationJson}) }, 1000)</script>
   </body>
 </html>`,
       {
