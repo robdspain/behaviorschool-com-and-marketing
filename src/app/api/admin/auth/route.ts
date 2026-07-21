@@ -20,18 +20,8 @@ export async function GET() {
   const cookieStore = await cookies();
   const tokens = cookieStore.getAll(COOKIE_NAME).map((cookie) => cookie.value);
   const authenticated = tokens.some((token) => isValidAdminSessionToken(token));
-  console.error('[admin-auth-diagnostic] session validation', {
-    authenticated,
-    candidateCount: tokens.length,
-    tokenPartCounts: tokens.map((token) => token.split(/[._]/).length),
-  });
-  return NextResponse.json({
-    authenticated,
-    sessionDiagnostic: {
-      cookiePresent: tokens.length > 0,
-      candidateCount: tokens.length,
-      signedTokenPresent: tokens.some((token) => token.split(/[._]/).length === 3),
-    },
+  return NextResponse.json({ authenticated }, {
+    headers: { 'Cache-Control': 'no-store, max-age=0' },
   });
 }
 

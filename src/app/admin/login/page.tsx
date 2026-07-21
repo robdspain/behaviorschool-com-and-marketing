@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { ShieldCheck } from 'lucide-react';
@@ -17,7 +17,6 @@ const errorMessages: Record<string, string> = {
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [sessionDiagnostic, setSessionDiagnostic] = useState('not-checked');
   const redirect = searchParams?.get('redirect') || searchParams?.get('returnTo') || '/admin';
   const errorCode = searchParams?.get('error') || '';
   const error = errorMessages[errorCode] || (errorCode ? 'Google sign-in could not be completed.' : '');
@@ -34,44 +33,22 @@ function LoginForm() {
 
       if (handoff) {
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
-        const exchangeHandoff = (fallback = false) => fetch('/api/admin/auth/google/complete', {
+        const completion = await fetch('/api/admin/auth/google/complete', {
           method: 'POST',
           cache: 'no-store',
           credentials: 'same-origin',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ handoff, fallback }),
+          body: JSON.stringify({ handoff }),
         });
-        const completion = await exchangeHandoff();
         if (!completion.ok) {
           router.replace('/admin/login?error=invalid_state');
           return;
         }
 
-        let session = await fetch('/api/admin/access-check', {
+        const session = await fetch('/api/admin/access-check', {
           cache: 'no-store',
           credentials: 'same-origin',
         }).then((response) => response.json());
-
-        if (session.authenticated !== true) {
-          const fallback = await exchangeHandoff(true);
-          const fallbackResult = await fallback.json();
-          if (!fallback.ok || typeof fallbackResult.fallbackToken !== 'string') {
-            router.replace('/admin/login?error=google_login_failed');
-            return;
-          }
-
-          document.cookie = [
-            `bs_admin_auth=${encodeURIComponent(fallbackResult.fallbackToken)}`,
-            'Path=/',
-            'Max-Age=86400',
-            'Secure',
-            'SameSite=Lax',
-          ].join('; ');
-          session = await fetch('/api/admin/access-check', {
-            cache: 'no-store',
-            credentials: 'same-origin',
-          }).then((response) => response.json());
-        }
 
         if (!cancelled && session.authenticated === true) {
           router.replace(handoffReturnTo?.startsWith('/admin') ? handoffReturnTo : redirect);
@@ -86,14 +63,6 @@ function LoginForm() {
         credentials: 'same-origin',
       });
       const result = await response.json();
-      console.error('[admin-auth-diagnostic] login session check', result.sessionDiagnostic);
-      const diagnostic = result.sessionDiagnostic || {};
-      setSessionDiagnostic([
-        `cookie:${diagnostic.cookiePresent === true}`,
-        `candidates:${diagnostic.candidateCount || 0}`,
-        `signed:${diagnostic.signedTokenPresent === true}`,
-        `authenticated:${result.authenticated === true}`,
-      ].join(','));
       if (!cancelled && result.authenticated === true) {
         router.replace(redirect);
       }
@@ -108,9 +77,6 @@ function LoginForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f6f1e4] px-4">
-      <span className="sr-only" data-testid="admin-session-diagnostic">
-        {sessionDiagnostic}
-      </span>
       <div className="w-full max-w-sm">
         <div className="rounded-2xl border border-emerald-950/10 bg-white p-8 shadow-lg">
           <div className="text-center mb-8">
