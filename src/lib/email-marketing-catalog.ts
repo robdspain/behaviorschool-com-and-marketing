@@ -153,6 +153,20 @@ export const supervisionSequence: EmailSequenceStep[] = [
   },
   {
     timing: 'Immediate',
+    title: 'Supervisor application approved',
+    subject: 'Your BehaviorSchool supervisor application was approved',
+    audience: 'Approved Supervisor Marketplace applicant',
+    objective: 'Move the approved applicant into creating a public listing with the verified email address.',
+  },
+  {
+    timing: 'Immediate',
+    title: 'Supervisor application rejected',
+    subject: 'Update on your BehaviorSchool supervisor application',
+    audience: 'Supervisor Marketplace applicant who was not approved',
+    objective: 'Communicate the decision clearly and provide the human review note.',
+  },
+  {
+    timing: 'Immediate',
     title: 'New supervision request',
     subject: '{Supervisee} requested supervision',
     audience: 'Supervisor receiving a marketplace request',
