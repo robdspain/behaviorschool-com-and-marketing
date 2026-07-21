@@ -54,9 +54,17 @@ const navigation: NavItem[] = [
       { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
     ]
   },
-  { name: "Email Templates", href: "/admin/email-templates", icon: Mail },
-  { name: "Newsletter (Listmonk)", href: "/admin/listmonk", icon: Send },
-  { name: "Study Tools Nurture", href: "/admin/behavior-study-tools", icon: BarChart3, badge: "Live" },
+  {
+    name: "Email Marketing",
+    icon: Mail,
+    badge: "All products",
+    children: [
+      { name: "Universal Dashboard", href: "/admin/email-marketing", icon: BarChart3 },
+      { name: "Product Templates", href: "/admin/email-templates", icon: Mail },
+      { name: "Newsletter Campaigns", href: "/admin/listmonk", icon: Send },
+      { name: "Study Tools Nurture", href: "/admin/behavior-study-tools", icon: BarChart3, badge: "Live" },
+    ],
+  },
   { name: "BST Marketing", href: "/admin/behavior-study-tools-marketing", icon: Megaphone, badge: "Daily" },
   { name: "Blog", href: "/admin/content", icon: FileText },
   { name: "Presentations", href: "/admin/presentations", icon: Presentation },

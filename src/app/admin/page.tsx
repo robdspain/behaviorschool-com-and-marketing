@@ -284,20 +284,12 @@ export default function AdminDashboard() {
       stats: 'Daily'
     },
     {
-      title: 'Email Templates',
-      description: 'Create and edit automated email templates',
-      href: '/admin/email-templates',
+      title: 'Email Marketing',
+      description: 'Manage every product sequence, template, queue, and newsletter',
+      href: '/admin/email-marketing',
       icon: Mail,
-      color: 'blue',
-      stats: statsLoading ? '...' : `${stats?.activeTemplates || 0} active`
-    },
-    {
-      title: 'Newsletter',
-      description: 'Manage newsletter campaigns and subscribers',
-      href: '/admin/listmonk',
-      icon: Mail,
-      color: 'blue',
-      stats: 'Listmonk'
+      color: 'emerald',
+      stats: statsLoading ? '...' : `${stats?.activeTemplates || 0} templates`
     },
     {
       title: 'Content',
