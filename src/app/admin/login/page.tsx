@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { ShieldCheck } from 'lucide-react';
@@ -17,6 +17,7 @@ const errorMessages: Record<string, string> = {
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [sessionDiagnostic, setSessionDiagnostic] = useState('not-checked');
   const redirect = searchParams?.get('redirect') || searchParams?.get('returnTo') || '/admin';
   const errorCode = searchParams?.get('error') || '';
   const error = errorMessages[errorCode] || (errorCode ? 'Google sign-in could not be completed.' : '');
@@ -33,6 +34,13 @@ function LoginForm() {
       .then((response) => response.json())
       .then((result) => {
         console.error('[admin-auth-diagnostic] login session check', result.sessionDiagnostic);
+        const diagnostic = result.sessionDiagnostic || {};
+        setSessionDiagnostic([
+          `cookie:${diagnostic.cookiePresent === true}`,
+          `candidates:${diagnostic.candidateCount || 0}`,
+          `signed:${diagnostic.signedTokenPresent === true}`,
+          `authenticated:${result.authenticated === true}`,
+        ].join(','));
         if (!cancelled && result.authenticated === true) {
           router.replace(redirect);
         }
@@ -46,6 +54,9 @@ function LoginForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f6f1e4] px-4">
+      <span className="sr-only" data-testid="admin-session-diagnostic">
+        {sessionDiagnostic}
+      </span>
       <div className="w-full max-w-sm">
         <div className="rounded-2xl border border-emerald-950/10 bg-white p-8 shadow-lg">
           <div className="text-center mb-8">
