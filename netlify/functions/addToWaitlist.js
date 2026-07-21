@@ -1,11 +1,7 @@
 /**
  * Netlify Function: addToWaitlist
  *
- * Adds an email address to the Resend audience (waitlist).
- *
- * Required env vars:
- *   RESEND_API_KEY            — your Resend API key
- *   RESEND_WAITLIST_AUDIENCE_ID — the Resend audience ID for the waitlist
+ * Adds an email address to the shared Behavior School Convex CRM.
  */
 
 exports.handler = async function (event) {
@@ -13,39 +9,39 @@ exports.handler = async function (event) {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
-  let email;
+  let payload;
   try {
-    const body = JSON.parse(event.body || '{}');
-    email = (body.email || '').trim();
+    payload = JSON.parse(event.body || '{}');
   } catch {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) };
   }
 
-  if (!email || !email.includes('@')) {
+  const email = String(payload.email || '').trim().toLowerCase();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return { statusCode: 400, body: JSON.stringify({ error: 'A valid email is required' }) };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const audienceId = process.env.RESEND_WAITLIST_AUDIENCE_ID;
-
-  if (!apiKey || !audienceId) {
-    console.error('Missing RESEND_API_KEY or RESEND_WAITLIST_AUDIENCE_ID env vars');
-    return { statusCode: 500, body: JSON.stringify({ error: 'Server configuration error' }) };
-  }
-
   try {
-    const res = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+    const res = await fetch('https://modest-malamute-868.convex.site/api/product-waitlist', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, unsubscribed: false }),
+      body: JSON.stringify({
+        email,
+        product: payload.product || 'plan',
+        sourceDomain: payload.sourceDomain || 'behaviorschool.com',
+        name: payload.name,
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        organization: payload.organization,
+        newsletterOptIn: payload.newsletterOptIn === true,
+      }),
     });
 
     if (!res.ok) {
       const errText = await res.text();
-      console.error('Resend error:', errText);
+      console.error('Behavior School CRM error:', errText);
       return { statusCode: 502, body: JSON.stringify({ error: 'Failed to add contact to waitlist' }) };
     }
 

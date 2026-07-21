@@ -6,12 +6,37 @@ import { useState } from "react";
 
 export default function WaitlistPage() {
   const [email, setEmail] = useState("");
+  const [newsletterOptIn, setNewsletterOptIn] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // For now, just show confirmation. Will wire to email list later.
-    setSubmitted(true);
+    setSubmitting(true);
+    setError("");
+    try {
+      const response = await fetch(
+        "https://modest-malamute-868.convex.site/api/product-waitlist",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            product: "plan",
+            sourceDomain: "behaviorschool.com/pro/waitlist",
+            newsletterOptIn,
+          }),
+        }
+      );
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Unable to join the waitlist.");
+      setSubmitted(true);
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : "Unable to join the waitlist.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -32,21 +57,40 @@ export default function WaitlistPage() {
         </p>
 
         {!submitted ? (
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-8">
-            <input
-              type="email"
-              required
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
-            />
-            <button
-              type="submit"
-              className="px-6 py-3 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800 transition-colors whitespace-nowrap"
-            >
-              Join Waitlist
-            </button>
+          <form onSubmit={handleSubmit} className="mb-8 text-left">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                required
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-gray-900"
+              />
+              <button
+                type="submit"
+                disabled={submitting}
+                className="px-6 py-3 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800 transition-colors whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {submitting ? "Joining..." : "Join Waitlist"}
+              </button>
+            </div>
+            <label className="mt-4 flex items-start gap-3 text-sm leading-6 text-gray-600">
+              <input
+                type="checkbox"
+                checked={newsletterOptIn}
+                onChange={(event) => setNewsletterOptIn(event.target.checked)}
+                className="mt-1 h-4 w-4 accent-emerald-700"
+              />
+              <span>
+                Also send me the weekly School BCBA Systems Letter with practical research notes
+                and occasional Behavior School product announcements. Unsubscribe anytime.
+              </span>
+            </label>
+            <p className="mt-2 text-xs text-gray-500">
+              Joining the product waitlist does not subscribe you to the weekly newsletter.
+            </p>
+            {error && <p className="mt-3 text-sm text-red-700">{error}</p>}
           </form>
         ) : (
           <div className="flex items-center justify-center gap-2 text-emerald-700 font-semibold mb-8 bg-emerald-50 rounded-lg py-4 px-6">
