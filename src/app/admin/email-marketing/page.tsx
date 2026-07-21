@@ -53,6 +53,14 @@ type Overview = {
     firstPractice: number;
     suppressed: number;
   };
+  supervision: null | {
+    enabled: boolean;
+    resendConfigured: boolean;
+    queued: number;
+    skipped: number;
+    sent: number;
+    failed: number;
+  };
   listmonk: {
     configured: boolean;
     healthy: boolean;
@@ -152,6 +160,14 @@ export default function EmailMarketingPage() {
         ['Queued', String(overview.transformation.emails.queued || 0)],
         ['Sent', String(overview.transformation.emails.sent || 0)],
         ['Failed', String(overview.transformation.emails.failed || 0)],
+      ];
+    }
+    if (selected.id === 'supervision-workspace') {
+      return [
+        ['Auto-send', overview.supervision?.enabled ? 'On' : 'Off'],
+        ['Sent 30d', String(overview.supervision?.sent ?? 0)],
+        ['Skipped', String(overview.supervision?.skipped ?? 0)],
+        ['Failed 30d', String(overview.supervision?.failed ?? 0)],
       ];
     }
     if (selected.id === 'newsletter') {

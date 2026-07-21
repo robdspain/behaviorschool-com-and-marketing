@@ -8,6 +8,8 @@ import { isValidAdminSessionToken } from '@/lib/adminSession';
 
 const DEFAULT_STUDY_SUMMARY_URL =
   'https://study.behaviorschool.com/.netlify/functions/signup-nurture-summary';
+const DEFAULT_SUPERVISION_STATUS_URL =
+  'https://supervision.behaviorschool.com/api/admin/lifecycle-email-status';
 
 function countBy<T>(rows: T[], readStatus: (row: T) => string | undefined) {
   return rows.reduce<Record<string, number>>((counts, row) => {
@@ -38,6 +40,21 @@ async function loadStudyLifecycle() {
     signal: AbortSignal.timeout(8000),
   });
   if (!response.ok) throw new Error(`Study lifecycle returned ${response.status}`);
+  return response.json();
+}
+
+async function loadSupervisionLifecycle() {
+  const secret = process.env.SUPERVISION_ADMIN_API_SECRET;
+  if (!secret) throw new Error('SUPERVISION_ADMIN_API_SECRET is not configured');
+  const response = await fetch(
+    process.env.SUPERVISION_LIFECYCLE_STATUS_URL || DEFAULT_SUPERVISION_STATUS_URL,
+    {
+      cache: 'no-store',
+      headers: { 'X-Supervision-Admin-Secret': secret },
+      signal: AbortSignal.timeout(8000),
+    },
+  );
+  if (!response.ok) throw new Error(`Supervision lifecycle returned ${response.status}`);
   return response.json();
 }
 
@@ -80,13 +97,14 @@ export async function GET() {
   const client = getConvexClient();
   await client.mutation(api.email.ensureDefaultTemplates, {});
 
-  const [templatesResult, logsResult, enrollmentsResult, nurtureEmailsResult, studyResult, listmonkResult] =
+  const [templatesResult, logsResult, enrollmentsResult, nurtureEmailsResult, studyResult, supervisionResult, listmonkResult] =
     await Promise.allSettled([
       client.query(api.email.listTemplates, { showArchived: false }),
       client.query(api.email.listEmailLogs, { limit: 500 }),
       client.query(api.transformationNurture.listEnrollments, { limit: 500 }),
       client.query(api.transformationNurture.listEmails, { limit: 500 }),
       loadStudyLifecycle(),
+      loadSupervisionLifecycle(),
       loadListmonkStatus(),
     ]);
 
@@ -107,9 +125,11 @@ export async function GET() {
     errors.push('Transformation nurture data unavailable');
   }
   if (studyResult.status === 'rejected') errors.push('Study Tools lifecycle unavailable');
+  if (supervisionResult.status === 'rejected') errors.push('Supervision lifecycle unavailable');
   if (listmonkResult.status === 'rejected') errors.push('Newsletter service unavailable');
 
   const study = studyResult.status === 'fulfilled' ? studyResult.value : null;
+  const supervision = supervisionResult.status === 'fulfilled' ? supervisionResult.value : null;
   const listmonk = listmonkResult.status === 'fulfilled'
     ? listmonkResult.value
     : { configured: Boolean(getListmonkConfig()), healthy: false, subscribers: null, lists: null, campaigns: null };
@@ -119,10 +139,13 @@ export async function GET() {
     errors,
     totals: {
       activeTemplates: templates.filter((template: any) => template.isActive).length,
-      sentLast30Days: recentLogs.filter((log: any) => log.status === 'sent').length,
-      failedLast30Days: recentLogs.filter((log: any) => log.status === 'failed').length,
+      sentLast30Days: recentLogs.filter((log: any) => log.status === 'sent').length
+        + Number(supervision?.countsLast30Days?.sent || 0),
+      failedLast30Days: recentLogs.filter((log: any) => log.status === 'failed').length
+        + Number(supervision?.countsLast30Days?.failed || 0),
       queued: nurtureEmails.filter((email: any) => email.status === 'queued').length
-        + Number(study?.queue?.sendableCount || 0),
+        + Number(study?.queue?.sendableCount || 0)
+        + Number(supervision?.counts?.queued || 0),
     },
     templates: templates.map((template: any) => ({
       id: template._id,
@@ -152,11 +175,21 @@ export async function GET() {
       firstPractice: Number(study.conversionEvents?.first_practice || 0),
       suppressed: Number(study.suppression?.suppressedProfiles || 0),
     } : null,
+    supervision: supervision ? {
+      enabled: Boolean(supervision.enabled),
+      resendConfigured: Boolean(supervision.resendConfigured),
+      queued: Number(supervision.counts?.queued || 0),
+      skipped: Number(supervision.counts?.skipped || 0),
+      sent: Number(supervision.countsLast30Days?.sent || 0),
+      failed: Number(supervision.countsLast30Days?.failed || 0),
+      recent: Array.isArray(supervision.recent) ? supervision.recent : [],
+    } : null,
     listmonk,
     providers: {
       resend: Boolean(process.env.RESEND_API_KEY),
       listmonk: Boolean(getListmonkConfig()),
       studyNurture: Boolean(process.env.SIGNUP_NURTURE_SECRET),
+      supervisionLifecycle: Boolean(supervision?.resendConfigured),
     },
   }, {
     headers: { 'Cache-Control': 'no-store, max-age=0' },
