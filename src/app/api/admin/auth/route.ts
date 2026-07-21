@@ -25,7 +25,14 @@ export async function GET() {
     candidateCount: tokens.length,
     tokenPartCounts: tokens.map((token) => token.split('.').length),
   });
-  return NextResponse.json({ authenticated });
+  return NextResponse.json({
+    authenticated,
+    sessionDiagnostic: {
+      cookiePresent: tokens.length > 0,
+      candidateCount: tokens.length,
+      signedTokenPresent: tokens.some((token) => token.split('.').length === 3),
+    },
+  });
 }
 
 // DELETE /api/admin/auth — logout
