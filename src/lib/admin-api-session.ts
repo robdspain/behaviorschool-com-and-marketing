@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { isValidAdminSessionToken } from "@/lib/adminSession";
 
-const COOKIE_NAME = "bs_admin_session";
+const COOKIE_NAME = "bs_admin_auth";
 
 export async function requireAdminApiSession() {
   const cookieStore = await cookies();

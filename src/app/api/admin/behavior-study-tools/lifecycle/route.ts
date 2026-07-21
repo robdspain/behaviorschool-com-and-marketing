@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { isValidAdminSessionToken } from '@/lib/adminSession';
 
-const COOKIE_NAME = 'bs_admin_session';
+const COOKIE_NAME = 'bs_admin_auth';
 const DEFAULT_SUMMARY_URL =
   'https://study.behaviorschool.com/.netlify/functions/signup-nurture-summary';
 

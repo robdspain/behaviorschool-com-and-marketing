@@ -6,7 +6,7 @@ import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
 
 export const dynamic = 'force-dynamic'
 
-const COOKIE_NAME = 'bs_admin_session'
+const COOKIE_NAME = 'bs_admin_auth'
 
 type SeoSignalRow = {
   id: string

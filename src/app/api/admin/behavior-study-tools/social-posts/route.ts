@@ -6,7 +6,7 @@ import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
 
 export const dynamic = 'force-dynamic'
 
-const COOKIE_NAME = 'bs_admin_session'
+const COOKIE_NAME = 'bs_admin_auth'
 const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 type SocialPostRow = {

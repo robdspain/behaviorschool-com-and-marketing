@@ -5,7 +5,7 @@ import { getConvexUrl } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
-const COOKIE_NAME = 'bs_admin_session'
+const COOKIE_NAME = 'bs_admin_auth'
 
 type IntegrationStatus = 'connected' | 'partial' | 'missing'
 

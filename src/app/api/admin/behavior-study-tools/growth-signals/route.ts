@@ -5,7 +5,7 @@ import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
-const COOKIE_NAME = 'bs_admin_session'
+const COOKIE_NAME = 'bs_admin_auth'
 const MAX_BATCH_SIZE = 100
 
 type GrowthSignalInput = Record<string, unknown>

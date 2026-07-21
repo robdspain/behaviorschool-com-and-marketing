@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const COOKIE_NAME = 'bs_admin_session';
+const COOKIE_NAME = 'bs_admin_auth';
 const SESSION_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_SUMMARY_URL =
   'https://study.behaviorschool.com/.netlify/functions/signup-nurture-summary';

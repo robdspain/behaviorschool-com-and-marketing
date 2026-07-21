@@ -8,7 +8,7 @@ import {
 
 export const dynamic = 'force-dynamic'
 
-const SESSION_COOKIE = 'bs_admin_session'
+const SESSION_COOKIE = 'bs_admin_auth'
 
 function safeReturnTo(value: string | null) {
   if (!value || !value.startsWith('/admin')) return '/admin'

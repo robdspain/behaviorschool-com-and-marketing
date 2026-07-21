@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { isValidAdminSessionToken } from '@/lib/adminSession';
 
-const COOKIE_NAME = 'bs_admin_session';
+const COOKIE_NAME = 'bs_admin_auth';
 
 // POST /api/admin/auth — legacy password login is disabled. Use Google OAuth.
 export async function POST(request: NextRequest) {

@@ -6,7 +6,7 @@ import { api, getConvexClient } from '@/lib/convex'
 
 export const dynamic = 'force-dynamic'
 
-const COOKIE_NAME = 'bs_admin_session'
+const COOKIE_NAME = 'bs_admin_auth'
 const DEFAULT_LIMIT = 100
 const GSC_SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly'
 
