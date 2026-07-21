@@ -96,7 +96,7 @@ export default function EmailMarketingPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/admin/email-marketing/overview', {
+      const response = await fetch('/api/admin/communications-overview', {
         cache: 'no-store',
         credentials: 'same-origin',
       });
