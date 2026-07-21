@@ -49,13 +49,20 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json().catch(() => null) as { handoff?: string } | null
+  const body = await request.json().catch(() => null) as {
+    fallback?: boolean
+    handoff?: string
+  } | null
   if (!isValidAdminHandoffToken(body?.handoff)) {
     return NextResponse.json({ ok: false, error: 'invalid_state' }, { status: 401 })
   }
 
-  const response = NextResponse.json({ ok: true })
-  response.cookies.set(SESSION_COOKIE, makeAdminSessionToken(), {
+  const sessionToken = makeAdminSessionToken()
+  const response = NextResponse.json({
+    ok: true,
+    ...(body?.fallback ? { fallbackToken: sessionToken } : {}),
+  })
+  response.cookies.set(SESSION_COOKIE, sessionToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',

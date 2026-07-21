@@ -34,20 +34,49 @@ function LoginForm() {
 
       if (handoff) {
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
-        const completion = await fetch('/api/admin/auth/google/complete', {
+        const exchangeHandoff = (fallback = false) => fetch('/api/admin/auth/google/complete', {
           method: 'POST',
           cache: 'no-store',
           credentials: 'same-origin',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ handoff }),
+          body: JSON.stringify({ handoff, fallback }),
         });
+        const completion = await exchangeHandoff();
         if (!completion.ok) {
           router.replace('/admin/login?error=invalid_state');
           return;
         }
 
-        if (!cancelled) {
+        let session = await fetch('/api/admin/auth', {
+          cache: 'no-store',
+          credentials: 'same-origin',
+        }).then((response) => response.json());
+
+        if (session.authenticated !== true) {
+          const fallback = await exchangeHandoff(true);
+          const fallbackResult = await fallback.json();
+          if (!fallback.ok || typeof fallbackResult.fallbackToken !== 'string') {
+            router.replace('/admin/login?error=google_login_failed');
+            return;
+          }
+
+          document.cookie = [
+            `bs_admin_auth=${encodeURIComponent(fallbackResult.fallbackToken)}`,
+            'Path=/',
+            'Max-Age=86400',
+            'Secure',
+            'SameSite=Lax',
+          ].join('; ');
+          session = await fetch('/api/admin/auth', {
+            cache: 'no-store',
+            credentials: 'same-origin',
+          }).then((response) => response.json());
+        }
+
+        if (!cancelled && session.authenticated === true) {
           router.replace(handoffReturnTo?.startsWith('/admin') ? handoffReturnTo : redirect);
+        } else if (!cancelled) {
+          router.replace('/admin/login?error=google_login_failed');
         }
         return;
       }
