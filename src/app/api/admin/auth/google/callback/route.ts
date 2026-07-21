@@ -109,9 +109,11 @@ export async function GET(request: NextRequest) {
     }
 
     const returnTo = safeReturnTo(request.cookies.get(RETURN_TO_COOKIE)?.value)
-    const completionUrl = new URL('/api/admin/auth/google/complete', oauthBaseUrl(request))
-    completionUrl.searchParams.set('handoff', makeAdminHandoffToken())
-    completionUrl.searchParams.set('returnTo', returnTo)
+    const completionUrl = new URL('/admin/login', oauthBaseUrl(request))
+    completionUrl.hash = new URLSearchParams({
+      handoff: makeAdminHandoffToken(),
+      returnTo,
+    }).toString()
     return NextResponse.redirect(completionUrl, 303)
   } catch (error) {
     const message = error instanceof Error ? error.message : 'google_login_failed'

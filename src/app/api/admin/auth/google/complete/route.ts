@@ -47,3 +47,21 @@ export async function GET(request: NextRequest) {
   response.headers.set('Cache-Control', 'no-store, max-age=0')
   return response
 }
+
+export async function POST(request: NextRequest) {
+  const body = await request.json().catch(() => null) as { handoff?: string } | null
+  if (!isValidAdminHandoffToken(body?.handoff)) {
+    return NextResponse.json({ ok: false, error: 'invalid_state' }, { status: 401 })
+  }
+
+  const response = NextResponse.json({ ok: true })
+  response.cookies.set(SESSION_COOKIE, makeAdminSessionToken(), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: ADMIN_SESSION_MAX_AGE,
+    path: '/',
+  })
+  response.headers.set('Cache-Control', 'no-store, max-age=0')
+  return response
+}

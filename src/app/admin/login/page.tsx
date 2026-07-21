@@ -27,25 +27,50 @@ function LoginForm() {
     document.title = 'Admin Login | Behavior School';
 
     let cancelled = false;
-    fetch('/api/admin/auth', {
-      cache: 'no-store',
-      credentials: 'same-origin',
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.error('[admin-auth-diagnostic] login session check', result.sessionDiagnostic);
-        const diagnostic = result.sessionDiagnostic || {};
-        setSessionDiagnostic([
-          `cookie:${diagnostic.cookiePresent === true}`,
-          `candidates:${diagnostic.candidateCount || 0}`,
-          `signed:${diagnostic.signedTokenPresent === true}`,
-          `authenticated:${result.authenticated === true}`,
-        ].join(','));
-        if (!cancelled && result.authenticated === true) {
-          router.replace(redirect);
+    const finishLogin = async () => {
+      const fragment = new URLSearchParams(window.location.hash.slice(1));
+      const handoff = fragment.get('handoff');
+      const handoffReturnTo = fragment.get('returnTo');
+
+      if (handoff) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        const completion = await fetch('/api/admin/auth/google/complete', {
+          method: 'POST',
+          cache: 'no-store',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ handoff }),
+        });
+        if (!completion.ok) {
+          router.replace('/admin/login?error=invalid_state');
+          return;
         }
-      })
-      .catch(() => undefined);
+
+        if (!cancelled) {
+          router.replace(handoffReturnTo?.startsWith('/admin') ? handoffReturnTo : redirect);
+        }
+        return;
+      }
+
+      const response = await fetch('/api/admin/auth', {
+        cache: 'no-store',
+        credentials: 'same-origin',
+      });
+      const result = await response.json();
+      console.error('[admin-auth-diagnostic] login session check', result.sessionDiagnostic);
+      const diagnostic = result.sessionDiagnostic || {};
+      setSessionDiagnostic([
+        `cookie:${diagnostic.cookiePresent === true}`,
+        `candidates:${diagnostic.candidateCount || 0}`,
+        `signed:${diagnostic.signedTokenPresent === true}`,
+        `authenticated:${result.authenticated === true}`,
+      ].join(','));
+      if (!cancelled && result.authenticated === true) {
+        router.replace(redirect);
+      }
+    };
+
+    finishLogin().catch(() => undefined);
 
     return () => {
       cancelled = true;
