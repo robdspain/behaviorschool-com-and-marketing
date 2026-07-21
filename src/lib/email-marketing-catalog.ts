@@ -209,6 +209,13 @@ export const supervisionSequence: EmailSequenceStep[] = [
   },
   {
     timing: 'Immediate',
+    title: 'Request cancelled',
+    subject: '{Supervisee} cancelled their supervision request',
+    audience: 'Supervisor whose pending marketplace request was cancelled',
+    objective: 'Remove uncertainty and confirm that no response is needed.',
+  },
+  {
+    timing: 'Immediate',
     title: 'Connection code created',
     subject: 'Your supervision connection code is {Code}',
     audience: 'Supervisee who generated an invite code',
