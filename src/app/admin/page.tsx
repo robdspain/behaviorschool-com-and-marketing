@@ -58,7 +58,7 @@ export default function AdminDashboard() {
 
     const checkAuth = async () => {
       try {
-        const res = await fetch('/api/admin/auth')
+        const res = await fetch('/api/admin/session')
         const data = await res.json()
         if (!data.authenticated) {
           router.push('/admin/login')

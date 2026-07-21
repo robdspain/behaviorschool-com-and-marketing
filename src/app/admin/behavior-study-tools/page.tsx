@@ -234,7 +234,7 @@ export default function BehaviorStudyToolsAdminPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('/api/admin/auth');
+        const response = await fetch('/api/admin/session');
         const payload = await response.json();
         if (!payload.authenticated) {
           router.push('/admin/login');
