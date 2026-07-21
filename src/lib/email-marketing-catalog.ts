@@ -138,6 +138,20 @@ export const transformationSequence: EmailSequenceStep[] = [
 
 export const supervisionSequence: EmailSequenceStep[] = [
   {
+    timing: 'Account',
+    title: 'Verify account email',
+    subject: 'Verify your email for BehaviorSchool Supervision',
+    audience: 'New email-and-password account',
+    objective: 'Confirm email ownership before account access or marketplace listing publication.',
+  },
+  {
+    timing: 'Account',
+    title: 'Reset account password',
+    subject: 'Reset your BehaviorSchool Supervision password',
+    audience: 'Account owner requesting password recovery',
+    objective: 'Restore account access with a one-hour token and revoke existing sessions.',
+  },
+  {
     timing: 'Immediate',
     title: 'Supervisor application received',
     subject: 'We received your BehaviorSchool supervisor application',
