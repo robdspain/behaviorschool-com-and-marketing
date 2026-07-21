@@ -27,10 +27,12 @@ function authenticatedAdmin(): AuthenticatedUser {
 
 export async function verifyAdminAuth(request: NextRequest): Promise<AuthenticatedUser> {
   const bearerToken = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '').trim();
-  const cookieToken = request.cookies.get(COOKIE_NAME)?.value;
-  const token = bearerToken || cookieToken;
+  const cookieTokens = request.cookies.getAll(COOKIE_NAME).map((cookie) => cookie.value);
+  const authenticated = bearerToken
+    ? isValidAdminSessionToken(bearerToken)
+    : cookieTokens.some((token) => isValidAdminSessionToken(token));
 
-  if (!isValidAdminSessionToken(token)) {
+  if (!authenticated) {
     throw new AdminAuthError('Invalid or expired admin session');
   }
 
@@ -39,8 +41,10 @@ export async function verifyAdminAuth(request: NextRequest): Promise<Authenticat
 
 export async function verifyAdminSession(): Promise<AuthenticatedUser | null> {
   const cookieStore = await cookies();
-  const token = cookieStore.get(COOKIE_NAME)?.value;
-  return isValidAdminSessionToken(token) ? authenticatedAdmin() : null;
+  const authenticated = cookieStore
+    .getAll(COOKIE_NAME)
+    .some((cookie) => isValidAdminSessionToken(cookie.value));
+  return authenticated ? authenticatedAdmin() : null;
 }
 
 export function createAdminAuthMiddleware() {
