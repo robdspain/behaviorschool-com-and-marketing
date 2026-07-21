@@ -1,9 +1,10 @@
 export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
-import { verifyAdminSession } from '@/lib/admin-auth';
+import { cookies } from 'next/headers';
 import { api, getConvexClient } from '@/lib/convex';
 import { getListmonkConfig, listmonkFetch } from '@/lib/listmonk';
+import { isValidAdminSessionToken } from '@/lib/adminSession';
 
 const DEFAULT_STUDY_SUMMARY_URL =
   'https://study.behaviorschool.com/.netlify/functions/signup-nurture-summary';
@@ -66,8 +67,18 @@ async function loadListmonkStatus() {
 }
 
 export async function GET() {
-  const admin = await verifyAdminSession();
-  if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const cookieStore = await cookies();
+  const sessionCandidates = cookieStore.getAll('bs_admin_auth');
+  const authenticated = sessionCandidates.some((cookie) => isValidAdminSessionToken(cookie.value));
+  if (!authenticated) {
+    return NextResponse.json({
+      error: 'Unauthorized',
+      sessionCandidates: sessionCandidates.length,
+    }, {
+      status: 401,
+      headers: { 'Cache-Control': 'no-store, max-age=0' },
+    });
+  }
 
   const client = getConvexClient();
   await client.mutation(api.email.ensureDefaultTemplates, {});
