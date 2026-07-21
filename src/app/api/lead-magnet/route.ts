@@ -37,11 +37,14 @@ export async function POST(request: NextRequest) {
     const nameFromEmail = rawEmail.split("@")[0]?.replace(/[._-]+/g, " ");
     const resolvedName = (body?.name || body?.firstName || "").toString().trim() || nameFromEmail || "Lead";
     const { firstName, lastName } = splitName(resolvedName);
-    const tags = Array.isArray(body?.tags)
+    const tags: string[] = Array.isArray(body?.tags)
       ? body.tags.map((tag: unknown) => cleanString(tag, 80)).filter(Boolean)
       : body?.tags
         ? [cleanString(body.tags, 80)]
         : ["lead-magnet"];
+    const resource = cleanString(body?.resource || body?.resourceName || body?.leadMagnet, 120)
+      || tags.find((tag) => tag !== "lead-magnet")
+      || "lead-magnet";
 
     await getConvexClient().mutation(api.crm.upsertContact, {
       firstName,
