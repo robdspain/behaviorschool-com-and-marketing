@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { serialize } from 'cookie'
 import { ADMIN_SESSION_MAX_AGE, makeAdminSessionToken } from '@/lib/adminSession'
 
 export const dynamic = 'force-dynamic'
@@ -134,15 +135,16 @@ export async function GET(request: NextRequest) {
         },
       },
     )
-    response.cookies.set(SESSION_COOKIE, makeAdminSessionToken(), {
+    const sessionToken = makeAdminSessionToken()
+    response.headers.append('Set-Cookie', serialize(SESSION_COOKIE, sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: ADMIN_SESSION_MAX_AGE,
       path: '/',
-    })
+    }))
     console.error('[admin-auth-diagnostic] OAuth callback prepared session cookie', {
-      sessionCookieSet: Boolean(response.cookies.get(SESSION_COOKIE)?.value),
+      sessionCookieSet: true,
       destination: returnTo,
     })
 
