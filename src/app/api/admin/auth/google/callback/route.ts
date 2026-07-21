@@ -110,7 +110,30 @@ export async function GET(request: NextRequest) {
     }
 
     const returnTo = safeReturnTo(request.cookies.get(RETURN_TO_COOKIE)?.value)
-    const response = NextResponse.redirect(new URL(returnTo, oauthBaseUrl(request)))
+    const destination = new URL(returnTo, oauthBaseUrl(request)).toString()
+    const destinationJson = JSON.stringify(destination).replace(/</g, '\\u003c')
+    const response = new NextResponse(
+      `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Admin sign-in complete</title>
+  </head>
+  <body>
+    <p>Sign-in complete. Opening the Behavior School admin...</p>
+    <script>window.location.replace(${destinationJson})</script>
+  </body>
+</html>`,
+      {
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, max-age=0',
+          'Content-Type': 'text/html; charset=utf-8',
+        },
+      },
+    )
     response.cookies.set(SESSION_COOKIE, makeAdminSessionToken(), {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -119,10 +142,9 @@ export async function GET(request: NextRequest) {
       path: '/',
     })
 
-    // Keep this redirect to a single Set-Cookie mutation. The Netlify Next.js
-    // adapter can drop the first cookie when a redirect also expires multiple
-    // cookies, which leaves OAuth successful but the admin session unset. The
-    // state and return-to cookies are short-lived and safe to expire naturally.
+    // Netlify's Next.js adapter was dropping this cookie on a redirect response.
+    // A normal HTML response commits the cookie before navigating to the admin.
+    // The short-lived OAuth state cookies expire naturally.
     return response
   } catch (error) {
     const message = error instanceof Error ? error.message : 'google_login_failed'
