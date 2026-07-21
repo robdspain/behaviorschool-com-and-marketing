@@ -1,6 +1,6 @@
 export async function hasAdminClientSession(): Promise<boolean> {
   try {
-    const response = await fetch('/api/admin/session', {
+    const response = await fetch('/api/admin/access-check', {
       cache: 'no-store',
       credentials: 'same-origin',
     });
@@ -13,7 +13,7 @@ export async function hasAdminClientSession(): Promise<boolean> {
 }
 
 export async function clearAdminClientSession(): Promise<void> {
-  await fetch('/api/admin/session', {
+  await fetch('/api/admin/access-check', {
     method: 'DELETE',
     cache: 'no-store',
     credentials: 'same-origin',

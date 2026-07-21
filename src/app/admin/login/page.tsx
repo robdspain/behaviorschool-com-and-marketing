@@ -47,7 +47,7 @@ function LoginForm() {
           return;
         }
 
-        let session = await fetch('/api/admin/session', {
+        let session = await fetch('/api/admin/access-check', {
           cache: 'no-store',
           credentials: 'same-origin',
         }).then((response) => response.json());
@@ -67,7 +67,7 @@ function LoginForm() {
             'Secure',
             'SameSite=Lax',
           ].join('; ');
-          session = await fetch('/api/admin/session', {
+          session = await fetch('/api/admin/access-check', {
             cache: 'no-store',
             credentials: 'same-origin',
           }).then((response) => response.json());
@@ -81,7 +81,7 @@ function LoginForm() {
         return;
       }
 
-      const response = await fetch('/api/admin/session', {
+      const response = await fetch('/api/admin/access-check', {
         cache: 'no-store',
         credentials: 'same-origin',
       });
