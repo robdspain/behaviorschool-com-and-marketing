@@ -115,14 +115,14 @@ const sequenceEmails = [
   {
     day: 'Day 1',
     title: 'Baseline Diagnostic',
-    subject: 'Take the 2-minute diagnostic so we can build your BCBA study path',
+    subject: 'Your setup is done. Take the short diagnostic next.',
     segment: 'Setup completed, no diagnostic or practice attempt',
     objective: 'Turn setup into a personalized weak-area result and next study block.',
   },
   {
     day: 'Day 1',
     title: 'Diagnostic Result Follow-up',
-    subject: 'Use your BCBA diagnostic result for today’s study block',
+    subject: 'Your diagnostic gave you a place to start',
     segment: 'Diagnostic completed, no first practice session',
     objective: 'Turn the diagnostic insight into one short practice block instead of asking them to retake it.',
   },
@@ -136,49 +136,49 @@ const sequenceEmails = [
   {
     day: 'Day 5',
     title: 'Show Value',
-    subject: 'Use your missed questions to choose the next study block',
+    subject: 'Your missed questions are telling you what to study',
     segment: 'One practice action, no purchase',
     objective: 'Show how their missed questions can guide the next study block.',
   },
   {
     day: 'Day 7',
     title: 'Upgrade Moment',
-    subject: 'Want more room to practice?',
+    subject: 'Do you need more practice than the free plan gives you?',
     segment: 'Engaged free users with repeated product actions',
     objective: 'Offer the paid plan only after the free practice is helping.',
   },
   {
     day: 'Behavior',
     title: 'Pricing / Checkout Abandon',
-    subject: 'Any questions before you upgrade?',
+    subject: 'Did you have a question about the paid plan?',
     segment: 'Recent checkout or pricing intent, free plan',
     objective: 'Recover people who reached the buying decision but did not complete it.',
   },
   {
     day: 'Behavior',
     title: 'Mock Exam Unlock',
-    subject: 'Ready to use a mock exam as a checkpoint?',
+    subject: 'You have enough practice for a mock exam',
     segment: '20+ questions answered and no mock exam recorded',
     objective: 'Move engaged users into a high-value exam-readiness moment.',
   },
   {
     day: 'Behavior',
     title: 'Exam Date Urgency',
-    subject: 'Your exam date is close. Let the app narrow the plan.',
+    subject: 'Your exam date is getting close',
     segment: 'Projected exam date within 21 days',
     objective: 'Turn urgency into focused study, then a clear premium value decision.',
   },
   {
     day: 'Behavior',
     title: 'Inactive Free Winback',
-    subject: 'Want to restart with one short BCBA practice set?',
+    subject: 'Pick up with 5 questions where you left off',
     segment: 'Practiced before, inactive 7+ days, free plan',
     objective: 'Restart the habit before asking for paid conversion.',
   },
   {
     day: 'Feedback',
     title: 'Price Objection',
-    subject: 'If price is the question, start with the decision point',
+    subject: 'A straightforward answer about the price',
     segment: 'Clicked price hesitation feedback',
     objective: 'Answer the objection plainly without sounding defensive or salesy.',
   },
@@ -192,17 +192,19 @@ const researchBackbone = [
   'Measure dropoffs daily and adjust the next message or CTA.',
 ];
 
-const diagnosticFollowUpUrl = 'https://study.behaviorschool.com/auth?redirect=/diagnostic/bcba&utm_source=manual&utm_medium=email&utm_campaign=bst_personal_setup_rescue';
+const setupFollowUpUrl = 'https://study.behaviorschool.com/auth?redirect=/onboarding/welcome&utm_source=manual&utm_medium=email&utm_campaign=bst_personal_setup_rescue';
 
 function buildManualFollowUpBody(candidate: NurtureCandidate) {
   return [
-    "I noticed you signed up but haven't finished setup yet.",
+    "It looks like your account setup isn't finished yet.",
     '',
-    'Want me to help build your BCBA study path?',
+    'It takes about two minutes. Add your exam path, target date, and study schedule, and the app will give you a place to start.',
     '',
-    `Start here: ${diagnosticFollowUpUrl}`,
+    `Start here: ${setupFollowUpUrl}`,
     '',
-    'Rob',
+    'If you got stuck, reply and tell me where.',
+    '',
+    'Rob Spain, BCBA, IBA',
   ].join('\n');
 }
 
