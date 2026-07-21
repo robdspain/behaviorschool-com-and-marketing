@@ -1,1 +1,278 @@
-@src/app/school-bcba/SchoolBCBAContent.tsx
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Briefcase, DollarSign, GraduationCap, FileText, Users, BookOpen, ArrowRight, School, Brain, Download, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { TrustBar } from "@/components/ui/trust-bar";
+import { ScrollNav } from "@/components/ui/scroll-nav";
+import { Hero } from "@/components/ui/hero";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 60 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: "easeOut" }
+};
+
+export default function SchoolBCBAContent() {
+  return (
+    <main className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <Hero
+        eyebrow="Complete School BCBA Resource Hub"
+        title="Everything You Need to"
+        highlight="Excel as a School-Based BCBA"
+        subtitle="From getting your first school BCBA job to mastering systems-level impact—free tools, comprehensive guides, and proven frameworks."
+        primaryCta={{ href: "/iep-goals", label: "Free IEP Goals Generator" }}
+        variant="brand"
+      />
+
+      <ScrollNav
+        items={[
+          { id: "career-roadmap", label: "Career Roadmap" },
+          { id: "free-tools", label: "Free Tools" },
+          { id: "transformation", label: "Transformation" }
+        ]}
+      />
+
+      <TrustBar
+        stats={[
+          { icon: School, label: "School-Focused", subLabel: "Specifically for Education" },
+          { icon: Brain, label: "Evidence-Based", subLabel: "Science-Driven Practice" },
+          { icon: Users, label: "Community", subLabel: "Network of Professionals" },
+          { icon: Download, label: "Practical Tools", subLabel: "Classroom-Ready Resources" },
+        ]}
+      />
+
+      {/* Career Roadmap */}
+      <section id="career-roadmap" className="py-24 scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">
+              Your School BCBA Career Roadmap
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              Everything you need to know about becoming and excelling as a school-based behavior analyst.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card
+              icon={<FileText className="h-8 w-8 text-blue-600" />}
+              title="School BCBA vs School-Based BCBA"
+              desc="Understand the terminology, position your role effectively, and use language that districts actually search for."
+              href="/school-bcba/vs-school-based-bcba"
+              badge="Start Here"
+            />
+            <Card
+              icon={<Briefcase className="h-8 w-8 text-emerald-600" />}
+              title="School BCBA Job Guide"
+              desc="Complete job search strategy: roles, interview questions, resume keywords, and portfolio artifacts."
+              href="/school-bcba/job-guide"
+              badge="Popular"
+            />
+            <Card
+              icon={<FileText className="h-8 w-8 text-cyan-600" />}
+              title="School BCBA Job Description"
+              desc="Use this role breakdown to understand district expectations, daily responsibilities, and common school-based deliverables."
+              href="/school-bcba/job-description"
+            />
+            <Card
+              icon={<Users className="h-8 w-8 text-rose-600" />}
+              title="School BCBA Interview Questions"
+              desc="Prepare for school BCBA interviews with sample questions, answer themes, and district-focused talking points."
+              href="/school-bcba/interview-questions"
+            />
+            <Card
+              icon={<DollarSign className="h-8 w-8 text-green-600" />}
+              title="School BCBA Salary by State"
+              desc="Comprehensive salary data by state, cost-of-living adjustments, and negotiation strategies."
+              href="/school-bcba/salary-by-state"
+              badge="Essential"
+            />
+            <Card
+              icon={<GraduationCap className="h-8 w-8 text-purple-600" />}
+              title="How to Become a School BCBA"
+              desc="Step-by-step pathway from coursework to certification: credentials, fieldwork, and competencies."
+              href="/school-bcba/how-to-become"
+            />
+            <Card
+              icon={<BookOpen className="h-8 w-8 text-indigo-600" />}
+              title="ACT Matrix for School BCBAs"
+              desc="Values-based framework that complements ABA for deeper student engagement and motivation."
+              href="/act-matrix"
+            />
+            <Card
+              icon={<Users className="h-8 w-8 text-orange-600" />}
+              title="BCBAs in Schools"
+              desc="Comprehensive guide to the school BCBA role: challenges, solutions, and systems-level strategies."
+              href="/school-bcba"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Free Guide CTA */}
+      <section className="py-16 bg-emerald-700">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-1 text-white">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/20 text-white text-sm font-medium mb-4">
+                <Download className="w-4 h-4 mr-2" /> Free Guide
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                New to School-Based Work?
+              </h2>
+              <p className="text-emerald-100 text-lg mb-6">
+                Get our complete First 90 Days survival guide—phase-by-phase roadmap, email templates, and pro tips from experienced school BCBAs.
+              </p>
+              <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-emerald-50 font-bold">
+                <Link href="/school-bcba/first-90-days">
+                  Download Free Guide
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+            <div className="flex-shrink-0">
+              <div className="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+                <div className="text-6xl font-bold text-white mb-2">90</div>
+                <div className="text-emerald-100 text-sm uppercase tracking-wide">Day Guide</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-emerald-200 bg-emerald-50/80 p-8">
+            <p className="text-sm font-bold uppercase tracking-widest text-emerald-700">
+              From Rob Spain&apos;s field notes
+            </p>
+            <h2 className="mt-3 text-2xl font-bold text-slate-950 md:text-3xl">
+              Read the school BCBA systems articles behind these tools.
+            </h2>
+            <p className="mt-3 max-w-3xl text-slate-700 leading-relaxed">
+              BehaviorSchool gives you the tools. Robspain.com is where Rob writes about school BCBA role clarity, PBIS implementation, FBA/BIP triage, and the systems leadership model behind the Transformation Program.
+            </p>
+            <div className="mt-6 grid gap-3 md:grid-cols-2">
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/bcba-in-schools/">
+                BCBA in schools guide
+              </a>
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/blog/how-bcbas-support-pbis-without-becoming-tier-3-crisis/">
+                How BCBAs support PBIS without becoming Tier 3
+              </a>
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/blog/school-bcba-fba-bip-requests/">
+                Why FBA/BIP requests need a system
+              </a>
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/transformation-program/">
+                School BCBA Transformation Program
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Free Tools Section */}
+      <section id="free-tools" className="py-24 bg-slate-50 scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">
+              Free School BCBA Tools
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              Professional-grade tools used by school-based behavior analysts across the country.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <LMCard
+              title="IEP Behavior Goals Generator"
+              desc="Generate high-quality, measurable, SMART behavior goals aligned with state standards. Save hours on IEP writing."
+              href="/iep-goals"
+              features={["SMART goal framework", "State standards aligned", "Progress monitoring built-in"]}
+            />
+            <LMCard
+              title="Behavior Plan Writer"
+              desc="Create function-based behavior intervention plans with evidence-based strategies and implementation guides."
+              href="/behavior-plans"
+              features={["Function-based strategies", "Data collection tools", "Implementation guides"]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Transformation CTA */}
+      <section id="transformation" className="py-24 scroll-mt-24">
+        <div className="container mx-auto px-6">
+          <div className="bg-slate-900 rounded-[3rem] p-8 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -ml-48 -mt-48" />
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+                Ready to Transform Your School BCBA Practice?
+              </h2>
+              <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Join our 6-week transformation program designed specifically to help school-based behavior analysts lead with confidence.
+              </p>
+              <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white text-lg px-10 py-7 font-bold rounded-2xl shadow-xl shadow-red-900/20 transition-all transform hover:scale-105">
+                <Link href="/transformation-program">
+                  See the Program Details
+                  <ArrowRight className="ml-2 h-6 w-6" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  );
+}
+
+function Card({ icon, title, desc, href, badge }: { icon?: React.ReactNode; title: string; desc: string; href: string; badge?: string; }) {
+  return (
+    <Link href={href} className="group block relative h-full">
+      <div className="h-full rounded-3xl border border-slate-200 bg-white p-8 hover:border-emerald-400 hover:shadow-2xl transition-all duration-500">
+        {badge && (
+          <div className="absolute -top-3 right-6">
+            <span className="inline-flex items-center px-4 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 uppercase tracking-wider">
+              {badge}
+            </span>
+          </div>
+        )}
+        {icon && <div className="mb-6 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:scale-110 group-hover:bg-emerald-50 transition-all duration-500">{icon}</div>}
+        <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">{title}</h3>
+        <p className="text-slate-600 leading-relaxed mb-6">{desc}</p>
+        <div className="flex items-center text-emerald-700 font-bold group-hover:gap-2 transition-all">
+          Explore Guide <ArrowRight className="ml-1 h-5 w-5" />
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function LMCard({ title, desc, href, features }: { title: string; desc: string; href: string; features?: string[]; }) {
+  return (
+    <Link href={href} className="group block h-full">
+      <div className="h-full rounded-[2.5rem] border-2 border-emerald-100 bg-white p-10 hover:border-emerald-400 hover:shadow-2xl transition-all duration-500">
+        <h3 className="text-3xl font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">{title}</h3>
+        <p className="text-lg text-slate-600 mb-8 leading-relaxed">{desc}</p>
+        {features && (
+          <ul className="space-y-3 mb-10">
+            {features.map((feature, idx) => (
+              <li key={idx} className="flex items-center text-slate-700 font-medium">
+                <div className="bg-emerald-100 p-1 rounded-full mr-3">
+                  <Check className="h-4 w-4 text-emerald-600" />
+                </div>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="inline-flex items-center px-8 py-4 bg-emerald-600 text-white rounded-xl font-bold group-hover:bg-emerald-700 transition-all transform group-hover:scale-105">
+          Access Tool <ArrowRight className="ml-2 h-5 w-5" />
+        </div>
+      </div>
+    </Link>
+  );
+}
