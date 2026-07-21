@@ -1,6 +1,5 @@
 import { api, getConvexClient } from "@/lib/convex";
 import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from "@/lib/resend";
-import { sendEmailViaMailgun } from "@/lib/nm-mail";
 
 export const TRANSFORMATION_CALENDLY_URL =
   "https://calendly.com/robspain/behavior-school-transformation-system-phone-call";
@@ -245,24 +244,6 @@ async function sendViaResend(opts: { to: string; subject: string; html: string; 
 
 async function sendNurtureEmail(email: QueuedTransformationEmail) {
   const rendered = renderTransformationNurtureEmail(email);
-  const mailgun = await sendEmailViaMailgun({
-    to: email.email,
-    subject: rendered.subject,
-    html: rendered.html,
-    text: rendered.text,
-    from: `Rob Spain, BCBA <rob@updates.behaviorschool.com>`,
-  });
-
-  if (mailgun.ok) {
-    let id: string | undefined;
-    if (typeof mailgun.body === "string") {
-      try {
-        id = JSON.parse(mailgun.body).id;
-      } catch {}
-    }
-    return { ok: true, providerMessageId: id, provider: "mailgun" };
-  }
-
   const resend = await sendViaResend({
     to: email.email,
     subject: rendered.subject,
@@ -276,7 +257,7 @@ async function sendNurtureEmail(email: QueuedTransformationEmail) {
 
   return {
     ok: false,
-    error: `Mailgun failed (${mailgun.status}: ${String(mailgun.body)}); Resend failed (${resend.status}: ${String(resend.body)})`,
+    error: `Resend failed (${resend.status}: ${String(resend.body)})`,
   };
 }
 

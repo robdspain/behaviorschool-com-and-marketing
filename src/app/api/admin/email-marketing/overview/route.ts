@@ -71,10 +71,7 @@ export async function GET() {
   const sessionCandidates = cookieStore.getAll('bs_admin_auth');
   const authenticated = sessionCandidates.some((cookie) => isValidAdminSessionToken(cookie.value));
   if (!authenticated) {
-    return NextResponse.json({
-      error: 'Unauthorized',
-      sessionCandidates: sessionCandidates.length,
-    }, {
+    return NextResponse.json({ error: 'Unauthorized' }, {
       status: 401,
       headers: { 'Cache-Control': 'no-store, max-age=0' },
     });
@@ -158,7 +155,6 @@ export async function GET() {
     listmonk,
     providers: {
       resend: Boolean(process.env.RESEND_API_KEY),
-      mailgun: Boolean(process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN),
       listmonk: Boolean(getListmonkConfig()),
       studyNurture: Boolean(process.env.SIGNUP_NURTURE_SECRET),
     },

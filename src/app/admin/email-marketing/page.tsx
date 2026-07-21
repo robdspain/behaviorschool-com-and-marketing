@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import {
   AlertCircle,
@@ -87,6 +88,7 @@ function Metric({ label, value, detail, tone }: { label: string; value: string; 
 }
 
 export default function EmailMarketingPage() {
+  const router = useRouter();
   const [overview, setOverview] = useState<Overview | null>(null);
   const [selectedId, setSelectedId] = useState(emailProducts[0].id);
   const [loading, setLoading] = useState(true);
@@ -100,6 +102,10 @@ export default function EmailMarketingPage() {
         cache: 'no-store',
         credentials: 'same-origin',
       });
+      if (response.status === 401) {
+        router.replace('/admin/login?returnTo=/admin/email-marketing');
+        return;
+      }
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || 'Unable to load email marketing data');
       setOverview(payload);
@@ -113,7 +119,7 @@ export default function EmailMarketingPage() {
   useEffect(() => {
     document.title = 'Email Marketing | Behavior School Admin';
     loadOverview();
-  }, []);
+  }, [router]);
 
   const selected = useMemo(
     () => emailProducts.find((product) => product.id === selectedId) || emailProducts[0],
