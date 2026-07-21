@@ -62,19 +62,14 @@ export async function sendWelcomeEmail(email: string, name?: string) {
       from: RESEND_FROM_ROB,
       to: [email],
       replyTo: RESEND_REPLY_TO_ROB,
-      subject: 'Welcome to Behavior School',
+      subject: 'A quick welcome from Behavior School',
       headers: getComplianceHeaders(email),
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #059669;">Welcome to Behavior School</h2>
+          <h2 style="color: #059669;">Glad you are here</h2>
           <p>Hey${name ? ` ${name}` : ''},</p>
-          <p>Thanks for confirming your email. I will send practical school-BCBA resources, tools, and occasional program updates.</p>
-          <ul>
-            <li>Weekly evidence-based ABA strategies</li>
-            <li>Free BCBA exam prep tips</li>
-            <li>IEP goal templates and behavior tools</li>
-            <li>Community and training updates when they are relevant</li>
-          </ul>
+          <p>Thanks for confirming your email. I am Rob Spain, the school BCBA behind Behavior School.</p>
+          <p>I send practical resources for BCBA candidates and school behavior teams: study tools, FBA and BIP materials, and training updates when there is something worth sharing. I will not fill your inbox just to stay on a schedule.</p>
           <div style="background: #f0fdf4; border-left: 4px solid #059669; padding: 20px; margin: 20px 0;">
             <p style="margin: 0;"><strong>Good place to start:</strong></p>
             <p style="margin: 10px 0 0 0;">
@@ -84,8 +79,8 @@ export async function sendWelcomeEmail(email: string, name?: string) {
             </p>
           </div>
           <p style="color: #666; font-size: 14px; margin-top: 40px;">
-            Questions? Just reply to this email!<br><br>
-            - Rob Spain, M.S., BCBA, IBA<br>
+            If you are looking for something specific, reply and tell me what you are working on.<br><br>
+            Rob Spain, M.S., BCBA, IBA<br>
             Behavior School
           </p>
           ${getEmailFooter(email)}

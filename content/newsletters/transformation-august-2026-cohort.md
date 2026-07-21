@@ -1,36 +1,29 @@
 ---
 name: August 2026 School BCBA Transformation Program Announcement
-subject: August cohort now open: 12 seats for school BCBAs
-preview: Build FBA, BIP, staff training, and caseload systems in a 6-week live cohort starting August 12.
+subject: The August school BCBA cohort is open
+preview: Six weeks of practical work on FBA, BIP, staff training, and caseload systems.
 audience: Existing Behavior School tool leads and newsletter subscribers
 primary_cta: https://behaviorschool.com/transformation-program?utm_source=newsletter&utm_medium=email&utm_campaign=august_2026_cohort
-secondary_cta: https://behaviorschool.com/school-bcba-training-program?utm_source=newsletter&utm_medium=email&utm_campaign=august_2026_cohort
 ---
 
 Hi {{name | default: "there"}},
 
-The next School BCBA Transformation Program cohort is open.
+I opened the next School BCBA Transformation Program cohort. We start August 12 and I am keeping the group to 12 people.
 
-This is the 6-week live program for school BCBAs who want stronger systems for FBA intake, BIP writing, staff implementation, and caseload review.
-
-The August cohort starts August 12 and is capped at 12 participants so the work can stay practical and specific.
-
-If you are carrying a school caseload and feel like every referral turns into a custom rebuild, this cohort is built to help you turn the work into a repeatable operating system:
+This is for school BCBAs who are tired of rebuilding the process every time a referral comes in. During the six weeks, we work on:
 
 - FBA intake and triage
-- Data collection routines
-- Function-based BIP design
+- Data routines that answer an actual assessment question
+- Function-based BIPs staff can use
 - Staff training and fidelity checks
-- Weekly caseload review
-- Administrator- and IEP-team-friendly language
+- A weekly system for reviewing the caseload
 
-You can see the program details here:
+You will work on your own school process during the cohort. This is not six weeks of listening to me present slides.
+
+Program details:
 https://behaviorschool.com/transformation-program?utm_source=newsletter&utm_medium=email&utm_campaign=august_2026_cohort
 
-There is also a short overview of the school BCBA systems path here:
-https://behaviorschool.com/school-bcba-training-program?utm_source=newsletter&utm_medium=email&utm_campaign=august_2026_cohort
-
-If your district needs a W-9, invoice, or professional development description, reply to this email and I can send the paperwork.
+If you want to know whether it fits your role, reply and tell me what your caseload looks like. If your district needs a W-9, invoice, or PD description, I can send that too.
 
 Rob Spain, BCBA, IBA
 Behavior School
@@ -41,29 +34,23 @@ Behavior School
 
 <p>Hi {{name | default: "there"}},</p>
 
-<p>The next <strong>School BCBA Transformation Program</strong> cohort is open.</p>
+<p>I opened the next <strong>School BCBA Transformation Program</strong> cohort. We start August 12 and I am keeping the group to 12 people.</p>
 
-<p>This is the 6-week live program for school BCBAs who want stronger systems for FBA intake, BIP writing, staff implementation, and caseload review.</p>
-
-<p>The August cohort starts <strong>August 12</strong> and is capped at <strong>12 participants</strong> so the work can stay practical and specific.</p>
-
-<p>If you are carrying a school caseload and feel like every referral turns into a custom rebuild, this cohort is built to help you turn the work into a repeatable operating system:</p>
+<p>This is for school BCBAs who are tired of rebuilding the process every time a referral comes in. During the six weeks, we work on:</p>
 
 <ul>
   <li>FBA intake and triage</li>
-  <li>Data collection routines</li>
-  <li>Function-based BIP design</li>
+  <li>Data routines that answer an actual assessment question</li>
+  <li>Function-based BIPs staff can use</li>
   <li>Staff training and fidelity checks</li>
-  <li>Weekly caseload review</li>
-  <li>Administrator- and IEP-team-friendly language</li>
+  <li>A weekly system for reviewing the caseload</li>
 </ul>
 
-<p><a href="https://behaviorschool.com/transformation-program?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=august_2026_cohort"><strong>See the August cohort details</strong></a></p>
+<p>You will work on your own school process during the cohort. This is not six weeks of listening to me present slides.</p>
 
-<p>You can also review the school BCBA systems path here:<br>
-<a href="https://behaviorschool.com/school-bcba-training-program?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=august_2026_cohort">School BCBA training program overview</a></p>
+<p><a href="https://behaviorschool.com/transformation-program?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=august_2026_cohort"><strong>Read the program details</strong></a></p>
 
-<p>If your district needs a W-9, invoice, or professional development description, reply to this email and I can send the paperwork.</p>
+<p>If you want to know whether it fits your role, reply and tell me what your caseload looks like. If your district needs a W-9, invoice, or PD description, I can send that too.</p>
 
 <p>Rob Spain, BCBA, IBA<br>
 Behavior School</p>

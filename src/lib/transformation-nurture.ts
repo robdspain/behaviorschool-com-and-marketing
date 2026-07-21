@@ -62,6 +62,7 @@ function wrapEmail(opts: { title: string; bodyText: string; buttonHref?: string;
   return `<!DOCTYPE html>
 <html>
 <body style="margin:0;padding:0;background:#f8fafc;font-family:Arial,sans-serif;">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${escapeHtml(opts.title)}</div>
   <table role="presentation" style="width:100%;border-collapse:collapse;">
     <tr>
       <td align="center" style="padding:32px 16px;">
@@ -69,7 +70,6 @@ function wrapEmail(opts: { title: string; bodyText: string; buttonHref?: string;
           <tr>
             <td style="padding:32px;">
               <p style="margin:0 0 10px;color:#1f4d3f;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;">Behavior School</p>
-              <h1 style="margin:0 0 20px;color:#0f172a;font-size:24px;line-height:1.25;">${escapeHtml(opts.title)}</h1>
               ${textToHtml(opts.bodyText)}
               ${button}
               <p style="margin:28px 0 0;font-size:16px;line-height:1.6;color:#334155;">Rob Spain, BCBA, IBA<br>Behavior School</p>
@@ -91,20 +91,22 @@ export function renderTransformationNurtureEmail(email: QueuedTransformationEmai
     case 0: {
       const bodyText = `Hi ${name},
 
-Here is the district approval packet for the School BCBA Transformation Program:
+I put the district packet here:
 ${TRANSFORMATION_PACKET_URL}
 
-The fastest next step is to get a short fit call on the calendar. We can talk through your setting, whether the August cohort is a fit, and what your district needs for approval.
+It includes the program overview, learning objectives, schedule, and the information a district usually asks for.
+
+If you are trying to decide whether the cohort fits your job, book a short call. I will ask about your caseload and tell you plainly whether I think the program makes sense for you.
 
 Book a time here:
 ${TRANSFORMATION_CALENDLY_URL}
 
-If your district needs a W-9, invoice language, or a purchase-order path, reply here and I will help.`;
+If your business office needs a W-9, invoice language, or a purchase-order path, reply to this email. I will help you get it to the right person.`;
       return {
         subject: email.subject,
         text: bodyText,
         html: wrapEmail({
-          title: "Your district packet and next step",
+          title: "Here is the district packet you asked for",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
@@ -114,18 +116,18 @@ If your district needs a W-9, invoice language, or a purchase-order path, reply 
     case 1: {
       const bodyText = `Hi ${name},
 
-Most school BCBAs I talk with are not struggling because they lack skill. They are carrying work that was never designed as a system.
+One thing I have learned in school systems: the BCBA often becomes the person who catches everything nobody else owns.
 
-The pattern is familiar: referrals arrive with uneven data, FBAs get rushed by timelines, BIPs have to be usable by people who were not in the assessment, and the BCBA becomes the person holding every loose thread.
+The referral comes in with thin data. The FBA clock is already running. The plan has to make sense to staff who were not part of the assessment. Then the BCBA is expected to keep the whole thing moving.
 
-That is the problem the Transformation Program is built around. Not more theory for its own sake. A repeatable way to move from referral to assessment decision, from hypothesis to BIP, and from written plan to staff implementation.
+That is the work we address in the Transformation Program. We build a repeatable process from referral to assessment, from hypothesis to BIP, and from the written plan to what staff actually do.
 
-If that is the work you are trying to clean up this year, grab a call time and we can see if the August cohort fits your role.`;
+If this is the part of your job that keeps spilling into nights and weekends, book a call and tell me what is happening in your setting.`;
       return {
         subject: email.subject,
         text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
         html: wrapEmail({
-          title: "The workload problem is not a personal failure",
+          title: "The part of school BCBA work nobody owns",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Talk through the fit",
@@ -135,24 +137,24 @@ If that is the work you are trying to clean up this year, grab a call time and w
     case 2: {
       const bodyText = `Hi ${name},
 
-Here is what changes during the 6-week cohort:
+Here is what we actually work on during the six weeks:
 
-You build a clearer intake and triage process so every referral does not become a full rebuild.
+- A cleaner intake and triage process, so every referral does not start from zero.
 
-You practice testing a functional hypothesis before jumping to a BIP.
+- How to test a functional hypothesis before jumping to a BIP.
 
-You study school-relevant functional-analysis formats and the safeguards around using them responsibly.
+- School-appropriate functional analysis options and the safeguards that go with them.
 
-You connect assessment evidence to intervention components staff can actually implement.
+- How to connect assessment results to a plan staff can use on a regular school day.
 
-You leave with routines for staff training, fidelity checks, progress review, and caseload management.
+- Practical routines for staff training, fidelity checks, progress review, and caseload management.
 
-If you want to talk through whether this matches your current caseload, book a fit call here.`;
+This is working time, not six weeks of slides. If you want to compare it with your current caseload, book a call and we can talk it through.`;
       return {
         subject: email.subject,
         text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
         html: wrapEmail({
-          title: "What changes during the 6-week program",
+          title: "What we actually work on for six weeks",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
@@ -162,21 +164,21 @@ If you want to talk through whether this matches your current caseload, book a f
     case 3: {
       const bodyText = `Hi ${name},
 
-Quick district approval reminder.
+If the district packet is sitting in your downloads folder, I can help you move it forward.
 
-If you are asking your district to cover the August cohort, the packet includes the program description, six-week curriculum, learning objectives, district billing language, invoice template, and W-9 request instructions.
+The packet includes the program description, curriculum, learning objectives, billing language, invoice template, and W-9 instructions.
 
 Packet:
 ${TRANSFORMATION_PACKET_URL}
 
-The cleanest approval ask is usually: "I want to attend this 6-week school BCBA professional-development cohort because it directly addresses FBA quality, BIP implementation, staff training, and caseload systems."
+Here is a straightforward approval request you can use: "I would like to attend this six-week professional development cohort because it directly addresses FBA quality, BIP implementation, staff training, and caseload systems in schools."
 
-If you want me to help with exact wording for your director or business office, reply with the name of your district and what they require.`;
+If your director or business office needs different wording, reply with what they asked for. I will help you write it.`;
       return {
         subject: email.subject,
         text: bodyText,
         html: wrapEmail({
-          title: "A quick district approval reminder",
+          title: "Need help getting district approval?",
           bodyText,
           buttonHref: TRANSFORMATION_PACKET_URL,
           buttonLabel: "Open the district packet",
@@ -186,21 +188,21 @@ If you want me to help with exact wording for your director or business office, 
     default: {
       const bodyText = `Hi ${name},
 
-Last note from me for now.
+I do not want to keep filling your inbox, so this is my last note about the August cohort.
 
-If the School BCBA Transformation Program is potentially useful, the next step is a short call. I want to understand your setting before pointing you toward enrollment.
+If the program might help, book a short call. I want to hear about your setting before I tell you to enroll.
 
-The August cohort is small by design, so I would rather have a real conversation than push you through a generic checkout page.
+If it is not a fit, I will tell you. If there is a free resource that fits better, I will point you there.
 
 Book a time here:
 ${TRANSFORMATION_CALENDLY_URL}
 
-If now is not the right time, no problem. You can reply and tell me what you are working on, and I will point you to the best free resource instead.`;
+If now is not the right time, you do not need to do anything. I will stop following up about this cohort.`;
       return {
         subject: email.subject,
         text: bodyText,
         html: wrapEmail({
-          title: "Want to talk through the August cohort?",
+          title: "Should we talk about the August cohort?",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",

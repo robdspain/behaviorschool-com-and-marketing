@@ -25,11 +25,11 @@ const TRANSFORMATION_TAGS = [
 ];
 
 export const sequenceSteps = [
-  { step: 0, delayDays: 0, subject: "Your district packet and next step" },
-  { step: 1, delayDays: 1, subject: "The school BCBA workload problem is not a personal failure" },
-  { step: 2, delayDays: 3, subject: "What changes during the 6-week Transformation Program" },
-  { step: 3, delayDays: 5, subject: "A quick district approval reminder" },
-  { step: 4, delayDays: 7, subject: "Want to talk through the August cohort?" },
+  { step: 0, delayDays: 0, subject: "Here is the district packet you asked for" },
+  { step: 1, delayDays: 1, subject: "The part of school BCBA work nobody owns" },
+  { step: 2, delayDays: 3, subject: "What we actually work on for six weeks" },
+  { step: 3, delayDays: 5, subject: "Need help getting district approval?" },
+  { step: 4, delayDays: 7, subject: "Should we talk about the August cohort?" },
 ] as const;
 
 function nowIso() {

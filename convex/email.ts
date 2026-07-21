@@ -6,26 +6,23 @@ const PAYMENT_TEMPLATE_NAME = "transformation_payment_link";
 const DEFAULT_PAYMENT_TEMPLATE = {
   name: PAYMENT_TEMPLATE_NAME,
   description: "Sent manually after a discovery call to provide checkout access",
-  subject: "Your payment link for the School BCBA Transformation Program",
+  subject: "Here is your Transformation Program payment link",
   category: "payment",
   sendDelayMinutes: 0,
   isActive: true,
   archived: false,
   bodyText: `Hi \${firstName},
 
-Thank you for taking the time to speak with us about the School BCBA Transformation Program.
+Thanks for talking with me about the School BCBA Transformation Program.
 
-You can access the payment page here:
+Here is the payment page we discussed:
 https://behaviorschool.com/transformation-program/checkout
 
 Your access credentials:
 - Email: \${email}
 - Password: \${password}
 
-Next steps:
-- Open the payment page
-- Enter your email and password when prompted
-- Complete your secure payment through Stripe
+Open the page, enter the email and password above, and complete the Stripe checkout.
 
 If anything does not work at checkout, reply to this email and I will help.
 
@@ -40,10 +37,10 @@ Behavior School`,
         <table role="presentation" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;border:1px solid #e2e8f0;">
           <tr>
             <td style="padding:32px;">
-              <h1 style="margin:0 0 20px;color:#0f172a;font-size:24px;">School BCBA Transformation Program</h1>
+              <p style="margin:0 0 20px;color:#1f4d3f;font-size:13px;font-weight:700;">Behavior School</p>
               <p style="margin:0 0 16px;font-size:16px;line-height:1.6;">Hi \${firstName},</p>
-              <p style="margin:0 0 16px;font-size:16px;line-height:1.6;">Thank you for taking the time to speak with us about the School BCBA Transformation Program.</p>
-              <p style="margin:0 0 24px;font-size:16px;line-height:1.6;">You can access the payment page here:</p>
+              <p style="margin:0 0 16px;font-size:16px;line-height:1.6;">Thanks for talking with me about the School BCBA Transformation Program.</p>
+              <p style="margin:0 0 24px;font-size:16px;line-height:1.6;">Here is the payment page we discussed:</p>
               <p style="margin:0 0 24px;">
                 <a href="https://behaviorschool.com/transformation-program/checkout" style="display:inline-block;background:#059669;color:#ffffff;text-decoration:none;padding:14px 22px;border-radius:8px;font-weight:700;">Open payment page</a>
               </p>
@@ -81,7 +78,16 @@ async function getTemplateByNameInternal(ctx: any, name: string) {
 
 async function ensurePaymentTemplate(ctx: any) {
   const existing = await getTemplateByNameInternal(ctx, PAYMENT_TEMPLATE_NAME);
-  if (existing) return existing;
+  if (existing) {
+    if (existing.subject === "Your payment link for the School BCBA Transformation Program") {
+      await ctx.db.patch(existing._id, {
+        ...DEFAULT_PAYMENT_TEMPLATE,
+        updatedAt: nowIso(),
+      });
+      return ctx.db.get(existing._id);
+    }
+    return existing;
+  }
 
   const timestamp = nowIso();
   const id = await ctx.db.insert("emailTemplates", {
