@@ -141,7 +141,7 @@ export async function GET(request: NextRequest) {
       maxAge: ADMIN_SESSION_MAX_AGE,
       path: '/',
     })
-    console.info('[admin-auth] OAuth callback prepared session cookie', {
+    console.error('[admin-auth-diagnostic] OAuth callback prepared session cookie', {
       sessionCookieSet: Boolean(response.cookies.get(SESSION_COOKIE)?.value),
       destination: returnTo,
     })

@@ -20,7 +20,7 @@ export async function GET() {
   const cookieStore = await cookies();
   const tokens = cookieStore.getAll(COOKIE_NAME).map((cookie) => cookie.value);
   const authenticated = tokens.some((token) => isValidAdminSessionToken(token));
-  console.info('[admin-auth] session validation', {
+  console.error('[admin-auth-diagnostic] session validation', {
     authenticated,
     candidateCount: tokens.length,
     tokenPartCounts: tokens.map((token) => token.split('.').length),
