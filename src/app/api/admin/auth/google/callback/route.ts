@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { serialize } from 'cookie'
-import { ADMIN_SESSION_MAX_AGE, makeAdminSessionToken } from '@/lib/adminSession'
+import { makeAdminHandoffToken } from '@/lib/adminSession'
 
 export const dynamic = 'force-dynamic'
 
-const SESSION_COOKIE = 'bs_admin_session'
 const STATE_COOKIE = 'bs_admin_oauth_state'
 const RETURN_TO_COOKIE = 'bs_admin_oauth_return_to'
 
@@ -111,48 +109,10 @@ export async function GET(request: NextRequest) {
     }
 
     const returnTo = safeReturnTo(request.cookies.get(RETURN_TO_COOKIE)?.value)
-    const destination = new URL(returnTo, oauthBaseUrl(request)).toString()
-    const destinationJson = JSON.stringify(destination).replace(/</g, '\\u003c')
-    const response = new NextResponse(
-      `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="robots" content="noindex,nofollow">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Admin sign-in complete</title>
-  </head>
-  <body>
-    <p>Sign-in complete. Opening the Behavior School admin...</p>
-    <p><a href=${destinationJson}>Continue to the admin</a></p>
-    <script>window.setTimeout(function () { window.location.replace(${destinationJson}) }, 1000)</script>
-  </body>
-</html>`,
-      {
-        status: 200,
-        headers: {
-          'Cache-Control': 'no-store, max-age=0',
-          'Content-Type': 'text/html; charset=utf-8',
-        },
-      },
-    )
-    const sessionToken = makeAdminSessionToken()
-    response.headers.append('Set-Cookie', serialize(SESSION_COOKIE, sessionToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: ADMIN_SESSION_MAX_AGE,
-      path: '/',
-    }))
-    console.error('[admin-auth-diagnostic] OAuth callback prepared session cookie', {
-      sessionCookieSet: true,
-      destination: returnTo,
-    })
-
-    // Netlify's Next.js adapter was dropping this cookie on a redirect response.
-    // A normal HTML response commits the cookie before navigating to the admin.
-    // The short-lived OAuth state cookies expire naturally.
-    return response
+    const completionUrl = new URL('/api/admin/auth/google/complete', oauthBaseUrl(request))
+    completionUrl.searchParams.set('handoff', makeAdminHandoffToken())
+    completionUrl.searchParams.set('returnTo', returnTo)
+    return NextResponse.redirect(completionUrl, 303)
   } catch (error) {
     const message = error instanceof Error ? error.message : 'google_login_failed'
     return loginRedirect(request, message || 'google_login_failed')
