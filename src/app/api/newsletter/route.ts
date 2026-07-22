@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
       { 
         message: result.message,
         isNew: result.isNew ?? true,
+        status: result.status,
       },
       { status: 200 }
     );

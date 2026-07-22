@@ -37,7 +37,7 @@ export async function subscribeToNewsletter(input: ConvexNewsletterInput) {
         name: input.name || undefined,
         source: input.source || 'behaviorschool.com',
         tags: input.tags || ['newsletter'],
-        status: input.status || 'subscribed',
+        status: input.status || 'pending',
         metadata: {
           page: input.page,
           site: 'behaviorschool.com',
@@ -61,11 +61,11 @@ export async function subscribeToNewsletter(input: ConvexNewsletterInput) {
   return {
     success: true,
     isNew: data?.value?.isNew ?? true,
-    status: data?.value?.status || input.status || 'subscribed',
+    status: data?.value?.status || input.status || 'pending',
     message:
-      data?.value?.isNew === false
+      data?.value?.status === 'subscribed'
         ? 'You are already subscribed.'
-        : 'Thanks for subscribing!',
+        : 'Check your inbox to confirm your subscription. We will send the latest issue as soon as you confirm.',
   };
 }
 

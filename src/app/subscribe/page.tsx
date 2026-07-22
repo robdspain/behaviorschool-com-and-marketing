@@ -113,7 +113,7 @@ export default function SubscribePage() {
         pageSource="/subscribe"
         showNameField={true}
         buttonText="Subscribe Now"
-        successMessage="Welcome aboard! You'll be the first to know about our latest updates."
+        successMessage="Check your inbox to confirm. We'll send the latest School BCBA Systems Letter as soon as you confirm."
       />
     </div>
   )

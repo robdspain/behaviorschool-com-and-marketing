@@ -12,12 +12,12 @@ export async function POST(request: NextRequest) {
       source: body.source || 'blog',
       page: body.page,
       tags: ['blog-signup'],
-      sendWelcome: true,
     });
 
     return NextResponse.json({
       message: result.message,
       isNew: result.isNew ?? true,
+      status: result.status,
     });
   } catch (error) {
     console.error('Newsletter API error:', error);

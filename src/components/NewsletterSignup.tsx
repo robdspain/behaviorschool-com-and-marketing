@@ -21,14 +21,13 @@ export function NewsletterSignup() {
 
       if (response.ok) {
         setStatus('success');
-        setMessage('You are in. Watch for the next Behavior School newsletter.');
+        setMessage("Check your inbox to confirm. We'll send the latest issue as soon as you confirm.");
         setEmail('');
       } else {
-        // Fallback: still show success to user, log for later
+        // Do not claim a subscription succeeded when the CRM request failed.
         console.warn('Newsletter API returned error, storing locally');
-        setStatus('success');
-        setMessage('You are in. Watch for the next Behavior School newsletter.');
-        setEmail('');
+        setStatus('error');
+        setMessage('We could not start your subscription. Please try again.');
       }
     } catch (error) {
       setStatus('error');
