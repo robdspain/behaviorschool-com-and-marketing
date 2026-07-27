@@ -115,9 +115,9 @@ const sequenceEmails = [
   {
     day: 'Day 1',
     title: 'Baseline Diagnostic',
-    subject: 'Your setup is done. Take the short diagnostic next.',
+    subject: 'Your setup is done. Start your 10-question diagnostic.',
     segment: 'Setup completed, no diagnostic or practice attempt',
-    objective: 'Turn setup into a personalized weak-area result and next study block.',
+    objective: 'Move completed setup into the 10-question diagnostic and a clear next study block.',
   },
   {
     day: 'Day 1',
