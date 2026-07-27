@@ -222,7 +222,7 @@ export default function BehaviorStudyToolsAdminPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/.netlify/functions/behavior-study-tools-lifecycle?windowDays=${days}`);
+      const response = await fetch(`/api/admin/behavior-study-tools/lifecycle?windowDays=${days}`);
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || 'Unable to load lifecycle data');
       setSummary(payload);
@@ -289,7 +289,7 @@ export default function BehaviorStudyToolsAdminPage() {
     setError(null);
     setActionResult(null);
     try {
-      const response = await fetch('/.netlify/functions/behavior-study-tools-lifecycle', {
+      const response = await fetch('/api/admin/behavior-study-tools/lifecycle', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
