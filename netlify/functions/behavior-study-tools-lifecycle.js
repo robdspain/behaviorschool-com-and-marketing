@@ -25,7 +25,9 @@ function parseCookies(header = '') {
     if (index === -1) return cookies;
     const key = part.slice(0, index).trim();
     const value = part.slice(index + 1).trim();
-    if (key) cookies[key] = decodeURIComponent(value);
+    if (key) {
+      cookies[key] = [...(cookies[key] || []), decodeURIComponent(value)];
+    }
     return cookies;
   }, {});
 }
@@ -64,7 +66,8 @@ function isValidToken(token) {
 
 exports.handler = async (event) => {
   const cookies = parseCookies(event.headers.cookie || event.headers.Cookie || '');
-  if (!isValidToken(cookies[COOKIE_NAME])) {
+  const adminTokens = cookies[COOKIE_NAME] || [];
+  if (!adminTokens.some(isValidToken)) {
     return json(401, { error: 'Admin authentication required' });
   }
 
