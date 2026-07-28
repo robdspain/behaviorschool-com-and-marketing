@@ -23,9 +23,9 @@ export function BCBAStudyToolsClient() {
   const studyTools = [
     {
       title: "Free BCBA Practice Tests",
-      description: "185-question practice exams with instant scoring and detailed explanations",
-      features: ["4-hour simulation", "Instant feedback", "Performance analytics", "100% FREE"],
-      link: "https://study.behaviorschool.com?source=behaviorschool&page=bcba-study-tools&cta=practice-tests",
+      description: "Practice questions and timed exam simulations with scoring and answer rationales",
+      features: ["Timed practice", "Answer rationales", "Performance analytics", "Free starter set"],
+      link: "https://study.behaviorschool.com/quiz/guest?limit=10&utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=practice_tests",
       external: true,
       icon: Target,
       color: "emerald",
@@ -142,7 +142,7 @@ export function BCBAStudyToolsClient() {
             <motion.div variants={fadeInUp} className="mb-8">
               <span className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-semibold rounded-full shadow-lg">
                 <Target className="w-4 h-4 mr-2" />
-                Complete BCBA Study Ecosystem
+                6th Edition BCBA Exam Prep
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full blur opacity-50 -z-10"></div>
               </span>
             </motion.div>
@@ -151,14 +151,14 @@ export function BCBAStudyToolsClient() {
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight"
             >
-              BCBA Study Tools & <span className="bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">Exam Mastery</span>
+              BCBA Study Tools for <span className="bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">Smarter Exam Prep</span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
               className="text-xl text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto"
             >
-              Professional-grade study ecosystem designed by practicing BCBAs. Comprehensive practice tests, adaptive learning technology, and performance analytics to maximize your exam success.
+              Practice questions, mock exams, flashcards, pacing tools, and progress analytics designed to help you find weak areas and choose what to study next.
             </motion.p>
 
             {/* Stats Bar for Credibility */}
@@ -167,20 +167,20 @@ export function BCBAStudyToolsClient() {
               className="flex flex-wrap justify-center gap-8 mb-10 p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50"
             >
               <div className="text-center">
-                <div className="text-2xl font-bold text-emerald-600">185+</div>
-                <div className="text-sm text-slate-600">Practice Questions</div>
+                <div className="text-2xl font-bold text-emerald-600">10</div>
+                <div className="text-sm text-slate-600">Questions Free</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-emerald-600">4-Hour</div>
-                <div className="text-sm text-slate-600">Exam Simulation</div>
+                <div className="text-2xl font-bold text-emerald-600">9</div>
+                <div className="text-sm text-slate-600">TCO Domains</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-emerald-600">Real-Time</div>
-                <div className="text-sm text-slate-600">Analytics</div>
+                <div className="text-2xl font-bold text-emerald-600">Timed</div>
+                <div className="text-sm text-slate-600">Mock Exams</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-emerald-600">100%</div>
-                <div className="text-sm text-slate-600">Free Access</div>
+                <div className="text-2xl font-bold text-emerald-600">Domain</div>
+                <div className="text-sm text-slate-600">Progress Tracking</div>
               </div>
             </motion.div>
 
@@ -189,10 +189,10 @@ export function BCBAStudyToolsClient() {
               className="flex justify-center"
             >
               <Link
-                href="/free-bcba-mock-exam"
+                href="https://study.behaviorschool.com/quiz/guest?limit=10&utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=hero"
                 className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
               >
-                Start Free Mock Exam
+                Try 10 Free Questions
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </motion.div>
@@ -204,9 +204,9 @@ export function BCBAStudyToolsClient() {
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              FREE BCBA Study Tools
-            </h1>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+              Choose Your BCBA Study Tools
+            </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               From basic practice to advanced analytics, we have everything you need to succeed on your BCBA exam.
             </p>
@@ -374,10 +374,10 @@ export function BCBAStudyToolsClient() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 text-sm font-semibold rounded-full mb-4">
               <Star className="w-4 h-4 mr-2" />
-              100% Free Access
+              Free BCBA Study Materials
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Professional <span className="text-emerald-600">BCBA Resources</span>
+              6th Edition <span className="text-emerald-600">BCBA Resources</span>
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Start your BCBA journey with our professionally-developed tools and resources.
@@ -435,7 +435,7 @@ export function BCBAStudyToolsClient() {
                 What BCBA study tools are included in the complete toolkit?
               </h3>
               <p className="text-slate-600 mb-4">
-                Our comprehensive BCBA study toolkit includes unlimited practice questions, domain mini-exams, full-length mock tests, performance analytics, study guides, and interactive learning tools. All resources are designed specifically for the BCBA exam format and content areas.
+                The toolkit combines practice questions, domain mini-exams, timed mock tests, performance analytics, study guides, and interactive review tools. The BCBA pathway is organized around the current 6th Edition Test Content Outline.
               </p>
               <p className="text-slate-600">
                 You can start with our <Link href="/free-bcba-mock-exam" className="text-emerald-600 hover:text-emerald-700 underline font-medium">free BCBA mock exam</Link> to experience the quality of our resources.
@@ -447,7 +447,7 @@ export function BCBAStudyToolsClient() {
                 How do I access the interactive study platform?
               </h3>
               <p className="text-slate-600 mb-4">
-                The interactive study platform is available at study.behaviorschool.com with both free and premium access options. You can start immediately with free practice questions and upgrade for unlimited access to all study tools and analytics.
+                The interactive study platform is available at study.behaviorschool.com with free and paid access options. You can try ten questions without an account, then create a profile if you want to save progress and use expanded study features.
               </p>
               <p className="text-slate-600">
                 The platform includes domain-specific practice, progress tracking, and personalized study recommendations based on your performance.
@@ -471,7 +471,7 @@ export function BCBAStudyToolsClient() {
                 What makes these study tools different from other BCBA prep resources?
               </h3>
               <p className="text-slate-600 mb-4">
-                Our tools combine evidence-based learning methods with AI-powered question generation, ensuring you never see repeated content. The platform provides detailed analytics to identify knowledge gaps and personalized study recommendations.
+                The platform combines active recall, answer-rationale review, timed practice, and domain-level progress tracking. Questions marked for revision are excluded from delivery, and candidates can report unclear items for review.
               </p>
               <p className="text-slate-600">
                 All content is created by practicing BCBAs and regularly updated to reflect current exam standards and best practices in behavior analysis.
@@ -546,16 +546,16 @@ export function BCBAStudyToolsClient() {
       <section className="py-16 lg:py-24 bg-gradient-to-r from-emerald-600 to-emerald-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to Pass Your BCBA Exam?
+            Ready to Find Your Next Study Target?
           </h2>
           <p className="text-xl text-emerald-100 mb-8">
-            Access unlimited AI-powered practice questions, adaptive learning, and detailed explanations to master the BACB exam.
+            Start with ten questions, review the rationales, and use your results to decide which domain needs attention next.
           </p>
           <Link
-            href="https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page"
+            href="https://study.behaviorschool.com/quiz/guest?limit=10&utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=footer"
             className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 rounded-xl hover:bg-slate-50 transition-colors group"
           >
-            Access Full Study Platform
+            Try 10 Free Questions
             <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
