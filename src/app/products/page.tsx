@@ -4,17 +4,21 @@ import Link from "next/link";
 import {
   ArrowDown,
   ArrowRight,
+  BarChart3,
   BookOpenCheck,
+  CalendarDays,
+  Clock3,
   ClipboardCheck,
   GraduationCap,
   Layers3,
+  Target,
   UsersRound,
 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "The BehaviorSchool Suite | School-Based Behavior Practice",
   description:
-    "Explore BehaviorSchool exam prep, SchoolRBT, professional development, and upcoming planning and supervision tools for school-based behavior professionals.",
+    "Explore Behavior Study Tools for BCBA exam prep, SchoolRBT, professional development, and upcoming planning and supervision tools from BehaviorSchool.",
 };
 
 const availableProducts = [
@@ -24,12 +28,12 @@ const availableProducts = [
     name: "Behavior Study Tools",
     audience: "For BCBA candidates",
     description:
-      "Begin with a working 10-question diagnostic, then use focused practice to identify what to study next.",
-    details: ["BCBA diagnostic", "Exam-focused practice", "Review by content area"],
-    href: "https://study.behaviorschool.com/diagnostic/bcba",
-    cta: "Start the BCBA diagnostic",
-    image: "/product-suite/bcba-diagnostic.png",
-    imageAlt: "Behavior Study Tools BCBA diagnostic screen",
+      "Move from a free 10-question set into focused practice, timed mock exams, a personalized pacing guide, and domain-level progress tracking.",
+    details: ["Exam-style practice", "Timed mock exams", "Personalized study plan"],
+    href: "https://study.behaviorschool.com/",
+    cta: "Try 10 free BCBA questions",
+    image: "/product-suite/behavior-study-tools-dashboard.png",
+    imageAlt: "Behavior Study Tools iPhone dashboard with streak, mastery, daily goal, and recommended next practice",
     icon: GraduationCap,
     tone: "light",
   },
@@ -66,6 +70,34 @@ const availableProducts = [
     imageAlt: "BehaviorSchool Transformation Program page",
     icon: UsersRound,
     tone: "gold",
+  },
+] as const;
+
+const studyToolHighlights = [
+  {
+    title: "Focused practice",
+    description: "Answer exam-style questions with instant scoring and clear explanations.",
+    icon: BookOpenCheck,
+  },
+  {
+    title: "Full mock exams",
+    description: "Practice timing, pacing, question flags, and review in one exam flow.",
+    icon: Clock3,
+  },
+  {
+    title: "Personal pacing guide",
+    description: "Turn an exam date and weaker domains into daily study targets.",
+    icon: CalendarDays,
+  },
+  {
+    title: "Domain analytics",
+    description: "See accuracy, pace, improvement, and mastery by content area.",
+    icon: BarChart3,
+  },
+  {
+    title: "A clear next action",
+    description: "Use the dashboard recommendation to start the highest-value next set.",
+    icon: Target,
   },
 ] as const;
 
@@ -135,19 +167,14 @@ export default function ProductsPage() {
           </div>
 
           <div className="relative hidden min-h-[470px] lg:block" aria-label="BehaviorSchool product previews">
-            <div className="absolute left-0 top-0 w-[82%] overflow-hidden border border-white/20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.28)]">
-              <div className="flex h-8 items-center gap-1.5 border-b border-black/10 bg-[#f4f2ec] px-3">
-                <span className="h-2 w-2 rounded-full bg-[#d56b5c]" />
-                <span className="h-2 w-2 rounded-full bg-[#dab340]" />
-                <span className="h-2 w-2 rounded-full bg-[#4d9b71]" />
-              </div>
+            <div className="absolute left-[8%] top-0 w-[42%] overflow-hidden border border-white/20 bg-[#0d2b23] p-2 shadow-[0_30px_80px_rgba(0,0,0,0.28)]">
               <Image
-                src="/product-suite/bcba-diagnostic.png"
-                alt="Behavior Study Tools diagnostic preview"
-                width={1280}
-                height={800}
+                src="/product-suite/behavior-study-tools-dashboard.png"
+                alt="Behavior Study Tools iPhone dashboard preview"
+                width={1290}
+                height={2796}
                 priority
-                className="aspect-[16/10] w-full object-cover object-top"
+                className="max-h-[465px] w-auto object-contain"
               />
             </div>
             <div className="absolute bottom-0 right-0 w-[62%] overflow-hidden border border-white/20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.34)]">
@@ -181,6 +208,42 @@ export default function ProductsPage() {
             <span className="inline-flex items-center gap-2 text-[#8a6820]">
               <span className="h-2 w-2 rounded-full bg-[#d5a82c]" /> Coming soon
             </span>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[#173f33]/15 bg-[#f8f7f3]" aria-labelledby="study-tools-highlights">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
+          <div className="grid gap-5 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8b6c1f]">
+                Behavior Study Tools
+              </p>
+              <h2 id="study-tools-highlights" className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
+                Five tools that keep BCBA prep moving.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-7 text-[#51645d] lg:justify-self-end">
+              The current app connects practice, planning, and progress so candidates can spend less time deciding what to study next.
+            </p>
+          </div>
+          <div className="mt-10 grid border-y border-[#173f33]/20 sm:grid-cols-2 lg:grid-cols-5">
+            {studyToolHighlights.map((highlight, index) => {
+              const Icon = highlight.icon;
+              return (
+                <article
+                  key={highlight.title}
+                  className="border-b border-[#173f33]/15 px-0 py-6 sm:px-5 lg:border-b-0 lg:border-r last:lg:border-r-0"
+                >
+                  <div className="flex items-center justify-between text-[#1f6b50]">
+                    <Icon aria-hidden="true" size={20} strokeWidth={1.8} />
+                    <span className="font-mono text-xs text-[#8b6c1f]">0{index + 1}</span>
+                  </div>
+                  <h3 className="mt-5 text-lg font-semibold">{highlight.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#51645d]">{highlight.description}</p>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -259,13 +322,15 @@ export default function ProductsPage() {
                         Live product view
                       </span>
                     </div>
-                    <Image
-                      src={product.image}
-                      alt={product.imageAlt}
-                      width={1280}
-                      height={800}
-                      className="aspect-[16/10] w-full object-cover object-top"
-                    />
+                    <div className={product.number === "01" ? "flex justify-center bg-[#0d2b23] p-5 sm:p-8" : ""}>
+                      <Image
+                        src={product.image}
+                        alt={product.imageAlt}
+                        width={product.number === "01" ? 1290 : 1280}
+                        height={product.number === "01" ? 2796 : 800}
+                        className={product.number === "01" ? "h-auto max-h-[680px] w-auto object-contain" : "aspect-[16/10] w-full object-cover object-top"}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
