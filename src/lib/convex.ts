@@ -30,11 +30,16 @@ if (!CONVEX_URL) {
 /** Minimal HTTP client matching the ConvexHttpClient interface used by ACE routes */
 export function getConvexClient() {
   return {
-    query: async (fn: string, args?: Record<string, unknown>) => {
+    query: async (
+      fn: string,
+      args?: Record<string, unknown>,
+      options?: { signal?: AbortSignal },
+    ) => {
       const res = await fetch(`${CONVEX_URL}/api/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ path: fn, args: args ?? {}, format: "json" }),
+        signal: options?.signal,
       });
       if (!res.ok) throw new Error(`Convex query failed: ${res.statusText}`);
       const data = await res.json();
@@ -60,7 +65,6 @@ export function getConvexClient() {
 }
 
 // Generic api path builder — routes use string paths e.g. api.ace.getEvent
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const api: Record<string, any> = new Proxy({}, {
   get(_, module: string) {
     return new Proxy({}, {

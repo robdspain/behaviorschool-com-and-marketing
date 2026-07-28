@@ -38,7 +38,7 @@ type BcbaSeoLandingProps = {
   relatedLinks?: RelatedLink[];
 };
 
-const DEFAULT_APP_HREF = behaviorStudyToolsAppHref("/onboarding/bcba", {
+const DEFAULT_APP_HREF = behaviorStudyToolsAppHref("/free-practice/", {
   intent: "seo_page_start",
   utm_content: "seo_landing_primary_cta",
 });

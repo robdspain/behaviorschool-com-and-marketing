@@ -14,7 +14,7 @@ export const metadata: Metadata = buildPageMetadata({
   type: "article",
 });
 
-const appPracticeHref = behaviorStudyToolsAppHref("/onboarding/bcba", {
+const appPracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
   intent: "sixth_edition_practice_questions",
   utm_content: "bcba_6th_edition_practice_questions",
 });

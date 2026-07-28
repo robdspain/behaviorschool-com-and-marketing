@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { api, getConvexClient } from "@/lib/convex";
+import { api, getConvexClient, getConvexUrl } from "@/lib/convex";
 
 export type BehaviorStudyToolsSeoOverride = {
   pageTitle: string;
@@ -21,6 +21,34 @@ type DraftRow = {
   status?: string | null;
   metadata?: Record<string, unknown> | null;
 };
+
+const SEO_OVERRIDE_TIMEOUT_MS = 3000;
+let seoDraftRowsPromise: Promise<DraftRow[]> | null = null;
+
+function loadSeoDraftRows(): Promise<DraftRow[]> {
+  if (!getConvexUrl()) return Promise.resolve([]);
+  if (seoDraftRowsPromise) return seoDraftRowsPromise;
+
+  seoDraftRowsPromise = (async () => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), SEO_OVERRIDE_TIMEOUT_MS);
+
+    try {
+      return await getConvexClient().query(api.bstMarketing.listGrowthSignals, {
+        source: "seo_content_draft",
+        signalTypes: ["page_copy_draft"],
+        statuses: ["approved", "applied"],
+        limit: 100,
+      }, { signal: controller.signal }) as DraftRow[];
+    } catch {
+      return [];
+    } finally {
+      clearTimeout(timeout);
+    }
+  })();
+
+  return seoDraftRowsPromise;
+}
 
 function cleanString(value: unknown, max = 1000) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
@@ -51,17 +79,7 @@ function toOverride(row: DraftRow): BehaviorStudyToolsSeoOverride {
 }
 
 export async function getBehaviorStudyToolsSeoOverride(pageHref: string): Promise<BehaviorStudyToolsSeoOverride | null> {
-  let data: DraftRow[] = [];
-  try {
-    data = await getConvexClient().query(api.bstMarketing.listGrowthSignals, {
-      source: "seo_content_draft",
-      signalTypes: ["page_copy_draft"],
-      statuses: ["approved", "applied"],
-      limit: 100,
-    });
-  } catch {
-    return null;
-  }
+  const data = await loadSeoDraftRows();
 
   const row = data.find((item) => item.url === pageHref);
   if (!row) return null;

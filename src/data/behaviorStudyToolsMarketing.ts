@@ -28,7 +28,7 @@ export const behaviorStudyToolsMarketing = {
     "Behavior Study Tools turns practice attempts into a clear next step: weak domains, readiness signals, reviewed explanations, and a plan for the next session.",
   primaryCta: {
     label: "Start the web app",
-    href: trackedStudyUrl("/onboarding/bcba", {
+    href: trackedStudyUrl("/free-practice/", {
       intent: "readiness-check",
       utm_content: "admin_primary_cta",
     }),
@@ -80,21 +80,21 @@ export const behaviorStudyToolsMarketing = {
   seoPages: [
     {
       title: "Free BCBA Practice Exam",
-      href: "https://behaviorstudytools.com/free-bcba-practice-exam",
+      href: "https://study.behaviorschool.com/free-practice/",
       intent: "Candidate wants a free starting point.",
       message: "Start with practice, then see what to study next.",
       keyword: "free BCBA practice exam",
     },
     {
       title: "BCBA Mock Exam 6th Edition",
-      href: "https://behaviorstudytools.com/bcba-mock-exam-6th-edition",
+      href: "https://study.behaviorschool.com/free-mock-exam/",
       intent: "Candidate wants exam-aligned full mock practice.",
       message: "Practice with 6th Edition-aligned mocks and domain-level results.",
       keyword: "BCBA mock exam 6th edition",
     },
     {
       title: "BCBA Study App for School-Based BCBAs",
-      href: "https://behaviorstudytools.com/bcba-study-app-school-based-bcbas",
+      href: "https://study.behaviorschool.com/free-practice/",
       intent: "School-based candidates want a tool that fits their setting.",
       message: "Study with scenarios and reports that make sense for school-based practice.",
       keyword: "BCBA study app school based BCBAs",
@@ -149,7 +149,7 @@ export const behaviorStudyToolsMarketing = {
       post:
         "A lot of BCBA candidates finish practice questions and still do not know what to do next. Behavior Study Tools is built around that moment: see the missed domain, review the rationale, and choose the next study task.",
       ctaLabel: "Start a readiness check",
-      ctaHref: trackedStudyUrl("/onboarding/bcba", {
+      ctaHref: trackedStudyUrl("/free-mock-exam/", {
         intent: "readiness-check",
         utm_content: "monday_linkedin_readiness",
       }),
@@ -174,7 +174,7 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Walk through one question review. Show why the correct answer is correct and why a distractor is wrong. Connect it to 6th Edition-aligned practice.",
       ctaLabel: "Start practice",
-      ctaHref: trackedStudyUrl("/onboarding/bcba", {
+      ctaHref: trackedStudyUrl("/free-practice/", {
         intent: "timed-practice-set",
         utm_content: "wednesday_youtube_timed_practice",
       }),
@@ -187,7 +187,7 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Send a short email to the BehaviorSchool audience about readiness: domain accuracy, response time, consistency, and mock endurance. Invite them to start in the web app while iOS approval is pending.",
       ctaLabel: "Start the web app",
-      ctaHref: trackedStudyUrl("/onboarding/bcba", {
+      ctaHref: trackedStudyUrl("/free-mock-exam/", {
         intent: "readiness-check",
         utm_content: "thursday_email_readiness",
       }),
@@ -200,7 +200,7 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Show a fast before and after: scattered notes, then dashboard with weak domains and a next session. Keep the message simple: study the gap that costs points.",
       ctaLabel: "Find your weak domain",
-      ctaHref: trackedStudyUrl("/onboarding/bcba", {
+      ctaHref: trackedStudyUrl("/free-practice/", {
         intent: "weak-domain-check",
         utm_content: "friday_tiktok_weak_domain",
       }),

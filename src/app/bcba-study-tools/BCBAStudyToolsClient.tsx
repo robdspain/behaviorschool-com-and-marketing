@@ -25,7 +25,7 @@ export function BCBAStudyToolsClient() {
       title: "Free BCBA Practice Tests",
       description: "Practice questions and timed exam simulations with scoring and answer rationales",
       features: ["Timed practice", "Answer rationales", "Performance analytics", "Free starter set"],
-      link: "https://study.behaviorschool.com/quiz/guest?limit=10&utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=practice_tests",
+      link: "https://study.behaviorschool.com/free-practice/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=practice_tests",
       external: true,
       icon: Target,
       color: "emerald",
@@ -35,7 +35,7 @@ export function BCBAStudyToolsClient() {
       title: "Interactive Study Platform",
       description: "Full-featured study app with progress tracking and personalized recommendations",
       features: ["Domain mini-exams", "Study sessions", "Progress tracking", "Mobile optimized"],
-      link: "https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page",
+      link: "https://study.behaviorschool.com/free-practice/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=interactive_platform",
       external: true,
       icon: Brain,
       color: "blue",
@@ -45,7 +45,7 @@ export function BCBAStudyToolsClient() {
       title: "Domain-Specific Practice",
       description: "Targeted practice for each BCBA exam domain with focused question sets",
       features: ["Ethics practice", "Behavior assessment", "Intervention design", "Implementation"],
-      link: "https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page",
+      link: "https://study.behaviorschool.com/free-practice/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=domain_practice",
       external: true,
       icon: BookOpen,
       color: "purple",
@@ -55,7 +55,7 @@ export function BCBAStudyToolsClient() {
       title: "Performance Analytics",
       description: "Detailed analytics to identify strengths and areas for improvement",
       features: ["Score tracking", "Domain breakdown", "Study recommendations", "Progress reports"],
-      link: "https://study.behaviorschool.com/auth?mode=signup&source=bcba-study-tools-page",
+      link: "https://study.behaviorschool.com/free-mock-exam/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=performance_analytics",
       external: true,
       icon: BarChart3,
       color: "orange",
@@ -189,7 +189,7 @@ export function BCBAStudyToolsClient() {
               className="flex justify-center"
             >
               <Link
-                href="https://study.behaviorschool.com/quiz/guest?limit=10&utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=hero"
+                href="https://study.behaviorschool.com/free-practice/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=hero"
                 className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
               >
                 Try 10 Free Questions
@@ -552,7 +552,7 @@ export function BCBAStudyToolsClient() {
             Start with ten questions, review the rationales, and use your results to decide which domain needs attention next.
           </p>
           <Link
-            href="https://study.behaviorschool.com/quiz/guest?limit=10&utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=footer"
+            href="https://study.behaviorschool.com/free-practice/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=footer"
             className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 rounded-xl hover:bg-slate-50 transition-colors group"
           >
             Try 10 Free Questions

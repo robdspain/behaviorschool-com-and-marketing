@@ -32,7 +32,7 @@ export const metadata = buildPageMetadata({
   imageAlt: "Behavior Study Tools app dashboard for BCBA and RBT exam prep",
 });
 
-const bcbaStartHref = behaviorStudyToolsAppHref("/onboarding/bcba", {
+const bcbaStartHref = behaviorStudyToolsAppHref("/free-practice/", {
   intent: "homepage_primary",
   utm_content: "study_home_primary",
 });

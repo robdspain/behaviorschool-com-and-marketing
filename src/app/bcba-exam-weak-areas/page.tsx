@@ -14,7 +14,7 @@ export const metadata: Metadata = buildPageMetadata({
   type: "article",
 });
 
-const appWeakAreasHref = behaviorStudyToolsAppHref("/onboarding/bcba", {
+const appWeakAreasHref = behaviorStudyToolsAppHref("/free-practice/", {
   intent: "bcba_exam_weak_areas",
   utm_content: "bcba_exam_weak_areas_page",
 });

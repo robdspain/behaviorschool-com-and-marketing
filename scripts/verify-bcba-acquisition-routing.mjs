@@ -1,0 +1,84 @@
+#!/usr/bin/env node
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { dirname, extname, join, relative } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const srcRoot = join(root, "src");
+const errors = [];
+
+const allowedAccountFlowFiles = new Set([
+  "src/app/calaba40/page.tsx",
+  "src/app/free-bcba-practice-test/FreePracticeTestWidget.tsx",
+  "src/components/GuestResultsModal.tsx",
+]);
+
+function filesUnder(directory) {
+  const files = [];
+  for (const entry of readdirSync(directory)) {
+    const absolutePath = join(directory, entry);
+    if (statSync(absolutePath).isDirectory()) {
+      files.push(...filesUnder(absolutePath));
+    } else if ([".ts", ".tsx", ".js", ".jsx"].includes(extname(entry))) {
+      files.push(absolutePath);
+    }
+  }
+  return files;
+}
+
+function expect(condition, message) {
+  if (!condition) errors.push(message);
+}
+
+for (const absolutePath of filesUnder(srcRoot)) {
+  const path = relative(root, absolutePath);
+  const contents = readFileSync(absolutePath, "utf8");
+
+  expect(
+    !contents.includes('behaviorStudyToolsAppHref("/onboarding/bcba"'),
+    `${path} must use free practice or free mock instead of BCBA onboarding`
+  );
+  expect(
+    !contents.includes('trackedStudyUrl("/onboarding/bcba"'),
+    `${path} must use free practice or free mock instead of BCBA onboarding`
+  );
+
+  const isOperationalCode = path.startsWith("src/app/admin/") || path.startsWith("src/app/api/");
+  const hasDirectAuthLink = contents.includes("https://study.behaviorschool.com/auth");
+  if (hasDirectAuthLink && !isOperationalCode && !allowedAccountFlowFiles.has(path)) {
+    errors.push(`${path} must not send public acquisition traffic directly to auth`);
+  }
+}
+
+const helper = readFileSync(join(root, "src/lib/behavior-study-tools/links.ts"), "utf8");
+expect(
+  /path\s*=\s*["']\/free-practice\/["']/.test(helper),
+  "The shared Behavior Study Tools URL helper must default to /free-practice/"
+);
+
+const marketingData = readFileSync(join(root, "src/data/behaviorStudyToolsMarketing.ts"), "utf8");
+expect(
+  marketingData.includes('trackedStudyUrl("/free-practice/"'),
+  "Behavior Study Tools marketing data must include the canonical free-practice destination"
+);
+expect(
+  marketingData.includes('trackedStudyUrl("/free-mock-exam/"'),
+  "Behavior Study Tools marketing data must include the canonical free-mock destination"
+);
+
+const bcbaToolsPage = readFileSync(
+  join(root, "src/app/bcba-study-tools/BCBAStudyToolsClient.tsx"),
+  "utf8"
+);
+expect(
+  !bcbaToolsPage.includes("/quiz/guest"),
+  "The public BCBA study tools page must route acquisition traffic through /free-practice/"
+);
+
+if (errors.length > 0) {
+  console.error("BCBA acquisition routing verification failed:");
+  for (const error of errors) console.error(`- ${error}`);
+  process.exit(1);
+}
+
+console.log("BCBA acquisition routing verified: public CTAs use free practice or free mock.");

@@ -1,7 +1,7 @@
 const STUDY_APP_ORIGIN = "https://study.behaviorschool.com";
 
 export function behaviorStudyToolsAppHref(
-  path = "/onboarding/bcba",
+  path = "/free-practice/",
   params: Record<string, string> = {}
 ) {
   const url = new URL(path, STUDY_APP_ORIGIN);

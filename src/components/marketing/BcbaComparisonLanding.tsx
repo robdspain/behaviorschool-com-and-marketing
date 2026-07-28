@@ -19,7 +19,7 @@ type BcbaComparisonLandingProps = {
   rows: Row[];
 };
 
-const appHref = behaviorStudyToolsAppHref("/onboarding/bcba", {
+const appHref = behaviorStudyToolsAppHref("/free-practice/", {
   intent: "comparison_page_start",
   utm_content: "comparison_primary_cta",
 });

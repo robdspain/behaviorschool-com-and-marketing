@@ -57,7 +57,11 @@ function sendMarketingEvent(payload: Record<string, unknown>) {
 
 function studyPathFromDestination(destination: string) {
   if (destination.includes("/onboarding/rbt")) return "rbt";
-  if (destination.includes("/onboarding/bcba")) return "bcba";
+  if (
+    destination.includes("/onboarding/bcba") ||
+    destination.includes("/free-practice") ||
+    destination.includes("/free-mock-exam")
+  ) return "bcba";
   if (destination.toLowerCase().includes("rbt")) return "rbt";
   return "bcba";
 }

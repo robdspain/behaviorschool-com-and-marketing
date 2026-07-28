@@ -37,7 +37,7 @@ export default async function SchoolBasedBCBAStudyAppPage() {
       title={override?.heroHeadline || "A BCBA study app built for candidates who work in schools."}
       description={override?.metaDescription || "School-based candidates need more than generic question drilling. BehaviorSchool connects adaptive BCBA practice with school-relevant scenarios, progress reports, and next-step readiness signals."}
       primaryCta={override?.primaryCta || "Start school-based practice"}
-      primaryHref={behaviorStudyToolsAppHref("/onboarding/bcba", {
+      primaryHref={behaviorStudyToolsAppHref("/free-practice/", {
         intent: "school_based_bcba",
         utm_content: "school_based_bcba_primary_cta",
       })}
