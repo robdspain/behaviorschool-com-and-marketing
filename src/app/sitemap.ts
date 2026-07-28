@@ -56,7 +56,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/free-bcba-practice',
     '/bcba-mock-exam-guide',
     '/school-based-bcba',
-    '/bcba-study-tools',
     '/bcbas-in-schools',
     '/school-bcba/job-guide-2025',
     '/the-act-matrix-a-framework-for-school-based-bcbas',
@@ -129,6 +128,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/bcba-exam-prep`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/bcba-study-tools`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.95,
