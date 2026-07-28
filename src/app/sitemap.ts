@@ -50,6 +50,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Legacy paths that now permanently redirect. Never include these in the sitemap.
   const legacyRedirectPaths = new Set<string>([
+    '/study',
+    '/bcba-exam-prep',
+    '/bcba-study-tools',
+    '/bcba-practice-exam',
+    '/free-bcba-mock-exam',
+    '/bcba-test-questions',
+    '/bcba-exam-practice-questions',
+    '/bcba-6th-edition-practice-questions',
+    '/free-bcba-practice-exam',
+    '/bcba-mock-exam-6th-edition',
     '/bcba-mock-practice-test',
     '/free-bcba-mock-practice-test',
     '/free-bcba-practice-test',

@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
+const behaviorStudyToolsUrl = "https://behaviorstudytools.com/";
+const freePracticeUrl = "https://study.behaviorschool.com/free-practice/";
+const freeMockUrl = "https://study.behaviorschool.com/free-mock-exam/";
+
 const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
   typescript: {
@@ -70,30 +74,82 @@ const nextConfig: NextConfig = {
       // Consolidate duplicate URLs → canonical targets
       // ============================================
 
+      // -- Behavior Study Tools acquisition consolidation --
+      {
+        source: '/study',
+        destination: behaviorStudyToolsUrl,
+        permanent: true,
+      },
+      {
+        source: '/bcba-study-tools',
+        destination: behaviorStudyToolsUrl,
+        permanent: true,
+      },
+      {
+        source: '/bcba-exam-prep',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        source: '/bcba-practice-exam',
+        destination: freeMockUrl,
+        permanent: true,
+      },
+      {
+        source: '/free-bcba-mock-exam',
+        destination: freeMockUrl,
+        permanent: true,
+      },
+      {
+        source: '/bcba-test-questions',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        source: '/bcba-exam-practice-questions',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        source: '/bcba-6th-edition-practice-questions',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        source: '/free-bcba-practice-exam',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        source: '/bcba-mock-exam-6th-edition',
+        destination: freeMockUrl,
+        permanent: true,
+      },
+
       // -- Exam Prep Duplicates --
       {
         source: '/bcba-mock-practice-test',
-        destination: '/bcba-practice-exam',
+        destination: freeMockUrl,
         permanent: true,
       },
       {
         source: '/free-bcba-mock-practice-test',
-        destination: '/free-bcba-practice-exam',
+        destination: freeMockUrl,
         permanent: true,
       },
       {
         source: '/free-bcba-practice-test',
-        destination: '/free-bcba-practice-exam',
+        destination: freePracticeUrl,
         permanent: true,
       },
       {
         source: '/free-bcba-practice',
-        destination: '/free-bcba-practice-exam',
+        destination: freePracticeUrl,
         permanent: true,
       },
       {
         source: '/bcba-mock-exam-guide',
-        destination: '/bcba-exam-prep',
+        destination: freeMockUrl,
         permanent: true,
       },
       {
@@ -117,7 +173,7 @@ const nextConfig: NextConfig = {
       // -- Study Tools Duplicates --
       {
         source: '/behavior-study-tools',
-        destination: '/study',
+        destination: behaviorStudyToolsUrl,
         permanent: true,
       },
       // -- School BCBA Duplicates --
@@ -215,7 +271,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/behavior-study-tools/',
-        destination: '/study',
+        destination: behaviorStudyToolsUrl,
         permanent: true,
       },
       {
@@ -305,7 +361,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/free-tools/behavior-study-tools',
-        destination: '/study',
+        destination: behaviorStudyToolsUrl,
         permanent: true,
       },
       // Additional 404 fixes
@@ -384,17 +440,17 @@ const nextConfig: NextConfig = {
       // Fix specific failing tag URLs
       {
         source: '/tag/free-practice-test',
-        destination: '/free-bcba-practice-exam',
+        destination: freePracticeUrl,
         permanent: true,
       },
       {
         source: '/tag/bcba-certification',
-        destination: '/bcba-exam-prep',
+        destination: freePracticeUrl,
         permanent: true,
       },
       {
         source: '/tag/bcba-exam-prep',
-        destination: '/bcba-exam-prep',
+        destination: freePracticeUrl,
         permanent: true,
       },
       // Specific tag redirects (from GSC 404/redirect reports)
@@ -410,12 +466,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/ai-powered-learning',
-        destination: '/study',
+        destination: behaviorStudyToolsUrl,
         permanent: true,
       },
       {
         source: '/tag/ai-powered-learning/',
-        destination: '/study',
+        destination: behaviorStudyToolsUrl,
         permanent: true,
       },
       {
@@ -430,12 +486,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/study-materials',
-        destination: '/study',
+        destination: freePracticeUrl,
         permanent: true,
       },
       {
         source: '/tag/study-materials/',
-        destination: '/study',
+        destination: freePracticeUrl,
         permanent: true,
       },
       {
@@ -450,12 +506,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/artificial-intelligence',
-        destination: '/study',
+        destination: behaviorStudyToolsUrl,
         permanent: true,
       },
       {
         source: '/tag/artificial-intelligence/',
-        destination: '/study',
+        destination: behaviorStudyToolsUrl,
         permanent: true,
       },
       {
@@ -500,12 +556,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/tag/bcba',
-        destination: '/bcba-exam-prep',
+        destination: freePracticeUrl,
         permanent: true,
       },
       {
         source: '/tag/bcba/',
-        destination: '/bcba-exam-prep',
+        destination: freePracticeUrl,
         permanent: true,
       },
       // General tag redirect fallback (must be after specific tag rules)

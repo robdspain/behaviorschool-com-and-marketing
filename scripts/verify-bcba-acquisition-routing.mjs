@@ -6,6 +6,18 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const srcRoot = join(root, "src");
 const errors = [];
+const expectedAcquisitionRedirects = new Map([
+  ["/study", "https://behaviorstudytools.com/"],
+  ["/bcba-study-tools", "https://behaviorstudytools.com/"],
+  ["/bcba-exam-prep", "https://study.behaviorschool.com/free-practice/"],
+  ["/bcba-practice-exam", "https://study.behaviorschool.com/free-mock-exam/"],
+  ["/free-bcba-mock-exam", "https://study.behaviorschool.com/free-mock-exam/"],
+  ["/bcba-test-questions", "https://study.behaviorschool.com/free-practice/"],
+  ["/bcba-exam-practice-questions", "https://study.behaviorschool.com/free-practice/"],
+  ["/bcba-6th-edition-practice-questions", "https://study.behaviorschool.com/free-practice/"],
+  ["/free-bcba-practice-exam", "https://study.behaviorschool.com/free-practice/"],
+  ["/bcba-mock-exam-6th-edition", "https://study.behaviorschool.com/free-mock-exam/"],
+]);
 
 const allowedAccountFlowFiles = new Set([
   "src/app/calaba40/page.tsx",
@@ -78,9 +90,27 @@ expect(
 const sitemapBodyPath = join(root, ".next/server/app/sitemap.xml.body");
 expect(existsSync(sitemapBodyPath), "The production sitemap artifact must exist before routing verification");
 
+const routesManifestPath = join(root, ".next/routes-manifest.json");
+expect(existsSync(routesManifestPath), "The production routes manifest must exist before routing verification");
+
+if (existsSync(routesManifestPath)) {
+  const routesManifest = JSON.parse(readFileSync(routesManifestPath, "utf8"));
+  for (const [source, destination] of expectedAcquisitionRedirects) {
+    const redirect = routesManifest.redirects?.find((candidate) => candidate.source === source);
+    expect(
+      redirect?.destination === destination && redirect?.statusCode === 308,
+      `${source} must permanently redirect to ${destination}`
+    );
+  }
+}
+
 if (existsSync(sitemapBodyPath)) {
   const sitemapBody = readFileSync(sitemapBodyPath, "utf8");
   const sitemapUrls = [...sitemapBody.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  const sitemapPaths = new Set(sitemapUrls.map((url) => new URL(url).pathname.replace(/\/$/, "") || "/"));
+  for (const source of expectedAcquisitionRedirects.keys()) {
+    expect(!sitemapPaths.has(source), `${source} must not remain in the sitemap after redirecting`);
+  }
   const allowedStudyPaths = new Set([
     "/free-practice/",
     "/free-mock-exam/",
