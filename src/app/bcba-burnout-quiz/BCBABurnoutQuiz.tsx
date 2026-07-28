@@ -498,7 +498,7 @@ export function BCBABurnoutQuiz() {
 
         <div className="grid gap-4 sm:grid-cols-3 mb-6">
           <a
-            href="https://study.behaviorschool.com"
+            href="https://study.behaviorschool.com/free-practice/"
             className="bg-white border-2 border-slate-200 rounded-2xl p-5 hover:border-emerald-300 transition-colors"
           >
             <div className="flex items-center gap-2 text-emerald-700 font-semibold mb-2">

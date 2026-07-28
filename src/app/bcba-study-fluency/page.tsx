@@ -275,7 +275,7 @@ export default function BCBAStudyFluencyPage() {
                 size="lg" 
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
-                <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                <a href="https://study.behaviorschool.com/free-practice/" target="_blank" rel="noopener noreferrer">
                   <Timer className="mr-2 h-5 w-5" />
                   Start Fluency Tracking
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -549,7 +549,7 @@ export default function BCBAStudyFluencyPage() {
                   size="lg" 
                   className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
                 >
-                  <a href="https://study.behaviorschool.com/free-practice" target="_blank" rel="noopener noreferrer">
+                  <a href="https://study.behaviorschool.com/free-practice/" target="_blank" rel="noopener noreferrer">
                     <Timer className="mr-2 h-5 w-5" />
                     Start Fluency Tracking
                     <ArrowRight className="ml-2 h-5 w-5" />

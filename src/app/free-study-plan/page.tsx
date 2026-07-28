@@ -125,7 +125,7 @@ export default function FreeStudyPlanPage() {
             <h2 className="text-2xl font-bold text-[#1f4d3f]">I&apos;m studying for the BCBA exam</h2>
             <p className="mt-2 text-slate-600 flex-1">40 free practice questions, no account needed.</p>
             <Link
-              href="https://study.behaviorschool.com"
+              href="https://study.behaviorschool.com/free-practice/"
               target="_blank"
               rel="noreferrer"
               className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-[#1f4d3f] px-6 py-3.5 text-base font-bold text-white hover:bg-[#153528] transition"

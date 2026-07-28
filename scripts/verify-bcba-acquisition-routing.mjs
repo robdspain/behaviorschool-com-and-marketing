@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,13 +13,13 @@ const allowedAccountFlowFiles = new Set([
   "src/components/GuestResultsModal.tsx",
 ]);
 
-function filesUnder(directory) {
+function filesUnder(directory, extensions = new Set([".ts", ".tsx", ".js", ".jsx"])) {
   const files = [];
   for (const entry of readdirSync(directory)) {
     const absolutePath = join(directory, entry);
     if (statSync(absolutePath).isDirectory()) {
-      files.push(...filesUnder(absolutePath));
-    } else if ([".ts", ".tsx", ".js", ".jsx"].includes(extname(entry))) {
+      files.push(...filesUnder(absolutePath, extensions));
+    } else if (extensions.has(extname(entry))) {
       files.push(absolutePath);
     }
   }
@@ -74,6 +74,50 @@ expect(
   !bcbaToolsPage.includes("/quiz/guest"),
   "The public BCBA study tools page must route acquisition traffic through /free-practice/"
 );
+
+const sitemapBodyPath = join(root, ".next/server/app/sitemap.xml.body");
+expect(existsSync(sitemapBodyPath), "The production sitemap artifact must exist before routing verification");
+
+if (existsSync(sitemapBodyPath)) {
+  const sitemapBody = readFileSync(sitemapBodyPath, "utf8");
+  const sitemapUrls = [...sitemapBody.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  const allowedStudyPaths = new Set([
+    "/free-practice/",
+    "/free-mock-exam/",
+    "/support/",
+    "/contact",
+    "/onboarding/rbt",
+  ]);
+
+  for (const sitemapUrl of sitemapUrls) {
+    const pageUrl = new URL(sitemapUrl);
+    const relativeHtmlPath = pageUrl.pathname === "/"
+      ? "index.html"
+      : `${pageUrl.pathname.replace(/^\//, "")}.html`;
+    const htmlPath = join(root, ".next/server/app", relativeHtmlPath);
+    if (!existsSync(htmlPath)) continue;
+
+    const html = readFileSync(htmlPath, "utf8");
+    const studyLinks = [...html.matchAll(/href=["'](https:\/\/study\.behaviorschool\.com[^"']*)/gi)]
+      .map((match) => match[1].replaceAll("&amp;", "&"));
+
+    for (const studyLink of new Set(studyLinks)) {
+      const destination = new URL(studyLink);
+      expect(
+        allowedStudyPaths.has(destination.pathname),
+        `${pageUrl.pathname} must not pass crawlable link equity to noncanonical study path ${destination.pathname}`
+      );
+    }
+  }
+}
+
+for (const markdownPath of filesUnder(join(root, "content/blog"), new Set([".md"]))) {
+  const contents = readFileSync(markdownPath, "utf8");
+  expect(
+    !contents.includes("](https://study.behaviorschool.com)"),
+    `${relative(root, markdownPath)} must link to a canonical study acquisition page instead of the noindex root`
+  );
+}
 
 if (errors.length > 0) {
   console.error("BCBA acquisition routing verification failed:");

@@ -214,9 +214,9 @@ export default async function FreeBCBAPracticeExamPage() {
   ];
 
   const SITE_URL = "https://behaviorschool.com";
-  const primaryCta = override?.primaryCta || "Take Full 185-Question Mock Exam";
-  const fullMockHref = behaviorStudyToolsAppHref("/free-mock-exam/full", {
-    intent: "full_mock",
+  const primaryCta = override?.primaryCta || "Start a Free BCBA Mock Exam";
+  const fullMockHref = behaviorStudyToolsAppHref("/free-mock-exam/", {
+    intent: "mock_exam",
     utm_content: "free_practice_exam_full_mock_cta",
   });
   const quizAuthHref = behaviorStudyToolsAppHref("/auth", {

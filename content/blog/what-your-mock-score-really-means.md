@@ -180,7 +180,7 @@ No. Some providers create intentionally harder exams to overprepare candidates. 
 
 **About the author:** Rob Spain is a BCBA and founder of BehaviorSchool.com, a platform designed to help aspiring BCBAs pass the exam without breaking the bank.
 
-*Ready to track your mock exam progress and get personalized study recommendations? Check out [BehaviorSchool.com](https://study.behaviorschool.com) for affordable, comprehensive BCBA exam prep.*
+*Ready to track your mock exam progress and get personalized study recommendations? Start with the [free BCBA mock exam](https://study.behaviorschool.com/free-mock-exam/).*
 
 ---
 

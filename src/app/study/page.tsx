@@ -37,8 +37,8 @@ const bcbaStartHref = behaviorStudyToolsAppHref("/free-practice/", {
   utm_content: "study_home_primary",
 });
 
-const freeMockHref = behaviorStudyToolsAppHref("/free-mock-exam/full", {
-  intent: "full_mock",
+const freeMockHref = behaviorStudyToolsAppHref("/free-mock-exam/", {
+  intent: "mock_exam",
   utm_content: "study_home_free_mock",
 });
 

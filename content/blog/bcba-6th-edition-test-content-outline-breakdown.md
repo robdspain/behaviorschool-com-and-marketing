@@ -256,13 +256,13 @@ If you work in schools, you have an advantage on the BCBA exam — and some blin
 
 ## How to Use This Breakdown in Your Study Plan
 
-1. **Map your current knowledge to each domain.** Take a diagnostic practice exam and score yourself by domain. [Try our free BCBA practice exam](https://study.behaviorschool.com) — it tracks your performance by domain automatically.
+1. **Map your current knowledge to each domain.** Take a diagnostic practice exam and score yourself by domain. [Try our free BCBA practice exam](https://study.behaviorschool.com/free-practice/) — it tracks your performance by domain automatically.
 2. **Allocate study time by weight.** Domain G deserves roughly 2.5x the study time of Domain D.
 3. **Study the Ethics Code directly.** Don't rely on summaries — read the 2022 BACB Ethics Code. It's 30 pages and entirely testable.
 4. **Practice IOA calculations.** Measurement (Domain C) has math questions. Do them with paper before exam day.
 5. **Do domain-specific practice questions.** After studying each domain, hit practice questions targeting it specifically.
 
-> Ready to practice by domain? [Behavior Study Tools](https://study.behaviorschool.com) generates unlimited domain-specific practice questions for the 6th Edition TCO — so you can drill Domain G until it sticks.
+> Ready to practice by domain? [Behavior Study Tools](https://study.behaviorschool.com/free-practice/) generates unlimited domain-specific practice questions for the 6th Edition TCO — so you can drill Domain G until it sticks.
 
 ---
 
@@ -301,9 +301,9 @@ Recent data shows approximately 54–65% of first-time candidates pass. Candidat
 The BCBA 6th Edition Test Content Outline organizes 175 scored exam questions across 9 domains and 104 tasks. Domain G (Behavior-Change Procedures) carries the most weight at roughly 20–25% of the exam, followed by Ethics (12–15%) and Measurement (10–12%). For school-based BCBAs, the biggest hidden risks are Domain D (Experimental Design) and Domain E (Ethics) — both require deliberate study beyond everyday practice.
 
 **Next steps:**
-- [Take a free BCBA practice exam by domain](https://study.behaviorschool.com)
+- [Take a free BCBA practice exam by domain](https://study.behaviorschool.com/free-practice/)
 - [Read our BCBA exam prep study strategies guide](/blog/free-bcba-exam-prep-study-strategies)
-- [Explore Behavior Study Tools for domain-specific practice](https://study.behaviorschool.com)
+- [Explore Behavior Study Tools for domain-specific practice](https://study.behaviorschool.com/free-practice/)
 
 ---
 

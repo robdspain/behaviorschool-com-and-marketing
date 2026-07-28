@@ -311,7 +311,7 @@ If you're experiencing persistent burnout, compassion fatigue, or loss of effect
 
 **About the author:** Rob Spain is a BCBA and founder of BehaviorSchool.com, a platform that supports BCBAs through exam prep and beyond.
 
-*Want templates, checklists, and practical tools for new BCBAs? Check out [BehaviorSchool.com](https://study.behaviorschool.com) for resources that bridge the gap between grad school and real-world practice.*
+*Want templates, checklists, and practical tools for new BCBAs? Explore [BehaviorSchool products](https://behaviorschool.com/products) that bridge the gap between grad school and real-world practice.*
 
 ---
 

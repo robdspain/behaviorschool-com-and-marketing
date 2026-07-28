@@ -29,7 +29,7 @@ export default function PricingPage() {
               <li>Study from any device</li>
             </ul>
             <a
-              href="https://study.behaviorschool.com"
+              href="https://study.behaviorschool.com/free-practice/"
               className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#1f4d3f] px-4 py-3 text-sm font-semibold text-white hover:bg-[#123628]"
             >
               Start studying

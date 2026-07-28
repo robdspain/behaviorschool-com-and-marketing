@@ -107,7 +107,7 @@ export function BCBAStudyToolsClient() {
               </div>
             </div>
             <Link
-              href="https://study.behaviorschool.com?source=behaviorschool&page=bcba-study-tools&cta=gateway-banner"
+              href="https://study.behaviorschool.com/free-practice/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=gateway_banner"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 bg-white text-emerald-600 font-bold rounded-xl hover:bg-emerald-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 whitespace-nowrap"

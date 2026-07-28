@@ -34,7 +34,7 @@ Not all exam prep tools are built the same. When evaluating an alternative, look
 
 ## BehaviorSchool as an Alternative
 
-[BehaviorSchool](https://study.behaviorschool.com) is an actively maintained BCBA exam prep platform that covers all of the above. Practice questions are organized by BACB content domain, full-length timed mock exams are available, and the analytics dashboard shows your performance by domain so you can adjust your study plan based on actual data — not guesswork.
+[BehaviorSchool](https://study.behaviorschool.com/free-practice/) is an actively maintained BCBA exam prep platform that covers all of the above. Practice questions are organized by BACB content domain, full-length timed mock exams are available, and the analytics dashboard shows your performance by domain so you can adjust your study plan based on actual data — not guesswork.
 
 It also includes SAFMEDS-style flashcard sessions for fluency-building, which is a legitimate evidence-based approach to learning behavioral concepts quickly.
 

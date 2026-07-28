@@ -30,7 +30,7 @@ const availableProducts = [
     description:
       "Move from a free 10-question set into focused practice, timed mock exams, a personalized pacing guide, and domain-level progress tracking.",
     details: ["Exam-style practice", "Timed mock exams", "Personalized study plan"],
-    href: "https://study.behaviorschool.com/",
+    href: "https://study.behaviorschool.com/free-practice/",
     cta: "Try 10 free BCBA questions",
     image: "/product-suite/behavior-study-tools-dashboard.png",
     imageAlt: "Behavior Study Tools iPhone dashboard with streak, mastery, daily goal, and recommended next practice",

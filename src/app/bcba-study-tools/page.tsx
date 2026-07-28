@@ -61,7 +61,7 @@ export default function BCBAStudyToolsPage() {
       name: "Behavior Study Tools",
       applicationCategory: "EducationalApplication",
       operatingSystem: "Web, iOS",
-      url: "https://study.behaviorschool.com/",
+      url: "https://study.behaviorschool.com/free-practice/",
       description:
         "BCBA exam preparation app with practice questions, mock exams, flashcards, pacing tools, and progress tracking.",
       provider: {
