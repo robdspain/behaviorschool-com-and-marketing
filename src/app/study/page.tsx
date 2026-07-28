@@ -24,12 +24,12 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/study";
 
 export const metadata = buildPageMetadata({
-  title: "Behavior Study Tools | BCBA & RBT Exam Prep App",
+  title: "Behavior Study Tools | BCBA Exam Prep App",
   description:
-    "Behavior Study Tools helps BCBA and RBT candidates study with mock exams, adaptive practice, rationales, readiness analytics, and supervision tracking.",
+    "Behavior Study Tools helps BCBA candidates study with mock exams, focused practice, rationales, readiness analytics, and personalized planning.",
   canonical,
   image: "https://behaviorschool.com/BehaviorStudyTools/Hero-BST-Home.webp",
-  imageAlt: "Behavior Study Tools app dashboard for BCBA and RBT exam prep",
+  imageAlt: "Behavior Study Tools app dashboard for BCBA exam prep",
 });
 
 const bcbaStartHref = behaviorStudyToolsAppHref("/free-practice/", {
@@ -42,11 +42,6 @@ const freeMockHref = behaviorStudyToolsAppHref("/free-mock-exam/", {
   utm_content: "study_home_free_mock",
 });
 
-const rbtStartHref = behaviorStudyToolsAppHref("/onboarding/rbt", {
-  intent: "rbt_path",
-  utm_content: "study_home_rbt",
-});
-
 const supervisionHref = "https://supervision.behaviorschool.com/register?role=supervisor";
 const hourTrackingHref = "https://supervision.behaviorschool.com/register?role=supervisee";
 
@@ -55,7 +50,7 @@ const studyFeatures = [
     icon: Brain,
     title: "Adaptive practice questions",
     description:
-      "Practice by BCBA or RBT pathway with questions that respond to performance instead of repeating the same static bank.",
+      "Practice BCBA concepts with questions that respond to performance instead of repeating the same static bank.",
   },
   {
     icon: BookOpen,
@@ -90,7 +85,7 @@ const studyFeatures = [
 ];
 
 const supervisionFeatures = [
-  "Supervisor dashboard for BCBA, BCaBA, and RBT supervisees",
+  "Supervisor dashboard for fieldwork candidates and supervisees",
   "Restricted and unrestricted hour logging",
   "Monthly supervision percentage monitoring",
   "Competency notes, feedback, and session documentation",
@@ -103,7 +98,7 @@ const supervisionFeatures = [
 const platformLinks = [
   {
     title: "Study app",
-    description: "BCBA and RBT practice, mocks, rationales, analytics, and study planning.",
+    description: "BCBA practice, mocks, rationales, analytics, and study planning.",
     href: bcbaStartHref,
     cta: "Open study app",
     icon: GraduationCap,
@@ -166,7 +161,7 @@ export default function StudyPage() {
               </a>
             </div>
             <div className="mt-8 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
-              {["BCBA exam prep", "RBT study path", "Supervision tools"].map((item) => (
+              {["BCBA exam prep", "Timed mock exams", "Supervision tools"].map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-[#1f4d3f]" />
                   <span>{item}</span>
@@ -199,7 +194,7 @@ export default function StudyPage() {
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate-600">
               Behavior Study Tools should be the primary destination for exam candidates. From here,
-              learners can start BCBA or RBT prep, supervisors can manage documentation, and supervisees
+              candidates can start BCBA prep, supervisors can manage documentation, and supervisees
               can track fieldwork hours without hunting through separate product pages.
             </p>
           </div>
@@ -248,10 +243,10 @@ export default function StudyPage() {
                   Start BCBA prep
                 </a>
                 <a
-                  href={rbtStartHref}
+                  href={freeMockHref}
                   className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/35 bg-white px-6 py-3 text-sm font-semibold text-[#1f4d3f] transition hover:bg-[#1f4d3f]/10"
                 >
-                  Start RBT prep
+                  Take a free mock exam
                 </a>
               </div>
             </div>

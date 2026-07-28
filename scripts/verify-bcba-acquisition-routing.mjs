@@ -86,7 +86,6 @@ if (existsSync(sitemapBodyPath)) {
     "/free-mock-exam/",
     "/support/",
     "/contact",
-    "/onboarding/rbt",
   ]);
 
   for (const sitemapUrl of sitemapUrls) {

@@ -18,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "The BehaviorSchool Suite | School-Based Behavior Practice",
   description:
-    "Explore Behavior Study Tools for BCBA exam prep, SchoolRBT, professional development, and upcoming planning and supervision tools from BehaviorSchool.",
+    "Explore Behavior Study Tools for BCBA exam prep, professional development, and upcoming planning and supervision tools from BehaviorSchool.",
 };
 
 const availableProducts = [
@@ -39,21 +39,6 @@ const availableProducts = [
   },
   {
     number: "02",
-    stage: "Support",
-    name: "SchoolRBT",
-    audience: "For RBT candidates and school teams",
-    description:
-      "School-centered RBT exam practice begins with a live diagnostic that candidates can use before creating an account.",
-    details: ["RBT diagnostic", "Task-list review", "School-relevant practice"],
-    href: "https://study.behaviorschool.com/onboarding/rbt",
-    cta: "Start the RBT diagnostic",
-    image: "/product-suite/school-rbt.png",
-    imageAlt: "SchoolRBT diagnostic screen",
-    icon: BookOpenCheck,
-    tone: "mint",
-  },
-  {
-    number: "03",
     stage: "Lead",
     name: "Transformation Program",
     audience: "For school-based BCBAs",

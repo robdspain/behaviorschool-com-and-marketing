@@ -23,7 +23,7 @@ export const behaviorStudyToolsMarketing = {
   primaryMessage:
     "Know what to study next. Start with practice, review exactly why answers were missed, and use results to choose the next task.",
   audiencePain:
-    "BCBA and RBT candidates often study for hours without knowing whether they are getting closer to passing.",
+    "BCBA candidates often study for hours without knowing whether they are getting closer to passing.",
   solution:
     "Behavior Study Tools turns practice attempts into a clear next step: weak domains, readiness signals, reviewed explanations, and a plan for the next session.",
   primaryCta: {
@@ -37,10 +37,11 @@ export const behaviorStudyToolsMarketing = {
     label: "Open public landing page",
     href: "https://behaviorstudytools.com",
   },
-  rbtCta: {
-    label: "Start the RBT path",
-    href: trackedStudyUrl("/onboarding/rbt", {
-      utm_content: "admin_rbt_cta",
+  fullMockCta: {
+    label: "Take a free full mock",
+    href: trackedStudyUrl("/free-mock-exam/", {
+      intent: "full-mock",
+      utm_content: "admin_full_mock_cta",
     }),
   },
   weeklyOperatingRule:
@@ -74,7 +75,7 @@ export const behaviorStudyToolsMarketing = {
       name: "Email",
       role: "Convert existing audience",
       cadence: "1 send per week",
-      bestUse: "Free mock exam, readiness check, RBT path announcement.",
+      bestUse: "Free mock exam, readiness check, and weak-domain follow-up.",
     },
   ],
   seoPages: [
@@ -118,7 +119,7 @@ export const behaviorStudyToolsMarketing = {
     {
       competitor: "ABA Wizard",
       watchFor: "Mobile-first question practice claims, app store reviews, pricing, and weak areas users mention.",
-      opportunity: "Position Behavior Study Tools around reviewed explanations, readiness, RBT path, and web access before iOS approval.",
+      opportunity: "Position Behavior Study Tools around reviewed explanations, readiness, and focused next actions.",
     },
     {
       competitor: "BDS Modules",
@@ -209,14 +210,15 @@ export const behaviorStudyToolsMarketing = {
     {
       day: "Saturday",
       platform: "Facebook",
-      hook: "RBT candidates need a clear path too.",
+      hook: "A full mock should tell you what to study next.",
       post:
-        "Post that Behavior Study Tools includes an RBT path with practice, review, and supervisor-friendly progress. Invite RBT candidates to start directly in the web app.",
-      ctaLabel: "Start RBT practice",
-      ctaHref: trackedStudyUrl("/onboarding/rbt", {
-        utm_content: "saturday_facebook_rbt_path",
+        "Show how a timed 185-question mock leads into domain results and a focused next study task instead of ending with only a score.",
+      ctaLabel: "Take a free full mock",
+      ctaHref: trackedStudyUrl("/free-mock-exam/", {
+        intent: "full-mock",
+        utm_content: "saturday_facebook_full_mock",
       }),
-      asset: "RBT path screen",
+      asset: "Mock exam and domain results screens",
     },
     {
       day: "Sunday",

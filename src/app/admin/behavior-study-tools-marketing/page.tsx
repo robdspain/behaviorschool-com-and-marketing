@@ -967,12 +967,12 @@ ${todayPlan.ctaHref}`
                   <ExternalLink className="w-4 h-4" />
                 </a>
                 <a
-                  href={behaviorStudyToolsMarketing.rbtCta.href}
+                  href={behaviorStudyToolsMarketing.fullMockCta.href}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-emerald-900/20 bg-white px-4 py-3 font-bold text-emerald-950 hover:bg-emerald-50"
                 >
-                  RBT path
+                  Free full mock
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
@@ -1340,14 +1340,14 @@ function ConversionSnapshotPanel({ summary }: { summary: MarketingReportSummary 
           icon={<Target className="h-5 w-5" />}
           label="CTA clarity"
           title={summary.appStarts ? 'Web app starts are tracked.' : 'No app starts yet.'}
-          detail={summary.appStarts ? `${summary.appStarts} tracked app starts. Keep CTAs direct and web-first until iOS approval.` : 'Use one primary CTA per page: start free BCBA practice or start RBT practice.'}
+          detail={summary.appStarts ? `${summary.appStarts} tracked app starts. Keep CTAs direct and web-first until iOS approval.` : 'Use one primary CTA per page: start free BCBA practice or take the free full mock.'}
           status={summary.appStarts ? 'connected' : 'missing'}
         />
         <AuditCard
           icon={<Users className="h-5 w-5" />}
           label="Path clarity"
           title={pathBalance}
-          detail="BCBA and RBT paths should both be visible in marketing copy, with CTAs that send candidates to the matching app flow."
+          detail="Keep public marketing BCBA-only until the RBT experience is ready. Send candidates to free practice or the free full mock."
           status={summary.rbtStarts ? 'connected' : summary.ctaClicks ? 'partial' : 'missing'}
         />
         <div className="rounded-lg border border-emerald-900/15 bg-[#123f31] p-4 text-white">
@@ -1808,8 +1808,8 @@ function GrowthSignalImportPanel({ onImported }: { onImported: () => void }) {
     gsc: 'query,page,clicks,impressions,ctr,position\nbcba practice exam,https://behaviorstudytools.com/free-bcba-practice-exam,12,740,1.6%,9.4',
     ahrefs: 'keyword,url,position,previous position,volume,traffic\nbcba mock exam 6th edition,https://behaviorstudytools.com/bcba-mock-exam-6th-edition,11,14,350,18',
     social: 'channel,post url,topic,clicks,comments,saves,replies\nLinkedIn,https://linkedin.com/posts/example,BCBA exam anxiety,24,6,8,3',
-    competitor: 'competitor,url,topic,metric value,recommendation\nABA Wizard,https://example.com,Mobile practice flow,1,Clarify that Behavior Study Tools supports BCBA and RBT web practice.',
-    trend: 'topic,url,metric value,recommendation\nRBT exam prep school setting,https://news.example.com,1,Create a short post connecting school-based scenarios to RBT practice.',
+    competitor: 'competitor,url,topic,metric value,recommendation\nABA Wizard,https://example.com,Mobile practice flow,1,Clarify how Behavior Study Tools connects BCBA practice results to the next study task.',
+    trend: 'topic,url,metric value,recommendation\nBCBA mock exam pacing,https://news.example.com,1,Create a short post showing how a full mock leads to domain-level follow-up.',
   }
   const providerLabels: Record<string, string> = {
     gsc: 'Google Search Console',
