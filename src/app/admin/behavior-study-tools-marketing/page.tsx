@@ -16,6 +16,7 @@ import {
   GraduationCap,
   Link2,
   ListChecks,
+  Mail,
   Megaphone,
   MousePointerClick,
   RefreshCw,
@@ -26,6 +27,7 @@ import {
   Target,
   TrendingUp,
   Users,
+  UserRoundCheck,
 } from 'lucide-react'
 import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
 
@@ -367,6 +369,42 @@ type MarketingReportResponse = {
   warning?: string
 }
 
+type ReferralCampaignResponse = {
+  success?: boolean
+  error?: string
+  campaign?: {
+    id: string
+    name: string
+    status: 'draft_only'
+    audience: string
+    subject: string
+    previewText: string
+    emailCtaUrl: string
+    supervisorShareUrl: string
+    body: string
+  }
+  audience?: {
+    totalContacts: number
+    uniqueContacts: number
+    baeSigContacts: number
+    eligibleContacts: number
+    supervisorSignals: number
+    pilotSize: number
+    suppressions: Record<string, number>
+    pilotPreview: Array<{
+      id?: string
+      name: string
+      email: string
+      organization: string | null
+      supervisorSignal: boolean
+    }>
+  }
+  approval?: {
+    required: boolean
+    message: string
+  }
+}
+
 function todayDate() {
   return new Date().toISOString().slice(0, 10)
 }
@@ -390,6 +428,8 @@ export default function BehaviorStudyToolsMarketingPage() {
   const [seoActionsLoading, setSeoActionsLoading] = useState(false)
   const [seoDrafts, setSeoDrafts] = useState<SeoDraftResponse | null>(null)
   const [seoDraftsLoading, setSeoDraftsLoading] = useState(false)
+  const [referralCampaign, setReferralCampaign] = useState<ReferralCampaignResponse | null>(null)
+  const [referralCampaignLoading, setReferralCampaignLoading] = useState(false)
   const router = useRouter()
   const todayPlan = useMemo(() => {
     const today = dayOrder[new Date().getDay()]
@@ -590,6 +630,22 @@ export default function BehaviorStudyToolsMarketingPage() {
     }
   }, [])
 
+  const loadReferralCampaign = useCallback(async () => {
+    setReferralCampaignLoading(true)
+    try {
+      const response = await fetch('/api/admin/behavior-study-tools/referral-campaign')
+      const data = await response.json()
+      setReferralCampaign(data)
+    } catch {
+      setReferralCampaign({
+        success: false,
+        error: 'Supervisor referral campaign could not be loaded.',
+      })
+    } finally {
+      setReferralCampaignLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (!isAuthenticated) return
     loadMarketingReport()
@@ -598,6 +654,7 @@ export default function BehaviorStudyToolsMarketingPage() {
     loadIntegrationStatus()
     loadSeoActions()
     loadSeoDrafts()
+    loadReferralCampaign()
   }, [
     isAuthenticated,
     loadMarketingReport,
@@ -606,6 +663,7 @@ export default function BehaviorStudyToolsMarketingPage() {
     loadIntegrationStatus,
     loadSeoActions,
     loadSeoDrafts,
+    loadReferralCampaign,
   ])
 
   const copyBlock = `${todayPlan.hook}
@@ -724,6 +782,12 @@ ${todayPlan.ctaHref}`
 
       <main className="px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-7xl space-y-8">
+          <SupervisorReferralPanel
+            response={referralCampaign}
+            loading={referralCampaignLoading}
+            onRefresh={loadReferralCampaign}
+          />
+
           <section className="rounded-xl border-2 border-emerald-950/10 bg-white p-6 shadow-sm">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
@@ -2871,6 +2935,164 @@ function PagePerformanceTable({ items }: { items: PagePerformanceItem[] }) {
         </table>
       </div>
     </div>
+  )
+}
+
+function SupervisorReferralPanel({
+  response,
+  loading,
+  onRefresh,
+}: {
+  response: ReferralCampaignResponse | null
+  loading: boolean
+  onRefresh: () => void
+}) {
+  const [copiedField, setCopiedField] = useState('')
+  const campaign = response?.campaign
+  const audience = response?.audience
+
+  const copyValue = async (label: string, value?: string) => {
+    if (!value) return
+    await navigator.clipboard.writeText(value)
+    setCopiedField(label)
+    window.setTimeout(() => setCopiedField(''), 1600)
+  }
+
+  return (
+    <section className="overflow-hidden rounded-xl border-2 border-emerald-950/10 bg-white shadow-sm">
+      <div className="border-b border-emerald-950/10 bg-[#123f31] px-6 py-5 text-white">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <div className="flex items-center gap-2 text-sm font-black uppercase tracking-wide text-amber-200">
+              <UserRoundCheck className="h-4 w-4" />
+              Supervisor referral beta
+            </div>
+            <h2 className="mt-2 text-3xl font-black">Give exam candidates a useful first step.</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-emerald-50">
+              Start with a 25-person BAE SIG pilot. The note asks contacts to share the free mock with a supervisee or another BCBA exam candidate, using a dedicated referral campaign link.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onRefresh}
+            disabled={loading}
+            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/10 px-4 py-2 font-bold text-white hover:bg-white/15 disabled:opacity-60"
+          >
+            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+            {loading ? 'Checking CRM' : 'Refresh audience'}
+          </button>
+        </div>
+      </div>
+
+      {response?.error ? (
+        <div className="m-6 rounded-lg border border-red-200 bg-red-50 p-4 font-bold text-red-800">{response.error}</div>
+      ) : !campaign || !audience ? (
+        <div className="p-6 text-sm font-bold text-slate-600">Loading the BAE SIG campaign preview...</div>
+      ) : (
+        <div className="p-6">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            <MiniMetric label="BAE SIG" value={`${audience.baeSigContacts}`} detail="unique tagged contacts" />
+            <MiniMetric label="Eligible" value={`${audience.eligibleContacts}`} detail="after exclusions" />
+            <MiniMetric label="Supervisor signals" value={`${audience.supervisorSignals}`} detail="explicitly labeled in CRM" />
+            <MiniMetric label="Pilot" value={`${audience.pilotSize}`} detail="first measured cohort" />
+            <MiniMetric
+              label="Suppressed"
+              value={`${Object.values(audience.suppressions).reduce((total, count) => total + count, 0)}`}
+              detail="KCUSD, opt-out, invalid, generic"
+            />
+          </div>
+
+          <div className="mt-6 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+            <div>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-wide text-emerald-700">Email draft</p>
+                  <h3 className="mt-1 text-2xl font-black text-slate-950">{campaign.subject}</h3>
+                </div>
+                <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black uppercase tracking-wide text-amber-900">
+                  Approval required
+                </span>
+              </div>
+
+              <dl className="mt-5 grid gap-2 border-y border-slate-200 py-4 text-sm sm:grid-cols-[90px_1fr]">
+                <dt className="font-black text-slate-500">To</dt>
+                <dd className="font-semibold text-slate-900">Each approved pilot recipient, sent individually</dd>
+                <dt className="font-black text-slate-500">CC / BCC</dt>
+                <dd className="font-semibold text-slate-900">None</dd>
+                <dt className="font-black text-slate-500">Reply-to</dt>
+                <dd className="font-semibold text-slate-900">rob@behaviorschool.com</dd>
+              </dl>
+
+              <pre className="mt-5 whitespace-pre-wrap font-sans text-sm leading-7 text-slate-700">
+                {campaign.body.replace('{{supervisor_share_url}}', campaign.supervisorShareUrl)}
+              </pre>
+
+              <button
+                type="button"
+                onClick={() => copyValue('email', `Subject: ${campaign.subject}\n\n${campaign.body.replace('{{supervisor_share_url}}', campaign.supervisorShareUrl)}`)}
+                className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border-2 border-emerald-900/20 bg-white px-4 py-2 font-bold text-emerald-950 hover:bg-emerald-50"
+              >
+                <Clipboard className="h-4 w-4" />
+                {copiedField === 'email' ? 'Email copied' : 'Copy exact draft'}
+              </button>
+            </div>
+
+            <aside className="border-t border-slate-200 pt-6 xl:border-l xl:border-t-0 xl:pl-6 xl:pt-0">
+              <div className="flex items-center gap-2 text-emerald-800">
+                <Link2 className="h-5 w-5" />
+                <h3 className="font-black">Supervisor share link</h3>
+              </div>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                This is the simple link a supervisor can forward. Its referral source identifies traffic from this supervisor-focused outreach.
+              </p>
+              <div className="mt-3 break-all rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs font-semibold leading-5 text-slate-700">
+                {campaign.supervisorShareUrl}
+              </div>
+              <button
+                type="button"
+                onClick={() => copyValue('share', campaign.supervisorShareUrl)}
+                className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#123f31] px-4 py-2 font-bold text-white hover:bg-[#0d3025]"
+              >
+                <Clipboard className="h-4 w-4" />
+                {copiedField === 'share' ? 'Share link copied' : 'Copy share link'}
+              </button>
+
+              <div className="mt-6 flex items-center gap-2 text-emerald-800">
+                <Users className="h-5 w-5" />
+                <h3 className="font-black">Pilot preview</h3>
+              </div>
+              <p className="mt-2 text-xs font-semibold leading-5 text-slate-500">
+                Masked in the dashboard. Explicit supervisor labels appear first; sparse CRM labeling does not mean the remaining contacts are not supervisors.
+              </p>
+              <div className="mt-3 max-h-72 divide-y divide-slate-100 overflow-y-auto border-y border-slate-200">
+                {audience.pilotPreview.map((contact) => (
+                  <div key={contact.id || contact.email} className="py-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-black text-slate-900">{contact.name}</p>
+                        <p className="truncate text-xs font-semibold text-slate-500">{contact.email}</p>
+                      </div>
+                      {contact.supervisorSignal && (
+                        <span className="shrink-0 rounded-full bg-emerald-100 px-2 py-1 text-[11px] font-black uppercase text-emerald-800">
+                          Supervisor signal
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </aside>
+          </div>
+
+          <div className="mt-6 flex gap-3 border-t border-slate-200 pt-5 text-sm leading-6 text-slate-700">
+            <Mail className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700" />
+            <p>
+              <span className="font-black text-slate-950">No send action is enabled.</span> Each recipient must receive an individual Resend email with their own unsubscribe controls after the exact audience and draft are approved.
+            </p>
+          </div>
+        </div>
+      )}
+    </section>
   )
 }
 
