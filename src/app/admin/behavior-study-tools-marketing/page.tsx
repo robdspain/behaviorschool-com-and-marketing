@@ -2998,7 +2998,7 @@ function SupervisorReferralPanel({
             <MiniMetric
               label="Suppressed"
               value={`${Object.values(audience.suppressions).reduce((total, count) => total + count, 0)}`}
-              detail="KCUSD, opt-out, invalid, generic"
+              detail="KCUSD, internal, opt-out, invalid, generic"
             />
           </div>
 

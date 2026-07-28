@@ -18,6 +18,7 @@ const baeContact = (overrides: Partial<ReferralContact> = {}): ReferralContact =
 test('excludes KCUSD, generic, and do-not-email contacts', () => {
   assert.equal(referralSuppressionReason(baeContact({ organization: 'KCUSD' })), 'kcusd')
   assert.equal(referralSuppressionReason(baeContact({ email: 'info@example.com' })), 'generic_inbox')
+  assert.equal(referralSuppressionReason(baeContact({ email: 'staff@behaviorschool.com' })), 'internal_account')
   assert.equal(referralSuppressionReason(baeContact({ tags: ['BAE-SIG', 'do-not-email'] })), 'do_not_email')
 })
 
@@ -25,13 +26,15 @@ test('deduplicates contacts and puts supervisor signals first in the pilot', () 
   const audience = analyzeBaeSigReferralAudience([
     baeContact({ email: 'candidate@example.com' }),
     baeContact({ email: 'candidate@example.com' }),
-    baeContact({ email: 'supervisor@example.com', role: 'Fieldwork Supervisor' }),
+    baeContact({ firstName: 'Jordan', lastName: 'Supervisor', email: 'supervisor@example.com', role: 'Fieldwork Supervisor' }),
+    baeContact({ firstName: 'Taylor', lastName: 'Example', email: 'alternate@example.com' }),
     baeContact({ email: 'excluded@example.com', notes: 'No marketing' }),
   ])
 
-  assert.equal(audience.uniqueContacts, 3)
-  assert.equal(audience.eligibleContacts, 2)
+  assert.equal(audience.uniqueContacts, 4)
+  assert.equal(audience.eligibleContacts, 3)
   assert.equal(audience.supervisorSignals, 1)
+  assert.equal(audience.pilot.length, 2)
   assert.equal(audience.pilot[0].email, 'supervisor@example.com')
 })
 

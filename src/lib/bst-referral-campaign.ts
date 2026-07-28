@@ -16,6 +16,7 @@ export type ReferralSuppressionReason =
   | 'archived'
   | 'invalid_email'
   | 'generic_inbox'
+  | 'internal_account'
   | 'kcusd'
   | 'do_not_email'
 
@@ -71,6 +72,7 @@ const genericLocalParts = new Set([
   'registrar',
   'support',
   'webmaster',
+  'california.bae.sig',
 ])
 
 function normalizedValues(contact: ReferralContact) {
@@ -105,6 +107,9 @@ export function referralSuppressionReason(contact: ReferralContact): ReferralSup
   const email = contact.email?.trim().toLowerCase() || ''
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'invalid_email'
   if (genericLocalParts.has(email.split('@')[0])) return 'generic_inbox'
+  if (/@(behaviorschool\.com|updates\.behaviorschool\.com)$/i.test(email)) return 'internal_account'
+  if (hasText(contact, /\b(behavior school staff|behaviorschool staff|internal account|test account)\b/i)) return 'internal_account'
+  if (`${contact.firstName || ''} ${contact.lastName || ''}`.trim().toLowerCase() === 'rob spain') return 'internal_account'
   if (hasText(contact, /\b(kcusd|kings canyon unified|kings canyon usd)\b/i)) return 'kcusd'
   if (hasText(contact, /\b(do[\s-]*not[\s-]*email|unsubscribed|suppressed|no marketing)\b/i)) return 'do_not_email'
   return null
@@ -131,19 +136,27 @@ export function analyzeBaeSigReferralAudience(contacts: ReferralContact[]) {
       archived: 0,
       invalid_email: 0,
       generic_inbox: 0,
+      internal_account: 0,
       kcusd: 0,
       do_not_email: 0,
     },
   )
   const eligible = baeContacts.filter((contact) => !referralSuppressionReason(contact))
   const supervisorSignals = eligible.filter(hasSupervisorSignal)
-  const pilot = [...eligible]
+  const rankedPilotPool = [...eligible]
+    .filter(hasUsableName)
     .sort((left, right) => {
-      const signalDifference = Number(hasSupervisorSignal(right)) - Number(hasSupervisorSignal(left))
-      if (signalDifference) return signalDifference
-      return (left.email || '').localeCompare(right.email || '')
+      const scoreDifference = pilotContactScore(right) - pilotContactScore(left)
+      if (scoreDifference) return scoreDifference
+      return campaignRank(left.email || '') - campaignRank(right.email || '')
     })
-    .slice(0, 25)
+  const pilotByPerson = new Map<string, ReferralContact>()
+  for (const contact of rankedPilotPool) {
+    const fullName = [contact.firstName, contact.lastName].filter(Boolean).join(' ').trim().toLowerCase()
+    const personKey = fullName || contact.email?.trim().toLowerCase() || contact.id || ''
+    if (personKey && !pilotByPerson.has(personKey)) pilotByPerson.set(personKey, contact)
+  }
+  const pilot = [...pilotByPerson.values()].slice(0, 25)
 
   return {
     totalContacts: contacts.length,
@@ -154,6 +167,29 @@ export function analyzeBaeSigReferralAudience(contacts: ReferralContact[]) {
     suppressions,
     pilot,
   }
+}
+
+function pilotContactScore(contact: ReferralContact) {
+  const fullName = [contact.firstName, contact.lastName].filter(Boolean).join(' ').trim()
+  return (
+    (hasSupervisorSignal(contact) ? 100 : 0) +
+    (contact.role?.trim() ? 20 : 0) +
+    (contact.organization?.trim() ? 10 : 0) +
+    (contact.firstName?.trim() && contact.lastName?.trim() ? 5 : 0) +
+    (fullName && !/\d/.test(fullName) ? 2 : 0)
+  )
+}
+
+function hasUsableName(contact: ReferralContact) {
+  const firstName = contact.firstName?.trim() || ''
+  const lastName = contact.lastName?.trim() || ''
+  return firstName.length >= 2 && lastName.length >= 2 && !/\d/.test(`${firstName}${lastName}`)
+}
+
+function campaignRank(value: string) {
+  let rank = 0
+  for (const character of value.toLowerCase()) rank = (rank * 31 + character.charCodeAt(0)) % 1_000_003
+  return rank
 }
 
 export function maskEmail(email?: string) {
