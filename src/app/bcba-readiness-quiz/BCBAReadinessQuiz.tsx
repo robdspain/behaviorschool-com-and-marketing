@@ -7,7 +7,6 @@ import {
   ChevronRight,
   ChevronLeft,
   Share2,
-  Mail,
   Sparkles,
   BookOpen,
   Target,
@@ -327,15 +326,12 @@ function ScoreRing({ score }: { score: number }) {
 /*  Main Component                                                      */
 /* ------------------------------------------------------------------ */
 
-type Phase = "intro" | "quiz" | "score" | "email" | "results";
+type Phase = "intro" | "quiz" | "results";
 
 export function BCBAReadinessQuiz() {
   const [phase, setPhase] = useState<Phase>("intro");
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[] | number>>({});
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [submitting, setSubmitting] = useState(false);
   const [score, setScore] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
 
@@ -368,7 +364,7 @@ export function BCBAReadinessQuiz() {
       const s = calculateScore(answers);
       setScore(s);
       setShowConfetti(true);
-      setPhase("score");
+      setPhase("results");
       setTimeout(() => setShowConfetti(false), 4000);
     }
   };
@@ -396,22 +392,6 @@ export function BCBAReadinessQuiz() {
 
   const handleSlider = (value: number) => {
     setAnswers((prev) => ({ ...prev, [q.id]: value }));
-  };
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      await fetch("/api/quiz-signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, firstName, score, answers }),
-      });
-    } catch {
-      // Silently continue — email capture is best-effort
-    }
-    setSubmitting(false);
-    setPhase("results");
   };
 
   const shareText = `I scored ${score}/100 on the BCBA Exam Readiness Quiz! How ready are you?`;
@@ -671,111 +651,6 @@ export function BCBAReadinessQuiz() {
     );
   }
 
-  /* ---------- SCORE (gated) ---------- */
-  if (phase === "score") {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-bs-background to-white pt-28 pb-16 px-4">
-        {showConfetti && <Confetti />}
-        <motion.div
-          className="max-w-lg mx-auto text-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-2xl sm:text-3xl font-bold text-bs-text mb-2">
-            Your Readiness Score
-          </h2>
-          <p className="text-slate-500 mb-8">
-            Here&apos;s how prepared you are for the BCBA exam
-          </p>
-          <ScoreRing score={score} />
-          <p className="text-slate-500 mt-6 mb-8">
-            Enter your email to unlock your{" "}
-            <span className="font-semibold text-bs-text">
-              personalized study recommendations
-            </span>{" "}
-            and action plan.
-          </p>
-          <motion.button
-            onClick={() => setPhase("email")}
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition-all"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Mail className="w-5 h-5" /> Get My Recommendations
-          </motion.button>
-        </motion.div>
-      </div>
-    );
-  }
-
-  /* ---------- EMAIL CAPTURE ---------- */
-  if (phase === "email") {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-bs-background to-white pt-28 pb-16 px-4">
-        <motion.div
-          className="max-w-md mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-            <div className="text-center mb-6">
-              <ScoreRing score={score} />
-              <h2 className="text-xl font-bold text-bs-text mt-4 mb-1">
-                Unlock Your Personalized Plan
-              </h2>
-              <p className="text-slate-500 text-sm">
-                We&apos;ll send your detailed results and a custom study roadmap.
-              </p>
-            </div>
-            <form onSubmit={handleEmailSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-slate-700 mb-1">
-                  First Name
-                </label>
-                <input
-                  id="firstName"
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="Your first name"
-                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-emerald-500 focus:ring-0 outline-none transition-colors text-slate-800"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
-                  Email Address <span className="text-red-400">*</span>
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-emerald-500 focus:ring-0 outline-none transition-colors text-slate-800"
-                />
-              </div>
-              <motion.button
-                type="submit"
-                disabled={submitting || !email}
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl shadow transition-all disabled:opacity-50"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {submitting ? "Sending…" : "Show My Results →"}
-              </motion.button>
-              <p className="text-xs text-center text-slate-400">
-                No spam. Unsubscribe anytime. We respect your privacy.
-              </p>
-            </form>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
-
   /* ---------- RESULTS ---------- */
   const rec = getRecommendation();
   const colorMap = {
@@ -787,6 +662,7 @@ export function BCBAReadinessQuiz() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-bs-background to-white pt-28 pb-16 px-4">
+      {showConfetti && <Confetti />}
       <motion.div
         className="max-w-2xl mx-auto"
         initial={{ opacity: 0, y: 20 }}
