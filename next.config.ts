@@ -120,12 +120,6 @@ const nextConfig: NextConfig = {
         destination: '/study',
         permanent: true,
       },
-      {
-        source: '/bcba-study-tools',
-        destination: '/study',
-        permanent: true,
-      },
-
       // -- School BCBA Duplicates --
       {
         source: '/school-based-bcba',
