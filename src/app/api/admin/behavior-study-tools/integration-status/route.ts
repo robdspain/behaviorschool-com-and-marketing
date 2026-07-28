@@ -49,7 +49,7 @@ function buildIntegrationStatus() {
     hasEnv('BST_GSC_SERVICE_ACCOUNT_EMAIL', 'GOOGLE_CLIENT_EMAIL') &&
     hasEnv('BST_GSC_PRIVATE_KEY', 'GOOGLE_PRIVATE_KEY')
   const hasGoogleIdentity = hasGoogleJson || hasGooglePair
-  const hasGscSite = hasEnv('BST_GSC_SITE_URL')
+  const hasGscSite = hasEnv('BST_GSC_SITE_URL', 'BST_GSC_SITE_URLS')
   const hasAhrefsToken = hasEnv('AHREFS_API_TOKEN', 'BST_AHREFS_API_TOKEN')
   const hasAhrefsTarget = hasEnv('BST_AHREFS_TARGET')
   const hasDailySecret = hasEnv('BST_DAILY_MONITOR_SECRET')
@@ -91,16 +91,16 @@ function buildIntegrationStatus() {
       label: 'Google Search Console',
       status: hasGoogleIdentity && hasGscSite ? 'connected' : hasGoogleIdentity || hasGscSite ? 'partial' : 'missing',
       message: hasGoogleIdentity && hasGscSite
-        ? 'Search Console imports can collect queries, pages, impressions, clicks, CTR, and position.'
+        ? 'Search Console imports can collect query and page performance for both the marketing gateway and canonical study pages.'
         : hasGoogleIdentity || hasGscSite
           ? 'Search Console is only partially configured.'
           : 'Organic search query data is not connected.',
       nextStep: hasGoogleIdentity && hasGscSite
-        ? 'Run the SEO metrics collector and review query movement before changing page copy.'
-        : 'Add service-account credentials and BST_GSC_SITE_URL for behaviorstudytools.com.',
+        ? 'Run the SEO metrics collector and compare both properties before changing page copy.'
+        : 'Add service-account credentials and BST_GSC_SITE_URL or BST_GSC_SITE_URLS.',
       envVars: [
         'BST_GOOGLE_SERVICE_ACCOUNT_JSON or service-account email/private key pair',
-        'BST_GSC_SITE_URL',
+        'BST_GSC_SITE_URL or BST_GSC_SITE_URLS',
       ],
       impact: 'This tells us which pass-exam and study-intent searches are starting to work.',
     }),

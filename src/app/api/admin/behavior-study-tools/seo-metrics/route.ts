@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
 import { api, getConvexClient } from '@/lib/convex'
+import { resolveSearchConsoleSiteUrls } from '@/lib/behavior-study-tools/search-console-sites'
 
 export const dynamic = 'force-dynamic'
 
@@ -213,7 +214,6 @@ function gscRecommendation(row: SearchConsoleRow, query: string, page: string) {
 }
 
 async function collectSearchConsole(limit: number): Promise<CollectorResult> {
-  const siteUrl = cleanString(process.env.BST_GSC_SITE_URL || 'https://behaviorstudytools.com/', 500)
   const accessToken = await googleAccessToken()
   if (!accessToken) {
     return {
@@ -229,52 +229,73 @@ async function collectSearchConsole(limit: number): Promise<CollectorResult> {
   const startDate = dateDaysAgo(Number(process.env.BST_SEO_DATA_DELAY_DAYS || 3) + 6)
   const previousEndDate = dateDaysAgo(Number(process.env.BST_SEO_DATA_DELAY_DAYS || 3) + 7)
   const previousStartDate = dateDaysAgo(Number(process.env.BST_SEO_DATA_DELAY_DAYS || 3) + 13)
-  const [currentRows, previousRows] = await Promise.all([
-    searchConsoleQuery({ accessToken, siteUrl, startDate, endDate, limit }),
-    searchConsoleQuery({ accessToken, siteUrl, startDate: previousStartDate, endDate: previousEndDate, limit }),
-  ])
+  const siteUrls = resolveSearchConsoleSiteUrls()
+  const perSiteLimit = Math.max(10, Math.floor(limit / siteUrls.length))
+  const propertyResults = await Promise.allSettled(siteUrls.map(async (siteUrl) => {
+    const [currentRows, previousRows] = await Promise.all([
+      searchConsoleQuery({ accessToken, siteUrl, startDate, endDate, limit: perSiteLimit }),
+      searchConsoleQuery({ accessToken, siteUrl, startDate: previousStartDate, endDate: previousEndDate, limit: perSiteLimit }),
+    ])
+    return { siteUrl, currentRows, previousRows }
+  }))
 
-  const previousByKey = new Map(previousRows.map((row) => [row.keys?.join('\t') || '', row]))
   const signalDate = new Date().toISOString().slice(0, 10)
-  const signals = currentRows.map((row): SeoSignal => {
-    const [query = '', page = ''] = row.keys || []
-    const previous = previousByKey.get(row.keys?.join('\t') || '')
-    const clicks = row.clicks ?? null
-    const previousClicks = previous?.clicks ?? null
-    const change = clicks !== null && previousClicks !== null ? clicks - previousClicks : null
-    const changePercent = change !== null && previousClicks ? Math.round((change / previousClicks) * 1000) / 10 : null
-
-    return {
-      signal_date: signalDate,
-      source: 'google_search_console',
-      signal_type: 'seo_metric',
-      channel: 'organic_search',
-      url: page || null,
-      keyword: query || null,
-      topic: query || page || 'Search Console query/page movement',
-      metric_name: 'clicks',
-      metric_value: clicks,
-      previous_value: previousClicks,
-      change_value: change,
-      change_percent: changePercent,
-      metadata: {
-        startDate,
-        endDate,
-        previousStartDate,
-        previousEndDate,
-        impressions: row.impressions ?? null,
-        previousImpressions: previous?.impressions ?? null,
-        ctr: row.ctr ?? null,
-        previousCtr: previous?.ctr ?? null,
-        position: row.position ?? null,
-        previousPosition: previous?.position ?? null,
-      },
-      recommendation: gscRecommendation(row, query, page),
-      status: 'collected',
+  const warnings: string[] = []
+  const signals = propertyResults.flatMap((result, index): SeoSignal[] => {
+    if (result.status === 'rejected') {
+      const message = result.reason instanceof Error ? result.reason.message : 'Search Console property query failed'
+      warnings.push(`${siteUrls[index]}: ${message}`)
+      return []
     }
+
+    const { siteUrl, currentRows, previousRows } = result.value
+    const previousByKey = new Map(previousRows.map((row) => [row.keys?.join('\t') || '', row]))
+    return currentRows.map((row): SeoSignal => {
+      const [query = '', page = ''] = row.keys || []
+      const previous = previousByKey.get(row.keys?.join('\t') || '')
+      const clicks = row.clicks ?? null
+      const previousClicks = previous?.clicks ?? null
+      const change = clicks !== null && previousClicks !== null ? clicks - previousClicks : null
+      const changePercent = change !== null && previousClicks ? Math.round((change / previousClicks) * 1000) / 10 : null
+
+      return {
+        signal_date: signalDate,
+        source: 'google_search_console',
+        signal_type: 'seo_metric',
+        channel: 'organic_search',
+        url: page || null,
+        keyword: query || null,
+        topic: query || page || 'Search Console query/page movement',
+        metric_name: 'clicks',
+        metric_value: clicks,
+        previous_value: previousClicks,
+        change_value: change,
+        change_percent: changePercent,
+        metadata: {
+          siteUrl,
+          startDate,
+          endDate,
+          previousStartDate,
+          previousEndDate,
+          impressions: row.impressions ?? null,
+          previousImpressions: previous?.impressions ?? null,
+          ctr: row.ctr ?? null,
+          previousCtr: previous?.ctr ?? null,
+          position: row.position ?? null,
+          previousPosition: previous?.position ?? null,
+        },
+        recommendation: gscRecommendation(row, query, page),
+        status: 'collected',
+      }
+    })
   })
 
-  return storeSeoSignals('google_search_console', signals)
+  const stored = await storeSeoSignals('google_search_console', signals)
+  const combinedWarnings = [...warnings, ...(stored.warning ? [stored.warning] : [])]
+  return {
+    ...stored,
+    warning: combinedWarnings.length ? combinedWarnings.join(' ') : undefined,
+  }
 }
 
 function ahrefsRowsFrom(data: unknown): Record<string, unknown>[] {
