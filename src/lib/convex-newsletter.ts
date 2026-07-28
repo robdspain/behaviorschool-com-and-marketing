@@ -94,6 +94,28 @@ export async function confirmNewsletterSubscription(email: string) {
   return { success: true, email: normalizedEmail };
 }
 
+export async function unsubscribeFromNewsletter(email: string) {
+  const normalizedEmail = normalizeNewsletterEmail(email);
+  if (!isValidNewsletterEmail(normalizedEmail)) {
+    throw new Error('invalid_email');
+  }
+
+  const response = await fetch(`${getConvexUrl()}/api/mutation`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      path: 'newsletter:unsubscribeFromNewsletter',
+      args: { email: normalizedEmail },
+    }),
+  });
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    console.error('Convex newsletter unsubscribe failed:', data);
+    throw new Error('newsletter_unavailable');
+  }
+  return { success: true };
+}
+
 function getConvexUrl() {
   return String(
     process.env.NEWSLETTER_CONVEX_URL ||
