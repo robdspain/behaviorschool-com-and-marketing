@@ -1,31 +1,12 @@
 "use client";
 
-import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
-import { convexClient, crossDomainClient } from "@convex-dev/better-auth/client/plugins";
-import { createAuthClient } from "better-auth/react";
-import { ConvexReactClient } from "convex/react";
-import type { ReactNode } from "react";
+import { ConvexProviderWithAuth, ConvexReactClient } from "convex/react";
+import { useMemo, type ReactNode } from "react";
 
 const newsletterConvexUrl =
   process.env.NEXT_PUBLIC_NEWSLETTER_CONVEX_URL ||
   "https://modest-malamute-868.convex.cloud";
-const newsletterAuthProxyUrl =
-  process.env.NEXT_PUBLIC_SITE_URL
-    ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/newsletter-auth`
-    : "https://behaviorschool.com/api/newsletter-auth";
-
 const newsletterConvex = new ConvexReactClient(newsletterConvexUrl);
-
-export const newsletterAuthClient = createAuthClient({
-  baseURL: newsletterAuthProxyUrl,
-  plugins: [
-    convexClient(),
-    crossDomainClient({
-      storagePrefix: "newsletter-auth",
-      disableCache: true,
-    }),
-  ],
-});
 
 export function NewsletterConvexProvider({
   children,
@@ -34,13 +15,24 @@ export function NewsletterConvexProvider({
   children: ReactNode;
   initialToken?: string | null;
 }) {
+  const useNewsletterAuth = useMemo(
+    () =>
+      function useNewsletterTokenAuth() {
+        return {
+          isLoading: false,
+          isAuthenticated: Boolean(initialToken),
+          fetchAccessToken: async () => initialToken ?? null,
+        };
+      },
+    [initialToken],
+  );
+
   return (
-    <ConvexBetterAuthProvider
+    <ConvexProviderWithAuth
       client={newsletterConvex}
-      authClient={newsletterAuthClient as any}
-      initialToken={initialToken}
+      useAuth={useNewsletterAuth}
     >
       {children}
-    </ConvexBetterAuthProvider>
+    </ConvexProviderWithAuth>
   );
 }
