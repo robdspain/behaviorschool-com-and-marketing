@@ -8,6 +8,8 @@ import { AdminNewsletterPage } from "@/components/admin/NewsletterDashboard";
 import { NewsletterConvexProvider } from "@/components/admin/NewsletterConvexProvider";
 import { hasAdminClientSession } from "@/lib/admin-client-session";
 
+const newsletterGrantStorageKey = "behavior-school-newsletter-grant";
+
 function NewsletterAccessGate() {
   const { isAuthenticated, isLoading } = useConvexAuth();
 
@@ -73,6 +75,20 @@ export default function NewsletterAdminPage() {
       }
 
       const currentUrl = new URL(window.location.href);
+      let newsletterGrant = currentUrl.searchParams.get("newsletterGrant");
+      if (newsletterGrant) {
+        window.sessionStorage.setItem(
+          newsletterGrantStorageKey,
+          newsletterGrant,
+        );
+        currentUrl.searchParams.delete("newsletterGrant");
+        window.history.replaceState({}, "", currentUrl);
+      } else {
+        newsletterGrant = window.sessionStorage.getItem(
+          newsletterGrantStorageKey,
+        );
+      }
+
       if (currentUrl.searchParams.has("newsletterAuthError")) {
         setConnectionError(
           "The newsletter workspace could not be connected. Please try again.",
@@ -81,22 +97,30 @@ export default function NewsletterAdminPage() {
         window.history.replaceState({}, "", currentUrl);
       }
 
-      const tokenResponse = await fetch("/api/newsletter-auth/access-token", {
-        credentials: "same-origin",
-        cache: "no-store",
-      });
-      if (tokenResponse.ok) {
+      const tokenResponse = newsletterGrant
+        ? await fetch("/api/newsletter-auth/access-token", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ grant: newsletterGrant }),
+            credentials: "same-origin",
+            cache: "no-store",
+          })
+        : null;
+      if (tokenResponse?.ok) {
         const tokenResult = (await tokenResponse.json()) as {
           token?: string;
         };
         if (tokenResult.token) {
           setNewsletterAccessToken(tokenResult.token);
         }
-      } else {
+      } else if (tokenResponse) {
         const failure = (await tokenResponse.json().catch(() => null)) as {
           code?: string;
         } | null;
-        if (failure?.code && failure.code !== "missing_cookie") {
+        if (failure?.code) {
+          if (failure.code === "invalid_grant") {
+            window.sessionStorage.removeItem(newsletterGrantStorageKey);
+          }
           setConnectionError(
             `The newsletter workspace could not be connected (${failure.code}). Please try again.`,
           );

@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { makeNewsletterAuthGrant } from "@/lib/adminSession";
 
 export const dynamic = "force-dynamic";
 const behaviorSchoolOrigin = "https://behaviorschool.com";
 const newsletterAuthUrl =
   process.env.NEXT_PUBLIC_NEWSLETTER_CONVEX_SITE_URL ||
   "https://modest-malamute-868.convex.site";
-const newsletterSessionCookie = "bs_newsletter_session";
-
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("ott");
   const destination = new URL("/admin/newsletter", behaviorSchoolOrigin);
@@ -41,17 +40,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(destination);
   }
 
-  const response = NextResponse.redirect(destination);
-  response.cookies.set(
-    newsletterSessionCookie,
-    Buffer.from(sessionToken).toString("base64url"),
-    {
-      httpOnly: true,
-      secure: true,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    },
+  destination.searchParams.set(
+    "newsletterGrant",
+    makeNewsletterAuthGrant(sessionToken),
   );
-  return response;
+  return NextResponse.redirect(destination);
 }

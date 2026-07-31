@@ -1,7 +1,15 @@
-import { createHmac, randomBytes, timingSafeEqual } from 'crypto';
+import {
+  createCipheriv,
+  createDecipheriv,
+  createHash,
+  createHmac,
+  randomBytes,
+  timingSafeEqual,
+} from 'crypto';
 
 const SESSION_MAX_AGE = 60 * 60 * 24;
 const HANDOFF_MAX_AGE = 2 * 60;
+const NEWSLETTER_GRANT_MAX_AGE = 60 * 60 * 24 * 7;
 
 function sessionSecret() {
   return (
@@ -87,6 +95,66 @@ export function isValidAdminSessionToken(token: string | undefined | null) {
   if (expectedBuffer.length !== signatureBuffer.length) return false;
 
   return timingSafeEqual(expectedBuffer, signatureBuffer);
+}
+
+function newsletterGrantKey() {
+  const secret = sessionSecret();
+  if (!secret) throw new Error('admin_session_secret_missing');
+  return createHash('sha256')
+    .update(`${secret}:newsletter-auth-grant`)
+    .digest();
+}
+
+export function makeNewsletterAuthGrant(sessionToken: string) {
+  const iv = randomBytes(12);
+  const cipher = createCipheriv('aes-256-gcm', newsletterGrantKey(), iv);
+  const plaintext = `${Date.now().toString(36)}.${sessionToken}`;
+  const encrypted = Buffer.concat([
+    cipher.update(plaintext, 'utf8'),
+    cipher.final(),
+  ]);
+  const tag = cipher.getAuthTag();
+  return [
+    iv.toString('base64url'),
+    tag.toString('base64url'),
+    encrypted.toString('base64url'),
+  ].join('.');
+}
+
+export function readNewsletterAuthGrant(grant: string | undefined | null) {
+  if (!grant) return null;
+  const [ivValue, tagValue, encryptedValue] = grant.split('.');
+  if (!ivValue || !tagValue || !encryptedValue) return null;
+
+  try {
+    const decipher = createDecipheriv(
+      'aes-256-gcm',
+      newsletterGrantKey(),
+      Buffer.from(ivValue, 'base64url'),
+    );
+    decipher.setAuthTag(Buffer.from(tagValue, 'base64url'));
+    const plaintext = Buffer.concat([
+      decipher.update(Buffer.from(encryptedValue, 'base64url')),
+      decipher.final(),
+    ]).toString('utf8');
+    const separator = plaintext.indexOf('.');
+    if (separator < 1) return null;
+
+    const issuedAt = parseInt(plaintext.slice(0, separator), 36);
+    const sessionToken = plaintext.slice(separator + 1);
+    const age = Date.now() - issuedAt;
+    if (
+      Number.isNaN(issuedAt) ||
+      age < 0 ||
+      age > NEWSLETTER_GRANT_MAX_AGE * 1000 ||
+      !sessionToken
+    ) {
+      return null;
+    }
+    return sessionToken;
+  } catch {
+    return null;
+  }
 }
 
 export { SESSION_MAX_AGE as ADMIN_SESSION_MAX_AGE };

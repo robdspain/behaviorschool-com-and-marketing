@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parseSetCookieHeader } from "better-auth/cookies";
 import { requireAdminApiSession } from "@/lib/admin-api-session";
+import { readNewsletterAuthGrant } from "@/lib/adminSession";
 
 export const dynamic = "force-dynamic";
 
@@ -8,27 +9,17 @@ const behaviorSchoolOrigin = "https://behaviorschool.com";
 const newsletterAuthUrl =
   process.env.NEXT_PUBLIC_NEWSLETTER_CONVEX_SITE_URL ||
   "https://modest-malamute-868.convex.site";
-const newsletterSessionCookie = "bs_newsletter_session";
-
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const unauthorized = await requireAdminApiSession();
   if (unauthorized) return unauthorized;
 
-  const encodedCookie = request.cookies.get(newsletterSessionCookie)?.value;
-  if (!encodedCookie) {
-    console.info("Newsletter access token", { stage: "cookie", found: false });
+  const body = (await request.json().catch(() => null)) as {
+    grant?: string;
+  } | null;
+  const sessionToken = readNewsletterAuthGrant(body?.grant);
+  if (!sessionToken) {
     return NextResponse.json(
-      { error: "Not connected", code: "missing_cookie" },
-      { status: 401 },
-    );
-  }
-
-  let sessionToken: string;
-  try {
-    sessionToken = Buffer.from(encodedCookie, "base64url").toString("utf8");
-  } catch {
-    return NextResponse.json(
-      { error: "Invalid session", code: "invalid_cookie" },
+      { error: "Not connected", code: "invalid_grant" },
       { status: 401 },
     );
   }
@@ -62,7 +53,6 @@ export async function GET(request: NextRequest) {
       },
       { status: 401 },
     );
-    failure.cookies.delete(newsletterSessionCookie);
     return failure;
   }
 
@@ -97,7 +87,6 @@ export async function GET(request: NextRequest) {
       },
       { status: 401 },
     );
-    failure.cookies.delete(newsletterSessionCookie);
     return failure;
   }
 
