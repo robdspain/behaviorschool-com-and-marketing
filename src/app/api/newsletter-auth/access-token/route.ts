@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
 
   const encodedCookie = request.cookies.get(newsletterSessionCookie)?.value;
   if (!encodedCookie) {
+    console.info("Newsletter access token", { stage: "cookie", found: false });
     return NextResponse.json({ error: "Not connected" }, { status: 401 });
   }
 
@@ -42,6 +43,11 @@ export async function GET(request: NextRequest) {
   const setCookie =
     sessionResponse.headers.get("set-better-auth-cookie") ||
     sessionResponse.headers.get("set-cookie");
+  console.info("Newsletter access token", {
+    stage: "session",
+    status: sessionResponse.status,
+    hasSetCookie: Boolean(setCookie),
+  });
   if (!sessionResponse.ok || !setCookie) {
     const failure = NextResponse.json(
       { error: "Newsletter session expired" },
@@ -52,6 +58,7 @@ export async function GET(request: NextRequest) {
   }
 
   const parsedCookies = parseSetCookieHeader(setCookie);
+  const parsedCookieNames = [...parsedCookies.keys()];
   const cookieHeader = [...parsedCookies.entries()]
     .map(([name, cookie]) => `${name}=${cookie.value}`)
     .join("; ");
@@ -66,6 +73,12 @@ export async function GET(request: NextRequest) {
     cache: "no-store",
   });
   const payload = await response.json().catch(() => null);
+  console.info("Newsletter access token", {
+    stage: "convex-token",
+    status: response.status,
+    hasToken: Boolean(payload?.token),
+    parsedCookieNames,
+  });
 
   if (!response.ok || !payload?.token) {
     const failure = NextResponse.json(

@@ -31,6 +31,10 @@ export async function GET(request: NextRequest) {
   );
   const verificationPayload = await verification.json().catch(() => null);
   const sessionToken = verificationPayload?.session?.token;
+  console.info("Newsletter auth callback", {
+    verificationStatus: verification.status,
+    hasSessionToken: Boolean(sessionToken),
+  });
 
   if (!verification.ok || !sessionToken) {
     destination.searchParams.set("newsletterAuthError", "verify");
