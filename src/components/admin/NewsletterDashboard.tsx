@@ -180,6 +180,8 @@ type YouTubeEpisode = {
   shortClipConcepts: Array<{ title: string; hook: string; durationSeconds: number }>;
 };
 
+const emptySocialPosts: NewsletterSocialPost[] = [];
+
 const newsletterApi = (api as any).weeklyNewsletter;
 const topicApi = (api as any).weeklyTopicRecommendations;
 const revenueApi = (api as any).contentRevenue;
@@ -266,10 +268,11 @@ export function AdminNewsletterPage() {
   const operationalHealth = useQuery(newsletterApi.operationalHealth, { now: healthCheckAt }) as OperationalHealth | undefined;
   const channelReadiness = useQuery(bufferApi.channelReadinessFromAdmin, {}) as ChannelReadiness[] | undefined;
   const audience = useQuery(newsletterApi.audienceSummary, {}) as AudienceSegment[] | undefined;
-  const socialPosts = (useQuery(
+  const socialPostsQuery = useQuery(
     newsletterApi.listSocialPostsForIssue,
     selectedIssueId ? { issueId: selectedIssueId as any } : "skip"
-  ) as NewsletterSocialPost[] | undefined) ?? [];
+  ) as NewsletterSocialPost[] | undefined;
+  const socialPosts = socialPostsQuery ?? emptySocialPosts;
   const episode = (useQuery(
     revenueApi.getVideoForIssueFromAdmin,
     selectedIssueId ? { issueId: selectedIssueId as any } : "skip"
