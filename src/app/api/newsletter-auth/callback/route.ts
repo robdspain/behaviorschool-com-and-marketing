@@ -33,11 +33,6 @@ export async function GET(request: NextRequest) {
   const setCookie =
     verification.headers.get("set-better-auth-cookie") ||
     verification.headers.get("set-cookie");
-  console.info("Newsletter auth callback", {
-    verificationStatus: verification.status,
-    hasSession: Boolean(verificationPayload?.session?.token),
-    hasSetCookie: Boolean(setCookie),
-  });
 
   if (!verification.ok || !verificationPayload?.session?.token || !setCookie) {
     destination.searchParams.set("newsletterAuthError", "verify");

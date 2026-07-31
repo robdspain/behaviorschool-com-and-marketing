@@ -63,7 +63,6 @@ export default function NewsletterAdminPage() {
   const [newsletterAccessToken, setNewsletterAccessToken] = useState<
     string | null
   >(null);
-  const [authStage, setAuthStage] = useState("checking");
 
   useEffect(() => {
     document.title = "Weekly Newsletter | Behavior School Admin";
@@ -82,7 +81,6 @@ export default function NewsletterAdminPage() {
       const currentUrl = new URL(window.location.href);
       let newsletterGrant = currentUrl.searchParams.get("newsletterGrant");
       if (newsletterGrant) {
-        setAuthStage("grant_received");
         window.sessionStorage.setItem(
           newsletterGrantStorageKey,
           newsletterGrant,
@@ -93,7 +91,6 @@ export default function NewsletterAdminPage() {
         newsletterGrant = window.sessionStorage.getItem(
           newsletterGrantStorageKey,
         );
-        setAuthStage(newsletterGrant ? "grant_restored" : "grant_missing");
       }
 
       if (currentUrl.searchParams.has("newsletterAuthError")) {
@@ -114,18 +111,13 @@ export default function NewsletterAdminPage() {
           })
         : null;
       if (tokenResponse?.ok) {
-        setAuthStage("token_response_ok");
         const tokenResult = (await tokenResponse.json()) as {
           token?: string;
         };
         if (tokenResult.token) {
           setNewsletterAccessToken(tokenResult.token);
-          setAuthStage("token_stored");
-        } else {
-          setAuthStage("token_missing");
         }
       } else if (tokenResponse) {
-        setAuthStage(`token_response_${tokenResponse.status}`);
         const failure = (await tokenResponse.json().catch(() => null)) as {
           code?: string;
         } | null;
@@ -134,7 +126,7 @@ export default function NewsletterAdminPage() {
             window.sessionStorage.removeItem(newsletterGrantStorageKey);
           }
           setConnectionError(
-            `The newsletter workspace could not be connected (${failure.code}). Please try again.`,
+            "The newsletter workspace could not be connected. Please try again.",
           );
         } else if (tokenResponse.status !== 401) {
           setConnectionError(
@@ -170,7 +162,6 @@ export default function NewsletterAdminPage() {
   }
 
   return (
-    <div data-newsletter-auth-stage={authStage}>
     <NewsletterConvexProvider initialToken={newsletterAccessToken}>
       {connectionError ? (
         <div
@@ -184,6 +175,5 @@ export default function NewsletterAdminPage() {
         hasAccessToken={Boolean(newsletterAccessToken)}
       />
     </NewsletterConvexProvider>
-    </div>
   );
 }

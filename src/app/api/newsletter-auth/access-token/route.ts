@@ -29,11 +29,6 @@ export async function POST(request: NextRequest) {
     cache: "no-store",
   });
   const payload = await response.json().catch(() => null);
-  console.info("Newsletter access token", {
-    stage: "convex-token",
-    status: response.status,
-    hasToken: Boolean(payload?.token),
-  });
 
   if (!response.ok || !payload?.token) {
     const failure = NextResponse.json(
