@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 const newsletterAuthUrl =
   process.env.NEXT_PUBLIC_NEWSLETTER_CONVEX_SITE_URL ||
   "https://modest-malamute-868.convex.site";
+const behaviorSchoolOrigin = "https://behaviorschool.com";
 
 type RouteContext = {
   params: Promise<{ path: string[] }>;
@@ -28,7 +29,11 @@ async function proxyNewsletterAuth(
   }
 
   const requestOrigin = request.headers.get("origin");
-  if (requestOrigin && requestOrigin !== request.nextUrl.origin) {
+  if (
+    requestOrigin &&
+    requestOrigin !== behaviorSchoolOrigin &&
+    requestOrigin !== "https://www.behaviorschool.com"
+  ) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -40,7 +45,7 @@ async function proxyNewsletterAuth(
 
   const headers = new Headers({
     Accept: request.headers.get("accept") || "application/json",
-    Origin: request.nextUrl.origin,
+    Origin: behaviorSchoolOrigin,
   });
   const contentType = request.headers.get("content-type");
   const authCookie = request.headers.get("better-auth-cookie");
