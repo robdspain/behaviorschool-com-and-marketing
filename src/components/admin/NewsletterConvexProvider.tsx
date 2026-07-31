@@ -19,7 +19,10 @@ export const newsletterAuthClient = createAuthClient({
   baseURL: newsletterConvexSiteUrl,
   plugins: [
     convexClient(),
-    crossDomainClient({ storagePrefix: "newsletter-auth" }),
+    crossDomainClient({
+      storagePrefix: "newsletter-auth",
+      disableCache: true,
+    }),
   ],
 });
 

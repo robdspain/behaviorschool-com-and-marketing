@@ -72,18 +72,47 @@ export default function NewsletterAdminPage() {
   const [adminSession, setAdminSession] = useState<
     "checking" | "authenticated" | "unauthenticated"
   >("checking");
+  const [connectionError, setConnectionError] = useState("");
 
   useEffect(() => {
     document.title = "Weekly Newsletter | Behavior School Admin";
 
     let active = true;
-    void hasAdminClientSession().then((authenticated) => {
+    void (async () => {
+      const authenticated = await hasAdminClientSession();
       if (!active) return;
+
       if (!authenticated) {
         setAdminSession("unauthenticated");
         router.replace("/admin/login?returnTo=/admin/newsletter");
         return;
       }
+
+      const currentUrl = new URL(window.location.href);
+      const oneTimeToken = currentUrl.searchParams.get("ott");
+      if (oneTimeToken) {
+        const result =
+          await newsletterAuthClient.crossDomain.oneTimeToken.verify({
+            token: oneTimeToken,
+          });
+        if (result.error) {
+          setConnectionError(
+            "The newsletter connection could not be completed. Please try again.",
+          );
+        } else {
+          currentUrl.searchParams.delete("ott");
+          window.history.replaceState({}, "", currentUrl);
+          newsletterAuthClient.updateSession();
+        }
+      }
+
+      if (!active) return;
+      setAdminSession("authenticated");
+    })().catch(() => {
+      if (!active) return;
+      setConnectionError(
+        "The newsletter connection could not be completed. Please try again.",
+      );
       setAdminSession("authenticated");
     });
 
@@ -105,6 +134,14 @@ export default function NewsletterAdminPage() {
 
   return (
     <NewsletterConvexProvider>
+      {connectionError ? (
+        <div
+          role="alert"
+          className="border-b border-red-200 bg-red-50 px-6 py-3 text-sm font-medium text-red-800"
+        >
+          {connectionError}
+        </div>
+      ) : null}
       <NewsletterAccessGate />
     </NewsletterConvexProvider>
   );
