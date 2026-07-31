@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { parseSetCookieHeader } from "better-auth/cookies";
 import { requireAdminApiSession } from "@/lib/admin-api-session";
 
 export const dynamic = "force-dynamic";
@@ -18,12 +19,42 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Not connected" }, { status: 401 });
   }
 
-  let cookieHeader: string;
+  let sessionToken: string;
   try {
-    cookieHeader = Buffer.from(encodedCookie, "base64url").toString("utf8");
+    sessionToken = Buffer.from(encodedCookie, "base64url").toString("utf8");
   } catch {
     return NextResponse.json({ error: "Invalid session" }, { status: 401 });
   }
+
+  const sessionResponse = await fetch(
+    `${newsletterAuthUrl}/api/auth/get-session`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${sessionToken}`,
+        Origin: behaviorSchoolOrigin,
+        "Better-Auth-Cookie": "",
+      },
+      cache: "no-store",
+    },
+  );
+  const setCookie =
+    sessionResponse.headers.get("set-better-auth-cookie") ||
+    sessionResponse.headers.get("set-cookie");
+  if (!sessionResponse.ok || !setCookie) {
+    const failure = NextResponse.json(
+      { error: "Newsletter session expired" },
+      { status: 401 },
+    );
+    failure.cookies.delete(newsletterSessionCookie);
+    return failure;
+  }
+
+  const parsedCookies = parseSetCookieHeader(setCookie);
+  const cookieHeader = [...parsedCookies.entries()]
+    .map(([name, cookie]) => `${name}=${cookie.value}`)
+    .join("; ");
 
   const response = await fetch(`${newsletterAuthUrl}/api/auth/convex/token`, {
     method: "GET",
