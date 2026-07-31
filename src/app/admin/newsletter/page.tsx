@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle, LogIn } from "lucide-react";
+import { useConvexAuth } from "convex/react";
 import { AdminNewsletterPage } from "@/components/admin/NewsletterDashboard";
 import {
   NewsletterConvexProvider,
@@ -11,7 +12,7 @@ import {
 import { hasAdminClientSession } from "@/lib/admin-client-session";
 
 function NewsletterAccessGate() {
-  const { data: session, isPending } = newsletterAuthClient.useSession();
+  const { isAuthenticated, isLoading } = useConvexAuth();
   const [signingIn, setSigningIn] = useState(false);
 
   const connectNewsletterWorkspace = async () => {
@@ -23,7 +24,7 @@ function NewsletterAccessGate() {
     setSigningIn(false);
   };
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-100">
         <div className="flex items-center gap-3 text-sm font-medium text-slate-600">
@@ -34,7 +35,7 @@ function NewsletterAccessGate() {
     );
   }
 
-  if (!session) {
+  if (!isAuthenticated) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-100 px-6">
         <div className="max-w-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
