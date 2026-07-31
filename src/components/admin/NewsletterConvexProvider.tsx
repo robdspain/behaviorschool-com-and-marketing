@@ -15,11 +15,6 @@ const newsletterConvexSiteUrl =
 
 const newsletterConvex = new ConvexReactClient(newsletterConvexUrl);
 
-export const newsletterSignInClient = createAuthClient({
-  baseURL: newsletterConvexSiteUrl,
-  plugins: [convexClient()],
-});
-
 export const newsletterAuthClient = createAuthClient({
   baseURL: newsletterConvexSiteUrl,
   plugins: [

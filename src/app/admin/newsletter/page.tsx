@@ -8,7 +8,6 @@ import { AdminNewsletterPage } from "@/components/admin/NewsletterDashboard";
 import {
   NewsletterConvexProvider,
   newsletterAuthClient,
-  newsletterSignInClient,
 } from "@/components/admin/NewsletterConvexProvider";
 import { hasAdminClientSession } from "@/lib/admin-client-session";
 
@@ -16,13 +15,9 @@ function NewsletterAccessGate() {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const [signingIn, setSigningIn] = useState(false);
 
-  const connectNewsletterWorkspace = async () => {
+  const connectNewsletterWorkspace = () => {
     setSigningIn(true);
-    await newsletterSignInClient.signIn.social({
-      provider: "google",
-      callbackURL: "https://behaviorschool.com/admin/newsletter",
-    });
-    setSigningIn(false);
+    window.location.assign("/api/admin/newsletter-auth/start");
   };
 
   if (isLoading) {
