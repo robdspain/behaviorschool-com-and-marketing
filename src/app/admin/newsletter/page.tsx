@@ -17,11 +17,7 @@ function NewsletterAccessGate({
 }) {
   const { isAuthenticated, isLoading } = useConvexAuth();
 
-  if (hasAccessToken) {
-    return <AdminNewsletterPage />;
-  }
-
-  if (isLoading) {
+  if (isLoading || (hasAccessToken && !isAuthenticated)) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-100">
         <div className="flex items-center gap-3 text-sm font-medium text-slate-600">
