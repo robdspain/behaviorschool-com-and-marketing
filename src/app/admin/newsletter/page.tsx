@@ -13,33 +13,6 @@ import { hasAdminClientSession } from "@/lib/admin-client-session";
 
 function NewsletterAccessGate() {
   const { isAuthenticated, isLoading } = useConvexAuth();
-  const [signingIn, setSigningIn] = useState(false);
-  const [connectionError, setConnectionError] = useState("");
-
-  const connectNewsletterWorkspace = async () => {
-    setSigningIn(true);
-    setConnectionError("");
-    try {
-      const result = await newsletterAuthClient.signIn.social({
-        provider: "google",
-        callbackURL: `${window.location.origin}/api/newsletter-auth/callback`,
-        disableRedirect: true,
-      });
-      if (result.error || !result.data?.url) {
-        setConnectionError(
-          "The newsletter workspace could not be connected. Please try again.",
-        );
-        return;
-      }
-      window.location.assign(result.data.url);
-    } catch {
-      setConnectionError(
-        "The newsletter workspace could not be connected. Please try again.",
-      );
-    } finally {
-      setSigningIn(false);
-    }
-  };
 
   if (isLoading) {
     return (
@@ -63,24 +36,13 @@ function NewsletterAccessGate() {
             Your Behavior School admin session is active. Connect your approved
             Google account once to open the weekly newsletter data here.
           </p>
-          {connectionError ? (
-            <p role="alert" className="mt-4 text-sm font-medium text-red-700">
-              {connectionError}
-            </p>
-          ) : null}
-          <button
-            type="button"
-            onClick={connectNewsletterWorkspace}
-            disabled={signingIn}
+          <a
+            href="/api/newsletter-auth/start"
             className="mt-6 inline-flex h-11 items-center gap-2 bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
           >
-            {signingIn ? (
-              <LoaderCircle className="h-4 w-4 animate-spin" />
-            ) : (
-              <LogIn className="h-4 w-4" />
-            )}
+            <LogIn className="h-4 w-4" />
             Connect newsletter workspace
-          </button>
+          </a>
         </div>
       </div>
     );
