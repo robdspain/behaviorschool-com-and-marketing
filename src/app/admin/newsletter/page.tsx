@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LoaderCircle, LogIn } from "lucide-react";
 import { AdminNewsletterPage } from "@/components/admin/NewsletterDashboard";
@@ -13,6 +12,16 @@ import { hasAdminClientSession } from "@/lib/admin-client-session";
 
 function NewsletterAccessGate() {
   const { data: session, isPending } = newsletterAuthClient.useSession();
+  const [signingIn, setSigningIn] = useState(false);
+
+  const connectNewsletterWorkspace = async () => {
+    setSigningIn(true);
+    await newsletterAuthClient.signIn.social({
+      provider: "google",
+      callbackURL: "https://behaviorschool.com/admin/newsletter",
+    });
+    setSigningIn(false);
+  };
 
   if (isPending) {
     return (
@@ -33,16 +42,22 @@ function NewsletterAccessGate() {
             Newsletter workspace sign-in required
           </h1>
           <p className="mt-3 text-sm leading-6 text-slate-600">
-            Your Behavior School admin session is active. Sign in once to the
-            newsletter data service to open the weekly workflow here.
+            Your Behavior School admin session is active. Connect your approved
+            Google account once to open the weekly newsletter data here.
           </p>
-          <Link
-            href="https://learning.behaviorschool.com/login"
+          <button
+            type="button"
+            onClick={connectNewsletterWorkspace}
+            disabled={signingIn}
             className="mt-6 inline-flex h-11 items-center gap-2 bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
           >
-            <LogIn className="h-4 w-4" />
-            Sign in to newsletter workspace
-          </Link>
+            {signingIn ? (
+              <LoaderCircle className="h-4 w-4 animate-spin" />
+            ) : (
+              <LogIn className="h-4 w-4" />
+            )}
+            Connect newsletter workspace
+          </button>
         </div>
       </div>
     );
