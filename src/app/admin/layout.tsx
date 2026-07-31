@@ -34,12 +34,12 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-slate-50">
+    <div className="min-h-screen overflow-x-clip bg-slate-50">
       <AdminSidebar />
       
       {/* Main Content Area */}
-      <div className={collapsed ? "max-w-full overflow-x-hidden lg:pl-20" : "max-w-full overflow-x-hidden lg:pl-72"}>
-        <main className="min-h-screen max-w-full overflow-x-hidden">
+      <div className={collapsed ? "max-w-full overflow-x-clip lg:pl-20" : "max-w-full overflow-x-clip lg:pl-72"}>
+        <main className="min-h-screen max-w-full overflow-x-clip">
           {children}
         </main>
       </div>
