@@ -17,7 +17,10 @@ const newsletterConvex = new ConvexReactClient(newsletterConvexUrl);
 
 export const newsletterAuthClient = createAuthClient({
   baseURL: newsletterConvexSiteUrl,
-  plugins: [convexClient(), crossDomainClient()],
+  plugins: [
+    convexClient(),
+    crossDomainClient({ storagePrefix: "newsletter-auth" }),
+  ],
 });
 
 export function NewsletterConvexProvider({ children }: { children: ReactNode }) {
