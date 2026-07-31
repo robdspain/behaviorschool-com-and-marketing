@@ -30,7 +30,7 @@ export function NewsletterConvexProvider({ children }: { children: ReactNode }) 
   return (
     <ConvexBetterAuthProvider
       client={newsletterConvex}
-      authClient={newsletterAuthClient}
+      authClient={newsletterAuthClient as any}
     >
       {children}
     </ConvexBetterAuthProvider>

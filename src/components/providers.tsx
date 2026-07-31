@@ -22,7 +22,7 @@ export function Providers({ children }: { children: ReactNode }) {
   if (!convex) return <>{children}</>;
 
   return (
-    <ConvexBetterAuthProvider client={convex} authClient={authClient}>
+    <ConvexBetterAuthProvider client={convex} authClient={authClient as any}>
       {children}
     </ConvexBetterAuthProvider>
   );
