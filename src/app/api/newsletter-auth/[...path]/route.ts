@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdminApiSession } from "@/lib/admin-api-session";
 
 export const dynamic = "force-dynamic";
 
@@ -15,10 +14,24 @@ async function proxyNewsletterAuth(
   request: NextRequest,
   context: RouteContext,
 ) {
-  const unauthorized = await requireAdminApiSession();
-  if (unauthorized) return unauthorized;
-
   const { path } = await context.params;
+  const authPath = path.join("/");
+  const allowedPaths = new Set([
+    "sign-in/social",
+    "get-session",
+    "cross-domain/one-time-token/verify",
+    "convex/token",
+    "sign-out",
+  ]);
+  if (!allowedPaths.has(authPath)) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  const requestOrigin = request.headers.get("origin");
+  if (requestOrigin && requestOrigin !== request.nextUrl.origin) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const targetUrl = new URL(
     `/api/auth/${path.map(encodeURIComponent).join("/")}`,
     newsletterAuthUrl,
