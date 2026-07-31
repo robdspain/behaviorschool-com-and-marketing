@@ -9,14 +9,15 @@ import type { ReactNode } from "react";
 const newsletterConvexUrl =
   process.env.NEXT_PUBLIC_NEWSLETTER_CONVEX_URL ||
   "https://modest-malamute-868.convex.cloud";
-const newsletterConvexSiteUrl =
-  process.env.NEXT_PUBLIC_NEWSLETTER_CONVEX_SITE_URL ||
-  "https://modest-malamute-868.convex.site";
+const newsletterAuthProxyUrl =
+  process.env.NEXT_PUBLIC_SITE_URL
+    ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/newsletter-auth`
+    : "https://behaviorschool.com/api/newsletter-auth";
 
 const newsletterConvex = new ConvexReactClient(newsletterConvexUrl);
 
 export const newsletterAuthClient = createAuthClient({
-  baseURL: newsletterConvexSiteUrl,
+  baseURL: newsletterAuthProxyUrl,
   plugins: [
     convexClient(),
     crossDomainClient({
