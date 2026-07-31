@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { parseSetCookieHeader } from "better-auth/cookies";
 import { makeNewsletterAuthGrant } from "@/lib/adminSession";
 
 export const dynamic = "force-dynamic";
@@ -29,20 +30,31 @@ export async function GET(request: NextRequest) {
     },
   );
   const verificationPayload = await verification.json().catch(() => null);
-  const sessionToken = verificationPayload?.session?.token;
+  const setCookie =
+    verification.headers.get("set-better-auth-cookie") ||
+    verification.headers.get("set-cookie");
   console.info("Newsletter auth callback", {
     verificationStatus: verification.status,
-    hasSessionToken: Boolean(sessionToken),
+    hasSession: Boolean(verificationPayload?.session?.token),
+    hasSetCookie: Boolean(setCookie),
   });
 
-  if (!verification.ok || !sessionToken) {
+  if (!verification.ok || !verificationPayload?.session?.token || !setCookie) {
+    destination.searchParams.set("newsletterAuthError", "verify");
+    return NextResponse.redirect(destination);
+  }
+
+  const authCookie = [...parseSetCookieHeader(setCookie).entries()]
+    .map(([name, cookie]) => `${name}=${cookie.value}`)
+    .join("; ");
+  if (!authCookie) {
     destination.searchParams.set("newsletterAuthError", "verify");
     return NextResponse.redirect(destination);
   }
 
   destination.searchParams.set(
     "newsletterGrant",
-    makeNewsletterAuthGrant(sessionToken),
+    makeNewsletterAuthGrant(authCookie),
   );
   return NextResponse.redirect(destination);
 }

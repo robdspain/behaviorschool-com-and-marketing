@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { parseSetCookieHeader } from "better-auth/cookies";
 import { readNewsletterAuthGrant } from "@/lib/adminSession";
 
 export const dynamic = "force-dynamic";
@@ -12,58 +11,20 @@ export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => null)) as {
     grant?: string;
   } | null;
-  const sessionToken = readNewsletterAuthGrant(body?.grant);
-  if (!sessionToken) {
+  const authCookie = readNewsletterAuthGrant(body?.grant);
+  if (!authCookie) {
     return NextResponse.json(
       { error: "Not connected", code: "invalid_grant" },
       { status: 401 },
     );
   }
 
-  const sessionResponse = await fetch(
-    `${newsletterAuthUrl}/api/auth/get-session`,
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${sessionToken}`,
-        Origin: behaviorSchoolOrigin,
-        "Better-Auth-Cookie": "",
-      },
-      cache: "no-store",
-    },
-  );
-  const setCookie =
-    sessionResponse.headers.get("set-better-auth-cookie") ||
-    sessionResponse.headers.get("set-cookie");
-  console.info("Newsletter access token", {
-    stage: "session",
-    status: sessionResponse.status,
-    hasSetCookie: Boolean(setCookie),
-  });
-  if (!sessionResponse.ok || !setCookie) {
-    const failure = NextResponse.json(
-      {
-        error: "Newsletter session expired",
-        code: `session_exchange_${sessionResponse.status}_${setCookie ? "cookie" : "no_cookie"}`,
-      },
-      { status: 401 },
-    );
-    return failure;
-  }
-
-  const parsedCookies = parseSetCookieHeader(setCookie);
-  const parsedCookieNames = [...parsedCookies.keys()];
-  const cookieHeader = [...parsedCookies.entries()]
-    .map(([name, cookie]) => `${name}=${cookie.value}`)
-    .join("; ");
-
   const response = await fetch(`${newsletterAuthUrl}/api/auth/convex/token`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       Origin: behaviorSchoolOrigin,
-      "Better-Auth-Cookie": cookieHeader,
+      "Better-Auth-Cookie": authCookie,
     },
     cache: "no-store",
   });
@@ -72,7 +33,6 @@ export async function POST(request: NextRequest) {
     stage: "convex-token",
     status: response.status,
     hasToken: Boolean(payload?.token),
-    parsedCookieNames,
   });
 
   if (!response.ok || !payload?.token) {
