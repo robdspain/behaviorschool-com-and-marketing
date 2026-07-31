@@ -15,16 +15,20 @@ export function NewsletterConvexProvider({
   children: ReactNode;
   initialToken?: string | null;
 }) {
+  const newsletterAuthState = useMemo(
+    () => ({
+      isLoading: false,
+      isAuthenticated: Boolean(initialToken),
+      fetchAccessToken: async () => initialToken ?? null,
+    }),
+    [initialToken],
+  );
   const useNewsletterAuth = useMemo(
     () =>
       function useNewsletterTokenAuth() {
-        return {
-          isLoading: false,
-          isAuthenticated: Boolean(initialToken),
-          fetchAccessToken: async () => initialToken ?? null,
-        };
+        return newsletterAuthState;
       },
-    [initialToken],
+    [newsletterAuthState],
   );
 
   return (
