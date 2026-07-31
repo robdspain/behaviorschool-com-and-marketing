@@ -1,6 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAction, useMutation, useQuery } from "convex/react";
 import Link from "next/link";
+import {
+  BadgeCheck,
+  FilePlus2,
+  Globe2,
+  MailCheck,
+  Radar,
+  Send,
+  ShieldCheck,
+} from "lucide-react";
 import { api } from "../../../convex/_generated/api";
 
 type Readiness = {
@@ -480,8 +489,30 @@ export function AdminNewsletterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-slate-50">
+      <header className="border-b border-slate-200 bg-white">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700">
+              <ShieldCheck className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-slate-900">
+                Newsletter workspace
+              </p>
+              <p className="truncate text-xs text-slate-500">Behavior School</p>
+            </div>
+          </div>
+          <Link
+            href="/admin"
+            className="inline-flex h-9 items-center rounded-lg border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          >
+            Admin dashboard
+          </Link>
+        </div>
+      </header>
+
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-slate-900 mb-2">
@@ -491,10 +522,31 @@ export function AdminNewsletterPage() {
               Review Tuesday topic radar, draft the weekly research email, send a preview, then approve the final send.
             </p>
           </div>
-          <Link href="/admin" className="text-sm text-primary hover:underline">
-            Back to Dashboard
-          </Link>
         </div>
+
+        <nav
+          aria-label="Newsletter workspace sections"
+          className="sticky top-0 z-20 -mx-4 mb-6 overflow-x-auto border-y border-slate-200 bg-white/95 px-4 shadow-sm backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8"
+        >
+          <div className="mx-auto flex h-12 max-w-7xl min-w-max items-center gap-1">
+            {[
+              ["Workflow", "#workflow"],
+              ["Topic radar", "#topic-radar"],
+              ["Draft and issues", "#draft"],
+              ["Audience", "#audience"],
+              ["Performance", "#performance"],
+              ["Distribution", "#distribution"],
+            ].map(([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-950"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </nav>
 
         {message && (
           <div className="mb-6 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow">
@@ -525,7 +577,7 @@ export function AdminNewsletterPage() {
           />
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
+        <div id="performance" className="scroll-mt-16 bg-white rounded-lg shadow p-6 mb-6">
           <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Next-Issue Performance Brief</h2>
@@ -551,7 +603,7 @@ export function AdminNewsletterPage() {
           </section>
         )}
 
-        <section className="mb-6 bg-white rounded-lg shadow p-6">
+        <section id="distribution" className="scroll-mt-16 mb-6 bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold text-slate-900">Distribution channels</h2>
           <p className="mt-1 text-sm text-slate-600">Connection configuration is separate from approval. No channel is automatically ready to publish.</p>
           <div className="mt-4 grid gap-3 md:grid-cols-3">
@@ -615,7 +667,7 @@ export function AdminNewsletterPage() {
           )}
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
+        <div id="audience" className="scroll-mt-16 bg-white rounded-lg shadow p-6 mb-6">
           <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">Audience</h2>
@@ -628,7 +680,7 @@ export function AdminNewsletterPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
+        <div id="workflow" className="scroll-mt-16 bg-white rounded-lg shadow p-6 mb-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900">
@@ -642,36 +694,41 @@ export function AdminNewsletterPage() {
               <button
                 onClick={handleGenerateRadar}
                 disabled={Boolean(busyAction)}
-                className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+                className="inline-flex h-10 items-center gap-2 rounded-lg bg-slate-900 px-4 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
               >
+                <Radar className="h-4 w-4" aria-hidden="true" />
                 Generate Radar
               </button>
               <button
                 onClick={handleCreateDraft}
                 disabled={Boolean(busyAction)}
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90 disabled:opacity-50"
+                className="inline-flex h-10 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-primary/90 disabled:opacity-50"
               >
+                <FilePlus2 className="h-4 w-4" aria-hidden="true" />
                 Create Draft
               </button>
               <button
                 onClick={handleSendPreview}
                 disabled={Boolean(busyAction) || !selectedIssueId}
-                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                className="inline-flex h-10 items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
               >
+                <MailCheck className="h-4 w-4" aria-hidden="true" />
                 Send Preview
               </button>
               <button
                 onClick={handleApprove}
                 disabled={Boolean(busyAction) || !selectedIssueId || selectedIssue?.status === "sent"}
-                className="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-100 disabled:opacity-50"
+                className="inline-flex h-10 items-center gap-2 rounded-lg border border-emerald-300 bg-emerald-50 px-4 text-sm font-medium text-emerald-700 hover:bg-emerald-100 disabled:opacity-50"
               >
+                <BadgeCheck className="h-4 w-4" aria-hidden="true" />
                 Approve
               </button>
               <button
                 onClick={handlePublishArchive}
                 disabled={Boolean(busyAction) || !selectedIssueId || !selectedIssue || !["approved", "scheduled", "sent"].includes(selectedIssue.status)}
-                className="rounded-lg border border-sky-300 bg-sky-50 px-4 py-2 text-sm font-medium text-sky-800 hover:bg-sky-100 disabled:opacity-50"
+                className="inline-flex h-10 items-center gap-2 rounded-lg border border-sky-300 bg-sky-50 px-4 text-sm font-medium text-sky-800 hover:bg-sky-100 disabled:opacity-50"
               >
+                <Globe2 className="h-4 w-4" aria-hidden="true" />
                 Publish & Verify Page
               </button>
               <button
@@ -684,8 +741,9 @@ export function AdminNewsletterPage() {
                   !selectedIssue.archiveVerifiedAt ||
                   (audience?.find((segment) => segment.key === selectedIssue.recipientSegment)?.eligible ?? 0) < 1
                 }
-                className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+                className="inline-flex h-10 items-center gap-2 rounded-lg bg-emerald-600 px-4 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
               >
+                <Send className="h-4 w-4" aria-hidden="true" />
                 Send Approved
               </button>
             </div>
@@ -706,7 +764,7 @@ export function AdminNewsletterPage() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3 mb-6">
+        <div id="topic-radar" className="scroll-mt-16 grid grid-cols-1 gap-6 xl:grid-cols-3 mb-6">
           <div className="xl:col-span-2 bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-slate-900">
@@ -800,7 +858,7 @@ export function AdminNewsletterPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <div id="draft" className="scroll-mt-16 grid grid-cols-1 gap-6 xl:grid-cols-3">
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">
               Recent Issues
