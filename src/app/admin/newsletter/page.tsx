@@ -5,13 +5,8 @@ import { useRouter } from "next/navigation";
 import { LoaderCircle, LogIn } from "lucide-react";
 import { useConvexAuth } from "convex/react";
 import { AdminNewsletterPage } from "@/components/admin/NewsletterDashboard";
-import {
-  NewsletterConvexProvider,
-  newsletterAuthClient,
-} from "@/components/admin/NewsletterConvexProvider";
+import { NewsletterConvexProvider } from "@/components/admin/NewsletterConvexProvider";
 import { hasAdminClientSession } from "@/lib/admin-client-session";
-
-const newsletterSessionStorageKey = "behavior-school-newsletter-session";
 
 function NewsletterAccessGate() {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -78,54 +73,29 @@ export default function NewsletterAdminPage() {
       }
 
       const currentUrl = new URL(window.location.href);
-      const newsletterToken = currentUrl.searchParams.get("newsletterOtt");
-      let newsletterSessionToken = window.sessionStorage.getItem(
-        newsletterSessionStorageKey,
-      );
-
-      if (newsletterToken) {
-        const result =
-          await newsletterAuthClient.crossDomain.oneTimeToken.verify({
-            token: newsletterToken,
-          });
-        const session = result.data?.session;
-        currentUrl.searchParams.delete("newsletterOtt");
+      if (currentUrl.searchParams.has("newsletterAuthError")) {
+        setConnectionError(
+          "The newsletter workspace could not be connected. Please try again.",
+        );
+        currentUrl.searchParams.delete("newsletterAuthError");
         window.history.replaceState({}, "", currentUrl);
-
-        if (!session) {
-          setConnectionError(
-            "The newsletter workspace could not be connected. Please try again.",
-          );
-        } else {
-          newsletterSessionToken = session.token;
-          window.sessionStorage.setItem(
-            newsletterSessionStorageKey,
-            newsletterSessionToken,
-          );
-          await newsletterAuthClient.getSession({
-            fetchOptions: {
-              headers: {
-                Authorization: `Bearer ${newsletterSessionToken}`,
-              },
-            },
-          });
-          newsletterAuthClient.updateSession();
-        }
       }
 
-      if (newsletterSessionToken) {
-        const tokenResult = await newsletterAuthClient.convex.token({
-          fetchOptions: {
-            headers: {
-              Authorization: `Bearer ${newsletterSessionToken}`,
-            },
-          },
-        });
-        if (tokenResult.data?.token) {
-          setNewsletterAccessToken(tokenResult.data.token);
-        } else {
-          window.sessionStorage.removeItem(newsletterSessionStorageKey);
+      const tokenResponse = await fetch("/api/newsletter-auth/access-token", {
+        credentials: "same-origin",
+        cache: "no-store",
+      });
+      if (tokenResponse.ok) {
+        const tokenResult = (await tokenResponse.json()) as {
+          token?: string;
+        };
+        if (tokenResult.token) {
+          setNewsletterAccessToken(tokenResult.token);
         }
+      } else if (tokenResponse.status !== 401) {
+        setConnectionError(
+          "The newsletter workspace could not be connected. Please try again.",
+        );
       }
 
       if (!active) return;
