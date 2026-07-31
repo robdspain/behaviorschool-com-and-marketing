@@ -69,6 +69,12 @@ async function proxyNewsletterAuth(
     const value = response.headers.get(name);
     if (value) outgoingHeaders.set(name, value);
   }
+  if (!outgoingHeaders.has("set-better-auth-cookie")) {
+    const setCookie = response.headers.get("set-cookie");
+    if (setCookie) {
+      outgoingHeaders.set("set-better-auth-cookie", setCookie);
+    }
+  }
   outgoingHeaders.set("Cache-Control", "no-store");
 
   return new NextResponse(response.body, {
