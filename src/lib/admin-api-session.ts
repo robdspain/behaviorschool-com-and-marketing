@@ -6,9 +6,11 @@ const COOKIE_NAME = "bs_admin_auth";
 
 export async function requireAdminApiSession() {
   const cookieStore = await cookies();
-  const token = cookieStore.get(COOKIE_NAME)?.value;
+  const authenticated = cookieStore
+    .getAll(COOKIE_NAME)
+    .some((cookie) => isValidAdminSessionToken(cookie.value));
 
-  if (isValidAdminSessionToken(token)) return null;
+  if (authenticated) return null;
 
   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 }
