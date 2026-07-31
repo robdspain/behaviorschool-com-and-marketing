@@ -27,11 +27,18 @@ export const newsletterAuthClient = createAuthClient({
   ],
 });
 
-export function NewsletterConvexProvider({ children }: { children: ReactNode }) {
+export function NewsletterConvexProvider({
+  children,
+  initialToken,
+}: {
+  children: ReactNode;
+  initialToken?: string | null;
+}) {
   return (
     <ConvexBetterAuthProvider
       client={newsletterConvex}
       authClient={newsletterAuthClient as any}
+      initialToken={initialToken}
     >
       {children}
     </ConvexBetterAuthProvider>
