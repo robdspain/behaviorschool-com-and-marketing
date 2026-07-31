@@ -14,14 +14,31 @@ import { hasAdminClientSession } from "@/lib/admin-client-session";
 function NewsletterAccessGate() {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const [signingIn, setSigningIn] = useState(false);
+  const [connectionError, setConnectionError] = useState("");
 
   const connectNewsletterWorkspace = async () => {
     setSigningIn(true);
-    await newsletterAuthClient.signIn.social({
-      provider: "google",
-      callbackURL: `${window.location.origin}/admin/newsletter`,
-    });
-    setSigningIn(false);
+    setConnectionError("");
+    try {
+      const result = await newsletterAuthClient.signIn.social({
+        provider: "google",
+        callbackURL: `${window.location.origin}/admin/newsletter`,
+        disableRedirect: true,
+      });
+      if (result.error || !result.data?.url) {
+        setConnectionError(
+          "The newsletter workspace could not be connected. Please try again.",
+        );
+        return;
+      }
+      window.location.assign(result.data.url);
+    } catch {
+      setConnectionError(
+        "The newsletter workspace could not be connected. Please try again.",
+      );
+    } finally {
+      setSigningIn(false);
+    }
   };
 
   if (isLoading) {
@@ -46,6 +63,11 @@ function NewsletterAccessGate() {
             Your Behavior School admin session is active. Connect your approved
             Google account once to open the weekly newsletter data here.
           </p>
+          {connectionError ? (
+            <p role="alert" className="mt-4 text-sm font-medium text-red-700">
+              {connectionError}
+            </p>
+          ) : null}
           <button
             type="button"
             onClick={connectNewsletterWorkspace}
