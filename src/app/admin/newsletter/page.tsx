@@ -10,8 +10,16 @@ import { hasAdminClientSession } from "@/lib/admin-client-session";
 
 const newsletterGrantStorageKey = "behavior-school-newsletter-grant";
 
-function NewsletterAccessGate() {
+function NewsletterAccessGate({
+  hasAccessToken,
+}: {
+  hasAccessToken: boolean;
+}) {
   const { isAuthenticated, isLoading } = useConvexAuth();
+
+  if (hasAccessToken) {
+    return <AdminNewsletterPage />;
+  }
 
   if (isLoading) {
     return (
@@ -167,7 +175,9 @@ export default function NewsletterAdminPage() {
           {connectionError}
         </div>
       ) : null}
-      <NewsletterAccessGate />
+      <NewsletterAccessGate
+        hasAccessToken={Boolean(newsletterAccessToken)}
+      />
     </NewsletterConvexProvider>
   );
 }
