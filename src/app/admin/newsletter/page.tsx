@@ -22,7 +22,7 @@ function NewsletterAccessGate() {
     try {
       const result = await newsletterAuthClient.signIn.social({
         provider: "google",
-        callbackURL: `${window.location.origin}/admin/newsletter`,
+        callbackURL: `${window.location.origin}/api/newsletter-auth/callback`,
         disableRedirect: true,
       });
       if (result.error || !result.data?.url) {
@@ -94,6 +94,7 @@ export default function NewsletterAdminPage() {
   const [adminSession, setAdminSession] = useState<
     "checking" | "authenticated" | "unauthenticated"
   >("checking");
+  const [connectionError, setConnectionError] = useState("");
 
   useEffect(() => {
     document.title = "Weekly Newsletter | Behavior School Admin";
@@ -109,9 +110,42 @@ export default function NewsletterAdminPage() {
         return;
       }
 
+      const currentUrl = new URL(window.location.href);
+      const newsletterToken = currentUrl.searchParams.get("newsletterOtt");
+      if (newsletterToken) {
+        const result =
+          await newsletterAuthClient.crossDomain.oneTimeToken.verify({
+            token: newsletterToken,
+          });
+        const session = result.data?.session;
+        currentUrl.searchParams.delete("newsletterOtt");
+        window.history.replaceState({}, "", currentUrl);
+
+        if (!session) {
+          setConnectionError(
+            "The newsletter workspace could not be connected. Please try again.",
+          );
+        } else {
+          await newsletterAuthClient.getSession({
+            fetchOptions: {
+              headers: {
+                Authorization: `Bearer ${session.token}`,
+              },
+            },
+          });
+          newsletterAuthClient.updateSession();
+        }
+      }
+
       if (!active) return;
       setAdminSession("authenticated");
-    })();
+    })().catch(() => {
+      if (!active) return;
+      setConnectionError(
+        "The newsletter workspace could not be connected. Please try again.",
+      );
+      setAdminSession("authenticated");
+    });
 
     return () => {
       active = false;
@@ -131,6 +165,14 @@ export default function NewsletterAdminPage() {
 
   return (
     <NewsletterConvexProvider>
+      {connectionError ? (
+        <div
+          role="alert"
+          className="border-b border-red-200 bg-red-50 px-6 py-3 text-sm font-medium text-red-800"
+        >
+          {connectionError}
+        </div>
+      ) : null}
       <NewsletterAccessGate />
     </NewsletterConvexProvider>
   );
