@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parseSetCookieHeader } from "better-auth/cookies";
-import { requireAdminApiSession } from "@/lib/admin-api-session";
 import { readNewsletterAuthGrant } from "@/lib/adminSession";
 
 export const dynamic = "force-dynamic";
@@ -10,9 +9,6 @@ const newsletterAuthUrl =
   process.env.NEXT_PUBLIC_NEWSLETTER_CONVEX_SITE_URL ||
   "https://modest-malamute-868.convex.site";
 export async function POST(request: NextRequest) {
-  const unauthorized = await requireAdminApiSession();
-  if (unauthorized) return unauthorized;
-
   const body = (await request.json().catch(() => null)) as {
     grant?: string;
   } | null;
