@@ -5,16 +5,23 @@ import { useRouter } from "next/navigation";
 import { LoaderCircle, LogIn } from "lucide-react";
 import { useConvexAuth } from "convex/react";
 import { AdminNewsletterPage } from "@/components/admin/NewsletterDashboard";
-import { NewsletterConvexProvider } from "@/components/admin/NewsletterConvexProvider";
+import {
+  NewsletterConvexProvider,
+  newsletterAuthClient,
+} from "@/components/admin/NewsletterConvexProvider";
 import { hasAdminClientSession } from "@/lib/admin-client-session";
 
 function NewsletterAccessGate() {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const [signingIn, setSigningIn] = useState(false);
 
-  const connectNewsletterWorkspace = () => {
+  const connectNewsletterWorkspace = async () => {
     setSigningIn(true);
-    window.location.assign("/api/admin/newsletter-auth/start");
+    await newsletterAuthClient.signIn.social({
+      provider: "google",
+      callbackURL: `${window.location.origin}/admin/newsletter`,
+    });
+    setSigningIn(false);
   };
 
   if (isLoading) {
