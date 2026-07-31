@@ -46,7 +46,7 @@ async function proxyNewsletterAuth(
   const authCookie = request.headers.get("better-auth-cookie");
   const authorization = request.headers.get("authorization");
   if (contentType) headers.set("Content-Type", contentType);
-  if (authCookie !== null) headers.set("Better-Auth-Cookie", authCookie);
+  headers.set("Better-Auth-Cookie", authCookie || "");
   if (authorization) headers.set("Authorization", authorization);
 
   const response = await fetch(targetUrl, {
