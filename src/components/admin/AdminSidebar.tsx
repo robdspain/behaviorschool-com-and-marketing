@@ -61,7 +61,7 @@ const navigation: NavItem[] = [
     children: [
       { name: "Universal Dashboard", href: "/admin/email-marketing", icon: BarChart3 },
       { name: "Product Templates", href: "/admin/email-templates", icon: Mail },
-      { name: "Newsletter Campaigns", href: "/admin/listmonk", icon: Send },
+      { name: "Weekly Newsletter", href: "/admin/newsletter", icon: Send },
       { name: "Study Tools Nurture", href: "/admin/behavior-study-tools", icon: BarChart3, badge: "Live" },
     ],
   },

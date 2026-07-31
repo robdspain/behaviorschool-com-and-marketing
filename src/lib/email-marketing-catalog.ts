@@ -384,7 +384,7 @@ export const emailProducts: EmailProductDefinition[] = [
     description: 'Broadcasts, announcements, product education, and audience-wide campaigns.',
     status: 'manual',
     provider: 'Listmonk broadcasts',
-    managementHref: '/admin/listmonk',
+    managementHref: '/admin/newsletter',
     managementLabel: 'Manage broadcasts',
     sequence: [],
   },
