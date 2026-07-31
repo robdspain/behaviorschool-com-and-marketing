@@ -702,7 +702,7 @@ export function AdminNewsletterPage() {
               <button
                 onClick={handleCreateDraft}
                 disabled={Boolean(busyAction)}
-                className="inline-flex h-10 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-primary/90 disabled:opacity-50"
+                className="inline-flex h-10 items-center gap-2 rounded-lg bg-emerald-700 px-4 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
               >
                 <FilePlus2 className="h-4 w-4" aria-hidden="true" />
                 Create Draft
