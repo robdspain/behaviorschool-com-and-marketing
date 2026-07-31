@@ -92,10 +92,19 @@ export default function NewsletterAdminPage() {
         if (tokenResult.token) {
           setNewsletterAccessToken(tokenResult.token);
         }
-      } else if (tokenResponse.status !== 401) {
-        setConnectionError(
-          "The newsletter workspace could not be connected. Please try again.",
-        );
+      } else {
+        const failure = (await tokenResponse.json().catch(() => null)) as {
+          code?: string;
+        } | null;
+        if (failure?.code && failure.code !== "missing_cookie") {
+          setConnectionError(
+            `The newsletter workspace could not be connected (${failure.code}). Please try again.`,
+          );
+        } else if (tokenResponse.status !== 401) {
+          setConnectionError(
+            "The newsletter workspace could not be connected. Please try again.",
+          );
+        }
       }
 
       if (!active) return;
