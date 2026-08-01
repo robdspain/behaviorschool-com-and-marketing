@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState, type ErrorInfo, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle, LogIn } from "lucide-react";
 import { useConvexAuth } from "convex/react";
@@ -9,6 +9,49 @@ import { NewsletterConvexProvider } from "@/components/admin/NewsletterConvexPro
 import { hasAdminClientSession } from "@/lib/admin-client-session";
 
 const newsletterGrantStorageKey = "behavior-school-newsletter-grant";
+
+class NewsletterErrorBoundary extends Component<
+  { children: ReactNode },
+  { error: Error | null }
+> {
+  state = { error: null as Error | null };
+
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error("Newsletter workspace error", error, info);
+  }
+
+  render() {
+    if (!this.state.error) return this.props.children;
+
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-100 px-6">
+        <div className="max-w-xl border border-red-200 bg-white p-8 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-950">
+            Newsletter workspace needs attention
+          </h1>
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            The workspace could not finish loading. Reload once; if the problem
+            continues, share the diagnostic below with support.
+          </p>
+          <pre className="mt-4 overflow-auto bg-slate-950 p-4 text-xs text-slate-100">
+            {this.state.error.message}
+          </pre>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="mt-5 inline-flex h-11 items-center bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
+          >
+            Reload workspace
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
 
 function NewsletterAccessGate({
   hasAccessToken,
@@ -162,18 +205,20 @@ export default function NewsletterAdminPage() {
   }
 
   return (
-    <NewsletterConvexProvider initialToken={newsletterAccessToken}>
-      {connectionError ? (
-        <div
-          role="alert"
-          className="border-b border-red-200 bg-red-50 px-6 py-3 text-sm font-medium text-red-800"
-        >
-          {connectionError}
-        </div>
-      ) : null}
-      <NewsletterAccessGate
-        hasAccessToken={Boolean(newsletterAccessToken)}
-      />
-    </NewsletterConvexProvider>
+    <NewsletterErrorBoundary>
+      <NewsletterConvexProvider initialToken={newsletterAccessToken}>
+        {connectionError ? (
+          <div
+            role="alert"
+            className="border-b border-red-200 bg-red-50 px-6 py-3 text-sm font-medium text-red-800"
+          >
+            {connectionError}
+          </div>
+        ) : null}
+        <NewsletterAccessGate
+          hasAccessToken={Boolean(newsletterAccessToken)}
+        />
+      </NewsletterConvexProvider>
+    </NewsletterErrorBoundary>
   );
 }
