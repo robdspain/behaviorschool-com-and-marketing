@@ -332,6 +332,7 @@ export function AdminNewsletterPage() {
   );
   const activeCtaLabel = useMemo(() => {
     if (!selectedIssue?.ctaKind) return ctas?.[0]?.label ?? "Default CTA";
+    if (selectedIssue.ctaKind === "transformation") return "School BCBA Transformation Program";
     return ctas?.find((cta) => cta.kind === selectedIssue.ctaKind)?.label ?? selectedIssue.ctaKind;
   }, [ctas, selectedIssue?.ctaKind]);
 
