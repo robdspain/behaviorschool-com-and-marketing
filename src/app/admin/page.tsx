@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList, PhoneCall, Clock, MailCheck, CalendarClock } from 'lucide-react'
+import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList, PhoneCall, Clock, MailCheck, CalendarClock, LifeBuoy } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -292,6 +292,14 @@ export default function AdminDashboard() {
       stats: statsLoading ? '...' : `${stats?.activeTemplates || 0} templates`
     },
     {
+      title: 'Support Inbox',
+      description: 'Review feedback, bugs, and customer questions in one queue',
+      href: '/admin/support',
+      icon: LifeBuoy,
+      color: 'emerald',
+      stats: 'Central queue'
+    },
+    {
       title: 'Content',
       description: 'Manage pages, posts, and site content',
       href: '/admin/content',
@@ -519,7 +527,7 @@ export default function AdminDashboard() {
                 <p><strong>Campaign:</strong> bst_web_growth</p>
                 <p><strong>UTM base:</strong> utm_source=behaviorschool&amp;utm_medium=owned&amp;utm_campaign=bst_web_growth</p>
                 <p><strong>Primary CTA:</strong> Start Behavior Study Tools in the web app</p>
-                <p><strong>Support:</strong> support@behaviorschool.com and study.behaviorschool.com/support</p>
+                <p><strong>Support:</strong> behaviorschool.com/admin/support and the public support form</p>
               </div>
             </div>
           </div>
