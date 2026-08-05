@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
 import { getConvexUrl } from '@/lib/convex'
+import { isBehaviorSchoolBufferConfigured } from '@/lib/bufferSocial'
 
 export const dynamic = 'force-dynamic'
 
@@ -121,15 +122,24 @@ function buildIntegrationStatus() {
     }),
     item({
       id: 'social-publishing',
-      label: 'Social publishing webhook',
-      status: hasSocialPublisher ? 'connected' : 'missing',
-      message: hasSocialPublisher
-        ? 'Queued social posts can be sent to the publishing workflow.'
+      label: 'Behavior School social publishing',
+      status: isBehaviorSchoolBufferConfigured() || hasSocialPublisher ? 'connected' : 'missing',
+      message: isBehaviorSchoolBufferConfigured()
+        ? 'Behavior Study Tools posts are routed to the approved Behavior School Buffer channels.'
+        : hasSocialPublisher
+          ? 'Queued social posts can be sent to the configured publishing workflow.'
         : 'The admin can draft posts, but it cannot publish them automatically.',
-      nextStep: hasSocialPublisher
-        ? 'Send one test post through the queue and confirm the published URL is saved.'
-        : 'Set BST_SOCIAL_POST_WEBHOOK_URL to the publishing automation endpoint.',
-      envVars: ['BST_SOCIAL_POST_WEBHOOK_URL'],
+      nextStep: isBehaviorSchoolBufferConfigured()
+        ? 'Send one approved LinkedIn test post and confirm it appears in the Behavior School Buffer organization.'
+        : hasSocialPublisher
+          ? 'Send one test post through the queue and confirm the published URL is saved.'
+          : 'Set the Behavior School Buffer credentials and channel allowlist, or configure BST_SOCIAL_POST_WEBHOOK_URL.',
+      envVars: [
+        'BUFFER_API_KEY',
+        'BUFFER_ORGANIZATION_ID',
+        'BUFFER_BEHAVIOR_SCHOOL_CHANNELS_JSON',
+        'BST_SOCIAL_POST_WEBHOOK_URL',
+      ],
       impact: 'This reduces manual posting and keeps the daily campaign cadence consistent.',
     }),
     item({

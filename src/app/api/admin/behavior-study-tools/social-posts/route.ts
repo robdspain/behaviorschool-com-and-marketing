@@ -3,6 +3,11 @@ import { cookies } from 'next/headers'
 import { isValidAdminSessionToken } from '@/lib/adminSession'
 import { api, getConvexClient } from '@/lib/convex'
 import { behaviorStudyToolsMarketing } from '@/data/behaviorStudyToolsMarketing'
+import {
+  bufferSupportsPlatform,
+  isBehaviorSchoolBufferConfigured,
+  publishToBehaviorSchoolBuffer,
+} from '@/lib/bufferSocial'
 
 export const dynamic = 'force-dynamic'
 
@@ -218,7 +223,7 @@ function postText({
   insight?: string
 }) {
   const insightBlock = insight ? `\n\nToday's signal: ${insight}` : ''
-  return `${hook}\n\n${body}${insightBlock}\n\n${ctaLabel}: ${ctaUrl}\n\n#BCBA #RBT #BehaviorAnalysis #ExamPrep`
+  return `${hook}\n\n${body}${insightBlock}\n\n${ctaLabel}: ${ctaUrl}\n\n#BCBA #BehaviorAnalysis #ExamPrep`
 }
 
 async function latestDailySignal() {
@@ -272,6 +277,42 @@ async function generateTodayPost() {
 }
 
 async function publishPost(row: SocialPostRow) {
+  if (isBehaviorSchoolBufferConfigured()) {
+    try {
+      if (!bufferSupportsPlatform(row.platform)) {
+        const data = await getConvexClient().mutation(api.bstMarketing.updateSocialPost, {
+          id: row.id as never,
+          status: 'needs_media',
+          errorMessage: `${row.platform} requires a reviewed media workflow before automatic publishing.`,
+        })
+        return toApiPost((data || row) as SocialPostRow)
+      }
+
+      const bufferResult = await publishToBehaviorSchoolBuffer({
+        platform: row.platform,
+        text: row.body,
+        scheduledAt: row.scheduled_at,
+        asset: row.asset,
+      })
+      const data = await getConvexClient().mutation(api.bstMarketing.updateSocialPost, {
+        id: row.id as never,
+        status: 'queued_in_buffer',
+        publishResult: bufferResult,
+        externalUrl: null,
+        errorMessage: null,
+        publishedAt: null,
+      })
+      return toApiPost((data || row) as SocialPostRow)
+    } catch (error) {
+      const data = await getConvexClient().mutation(api.bstMarketing.updateSocialPost, {
+        id: row.id as never,
+        status: 'failed',
+        errorMessage: error instanceof Error ? error.message : 'Buffer publishing failed',
+      })
+      return toApiPost((data || row) as SocialPostRow)
+    }
+  }
+
   const webhookUrl = process.env.BST_SOCIAL_POST_WEBHOOK_URL
 
   if (!webhookUrl) {
