@@ -633,7 +633,14 @@ export default function BehaviorStudyToolsMarketingPage() {
   const loadReferralCampaign = useCallback(async () => {
     setReferralCampaignLoading(true)
     try {
-      const response = await fetch('/api/admin/behavior-study-tools/referral-campaign')
+      const response = await fetch('/api/admin/behavior-study-tools/referral-campaign', {
+        cache: 'no-store',
+        credentials: 'same-origin',
+      })
+      if (response.status === 401) {
+        window.location.href = `/admin/login?redirect=${encodeURIComponent(window.location.pathname)}`
+        return
+      }
       const data = await response.json()
       setReferralCampaign(data)
     } catch {
