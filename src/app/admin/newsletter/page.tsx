@@ -1,224 +1,252 @@
-"use client";
+'use client'
 
-import { Component, useEffect, useState, type ErrorInfo, type ReactNode } from "react";
-import { useRouter } from "next/navigation";
-import { LoaderCircle, LogIn } from "lucide-react";
-import { useConvexAuth } from "convex/react";
-import { AdminNewsletterPage } from "@/components/admin/NewsletterDashboard";
-import { NewsletterConvexProvider } from "@/components/admin/NewsletterConvexProvider";
-import { hasAdminClientSession } from "@/lib/admin-client-session";
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase-client'
+import { CheckCircle2, FileText, Mail, RefreshCw, Send, ShieldCheck, Users, XCircle } from 'lucide-react'
 
-const newsletterGrantStorageKey = "behavior-school-newsletter-grant";
-
-class NewsletterErrorBoundary extends Component<
-  { children: ReactNode },
-  { error: Error | null }
-> {
-  state = { error: null as Error | null };
-
-  static getDerivedStateFromError(error: Error) {
-    return { error };
-  }
-
-  componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error("Newsletter workspace error", error, info);
-  }
-
-  render() {
-    if (!this.state.error) return this.props.children;
-
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100 px-6">
-        <div className="max-w-xl border border-red-200 bg-white p-8 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-950">
-            Newsletter workspace needs attention
-          </h1>
-          <p className="mt-3 text-sm leading-6 text-slate-600">
-            The workspace could not finish loading. Reload once; if the problem
-            continues, share the diagnostic below with support.
-          </p>
-          <pre className="mt-4 overflow-auto bg-slate-950 p-4 text-xs text-slate-100">
-            {this.state.error.message}
-          </pre>
-          <button
-            type="button"
-            onClick={() => window.location.reload()}
-            className="mt-5 inline-flex h-11 items-center bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
-          >
-            Reload workspace
-          </button>
-        </div>
-      </div>
-    );
-  }
+type Issue = {
+  _id: string
+  issueKey: string
+  subject: string
+  preheader?: string
+  status: 'draft' | 'approved' | 'scheduled' | 'sent' | 'failed'
+  archiveState?: 'not_requested' | 'publishing' | 'verified' | 'failed'
+  archiveUrl?: string
+  archiveVerificationError?: string
+  generationError?: string
+  schoolBcbaProblem?: string
+  html?: string
+  text?: string
+  recipientSegment?: string
+  ctaKind?: string
+  ctaUrl?: string
+  createdAt?: number
+  sentAt?: number
+  socialDraftCount?: number
+  socialReviewedCount?: number
+  socialPublishedCount?: number
 }
 
-function NewsletterAccessGate({
-  hasAccessToken,
-}: {
-  hasAccessToken: boolean;
-}) {
-  const { isAuthenticated, isLoading } = useConvexAuth();
-
-  if (isLoading || (hasAccessToken && !isAuthenticated)) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100">
-        <div className="flex items-center gap-3 text-sm font-medium text-slate-600">
-          <LoaderCircle className="h-5 w-5 animate-spin" />
-          Connecting to the newsletter workspace...
-        </div>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100 px-6">
-        <div className="max-w-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-950">
-            Newsletter workspace sign-in required
-          </h1>
-          <p className="mt-3 text-sm leading-6 text-slate-600">
-            Your Behavior School admin session is active. Connect your approved
-            Google account once to open the weekly newsletter data here.
-          </p>
-          <a
-            href="/api/newsletter-auth/start"
-            className="mt-6 inline-flex h-11 items-center gap-2 bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
-          >
-            <LogIn className="h-4 w-4" />
-            Connect newsletter workspace
-          </a>
-        </div>
-      </div>
-    );
-  }
-
-  return <AdminNewsletterPage />;
+type Article = {
+  _id: string
+  title?: string
+  apaCitation?: string
+  fullTextUrl?: string
+  fullTextVerifiedAt?: number
+  summary?: string
+  schoolBcbaUse?: string
+  tryThis?: string
 }
 
-export default function NewsletterAdminPage() {
-  const router = useRouter();
-  const [adminSession, setAdminSession] = useState<
-    "checking" | "authenticated" | "unauthenticated"
-  >("checking");
-  const [connectionError, setConnectionError] = useState("");
-  const [newsletterAccessToken, setNewsletterAccessToken] = useState<
-    string | null
-  >(null);
+type SocialPost = {
+  _id: string
+  platform: string
+  body: string
+  status: string
+  archiveUrl?: string
+  ctaUrl?: string
+  publishedUrl?: string
+}
+
+type Workspace = {
+  brand: 'robspain' | 'behaviorschool'
+  label: string
+  accountLabel: string
+  apiKeyEnv: string
+  apiKeyConfigured: boolean
+  legacyApiKeyDetected: boolean
+  channels: Array<{ platform: string; label: string; channelIdEnv: string; status: 'configured' | 'missing' | 'mismatch' }>
+}
+
+type Dashboard = {
+  issues: Issue[]
+  summary: {
+    totalContacts: number
+    safeWeeklyRecipients: number
+    needsConsent: number
+    excluded: number
+    codexTests: number
+    newsletterTagged: number
+    confirmedNewsletter: number
+    pendingNewsletter: number
+  }
+  audiences: Array<{ key: string; label: string; description: string; eligible: number }>
+  ctas: Array<{ _id: string; label: string; kind: string; headline: string; active: boolean }>
+}
+
+type IssueDetail = { issue: Issue; articles: Article[]; socialPosts: SocialPost[] }
+
+async function jsonRequest<T>(url: string, init?: RequestInit) {
+  const response = await fetch(url, { ...init, cache: 'no-store' })
+  const body = await response.json().catch(() => ({})) as T & { error?: string }
+  if (!response.ok) throw new Error(body.error || `Request failed with HTTP ${response.status}.`)
+  return body
+}
+
+export default function NewsletterAdmin() {
+  const router = useRouter()
+  const [loading, setLoading] = useState(true)
+  const [dashboard, setDashboard] = useState<Dashboard | null>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const selectedIdRef = useRef<string | null>(null)
+  const [detail, setDetail] = useState<IssueDetail | null>(null)
+  const [analytics, setAnalytics] = useState<Record<string, unknown> | null>(null)
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([])
+  const [error, setError] = useState<string | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
+  const [busy, setBusy] = useState<string | null>(null)
+
+  const load = useCallback(async (issueId?: string) => {
+    setError(null)
+    const [control, buffer] = await Promise.all([
+      jsonRequest<Dashboard & { ok: boolean }>('/api/admin/newsletter/control'),
+      jsonRequest<{ workspaces?: Workspace[] }>('/api/admin/buffer/workspaces'),
+    ])
+    setDashboard(control)
+    setWorkspaces(buffer.workspaces || [])
+    const nextId = issueId || selectedIdRef.current || control.issues[0]?._id
+    if (nextId) {
+      const selected = await jsonRequest<{ issue: IssueDetail; analytics: Record<string, unknown> | null }>(`/api/admin/newsletter/control?issueId=${encodeURIComponent(nextId)}`)
+      selectedIdRef.current = nextId
+      setSelectedId(nextId)
+      setDetail(selected.issue)
+      setAnalytics(selected.analytics)
+    } else {
+      selectedIdRef.current = null
+      setSelectedId(null)
+      setDetail(null)
+      setAnalytics(null)
+    }
+  }, [])
 
   useEffect(() => {
-    document.title = "Weekly Newsletter | Behavior School Admin";
-
-    let active = true;
-    void (async () => {
-      const authenticated = await hasAdminClientSession();
-      if (!active) return;
-
-      if (!authenticated) {
-        setAdminSession("unauthenticated");
-        router.replace("/admin/login?returnTo=/admin/newsletter");
-        return;
+    document.title = 'Weekly Research Brief | Admin'
+    const checkAuth = async () => {
+      const supabase = createClient()
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) {
+        router.push('/admin/login')
+        return
       }
-
-      const currentUrl = new URL(window.location.href);
-      let newsletterGrant = currentUrl.searchParams.get("newsletterGrant");
-      if (newsletterGrant) {
-        window.sessionStorage.setItem(
-          newsletterGrantStorageKey,
-          newsletterGrant,
-        );
-        currentUrl.searchParams.delete("newsletterGrant");
-        window.history.replaceState({}, "", currentUrl);
-      } else {
-        newsletterGrant = window.sessionStorage.getItem(
-          newsletterGrantStorageKey,
-        );
+      try {
+        await load()
+      } catch (loadError) {
+        setError(loadError instanceof Error ? loadError.message : 'The newsletter workspace could not load.')
+      } finally {
+        setLoading(false)
       }
+    }
+    void checkAuth()
+  }, [load, router])
 
-      if (currentUrl.searchParams.has("newsletterAuthError")) {
-        setConnectionError(
-          "The newsletter workspace could not be connected. Please try again.",
-        );
-        currentUrl.searchParams.delete("newsletterAuthError");
-        window.history.replaceState({}, "", currentUrl);
-      }
+  const run = async (operation: string, args: Record<string, unknown> = {}, message: string) => {
+    setBusy(operation)
+    setError(null)
+    setNotice(null)
+    try {
+      await jsonRequest('/api/admin/newsletter/control', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ operation, ...args }),
+      })
+      setNotice(message)
+      await load(selectedId || undefined)
+    } catch (runError) {
+      setError(runError instanceof Error ? runError.message : 'The newsletter action failed.')
+    } finally {
+      setBusy(null)
+    }
+  }
 
-      const tokenResponse = newsletterGrant
-        ? await fetch("/api/newsletter-auth/access-token", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ grant: newsletterGrant }),
-            credentials: "same-origin",
-            cache: "no-store",
-          })
-        : null;
-      if (tokenResponse?.ok) {
-        const tokenResult = (await tokenResponse.json()) as {
-          token?: string;
-        };
-        if (tokenResult.token) {
-          setNewsletterAccessToken(tokenResult.token);
-        }
-      } else if (tokenResponse) {
-        const failure = (await tokenResponse.json().catch(() => null)) as {
-          code?: string;
-        } | null;
-        if (failure?.code) {
-          if (failure.code === "invalid_grant") {
-            window.sessionStorage.removeItem(newsletterGrantStorageKey);
-          }
-          setConnectionError(
-            "The newsletter workspace could not be connected. Please try again.",
-          );
-        } else if (tokenResponse.status !== 401) {
-          setConnectionError(
-            "The newsletter workspace could not be connected. Please try again.",
-          );
-        }
-      }
+  const selectedIssue = detail?.issue
+  const allBufferConfigured = useMemo(() => workspaces.length === 2 && workspaces.every((workspace) => workspace.apiKeyConfigured && workspace.channels.every((channel) => channel.status === 'configured')), [workspaces])
+  const canSend = Boolean(selectedIssue && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
 
-      if (!active) return;
-      setAdminSession("authenticated");
-    })().catch(() => {
-      if (!active) return;
-      setConnectionError(
-        "The newsletter workspace could not be connected. Please try again.",
-      );
-      setAdminSession("authenticated");
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [router]);
-
-  if (adminSession !== "authenticated") {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100">
-        <div className="flex items-center gap-3 text-sm font-medium text-slate-600">
-          <LoaderCircle className="h-5 w-5 animate-spin" />
-          Checking admin access...
-        </div>
-      </div>
-    );
+  if (loading) {
+    return <div className="min-h-screen bg-[#f5f8f6] flex items-center justify-center text-slate-600">Loading weekly research brief workspace…</div>
   }
 
   return (
-    <NewsletterErrorBoundary>
-      <NewsletterConvexProvider initialToken={newsletterAccessToken}>
-        {connectionError ? (
-          <div
-            role="alert"
-            className="border-b border-red-200 bg-red-50 px-6 py-3 text-sm font-medium text-red-800"
-          >
-            {connectionError}
+    <main className="min-h-screen bg-[#f5f8f6] text-[#17352d]">
+      <header className="border-b border-[#d6e2dc] bg-white">
+        <div className="mx-auto max-w-7xl px-5 py-7 sm:px-8">
+          <div className="flex flex-wrap items-start justify-between gap-5">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#e2f5ed] text-[#087f5b]"><Mail className="h-5 w-5" /></span>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#087f5b]">BehaviorSchool.com admin</p>
+                  <h1 className="mt-1 text-3xl font-bold tracking-tight text-[#102a23]">School BCBA Research Brief</h1>
+                </div>
+              </div>
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-[#536a62]">Convex is the source of truth for drafts, approvals, delivery readiness, feedback, and social follow-up. This workspace does not use the legacy Listmonk/Supabase manager.</p>
+            </div>
+            <button type="button" onClick={() => void load()} className="inline-flex items-center gap-2 rounded-lg border border-[#b6cfc4] bg-white px-4 py-2.5 text-sm font-semibold text-[#1c5547] hover:bg-[#f0f8f4]">
+              <RefreshCw className="h-4 w-4" /> Refresh workspace
+            </button>
           </div>
-        ) : null}
-        <NewsletterAccessGate
-          hasAccessToken={Boolean(newsletterAccessToken)}
-        />
-      </NewsletterConvexProvider>
-    </NewsletterErrorBoundary>
-  );
+        </div>
+      </header>
+
+      <div className="mx-auto max-w-7xl space-y-6 px-5 py-6 sm:px-8">
+        {error && <div role="alert" className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"><XCircle className="mt-0.5 h-5 w-5 shrink-0" /><div><strong>Workspace needs attention.</strong><p className="mt-1">{error}</p></div></div>}
+        {notice && <div role="status" className="flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" /><p>{notice}</p></div>}
+
+        <section className="grid grid-cols-2 gap-3 lg:grid-cols-5" aria-label="Newsletter readiness">
+          {[
+            ['Confirmed', dashboard?.summary.confirmedNewsletter ?? 0, 'bg-white'],
+            ['Safe to send', dashboard?.summary.safeWeeklyRecipients ?? 0, 'bg-white'],
+            ['Needs consent', dashboard?.summary.needsConsent ?? 0, 'bg-amber-50'],
+            ['Excluded', dashboard?.summary.excluded ?? 0, 'bg-white'],
+            ['Test contacts', dashboard?.summary.codexTests ?? 0, 'bg-white'],
+          ].map(([label, value, tone]) => <div key={String(label)} className={`${tone} rounded-xl border border-[#d6e2dc] p-4`}><p className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">{label}</p><p className="mt-2 text-3xl font-bold text-[#17352d]">{String(value)}</p></div>)}
+        </section>
+
+        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="buffer-heading">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div><h2 id="buffer-heading" className="flex items-center gap-2 text-lg font-bold"><ShieldCheck className="h-5 w-5 text-[#087f5b]" /> Buffer account separation</h2><p className="mt-1 text-sm text-[#5b7068]">The two brands are owned by this admin but use separate Buffer API keys and channel registries.</p></div>
+            <span className={`rounded-full px-3 py-1 text-xs font-bold ${allBufferConfigured ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>{allBufferConfigured ? 'Ready' : 'Configuration incomplete'}</span>
+          </div>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            {workspaces.map((workspace) => <div key={workspace.brand} className="rounded-lg border border-[#d6e2dc] bg-[#f8fbf9] p-4">
+              <div className="flex items-start justify-between gap-3"><div><h3 className="font-bold">{workspace.label}</h3><p className="mt-1 text-xs text-[#6b8178]">{workspace.accountLabel}</p></div><span className={`rounded-full px-2 py-1 text-[11px] font-bold ${workspace.apiKeyConfigured ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>{workspace.apiKeyConfigured ? 'API key set' : 'API key missing'}</span></div>
+              <div className="mt-3 space-y-2">{workspace.channels.map((channel) => <div key={channel.platform} className="flex items-center justify-between gap-4 border-t border-[#e1ebe6] pt-2 text-sm"><span>{channel.label}</span><span className={`text-xs font-semibold ${channel.status === 'configured' ? 'text-emerald-700' : channel.status === 'mismatch' ? 'text-red-700' : 'text-amber-700'}`}>{channel.status === 'configured' ? 'Connected' : channel.status === 'mismatch' ? 'Mismatch' : 'Channel ID missing'}</span></div>)}</div>
+            </div>)}
+            {!workspaces.length && <p className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Named Buffer configuration could not be read. No social post should be scheduled until this status is available.</p>}
+          </div>
+        </section>
+
+        <div className="grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
+          <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="issues-heading">
+            <div className="flex items-center justify-between gap-3"><div><h2 id="issues-heading" className="flex items-center gap-2 text-lg font-bold"><FileText className="h-5 w-5 text-[#087f5b]" /> Issues</h2><p className="mt-1 text-sm text-[#6b8178]">Draft, approve, verify, then send.</p></div><button type="button" disabled={busy !== null} onClick={() => void run('createDraft', { recipientSegment: 'all-confirmed', ctaKind: 'transformation' }, 'A new draft was created from the weekly research workflow.')} className="rounded-lg bg-[#087f5b] px-3 py-2 text-xs font-bold text-white disabled:opacity-50">New draft</button></div>
+            <div className="mt-4 space-y-2">{dashboard?.issues.map((issue) => <button type="button" key={issue._id} onClick={() => void load(issue._id)} className={`w-full rounded-lg border p-3 text-left transition ${selectedId === issue._id ? 'border-[#087f5b] bg-[#effaf5]' : 'border-[#d6e2dc] hover:bg-[#f8fbf9]'}`}><div className="flex items-start justify-between gap-3"><span className="text-xs font-bold uppercase tracking-wide text-[#6b8178]">{issue.issueKey}</span><span className={`rounded-full px-2 py-1 text-[10px] font-bold uppercase ${issue.status === 'sent' ? 'bg-emerald-100 text-emerald-800' : issue.status === 'failed' ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-700'}`}>{issue.status}</span></div><p className="mt-2 font-semibold leading-5">{issue.subject}</p><p className="mt-2 text-xs text-[#6b8178]">Social drafts: {issue.socialDraftCount ?? 0}</p></button>)}{!dashboard?.issues.length && <p className="rounded-lg bg-[#f8fbf9] p-4 text-sm text-[#63776f]">No newsletter issues yet. Create the first draft to begin.</p>}</div>
+          </section>
+
+          <section className="min-w-0 rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="review-heading">
+            {!selectedIssue ? <div className="grid min-h-[360px] place-items-center text-center text-[#6b8178]"><div><Users className="mx-auto h-9 w-9" /><p className="mt-3 font-semibold">Select an issue to review it.</p></div></div> : <>
+              <div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.14em] text-[#087f5b]">{selectedIssue.issueKey}</p><h2 id="review-heading" className="mt-1 text-2xl font-bold">{selectedIssue.subject}</h2><p className="mt-2 text-sm text-[#5b7068]">{selectedIssue.schoolBcbaProblem || 'No school-BCBA problem has been recorded yet.'}</p></div><span className="rounded-full bg-[#eff4f1] px-3 py-1 text-xs font-bold text-[#1c5547]">{selectedIssue.archiveState || 'not_requested'}</span></div>
+              {selectedIssue.generationError && <p className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">{selectedIssue.generationError}</p>}
+              <div className="mt-5 flex flex-wrap gap-2">
+                <button type="button" disabled={busy !== null || selectedIssue.status === 'sent'} onClick={() => void run('sendPreview', { issueId: selectedIssue._id }, 'Preview sent to the configured review address.')} className="inline-flex items-center gap-2 rounded-lg border border-[#b6cfc4] px-3 py-2 text-sm font-semibold text-[#1c5547] disabled:opacity-50"><Send className="h-4 w-4" /> Send preview</button>
+                <button type="button" disabled={busy !== null || selectedIssue.status === 'sent'} onClick={() => void run('approve', { issueId: selectedIssue._id }, 'Issue approved. Publish and verify its public page before sending.')} className="rounded-lg bg-[#17352d] px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">Approve</button>
+                <button type="button" disabled={busy !== null || !['approved', 'scheduled'].includes(selectedIssue.status)} onClick={() => void run('publishAndVerify', { issueId: selectedIssue._id }, 'Public RobSpain.com issue page verified.')} className="rounded-lg bg-[#f5c842] px-3 py-2 text-sm font-bold text-[#17352d] disabled:opacity-50">Publish and verify public page</button>
+                <button type="button" disabled={busy !== null || !canSend} onClick={() => void run('sendApproved', { issueId: selectedIssue._id }, 'Newsletter delivery finished.')} className="rounded-lg bg-[#087f5b] px-3 py-2 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-40">Send to confirmed subscribers</button>
+                <button type="button" disabled={busy !== null || selectedIssue.status === 'sent'} onClick={() => void run('generateSocial', { issueId: selectedIssue._id }, 'Social drafts generated for review.')} className="rounded-lg border border-[#b6cfc4] px-3 py-2 text-sm font-semibold text-[#1c5547] disabled:opacity-50">Prepare social drafts</button>
+              </div>
+              <p className="mt-3 text-xs text-[#6b8178]">Subscriber send is intentionally unavailable until the issue is approved and the public page is verified successfully.</p>
+
+              <div className="mt-6 grid gap-5 lg:grid-cols-2">
+                <div><h3 className="font-bold">Research sources</h3><div className="mt-3 space-y-3">{detail?.articles.map((article, index) => <article key={article._id} className="rounded-lg border border-[#d6e2dc] bg-[#f8fbf9] p-4"><p className="text-xs font-bold uppercase tracking-wide text-[#087f5b]">Article {index + 1}</p><h4 className="mt-1 font-semibold">{article.title || article.apaCitation || 'Untitled source'}</h4><p className="mt-2 text-sm leading-6 text-[#536a62]">{article.summary || 'Summary not yet added.'}</p><div className="mt-3 flex flex-wrap items-center gap-3 text-xs font-semibold"><span className={article.fullTextVerifiedAt ? 'text-emerald-700' : 'text-amber-700'}>{article.fullTextVerifiedAt ? 'Full text verified' : 'Full text needs verification'}</span>{article.fullTextUrl && <a className="text-[#087f5b] underline" href={article.fullTextUrl} target="_blank" rel="noreferrer">Open full text</a>}</div></article>)}</div></div>
+                <div><h3 className="font-bold">Performance and social work</h3><div className="mt-3 rounded-lg border border-[#d6e2dc] bg-[#f8fbf9] p-4"><div className="grid grid-cols-2 gap-3 text-sm"><div><span className="block text-xs text-[#6b8178]">Delivered</span><strong>{String(analytics?.delivered ?? 0)}</strong></div><div><span className="block text-xs text-[#6b8178]">Opened</span><strong>{String(analytics?.opened ?? 0)}</strong></div><div><span className="block text-xs text-[#6b8178]">Clicked</span><strong>{String(analytics?.clicked ?? 0)}</strong></div><div><span className="block text-xs text-[#6b8178]">Archive views</span><strong>{String(analytics?.archiveViews ?? 0)}</strong></div></div><p className="mt-4 text-xs leading-5 text-[#6b8178]">Feedback and delivery events appear here as the Resend webhook records them.</p></div><div className="mt-3 space-y-2">{detail?.socialPosts.map((post) => <div key={post._id} className="rounded-lg border border-[#d6e2dc] p-3"><div className="flex items-center justify-between gap-3"><span className="text-sm font-bold capitalize">{post.platform}</span><span className="text-xs font-semibold text-[#6b8178]">{post.status}</span></div><p className="mt-2 line-clamp-3 whitespace-pre-wrap text-sm leading-5 text-[#536a62]">{post.body}</p></div>)}{!detail?.socialPosts.length && <p className="text-sm text-[#6b8178]">No social drafts yet.</p>}</div></div>
+              </div>
+              {selectedIssue.archiveUrl && <p className="mt-5 text-sm">Public issue: <a className="font-semibold text-[#087f5b] underline" href={selectedIssue.archiveUrl} target="_blank" rel="noreferrer">{selectedIssue.archiveUrl}</a></p>}
+            </>}
+          </section>
+        </div>
+
+        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="audience-heading"><h2 id="audience-heading" className="flex items-center gap-2 text-lg font-bold"><Users className="h-5 w-5 text-[#087f5b]" /> Audience segments</h2><div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{dashboard?.audiences.map((audience) => <div key={audience.key} className="rounded-lg border border-[#d6e2dc] p-3"><div className="flex items-center justify-between gap-2"><span className="font-semibold">{audience.label}</span><strong className="text-[#087f5b]">{audience.eligible}</strong></div><p className="mt-1 text-xs leading-5 text-[#6b8178]">{audience.description}</p></div>)}</div></section>
+      </div>
+    </main>
+  )
 }
