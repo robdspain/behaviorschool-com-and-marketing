@@ -168,7 +168,7 @@ export default function SiteMapViewer() {
         { path: "/admin/users", title: "User Management", description: "Manage user accounts", status: "live", cluster: "Admin", priority: "high" },
         { path: "/admin/blog", title: "Blog Management", description: "Manage blog posts", status: "live", cluster: "Admin", priority: "medium" },
         { path: "/admin/blog/editor", title: "Blog Editor", description: "Create and edit blog posts", status: "live", cluster: "Admin", priority: "medium" },
-        { path: "/admin/listmonk", title: "Newsletter (Listmonk)", description: "Manage lists and campaigns", status: "live", cluster: "Admin", priority: "high" },
+        { path: "/admin/newsletter", title: "Weekly Research Brief", description: "Manage Convex newsletter drafts, delivery, and social follow-up", status: "live", cluster: "Admin", priority: "high" },
         { path: "/admin/login", title: "Admin Login", description: "Admin authentication", status: "live", cluster: "Admin", priority: "high" },
         { path: "/admin/simple-login", title: "Simple Admin Login", description: "Simplified admin login", status: "live", cluster: "Admin", priority: "medium" },
         { path: "/admin/indexnow", title: "IndexNow", description: "Search engine indexing tool", status: "live", cluster: "Admin", priority: "low" },
