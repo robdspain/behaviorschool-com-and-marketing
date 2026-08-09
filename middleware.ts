@@ -14,6 +14,21 @@ const COMMUNITY_TARGET = 'https://behaviorschool.com/transformation-program'
 
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host')?.split(':')[0]?.toLowerCase()
+  const { pathname } = request.nextUrl
+
+  if (pathname.startsWith('/api/nm')) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: 'newsletter_manager_retired',
+        message: 'The legacy newsletter manager has been retired. Use /admin/newsletter.',
+      },
+      {
+        status: 410,
+        headers: { 'Cache-Control': 'no-store, max-age=0' },
+      },
+    )
+  }
 
   if (host === COMMUNITY_HOST) {
     return NextResponse.redirect(COMMUNITY_TARGET, 308)
@@ -22,7 +37,6 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
   // Add noindex header for admin and test pages
-  const { pathname } = request.nextUrl;
   if (pathname.startsWith('/admin') || pathname.startsWith('/test')) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
@@ -41,6 +55,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    '/api/nm/:path*',
     // Exclude API routes and static assets from middleware
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
