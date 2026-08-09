@@ -9,7 +9,7 @@ const DEFAULT_SUMMARY_URL =
   'https://study.behaviorschool.com/.netlify/functions/signup-nurture-summary';
 const DEFAULT_NURTURE_URL =
   'https://study.behaviorschool.com/.netlify/functions/signup-nurture';
-const MAX_MANUAL_SEND_LIMIT = 5;
+const MAX_MANUAL_SEND_LIMIT = 200;
 
 async function isAuthenticatedAdmin() {
   const cookieStore = await cookies();

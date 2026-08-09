@@ -89,6 +89,7 @@ type NurtureSummary = {
     setup_completed: number;
     diagnostic_completed: number;
     first_practice: number;
+    second_session: number;
     paywall_viewed: number;
     checkout_started: number;
     paid: number;
@@ -96,6 +97,18 @@ type NurtureSummary = {
   events: {
     total: number;
     counts: Record<string, number>;
+  };
+  automation?: {
+    autoSendEnabled: boolean;
+    schedule: string;
+    cooldownHours: number;
+    maxOnboardingEmails: number;
+  };
+  emailDelivery?: {
+    counts: Record<string, number>;
+    deliveredMessages: number;
+    clickedMessages: number;
+    clickThroughRate: number;
   };
   feedback: {
     total: number;
@@ -106,81 +119,32 @@ type NurtureSummary = {
 
 const sequenceEmails = [
   {
-    day: 'Day 0',
-    title: 'Finish Setup',
-    subject: 'Finish your 2-minute setup so we can build your BCBA study path',
-    segment: 'New signup, free plan, onboarding incomplete',
-    objective: 'Get the user from signup into a real study setup.',
+    day: 'First session',
+    title: 'Find a starting point',
+    subject: 'Start with one question from each BCBA domain',
+    segment: 'New free user with no diagnostic or practice history',
+    objective: 'Complete the nine-domain check and identify one priority domain.',
   },
   {
-    day: 'Day 1',
-    title: 'Baseline Diagnostic',
-    subject: 'Your setup is done. Start your 10-question diagnostic.',
-    segment: 'Setup completed, no diagnostic or practice attempt',
-    objective: 'Move completed setup into the 10-question diagnostic and a clear next study block.',
+    day: 'Second study day',
+    title: 'Use the result',
+    subject: 'Your next 5 questions: {priority domain}',
+    segment: 'Diagnostic completed, second study day not yet established',
+    objective: 'Return for five questions in the exact domain identified by the diagnostic.',
   },
   {
-    day: 'Day 1',
-    title: 'Diagnostic Result Follow-up',
-    subject: 'Your diagnostic gave you a place to start',
-    segment: 'Diagnostic completed, no first practice session',
-    objective: 'Turn the diagnostic insight into one short practice block instead of asking them to retake it.',
+    day: 'Value moment',
+    title: 'Try Pro from real progress',
+    subject: 'Keep building {priority domain} with a 7-day Pro trial',
+    segment: 'Completed 20+ questions or a mock exam and still on the free plan',
+    objective: 'Offer a seven-day trial only after the learner has enough history to judge its value.',
   },
   {
-    day: 'Day 3',
-    title: 'Study Rhythm',
-    subject: 'Can you do 10 BCBA questions today?',
-    segment: 'Free users with low question activity',
-    objective: 'Restart the habit with one small practice session.',
-  },
-  {
-    day: 'Day 5',
-    title: 'Show Value',
-    subject: 'Your missed questions are telling you what to study',
-    segment: 'One practice action, no purchase',
-    objective: 'Show how their missed questions can guide the next study block.',
-  },
-  {
-    day: 'Day 7',
-    title: 'Upgrade Moment',
-    subject: 'Do you need more practice than the free plan gives you?',
-    segment: 'Engaged free users with repeated product actions',
-    objective: 'Offer the paid plan only after the free practice is helping.',
-  },
-  {
-    day: 'Behavior',
-    title: 'Pricing / Checkout Abandon',
-    subject: 'Did you have a question about the paid plan?',
-    segment: 'Recent checkout or pricing intent, free plan',
-    objective: 'Recover people who reached the buying decision but did not complete it.',
-  },
-  {
-    day: 'Behavior',
-    title: 'Mock Exam Unlock',
-    subject: 'You have enough practice for a mock exam',
-    segment: '20+ questions answered and no mock exam recorded',
-    objective: 'Move engaged users into a high-value exam-readiness moment.',
-  },
-  {
-    day: 'Behavior',
-    title: 'Exam Date Urgency',
-    subject: 'Your exam date is getting close',
-    segment: 'Projected exam date within 21 days',
-    objective: 'Turn urgency into focused study, then a clear premium value decision.',
-  },
-  {
-    day: 'Behavior',
-    title: 'Inactive Free Winback',
+    day: 'Final follow-up',
+    title: 'Resume or pause',
     subject: 'Pick up with 5 questions where you left off',
-    segment: 'Practiced before, inactive 7+ days, free plan',
-    objective: 'Restart the habit before asking for paid conversion.',
-  },
-  {
-    day: 'Feedback',
-    title: 'Price Objection',
-    subject: 'A straightforward answer about the price',
-    segment: 'Clicked price hesitation feedback',
-    objective: 'Answer the objection plainly without sounding defensive or salesy.',
+    segment: 'Diagnostic or practice history followed by seven inactive days',
+    objective: 'Offer one useful five-question return, then pause automated study reminders.',
   },
 ];
 
@@ -191,22 +155,6 @@ const researchBackbone = [
   'Use spaced practice reminders to create a repeatable study habit.',
   'Measure dropoffs daily and adjust the next message or CTA.',
 ];
-
-const setupFollowUpUrl = 'https://study.behaviorschool.com/auth?redirect=/onboarding/welcome&utm_source=manual&utm_medium=email&utm_campaign=bst_personal_setup_rescue';
-
-function buildManualFollowUpBody(candidate: NurtureCandidate) {
-  return [
-    "It looks like your account setup isn't finished yet.",
-    '',
-    'It takes about two minutes. Add your exam path, target date, and study schedule, and the app will give you a place to start.',
-    '',
-    `Start here: ${setupFollowUpUrl}`,
-    '',
-    'If you got stuck, reply and tell me where.',
-    '',
-    'Rob Spain, BCBA, IBA',
-  ].join('\n');
-}
 
 export default function BehaviorStudyToolsAdminPage() {
   const router = useRouter();
@@ -271,15 +219,10 @@ export default function BehaviorStudyToolsAdminPage() {
   );
   const dailyAction = summary?.dailyAction;
   const conversionEvents = summary?.conversionEvents;
-  const manualFollowUpCandidates = useMemo(
-    () => (summary?.queue.candidates || [])
-      .filter((candidate) => candidate.campaign_step === 'day_0_welcome' || candidate.sequence === 'setup_rescue')
-      .slice(0, 3),
-    [summary?.queue.candidates],
-  );
+  const deliveryCounts = summary?.emailDelivery?.counts || {};
 
   const sendNurtureBatch = async () => {
-    const suggestedLimit = Math.max(0, Math.min(dailyAction?.suggestedLimit || summary?.queue.sendableCount || 0, 5));
+    const suggestedLimit = Math.max(0, Math.min(summary?.queue.sendableCount || 0, 200));
     if (suggestedLimit === 0) return;
 
     const confirmed = window.confirm(`Send the next ${suggestedLimit} Behavior Study Tools nurture email${suggestedLimit === 1 ? '' : 's'} now?`);
@@ -353,12 +296,38 @@ export default function BehaviorStudyToolsAdminPage() {
         </div>
       </header>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
         <MetricCard icon={Mail} label="Nurture emails" value={String(sequenceEmails.length)} detail="Signup to paid" />
         <MetricCard icon={Users} label="New registrations" value={String(summary?.lifecycle.stages?.[0]?.count ?? '...')} detail={`${windowDays}-day window`} />
         <MetricCard icon={Target} label="Queued candidates" value={String(summary?.queue.candidateCount ?? '...')} detail="Real users only" />
         <MetricCard icon={Users} label="Excluded QA/internal" value={String(summary?.audience?.excludedProfiles ?? '...')} detail="Removed from nurture" />
         <MetricCard icon={ShieldCheck} label="Suppressed sends" value={String(summary?.suppression?.suppressedProfiles ?? '...')} detail="Paused or unsubscribed" />
+        <MetricCard
+          icon={RefreshCw}
+          label="Auto-send"
+          value={summary?.automation ? (summary.automation.autoSendEnabled ? 'On' : 'Off') : '...'}
+          detail={summary?.automation?.schedule || 'Daily lifecycle review'}
+        />
+      </section>
+
+      <section className="space-y-4">
+        <div className="flex items-center gap-2">
+          <Mail className="h-5 w-5 text-emerald-700" />
+          <div>
+            <h2 className="text-lg font-semibold text-slate-950">Resend delivery health</h2>
+            <p className="mt-1 text-sm text-slate-600">
+              Provider events for this reporting window. Bounces, complaints, and suppressions stop future nurture.
+            </p>
+          </div>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
+          <MetricCard icon={Send} label="Sent" value={String(deliveryCounts.sent ?? 0)} detail="Accepted by Resend" />
+          <MetricCard icon={CheckCircle2} label="Delivered" value={String(summary?.emailDelivery?.deliveredMessages ?? 0)} detail="Unique messages" />
+          <MetricCard icon={ExternalLink} label="Clicked" value={String(summary?.emailDelivery?.clickedMessages ?? 0)} detail={`${summary?.emailDelivery?.clickThroughRate ?? 0}% delivered CTR`} />
+          <MetricCard icon={TrendingDown} label="Bounced" value={String(deliveryCounts.bounced ?? 0)} detail="Automatically suppressed" />
+          <MetricCard icon={ShieldCheck} label="Complaints" value={String(deliveryCounts.complained ?? 0)} detail="Automatically suppressed" />
+          <MetricCard icon={RefreshCw} label="Delayed / failed" value={String((deliveryCounts.delivery_delayed ?? 0) + (deliveryCounts.failed ?? 0))} detail="Needs delivery review" />
+        </div>
       </section>
 
       <section className="space-y-4">
@@ -371,10 +340,11 @@ export default function BehaviorStudyToolsAdminPage() {
             </p>
           </div>
         </div>
-        <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
+        <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-7">
           <MetricCard icon={CheckCircle2} label="Setup done" value={String(conversionEvents?.setup_completed ?? '...')} detail="setup_completed" />
           <MetricCard icon={Target} label="Diagnostic done" value={String(conversionEvents?.diagnostic_completed ?? '...')} detail="diagnostic_completed" />
           <MetricCard icon={ArrowRight} label="First practice" value={String(conversionEvents?.first_practice ?? '...')} detail="first_practice" />
+          <MetricCard icon={RefreshCw} label="Second study day" value={String(conversionEvents?.second_session ?? '...')} detail="Primary activation goal" />
           <MetricCard icon={TrendingDown} label="Paywall viewed" value={String(conversionEvents?.paywall_viewed ?? '...')} detail="paywall_viewed" />
           <MetricCard icon={ExternalLink} label="Checkout started" value={String(conversionEvents?.checkout_started ?? '...')} detail="checkout_started" />
           <MetricCard icon={ShieldCheck} label="Paid users" value={String(conversionEvents?.paid ?? '...')} detail="paid conversion" />
@@ -410,10 +380,10 @@ export default function BehaviorStudyToolsAdminPage() {
             <button
               type="button"
               onClick={() => void sendNurtureBatch()}
-              disabled={sending || !dailyAction || dailyAction.suggestedLimit === 0}
+              disabled={sending || (summary?.queue.sendableCount || 0) === 0}
               className="inline-flex items-center rounded-lg bg-emerald-800 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-900 disabled:cursor-not-allowed disabled:bg-slate-300"
             >
-              {sending ? 'Sending...' : `Send next ${dailyAction?.suggestedLimit || 0}`}
+              {sending ? 'Sending...' : `Send all ${summary?.queue.sendableCount || 0} due`}
               <Send className="ml-2 h-4 w-4" />
             </button>
           </div>
@@ -509,7 +479,7 @@ export default function BehaviorStudyToolsAdminPage() {
             <h2 className="text-lg font-semibold text-slate-950">Nurture queue</h2>
           </div>
           <p className="mt-2 text-sm text-slate-600">
-            {summary?.queue.sendableCount ?? 0} real users are currently sendable. Manual sends are capped at 5 per review.
+            {summary?.queue.sendableCount ?? 0} real users are currently due. The scheduler applies eligibility, suppression, a 48-hour cooldown, and the four-message onboarding limit.
           </p>
           <div className="mt-4 space-y-3">
             {(summary?.queue.candidates || []).slice(0, 8).map((candidate) => (
@@ -524,52 +494,6 @@ export default function BehaviorStudyToolsAdminPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-amber-700" />
-              <h2 className="text-lg font-semibold text-slate-950">Manual setup follow-up</h2>
-            </div>
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-700">
-              Keep this personal and capped. These are the first three queued setup-rescue users to review before sending any broader nurture batch.
-            </p>
-          </div>
-          <span className="rounded-full bg-white px-3 py-1 text-sm font-bold text-amber-800">
-            {manualFollowUpCandidates.length} ready
-          </span>
-        </div>
-
-        <div className="mt-4 grid gap-3 lg:grid-cols-3">
-          {manualFollowUpCandidates.length > 0 ? manualFollowUpCandidates.map((candidate) => {
-            const body = buildManualFollowUpBody(candidate);
-            const subject = 'Want help building your BCBA study path?';
-            return (
-              <div key={`${candidate.email}-manual-follow-up`} className="rounded-lg border border-amber-200 bg-white p-4">
-                <p className="text-sm font-semibold text-slate-950">{candidate.email}</p>
-                <p className="mt-1 text-xs text-slate-600">
-                  {candidate.age_days}d old • {candidate.campaign_step.replaceAll('_', ' ')}
-                </p>
-                <pre className="mt-3 whitespace-pre-wrap rounded-lg bg-slate-50 p-3 text-xs leading-5 text-slate-700">
-                  {body}
-                </pre>
-                <a
-                  href={`mailto:${encodeURIComponent(candidate.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}
-                  className="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-amber-700 px-3 py-2 text-sm font-semibold text-white hover:bg-amber-800"
-                >
-                  Open email draft
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-              </div>
-            );
-          }) : (
-            <div className="rounded-lg bg-white px-4 py-3 text-sm text-slate-600">
-              No setup-rescue candidates in the current queue.
-            </div>
-          )}
         </div>
       </section>
 
@@ -601,6 +525,10 @@ export default function BehaviorStudyToolsAdminPage() {
           <ShieldCheck className="h-5 w-5 text-emerald-700" />
           <h2 className="text-lg font-semibold text-slate-950">Suppression guardrail</h2>
         </div>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          One message per user state, no more than one message every {summary?.automation?.cooldownHours || 48} hours,
+          and no more than {summary?.automation?.maxOnboardingEmails || 4} onboarding messages after repeated nonresponse.
+        </p>
         <p className="mt-2 text-sm leading-6 text-slate-600">
           Users who unsubscribe, pause reminders, report the wrong exam path, or need support are kept out of future nurture sends while still remaining visible in lifecycle metrics.
         </p>

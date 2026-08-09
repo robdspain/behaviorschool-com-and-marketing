@@ -173,7 +173,12 @@ export async function GET() {
       candidates: Number(study.queue?.candidateCount || 0),
       paid: Number(study.conversionEvents?.paid || 0),
       firstPractice: Number(study.conversionEvents?.first_practice || 0),
+      secondSession: Number(study.conversionEvents?.second_session || 0),
       suppressed: Number(study.suppression?.suppressedProfiles || 0),
+      autoSendEnabled: Boolean(study.automation?.autoSendEnabled),
+      delivered: Number(study.emailDelivery?.deliveredMessages || 0),
+      clicked: Number(study.emailDelivery?.clickedMessages || 0),
+      clickThroughRate: Number(study.emailDelivery?.clickThroughRate || 0),
     } : null,
     supervision: supervision ? {
       enabled: Boolean(supervision.enabled),
