@@ -31,3 +31,6 @@ All public signups include source metadata where the backend supports it:
 - `subscribed_at`
 
 Until Listmonk is configured, the active subscriber path is Convex. The Supabase/Mailgun `/admin/newsletter` system exists but the live `/api/nm/status` endpoint reported 0 subscribers, 0 lists, and 0 campaigns on July 3, 2026.
+# Current production source of truth
+
+The Convex-backed **School BCBA Research Brief** workspace at `/admin/newsletter` is the only active newsletter manager. The former Supabase/Listmonk manager and its `/api/nm/*` and `/api/admin/listmonk/*` handlers have been retired; the historical notes below are retained for migration context only.

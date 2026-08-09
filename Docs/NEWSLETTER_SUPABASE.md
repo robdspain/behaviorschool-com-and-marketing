@@ -1,4 +1,6 @@
-Supabase Newsletter (Listmonk‑like) on Netlify
+> **Retired:** This document describes the former Supabase/Listmonk newsletter manager. It is no longer deployed. Production newsletter work is managed by the Convex-backed School BCBA Research Brief workspace at `/admin/newsletter`.
+
+# Supabase Newsletter (Listmonk-like) on Netlify — historical design
 
 Overview
 - Full newsletter management on Netlify + Supabase without Listmonk/DigitalOcean.

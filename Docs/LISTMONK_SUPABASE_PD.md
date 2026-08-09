@@ -1,4 +1,6 @@
-# Listmonk-on-Supabase (Netlify) — Product Design
+# Retired: Listmonk-on-Supabase (Netlify) — historical product design
+
+This design was superseded by the Convex-backed School BCBA Research Brief workspace. Do not implement or restore the `/admin/listmonk`, `/api/admin/listmonk`, or `/api/nm` surfaces described below.
 
 Purpose
 - Replace the external Listmonk service with a fully in‑house newsletter system built on Supabase (Postgres + Auth + Storage) and Netlify (hosting + scheduled functions), integrated into this Next.js app.
@@ -73,4 +75,3 @@ Milestones
 Notes
 - Supabase is Postgres: can use constraints, JSONB, partial indexes, triggers for counters.
 - Netlify Scheduled Functions: run queue workers every minute/5 minutes.
-
