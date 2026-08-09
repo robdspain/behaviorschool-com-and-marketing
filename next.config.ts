@@ -636,6 +636,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: '/admin/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, max-age=0',
+          },
+        ],
+      },
+      {
         source: '/api/:path*',
         headers: [
           {
