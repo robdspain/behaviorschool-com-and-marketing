@@ -45,6 +45,7 @@ export const BUFFER_WORKSPACES: WorkspaceDefinition[] = [
 ]
 
 export type BufferChannelStatus = 'configured' | 'missing' | 'mismatch'
+export type BufferApiStatus = 'verified' | 'missing' | 'invalid'
 
 export function getBufferWorkspace(brand: BufferBrand) {
   return BUFFER_WORKSPACES.find((workspace) => workspace.brand === brand)!
@@ -84,6 +85,43 @@ export function getBufferWorkspaceStatus() {
         status,
       }
     }),
+  }))
+}
+
+export async function getBufferWorkspaceHealth() {
+  const workspaces = getBufferWorkspaceStatus()
+
+  return Promise.all(workspaces.map(async (workspace) => {
+    const apiKey = getBufferApiKey(workspace.brand)
+    if (!apiKey) return { ...workspace, apiStatus: 'missing' as BufferApiStatus }
+
+    try {
+      const response = await fetch('https://api.buffer.com', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: '{ account { id name email } }',
+        }),
+        signal: AbortSignal.timeout(8000),
+      })
+      if (!response.ok) return { ...workspace, apiStatus: 'invalid' as BufferApiStatus }
+
+      const body = await response.json() as { data?: { account?: { id?: string; name?: string; email?: string } }; errors?: unknown[] }
+      const account = body.data?.account
+      if (body.errors?.length || !account?.id) return { ...workspace, apiStatus: 'invalid' as BufferApiStatus }
+
+      return {
+        ...workspace,
+        apiStatus: 'verified' as BufferApiStatus,
+        bufferAccountName: account.name || null,
+        bufferAccountEmail: account.email || null,
+      }
+    } catch {
+      return { ...workspace, apiStatus: 'invalid' as BufferApiStatus }
+    }
   }))
 }
 

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { verifyAdminSession } from '@/lib/admin-auth'
-import { getBufferWorkspaceStatus } from '@/lib/buffer-workspaces'
+import { getBufferWorkspaceHealth } from '@/lib/buffer-workspaces'
 
 export const dynamic = 'force-dynamic'
 
@@ -8,7 +8,7 @@ export async function GET() {
   const user = await verifyAdminSession()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const workspaces = getBufferWorkspaceStatus()
+  const workspaces = await getBufferWorkspaceHealth()
   return NextResponse.json({
     ok: true,
     workspaces,

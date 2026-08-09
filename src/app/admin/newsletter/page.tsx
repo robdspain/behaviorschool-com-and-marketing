@@ -55,6 +55,9 @@ type Workspace = {
   accountLabel: string
   apiKeyEnv: string
   apiKeyConfigured: boolean
+  apiStatus: 'verified' | 'missing' | 'invalid'
+  bufferAccountName?: string | null
+  bufferAccountEmail?: string | null
   legacyApiKeyDetected: boolean
   channels: Array<{ platform: string; label: string; channelIdEnv: string; status: 'configured' | 'missing' | 'mismatch' }>
 }
@@ -160,7 +163,7 @@ export default function NewsletterAdmin() {
   }
 
   const selectedIssue = detail?.issue
-  const allBufferConfigured = useMemo(() => workspaces.length === 2 && workspaces.every((workspace) => workspace.apiKeyConfigured && workspace.channels.every((channel) => channel.status === 'configured')), [workspaces])
+  const allBufferConfigured = useMemo(() => workspaces.length === 2 && workspaces.every((workspace) => workspace.apiStatus === 'verified' && workspace.channels.every((channel) => channel.status === 'configured')), [workspaces])
   const canSend = Boolean(selectedIssue && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
 
   if (loading) {
@@ -210,7 +213,7 @@ export default function NewsletterAdmin() {
           </div>
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
             {workspaces.map((workspace) => <div key={workspace.brand} className="rounded-lg border border-[#d6e2dc] bg-[#f8fbf9] p-4">
-              <div className="flex items-start justify-between gap-3"><div><h3 className="font-bold">{workspace.label}</h3><p className="mt-1 text-xs text-[#6b8178]">{workspace.accountLabel}</p></div><span className={`rounded-full px-2 py-1 text-[11px] font-bold ${workspace.apiKeyConfigured ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>{workspace.apiKeyConfigured ? 'API key set' : 'API key missing'}</span></div>
+              <div className="flex items-start justify-between gap-3"><div><h3 className="font-bold">{workspace.label}</h3><p className="mt-1 text-xs text-[#6b8178]">{workspace.accountLabel}</p></div><span className={`rounded-full px-2 py-1 text-[11px] font-bold ${workspace.apiStatus === 'verified' ? 'bg-emerald-100 text-emerald-800' : workspace.apiStatus === 'invalid' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'}`}>{workspace.apiStatus === 'verified' ? 'API verified' : workspace.apiStatus === 'invalid' ? 'API invalid' : 'API key missing'}</span></div>
               <div className="mt-3 space-y-2">{workspace.channels.map((channel) => <div key={channel.platform} className="flex items-center justify-between gap-4 border-t border-[#e1ebe6] pt-2 text-sm"><span>{channel.label}</span><span className={`text-xs font-semibold ${channel.status === 'configured' ? 'text-emerald-700' : channel.status === 'mismatch' ? 'text-red-700' : 'text-amber-700'}`}>{channel.status === 'configured' ? 'Connected' : channel.status === 'mismatch' ? 'Mismatch' : 'Channel ID missing'}</span></div>)}</div>
             </div>)}
             {!workspaces.length && <p className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Named Buffer configuration could not be read. No social post should be scheduled until this status is available.</p>}
