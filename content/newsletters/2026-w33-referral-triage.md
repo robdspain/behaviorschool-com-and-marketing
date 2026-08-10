@@ -31,9 +31,7 @@ Kestner, K. M., Peterson, S. M., Eldridge, R. R., & Peterson, L. D. (2019). Cons
 
 [Read the full-text article](https://pmc.ncbi.nlm.nih.gov/articles/PMC6745578/)
 
-## Study 2
-
-### Functional analysis belongs on the assessment continuum
+## Not every referral belongs on the same assessment track
 
 Nesselrode and colleagues systematically reviewed functional analyses conducted in public schools. Analog functional analysis was the most common format in the reviewed literature, while adapted formats such as trial-based and brief functional analysis became more common over time. The authors also identified limits in the school-specific evidence, including inconsistent terminology and a need for more research on social validity. For a school-based BCBA, the practical lesson is to avoid both extremes: not every referral automatically requires a functional analysis, and experimental analysis should not disappear from the available assessment options when descriptive evidence is unclear and a safe, competent, contextually appropriate test would improve the decision.
 
@@ -90,9 +88,7 @@ Founder, Behavior School
 
 <p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6745578/"><strong>Read the full-text article</strong></a></p>
 
-<p><strong>Study 2</strong></p>
-
-<h2>Functional analysis belongs on the assessment continuum</h2>
+<h2>Not every referral belongs on the same assessment track</h2>
 
 <p>Nesselrode and colleagues systematically reviewed functional analyses conducted in public schools. Analog functional analysis was the most common format in the reviewed literature, while adapted formats such as trial-based and brief functional analysis became more common over time. The authors also identified limits in the school-specific evidence, including inconsistent terminology and a need for more research on social validity. For a school-based BCBA, the practical lesson is to avoid both extremes: not every referral automatically requires a functional analysis, and experimental analysis should not disappear from the available assessment options when descriptive evidence is unclear and a safe, competent, contextually appropriate test would improve the decision.</p>
 
