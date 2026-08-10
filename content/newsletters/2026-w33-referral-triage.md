@@ -1,147 +1,133 @@
 ---
-name: 2026 Week 33 School BCBA Research Brief
+name: 2026 Week 33 School BCBA Systems Letter
 issue_key: 2026-W33
 status: draft
-subject: Before you accept the next behavior referral
-preview: Three research-based checks before choosing an assessment path.
+subject: Before every behavior referral becomes an FBA
+preview: Two studies point to a better first step: examine the classroom context and define the decision before choosing the assessment.
 audience: Confirmed BehaviorSchool newsletter subscribers
 primary_cta_label: See the School BCBA Transformation Program
 primary_cta: https://behaviorschool.com/transformation-program?utm_source=newsletter&utm_medium=email&utm_campaign=2026_w33_referral_triage
 ---
 
-Hi {{first_name | default: "there"}},
+Behavior School
 
-At the start of the school year, behavior referrals often arrive as labels: *defiant*, *aggressive*, or *needs an FBA*. A label tells us that someone is concerned. It does not yet tell us what to assess or what decision the team needs to make.
+School BCBA Systems Letter
 
-This week, I looked at three articles that help clarify the next step.
+Research that leads to a practical next step.
 
-## 1. Check the classroom conditions around the referral
+# Before every behavior referral becomes an FBA
 
-Kestner and colleagues identified four classroom variables that behavior analysts should consider during baseline assessment: opportunities for active student responding, curriculum fit, feedback and reinforcement, and instructions and transitions.
+A school-based BCBA can receive a referral that already sounds like a conclusion: *defiant*, *aggressive*, or *needs an FBA*. The concern may be important, but the label does not yet identify the behavior, the classroom conditions around it, or the decision the team needs the assessment to support.
 
-**What the article supports:** An individual referral should not prevent us from examining classroom-level variables that may be contributing to the behavior.
+That makes the referral look like a request for one standard process. Often, the first job is to clarify the problem before selecting the assessment path.
 
-**Important limit:** This is a practice-oriented literature review with recommended assessment targets. It does not show that checking these four variables will resolve every referral.
+## Study 1
 
-**For a school BCBA:** Observe the routine before deciding that the first response must be an individualized plan. Document what the task requires, how instructions are delivered, what reinforcement is available, and whether the work matches the student's current skills.
+### An individual referral can still be a classroom systems problem
 
-## 2. Match the assessment to the decision
+Kestner and colleagues reviewed research on classroom variables that affect learning and student behavior. They recommended that behavior analysts consider four conditions during baseline classroom assessment: opportunities for active student responding, curriculum fit, feedback and reinforcement, and effective instructions and transitions. For school-based BCBAs, the important point is not that these four checks will resolve every referral. It is that an individual student's behavior can be affected by classroom-level conditions that should be observed before the team assumes the answer must begin with an individualized plan.
 
-Call and colleagues compared functional behavioral assessment methods with and without a functional analysis for 57 young children with autism. The assessment results showed modest correspondence. Participants who completed functional communication training met the study's successful-outcome criteria regardless of which assessment path they received.
+Kestner, K. M., Peterson, S. M., Eldridge, R. R., & Peterson, L. D. (2019). Considerations of baseline classroom conditions in conducting functional behavior assessments in school settings. *Behavior Analysis in Practice, 12*(2), 452-465.
 
-**What the article supports:** Different assessment paths can lead to useful treatment decisions, and a functional analysis is not automatically required in every case.
+[Read the full-text article](https://pmc.ncbi.nlm.nih.gov/articles/PMC6745578/)
 
-**Important limit:** This was not a school-referral study, and the participants were young children with autism. It does not establish one best assessment sequence for every student or school problem.
+## Study 2
 
-**For a school BCBA:** Name the decision first. Are you deciding whether classroom consultation is enough, whether more direct data are needed, or whether the current functional hypothesis needs an experimental test before intervention?
+### Functional analysis belongs on the assessment continuum
 
-## 3. Keep functional analysis on the school assessment continuum
+Nesselrode and colleagues systematically reviewed functional analyses conducted in public schools. Analog functional analysis was the most common format in the reviewed literature, while adapted formats such as trial-based and brief functional analysis became more common over time. The authors also identified limits in the school-specific evidence, including inconsistent terminology and a need for more research on social validity. For a school-based BCBA, the practical lesson is to avoid both extremes: not every referral automatically requires a functional analysis, and experimental analysis should not disappear from the available assessment options when descriptive evidence is unclear and a safe, competent, contextually appropriate test would improve the decision.
 
-Nesselrode and colleagues systematically reviewed functional analyses conducted in public schools. Analog functional analyses were the most common format in the reviewed literature, while adapted formats such as trial-based and brief functional analyses became more common over time.
+Nesselrode, R., Falcomata, T. S., Hills, L., & Erhard, P. (2022). Functional analysis in public school settings: A systematic review of the literature. *Behavior Analysis in Practice, 15*(3), 958-970.
 
-**What the article supports:** Functional analysis can be part of school-based FBA practice, including adapted formats selected for the setting.
+[Read the full-text article](https://pmc.ncbi.nlm.nih.gov/articles/PMC9582058/)
 
-**Important limit:** The review found a limited school-specific literature base, inconsistent terminology, and a need for more research on social validity and comparative effectiveness.
+## Define the decision before choosing the assessment
 
-**For a school BCBA:** Do not treat every referral as requiring a functional analysis, but do not remove experimental analysis from your practice options. When descriptive evidence is unclear and the decision matters, consider whether a safe, competent, contextually appropriate test is warranted.
+For one new or unresolved referral this week, write four lines:
 
-## Try this this week
+**Behavior:** What did the student do that someone could observe and measure?
 
-Pull one new or unresolved referral and write down:
+**Context:** What classroom conditions or routines need to be observed?
 
-1. The behavior in observable terms and the routine in which it occurs.
-2. The classroom conditions you need to observe before choosing an individual assessment path.
-3. The decision the assessment must support.
+**Decision:** What question does the team need the assessment to answer?
+
+**Next step:** What is the least intensive assessment step that can answer that question responsibly?
+
+## Want a repeatable system for managing referrals and assessment decisions?
 
 The School BCBA Transformation Program includes applied work on referral routing, assessment decisions, functional assessment, and caseload systems.
 
 [See the School BCBA Transformation Program](https://behaviorschool.com/transformation-program?utm_source=newsletter&utm_medium=email&utm_campaign=2026_w33_referral_triage)
 
-If you try this with a referral, reply and tell me which question changed the team's next step.
+Until next week,
 
 Rob Spain, BCBA, IBA  
-Behavior School
-
-## Research articles used
-
-Call, N. A., Bernstein, A. M., O'Brien, M. J., Schieltz, K. M., Tsami, L., Lerman, D. C., Berg, W. K., Lindgren, S. D., Connelly, M. A., & Wacker, D. P. (2024). A comparative effectiveness trial of functional behavioral assessment methods. *Journal of Applied Behavior Analysis, 57*(1), 166-183. https://doi.org/10.1002/jaba.1045. [Open full text](https://pmc.ncbi.nlm.nih.gov/articles/PMC10843530/)
-
-Kestner, K. M., Peterson, S. M., Eldridge, R. R., & Peterson, L. D. (2019). Considerations of baseline classroom conditions in conducting functional behavior assessments in school settings. *Behavior Analysis in Practice, 12*(2), 452-465. https://doi.org/10.1007/s40617-018-0269-1. [Open full text](https://pmc.ncbi.nlm.nih.gov/articles/PMC6745578/)
-
-Nesselrode, R., Falcomata, T. S., Hills, L., & Erhard, P. (2022). Functional analysis in public school settings: A systematic review of the literature. *Behavior Analysis in Practice, 15*(3), 958-970. https://doi.org/10.1007/s40617-022-00679-8. [Open full text](https://pmc.ncbi.nlm.nih.gov/articles/PMC9582058/)
+Founder, Behavior School
 
 ---
 
 ## HTML Body
 
-<p>Hi {{first_name | default: "there"}},</p>
+<p><strong>Behavior School</strong></p>
 
-<p>At the start of the school year, behavior referrals often arrive as labels: <em>defiant</em>, <em>aggressive</em>, or <em>needs an FBA</em>. A label tells us that someone is concerned. It does not yet tell us what to assess or what decision the team needs to make.</p>
+<p><strong>School BCBA Systems Letter</strong></p>
 
-<p>This week, I looked at three articles that help clarify the next step.</p>
+<p>Research that leads to a practical next step.</p>
 
-<h2>1. Check the classroom conditions around the referral</h2>
+<h1>Before every behavior referral becomes an FBA</h1>
 
-<p>Kestner and colleagues identified four classroom variables that behavior analysts should consider during baseline assessment: opportunities for active student responding, curriculum fit, feedback and reinforcement, and instructions and transitions.</p>
+<p>A school-based BCBA can receive a referral that already sounds like a conclusion: <em>defiant</em>, <em>aggressive</em>, or <em>needs an FBA</em>. The concern may be important, but the label does not yet identify the behavior, the classroom conditions around it, or the decision the team needs the assessment to support.</p>
 
-<p><strong>What the article supports:</strong> An individual referral should not prevent us from examining classroom-level variables that may be contributing to the behavior.</p>
+<p>That makes the referral look like a request for one standard process. Often, the first job is to clarify the problem before selecting the assessment path.</p>
 
-<p><strong>Important limit:</strong> This is a practice-oriented literature review with recommended assessment targets. It does not show that checking these four variables will resolve every referral.</p>
+<p><strong>Study 1</strong></p>
 
-<p><strong>For a school BCBA:</strong> Observe the routine before deciding that the first response must be an individualized plan. Document what the task requires, how instructions are delivered, what reinforcement is available, and whether the work matches the student's current skills.</p>
+<h2>An individual referral can still be a classroom systems problem</h2>
 
-<h2>2. Match the assessment to the decision</h2>
+<p>Kestner and colleagues reviewed research on classroom variables that affect learning and student behavior. They recommended that behavior analysts consider four conditions during baseline classroom assessment: opportunities for active student responding, curriculum fit, feedback and reinforcement, and effective instructions and transitions. For school-based BCBAs, the important point is not that these four checks will resolve every referral. It is that an individual student's behavior can be affected by classroom-level conditions that should be observed before the team assumes the answer must begin with an individualized plan.</p>
 
-<p>Call and colleagues compared functional behavioral assessment methods with and without a functional analysis for 57 young children with autism. The assessment results showed modest correspondence. Participants who completed functional communication training met the study's successful-outcome criteria regardless of which assessment path they received.</p>
+<p>Kestner, K. M., Peterson, S. M., Eldridge, R. R., &amp; Peterson, L. D. (2019). Considerations of baseline classroom conditions in conducting functional behavior assessments in school settings. <em>Behavior Analysis in Practice, 12</em>(2), 452-465.</p>
 
-<p><strong>What the article supports:</strong> Different assessment paths can lead to useful treatment decisions, and a functional analysis is not automatically required in every case.</p>
+<p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6745578/"><strong>Read the full-text article</strong></a></p>
 
-<p><strong>Important limit:</strong> This was not a school-referral study, and the participants were young children with autism. It does not establish one best assessment sequence for every student or school problem.</p>
+<p><strong>Study 2</strong></p>
 
-<p><strong>For a school BCBA:</strong> Name the decision first. Are you deciding whether classroom consultation is enough, whether more direct data are needed, or whether the current functional hypothesis needs an experimental test before intervention?</p>
+<h2>Functional analysis belongs on the assessment continuum</h2>
 
-<h2>3. Keep functional analysis on the school assessment continuum</h2>
+<p>Nesselrode and colleagues systematically reviewed functional analyses conducted in public schools. Analog functional analysis was the most common format in the reviewed literature, while adapted formats such as trial-based and brief functional analysis became more common over time. The authors also identified limits in the school-specific evidence, including inconsistent terminology and a need for more research on social validity. For a school-based BCBA, the practical lesson is to avoid both extremes: not every referral automatically requires a functional analysis, and experimental analysis should not disappear from the available assessment options when descriptive evidence is unclear and a safe, competent, contextually appropriate test would improve the decision.</p>
 
-<p>Nesselrode and colleagues systematically reviewed functional analyses conducted in public schools. Analog functional analyses were the most common format in the reviewed literature, while adapted formats such as trial-based and brief functional analyses became more common over time.</p>
+<p>Nesselrode, R., Falcomata, T. S., Hills, L., &amp; Erhard, P. (2022). Functional analysis in public school settings: A systematic review of the literature. <em>Behavior Analysis in Practice, 15</em>(3), 958-970.</p>
 
-<p><strong>What the article supports:</strong> Functional analysis can be part of school-based FBA practice, including adapted formats selected for the setting.</p>
+<p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9582058/"><strong>Read the full-text article</strong></a></p>
 
-<p><strong>Important limit:</strong> The review found a limited school-specific literature base, inconsistent terminology, and a need for more research on social validity and comparative effectiveness.</p>
+<h2>Define the decision before choosing the assessment</h2>
 
-<p><strong>For a school BCBA:</strong> Do not treat every referral as requiring a functional analysis, but do not remove experimental analysis from your practice options. When descriptive evidence is unclear and the decision matters, consider whether a safe, competent, contextually appropriate test is warranted.</p>
+<p>For one new or unresolved referral this week, write four lines:</p>
 
-<h2>Try this this week</h2>
+<p><strong>Behavior:</strong> What did the student do that someone could observe and measure?</p>
 
-<p>Pull one new or unresolved referral and write down:</p>
+<p><strong>Context:</strong> What classroom conditions or routines need to be observed?</p>
 
-<ol>
-  <li>The behavior in observable terms and the routine in which it occurs.</li>
-  <li>The classroom conditions you need to observe before choosing an individual assessment path.</li>
-  <li>The decision the assessment must support.</li>
-</ol>
+<p><strong>Decision:</strong> What question does the team need the assessment to answer?</p>
+
+<p><strong>Next step:</strong> What is the least intensive assessment step that can answer that question responsibly?</p>
+
+<h2>Want a repeatable system for managing referrals and assessment decisions?</h2>
 
 <p>The School BCBA Transformation Program includes applied work on referral routing, assessment decisions, functional assessment, and caseload systems.</p>
 
 <p><a href="https://behaviorschool.com/transformation-program?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=2026_w33_referral_triage"><strong>See the School BCBA Transformation Program</strong></a></p>
 
-<p>If you try this with a referral, reply and tell me which question changed the team's next step.</p>
+<p>Until next week,</p>
 
 <p>Rob Spain, BCBA, IBA<br>
-Behavior School</p>
-
-<h2>Research articles used</h2>
-
-<p>Call, N. A., Bernstein, A. M., O'Brien, M. J., Schieltz, K. M., Tsami, L., Lerman, D. C., Berg, W. K., Lindgren, S. D., Connelly, M. A., &amp; Wacker, D. P. (2024). A comparative effectiveness trial of functional behavioral assessment methods. <em>Journal of Applied Behavior Analysis, 57</em>(1), 166-183. <a href="https://doi.org/10.1002/jaba.1045">https://doi.org/10.1002/jaba.1045</a>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10843530/">Open full text</a></p>
-
-<p>Kestner, K. M., Peterson, S. M., Eldridge, R. R., &amp; Peterson, L. D. (2019). Considerations of baseline classroom conditions in conducting functional behavior assessments in school settings. <em>Behavior Analysis in Practice, 12</em>(2), 452-465. <a href="https://doi.org/10.1007/s40617-018-0269-1">https://doi.org/10.1007/s40617-018-0269-1</a>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6745578/">Open full text</a></p>
-
-<p>Nesselrode, R., Falcomata, T. S., Hills, L., &amp; Erhard, P. (2022). Functional analysis in public school settings: A systematic review of the literature. <em>Behavior Analysis in Practice, 15</em>(3), 958-970. <a href="https://doi.org/10.1007/s40617-022-00679-8">https://doi.org/10.1007/s40617-022-00679-8</a>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9582058/">Open full text</a></p>
+Founder, Behavior School</p>
 
 ## Editorial Check
 
 - Status remains draft; do not send without Rob's approval.
-- Each article includes the study or review focus, supported finding, limitation, school-BCBA application, and practical action.
-- All three citations and full texts were verified against the internal Google Drive source corpus.
-- No testimonial, customer quote, fabricated outcome statistic, or scarcity claim is included.
-- The Call et al. findings are qualified because the study was not conducted as a school-referral trial.
-- One primary marketing CTA is used throughout.
+- Structure matches the previous School BCBA Systems Letter: problem framing, two studies, citations and full-text links, one practical exercise, one CTA, and sign-off.
+- Both citations and full texts were verified against the internal Google Drive source corpus.
+- No testimonial, customer quote, fabricated outcome statistic, scarcity claim, or unsupported social proof is included.
+- The limitations of the Nesselrode review are stated in the reader-facing copy.
+- One primary marketing CTA is used.
