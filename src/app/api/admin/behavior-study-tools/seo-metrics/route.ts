@@ -45,6 +45,11 @@ type CollectorResult = {
   warning?: string
 }
 
+type GoogleServiceAccount = {
+  email: string
+  privateKey: string
+}
+
 
 async function isAuthorized(request: NextRequest) {
   const monitorSecret = process.env.BST_DAILY_MONITOR_SECRET
@@ -101,20 +106,32 @@ function base64Url(value: string | Buffer) {
     .replace(/\//g, '_')
 }
 
-function googleServiceAccount() {
-  const json = cleanString(process.env.BST_GOOGLE_SERVICE_ACCOUNT_JSON, 10000)
-  if (json) {
-    try {
-      const parsed = JSON.parse(json) as { client_email?: string; private_key?: string }
-      if (parsed.client_email && parsed.private_key) {
-        return {
-          email: parsed.client_email,
-          privateKey: parsed.private_key.replace(/\\n/g, '\n'),
-        }
-      }
-    } catch {
-      // Fall back to individual env vars below.
+function parseGoogleServiceAccount(json: string): GoogleServiceAccount | null {
+  try {
+    const parsed = JSON.parse(json) as { client_email?: string; private_key?: string }
+    if (!parsed.client_email || !parsed.private_key) return null
+    return {
+      email: parsed.client_email,
+      privateKey: parsed.private_key.replace(/\\n/g, '\n'),
     }
+  } catch {
+    return null
+  }
+}
+
+async function googleServiceAccount(): Promise<GoogleServiceAccount | null> {
+  const json = cleanString(process.env.BST_GOOGLE_SERVICE_ACCOUNT_JSON, 10000)
+  const envAccount = json ? parseGoogleServiceAccount(json) : null
+  if (envAccount) return envAccount
+
+  try {
+    const { getStore } = await import('@netlify/blobs')
+    const store = getStore({ name: 'bst-secrets', consistency: 'strong' })
+    const storedJson = await store.get('google-search-console-service-account', { type: 'text' })
+    const storedAccount = storedJson ? parseGoogleServiceAccount(storedJson) : null
+    if (storedAccount) return storedAccount
+  } catch {
+    // Netlify Blobs is unavailable in plain local builds; use env fallbacks.
   }
 
   const email = cleanString(process.env.BST_GSC_SERVICE_ACCOUNT_EMAIL || process.env.GOOGLE_CLIENT_EMAIL, 500)
@@ -127,7 +144,7 @@ function googleServiceAccount() {
 }
 
 async function googleAccessToken() {
-  const account = googleServiceAccount()
+  const account = await googleServiceAccount()
   if (!account) return null
 
   const now = Math.floor(Date.now() / 1000)
