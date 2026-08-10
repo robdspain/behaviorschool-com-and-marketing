@@ -152,13 +152,48 @@ function topItems(map: Map<string, number>, limit = 5) {
     .map(([label, count]) => ({ label, count }))
 }
 
-function getAttributionSource(event: MarketingEventRow) {
-  const attribution = event.payload?.attribution
-  if (attribution && typeof attribution === 'object' && !Array.isArray(attribution)) {
-    const source = (attribution as Record<string, unknown>).utm_source
-    if (typeof source === 'string' && source.trim()) return source
+function attributionRecord(value: unknown) {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : null
+}
+
+function referrerSource(value: unknown) {
+  if (typeof value !== 'string' || !value.trim()) return null
+  try {
+    const hostname = new URL(value).hostname.toLowerCase().replace(/^www\./, '')
+    if (
+      ['study.behaviorschool.com', 'accounts.google.com', 'appleid.apple.com'].includes(hostname) ||
+      hostname.endsWith('.supabase.co')
+    ) {
+      return null
+    }
+    return hostname
+  } catch {
+    return null
   }
-  return event.source
+}
+
+function getAttributionSource(event: MarketingEventRow) {
+  const attribution = attributionRecord(event.payload?.attribution)
+  const touches = [
+    attributionRecord(attribution?.firstTouch),
+    attribution,
+    attributionRecord(attribution?.lastTouch),
+  ].filter((touch): touch is Record<string, unknown> => Boolean(touch))
+
+  for (const touch of touches) {
+    for (const key of ['utm_source', 'bst_source']) {
+      const source = touch[key]
+      if (typeof source === 'string' && source.trim()) return source.trim().toLowerCase()
+    }
+    const source = referrerSource(touch.referrer)
+    if (source) return source
+  }
+
+  const eventSource = event.source?.trim().toLowerCase()
+  if (eventSource && !['study.behaviorschool.com', 'unknown'].includes(eventSource)) return eventSource
+  return 'Direct / unknown'
 }
 
 function payloadString(event: MarketingEventRow, key: string) {
@@ -639,7 +674,19 @@ export async function GET() {
     addCount(studyPaths, getStudyPath(event))
     addCount(destinations, event.destination)
   })
-  events.forEach((event) => addCount(sources, getAttributionSource(event)))
+  const acquisitionEntries = new Map<string, MarketingEventRow>()
+  events
+    .filter((event) =>
+      event.event_name === 'session_start' ||
+      event.event_name === 'page_view' ||
+      eventMatches(event, SIGNUP_EVENTS),
+    )
+    .sort((left, right) => eventTime(left) - eventTime(right))
+    .forEach((event) => {
+      const key = event.session_id || event.visitor_id || `event:${event.received_at}:${event.page_path}`
+      if (!acquisitionEntries.has(key)) acquisitionEntries.set(key, event)
+    })
+  acquisitionEntries.forEach((event) => addCount(sources, getAttributionSource(event)))
 
   const pagePerformance: PagePerformance[] = Array.from(
     new Set([...pages.keys(), ...pageClicks.keys()])
