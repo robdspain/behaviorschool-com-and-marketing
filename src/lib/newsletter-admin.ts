@@ -28,8 +28,10 @@ export async function callNewsletterConvex<T>(
     cache: 'no-store',
     body: JSON.stringify({
       path,
-      args: { ...args, accessToken: getNewsletterAdminToken() },
-      format: 'json',
+      // Convex's HTTP API expects a positional argument array, even though
+      // Convex functions receive a single object argument.
+      args: [{ ...args, accessToken: getNewsletterAdminToken() }],
+      format: 'convex_encoded_json',
     }),
   })
 
