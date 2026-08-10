@@ -331,36 +331,73 @@ async function collectAhrefs(limit: number): Promise<CollectorResult> {
   }
 
   const baseUrl = cleanString(process.env.BST_AHREFS_ORGANIC_KEYWORDS_URL || 'https://api.ahrefs.com/v3/site-explorer/organic-keywords', 1000)
-  const url = new URL(baseUrl)
-  if (!url.searchParams.has('target')) url.searchParams.set('target', cleanString(process.env.BST_AHREFS_TARGET || 'behaviorstudytools.com', 300))
-  if (!url.searchParams.has('mode')) url.searchParams.set('mode', cleanString(process.env.BST_AHREFS_MODE || 'domain', 40))
-  if (!url.searchParams.has('country')) url.searchParams.set('country', cleanString(process.env.BST_AHREFS_COUNTRY || 'us', 20))
-  if (!url.searchParams.has('limit')) url.searchParams.set('limit', String(limit))
-  if (!url.searchParams.has('output')) url.searchParams.set('output', 'json')
-
-  const response = await fetch(url.toString(), {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  })
-  const data = await response.json().catch(() => ({}))
-  if (!response.ok) {
-    return {
-      source: 'ahrefs',
-      stored: false,
-      imported: 0,
-      signals: [],
-      warning: typeof data.error === 'string' ? data.error : `Ahrefs returned ${response.status}. Set BST_AHREFS_ORGANIC_KEYWORDS_URL if your workspace endpoint differs.`,
+  const configuredTargets = cleanString(process.env.BST_AHREFS_TARGETS, 1000)
+    .split(',')
+    .map((target) => cleanString(target, 300))
+    .filter(Boolean)
+  const legacyTarget = cleanString(process.env.BST_AHREFS_TARGET, 300)
+  const targets = [...new Set(
+    configuredTargets.length
+      ? configuredTargets
+      : [legacyTarget || 'behaviorstudytools.com', 'study.behaviorschool.com'],
+  )]
+  const reportDate = dateDaysAgo(Number(process.env.BST_SEO_DATA_DELAY_DAYS || 3))
+  const comparedDate = dateDaysAgo(Number(process.env.BST_SEO_DATA_DELAY_DAYS || 3) + 7)
+  const perTargetLimit = Math.max(10, Math.floor(limit / targets.length))
+  const targetResults = await Promise.allSettled(targets.map(async (target) => {
+    const url = new URL(baseUrl)
+    if (!url.searchParams.has('target')) url.searchParams.set('target', target)
+    if (!url.searchParams.has('mode')) url.searchParams.set('mode', cleanString(process.env.BST_AHREFS_MODE || 'subdomains', 40))
+    if (!url.searchParams.has('country')) url.searchParams.set('country', cleanString(process.env.BST_AHREFS_COUNTRY || 'us', 20))
+    if (!url.searchParams.has('date')) url.searchParams.set('date', reportDate)
+    if (!url.searchParams.has('date_compared')) url.searchParams.set('date_compared', comparedDate)
+    if (!url.searchParams.has('select')) {
+      url.searchParams.set(
+        'select',
+        'keyword,best_position,best_position_prev,best_position_url,volume,sum_traffic,keyword_difficulty',
+      )
     }
-  }
+    if (!url.searchParams.has('order_by')) url.searchParams.set('order_by', 'sum_traffic:desc')
+    if (!url.searchParams.has('limit')) url.searchParams.set('limit', String(perTargetLimit))
+    if (!url.searchParams.has('output')) url.searchParams.set('output', 'json')
 
+    const response = await fetch(url.toString(), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    })
+    const data = await response.json().catch(() => ({}))
+    if (!response.ok) {
+      const error = data && typeof data === 'object'
+        ? (data as Record<string, unknown>).error
+        : null
+      const message = typeof error === 'string'
+        ? error
+        : error && typeof error === 'object' && typeof (error as Record<string, unknown>).message === 'string'
+          ? String((error as Record<string, unknown>).message)
+          : `Ahrefs returned ${response.status}`
+      throw new Error(`${target}: ${message}`)
+    }
+    return ahrefsRowsFrom(data).map((row): Record<string, unknown> => ({
+      ...row,
+      _target: target,
+    }))
+  }))
+
+  const warnings: string[] = []
+  const rows = targetResults.flatMap((result, index) => {
+    if (result.status === 'fulfilled') return result.value
+    const message = result.reason instanceof Error ? result.reason.message : 'Ahrefs target query failed'
+    warnings.push(`${targets[index]}: ${message}`)
+    return []
+  })
   const signalDate = new Date().toISOString().slice(0, 10)
-  const signals = ahrefsRowsFrom(data).slice(0, limit).map((row): SeoSignal => {
+  const signals = rows.slice(0, limit).map((row): SeoSignal => {
     const keyword = cleanString(row.keyword || row.query, 300)
-    const page = cleanString(row.url || row.page || row.landing_page, 1000)
-    const position = numberValue(row.position || row.rank)
-    const previous = numberValue(row.previous_position || row.prev_position || row.previous || row.previous_rank)
+    const page = cleanString(row.best_position_url || row.url || row.page || row.landing_page, 1000)
+    const position = numberValue(row.best_position || row.position || row.rank)
+    const previous = numberValue(row.best_position_prev || row.previous_position || row.prev_position || row.previous || row.previous_rank)
     const changeValue = position !== null && previous !== null ? previous - position : null
     const changePercent = changeValue !== null && previous ? Math.round((changeValue / previous) * 1000) / 10 : null
 
@@ -378,8 +415,11 @@ async function collectAhrefs(limit: number): Promise<CollectorResult> {
       change_value: changeValue,
       change_percent: changePercent,
       metadata: {
+        target: cleanString(row._target, 300),
+        reportDate,
+        comparedDate,
         volume: numberValue(row.volume || row.search_volume),
-        traffic: numberValue(row.traffic || row.organic_traffic),
+        traffic: numberValue(row.sum_traffic || row.traffic || row.organic_traffic),
         difficulty: numberValue(row.keyword_difficulty || row.kd),
         raw: row,
       },
@@ -388,7 +428,12 @@ async function collectAhrefs(limit: number): Promise<CollectorResult> {
     }
   })
 
-  return storeSeoSignals('ahrefs', signals)
+  const stored = await storeSeoSignals('ahrefs', signals)
+  const combinedWarnings = [...warnings, ...(stored.warning ? [stored.warning] : [])]
+  return {
+    ...stored,
+    warning: combinedWarnings.length ? combinedWarnings.join(' ') : undefined,
+  }
 }
 
 async function storeSeoSignals(source: CollectorResult['source'], signals: SeoSignal[]): Promise<CollectorResult> {
