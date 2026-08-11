@@ -18,4 +18,11 @@ This repository is used by automated agents and human contributors. To protect c
 
 - PR/Commit Messages: Clearly state the intent and scope of changes, especially when modifying SEO/indexing behavior.
 
+## Data and Admin Boundary
+
+- `behaviorschool.com` marketing pages, public forms, automations, and every `/admin` feature use Convex only.
+- Do not add, restore, query, or depend on Supabase, Listmonk, or Supabase-backed API routes in this repository for the marketing site.
+- The sole exception is the independent `study.behaviorschool.com` product boundary. Its Supabase integration must remain isolated from BehaviorSchool marketing and admin code.
+- Before changing an admin feature, verify its persistence, reporting, and scheduled-job status are available through Convex.
+
 If you are unsure whether a page is approved, assume it is NOT and ask for confirmation first.

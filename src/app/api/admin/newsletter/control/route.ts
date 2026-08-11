@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyAdminSession } from '@/lib/admin-auth'
-import { callNewsletterConvex, newsletterErrorResponse } from '@/lib/newsletter-admin'
+import { callNewsletterConvex, listRobSpainDeliveryRecords, newsletterErrorResponse } from '@/lib/newsletter-admin'
 
 export const dynamic = 'force-dynamic'
 
@@ -24,13 +24,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ ok: true, issue, analytics })
     }
 
-    const [issues, summary, audiences, ctas] = await Promise.all([
+    const [issues, summary, audiences, ctas, deliveryRecords] = await Promise.all([
       callNewsletterConvex('query', 'weeklyNewsletter:listIssuesForAdmin', { limit: 30 }),
       callNewsletterConvex('query', 'weeklyNewsletter:subscriberReadinessForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:audienceSummaryForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:listCtasForAdmin', { activeOnly: false }),
+      listRobSpainDeliveryRecords(),
     ])
-    return NextResponse.json({ ok: true, issues, summary, audiences, ctas })
+    return NextResponse.json({ ok: true, issues, summary, audiences, ctas, deliveryRecords })
   } catch (error) {
     return newsletterErrorResponse(error)
   }

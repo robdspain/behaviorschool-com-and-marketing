@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase-client'
 import { CheckCircle2, FileText, Mail, RefreshCw, Send, ShieldCheck, Users, XCircle } from 'lucide-react'
 
 type Issue = {
@@ -76,6 +75,16 @@ type Dashboard = {
   }
   audiences: Array<{ key: string; label: string; description: string; eligible: number }>
   ctas: Array<{ _id: string; label: string; kind: string; headline: string; active: boolean }>
+  deliveryRecords: Array<{
+    issueKey: string
+    subject: string
+    status: string
+    scheduledFor: number | null
+    sentAt: number | null
+    recipientCount: number
+    failed: number
+    archiveUrl: string | null
+  }>
 }
 
 type IssueDetail = { issue: Issue; articles: Article[]; socialPosts: SocialPost[] }
@@ -126,10 +135,10 @@ export default function NewsletterAdmin() {
   useEffect(() => {
     document.title = 'Weekly Research Brief | Admin'
     const checkAuth = async () => {
-      const supabase = createClient()
-      const { data: { session } } = await supabase.auth.getSession()
-      if (!session) {
-        router.push('/admin/login')
+      const response = await fetch('/api/admin/auth', { cache: 'no-store' })
+      const session = await response.json().catch(() => ({ authenticated: false })) as { authenticated?: boolean }
+      if (!response.ok || !session.authenticated) {
+        router.push('/admin/login?returnTo=/admin/newsletter')
         return
       }
       try {
@@ -204,6 +213,11 @@ export default function NewsletterAdmin() {
             ['Excluded', dashboard?.summary.excluded ?? 0, 'bg-white'],
             ['Test contacts', dashboard?.summary.codexTests ?? 0, 'bg-white'],
           ].map(([label, value, tone]) => <div key={String(label)} className={`${tone} rounded-xl border border-[#d6e2dc] p-4`}><p className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">{label}</p><p className="mt-2 text-3xl font-bold text-[#17352d]">{String(value)}</p></div>)}
+        </section>
+
+        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="delivery-heading">
+          <div className="flex flex-wrap items-start justify-between gap-4"><div><h2 id="delivery-heading" className="flex items-center gap-2 text-lg font-bold"><CheckCircle2 className="h-5 w-5 text-[#087f5b]" /> Scheduled delivery records</h2><p className="mt-1 text-sm text-[#5b7068]">The scheduled time and completed send time are read from the delivery system, not inferred from an email inbox.</p></div></div>
+          <div className="mt-4 overflow-x-auto"><table className="min-w-full text-left text-sm"><thead className="border-b border-[#d6e2dc] text-xs uppercase tracking-wide text-[#6b8178]"><tr><th className="px-3 py-2">Issue</th><th className="px-3 py-2">Status</th><th className="px-3 py-2">Scheduled</th><th className="px-3 py-2">Completed</th><th className="px-3 py-2">Recipients</th><th className="px-3 py-2">Failures</th></tr></thead><tbody>{dashboard?.deliveryRecords.map((record) => <tr key={record.issueKey} className="border-b border-[#edf2ef] text-[#354d44]"><td className="px-3 py-3"><p className="font-semibold text-[#17352d]">{record.subject}</p>{record.archiveUrl && <a className="mt-1 inline-block text-xs font-semibold text-[#087f5b] underline" href={record.archiveUrl} target="_blank" rel="noreferrer">View published issue</a>}</td><td className="px-3 py-3 capitalize">{record.status}</td><td className="px-3 py-3 whitespace-nowrap">{record.scheduledFor ? new Date(record.scheduledFor).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }) : 'Not recorded'}</td><td className="px-3 py-3 whitespace-nowrap">{record.sentAt ? new Date(record.sentAt).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }) : 'Not recorded'}</td><td className="px-3 py-3">{record.recipientCount}</td><td className="px-3 py-3">{record.failed}</td></tr>)}{!dashboard?.deliveryRecords.length && <tr><td colSpan={6} className="px-3 py-5 text-[#6b8178]">No delivery records are available.</td></tr>}</tbody></table></div>
         </section>
 
         <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="buffer-heading">
