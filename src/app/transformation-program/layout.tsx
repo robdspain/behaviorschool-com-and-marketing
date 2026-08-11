@@ -43,8 +43,8 @@ export default function TransformationProgramLayout({ children }: { children: Re
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'online',
-      startDate: '2026-08-12',
-      endDate: '2026-09-16',
+      startDate: '2026-09-17',
+      endDate: '2026-10-22',
       instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
       offers: { '@type': 'Offer', price: '1997', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
     },

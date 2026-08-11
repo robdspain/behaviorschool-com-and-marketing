@@ -53,7 +53,7 @@ export default function Home() {
         variant="brand"
       />
 
-      {/* ─── AUGUST COHORT CTA ───────────────────────────────────── */}
+      {/* ─── SEPTEMBER COHORT CTA ────────────────────────────────── */}
       <section className="border-y border-[#1f4d3f]/10 bg-[#123628] py-10 text-white">
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
           <div>
@@ -61,18 +61,18 @@ export default function Home() {
               School BCBA Transformation Program
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
-              August cohort now open: build FBA, BIP, staff training, and caseload systems.
+              September cohort now open: build FBA, BIP, staff training, and caseload systems.
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
-              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. Starts August 12. Limited to 12 seats.
+              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. Starts September 17. Small cohorts.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <Link
-              href="/transformation-program?utm_source=homepage&utm_medium=hero_band&utm_campaign=august_2026_cohort"
+              href="/transformation-program?utm_source=homepage&utm_medium=hero_band&utm_campaign=september_2026_cohort"
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#123628] shadow-lg transition hover:bg-[#d7aa32]"
             >
-              Apply for August cohort
+              Apply for September cohort
               <ArrowRight size={16} />
             </Link>
             <Link

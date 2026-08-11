@@ -81,7 +81,7 @@ export const transformationSequence: EmailSequenceStep[] = [
   {
     timing: 'Day 7',
     title: 'Close with a personal choice',
-    subject: 'Should we talk about the August cohort?',
+    subject: 'Should we talk about the September cohort?',
     audience: 'Active lead who has not converted',
     objective: 'Invite a real conversation and stop the automated sequence.',
   },

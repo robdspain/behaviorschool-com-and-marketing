@@ -46,7 +46,7 @@ export function NavBar() {
                 href="/transformation-program"
                 className="inline-flex items-center justify-center rounded-full bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white hover:bg-[#173a2f] transition"
               >
-                August Cohort Open
+                September Cohort Open
               </Link>
               <Link
                 href="/free-bcba-practice-exam"

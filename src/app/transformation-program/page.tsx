@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
@@ -12,16 +12,12 @@ const PAYMENT_PLAN = '3 payments of $697';
 const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformation-system-phone-call';
 const DISTRICT_EMAIL_LINK = '/contact';
 
-// Update this number manually as spots are confirmed
-const TOTAL_SPOTS = 12;
-const SPOTS_TAKEN = 0; // increment as people register
-const SPOTS_REMAINING = TOTAL_SPOTS - SPOTS_TAKEN;
-const COHORT_LABEL = 'August 2026';
-const COHORT_START_BADGE = 'Starts Aug 12';
-const COHORT_START_FULL = 'Starts Wednesday, August 12, 2026';
-const COHORT_END_FULL = 'September 16';
-const COHORT_DATE_RANGE = 'August 12 to September 16, 2026';
-const COHORT_SESSION_DATES = ['Aug 12', 'Aug 19', 'Aug 26', 'Sep 2', 'Sep 9', 'Sep 16'];
+const COHORT_LABEL = 'September 2026';
+const COHORT_START_BADGE = 'Starts Sep 17';
+const COHORT_START_FULL = 'Starts Thursday, September 17, 2026';
+const COHORT_END_FULL = 'October 22';
+const COHORT_DATE_RANGE = 'September 17 to October 22, 2026';
+const COHORT_SESSION_DATES = ['Sep 17', 'Sep 24', 'Oct 1', 'Oct 8', 'Oct 15', 'Oct 22'];
 
 const weeklyModules = [
   {
@@ -73,25 +69,6 @@ const weeklyModules = [
     icon: BookOpen,
   },
 ];
-
-function AnimatedSpots({ remaining }: { remaining: number }) {
-  const [displayed, setDisplayed] = useState(remaining);
-  useEffect(() => {
-    const timer = setTimeout(() => setDisplayed(remaining), 600);
-    return () => clearTimeout(timer);
-  }, [remaining]);
-  return (
-    <motion.span
-      key={displayed}
-      initial={{ scale: 1.3, color: '#e4b63d' }}
-      animate={{ scale: 1, color: '#1f4d3f' }}
-      transition={{ duration: 0.4 }}
-      className="font-bold text-3xl tabular-nums"
-    >
-      {displayed}
-    </motion.span>
-  );
-}
 
 export default function TransformationProgramPage() {
   return (
@@ -196,11 +173,9 @@ export default function TransformationProgramPage() {
                   ))}
                 </div>
               </div>
-              {/* Spots remaining */}
-              <div className="flex-shrink-0 text-center bg-[#1f4d3f]/5 rounded-xl px-5 py-3 border border-[#1f4d3f]/10">
-                <AnimatedSpots remaining={SPOTS_REMAINING} />
-                <p className="text-[#1f4d3f] text-xs font-semibold uppercase tracking-widest mt-0.5">spots left</p>
-                <p className="text-slate-500 text-xs mt-1">of {TOTAL_SPOTS} total</p>
+              <div className="flex-shrink-0 bg-[#1f4d3f]/5 rounded-xl px-5 py-3 border border-[#1f4d3f]/10">
+                <p className="text-[#1f4d3f] text-sm font-semibold">Small cohorts. Direct guidance.</p>
+                <p className="text-slate-500 text-xs mt-1">Apply the work to your current school setting.</p>
               </div>
             </div>
           </div>
@@ -392,7 +367,7 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: `August 12, 2026. Sessions run weekly from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}. Maximum 12 participants.` },
+            { question: "When does the next cohort start?", answer: `September 17, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
             { question: "What if I miss a live session?", answer: "All sessions are recorded and available in your student portal within 24 hours." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
@@ -407,9 +382,9 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the August 12 Cohort</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the September 17 Cohort</h2>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
-            6 weeks. 12 seats max. School BCBAs only.
+            6 weeks. Small cohorts. School BCBAs only.
           </p>
           <p className="text-[#e4b63d] font-bold text-2xl mb-8">
             {OFFER_PRICE} founding tuition

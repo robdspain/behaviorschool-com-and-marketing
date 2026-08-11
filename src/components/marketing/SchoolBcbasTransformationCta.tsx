@@ -10,7 +10,7 @@ export function SchoolBcbasTransformationCta({
   variant = "light",
   source = "school-bcba-cta",
 }: SchoolBcbasTransformationCtaProps) {
-  const href = `/transformation-program?utm_source=${encodeURIComponent(source)}&utm_medium=site_cta&utm_campaign=august_2026_cohort`;
+  const href = `/transformation-program?utm_source=${encodeURIComponent(source)}&utm_medium=site_cta&utm_campaign=september_2026_cohort`;
 
   if (variant === "compact") {
     return (
@@ -19,7 +19,7 @@ export function SchoolBcbasTransformationCta({
           For school BCBAs
         </p>
         <h2 className="mt-2 text-xl font-bold text-slate-950">
-          August cohort now open
+          September cohort now open
         </h2>
         <p className="mt-2 text-sm leading-6 text-slate-700">
           Build repeatable FBA, BIP, implementation, and caseload systems over 6 live weeks.
@@ -44,15 +44,15 @@ export function SchoolBcbasTransformationCta({
             School BCBA Transformation Program
           </p>
           <h2 className={dark ? "mt-2 text-2xl font-bold text-white" : "mt-2 text-2xl font-bold text-slate-950"}>
-            August cohort now open for school BCBAs.
+            September cohort now open for school BCBAs.
           </h2>
           <p className={dark ? "mt-3 text-sm leading-6 text-white/75" : "mt-3 text-sm leading-6 text-slate-700"}>
             If you are studying for the BCBA exam and plan to work in schools, this is the next step after passing: assessment systems, function-based BIPs, staff training, and caseload management that hold up in real districts.
           </p>
           <div className={dark ? "mt-4 flex flex-wrap gap-3 text-sm text-white/80" : "mt-4 flex flex-wrap gap-3 text-sm text-slate-700"}>
-            {["Starts Aug 12", "6 live sessions", "12 seats"].map((item) => (
+            {["Starts Sep 17", "6 live sessions", "Small cohorts"].map((item) => (
               <span key={item} className="inline-flex items-center gap-2">
-                {item === "Starts Aug 12" ? <Calendar className="h-4 w-4" /> : <CheckCircle2 className="h-4 w-4" />}
+                {item === "Starts Sep 17" ? <Calendar className="h-4 w-4" /> : <CheckCircle2 className="h-4 w-4" />}
                 {item}
               </span>
             ))}
@@ -62,7 +62,7 @@ export function SchoolBcbasTransformationCta({
           href={href}
           className={dark ? "inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#123628] hover:bg-[#d7aa32]" : "inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white hover:bg-[#173a30]"}
         >
-          Apply for August cohort
+          Apply for September cohort
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

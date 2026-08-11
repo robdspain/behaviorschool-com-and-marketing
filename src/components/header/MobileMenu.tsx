@@ -68,7 +68,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
         })}
         <div className="px-3 pt-1">
           <Button asChild className="w-full bg-[#1f4d3f] text-white hover:bg-[#173a30]">
-            <Link href="/transformation-program" onClick={onClose}>August cohort now open</Link>
+            <Link href="/transformation-program" onClick={onClose}>September cohort now open</Link>
           </Button>
         </div>
         <Link

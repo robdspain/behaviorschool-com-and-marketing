@@ -9,7 +9,7 @@ const canonical = "https://behaviorschool.com/school-bcba-training-program";
 export const metadata: Metadata = {
   title: "School BCBA Training Program | Build Better FBA and BIP Systems",
   description:
-    "A 6-week school BCBA training program for building repeatable FBA, BIP, staff training, and caseload systems. August cohort now open.",
+    "A 6-week school BCBA training program for building repeatable FBA, BIP, staff training, and caseload systems. September cohort now open.",
   alternates: { canonical },
   robots: { index: true, follow: true },
   openGraph: {
@@ -87,10 +87,10 @@ export default function SchoolBcbaTrainingProgramPage() {
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/transformation-program?utm_source=school_bcba_training_program&utm_medium=landing_page&utm_campaign=august_2026_cohort"
+                href="/transformation-program?utm_source=school_bcba_training_program&utm_medium=landing_page&utm_campaign=september_2026_cohort"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] px-7 py-3 text-sm font-bold text-white hover:bg-[#173a30]"
               >
-                Apply for the August cohort
+                Apply for the September cohort
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
@@ -101,7 +101,7 @@ export default function SchoolBcbaTrainingProgramPage() {
               </Link>
             </div>
             <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold text-slate-700">
-              {["Starts Aug 12", "6 live sessions", "12 seats max", "$1,997 tuition"].map((item) => (
+              {["Starts Sep 17", "6 live sessions", "Small cohorts", "$1,997 tuition"].map((item) => (
                 <span key={item} className="rounded-full bg-white px-3 py-1.5 shadow-sm">
                   {item}
                 </span>

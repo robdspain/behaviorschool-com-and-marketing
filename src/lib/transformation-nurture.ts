@@ -188,7 +188,7 @@ If your director or business office needs different wording, reply with what the
     default: {
       const bodyText = `Hi ${name},
 
-I do not want to keep filling your inbox, so this is my last note about the August cohort.
+I do not want to keep filling your inbox, so this is my last note about the September cohort.
 
 If the program might help, book a short call. I want to hear about your setting before I tell you to enroll.
 
@@ -202,7 +202,7 @@ If now is not the right time, you do not need to do anything. I will stop follow
         subject: email.subject,
         text: bodyText,
         html: wrapEmail({
-          title: "Should we talk about the August cohort?",
+          title: "Should we talk about the September cohort?",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",

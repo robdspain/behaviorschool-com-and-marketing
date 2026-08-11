@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CalendarDays, CheckCircle2, CreditCard, ShieldCheck } from 'lucide-react';
 
-const COHORT_LABEL = 'August 2026 cohort';
-const COHORT_DATES = 'August 12 to September 16, 2026';
+const COHORT_LABEL = 'September 2026 cohort';
+const COHORT_DATES = 'September 17 to October 22, 2026';
 const FULL_PAYMENT = '$1,997';
 const PAYMENT_PLAN = '3 monthly payments of $697';
 const PAYMENT_PLAN_TOTAL = '$2,091 total';
