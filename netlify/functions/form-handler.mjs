@@ -18,7 +18,9 @@
  *   CONTACT_NOTIFY_EMAIL  (defaults to robspain@gmail.com)
  */
 
-exports.handler = async (event) => {
+import { withLambda } from '@netlify/aws-lambda-compat';
+
+const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
@@ -121,3 +123,5 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: JSON.stringify({ error: 'Internal error' }) };
   }
 };
+
+export default withLambda(handler);

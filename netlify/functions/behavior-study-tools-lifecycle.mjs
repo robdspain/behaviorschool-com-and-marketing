@@ -1,4 +1,5 @@
-const crypto = require('crypto');
+import { withLambda } from '@netlify/aws-lambda-compat';
+import crypto from 'node:crypto';
 
 const COOKIE_NAME = 'bs_admin_auth';
 const SESSION_MAX_AGE_MS = 24 * 60 * 60 * 1000;
@@ -64,7 +65,7 @@ function isValidToken(token) {
   return crypto.timingSafeEqual(expectedBuffer, signatureBuffer);
 }
 
-exports.handler = async (event) => {
+const handler = async (event) => {
   const cookies = parseCookies(event.headers.cookie || event.headers.Cookie || '');
   const adminTokens = cookies[COOKIE_NAME] || [];
   if (!adminTokens.some(isValidToken)) {
@@ -184,3 +185,5 @@ function clamp(value, min, max) {
   if (!Number.isFinite(value)) return min;
   return Math.max(min, Math.min(max, value));
 }
+
+export default withLambda(handler);

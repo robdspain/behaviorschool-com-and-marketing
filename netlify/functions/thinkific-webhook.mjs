@@ -3,7 +3,8 @@
 // Certifier.io polls the Supabase table and auto-issues certificates
 // Runtime: Node 18+ (fetch + crypto available)
 
-const crypto = require('crypto');
+import { withLambda } from '@netlify/aws-lambda-compat';
+import crypto from 'node:crypto';
 
 const REQUIRED_ENVS = [
   "THINKIFIC_WEBHOOK_SECRET",
@@ -127,7 +128,7 @@ async function insertCertificateRequest({ email, name, courseName, completionDat
   }
 }
 
-exports.handler = async (event) => {
+const handler = async (event) => {
   try {
     // 1) Basic method/health
     if (event.httpMethod === "GET") {
@@ -252,3 +253,5 @@ exports.handler = async (event) => {
     });
   }
 };
+
+export default withLambda(handler);

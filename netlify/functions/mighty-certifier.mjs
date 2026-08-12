@@ -3,6 +3,9 @@
 // Certifier.io polls the Supabase table and auto-issues certificates
 // Runtime: Node 18+ (fetch + crypto available)
 
+import { withLambda } from '@netlify/aws-lambda-compat';
+import crypto from 'node:crypto';
+
 const HEX = "hex";
 
 const REQUIRED_ENVS = [
@@ -27,7 +30,7 @@ function missingEnv() {
 }
 
 function hmacSha256Hex(secret, data) {
-  const hmac = require("crypto").createHmac("sha256", secret);
+  const hmac = crypto.createHmac("sha256", secret);
   hmac.update(data, "utf8");
   return hmac.digest(HEX);
 }
@@ -96,7 +99,7 @@ async function insertCertificateRequest({ email, name, courseName, completionDat
   }
 }
 
-exports.handler = async (event) => {
+const handler = async (event) => {
   try {
     // 1) Basic method/health
     if (event.httpMethod === "GET") {
@@ -193,3 +196,5 @@ exports.handler = async (event) => {
     return json(500, { ok: false, error: "Server error" });
   }
 };
+
+export default withLambda(handler);
