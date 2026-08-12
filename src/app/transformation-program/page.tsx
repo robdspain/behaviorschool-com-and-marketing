@@ -466,7 +466,7 @@ export default function TransformationProgramPage() {
                 <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-3">Copy and forward to your supervisor</p>
                 <div className="bg-[#0d1f17] border border-white/10 rounded-lg p-4 text-xs text-white/60 leading-relaxed font-mono whitespace-pre-line select-all">{`Subject: PD Approval Request, School BCBA Transformation Program
 
-I'd like to attend a 6-week PD cohort for school BCBAs led by Rob Spain, BCBA (25+ years in school settings, CalABA invited speaker).
+I'd like to attend a 6-week PD cohort for school BCBAs led by Rob Spain, BCBA.
 
 This program addresses three problems directly:
 1. Assessment and FBA quality: builds a replicable, legally defensible process I can apply across my caseload.
