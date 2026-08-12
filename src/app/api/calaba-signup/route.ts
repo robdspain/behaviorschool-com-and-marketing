@@ -45,10 +45,10 @@ export async function POST(req: NextRequest) {
 <p>Thanks for being in the session today. Here are the links I promised.</p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">The School BCBA Transformation Program</h3>
-<p>If today's content fits the work you are trying to build, I'm running a 6-week cohort starting September 17 for school BCBAs who want to implement it with their teams.</p>
+<p>If today's content fits the work you are trying to build, I'm running a 6-week cohort starting September 24 for school BCBAs who want to implement it with their teams.</p>
 <ul style="color:#555; font-size:15px;">
   <li>6 sessions — weekly, 6–8 PM Pacific</li>
-  <li>September 17 – October 22, 2026</li>
+  <li>September 24 – October 29, 2026</li>
   <li>Small cohorts</li>
   <li>Founding tuition: $1,997</li>
 </ul>
@@ -81,7 +81,7 @@ PRESENTATION REFERENCES
 https://behaviorschool.com/calaba-2026
 
 THE SCHOOL BCBA TRANSFORMATION PROGRAM
-6 weeks, weekly 6–8 PM Pacific, September 17 – October 22
+6 weeks, weekly 6–8 PM Pacific, September 24 – October 29
 Founding tuition: $1,997
 https://behaviorschool.com/transformation-program
 

@@ -8,7 +8,7 @@ type CheckoutOption = 'full' | 'installments';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://behaviorschool.com';
 const PRODUCT_NAME = 'School BCBA Transformation Program';
-const PRODUCT_DESCRIPTION = 'September 2026 cohort, September 17 to October 22, 2026';
+const PRODUCT_DESCRIPTION = 'September 2026 cohort, September 24 to October 29, 2026';
 const FULL_PAYMENT_AMOUNT_CENTS = 199700;
 const INSTALLMENT_AMOUNT_CENTS = 69700;
 const CHECKOUT_ERROR_MESSAGE = 'Unable to start checkout right now. Please contact Behavior School for help completing enrollment.';

@@ -64,7 +64,7 @@ export default function Home() {
               September cohort now open: build FBA, BIP, staff training, and caseload systems.
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
-              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. Starts September 17. Small cohorts.
+              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. Starts September 24. Small cohorts.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">

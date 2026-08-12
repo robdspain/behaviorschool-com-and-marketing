@@ -13,11 +13,11 @@ const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformat
 const DISTRICT_EMAIL_LINK = '/contact';
 
 const COHORT_LABEL = 'September 2026';
-const COHORT_START_BADGE = 'Starts Sep 17';
-const COHORT_START_FULL = 'Starts Thursday, September 17, 2026';
-const COHORT_END_FULL = 'October 22';
-const COHORT_DATE_RANGE = 'September 17 to October 22, 2026';
-const COHORT_SESSION_DATES = ['Sep 17', 'Sep 24', 'Oct 1', 'Oct 8', 'Oct 15', 'Oct 22'];
+const COHORT_START_BADGE = 'Starts Sep 24';
+const COHORT_START_FULL = 'Starts Thursday, September 24, 2026';
+const COHORT_END_FULL = 'October 29';
+const COHORT_DATE_RANGE = 'September 24 to October 29, 2026';
+const COHORT_SESSION_DATES = ['Sep 24', 'Oct 1', 'Oct 8', 'Oct 15', 'Oct 22', 'Oct 29'];
 const ONLINE_EVENT_DESCRIPTION_PUBLISHED = 'August 11, 2026';
 
 const weeklyModules = [
@@ -391,7 +391,7 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: `September 17, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
+            { question: "When does the next cohort start?", answer: `September 24, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
             { question: "What if I miss a live session?", answer: "All sessions are recorded and available in your student portal within 24 hours." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
@@ -406,7 +406,8 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the September 17 Cohort</h2>
+          <p className="mb-3 text-sm font-medium text-white/65">The August cohort is in progress. Registration for that cohort is closed.</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the September 24 Cohort</h2>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             6 weeks. Small cohorts. School BCBAs only.
           </p>

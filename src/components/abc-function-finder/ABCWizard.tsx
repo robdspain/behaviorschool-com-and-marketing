@@ -586,7 +586,7 @@ export function ABCWizard() {
           Want to implement this with your whole team?
         </p>
         <p className="text-sm text-green-100 mb-4">
-          6 weeks starting September 17. Founding tuition $1,997.
+          6 weeks starting September 24. Founding tuition $1,997.
         </p>
         <a
           href="/transformation-program"

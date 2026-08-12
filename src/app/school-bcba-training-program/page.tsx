@@ -101,7 +101,7 @@ export default function SchoolBcbaTrainingProgramPage() {
               </Link>
             </div>
             <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold text-slate-700">
-              {["Starts Sep 17", "6 live sessions", "Small cohorts", "$1,997 tuition"].map((item) => (
+              {["Starts Sep 24", "6 live sessions", "Small cohorts", "$1,997 tuition"].map((item) => (
                 <span key={item} className="rounded-full bg-white px-3 py-1.5 shadow-sm">
                   {item}
                 </span>

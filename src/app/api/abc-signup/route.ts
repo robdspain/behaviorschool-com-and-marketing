@@ -57,10 +57,10 @@ export async function POST(req: NextRequest) {
 </div>
 
 <h3 style="font-family:sans-serif; color:#1a4731; margin-top:32px;">If you want help building this into your school workflow</h3>
-<p>I'm running a 6-week cohort for school BCBAs starting September 17. We work through assessment, BIP design, implementation, and team training in a structured way.</p>
+<p>I'm running a 6-week cohort for school BCBAs starting September 24. We work through assessment, BIP design, implementation, and team training in a structured way.</p>
 <ul style="color:#555; font-size:15px;">
   <li>6 sessions — weekly, 6–8 PM Pacific</li>
-  <li>September 17 – October 22, 2026</li>
+  <li>September 24 – October 29, 2026</li>
   <li>Small cohorts</li>
   <li>Founding tuition: $1,997</li>
 </ul>
@@ -96,7 +96,7 @@ NEXT STEP: ACT-INFORMED FBA
 https://behaviorschool.com/act-fba-bip
 
 SCHOOL BCBA TRANSFORMATION PROGRAM
-6 weeks starting September 17. Founding tuition $1,997.
+6 weeks starting September 24. Founding tuition $1,997.
 https://behaviorschool.com/transformation-program
 
 —

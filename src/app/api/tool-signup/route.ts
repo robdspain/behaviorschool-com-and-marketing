@@ -52,10 +52,10 @@ export async function POST(req: NextRequest) {
 <p>If something worked well or felt off, reply and tell me. That feedback is useful.</p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Want to go deeper?</h3>
-<p>I'm running a 6-week cohort for school BCBAs starting September 17. We cover assessment, BIP design, implementation, and team training in a structured way.</p>
+<p>I'm running a 6-week cohort for school BCBAs starting September 24. We cover assessment, BIP design, implementation, and team training in a structured way.</p>
 <ul style="color:#555; font-size:15px; line-height:2;">
   <li>6 sessions — weekly, 6–8 PM Pacific</li>
-  <li>September 17 – October 22, 2026</li>
+  <li>September 24 – October 29, 2026</li>
   <li>Small cohorts</li>
   <li>Founding tuition: $1,997</li>
 </ul>

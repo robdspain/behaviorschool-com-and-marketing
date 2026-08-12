@@ -50,9 +50,9 @@ export function SchoolBcbasTransformationCta({
             If you are studying for the BCBA exam and plan to work in schools, this is the next step after passing: assessment systems, function-based BIPs, staff training, and caseload management that hold up in real districts.
           </p>
           <div className={dark ? "mt-4 flex flex-wrap gap-3 text-sm text-white/80" : "mt-4 flex flex-wrap gap-3 text-sm text-slate-700"}>
-            {["Starts Sep 17", "6 live sessions", "Small cohorts"].map((item) => (
+            {["Starts Sep 24", "6 live sessions", "Small cohorts"].map((item) => (
               <span key={item} className="inline-flex items-center gap-2">
-                {item === "Starts Sep 17" ? <Calendar className="h-4 w-4" /> : <CheckCircle2 className="h-4 w-4" />}
+                {item === "Starts Sep 24" ? <Calendar className="h-4 w-4" /> : <CheckCircle2 className="h-4 w-4" />}
                 {item}
               </span>
             ))}
