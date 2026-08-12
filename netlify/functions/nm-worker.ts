@@ -1,5 +1,7 @@
+import { withLambda } from '@netlify/aws-lambda-compat'
+
 // Netlify Scheduled Function: triggers newsletter worker periodically
-export const handler = async () => {
+const handler = async () => {
   const base = process.env.PUBLIC_BASE_URL || process.env.URL || ''
   const secret = process.env.NM_WORKER_SECRET || ''
   if (!base) {
@@ -17,3 +19,4 @@ export const handler = async () => {
   }
 }
 
+export default withLambda(handler)

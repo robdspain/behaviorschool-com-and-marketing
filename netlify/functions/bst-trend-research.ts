@@ -6,6 +6,8 @@
  * builds its recommendation list.
  */
 
+import { withLambda } from '@netlify/aws-lambda-compat'
+
 type HandlerResponse = {
   statusCode: number
   body: string
@@ -100,7 +102,7 @@ async function fetchTrends() {
   }).slice(0, 20)
 }
 
-export const handler = async (): Promise<HandlerResponse> => {
+const handler = async (): Promise<HandlerResponse> => {
   const secret = process.env.BST_DAILY_MONITOR_SECRET
   const siteUrl = process.env.BST_MARKETING_SITE_URL || process.env.URL || 'https://behaviorschool.com'
 
@@ -166,3 +168,5 @@ export const handler = async (): Promise<HandlerResponse> => {
     body: text,
   }
 }
+
+export default withLambda(handler)

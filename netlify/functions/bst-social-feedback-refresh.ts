@@ -5,6 +5,8 @@
  * the daily publisher runs, then stores those metrics as growth signals.
  */
 
+import { withLambda } from '@netlify/aws-lambda-compat'
+
 type HandlerResponse = {
   statusCode: number
   body: string
@@ -14,7 +16,7 @@ declare const process: {
   env: Record<string, string | undefined>
 }
 
-export const handler = async (): Promise<HandlerResponse> => {
+const handler = async (): Promise<HandlerResponse> => {
   const secret = process.env.BST_DAILY_MONITOR_SECRET
   const siteUrl = process.env.BST_MARKETING_SITE_URL || process.env.URL || 'https://behaviorschool.com'
 
@@ -52,3 +54,5 @@ export const handler = async (): Promise<HandlerResponse> => {
     body: text,
   }
 }
+
+export default withLambda(handler)
