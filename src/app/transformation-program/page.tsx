@@ -375,7 +375,7 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Your Instructor</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-8">Rob Spain, BCBA, IBA</h2>
           <div className="text-left space-y-4 text-slate-600 text-base leading-relaxed">
-            <p>Rob Spain is a BCBA and IBA. His qualifications and event-specific instructor evidence are maintained with the program&apos;s ACE records.</p>
+            <p>Rob Spain is a BCBA and IBA. Learning CE documentation will not be issued until the instructor qualification and expertise record has been verified for the event.</p>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {['BCBA', 'IBA', 'School-Based Practice'].map((item) => (
