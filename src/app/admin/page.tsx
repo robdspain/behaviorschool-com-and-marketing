@@ -1,9 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList, PhoneCall, Clock, MailCheck, CalendarClock, LifeBuoy } from 'lucide-react'
+import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList, PhoneCall, Clock, MailCheck, CalendarClock, LifeBuoy, RefreshCw } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
@@ -40,61 +39,47 @@ interface CrmDashboard {
 }
 
 export default function AdminDashboard() {
-  const [loading, setLoading] = useState(true)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [statsLoading, setStatsLoading] = useState(true)
+  const [statsError, setStatsError] = useState(false)
   const [activities, setActivities] = useState<Activity[]>([])
   const [activitiesLoading, setActivitiesLoading] = useState(true)
   const [archivedActivities, setArchivedActivities] = useState<Activity[]>([])
   const [archivedLoading, setArchivedLoading] = useState(false)
   const [showArchived, setShowArchived] = useState(false)
   const [crmDashboard, setCrmDashboard] = useState<CrmDashboard | null>(null)
-  const router = useRouter()
-
-  useEffect(() => {
-    document.title = 'Dashboard | Behavior School Admin'
-
-    const checkAuth = async () => {
-      try {
-        const res = await fetch('/api/admin/access-check')
-        const data = await res.json()
-        if (!data.authenticated) {
-          router.push('/admin/login')
-        } else {
-          setIsAuthenticated(true)
-          fetchStats()
-        }
-      } catch {
-        router.push('/admin/login')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    checkAuth()
-  }, [router])
+  const [crmLoading, setCrmLoading] = useState(true)
+  const [crmError, setCrmError] = useState(false)
 
   const fetchStats = async () => {
+    setStatsLoading(true)
+    setStatsError(false)
     try {
-      const response = await fetch('/api/admin/dashboard-stats')
+      const response = await fetch('/api/admin/dashboard-stats', {
+        cache: 'no-store',
+        credentials: 'same-origin',
+      })
       const data = await response.json()
-      
-      if (data.success) {
-        setStats(data.stats)
-      } else {
-        console.error('Failed to fetch stats:', data.error)
+
+      if (!response.ok || !data.success || !data.stats) {
+        throw new Error(data.error || 'Failed to fetch dashboard metrics')
       }
+      setStats(data.stats)
     } catch (error) {
       console.error('Error fetching dashboard stats:', error)
+      setStatsError(true)
     } finally {
       setStatsLoading(false)
     }
   }
 
   const fetchActivity = async () => {
+    setActivitiesLoading(true)
     try {
-      const response = await fetch('/api/admin/recent-activity')
+      const response = await fetch('/api/admin/recent-activity', {
+        cache: 'no-store',
+        credentials: 'same-origin',
+      })
       const data = await response.json()
       
       if (data.success) {
@@ -109,21 +94,34 @@ export default function AdminDashboard() {
     }
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchActivity()
+  const fetchCrmDashboard = async () => {
+    setCrmLoading(true)
+    setCrmError(false)
+    try {
+      const response = await fetch('/api/admin/crm/dashboard', {
+        cache: 'no-store',
+        credentials: 'same-origin',
+      })
+      if (!response.ok) throw new Error('Failed to fetch CRM metrics')
+      const data = await response.json()
+      if (!data.discovery) throw new Error('CRM metrics were incomplete')
+      setCrmDashboard(data)
+    } catch (error) {
+      console.error('Error fetching CRM dashboard:', error)
+      setCrmError(true)
+    } finally {
+      setCrmLoading(false)
     }
-  }, [isAuthenticated])
+  }
+
+  const refreshMetrics = () => {
+    void Promise.all([fetchStats(), fetchCrmDashboard()])
+  }
 
   useEffect(() => {
-    const fetchCrmDashboard = async () => {
-      try {
-        const res = await fetch('/api/admin/crm/dashboard')
-        if (res.ok) setCrmDashboard(await res.json())
-      } catch {}
-    }
-    if (isAuthenticated) fetchCrmDashboard()
-  }, [isAuthenticated])
+    document.title = 'Dashboard | Behavior School Admin'
+    void Promise.all([fetchStats(), fetchActivity(), fetchCrmDashboard()])
+  }, [])
 
   const fetchArchivedActivity = async () => {
     setArchivedLoading(true)
@@ -209,21 +207,6 @@ export default function AdminDashboard() {
     }
   }, [showArchived])
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading admin dashboard...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!isAuthenticated) {
-    return null
-  }
-
   const getTimeAgo = (timestamp: string) => {
     const now = new Date()
     const then = new Date(timestamp)
@@ -245,7 +228,7 @@ export default function AdminDashboard() {
       href: '/admin/submissions',
       icon: Users,
       color: 'emerald',
-      stats: statsLoading ? '...' : `${stats?.totalSubmissions || 0} total`
+      stats: statsLoading ? 'Loading' : statsError || !stats ? 'Unavailable' : `${stats.totalSubmissions.toLocaleString()} total`
     },
     {
       title: 'CRM System',
@@ -277,7 +260,7 @@ export default function AdminDashboard() {
       href: '/admin/email-marketing',
       icon: Mail,
       color: 'emerald',
-      stats: statsLoading ? '...' : `${stats?.activeTemplates || 0} templates`
+      stats: statsLoading ? 'Loading' : statsError || !stats ? 'Unavailable' : `${stats.activeTemplates.toLocaleString()} templates`
     },
     {
       title: 'Support Inbox',
@@ -301,7 +284,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
       <header className="bg-white border-b-2 border-slate-200">
-        <div className="px-4 sm:px-6 lg:px-8 py-6">
+        <div className="py-6 pl-24 pr-4 sm:px-6 lg:px-8">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
             <p className="text-base text-slate-600 mt-1">Welcome back! Here&apos;s what&apos;s happening.</p>
@@ -310,7 +293,7 @@ export default function AdminDashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="px-4 sm:px-6 lg:px-8 py-8">
+      <main className="px-4 pb-28 pt-8 sm:px-6 sm:pb-8 lg:px-8">
         {/* Welcome Message */}
         <div className="mb-8 bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6">
           <div className="flex items-start gap-4">
@@ -328,6 +311,22 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="text-xl font-bold text-slate-900">Site metrics</h2>
+            <p className="mt-1 text-sm text-slate-600">Current totals from Convex</p>
+          </div>
+          <button
+            type="button"
+            onClick={refreshMetrics}
+            disabled={statsLoading || crmLoading}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border-2 border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-wait disabled:opacity-60"
+          >
+            <RefreshCw className={`h-4 w-4 ${(statsLoading || crmLoading) ? 'animate-spin' : ''}`} />
+            Refresh metrics
+          </button>
+        </div>
+
         {/* Quick Stats Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
@@ -336,11 +335,13 @@ export default function AdminDashboard() {
               <Users className="w-5 h-5 text-emerald-600" />
             </div>
             {statsLoading ? (
-              <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
+              <p className="flex h-12 items-center text-sm font-semibold text-slate-500">Loading...</p>
+            ) : statsError || !stats ? (
+              <p className="flex h-12 items-center text-sm font-semibold text-red-700">Unavailable</p>
             ) : (
               <>
-                <p className="text-3xl font-bold text-slate-900">{stats?.totalSubmissions || 0}</p>
-                <p className="text-sm text-emerald-600 mt-1">+{stats?.weekSubmissions || 0} this week</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.totalSubmissions.toLocaleString()}</p>
+                <p className="text-sm text-emerald-600 mt-1">+{stats.weekSubmissions.toLocaleString()} this week</p>
               </>
             )}
           </div>
@@ -351,11 +352,13 @@ export default function AdminDashboard() {
               <Mail className="w-5 h-5 text-blue-600" />
             </div>
             {statsLoading ? (
-              <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
+              <p className="flex h-12 items-center text-sm font-semibold text-slate-500">Loading...</p>
+            ) : statsError || !stats ? (
+              <p className="flex h-12 items-center text-sm font-semibold text-red-700">Unavailable</p>
             ) : (
               <>
-                <p className="text-3xl font-bold text-slate-900">{stats?.activeTemplates || 0}</p>
-                <p className="text-sm text-slate-600 mt-1">{stats?.draftTemplates || 0} draft</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.activeTemplates.toLocaleString()}</p>
+                <p className="text-sm text-slate-600 mt-1">{stats.draftTemplates.toLocaleString()} draft</p>
               </>
             )}
           </div>
@@ -366,10 +369,12 @@ export default function AdminDashboard() {
               <BarChart3 className="w-5 h-5 text-emerald-600" />
             </div>
             {statsLoading ? (
-              <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
+              <p className="flex h-12 items-center text-sm font-semibold text-slate-500">Loading...</p>
+            ) : statsError || !stats ? (
+              <p className="flex h-12 items-center text-sm font-semibold text-red-700">Unavailable</p>
             ) : (
               <>
-                <p className="text-3xl font-bold text-slate-900">{stats?.totalDownloads || 0}</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.totalDownloads.toLocaleString()}</p>
                 <p className="text-sm text-slate-600 mt-1">Lead magnets</p>
               </>
             )}
@@ -381,10 +386,12 @@ export default function AdminDashboard() {
               <FileText className="w-5 h-5 text-orange-600" />
             </div>
             {statsLoading ? (
-              <div className="h-12 bg-slate-100 rounded animate-pulse"></div>
+              <p className="flex h-12 items-center text-sm font-semibold text-slate-500">Loading...</p>
+            ) : statsError || !stats ? (
+              <p className="flex h-12 items-center text-sm font-semibold text-red-700">Unavailable</p>
             ) : (
               <>
-                <p className="text-3xl font-bold text-slate-900">{stats?.totalTemplates || 0}</p>
+                <p className="text-3xl font-bold text-slate-900">{stats.totalTemplates.toLocaleString()}</p>
                 <p className="text-sm text-slate-600 mt-1">Email templates</p>
               </>
             )}
@@ -410,35 +417,43 @@ export default function AdminDashboard() {
                 <h3 className="text-sm font-semibold text-slate-600">Calls Today</h3>
                 <PhoneCall className="w-5 h-5 text-emerald-600" />
               </div>
-              <p className="text-2xl font-bold text-slate-900">{crmDashboard?.discovery.callsToday ?? 0}</p>
+              <p className={`font-bold ${crmLoading || crmError ? 'text-sm text-slate-500' : 'text-2xl text-slate-900'}`}>
+                {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.callsToday.toLocaleString()}
+              </p>
             </div>
             <div className="border border-slate-200 rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-semibold text-slate-600">Follow-up Not Sent</h3>
                 <Clock className="w-5 h-5 text-amber-600" />
               </div>
-              <p className="text-2xl font-bold text-slate-900">{crmDashboard?.discovery.followUpNotSent ?? 0}</p>
+              <p className={`font-bold ${crmLoading || crmError ? 'text-sm text-slate-500' : 'text-2xl text-slate-900'}`}>
+                {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.followUpNotSent.toLocaleString()}
+              </p>
             </div>
             <div className="border border-slate-200 rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-semibold text-slate-600">Follow-up Sent</h3>
                 <MailCheck className="w-5 h-5 text-blue-600" />
               </div>
-              <p className="text-2xl font-bold text-slate-900">{crmDashboard?.discovery.followUpSent ?? 0}</p>
+              <p className={`font-bold ${crmLoading || crmError ? 'text-sm text-slate-500' : 'text-2xl text-slate-900'}`}>
+                {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.followUpSent.toLocaleString()}
+              </p>
             </div>
             <div className="border border-slate-200 rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-semibold text-slate-600">Overdue Follow-ups</h3>
                 <CalendarClock className="w-5 h-5 text-red-600" />
               </div>
-              <p className="text-2xl font-bold text-red-600">{crmDashboard?.discovery.overdueFollowUps ?? 0}</p>
+              <p className={`font-bold ${crmLoading || crmError ? 'text-sm text-slate-500' : 'text-2xl text-red-600'}`}>
+                {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.overdueFollowUps.toLocaleString()}
+              </p>
             </div>
           </div>
 
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-slate-600">
-            <div>Checkout opened: {crmDashboard?.discovery.checkoutOpened ?? 0}</div>
-            <div>Checkout started: {crmDashboard?.discovery.checkoutStarted ?? 0}</div>
-            <div>Paid/enrolled: {crmDashboard?.discovery.paidEnrolled ?? 0}</div>
+            <div>Checkout opened: {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.checkoutOpened.toLocaleString()}</div>
+            <div>Checkout started: {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.checkoutStarted.toLocaleString()}</div>
+            <div>Paid/enrolled: {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.paidEnrolled.toLocaleString()}</div>
           </div>
         </div>
 

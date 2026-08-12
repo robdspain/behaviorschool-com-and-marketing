@@ -1,36 +1,27 @@
 import { NextResponse } from 'next/server';
+import { requireAdminApiSession } from '@/lib/admin-api-session';
 import { api, getConvexClient } from '@/lib/convex';
 
 // Force dynamic - needs runtime env vars
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const convex = getConvexClient();
-  const templateStats = await convex
-    .query(api.email.templateStats, {})
-    .catch((error) => {
-      console.error('Error fetching Convex template stats:', error);
-      return { totalTemplates: 0, activeTemplates: 0, draftTemplates: 0 };
-    });
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
 
-  const oneWeekAgo = new Date();
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  const submissionStats = await convex
-    .query(api.submissions.submissionStats, {
-      weekStartIso: oneWeekAgo.toISOString(),
-    })
-    .catch((error) => {
-      console.error('Error fetching Convex submission stats:', error);
-      return { totalSubmissions: 0, weekSubmissions: 0 };
-    });
-  const downloadStats = await convex
-    .query(api.downloads.downloadStats, {})
-    .catch((error) => {
-      console.error('Error fetching Convex download stats:', error);
-      return { totalDownloads: 0 };
-    });
-  
   try {
+    const convex = getConvexClient();
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    const [templateStats, submissionStats, downloadStats] = await Promise.all([
+      convex.query(api.email.templateStats, {}),
+      convex.query(api.submissions.submissionStats, {
+        weekStartIso: oneWeekAgo.toISOString(),
+      }),
+      convex.query(api.downloads.downloadStats, {}),
+    ]);
+
     return NextResponse.json({
       success: true,
       stats: {
@@ -45,8 +36,8 @@ export async function GET() {
   } catch (error) {
     console.error('Dashboard stats error:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch dashboard stats' },
-      { status: 500 }
+      { success: false, error: 'Dashboard metrics are temporarily unavailable' },
+      { status: 503 }
     );
   }
 }
