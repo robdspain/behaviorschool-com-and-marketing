@@ -18,54 +18,61 @@ const COHORT_START_FULL = 'Starts Thursday, September 17, 2026';
 const COHORT_END_FULL = 'October 22';
 const COHORT_DATE_RANGE = 'September 17 to October 22, 2026';
 const COHORT_SESSION_DATES = ['Sep 17', 'Sep 24', 'Oct 1', 'Oct 8', 'Oct 15', 'Oct 22'];
+const ONLINE_EVENT_DESCRIPTION_PUBLISHED = 'August 11, 2026';
 
 const weeklyModules = [
   {
     week: 1,
     title: "Assessment Architecture",
-    pain: '"I have 12 students needing FBAs and no system."',
+    pain: 'Managing FBA referrals without a clear triage system.',
     build: "A tiered assessment framework, plus a scalable intake process that filters behavioral concerns by severity level to route each student to the appropriate level of assessment, without burning you out.",
     deliverable: "Your personal assessment decision tree, intake form, and referral routing guide.",
+    objectives: ["Design a tiered assessment routing process for a school-based caseload.", "Apply decision rules to select assessment intensity using referral data.", "Evaluate an assessment intake workflow for feasibility and ethical fit in a school system."],
     icon: ClipboardList,
   },
   {
     week: 2,
     title: "Data Collection Systems",
-    pain: '"My data sheets are all different and RBTs don\'t use them."',
+    pain: 'Data systems that do not consistently support decisions across staff and students.',
     build: "A standardized data collection toolkit built for your specific caseload, in formats RBTs will actually use consistently.",
     deliverable: "Master data sheet library covering frequency, duration, interval, and ABC recording.",
+    objectives: ["Select data systems that match behavior dimensions and decision needs.", "Design implementation supports that improve staff data fidelity.", "Evaluate a data toolkit for reliability, usability, and decision utility."],
     icon: BarChart3,
   },
   {
     week: 3,
     title: "FBA to Hypothesis",
-    pain: '"I write FBAs but I\'m not confident my function is right."',
+    pain: 'Functional hypotheses that are difficult to defend or test in a school setting.',
     build: "A hypothesis generation process with function verification steps you can defend in any IEP meeting.",
     deliverable: "Your own FBA narrative template with built-in quality checks.",
+    objectives: ["Synthesize indirect and direct assessment data into testable hypotheses.", "Apply function-verification decision rules to ambiguous school cases.", "Critique an FBA narrative for evidentiary sufficiency and contextual fit."],
     icon: Target,
   },
   {
     week: 4,
     title: "BIP Design by Function",
-    pain: '"My BIPs all look the same regardless of function."',
+    pain: 'Intervention plans that do not clearly follow from assessment findings.',
     build: "Function-matched intervention menus for attention, escape, tangible, and automatic reinforcement.",
     deliverable: "BIP template library organized by behavioral function.",
+    objectives: ["Design function-matched intervention components from assessment findings.", "Differentiate intervention selections across common behavioral functions.", "Evaluate a behavior intervention plan for functional coherence and implementability."],
     icon: FileCheck,
   },
   {
     week: 5,
     title: "Implementation and Staff Training",
-    pain: '"I write great BIPs but staff don\'t implement them correctly."',
+    pain: 'A gap between a written plan and consistent staff implementation.',
     build: "A 1-page implementation guide and fidelity checklist for each BIP, so everyone on your team knows exactly what to do.",
     deliverable: "Staff communication plans.",
+    objectives: ["Design a staff implementation protocol for a function-based behavior plan.", "Apply performance-feedback procedures to improve treatment integrity.", "Evaluate fidelity data to determine whether a plan or implementation support needs revision."],
     icon: Users,
   },
   {
     week: 6,
     title: "Progress Monitoring and Caseload Management",
-    pain: '"I don\'t know if my interventions are working until it\'s too late."',
+    pain: 'Delayed decisions because caseload data are difficult to review consistently.',
     build: "A progress monitoring dashboard with decision rules for data-based changes across your full caseload.",
     deliverable: "Complete caseload management system with a built-in review schedule.",
+    objectives: ["Construct data-based decision rules for intervention review.", "Apply progress-monitoring data to prioritize caseload actions.", "Evaluate a caseload dashboard for timely and defensible clinical decisions."],
     icon: BookOpen,
   },
 ];
@@ -110,7 +117,7 @@ export default function TransformationProgramPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                By the end of this program, you will leave work at contract time, with systems that actually run without you.
+                Build a practical assessment-to-intervention system for the school caseload you manage now.
               </motion.p>
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
@@ -190,13 +197,12 @@ export default function TransformationProgramPage() {
           <p className="text-slate-600 text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">These are the real problems school BCBAs bring to this program.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { quote: "I'm writing FBAs and BIPs at 10 PM every night.", sub: "Paperwork is eating your evenings and your weekends." },
-              { quote: "I have 15 students on my caseload and no real system.", sub: "Every case feels like starting from scratch." },
-              { quote: "My data collection is inconsistent across students and staff.", sub: "RBTs aren't using the sheets, and you can't blame them." },
-              { quote: "I'm not confident my FBA hypotheses are right.", sub: "Functional analysis in a school setting is complicated." },
-              { quote: "My BIPs don't get implemented the way I wrote them.", sub: "There's a gap between what you plan and what happens in the classroom." },
-              { quote: "The district wants me to do things that conflict with my ethics.", sub: "You're being pulled between fidelity to practice and keeping your job." },
-              { quote: "I can't remember the last time I left at contract time.", sub: "The work expands to fill every evening and weekend you give it." },
+              { quote: "High-volume referral decisions", sub: "Use a tiered routing process before committing to a full assessment." },
+              { quote: "Inconsistent data systems", sub: "Match measurement to the decision and make the process workable for staff." },
+              { quote: "Unclear functional hypotheses", sub: "Organize indirect and direct assessment data into testable decisions." },
+              { quote: "Plans that do not generalize to implementation", sub: "Connect assessment findings to practical, function-matched supports." },
+              { quote: "Limited staff implementation support", sub: "Build protocols, training, and fidelity checks around the plan." },
+              { quote: "Caseload decisions that arrive too late", sub: "Use progress-monitoring rules to determine when a change is needed." },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -278,7 +284,7 @@ export default function TransformationProgramPage() {
                     </div>
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="rounded-lg bg-[#e4b63d]/5 border border-[#e4b63d]/15 p-4">
-                        <p className="text-xs font-semibold text-[#1f4d3f] uppercase tracking-widest mb-2">The Pain</p>
+                        <p className="text-xs font-semibold text-[#1f4d3f] uppercase tracking-widest mb-2">The Challenge</p>
                         <p className="text-[#1a1a1a] text-sm leading-relaxed">{mod.pain}</p>
                       </div>
                       <div className="rounded-lg bg-[#f9f7f2] border border-gray-200 p-4">
@@ -290,10 +296,29 @@ export default function TransformationProgramPage() {
                         <p className="text-slate-700 text-sm leading-relaxed">{mod.deliverable}</p>
                       </div>
                     </div>
+                    <div className="mt-5 border-t border-gray-200 pt-4">
+                      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">Learning Objectives</p>
+                      <ul className="space-y-2 text-sm leading-relaxed text-slate-700">
+                        {mod.objectives.map((objective) => <li key={objective} className="flex gap-2"><CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#1f4d3f]" />{objective}</li>)}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-28 bg-[#f9f7f2]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Learning CE Information</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-8">What Each Live Session Includes</h2>
+          <div className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed">
+            <p>Each live online session is scheduled for 6:00 to 8:00 PM Pacific and includes 75 documented instructional minutes. It is structured for 1.5 Learning CEUs after verified attendance and active participation.</p>
+            <p><strong>Instructor:</strong> Rob Spain, BCBA, IBA. <strong>Affiliation disclosure:</strong> No relevant financial affiliation or conflict of interest to disclose.</p>
+            <p><strong>ACE Provider:</strong> Behavior School, Provider OP-26-12729. The BACB does not endorse or approve individual events. Provider registry status is verified before Learning CE documentation is issued.</p>
+            <p><strong>Online event description published:</strong> {ONLINE_EVENT_DESCRIPTION_PUBLISHED}. Feedback is offered after each session, and CE documentation is issued no later than 45 days after verified completion.</p>
           </div>
         </div>
       </section>
@@ -304,8 +329,8 @@ export default function TransformationProgramPage() {
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Outcomes</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">By Week 6, You Will Have</h2>
-            <p className="text-white/70 text-lg mb-2 max-w-2xl mx-auto leading-relaxed">Leave work at contract time. Stop writing FBAs at 10 PM. Have staff implement plans correctly the first time.</p>
-            <p className="text-white/50 text-base">Concrete deliverables and real systems, not just new ideas.</p>
+            <p className="text-white/70 text-lg mb-2 max-w-2xl mx-auto leading-relaxed">Build concrete assessment, implementation, and review tools during the six-session program.</p>
+            <p className="text-white/50 text-base">Applied tools and structured decision processes, not just new ideas.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -350,11 +375,10 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Your Instructor</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-8">Rob Spain, BCBA, IBA</h2>
           <div className="text-left space-y-4 text-slate-600 text-base leading-relaxed">
-            <p>Rob has spent 25+ years as a behavior analyst in school settings, including district-level practice, graduate teaching, and clinical work. He knows what it actually takes to run a caseload ethically in an environment that doesn&apos;t always make it easy.</p>
-            <p>He&apos;s a CalABA invited speaker, President of the BAE SIG, and the person BCBAs call when they&apos;re stuck on a hard case. This program is built from the systems he&apos;s actually used, not from theory.</p>
+            <p>Rob Spain is a BCBA and IBA. His qualifications and event-specific instructor evidence are maintained with the program&apos;s ACE records.</p>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {['25+ Years School-Based Practice', 'CalABA Invited Speaker', 'BCBA / IBA Certified', 'BAE SIG President'].map((item) => (
+            {['BCBA', 'IBA', 'School-Based Practice'].map((item) => (
               <span key={item} className="px-4 py-2 rounded-full bg-white border border-[#1f4d3f]/15 text-[#1f4d3f] text-sm font-semibold">{item}</span>
             ))}
           </div>
@@ -373,7 +397,7 @@ export default function TransformationProgramPage() {
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
             { question: "Is a W-9 available?", answer: "Yes, available on request. Contact us and we'll send it same day." },
             { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via Calendly or the contact form to discuss district group pricing." },
-            { question: "Is this program approved for CEUs?", answer: "CEU applicability is being evaluated. Contact us for the most current information." },
+            { question: "How are Learning CEUs documented?", answer: "Each session is structured for 1.5 Learning CEUs after verified attendance and active participation. Provider registry status is confirmed before documentation is issued, and documentation is issued within 45 days of verified completion." },
           ]} />
         </div>
       </section>
@@ -387,7 +411,7 @@ export default function TransformationProgramPage() {
             6 weeks. Small cohorts. School BCBAs only.
           </p>
           <p className="text-[#e4b63d] font-bold text-2xl mb-8">
-            {OFFER_PRICE} founding tuition
+            {OFFER_PRICE} tuition
           </p>
 
           <a
