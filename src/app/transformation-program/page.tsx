@@ -317,7 +317,7 @@ export default function TransformationProgramPage() {
           <div className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed">
             <p>Each live online session is scheduled for 6:00 to 8:00 PM Pacific and includes 75 documented instructional minutes. It is structured for 1.5 Learning CEUs after verified attendance and active participation.</p>
             <p><strong>Instructor:</strong> Rob Spain, BCBA, IBA. <strong>Affiliation disclosure:</strong> No relevant financial affiliation or conflict of interest to disclose.</p>
-            <p><strong>ACE Provider:</strong> Behavior School, Provider OP-26-12729. The BACB does not endorse or approve individual events. Provider registry status is verified before Learning CE documentation is issued.</p>
+            <p><strong>Provider listing:</strong> Behavior School, Provider OP-26-12729. The BACB does not endorse or approve individual events. Learning CE documentation is issued only after provider authorization is independently confirmed in the BACB registry.</p>
             <p><strong>Online event description published:</strong> {ONLINE_EVENT_DESCRIPTION_PUBLISHED}. Feedback is offered after each session, and CE documentation is issued no later than 45 days after verified completion.</p>
           </div>
         </div>
