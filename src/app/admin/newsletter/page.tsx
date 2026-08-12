@@ -1,8 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { CheckCircle2, FileText, Mail, RefreshCw, Send, ShieldCheck, Users, XCircle } from 'lucide-react'
+import { hasAdminClientSession } from '@/lib/admin-client-session'
 
 type Issue = {
   _id: string
@@ -97,8 +97,8 @@ async function jsonRequest<T>(url: string, init?: RequestInit) {
 }
 
 export default function NewsletterAdmin() {
-  const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [authRequired, setAuthRequired] = useState(false)
   const [dashboard, setDashboard] = useState<Dashboard | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const selectedIdRef = useRef<string | null>(null)
@@ -134,23 +134,33 @@ export default function NewsletterAdmin() {
 
   useEffect(() => {
     document.title = 'Weekly Research Brief | Admin'
+    let cancelled = false
+
     const checkAuth = async () => {
-      const response = await fetch('/api/admin/auth', { cache: 'no-store' })
-      const session = await response.json().catch(() => ({ authenticated: false })) as { authenticated?: boolean }
-      if (!response.ok || !session.authenticated) {
-        router.push('/admin/login?returnTo=/admin/newsletter')
+      const authenticated = await hasAdminClientSession()
+      if (cancelled) return
+
+      if (!authenticated) {
+        setAuthRequired(true)
+        setLoading(false)
         return
       }
+
       try {
         await load()
       } catch (loadError) {
+        if (cancelled) return
         setError(loadError instanceof Error ? loadError.message : 'The newsletter workspace could not load.')
       } finally {
-        setLoading(false)
+        if (!cancelled) setLoading(false)
       }
     }
     void checkAuth()
-  }, [load, router])
+
+    return () => {
+      cancelled = true
+    }
+  }, [load])
 
   const run = async (operation: string, args: Record<string, unknown> = {}, message: string) => {
     setBusy(operation)
@@ -177,6 +187,19 @@ export default function NewsletterAdmin() {
 
   if (loading) {
     return <div className="min-h-screen bg-[#f5f8f6] flex items-center justify-center text-slate-600">Loading weekly research brief workspace…</div>
+  }
+
+  if (authRequired) {
+    return (
+      <main className="grid min-h-screen place-items-center bg-[#f5f8f6] px-5 text-[#17352d]">
+        <section className="w-full max-w-md rounded-xl border border-[#d6e2dc] bg-white p-7 shadow-sm" aria-labelledby="newsletter-sign-in-heading">
+          <span className="grid h-11 w-11 place-items-center rounded-lg bg-[#e2f5ed] text-[#087f5b]"><ShieldCheck className="h-5 w-5" /></span>
+          <h1 id="newsletter-sign-in-heading" className="mt-5 text-2xl font-bold text-[#102a23]">Sign in to continue</h1>
+          <p className="mt-3 text-sm leading-6 text-[#536a62]">Your admin session has expired. Sign in with an approved Google account to open the newsletter workspace.</p>
+          <a href="/api/admin/auth/google?returnTo=%2Fadmin%2Fnewsletter" className="mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-[#087f5b] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#066c4d] focus:outline-none focus:ring-2 focus:ring-[#087f5b] focus:ring-offset-2">Continue with Google</a>
+        </section>
+      </main>
+    )
   }
 
   return (
