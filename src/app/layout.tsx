@@ -282,9 +282,9 @@ export default function RootLayout({
 
         {/* E-A-T Enhancement Meta Tags */}
         <meta name="expertise" content="Applied Behavior Analysis, School-Based Behavior Support, BCBA Certification" />
-        <meta name="authority" content="25+ years of experience, BACB-aligned training, professional development leader" />
+        <meta name="authority" content="School-based behavior analysis, BCBA-led professional development" />
         <meta name="trustworthiness" content="Evidence-based practices, professional credentials, transparent methodology" />
-        <meta name="author-credentials" content="BCBA, IBA, 25+ years of experience" />
+        <meta name="author-credentials" content="BCBA, IBA" />
         <meta name="content-accuracy" content="Peer-reviewed, evidence-based, professionally verified" />
         <meta name="professional-standards" content="BACB-aligned, ethical guidelines maintained" />
 
