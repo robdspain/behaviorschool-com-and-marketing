@@ -7,7 +7,9 @@
  *   RESEND_API_KEY — your Resend API key
  */
 
-exports.handler = async function (event) {
+import { withLambda } from '@netlify/aws-lambda-compat';
+
+const handler = async function (event) {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
@@ -217,3 +219,5 @@ async function startNurtureSequence({ fullName, email, currentRole, bcbaCertNumb
     console.error('Unable to start nurture sequence for application:', error);
   }
 }
+
+export default withLambda(handler);

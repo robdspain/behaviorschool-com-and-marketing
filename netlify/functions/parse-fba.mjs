@@ -1,4 +1,5 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { withLambda } from '@netlify/aws-lambda-compat';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
@@ -17,7 +18,7 @@ const SYSTEM_PROMPT = `You are an expert BCBA specializing in parsing Functional
 }
 `;
 
-exports.handler = async (event) => {
+const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
@@ -49,3 +50,5 @@ exports.handler = async (event) => {
     };
   }
 };
+
+export default withLambda(handler);

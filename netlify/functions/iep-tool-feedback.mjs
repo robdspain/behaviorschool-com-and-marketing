@@ -11,6 +11,8 @@
  * Sheet ID: stored in env var SOCIAL_PROOF_SHEET_ID
  */
 
+import { withLambda } from '@netlify/aws-lambda-compat';
+
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type",
@@ -18,7 +20,7 @@ const CORS_HEADERS = {
   "Content-Type": "application/json",
 };
 
-exports.handler = async (event) => {
+const handler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 200, headers: CORS_HEADERS, body: "" };
   }
@@ -161,3 +163,5 @@ async function getPublicStats(sheetId, apiKey) {
     };
   }
 }
+
+export default withLambda(handler);

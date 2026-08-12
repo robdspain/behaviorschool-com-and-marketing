@@ -1,3 +1,5 @@
+import { withLambda } from '@netlify/aws-lambda-compat';
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
 
 const RBT_PLAN = [
@@ -108,7 +110,7 @@ function buildEmailHtml({ name, role }) {
   `;
 }
 
-exports.handler = async (event) => {
+const handler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
     return json(200, { ok: true });
   }
@@ -174,3 +176,5 @@ exports.handler = async (event) => {
     return json(500, { error: "Unexpected server error" });
   }
 };
+
+export default withLambda(handler);
