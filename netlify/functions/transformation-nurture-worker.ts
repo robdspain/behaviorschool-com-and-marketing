@@ -1,4 +1,6 @@
-export const handler = async () => {
+import { withLambda } from '@netlify/aws-lambda-compat'
+
+const handler = async () => {
   const base = process.env.PUBLIC_BASE_URL || process.env.URL || "";
   const secret = process.env.TRANSFORMATION_NURTURE_SECRET || "";
 
@@ -17,3 +19,5 @@ export const handler = async () => {
     return { statusCode: 500, body: `Error: ${String(error)}` };
   }
 };
+
+export default withLambda(handler)

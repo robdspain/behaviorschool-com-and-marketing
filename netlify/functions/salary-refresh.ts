@@ -1,3 +1,4 @@
+import { withLambda } from '@netlify/aws-lambda-compat';
 import type { Handler } from '@netlify/functions';
 
 // Scheduled via netlify.toml [[scheduled.functions]] or this function can be invoked manually
@@ -49,5 +50,4 @@ const handler: Handler = async () => {
   };
 };
 
-export { handler };
-
+export default withLambda(handler);

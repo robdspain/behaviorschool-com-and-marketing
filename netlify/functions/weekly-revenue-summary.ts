@@ -1,3 +1,5 @@
+import { withLambda } from '@netlify/aws-lambda-compat'
+
 /**
  * Weekly Revenue Summary — Behavior School
  * ==========================================
@@ -80,7 +82,7 @@ function fmtUsd(cents: number): string {
 
 // ── Main handler ───────────────────────────────────────────────────────────
 
-export const handler = async (): Promise<{ statusCode: number; body: string }> => {
+const handler = async (): Promise<{ statusCode: number; body: string }> => {
   const stripeKey = process.env.STRIPE_RESTRICTED_KEY;
   const resendKey = process.env.RESEND_API_KEY;
   const priceId   = process.env.TRANSFORMATION_PRICE_ID;
@@ -216,3 +218,5 @@ export const handler = async (): Promise<{ statusCode: number; body: string }> =
     body: JSON.stringify({ ok: true, sales: numSales, grossCents, netCents }),
   };
 };
+
+export default withLambda(handler)

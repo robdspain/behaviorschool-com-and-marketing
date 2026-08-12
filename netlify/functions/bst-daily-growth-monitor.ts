@@ -6,12 +6,14 @@
  * Netlify and set the same secret for the Next.js API route.
  */
 
+import { withLambda } from '@netlify/aws-lambda-compat'
+
 type HandlerResponse = {
   statusCode: number
   body: string
 }
 
-export const handler = async (): Promise<HandlerResponse> => {
+const handler = async (): Promise<HandlerResponse> => {
   const secret = process.env.BST_DAILY_MONITOR_SECRET
   const siteUrl = process.env.BST_MARKETING_SITE_URL || process.env.URL || 'https://behaviorschool.com'
 
@@ -47,3 +49,5 @@ export const handler = async (): Promise<HandlerResponse> => {
     body: text,
   }
 }
+
+export default withLambda(handler)
