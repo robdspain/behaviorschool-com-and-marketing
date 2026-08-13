@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight, Check, Brain, Users, FileText, Target, BookOpen } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -22,6 +23,7 @@ const staggerContainer = {
 };
 
 export function ProductsClient() {
+  const founderEducationYears = getFounderEducationYears();
   return (
     <div className="min-h-screen bg-bs-background">
       {/* Breadcrumbs */}
@@ -251,7 +253,7 @@ export function ProductsClient() {
                     href="/about"
                     className="inline-flex items-center text-slate-600 hover:text-slate-700 font-medium text-sm"
                   >
-                    Developed by Rob Spain, BCBA
+                    Developed by Rob Spain, BCBA, with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}
                     <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>
                 </div>

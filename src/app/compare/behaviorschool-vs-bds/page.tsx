@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout';
+import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
 
 export const metadata: Metadata = {
   title: 'BehaviorSchool vs BDS | BCBA Exam Prep Comparison 2026',
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default function BehaviorSchoolVsBDS() {
+  const founderEducationYears = getFounderEducationYears();
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -80,7 +82,7 @@ export default function BehaviorSchoolVsBDS() {
           'Free tier with practice questions included',
           'IEP goal writer + behavior plan tools included',
           'Modern, mobile-friendly platform',
-          'Created by a BCBA for school-based practice',
+          `Created by a BCBA with ${founderEducationYears} years in education since ${FOUNDER_EDUCATION_START_LABEL}`,
         ]}
         features={[
           {

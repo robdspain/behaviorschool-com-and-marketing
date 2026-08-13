@@ -4,8 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Check, Download, Mail, ArrowRight, BookOpen, FileText, Users, BarChart, ClipboardList, Brain, Calendar, Shield } from "lucide-react";
+import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 
 export default function SchoolBCBAStarterKitPage() {
+  const founderEducationYears = getFounderEducationYears();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -199,7 +201,7 @@ export default function SchoolBCBAStarterKitPage() {
               What's Inside the Kit
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Six essential resources every school BCBA needs, created by a 25-year veteran.
+              Six essential resources every school BCBA needs, created by Rob Spain, BCBA, with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}.
             </p>
           </div>
 

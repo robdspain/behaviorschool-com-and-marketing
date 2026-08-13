@@ -1,5 +1,8 @@
 import { Metadata } from "next";
 import AboutContent from "./AboutContent";
+import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
+
+const founderEducationYears = getFounderEducationYears();
 
 // Person structured data for Rob Spain
 const robSpainPersonSchema = {
@@ -10,7 +13,7 @@ const robSpainPersonSchema = {
   "familyName": "Spain",
   "honorificSuffix": ["M.S.", "BCBA", "IBA"],
   "jobTitle": "Board Certified Behavior Analyst",
-  "description": "Rob Spain, M.S., BCBA, IBA, is a school-based behavior analyst and founder of Behavior School with 14+ years of experience. He serves as President of CalABA's Behavior Analysts in Education SIG and as a Behavior Intervention Specialist in a California school district while teaching graduate ABA courses at Fresno Pacific University.",
+  "description": `Rob Spain, M.S., BCBA, IBA, is a school-based behavior analyst and founder of Behavior School with ${founderEducationYears} years in education since ${FOUNDER_EDUCATION_START_LABEL}. He serves as President of CalABA's Behavior Analysts in Education SIG and as a Behavior Intervention Specialist in a California school district while teaching graduate ABA courses at Fresno Pacific University.`,
   "image": "https://behaviorschool.com/optimized/profile-Rob.webp",
   "url": "https://robspain.com",
   "sameAs": [

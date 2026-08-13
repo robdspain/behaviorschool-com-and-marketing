@@ -5,8 +5,10 @@ import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 
 export function AnimatedSections() {
+  const founderEducationYears = getFounderEducationYears();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const router = useRouter();
@@ -397,14 +399,14 @@ export function AnimatedSections() {
                 <div className="flex flex-wrap justify-center gap-2 mb-6">
                   <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Rob Spain, M.S.,BCBA, IBA</span>
                   <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">Behavior School Founder</span>
-                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">School-Based Practice</span>
+                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">{founderEducationYears} Years in Education</span>
                 </div>
               </div>
               
               <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-8 border-l-4 border-emerald-500">
                 <h4 className="text-lg font-semibold text-slate-900 mb-4">Why I Built This Tool</h4>
                 <p className="text-slate-700 leading-relaxed mb-4">
-                  Working with school teams exposed a recurring need for IEP goals that connect measurable behavior with what matters to students.
+                  Rob began working in education in {FOUNDER_EDUCATION_START_LABEL}. Working with school teams exposed a recurring need for IEP goals that connect measurable behavior with what matters to students.
                   Traditional goals can focus on compliance rather than meaningful, observable skills.
                 </p>
                 <p className="text-slate-700 leading-relaxed mb-4">

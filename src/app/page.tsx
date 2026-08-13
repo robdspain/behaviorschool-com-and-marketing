@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BrainCircuit, GraduationCap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
+import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 import { Hero } from "@/components/ui/hero";
 import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
 
@@ -39,6 +40,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   const recentPosts = getPublishedPosts().slice(0, 3);
+  const founderEducationYears = getFounderEducationYears();
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
@@ -276,7 +278,7 @@ export default function Home() {
             From a BCBA in the Field, For You
           </p>
           <p className="text-gray-600 leading-relaxed text-lg">
-            Behavior School and its suite of tools were created by Rob Spain, a Board Certified Behavior Analyst (BCBA). The platform is designed around practical workflows for behavior analysts working with students, staff, and school systems. Learn more about Rob&apos;s work at{" "}
+            Behavior School and its suite of tools were created by Rob Spain, a Board Certified Behavior Analyst (BCBA) with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. The platform is designed around practical workflows for behavior analysts working with students, staff, and school systems. Learn more about Rob&apos;s work at{" "}
             <a
               href="https://robspain.com"
               target="_blank"

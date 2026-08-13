@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { ShareButtons } from "@/components/ui/share-buttons";
 import { ShareBar } from "@/components/ui/ShareBar";
 import { HeroStudentForm } from "@/components/act-fba-bip/HeroStudentForm";
+import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 
 const baseUrl = "https://behaviorschool.com";
 const pageUrl = `${baseUrl}/act-fba-bip`;
+const founderEducationYears = getFounderEducationYears();
 
 const faqItems = [
   {
@@ -169,7 +171,7 @@ export default function ACTFBABIPPage() {
                 style={{ backgroundColor: "#e4b63d" }}
               />
               <span className="text-xs font-semibold tracking-wide text-white/80">
-                Built by a 25-year school BCBA — Rob Spain, BCBA, IBA
+                Built by a {founderEducationYears}-year school BCBA — Rob Spain, BCBA, IBA
               </span>
             </div>
 
@@ -350,7 +352,7 @@ procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
               <sup>*</sup> Time estimate based on practitioner-reported workflows: indirect assessment (interviews, rating
               scales, record review: 1–3 hrs), direct observation across 3+ sessions (1.5–3 hrs), data analysis and
               hypothesis formation (1–2 hrs), and report writing (3–6+ hrs). Source: Practitioner survey data, r/ABA
-              community (2023); Rob Spain, BCBA, 25 years school-based practice. No peer-reviewed study with a
+              community (2023); Rob Spain, BCBA, {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. No peer-reviewed study with a
               standardized hour-count exists; this reflects real-world practitioner experience.
             </p>
           </div>

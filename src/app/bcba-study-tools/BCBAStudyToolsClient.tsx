@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Brain, Users, Target, BookOpen, BarChart3, Star, ChevronRight, ExternalLink, GraduationCap, Shield } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -20,6 +21,7 @@ const staggerContainer = {
 };
 
 export function BCBAStudyToolsClient() {
+  const founderEducationYears = getFounderEducationYears();
   const studyTools = [
     {
       title: "Free BCBA Practice Tests",
@@ -362,7 +364,7 @@ export function BCBAStudyToolsClient() {
 
           <div className="mt-12 text-center">
             <p className="text-slate-300 italic">
-              Resources created by Rob Spain, BCBA, IBA, for practical school-based study and practice.
+              Resources created by Rob Spain, BCBA, IBA, with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}, for practical school-based study and practice.
             </p>
           </div>
         </div>
