@@ -36,8 +36,8 @@ const faqData: FAQCategory[] = [
         answer: "Unlike generic ABA training, our program focuses exclusively on the unique challenges of school-based practice. You'll get practical, ready-to-implement strategies for working within school systems, collaborating with educators, managing caseloads, writing effective IEPs, and balancing the demands of the school environment. Plus, you'll have direct access to coaching and a community of peers facing similar challenges."
       },
       {
-        question: "What results can I expect from the program?",
-        answer: "Participants typically report increased confidence in their role, more effective behavior interventions, improved relationships with school staff and families, better time management and organization, reduced stress and overwhelm, and a clearer sense of professional identity as a school BCBA. Many also report feeling less isolated and more supported in their practice."
+        question: "What will I work on in the program?",
+        answer: "The program focuses on assessment decisions, functional assessment, intervention alignment, staff implementation, progress monitoring, and systems work in school settings. Participants apply the material to a current student, staff member, or school system."
       }
     ]
   },
@@ -90,7 +90,7 @@ const faqData: FAQCategory[] = [
         question: "How much does the transformation program cost?",
         answer: (
           <>
-            Program pricing and payment options are available on our <Link href="/transformation-program" className="text-emerald-600 hover:text-emerald-700 underline">program page</Link>. We offer flexible payment plans to make the program accessible. This is an investment in your professional development that will pay dividends throughout your career.
+            Program pricing and payment options are available on our <Link href="/transformation-program" className="text-emerald-600 hover:text-emerald-700 underline">program page</Link>. Review the current page for tuition, payment options, and the application process.
           </>
         )
       },

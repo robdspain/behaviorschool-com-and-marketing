@@ -343,7 +343,7 @@ export function BCBAStudyToolsClient() {
               <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Field-Tested</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">Practical Workflows</h3>
               <p className="text-slate-300 text-sm">
                 Developed and refined through real-world use by behavior analysts in schools
               </p>
@@ -362,7 +362,7 @@ export function BCBAStudyToolsClient() {
 
           <div className="mt-12 text-center">
             <p className="text-slate-300 italic">
-              &ldquo;Resources created by Rob Spain, BCBA, IBA &mdash; combining 25+ years of educational experience with board certification expertise&rdquo;
+              Resources created by Rob Spain, BCBA, IBA, for practical school-based study and practice.
             </p>
           </div>
         </div>

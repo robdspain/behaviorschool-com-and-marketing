@@ -449,15 +449,15 @@ export default function BCBAsInSchoolsPage() {
               </div>
             </div>
 
-            {/* Success Stories */}
+            {/* Practice Scenarios */}
             <div id="solutions" className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 scroll-mt-24">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
                   <Award className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-900">Success Stories: BCBAs Making a Difference</h2>
-                  <p className="text-sm text-slate-600">Real examples of transformative impact</p>
+                  <h2 className="text-2xl font-bold text-slate-900">Practice Scenarios</h2>
+                  <p className="text-sm text-slate-600">Examples of school-based work the tools are designed to support</p>
                 </div>
               </div>
 
@@ -466,16 +466,16 @@ export default function BCBAsInSchoolsPage() {
                   <div className="flex items-center gap-2 mb-4">
                     <Award className="w-8 h-8 text-blue-600" />
                     <div>
-                      <h3 className="font-bold text-slate-900">Special Ed Consultant</h3>
-                      <p className="text-xs text-slate-600">Tier 3 Focus</p>
+                        <h3 className="font-bold text-slate-900">Tier 3 Referral Process</h3>
+                        <p className="text-xs text-slate-600">Assessment decision-making</p>
                     </div>
                   </div>
                   <p className="text-sm text-slate-700 mb-4 leading-relaxed">
-                    "Megan works as a BCBA in special education, providing consultation and assessment at the Tier 3 level. She trains special education teachers and instructional assistants working with students supported by IEPs."
+                    A school team is sorting referrals, deciding what information is needed next, and matching the level of assessment to the question being asked.
                   </p>
                   <div className="bg-blue-100 rounded-lg p-3">
                     <p className="text-xs text-blue-900">
-                      <strong>Result:</strong> 75% reduction in classroom disruptions, improved staff confidence and intervention fidelity
+                      <strong>Use case:</strong> Organize referral information and select a practical next assessment step.
                     </p>
                   </div>
                 </div>
@@ -484,16 +484,16 @@ export default function BCBAsInSchoolsPage() {
                   <div className="flex items-center gap-2 mb-4">
                     <Shield className="w-8 h-8 text-emerald-600" />
                     <div>
-                      <h3 className="font-bold text-slate-900">PBIS Coordinator</h3>
-                      <p className="text-xs text-slate-600">Systems Implementation</p>
+                        <h3 className="font-bold text-slate-900">Systems Implementation</h3>
+                        <p className="text-xs text-slate-600">Staff and team support</p>
                     </div>
                   </div>
                   <p className="text-sm text-slate-700 mb-4 leading-relaxed">
-                    "Rob leads district-wide PBIS implementation, training administrators and teachers in evidence-based behavior support while maintaining individual consultation services."
+                    A behavior analyst is coordinating team roles, staff training, implementation supports, and progress review across a school or district process.
                   </p>
                   <div className="bg-emerald-100 rounded-lg p-3">
                     <p className="text-xs text-emerald-900">
-                      <strong>Result:</strong> 40% decrease in office referrals district-wide, sustainable systems with reduced BCBA burnout
+                      <strong>Use case:</strong> Connect written plans to staff routines, feedback, and review points.
                     </p>
                   </div>
                 </div>
@@ -502,16 +502,16 @@ export default function BCBAsInSchoolsPage() {
                   <div className="flex items-center gap-2 mb-4">
                     <Target className="w-8 h-8 text-purple-600" />
                     <div>
-                      <h3 className="font-bold text-slate-900">Behavior Specialist</h3>
-                      <p className="text-xs text-slate-600">Multi-Tier Support</p>
+                        <h3 className="font-bold text-slate-900">Multi-Tier Support</h3>
+                        <p className="text-xs text-slate-600">Coordinating levels of support</p>
                     </div>
                   </div>
                   <p className="text-sm text-slate-700 mb-4 leading-relaxed">
-                    "Holly provides services across all three tiers - from school-wide systems to intensive individual interventions, with a focus on training and sustainability."
+                    A school team is coordinating universal, targeted, and individualized supports while keeping assessment and implementation decisions connected.
                   </p>
                   <div className="bg-purple-100 rounded-lg p-3">
                     <p className="text-xs text-purple-900">
-                      <strong>Result:</strong> Comprehensive support model with staff ownership, reduced reliance on external BCBA
+                      <strong>Use case:</strong> Clarify which team members need to act at each level of support.
                     </p>
                   </div>
                 </div>

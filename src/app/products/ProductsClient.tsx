@@ -251,7 +251,7 @@ export function ProductsClient() {
                     href="/about"
                     className="inline-flex items-center text-slate-600 hover:text-slate-700 font-medium text-sm"
                   >
-                    Developed by Rob Spain, BCBA with 25+ years of experience
+                    Developed by Rob Spain, BCBA
                     <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>
                 </div>
@@ -342,7 +342,7 @@ export function ProductsClient() {
                   {[
                     "Complete ACT Matrix worksheets and templates",
                     "Step-by-step implementation guide for schools",
-                    "Real examples from school-based practice",
+                    "Workflow examples for school-based practice",
                     "Values exploration activities and exercises"
                   ].map((feature, index) => (
                     <motion.li 

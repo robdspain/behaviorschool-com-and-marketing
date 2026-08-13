@@ -431,7 +431,7 @@ export function SchoolBcbaSurvey() {
               </button>
             </div>
             <p className="mt-7 max-w-2xl text-sm leading-6 text-emerald-100">
-              No testimonials, no fake outcomes, no invented numbers. The survey only uses responses submitted by visitors.
+              The survey only uses responses submitted by visitors. Any future summary will be based on collected responses and reviewed before publication.
             </p>
           </div>
 

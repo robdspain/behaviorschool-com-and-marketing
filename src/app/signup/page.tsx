@@ -169,7 +169,7 @@ export default function SignupPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                    <span>You&apos;ll see exactly how the system can transform your practice</span>
+                    <span>Review the program structure and decide whether it fits your current work</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
@@ -247,10 +247,10 @@ export default function SignupPage() {
           >
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-slate-900 mb-4">
-                Secure Your Spot in the School BCBA Transformation System
+                Apply for the School BCBA Transformation System
               </h1>
               <p className="text-slate-600">
-                Join the 6-week program that transforms overwhelmed BCBAs into confident district leaders.
+                Apply for the six-week program focused on assessment, intervention, implementation, and systems work in schools.
               </p>
             </div>
 
@@ -392,7 +392,7 @@ export default function SignupPage() {
                 disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-semibold py-4 px-6 rounded-lg hover:from-emerald-700 hover:to-emerald-600 focus:ring-4 focus:ring-emerald-200 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Submitting..." : "Secure My Spot - Limited Availability"}
+                {isSubmitting ? "Submitting..." : "Submit Application"}
               </button>
 
               <p className="text-xs text-slate-500 text-center">
@@ -435,16 +435,16 @@ export default function SignupPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900">Program Access</h3>
-                    <p className="text-slate-600 text-sm">Get immediate access to exclusive resources</p>
+                    <p className="text-slate-600 text-sm">Access program resources after enrollment</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-xl p-8 text-white">
-              <h2 className="text-2xl font-bold mb-4">Limited Spots Available</h2>
+              <h2 className="text-2xl font-bold mb-4">Program Details</h2>
               <p className="mb-6">
-                Only 12 spots available for this cohort. Join BCBAs who are already transforming their practice.
+                The program includes live sessions, applied materials, and a structured application process for school-based BCBAs.
               </p>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
@@ -453,11 +453,11 @@ export default function SignupPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5" />
-                  <span>Proven templates and systems</span>
+                  <span>Program templates and systems</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5" />
-                  <span>30-day money-back guarantee</span>
+                  <span>Five-day refund window after payment</span>
                 </div>
               </div>
             </div>

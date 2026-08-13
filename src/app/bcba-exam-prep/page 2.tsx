@@ -327,9 +327,9 @@ export default function BCBAExamPrepPage() {
               <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Target className="w-8 h-8 text-emerald-600" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">Proven Results</h3>
+              <h3 className="text-xl font-semibold text-slate-900 mb-3">Study Support</h3>
               <p className="text-slate-600">
-                95% of our students pass on their first attempt, well above the national average of 68%.
+                Use practice questions, explanations, and study tools to organize your preparation.
               </p>
             </div>
             

@@ -12,12 +12,12 @@ const PAYMENT_PLAN = '3 payments of $697';
 const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformation-system-phone-call';
 const DISTRICT_EMAIL_LINK = '/contact';
 
-const COHORT_LABEL = 'September 2026';
-const COHORT_START_BADGE = 'Starts Sep 24';
-const COHORT_START_FULL = 'Starts Thursday, September 24, 2026';
-const COHORT_END_FULL = 'October 29';
-const COHORT_DATE_RANGE = 'September 24 to October 29, 2026';
-const COHORT_SESSION_DATES = ['Sep 24', 'Oct 1', 'Oct 8', 'Oct 15', 'Oct 22', 'Oct 29'];
+const COHORT_LABEL = 'Next cohort';
+const COHORT_START_BADGE = 'Starts Oct 8';
+const COHORT_START_FULL = 'Starts Thursday, October 8, 2026';
+const COHORT_END_FULL = 'November 12';
+const COHORT_DATE_RANGE = 'October 8 to November 12, 2026';
+const COHORT_SESSION_DATES = ['Oct 8', 'Oct 15', 'Oct 22', 'Oct 29', 'Nov 5', 'Nov 12'];
 const ONLINE_EVENT_DESCRIPTION_PUBLISHED = 'August 11, 2026';
 
 const weeklyModules = [
@@ -197,12 +197,12 @@ export default function TransformationProgramPage() {
           <p className="text-slate-600 text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">These are the real problems school BCBAs bring to this program.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { quote: "High-volume referral decisions", sub: "Use a tiered routing process before committing to a full assessment." },
-              { quote: "Inconsistent data systems", sub: "Match measurement to the decision and make the process workable for staff." },
-              { quote: "Unclear functional hypotheses", sub: "Organize indirect and direct assessment data into testable decisions." },
-              { quote: "Plans that do not generalize to implementation", sub: "Connect assessment findings to practical, function-matched supports." },
-              { quote: "Limited staff implementation support", sub: "Build protocols, training, and fidelity checks around the plan." },
-              { quote: "Caseload decisions that arrive too late", sub: "Use progress-monitoring rules to determine when a change is needed." },
+              { pain: "High-volume referral decisions", sub: "Use a tiered routing process before committing to a full assessment." },
+              { pain: "Inconsistent data systems", sub: "Match measurement to the decision and make the process workable for staff." },
+              { pain: "Unclear functional hypotheses", sub: "Organize indirect and direct assessment data into testable decisions." },
+              { pain: "Plans that do not generalize to implementation", sub: "Connect assessment findings to practical, function-matched supports." },
+              { pain: "Limited staff implementation support", sub: "Build protocols, training, and fidelity checks around the plan." },
+              { pain: "Caseload decisions that arrive too late", sub: "Use progress-monitoring rules to determine when a change is needed." },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -214,7 +214,7 @@ export default function TransformationProgramPage() {
               >
                 <div className="flex gap-3 mb-3">
                   <AlertCircle className="w-5 h-5 text-[#e4b63d] flex-shrink-0 mt-0.5" />
-                  <p className="text-[#1a1a1a] font-semibold leading-snug text-sm">{item.quote}</p>
+                  <p className="text-[#1a1a1a] font-semibold leading-snug text-sm">{item.pain}</p>
                 </div>
                 <p className="text-slate-500 text-sm leading-relaxed">{item.sub}</p>
               </motion.div>
@@ -328,7 +328,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Outcomes</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">By Week 6, You Will Have</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">What You Will Build</h2>
             <p className="text-white/70 text-lg mb-2 max-w-2xl mx-auto leading-relaxed">Build concrete assessment, implementation, and review tools during the six-session program.</p>
             <p className="text-white/50 text-base">Applied tools and structured decision processes, not just new ideas.</p>
           </div>
@@ -363,7 +363,7 @@ export default function TransformationProgramPage() {
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
             <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-              The Transformation Program is built for working BCBAs &mdash; school-based practitioners managing double-digit caseloads, clinic BCBAs who need their documentation to hold up under scrutiny, and independent contractors where every non-billable hour is money out of pocket. If you are already competent at your job and you are tired of documentation being the thing that exhausts you, this program was designed with you in mind. It is not remediation. It is what should have been taught in grad school.
+              The Transformation Program is for BCBAs working in school settings who want a clearer way to connect assessment, intervention, staff implementation, and progress monitoring. It is designed for participants who want to apply the work to a current student, staff member, or school system.
             </p>
           </div>
         </div>
@@ -391,8 +391,8 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: `September 24, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
-            { question: "What if I miss a live session?", answer: "All sessions are recorded and available in your student portal within 24 hours." },
+            { question: "When does the next cohort start?", answer: `October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
+            { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
             { question: "Is a W-9 available?", answer: "Yes, available on request. Contact us and we'll send it same day." },
@@ -407,7 +407,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
           <p className="mb-3 text-sm font-medium text-white/65">The August cohort is in progress. Registration for that cohort is closed.</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the September 24 Cohort</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the October 8 Cohort</h2>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             6 weeks. Small cohorts. School BCBAs only.
           </p>
@@ -447,15 +447,10 @@ export default function TransformationProgramPage() {
               <p className="text-sm text-white/60 leading-relaxed">
                 Many BCBAs have their district cover this as professional development. Here&apos;s what you need:
               </p>
-              <a
-                href="/transformation-program-pd-packet.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-lg border border-white/10 hover:border-[#e4b63d] transition-colors text-sm font-semibold text-[#e4b63d]"
-              >
-                <FileCheck className="w-4 h-4 flex-shrink-0" />
-                Download PD Documentation Packet (program description, invoice template, credentials)
-              </a>
+              <p className="flex items-start gap-3 p-3 rounded-lg border border-white/10 text-sm text-white/70 leading-relaxed">
+                <FileCheck className="w-4 h-4 flex-shrink-0 text-[#e4b63d] mt-0.5" />
+                Need current district paperwork? Contact us for the current program description, invoice, and payment documentation.
+              </p>
               <p className="text-xs text-white/40">
                 Need a W-9, purchase order, or invoice?{' '}
                 <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
@@ -472,7 +467,7 @@ I'd like to attend a 6-week PD cohort for school BCBAs led by Rob Spain, BCBA.
 This program addresses three problems directly:
 1. Assessment and FBA quality: builds a replicable, legally defensible process I can apply across my caseload.
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
-3. Caseload sustainability: systems that prevent the burnout that leads to BCBA turnover ($40-60K to replace).
+3. Caseload sustainability: systems for organizing review and implementation work.
 
 6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: $1,997.
 Details: behaviorschool.com/transformation-program`}</div>

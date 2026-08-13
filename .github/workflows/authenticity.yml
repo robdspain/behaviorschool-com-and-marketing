@@ -17,4 +17,5 @@ jobs:
           node-version: '20'
       - name: Run authenticity check
         run: node scripts/ci-authenticity-check.js
-
+      - name: Run public-copy guard
+        run: node scripts/ci-public-copy-guard.js

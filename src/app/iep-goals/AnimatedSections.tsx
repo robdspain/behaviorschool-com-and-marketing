@@ -49,7 +49,7 @@ export function AnimatedSections() {
     }
   ];
 
-  // Social proof based on actual waitlist data and research foundation
+  // Product information and research foundation
 
   return (
     <main className="w-full max-w-full overflow-x-hidden">
@@ -357,7 +357,7 @@ export function AnimatedSections() {
         </div>
       </section>
 
-      {/* Social Proof & Trust Indicators Section */}
+      {/* About the Tool */}
       <section className="py-16 lg:py-20 bg-gradient-to-r from-blue-50 to-purple-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -368,25 +368,25 @@ export function AnimatedSections() {
             className="text-center space-y-12"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Trusted by Special Education Professionals
+              Built for School-Based Practice
             </h2>
             
-            {/* Trust Indicators */}
+            {/* Product information */}
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">100%</div>
-                <p className="text-slate-600 font-medium">Free to Use</p>
+                <div className="text-4xl font-bold text-blue-600 mb-2">Free</div>
+                <p className="text-slate-600 font-medium">Start without registration</p>
                 <p className="text-slate-500 text-sm mt-1">No registration required</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-emerald-600 mb-2">Research</div>
-                <p className="text-slate-600 font-medium">Evidence-Based Methods</p>
-                <p className="text-slate-500 text-sm mt-1">Based on special education research</p>
+                <div className="text-4xl font-bold text-emerald-600 mb-2">Clear</div>
+                <p className="text-slate-600 font-medium">Measurable goals</p>
+                <p className="text-slate-500 text-sm mt-1">Define conditions, measurement, and criteria</p>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-purple-600 mb-2">BCBA</div>
                 <p className="text-slate-600 font-medium">Board Certified</p>
-                <p className="text-slate-500 text-sm mt-1">Professional oversight</p>
+                <p className="text-slate-500 text-sm mt-1">Designed for behavior-analytic practice</p>
               </div>
             </div>
 
@@ -397,15 +397,15 @@ export function AnimatedSections() {
                 <div className="flex flex-wrap justify-center gap-2 mb-6">
                   <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Rob Spain, M.S.,BCBA, IBA</span>
                   <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium">Behavior School Founder</span>
-                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">15+ Years Experience</span>
+                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">School-Based Practice</span>
                 </div>
               </div>
               
               <div className="bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl p-8 border-l-4 border-emerald-500">
                 <h4 className="text-lg font-semibold text-slate-900 mb-4">Why I Built This Tool</h4>
                 <p className="text-slate-700 leading-relaxed mb-4">
-                  Over 25 years working in schools as a special education teacher and a behavior analyst, I grew frustrated seeing IEP goals that students didn&apos;t connect with. 
-                  Traditional goals often focused on compliance rather than what actually mattered to the students themselves.
+                  Working with school teams exposed a recurring need for IEP goals that connect measurable behavior with what matters to students.
+                  Traditional goals can focus on compliance rather than meaningful, observable skills.
                 </p>
                 <p className="text-slate-700 leading-relaxed mb-4">
                   I developed this values-based approach because I believe when we start with what matters to students — 
@@ -413,8 +413,7 @@ export function AnimatedSections() {
                   and students become invested in their own growth.
                 </p>
                 <p className="text-slate-700 leading-relaxed">
-                  This tool represents years of research, field testing, and refinement to create IEP goals that actually work 
-                  in real classrooms with real students.
+                  This tool provides a structured way to draft, review, and refine IEP goals for school-based use.
                 </p>
                 <div className="mt-6 pt-4 border-t border-slate-200">
                   <p className="text-slate-600 text-sm">

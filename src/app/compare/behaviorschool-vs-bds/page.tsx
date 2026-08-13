@@ -73,14 +73,14 @@ export default function BehaviorSchoolVsBDS() {
         heroSubtitle="Compare the AI-powered all-in-one platform for school BCBAs against the traditional fluency-based question bank. Find the right BCBA exam prep for you."
         competitorName="BDS"
         competitorUrl="https://bds.com"
-        competitorDescription="Behavior Development Solutions (BDS) is one of the longest-running BCBA exam prep platforms, offering 4,000+ fluency-based practice questions, 210 module sets, and 9 domain-specific tests. They claim a 98.5% pass rate (self-reported survey) and offer a money-back guarantee. BDS uses a traditional question-and-answer format focused on fluency building without AI or adaptive technology."
+        competitorDescription="Behavior Development Solutions (BDS) offers a fluency-based BCBA exam-preparation platform. This comparison focuses on publicly described product approaches rather than pass-rate or customer-outcome claims."
         behaviorSchoolAdvantages={[
           'AI-powered adaptive practice questions',
           'Built specifically for school-based BCBAs',
           'Free tier with practice questions included',
           'IEP goal writer + behavior plan tools included',
           'Modern, mobile-friendly platform',
-          'Created by a practicing school BCBA with 25+ years of experience',
+          'Created by a BCBA for school-based practice',
         ]}
         features={[
           {
@@ -142,8 +142,8 @@ export default function BehaviorSchoolVsBDS() {
             a: 'Yes! BehaviorSchool offers free BCBA practice questions, IEP goal writing tools, and study resources with no credit card required.',
           },
           {
-            q: 'What\'s the BDS pass rate?',
-            a: 'BDS claims a 98.5% pass rate based on a self-reported survey of their users. BehaviorSchool focuses on adaptive, evidence-based study methods to maximize your individual preparation.',
+            q: 'Does this comparison include pass-rate claims?',
+            a: 'No. We do not publish or repeat pass-rate claims here. Compare the preparation methods, practice experience, and features that fit your study needs.',
           },
           {
             q: 'Does BDS offer IEP or behavior plan tools?',

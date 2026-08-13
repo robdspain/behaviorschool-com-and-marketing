@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "The ACT Matrix: A Framework for School-Based BCBAs",
-    description: "Comprehensive guide to using the ACT Matrix framework in school-based BCBA practice with implementation strategies and real examples.",
+    description: "Comprehensive guide to using the ACT Matrix framework in school-based BCBA practice with implementation strategies and workflow examples.",
     type: "article",
     url: "https://behaviorschool.com/the-act-matrix-a-framework-for-school-based-bcbas",
     siteName: "Behavior School",

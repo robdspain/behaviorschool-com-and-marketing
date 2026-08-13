@@ -338,7 +338,7 @@ export default function MasterclassPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-              Ready to Transform Your Practice?
+              Ready to Strengthen Your Practice?
             </h2>
             <p className="text-xl text-emerald-100 mb-8">
               Get comprehensive training designed specifically for school-based BCBAs

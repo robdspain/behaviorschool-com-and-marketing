@@ -357,10 +357,10 @@ export default function EventDetailClient({ event }: EventDetailClientProps) {
                           <Users className="w-5 h-5 text-slate-400" />
                           <div>
                             <p className="font-medium text-slate-900">
-                              {event.max_participants - (event.current_participants || 0)} spots left
+                              Registration available
                             </p>
                             <p className="text-sm text-slate-500">
-                              {event.current_participants || 0} registered
+                              Join the scheduled event
                             </p>
                           </div>
                         </div>
