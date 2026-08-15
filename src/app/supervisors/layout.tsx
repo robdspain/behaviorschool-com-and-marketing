@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "BCBA Supervision Platform | Behavior School",
-  description: "Track BCBA supervision hours, competencies, sessions, and documentation with a free digital platform for supervisors.",
+  description: "Invite-only BCBA supervision tools for organizing fieldwork documentation, supervisee progress, and required records.",
   keywords: [
     "BCBA supervision",
     "BCBA supervision platform",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: "BCBA Supervision Platform | Behavior School",
-    description: "Track BCBA supervision hours, competencies, sessions, and documentation with a free digital platform for supervisors.",
+    description: "Invite-only BCBA supervision tools for organizing fieldwork documentation, supervisee progress, and required records.",
     url: "https://behaviorschool.com/supervisors",
     siteName: "Behavior School",
     images: [
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BCBA Supervision Platform | Behavior School",
-    description: "Track BCBA supervision hours, competencies, sessions, and documentation with a free digital platform for supervisors.",
+    description: "Invite-only BCBA supervision tools for organizing fieldwork documentation, supervisee progress, and required records.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { 

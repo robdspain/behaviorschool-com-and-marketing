@@ -503,7 +503,7 @@ export default function SchoolBasedBCBAPage() {
               {[
                 { icon: Target, color: "emerald", title: "IEP Goal Generator", desc: "Create SMART, measurable behavior goals in seconds", link: "/iep-goals", cta: "Generate a Free Goal" },
                 { icon: FileText, color: "blue", title: "Behavior Plan Writer", desc: "Build teacher-ready BIPs with evidence-based strategies", link: "/behavior-plans", cta: "Create a Free BIP" },
-                { icon: Users, color: "purple", title: "Supervision Tracker", desc: "Monitor fieldwork hours and competencies with precision", link: "/supervisors", cta: "Try Supervision Tools" },
+                { icon: Users, color: "purple", title: "Supervision Tracker", desc: "Invite-only tools in development for fieldwork documentation and progress review", link: "/supervisors", cta: "View Invite-Only Access" },
                 { icon: BookOpen, color: "orange", title: "BCBA Exam Prep", desc: "Free practice questions and mock exams for certification", link: "/bcba-exam-prep", cta: "Start Studying Free" }
               ].map((tool, idx) => (
                 <div key={idx} className="bg-white p-6 rounded-2xl shadow-lg border-2 border-slate-100 hover:border-emerald-300 hover:shadow-2xl transition-all group">
@@ -641,7 +641,7 @@ export default function SchoolBasedBCBAPage() {
                 },
                 {
                   question: "What free tools are available for school BCBAs?",
-                  answer: "Free tools include the AI-powered IEP Goal Generator for creating SMART behavior goals, Behavior Plan Writer for building teacher-ready BIPs, Supervision Tracker for monitoring fieldwork, and BCBA Exam Prep with practice questions and mock exams.",
+                  answer: "Current tools include the IEP Goal Generator, Behavior Plan Writer, and BCBA Exam Prep. The Supervision Tracker is in development and available only by invitation.",
                   color: "red"
                 },
                 {
@@ -747,7 +747,7 @@ export default function SchoolBasedBCBAPage() {
                   "name": "What free tools are available for school BCBAs?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Free tools include the AI-powered IEP Goal Generator for creating SMART behavior goals, Behavior Plan Writer for building teacher-ready BIPs, Supervision Tracker for monitoring fieldwork, and BCBA Exam Prep with practice questions and mock exams."
+                    "text": "Current tools include the IEP Goal Generator, Behavior Plan Writer, and BCBA Exam Prep. The Supervision Tracker is in development and available only by invitation."
                   }
                 },
                 {

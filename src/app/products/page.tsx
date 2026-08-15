@@ -100,9 +100,9 @@ const upcomingProducts = [
     name: "Supervision Workspace",
     stage: "Supervise",
     description:
-      "A shared workspace for fieldwork documentation, progress review, and required records. Account creation and hour tracking are not available yet.",
+      "An invite-only workspace in development for fieldwork documentation, progress review, and required records. Public account creation is not available.",
     href: "/supervisors",
-    cta: "Get launch updates",
+    cta: "View invite-only access",
     icon: UsersRound,
   },
   {

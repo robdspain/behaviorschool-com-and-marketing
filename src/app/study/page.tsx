@@ -42,8 +42,8 @@ const freeMockHref = behaviorStudyToolsAppHref("/free-mock-exam/", {
   utm_content: "study_home_free_mock",
 });
 
-const supervisionHref = "https://supervision.behaviorschool.com/register?role=supervisor";
-const hourTrackingHref = "https://supervision.behaviorschool.com/register?role=supervisee";
+const supervisionHref = "https://supervision.behaviorschool.com/waitlist";
+const hourTrackingHref = "/supervisors";
 
 const studyFeatures = [
   {
@@ -105,16 +105,16 @@ const platformLinks = [
   },
   {
     title: "Supervision platform",
-    description: "Manage supervisees, review progress, document feedback, and keep records organized.",
+    description: "Request invite-only access to the supervision workspace currently in development.",
     href: supervisionHref,
-    cta: "Open supervision",
+    cta: "Request an invitation",
     icon: Users,
   },
   {
     title: "Hour tracking",
-    description: "Log fieldwork hours, submit for approval, monitor totals, and stay audit-ready.",
+    description: "Preview the planned fieldwork documentation and supervisor review workflow.",
     href: hourTrackingHref,
-    cta: "Track hours",
+    cta: "View the preview",
     icon: ClipboardCheck,
   },
 ];
@@ -273,11 +273,11 @@ export default function StudyPage() {
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_0.95fr] lg:px-8">
           <div>
             <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-              Built to support supervision, not just exam prep.
+              Planned to support supervision, not just exam prep.
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-slate-600">
-              Supervisors and supervisees need more than a study score. The connected supervision
-              system helps document fieldwork, monitor progress, and keep BACB records organized.
+              Supervisors and supervisees need more than a study score. The invite-only supervision
+              workspace is being developed to organize fieldwork, progress review, and required records.
             </p>
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {supervisionFeatures.map((feature) => (
@@ -299,17 +299,14 @@ export default function StudyPage() {
             </div>
             <div className="mt-6 space-y-4">
               {[
-                { label: "Fieldwork hours approved", value: "1,420 / 2,000", width: "71%" },
-                { label: "Monthly supervision minimum", value: "On track", width: "84%" },
-                { label: "Competencies reviewed", value: "18 / 24", width: "75%" },
+                { label: "Fieldwork organization", value: "In development" },
+                { label: "Supervisor review", value: "In development" },
+                { label: "Study connection", value: "In development" },
               ].map((row) => (
                 <div key={row.label} className="rounded-xl bg-white/[0.08] p-4">
                   <div className="flex items-center justify-between gap-4 text-sm">
                     <span className="text-slate-300">{row.label}</span>
                     <span className="font-semibold">{row.value}</span>
-                  </div>
-                  <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
-                    <div className="h-full rounded-full bg-[#e4b63d]" style={{ width: row.width }} />
                   </div>
                 </div>
               ))}
@@ -319,13 +316,13 @@ export default function StudyPage() {
                 href={supervisionHref}
                 className="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
               >
-                Supervisor sign up
+                Request an invitation
               </a>
               <a
                 href={hourTrackingHref}
                 className="inline-flex items-center justify-center rounded-full bg-[#e4b63d] px-5 py-3 text-sm font-semibold text-[#1f4d3f] transition hover:bg-[#d4a82d]"
               >
-                Track my hours
+                View hour-tracking plans
               </a>
             </div>
           </div>

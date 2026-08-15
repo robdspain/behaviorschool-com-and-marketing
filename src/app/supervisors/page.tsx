@@ -39,20 +39,20 @@ export default function SupervisorsPage() {
         <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 sm:px-8 sm:pb-28 sm:pt-28 lg:px-12">
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 border border-[#1f4d3f]/20 bg-white px-3 py-2 text-xs font-bold uppercase text-[#1f4d3f]">
-              <Bell className="h-4 w-4" aria-hidden="true" /> Coming soon
+              <Bell className="h-4 w-4" aria-hidden="true" /> Invite only
             </div>
             <h1 className="mt-7 max-w-3xl text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
               Supervision tools for school-based behavior analysts.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-[#59645f] sm:text-xl">
-              BehaviorSchool is developing a shared workspace for supervisors and supervisees to organize fieldwork documentation, review progress, and prepare required records. The platform is not yet available for account creation or hour tracking.
+              BehaviorSchool is developing a shared workspace for supervisors and supervisees to organize fieldwork documentation, review progress, and prepare required records. Access is currently invite-only, and public account creation is not available.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
-                href="mailto:rob@behaviorschool.com?subject=Supervision%20tools%20launch%20updates"
+                href="https://supervision.behaviorschool.com/waitlist"
                 className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#1f4d3f] px-6 py-3 font-bold text-white transition-colors hover:bg-[#163a30] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f]"
               >
-                Request launch updates <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                Request an invitation <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
               <Link
                 href="/contact"
@@ -93,7 +93,7 @@ export default function SupervisorsPage() {
           <div className="max-w-3xl">
             <h2 className="text-2xl font-semibold">Continue using your current approved process</h2>
             <p className="mt-3 leading-7 text-[#59645f]">
-              Until the platform launches, supervisors and supervisees should continue using current BACB requirements, official forms, and their organization&apos;s approved documentation and record-retention procedures.
+              Until you receive an invitation, continue using current BACB requirements, official forms, and your organization&apos;s approved documentation and record-retention procedures.
             </p>
           </div>
         </div>
