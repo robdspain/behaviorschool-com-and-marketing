@@ -166,14 +166,14 @@ export function SeoArticlePage({
               <div className="absolute -inset-4 rounded-[2rem] bg-emerald-200/35 blur-2xl" />
               <div
                 className="relative overflow-hidden rounded-3xl border border-slate-200 bg-[#f8faf8] p-4 shadow-2xl"
-                aria-label="Behavior Study Tools product preview showing readiness, weak areas, and practice rationales"
+                aria-label="Behavior Study Tools product preview showing example interface states, not user results"
               >
                 <div className="rounded-2xl border border-emerald-900/10 bg-white shadow-sm">
                   <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
                     <div className="flex items-center gap-2">
                       <Image
-                        src="/Logos/Logo.webp"
-                        alt="Behavior School"
+                        src="/behavior-study-tools-icon.png"
+                        alt="Behavior Study Tools"
                         width={96}
                         height={96}
                         className="h-9 w-9 rounded-lg object-cover"
@@ -184,26 +184,26 @@ export function SeoArticlePage({
                       </div>
                     </div>
                     <div className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-800">
-                      6th Edition
+                      Product preview
                     </div>
                   </div>
 
                   <div className="grid gap-4 p-4 sm:grid-cols-[0.9fr_1.1fr]">
                     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                       <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
-                        Readiness score
+                        Readiness overview
                       </p>
                       <div className="mt-4 flex items-center gap-4">
-                        <div className="flex h-24 w-24 items-center justify-center rounded-full border-[10px] border-emerald-700 bg-white">
+                        <div className="flex h-24 w-24 items-center justify-center rounded-full border-[10px] border-slate-200 bg-white">
                           <div className="text-center">
-                            <p className="text-3xl font-black text-emerald-900">78</p>
-                            <p className="text-[10px] font-semibold text-slate-500">of 100</p>
+                            <p className="text-xs font-black uppercase tracking-wide text-emerald-900">After</p>
+                            <p className="text-[10px] font-semibold text-slate-500">practice</p>
                           </div>
                         </div>
                         <div>
-                          <p className="font-bold text-slate-950">Near ready</p>
+                          <p className="font-bold text-slate-950">See your next study step</p>
                           <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                            Keep building weak areas before the next full mock.
+                            Complete a practice session to review domain-level guidance.
                           </p>
                         </div>
                       </div>
@@ -214,25 +214,17 @@ export function SeoArticlePage({
                         <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
                           Domain review
                         </p>
-                        <p className="text-xs font-bold text-emerald-800">Next study block</p>
+                        <p className="text-xs font-bold text-emerald-800">Available after practice</p>
                       </div>
                       <div className="mt-4 space-y-3">
-                        {[
-                          ["Measurement", "42%"],
-                          ["Experimental Design", "48%"],
-                          ["Behavior Assessment", "60%"],
-                          ["Ethics", "74%"],
-                        ].map(([label, value]) => (
+                        {["Measurement", "Experimental Design", "Behavior Assessment", "Ethics"].map((label) => (
                           <div key={label}>
                             <div className="flex justify-between text-xs font-semibold text-slate-700">
                               <span>{label}</span>
-                              <span>{value}</span>
+                              <span className="text-slate-500">Review</span>
                             </div>
                             <div className="mt-1 h-2 rounded-full bg-slate-100">
-                              <div
-                                className="h-2 rounded-full bg-emerald-700"
-                                style={{ width: value }}
-                              />
+                              <div className="h-2 w-1/3 rounded-full bg-slate-300" />
                             </div>
                           </div>
                         ))}

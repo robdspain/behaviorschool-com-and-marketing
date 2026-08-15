@@ -41,16 +41,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Behavior School" }],
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "16x16 32x32", type: "image/x-icon" },
       { url: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
-      { url: "/Logos/Logo.webp", sizes: "16x16", type: "image/webp" },
-      { url: "/Logos/Logo.webp", sizes: "32x32", type: "image/webp" },
-      { url: "/Logos/Logo.webp", sizes: "48x48", type: "image/webp" },
-      { url: "/Logos/Logo.webp", sizes: "192x192", type: "image/webp" },
+      { url: "/behavior-school-icon.png", sizes: "512x512", type: "image/png" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/favicon.svg",
     apple: [
-      { url: "/Logos/Logo.webp", sizes: "180x180", type: "image/webp" },
+      { url: "/behavior-school-icon.png", sizes: "512x512", type: "image/png" },
     ],
     other: [
       {
@@ -126,7 +122,7 @@ export default function RootLayout({
         url: SITE_URL,
         logo: {
           "@type": "ImageObject",
-          url: `${SITE_URL}/Logos/Logo.webp`,
+          url: `${SITE_URL}/behavior-school-icon.png`,
           width: 512,
           height: 512
         },
@@ -260,13 +256,13 @@ export default function RootLayout({
         <meta name="interactivity-type" content="mixed" />
 
         {/* Logo meta tags for Google search results */}
-        <meta name="logo" content="https://behaviorschool.com/Logos/Logo.webp" />
-        <link rel="image_src" href="https://behaviorschool.com/Logos/Logo.webp" />
+        <meta name="logo" content="https://behaviorschool.com/behavior-school-icon.png" />
+        <link rel="image_src" href="https://behaviorschool.com/behavior-school-icon.png" />
 
         {/* Bing-specific meta tags */}
         <meta name="msvalidate.01" content="D6F638D35C42D071C62B47907C2CD0CC" />
         <meta name="msapplication-TileColor" content="#1F4D3F" />
-        <meta name="msapplication-TileImage" content="/Logos/Logo.webp" />
+        <meta name="msapplication-TileImage" content="/behavior-school-icon-150.png" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
 
         {/* IndexNow API key for instant indexing */}

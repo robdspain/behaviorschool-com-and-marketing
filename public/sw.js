@@ -1,7 +1,8 @@
 const CACHE_NAME = 'bsw-static-v2';
 const STATIC_ASSETS = [
   '/manifest.json',
-  '/Logos/Logo.webp'
+  '/favicon.svg',
+  '/behavior-school-icon.png'
 ];
 
 self.addEventListener('install', (event) => {

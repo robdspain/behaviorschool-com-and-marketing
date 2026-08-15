@@ -29,7 +29,7 @@ export function NavBar() {
             <Link href="/" className="flex items-center gap-3">
               <span className="relative h-9 w-9 rounded-full bg-[#1f4d3f]/10 flex items-center justify-center">
                 <Image
-                  src="/Logos/Logo.webp"
+                  src="/behavior-school-icon.png"
                   alt="BehaviorSchool logo"
                   width={24}
                   height={24}

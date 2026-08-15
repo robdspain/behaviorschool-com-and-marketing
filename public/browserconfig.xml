@@ -2,9 +2,8 @@
 <browserconfig>
     <msapplication>
         <tile>
-            <square150x150logo src="/Logos/Logo.webp"/>
+            <square150x150logo src="/behavior-school-icon-150.png"/>
             <TileColor>#1F4D3F</TileColor>
         </tile>
     </msapplication>
 </browserconfig>
-

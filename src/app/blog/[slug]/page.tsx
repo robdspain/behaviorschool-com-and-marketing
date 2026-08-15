@@ -347,7 +347,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       name: 'BehaviorSchool',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://behaviorschool.com/Logos/Logo.webp'
+        url: 'https://behaviorschool.com/behavior-school-icon.png'
       }
     }
   };

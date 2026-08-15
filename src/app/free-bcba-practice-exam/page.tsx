@@ -368,8 +368,8 @@ export default async function FreeBCBAPracticeExamPage() {
               <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Free Forever</div>
             </div>
             <div className="text-center p-6 bg-white rounded-xl border-2 border-slate-200">
-              <div className="text-4xl font-bold text-emerald-600 mb-2">1,000+</div>
-              <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Students</div>
+              <div className="text-4xl font-bold text-emerald-600 mb-2">Detailed</div>
+              <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Rationales</div>
             </div>
           </div>
         </div>
@@ -547,7 +547,7 @@ export default async function FreeBCBAPracticeExamPage() {
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
           <p className="mt-6 text-emerald-100 text-sm font-medium">
-            Join 1,000+ behavior analysts practicing with realistic exam conditions
+            Practice with realistic exam conditions and review the rationale after each attempt.
           </p>
         </div>
       </section>
