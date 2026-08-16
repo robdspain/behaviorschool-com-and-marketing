@@ -18,7 +18,7 @@
  *   CONTACT_NOTIFY_EMAIL  (defaults to robspain@gmail.com)
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat';
+import { withLambda } from '../lib/lambda-adapter.mjs';
 
 const handler = async (event) => {
   if (event.httpMethod !== 'POST') {

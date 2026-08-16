@@ -1,4 +1,4 @@
-import { withLambda } from '@netlify/aws-lambda-compat';
+import { withLambda } from '../lib/lambda-adapter.mjs';
 import crypto from 'node:crypto';
 
 const COOKIE_NAME = 'bs_admin_auth';

@@ -1,4 +1,4 @@
-import { withLambda } from '@netlify/aws-lambda-compat'
+import { withLambda } from '../lib/lambda-adapter.mjs'
 
 // Netlify Scheduled Function: triggers newsletter worker periodically
 const handler = async () => {

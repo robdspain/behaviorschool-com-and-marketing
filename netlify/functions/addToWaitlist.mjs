@@ -4,7 +4,7 @@
  * Adds an email address to the shared Behavior School Convex CRM.
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat';
+import { withLambda } from '../lib/lambda-adapter.mjs';
 
 const handler = async function (event) {
   if (event.httpMethod !== 'POST') {

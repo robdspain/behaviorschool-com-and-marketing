@@ -2,7 +2,7 @@ import formData from "form-data";
 import Mailgun from "mailgun.js";
 import Stripe from "stripe";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { withLambda } from '@netlify/aws-lambda-compat';
+import { withLambda } from '../lib/lambda-adapter.mjs';
 
 type HandlerEvent = {
   httpMethod: string;

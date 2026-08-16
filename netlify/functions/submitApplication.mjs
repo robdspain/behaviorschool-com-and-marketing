@@ -7,7 +7,7 @@
  *   RESEND_API_KEY — your Resend API key
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat';
+import { withLambda } from '../lib/lambda-adapter.mjs';
 
 const handler = async function (event) {
   if (event.httpMethod !== 'POST') {

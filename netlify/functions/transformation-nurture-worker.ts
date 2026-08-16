@@ -1,4 +1,4 @@
-import { withLambda } from '@netlify/aws-lambda-compat'
+import { withLambda } from '../lib/lambda-adapter.mjs'
 
 const handler = async () => {
   const base = process.env.PUBLIC_BASE_URL || process.env.URL || "";

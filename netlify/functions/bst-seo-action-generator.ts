@@ -5,7 +5,7 @@
  * before the daily growth report chooses the top recommendation.
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat'
+import { withLambda } from '../lib/lambda-adapter.mjs'
 
 type HandlerResponse = {
   statusCode: number

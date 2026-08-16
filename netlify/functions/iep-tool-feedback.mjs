@@ -11,7 +11,7 @@
  * Sheet ID: stored in env var SOCIAL_PROOF_SHEET_ID
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat';
+import { withLambda } from '../lib/lambda-adapter.mjs';
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",

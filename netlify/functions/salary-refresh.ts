@@ -1,4 +1,4 @@
-import { withLambda } from '@netlify/aws-lambda-compat';
+import { withLambda } from '../lib/lambda-adapter.mjs';
 import type { Handler } from '@netlify/functions';
 
 // Scheduled via netlify.toml [[scheduled.functions]] or this function can be invoked manually

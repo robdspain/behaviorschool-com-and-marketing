@@ -5,7 +5,7 @@
  * the daily publisher runs, then stores those metrics as growth signals.
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat'
+import { withLambda } from '../lib/lambda-adapter.mjs'
 
 type HandlerResponse = {
   statusCode: number

@@ -5,7 +5,7 @@
  * due queued posts through BST_SOCIAL_POST_WEBHOOK_URL when configured.
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat'
+import { withLambda } from '../lib/lambda-adapter.mjs'
 
 type HandlerResponse = {
   statusCode: number

@@ -3,7 +3,7 @@
 // Certifier.io polls the Supabase table and auto-issues certificates
 // Runtime: Node 18+ (fetch + crypto available)
 
-import { withLambda } from '@netlify/aws-lambda-compat';
+import { withLambda } from '../lib/lambda-adapter.mjs';
 import crypto from 'node:crypto';
 
 const HEX = "hex";

@@ -6,7 +6,7 @@
  * builds its recommendation list.
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat'
+import { withLambda } from '../lib/lambda-adapter.mjs'
 
 type HandlerResponse = {
   statusCode: number

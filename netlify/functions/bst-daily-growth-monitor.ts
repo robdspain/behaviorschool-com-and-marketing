@@ -6,7 +6,7 @@
  * Netlify and set the same secret for the Next.js API route.
  */
 
-import { withLambda } from '@netlify/aws-lambda-compat'
+import { withLambda } from '../lib/lambda-adapter.mjs'
 
 type HandlerResponse = {
   statusCode: number
