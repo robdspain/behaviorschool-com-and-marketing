@@ -88,6 +88,8 @@ type Dashboard = {
 }
 
 type IssueDetail = { issue: Issue; articles: Article[]; socialPosts: SocialPost[] }
+type PublishingIdentity = { site: 'robspain'; contentKey: string; contentHash: string; title: string; contentType: string; tier: 'A' }
+type PublishingGate = { approved: boolean; reason: string; record: Record<string, unknown> | null }
 
 async function jsonRequest<T>(url: string, init?: RequestInit) {
   const response = await fetch(url, { ...init, cache: 'no-store' })
@@ -104,6 +106,9 @@ export default function NewsletterAdmin() {
   const selectedIdRef = useRef<string | null>(null)
   const [detail, setDetail] = useState<IssueDetail | null>(null)
   const [analytics, setAnalytics] = useState<Record<string, unknown> | null>(null)
+  const [publishingIdentity, setPublishingIdentity] = useState<PublishingIdentity | null>(null)
+  const [publishingGate, setPublishingGate] = useState<PublishingGate | null>(null)
+  const [publishingApprovalUrl, setPublishingApprovalUrl] = useState('/admin/publishing-standards')
   const [workspaces, setWorkspaces] = useState<Workspace[]>([])
   const [error, setError] = useState<string | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
@@ -119,16 +124,21 @@ export default function NewsletterAdmin() {
     setWorkspaces(buffer.workspaces || [])
     const nextId = issueId || selectedIdRef.current || control.issues[0]?._id
     if (nextId) {
-      const selected = await jsonRequest<{ issue: IssueDetail; analytics: Record<string, unknown> | null }>(`/api/admin/newsletter/control?issueId=${encodeURIComponent(nextId)}`)
+      const selected = await jsonRequest<{ issue: IssueDetail; analytics: Record<string, unknown> | null; publishingIdentity: PublishingIdentity; publishingGate: PublishingGate; publishingApprovalUrl: string }>(`/api/admin/newsletter/control?issueId=${encodeURIComponent(nextId)}`)
       selectedIdRef.current = nextId
       setSelectedId(nextId)
       setDetail(selected.issue)
       setAnalytics(selected.analytics)
+      setPublishingIdentity(selected.publishingIdentity)
+      setPublishingGate(selected.publishingGate)
+      setPublishingApprovalUrl(selected.publishingApprovalUrl)
     } else {
       selectedIdRef.current = null
       setSelectedId(null)
       setDetail(null)
       setAnalytics(null)
+      setPublishingIdentity(null)
+      setPublishingGate(null)
     }
   }, [])
 
@@ -183,7 +193,8 @@ export default function NewsletterAdmin() {
 
   const selectedIssue = detail?.issue
   const allBufferConfigured = useMemo(() => workspaces.length === 2 && workspaces.every((workspace) => workspace.apiStatus === 'verified' && workspace.channels.every((channel) => channel.status === 'configured')), [workspaces])
-  const canSend = Boolean(selectedIssue && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
+  const editoriallyApproved = publishingGate?.approved === true
+  const canSend = Boolean(selectedIssue && editoriallyApproved && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
 
   if (loading) {
     return <div className="min-h-screen bg-[#f5f8f6] flex items-center justify-center text-slate-600">Loading weekly research brief workspace…</div>
@@ -267,14 +278,27 @@ export default function NewsletterAdmin() {
             {!selectedIssue ? <div className="grid min-h-[360px] place-items-center text-center text-[#6b8178]"><div><Users className="mx-auto h-9 w-9" /><p className="mt-3 font-semibold">Select an issue to review it.</p></div></div> : <>
               <div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.14em] text-[#087f5b]">{selectedIssue.issueKey}</p><h2 id="review-heading" className="mt-1 text-2xl font-bold">{selectedIssue.subject}</h2><p className="mt-2 text-sm text-[#5b7068]">{selectedIssue.schoolBcbaProblem || 'No school-BCBA problem has been recorded yet.'}</p></div><span className="rounded-full bg-[#eff4f1] px-3 py-1 text-xs font-bold text-[#1c5547]">{selectedIssue.archiveState || 'not_requested'}</span></div>
               {selectedIssue.generationError && <p className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">{selectedIssue.generationError}</p>}
+              <div className={`mt-5 rounded-xl border p-4 ${editoriallyApproved ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className={`mt-0.5 h-5 w-5 ${editoriallyApproved ? 'text-emerald-700' : 'text-amber-700'}`} />
+                    <div>
+                      <h3 className="font-bold text-[#17352d]">Editorial release lock</h3>
+                      <p className="mt-1 text-sm leading-5 text-[#536a62]">{editoriallyApproved ? 'Rob approved this exact content fingerprint. Publishing actions are unlocked.' : 'Complete the authorship, evidence, and specificity review before this issue can be approved, published, or sent.'}</p>
+                      {publishingIdentity && <p className="mt-2 font-mono text-[11px] text-[#6b8178]">SHA-256 {publishingIdentity.contentHash}</p>}
+                    </div>
+                  </div>
+                  <a href={publishingApprovalUrl} className={`inline-flex rounded-lg px-3 py-2 text-sm font-bold ${editoriallyApproved ? 'border border-emerald-300 bg-white text-emerald-800' : 'bg-[#17352d] text-white'}`}>{editoriallyApproved ? 'Review approval' : 'Prepare approval'}</a>
+                </div>
+              </div>
               <div className="mt-5 flex flex-wrap gap-2">
                 <button type="button" disabled={busy !== null || selectedIssue.status === 'sent'} onClick={() => void run('sendPreview', { issueId: selectedIssue._id }, 'Preview sent to the configured review address.')} className="inline-flex items-center gap-2 rounded-lg border border-[#b6cfc4] px-3 py-2 text-sm font-semibold text-[#1c5547] disabled:opacity-50"><Send className="h-4 w-4" /> Send preview</button>
-                <button type="button" disabled={busy !== null || selectedIssue.status === 'sent'} onClick={() => void run('approve', { issueId: selectedIssue._id }, 'Issue approved. Publish and verify its public page before sending.')} className="rounded-lg bg-[#17352d] px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">Approve</button>
-                <button type="button" disabled={busy !== null || !['approved', 'scheduled'].includes(selectedIssue.status)} onClick={() => void run('publishAndVerify', { issueId: selectedIssue._id }, 'Public RobSpain.com issue page verified.')} className="rounded-lg bg-[#f5c842] px-3 py-2 text-sm font-bold text-[#17352d] disabled:opacity-50">Publish and verify public page</button>
+                <button type="button" disabled={busy !== null || selectedIssue.status === 'sent' || !editoriallyApproved} onClick={() => void run('approve', { issueId: selectedIssue._id }, 'Issue approved. Publish and verify its public page before sending.')} className="rounded-lg bg-[#17352d] px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">Approve</button>
+                <button type="button" disabled={busy !== null || !editoriallyApproved || !['approved', 'scheduled'].includes(selectedIssue.status)} onClick={() => void run('publishAndVerify', { issueId: selectedIssue._id }, 'Public RobSpain.com issue page verified.')} className="rounded-lg bg-[#f5c842] px-3 py-2 text-sm font-bold text-[#17352d] disabled:opacity-50">Publish and verify public page</button>
                 <button type="button" disabled={busy !== null || !canSend} onClick={() => void run('sendApproved', { issueId: selectedIssue._id }, 'Newsletter delivery finished.')} className="rounded-lg bg-[#087f5b] px-3 py-2 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-40">Send to confirmed subscribers</button>
                 <button type="button" disabled={busy !== null || selectedIssue.status === 'sent'} onClick={() => void run('generateSocial', { issueId: selectedIssue._id }, 'Social drafts generated for review.')} className="rounded-lg border border-[#b6cfc4] px-3 py-2 text-sm font-semibold text-[#1c5547] disabled:opacity-50">Prepare social drafts</button>
               </div>
-              <p className="mt-3 text-xs text-[#6b8178]">Subscriber send is intentionally unavailable until the issue is approved and the public page is verified successfully.</p>
+              <p className="mt-3 text-xs text-[#6b8178]">Subscriber send stays unavailable until the exact issue fingerprint passes editorial review, the issue is approved, and the public page is verified successfully.</p>
 
               <div className="mt-6 grid gap-5 lg:grid-cols-2">
                 <div><h3 className="font-bold">Research sources</h3><div className="mt-3 space-y-3">{detail?.articles.map((article, index) => <article key={article._id} className="rounded-lg border border-[#d6e2dc] bg-[#f8fbf9] p-4"><p className="text-xs font-bold uppercase tracking-wide text-[#087f5b]">Article {index + 1}</p><h4 className="mt-1 font-semibold">{article.title || article.apaCitation || 'Untitled source'}</h4><p className="mt-2 text-sm leading-6 text-[#536a62]">{article.summary || 'Summary not yet added.'}</p><div className="mt-3 flex flex-wrap items-center gap-3 text-xs font-semibold"><span className={article.fullTextVerifiedAt ? 'text-emerald-700' : 'text-amber-700'}>{article.fullTextVerifiedAt ? 'Full text verified' : 'Full text needs verification'}</span>{article.fullTextUrl && <a className="text-[#087f5b] underline" href={article.fullTextUrl} target="_blank" rel="noreferrer">Open full text</a>}</div></article>)}</div></div>

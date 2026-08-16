@@ -20,7 +20,8 @@ import {
   Megaphone,
   BarChart3,
   PhoneCall,
-  LifeBuoy
+  LifeBuoy,
+  ShieldCheck
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -69,6 +70,7 @@ const navigation: NavItem[] = [
   { name: "BST Marketing", href: "/admin/behavior-study-tools-marketing", icon: Megaphone, badge: "Daily" },
   { name: "Support Inbox", href: "/admin/support", icon: LifeBuoy, badge: "Central" },
   { name: "Blog", href: "/admin/content", icon: FileText },
+  { name: "Publishing Standards", href: "/admin/publishing-standards", icon: ShieldCheck, badge: "Release lock" },
   { name: "Presentations", href: "/admin/presentations", icon: Presentation },
   { name: "Sitemap", href: "/admin/sitemap", icon: Layers },
 ];

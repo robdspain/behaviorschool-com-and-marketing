@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { hasAdminClientSession } from '@/lib/admin-client-session'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X, Star, Sparkles } from 'lucide-react'
+import { Save, Eye, ArrowLeft, Image as ImageIcon, Share2, Twitter, Facebook, Linkedin, Tag, Upload, Code, Calendar, Plus, X, Star, Sparkles, ShieldCheck } from 'lucide-react'
 import { RichTextEditor } from '@/components/RichTextEditor'
 import { SEOPanel } from '@/components/SEOPanel'
 
@@ -35,6 +35,13 @@ interface Post {
   codeinjection_head?: string
   codeinjection_foot?: string
   updated_at?: string
+}
+
+type PublishingGateState = {
+  approved: boolean
+  reason: string
+  identity: { contentHash: string; contentKey: string }
+  approvalUrl: string
 }
 
 function BlogEditorContent() {
@@ -129,6 +136,8 @@ function BlogEditorContent() {
   const [imagePrompt, setImagePrompt] = useState('')
   const [generatingImage, setGeneratingImage] = useState(false)
   const [generatedImageUrl, setGeneratedImageUrl] = useState('')
+  const [publishingGate, setPublishingGate] = useState<PublishingGateState | null>(null)
+  const [checkingPublishingGate, setCheckingPublishingGate] = useState(false)
 
   useEffect(() => {
     document.title = postId ? 'Edit Post | Admin' : 'New Post | Admin'
@@ -361,6 +370,41 @@ function BlogEditorContent() {
     }
   }
 
+  const checkPublishingGate = async () => {
+    if (!post.title.trim()) {
+      alert('Enter a title before preparing editorial approval.')
+      return
+    }
+    setCheckingPublishingGate(true)
+    try {
+      const response = await fetch('/api/admin/publishing-standards', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          operation: 'fingerprintBlog',
+          fallbackSlug: postId || '',
+          content: {
+            title: post.title,
+            slug: post.slug,
+            html: post.html,
+            excerpt: post.excerpt,
+            featured_image: transformToGhostUrl(post.feature_image),
+            meta_title: post.meta_title,
+            meta_description: post.meta_description,
+            tags: post.tags,
+          },
+        }),
+      })
+      const result = await response.json()
+      if (!response.ok || !result.ok) throw new Error(result.error || 'Editorial readiness could not be checked.')
+      setPublishingGate({ ...result.gate, identity: result.identity, approvalUrl: result.approvalUrl })
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Editorial readiness could not be checked.')
+    } finally {
+      setCheckingPublishingGate(false)
+    }
+  }
+
   const handleSave = async (newStatus?: 'draft' | 'published', retryCount = 0) => {
     if (!post.title.trim()) {
       alert('Please enter a title')
@@ -451,6 +495,10 @@ function BlogEditorContent() {
       )
 
       const result = await response.json()
+
+      if (result.publishingGate) {
+        setPublishingGate(result.publishingGate)
+      }
 
       // Handle 409 conflict (stale updated_at) with automatic retry
       // Ghost sometimes takes time to process changes (like image uploads) and update timestamps
@@ -585,6 +633,15 @@ function BlogEditorContent() {
               </h1>
             </div>
             <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => void checkPublishingGate()}
+                disabled={checkingPublishingGate || saving}
+                className="hidden sm:flex items-center gap-2 px-4 py-2 border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:border-emerald-300 hover:bg-emerald-50 transition-colors disabled:opacity-50"
+              >
+                <ShieldCheck className="w-4 h-4" />
+                {checkingPublishingGate ? 'Checking…' : 'Editorial check'}
+              </button>
               <select
                 value={post.status}
                 onChange={(e) => setPost({ ...post, status: e.target.value as 'draft' | 'published' })}
@@ -625,6 +682,22 @@ function BlogEditorContent() {
           </div>
         </div>
       </header>
+
+      {publishingGate && (
+        <div className="px-4 pt-4 sm:px-6 lg:px-8">
+          <div className={`flex flex-col gap-3 rounded-xl border-2 p-4 sm:flex-row sm:items-center sm:justify-between ${publishingGate.approved ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+            <div className="flex items-start gap-3">
+              <ShieldCheck className={`mt-0.5 h-5 w-5 shrink-0 ${publishingGate.approved ? 'text-emerald-700' : 'text-amber-700'}`} />
+              <div>
+                <p className="font-bold text-slate-900">{publishingGate.approved ? 'This exact version is approved' : 'Publishing is locked for this version'}</p>
+                <p className="mt-1 text-sm text-slate-600">{publishingGate.approved ? 'The content fingerprint matches Rob’s editorial approval.' : 'Complete the first-party, evidence, specificity, and claims review before publishing.'}</p>
+                <p className="mt-1 font-mono text-[10px] text-slate-500">{publishingGate.identity.contentHash}</p>
+              </div>
+            </div>
+            <a href={publishingGate.approvalUrl} className={`inline-flex justify-center rounded-lg px-4 py-2 text-sm font-bold ${publishingGate.approved ? 'border border-emerald-300 bg-white text-emerald-800' : 'bg-slate-900 text-white'}`}>{publishingGate.approved ? 'Review record' : 'Prepare approval'}</a>
+          </div>
+        </div>
+      )}
 
       {/* Editor */}
       <main className="px-4 sm:px-6 lg:px-8 py-8 max-w-4xl mx-auto">

@@ -2,12 +2,16 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getPostBySlug, savePost, deletePost, markdownToHtml } from '@/lib/blog';
+import { requireAdminApiSession } from '@/lib/admin-api-session';
+import { blogPublishingIdentity, checkPublishingRelease, publishingApprovalUrl } from '@/lib/publishing-standard';
 
 // GET - Fetch post by ID (slug)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
   try {
     const { id } = await params;
     // In our file-based system, ID is the same as slug
@@ -58,9 +62,23 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
   try {
     const { id } = await params;
     const body = await request.json();
+
+    if ((body.status || 'draft') === 'published') {
+      const identity = blogPublishingIdentity(body, id);
+      const gate = await checkPublishingRelease(identity);
+      if (!gate.approved) {
+        return NextResponse.json({
+          success: false,
+          error: 'Publishing blocked: this exact version needs editorial approval.',
+          publishingGate: { ...gate, identity, approvalUrl: publishingApprovalUrl(identity) },
+        }, { status: 409 });
+      }
+    }
 
     const frontmatter = {
       title: body.title,
@@ -98,6 +116,8 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
   try {
     const { id } = await params;
     const success = deletePost(id);

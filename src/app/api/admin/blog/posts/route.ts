@@ -2,9 +2,13 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllPosts } from '@/lib/blog';
+import { requireAdminApiSession } from '@/lib/admin-api-session';
+import { blogPublishingIdentity, checkPublishingRelease, publishingApprovalUrl } from '@/lib/publishing-standard';
 
 // GET - Fetch all posts from markdown files
 export async function GET(request: NextRequest) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
   try {
     const { searchParams } = new URL(request.url);
     const statusParam = searchParams.get('status') || 'all';
@@ -45,11 +49,25 @@ export async function GET(request: NextRequest) {
 
 // POST - Create new post
 export async function POST(request: NextRequest) {
+  const unauthorized = await requireAdminApiSession();
+  if (unauthorized) return unauthorized;
   try {
     const body = await request.json();
     const { savePost } = await import('@/lib/blog');
 
     const slug = body.slug || body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+    if ((body.status || 'draft') === 'published') {
+      const identity = blogPublishingIdentity(body, slug);
+      const gate = await checkPublishingRelease(identity);
+      if (!gate.approved) {
+        return NextResponse.json({
+          success: false,
+          error: 'Publishing blocked: this exact version needs editorial approval.',
+          publishingGate: { ...gate, identity, approvalUrl: publishingApprovalUrl(identity) },
+        }, { status: 409 });
+      }
+    }
     
     const frontmatter = {
       title: body.title,

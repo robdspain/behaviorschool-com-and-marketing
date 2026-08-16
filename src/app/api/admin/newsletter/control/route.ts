@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyAdminSession } from '@/lib/admin-auth'
 import { callNewsletterConvex, listRobSpainDeliveryRecords, newsletterErrorResponse } from '@/lib/newsletter-admin'
+import { checkPublishingRelease, newsletterPublishingIdentity, publishingApprovalUrl } from '@/lib/publishing-standard'
 
 export const dynamic = 'force-dynamic'
 
@@ -21,7 +22,16 @@ export async function GET(request: NextRequest) {
         callNewsletterConvex('query', 'weeklyNewsletter:getIssueForAdmin', { issueId }),
         callNewsletterConvex('query', 'weeklyNewsletter:issueAnalyticsForAdmin', { issueId }),
       ])
-      return NextResponse.json({ ok: true, issue, analytics })
+      const identity = newsletterPublishingIdentity(issue)
+      const publishingGate = await checkPublishingRelease(identity)
+      return NextResponse.json({
+        ok: true,
+        issue,
+        analytics,
+        publishingGate,
+        publishingIdentity: identity,
+        publishingApprovalUrl: publishingApprovalUrl(identity),
+      })
     }
 
     const [issues, summary, audiences, ctas, deliveryRecords] = await Promise.all([
@@ -61,6 +71,25 @@ export async function POST(request: NextRequest) {
     }
     if (!operation || !operations[operation]) {
       return NextResponse.json({ ok: false, error: 'Unknown newsletter operation.' }, { status: 400 })
+    }
+
+    if (['approve', 'publishAndVerify', 'sendApproved'].includes(operation)) {
+      const issueId = typeof args.issueId === 'string' ? args.issueId : ''
+      if (!issueId) {
+        return NextResponse.json({ ok: false, error: 'An issue is required for this publishing action.' }, { status: 400 })
+      }
+      const issue = await callNewsletterConvex('query', 'weeklyNewsletter:getIssueForAdmin', { issueId })
+      const identity = newsletterPublishingIdentity(issue)
+      const publishingGate = await checkPublishingRelease(identity)
+      if (!publishingGate.approved) {
+        return NextResponse.json({
+          ok: false,
+          error: 'Publishing blocked: this exact newsletter version needs editorial approval.',
+          publishingGate,
+          publishingIdentity: identity,
+          publishingApprovalUrl: publishingApprovalUrl(identity),
+        }, { status: 409 })
+      }
     }
 
     const target = operations[operation]

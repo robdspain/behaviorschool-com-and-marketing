@@ -973,6 +973,54 @@ export default defineSchema({
     .index("by_in_sitemap", ["inSitemap"])
     .index("by_deleted", ["deleted"]),
 
+  editorialPublishingRecords: defineTable({
+    site: v.union(v.literal("behaviorschool"), v.literal("robspain")),
+    contentKey: v.string(),
+    title: v.string(),
+    contentType: v.string(),
+    tier: v.union(
+      v.literal("A"),
+      v.literal("B"),
+      v.literal("C"),
+      v.literal("social-derivative")
+    ),
+    contentHash: v.string(),
+    approvalStatus: v.union(
+      v.literal("draft"),
+      v.literal("approved"),
+      v.literal("stale"),
+      v.literal("revoked")
+    ),
+    audienceNeed: v.string(),
+    firstPartyInputReference: v.string(),
+    distinctiveThesis: v.string(),
+    specificityAnchors: v.array(v.object({
+      type: v.string(),
+      detail: v.string(),
+      verifiedByRob: v.boolean(),
+    })),
+    evidenceInterpretationSeparated: v.boolean(),
+    informationGain: v.string(),
+    disclosureDecision: v.union(
+      v.literal("site-standard"),
+      v.literal("page-specific"),
+      v.literal("not-needed")
+    ),
+    detectorOptimizationUsed: v.boolean(),
+    claimsReviewed: v.boolean(),
+    canonicalSource: v.optional(v.string()),
+    sourceApprovalReference: v.optional(v.string()),
+    notes: v.optional(v.string()),
+    approvedContentHash: v.optional(v.string()),
+    approvedBy: v.optional(v.string()),
+    approvedAt: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_site_content_key", ["site", "contentKey"])
+    .index("by_status", ["approvalStatus"])
+    .index("by_updated_at", ["updatedAt"]),
+
   analyticsEvents: defineTable({
     legacyId: v.optional(v.string()),
     eventType: v.string(),

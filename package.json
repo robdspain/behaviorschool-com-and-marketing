@@ -22,6 +22,7 @@
     "fix-ghost-images": "node fix-ghost-images.js",
     "postbuild": "node scripts/verify-bcba-acquisition-routing.mjs && tsx --test scripts/tests/search-console-sites.test.ts",
     "test:seo-monitor": "tsx --test scripts/tests/search-console-sites.test.ts",
+    "test:publishing-standards": "tsx --test scripts/tests/publishing-standards.test.ts",
     "test:bst-referral": "tsx --test src/lib/bst-referral-campaign.test.ts",
     "seo:verify-routing": "node scripts/verify-bcba-acquisition-routing.mjs",
     "universal-indexing": "node scripts/universal-indexing-submit.js",

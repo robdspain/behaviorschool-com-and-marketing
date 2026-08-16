@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList, PhoneCall, Clock, MailCheck, CalendarClock, LifeBuoy, RefreshCw } from 'lucide-react'
+import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList, PhoneCall, Clock, MailCheck, CalendarClock, LifeBuoy, RefreshCw, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export const dynamic = 'force-dynamic'
@@ -277,6 +277,14 @@ export default function AdminDashboard() {
       icon: FileText,
       color: 'orange',
       stats: 'Coming soon'
+    },
+    {
+      title: 'Publishing Standards',
+      description: 'Approve exact content versions after authorship, evidence, and claims review',
+      href: '/admin/publishing-standards',
+      icon: ShieldCheck,
+      color: 'emerald',
+      stats: 'Release lock'
     }
   ]
 
