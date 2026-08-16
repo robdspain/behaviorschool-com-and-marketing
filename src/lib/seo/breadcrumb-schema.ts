@@ -35,13 +35,14 @@ export interface BreadcrumbSchema {
     "@type": string;
     position: number;
     name: string;
-    item?: string;
+    item: string;
   }>;
 }
 
 export function generateBreadcrumbSchema(
   items: BreadcrumbItem[],
-  baseUrl: string = "https://behaviorschool.com"
+  baseUrl: string = "https://behaviorschool.com",
+  currentPath: string = "/"
 ): BreadcrumbSchema {
   return {
     "@context": "https://schema.org",
@@ -51,17 +52,13 @@ export function generateBreadcrumbSchema(
         "@type": string;
         position: number;
         name: string;
-        item?: string;
+        item: string;
       } = {
         "@type": "ListItem",
         position: index + 1,
         name: item.label,
+        item: `${baseUrl}${item.href || currentPath}`,
       };
-
-      // Only add 'item' property if href is provided (not for current page)
-      if (item.href) {
-        listItem.item = `${baseUrl}${item.href}`;
-      }
 
       return listItem;
     }),
@@ -111,7 +108,7 @@ export function generateBreadcrumbSchemaFromPath(
     });
   });
 
-  return generateBreadcrumbSchema(items, baseUrl);
+  return generateBreadcrumbSchema(items, baseUrl, pathname);
 }
 
 /**

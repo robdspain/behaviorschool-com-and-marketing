@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
 
 interface BreadcrumbItem {
@@ -13,6 +16,7 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
   const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://behaviorschool.com";
+  const pathname = usePathname() || "/";
   
   // Create full breadcrumb list with Home
   const fullBreadcrumbs = [
@@ -28,8 +32,9 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      "item": item.href ? `${SITE_URL}${item.href}` : undefined
-    })).filter(item => item.item !== undefined || item.name)
+      // Google requires every ListItem, including the current page, to identify its URL.
+      "item": `${SITE_URL}${item.href || pathname}`
+    }))
   };
 
   return (
