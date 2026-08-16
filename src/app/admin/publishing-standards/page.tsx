@@ -107,7 +107,18 @@ function PublishingStandardsContent() {
         const contentKey = searchParams.get('contentKey') || ''
         const site = (searchParams.get('site') || 'behaviorschool') as Site
         const existing = loaded.find((item) => item.site === site && item.contentKey === contentKey)
-        if (existing) setRecord(existing)
+        if (existing) {
+          const requestedHash = searchParams.get('contentHash') || existing.contentHash
+          const fingerprintChanged = requestedHash !== existing.contentHash
+          setRecord({
+            ...existing,
+            contentHash: requestedHash,
+            title: searchParams.get('title') || existing.title,
+            contentType: searchParams.get('contentType') || existing.contentType,
+            tier: (searchParams.get('tier') || existing.tier) as Tier,
+            approvalStatus: fingerprintChanged && existing.approvalStatus === 'approved' ? 'stale' : existing.approvalStatus,
+          })
+        }
         else if (contentKey) setRecord({
           ...emptyRecord(), site, contentKey,
           contentHash: searchParams.get('contentHash') || '',
@@ -136,19 +147,24 @@ function PublishingStandardsContent() {
   const mutate = async (operation: 'upsert' | 'approve' | 'revoke') => {
     setBusy(operation); setError(null); setNotice(null)
     try {
-      const payload = operation === 'upsert'
-        ? { operation, record: {
-          site: record.site, contentKey: record.contentKey, title: record.title, contentType: record.contentType,
-          tier: record.tier, contentHash: record.contentHash, audienceNeed: record.audienceNeed,
-          firstPartyInputReference: record.firstPartyInputReference, distinctiveThesis: record.distinctiveThesis,
-          specificityAnchors: record.specificityAnchors, evidenceInterpretationSeparated: record.evidenceInterpretationSeparated,
-          informationGain: record.informationGain, disclosureDecision: record.disclosureDecision,
-          detectorOptimizationUsed: record.detectorOptimizationUsed, claimsReviewed: record.claimsReviewed,
-          canonicalSource: record.canonicalSource || undefined, sourceApprovalReference: record.sourceApprovalReference || undefined,
-          notes: record.notes || undefined,
-        } }
-        : { operation, id: record.id }
-      const result = await apiRequest<{ record: RecordForm }>({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      const recordInput = {
+        site: record.site, contentKey: record.contentKey, title: record.title, contentType: record.contentType,
+        tier: record.tier, contentHash: record.contentHash, audienceNeed: record.audienceNeed,
+        firstPartyInputReference: record.firstPartyInputReference, distinctiveThesis: record.distinctiveThesis,
+        specificityAnchors: record.specificityAnchors, evidenceInterpretationSeparated: record.evidenceInterpretationSeparated,
+        informationGain: record.informationGain, disclosureDecision: record.disclosureDecision,
+        detectorOptimizationUsed: record.detectorOptimizationUsed, claimsReviewed: record.claimsReviewed,
+        canonicalSource: record.canonicalSource || undefined, sourceApprovalReference: record.sourceApprovalReference || undefined,
+        notes: record.notes || undefined,
+      }
+      let result: { record: RecordForm }
+      if (operation === 'approve') {
+        const saved = await apiRequest<{ record: RecordForm }>({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ operation: 'upsert', record: recordInput }) })
+        result = await apiRequest<{ record: RecordForm }>({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ operation: 'approve', id: saved.record.id }) })
+      } else {
+        const payload = operation === 'upsert' ? { operation, record: recordInput } : { operation, id: record.id }
+        result = await apiRequest<{ record: RecordForm }>({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      }
       setRecord(result.record)
       await load()
       setNotice(operation === 'upsert' ? 'Review record saved. Content changes automatically invalidate an earlier approval.' : operation === 'approve' ? 'Exact content fingerprint approved for release.' : 'Publishing approval revoked.')
