@@ -58,25 +58,25 @@
     --bs-section-even-alt: #FAFAFA; /* Very light grey alternative */
     
     /* Behavior School Brand Colors */
-    --bs-primary: #1E3A34;        /* Chalkboard green */
-    --bs-primary-dark: #152825;   /* Darker chalkboard green */
-    --bs-accent: #E3B23C;         /* Vintage golden yellow */
-    --bs-background: #FAF3E0;     /* Cream paper (body default) */
-    --bs-text: #1A1A1A;           /* Primary text color */
-    --bs-text-light: #6B7280;     /* Secondary text color */
+    --bs-primary: #1F4D3F;
+    --bs-primary-dark: #123628;
+    --bs-accent: #E4B63D;
+    --bs-background: #FBFAF6;
+    --bs-text: #171F1D;
+    --bs-text-light: #5C5449;
 
     /* 2026 Chalkboard Palette */
-    --bs-chalk-dark: #1a3d2e;
-    --bs-chalk-mid: #2d5a3d;
-    --bs-parchment: #FAF3E0;
-    --bs-parchment-mid: #F0E6CE;
-    --bs-parchment-deep: #E8DCC0;
-    --bs-gold: #C8901A;
-    --bs-gold-light: #E8B84B;
-    --bs-ink: #1C1C1A;
-    --bs-ink-mid: #4A4A45;
-    --bs-ink-light: #7A7A72;
-    --bs-border: #D8D0BC;
+    --bs-chalk-dark: #0B3528;
+    --bs-chalk-mid: #1F4D3F;
+    --bs-parchment: #FBFAF6;
+    --bs-parchment-mid: #F2EEE6;
+    --bs-parchment-deep: #DDD2C3;
+    --bs-gold: #E4B63D;
+    --bs-gold-light: #F0CC69;
+    --bs-ink: #171F1D;
+    --bs-ink-mid: #5C5449;
+    --bs-ink-light: #7C756B;
+    --bs-border: #DDD2C3;
     
     /* Behavior Study Tools variables */
     --quiz-background: #FAFBFC;

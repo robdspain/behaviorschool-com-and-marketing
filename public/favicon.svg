@@ -1,7 +1,6 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <title>Behavior School</title>
-  <rect width="512" height="512" rx="56" fill="#F7F7F7"/>
-  <g stroke="#242424" stroke-width="12" stroke-linecap="round">
+  <g stroke="#E4B63D" stroke-width="13" stroke-linecap="round">
     <path d="M112 112V404"/>
     <path d="M176 112V404"/>
     <path d="M240 112V404"/>
@@ -14,9 +13,9 @@
     <path d="M112 368H400"/>
     <path d="M112 404H400"/>
   </g>
-  <path d="M112 404L188 350L252 370L332 286L408 184" stroke="#D9982B" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M390 160L432 184L390 208" stroke="#D9982B" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
-  <g fill="#D9982B">
+  <path d="M112 404L188 350L252 370L332 286L408 184" stroke="#E4B63D" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M382 152L438 184L382 216" stroke="#E4B63D" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#E4B63D">
     <circle cx="188" cy="350" r="17"/>
     <circle cx="252" cy="370" r="17"/>
   </g>

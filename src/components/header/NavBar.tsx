@@ -27,7 +27,7 @@ export function NavBar() {
             transition={{ duration: 0.2 }}
           >
             <Link href="/" className="flex items-center gap-3">
-              <span className="relative h-9 w-9 rounded-full bg-[#1f4d3f]/10 flex items-center justify-center">
+              <span className="relative flex h-9 w-9 items-center justify-center rounded-md bg-[#FBFAF6] ring-1 ring-[#DDD2C3]">
                 <Image
                   src="/behavior-school-icon.png"
                   alt="BehaviorSchool logo"
@@ -44,13 +44,13 @@ export function NavBar() {
             <div className="flex items-center gap-3">
               <Link
                 href="/transformation-program"
-                className="inline-flex items-center justify-center rounded-full bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white hover:bg-[#173a2f] transition"
+                className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#123628]"
               >
                 September Cohort Open
               </Link>
               <Link
                 href="/free-bcba-practice-exam"
-                className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/30 px-4 py-2 text-sm font-semibold text-[#1f4d3f] hover:bg-[#1f4d3f]/10 transition"
+                className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#1f4d3f]/30 px-4 py-2 text-sm font-semibold text-[#1f4d3f] transition hover:bg-[#f2eee6]"
               >
                 Free BCBA Exam
               </Link>

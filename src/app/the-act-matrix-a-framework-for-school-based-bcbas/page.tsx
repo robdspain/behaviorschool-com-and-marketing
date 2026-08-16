@@ -495,7 +495,7 @@ export default function ACTMatrixFrameworkPage() {
               </div>
 
               <p className="text-center text-sm text-emerald-100">
-                Join 1,000+ school-based BCBAs already using these evidence-based approaches
+                Explore practical school-based resources grounded in behavior science.
               </p>
             </div>
 

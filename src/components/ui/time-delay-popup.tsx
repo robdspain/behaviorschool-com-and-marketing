@@ -14,7 +14,7 @@ interface TimeDelayPopupProps {
 }
 
 export function TimeDelayPopup({
-  title = "Join 5,000+ School BCBAs Getting Weekly Tips",
+  title = "Get weekly school BCBA resources",
   description = "Get evidence-based strategies, IEP tools, and behavior support ideas delivered every week. Free resources to help you work smarter, not harder.",
   pageSource,
   buttonText = "Subscribe to Weekly Tips",
