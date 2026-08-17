@@ -305,6 +305,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/school-based-behavior-work-can-be-overwhelming-2',
+        destination: '/school-bcba',
+        permanent: true,
+      },
+      {
         source: '/school-based-behavior-work-can-be-overwhelming-2/',
         destination: '/school-bcba',
         permanent: true,
