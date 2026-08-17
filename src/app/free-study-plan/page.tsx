@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen, ClipboardList } from "lucide-react";
 
 export default function FreeStudyPlanPage() {
@@ -148,7 +149,7 @@ export default function FreeStudyPlanPage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="grid gap-6 sm:grid-cols-2">
           <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 flex flex-col">
-            <img src="/covers/rbt-study-guide-cover.svg" alt="RBT Study Guide Cover" className="w-full h-auto rounded-2xl border border-slate-200" />
+            <Image src="/covers/rbt-study-guide-cover.svg" alt="RBT Study Guide Cover" width={800} height={1035} sizes="(max-width: 640px) 100vw, 50vw" className="h-auto w-full rounded-2xl border border-slate-200" />
             <h3 className="mt-5 text-xl font-bold text-[#1f4d3f]">RBT Study Guide (PDF)</h3>
             <p className="mt-2 text-slate-600">A focused 4-week plan with daily structure and review steps.</p>
             <a
@@ -160,7 +161,7 @@ export default function FreeStudyPlanPage() {
             </a>
           </div>
           <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 flex flex-col">
-            <img src="/covers/bcba-study-guide-cover.svg" alt="BCBA Study Guide Cover" className="w-full h-auto rounded-2xl border border-slate-200" />
+            <Image src="/covers/bcba-study-guide-cover.svg" alt="BCBA Study Guide Cover" width={800} height={1035} sizes="(max-width: 640px) 100vw, 50vw" className="h-auto w-full rounded-2xl border border-slate-200" />
             <h3 className="mt-5 text-xl font-bold text-[#1f4d3f]">BCBA Study Guide (PDF)</h3>
             <p className="mt-2 text-slate-600">An 8-week plan with topic sequencing, mocks, and review structure.</p>
             <a

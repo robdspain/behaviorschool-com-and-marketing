@@ -119,16 +119,16 @@ export function Footer() {
             <Link href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors">
               FAQ
             </Link>
-            <Link href="/bcba-exam-prep" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="text-gray-600 hover:text-gray-900 transition-colors">
               BCBA Exam Prep
             </Link>
-            <Link href="/free-bcba-practice-exam" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="text-gray-600 hover:text-gray-900 transition-colors">
               Free BCBA Practice Exam
             </Link>
             <Link href="/bcba-readiness-quiz" className="text-gray-600 hover:text-gray-900 transition-colors">
               BCBA Readiness Check
             </Link>
-            <Link href="/bcba-6th-edition-practice-questions" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="text-gray-600 hover:text-gray-900 transition-colors">
               BCBA 6th Edition Questions
             </Link>
             <Link href="/bcba-exam-weak-areas" className="text-gray-600 hover:text-gray-900 transition-colors">
@@ -137,13 +137,13 @@ export function Footer() {
             <Link href="/ai-for-behavior-analysts" className="text-gray-600 hover:text-gray-900 transition-colors">
               AI for Behavior Analysts
             </Link>
-            <Link href="/bcba-practice-exam" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="text-gray-600 hover:text-gray-900 transition-colors">
               BCBA Practice Exam
             </Link>
-            <Link href="/bcba-test-questions" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="text-gray-600 hover:text-gray-900 transition-colors">
               BCBA Test Questions
             </Link>
-            <Link href="/free-bcba-mock-exam" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="text-gray-600 hover:text-gray-900 transition-colors">
               Free BCBA Mock Exam
             </Link>
             <Link href="/school-bcba/interview-questions" className="text-gray-600 hover:text-gray-900 transition-colors">

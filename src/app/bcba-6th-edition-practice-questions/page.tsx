@@ -4,7 +4,7 @@ import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
-const canonical = "https://behaviorschool.com/bcba-6th-edition-practice-questions";
+const canonical = "https://study.behaviorschool.com/free-practice/";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "BCBA 6th Edition Practice Questions | Free Samples + Rationales",
@@ -31,9 +31,9 @@ export default function BcbaSixthEditionPracticeQuestionsPage() {
       primaryCta={{ label: "Practice in the study app", href: appPracticeHref }}
       secondaryLinks={[
         { label: "BCBA readiness check", href: "/bcba-readiness-quiz" },
-        { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
-        { label: "BCBA test questions", href: "/bcba-test-questions" },
-        { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
+        { label: "BCBA exam practice questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "BCBA test questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
         { label: "BCBA study schedule", href: "/bcba-study-schedule" },
       ]}
       sections={[

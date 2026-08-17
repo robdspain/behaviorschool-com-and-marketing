@@ -126,8 +126,8 @@ export default function ResultsPage() {
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
         <Breadcrumbs items={[
-          { label: "BCBA Exam Prep", href: "/bcba-exam-prep" },
-          { label: "Free Practice Test", href: "/free-bcba-practice-test" },
+          { label: "BCBA Exam Prep", href: "https://study.behaviorschool.com/free-practice/" },
+          { label: "Free Practice Test", href: "https://study.behaviorschool.com/free-practice/" },
           { label: "Results" }
         ]} />
       </div>
@@ -409,7 +409,7 @@ export default function ResultsPage() {
               </a>
 
               <Link
-                href="/study"
+                href="https://behaviorstudytools.com/"
                 className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold border-2 border-white text-white hover:bg-white/10 rounded-xl transition-all duration-200"
               >
                 Explore All Study Tools
@@ -452,7 +452,7 @@ export default function ResultsPage() {
               </div>
             </Link>
 
-            <Link href="/study" className="group">
+            <Link href="https://behaviorstudytools.com/" className="group">
               <div className="bg-slate-50 hover:bg-purple-50 rounded-2xl p-6 border-2 border-slate-200 hover:border-purple-500 transition-all duration-200 h-full">
                 <div className="w-12 h-12 bg-purple-100 group-hover:bg-purple-600 rounded-xl flex items-center justify-center mb-4 transition-colors">
                   <Star className="w-6 h-6 text-purple-600 group-hover:text-white transition-colors" />

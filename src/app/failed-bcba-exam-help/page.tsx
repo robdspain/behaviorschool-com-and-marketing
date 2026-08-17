@@ -22,14 +22,14 @@ export default function FailedBcbaExamHelpPage() {
       breadcrumbLabel="Failed BCBA Exam Help"
       canonical={canonical}
       heroVisual
-      primaryCta={{ label: "Start free retake practice", href: "/free-bcba-practice-exam" }}
+      primaryCta={{ label: "Start free retake practice", href: "https://study.behaviorschool.com/free-practice/" }}
       secondaryLinks={[
-        { label: "BCBA exam prep guide", href: "/bcba-exam-prep" },
+        { label: "BCBA exam prep guide", href: "https://study.behaviorschool.com/free-practice/" },
         { label: "BCBA study schedule", href: "/bcba-study-schedule" },
-        { label: "Free BCBA practice exam", href: "/free-bcba-practice-exam" },
-        { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
-        { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
-        { label: "BCBA test questions", href: "/bcba-test-questions" },
+        { label: "Free BCBA practice exam", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
+        { label: "BCBA exam practice questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "BCBA test questions", href: "https://study.behaviorschool.com/free-practice/" },
       ]}
       sections={[
         {
@@ -126,19 +126,19 @@ export default function FailedBcbaExamHelpPage() {
             {
               heading: "If you ran out of time",
               body: "Practice shorter timed sets first. Track questions that take longer than 90 seconds and review why they slowed you down.",
-              href: "/free-bcba-mock-exam",
+              href: "https://study.behaviorschool.com/free-mock-exam/",
               label: "Plan timed mock practice",
             },
             {
               heading: "If distractors fooled you",
               body: "Do not just reread definitions. Write why the wrong answer was tempting and what detail in the stem ruled it out.",
-              href: "/bcba-test-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Review sample questions",
             },
             {
               heading: "If domains were uneven",
               body: "Use domain practice before mixed practice. Your goal is not more hours; it is better allocation of the hours you have.",
-              href: "/bcba-exam-practice-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Practice by domain",
             },
           ].map((item) => (

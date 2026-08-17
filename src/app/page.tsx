@@ -51,7 +51,7 @@ export default function Home() {
         title="Everything a Behavior Analyst"
         highlight="Actually Needs"
         subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school-based behavior professionals."
-        primaryCta={{ href: "/free-bcba-practice-exam", label: "Take Free BCBA Practice Exam" }}
+        primaryCta={{ href: "https://study.behaviorschool.com/free-practice/", label: "Take Free BCBA Practice Exam" }}
         variant="brand"
       />
 
@@ -107,7 +107,7 @@ export default function Home() {
             </div>
           </div>
           <Link
-            href="/free-bcba-practice-exam"
+            href="https://study.behaviorschool.com/free-practice/"
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-[#173a30]"
           >
             Take the free exam
@@ -156,19 +156,19 @@ export default function Home() {
                 Start with free BCBA practice questions, then move into mock exams, detailed analytics, and adaptive study paths.
               </p>
               <div className="mt-6 grid gap-2 text-sm">
-                <Link href="/free-bcba-practice-exam" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
                   Free 10-question BCBA exam <ArrowRight size={14} />
                 </Link>
-                <Link href="/bcba-exam-prep" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
                   BCBA exam prep <ArrowRight size={14} />
                 </Link>
-                <Link href="/bcba-practice-exam" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                <Link href="https://study.behaviorschool.com/free-mock-exam/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
                   BCBA practice exam <ArrowRight size={14} />
                 </Link>
-                <Link href="/bcba-test-questions" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
                   Sample BCBA exam questions <ArrowRight size={14} />
                 </Link>
-                <Link href="/free-bcba-mock-exam" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                <Link href="https://study.behaviorschool.com/free-mock-exam/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
                   BCBA mock exam free <ArrowRight size={14} />
                 </Link>
               </div>

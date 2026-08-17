@@ -53,7 +53,7 @@ function UnauthorizedContent() {
               <Link href="/iep-goals" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">
                 IEP Behavior Goals Generator
               </Link>
-              <Link href="/bcba-exam-prep" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">
+              <Link href="https://study.behaviorschool.com/free-practice/" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">
                 BCBA Exam Prep Tools
               </Link>
               <Link href="/blog" className="block text-sm text-blue-600 hover:text-blue-700 hover:underline">

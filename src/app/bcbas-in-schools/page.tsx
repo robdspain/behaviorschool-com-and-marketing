@@ -25,13 +25,13 @@ export const metadata: Metadata = {
   description: 'BCBAs in K–12 schools: evidence-based roles, PBIS/MTSS alignment, FBA→BIP, staff coaching, fidelity, and data systems—backed by verified sources.',
   keywords: 'BCBAs in schools, school BCBA, PBIS MTSS, FBA BIP, IEP goals, coaching, fidelity, behavior data systems',
   alternates: {
-    canonical: 'https://behaviorschool.com/bcbas-in-schools'
+    canonical: 'https://behaviorschool.com/school-bcba'
   },
   openGraph: {
     title: 'BCBAs in Schools: Roles, PBIS/MTSS, FBA→BIP',
     description: 'School BCBA roles, systems, and strategies—verified sources and practical solutions.',
     type: 'article',
-    url: 'https://behaviorschool.com/bcbas-in-schools',
+    url: 'https://behaviorschool.com/school-bcba',
     siteName: 'Behavior School',
     locale: 'en_US',
     images: [
@@ -600,7 +600,7 @@ export default function BCBAsInSchoolsPage() {
                 <p className="text-emerald-100 text-sm mb-4">
                   Connect with school-based BCBAs sharing strategies, resources, and support
                 </p>
-                <Link href="/community">
+                <Link href="/transformation-program">
                   <button className="bg-white/20 hover:bg-white/30 text-white font-semibold px-8 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
                     Join Free Community
                     <ArrowRight className="w-5 h-5" />

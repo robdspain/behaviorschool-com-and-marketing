@@ -66,10 +66,10 @@ export default async function BlogPage() {
           <div className="mb-10">
             <div className="bg-white/80 border-2 border-slate-200 rounded-2xl p-4">
               <div className="flex flex-wrap gap-2">
-                <a className="px-3 py-2 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-sm font-semibold hover:bg-emerald-100" href="/bcba-exam-prep">BCBA Exam Prep Guide</a>
-                <a className="px-3 py-2 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 text-sm font-semibold hover:bg-blue-100" href="/bcba-test-questions">Sample BCBA Exam Questions</a>
-                <a className="px-3 py-2 rounded-lg bg-purple-50 text-purple-800 border border-purple-200 text-sm font-semibold hover:bg-purple-100" href="/bcba-practice-exam">BCBA Practice Exam</a>
-                <a className="px-3 py-2 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-sm font-semibold hover:bg-amber-100" href="/free-bcba-mock-exam">BCBA Mock Exam Free</a>
+                <a className="px-3 py-2 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-sm font-semibold hover:bg-emerald-100" href="https://study.behaviorschool.com/free-practice/">BCBA Exam Prep Guide</a>
+                <a className="px-3 py-2 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 text-sm font-semibold hover:bg-blue-100" href="https://study.behaviorschool.com/free-practice/">Sample BCBA Exam Questions</a>
+                <a className="px-3 py-2 rounded-lg bg-purple-50 text-purple-800 border border-purple-200 text-sm font-semibold hover:bg-purple-100" href="https://study.behaviorschool.com/free-mock-exam/">BCBA Practice Exam</a>
+                <a className="px-3 py-2 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-sm font-semibold hover:bg-amber-100" href="https://study.behaviorschool.com/free-mock-exam/">BCBA Mock Exam Free</a>
                 <a className="px-3 py-2 rounded-lg bg-cyan-50 text-cyan-800 border border-cyan-200 text-sm font-semibold hover:bg-cyan-100" href="/ai-for-behavior-analysts">AI for Behavior Analysts</a>
                 <a className="px-3 py-2 rounded-lg bg-pink-50 text-pink-800 border border-pink-200 text-sm font-semibold hover:bg-pink-100" href="/school-bcba">School‑Based BCBA</a>
                 <a className="px-3 py-2 rounded-lg bg-slate-50 text-slate-800 border border-slate-200 text-sm font-semibold hover:bg-slate-100" href="/iep-goals">IEP Goals</a>

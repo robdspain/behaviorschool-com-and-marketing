@@ -4,7 +4,6 @@ import { Footer } from "@/components/footer";
 import { ToastProvider } from "@/components/toast";
 import { ConditionalNavBar } from "@/components/ConditionalNavBar";
 import { PrivacyCompliantAnalytics } from "@/components/analytics/PrivacyCompliantAnalytics";
-import PerformanceOptimizer from "@/components/PerformanceOptimizer";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 import Script from "next/script";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
@@ -190,7 +189,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <PerformanceOptimizer />
         <PerformanceMonitor />
         {/* Preconnect hints for performance */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -223,11 +221,11 @@ export default function RootLayout({
         </Script>
 
         {/* Ahrefs Analytics */}
-        <script
-          async
+        <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="S+Vj3X2Qa6J/7godUSWIPg"
-        ></script>
+          strategy="lazyOnload"
+        />
 
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />

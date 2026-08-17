@@ -1002,7 +1002,7 @@ export default function ACTMatrixPage() {
                   Study materials and practice questions specifically designed for school-based behavior analysts.
                 </p>
                 <Button variant="outline" asChild>
-                  <Link href="/bcba-exam-prep">
+                  <Link href="https://study.behaviorschool.com/free-practice/">
                     Learn More
                   </Link>
                 </Button>

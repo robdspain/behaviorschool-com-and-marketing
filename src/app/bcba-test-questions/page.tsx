@@ -4,7 +4,7 @@ import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
-const canonical = "https://behaviorschool.com/bcba-test-questions";
+const canonical = "https://study.behaviorschool.com/free-practice/";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "BCBA Test Questions | Free Samples + Rationales",
@@ -23,13 +23,13 @@ export default function Page() {
       breadcrumbLabel="BCBA Test Questions"
       canonical={canonical}
       heroVisual
-      primaryCta={{ label: "Take the free practice exam", href: "/free-bcba-practice-exam" }}
+      primaryCta={{ label: "Take the free practice exam", href: "https://study.behaviorschool.com/free-practice/" }}
       secondaryLinks={[
-        { label: "Free BCBA practice exam", href: "/free-bcba-practice-exam" },
-        { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
-        { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
-        { label: "BCBA practice exam", href: "/bcba-practice-exam" },
-        { label: "BCBA exam prep", href: "/bcba-exam-prep" },
+        { label: "Free BCBA practice exam", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "BCBA exam practice questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
+        { label: "BCBA practice exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
+        { label: "BCBA exam prep", href: "https://study.behaviorschool.com/free-practice/" },
       ]}
       sections={[
         {
@@ -112,7 +112,7 @@ export default function Page() {
             <p className="mt-2 text-sm leading-relaxed text-slate-700">
               Sample questions are useful when you need quick feedback on ethics, measurement, assessment, experimental design, or behavior-change procedures.
             </p>
-            <Link href="/bcba-exam-practice-questions" className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
               Study BCBA exam practice questions
             </Link>
           </div>
@@ -121,7 +121,7 @@ export default function Page() {
             <p className="mt-2 text-sm leading-relaxed text-slate-700">
               A mock exam is better when you need timing, endurance, and a realistic check of whether your practice-question accuracy holds across longer blocks.
             </p>
-            <Link href="/free-bcba-mock-exam" className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
+            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
               Plan a free BCBA mock exam
             </Link>
           </div>

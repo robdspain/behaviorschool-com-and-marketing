@@ -11,7 +11,7 @@ const CourseStructuredData = memo(() => (
         "@type": "Course",
         "name": "Free BCBA Mock Practice Test",
         "description": "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
-        "url": "https://behaviorschool.com/bcba-mock-practice-test",
+        "url": "https://study.behaviorschool.com/free-mock-exam/",
         "provider": {
           "@type": "Organization",
           "name": "Behavior School",

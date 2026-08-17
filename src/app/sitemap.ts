@@ -5,6 +5,7 @@ import { getPublishedPosts } from '@/lib/blog'
 
 // Cache sitemap for 1 hour to reduce server load from crawler requests
 export const dynamic = "force-static"
+export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://behaviorschool.com'

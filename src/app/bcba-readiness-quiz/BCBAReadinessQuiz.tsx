@@ -480,7 +480,7 @@ export function BCBAReadinessQuiz() {
             <Link href="/bcba-exam-weak-areas" className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-emerald-800 hover:bg-emerald-50">
               Find BCBA weak areas
             </Link>
-            <Link href="/bcba-6th-edition-practice-questions" className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-emerald-800 hover:bg-emerald-50">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-emerald-800 hover:bg-emerald-50">
               6th Edition practice questions
             </Link>
           </div>

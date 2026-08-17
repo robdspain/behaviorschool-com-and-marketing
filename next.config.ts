@@ -306,7 +306,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/school-based-behavior-work-can-be-overwhelming-2/',
-        destination: '/school-based-behavior-support',
+        destination: '/school-bcba',
         permanent: true,
       },
       // ACT Matrix pages (404s from GSC)

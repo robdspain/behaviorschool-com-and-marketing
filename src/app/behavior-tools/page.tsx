@@ -198,7 +198,7 @@ const tools: ToolCard[] = [
     title: "Free BCBA Practice Exam",
     description:
       "Test your BCBA exam knowledge with free practice questions covering ethics, measurement, assessment, intervention, and more.",
-    href: "/free-bcba-practice-exam",
+    href: "https://study.behaviorschool.com/free-practice/",
     icon: ClipboardCheck,
     status: "live",
     features: [

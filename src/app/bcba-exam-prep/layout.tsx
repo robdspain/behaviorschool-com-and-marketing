@@ -4,11 +4,11 @@ export const metadata: Metadata = {
   title: "Free BCBA Exam Prep | Practice Questions + Study Plan",
   description: "Free BCBA exam prep with practice questions, mock exams, study schedule guidance, and school-based scenarios. Start with the right practice path.",
   keywords: "BCBA exam study guide free download, BCBA exam pass rates 2024, how to pass the BCBA exam, BCBA exam prep, BCBA practice test, BCBA study guide, behavior analyst certification, BCBA test prep, applied behavior analysis exam, school BCBA certification, free BCBA study materials, BCBA certification exam preparation",
-  alternates: { canonical: "https://behaviorschool.com/bcba-exam-prep" },
+  alternates: { canonical: "https://study.behaviorschool.com/free-practice/" },
   openGraph: {
     title: "Free BCBA Exam Prep: Practice Questions + Study Plan",
     description: "Free BCBA exam prep with practice questions, mock exams, study schedule guidance, and school-based scenarios.",
-    url: "/bcba-exam-prep",
+    url: "https://study.behaviorschool.com/free-practice/",
     type: "website",
     siteName: "Behavior School",
     images: [

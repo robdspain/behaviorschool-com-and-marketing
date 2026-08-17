@@ -582,7 +582,7 @@ export default function BehaviorStudyToolsPage() {
               </p>
             </Link>
             <Link
-              href="/bcba-exam-prep"
+              href="https://study.behaviorschool.com/free-practice/"
               className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
@@ -594,7 +594,7 @@ export default function BehaviorStudyToolsPage() {
               </p>
             </Link>
             <Link
-              href="/bcba-practice-exam"
+              href="https://study.behaviorschool.com/free-mock-exam/"
               className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">

@@ -97,7 +97,7 @@ export default function TemplatesPage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
             <Link
-              href="/values-goal-assistant-landing"
+              href="/act-tools/values-sort"
               className="text-emerald-700 hover:text-emerald-800 font-medium"
             >
               Values-Based Goal Setting →

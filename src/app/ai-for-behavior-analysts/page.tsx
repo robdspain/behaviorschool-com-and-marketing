@@ -52,7 +52,7 @@ const workflows = [
     title: "BCBA exam prep",
     description:
       "Use adaptive practice, domain-level trends, rationales, and timed mock exams to turn study data into the next best session.",
-    href: "/bcba-exam-prep",
+    href: "https://study.behaviorschool.com/free-practice/",
     cta: "Explore BCBA exam prep",
   },
   {
@@ -84,7 +84,7 @@ const resources = [
   {
     title: "Behavior Study Tools",
     description: "Adaptive BCBA and RBT study tools with mock exams, rationales, analytics, and study planning.",
-    href: "/study",
+    href: "https://behaviorstudytools.com/",
   },
   {
     title: "BehaviorSchool vs MagicSchool AI",
@@ -99,7 +99,7 @@ const resources = [
   {
     title: "BCBA exam practice questions",
     description: "Practice realistic BCBA exam questions with rationales and links into the full exam prep cluster.",
-    href: "/bcba-exam-practice-questions",
+    href: "https://study.behaviorschool.com/free-practice/",
   },
 ];
 
@@ -174,7 +174,7 @@ export default function AIForBehaviorAnalystsPage() {
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/study"
+                href="https://behaviorstudytools.com/"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#173a2f]"
               >
                 Start with study tools
@@ -349,7 +349,7 @@ export default function AIForBehaviorAnalystsPage() {
             </p>
           </div>
           <Link
-            href="/bcba-practice-exam"
+            href="https://study.behaviorschool.com/free-mock-exam/"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#173a2f]"
           >
             Take a BCBA practice exam

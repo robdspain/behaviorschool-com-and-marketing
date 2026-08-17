@@ -4,7 +4,7 @@ import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
-const canonical = "https://behaviorschool.com/bcba-exam-practice-questions";
+const canonical = "https://study.behaviorschool.com/free-practice/";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "BCBA Exam Practice Questions | 6th Edition Rationales",
@@ -23,15 +23,15 @@ export default function Page() {
       breadcrumbLabel="BCBA Exam Practice Questions"
       canonical={canonical}
       heroVisual
-      primaryCta={{ label: "Start free practice", href: "/free-bcba-practice-exam" }}
+      primaryCta={{ label: "Start free practice", href: "https://study.behaviorschool.com/free-practice/" }}
       secondaryLinks={[
-        { label: "6th Edition practice questions", href: "/bcba-6th-edition-practice-questions" },
+        { label: "6th Edition practice questions", href: "https://study.behaviorschool.com/free-practice/" },
         { label: "BCBA readiness check", href: "/bcba-readiness-quiz" },
         { label: "BCBA exam weak areas", href: "/bcba-exam-weak-areas" },
-        { label: "BCBA test questions", href: "/bcba-test-questions" },
-        { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
-        { label: "Free BCBA practice exam", href: "/free-bcba-practice-exam" },
-        { label: "BCBA practice exam", href: "/bcba-practice-exam" },
+        { label: "BCBA test questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
+        { label: "Free BCBA practice exam", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "BCBA practice exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
       ]}
       sections={[
         {
@@ -75,19 +75,19 @@ export default function Page() {
             {
               heading: "BCBA exam practice questions",
               body: "Use this phrase when you want applied scenarios with answer rationales, not isolated flashcards. Start with a small set, review the decision rule, then repeat with a new scenario.",
-              href: "/bcba-test-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Review test questions",
             },
             {
               heading: "Sample BCBA exam questions",
               body: "Sample questions are best for checking whether you can recognize the concept, rule out distractors, and explain why one answer is stronger than another.",
-              href: "/bcba-test-questions#sample-bcba-exam-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "See sample questions",
             },
             {
               heading: "BCBA mock exam free",
               body: "Use a mock exam when you need timing, stamina, and domain-level readiness data. Use practice questions first when you still need concept review.",
-              href: "/free-bcba-mock-exam",
+              href: "https://study.behaviorschool.com/free-mock-exam/",
               label: "Plan a mock exam",
             },
           ].map((item) => (

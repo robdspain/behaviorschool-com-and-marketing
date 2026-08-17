@@ -3,7 +3,7 @@ import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
-const canonical = "https://behaviorschool.com/free-bcba-mock-exam";
+const canonical = "https://study.behaviorschool.com/free-mock-exam/";
 
 export const metadata = buildPageMetadata({
   title: "Free BCBA Mock Exam | Timed Practice + Rationales",
@@ -22,13 +22,13 @@ export default function Page() {
       breadcrumbLabel="Free BCBA Mock Exam"
       canonical={canonical}
       heroVisual
-      primaryCta={{ label: "Start the free practice exam", href: "/free-bcba-practice-exam" }}
+      primaryCta={{ label: "Start the free practice exam", href: "https://study.behaviorschool.com/free-practice/" }}
       secondaryLinks={[
-        { label: "BCBA practice exam", href: "/bcba-practice-exam" },
-        { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
-        { label: "BCBA test questions", href: "/bcba-test-questions" },
-        { label: "BCBA mock exam 6th edition", href: "/bcba-mock-exam-6th-edition" },
-        { label: "Free BCBA exam prep", href: "/bcba-exam-prep" },
+        { label: "BCBA practice exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
+        { label: "BCBA exam practice questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "BCBA test questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "BCBA mock exam 6th edition", href: "https://study.behaviorschool.com/free-mock-exam/" },
+        { label: "Free BCBA exam prep", href: "https://study.behaviorschool.com/free-practice/" },
       ]}
       sections={[
         {
@@ -107,19 +107,19 @@ export default function Page() {
             {
               title: "If you are just starting",
               body: "Begin with BCBA exam practice questions so you can learn the rationale behind each answer before timing becomes the main issue.",
-              href: "/bcba-exam-practice-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Practice questions first",
             },
             {
               title: "If you know the concepts",
               body: "Take a free BCBA mock exam to test pacing, endurance, and whether you can apply concepts across mixed domains.",
-              href: "/bcba-practice-exam",
+              href: "https://study.behaviorschool.com/free-mock-exam/",
               label: "Open the practice exam",
             },
             {
               title: "If you keep missing similar items",
               body: "Use sample BCBA exam questions to identify distractor patterns before returning to a longer mock exam.",
-              href: "/bcba-test-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Review sample questions",
             },
           ].map((item) => (

@@ -58,7 +58,7 @@ export const metadata: Metadata = {
 export default function BCBAStudyFluencyPage() {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "BCBA Resources", href: "/bcba-exam-prep" },
+    { label: "BCBA Resources", href: "https://study.behaviorschool.com/free-practice/" },
     { label: "Study Fluency", href: "/bcba-study-fluency" },
   ];
 
@@ -561,7 +561,7 @@ export default function BCBAStudyFluencyPage() {
                   size="lg" 
                   className="border-white text-white hover:bg-white/10 px-8 py-4 rounded-2xl"
                 >
-                  <Link href="/bcba-practice-exam">
+                  <Link href="https://study.behaviorschool.com/free-mock-exam/">
                     Try Practice Exam
                   </Link>
                 </Button>
@@ -591,7 +591,7 @@ export default function BCBAStudyFluencyPage() {
             <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">Related BCBA Resources</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link 
-                href="/bcba-practice-exam" 
+                href="https://study.behaviorschool.com/free-mock-exam/"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-blue-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -602,7 +602,7 @@ export default function BCBAStudyFluencyPage() {
               </Link>
               
               <Link 
-                href="/free-bcba-mock-exam"
+                href="https://study.behaviorschool.com/free-mock-exam/"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-blue-50 transition-colors duration-200 text-center"
               >
                 <div>

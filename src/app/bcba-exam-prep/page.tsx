@@ -174,14 +174,14 @@ export default function BCBAExamPrepPage() {
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                   <Link
-                    href="/free-bcba-practice-exam"
+                    href="https://study.behaviorschool.com/free-practice/"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Take the Free 10-Question Exam
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
-                    href="/bcba-test-questions"
+                    href="https://study.behaviorschool.com/free-practice/"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-white hover:bg-slate-50 text-emerald-700 border-2 border-emerald-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
                     Review Sample Questions
@@ -253,10 +253,10 @@ export default function BCBAExamPrepPage() {
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Practice paths</p>
               <div className="mt-3 grid gap-2">
-                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="/free-bcba-practice-exam">
+                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="https://study.behaviorschool.com/free-practice/">
                   Free BCBA Practice Exam
                 </Link>
-                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="/bcba-test-questions">
+                <Link className="font-semibold text-slate-900 hover:text-emerald-700" href="https://study.behaviorschool.com/free-practice/">
                   BCBA Test Questions
                 </Link>
               </div>
@@ -466,7 +466,7 @@ export default function BCBAExamPrepPage() {
             className="text-center"
           >
             <Link
-              href="/free-bcba-practice-exam"
+              href="https://study.behaviorschool.com/free-practice/"
               className="inline-flex items-center px-10 py-5 text-xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
             >
               Start the Free Practice Exam
@@ -503,28 +503,28 @@ export default function BCBAExamPrepPage() {
                 title: "BCBA exam practice questions",
                 description:
                   "Use applied questions with rationales when you need to strengthen task-list concepts before a longer test.",
-                href: "/bcba-exam-practice-questions",
+                href: "https://study.behaviorschool.com/free-practice/",
                 icon: Brain,
               },
               {
                 title: "Sample BCBA exam questions",
                 description:
                   "Review sample stems, distractors, correct answers, and rationales before you move into timed practice.",
-                href: "/bcba-test-questions",
+                href: "https://study.behaviorschool.com/free-practice/",
                 icon: BookOpen,
               },
               {
                 title: "BCBA mock exam free",
                 description:
                   "Use a mock exam when you need a realistic readiness check across mixed domains and longer sessions.",
-                href: "/free-bcba-mock-exam",
+                href: "https://study.behaviorschool.com/free-mock-exam/",
                 icon: BarChart3,
               },
               {
                 title: "Free BCBA practice exam",
                 description:
                   "Start with a shorter free practice exam if you want quick feedback before the full mock exam pathway.",
-                href: "/free-bcba-practice-exam",
+                href: "https://study.behaviorschool.com/free-practice/",
                 icon: Target,
               },
             ].map((resource, index) => (
@@ -636,7 +636,7 @@ export default function BCBAExamPrepPage() {
           </motion.div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Link
-              href="/bcba-test-questions"
+              href="https://study.behaviorschool.com/free-practice/"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
@@ -648,7 +648,7 @@ export default function BCBAExamPrepPage() {
               </p>
             </Link>
             <Link
-              href="/free-bcba-mock-exam"
+              href="https://study.behaviorschool.com/free-mock-exam/"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
@@ -660,7 +660,7 @@ export default function BCBAExamPrepPage() {
               </p>
             </Link>
             <Link
-              href="/bcba-exam-practice-questions"
+              href="https://study.behaviorschool.com/free-practice/"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
@@ -672,7 +672,7 @@ export default function BCBAExamPrepPage() {
               </p>
             </Link>
             <Link
-              href="/free-bcba-practice-exam"
+              href="https://study.behaviorschool.com/free-practice/"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
@@ -696,7 +696,7 @@ export default function BCBAExamPrepPage() {
               </p>
             </Link>
             <Link
-              href="/bcba-practice-exam"
+              href="https://study.behaviorschool.com/free-mock-exam/"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl border-2 border-slate-200 hover:border-emerald-300 transition-all duration-300"
             >
               <div className="flex items-center mb-3">
@@ -739,7 +739,7 @@ export default function BCBAExamPrepPage() {
               Access comprehensive BCBA exam prep with unlimited practice questions, adaptive learning, and detailed explanations.
             </p>
             <Link
-              href="/free-bcba-practice-exam"
+              href="https://study.behaviorschool.com/free-practice/"
               className="inline-flex items-center px-10 py-5 text-xl font-bold bg-white text-emerald-600 hover:bg-emerald-50 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
             >
               Take the Free Practice Exam
@@ -749,7 +749,7 @@ export default function BCBAExamPrepPage() {
               Free access • Instant score • Detailed rationales • Mobile optimized
             </p>
             <p className="mt-4 text-emerald-100 text-sm">
-              <Link href="/bcba-exam-prep" className="underline hover:text-white">
+              <Link href="https://study.behaviorschool.com/free-practice/" className="underline hover:text-white">
                 Learn how to use mock exams effectively →
               </Link>
             </p>

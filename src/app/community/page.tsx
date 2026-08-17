@@ -11,12 +11,12 @@ export const metadata: Metadata = {
   title: "School BCBA Community",
   description: "School BCBA community for behavior analysts working in education. Connect with peers, share resources, get support. Free to join. No distractions.",
   keywords: "BCBA community, school-based behavior analysts, MTSS, functional analysis, behavior support, special education community",
-  alternates: { canonical: "https://behaviorschool.com/community" },
+  alternates: { canonical: "https://behaviorschool.com/transformation-program" },
   openGraph: {
     title: "School BCBA Community",
     description: "School BCBA community: connect with behavior analysts in education. Share resources, get support. Free.",
     type: "website",
-    url: "https://behaviorschool.com/community",
+    url: "https://behaviorschool.com/transformation-program",
     images: [
       {
         url: "/optimized/Community/community1.webp",

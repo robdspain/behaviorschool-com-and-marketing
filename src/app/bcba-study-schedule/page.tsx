@@ -24,11 +24,11 @@ export default function BCBAStudySchedulePage() {
       heroVisual
       primaryCta={{ label: "Build a free pacing plan", href: "/bcba-pacing-planner" }}
       secondaryLinks={[
-        { label: "Take the free practice exam", href: "/free-bcba-practice-exam" },
-        { label: "BCBA exam prep guide", href: "/bcba-exam-prep" },
+        { label: "Take the free practice exam", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "BCBA exam prep guide", href: "https://study.behaviorschool.com/free-practice/" },
         { label: "Failed? Build a retake plan", href: "/failed-bcba-exam-help" },
-        { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
-        { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
+        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
+        { label: "BCBA exam practice questions", href: "https://study.behaviorschool.com/free-practice/" },
       ]}
       sections={[
         {
@@ -130,19 +130,19 @@ export default function BCBAStudySchedulePage() {
             {
               heading: "Domain practice",
               body: "Choose one content area and practice until you can explain why the correct answer is best.",
-              href: "/bcba-exam-practice-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Practice exam questions",
             },
             {
               heading: "Rationale review",
               body: "Write down why distractors were tempting. This is where many candidates actually improve.",
-              href: "/bcba-test-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Review sample questions",
             },
             {
               heading: "Timing check",
               body: "Add timed sets after accuracy improves. Timing too early can hide concept gaps.",
-              href: "/free-bcba-mock-exam",
+              href: "https://study.behaviorschool.com/free-mock-exam/",
               label: "Plan a mock exam",
             },
           ].map((item) => (

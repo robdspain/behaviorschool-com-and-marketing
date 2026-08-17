@@ -26,12 +26,12 @@ export const metadata: Metadata = {
     "bcba test prep"
   ],
   alternates: {
-    canonical: "https://behaviorschool.com/free-bcba-practice-test"
+    canonical: "https://study.behaviorschool.com/free-practice/"
   },
   openGraph: {
     title: "Free BCBA Practice Test - No Signup Required",
     description: "Take a comprehensive BCBA practice test completely free. Get instant feedback and detailed explanations.",
-    url: "https://behaviorschool.com/free-bcba-practice-test",
+    url: "https://study.behaviorschool.com/free-practice/",
     siteName: "Behavior School",
     images: [
       {
@@ -58,7 +58,7 @@ export default function FreeBCBAPracticeTestPage() {
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
         <Breadcrumbs items={[
-          { label: "BCBA Exam Prep", href: "/bcba-exam-prep" },
+          { label: "BCBA Exam Prep", href: "https://study.behaviorschool.com/free-practice/" },
           { label: "Free Practice Test" }
         ]} />
       </div>

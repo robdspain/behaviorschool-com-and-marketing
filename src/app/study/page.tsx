@@ -21,7 +21,7 @@ import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker"
 import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
-const canonical = "https://behaviorschool.com/study";
+const canonical = "https://behaviorstudytools.com/";
 
 export const metadata = buildPageMetadata({
   title: "Behavior Study Tools | BCBA Exam Prep App",

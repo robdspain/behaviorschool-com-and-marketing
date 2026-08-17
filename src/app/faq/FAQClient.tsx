@@ -146,8 +146,8 @@ const faqData: FAQCategory[] = [
           <>
             We offer many free tools and resources including:
             <ul className="list-disc ml-6 mt-2 space-y-1">
-              <li><Link href="/free-bcba-mock-exam" className="text-emerald-600 hover:text-emerald-700 underline">Free BCBA Mock Exam</Link></li>
-              <li><Link href="/study" className="text-emerald-600 hover:text-emerald-700 underline">AI-Powered Study Platform</Link></li>
+              <li><Link href="https://study.behaviorschool.com/free-mock-exam/" className="text-emerald-600 hover:text-emerald-700 underline">Free BCBA Mock Exam</Link></li>
+              <li><Link href="https://behaviorstudytools.com/" className="text-emerald-600 hover:text-emerald-700 underline">AI-Powered Study Platform</Link></li>
               <li><Link href="/iep-goals" className="text-emerald-600 hover:text-emerald-700 underline">IEP Behavior Goal Generator</Link></li>
               <li><Link href="/blog" className="text-emerald-600 hover:text-emerald-700 underline">Educational Blog Articles</Link></li>
               <li><Link href="/act-matrix" className="text-emerald-600 hover:text-emerald-700 underline">ACT Matrix Resources</Link></li>
@@ -167,7 +167,7 @@ const faqData: FAQCategory[] = [
         question: "Do you offer other training or services?",
         answer: (
           <>
-            Yes! In addition to the transformation program, we offer <Link href="/supervisors" className="text-emerald-600 hover:text-emerald-700 underline">supervision tools</Link>, <Link href="/bcba-exam-prep" className="text-emerald-600 hover:text-emerald-700 underline">BCBA exam prep resources</Link>, and various <Link href="/products" className="text-emerald-600 hover:text-emerald-700 underline">tools and training materials</Link> for school-based behavior analysts.
+            Yes! In addition to the transformation program, we offer <Link href="/supervisors" className="text-emerald-600 hover:text-emerald-700 underline">supervision tools</Link>, <Link href="https://study.behaviorschool.com/free-practice/" className="text-emerald-600 hover:text-emerald-700 underline">BCBA exam prep resources</Link>, and various <Link href="/products" className="text-emerald-600 hover:text-emerald-700 underline">tools and training materials</Link> for school-based behavior analysts.
           </>
         )
       }

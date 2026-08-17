@@ -57,12 +57,12 @@ export const metadata: Metadata = {
     "bcba practice exam free"
   ],
   alternates: {
-    canonical: "https://behaviorschool.com/bcba-mock-practice-test"
+    canonical: "https://study.behaviorschool.com/free-mock-exam/"
   },
   openGraph: {
     title: "Best BCBA Mock Exam (FREE) | 185 Questions | Instant Results",
     description: "Professional BCBA mock exam with 185 realistic questions. Complete 4-hour simulation, instant results, detailed explanations. Start now.",
-    url: "https://behaviorschool.com/bcba-mock-practice-test",
+    url: "https://study.behaviorschool.com/free-mock-exam/",
     siteName: "Behavior School",
     images: [
       {
@@ -86,8 +86,8 @@ export const metadata: Metadata = {
 export default function BCBAMockPracticeTestPage() {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "BCBA Resources", href: "/bcba-exam-prep" },
-    { label: "Mock Practice Test", href: "/bcba-mock-practice-test" },
+    { label: "BCBA Resources", href: "https://study.behaviorschool.com/free-practice/" },
+    { label: "Mock Practice Test", href: "https://study.behaviorschool.com/free-mock-exam/" },
   ];
   // NOTE: Removed stray array literal that caused parse errors during linting/build
 
@@ -174,7 +174,7 @@ export default function BCBAMockPracticeTestPage() {
             "@type": "Course",
             "name": "Free BCBA Mock Practice Test",
             "description": "Boost your confidence and pass the BCBA exam with our free mock practice tests. Simulate the real exam, identify your weaknesses, and get detailed feedback to focus your studies.",
-            "url": "https://behaviorschool.com/bcba-mock-practice-test",
+            "url": "https://study.behaviorschool.com/free-mock-exam/",
             "provider": {
               "@type": "Organization",
               "name": "Behavior School",
@@ -324,8 +324,8 @@ export default function BCBAMockPracticeTestPage() {
             "@type": "BreadcrumbList",
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://behaviorschool.com/" },
-              { "@type": "ListItem", "position": 2, "name": "BCBA Resources", "item": "https://behaviorschool.com/bcba-exam-prep" },
-              { "@type": "ListItem", "position": 3, "name": "BCBA Mock Practice Test", "item": "https://behaviorschool.com/bcba-mock-practice-test" }
+              { "@type": "ListItem", "position": 2, "name": "BCBA Resources", "item": "https://study.behaviorschool.com/free-practice/" },
+              { "@type": "ListItem", "position": 3, "name": "BCBA Mock Practice Test", "item": "https://study.behaviorschool.com/free-mock-exam/" }
             ]
           })
         }}
@@ -1319,7 +1319,7 @@ export default function BCBAMockPracticeTestPage() {
                   <li><strong>Adjust study plan:</strong> Allocate more time to problematic domains</li>
                 </ul>
                 <p className="text-slate-600 mt-4">
-                  Remember: Mock exams are diagnostic tools. Low initial scores are normal and expected - they guide your preparation, not predict failure. For specialized career paths, consider reading our <Link href="/school-based-bcba" className="text-blue-600 hover:text-blue-700 underline font-medium">school-based BCBA guide</Link> for additional preparation insights.
+                  Remember: Mock exams are diagnostic tools. Low initial scores are normal and expected - they guide your preparation, not predict failure. For specialized career paths, consider reading our <Link href="/school-bcba" className="text-blue-600 hover:text-blue-700 underline font-medium">school-based BCBA guide</Link> for additional preparation insights.
                 </p>
               </div>
 
@@ -1345,7 +1345,7 @@ export default function BCBAMockPracticeTestPage() {
             <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">Related BCBA Resources</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link 
-                href="/school-based-bcba" 
+                href="/school-bcba"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>
@@ -1367,7 +1367,7 @@ export default function BCBAMockPracticeTestPage() {
               </Link>
               
               <Link 
-                href="/behavior-study-tools" 
+                href="https://behaviorstudytools.com/"
                 className="flex items-center justify-center px-6 py-4 bg-white rounded-xl hover:bg-emerald-50 transition-colors duration-200 text-center"
               >
                 <div>

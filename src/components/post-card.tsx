@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import * as React from "react";
 import { useEffect, useState } from "react";
@@ -106,12 +107,12 @@ export function PostCard({ post, className, hrefBase = "/blog", useExternalUrl =
     <Card className={cn("group overflow-hidden h-full flex flex-col", className)} {...props}>
       {!hideImage && imageSrc ? (
         <div className="w-full bg-slate-50 h-48 sm:h-56 lg:h-64 flex items-center justify-center overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={imageSrc}
             alt={post.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-            loading="lazy"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </div>
       ) : null}

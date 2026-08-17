@@ -79,7 +79,7 @@ export function BCBAStudyToolsClient() {
     {
       title: "BCBA Exam Prep Free",
       description: "Comprehensive guides for BCBA exam preparation",
-      link: "/bcba-exam-prep"
+      link: "https://study.behaviorschool.com/free-practice/"
     }
   ];
 
@@ -440,7 +440,7 @@ export function BCBAStudyToolsClient() {
                 The toolkit combines practice questions, domain mini-exams, timed mock tests, performance analytics, study guides, and interactive review tools. The BCBA pathway is organized around the current 6th Edition Test Content Outline.
               </p>
               <p className="text-slate-600">
-                You can start with our <Link href="/free-bcba-mock-exam" className="text-emerald-600 hover:text-emerald-700 underline font-medium">free BCBA mock exam</Link> to experience the quality of our resources.
+                You can start with our <Link href="https://study.behaviorschool.com/free-mock-exam/" className="text-emerald-600 hover:text-emerald-700 underline font-medium">free BCBA mock exam</Link> to experience the quality of our resources.
               </p>
             </div>
 
@@ -497,7 +497,7 @@ export function BCBAStudyToolsClient() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <Link
-              href="/bcba-exam-prep"
+              href="https://study.behaviorschool.com/free-practice/"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-slate-200 group"
             >
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
@@ -512,7 +512,7 @@ export function BCBAStudyToolsClient() {
             </Link>
 
             <Link
-              href="/bcba-practice-exam"
+              href="https://study.behaviorschool.com/free-mock-exam/"
               className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-slate-200 group"
             >
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">

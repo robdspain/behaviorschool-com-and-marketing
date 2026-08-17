@@ -208,7 +208,7 @@ export default function RBTStudyPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-slate-500 mb-4">Pursuing your BCBA?</p>
           <Link
-            href="/study"
+            href="https://behaviorstudytools.com/"
             className="inline-flex items-center text-[#1f4d3f] font-semibold hover:underline"
           >
             See BCBA exam prep tools

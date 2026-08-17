@@ -130,7 +130,7 @@ export function ContactClient() {
                     <p className="text-slate-600 mb-3">
                       Get personalized guidance on exam prep, supervision requirements, and career development in applied behavior analysis.
                     </p>
-                    <Link href="/bcba-exam-prep" className="text-emerald-700 hover:text-emerald-800 font-semibold text-sm">
+                    <Link href="https://study.behaviorschool.com/free-practice/" className="text-emerald-700 hover:text-emerald-800 font-semibold text-sm">
                       Explore BCBA Exam Prep →
                     </Link>
                   </div>

@@ -372,7 +372,7 @@ export default function BCBAExamPrepPage() {
         onClose={() => setIsSignupOpen(false)}
         title="Get Your Free BCBA Study Resources"
         description="Get access to our comprehensive BCBA study resources, practice questions, exam strategies, and school-specific scenarios to help you pass on the first try."
-        pageSource="/bcba-exam-prep"
+        pageSource="https://study.behaviorschool.com/free-practice/"
         showNameField={true}
         buttonText="Get Study Resources"
         successMessage="Thanks for signing up! We'll send you valuable BCBA study resources soon."

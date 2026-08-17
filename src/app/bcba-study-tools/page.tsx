@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description:
       "Start with free BCBA questions, then use mock exams, flashcards, pacing, and progress data to plan what to study next.",
     type: "website",
-    url: "https://behaviorschool.com/bcba-study-tools",
+    url: "https://behaviorstudytools.com/",
     images: [
       {
         url: "https://behaviorschool.com/BehaviorStudyTools/Hero-BST-Home.webp",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     images: ["https://behaviorschool.com/BehaviorStudyTools/Hero-BST-Home.webp"],
   },
   alternates: {
-    canonical: "https://behaviorschool.com/bcba-study-tools",
+    canonical: "https://behaviorstudytools.com/",
   },
 };
 

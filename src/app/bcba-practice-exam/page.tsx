@@ -4,7 +4,7 @@ import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
-const canonical = "https://behaviorschool.com/bcba-practice-exam";
+const canonical = "https://study.behaviorschool.com/free-mock-exam/";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "BCBA Practice Exam | Free Questions, Mock Exams + Rationales",
@@ -24,14 +24,14 @@ export default function BCBAPracticeExamPage() {
       canonical={canonical}
       heroVisual
       dateModified="2026-07-20"
-      primaryCta={{ label: "Take the free practice exam", href: "/free-bcba-practice-exam" }}
+      primaryCta={{ label: "Take the free practice exam", href: "https://study.behaviorschool.com/free-practice/" }}
       secondaryLinks={[
-        { label: "Free BCBA practice exam", href: "/free-bcba-practice-exam" },
-        { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
-        { label: "BCBA test questions", href: "/bcba-test-questions" },
-        { label: "BCBA exam practice questions", href: "/bcba-exam-practice-questions" },
+        { label: "Free BCBA practice exam", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
+        { label: "BCBA test questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "BCBA exam practice questions", href: "https://study.behaviorschool.com/free-practice/" },
         { label: "BCBA readiness quiz", href: "/bcba-readiness-quiz" },
-        { label: "BCBA exam prep", href: "/bcba-exam-prep" },
+        { label: "BCBA exam prep", href: "https://study.behaviorschool.com/free-practice/" },
       ]}
       sections={[
         {
@@ -82,13 +82,13 @@ export default function BCBAPracticeExamPage() {
             {
               heading: "I want quick feedback",
               body: "Take a short free practice exam and review each rationale before you move on.",
-              href: "/free-bcba-practice-exam",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Take the free exam",
             },
             {
               heading: "I need realistic timing",
               body: "Use a longer mock exam when you are ready to test stamina across mixed domains.",
-              href: "/free-bcba-mock-exam",
+              href: "https://study.behaviorschool.com/free-mock-exam/",
               label: "Plan a mock exam",
             },
             {
@@ -100,7 +100,7 @@ export default function BCBAPracticeExamPage() {
             {
               heading: "I want sample question stems",
               body: "Study sample stems, distractors, answers, and rationales before timed practice.",
-              href: "/bcba-test-questions",
+              href: "https://study.behaviorschool.com/free-practice/",
               label: "Review test questions",
             },
           ].map((item) => (

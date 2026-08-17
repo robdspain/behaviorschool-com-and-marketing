@@ -103,15 +103,15 @@ export default function PassBehaviorAlternativePage() {
             </p>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <Link href="/bcba-exam-practice-questions" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
               <h3 className="font-bold text-slate-900">BCBA exam practice questions</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">Use mixed question sets when you want shorter sessions with rationales before a full exam.</p>
             </Link>
-            <Link href="/free-bcba-mock-exam" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
               <h3 className="font-bold text-slate-900">BCBA mock exam free</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">Take the free mock exam route when you need a timed readiness check and next-step guidance.</p>
             </Link>
-            <Link href="/bcba-test-questions" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
               <h3 className="font-bold text-slate-900">Sample BCBA exam questions</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">Review sample question formats before choosing domain practice, mock exams, or a full practice test.</p>
             </Link>

@@ -12,8 +12,8 @@ import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
 import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
-const PAGE_HREF = "https://behaviorschool.com/free-bcba-practice-exam";
-const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/free-bcba-practice-exam";
+const PAGE_HREF = "https://study.behaviorschool.com/free-practice/";
+const SEO_OVERRIDE_HREF = PAGE_HREF;
 
 const baseMetadata: Metadata = {
   title: "Free BCBA Practice Exam | 10 Questions, Score + Rationales",
@@ -229,7 +229,7 @@ export default async function FreeBCBAPracticeExamPage() {
       <BstMarketingTracker />
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
-        <Breadcrumbs items={[{ label: "BCBA Exam Prep", href: "/bcba-exam-prep" }, { label: "Free Practice Exam" }]} />
+        <Breadcrumbs items={[{ label: "BCBA Exam Prep", href: "https://study.behaviorschool.com/free-practice/" }, { label: "Free Practice Exam" }]} />
       </div>
 
       {/* Hero Section */}
@@ -392,22 +392,22 @@ export default async function FreeBCBAPracticeExamPage() {
               {
                 title: "BCBA exam practice questions",
                 description: "Review applied questions by domain with rationales before moving to longer timed practice.",
-                href: "/bcba-exam-practice-questions",
+                href: "https://study.behaviorschool.com/free-practice/",
               },
               {
                 title: "Sample BCBA exam questions",
                 description: "Study sample stems, distractors, answers, and explanations for common exam concepts.",
-                href: "/bcba-test-questions",
+                href: "https://study.behaviorschool.com/free-practice/",
               },
               {
                 title: "BCBA mock exam free",
                 description: "Use a full mock exam when you are ready to test pacing, stamina, and mixed-domain readiness.",
-                href: "/free-bcba-mock-exam",
+                href: "https://study.behaviorschool.com/free-mock-exam/",
               },
               {
                 title: "BCBA practice exam",
                 description: "Compare practice formats and choose the best next step for your current study stage.",
-                href: "/bcba-practice-exam",
+                href: "https://study.behaviorschool.com/free-mock-exam/",
               },
             ].map((resource) => (
               <Link
@@ -516,7 +516,7 @@ export default async function FreeBCBAPracticeExamPage() {
 
           <div className="mt-12 text-center">
             <Link
-              href="/bcba-exam-prep"
+              href="https://study.behaviorschool.com/free-practice/"
               className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold"
             >
               View Complete BCBA Exam Prep Guide
@@ -558,15 +558,15 @@ export default async function FreeBCBAPracticeExamPage() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "BCBA Exam Prep", item: `${SITE_URL}/bcba-exam-prep` },
-            { "@type": "ListItem", position: 2, name: "Free BCBA Practice Exam", item: `${SITE_URL}/free-bcba-practice-exam` },
+            { "@type": "ListItem", position: 1, name: "BCBA Exam Prep", item: "https://study.behaviorschool.com/free-practice/" },
+            { "@type": "ListItem", position: 2, name: "Free BCBA Practice Exam", item: "https://study.behaviorschool.com/free-practice/" },
           ],
         } as const;
         const webPageJsonLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
           name: "Free BCBA Practice Exam (10 Questions with Rationales)",
-          url: `${SITE_URL}/free-bcba-practice-exam`,
+          url: PAGE_HREF,
           description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path.",
           author: {
             "@type": "Person",
@@ -587,7 +587,7 @@ export default async function FreeBCBAPracticeExamPage() {
           "@context": "https://schema.org",
           "@type": "Quiz",
           name: "Free BCBA Practice Exam",
-          url: `${SITE_URL}/free-bcba-practice-exam`,
+          url: PAGE_HREF,
           about: "BCBA exam prep practice questions with rationales",
           educationalLevel: "Professional certification exam preparation",
           assesses: "Applied behavior analysis concepts from the BCBA task list",

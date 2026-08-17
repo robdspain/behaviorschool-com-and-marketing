@@ -163,7 +163,7 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Show the user opening results, finding the weakest domain, and starting a short practice session. Close with: Do not guess what to study next.",
       ctaLabel: "Try free BCBA practice",
-      ctaHref: trackedLandingUrl("/free-bcba-practice-exam", {
+      ctaHref: trackedLandingUrl("https://study.behaviorschool.com/free-practice/", {
         utm_content: "tuesday_instagram_free_practice",
       }),
       asset: "Results screen on phone",

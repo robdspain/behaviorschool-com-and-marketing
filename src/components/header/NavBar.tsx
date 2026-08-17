@@ -49,7 +49,7 @@ export function NavBar() {
                 September Cohort Open
               </Link>
               <Link
-                href="/free-bcba-practice-exam"
+                href="https://study.behaviorschool.com/free-practice/"
                 className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#1f4d3f]/30 px-4 py-2 text-sm font-semibold text-[#1f4d3f] transition hover:bg-[#f2eee6]"
               >
                 Free BCBA Exam

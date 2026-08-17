@@ -34,7 +34,7 @@ export function LandingNavBar() {
               Community
             </Link>
             <Link 
-              href="/study"
+              href="https://behaviorstudytools.com/"
               className="text-emerald-700 hover:text-emerald-800 text-sm font-medium transition-colors duration-200"
             >
               Study Tools

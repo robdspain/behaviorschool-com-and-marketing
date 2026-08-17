@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "School-Based BCBA Transformation System | Behavior School",
     description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 6-week BCBA transformation program.",
-    url: "https://behaviorschool.com/school-based-bcba",
+    url: "https://behaviorschool.com/school-bcba",
     siteName: "Behavior School",
     images: [
       {
@@ -74,13 +74,13 @@ export const metadata: Metadata = {
     images: ["/optimized/og-image.webp"],
   },
   alternates: {
-    canonical: "https://behaviorschool.com/school-based-bcba",
+    canonical: "https://behaviorschool.com/school-bcba",
   }
 };
 
 const breadcrumbItems = [
   { label: "Home", href: "/" },
-  { label: "School-Based BCBA", href: "/school-based-bcba" }
+  { label: "School-Based BCBA", href: "/school-bcba" }
 ];
 
 export default function SchoolBasedBCBAPage() {
@@ -504,7 +504,7 @@ export default function SchoolBasedBCBAPage() {
                 { icon: Target, color: "emerald", title: "IEP Goal Generator", desc: "Create SMART, measurable behavior goals in seconds", link: "/iep-goals", cta: "Generate a Free Goal" },
                 { icon: FileText, color: "blue", title: "Behavior Plan Writer", desc: "Build teacher-ready BIPs with evidence-based strategies", link: "/behavior-plans", cta: "Create a Free BIP" },
                 { icon: Users, color: "purple", title: "Supervision Tracker", desc: "Invite-only tools in development for fieldwork documentation and progress review", link: "/supervisors", cta: "View Invite-Only Access" },
-                { icon: BookOpen, color: "orange", title: "BCBA Exam Prep", desc: "Free practice questions and mock exams for certification", link: "/bcba-exam-prep", cta: "Start Studying Free" }
+                { icon: BookOpen, color: "orange", title: "BCBA Exam Prep", desc: "Free practice questions and mock exams for certification", link: "https://study.behaviorschool.com/free-practice/", cta: "Start Studying Free" }
               ].map((tool, idx) => (
                 <div key={idx} className="bg-white p-6 rounded-2xl shadow-lg border-2 border-slate-100 hover:border-emerald-300 hover:shadow-2xl transition-all group">
                   <div className={`w-16 h-16 bg-gradient-to-br from-${tool.color}-500 to-${tool.color}-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
@@ -582,7 +582,7 @@ export default function SchoolBasedBCBAPage() {
                 className="border-2 border-white text-white hover:bg-white hover:text-[#1F4D3F] font-bold py-6 text-base shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all" 
                 asChild
               >
-                <Link href="/community">
+                <Link href="/transformation-program">
                   Join Our Community
                 </Link>
               </Button>
@@ -665,7 +665,7 @@ export default function SchoolBasedBCBAPage() {
             <div className="mt-12 pt-8 border-t border-slate-200">
               <h3 className="text-xl font-bold text-slate-900 mb-4 text-center">Related Resources</h3>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/bcbas-in-schools" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
+                <Link href="/school-bcba" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
                   BCBAs in Schools: Roles & Challenges →
                 </Link>
                 <Link href="/school-bcba" className="text-emerald-700 hover:text-emerald-800 font-medium underline">
@@ -689,7 +689,7 @@ export default function SchoolBasedBCBAPage() {
             "@type": "WebPage",
             "name": "School-Based BCBA Transformation System",
             "description": "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 6-week BCBA transformation program.",
-            "url": "https://behaviorschool.com/school-based-bcba",
+            "url": "https://behaviorschool.com/school-bcba",
             "breadcrumb": {
               "@type": "BreadcrumbList",
               "itemListElement": [
@@ -703,7 +703,7 @@ export default function SchoolBasedBCBAPage() {
                   "@type": "ListItem",
                   "position": 2,
                   "name": "School-Based BCBA",
-                  "item": "https://behaviorschool.com/school-based-bcba"
+                  "item": "https://behaviorschool.com/school-bcba"
                 }
               ]
             },

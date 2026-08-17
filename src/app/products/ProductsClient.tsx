@@ -49,7 +49,7 @@ export function ProductsClient() {
           {/* Primary CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10">
             <Link
-              href="/free-bcba-mock-exam"
+              href="https://study.behaviorschool.com/free-mock-exam/"
               className="inline-flex items-center px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-md hover:shadow-lg"
               aria-label="Start free BCBA mock exam"
             >
@@ -126,7 +126,7 @@ export function ProductsClient() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link 
-                    href="/study"
+                    href="https://behaviorstudytools.com/"
                     className="inline-flex items-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
                     aria-label="Learn more about Behavior Study Tools"
                   >
@@ -137,7 +137,7 @@ export function ProductsClient() {
 
                 <div className="mt-2 space-y-2">
                   <Link
-                    href="/free-bcba-mock-exam"
+                    href="https://study.behaviorschool.com/free-mock-exam/"
                     className="inline-flex items-center text-emerald-700 hover:text-emerald-800 font-semibold"
                   >
                     Free BCBA Mock Exam (185 Questions)
@@ -145,7 +145,7 @@ export function ProductsClient() {
                   </Link>
                   <div>
                     <Link
-                      href="/study"
+                      href="https://behaviorstudytools.com/"
                       className="inline-flex items-center text-emerald-700 hover:text-emerald-800 font-semibold"
                     >
                       AI-Powered Study Platform
@@ -154,7 +154,7 @@ export function ProductsClient() {
                   </div>
                   <div>
                     <Link
-                      href="/bcba-exam-prep"
+                      href="https://study.behaviorschool.com/free-practice/"
                       className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-medium text-sm"
                     >
                       Complete BCBA Exam Prep Guide
@@ -511,12 +511,12 @@ export function ProductsClient() {
             '@context': 'https://schema.org',
             '@type': 'ItemList',
             itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'BCBA Mock Exams', url: 'https://behaviorschool.com/bcba-practice-exam' },
-              { '@type': 'ListItem', position: 2, name: 'Free BCBA Mock Exam', url: 'https://behaviorschool.com/free-bcba-mock-exam' },
-              { '@type': 'ListItem', position: 3, name: 'IEP Goal Writer', url: 'https://behaviorschool.com/iep-goals' },
-              { '@type': 'ListItem', position: 4, name: 'Behavior Plan Writer', url: 'https://behaviorschool.com/behavior-plans' },
-              { '@type': 'ListItem', position: 5, name: 'Study Tools Platform', url: 'https://behaviorschool.com/study' },
-              { '@type': 'ListItem', position: 6, name: 'School-Based BCBA Hub', url: 'https://behaviorschool.com/school-bcba' },
+              { '@type': 'ListItem', position: 1, name: 'BCBA Mock Exams', item: 'https://study.behaviorschool.com/free-mock-exam/' },
+              { '@type': 'ListItem', position: 2, name: 'Free BCBA Mock Exam', item: 'https://study.behaviorschool.com/free-mock-exam/' },
+              { '@type': 'ListItem', position: 3, name: 'IEP Goal Writer', item: 'https://behaviorschool.com/iep-goals' },
+              { '@type': 'ListItem', position: 4, name: 'Behavior Plan Writer', item: 'https://behaviorschool.com/behavior-plans' },
+              { '@type': 'ListItem', position: 5, name: 'Study Tools Platform', item: 'https://behaviorstudytools.com/' },
+              { '@type': 'ListItem', position: 6, name: 'School-Based BCBA Hub', item: 'https://behaviorschool.com/school-bcba' },
             ],
           }),
         }}

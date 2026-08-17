@@ -98,7 +98,7 @@ function getArticleCta(post: { tags?: { name: string }[] | null }) {
       eyebrow: "Keep studying",
       title: "Turn the article into exam practice.",
       body: "Use Behavior School's BCBA exam prep tools for practice questions, mock exams, rationales, and study planning aligned to the task list.",
-      href: "/bcba-exam-prep",
+      href: "https://study.behaviorschool.com/free-practice/",
       label: "Explore BCBA exam prep",
     };
   }
@@ -386,7 +386,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </header>
       {post.feature_image ? (
         <div className="mt-6 overflow-hidden rounded-lg bg-slate-100">
-          <img
+          <Image
             src={(function(){
               let src = post.feature_image as string;
               if (src.startsWith('//')) src = 'https:' + src;
@@ -401,7 +401,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               return src;
             })()}
             alt={post.title}
-            className="w-full h-auto object-contain"
+            width={1600}
+            height={900}
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="h-auto w-full object-contain"
           />
         </div>
       ) : null}

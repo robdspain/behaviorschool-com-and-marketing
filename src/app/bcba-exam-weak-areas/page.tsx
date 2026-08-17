@@ -31,10 +31,10 @@ export default function BcbaExamWeakAreasPage() {
       primaryCta={{ label: "Find weak areas in the app", href: appWeakAreasHref }}
       secondaryLinks={[
         { label: "BCBA readiness check", href: "/bcba-readiness-quiz" },
-        { label: "6th Edition practice questions", href: "/bcba-6th-edition-practice-questions" },
+        { label: "6th Edition practice questions", href: "https://study.behaviorschool.com/free-practice/" },
         { label: "Failed BCBA exam help", href: "/failed-bcba-exam-help" },
         { label: "BCBA study schedule", href: "/bcba-study-schedule" },
-        { label: "Free BCBA mock exam", href: "/free-bcba-mock-exam" },
+        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
       ]}
       sections={[
         {

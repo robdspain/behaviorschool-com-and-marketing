@@ -107,7 +107,7 @@ function DownloadConfirmationContent() {
               <h3 className="font-semibold text-slate-900 mb-2">IEP Behavior Goals Generator</h3>
               <p className="text-sm text-slate-600">Create compliant, measurable IEP behavior goals in minutes</p>
             </Link>
-            <Link href="/bcba-exam-prep" className="p-4 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="p-4 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
               <h3 className="font-semibold text-slate-900 mb-2">BCBA Exam Prep</h3>
               <p className="text-sm text-slate-600">Free practice exams and study tools for BCBA certification</p>
             </Link>

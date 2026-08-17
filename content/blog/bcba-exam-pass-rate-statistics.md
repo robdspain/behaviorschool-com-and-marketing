@@ -17,11 +17,11 @@ keywords:
 meta_description: "BCBA exam pass rates dropped to about 54% for first-time test takers in 2024. Here’s what the BACB data shows—and how to improve your odds."
 category: BCBA Exam Prep
 internal_links:
-  - /behavior-study-tools
-  - /bcba-practice-exam
-  - /free-bcba-practice
+  - https://behaviorstudytools.com/
+  - https://study.behaviorschool.com/free-mock-exam/
+  - https://study.behaviorschool.com/free-practice/
   - /blog/free-bcba-exam-prep-study-strategies
-  - /bcba-exam-prep
+  - https://study.behaviorschool.com/free-practice/
 cannibalization_check: "CLEAR — no existing BehaviorSchool post targets BCBA pass rate statistics or BACB data analysis. Closest post covers study strategies, not exam pass rate data. Keyword overlap <10%."
 ai_disclosure: true
 word_count_target: 2000

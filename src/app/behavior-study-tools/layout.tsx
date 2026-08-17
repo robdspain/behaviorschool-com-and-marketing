@@ -4,12 +4,12 @@ export const metadata: Metadata = {
   title: "BehaviorSchool | Free BCBA Mock Exam & Practice Questions",
   description: "Free study tools for BCBA exam prep: unlimited practice questions, study guides, and adaptive learning. School-based scenarios and ABA ethics included.",
   keywords: "free bcba mock exam, free bcba practice questions, bcba exam prep free, bcba practice test online free, bcba mock test, free section b mock exam, board certified behavior analyst practice exam, bcba exam questions free, behavior analysis study tools, adaptive learning, BACB exam preparation",
-  alternates: { canonical: "/behavior-study-tools" },
+  alternates: { canonical: "https://behaviorstudytools.com/" },
   openGraph: {
     type: "website",
     title: "BehaviorSchool | Free BCBA Mock Exam & Practice Questions",
     description: "Free study tools for BCBA exam prep: unlimited practice questions, study guides, and adaptive learning. School-based scenarios and ABA ethics included.",
-    url: "/behavior-study-tools",
+    url: "https://behaviorstudytools.com/",
     images: [
       {
         url: "/optimized/og-image.webp",
@@ -121,8 +121,6 @@ export default function BehaviorStudyToolsLayout({
     audience: {
       "@type": "PeopleAudience",
       suggestedMinAge: 22,
-      requiredGender: null,
-      suggestedGender: null
     },
     isRelatedTo: {
       "@type": "Course",

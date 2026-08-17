@@ -328,7 +328,7 @@ export default function FreeBCBAPracticePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
         <Breadcrumbs
           items={[
-            { label: "BCBA Exam Prep", href: "/bcba-exam-prep" },
+            { label: "BCBA Exam Prep", href: "https://study.behaviorschool.com/free-practice/" },
             { label: "Free Practice Questions" },
           ]}
         />
@@ -544,7 +544,7 @@ export default function FreeBCBAPracticePage() {
 
           <div className="mt-12 text-center">
             <Link
-              href="/bcba-exam-prep"
+              href="https://study.behaviorschool.com/free-practice/"
               className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-semibold"
             >
               View Complete BCBA Exam Prep Guide
@@ -584,13 +584,13 @@ export default function FreeBCBAPracticePage() {
               "@type": "ListItem",
               position: 1,
               name: "BCBA Exam Prep",
-              item: `${SITE_URL}/bcba-exam-prep`,
+              item: "https://study.behaviorschool.com/free-practice/",
             },
             {
               "@type": "ListItem",
               position: 2,
               name: "Free BCBA Practice Questions",
-              item: `${SITE_URL}/free-bcba-practice`,
+              item: "https://study.behaviorschool.com/free-practice/",
             },
           ],
         } as const;

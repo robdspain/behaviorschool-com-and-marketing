@@ -72,7 +72,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
           </Button>
         </div>
         <Link
-          href="/free-bcba-practice-exam"
+          href="https://study.behaviorschool.com/free-practice/"
           className="block px-3 py-2 text-base font-medium text-emerald-800 hover:text-emerald-900 hover:bg-emerald-50 rounded-md"
           onClick={onClose}
         >

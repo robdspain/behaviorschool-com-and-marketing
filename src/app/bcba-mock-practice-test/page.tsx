@@ -58,12 +58,12 @@ export const metadata: Metadata = {
     "bcba practice exam free"
   ],
   alternates: {
-    canonical: "https://behaviorschool.com/bcba-mock-practice-test"
+    canonical: "https://study.behaviorschool.com/free-mock-exam/"
   },
   openGraph: {
     title: "Free BCBA Mock Exam | Behavior School",
     description: "FREE full-length BCBA mock exam. Instant scoring + detailed explanations. Comprehensive practice for behavior analysts preparing for certification.",
-    url: "https://behaviorschool.com/bcba-mock-practice-test",
+    url: "https://study.behaviorschool.com/free-mock-exam/",
     siteName: "Behavior School",
     images: [
       {
@@ -87,8 +87,8 @@ export const metadata: Metadata = {
 export default function BCBAMockPracticeTestPage() {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "BCBA Resources", href: "/bcba-exam-prep" },
-    { label: "Mock Practice Test", href: "/bcba-mock-practice-test" },
+    { label: "BCBA Resources", href: "https://study.behaviorschool.com/free-practice/" },
+    { label: "Mock Practice Test", href: "https://study.behaviorschool.com/free-mock-exam/" },
   ];
 
   return (
@@ -299,7 +299,7 @@ export default function BCBAMockPracticeTestPage() {
                 Where can I find free BCBA mock exams?
               </h3>
               <p className="text-slate-700 leading-relaxed mb-4">
-                Behavior School offers <Link href="/free-bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-semibold">completely free BCBA mock exams</Link> with no signup required. Our platform includes:
+                Behavior School offers <Link href="https://study.behaviorschool.com/free-mock-exam/" className="text-emerald-700 hover:text-emerald-800 font-semibold">completely free BCBA mock exams</Link> with no signup required. Our platform includes:
               </p>
               <ul className="space-y-2 text-slate-700 mb-4">
                 <li className="flex items-start gap-2">
@@ -320,10 +320,10 @@ export default function BCBAMockPracticeTestPage() {
                 </li>
               </ul>
               <div className="flex flex-col gap-2">
-                <Link href="/study" className="text-emerald-700 hover:text-emerald-800 font-semibold">
+                <Link href="https://behaviorstudytools.com/" className="text-emerald-700 hover:text-emerald-800 font-semibold">
                   Start Your Free BCBA Mock Exam →
                 </Link>
-                <Link href="/bcba-exam-prep" className="text-slate-600 hover:text-slate-800 text-sm">
+                <Link href="https://study.behaviorschool.com/free-practice/" className="text-slate-600 hover:text-slate-800 text-sm">
                   Learn how to use practice tests effectively →
                 </Link>
               </div>
@@ -383,7 +383,7 @@ export default function BCBAMockPracticeTestPage() {
               Take a free BCBA mock exam now and get instant feedback on your readiness. No signup required.
             </p>
             <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-slate-100">
-              <Link href="/study">
+              <Link href="https://behaviorstudytools.com/">
                 Start Free Mock Exam
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>

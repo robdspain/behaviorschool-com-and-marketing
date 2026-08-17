@@ -51,10 +51,10 @@ export default function SiteMapViewer() {
       icon: <BookOpen className="w-5 h-5" />,
       color: "bg-blue-100 text-blue-800",
       pages: [
-        { path: "/behavior-study-tools", title: "BCBA Study Tools", description: "Main hub for BCBA exam preparation", status: "live", cluster: "BCBA Exam Prep", priority: "high" },
-        { path: "/bcba-exam-prep", title: "BCBA Exam Prep", description: "Alternative entry point for exam preparation", status: "live", cluster: "BCBA Exam Prep", priority: "high" },
+        { path: "https://behaviorstudytools.com/", title: "BCBA Study Tools", description: "Main hub for BCBA exam preparation", status: "live", cluster: "BCBA Exam Prep", priority: "high" },
+        { path: "https://study.behaviorschool.com/free-practice/", title: "BCBA Exam Prep", description: "Alternative entry point for exam preparation", status: "live", cluster: "BCBA Exam Prep", priority: "high" },
         { path: "/bcba-study-fluency", title: "BCBA Study Fluency", description: "Fluency training tool", status: "live", cluster: "BCBA Exam Prep", priority: "medium" },
-        { path: "/bcba-mock-practice-test", title: "BCBA Mock Practice Test", description: "Practice testing platform", status: "live", cluster: "BCBA Exam Prep", priority: "medium" },
+        { path: "https://study.behaviorschool.com/free-mock-exam/", title: "BCBA Mock Practice Test", description: "Practice testing platform", status: "live", cluster: "BCBA Exam Prep", priority: "medium" },
         { path: "/bcba-exam-study-guide", title: "BCBA Exam Study Guide", description: "Comprehensive study guide", status: "planned", cluster: "BCBA Exam Prep", priority: "high" },
         { path: "/bcba-pass-rate-statistics", title: "BCBA Pass Rate Statistics", description: "Pass rate data and tips", status: "planned", cluster: "BCBA Exam Prep", priority: "medium" },
         { path: "/bcba-exam-difficulty", title: "BCBA Exam Difficulty", description: "What makes the exam challenging", status: "planned", cluster: "BCBA Exam Prep", priority: "medium" },
@@ -67,8 +67,8 @@ export default function SiteMapViewer() {
       icon: <Users className="w-5 h-5" />,
       color: "bg-green-100 text-green-800",
       pages: [
-        { path: "/school-based-bcba", title: "School-Based BCBA", description: "Main hub for school-based practice", status: "live", cluster: "School-Based BCBA", priority: "high" },
-        { path: "/school-based-behavior-support", title: "School-Based Behavior Support", description: "Systems and support strategies", status: "live", cluster: "School-Based BCBA", priority: "high" },
+        { path: "/school-bcba", title: "School-Based BCBA", description: "Main hub for school-based practice", status: "live", cluster: "School-Based BCBA", priority: "high" },
+        { path: "/school-bcba", title: "School-Based Behavior Support", description: "Systems and support strategies", status: "live", cluster: "School-Based BCBA", priority: "high" },
         { path: "/transformation-program", title: "Transformation Program", description: "6-week professional development program", status: "live", cluster: "School-Based BCBA", priority: "high" },
         { path: "/school-bcba-salary", title: "School BCBA Salary", description: "Salary information and negotiations", status: "planned", cluster: "School-Based BCBA", priority: "high" },
         { path: "/school-bcba-job-description", title: "School BCBA Job Description", description: "Role responsibilities and expectations", status: "planned", cluster: "School-Based BCBA", priority: "medium" },
@@ -130,7 +130,7 @@ export default function SiteMapViewer() {
       icon: <Globe className="w-5 h-5" />,
       color: "bg-teal-100 text-teal-800",
       pages: [
-        { path: "/community", title: "Community", description: "Professional community hub", status: "live", cluster: "ABA Education", priority: "high" },
+        { path: "/transformation-program", title: "Community", description: "Professional community hub", status: "live", cluster: "ABA Education", priority: "high" },
         { path: "/about", title: "About", description: "Company information", status: "live", cluster: "ABA Education", priority: "medium" },
         { path: "/blog", title: "Blog", description: "Educational content and articles", status: "live", cluster: "ABA Education", priority: "high" },
         { path: "/resources", title: "Resources", description: "Resource library", status: "live", cluster: "ABA Education", priority: "medium" },
@@ -151,7 +151,7 @@ export default function SiteMapViewer() {
         { path: "/", title: "Homepage", description: "Main landing page", status: "live", cluster: "Core Pages", priority: "high" },
         { path: "/products", title: "Products", description: "Product overview page", status: "live", cluster: "Core Pages", priority: "medium" },
         { path: "/act-matrix", title: "ACT Matrix", description: "ACT Matrix tool and resources", status: "live", cluster: "Core Pages", priority: "medium" },
-        { path: "/study", title: "Study", description: "Study resources page", status: "live", cluster: "Core Pages", priority: "medium" },
+        { path: "https://behaviorstudytools.com/", title: "Study", description: "Study resources page", status: "live", cluster: "Core Pages", priority: "medium" },
         { path: "/not-found", title: "404 Page", description: "Page not found error page", status: "live", cluster: "Core Pages", priority: "low" },
       ]
     },
