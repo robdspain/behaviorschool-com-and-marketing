@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Behavior Study Tools readiness check social graphic</title>
+  <desc id="desc">A Behavior Study Tools graphic about using practice results to choose what to study next.</desc>
+  <rect width="1200" height="630" fill="#FBFAF6"/>
+  <rect x="52" y="52" width="1096" height="526" rx="28" fill="#0B3528"/>
+  <rect x="96" y="92" width="1008" height="448" rx="18" fill="#FFFEFA"/>
+  <text x="132" y="156" fill="#1F4D3F" font-family="Arial, sans-serif" font-size="30" font-weight="700">Behavior Study Tools</text>
+  <text x="132" y="244" fill="#171F1D" font-family="Georgia, serif" font-size="62" font-weight="700">What should I</text>
+  <text x="132" y="318" fill="#171F1D" font-family="Georgia, serif" font-size="62" font-weight="700">study next?</text>
+  <text x="132" y="386" fill="#5C5449" font-family="Arial, sans-serif" font-size="30">Start practice. Review the domain signal.</text>
+  <text x="132" y="426" fill="#5C5449" font-family="Arial, sans-serif" font-size="30">Choose a focused next session.</text>
+  <rect x="132" y="474" width="360" height="58" rx="12" fill="#E4B63D"/>
+  <text x="162" y="512" fill="#0B3528" font-family="Arial, sans-serif" font-size="26" font-weight="700">Start free practice</text>
+  <rect x="744" y="134" width="292" height="356" rx="26" fill="#F2E9D7" stroke="#DDD2C3" stroke-width="4"/>
+  <rect x="784" y="178" width="212" height="30" rx="8" fill="#1F4D3F"/>
+  <rect x="784" y="238" width="170" height="24" rx="8" fill="#DDD2C3"/>
+  <rect x="784" y="288" width="212" height="24" rx="8" fill="#DDD2C3"/>
+  <rect x="784" y="338" width="136" height="24" rx="8" fill="#DDD2C3"/>
+  <path d="M786 426 C840 380 900 402 954 328" fill="none" stroke="#E4B63D" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="786" cy="426" r="10" fill="#E4B63D"/>
+  <circle cx="954" cy="328" r="10" fill="#E4B63D"/>
+</svg>

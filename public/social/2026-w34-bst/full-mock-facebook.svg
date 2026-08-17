@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Behavior Study Tools full mock social graphic</title>
+  <desc id="desc">A Facebook graphic explaining that a full BCBA mock exam should lead to the next study task.</desc>
+  <rect width="1200" height="630" fill="#FBFAF6"/>
+  <rect x="54" y="52" width="1092" height="526" rx="28" fill="#FFFEFA" stroke="#DDD2C3" stroke-width="4"/>
+  <text x="102" y="134" fill="#1F4D3F" font-family="Arial, sans-serif" font-size="30" font-weight="700">Behavior Study Tools</text>
+  <text x="102" y="242" fill="#171F1D" font-family="Georgia, serif" font-size="62" font-weight="700">A full mock should</text>
+  <text x="102" y="318" fill="#171F1D" font-family="Georgia, serif" font-size="62" font-weight="700">lead to a next task.</text>
+  <text x="102" y="392" fill="#5C5449" font-family="Arial, sans-serif" font-size="30">Score. Domain results. Review path.</text>
+  <rect x="102" y="460" width="350" height="58" rx="12" fill="#1F4D3F"/>
+  <text x="132" y="498" fill="#FFFEFA" font-family="Arial, sans-serif" font-size="25" font-weight="700">Start a free full mock</text>
+  <rect x="746" y="116" width="312" height="398" rx="28" fill="#0B3528"/>
+  <rect x="786" y="164" width="232" height="54" rx="12" fill="#E4B63D"/>
+  <rect x="786" y="262" width="232" height="28" rx="8" fill="#FFFEFA"/>
+  <rect x="786" y="322" width="174" height="28" rx="8" fill="#FFFEFA"/>
+  <rect x="786" y="382" width="206" height="28" rx="8" fill="#FFFEFA"/>
+  <path d="M806 462 H990" stroke="#E4B63D" stroke-width="10" stroke-linecap="round"/>
+  <path d="M950 428 L990 462 L950 496" fill="none" stroke="#E4B63D" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Behavior Study Tools pacing guide Instagram graphic</title>
+  <desc id="desc">An Instagram graphic about connecting an exam date, weekly time, practice results, and the next session.</desc>
+  <rect width="1080" height="1350" fill="#FBFAF6"/>
+  <rect x="70" y="70" width="940" height="1210" rx="34" fill="#FFFEFA" stroke="#DDD2C3" stroke-width="4"/>
+  <text x="122" y="168" fill="#1F4D3F" font-family="Arial, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="122" y="316" fill="#171F1D" font-family="Georgia, serif" font-size="82" font-weight="700">Make the next</text>
+  <text x="122" y="414" fill="#171F1D" font-family="Georgia, serif" font-size="82" font-weight="700">session obvious.</text>
+  <rect x="122" y="550" width="836" height="420" rx="30" fill="#0B3528"/>
+  <text x="174" y="642" fill="#FFFEFA" font-family="Arial, sans-serif" font-size="38">Exam date</text>
+  <text x="174" y="730" fill="#FFFEFA" font-family="Arial, sans-serif" font-size="38">Weekly time</text>
+  <text x="174" y="818" fill="#FFFEFA" font-family="Arial, sans-serif" font-size="38">Practice result</text>
+  <text x="174" y="906" fill="#FFFEFA" font-family="Arial, sans-serif" font-size="38">Next study block</text>
+  <path d="M664 630 C724 660 756 720 740 786 C728 840 764 888 840 912" fill="none" stroke="#E4B63D" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="664" cy="630" r="14" fill="#E4B63D"/>
+  <circle cx="840" cy="912" r="14" fill="#E4B63D"/>
+  <text x="122" y="1090" fill="#5C5449" font-family="Arial, sans-serif" font-size="42">A plan should fit the</text>
+  <text x="122" y="1148" fill="#5C5449" font-family="Arial, sans-serif" font-size="42">week you actually have.</text>
+</svg>
