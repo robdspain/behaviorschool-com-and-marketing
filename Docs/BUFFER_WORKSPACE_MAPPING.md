@@ -22,3 +22,9 @@ The blog social route creates a Buffer draft only. It does not publish or
 schedule directly. Default routing is RobSpain.com for LinkedIn and
 BehaviorSchool.com for Facebook, Instagram, and YouTube. A caller can provide
 an explicit brand per platform when a cross-brand post is intentional.
+
+The Behavior Study Tools social publisher uses the same named Behavior School
+API key and channel registry. It requires
+`BUFFER_BEHAVIORSCHOOL_ORGANIZATION_ID` and does not read the deprecated
+`BUFFER_API_KEY`, `BUFFER_ORGANIZATION_ID`, or
+`BUFFER_BEHAVIOR_SCHOOL_CHANNELS_JSON` variables.

@@ -45,7 +45,7 @@ export const BUFFER_WORKSPACES: WorkspaceDefinition[] = [
 ]
 
 export type BufferChannelStatus = 'configured' | 'missing' | 'mismatch'
-export type BufferApiStatus = 'verified' | 'missing' | 'invalid'
+export type BufferApiStatus = 'verified' | 'missing' | 'invalid' | 'unavailable'
 
 export function getBufferWorkspace(brand: BufferBrand) {
   return BUFFER_WORKSPACES.find((workspace) => workspace.brand === brand)!
@@ -107,11 +107,29 @@ export async function getBufferWorkspaceHealth() {
         }),
         signal: AbortSignal.timeout(8000),
       })
-      if (!response.ok) return { ...workspace, apiStatus: 'invalid' as BufferApiStatus }
+      if (!response.ok) {
+        return {
+          ...workspace,
+          apiStatus: response.status === 401 || response.status === 403
+            ? 'invalid' as BufferApiStatus
+            : 'unavailable' as BufferApiStatus,
+        }
+      }
 
-      const body = await response.json() as { data?: { account?: { id?: string; name?: string; email?: string } }; errors?: unknown[] }
+      const body = await response.json() as {
+        data?: { account?: { id?: string; name?: string; email?: string } }
+        errors?: Array<{ message?: string; extensions?: { code?: string } }>
+      }
       const account = body.data?.account
-      if (body.errors?.length || !account?.id) return { ...workspace, apiStatus: 'invalid' as BufferApiStatus }
+      if (body.errors?.length || !account?.id) {
+        const unauthorized = body.errors?.some((error) =>
+          error.extensions?.code === 'UNAUTHORIZED' || /not authorized|unauthorized/i.test(error.message || ''),
+        )
+        return {
+          ...workspace,
+          apiStatus: unauthorized ? 'invalid' as BufferApiStatus : 'unavailable' as BufferApiStatus,
+        }
+      }
 
       return {
         ...workspace,
@@ -120,7 +138,7 @@ export async function getBufferWorkspaceHealth() {
         bufferAccountEmail: account.email || null,
       }
     } catch {
-      return { ...workspace, apiStatus: 'invalid' as BufferApiStatus }
+      return { ...workspace, apiStatus: 'unavailable' as BufferApiStatus }
     }
   }))
 }

@@ -1,3 +1,5 @@
+import { getBufferApiKey, getBufferChannelId, getBufferWorkspace } from './buffer-workspaces'
+
 type BufferChannel = {
   id: string
   name: string
@@ -34,26 +36,23 @@ const platformService: Record<string, string> = {
   'linkedin post': 'linkedin',
   facebook: 'facebook',
   'facebook post': 'facebook',
+  instagram: 'instagram',
+  'instagram post': 'instagram',
+  youtube: 'youtube',
+  'youtube video': 'youtube',
   x: 'twitter',
   twitter: 'twitter',
   bluesky: 'bluesky',
 }
 
 function readChannelConfig() {
-  const raw = process.env.BUFFER_BEHAVIOR_SCHOOL_CHANNELS_JSON?.trim()
-  if (!raw) return [] as BehaviorSchoolChannelConfig[]
-
-  try {
-    const parsed = JSON.parse(raw) as Record<string, BehaviorSchoolChannelConfig>
-    return Object.values(parsed).filter(
-      (channel) =>
-        typeof channel?.id === 'string' &&
-        typeof channel?.name === 'string' &&
-        typeof channel?.service === 'string',
-    )
-  } catch {
-    throw new Error('BUFFER_BEHAVIOR_SCHOOL_CHANNELS_JSON is not valid JSON.')
-  }
+  return getBufferWorkspace('behaviorschool').channels
+    .map((channel) => ({
+      id: getBufferChannelId('behaviorschool', channel.platform),
+      name: channel.label,
+      service: channel.platform,
+    }))
+    .filter((channel) => channel.id)
 }
 
 function assertBehaviorSchoolChannel(channel: BufferChannel, expected: BehaviorSchoolChannelConfig) {
@@ -74,8 +73,8 @@ function assertBehaviorSchoolChannel(channel: BufferChannel, expected: BehaviorS
 }
 
 async function bufferRequest<T>(query: string, variables?: Record<string, unknown>) {
-  const apiKey = process.env.BUFFER_API_KEY?.trim()
-  if (!apiKey) throw new Error('BUFFER_API_KEY is not configured.')
+  const apiKey = getBufferApiKey('behaviorschool')
+  if (!apiKey) throw new Error('BUFFER_BEHAVIORSCHOOL_API_KEY is not configured.')
 
   const response = await fetch(BUFFER_API_URL, {
     method: 'POST',
@@ -102,15 +101,11 @@ function serviceForPlatform(platform: string) {
 }
 
 export function isBehaviorSchoolBufferConfigured() {
-  if (!process.env.BUFFER_API_KEY?.trim() || !process.env.BUFFER_ORGANIZATION_ID?.trim()) {
+  if (!getBufferApiKey('behaviorschool')) {
     return false
   }
 
-  try {
-    return readChannelConfig().length > 0
-  } catch {
-    return false
-  }
+  return readChannelConfig().length > 0
 }
 
 export function bufferSupportsPlatform(platform: string) {
@@ -123,8 +118,8 @@ export async function publishToBehaviorSchoolBuffer(input: BufferPostInput): Pro
     throw new Error(`${input.platform} requires a reviewed media workflow before it can be sent to Buffer automatically.`)
   }
 
-  const organizationId = process.env.BUFFER_ORGANIZATION_ID?.trim()
-  if (!organizationId) throw new Error('BUFFER_ORGANIZATION_ID is not configured.')
+  const organizationId = process.env.BUFFER_BEHAVIORSCHOOL_ORGANIZATION_ID?.trim()
+  if (!organizationId) throw new Error('BUFFER_BEHAVIORSCHOOL_ORGANIZATION_ID is not configured.')
 
   const configuredChannels = readChannelConfig()
   const expected = configuredChannels.find((channel) => channel.service === service)
