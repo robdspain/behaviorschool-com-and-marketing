@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyAdminSession } from '@/lib/admin-auth'
-import { callNewsletterConvex, listRobSpainDeliveryRecords, newsletterErrorResponse } from '@/lib/newsletter-admin'
+import {
+  callNewsletterConvex,
+  callRobSpainNewsletterConvex,
+  getRobSpainNewsletterDashboard,
+  listRobSpainDeliveryRecords,
+  newsletterErrorResponse,
+} from '@/lib/newsletter-admin'
 import { checkPublishingRelease, newsletterPublishingIdentity, publishingApprovalUrl } from '@/lib/publishing-standard'
 
 export const dynamic = 'force-dynamic'
@@ -16,6 +22,12 @@ export async function GET(request: NextRequest) {
   if (user instanceof NextResponse) return user
 
   try {
+    const deliveryIssueId = request.nextUrl.searchParams.get('deliveryIssueId')
+    if (deliveryIssueId) {
+      const dashboard = await getRobSpainNewsletterDashboard(deliveryIssueId)
+      return NextResponse.json({ ok: true, ...dashboard })
+    }
+
     const issueId = request.nextUrl.searchParams.get('issueId')
     if (issueId) {
       const [issue, analytics] = await Promise.all([
@@ -55,6 +67,41 @@ export async function POST(request: NextRequest) {
     const payload = await request.json() as { operation?: string; [key: string]: unknown }
     const operation = payload.operation
     const { operation: _operation, ...args } = payload
+
+    const deliveryOperations: Record<string, { kind: 'query' | 'mutation' | 'action'; path: string }> = {
+      deliverySaveDraft: { kind: 'mutation', path: 'newsletter:upsertDraft' },
+      deliveryReplaceSources: { kind: 'mutation', path: 'newsletter:replaceSources' },
+      deliveryPreview: { kind: 'action', path: 'newsletterActions:previewIssue' },
+      deliveryApprove: { kind: 'mutation', path: 'newsletter:approveIssue' },
+      deliveryPreflight: { kind: 'action', path: 'newsletterActions:fullPreflight' },
+      deliveryVerifyArchive: { kind: 'action', path: 'newsletterActions:verifyArchivePublication' },
+      deliverySend: { kind: 'action', path: 'newsletterActions:sendApprovedIssue' },
+    }
+
+    if (operation && deliveryOperations[operation]) {
+      const issueId = typeof args.issueId === 'string' ? args.issueId : ''
+      if (!issueId && operation !== 'deliverySaveDraft') {
+        return NextResponse.json({ ok: false, error: 'A delivery issue is required.' }, { status: 400 })
+      }
+      if (operation === 'deliveryApprove') args.approvedBy = user.email
+      if (operation === 'deliveryVerifyArchive') {
+        const dashboard = await getRobSpainNewsletterDashboard(issueId)
+        const issueKey = String(dashboard.selected?.issue?.issueKey ?? '')
+        if (!issueKey) return NextResponse.json({ ok: false, error: 'The delivery issue could not be loaded.' }, { status: 404 })
+        args.archiveUrl = `https://robspain.com/newsletter/${encodeURIComponent(issueKey)}/`
+      }
+      if (operation === 'deliverySend') {
+        const dashboard = await getRobSpainNewsletterDashboard(issueId)
+        const issue = dashboard.selected?.issue
+        if (!issue) return NextResponse.json({ ok: false, error: 'The delivery issue could not be loaded.' }, { status: 404 })
+        if (issue.status === 'sent' || issue.sentAt) {
+          return NextResponse.json({ ok: false, error: 'This newsletter issue has already been sent.' }, { status: 409 })
+        }
+      }
+      const target = deliveryOperations[operation]
+      const value = await callRobSpainNewsletterConvex(target.kind, target.path, args)
+      return NextResponse.json({ ok: true, value })
+    }
 
     const operations: Record<string, { kind: 'query' | 'mutation' | 'action'; path: string }> = {
       createDraft: { kind: 'action', path: 'weeklyNewsletter:createWeeklyDraft' },

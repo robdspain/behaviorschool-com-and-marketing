@@ -76,9 +76,14 @@ type Dashboard = {
   audiences: Array<{ key: string; label: string; description: string; eligible: number }>
   ctas: Array<{ _id: string; label: string; kind: string; headline: string; active: boolean }>
   deliveryRecords: Array<{
+    issueId: string
     issueKey: string
     subject: string
     status: string
+    version: number
+    previewedVersion: number | null
+    approvedAt: number | null
+    archiveVerifiedAt: number | null
     scheduledFor: number | null
     sentAt: number | null
     recipientCount: number
@@ -88,6 +93,15 @@ type Dashboard = {
 }
 
 type IssueDetail = { issue: Issue; articles: Article[]; socialPosts: SocialPost[] }
+type DeliveryDashboard = {
+  selected: {
+    issue: Issue & { version: number; previewedVersion?: number; approvedAt?: number; archiveVerifiedAt?: number }
+    sources: Array<{ _id: string; title: string; apaCitation: string; fullTextUrl: string; verifiedAt?: number }>
+    analytics: Record<string, unknown> | null
+    preflight: { ready?: boolean; checks?: Array<{ key: string; label: string; ok: boolean; detail: string }> } | null
+  } | null
+  audience: { subscribed?: number }
+}
 type PublishingIdentity = { site: 'robspain'; contentKey: string; contentHash: string; title: string; contentType: string; tier: 'A' }
 type PublishingGate = { approved: boolean; reason: string; record: Record<string, unknown> | null }
 
@@ -110,6 +124,8 @@ export default function NewsletterAdmin() {
   const [publishingGate, setPublishingGate] = useState<PublishingGate | null>(null)
   const [publishingApprovalUrl, setPublishingApprovalUrl] = useState('/admin/publishing-standards')
   const [workspaces, setWorkspaces] = useState<Workspace[]>([])
+  const [deliveryDetail, setDeliveryDetail] = useState<DeliveryDashboard | null>(null)
+  const [selectedDeliveryId, setSelectedDeliveryId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
   const [busy, setBusy] = useState<string | null>(null)
@@ -191,10 +207,43 @@ export default function NewsletterAdmin() {
     }
   }
 
+  const loadDelivery = async (issueId: string) => {
+    const selected = await jsonRequest<DeliveryDashboard & { ok: boolean }>(`/api/admin/newsletter/control?deliveryIssueId=${encodeURIComponent(issueId)}`)
+    setSelectedDeliveryId(issueId)
+    setDeliveryDetail(selected)
+  }
+
+  const runDelivery = async (operation: string, issueId: string, args: Record<string, unknown>, message: string) => {
+    setBusy(operation)
+    setError(null)
+    setNotice(null)
+    try {
+      const result = await jsonRequest<{ value?: { ready?: boolean; sent?: number; failed?: number; skippedAlreadySent?: number } }>('/api/admin/newsletter/control', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ operation, issueId, ...args }),
+      })
+      if (operation === 'deliveryPreflight' && result.value?.ready === false) {
+        setError('The delivery preflight found blocking items. Review the checks below.')
+      } else if (operation === 'deliverySend' && result.value) {
+        setNotice(`${message} Sent ${result.value.sent ?? 0}; failed ${result.value.failed ?? 0}; previously sent ${result.value.skippedAlreadySent ?? 0}.`)
+      } else {
+        setNotice(message)
+      }
+      await Promise.all([load(), loadDelivery(issueId)])
+    } catch (runError) {
+      setError(runError instanceof Error ? runError.message : 'The delivery action failed.')
+    } finally {
+      setBusy(null)
+    }
+  }
+
   const selectedIssue = detail?.issue
   const allBufferConfigured = useMemo(() => workspaces.length === 2 && workspaces.every((workspace) => workspace.apiStatus === 'verified' && workspace.channels.every((channel) => channel.status === 'configured')), [workspaces])
   const editoriallyApproved = publishingGate?.approved === true
   const canSend = Boolean(selectedIssue && editoriallyApproved && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
+  const selectedDeliveryIssue = deliveryDetail?.selected?.issue
+  const deliveryRecipients = deliveryDetail?.audience?.subscribed ?? 0
 
   if (loading) {
     return <div className="min-h-screen bg-[#f5f8f6] flex items-center justify-center text-slate-600">Loading weekly research brief workspace…</div>
@@ -251,7 +300,19 @@ export default function NewsletterAdmin() {
 
         <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="delivery-heading">
           <div className="flex flex-wrap items-start justify-between gap-4"><div><h2 id="delivery-heading" className="flex items-center gap-2 text-lg font-bold"><CheckCircle2 className="h-5 w-5 text-[#087f5b]" /> Scheduled delivery records</h2><p className="mt-1 text-sm text-[#5b7068]">The scheduled time and completed send time are read from the delivery system, not inferred from an email inbox.</p></div></div>
-          <div className="mt-4 overflow-x-auto"><table className="min-w-full text-left text-sm"><thead className="border-b border-[#d6e2dc] text-xs uppercase tracking-wide text-[#6b8178]"><tr><th className="px-3 py-2">Issue</th><th className="px-3 py-2">Status</th><th className="px-3 py-2">Scheduled</th><th className="px-3 py-2">Completed</th><th className="px-3 py-2">Recipients</th><th className="px-3 py-2">Failures</th></tr></thead><tbody>{dashboard?.deliveryRecords.map((record) => <tr key={record.issueKey} className="border-b border-[#edf2ef] text-[#354d44]"><td className="px-3 py-3"><p className="font-semibold text-[#17352d]">{record.subject}</p>{record.archiveUrl && <a className="mt-1 inline-block text-xs font-semibold text-[#087f5b] underline" href={record.archiveUrl} target="_blank" rel="noreferrer">View published issue</a>}</td><td className="px-3 py-3 capitalize">{record.status}</td><td className="px-3 py-3 whitespace-nowrap">{record.scheduledFor ? new Date(record.scheduledFor).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }) : 'Not recorded'}</td><td className="px-3 py-3 whitespace-nowrap">{record.sentAt ? new Date(record.sentAt).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }) : 'Not recorded'}</td><td className="px-3 py-3">{record.recipientCount}</td><td className="px-3 py-3">{record.failed}</td></tr>)}{!dashboard?.deliveryRecords.length && <tr><td colSpan={6} className="px-3 py-5 text-[#6b8178]">No delivery records are available.</td></tr>}</tbody></table></div>
+          <div className="mt-4 overflow-x-auto"><table className="min-w-full text-left text-sm"><thead className="border-b border-[#d6e2dc] text-xs uppercase tracking-wide text-[#6b8178]"><tr><th className="px-3 py-2">Issue</th><th className="px-3 py-2">Status</th><th className="px-3 py-2">Scheduled</th><th className="px-3 py-2">Completed</th><th className="px-3 py-2">Recipients</th><th className="px-3 py-2">Failures</th><th className="px-3 py-2">Actions</th></tr></thead><tbody>{dashboard?.deliveryRecords.map((record) => <tr key={record.issueKey} className="border-b border-[#edf2ef] text-[#354d44]"><td className="px-3 py-3"><p className="font-semibold text-[#17352d]">{record.subject}</p>{record.archiveUrl && <a className="mt-1 inline-block text-xs font-semibold text-[#087f5b] underline" href={record.archiveUrl} target="_blank" rel="noreferrer">View published issue</a>}</td><td className="px-3 py-3 capitalize">{record.status}</td><td className="px-3 py-3 whitespace-nowrap">{record.scheduledFor ? new Date(record.scheduledFor).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }) : 'Not recorded'}</td><td className="px-3 py-3 whitespace-nowrap">{record.sentAt ? new Date(record.sentAt).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }) : 'Not recorded'}</td><td className="px-3 py-3">{record.recipientCount}</td><td className="px-3 py-3">{record.failed}</td><td className="px-3 py-3"><button type="button" disabled={!record.issueId || busy !== null} onClick={() => void loadDelivery(record.issueId)} className={`rounded-lg border px-3 py-2 text-xs font-bold ${selectedDeliveryId === record.issueId ? 'border-[#087f5b] bg-[#effaf5] text-[#087f5b]' : 'border-[#b6cfc4] bg-white text-[#1c5547]'}`}>Manage</button></td></tr>)}{!dashboard?.deliveryRecords.length && <tr><td colSpan={7} className="px-3 py-5 text-[#6b8178]">No delivery records are available.</td></tr>}</tbody></table></div>
+          {selectedDeliveryIssue && <div className="mt-5 rounded-xl border border-[#b6cfc4] bg-[#f8fbf9] p-5">
+            <div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-wide text-[#087f5b]">{selectedDeliveryIssue.issueKey} · Version {selectedDeliveryIssue.version}</p><h3 className="mt-1 text-lg font-bold text-[#17352d]">{selectedDeliveryIssue.subject}</h3><p className="mt-2 text-sm text-[#5b7068]">Preview {selectedDeliveryIssue.previewedVersion === selectedDeliveryIssue.version ? 'complete' : 'required'} · Approval {selectedDeliveryIssue.approvedAt ? 'complete' : 'required'} · Public archive {selectedDeliveryIssue.archiveVerifiedAt ? 'verified' : 'required'}</p></div><span className="rounded-full bg-white px-3 py-1 text-xs font-bold uppercase text-[#1c5547]">{selectedDeliveryIssue.status}</span></div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" disabled={busy !== null || selectedDeliveryIssue.status === 'sent'} onClick={() => { const to = window.prompt('Send the preview to which approved review address?', 'robspain@gmail.com'); if (to) void runDelivery('deliveryPreview', selectedDeliveryIssue._id, { to }, 'Preview sent to the approved review address.') }} className="rounded-lg border border-[#b6cfc4] bg-white px-3 py-2 text-sm font-semibold text-[#1c5547] disabled:opacity-50">Send preview</button>
+              <button type="button" disabled={busy !== null || selectedDeliveryIssue.status === 'sent'} onClick={() => { if (window.confirm(`Approve version ${selectedDeliveryIssue.version} of “${selectedDeliveryIssue.subject}”?`)) void runDelivery('deliveryApprove', selectedDeliveryIssue._id, {}, 'Current delivery version approved.') }} className="rounded-lg bg-[#17352d] px-3 py-2 text-sm font-semibold text-white disabled:opacity-50">Approve current version</button>
+              <button type="button" disabled={busy !== null} onClick={() => void runDelivery('deliveryPreflight', selectedDeliveryIssue._id, {}, 'Delivery preflight passed.')} className="rounded-lg border border-[#b6cfc4] bg-white px-3 py-2 text-sm font-semibold text-[#1c5547] disabled:opacity-50">Run full preflight</button>
+              <button type="button" disabled={busy !== null || !selectedDeliveryIssue.approvedAt || selectedDeliveryIssue.status === 'sent'} onClick={() => void runDelivery('deliveryVerifyArchive', selectedDeliveryIssue._id, {}, 'Public RobSpain.com issue page verified.')} className="rounded-lg bg-[#f5c842] px-3 py-2 text-sm font-bold text-[#17352d] disabled:opacity-50">Verify public page</button>
+              <button type="button" disabled={busy !== null || !selectedDeliveryIssue.approvedAt || !selectedDeliveryIssue.archiveVerifiedAt || selectedDeliveryIssue.status === 'sent'} onClick={() => { if (window.confirm(`Send “${selectedDeliveryIssue.subject}” to ${deliveryRecipients} confirmed readers?`)) void runDelivery('deliverySend', selectedDeliveryIssue._id, {}, 'Newsletter delivery finished.') }} className="rounded-lg bg-[#087f5b] px-3 py-2 text-sm font-bold text-white disabled:opacity-50">Send to confirmed readers</button>
+            </div>
+            <div className="mt-4 grid gap-2">{deliveryDetail?.selected?.preflight?.checks?.map((check) => <div key={check.key} className={`rounded-lg border px-3 py-2 text-sm ${check.ok ? 'border-emerald-200 bg-emerald-50 text-emerald-900' : 'border-amber-200 bg-amber-50 text-amber-900'}`}><strong>{check.ok ? 'Ready' : 'Blocked'}: {check.label}</strong><p className="mt-1 text-xs leading-5">{check.detail}</p></div>)}</div>
+            <p className="mt-4 text-xs leading-5 text-[#6b8178]">This panel controls the RobSpain delivery system from Behavior School admin. Duplicate delivery is blocked both here and in the delivery service.</p>
+          </div>}
         </section>
 
         <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="buffer-heading">

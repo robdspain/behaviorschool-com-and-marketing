@@ -96,7 +96,8 @@ export async function checkPublishingRelease(identity: {
   contentKey: string;
   contentHash: string;
 }) {
-  return getConvexClient().query(api.publishingStandards.checkRelease, identity) as Promise<{
+  const { site, contentKey, contentHash } = identity;
+  return getConvexClient().query(api.publishingStandards.checkRelease, { site, contentKey, contentHash }) as Promise<{
     approved: boolean;
     reason: string;
     record: Record<string, unknown> | null;
