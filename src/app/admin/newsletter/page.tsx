@@ -25,6 +25,15 @@ type Issue = {
   socialDraftCount?: number
   socialReviewedCount?: number
   socialPublishedCount?: number
+  emailDelivery?: {
+    state: 'sent' | 'not_sent' | 'not_recorded'
+    status: string
+    sentAt: number | null
+    scheduledFor: number | null
+    recipientCount: number
+    failed: number
+  }
+  recyclableForNextIssue?: boolean
 }
 
 type Article = {
@@ -333,7 +342,7 @@ export default function NewsletterAdmin() {
         <div className="grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
           <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="issues-heading">
             <div className="flex items-center justify-between gap-3"><div><h2 id="issues-heading" className="flex items-center gap-2 text-lg font-bold"><FileText className="h-5 w-5 text-[#087f5b]" /> Issues</h2><p className="mt-1 text-sm text-[#6b8178]">Draft, approve, verify, then send.</p></div><button type="button" disabled={busy !== null} onClick={() => void run('createDraft', { recipientSegment: 'all-confirmed', ctaKind: 'transformation' }, 'A new draft was created from the weekly research workflow.')} className="rounded-lg bg-[#087f5b] px-3 py-2 text-xs font-bold text-white disabled:opacity-50">New draft</button></div>
-            <div className="mt-4 space-y-2">{dashboard?.issues.map((issue) => <button type="button" key={issue._id} onClick={() => void load(issue._id)} className={`w-full rounded-lg border p-3 text-left transition ${selectedId === issue._id ? 'border-[#087f5b] bg-[#effaf5]' : 'border-[#d6e2dc] hover:bg-[#f8fbf9]'}`}><div className="flex items-start justify-between gap-3"><span className="text-xs font-bold uppercase tracking-wide text-[#6b8178]">{issue.issueKey}</span><span className={`rounded-full px-2 py-1 text-[10px] font-bold uppercase ${issue.status === 'sent' ? 'bg-emerald-100 text-emerald-800' : issue.status === 'failed' ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-700'}`}>{issue.status}</span></div><p className="mt-2 font-semibold leading-5">{issue.subject}</p><p className="mt-2 text-xs text-[#6b8178]">Social drafts: {issue.socialDraftCount ?? 0}</p></button>)}{!dashboard?.issues.length && <p className="rounded-lg bg-[#f8fbf9] p-4 text-sm text-[#63776f]">No newsletter issues yet. Create the first draft to begin.</p>}</div>
+            <div className="mt-4 space-y-2">{dashboard?.issues.map((issue) => <button type="button" key={issue._id} onClick={() => void load(issue._id)} className={`w-full rounded-lg border p-3 text-left transition ${selectedId === issue._id ? 'border-[#087f5b] bg-[#effaf5]' : 'border-[#d6e2dc] hover:bg-[#f8fbf9]'}`}><div className="flex items-start justify-between gap-3"><span className="text-xs font-bold uppercase tracking-wide text-[#6b8178]">{issue.issueKey}</span><span className={`rounded-full px-2 py-1 text-[10px] font-bold uppercase ${issue.status === 'sent' ? 'bg-emerald-100 text-emerald-800' : issue.status === 'failed' ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-700'}`}>{issue.status}</span></div><p className="mt-2 font-semibold leading-5">{issue.subject}</p><div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs"><span className={issue.emailDelivery?.state === 'sent' ? 'font-semibold text-emerald-700' : issue.emailDelivery?.state === 'not_sent' ? 'font-semibold text-amber-700' : 'font-semibold text-slate-600'}>Email: {issue.emailDelivery?.state === 'sent' ? `sent to ${issue.emailDelivery.recipientCount}` : issue.emailDelivery?.state === 'not_sent' ? 'not sent' : 'delivery not recorded'}</span>{issue.recyclableForNextIssue && <span className="font-semibold text-[#087f5b]">Eligible for next-issue review</span>}</div><p className="mt-2 text-xs text-[#6b8178]">Social drafts: {issue.socialDraftCount ?? 0}</p></button>)}{!dashboard?.issues.length && <p className="rounded-lg bg-[#f8fbf9] p-4 text-sm text-[#63776f]">No newsletter issues yet. Create the first draft to begin.</p>}</div>
           </section>
 
           <section className="min-w-0 rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="review-heading">

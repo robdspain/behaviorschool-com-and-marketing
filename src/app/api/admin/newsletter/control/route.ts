@@ -47,13 +47,43 @@ export async function GET(request: NextRequest) {
     }
 
     const [issues, summary, audiences, ctas, deliveryRecords] = await Promise.all([
-      callNewsletterConvex('query', 'weeklyNewsletter:listIssuesForAdmin', { limit: 30 }),
+      callNewsletterConvex<Array<Record<string, unknown>>>('query', 'weeklyNewsletter:listIssuesForAdmin', { limit: 30 }),
       callNewsletterConvex('query', 'weeklyNewsletter:subscriberReadinessForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:audienceSummaryForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:listCtasForAdmin', { activeOnly: false }),
       listRobSpainDeliveryRecords(),
     ])
-    return NextResponse.json({ ok: true, issues, summary, audiences, ctas, deliveryRecords })
+    const deliveryByIssueKey = new Map(
+      deliveryRecords.map((record) => [record.issueKey, record]),
+    )
+    const issuesWithDelivery = issues.map((issue) => {
+      const issueKey = String(issue.issueKey ?? '')
+      const delivery = deliveryByIssueKey.get(issueKey)
+      return {
+        ...issue,
+        emailDelivery: delivery
+          ? {
+              state: delivery.sentAt ? 'sent' : 'not_sent',
+              status: delivery.status,
+              sentAt: delivery.sentAt,
+              scheduledFor: delivery.scheduledFor,
+              recipientCount: delivery.recipientCount,
+              failed: delivery.failed,
+            }
+          : {
+              state: 'not_recorded',
+              status: 'not_recorded',
+              sentAt: null,
+              scheduledFor: null,
+              recipientCount: 0,
+              failed: 0,
+            },
+        // Absence of a delivery record is not proof that an issue was never
+        // sent. Only an existing record with no completed send is recyclable.
+        recyclableForNextIssue: Boolean(delivery && !delivery.sentAt),
+      }
+    })
+    return NextResponse.json({ ok: true, issues: issuesWithDelivery, summary, audiences, ctas, deliveryRecords })
   } catch (error) {
     return newsletterErrorResponse(error)
   }
