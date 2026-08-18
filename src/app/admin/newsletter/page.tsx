@@ -249,6 +249,24 @@ export default function NewsletterAdmin() {
 
   const selectedIssue = detail?.issue
   const allBufferConfigured = useMemo(() => workspaces.length === 2 && workspaces.every((workspace) => workspace.apiStatus === 'verified' && workspace.channels.every((channel) => channel.status === 'configured')), [workspaces])
+  const audienceCards = useMemo(() => {
+    const audiences = dashboard?.audiences ?? []
+    const allConfirmed = audiences.find((audience) => audience.key === 'all-confirmed')?.eligible ?? dashboard?.summary.confirmedNewsletter ?? 0
+    const namedSegmentTotal = audiences
+      .filter((audience) => audience.key !== 'all-confirmed')
+      .reduce((total, audience) => total + audience.eligible, 0)
+    const notRepresentedByNamedSegments = Math.max(0, allConfirmed - namedSegmentTotal)
+    if (!notRepresentedByNamedSegments || audiences.some((audience) => audience.key === 'unclassified-confirmed')) return audiences
+    return [
+      ...audiences,
+      {
+        key: 'unclassified-confirmed',
+        label: 'Not in named segments',
+        eligible: notRepresentedByNamedSegments,
+        description: 'Confirmed contacts included in All confirmed but not represented by a named source segment.',
+      },
+    ]
+  }, [dashboard])
   const editoriallyApproved = publishingGate?.approved === true
   const canSend = Boolean(selectedIssue && editoriallyApproved && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
   const selectedDeliveryIssue = deliveryDetail?.selected?.issue
@@ -380,7 +398,7 @@ export default function NewsletterAdmin() {
           </section>
         </div>
 
-        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="audience-heading"><h2 id="audience-heading" className="flex items-center gap-2 text-lg font-bold"><Users className="h-5 w-5 text-[#087f5b]" /> Audience segments</h2><div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{dashboard?.audiences.map((audience) => <div key={audience.key} className="rounded-lg border border-[#d6e2dc] p-3"><div className="flex items-center justify-between gap-2"><span className="font-semibold">{audience.label}</span><strong className="text-[#087f5b]">{audience.eligible}</strong></div><p className="mt-1 text-xs leading-5 text-[#6b8178]">{audience.description}</p></div>)}</div></section>
+        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="audience-heading"><h2 id="audience-heading" className="flex items-center gap-2 text-lg font-bold"><Users className="h-5 w-5 text-[#087f5b]" /> Audience segments</h2><p className="mt-1 text-sm text-[#5b7068]">The default newsletter audience is All confirmed. Named segments describe source groups and do not limit that audience.</p><div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{audienceCards.map((audience) => <div key={audience.key} className="rounded-lg border border-[#d6e2dc] p-3"><div className="flex items-center justify-between gap-2"><span className="font-semibold">{audience.label}</span><strong className="text-[#087f5b]">{audience.eligible}</strong></div><p className="mt-1 text-xs leading-5 text-[#6b8178]">{audience.description}</p></div>)}</div></section>
       </div>
     </main>
   )
