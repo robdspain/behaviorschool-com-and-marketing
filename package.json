@@ -20,7 +20,7 @@
     "monitor:netlify": "node scripts/netlify-monitor.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
     "fix-ghost-images": "node fix-ghost-images.js",
-    "postbuild": "node scripts/verify-bcba-acquisition-routing.mjs && node scripts/verify-canonical-links.mjs && tsx --test scripts/tests/search-console-sites.test.ts",
+    "postbuild": "node scripts/verify-bcba-acquisition-routing.mjs && node scripts/verify-canonical-links.mjs && tsx --test scripts/tests/search-console-sites.test.ts scripts/tests/newsletter-canonical-signup.test.ts",
     "test:seo-monitor": "tsx --test scripts/tests/search-console-sites.test.ts",
     "test:publishing-standards": "tsx --test scripts/tests/publishing-standards.test.ts",
     "test:bst-referral": "tsx --test src/lib/bst-referral-campaign.test.ts",

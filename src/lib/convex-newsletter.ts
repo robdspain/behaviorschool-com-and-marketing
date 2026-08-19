@@ -1,4 +1,5 @@
-const DEFAULT_CONVEX_URL = 'https://modest-malamute-868.convex.cloud';
+const DEFAULT_DELIVERY_CONVEX_URL = 'https://precious-clownfish-797.convex.cloud';
+const DEFAULT_CONTENT_CONVEX_URL = 'https://modest-malamute-868.convex.cloud';
 
 export type ConvexNewsletterStatus = 'pending' | 'subscribed' | 'unsubscribed';
 
@@ -8,8 +9,6 @@ export type ConvexNewsletterInput = {
   source?: string;
   page?: string;
   tags?: string[];
-  status?: ConvexNewsletterStatus;
-  sendWelcome?: boolean;
 };
 
 export function normalizeNewsletterEmail(email: string) {
@@ -27,21 +26,17 @@ export async function subscribeToNewsletter(input: ConvexNewsletterInput) {
     throw new Error('invalid_email');
   }
 
-  const response = await fetch(`${getConvexUrl()}/api/mutation`, {
+  const pageTag = input.page ? `page:${input.page.slice(0, 80)}` : '';
+  const response = await fetch(`${getDeliveryConvexUrl()}/api/action`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      path: 'newsletter:subscribeToNewsletter',
+      path: 'newsletterActions:requestSubscription',
       args: {
         email,
         name: input.name || undefined,
         source: input.source || 'behaviorschool.com',
-        tags: input.tags || ['newsletter'],
-        status: input.status || 'pending',
-        metadata: {
-          page: input.page,
-          site: 'behaviorschool.com',
-        },
+        tags: Array.from(new Set(['newsletter', 'behaviorschool.com', pageTag, ...(input.tags || [])].filter(Boolean))),
       },
     }),
   });
@@ -53,15 +48,10 @@ export async function subscribeToNewsletter(input: ConvexNewsletterInput) {
     throw new Error('newsletter_unavailable');
   }
 
-  if (input.sendWelcome) {
-    const { sendWelcomeEmail } = await import('@/lib/email');
-    await sendWelcomeEmail(email);
-  }
-
   return {
     success: true,
     isNew: data?.value?.isNew ?? true,
-    status: data?.value?.status || input.status || 'pending',
+    status: data?.value?.status || 'pending',
     message:
       data?.value?.status === 'subscribed'
         ? 'You are already subscribed.'
@@ -76,7 +66,7 @@ export async function confirmNewsletterSubscription(email: string) {
     throw new Error('invalid_email');
   }
 
-  const response = await fetch(`${getConvexUrl()}/api/mutation`, {
+  const response = await fetch(`${getContentConvexUrl()}/api/mutation`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -100,7 +90,7 @@ export async function unsubscribeFromNewsletter(email: string) {
     throw new Error('invalid_email');
   }
 
-  const response = await fetch(`${getConvexUrl()}/api/mutation`, {
+  const response = await fetch(`${getContentConvexUrl()}/api/mutation`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -116,11 +106,18 @@ export async function unsubscribeFromNewsletter(email: string) {
   return { success: true };
 }
 
-function getConvexUrl() {
+function getDeliveryConvexUrl() {
+  return String(
+    process.env.ROBSPAIN_NEWSLETTER_CONVEX_URL ||
+      DEFAULT_DELIVERY_CONVEX_URL
+  ).replace(/\/$/, '');
+}
+
+function getContentConvexUrl() {
   return String(
     process.env.NEWSLETTER_CONVEX_URL ||
       process.env.CONVEX_URL ||
       process.env.NEXT_PUBLIC_CONVEX_URL ||
-      DEFAULT_CONVEX_URL
+      DEFAULT_CONTENT_CONVEX_URL
   ).replace(/\/$/, '');
 }

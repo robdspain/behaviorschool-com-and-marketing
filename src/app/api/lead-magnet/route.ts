@@ -64,7 +64,6 @@ export async function POST(request: NextRequest) {
       source: "lead-magnet",
       page: cleanString(body?.page, 400) || request.headers.get("referer") || undefined,
       tags: tags.length ? Array.from(new Set(["lead-magnet", ...tags])) : ["lead-magnet"],
-      status: "subscribed",
     });
 
     const transformationIntent = [

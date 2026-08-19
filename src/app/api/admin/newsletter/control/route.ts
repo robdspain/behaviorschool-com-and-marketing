@@ -4,9 +4,11 @@ import {
   callNewsletterConvex,
   callRobSpainNewsletterConvex,
   getRobSpainNewsletterDashboard,
-  listRobSpainDeliveryRecords,
   newsletterErrorResponse,
+  robSpainDeliveryRecordsFromDashboard,
 } from '@/lib/newsletter-admin'
+import { summarizeNewsletterAcquisition } from '@/lib/newsletter-acquisition'
+import type { NewsletterSubscriberRecord } from '@/lib/newsletter-acquisition'
 import { checkPublishingRelease, newsletterPublishingIdentity, publishingApprovalUrl } from '@/lib/publishing-standard'
 
 export const dynamic = 'force-dynamic'
@@ -46,13 +48,21 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    const [issues, summary, audiences, ctas, deliveryRecords] = await Promise.all([
+    const [issues, summary, audiences, ctas, deliveryDashboard, confirmedContacts, pendingContacts] = await Promise.all([
       callNewsletterConvex<Array<Record<string, unknown>>>('query', 'weeklyNewsletter:listIssuesForAdmin', { limit: 30 }),
       callNewsletterConvex('query', 'weeklyNewsletter:subscriberReadinessForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:audienceSummaryForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:listCtasForAdmin', { activeOnly: false }),
-      listRobSpainDeliveryRecords(),
+      getRobSpainNewsletterDashboard(),
+      callRobSpainNewsletterConvex<NewsletterSubscriberRecord[]>('query', 'newsletter:exportSubscribers', { status: 'subscribed', limit: 5000 }),
+      callRobSpainNewsletterConvex<NewsletterSubscriberRecord[]>('query', 'newsletter:exportSubscribers', { status: 'pending', limit: 5000 }),
     ])
+    const deliveryRecords = robSpainDeliveryRecordsFromDashboard(deliveryDashboard)
+    const acquisition = summarizeNewsletterAcquisition(
+      Number(deliveryDashboard.audience.subscribed ?? 0),
+      confirmedContacts,
+      pendingContacts,
+    )
     const deliveryByIssueKey = new Map(
       deliveryRecords.map((record) => [record.issueKey, record]),
     )
@@ -83,7 +93,7 @@ export async function GET(request: NextRequest) {
         recyclableForNextIssue: Boolean(delivery && !delivery.sentAt),
       }
     })
-    return NextResponse.json({ ok: true, issues: issuesWithDelivery, summary, audiences, ctas, deliveryRecords })
+    return NextResponse.json({ ok: true, issues: issuesWithDelivery, summary, audiences, ctas, deliveryRecords, acquisition })
   } catch (error) {
     return newsletterErrorResponse(error)
   }

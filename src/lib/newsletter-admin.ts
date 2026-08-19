@@ -119,9 +119,7 @@ export async function getRobSpainNewsletterDashboard(issueId?: string): Promise<
   return callRobSpainNewsletterConvex('query', 'newsletter:adminDashboard', issueId ? { issueId } : {})
 }
 
-export async function listRobSpainDeliveryRecords(): Promise<RobSpainDeliveryRecord[]> {
-  const dashboard = await getRobSpainNewsletterDashboard()
-
+export function robSpainDeliveryRecordsFromDashboard(dashboard: RobSpainNewsletterDashboard): RobSpainDeliveryRecord[] {
   return dashboard.issues.map((issue) => ({
     issueId: String(issue._id ?? ''),
     issueKey: issue.issueKey ?? 'Unknown issue',
@@ -137,4 +135,8 @@ export async function listRobSpainDeliveryRecords(): Promise<RobSpainDeliveryRec
     failed: issue.failed ?? 0,
     archiveUrl: issue.archiveUrl ?? null,
   }))
+}
+
+export async function listRobSpainDeliveryRecords(): Promise<RobSpainDeliveryRecord[]> {
+  return robSpainDeliveryRecordsFromDashboard(await getRobSpainNewsletterDashboard())
 }

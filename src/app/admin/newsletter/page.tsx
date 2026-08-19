@@ -99,6 +99,15 @@ type Dashboard = {
     failed: number
     archiveUrl: string | null
   }>
+  acquisition?: {
+    launchAt: number
+    targetConfirmed: number
+    confirmedTotal: number
+    confirmedSinceLaunch: number
+    remainingToTarget: number
+    pendingSinceLaunch: number
+    sources: Array<{ source: string; requested: number; confirmed: number; pending: number; confirmationRate: number | null }>
+  }
 }
 
 type IssueDetail = { issue: Issue; articles: Article[]; socialPosts: SocialPost[] }
@@ -299,7 +308,7 @@ export default function NewsletterAdmin() {
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#e2f5ed] text-[#087f5b]"><Mail className="h-5 w-5" /></span>
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#087f5b]">BehaviorSchool.com admin</p>
-                  <h1 className="mt-1 text-3xl font-bold tracking-tight text-[#102a23]">School BCBA Research Brief</h1>
+                  <h1 className="mt-1 text-3xl font-bold tracking-tight text-[#102a23]">The Weekly Research Brief</h1>
                 </div>
               </div>
               <p className="mt-4 max-w-2xl text-sm leading-6 text-[#536a62]">Convex is the source of truth for drafts, approvals, delivery readiness, feedback, and social follow-up. This workspace does not use the legacy Listmonk/Supabase manager.</p>
@@ -323,6 +332,13 @@ export default function NewsletterAdmin() {
             ['Excluded', dashboard?.summary.excluded ?? 0, 'bg-white'],
             ['Test contacts', dashboard?.summary.codexTests ?? 0, 'bg-white'],
           ].map(([label, value, tone]) => <div key={String(label)} className={`${tone} rounded-xl border border-[#d6e2dc] p-4`}><p className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">{label}</p><p className="mt-2 text-3xl font-bold text-[#17352d]">{String(value)}</p></div>)}
+        </section>
+
+        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="growth-heading">
+          <div className="flex flex-wrap items-start justify-between gap-4"><div><h2 id="growth-heading" className="flex items-center gap-2 text-lg font-bold"><Users className="h-5 w-5 text-[#087f5b]" /> First 50 confirmed readers</h2><p className="mt-1 text-sm text-[#5b7068]">Counts come from the delivery audience after email confirmation. Email addresses are not shown in this report.</p></div><span className="rounded-full bg-[#effaf5] px-3 py-1 text-sm font-bold text-[#087f5b]">{dashboard?.acquisition?.confirmedTotal ?? 0} of {dashboard?.acquisition?.targetConfirmed ?? 50}</span></div>
+          <div className="mt-4 h-3 overflow-hidden rounded-full bg-[#e5eee9]" aria-label={`${dashboard?.acquisition?.confirmedTotal ?? 0} of ${dashboard?.acquisition?.targetConfirmed ?? 50} confirmed readers`}><div className="h-full rounded-full bg-[#087f5b]" style={{ width: `${Math.min(100, ((dashboard?.acquisition?.confirmedTotal ?? 0) / (dashboard?.acquisition?.targetConfirmed || 50)) * 100)}%` }} /></div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3"><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Confirmed since launch</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.confirmedSinceLaunch ?? 0}</strong></div><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Awaiting confirmation</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.pendingSinceLaunch ?? 0}</strong></div><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Remaining to 50</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.remainingToTarget ?? 50}</strong></div></div>
+          <div className="mt-4 overflow-x-auto"><table className="min-w-full text-left text-sm"><thead className="border-b border-[#d6e2dc] text-xs uppercase tracking-wide text-[#6b8178]"><tr><th className="px-3 py-2">Signup source</th><th className="px-3 py-2">Requests</th><th className="px-3 py-2">Confirmed</th><th className="px-3 py-2">Pending</th><th className="px-3 py-2">Confirmation rate</th></tr></thead><tbody>{dashboard?.acquisition?.sources.map((source) => <tr key={source.source} className="border-b border-[#edf2ef]"><td className="px-3 py-3 font-medium text-[#17352d]">{source.source}</td><td className="px-3 py-3">{source.requested}</td><td className="px-3 py-3">{source.confirmed}</td><td className="px-3 py-3">{source.pending}</td><td className="px-3 py-3">{source.confirmationRate == null ? 'Not available' : `${(source.confirmationRate * 100).toFixed(0)}%`}</td></tr>)}{!dashboard?.acquisition?.sources.length && <tr><td colSpan={5} className="px-3 py-5 text-[#6b8178]">No post-launch signup requests have been recorded yet.</td></tr>}</tbody></table></div>
         </section>
 
         <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="delivery-heading">

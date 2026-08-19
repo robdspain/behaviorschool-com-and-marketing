@@ -59,7 +59,6 @@ export async function POST(request: NextRequest) {
       source: "plan-free-iep-goal-builder",
       page: "https://plan.behaviorschool.com/free-iep-goal-builder",
       tags,
-      status: "subscribed",
     });
 
     return NextResponse.json({ ok: true });
