@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { subscribeToNewsletter } from '../../src/lib/convex-newsletter'
-import { summarizeNewsletterAcquisition } from '../../src/lib/newsletter-acquisition'
+import { newsletterSourceReviewProgress, summarizeNewsletterAcquisition } from '../../src/lib/newsletter-acquisition'
 
 test('Behavior School signup enters the canonical RobSpain delivery audience with source tags', async () => {
   const originalFetch = global.fetch
@@ -67,4 +67,16 @@ test('source summary returns aggregate confirmed conversions without contact det
     ],
   })
   assert.doesNotMatch(JSON.stringify(summary), /@/)
+})
+
+test('source review becomes ready only after two post-launch sends', () => {
+  const launchAt = 1_000
+  assert.deepEqual(
+    newsletterSourceReviewProgress([{ sentAt: 900 }, { sentAt: 1_100 }, { sentAt: null }], launchAt),
+    { sentIssuesSinceLaunch: 1, reviewIssueTarget: 2, reviewReady: false },
+  )
+  assert.deepEqual(
+    newsletterSourceReviewProgress([{ sentAt: 1_100 }, { sentAt: 1_200 }], launchAt),
+    { sentIssuesSinceLaunch: 2, reviewIssueTarget: 2, reviewReady: true },
+  )
 })

@@ -7,7 +7,7 @@ import {
   newsletterErrorResponse,
   robSpainDeliveryRecordsFromDashboard,
 } from '@/lib/newsletter-admin'
-import { summarizeNewsletterAcquisition } from '@/lib/newsletter-acquisition'
+import { newsletterSourceReviewProgress, summarizeNewsletterAcquisition } from '@/lib/newsletter-acquisition'
 import type { NewsletterSubscriberRecord } from '@/lib/newsletter-acquisition'
 import { checkPublishingRelease, newsletterPublishingIdentity, publishingApprovalUrl } from '@/lib/publishing-standard'
 
@@ -56,6 +56,7 @@ export async function GET(request: NextRequest) {
       getRobSpainNewsletterDashboard(),
     ])
     const deliveryRecords = robSpainDeliveryRecordsFromDashboard(deliveryDashboard)
+    const reviewProgress = newsletterSourceReviewProgress(deliveryRecords)
     const confirmedTotal = Number(deliveryDashboard.audience.subscribed ?? 0)
     let acquisition
     try {
@@ -63,7 +64,10 @@ export async function GET(request: NextRequest) {
         callRobSpainNewsletterConvex<NewsletterSubscriberRecord[]>('query', 'newsletter:exportSubscribers', { status: 'subscribed', limit: 5000 }),
         callRobSpainNewsletterConvex<NewsletterSubscriberRecord[]>('query', 'newsletter:exportSubscribers', { status: 'pending', limit: 5000 }),
       ])
-      acquisition = summarizeNewsletterAcquisition(confirmedTotal, confirmedContacts, pendingContacts)
+      acquisition = {
+        ...summarizeNewsletterAcquisition(confirmedTotal, confirmedContacts, pendingContacts),
+        ...reviewProgress,
+      }
     } catch (sourceError) {
       console.error('Newsletter acquisition source report unavailable:', sourceError)
       acquisition = {
@@ -75,6 +79,7 @@ export async function GET(request: NextRequest) {
         remainingToTarget: Math.max(0, 50 - confirmedTotal),
         pendingSinceLaunch: null,
         sources: [],
+        ...reviewProgress,
       }
     }
     const deliveryByIssueKey = new Map(

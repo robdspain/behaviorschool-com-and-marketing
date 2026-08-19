@@ -1,10 +1,24 @@
 export const NEWSLETTER_GROWTH_LAUNCH_AT = Date.parse('2026-08-19T00:47:08Z')
 export const NEWSLETTER_CONFIRMED_TARGET = 50
+export const NEWSLETTER_REVIEW_ISSUE_TARGET = 2
 
 export type NewsletterSubscriberRecord = {
   source?: string
   confirmedAt?: number
   updatedAt: number
+}
+
+export function newsletterSourceReviewProgress(
+  deliveryRecords: Array<{ sentAt: number | null }>,
+  launchAt = NEWSLETTER_GROWTH_LAUNCH_AT,
+  targetIssues = NEWSLETTER_REVIEW_ISSUE_TARGET,
+) {
+  const sentIssuesSinceLaunch = deliveryRecords.filter((record) => (record.sentAt ?? 0) >= launchAt).length
+  return {
+    sentIssuesSinceLaunch,
+    reviewIssueTarget: targetIssues,
+    reviewReady: sentIssuesSinceLaunch >= targetIssues,
+  }
 }
 
 export function summarizeNewsletterAcquisition(
