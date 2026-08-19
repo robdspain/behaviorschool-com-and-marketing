@@ -34,6 +34,7 @@ export function summarizeNewsletterAcquisition(
   }
 
   return {
+    available: true as const,
     launchAt,
     targetConfirmed,
     confirmedTotal,

@@ -55,6 +55,7 @@ test('source summary returns aggregate confirmed conversions without contact det
   )
 
   assert.deepEqual(summary, {
+    available: true,
     launchAt,
     targetConfirmed: 50,
     confirmedTotal: 33,

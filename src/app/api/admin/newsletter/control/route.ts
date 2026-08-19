@@ -48,21 +48,35 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    const [issues, summary, audiences, ctas, deliveryDashboard, confirmedContacts, pendingContacts] = await Promise.all([
+    const [issues, summary, audiences, ctas, deliveryDashboard] = await Promise.all([
       callNewsletterConvex<Array<Record<string, unknown>>>('query', 'weeklyNewsletter:listIssuesForAdmin', { limit: 30 }),
       callNewsletterConvex('query', 'weeklyNewsletter:subscriberReadinessForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:audienceSummaryForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:listCtasForAdmin', { activeOnly: false }),
       getRobSpainNewsletterDashboard(),
-      callRobSpainNewsletterConvex<NewsletterSubscriberRecord[]>('query', 'newsletter:exportSubscribers', { status: 'subscribed', limit: 5000 }),
-      callRobSpainNewsletterConvex<NewsletterSubscriberRecord[]>('query', 'newsletter:exportSubscribers', { status: 'pending', limit: 5000 }),
     ])
     const deliveryRecords = robSpainDeliveryRecordsFromDashboard(deliveryDashboard)
-    const acquisition = summarizeNewsletterAcquisition(
-      Number(deliveryDashboard.audience.subscribed ?? 0),
-      confirmedContacts,
-      pendingContacts,
-    )
+    const confirmedTotal = Number(deliveryDashboard.audience.subscribed ?? 0)
+    let acquisition
+    try {
+      const [confirmedContacts, pendingContacts] = await Promise.all([
+        callRobSpainNewsletterConvex<NewsletterSubscriberRecord[]>('query', 'newsletter:exportSubscribers', { status: 'subscribed', limit: 5000 }),
+        callRobSpainNewsletterConvex<NewsletterSubscriberRecord[]>('query', 'newsletter:exportSubscribers', { status: 'pending', limit: 5000 }),
+      ])
+      acquisition = summarizeNewsletterAcquisition(confirmedTotal, confirmedContacts, pendingContacts)
+    } catch (sourceError) {
+      console.error('Newsletter acquisition source report unavailable:', sourceError)
+      acquisition = {
+        available: false,
+        launchAt: Date.parse('2026-08-19T00:47:08Z'),
+        targetConfirmed: 50,
+        confirmedTotal,
+        confirmedSinceLaunch: null,
+        remainingToTarget: Math.max(0, 50 - confirmedTotal),
+        pendingSinceLaunch: null,
+        sources: [],
+      }
+    }
     const deliveryByIssueKey = new Map(
       deliveryRecords.map((record) => [record.issueKey, record]),
     )
