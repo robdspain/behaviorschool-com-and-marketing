@@ -82,17 +82,6 @@ export default function IEPGoalWriterPage() {
         </div>
       </section>
       
-      {/* Quote Section */}
-      <section className="py-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <blockquote className="text-xl italic text-slate-700 mb-4">
-            &ldquo;When we start with what matters to students — their own values like being brave, kind, or helpful — everything changes. The goals become meaningful, and students become invested in their own growth.&rdquo;
-          </blockquote>
-          <p className="text-sm text-slate-500">
-            — Rob Spain, M.S., BCBA, IBA
-          </p>
-        </div>
-      </section>
     </main>
   );
 }
