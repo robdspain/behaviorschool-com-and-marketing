@@ -128,7 +128,7 @@ export default function CalABA2026Page() {
                     className="w-5 h-5 rounded border-cyan-400 bg-slate-700 text-cyan-500 focus:ring-cyan-500 focus:ring-offset-0"
                   />
                   <span className="text-sm text-slate-200 group-hover:text-white transition-colors">
-                    Subscribe to the Behavior School newsletter for tips, tools, and updates
+                    Subscribe to The Weekly Research Brief for open research, clear summaries, and practical next steps
                   </span>
                 </label>
                 <button

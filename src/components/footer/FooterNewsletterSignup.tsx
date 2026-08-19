@@ -6,7 +6,7 @@ import { NewsletterSignup } from "@/components/NewsletterSignup";
 export function FooterNewsletterSignup() {
   const pathname = usePathname();
 
-  if (pathname === "/subscribe") {
+  if (pathname === "/" || pathname === "/subscribe" || pathname === "/blog" || pathname.startsWith("/blog/")) {
     return null;
   }
 

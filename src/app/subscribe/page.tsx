@@ -44,25 +44,31 @@ export default function SubscribePage() {
     setMessage("");
 
     try {
-      trackFormSubmission("newsletter_subscribe_page", true, { source: "/subscribe" });
-
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, source: "/subscribe" }),
       });
+      const result = await response.json().catch(() => ({}));
 
       if (!response.ok && response.status !== 409) {
         throw new Error("Subscription failed");
       }
 
+      const alreadySubscribed = response.status === 409 || result.isNew === false;
       setStatus("success");
       setMessage(
-        response.status === 409
+        alreadySubscribed
           ? "You are already subscribed. Watch your inbox for the next issue."
           : "Check your inbox to confirm. We will send the latest issue as soon as you confirm."
       );
-      trackEmailSignup("newsletter", email, { source: "/subscribe" });
+      trackFormSubmission("newsletter_subscribe_page", true, { source: "/subscribe" });
+      if (!alreadySubscribed) {
+        trackEmailSignup("newsletter", undefined, {
+          source: "/subscribe",
+          newsletter_name: "the_weekly_research_brief",
+        });
+      }
       setEmail("");
     } catch {
       setStatus("error");
@@ -194,10 +200,10 @@ export default function SubscribePage() {
             Each issue is published publicly with links to the full-text research, so you can decide whether the brief belongs in your Tuesday routine.
           </p>
           <Link
-            href="https://robspain.com/newsletter/2026-07-28-topic-radar/"
+            href="https://robspain.com/newsletter/"
             className="inline-flex w-fit items-center gap-2 text-sm font-bold text-[#1f4d3f] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2"
           >
-            Read the latest issue <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            Browse recent issues <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
       </section>

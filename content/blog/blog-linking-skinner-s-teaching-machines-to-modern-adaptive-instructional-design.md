@@ -423,6 +423,6 @@ Absolutely. BCBAs bring expertise in shaping, reinforcement schedules, task anal
 
 ## Want More Evidence-Based ABA Strategies?
 
-Subscribe to our weekly newsletter for practical tips, research updates, and free resources for school-based BCBAs.
+Subscribe to The Weekly Research Brief for open research, clear summaries, and practical next steps for school-based BCBAs.
 
-[Subscribe to Behavior School Newsletter](#newsletter)
+[Subscribe to The Weekly Research Brief](#newsletter)

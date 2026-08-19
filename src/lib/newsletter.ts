@@ -212,7 +212,7 @@ export async function subscribeToNewsletter(input: SubscribeNewsletterInput): Pr
     isNew: convex.isNew,
     message: convex.isNew === false
       ? 'You are already on the newsletter list.'
-      : 'You are in. Watch for the next Behavior School newsletter.',
+      : 'You are in. Watch for the next Weekly Research Brief.',
     sync: {
       listmonk,
       convex,

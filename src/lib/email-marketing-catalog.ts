@@ -330,7 +330,7 @@ export const emailProducts: EmailProductDefinition[] = [
   },
   {
     id: 'newsletter',
-    name: 'Behavior School newsletter',
+    name: 'The Weekly Research Brief',
     audience: 'Cross-product subscribers',
     description: 'Broadcasts, announcements, product education, and audience-wide campaigns.',
     status: 'manual',

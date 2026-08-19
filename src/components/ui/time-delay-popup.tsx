@@ -14,11 +14,11 @@ interface TimeDelayPopupProps {
 }
 
 export function TimeDelayPopup({
-  title = "Get weekly school BCBA resources",
-  description = "Get evidence-based strategies, IEP tools, and behavior support ideas delivered every week. Free resources to help you work smarter, not harder.",
+  title = "The Weekly Research Brief",
+  description = "Open research, clear summaries, and practical next steps for school-based BCBAs, delivered every Tuesday.",
   pageSource,
-  buttonText = "Subscribe to Weekly Tips",
-  successMessage = "Thanks for subscribing! Check your email.",
+  buttonText = "Get the Research Brief",
+  successMessage = "Check your inbox to confirm your subscription.",
   delay = 10000, // Default 10 seconds
   showOnMobile = true,
 }: TimeDelayPopupProps) {

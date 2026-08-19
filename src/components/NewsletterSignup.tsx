@@ -2,26 +2,45 @@
 
 import { useState } from 'react';
 import { Mail } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 export function NewsletterSignup() {
+  const pathname = usePathname();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const { trackEmailSignup, trackFormSubmission } = useAnalytics();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
 
     try {
+      const source = `behaviorschool-embedded:${pathname}`;
       const response = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, source, page: pathname }),
       });
+      const result = await response.json().catch(() => ({}));
 
-      if (response.ok) {
+      if (response.ok || response.status === 409) {
+        const alreadySubscribed = response.status === 409 || result.isNew === false;
         setStatus('success');
-        setMessage("Check your inbox to confirm. We'll send the latest issue as soon as you confirm.");
+        setMessage(
+          alreadySubscribed
+            ? "You are already subscribed. Watch your inbox for the next issue."
+            : "Check your inbox to confirm. We'll send the latest issue as soon as you confirm."
+        );
+        trackFormSubmission('weekly_research_brief_embedded', true, { source, page: pathname });
+        if (!alreadySubscribed) {
+          trackEmailSignup('newsletter', undefined, {
+            source,
+            page: pathname,
+            newsletter_name: 'the_weekly_research_brief',
+          });
+        }
         setEmail('');
       } else {
         // Do not claim a subscription succeeded when the CRM request failed.
@@ -32,6 +51,11 @@ export function NewsletterSignup() {
     } catch (error) {
       setStatus('error');
       setMessage('Something went wrong. Please try again.');
+      trackFormSubmission('weekly_research_brief_embedded', false, {
+        source: `behaviorschool-embedded:${pathname}`,
+        page: pathname,
+        error: 'request_failed',
+      });
     }
   };
 
@@ -43,11 +67,11 @@ export function NewsletterSignup() {
         </div>
         
         <h3 className="text-2xl font-bold text-slate-900 mb-3">
-          Weekly Tips for School-Based BCBAs
+          The Weekly Research Brief
         </h3>
         
         <p className="text-slate-700 mb-6">
-          Get evidence-based strategies, research updates, and free resources delivered to your inbox every week.
+          Open research, clear summaries, and practical next steps for school-based BCBAs, delivered every Tuesday.
         </p>
 
         {status === 'success' ? (

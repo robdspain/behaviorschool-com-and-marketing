@@ -83,7 +83,7 @@ export default function WaitlistPage() {
                 className="mt-1 h-4 w-4 accent-emerald-700"
               />
               <span>
-                Also send me the weekly School BCBA Systems Letter with practical research notes
+                Also send me The Weekly Research Brief with practical research notes
                 and occasional Behavior School product announcements. Unsubscribe anytime.
               </span>
             </label>
