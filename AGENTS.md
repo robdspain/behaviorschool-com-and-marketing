@@ -1,5 +1,10 @@
 # Agent Contribution Guidelines
 
+## Newsletter Identity
+
+- Use `The Weekly Research Brief` as the public name of the research-to-practice newsletter across Behavior School and RobSpain.com.
+- Describe it as open research, clear summaries, and practical next steps for school-based BCBAs. Keep exam-prep email offers clearly separate from this newsletter.
+
 This repository is used by automated agents and human contributors. To protect content quality and control what is published, follow these rules when proposing or making changes:
 
 - Approval Required for New Pages: Do NOT build, scaffold, or publish any new page, route, or public content unless it has been explicitly requested and approved by a maintainer.

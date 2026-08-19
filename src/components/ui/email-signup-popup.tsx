@@ -47,13 +47,6 @@ export function EmailSignupPopup({
     const name = formData.get("name") as string;
     
     try {
-      // Track form submission start
-      trackFormSubmission('email_signup_popup', true, {
-        pageSource,
-        showNameField,
-        isDownloadFlow
-      });
-
       // Submit to our newsletter API
       const response = await fetch("/api/newsletter", {
         method: "POST",
@@ -64,18 +57,27 @@ export function EmailSignupPopup({
           source: pageSource,
         }),
       });
+      const result = await response.json().catch(() => ({}));
 
       if (response.ok || response.status === 409) {
+        const alreadySubscribed = response.status === 409 || result.isNew === false;
         console.log('EmailSignupPopup: API response OK');
         // Track successful email signup
-        trackEmailSignup('newsletter', email, {
-          name,
+        trackFormSubmission('email_signup_popup', true, {
           pageSource,
-          isDownloadFlow
+          showNameField,
+          isDownloadFlow,
         });
+        if (!alreadySubscribed) {
+          trackEmailSignup('newsletter', undefined, {
+            pageSource,
+            isDownloadFlow,
+            newsletter_name: 'the_weekly_research_brief',
+          });
+        }
         
         // Customize success message for existing subscribers
-        if (response.status === 409) {
+        if (alreadySubscribed) {
           setLocalSuccessMessage("You're already subscribed — taking you to the generator...");
         } else {
           setLocalSuccessMessage(successMessage);

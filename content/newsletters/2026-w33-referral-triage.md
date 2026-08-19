@@ -1,5 +1,5 @@
 ---
-name: 2026 Week 33 School BCBA Systems Letter
+name: 2026 Week 33 Weekly Research Brief
 issue_key: 2026-W33
 status: draft
 subject: Before every behavior referral becomes an FBA
@@ -11,7 +11,7 @@ primary_cta: https://behaviorschool.com/transformation-program?utm_source=newsle
 
 Behavior School
 
-School BCBA Systems Letter
+The Weekly Research Brief
 
 Research that leads to a practical next step.
 
@@ -68,7 +68,7 @@ Founder, Behavior School
 
 <p><strong>Behavior School</strong></p>
 
-<p><strong>School BCBA Systems Letter</strong></p>
+<p><strong>The Weekly Research Brief</strong></p>
 
 <p>Research that leads to a practical next step.</p>
 
@@ -122,7 +122,7 @@ Founder, Behavior School</p>
 ## Editorial Check
 
 - Status remains draft; do not send without Rob's approval.
-- Structure matches the previous School BCBA Systems Letter: problem framing, two studies, citations and full-text links, one practical exercise, one CTA, and sign-off.
+- Structure matches the previous Weekly Research Brief: problem framing, two studies, citations and full-text links, one practical exercise, one CTA, and sign-off.
 - Both citations and full texts were verified against the internal Google Drive source corpus.
 - No testimonial, customer quote, fabricated outcome statistic, scarcity claim, or unsupported social proof is included.
 - The limitations of the Nesselrode review are stated in the reader-facing copy.

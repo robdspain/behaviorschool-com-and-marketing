@@ -15,8 +15,6 @@ export function HomepageEmailCapture() {
     setStatus('loading');
 
     try {
-      trackFormSubmission('homepage_email_capture', true, { source: 'homepage' });
-
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,13 +23,21 @@ export function HomepageEmailCapture() {
           source: 'homepage',
         }),
       });
+      const result = await response.json().catch(() => ({}));
 
       if (response.ok || response.status === 409) {
+        const alreadySubscribed = response.status === 409 || result.isNew === false;
         setStatus('success');
-        setMessage(response.status === 409 
+        setMessage(alreadySubscribed
           ? "You're already subscribed! Check your inbox." 
-          : 'You are in. Watch for the next Behavior School newsletter.');
-        trackEmailSignup('newsletter', email, { source: 'homepage' });
+          : 'You are in. Watch for the next Weekly Research Brief.');
+        trackFormSubmission('homepage_email_capture', true, { source: 'homepage' });
+        if (!alreadySubscribed) {
+          trackEmailSignup('newsletter', undefined, {
+            source: 'homepage',
+            newsletter_name: 'the_weekly_research_brief',
+          });
+        }
         setEmail('');
       } else {
         throw new Error('Subscription failed');
@@ -63,11 +69,10 @@ export function HomepageEmailCapture() {
 
             {/* Heading */}
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Free BCBA Practice Questions + Study Tips
+              The Weekly Research Brief
             </h2>
             <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-              Join our newsletter and get weekly practice questions, study strategies, 
-              and exclusive resources to help you pass the BCBA exam.
+              Open research, clear summaries, and practical next steps for school-based BCBAs, delivered every Tuesday.
             </p>
 
             {status === 'success' ? (
@@ -104,7 +109,7 @@ export function HomepageEmailCapture() {
                 )}
 
                 <p className="text-xs text-slate-500 mt-4">
-                  School BCBAs getting weekly study tips. Unsubscribe anytime.
+                  Confirm your email to join. Unsubscribe anytime.
                 </p>
               </form>
             )}

@@ -312,6 +312,6 @@ Seek formal ACT training from reputable sources (ACBS workshops, university cour
 
 ## Want More Evidence-Based ABA Strategies?
 
-Subscribe to our weekly newsletter for practical tips, research updates, and free resources for school-based BCBAs.
+Subscribe to The Weekly Research Brief for open research, clear summaries, and practical next steps for school-based BCBAs.
 
-[Subscribe to Behavior School Newsletter](#newsletter)
+[Subscribe to The Weekly Research Brief](#newsletter)
