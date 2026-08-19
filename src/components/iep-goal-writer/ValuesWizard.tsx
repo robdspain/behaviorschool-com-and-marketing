@@ -1,32 +1,29 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Check, ChevronLeft, ChevronRight, Copy, Download, RotateCcw, Sparkles, Heart, Shield, Target, HandHelping, Scale, Users, Lightbulb, CheckCircle, TrendingUp, TrendingDown } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Copy, Download, RotateCcw, Sparkles, TrendingUp, TrendingDown } from "lucide-react";
 
 // ============================================================================
 // TYPES
 // ============================================================================
 
-type StudentValue = "kind" | "brave" | "focused" | "helpful" | "honest" | "respectful" | "creative" | "responsible";
 type BehaviorDirection = "increase" | "decrease";
 type MeasurementType = "percentage" | "frequency" | "duration" | "latency";
 
 interface WizardState {
   // Step 1
-  selectedValue: StudentValue | null;
-  // Step 2
   behaviorDirection: BehaviorDirection;
   targetBehavior: string;
   replacementBehavior: string; // for decrease
-  // Step 3
+  // Step 2
   baseline: string;
   targetPercentage: number;
   measurementType: MeasurementType;
-  // Step 4
+  // Step 3
   fluencyEnabled: boolean;
   fluencySeconds: number;
   generalizationSettings: string[];
-  // Step 5
+  // Step 4
   maintenanceWeeks: number;
   // Meta
   studentName: string;
@@ -37,27 +34,12 @@ interface WizardState {
 // CONSTANTS
 // ============================================================================
 
-const VALUES: { id: StudentValue; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
-  { id: "kind", label: "Kind", icon: Heart, description: "Caring about others" },
-  { id: "brave", label: "Brave", icon: Shield, description: "Trying new things despite fear" },
-  { id: "focused", label: "Focused", icon: Target, description: "Paying attention to what matters" },
-  { id: "helpful", label: "Helpful", icon: HandHelping, description: "Supporting others" },
-  { id: "honest", label: "Honest", icon: Scale, description: "Telling the truth" },
-  { id: "respectful", label: "Respectful", icon: Users, description: "Treating others well" },
-  { id: "creative", label: "Creative", icon: Lightbulb, description: "Thinking in new ways" },
-  { id: "responsible", label: "Responsible", icon: CheckCircle, description: "Following through on commitments" },
+const INCREASE_BEHAVIOR_EXAMPLES = [
+  "Following directions",
+  "Requesting a break",
+  "Completing assignments",
+  "Using a communication strategy",
 ];
-
-const BEHAVIOR_EXAMPLES: Record<StudentValue, string[]> = {
-  kind: ["Using kind words with peers", "Helping classmates with tasks", "Sharing materials", "Offering comfort when someone is sad"],
-  brave: ["Asking questions in class", "Trying difficult tasks", "Speaking up in groups", "Attempting new activities"],
-  focused: ["Staying on task during work time", "Following multi-step directions", "Completing assignments", "Listening during instruction"],
-  helpful: ["Assisting classmates", "Volunteering for tasks", "Cleaning up without prompts", "Supporting peers in group work"],
-  honest: ["Admitting mistakes", "Telling the truth when asked", "Taking responsibility for actions", "Being truthful about work completion"],
-  respectful: ["Following adult directions", "Waiting turn to speak", "Using appropriate tone", "Respecting personal space"],
-  creative: ["Generating new ideas", "Problem-solving independently", "Thinking of alternatives", "Expressing ideas uniquely"],
-  responsible: ["Turning in work on time", "Bringing materials to class", "Following through on commitments", "Managing time effectively"],
-};
 
 const GENERALIZATION_SETTINGS = [
   "Structured classroom",
@@ -70,14 +52,20 @@ const GENERALIZATION_SETTINGS = [
   "Hallways",
 ];
 
+function formatTargetDate(dateValue: string): string {
+  if (!dateValue) return "[Target Date]";
+
+  const [year, month, day] = dateValue.split("-");
+  if (!year || !month || !day) return dateValue;
+
+  return [month, day, year].join("/");
+}
+
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
 
 function generateGoalText(state: WizardState): string {
-  const value = VALUES.find(v => v.id === state.selectedValue);
-  const valueName = value?.label.toLowerCase() || "target";
-  
   const settingsText = state.generalizationSettings.length > 0 
     ? state.generalizationSettings.slice(0, -1).join(", ").toLowerCase() + 
       (state.generalizationSettings.length > 1 ? ", and " : "") + 
@@ -100,24 +88,22 @@ function generateGoalText(state: WizardState): string {
     : state.replacementBehavior;
 
   const studentRef = state.studentName || "[Student Name]";
-  const dateRef = state.targetDate || "[Target Date]";
+  const dateRef = formatTargetDate(state.targetDate);
 
   return `By ${dateRef}, when in ${settingsText}, and given verbal or visual prompts as needed, ${studentRef} will ${state.behaviorDirection === "increase" ? "increase" : "demonstrate"} ${behaviorText} ${measurementText[state.measurementType]} for 3 consecutively measured school days${fluencyText} across ${state.generalizationSettings.length || 3} different school settings, as measured by teacher observation. Additionally, ${studentRef} will maintain the behavior for ${state.maintenanceWeeks} weeks following mastery to ensure long-term retention.`;
 }
 
 function generateBaselineText(state: WizardState): string {
   const studentRef = state.studentName || "[Student Name]";
-  const value = VALUES.find(v => v.id === state.selectedValue);
-  
-  return `${studentRef} currently demonstrates ${state.targetBehavior || "the target behavior"} at ${state.baseline || "[baseline level]"}. This ${value?.label.toLowerCase() || "value"}-aligned behavior is inconsistent across different settings and staff members.`;
+  return `${studentRef} currently demonstrates ${state.targetBehavior || "the target behavior"} at ${state.baseline || "[baseline level]"}. This behavior is inconsistent across different settings and staff members.`;
 }
 
 // ============================================================================
 // STEP COMPONENTS
 // ============================================================================
 
-function StepIndicator({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
-  const steps = ["Values", "Behavior", "Baseline", "Fluency", "Maintain"];
+function StepIndicator({ currentStep }: { currentStep: number }) {
+  const steps = ["Behavior", "Baseline", "Fluency", "Maintain"];
   
   return (
     <div className="flex items-center justify-center gap-2 mb-8">
@@ -140,68 +126,13 @@ function StepIndicator({ currentStep, totalSteps }: { currentStep: number; total
   );
 }
 
-function Step1Values({ state, setState }: { state: WizardState; setState: (s: WizardState) => void }) {
-  return (
-    <div>
-      <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 1: What Matters Most?</h2>
-        <p className="text-slate-600">Pick the value this student wants to grow in (ask them if possible!)</p>
-      </div>
-      
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {VALUES.map((value) => {
-          const IconComponent = value.icon;
-          return (
-            <button
-              key={value.id}
-              type="button"
-              onClick={() => setState({ ...state, selectedValue: value.id })}
-              className={`
-                p-4 rounded-xl border-2 text-center transition-all hover:shadow-md
-                ${state.selectedValue === value.id 
-                  ? "border-emerald-600 bg-emerald-50 shadow-md" 
-                  : "border-slate-200 bg-white hover:border-emerald-300"}
-              `}
-            >
-              <div className="flex justify-center mb-2">
-                <IconComponent className={`w-8 h-8 ${state.selectedValue === value.id ? "text-emerald-600" : "text-slate-600"}`} />
-              </div>
-              <span className="font-semibold text-slate-900 block">{value.label}</span>
-              <span className="text-xs text-slate-500">{value.description}</span>
-            </button>
-          );
-        })}
-      </div>
-      
-      {state.selectedValue && (() => {
-        const selectedVal = VALUES.find(v => v.id === state.selectedValue);
-        const SelectedIcon = selectedVal?.icon;
-        return (
-          <div className="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-            <p className="text-sm text-emerald-800 flex items-center gap-2">
-              <strong>Selected:</strong>
-              {SelectedIcon && <SelectedIcon className="w-4 h-4 text-emerald-600" />}
-              {selectedVal?.label}
-            </p>
-          </div>
-        );
-      })()}
-    </div>
-  );
-}
-
-function Step2Behavior({ state, setState }: { state: WizardState; setState: (s: WizardState) => void }) {
-  const value = VALUES.find(v => v.id === state.selectedValue);
-  const ValueIcon = value?.icon;
-  const examples = state.selectedValue ? BEHAVIOR_EXAMPLES[state.selectedValue] : [];
+function StepBehavior({ state, setState }: { state: WizardState; setState: (s: WizardState) => void }) {
   
   return (
     <div>
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 2: What Behavior?</h2>
-        <p className="text-slate-600 inline-flex items-center justify-center gap-2">
-          Value: {ValueIcon && <ValueIcon className="h-4 w-4" />} {value?.label}
-        </p>
+        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 1: What Behavior?</h2>
+        <p className="text-slate-600">Define the behavior or skill you want to address.</p>
       </div>
       
       <div className="flex gap-3 mb-6">
@@ -241,21 +172,21 @@ function Step2Behavior({ state, setState }: { state: WizardState; setState: (s: 
         <div>
           <label className="block text-sm font-semibold text-slate-700 mb-1">
             {state.behaviorDirection === "increase" 
-              ? `What ${value?.label.toUpperCase()} behavior do you want to see MORE of?`
+              ? "What behavior or skill do you want to see more of?"
               : "What problem behavior needs to stop?"}
           </label>
           <input
             type="text"
             value={state.targetBehavior}
             onChange={(e) => setState({ ...state, targetBehavior: e.target.value })}
-            placeholder={state.behaviorDirection === "increase" ? examples[0] : "e.g., Yelling at peers"}
+            placeholder={state.behaviorDirection === "increase" ? INCREASE_BEHAVIOR_EXAMPLES[0] : "e.g., Yelling at peers"}
             className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
           />
-          {state.behaviorDirection === "increase" && examples.length > 0 && (
+          {state.behaviorDirection === "increase" && (
             <div className="mt-2">
               <p className="text-xs text-slate-500 mb-1">Examples:</p>
               <div className="flex flex-wrap gap-1">
-                {examples.map((ex) => (
+                {INCREASE_BEHAVIOR_EXAMPLES.map((ex) => (
                   <button
                     key={ex}
                     type="button"
@@ -296,7 +227,7 @@ function Step3Baseline({ state, setState }: { state: WizardState; setState: (s: 
   return (
     <div>
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 3: Baseline & Target</h2>
+        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 2: Baseline & Target</h2>
         <p className="text-slate-600">Where are they now? Where do we want them to be?</p>
       </div>
       
@@ -382,7 +313,7 @@ function Step4Fluency({ state, setState }: { state: WizardState; setState: (s: W
   return (
     <div>
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 4: Fluency & Generalization</h2>
+        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 3: Fluency & Generalization</h2>
         <p className="text-slate-600">How fast? Where else should it work?</p>
       </div>
       
@@ -462,7 +393,7 @@ function Step5Maintenance({ state, setState }: { state: WizardState; setState: (
   return (
     <div>
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 5: Maintenance</h2>
+        <h2 className="text-xl font-bold text-slate-900 mb-2">Step 4: Maintenance</h2>
         <p className="text-slate-600">How long should the skill last?</p>
       </div>
       
@@ -531,8 +462,6 @@ function GoalOutput({ state, onReset }: { state: WizardState; onReset: () => voi
   const [copied, setCopied] = useState(false);
   const goalText = generateGoalText(state);
   const baselineText = generateBaselineText(state);
-  const value = VALUES.find(v => v.id === state.selectedValue);
-  const ValueIcon = value?.icon;
   
   const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(`${goalText}\n\nBaseline:\n${baselineText}`);
@@ -557,9 +486,8 @@ function GoalOutput({ state, onReset }: { state: WizardState; onReset: () => voi
           <Sparkles className="w-10 h-10 text-emerald-600" />
         </div>
         <h2 className="text-xl font-bold text-slate-900">Your IEP Behavior Goal</h2>
-        <p className="text-sm text-slate-500 mt-1 flex items-center justify-center gap-1">
-          {ValueIcon && <ValueIcon className="w-4 h-4 text-emerald-600" />}
-          {value?.label} · {state.behaviorDirection === "increase" ? "Skill Building" : "Replacement Behavior"}
+        <p className="text-sm text-slate-500 mt-1">
+          {state.behaviorDirection === "increase" ? "Skill Building" : "Replacement Behavior"}
         </p>
       </div>
       
@@ -640,7 +568,6 @@ function GoalOutput({ state, onReset }: { state: WizardState; onReset: () => voi
 export default function ValuesWizard() {
   const [step, setStep] = useState(1);
   const [state, setState] = useState<WizardState>({
-    selectedValue: null,
     behaviorDirection: "increase",
     targetBehavior: "",
     replacementBehavior: "",
@@ -658,17 +585,16 @@ export default function ValuesWizard() {
   
   const canProceed = () => {
     switch (step) {
-      case 1: return !!state.selectedValue;
-      case 2: return !!state.targetBehavior && (state.behaviorDirection === "increase" || !!state.replacementBehavior);
-      case 3: return !!state.baseline;
-      case 4: return state.generalizationSettings.length >= 1;
-      case 5: return true;
+      case 1: return !!state.targetBehavior && (state.behaviorDirection === "increase" || !!state.replacementBehavior);
+      case 2: return !!state.baseline;
+      case 3: return state.generalizationSettings.length >= 1;
+      case 4: return true;
       default: return false;
     }
   };
   
   const handleNext = () => {
-    if (step < 5) {
+    if (step < 4) {
       setStep(step + 1);
     } else {
       setShowOutput(true);
@@ -683,7 +609,6 @@ export default function ValuesWizard() {
     setStep(1);
     setShowOutput(false);
     setState({
-      selectedValue: null,
       behaviorDirection: "increase",
       targetBehavior: "",
       replacementBehavior: "",
@@ -705,14 +630,13 @@ export default function ValuesWizard() {
   
   return (
     <div>
-      <StepIndicator currentStep={step} totalSteps={5} />
+      <StepIndicator currentStep={step} />
       
       <div className="min-h-[400px]">
-        {step === 1 && <Step1Values state={state} setState={setState} />}
-        {step === 2 && <Step2Behavior state={state} setState={setState} />}
-        {step === 3 && <Step3Baseline state={state} setState={setState} />}
-        {step === 4 && <Step4Fluency state={state} setState={setState} />}
-        {step === 5 && <Step5Maintenance state={state} setState={setState} />}
+        {step === 1 && <StepBehavior state={state} setState={setState} />}
+        {step === 2 && <Step3Baseline state={state} setState={setState} />}
+        {step === 3 && <Step4Fluency state={state} setState={setState} />}
+        {step === 4 && <Step5Maintenance state={state} setState={setState} />}
       </div>
       
       <div className="flex justify-between mt-8 pt-6 border-t border-slate-200">
@@ -740,9 +664,9 @@ export default function ValuesWizard() {
               : "bg-slate-200 text-slate-400 cursor-not-allowed"
           }`}
         >
-          {step === 5 ? "Generate Goal!" : "Next"}
-          {step < 5 && <ChevronRight className="w-4 h-4" />}
-          {step === 5 && <Sparkles className="w-4 h-4" />}
+          {step === 4 ? "Generate Goal!" : "Next"}
+          {step < 4 && <ChevronRight className="w-4 h-4" />}
+          {step === 4 && <Sparkles className="w-4 h-4" />}
         </button>
       </div>
     </div>

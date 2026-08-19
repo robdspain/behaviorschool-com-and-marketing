@@ -4,7 +4,7 @@ import { Target, BarChart3, Zap } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "IEP Behavior Goal Writer | Values Wizard | BehaviorSchool",
+  title: "IEP Behavior Goal Writer | BehaviorSchool",
   description:
     "Create SMART IEP behavior goals with baseline, fluency, generalization, and maintenance components. Free for BCBAs and teachers.",
   canonical: "https://behaviorschool.com/iep-goal-writer",
@@ -22,7 +22,7 @@ export default function IEPGoalWriterPage() {
             IEP Behavior Goal Writer
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-4">
-            Create research-backed Level 5 SMART goals in under 5 minutes with the <strong>Values Wizard</strong>.
+            Create research-backed Level 5 SMART goals in under 5 minutes.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-sm text-slate-500">
             <span className="flex items-center gap-1">✓ Baseline data</span>
