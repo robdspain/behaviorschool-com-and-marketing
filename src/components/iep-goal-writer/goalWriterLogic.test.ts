@@ -156,3 +156,23 @@ test("keeps measurement selection independent from behavior direction", () => {
   assert.equal(validateObjectiveTargets(latencyGoal), null);
   assert.match(buildAnnualGoal(latencyGoal), /increase on-task behavior.*to 5 seconds/);
 });
+
+test("retains a selected non-default unit throughout a decreasing goal", () => {
+  const decreasing = {
+    ...baseData,
+    direction: "decrease" as const,
+    measurementType: "frequency" as const,
+    baselineValue: "8",
+    measurementUnit: "instances per class period",
+    masteryValue: "1",
+    consistency: "for 4 consecutively measured class periods",
+    objectiveTargets: ["6", "4", "2", "1"],
+  };
+
+  const output = buildOutput(decreasing, new Date(2026, 7, 20));
+  assert.match(output, /at 8 instances per class period/);
+  assert.match(output, /to 1 instance per class period/);
+  assert.match(output, /to 6 instances per class period/);
+  assert.match(output, /for 4 consecutively measured class periods/);
+  assert.doesNotMatch(output, /instances? per day/);
+});
