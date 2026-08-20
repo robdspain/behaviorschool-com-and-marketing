@@ -874,21 +874,21 @@ export default function BehaviorGoalWriter() {
                 </button>
                 <button
                   type="button"
-                  onClick={copyOutput}
-                  title="Copy generated text"
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-300 bg-white text-emerald-800 hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
-                >
-                  {copied ? <Check className="h-4 w-4" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
-                  <span className="sr-only">{copied ? "Copied" : "Copy generated text"}</span>
-                </button>
-                <button
-                  type="button"
                   onClick={downloadOutput}
                   title="Download generated text"
                   className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-300 bg-white text-emerald-800 hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
                 >
                   <Download className="h-4 w-4" aria-hidden="true" />
                   <span className="sr-only">Download generated text</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={copyOutput}
+                  title={copied ? "Copied" : "Copy generated text"}
+                  aria-label={copied ? "Copied" : "Copy generated text"}
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-800 bg-emerald-700 text-white hover:bg-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+                >
+                  {copied ? <Check className="h-4 w-4" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
                 </button>
               </div>
             </div>
