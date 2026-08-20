@@ -26,15 +26,15 @@ export function NavBar() {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center">
               <Image
-                src="/behavior-school-icon.svg"
-                alt="BehaviorSchool logo"
-                width={32}
-                height={32}
-                className="h-8 w-8 shrink-0"
+                src="/behavior-school-wordmark-gold.png"
+                alt="Behavior School"
+                width={152}
+                height={57}
+                priority
+                className="h-11 w-auto"
               />
-              <span className="text-[#1f4d3f] text-lg font-bold tracking-tight">BehaviorSchool</span>
             </Link>
           </motion.div>
 
