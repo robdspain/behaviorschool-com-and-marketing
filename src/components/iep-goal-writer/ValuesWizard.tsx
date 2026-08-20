@@ -857,12 +857,23 @@ export default function BehaviorGoalWriter() {
           </section>
 
           <div className="rounded-lg border border-emerald-200 bg-emerald-50/50">
-            <div className="flex items-center justify-between gap-3 border-b border-emerald-200 px-4 py-3">
-              <div className="flex items-center gap-2 font-semibold text-emerald-950">
-                <ClipboardCheck className="h-5 w-5" aria-hidden="true" />
-                Editable final document
-              </div>
-              <div className="flex gap-2">
+            <div className="flex items-center gap-2 border-b border-emerald-200 px-4 py-3 font-semibold text-emerald-950">
+              <ClipboardCheck className="h-5 w-5" aria-hidden="true" />
+              Editable final document
+            </div>
+            <div className="p-4">
+              <label htmlFor="editable-goal-output" className="mb-2 block text-xs leading-5 text-slate-600">
+                Refine the wording before copying or downloading it. The checklist above reflects the structured entries, so review substantive edits with the IEP team.
+              </label>
+              <textarea
+                id="editable-goal-output"
+                aria-label="Editable generated goal"
+                value={editableOutput}
+                onChange={(event) => setEditableOutput(event.target.value)}
+                rows={20}
+                className="min-h-96 w-full resize-y rounded-lg border border-emerald-200 bg-white px-4 py-4 font-sans text-sm leading-7 text-slate-800 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+              />
+              <div className="mt-4 flex items-center justify-end gap-2 border-t border-emerald-200 pt-4">
                 <button
                   type="button"
                   onClick={() => setEditableOutput(generatedOutput)}
@@ -886,24 +897,12 @@ export default function BehaviorGoalWriter() {
                   onClick={copyOutput}
                   title={copied ? "Copied" : "Copy generated text"}
                   aria-label={copied ? "Copied" : "Copy generated text"}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-800 bg-emerald-700 text-white hover:bg-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+                  className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-emerald-800 bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
                 >
                   {copied ? <Check className="h-4 w-4" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
+                  {copied ? "Copied" : "Copy"}
                 </button>
               </div>
-            </div>
-            <div className="p-4">
-              <label htmlFor="editable-goal-output" className="mb-2 block text-xs leading-5 text-slate-600">
-                Refine the wording before copying or downloading it. The checklist above reflects the structured entries, so review substantive edits with the IEP team.
-              </label>
-              <textarea
-                id="editable-goal-output"
-                aria-label="Editable generated goal"
-                value={editableOutput}
-                onChange={(event) => setEditableOutput(event.target.value)}
-                rows={20}
-                className="min-h-96 w-full resize-y rounded-lg border border-emerald-200 bg-white px-4 py-4 font-sans text-sm leading-7 text-slate-800 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-              />
             </div>
           </div>
 
