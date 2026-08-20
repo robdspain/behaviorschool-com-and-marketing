@@ -8,6 +8,21 @@ export type MeasurementType =
   | "percentage-intervals"
   | "other";
 
+export type GeneralizationMode =
+  | "every-selected-setting"
+  | "aggregate-selected-settings"
+  | "different-adults"
+  | "different-materials-tasks";
+
+export type GoalQualityStatus = "ready" | "review" | "not-included";
+
+export interface GoalQualityCheck {
+  id: string;
+  label: string;
+  status: GoalQualityStatus;
+  detail: string;
+}
+
 export interface GoalWriterData {
   annualGoalDate: string;
   studentName: string;
@@ -27,7 +42,9 @@ export interface GoalWriterData {
   consistency: string;
   fluencyEnabled: boolean;
   fluencySeconds: string;
+  generalizationMode: GeneralizationMode | "";
   generalizationSettings: string[];
+  generalizationCount: string;
   maintenanceWeeks: string;
   includeObjectives: boolean;
   objectiveTargets: string[];
@@ -168,6 +185,43 @@ export function measurementPhrase(data: GoalWriterData, value: string): string {
   return `${numericValue} ${singularUnit}`;
 }
 
+export function generalizationPhrase(data: GoalWriterData): string {
+  const settings = data.generalizationSettings.map(clean).filter(Boolean);
+  const count = clean(data.generalizationCount);
+
+  if (data.generalizationMode === "every-selected-setting" && settings.length) {
+    return `, with mastery demonstrated in every selected setting (${settings.join(", ")})`;
+  }
+  if (data.generalizationMode === "aggregate-selected-settings" && settings.length) {
+    return `, with mastery calculated across the selected settings as an aggregate (${settings.join(", ")})`;
+  }
+  if (data.generalizationMode === "different-adults" && count) {
+    return `, with mastery demonstrated with at least ${count} different adults`;
+  }
+  if (data.generalizationMode === "different-materials-tasks" && count) {
+    return `, with mastery demonstrated with at least ${count} different materials or tasks`;
+  }
+  return "";
+}
+
+export function validateGeneralization(data: GoalWriterData): string | null {
+  if (!data.generalizationMode) return null;
+
+  if (
+    data.generalizationMode === "every-selected-setting" ||
+    data.generalizationMode === "aggregate-selected-settings"
+  ) {
+    return data.generalizationSettings.length
+      ? null
+      : "Select at least one setting for the generalization criterion.";
+  }
+
+  const count = firstNumber(data.generalizationCount);
+  return count !== null && Number.isInteger(count) && count >= 2
+    ? null
+    : "Enter at least 2 adults, materials, or tasks for the generalization criterion.";
+}
+
 export function buildBaseline(data: GoalWriterData): string {
   const student = subject(data);
   const title = clean(data.behaviorTitle) || "the target behavior";
@@ -195,14 +249,12 @@ export function buildAnnualGoal(data: GoalWriterData): string {
   const fluency = data.fluencyEnabled && clean(data.fluencySeconds)
     ? `, initiating within ${clean(data.fluencySeconds)} seconds`
     : "";
-  const settings = data.generalizationSettings.length
-    ? ` across ${data.generalizationSettings.length} settings (${data.generalizationSettings.join(", ")})`
-    : "";
+  const generalization = generalizationPhrase(data);
   const maintenance = clean(data.maintenanceWeeks)
     ? ` After mastery, ${student} will maintain the criterion for ${clean(data.maintenanceWeeks)} weeks.`
     : "";
 
-  return `By ${dueDate}, when ${clean(data.context)} and given ${clean(data.supports)}, ${student} will ${data.direction} ${behavior} (${definition}) to ${targetPhrase} ${clean(data.consistency)}${fluency}${settings}, as measured by ${clean(data.dataMethod)}.${maintenance}`;
+  return `By ${dueDate}, when ${clean(data.context)} and given ${clean(data.supports)}, ${student} will ${data.direction} ${behavior} (${definition}) to ${targetPhrase} ${clean(data.consistency)}${fluency}${generalization}, as measured by ${clean(data.dataMethod)}.${maintenance}`;
 }
 
 export function buildReplacementGoal(data: GoalWriterData): string {
@@ -213,14 +265,12 @@ export function buildReplacementGoal(data: GoalWriterData): string {
   const fluency = data.fluencyEnabled && clean(data.fluencySeconds)
     ? `, initiating within ${clean(data.fluencySeconds)} seconds`
     : "";
-  const settings = data.generalizationSettings.length
-    ? ` across ${data.generalizationSettings.length} settings (${data.generalizationSettings.join(", ")})`
-    : "";
+  const generalization = generalizationPhrase(data);
   const maintenance = clean(data.maintenanceWeeks)
     ? ` After mastery, ${student} will maintain the criterion for ${clean(data.maintenanceWeeks)} weeks.`
     : "";
 
-  return `By ${dueDate}, when ${clean(data.context)} and given ${clean(data.supports)}, ${student} will ${clean(data.replacementBehavior)} in 90% of relevant opportunities for 3 consecutively measured school days${fluency}${settings}, as measured by ${clean(data.dataMethod)}.${maintenance}`;
+  return `By ${dueDate}, when ${clean(data.context)} and given ${clean(data.supports)}, ${student} will ${clean(data.replacementBehavior)} in 90% of relevant opportunities for 3 consecutively measured school days${fluency}${generalization}, as measured by ${clean(data.dataMethod)}.${maintenance}`;
 }
 
 export function buildLiveDraft(data: GoalWriterData): string {
@@ -248,9 +298,7 @@ export function buildLiveDraft(data: GoalWriterData): string {
     if (data.fluencyEnabled && clean(data.fluencySeconds)) {
       goal += `, initiating within ${clean(data.fluencySeconds)} seconds`;
     }
-    if (data.generalizationSettings.length) {
-      goal += ` across ${data.generalizationSettings.length} settings (${data.generalizationSettings.join(", ")})`;
-    }
+    goal += generalizationPhrase(data);
     if (clean(data.dataMethod)) goal += `, as measured by ${clean(data.dataMethod)}`;
   }
   goal += ".";
@@ -283,6 +331,14 @@ function localDateFromInput(value: string): Date | null {
   return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
 }
 
+function objectiveDates(data: GoalWriterData, count: number, from: Date): Date[] {
+  const annualDate = localDateFromInput(data.annualGoalDate);
+  return Array.from({ length: count }, (_, index) => {
+    const proposedDate = addMonths(from, (index + 1) * 3);
+    return annualDate && proposedDate > annualDate ? annualDate : proposedDate;
+  });
+}
+
 export function buildObjectives(
   data: GoalWriterData,
   count = 4,
@@ -298,12 +354,10 @@ export function buildObjectives(
   const targets = data.objectiveTargets.length === count
     ? data.objectiveTargets
     : calculatedTargets;
-  const annualDate = localDateFromInput(data.annualGoalDate);
+  const dueDates = objectiveDates(data, count, from);
 
   return Array.from({ length: count }, (_, index) => {
-    const proposedDate = addMonths(from, (index + 1) * 3);
-    const objectiveDate = annualDate && proposedDate > annualDate ? annualDate : proposedDate;
-    const dueDate = formatUsDate(toDateInputValue(objectiveDate));
+    const dueDate = formatUsDate(toDateInputValue(dueDates[index]));
     const target = targets[index] ?? "";
     const objectiveConsistency = index === count - 1
       ? clean(data.consistency)
@@ -327,4 +381,115 @@ export function buildOutput(data: GoalWriterData, from = new Date()): string {
   }
 
   return sections.join("\n\n");
+}
+
+function measurementMethodStatus(data: GoalWriterData): GoalQualityCheck {
+  const method = clean(data.dataMethod).toLowerCase();
+  const patterns: Partial<Record<MeasurementType, RegExp>> = {
+    frequency: /event|frequency|count/,
+    rate: /rate|event|frequency|count/,
+    duration: /duration/,
+    latency: /latency/,
+    "percentage-opportunities": /opportunit|trial/,
+    "percentage-intervals": /interval/,
+  };
+  const expectedPattern = patterns[data.measurementType];
+
+  if (!method) {
+    return {
+      id: "measurement-method",
+      label: "Measurement method matches the behavior",
+      status: "review",
+      detail: "Add the data-collection method and confirm that it measures the target behavior.",
+    };
+  }
+  if (!expectedPattern) {
+    return {
+      id: "measurement-method",
+      label: "Measurement method matches the behavior",
+      status: "review",
+      detail: "A custom measurement method is entered. Confirm that it directly measures the target behavior.",
+    };
+  }
+  return expectedPattern.test(method)
+    ? {
+        id: "measurement-method",
+        label: "Measurement method matches the behavior",
+        status: "ready",
+        detail: "The entered method is consistent with the selected measurement type.",
+      }
+    : {
+        id: "measurement-method",
+        label: "Measurement method matches the behavior",
+        status: "review",
+        detail: "The entered method may not match the selected measurement type. Confirm or revise it.",
+      };
+}
+
+export function buildGoalQualityChecks(
+  data: GoalWriterData,
+  from = new Date()
+): GoalQualityCheck[] {
+  const hasObservableBehavior = Boolean(clean(data.behaviorTitle) && clean(data.behaviorDefinition));
+  const percentages = data.measurementType.startsWith("percentage");
+  const hasMatchingUnits = Boolean(
+    clean(data.baselineValue) &&
+    clean(data.masteryValue) &&
+    (percentages || clean(data.measurementUnit))
+  );
+  const objectiveError = validateObjectiveTargets(data);
+  const annualDate = localDateFromInput(data.annualGoalDate);
+  const datesStayWithinAnnualReview = Boolean(
+    annualDate && objectiveDates(data, 4, from).every((date) => date <= annualDate)
+  );
+
+  return [
+    {
+      id: "observable-behavior",
+      label: "Observable behavior",
+      status: hasObservableBehavior ? "ready" : "review",
+      detail: hasObservableBehavior
+        ? "A target behavior and operational definition are present. Confirm that another observer could identify it."
+        : "Add both the target behavior and an observable, measurable definition.",
+    },
+    {
+      id: "matching-units",
+      label: "Baseline and mastery use matching units",
+      status: hasMatchingUnits ? "ready" : "review",
+      detail: hasMatchingUnits
+        ? `Both criteria use ${percentages ? (data.measurementType === "percentage-opportunities" ? "percentage of opportunities" : "percentage of intervals") : clean(data.measurementUnit)}.`
+        : "Enter baseline and mastery values with the same measurement unit.",
+    },
+    {
+      id: "context",
+      label: "Context is defined",
+      status: clean(data.context) ? "ready" : "review",
+      detail: clean(data.context) ? "The conditions for performance are stated." : "Add the conditions in which performance is expected.",
+    },
+    {
+      id: "supports",
+      label: "Supports are stated",
+      status: clean(data.supports) ? "ready" : "review",
+      detail: clean(data.supports) ? "The planned supports are stated." : "Add the supports available to the student.",
+    },
+    measurementMethodStatus(data),
+    {
+      id: "objective-progression",
+      label: "Objectives progress toward the annual criterion",
+      status: !data.includeObjectives ? "not-included" : objectiveError ? "review" : "ready",
+      detail: !data.includeObjectives
+        ? "No short-term objectives were selected."
+        : objectiveError ?? "Each objective progresses from the baseline to the annual criterion.",
+    },
+    {
+      id: "objective-dates",
+      label: "Dates do not exceed the annual review date",
+      status: !data.includeObjectives ? "not-included" : datesStayWithinAnnualReview ? "ready" : "review",
+      detail: !data.includeObjectives
+        ? "No short-term objective dates were generated."
+        : datesStayWithinAnnualReview
+          ? "Every objective due date falls on or before the annual review date."
+          : "Review the annual date and objective schedule.",
+    },
+  ];
 }

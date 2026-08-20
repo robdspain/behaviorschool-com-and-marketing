@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   buildAnnualGoal,
   buildBaseline,
+  buildGoalQualityChecks,
   buildLiveDraft,
   buildObjectives,
   buildOutput,
@@ -11,6 +12,7 @@ import {
   formatUsDate,
   measurementDefaults,
   measurementPhrase,
+  validateGeneralization,
   validateObjectiveTargets,
 } from "./goalWriterLogic";
 import type { GoalWriterData } from "./goalWriterLogic";
@@ -29,12 +31,14 @@ const baseData: GoalWriterData = {
   baselineMethods: "direct observation with interval recording",
   context: "during independent classroom work",
   supports: "a visual checklist and one verbal prompt",
-  dataMethod: "direct observation with interval recording",
+  dataMethod: "direct observation using trial recording",
   masteryValue: "90",
   consistency: "for 3 consecutively measured school days",
   fluencyEnabled: true,
   fluencySeconds: "10",
+  generalizationMode: "aggregate-selected-settings",
   generalizationSettings: ["classroom", "small group"],
+  generalizationCount: "2",
   maintenanceWeeks: "4",
   includeObjectives: true,
   objectiveTargets: ["52.5", "65", "77.5", "90"],
@@ -59,7 +63,7 @@ test("builds an objective baseline and annual goal", () => {
   assert.match(buildBaseline(baseData), /3 school days/);
   assert.match(buildAnnualGoal(baseData), /^By 08\/19\/2027/);
   assert.match(buildAnnualGoal(baseData), /to 90% of opportunities/);
-  assert.match(buildAnnualGoal(baseData), /across 2 settings/);
+  assert.match(buildAnnualGoal(baseData), /mastery calculated across the selected settings as an aggregate \(classroom, small group\)/);
   assert.match(buildAnnualGoal(baseData), /maintain the criterion for 4 weeks/);
 });
 
@@ -175,4 +179,90 @@ test("retains a selected non-default unit throughout a decreasing goal", () => {
   assert.match(output, /to 6 instances per class period/);
   assert.match(output, /for 4 consecutively measured class periods/);
   assert.doesNotMatch(output, /instances? per day/);
+});
+
+test("states each selected generalization requirement explicitly", () => {
+  assert.match(
+    buildAnnualGoal({ ...baseData, generalizationMode: "every-selected-setting" }),
+    /mastery demonstrated in every selected setting \(classroom, small group\)/
+  );
+  assert.match(
+    buildAnnualGoal({ ...baseData, generalizationMode: "aggregate-selected-settings" }),
+    /mastery calculated across the selected settings as an aggregate/
+  );
+  assert.match(
+    buildAnnualGoal({
+      ...baseData,
+      generalizationMode: "different-adults",
+      generalizationSettings: [],
+      generalizationCount: "3",
+    }),
+    /mastery demonstrated with at least 3 different adults/
+  );
+  assert.match(
+    buildAnnualGoal({
+      ...baseData,
+      generalizationMode: "different-materials-tasks",
+      generalizationSettings: [],
+      generalizationCount: "4",
+    }),
+    /mastery demonstrated with at least 4 different materials or tasks/
+  );
+});
+
+test("requires the details for a selected generalization criterion", () => {
+  assert.match(
+    validateGeneralization({ ...baseData, generalizationSettings: [] }) ?? "",
+    /Select at least one setting/
+  );
+  assert.match(
+    validateGeneralization({
+      ...baseData,
+      generalizationMode: "different-adults",
+      generalizationSettings: [],
+      generalizationCount: "1",
+    }) ?? "",
+    /Enter at least 2/
+  );
+  assert.equal(validateGeneralization({ ...baseData, generalizationMode: "" }), null);
+});
+
+test("adds maintenance only when the user selects it", () => {
+  const withoutMaintenance = buildAnnualGoal({ ...baseData, maintenanceWeeks: "" });
+  assert.doesNotMatch(withoutMaintenance, /After mastery|maintain the criterion/);
+  assert.match(buildAnnualGoal(baseData), /maintain the criterion for 4 weeks/);
+});
+
+test("reviews goal components without assigning a score", () => {
+  const checks = buildGoalQualityChecks(baseData, new Date(2026, 7, 20));
+  assert.equal(checks.length, 7);
+  assert.ok(checks.every((check) => check.status === "ready"));
+  assert.deepEqual(
+    checks.map((check) => check.label),
+    [
+      "Observable behavior",
+      "Baseline and mastery use matching units",
+      "Context is defined",
+      "Supports are stated",
+      "Measurement method matches the behavior",
+      "Objectives progress toward the annual criterion",
+      "Dates do not exceed the annual review date",
+    ]
+  );
+
+  const noObjectives = buildGoalQualityChecks({
+    ...baseData,
+    includeObjectives: false,
+    objectiveTargets: [],
+  });
+  assert.equal(noObjectives.find((check) => check.id === "objective-progression")?.status, "not-included");
+  assert.equal(noObjectives.find((check) => check.id === "objective-dates")?.status, "not-included");
+
+  const mismatchedMethod = buildGoalQualityChecks({
+    ...baseData,
+    measurementType: "duration",
+    measurementUnit: "minutes",
+    dataMethod: "event recording",
+  });
+  assert.equal(mismatchedMethod.find((check) => check.id === "measurement-method")?.status, "review");
 });

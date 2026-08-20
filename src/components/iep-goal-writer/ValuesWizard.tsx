@@ -2,27 +2,37 @@
 
 import { useMemo, useState } from "react";
 import {
+  AlertCircle,
   ArrowLeft,
   ArrowRight,
   Check,
+  CheckCircle2,
   ClipboardCheck,
   Copy,
   Download,
+  MinusCircle,
   RefreshCw,
   RotateCcw,
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
 import {
+  buildGoalQualityChecks,
   calculateObjectiveTargets,
   buildOutput,
   buildLiveDraft,
   defaultAnnualGoalDate,
   measurementPhrase,
   measurementDefaults,
+  validateGeneralization,
   validateObjectiveTargets,
 } from "./goalWriterLogic";
-import type { BehaviorDirection, GoalWriterData, MeasurementType } from "./goalWriterLogic";
+import type {
+  BehaviorDirection,
+  GeneralizationMode,
+  GoalWriterData,
+  MeasurementType,
+} from "./goalWriterLogic";
 
 const STEPS = [
   "Student and behavior",
@@ -53,8 +63,14 @@ const GENERALIZATION_SETTINGS = [
   "Lunch and recess",
   "Transitions",
   "PE, art, or music",
-  "Different adults",
   "Hallways",
+];
+
+const GENERALIZATION_OPTIONS: Array<{ value: GeneralizationMode; label: string }> = [
+  { value: "every-selected-setting", label: "In every selected setting" },
+  { value: "aggregate-selected-settings", label: "Across an aggregate of selected settings" },
+  { value: "different-adults", label: "With different adults" },
+  { value: "different-materials-tasks", label: "With different materials or tasks" },
 ];
 
 const MEASUREMENT_OPTIONS: Array<{ value: MeasurementType; label: string }> = [
@@ -98,8 +114,10 @@ function initialData(): GoalWriterData {
     ...measurementDefaults("decrease"),
     fluencyEnabled: false,
     fluencySeconds: "10",
+    generalizationMode: "",
     generalizationSettings: [],
-    maintenanceWeeks: "4",
+    generalizationCount: "2",
+    maintenanceWeeks: "",
     includeObjectives: false,
     objectiveTargets: [],
   };
@@ -183,9 +201,11 @@ export default function BehaviorGoalWriter() {
   const [data, setData] = useState<GoalWriterData>(initialData);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [editableOutput, setEditableOutput] = useState("");
 
-  const output = useMemo(() => buildOutput(data), [data]);
+  const generatedOutput = useMemo(() => buildOutput(data), [data]);
   const liveDraft = useMemo(() => buildLiveDraft(data), [data]);
+  const qualityChecks = useMemo(() => buildGoalQualityChecks(data), [data]);
 
   function update<K extends keyof GoalWriterData>(key: K, value: GoalWriterData[K]) {
     setData((current) => {
@@ -247,6 +267,8 @@ export default function BehaviorGoalWriter() {
       }
       if (!data.consistency.trim()) return "Enter the consistency criterion.";
       if (data.fluencyEnabled && !data.fluencySeconds.trim()) return "Enter the fluency criterion in seconds.";
+      const generalizationError = validateGeneralization(data);
+      if (generalizationError) return generalizationError;
       const objectiveError = validateObjectiveTargets(data);
       if (objectiveError) return objectiveError;
     }
@@ -260,6 +282,7 @@ export default function BehaviorGoalWriter() {
       return;
     }
     setError("");
+    if (step === STEPS.length - 1) setEditableOutput(generatedOutput);
     setStep((current) => Math.min(STEPS.length, current + 1));
   }
 
@@ -275,6 +298,23 @@ export default function BehaviorGoalWriter() {
         ? data.generalizationSettings.filter((item) => item !== setting)
         : [...data.generalizationSettings, setting]
     );
+  }
+
+  function changeGeneralizationMode(value: string) {
+    const generalizationMode = value as GeneralizationMode | "";
+    setData((current) => ({
+      ...current,
+      generalizationMode,
+      generalizationSettings:
+        generalizationMode === "every-selected-setting" || generalizationMode === "aggregate-selected-settings"
+          ? current.generalizationSettings
+          : [],
+      generalizationCount:
+        generalizationMode === "different-adults" || generalizationMode === "different-materials-tasks"
+          ? current.generalizationCount || "2"
+          : "2",
+    }));
+    setError("");
   }
 
   function changeMeasurementType(measurementType: MeasurementType) {
@@ -317,13 +357,13 @@ export default function BehaviorGoalWriter() {
   }
 
   async function copyOutput() {
-    await navigator.clipboard.writeText(output);
+    await navigator.clipboard.writeText(editableOutput);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1800);
   }
 
   function downloadOutput() {
-    const blob = new Blob([output], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([editableOutput], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
@@ -337,6 +377,7 @@ export default function BehaviorGoalWriter() {
     setStep(1);
     setError("");
     setCopied(false);
+    setEditableOutput("");
   }
 
   return (
@@ -634,38 +675,74 @@ export default function BehaviorGoalWriter() {
           </div>
 
           <fieldset className="mt-7 border-t border-slate-200 pt-6">
-            <legend className="text-sm font-semibold text-slate-800">Generalization settings <span className="font-normal text-slate-500">(optional)</span></legend>
-            <p className="mt-1 text-xs leading-5 text-slate-500">Select only settings in which the team plans to measure the criterion.</p>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2">
-              {GENERALIZATION_SETTINGS.map((setting) => {
-                const selected = data.generalizationSettings.includes(setting);
-                return (
-                  <button
-                    key={setting}
-                    type="button"
-                    aria-pressed={selected}
-                    onClick={() => toggleSetting(setting)}
-                    className={`flex min-h-11 items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 ${selected ? "border-emerald-700 bg-emerald-50 font-medium text-emerald-950" : "border-slate-300 text-slate-700 hover:border-emerald-500"}`}
-                  >
-                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border ${selected ? "border-emerald-700 bg-emerald-700 text-white" : "border-slate-300 bg-white"}`}>
-                      {selected && <Check className="h-3.5 w-3.5" aria-hidden="true" />}
-                    </span>
-                    {setting}
-                  </button>
-                );
-              })}
+            <legend className="text-sm font-semibold text-slate-800">Generalization criterion <span className="font-normal text-slate-500">(optional)</span></legend>
+            <p className="mt-1 text-xs leading-5 text-slate-500">Specify how the team will determine whether mastery generalizes beyond one condition.</p>
+            <div className="mt-3 max-w-xl">
+              <FieldLabel>How must mastery occur?</FieldLabel>
+              <select
+                value={data.generalizationMode}
+                onChange={(event) => changeGeneralizationMode(event.target.value)}
+                className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+              >
+                <option value="">No generalization criterion</option>
+                {GENERALIZATION_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
             </div>
+
+            {(data.generalizationMode === "every-selected-setting" || data.generalizationMode === "aggregate-selected-settings") && (
+              <div className="mt-4">
+                <p className="text-xs leading-5 text-slate-500">Select each setting in which the criterion will be measured.</p>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {GENERALIZATION_SETTINGS.map((setting) => {
+                    const selected = data.generalizationSettings.includes(setting);
+                    return (
+                      <button
+                        key={setting}
+                        type="button"
+                        aria-pressed={selected}
+                        onClick={() => toggleSetting(setting)}
+                        className={`flex min-h-11 items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 ${selected ? "border-emerald-700 bg-emerald-50 font-medium text-emerald-950" : "border-slate-300 text-slate-700 hover:border-emerald-500"}`}
+                      >
+                        <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border ${selected ? "border-emerald-700 bg-emerald-700 text-white" : "border-slate-300 bg-white"}`}>
+                          {selected && <Check className="h-3.5 w-3.5" aria-hidden="true" />}
+                        </span>
+                        {setting}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {(data.generalizationMode === "different-adults" || data.generalizationMode === "different-materials-tasks") && (
+              <div className="mt-4 max-w-xs">
+                <FieldLabel>
+                  Minimum number of {data.generalizationMode === "different-adults" ? "different adults" : "different materials or tasks"}
+                </FieldLabel>
+                <input
+                  type="number"
+                  min="2"
+                  step="1"
+                  inputMode="numeric"
+                  value={data.generalizationCount}
+                  onChange={(event) => update("generalizationCount", event.target.value)}
+                  className="h-12 w-full rounded-lg border border-slate-300 px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                />
+              </div>
+            )}
           </fieldset>
 
           <div className="mt-7 grid gap-5 border-t border-slate-200 pt-6 sm:grid-cols-2">
             <div>
-              <FieldLabel optional>Maintenance period</FieldLabel>
+              <FieldLabel optional>Maintenance criterion</FieldLabel>
               <select
                 value={data.maintenanceWeeks}
                 onChange={(event) => update("maintenanceWeeks", event.target.value)}
                 className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
               >
-                <option value="">No maintenance criterion</option>
+                <option value="">Do not add maintenance</option>
                 <option value="2">2 weeks</option>
                 <option value="4">4 weeks</option>
                 <option value="6">6 weeks</option>
@@ -744,13 +821,57 @@ export default function BehaviorGoalWriter() {
             <div><dt className="text-xs font-semibold uppercase text-slate-500">Measurement</dt><dd className="mt-1 text-sm text-slate-900">{data.dataMethod}</dd></div>
           </dl>
 
+          <section className="mb-7" aria-labelledby="goal-quality-heading">
+            <div className="mb-3">
+              <h3 id="goal-quality-heading" className="text-lg font-bold text-slate-950">Goal-quality review</h3>
+              <p className="mt-1 text-xs leading-5 text-slate-500">
+                This checklist reviews the structured information entered above. It does not score or approve the goal.
+              </p>
+            </div>
+            <ul className="divide-y divide-slate-200 border-y border-slate-200">
+              {qualityChecks.map((check) => {
+                const isReady = check.status === "ready";
+                const isNotIncluded = check.status === "not-included";
+                const Icon = isReady ? CheckCircle2 : isNotIncluded ? MinusCircle : AlertCircle;
+                const statusLabel = isReady ? "Ready" : isNotIncluded ? "Not included" : "Review";
+                const statusColor = isReady
+                  ? "text-emerald-800"
+                  : isNotIncluded
+                    ? "text-slate-500"
+                    : "text-amber-800";
+
+                return (
+                  <li key={check.id} className="flex items-start gap-3 py-3">
+                    <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${statusColor}`} aria-hidden="true" />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                        <span className="text-sm font-semibold text-slate-900">{check.label}</span>
+                        <span className={`text-xs font-bold uppercase ${statusColor}`}>{statusLabel}</span>
+                      </div>
+                      <p className="mt-1 text-xs leading-5 text-slate-600">{check.detail}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+
           <div className="rounded-lg border border-emerald-200 bg-emerald-50/50">
             <div className="flex items-center justify-between gap-3 border-b border-emerald-200 px-4 py-3">
               <div className="flex items-center gap-2 font-semibold text-emerald-950">
                 <ClipboardCheck className="h-5 w-5" aria-hidden="true" />
-                Generated text
+                Editable final document
               </div>
               <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setEditableOutput(generatedOutput)}
+                  title="Reset generated text"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-300 bg-white text-emerald-800 hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
+                >
+                  <RefreshCw className="h-4 w-4" aria-hidden="true" />
+                  <span className="sr-only">Reset generated text</span>
+                </button>
                 <button
                   type="button"
                   onClick={copyOutput}
@@ -771,7 +892,19 @@ export default function BehaviorGoalWriter() {
                 </button>
               </div>
             </div>
-            <pre className="whitespace-pre-wrap break-words px-4 py-5 font-sans text-sm leading-7 text-slate-800">{output}</pre>
+            <div className="p-4">
+              <label htmlFor="editable-goal-output" className="mb-2 block text-xs leading-5 text-slate-600">
+                Refine the wording before copying or downloading it. The checklist above reflects the structured entries, so review substantive edits with the IEP team.
+              </label>
+              <textarea
+                id="editable-goal-output"
+                aria-label="Editable generated goal"
+                value={editableOutput}
+                onChange={(event) => setEditableOutput(event.target.value)}
+                rows={20}
+                className="min-h-96 w-full resize-y rounded-lg border border-emerald-200 bg-white px-4 py-4 font-sans text-sm leading-7 text-slate-800 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+              />
+            </div>
           </div>
 
           <p className="mt-4 text-xs leading-5 text-slate-500">
