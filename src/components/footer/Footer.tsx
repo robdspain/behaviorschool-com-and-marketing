@@ -110,6 +110,9 @@ export function Footer() {
             <Link href="/products" className="text-gray-600 hover:text-gray-900 transition-colors">
               Tools
             </Link>
+            <Link href="/free-tools" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Free School Behavior Tools
+            </Link>
             <Link href="/resources" className="text-gray-600 hover:text-gray-900 transition-colors">
               Resources
             </Link>

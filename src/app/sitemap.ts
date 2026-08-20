@@ -304,6 +304,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Tools and Resources
     {
+      url: `${baseUrl}/free-tools`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/iep-goals`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

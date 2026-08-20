@@ -9,6 +9,7 @@ import {
   CalendarDays,
   Clock3,
   ClipboardCheck,
+  Files,
   GraduationCap,
   Layers3,
   Target,
@@ -18,12 +19,28 @@ import {
 export const metadata: Metadata = {
   title: "The BehaviorSchool Suite | School-Based Behavior Practice",
   description:
-    "Explore Behavior Study Tools for BCBA exam prep, professional development, and upcoming planning and supervision tools from BehaviorSchool.",
+    "Explore free school-practice tools, Behavior Study Tools for BCBA exam prep, professional development, and upcoming products from BehaviorSchool.",
 };
 
 const availableProducts = [
   {
     number: "01",
+    stage: "Use",
+    name: "Free Tools and Templates",
+    audience: "For school-based behavior teams",
+    description:
+      "Start with the BehaviorSchool Goal Writing System, then find practical examples and planning resources in one organized library.",
+    details: ["IEP goal writing", "Editable goal output", "School-practice resources"],
+    href: "/free-tools",
+    cta: "Explore free tools",
+    image: "/product-suite/iep-goal-writer-live.jpg",
+    imageAlt: "Live BehaviorSchool Goal Writing System interface",
+    icon: Files,
+    tone: "mint",
+    imageKind: "browser",
+  },
+  {
+    number: "02",
     stage: "Prepare",
     name: "Behavior Study Tools",
     audience: "For BCBA candidates",
@@ -36,9 +53,10 @@ const availableProducts = [
     imageAlt: "Behavior Study Tools iPhone dashboard with streak, mastery, daily goal, and recommended next practice",
     icon: GraduationCap,
     tone: "light",
+    imageKind: "phone",
   },
   {
-    number: "02",
+    number: "03",
     stage: "Lead",
     name: "Transformation Program",
     audience: "For school-based BCBAs",
@@ -55,6 +73,7 @@ const availableProducts = [
     imageAlt: "BehaviorSchool Transformation Program page",
     icon: UsersRound,
     tone: "gold",
+    imageKind: "wide",
   },
 ] as const;
 
@@ -165,16 +184,16 @@ export default function ProductsPage() {
             <div className="absolute bottom-0 right-0 w-[62%] overflow-hidden border border-white/20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.34)]">
               <div className="flex h-8 items-center justify-between border-b border-black/10 bg-[#f4f2ec] px-3">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#173f33]">
-                  Professional learning
+                  Free school-practice tools
                 </span>
               </div>
               <Image
-                src="/product-suite/transformation-program.png"
-                alt="Transformation Program preview"
+                src="/product-suite/iep-goal-writer-live.jpg"
+                alt="Current BehaviorSchool Goal Writing System preview"
                 width={1280}
-                height={800}
+                height={720}
                 priority
-                className="aspect-[16/10] w-full object-cover object-top"
+                className="aspect-video w-full origin-bottom scale-[1.4] object-cover object-top"
               />
             </div>
           </div>
@@ -307,13 +326,13 @@ export default function ProductsPage() {
                         Live product view
                       </span>
                     </div>
-                    <div className={product.number === "01" ? "flex justify-center bg-[#0d2b23] p-5 sm:p-8" : ""}>
+                    <div className={product.imageKind === "phone" ? "flex justify-center bg-[#0d2b23] p-5 sm:p-8" : product.imageKind === "browser" ? "aspect-video overflow-hidden" : ""}>
                       <Image
                         src={product.image}
                         alt={product.imageAlt}
-                        width={product.number === "01" ? 1290 : 1280}
-                        height={product.number === "01" ? 2796 : 800}
-                        className={product.number === "01" ? "h-auto max-h-[680px] w-auto object-contain" : "aspect-[16/10] w-full object-cover object-top"}
+                        width={product.imageKind === "phone" ? 1290 : 1280}
+                        height={product.imageKind === "phone" ? 2796 : product.imageKind === "browser" ? 720 : 800}
+                        className={product.imageKind === "phone" ? "h-auto max-h-[680px] w-auto object-contain" : product.imageKind === "browser" ? "h-full w-full origin-bottom scale-[1.4] object-cover object-top" : "aspect-[16/10] w-full object-cover object-top"}
                       />
                     </div>
                   </div>

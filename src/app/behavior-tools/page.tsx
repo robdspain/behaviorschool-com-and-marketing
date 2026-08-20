@@ -48,7 +48,7 @@ const tools: ToolCard[] = [
     status: "live",
     features: [
       "Values-based goal alignment",
-      "SMART goal formatting",
+      "BehaviorSchool goal structure",
       "Copy-ready output",
       "Multiple behavior domains",
     ],
@@ -70,12 +70,12 @@ const tools: ToolCard[] = [
   {
     title: "IEP Goal Quality Checker",
     description:
-      "Evaluate your existing IEP goals against SMART criteria and best practices. Get instant feedback on measurability, specificity, and alignment.",
+      "Use the BehaviorSchool Goal Writing System to review whether an IEP goal includes observable behavior, baseline, context, supports, measurement, and objective progression.",
     href: "/iep-goal-writer",
     icon: CheckCircle2,
     status: "live",
     features: [
-      "SMART criteria scoring",
+      "Transparent goal-quality checklist",
       "Measurability analysis",
       "Improvement suggestions",
       "Best practice alignment",
@@ -181,17 +181,17 @@ const tools: ToolCard[] = [
     ],
   },
   {
-    title: "IEP Goal Generator",
+    title: "BehaviorSchool Goal Writing System",
     description:
-      "AI-powered tool that writes behavior-focused IEP goals in seconds. Input the student's needs and get IDEA-aligned, measurable goals ready to drop into any IEP.",
+      "Build an editable IEP behavior goal draft from student-specific baseline, context, supports, measurement, and mastery decisions.",
     href: "/iep-goal-writer",
     icon: ClipboardCheck,
     status: "live",
     features: [
-      "AI-generated goals",
-      "IDEA-aligned",
-      "Measurable criteria",
-      "Copy-ready format",
+      "Student-specific baseline",
+      "Independent measurement selection",
+      "Editable objectives",
+      "Copy or download output",
     ],
   },
   {

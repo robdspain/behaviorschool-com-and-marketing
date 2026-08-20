@@ -80,7 +80,7 @@ export default function BehaviorSchoolVsMagicSchool() {
               { name: 'FBA-to-BIP AI Pipeline', behaviorSchool: true, competitor: false },
               { name: 'Behavior Goal Bank', behaviorSchool: true, competitor: false },
               { name: 'Progress Monitoring for Behavior Goals', behaviorSchool: true, competitor: false },
-              { name: 'SMART Goal Validation', behaviorSchool: true, competitor: 'partial' },
+              { name: 'Structured goal review', behaviorSchool: true, competitor: 'partial' },
             ],
           },
           {

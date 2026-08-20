@@ -274,7 +274,7 @@ export default function ProPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900">IEP goal generation</h3>
-                    <p className="text-sm text-slate-600">SMART goals aligned to grade and function.</p>
+                    <p className="text-sm text-slate-600">Structured goal drafts built from student-specific information.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

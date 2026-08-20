@@ -4,8 +4,8 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { AnimatedSections } from "./AnimatedSections";
 
 export const metadata: Metadata = {
-  title: "Free IEP Behavior Goal Writer | Behavior School",
-  description: "Create measurable IEP behavior goals in minutes with a free goal writer for BCBAs, teachers, and school teams.",
+  title: "BehaviorSchool Goal Writing System | Free IEP Behavior Goal Writer",
+  description: "Use the free BehaviorSchool Goal Writing System to build an editable IEP behavior goal draft from student-specific information.",
   robots: {
     index: true,
     follow: true,
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
     "progressive behavior goals"
   ],
   openGraph: {
-    title: "Free IEP Behavior Goal Writer | Behavior School",
-    description: "Create measurable IEP behavior goals in minutes with a free goal writer for BCBAs, teachers, and school teams.",
+    title: "BehaviorSchool Goal Writing System | Free IEP Behavior Goal Writer",
+    description: "Use the free BehaviorSchool Goal Writing System to build an editable IEP behavior goal draft from student-specific information.",
     type: "website",
     url: "https://behaviorschool.com/iep-goals",
     images: [
@@ -58,14 +58,14 @@ export const metadata: Metadata = {
         url: "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp",
         width: 1200,
         height: 630,
-        alt: "Values-Based IEP Goal Generator - Student-Centered SMART Goals"
+        alt: "BehaviorSchool Goal Writing System for student-specific IEP behavior goal drafts"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free IEP Behavior Goal Writer | Behavior School",
-    description: "Create measurable IEP behavior goals in minutes with a free goal writer for BCBAs, teachers, and school teams.",
+    title: "BehaviorSchool Goal Writing System | Free IEP Behavior Goal Writer",
+    description: "Use the free BehaviorSchool Goal Writing System to build an editable IEP behavior goal draft from student-specific information.",
     images: ["https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"]
   },
   alternates: {
@@ -77,8 +77,8 @@ export const metadata: Metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Free IEP Behavior Goal Generator",
-  "description": "A free tool for creating professional, compliant IEP behavior goals in under 5 minutes. Specialized for increasing positive behaviors and decreasing problem behaviors.",
+  "name": "BehaviorSchool Goal Writing System",
+  "description": "A free system for building editable IEP behavior goal drafts from student-specific baseline, context, supports, measurement, and mastery decisions.",
   "url": "https://behaviorschool.com/iep-goals",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web Browser",
@@ -87,7 +87,7 @@ const structuredData = {
     "availability": "InStock",
     "price": "0",
     "priceCurrency": "USD",
-    "description": "Free access to the IEP Behavior Goal Generator - no registration required"
+    "description": "Free access to the BehaviorSchool Goal Writing System. No registration is required."
   },
   "audience": {
     "@type": "Audience",
@@ -134,10 +134,9 @@ const structuredData = {
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  "name": "How to Generate Professional IEP Behavior Goals in Minutes",
-  "description": "Step-by-step process for creating compliant, measurable IEP behavior goals using our free behavior goal generator tool",
+  "name": "How to Build an IEP Behavior Goal Draft",
+  "description": "A guided process for organizing student-specific information into an editable IEP behavior goal draft",
   "image": "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp",
-  "totalTime": "PT10M",
   "estimatedCost": {
     "@type": "MonetaryAmount",
     "currency": "USD",
@@ -146,7 +145,7 @@ const howToSchema = {
   "supply": [
     {
       "@type": "HowToSupply",
-      "name": "IEP Behavior Goal Generator"
+      "name": "BehaviorSchool Goal Writing System"
     },
     {
       "@type": "HowToSupply",
@@ -164,7 +163,7 @@ const howToSchema = {
   "tool": [
     {
       "@type": "HowToTool",
-      "name": "Free IEP Behavior Goal Generator"
+      "name": "BehaviorSchool Goal Writing System"
     }
   ],
   "step": [
@@ -177,7 +176,7 @@ const howToSchema = {
     {
       "@type": "HowToStep",
       "name": "Set Measurement Criteria",
-      "text": "The tool automatically generates appropriate measurement standards based on behavior type and direction"
+      "text": "Select the measurement method and criterion that fit the student-specific behavior"
     },
     {
       "@type": "HowToStep",
@@ -186,8 +185,8 @@ const howToSchema = {
     },
     {
       "@type": "HowToStep",
-      "name": "Generate Professional Goal",
-      "text": "Tool creates compliant, measurable IEP goal with built-in quality assurance validation"
+      "name": "Review the Goal Draft",
+      "text": "Review the editable draft and the transparent checklist for missing or inconsistent components"
     },
     {
       "@type": "HowToStep",
@@ -207,7 +206,7 @@ const faqSchema = {
       "name": "How does the free IEP behavior goal generator work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use a straightforward step-by-step flow to create professional IEP behavior goals in under 5 minutes. Define the target behavior, set measurement criteria, add baseline data, and generate compliant goals—no registration required."
+        "text": "The BehaviorSchool Goal Writing System guides you through the target behavior, context, measurement, baseline, mastery, objectives, generalization, and optional maintenance. It then produces an editable draft for IEP team review."
       }
     },
     {
@@ -223,7 +222,7 @@ const faqSchema = {
       "name": "Are the generated goals IEP compliant?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, all goals include specific, measurable criteria that meet IEP compliance standards. The tool has built-in validation rules and a 5-level quality meter to ensure goals are legally compliant and educationally sound."
+        "text": "The system organizes the information entered and flags missing or inconsistent components. The student’s IEP team remains responsible for determining whether the final goal is appropriate and meets applicable requirements."
       }
     },
     {
@@ -267,7 +266,7 @@ export default function IEPGoalsPage() {
           <Breadcrumbs 
             items={[
               { label: "Products", href: "/products" },
-              { label: "Free IEP Behavior Goal Generator" }
+              { label: "BehaviorSchool Goal Writing System" }
             ]}
           />
         </nav>
@@ -281,7 +280,7 @@ export default function IEPGoalsPage() {
               Need examples before using the goal writer?
             </h2>
             <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-              Review measurable IEP behavior goal examples by function, then use the writer to adapt the goal to the student's baseline, setting, and progress-monitoring plan.
+              Review measurable IEP behavior goal examples by function, then use the writer to adapt the goal to the student&apos;s baseline, setting, and progress-monitoring plan.
             </p>
             <Link
               href="/iep-behavior-goal-examples"

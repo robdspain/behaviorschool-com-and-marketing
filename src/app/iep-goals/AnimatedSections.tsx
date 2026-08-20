@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, BarChart3, Zap, Users, Award, Star, ArrowRight, BookOpen, Beaker, Building2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -10,17 +10,7 @@ import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/f
 export function AnimatedSections() {
   const founderEducationYears = getFounderEducationYears();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [hasSignedUp, setHasSignedUp] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    // Check if user has already signed up
-    if (typeof window !== 'undefined') {
-      const signedUp = localStorage.getItem('hasSignedUpForIEPWidget') === 'true';
-      setHasSignedUp(signedUp);
-      console.log('IEP Goals: hasSignedUp status:', signedUp);
-    }
-  }, []);
 
   const handleCTAClick = () => {
     console.log('IEP Goals: CTA clicked');
@@ -31,7 +21,7 @@ export function AnimatedSections() {
   const faqs = [
     {
       question: "How does the free IEP behavior goal generator work?",
-      answer: "Follow a simple, step-by-step flow to create professional IEP behavior goals in under 5 minutes. Define the target behavior, set measurement criteria, add baseline data, and generate compliant goals—no registration required."
+      answer: "The BehaviorSchool Goal Writing System guides you through the target behavior, context, measurement, baseline, mastery, objectives, generalization, and optional maintenance. It then produces an editable draft for IEP team review."
     },
     {
       question: "What types of behavior goals can I create?",
@@ -39,7 +29,7 @@ export function AnimatedSections() {
     },
     {
       question: "Are the generated goals IEP compliant?",
-      answer: "Yes, all goals include specific, measurable criteria that meet IEP compliance standards. The tool has built-in validation rules and a 5-level quality meter to ensure goals are legally compliant and educationally sound."
+      answer: "The system organizes the information you enter and flags missing or inconsistent components. The student’s IEP team remains responsible for determining whether the final goal is appropriate and meets applicable requirements."
     },
     {
       question: "Do I need to create an account to use the generator?",
@@ -67,15 +57,15 @@ export function AnimatedSections() {
                               className="space-y-4"
             >
               <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight leading-[1.1] text-slate-900">
-                Finally, IEP Behavior Goals That <span className="text-emerald-600">Actually Work</span>
+                The <span className="text-emerald-600">BehaviorSchool Goal Writing System</span>
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-700 font-medium mb-4">
-                Stop Struggling with Vague, Non-Compliant Goals
+                Turn student-specific decisions into an editable goal draft
               </p>
 
               <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed">
-                You know the pain: spending hours writing behavior goals that get rejected by administrators, questioned by parents, or simply don&#39;t lead to meaningful change. Our free tool eliminates the guesswork and creates research-backed goals that pass compliance reviews and actually help students succeed.
+                Work from the student&apos;s actual baseline, context, supports, measurement method, and mastery criterion. Review the resulting BehaviorSchool Goal Draft with the IEP team before placing it in the student&apos;s plan.
               </p>
 
               <motion.div
@@ -89,7 +79,7 @@ export function AnimatedSections() {
                    className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
                  >
                    <Zap className="mr-3 h-6 w-6" />
-                   Start Creating Goals Free
+                   Build a Goal Draft
                    <ArrowRight className="ml-3 h-6 w-6" />
                  </button>
                 
@@ -100,11 +90,11 @@ export function AnimatedSections() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Zap className="h-4 w-4 text-emerald-600" />
-                    <span className="text-sm font-semibold">Under 5 Minutes</span>
+                    <span className="text-sm font-semibold">Editable Output</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Users className="h-4 w-4 text-emerald-600" />
-                    <span className="text-sm font-semibold">IEP Compliant</span>
+                    <span className="text-sm font-semibold">Team Review Built In</span>
                   </div>
                 </div>
               </motion.div>
@@ -119,7 +109,7 @@ export function AnimatedSections() {
               <div className="relative rounded-xl shadow-2xl overflow-hidden">
                 <Image
                   src="/IEP-Goal/behavior-goal-writer-hero.webp"
-                  alt="IEP Behavior Goal Writer - Professional goal generation tool showing student behavior goals interface"
+                  alt="BehaviorSchool Goal Writing System showing the student behavior goal interface"
                   width={1056}
                   height={992}
                   priority
@@ -151,11 +141,11 @@ export function AnimatedSections() {
                 <h3 className="text-xl font-bold text-emerald-800">Available Now: IEP Behavior Goals</h3>
               </div>
               <p className="text-emerald-700 mb-4">
-                Use our <strong>free IEP behavior goal writer</strong> right now! Create compliant behavior goals in minutes with no registration required.
+                Use the <strong>BehaviorSchool Goal Writing System</strong> to build an editable IEP behavior goal draft with no registration required.
               </p>
               <ul className="list-disc list-inside text-left text-sm text-emerald-600 space-y-2">
                 <li>Behavior-specific goal generation</li>
-                <li>SMART goal compliance</li>
+                <li>BehaviorSchool goal structure</li>
                 <li>Instant copy/download</li>
                 <li>Privacy-first (no data stored)</li>
               </ul>
@@ -205,7 +195,7 @@ export function AnimatedSections() {
             className="text-center space-y-8"
           >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900">
-              What You Get with the Values Wizard
+              What You Get with the Goal Writing System
             </h2>
             
             <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
@@ -219,8 +209,8 @@ export function AnimatedSections() {
                 <div className="flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-2xl mx-auto mb-4">
                   <Zap className="w-8 h-8 text-emerald-600" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Level 5 SMART Goals</h3>
-                <p className="text-slate-600 text-sm">Complete goals with baseline, fluency, generalization, and 4-week maintenance—all research-backed components included.</p>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">BehaviorSchool Goal Drafts</h3>
+                <p className="text-slate-600 text-sm">Build from baseline, measurement, generalization, and optional maintenance decisions.</p>
               </motion.div>
 
               <motion.div
@@ -233,8 +223,8 @@ export function AnimatedSections() {
                 <div className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-2xl mx-auto mb-4">
                   <Users className="w-8 h-8 text-blue-600" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Student-Driven Goals</h3>
-                <p className="text-slate-600 text-sm">Values-based goals that students help create, leading to higher motivation and lasting behavior change beyond compliance.</p>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Student-Specific Decisions</h3>
+                <p className="text-slate-600 text-sm">Define the behavior, context, supports, and generalization requirements for the individual student.</p>
               </motion.div>
 
               <motion.div
@@ -247,8 +237,8 @@ export function AnimatedSections() {
                 <div className="flex items-center justify-center w-16 h-16 bg-orange-100 rounded-2xl mx-auto mb-4">
                   <Award className="w-8 h-8 text-orange-600" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3">Instant Generation</h3>
-                <p className="text-slate-600 text-sm">Save hours of writing time with auto-generated goals that include all ABA compliance requirements and measurement systems.</p>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">Editable Output</h3>
+                <p className="text-slate-600 text-sm">Review the draft, refine the wording, and copy or download the final text for team discussion.</p>
               </motion.div>
             </div>
 
@@ -257,10 +247,10 @@ export function AnimatedSections() {
                 onClick={handleCTAClick}
                 className="inline-flex items-center px-10 py-5 text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
-                Get Early Access Now
+                Use the Goal Writing System
                 <ArrowRight className="ml-3 h-6 w-6" />
               </button>
-              <p className="text-sm text-slate-500 mt-3">Free access • No registration required • Start immediately</p>
+              <p className="text-sm text-slate-500 mt-3">Free access | No registration required</p>
             </div>
           </motion.div>
         </div>
@@ -279,7 +269,7 @@ export function AnimatedSections() {
             className="text-center space-y-12"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              Who Should Use the Free Goal Generator?
+              Who Should Use the Goal Writing System?
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -326,7 +316,7 @@ export function AnimatedSections() {
                 
                 <div className="bg-slate-50 rounded-xl p-4">
                   <p className="text-slate-700 text-sm leading-relaxed">
-                    Ensure goals align with evidence-based ABA practices and compliance requirements.
+                    Organize baseline, measurement, mastery, and objective decisions in one editable draft.
                   </p>
                 </div>
               </motion.article>
@@ -346,11 +336,11 @@ export function AnimatedSections() {
                 </div>
                 
                                 <h3 className="text-xl font-bold text-slate-900 mb-3">Schools</h3>
-                <p className="text-slate-600 mb-6">Compliance</p>
+                <p className="text-slate-600 mb-6">Consistent structure</p>
                 
                 <div className="bg-slate-50 rounded-xl p-4">
                   <p className="text-slate-700 text-sm leading-relaxed">
-                    Improve compliance and outcomes with consistently measurable IEP goals across your district.
+                    Give teams a shared structure for reviewing observable behavior, context, supports, and measurement.
                   </p>
                 </div>
               </motion.article>
@@ -439,7 +429,7 @@ export function AnimatedSections() {
         </div>
       </section>
 
-      {/* Features Section - How the Values Wizard Works */}
+      {/* Features Section */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -450,15 +440,15 @@ export function AnimatedSections() {
             className="text-center space-y-12"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
-              How the Values Wizard Works
+              How the Goal Writing System Works
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
                 <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Values Wizard</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Students pick what matters most—Kind, Brave, Focused, etc.</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">Student-Specific Inputs</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Teams enter observable behavior, context, supports, and baseline information.</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
@@ -471,8 +461,8 @@ export function AnimatedSections() {
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
                 <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-500 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">SMART Goals</h3>
-                  <p className="text-slate-600 text-sm sm:text-base">Auto-generates Specific, Measurable, Achievable goals</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2">BehaviorSchool Goal Drafts</h3>
+                  <p className="text-slate-600 text-sm sm:text-base">Builds editable drafts from the student-specific information you enter</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 sm:space-x-4 text-left">
@@ -961,13 +951,13 @@ export function AnimatedSections() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
             <div className="flex items-center space-x-2 sm:space-x-3">
               <Star className="h-5 w-5 sm:h-6 sm:w-6 text-orange-500" />
-              <span className="text-sm sm:text-lg font-semibold text-slate-900">Join the Waitlist for the Free IEP Goal Generator</span>
+              <span className="text-sm sm:text-lg font-semibold text-slate-900">Use the Free BehaviorSchool Goal Writing System</span>
             </div>
             <button 
               onClick={handleCTAClick}
               className="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-bold bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
             >
-              Generate My First Goal Now
+              Build a Goal Draft
               <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </button>
           </div>

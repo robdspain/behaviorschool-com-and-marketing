@@ -881,7 +881,7 @@ export default function BehaviorGoalWriter() {
       {step === 5 && (
         <section>
           <SectionHeading
-            title="Review the generated goal"
+            title="Review the BehaviorSchool Goal Draft"
             description="Review the wording and criteria with the student’s IEP team. Copy or download the text, then edit it in the student’s plan as needed."
           />
 
@@ -930,7 +930,7 @@ export default function BehaviorGoalWriter() {
           <div className="rounded-lg border border-emerald-200 bg-emerald-50/50">
             <div className="flex items-center gap-2 border-b border-emerald-200 px-4 py-3 font-semibold text-emerald-950">
               <ClipboardCheck className="h-5 w-5" aria-hidden="true" />
-              Editable final document
+              Editable BehaviorSchool Goal Draft
             </div>
             <div className="p-4">
               <label htmlFor="editable-goal-output" className="mb-2 block text-xs leading-5 text-slate-600">
@@ -938,7 +938,7 @@ export default function BehaviorGoalWriter() {
               </label>
               <textarea
                 id="editable-goal-output"
-                aria-label="Editable generated goal"
+                aria-label="Editable BehaviorSchool Goal Draft"
                 value={editableOutput}
                 onChange={(event) => setEditableOutput(event.target.value)}
                 rows={20}
@@ -948,26 +948,26 @@ export default function BehaviorGoalWriter() {
                 <button
                   type="button"
                   onClick={() => setEditableOutput(generatedOutput)}
-                  title="Reset generated text"
+                  title="Reset goal draft"
                   className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-300 bg-white text-emerald-800 hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
                 >
                   <RefreshCw className="h-4 w-4" aria-hidden="true" />
-                  <span className="sr-only">Reset generated text</span>
+                  <span className="sr-only">Reset goal draft</span>
                 </button>
                 <button
                   type="button"
                   onClick={downloadOutput}
-                  title="Download generated text"
+                  title="Download goal draft"
                   className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-300 bg-white text-emerald-800 hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
                 >
                   <Download className="h-4 w-4" aria-hidden="true" />
-                  <span className="sr-only">Download generated text</span>
+                  <span className="sr-only">Download goal draft</span>
                 </button>
                 <button
                   type="button"
                   onClick={copyOutput}
-                  title={copied ? "Copied" : "Copy generated text"}
-                  aria-label={copied ? "Copied" : "Copy generated text"}
+                  title={copied ? "Copied" : "Copy goal draft"}
+                  aria-label={copied ? "Copied" : "Copy goal draft"}
                   className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-emerald-800 bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
                 >
                   {copied ? <Check className="h-4 w-4" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
@@ -995,7 +995,7 @@ export default function BehaviorGoalWriter() {
       {step < 5 && (
         <section className="mt-8 rounded-lg border border-slate-200 bg-slate-50" aria-live="polite">
           <div className="border-b border-slate-200 px-4 py-3">
-            <h3 className="text-sm font-semibold text-slate-900">Live draft</h3>
+            <h3 className="text-sm font-semibold text-slate-900">Live BehaviorSchool Goal Draft</h3>
             <p className="mt-0.5 text-xs text-slate-500">This wording updates as you type.</p>
           </div>
           <pre className="max-h-72 overflow-auto whitespace-pre-wrap break-words px-4 py-4 font-sans text-sm leading-6 text-slate-700">{liveDraft}</pre>

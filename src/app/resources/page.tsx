@@ -65,8 +65,8 @@ const FEATURED_TOOLS = [
     tag: "Demo",
   },
   {
-    title: "IEP Behavior Goal Writer",
-    description: "Build Level 5 SMART goals with baseline, fluency, generalization, and maintenance.",
+    title: "BehaviorSchool Goal Writing System",
+    description: "Build an editable goal draft from baseline, measurement, generalization, and maintenance decisions.",
     href: "/iep-goal-writer",
     icon: ClipboardList,
     tag: "Tool",
@@ -141,7 +141,7 @@ export default async function ResourcesPage() {
                 </div>
                 <div className="bg-white/5 rounded-xl p-4">
                   <div className="text-emerald-300 text-xs uppercase tracking-wide font-semibold mb-1">IEP Goals</div>
-                  <div className="text-slate-100">Level 5 SMART goals with maintenance & generalization</div>
+                  <div className="text-slate-100">Editable BehaviorSchool Goal Drafts with optional maintenance and generalization</div>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4">
                   <div className="text-emerald-300 text-xs uppercase tracking-wide font-semibold mb-1">Data</div>

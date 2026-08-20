@@ -783,8 +783,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (shareBtn) {
     shareBtn.addEventListener('click', async () => {
       const url = window.location.href;
-      const title = 'IEP Behavior Goal Writer';
-      const text = 'Check out this free IEP Behavior Goal Writer tool - create standards-compliant behavior goals in minutes!';
+      const title = 'BehaviorSchool Goal Writing System';
+      const text = 'Use the free BehaviorSchool Goal Writing System to build an editable IEP behavior goal draft.';
 
       // Check if Web Share API is supported
       if (navigator.share) {

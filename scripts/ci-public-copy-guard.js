@@ -29,6 +29,13 @@ const files = [
   ...walk(path.join(process.cwd(), 'src/components/marketing')),
 ].filter((file) => /\.(tsx?|jsx?)$/i.test(file) && !/\/src\/app\/(admin|api)(\/|$)/.test(file));
 
+const goalTerminologyFiles = [
+  ...files,
+  ...walk(path.join(process.cwd(), 'src/components/iep-goal-writer')),
+  ...walk(path.join(process.cwd(), 'public/tools/iep-goal-writer')),
+  path.join(process.cwd(), 'public/templates/goal-builder.html'),
+].filter((file) => /\.(tsx?|jsx?|html)$/i.test(file));
+
 const rules = [
   ['testimonial or social-proof copy', /\b(testimonials?|social\s+proof|success\s+stories?|real\s+examples?\s+of\s+transformative\s+impact|what\s+bcbas\s+are\s+saying)\b/i],
   ['self-reported or unsupported outcome data', /\b(self[-\s]reported|outcome\s+stats?|by\s+the\s+numbers|would\s+recommend|saved\s+per\s+week|up\s+from|proven\s+results?|participants?\s+typically\s+report|many\s+(participants?|users?)\s+(also\s+)?report)\b/i],
@@ -52,6 +59,21 @@ for (const file of files) {
   }
 }
 
+for (const file of goalTerminologyFiles) {
+  if (!fs.existsSync(file)) continue;
+  const lines = fs.readFileSync(file, 'utf8').split('\n');
+  lines.forEach((line, index) => {
+    if (/\bSMART\s+(?:goals?|criteria)\b/i.test(line)) {
+      violations.push({
+        file,
+        line: index + 1,
+        label: 'retired goal-writing terminology',
+        text: line.trim(),
+      });
+    }
+  });
+}
+
 if (violations.length) {
   console.error('\nPublic-copy guard failed. Remove or source every flagged claim before publishing:\n');
   for (const violation of violations) {
@@ -60,4 +82,4 @@ if (violations.length) {
   process.exit(1);
 }
 
-console.log('Public-copy guard passed: no prohibited Transformation Program claims found.');
+console.log('Public-copy guard passed: no prohibited public claims or retired goal-writing terms found.');

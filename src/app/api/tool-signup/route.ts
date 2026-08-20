@@ -11,7 +11,7 @@ const TOOL_CONFIGS: Record<string, { subject: string; toolName: string; toolUrl:
   },
   "iep-goal-writer": {
     subject: "Your IEP behavior goals link",
-    toolName: "IEP Behavior Goal Writer",
+    toolName: "BehaviorSchool Goal Writing System",
     toolUrl: "https://behaviorschool.com/iep-goal-writer",
   },
 };

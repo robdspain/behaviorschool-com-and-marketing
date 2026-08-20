@@ -136,7 +136,7 @@ export default function IEPGoalWriter() {
             Your IEP goals are ready.
           </h2>
           <p style={{ color: "#555" }}>
-            Enter your email to view 3 draft SMART behavior goals for your student.
+            Enter your email to view 3 BehaviorSchool Goal Drafts for your student.
           </p>
         </div>
         <form onSubmit={handleEmailSubmit}>
@@ -175,7 +175,7 @@ export default function IEPGoalWriter() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, flexWrap: "wrap", gap: 12 }}>
           <div>
             <h2 style={{ fontSize: "1.4rem", fontWeight: 700, color: "#1a3a2a", margin: 0 }}>
-              3 Draft SMART IEP Behavior Goals
+              3 BehaviorSchool Goal Drafts
             </h2>
             <p style={{ color: "#555", margin: "4px 0 0", fontSize: "0.9rem" }}>
               {targetBehavior} · {FUNCTION_LABELS[behaviorFunction]} function · {gradeLabel(gradeLevel)}

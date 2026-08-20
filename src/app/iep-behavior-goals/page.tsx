@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { IEPBehaviorGoalsClient } from "./IEPBehaviorGoalsClient";
 
 export const metadata: Metadata = {
-  title: "IEP Behavior Goals | Free Generator | Behavior School",
-  description: "Generate compliant IEP behavior goals instantly! FREE tool creates measurable, legal goals in 5 minutes. Professional resource for teachers & BCBAs. Start now!",
+  title: "BehaviorSchool Goal Writing System | IEP Behavior Goals",
+  description: "Build an editable IEP behavior goal draft from student-specific baseline, context, supports, measurement, and mastery decisions.",
   robots: {
     index: true,
     follow: true,
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     "progressive behavior goals"
   ],
   openGraph: {
-    title: "IEP Behavior Goals | Free Generator | Behavior School",
-    description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized tool for creating measurable, compliant behavior goals. No registration required - start creating now.",
+    title: "BehaviorSchool Goal Writing System | IEP Behavior Goals",
+    description: "Build an editable IEP behavior goal draft from student-specific information. No registration is required.",
     type: "website",
     url: "https://behaviorschool.com/iep-behavior-goals",
     images: [
@@ -55,14 +55,14 @@ export const metadata: Metadata = {
         url: "https://behaviorschool.com/thumbnails/iep-behavior-goal-thumb.webp",
         width: 1200,
         height: 630,
-        alt: "Free IEP Behavior Goals Generator - Create Compliant Goals Fast"
+        alt: "BehaviorSchool Goal Writing System for IEP behavior goal drafts"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "IEP Behavior Goals | Free Generator | Behavior School",
-    description: "Generate professional IEP behavior goals for free in under 5 minutes. Specialized tool for creating measurable, compliant behavior goals. No registration required - start creating now.",
+    title: "BehaviorSchool Goal Writing System | IEP Behavior Goals",
+    description: "Build an editable IEP behavior goal draft from student-specific information. No registration is required.",
     images: ["https://behaviorschool.com/thumbnails/iep-behavior-goal-thumb.webp"]
   },
   alternates: {

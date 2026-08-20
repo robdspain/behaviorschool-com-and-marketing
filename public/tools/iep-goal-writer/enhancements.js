@@ -608,7 +608,7 @@
       </div>
 
       <div class="print-footer">
-        Generated with the free IEP Behavior Goal Writer at behaviorschool.com
+        Generated with the BehaviorSchool Goal Writing System at behaviorschool.com
       </div>
 
       <div class="action-bar">
@@ -884,7 +884,7 @@
     });
 
     document.getElementById("shareTwitter").addEventListener("click", () => {
-      const text = encodeURIComponent("Just used this FREE IEP behavior goal writer and it's incredible. Writes the full annual goal + data sheet in minutes. Free, no login required. \u2192 " + SHARE_URL + " #SPED #IEP #SpecialEducation #BCBALife");
+      const text = encodeURIComponent("Use the free BehaviorSchool Goal Writing System to build an editable IEP behavior goal draft from student-specific information. " + SHARE_URL + " #SPED #IEP #SpecialEducation #BCBALife");
       window.open("https://twitter.com/intent/tweet?text=" + text, "_blank", "noopener,noreferrer");
     });
 
@@ -902,7 +902,7 @@
         goalText = "[Generate a goal first]";
       }
 
-      const emailBody = `I used Behavior School's free IEP Behavior Goal Writer to write this goal:\n\n${goalText}\n\nYou can generate your own free goals at: ${SHARE_URL}`;
+      const emailBody = `I used the BehaviorSchool Goal Writing System to build this goal draft:\n\n${goalText}\n\nYou can build an editable goal draft at: ${SHARE_URL}`;
 
       navigator.clipboard.writeText(emailBody).then(() => {
         const desc = document.querySelector("#shareEmail .share-option-desc");

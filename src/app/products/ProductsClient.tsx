@@ -273,7 +273,7 @@ export function ProductsClient() {
                   <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">IEP Goal Writer</h2>
                 </div>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  Stop writing vague, unmeasurable IEP goals. Our simple tool helps you write goals that are specific, trackable, and built to drive real student success.
+                  Use the BehaviorSchool Goal Writing System to organize student-specific baseline, context, supports, measurement, and mastery decisions in an editable draft.
                 </p>
                 <ul className="space-y-3">
                   {[

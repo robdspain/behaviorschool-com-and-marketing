@@ -187,10 +187,10 @@ export default function SchoolBCBAContent() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <LMCard
-              title="IEP Behavior Goals Generator"
-              desc="Generate high-quality, measurable, SMART behavior goals aligned with state standards. Save hours on IEP writing."
+              title="BehaviorSchool Goal Writing System"
+              desc="Build an editable behavior goal draft from baseline, context, supports, and measurement decisions."
               href="/iep-goals"
-              features={["SMART goal framework", "State standards aligned", "Progress monitoring built-in"]}
+              features={["Student-specific baseline", "Editable goal draft", "Measurement and objectives"]}
             />
             <LMCard
               title="Behavior Plan Writer"

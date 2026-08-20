@@ -28,7 +28,7 @@ export default function WidgetContent() {
             IEP Behavior Goal <span className="text-emerald-600">Generator</span>
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Create research-backed, Level 5 SMART behavior goals with baseline, fluency, generalization, and maintenance in under 5 minutes.
+            Use the BehaviorSchool Goal Writing System to build an editable goal draft from baseline, measurement, generalization, and maintenance decisions.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
             <div className="flex items-center gap-2 text-emerald-700">

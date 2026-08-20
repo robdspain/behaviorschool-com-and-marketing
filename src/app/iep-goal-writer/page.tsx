@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import BehaviorGoalWriter from "@/components/iep-goal-writer/ValuesWizard";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "IEP Behavior Goal Writer | BehaviorSchool",
+  title: "BehaviorSchool Goal Writing System | IEP Behavior Goals",
   description:
-    "Build a measurable IEP behavior goal from student-specific baseline, context, supports, and data-collection details.",
+    "Use the BehaviorSchool Goal Writing System to build an editable IEP behavior goal draft from student-specific baseline, context, supports, and measurement decisions.",
   canonical: "https://behaviorschool.com/iep-goal-writer",
 });
 
@@ -18,16 +19,16 @@ export default function IEPGoalWriterPage() {
             Free Tool | No Login Required
           </p>
           <h1 className="text-balance text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl mb-4">
-            IEP Behavior Goal Writer
+            BehaviorSchool Goal Writing System
           </h1>
           <p className="max-w-2xl mx-auto text-base leading-7 text-slate-600 sm:text-lg mb-4">
-            Build a measurable behavior goal from student-specific baseline, context, supports, and data-collection details.
+            Build an editable IEP behavior goal draft from student-specific baseline, context, supports, and measurement decisions.
           </p>
           <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-slate-500">
             <span>Observable behavior</span>
             <span>Objective baseline</span>
             <span>Direction-specific criteria</span>
-            <span>IEP team review</span>
+            <span>BehaviorSchool Goal Draft</span>
           </div>
         </div>
       </section>
@@ -38,7 +39,7 @@ export default function IEPGoalWriterPage() {
             <BehaviorGoalWriter />
           </div>
           <p className="text-center text-sm text-slate-500 mt-6">
-            Free tool from <a href="/" className="text-emerald-700 font-medium hover:underline">BehaviorSchool</a>. Entries stay in this browser session and are not submitted.
+            Free tool from <Link href="/" className="text-emerald-700 font-medium hover:underline">BehaviorSchool</Link>. Entries stay in this browser session and are not submitted.
           </p>
         </div>
       </section>

@@ -136,7 +136,7 @@ export default function SchoolBasedBCBAPage() {
             <div className="space-y-3">
               {[
                 "6-week transformation program with live cohort support",
-                "AI-powered IEP Goal Generator & Behavior Plan Writer",
+                "BehaviorSchool Goal Writing System and Behavior Plan Writer",
                 "Evidence-based systems aligned with MTSS & PBIS",
                 "Reduce burnout while scaling your impact district-wide"
               ].map((item, idx) => (
@@ -308,11 +308,11 @@ export default function SchoolBasedBCBAPage() {
                   3. Collaborate on IEP Teams
                 </h3>
                 <p className="text-slate-600 leading-relaxed mb-4">
-                  Craft measurable, IDEA-compliant behavior goals that improve student outcomes and meet legal requirements.
+                  Organize student-specific baseline, context, supports, measurement, and mastery decisions for IEP team review.
                 </p>
                 <Button variant="outline" size="sm" className="border-purple-600 text-purple-700 hover:bg-purple-50 font-semibold" asChild>
                   <Link href="/iep-goals">
-                    Try Goal Generator
+                    Use the Goal Writing System
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
@@ -501,7 +501,7 @@ export default function SchoolBasedBCBAPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {[
-                { icon: Target, color: "emerald", title: "IEP Goal Generator", desc: "Create SMART, measurable behavior goals in seconds", link: "/iep-goals", cta: "Generate a Free Goal" },
+                { icon: Target, color: "emerald", title: "BehaviorSchool Goal Writing System", desc: "Build an editable BehaviorSchool Goal Draft from student-specific information", link: "/iep-goals", cta: "Build a Goal Draft" },
                 { icon: FileText, color: "blue", title: "Behavior Plan Writer", desc: "Build teacher-ready BIPs with evidence-based strategies", link: "/behavior-plans", cta: "Create a Free BIP" },
                 { icon: Users, color: "purple", title: "Supervision Tracker", desc: "Invite-only tools in development for fieldwork documentation and progress review", link: "/supervisors", cta: "View Invite-Only Access" },
                 { icon: BookOpen, color: "orange", title: "BCBA Exam Prep", desc: "Free practice questions and mock exams for certification", link: "https://study.behaviorschool.com/free-practice/", cta: "Start Studying Free" }
@@ -572,7 +572,7 @@ export default function SchoolBasedBCBAPage() {
                 asChild
               >
                 <Link href="/iep-goals">
-                  Try Free IEP Goal Generator
+                  Use the Free Goal Writing System
                 </Link>
               </Button>
               
@@ -641,7 +641,7 @@ export default function SchoolBasedBCBAPage() {
                 },
                 {
                   question: "What free tools are available for school BCBAs?",
-                  answer: "Current tools include the IEP Goal Generator, Behavior Plan Writer, and BCBA Exam Prep. The Supervision Tracker is in development and available only by invitation.",
+                  answer: "Current tools include the BehaviorSchool Goal Writing System, Behavior Plan Writer, and BCBA Exam Prep. The Supervision Tracker is in development and available only by invitation.",
                   color: "red"
                 },
                 {
@@ -747,7 +747,7 @@ export default function SchoolBasedBCBAPage() {
                   "name": "What free tools are available for school BCBAs?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Current tools include the IEP Goal Generator, Behavior Plan Writer, and BCBA Exam Prep. The Supervision Tracker is in development and available only by invitation."
+                    "text": "Current tools include the BehaviorSchool Goal Writing System, Behavior Plan Writer, and BCBA Exam Prep. The Supervision Tracker is in development and available only by invitation."
                   }
                 },
                 {
