@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import BehaviorGoalWriter from "@/components/iep-goal-writer/ValuesWizard";
-import { ClipboardList, FileCheck, SlidersHorizontal } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -13,22 +12,22 @@ export const metadata: Metadata = buildPageMetadata({
 export default function IEPGoalWriterPage() {
   return (
     <main className="min-h-screen bg-white">
-      <section className="pt-20 pb-8 sm:pt-24 sm:pb-10">
+      <section className="pt-14 pb-8 sm:pt-16 sm:pb-10">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold tracking-widest uppercase text-emerald-700 mb-3">
             Free Tool | No Login Required
           </p>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
+          <h1 className="text-balance text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl mb-4">
             IEP Behavior Goal Writer
           </h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-4">
+          <p className="max-w-2xl mx-auto text-base leading-7 text-slate-600 sm:text-lg mb-4">
             Build a measurable behavior goal from student-specific baseline, context, supports, and data-collection details.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 text-sm text-slate-500">
-            <span className="flex items-center gap-1">✓ Observable behavior</span>
-            <span className="flex items-center gap-1">✓ Objective baseline</span>
-            <span className="flex items-center gap-1">✓ Direction-specific criteria</span>
-            <span className="flex items-center gap-1">✓ IEP team review</span>
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-slate-500">
+            <span>Observable behavior</span>
+            <span>Objective baseline</span>
+            <span>Direction-specific criteria</span>
+            <span>IEP team review</span>
           </div>
         </div>
       </section>
@@ -43,44 +42,6 @@ export default function IEPGoalWriterPage() {
           </p>
         </div>
       </section>
-      
-      <section className="bg-slate-50 py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center text-slate-900 mb-10">
-            What the writer includes
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="mb-3">
-                <ClipboardList className="w-8 h-8 text-emerald-700" />
-              </div>
-              <h3 className="font-semibold text-slate-900 mb-2">Student-specific inputs</h3>
-              <p className="text-sm text-slate-600">
-                Define the observable behavior, baseline, context, supports, and measurement method before generating the goal.
-              </p>
-            </div>
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="mb-3">
-                <SlidersHorizontal className="w-8 h-8 text-emerald-700" />
-              </div>
-              <h3 className="font-semibold text-slate-900 mb-2">Direction-specific criteria</h3>
-              <p className="text-sm text-slate-600">
-                Use separate defaults for increasing a skill or decreasing a behavior, then edit the criteria for the student.
-              </p>
-            </div>
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="mb-3">
-                <FileCheck className="w-8 h-8 text-emerald-700" />
-              </div>
-              <h3 className="font-semibold text-slate-900 mb-2">Reviewable output</h3>
-              <p className="text-sm text-slate-600">
-                Review a separate baseline and annual goal, with an optional replacement-skill goal and quarterly objectives.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      
     </main>
   );
 }

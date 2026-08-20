@@ -123,9 +123,17 @@ function initialData(): GoalWriterData {
   };
 }
 
-function FieldLabel({ children, optional = false }: { children: React.ReactNode; optional?: boolean }) {
+function FieldLabel({
+  children,
+  htmlFor,
+  optional = false,
+}: {
+  children: React.ReactNode;
+  htmlFor?: string;
+  optional?: boolean;
+}) {
   return (
-    <label className="mb-1.5 block text-sm font-semibold text-slate-800">
+    <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-semibold text-slate-800">
       {children}
       {optional && <span className="ml-1 font-normal text-slate-500">(optional)</span>}
     </label>
@@ -393,9 +401,12 @@ export default function BehaviorGoalWriter() {
 
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
-              <FieldLabel>Annual goal date</FieldLabel>
+              <FieldLabel htmlFor="annual-goal-date">Annual goal date</FieldLabel>
               <input
+                id="annual-goal-date"
+                name="annualGoalDate"
                 type="date"
+                autoComplete="off"
                 value={data.annualGoalDate}
                 onChange={(event) => update("annualGoalDate", event.target.value)}
                 className="h-12 w-full rounded-lg border border-slate-300 px-3 text-slate-900 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
@@ -403,9 +414,12 @@ export default function BehaviorGoalWriter() {
               <p className="mt-1.5 text-xs text-slate-500">The generated goal uses MM/DD/YYYY.</p>
             </div>
             <div>
-              <FieldLabel optional>Student name</FieldLabel>
+              <FieldLabel htmlFor="student-name" optional>Student name</FieldLabel>
               <input
+                id="student-name"
+                name="studentName"
                 type="text"
+                autoComplete="off"
                 value={data.studentName}
                 onChange={(event) => update("studentName", event.target.value)}
                 placeholder="Student name"
@@ -439,9 +453,12 @@ export default function BehaviorGoalWriter() {
           </fieldset>
 
           <div className="mt-6">
-            <FieldLabel>Behavior or skill</FieldLabel>
+            <FieldLabel htmlFor="behavior-title">Behavior or skill</FieldLabel>
             <input
+              id="behavior-title"
+              name="behaviorTitle"
               type="text"
+              autoComplete="off"
               value={data.behaviorTitle}
               onChange={(event) => update("behaviorTitle", event.target.value)}
               placeholder={data.direction === "increase" ? "on-task behavior" : "leaving the assigned area"}
@@ -454,8 +471,11 @@ export default function BehaviorGoalWriter() {
           </div>
 
           <div className="mt-6">
-            <FieldLabel>Measurable and observable definition</FieldLabel>
+            <FieldLabel htmlFor="behavior-definition">Measurable and observable definition</FieldLabel>
             <textarea
+              id="behavior-definition"
+              name="behaviorDefinition"
+              autoComplete="off"
               value={data.behaviorDefinition}
               onChange={(event) => update("behaviorDefinition", event.target.value)}
               rows={4}
@@ -466,8 +486,11 @@ export default function BehaviorGoalWriter() {
 
           {data.direction === "decrease" && (
             <div className="mt-6">
-              <FieldLabel>Replacement behavior or skill</FieldLabel>
+              <FieldLabel htmlFor="replacement-behavior">Replacement behavior or skill</FieldLabel>
               <textarea
+                id="replacement-behavior"
+                name="replacementBehavior"
+                autoComplete="off"
                 value={data.replacementBehavior}
                 onChange={(event) => update("replacementBehavior", event.target.value)}
                 rows={3}
@@ -487,8 +510,11 @@ export default function BehaviorGoalWriter() {
             description="Choose the measurement that fits the behavior, then enter the current level of performance. Measurement is independent of whether the goal increases or decreases a behavior."
           />
           <div>
-            <FieldLabel>Measurement</FieldLabel>
+            <FieldLabel htmlFor="measurement-type">Measurement</FieldLabel>
             <select
+              id="measurement-type"
+              name="measurementType"
+              autoComplete="off"
               value={data.measurementType}
               onChange={(event) => changeMeasurementType(event.target.value as MeasurementType)}
               className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
@@ -501,10 +527,13 @@ export default function BehaviorGoalWriter() {
 
           <div className="mt-5 grid gap-5 sm:grid-cols-2">
             <div>
-              <FieldLabel>Current baseline value</FieldLabel>
+              <FieldLabel htmlFor="baseline-value">Current baseline value</FieldLabel>
               <div className="relative">
                 <input
+                  id="baseline-value"
+                  name="baselineValue"
                   type="number"
+                  autoComplete="off"
                   min="0"
                   max={data.measurementType.startsWith("percentage") ? "100" : undefined}
                   step="0.1"
@@ -520,9 +549,12 @@ export default function BehaviorGoalWriter() {
               </div>
             </div>
             <div>
-              <FieldLabel>School days measured</FieldLabel>
+              <FieldLabel htmlFor="baseline-days">School days measured</FieldLabel>
               <input
+                id="baseline-days"
+                name="baselineDays"
                 type="number"
+                autoComplete="off"
                 min="1"
                 inputMode="numeric"
                 value={data.baselineDays}
@@ -534,9 +566,12 @@ export default function BehaviorGoalWriter() {
 
           {!data.measurementType.startsWith("percentage") && (
             <div className="mt-5">
-              <FieldLabel>Measurement unit</FieldLabel>
+              <FieldLabel htmlFor="measurement-unit">Measurement unit</FieldLabel>
               {MEASUREMENT_UNITS[data.measurementType] ? (
                 <select
+                  id="measurement-unit"
+                  name="measurementUnit"
+                  autoComplete="off"
                   value={data.measurementUnit}
                   onChange={(event) => update("measurementUnit", event.target.value)}
                   className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
@@ -547,7 +582,10 @@ export default function BehaviorGoalWriter() {
                 </select>
               ) : (
                 <input
+                  id="measurement-unit"
+                  name="measurementUnit"
                   type="text"
+                  autoComplete="off"
                   value={data.measurementUnit}
                   onChange={(event) => update("measurementUnit", event.target.value)}
                   placeholder="Enter the unit used by the team"
@@ -558,8 +596,11 @@ export default function BehaviorGoalWriter() {
           )}
 
           <div className="mt-6">
-            <FieldLabel>How the baseline was measured</FieldLabel>
+            <FieldLabel htmlFor="baseline-methods">How the baseline was measured</FieldLabel>
             <textarea
+              id="baseline-methods"
+              name="baselineMethods"
+              autoComplete="off"
               value={data.baselineMethods}
               onChange={(event) => update("baselineMethods", event.target.value)}
               rows={3}
@@ -577,8 +618,11 @@ export default function BehaviorGoalWriter() {
             description="Define the conditions in which performance is expected and the supports the team plans to provide."
           />
           <div>
-            <FieldLabel>Context or condition</FieldLabel>
+            <FieldLabel htmlFor="goal-context">Context or condition</FieldLabel>
             <textarea
+              id="goal-context"
+              name="context"
+              autoComplete="off"
               value={data.context}
               onChange={(event) => update("context", event.target.value)}
               rows={3}
@@ -587,8 +631,11 @@ export default function BehaviorGoalWriter() {
             />
           </div>
           <div className="mt-6">
-            <FieldLabel>Supports provided</FieldLabel>
+            <FieldLabel htmlFor="goal-supports">Supports provided</FieldLabel>
             <textarea
+              id="goal-supports"
+              name="supports"
+              autoComplete="off"
               value={data.supports}
               onChange={(event) => update("supports", event.target.value)}
               rows={3}
@@ -606,9 +653,12 @@ export default function BehaviorGoalWriter() {
             description="Confirm the mastery and consistency criteria, then add only the components that are relevant to this student and goal."
           />
           <div>
-            <FieldLabel>Data-collection method</FieldLabel>
+            <FieldLabel htmlFor="data-method">Data-collection method</FieldLabel>
             <input
+              id="data-method"
+              name="dataMethod"
               type="text"
+              autoComplete="off"
               value={data.dataMethod}
               onChange={(event) => update("dataMethod", event.target.value)}
               placeholder="direct observation using event recording"
@@ -618,10 +668,13 @@ export default function BehaviorGoalWriter() {
 
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             <div>
-              <FieldLabel>Mastery criterion</FieldLabel>
+              <FieldLabel htmlFor="mastery-value">Mastery criterion</FieldLabel>
               <div className="relative">
                 <input
+                  id="mastery-value"
+                  name="masteryValue"
                   type="number"
+                  autoComplete="off"
                   min="0"
                   max={data.measurementType.startsWith("percentage") ? "100" : undefined}
                   step="0.1"
@@ -639,9 +692,12 @@ export default function BehaviorGoalWriter() {
               )}
             </div>
             <div>
-              <FieldLabel>Consistency criterion</FieldLabel>
+              <FieldLabel htmlFor="consistency">Consistency criterion</FieldLabel>
               <input
+                id="consistency"
+                name="consistency"
                 type="text"
+                autoComplete="off"
                 value={data.consistency}
                 onChange={(event) => update("consistency", event.target.value)}
                 className="h-12 w-full rounded-lg border border-slate-300 px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
@@ -661,9 +717,12 @@ export default function BehaviorGoalWriter() {
             </label>
             {data.fluencyEnabled && (
               <div className="mt-4 max-w-xs">
-                <FieldLabel>Initiates within how many seconds?</FieldLabel>
+                <FieldLabel htmlFor="fluency-seconds">Initiates within how many seconds?</FieldLabel>
                 <input
+                  id="fluency-seconds"
+                  name="fluencySeconds"
                   type="number"
+                  autoComplete="off"
                   min="1"
                   inputMode="numeric"
                   value={data.fluencySeconds}
@@ -678,8 +737,11 @@ export default function BehaviorGoalWriter() {
             <legend className="text-sm font-semibold text-slate-800">Generalization criterion <span className="font-normal text-slate-500">(optional)</span></legend>
             <p className="mt-1 text-xs leading-5 text-slate-500">Specify how the team will determine whether mastery generalizes beyond one condition.</p>
             <div className="mt-3 max-w-xl">
-              <FieldLabel>How must mastery occur?</FieldLabel>
+              <FieldLabel htmlFor="generalization-mode">How must mastery occur?</FieldLabel>
               <select
+                id="generalization-mode"
+                name="generalizationMode"
+                autoComplete="off"
                 value={data.generalizationMode}
                 onChange={(event) => changeGeneralizationMode(event.target.value)}
                 className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
@@ -718,11 +780,14 @@ export default function BehaviorGoalWriter() {
 
             {(data.generalizationMode === "different-adults" || data.generalizationMode === "different-materials-tasks") && (
               <div className="mt-4 max-w-xs">
-                <FieldLabel>
+                <FieldLabel htmlFor="generalization-count">
                   Minimum number of {data.generalizationMode === "different-adults" ? "different adults" : "different materials or tasks"}
                 </FieldLabel>
                 <input
+                  id="generalization-count"
+                  name="generalizationCount"
                   type="number"
+                  autoComplete="off"
                   min="2"
                   step="1"
                   inputMode="numeric"
@@ -736,8 +801,11 @@ export default function BehaviorGoalWriter() {
 
           <div className="mt-7 grid gap-5 border-t border-slate-200 pt-6 sm:grid-cols-2">
             <div>
-              <FieldLabel optional>Maintenance criterion</FieldLabel>
+              <FieldLabel htmlFor="maintenance-weeks" optional>Maintenance criterion</FieldLabel>
               <select
+                id="maintenance-weeks"
+                name="maintenanceWeeks"
+                autoComplete="off"
                 value={data.maintenanceWeeks}
                 onChange={(event) => update("maintenanceWeeks", event.target.value)}
                 className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
@@ -783,9 +851,12 @@ export default function BehaviorGoalWriter() {
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {data.objectiveTargets.map((target, index) => (
                   <div key={index}>
-                    <FieldLabel>Objective {index + 1}</FieldLabel>
+                    <FieldLabel htmlFor={`objective-target-${index}`}>Objective {index + 1}</FieldLabel>
                     <input
+                      id={`objective-target-${index}`}
+                      name={`objectiveTarget${index + 1}`}
                       type="number"
+                      autoComplete="off"
                       min="0"
                       max={data.measurementType.startsWith("percentage") ? "100" : undefined}
                       step="0.1"
