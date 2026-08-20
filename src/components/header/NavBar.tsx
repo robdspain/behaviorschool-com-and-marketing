@@ -27,14 +27,13 @@ export function NavBar() {
             transition={{ duration: 0.2 }}
           >
             <Link href="/" className="flex items-center gap-3">
-              <span className="relative flex h-9 w-9 items-center justify-center rounded-md bg-[#FBFAF6] ring-1 ring-[#DDD2C3]">
-                <Image
-                  src="/behavior-school-icon.png"
-                  alt="BehaviorSchool logo"
-                  width={24}
-                  height={24}
-                />
-              </span>
+              <Image
+                src="/behavior-school-icon.svg"
+                alt="BehaviorSchool logo"
+                width={32}
+                height={32}
+                className="h-8 w-8 shrink-0"
+              />
               <span className="text-[#1f4d3f] text-lg font-bold tracking-tight">BehaviorSchool</span>
             </Link>
           </motion.div>
