@@ -8,17 +8,21 @@ import {
   ClipboardCheck,
   Copy,
   Download,
+  RefreshCw,
   RotateCcw,
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
 import {
+  calculateObjectiveTargets,
   buildOutput,
   buildLiveDraft,
   defaultAnnualGoalDate,
+  measurementPhrase,
   measurementDefaults,
+  validateObjectiveTargets,
 } from "./goalWriterLogic";
-import type { BehaviorDirection, GoalWriterData } from "./goalWriterLogic";
+import type { BehaviorDirection, GoalWriterData, MeasurementType } from "./goalWriterLogic";
 
 const STEPS = [
   "Student and behavior",
@@ -53,6 +57,27 @@ const GENERALIZATION_SETTINGS = [
   "Hallways",
 ];
 
+const MEASUREMENT_OPTIONS: Array<{ value: MeasurementType; label: string }> = [
+  { value: "frequency", label: "Frequency" },
+  { value: "rate", label: "Rate" },
+  { value: "duration", label: "Duration" },
+  { value: "latency", label: "Latency" },
+  { value: "percentage-opportunities", label: "Percentage of opportunities" },
+  { value: "percentage-intervals", label: "Percentage of intervals (interval recording)" },
+  { value: "other", label: "Other measurement" },
+];
+
+const MEASUREMENT_UNITS: Partial<Record<MeasurementType, string[]>> = {
+  frequency: ["instances per observation", "instances per class period", "instances per day"],
+  rate: ["instances per minute", "instances per hour", "instances per class period"],
+  duration: ["seconds", "minutes", "minutes per class period", "hours"],
+  latency: ["seconds", "minutes"],
+};
+
+function defaultMeasurementUnit(type: MeasurementType): string {
+  return MEASUREMENT_UNITS[type]?.[0] ?? "";
+}
+
 function initialData(): GoalWriterData {
   return {
     annualGoalDate: defaultAnnualGoalDate(),
@@ -61,20 +86,22 @@ function initialData(): GoalWriterData {
     behaviorTitle: "",
     behaviorDefinition: "",
     replacementBehavior: "",
-    baselineFrequency: "",
-    baselineUnit: "instances per day",
-    baselinePercent: "",
+    measurementType: "frequency",
+    baselineValue: "",
+    measurementUnit: "instances per observation",
     baselineDays: "3",
     baselineMethods: "",
     context: "",
     supports: "",
     dataMethod: "",
+    masteryValue: "",
     ...measurementDefaults("decrease"),
     fluencyEnabled: false,
     fluencySeconds: "10",
     generalizationSettings: [],
     maintenanceWeeks: "4",
     includeObjectives: false,
+    objectiveTargets: [],
   };
 }
 
@@ -161,7 +188,16 @@ export default function BehaviorGoalWriter() {
   const liveDraft = useMemo(() => buildLiveDraft(data), [data]);
 
   function update<K extends keyof GoalWriterData>(key: K, value: GoalWriterData[K]) {
-    setData((current) => ({ ...current, [key]: value }));
+    setData((current) => {
+      const next = { ...current, [key]: value };
+      if (
+        current.includeObjectives &&
+        (key === "baselineValue" || key === "masteryValue")
+      ) {
+        next.objectiveTargets = calculateObjectiveTargets(next);
+      }
+      return next;
+    });
     setError("");
   }
 
@@ -170,6 +206,8 @@ export default function BehaviorGoalWriter() {
       ...current,
       direction,
       ...measurementDefaults(direction),
+      masteryValue: "",
+      objectiveTargets: [],
     }));
     setError("");
   }
@@ -184,12 +222,16 @@ export default function BehaviorGoalWriter() {
       }
     }
     if (step === 2) {
-      if (data.direction === "decrease" && !data.baselineFrequency.trim()) {
-        return "Enter the baseline frequency or rate.";
+      if (!data.baselineValue.trim()) return "Enter the current baseline value.";
+      if (Number(data.baselineValue) < 0) return "The baseline value cannot be negative.";
+      if (data.measurementType.startsWith("percentage") && Number(data.baselineValue) > 100) {
+        return "A percentage baseline must be between 0 and 100.";
       }
-      if (data.direction === "increase" && !data.baselinePercent.trim()) {
-        return "Enter the baseline percentage.";
-      }
+      if (
+        data.measurementType !== "percentage-opportunities" &&
+        data.measurementType !== "percentage-intervals" &&
+        !data.measurementUnit.trim()
+      ) return "Enter the measurement unit.";
       if (!data.baselineMethods.trim()) return "Describe how the baseline was measured.";
     }
     if (step === 3) {
@@ -198,9 +240,15 @@ export default function BehaviorGoalWriter() {
     }
     if (step === 4) {
       if (!data.dataMethod.trim()) return "Enter the data-collection method.";
-      if (!data.accuracy.trim()) return "Enter the mastery criterion.";
+      if (!data.masteryValue.trim()) return "Enter the mastery criterion.";
+      if (Number(data.masteryValue) < 0) return "The mastery value cannot be negative.";
+      if (data.measurementType.startsWith("percentage") && Number(data.masteryValue) > 100) {
+        return "A percentage mastery criterion must be between 0 and 100.";
+      }
       if (!data.consistency.trim()) return "Enter the consistency criterion.";
       if (data.fluencyEnabled && !data.fluencySeconds.trim()) return "Enter the fluency criterion in seconds.";
+      const objectiveError = validateObjectiveTargets(data);
+      if (objectiveError) return objectiveError;
     }
     return "";
   }
@@ -227,6 +275,45 @@ export default function BehaviorGoalWriter() {
         ? data.generalizationSettings.filter((item) => item !== setting)
         : [...data.generalizationSettings, setting]
     );
+  }
+
+  function changeMeasurementType(measurementType: MeasurementType) {
+    setData((current) => ({
+      ...current,
+      measurementType,
+      baselineValue: "",
+      masteryValue: "",
+      measurementUnit: defaultMeasurementUnit(measurementType),
+      objectiveTargets: [],
+    }));
+    setError("");
+  }
+
+  function toggleObjectives(includeObjectives: boolean) {
+    setData((current) => ({
+      ...current,
+      includeObjectives,
+      objectiveTargets: includeObjectives ? calculateObjectiveTargets(current) : [],
+    }));
+    setError("");
+  }
+
+  function updateObjectiveTarget(index: number, value: string) {
+    setData((current) => ({
+      ...current,
+      objectiveTargets: current.objectiveTargets.map((target, targetIndex) =>
+        targetIndex === index ? value : target
+      ),
+    }));
+    setError("");
+  }
+
+  function recalculateObjectives() {
+    setData((current) => ({
+      ...current,
+      objectiveTargets: calculateObjectiveTargets(current),
+    }));
+    setError("");
   }
 
   async function copyOutput() {
@@ -356,67 +443,76 @@ export default function BehaviorGoalWriter() {
         <section>
           <SectionHeading
             title="Baseline"
-            description="Enter the current level of performance and how it was measured. The baseline will appear separately from the annual goal."
+            description="Choose the measurement that fits the behavior, then enter the current level of performance. Measurement is independent of whether the goal increases or decreases a behavior."
           />
-          {data.direction === "decrease" ? (
-            <div className="grid gap-5 sm:grid-cols-[1fr_1.4fr]">
-              <div>
-                <FieldLabel>Current average</FieldLabel>
+          <div>
+            <FieldLabel>Measurement</FieldLabel>
+            <select
+              value={data.measurementType}
+              onChange={(event) => changeMeasurementType(event.target.value as MeasurementType)}
+              className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+            >
+              {MEASUREMENT_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mt-5 grid gap-5 sm:grid-cols-2">
+            <div>
+              <FieldLabel>Current baseline value</FieldLabel>
+              <div className="relative">
                 <input
                   type="number"
                   min="0"
+                  max={data.measurementType.startsWith("percentage") ? "100" : undefined}
                   step="0.1"
                   inputMode="decimal"
-                  value={data.baselineFrequency}
-                  onChange={(event) => update("baselineFrequency", event.target.value)}
-                  placeholder="6"
-                  className="h-12 w-full rounded-lg border border-slate-300 px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  value={data.baselineValue}
+                  onChange={(event) => update("baselineValue", event.target.value)}
+                  placeholder="Enter the observed value"
+                  className={`h-12 w-full rounded-lg border border-slate-300 px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200 ${data.measurementType.startsWith("percentage") ? "pr-10" : ""}`}
                 />
-              </div>
-              <div>
-                <FieldLabel>Frequency or rate unit</FieldLabel>
-                <select
-                  value={data.baselineUnit}
-                  onChange={(event) => update("baselineUnit", event.target.value)}
-                  className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-                >
-                  <option>instances per day</option>
-                  <option>instances per class period</option>
-                  <option>instances per hour</option>
-                  <option>minutes per day</option>
-                  <option>minutes per class period</option>
-                </select>
+                {data.measurementType.startsWith("percentage") && (
+                  <span className="pointer-events-none absolute right-3 top-3 text-slate-500">%</span>
+                )}
               </div>
             </div>
-          ) : (
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <FieldLabel>Current percentage of opportunities</FieldLabel>
-                <div className="relative">
-                  <input
-                    type="number"
-                    min="0"
-                    max="100"
-                    inputMode="numeric"
-                    value={data.baselinePercent}
-                    onChange={(event) => update("baselinePercent", event.target.value)}
-                    placeholder="40"
-                    className="h-12 w-full rounded-lg border border-slate-300 px-3 pr-10 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-                  />
-                  <span className="pointer-events-none absolute right-3 top-3 text-slate-500">%</span>
-                </div>
-              </div>
-              <div>
-                <FieldLabel>School days measured</FieldLabel>
+            <div>
+              <FieldLabel>School days measured</FieldLabel>
+              <input
+                type="number"
+                min="1"
+                inputMode="numeric"
+                value={data.baselineDays}
+                onChange={(event) => update("baselineDays", event.target.value)}
+                className="h-12 w-full rounded-lg border border-slate-300 px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+              />
+            </div>
+          </div>
+
+          {!data.measurementType.startsWith("percentage") && (
+            <div className="mt-5">
+              <FieldLabel>Measurement unit</FieldLabel>
+              {MEASUREMENT_UNITS[data.measurementType] ? (
+                <select
+                  value={data.measurementUnit}
+                  onChange={(event) => update("measurementUnit", event.target.value)}
+                  className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                >
+                  {MEASUREMENT_UNITS[data.measurementType]?.map((unit) => (
+                    <option key={unit}>{unit}</option>
+                  ))}
+                </select>
+              ) : (
                 <input
-                  type="number"
-                  min="1"
-                  inputMode="numeric"
-                  value={data.baselineDays}
-                  onChange={(event) => update("baselineDays", event.target.value)}
-                  className="h-12 w-full rounded-lg border border-slate-300 px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                  type="text"
+                  value={data.measurementUnit}
+                  onChange={(event) => update("measurementUnit", event.target.value)}
+                  placeholder="Enter the unit used by the team"
+                  className="h-12 w-full rounded-lg border border-slate-300 px-3 placeholder:text-slate-400 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                 />
-              </div>
+              )}
             </div>
           )}
 
@@ -482,12 +578,24 @@ export default function BehaviorGoalWriter() {
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             <div>
               <FieldLabel>Mastery criterion</FieldLabel>
-              <input
-                type="text"
-                value={data.accuracy}
-                onChange={(event) => update("accuracy", event.target.value)}
-                className="h-12 w-full rounded-lg border border-slate-300 px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-              />
+              <div className="relative">
+                <input
+                  type="number"
+                  min="0"
+                  max={data.measurementType.startsWith("percentage") ? "100" : undefined}
+                  step="0.1"
+                  inputMode="decimal"
+                  value={data.masteryValue}
+                  onChange={(event) => update("masteryValue", event.target.value)}
+                  className={`h-12 w-full rounded-lg border border-slate-300 px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200 ${data.measurementType.startsWith("percentage") ? "pr-10" : ""}`}
+                />
+                {data.measurementType.startsWith("percentage") && (
+                  <span className="pointer-events-none absolute right-3 top-3 text-slate-500">%</span>
+                )}
+              </div>
+              {data.masteryValue && (
+                <p className="mt-1.5 text-xs text-slate-500">Generated as {measurementPhrase(data, data.masteryValue)}.</p>
+              )}
             </div>
             <div>
               <FieldLabel>Consistency criterion</FieldLabel>
@@ -569,13 +677,56 @@ export default function BehaviorGoalWriter() {
                 <input
                   type="checkbox"
                   checked={data.includeObjectives}
-                  onChange={(event) => update("includeObjectives", event.target.checked)}
+                  onChange={(event) => toggleObjectives(event.target.checked)}
                   className="h-5 w-5 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600"
                 />
                 <span className="text-sm font-semibold text-slate-800">Include four quarterly objectives</span>
               </label>
             </div>
           </div>
+
+          {data.includeObjectives && (
+            <div className="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-900">Quarterly objective targets</h3>
+                  <p className="mt-1 text-xs leading-5 text-slate-500">
+                    Calculated from {measurementPhrase(data, data.baselineValue || "0")} to {measurementPhrase(data, data.masteryValue || "0")}. Edit any target as needed.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={recalculateObjectives}
+                  className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
+                >
+                  <RefreshCw className="h-4 w-4" aria-hidden="true" />
+                  Recalculate
+                </button>
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {data.objectiveTargets.map((target, index) => (
+                  <div key={index}>
+                    <FieldLabel>Objective {index + 1}</FieldLabel>
+                    <input
+                      type="number"
+                      min="0"
+                      max={data.measurementType.startsWith("percentage") ? "100" : undefined}
+                      step="0.1"
+                      inputMode="decimal"
+                      value={target}
+                      onChange={(event) => updateObjectiveTarget(index, event.target.value)}
+                      className="h-11 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                    />
+                  </div>
+                ))}
+              </div>
+              {data.objectiveTargets.length === 0 && (
+                <p className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-900">
+                  Enter baseline and mastery values that differ, then recalculate the objective targets.
+                </p>
+              )}
+            </div>
+          )}
         </section>
       )}
 
@@ -589,7 +740,7 @@ export default function BehaviorGoalWriter() {
           <dl className="mb-6 grid gap-x-6 gap-y-4 border-y border-slate-200 py-5 sm:grid-cols-2">
             <div><dt className="text-xs font-semibold uppercase text-slate-500">Direction</dt><dd className="mt-1 text-sm text-slate-900">{data.direction === "increase" ? "Increase a skill" : "Decrease a behavior and teach a replacement"}</dd></div>
             <div><dt className="text-xs font-semibold uppercase text-slate-500">Target</dt><dd className="mt-1 text-sm text-slate-900">{data.behaviorTitle}</dd></div>
-            <div><dt className="text-xs font-semibold uppercase text-slate-500">Mastery</dt><dd className="mt-1 text-sm text-slate-900">{data.accuracy}</dd></div>
+            <div><dt className="text-xs font-semibold uppercase text-slate-500">Mastery</dt><dd className="mt-1 text-sm text-slate-900">{measurementPhrase(data, data.masteryValue)}</dd></div>
             <div><dt className="text-xs font-semibold uppercase text-slate-500">Measurement</dt><dd className="mt-1 text-sm text-slate-900">{data.dataMethod}</dd></div>
           </dl>
 

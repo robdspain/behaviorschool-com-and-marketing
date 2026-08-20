@@ -1,4 +1,12 @@
 export type BehaviorDirection = "increase" | "decrease";
+export type MeasurementType =
+  | "frequency"
+  | "rate"
+  | "duration"
+  | "latency"
+  | "percentage-opportunities"
+  | "percentage-intervals"
+  | "other";
 
 export interface GoalWriterData {
   annualGoalDate: string;
@@ -7,33 +15,32 @@ export interface GoalWriterData {
   behaviorTitle: string;
   behaviorDefinition: string;
   replacementBehavior: string;
-  baselineFrequency: string;
-  baselineUnit: string;
-  baselinePercent: string;
+  measurementType: MeasurementType;
+  baselineValue: string;
+  measurementUnit: string;
   baselineDays: string;
   baselineMethods: string;
   context: string;
   supports: string;
   dataMethod: string;
-  accuracy: string;
+  masteryValue: string;
   consistency: string;
   fluencyEnabled: boolean;
   fluencySeconds: string;
   generalizationSettings: string[];
   maintenanceWeeks: string;
   includeObjectives: boolean;
+  objectiveTargets: string[];
 }
 
 export function measurementDefaults(direction: BehaviorDirection) {
   if (direction === "decrease") {
     return {
-      accuracy: "0 instances per day",
       consistency: "for 5 consecutively measured school days",
     };
   }
 
   return {
-    accuracy: "in 90% of opportunities",
     consistency: "for 3 consecutively measured school days",
   };
 }
@@ -66,8 +73,99 @@ function clean(value: string): string {
   return value.trim();
 }
 
+function firstNumber(value: string): number | null {
+  const match = /-?\d+(?:\.\d+)?/.exec(value);
+  if (!match) return null;
+  const parsed = Number(match[0]);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function formatTarget(value: number): string {
+  return String(Number(value.toFixed(2)));
+}
+
+function objectiveEndpoints(data: GoalWriterData): { baseline: number; mastery: number } | null {
+  const baseline = firstNumber(data.baselineValue);
+  const mastery = firstNumber(data.masteryValue);
+  if (baseline === null || mastery === null) return null;
+  return { baseline, mastery };
+}
+
+export function calculateObjectiveTargets(data: GoalWriterData, count = 4): string[] {
+  const endpoints = objectiveEndpoints(data);
+  if (!endpoints || count < 1) return [];
+  const { baseline, mastery } = endpoints;
+  if (mastery === baseline) return [];
+
+  return Array.from({ length: count }, (_, index) => {
+    const proportion = (index + 1) / count;
+    return formatTarget(baseline + (mastery - baseline) * proportion);
+  });
+}
+
+export function validateObjectiveTargets(data: GoalWriterData, count = 4): string | null {
+  if (!data.includeObjectives) return null;
+  const endpoints = objectiveEndpoints(data);
+  if (!endpoints) return "Enter numeric baseline and mastery criteria before adding objectives.";
+  const { baseline, mastery } = endpoints;
+
+  if (mastery === baseline) return "The annual mastery criterion must differ from the baseline.";
+  if (data.objectiveTargets.length !== count) {
+    return `Enter all ${count} objective targets.`;
+  }
+
+  const targets = data.objectiveTargets.map(firstNumber);
+  if (targets.some((target) => target === null)) return "Every objective target must be numeric.";
+  const numericTargets = targets as number[];
+  if (
+    (data.measurementType === "percentage-opportunities" || data.measurementType === "percentage-intervals") &&
+    numericTargets.some((target) => target < 0 || target > 100)
+  ) {
+    return "Percentage objective targets must be between 0 and 100.";
+  }
+
+  const progressesUp = mastery > baseline;
+  let previous = baseline;
+  for (const target of numericTargets) {
+    if (progressesUp && (target <= previous || target > mastery)) {
+      return "Each objective target must increase from the baseline toward the annual criterion.";
+    }
+    if (!progressesUp && (target >= previous || target < mastery)) {
+      return "Each objective target must decrease from the baseline toward the annual criterion.";
+    }
+    previous = target;
+  }
+
+  if (numericTargets[numericTargets.length - 1] !== mastery) {
+    return "The final objective target must match the annual mastery criterion.";
+  }
+  return null;
+}
+
 function subject(data: GoalWriterData): string {
   return clean(data.studentName) || "The student";
+}
+
+export function measurementPhrase(data: GoalWriterData, value: string): string {
+  const numericValue = clean(value);
+  if (data.measurementType === "percentage-opportunities") {
+    return `${numericValue}% of opportunities`;
+  }
+  if (data.measurementType === "percentage-intervals") {
+    return `${numericValue}% of intervals`;
+  }
+
+  const unit = clean(data.measurementUnit);
+  if (!unit) return numericValue;
+  const singularUnit = firstNumber(numericValue) === 1
+    ? unit
+      .replace(/\binstances\b/i, "instance")
+      .replace(/\btimes\b/i, "time")
+      .replace(/\bminutes\b/i, "minute")
+      .replace(/\bseconds\b/i, "second")
+      .replace(/\bhours\b/i, "hour")
+    : unit;
+  return `${numericValue} ${singularUnit}`;
 }
 
 export function buildBaseline(data: GoalWriterData): string {
@@ -76,17 +174,12 @@ export function buildBaseline(data: GoalWriterData): string {
   const methods = clean(data.baselineMethods) || clean(data.dataMethod);
   const parts: string[] = [];
 
-  if (data.direction === "decrease") {
-    parts.push(
-      `${student} currently engages in ${title} at an average of ${clean(data.baselineFrequency)} ${clean(data.baselineUnit)}.`
-    );
-  } else {
-    parts.push(
-      `${student} currently demonstrates ${title} in ${clean(data.baselinePercent)}% of opportunities.`
-    );
-    if (clean(data.baselineDays)) {
-      parts.push(`This baseline was measured across ${clean(data.baselineDays)} school days.`);
-    }
+  const verb = data.direction === "decrease" ? "engages in" : "demonstrates";
+  parts.push(
+    `${student} currently ${verb} ${title} at ${measurementPhrase(data, data.baselineValue)}.`
+  );
+  if (clean(data.baselineDays)) {
+    parts.push(`This baseline was measured across ${clean(data.baselineDays)} school days.`);
   }
 
   if (methods) parts.push(`Baseline data were collected using ${methods}.`);
@@ -98,8 +191,7 @@ export function buildAnnualGoal(data: GoalWriterData): string {
   const student = subject(data);
   const definition = clean(data.behaviorDefinition);
   const behavior = clean(data.behaviorTitle);
-  const target = clean(data.accuracy);
-  const targetPhrase = data.direction === "decrease" ? `to ${target}` : target;
+  const targetPhrase = measurementPhrase(data, data.masteryValue);
   const fluency = data.fluencyEnabled && clean(data.fluencySeconds)
     ? `, initiating within ${clean(data.fluencySeconds)} seconds`
     : "";
@@ -110,7 +202,7 @@ export function buildAnnualGoal(data: GoalWriterData): string {
     ? ` After mastery, ${student} will maintain the criterion for ${clean(data.maintenanceWeeks)} weeks.`
     : "";
 
-  return `By ${dueDate}, when ${clean(data.context)} and given ${clean(data.supports)}, ${student} will ${data.direction} ${behavior} (${definition}) ${targetPhrase}, ${clean(data.consistency)}${fluency}${settings}, as measured by ${clean(data.dataMethod)}.${maintenance}`;
+  return `By ${dueDate}, when ${clean(data.context)} and given ${clean(data.supports)}, ${student} will ${data.direction} ${behavior} (${definition}) to ${targetPhrase} ${clean(data.consistency)}${fluency}${settings}, as measured by ${clean(data.dataMethod)}.${maintenance}`;
 }
 
 export function buildReplacementGoal(data: GoalWriterData): string {
@@ -134,9 +226,7 @@ export function buildReplacementGoal(data: GoalWriterData): string {
 export function buildLiveDraft(data: GoalWriterData): string {
   const student = subject(data);
   const sections: string[] = [];
-  const hasBaseline = data.direction === "decrease"
-    ? Boolean(clean(data.baselineFrequency))
-    : Boolean(clean(data.baselinePercent));
+  const hasBaseline = Boolean(clean(data.baselineValue));
 
   if (hasBaseline && clean(data.behaviorTitle)) {
     sections.push(`Baseline:\n${buildBaseline(data)}`);
@@ -152,19 +242,19 @@ export function buildLiveDraft(data: GoalWriterData): string {
   if (clean(data.context) || clean(data.supports)) goal += ", ";
   goal += `${student} will ${data.direction} ${clean(data.behaviorTitle)}`;
   if (clean(data.behaviorDefinition)) goal += ` (${clean(data.behaviorDefinition)})`;
-  if (clean(data.accuracy)) goal += data.direction === "decrease"
-    ? ` to ${clean(data.accuracy)}`
-    : ` ${clean(data.accuracy)}`;
-  if (clean(data.consistency)) goal += `, ${clean(data.consistency)}`;
-  if (data.fluencyEnabled && clean(data.fluencySeconds)) {
-    goal += `, initiating within ${clean(data.fluencySeconds)} seconds`;
+  if (clean(data.masteryValue)) {
+    goal += ` to ${measurementPhrase(data, data.masteryValue)}`;
+    if (clean(data.consistency)) goal += ` ${clean(data.consistency)}`;
+    if (data.fluencyEnabled && clean(data.fluencySeconds)) {
+      goal += `, initiating within ${clean(data.fluencySeconds)} seconds`;
+    }
+    if (data.generalizationSettings.length) {
+      goal += ` across ${data.generalizationSettings.length} settings (${data.generalizationSettings.join(", ")})`;
+    }
+    if (clean(data.dataMethod)) goal += `, as measured by ${clean(data.dataMethod)}`;
   }
-  if (data.generalizationSettings.length) {
-    goal += ` across ${data.generalizationSettings.length} settings (${data.generalizationSettings.join(", ")})`;
-  }
-  if (clean(data.dataMethod)) goal += `, as measured by ${clean(data.dataMethod)}`;
   goal += ".";
-  if (clean(data.maintenanceWeeks)) {
+  if (clean(data.masteryValue) && clean(data.maintenanceWeeks)) {
     goal += ` After mastery, ${student} will maintain the criterion for ${clean(data.maintenanceWeeks)} weeks.`;
   }
   sections.push(`Annual Goal:\n${goal}`);
@@ -204,24 +294,22 @@ export function buildObjectives(
   const behavior = clean(data.behaviorTitle);
   const definition = clean(data.behaviorDefinition);
   const method = clean(data.dataMethod);
-  const increasingTargets = [60, 70, 80, 90];
-  const decreasingTargets = [5, 3, 1, 0];
+  const calculatedTargets = calculateObjectiveTargets(data, count);
+  const targets = data.objectiveTargets.length === count
+    ? data.objectiveTargets
+    : calculatedTargets;
   const annualDate = localDateFromInput(data.annualGoalDate);
 
   return Array.from({ length: count }, (_, index) => {
     const proposedDate = addMonths(from, (index + 1) * 3);
     const objectiveDate = annualDate && proposedDate > annualDate ? annualDate : proposedDate;
     const dueDate = formatUsDate(toDateInputValue(objectiveDate));
+    const target = targets[index] ?? "";
+    const objectiveConsistency = index === count - 1
+      ? clean(data.consistency)
+      : "for 3 consecutively measured school days";
 
-    if (data.direction === "increase") {
-      const target = increasingTargets[Math.min(index, increasingTargets.length - 1)];
-      return `Objective ${index + 1} (due ${dueDate}): By ${dueDate}, when ${context} and given ${supports}, ${student} will increase ${behavior} (${definition}) in ${target}% of opportunities for 3 consecutively measured school days, as measured by ${method}.`;
-    }
-
-    const target = decreasingTargets[Math.min(index, decreasingTargets.length - 1)];
-    const consistency = target === 0 ? 5 : 3;
-    const noun = target === 1 ? "instance" : "instances";
-    return `Objective ${index + 1} (due ${dueDate}): By ${dueDate}, when ${context} and given ${supports}, ${student} will decrease ${behavior} (${definition}) to ${target} ${noun} per day for ${consistency} consecutively measured school days, as measured by ${method}.`;
+    return `Objective ${index + 1} (due ${dueDate}): By ${dueDate}, when ${context} and given ${supports}, ${student} will ${data.direction} ${behavior} (${definition}) to ${measurementPhrase(data, target)} ${objectiveConsistency}, as measured by ${method}.`;
   });
 }
 
