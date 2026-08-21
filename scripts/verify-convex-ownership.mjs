@@ -1,11 +1,26 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { execFileSync } from 'node:child_process'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const canonicalCloudUrl = 'https://quixotic-fox-157.convex.cloud'
 const canonicalSiteUrl = 'https://quixotic-fox-157.convex.site'
-const netlifyConfig = fs.readFileSync(path.join(root, 'netlify.toml'), 'utf8')
+const approvedConvexOrigins = new Set([
+  canonicalCloudUrl,
+  canonicalSiteUrl,
+  'https://modest-malamute-868.convex.cloud',
+  'https://modest-malamute-868.convex.site',
+  'https://precious-clownfish-797.convex.cloud',
+])
+
+function read(relativePath) {
+  return fs.readFileSync(path.join(root, relativePath), 'utf8')
+}
+
+const netlifyConfig = read('netlify.toml')
+const exampleEnvironment = read('.env.example')
+const packageJson = JSON.parse(read('package.json'))
 
 const requiredEntries = [
   `NEXT_PUBLIC_CONVEX_URL = "${canonicalCloudUrl}"`,
@@ -18,24 +33,64 @@ for (const entry of requiredEntries) {
   }
 }
 
-const sources = [
-  'netlify.toml',
-  '.env.example',
-  'src/lib/convex.ts',
-  'src/lib/bst-referral-campaign.ts',
-]
+for (const [name, expected] of [
+  ['NEXT_PUBLIC_CONVEX_URL', canonicalCloudUrl],
+  ['NEXT_PUBLIC_CONVEX_SITE_URL', canonicalSiteUrl],
+]) {
+  const configuredValue = process.env[name]
+  if (configuredValue && configuredValue !== expected) {
+    throw new Error(`Marketing Convex ownership check failed: ${name} resolves to an unapproved deployment`)
+  }
+}
+
+for (const entry of [
+  `NEXT_PUBLIC_CONVEX_URL=${canonicalCloudUrl}`,
+  `NEXT_PUBLIC_CONVEX_SITE_URL=${canonicalSiteUrl}`,
+]) {
+  if (!exampleEnvironment.includes(entry)) {
+    throw new Error(`Marketing Convex ownership check failed: .env.example is missing ${entry}`)
+  }
+}
+
+if (!packageJson.scripts?.build?.includes('convex:ownership')) {
+  throw new Error('Marketing Convex ownership check failed: the production build does not run the ownership guard')
+}
+
+const trackedFiles = execFileSync('git', ['ls-files', '-z'], {
+  cwd: root,
+  encoding: 'utf8',
+}).split('\0').filter(Boolean)
+
 const forbiddenReferences = [
-  'third-loris-453',
-  'california.bae.sig',
+  ['behavior', 'school', 'pro'].join('-'),
+  ['california', 'bae', 'sig'].join('.'),
+  ['https://third-', 'loris-453.convex.cloud'].join(''),
+  ['https://third-', 'loris-453.convex.site'].join(''),
 ]
 
-for (const relativePath of sources) {
-  const contents = fs.readFileSync(path.join(root, relativePath), 'utf8').toLowerCase()
+for (const relativePath of trackedFiles) {
+  let contents
+  try {
+    contents = read(relativePath)
+  } catch {
+    continue
+  }
+
+  if (contents.includes('\0')) continue
+
+  const normalizedContents = contents.toLowerCase()
   for (const forbidden of forbiddenReferences) {
-    if (contents.includes(forbidden)) {
+    if (normalizedContents.includes(forbidden)) {
       throw new Error(`Marketing Convex ownership check failed: ${relativePath} references ${forbidden}`)
+    }
+  }
+
+  for (const match of contents.matchAll(/https:\/\/[a-z0-9-]+\.convex\.(?:cloud|site)/gi)) {
+    const origin = match[0].toLowerCase()
+    if (!approvedConvexOrigins.has(origin)) {
+      throw new Error(`Marketing Convex ownership check failed: ${relativePath} references unapproved origin ${origin}`)
     }
   }
 }
 
-console.log('Behavior School marketing Convex ownership configuration verified.')
+console.log(`Behavior School marketing Convex ownership verified across ${trackedFiles.length} tracked files.`)
