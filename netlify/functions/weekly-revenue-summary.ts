@@ -90,7 +90,7 @@ const handler = async (): Promise<{ statusCode: number; body: string }> => {
   const lookback  = parseInt(process.env.LOOKBACK_DAYS ?? '7', 10);
   const toEmail   = process.env.DIGEST_TO_EMAIL ?? DEFAULT_TO;
 
-  if (!stripeKey || !/^sk_(test|live)_/.test(stripeKey)) {
+  if (!stripeKey || !/^(sk|rk)_(test|live)_/.test(stripeKey)) {
     console.error('[weekly-revenue-summary] No valid Stripe API key is configured');
     return { statusCode: 500, body: 'Missing valid Stripe API key' };
   }

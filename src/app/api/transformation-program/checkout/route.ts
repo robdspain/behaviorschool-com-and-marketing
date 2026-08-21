@@ -17,7 +17,7 @@ const CHECKOUT_ERROR_MESSAGE = 'Unable to start checkout right now. Please conta
 
 function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY;
-  if (!key || !/^sk_(test|live)_/.test(key) || key.includes('placeholder')) {
+  if (!key || !/^(sk|rk)_(test|live)_/.test(key) || key.includes('placeholder')) {
     throw new Error('Stripe secret key is not configured.');
   }
 
