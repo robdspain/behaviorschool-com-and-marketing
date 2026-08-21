@@ -1,5 +1,5 @@
 [build]
-  command = "rm -rf .next tsconfig.tsbuildinfo && pnpm install --no-frozen-lockfile --prod=false && NODE_ENV=production pnpm run build"
+  command = "rm -rf .next tsconfig.tsbuildinfo && pnpm install --no-frozen-lockfile --prod=false && if [ \"$CONTEXT\" = \"production\" ]; then pnpm exec convex deploy --typecheck disable --skip-workos-check; fi && NODE_ENV=production pnpm run build"
   publish = ".next"
 
 [build.environment]
