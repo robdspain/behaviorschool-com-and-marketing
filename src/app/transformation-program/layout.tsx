@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 export const metadata: Metadata = {
   title: 'School BCBA Transformation Program | Behavior School',
@@ -43,10 +44,10 @@ export default function TransformationProgramLayout({ children }: { children: Re
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'online',
-      startDate: '2026-10-08',
-      endDate: '2026-11-12',
+      startDate: TRANSFORMATION_PROGRAM.cohort.startDate,
+      endDate: TRANSFORMATION_PROGRAM.cohort.endDate,
       instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
-      offers: { '@type': 'Offer', price: '1997', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+      offers: { '@type': 'Offer', price: String(TRANSFORMATION_PROGRAM.pricing.payInFullCents / 100), priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
     },
   };
 

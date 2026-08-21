@@ -6,6 +6,7 @@ import { getPublishedPosts } from "@/lib/blog";
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 import { Hero } from "@/components/ui/hero";
 import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 export const metadata: Metadata = {
   title: "BehaviorSchool | Free BCBA Practice Exam & School BCBA Tools",
@@ -63,18 +64,18 @@ export default function Home() {
               School BCBA Transformation Program
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
-              September cohort now open: build FBA, BIP, staff training, and caseload systems.
+              {TRANSFORMATION_PROGRAM.cohort.label} now open: build FBA, BIP, staff training, and caseload systems.
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
-              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. Starts September 24. Small cohorts.
+              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. {TRANSFORMATION_PROGRAM.cohort.startFull}. Small cohorts.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <Link
-              href="/transformation-program?utm_source=homepage&utm_medium=hero_band&utm_campaign=september_2026_cohort"
+              href={`/transformation-program?utm_source=homepage&utm_medium=hero_band&utm_campaign=${TRANSFORMATION_PROGRAM.cohort.id}`}
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#123628] shadow-lg transition hover:bg-[#d7aa32]"
             >
-              Apply for September cohort
+              Apply for the {TRANSFORMATION_PROGRAM.cohort.label}
               <ArrowRight size={16} />
             </Link>
             <Link

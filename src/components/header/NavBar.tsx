@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DesktopMenu } from "./DesktopMenu";
 import { MobileMenu } from "./MobileMenu";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 export function NavBar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -45,7 +46,7 @@ export function NavBar() {
                 href="/transformation-program"
                 className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#123628]"
               >
-                September Cohort Open
+                {TRANSFORMATION_PROGRAM.cohort.label} Open
               </Link>
               <Link
                 href="https://study.behaviorschool.com/free-practice/"

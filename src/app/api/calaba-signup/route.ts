@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from '@/lib/resend';
+import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -45,12 +46,12 @@ export async function POST(req: NextRequest) {
 <p>Thanks for being in the session today. Here are the links I promised.</p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">The School BCBA Transformation Program</h3>
-<p>If today's content fits the work you are trying to build, I'm running a 6-week cohort starting September 24 for school BCBAs who want to implement it with their teams.</p>
+<p>If today's content fits the work you are trying to build, I'm running a 6-week cohort beginning ${TRANSFORMATION_PROGRAM.cohort.startFull} for school BCBAs who want to implement it with their teams.</p>
 <ul style="color:#555; font-size:15px;">
-  <li>6 sessions — weekly, 6–8 PM Pacific</li>
-  <li>September 24 – October 29, 2026</li>
+  <li>6 sessions, weekly, 6-8 PM Pacific</li>
+  <li>${TRANSFORMATION_PROGRAM.cohort.dateRange}</li>
   <li>Small cohorts</li>
-  <li>Founding tuition: $1,997</li>
+  <li>Tuition: ${TRANSFORMATION_PROGRAM.pricing.payInFull}</li>
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#e4b63d; color:#1a1a1a; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
@@ -81,11 +82,11 @@ PRESENTATION REFERENCES
 https://behaviorschool.com/calaba-2026
 
 THE SCHOOL BCBA TRANSFORMATION PROGRAM
-6 weeks, weekly 6–8 PM Pacific, September 24 – October 29
-Founding tuition: $1,997
+6 weeks, weekly 6-8 PM Pacific, ${TRANSFORMATION_PROGRAM.cohort.dateRange}
+Tuition: ${TRANSFORMATION_PROGRAM.pricing.payInFull}
 https://behaviorschool.com/transformation-program
 
-—
+Behavior School
 Rob Spain, BCBA, IBA
 behaviorschool.com`,
     });

@@ -29,7 +29,7 @@ export const sequenceSteps = [
   { step: 1, delayDays: 1, subject: "The part of school BCBA work nobody owns" },
   { step: 2, delayDays: 3, subject: "What we actually work on for six weeks" },
   { step: 3, delayDays: 5, subject: "Need help getting district approval?" },
-  { step: 4, delayDays: 7, subject: "Should we talk about the August cohort?" },
+  { step: 4, delayDays: 7, subject: "Should we talk about the October cohort?" },
 ] as const;
 
 function nowIso() {

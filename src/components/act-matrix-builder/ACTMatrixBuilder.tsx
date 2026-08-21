@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 type GradeLevel = "prek-k" | "1-3" | "4-5" | "6-8" | "9-12";
 type Challenge =
@@ -464,7 +465,7 @@ export default function ACTMatrixBuilder() {
               Want to apply ACT frameworks systematically to your whole caseload?
             </h3>
             <p style={{ color: "#a7d4b8", marginBottom: 24, fontSize: "0.95rem" }}>
-              The School BCBA Transformation Program cohort starts September 24. Founding tuition is $1,997.
+              The School BCBA Transformation Program begins {TRANSFORMATION_PROGRAM.cohort.startFull}. Tuition is {TRANSFORMATION_PROGRAM.pricing.payInFull}.
             </p>
             <a
               href="/transformation-program"

@@ -13,7 +13,8 @@ import { withLambda } from '../lib/lambda-adapter.mjs'
  *   3. Sends a plain-text markdown digest to Rob's email via Resend
  *
  * Required env vars:
- *   STRIPE_RESTRICTED_KEY   — Stripe restricted read-only key (see BEH-433)
+ *   STRIPE_RESTRICTED_KEY   Stripe restricted read-only key (preferred)
+ *   STRIPE_SECRET_KEY       Stripe secret key used only if no restricted key is configured
  *   RESEND_API_KEY          — Resend API key for outbound email
  *
  * Optional env vars:
@@ -83,15 +84,15 @@ function fmtUsd(cents: number): string {
 // ── Main handler ───────────────────────────────────────────────────────────
 
 const handler = async (): Promise<{ statusCode: number; body: string }> => {
-  const stripeKey = process.env.STRIPE_RESTRICTED_KEY;
+  const stripeKey = process.env.STRIPE_RESTRICTED_KEY || process.env.STRIPE_SECRET_KEY;
   const resendKey = process.env.RESEND_API_KEY;
   const priceId   = process.env.TRANSFORMATION_PRICE_ID;
   const lookback  = parseInt(process.env.LOOKBACK_DAYS ?? '7', 10);
   const toEmail   = process.env.DIGEST_TO_EMAIL ?? DEFAULT_TO;
 
-  if (!stripeKey) {
-    console.error('[weekly-revenue-summary] STRIPE_RESTRICTED_KEY is not set');
-    return { statusCode: 500, body: 'Missing STRIPE_RESTRICTED_KEY' };
+  if (!stripeKey || !/^sk_(test|live)_/.test(stripeKey)) {
+    console.error('[weekly-revenue-summary] No valid Stripe API key is configured');
+    return { statusCode: 500, body: 'Missing valid Stripe API key' };
   }
   if (!resendKey) {
     console.error('[weekly-revenue-summary] RESEND_API_KEY is not set');

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Calendar, CheckCircle2 } from "lucide-react";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 type SchoolBcbasTransformationCtaProps = {
   variant?: "light" | "dark" | "compact";
@@ -10,7 +11,7 @@ export function SchoolBcbasTransformationCta({
   variant = "light",
   source = "school-bcba-cta",
 }: SchoolBcbasTransformationCtaProps) {
-  const href = `/transformation-program?utm_source=${encodeURIComponent(source)}&utm_medium=site_cta&utm_campaign=september_2026_cohort`;
+  const href = `/transformation-program?utm_source=${encodeURIComponent(source)}&utm_medium=site_cta&utm_campaign=${TRANSFORMATION_PROGRAM.cohort.id}`;
 
   if (variant === "compact") {
     return (
@@ -19,7 +20,7 @@ export function SchoolBcbasTransformationCta({
           For school BCBAs
         </p>
         <h2 className="mt-2 text-xl font-bold text-slate-950">
-          September cohort now open
+          {TRANSFORMATION_PROGRAM.cohort.label} now open
         </h2>
         <p className="mt-2 text-sm leading-6 text-slate-700">
           Build repeatable FBA, BIP, implementation, and caseload systems over 6 live weeks.
@@ -44,15 +45,15 @@ export function SchoolBcbasTransformationCta({
             School BCBA Transformation Program
           </p>
           <h2 className={dark ? "mt-2 text-2xl font-bold text-white" : "mt-2 text-2xl font-bold text-slate-950"}>
-            September cohort now open for school BCBAs.
+            {TRANSFORMATION_PROGRAM.cohort.label} now open for school BCBAs.
           </h2>
           <p className={dark ? "mt-3 text-sm leading-6 text-white/75" : "mt-3 text-sm leading-6 text-slate-700"}>
             If you are studying for the BCBA exam and plan to work in schools, this is the next step after passing: assessment systems, function-based BIPs, staff training, and caseload management that hold up in real districts.
           </p>
           <div className={dark ? "mt-4 flex flex-wrap gap-3 text-sm text-white/80" : "mt-4 flex flex-wrap gap-3 text-sm text-slate-700"}>
-            {["Starts Sep 24", "6 live sessions", "Small cohorts"].map((item) => (
+            {[TRANSFORMATION_PROGRAM.cohort.startBadge, "6 live sessions", "Small cohorts"].map((item) => (
               <span key={item} className="inline-flex items-center gap-2">
-                {item === "Starts Sep 24" ? <Calendar className="h-4 w-4" /> : <CheckCircle2 className="h-4 w-4" />}
+                {item === TRANSFORMATION_PROGRAM.cohort.startBadge ? <Calendar className="h-4 w-4" /> : <CheckCircle2 className="h-4 w-4" />}
                 {item}
               </span>
             ))}
@@ -62,7 +63,7 @@ export function SchoolBcbasTransformationCta({
           href={href}
           className={dark ? "inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#123628] hover:bg-[#d7aa32]" : "inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white hover:bg-[#173a30]"}
         >
-          Apply for September cohort
+          Apply for the {TRANSFORMATION_PROGRAM.cohort.label}
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

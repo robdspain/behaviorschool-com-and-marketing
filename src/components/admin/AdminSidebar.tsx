@@ -51,6 +51,7 @@ const navigation: NavItem[] = [
       { name: "Submissions", href: "/admin/submissions", icon: Users },
       { name: "School BCBA Survey", href: "/admin/school-bcba-survey", icon: BarChart3 },
       { name: "CRM", href: "/admin/crm", icon: Users },
+      { name: "Transformation Funnel", href: "/admin/transformation-marketing", icon: Megaphone },
       { name: "Discovery Calls", href: "/admin/crm/discovery-calls", icon: PhoneCall },
       { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
       { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },

@@ -595,6 +595,14 @@ export default defineSchema({
     leadSource: v.optional(v.string()),
     tags: v.array(v.string()),
     notes: v.optional(v.string()),
+    marketingConsentStatus: v.optional(v.union(
+      v.literal("opted_in"),
+      v.literal("not_requested"),
+      v.literal("unsubscribed")
+    )),
+    marketingConsentAt: v.optional(v.string()),
+    marketingConsentSource: v.optional(v.string()),
+    attribution: v.optional(v.any()),
     leadScore: v.number(),
     priority: v.union(
       v.literal("low"),

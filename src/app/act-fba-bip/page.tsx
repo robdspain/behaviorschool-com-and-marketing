@@ -3,6 +3,7 @@ import { ShareButtons } from "@/components/ui/share-buttons";
 import { ShareBar } from "@/components/ui/ShareBar";
 import { HeroStudentForm } from "@/components/act-fba-bip/HeroStudentForm";
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 const baseUrl = "https://behaviorschool.com";
 const pageUrl = `${baseUrl}/act-fba-bip`;
@@ -551,10 +552,10 @@ procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
             </h2>
             <p className="text-white/80 mb-2 leading-relaxed">
               The <strong className="text-white">School BCBA Transformation Program</strong> walks you through this and
-              much more — live, 6 weeks, starting September 24.
+              much more: live, 6 weeks, beginning {TRANSFORMATION_PROGRAM.cohort.startFull}.
             </p>
             <p className="text-white/60 mb-8 text-sm">
-              Founding tuition: <strong className="text-white">$1,997</strong>.
+              Tuition: <strong className="text-white">{TRANSFORMATION_PROGRAM.pricing.payInFull}</strong>.
             </p>
             <a
               href="https://behaviorschool.com/transformation-program"

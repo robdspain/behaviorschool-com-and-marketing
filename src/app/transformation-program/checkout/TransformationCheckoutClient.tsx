@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CalendarDays, CheckCircle2, CreditCard, ShieldCheck } from 'lucide-react';
+import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
-const COHORT_LABEL = 'September 2026 cohort';
-const COHORT_DATES = 'September 24 to October 29, 2026';
-const FULL_PAYMENT = '$1,997';
-const PAYMENT_PLAN = '3 monthly payments of $697';
-const PAYMENT_PLAN_TOTAL = '$2,091 total';
+const COHORT_LABEL = TRANSFORMATION_PROGRAM.cohort.label;
+const COHORT_DATES = TRANSFORMATION_PROGRAM.cohort.dateRange;
+const FULL_PAYMENT = TRANSFORMATION_PROGRAM.pricing.payInFull;
+const PAYMENT_PLAN = `${TRANSFORMATION_PROGRAM.pricing.installmentCount} monthly payments of ${TRANSFORMATION_PROGRAM.pricing.installment}`;
+const PAYMENT_PLAN_TOTAL = TRANSFORMATION_PROGRAM.pricing.installmentTotal;
 
 type CheckoutOption = 'full' | 'installments';
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 type BehaviorFunction = "attention" | "escape" | "tangible" | "sensory";
 type GradeLevel = "prek-k" | "1-3" | "4-5" | "6-8" | "9-12";
@@ -219,7 +220,7 @@ export default function IEPGoalWriter() {
             Want to build behavior-based IEP goals systematically, with FBAs that actually drive BIP design?
           </h3>
           <p style={{ color: "#a7d4b8", marginBottom: 24, fontSize: "0.95rem" }}>
-            The School BCBA Transformation Program cohort starts September 24. Founding tuition is $1,997.
+            The School BCBA Transformation Program begins {TRANSFORMATION_PROGRAM.cohort.startFull}. Tuition is {TRANSFORMATION_PROGRAM.pricing.payInFull}.
           </p>
           <a
             href="/transformation-program"

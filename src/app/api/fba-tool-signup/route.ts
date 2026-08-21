@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from '@/lib/resend';
+import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,12 +36,12 @@ export async function POST(req: NextRequest) {
 <p><a href="https://behaviorschool.com/act-fba-bip" style="color:#1a4731; font-weight:600;">behaviorschool.com/act-fba-bip</a></p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Want to go deeper?</h3>
-<p>If this framework fits the kind of work you are trying to do, I'm running a 6-week cohort for school BCBAs starting September 24. We cover assessment, BIP design, implementation, and team training.</p>
+<p>If this framework fits the kind of work you are trying to do, I'm running a 6-week cohort for school BCBAs beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}. We cover assessment, BIP design, implementation, and team training.</p>
 <ul style="color:#555; font-size:15px; line-height:2;">
-  <li>6 sessions — weekly, 6–8 PM Pacific</li>
-  <li>September 24 – October 29, 2026</li>
+  <li>6 sessions, weekly, 6-8 PM Pacific</li>
+  <li>${TRANSFORMATION_PROGRAM.cohort.dateRange}</li>
   <li>Small cohorts</li>
-  <li>Founding tuition: $1,997</li>
+  <li>Tuition: ${TRANSFORMATION_PROGRAM.pricing.payInFull}</li>
 </ul>
 <p>
   <a href="https://behaviorschool.com/transformation-program" style="display:inline-block; background:#1a4731; color:white; padding:12px 24px; border-radius:6px; text-decoration:none; font-family:sans-serif; font-weight:600;">
@@ -62,11 +63,11 @@ One quick question: what felt useful, and what felt clunky? Reply to this email 
 BOOKMARK THE TOOL: https://behaviorschool.com/act-fba-bip
 
 WANT TO GO DEEPER?
-School BCBA Transformation Program — 6 weeks starting September 24.
-Weekly Thursdays, 6–8 PM Pacific · Small cohorts · Founding tuition $1,997
+School BCBA Transformation Program: 6 weeks beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}.
+Weekly Thursdays, 6-8 PM Pacific. Small cohorts. Tuition ${TRANSFORMATION_PROGRAM.pricing.payInFull}.
 https://behaviorschool.com/transformation-program
 
-—
+Behavior School
 Rob Spain, BCBA, IBA · BehaviorSchool`,
     });
 

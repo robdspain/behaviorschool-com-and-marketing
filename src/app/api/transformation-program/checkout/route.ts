@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { api, getConvexClient } from '@/lib/convex';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -7,18 +9,19 @@ export const runtime = 'nodejs';
 type CheckoutOption = 'full' | 'installments';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://behaviorschool.com';
-const PRODUCT_NAME = 'School BCBA Transformation Program';
-const PRODUCT_DESCRIPTION = 'September 2026 cohort, September 24 to October 29, 2026';
-const FULL_PAYMENT_AMOUNT_CENTS = 199700;
-const INSTALLMENT_AMOUNT_CENTS = 69700;
+const PRODUCT_NAME = TRANSFORMATION_PROGRAM.name;
+const PRODUCT_DESCRIPTION = `${TRANSFORMATION_PROGRAM.cohort.label}, ${TRANSFORMATION_PROGRAM.cohort.dateRange}`;
+const FULL_PAYMENT_AMOUNT_CENTS = TRANSFORMATION_PROGRAM.pricing.payInFullCents;
+const INSTALLMENT_AMOUNT_CENTS = TRANSFORMATION_PROGRAM.pricing.installmentCents;
 const CHECKOUT_ERROR_MESSAGE = 'Unable to start checkout right now. Please contact Behavior School for help completing enrollment.';
 
 function getStripe() {
-  if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY.includes('placeholder')) {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key || !/^sk_(test|live)_/.test(key) || key.includes('placeholder')) {
     throw new Error('Stripe secret key is not configured.');
   }
 
-  return new Stripe(process.env.STRIPE_SECRET_KEY, {
+  return new Stripe(key, {
     apiVersion: '2026-02-25.clover',
   });
 }
@@ -53,7 +56,7 @@ export async function POST(request: NextRequest) {
     const commonMetadata = {
       product: PRODUCT_NAME,
       program: 'transformation_program',
-      cohort: 'september_2026',
+      cohort: TRANSFORMATION_PROGRAM.cohort.id,
       checkout_option: option,
     };
 
@@ -91,7 +94,7 @@ export async function POST(request: NextRequest) {
                   currency: 'usd',
                   product_data: {
                     name: `${PRODUCT_NAME} Payment Plan`,
-                    description: `${PRODUCT_DESCRIPTION}. Three monthly payments of $697.`,
+                    description: `${PRODUCT_DESCRIPTION}. ${TRANSFORMATION_PROGRAM.pricing.installmentCount} monthly payments of ${TRANSFORMATION_PROGRAM.pricing.installment}.`,
                   },
                   unit_amount: INSTALLMENT_AMOUNT_CENTS,
                   recurring: {
@@ -106,18 +109,33 @@ export async function POST(request: NextRequest) {
             cancel_url: cancelUrl,
             metadata: {
               ...commonMetadata,
-              installment_total_payments: '3',
+              installment_total_payments: String(TRANSFORMATION_PROGRAM.pricing.installmentCount),
               installment_amount_cents: String(INSTALLMENT_AMOUNT_CENTS),
             },
             subscription_data: {
               metadata: {
                 ...commonMetadata,
-                installment_total_payments: '3',
+                installment_total_payments: String(TRANSFORMATION_PROGRAM.pricing.installmentCount),
                 installment_amount_cents: String(INSTALLMENT_AMOUNT_CENTS),
               },
             },
           },
     );
+
+    await getConvexClient().mutation(api.analytics.createConversionEvent, {
+      eventType: 'checkout_started',
+      eventName: 'transformation_checkout_created',
+      sourcePage: '/transformation-program/checkout',
+      resourceName: PRODUCT_NAME,
+      value: option === 'full' ? FULL_PAYMENT_AMOUNT_CENTS / 100 : INSTALLMENT_AMOUNT_CENTS / 100,
+      additionalData: {
+        cohort: TRANSFORMATION_PROGRAM.cohort.id,
+        checkoutOption: option,
+        stripeSessionId: session.id,
+      },
+    }).catch((analyticsError) => {
+      console.error('Transformation checkout analytics error:', analyticsError);
+    });
 
     return NextResponse.json({
       success: true,

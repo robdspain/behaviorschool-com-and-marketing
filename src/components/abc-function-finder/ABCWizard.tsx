@@ -6,6 +6,7 @@ import { AlertTriangle, CheckCircle, Printer, ArrowRight, Plus, Trash2, Sparkles
 import { motion, AnimatePresence } from "framer-motion";
 import { ShareBar } from "@/components/ui/ShareBar";
 import { EmailResultsGate } from "@/components/ui/EmailResultsGate";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 type Observation = { a: string; b: string; c: string };
 
@@ -586,7 +587,7 @@ export function ABCWizard() {
           Want to implement this with your whole team?
         </p>
         <p className="text-sm text-green-100 mb-4">
-          6 weeks starting September 24. Founding tuition $1,997.
+          {TRANSFORMATION_PROGRAM.cohort.dateRange}. Tuition {TRANSFORMATION_PROGRAM.pricing.payInFull}.
         </p>
         <a
           href="/transformation-program"

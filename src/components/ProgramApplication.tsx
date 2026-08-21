@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
+import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 // ─── COHORT FLAG ───────────────────────────────────────────────────────────────
 // Set this to `true` when a cohort is open for enrollment.
@@ -86,16 +87,26 @@ function ApplicationForm() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
+    const params = new URLSearchParams(window.location.search);
     const payload = {
       fullName: String(data.get('fullName') || '').trim(),
       email: String(data.get('email') || '').trim(),
       bcbaCertNumber: String(data.get('bcbaCertNumber') || '').trim(),
       currentRole: String(data.get('currentRole') || '').trim(),
       whyJoin: String(data.get('whyJoin') || '').trim(),
+      marketingConsent: data.get('marketingConsent') === 'on',
+      attribution: {
+        source: params.get('utm_source') || undefined,
+        medium: params.get('utm_medium') || undefined,
+        campaign: params.get('utm_campaign') || undefined,
+        term: params.get('utm_term') || undefined,
+        content: params.get('utm_content') || undefined,
+        landingPage: window.location.pathname,
+      },
     };
     setStatus('loading');
     try {
-      const res = await fetch('/.netlify/functions/submitApplication', {
+      const res = await fetch('/api/transformation-program/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -115,7 +126,7 @@ function ApplicationForm() {
     <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Apply for the next small cohort
+          Apply for the {TRANSFORMATION_PROGRAM.cohort.label}
         </h2>
         <p className="text-slate-600 text-base">
           Tell us about your school role and what you want to strengthen. We&rsquo;ll respond within two business days.
@@ -134,6 +145,16 @@ function ApplicationForm() {
             <label htmlFor="fullName" className="block text-sm font-semibold text-slate-700 mb-1">Full Name</label>
             <input id="fullName" name="fullName" type="text" required autoComplete="name" className={fieldClass} />
           </div>
+          <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-600">
+            <input
+              name="marketingConsent"
+              type="checkbox"
+              className="mt-1 h-4 w-4 rounded border-slate-300 text-[#1f4d3f] focus:ring-[#1f4d3f]"
+            />
+            <span>
+              Send me occasional program updates and school BCBA resources. I can unsubscribe at any time.
+            </span>
+          </label>
           <div>
             <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
             <input id="email" name="email" type="email" required autoComplete="email" className={fieldClass} />

@@ -64,6 +64,10 @@ function getDealValue(paymentOptionDiscussed: "pay_in_full" | "payment_plan" | "
   return 1997;
 }
 
+function mergeTags(existing: string[], additions: string[]) {
+  return Array.from(new Set([...existing, ...additions].filter(Boolean)));
+}
+
 async function getContactByEmailLower(ctx: any, emailLower: string) {
   return ctx.db
     .query("crmContacts")
@@ -253,6 +257,85 @@ export const upsertContact = mutation({
       createdAt: timestamp,
       updatedAt: timestamp,
     });
+  },
+});
+
+export const recordTransformationApplication = mutation({
+  args: {
+    firstName: v.string(),
+    lastName: v.string(),
+    email: v.string(),
+    role: v.string(),
+    bcbaCertNumber: v.optional(v.string()),
+    currentChallenges: v.string(),
+    marketingConsent: v.boolean(),
+    attribution: v.optional(v.any()),
+  },
+  returns: v.object({ contactId: v.id("crmContacts") }),
+  handler: async (ctx, args) => {
+    const timestamp = nowIso();
+    const emailLower = normalizeEmail(args.email);
+    const existing = await getContactByEmailLower(ctx, emailLower);
+    const applicationNotes = `Transformation Program application\nBCBA certification number: ${args.bcbaCertNumber || "Not provided"}\n\nApplicant context:\n${args.currentChallenges}`;
+    const applicationTags = ["transformation-program", "transformation-application", "school-bcba-program"];
+
+    let contactId: Id<"crmContacts">;
+    if (existing) {
+      contactId = existing._id;
+      await ctx.db.patch(contactId, compact({
+        firstName: args.firstName.trim() || existing.firstName,
+        lastName: args.lastName.trim() || existing.lastName,
+        email: args.email.trim(),
+        role: args.role.trim() || existing.role,
+        status: existing.status === "customer" ? "customer" : "lead",
+        leadSource: existing.leadSource || "transformation_application",
+        tags: mergeTags(existing.tags, applicationTags),
+        notes: existing.notes ? `${existing.notes}\n\n${applicationNotes}` : applicationNotes,
+        marketingConsentStatus: args.marketingConsent ? "opted_in" : existing.marketingConsentStatus || "not_requested",
+        marketingConsentAt: args.marketingConsent ? timestamp : existing.marketingConsentAt,
+        marketingConsentSource: args.marketingConsent ? "transformation_application" : existing.marketingConsentSource,
+        attribution: args.attribution || existing.attribution,
+        priority: existing.priority === "urgent" ? "urgent" : "high",
+        isArchived: false,
+        updatedAt: timestamp,
+      }));
+    } else {
+      contactId = await ctx.db.insert("crmContacts", {
+        firstName: args.firstName.trim(),
+        lastName: args.lastName.trim(),
+        email: args.email.trim(),
+        emailLower,
+        role: args.role.trim(),
+        status: "lead",
+        leadSource: "transformation_application",
+        tags: applicationTags,
+        notes: applicationNotes,
+        marketingConsentStatus: args.marketingConsent ? "opted_in" : "not_requested",
+        marketingConsentAt: args.marketingConsent ? timestamp : undefined,
+        marketingConsentSource: args.marketingConsent ? "transformation_application" : undefined,
+        attribution: args.attribution,
+        leadScore: 50,
+        priority: "high",
+        followUpDate: timestamp.slice(0, 10),
+        revenue: 0,
+        isArchived: false,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      });
+    }
+
+    await insertActivity(ctx, {
+      contactId,
+      activityType: "transformation_application",
+      subject: "Transformation Program application received",
+      body: args.currentChallenges,
+      metadata: {
+        marketingConsent: args.marketingConsent,
+        attribution: args.attribution,
+      },
+    });
+
+    return { contactId };
   },
 });
 

@@ -7,18 +7,19 @@ import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, 
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
+import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
-const OFFER_PRICE = '$1,997';
-const PAYMENT_PLAN = '3 payments of $697';
-const CALENDLY_LINK = 'https://calendly.com/robspain/behavior-school-transformation-system-phone-call';
+const OFFER_PRICE = TRANSFORMATION_PROGRAM.pricing.payInFull;
+const PAYMENT_PLAN = `${TRANSFORMATION_PROGRAM.pricing.installmentCount} payments of ${TRANSFORMATION_PROGRAM.pricing.installment}`;
+const CALENDLY_LINK = TRANSFORMATION_PROGRAM.calendlyUrl;
 const DISTRICT_EMAIL_LINK = '/contact';
 
-const COHORT_LABEL = 'Next cohort';
-const COHORT_START_BADGE = 'Starts Oct 8';
-const COHORT_START_FULL = 'Starts Thursday, October 8, 2026';
-const COHORT_END_FULL = 'November 12';
-const COHORT_DATE_RANGE = 'October 8 to November 12, 2026';
-const COHORT_SESSION_DATES = ['Oct 8', 'Oct 15', 'Oct 22', 'Oct 29', 'Nov 5', 'Nov 12'];
+const COHORT_LABEL = TRANSFORMATION_PROGRAM.cohort.label;
+const COHORT_START_BADGE = TRANSFORMATION_PROGRAM.cohort.startBadge;
+const COHORT_START_FULL = TRANSFORMATION_PROGRAM.cohort.startFull;
+const COHORT_END_FULL = TRANSFORMATION_PROGRAM.cohort.endFull;
+const COHORT_DATE_RANGE = TRANSFORMATION_PROGRAM.cohort.dateRange;
+const COHORT_SESSION_DATES = TRANSFORMATION_PROGRAM.cohort.sessionDates;
 const ONLINE_EVENT_DESCRIPTION_PUBLISHED = 'August 11, 2026';
 
 const weeklyModules = [
@@ -175,7 +176,7 @@ export default function TransformationProgramPage() {
                   <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" />
                   <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, {COHORT_LABEL}</span>
                 </div>
-                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">{COHORT_START_FULL} &middot; 6:00 to 8:00 PM PT</p>
+                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">{COHORT_START_FULL} &middot; {TRANSFORMATION_PROGRAM.cohort.sessionTime}</p>
                 <div className="flex flex-wrap gap-x-3 gap-y-1">
                   {COHORT_SESSION_DATES.map((d) => (
                     <span key={d} className="text-[#1f4d3f] font-semibold text-sm">{d}</span>
@@ -393,7 +394,7 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: `October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
+            { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
             { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
@@ -408,8 +409,7 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <p className="mb-3 text-sm font-medium text-white/65">The August cohort is in progress. Registration for that cohort is closed.</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the October 8 Cohort</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the {COHORT_LABEL}</h2>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             6 weeks. Small cohorts. School BCBAs only.
           </p>

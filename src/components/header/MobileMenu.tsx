@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { menuSections } from "./config";
 import { Button } from "@/components/ui/button";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 type Props = {
   isOpen: boolean;
@@ -68,7 +69,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
         })}
         <div className="px-3 pt-1">
           <Button asChild className="w-full bg-[#1f4d3f] text-white hover:bg-[#173a30]">
-            <Link href="/transformation-program" onClick={onClose}>September cohort now open</Link>
+            <Link href="/transformation-program" onClick={onClose}>{TRANSFORMATION_PROGRAM.cohort.label} now open</Link>
           </Button>
         </div>
         <Link
