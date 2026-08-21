@@ -1,31 +1,23 @@
 // ============================================================================
 // Convex HTTP Client Stub
 // ============================================================================
-// This marketing site (behaviorschool.com) has no Convex backend of its own.
-// The ACE API routes proxy to the behaviorschool-app Convex deployment.
-// We use plain fetch() for HTTP calls — no convex SDK needed here.
+// BehaviorSchool.com is backed by the Behavior School Website Convex project.
+// This URL is the transferred live deployment in that project. Keep the value
+// in Netlify and local environment files aligned with the ownership guard.
+// We use plain fetch() for server routes, so no Convex SDK client is needed.
 // ============================================================================
+
+const CANONICAL_MARKETING_CONVEX_URL = "https://quixotic-fox-157.convex.cloud";
 
 export function getConvexUrl() {
   if (typeof window === "undefined") {
-    return process.env.NEXT_PUBLIC_CONVEX_URL ?? process.env.VITE_CONVEX_URL ?? "";
+    return process.env.NEXT_PUBLIC_CONVEX_URL ?? CANONICAL_MARKETING_CONVEX_URL;
   }
 
-  return process.env.NEXT_PUBLIC_CONVEX_URL ?? "";
+  return process.env.NEXT_PUBLIC_CONVEX_URL ?? CANONICAL_MARKETING_CONVEX_URL;
 }
 
 const CONVEX_URL = getConvexUrl();
-
-if (!CONVEX_URL) {
-  console.warn("No Convex URL is set — ACE API routes will not function");
-} else if (
-  typeof window === "undefined"
-  && process.env.VITE_CONVEX_URL
-  && process.env.NEXT_PUBLIC_CONVEX_URL
-  && process.env.VITE_CONVEX_URL !== process.env.NEXT_PUBLIC_CONVEX_URL
-) {
-  console.warn("Using NEXT_PUBLIC_CONVEX_URL for server-side Convex routes because it differs from VITE_CONVEX_URL");
-}
 
 /** Minimal HTTP client matching the ConvexHttpClient interface used by ACE routes */
 export function getConvexClient() {

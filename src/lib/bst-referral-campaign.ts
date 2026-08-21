@@ -72,7 +72,6 @@ const genericLocalParts = new Set([
   'registrar',
   'support',
   'webmaster',
-  'california.bae.sig',
 ])
 
 function normalizedValues(contact: ReferralContact) {

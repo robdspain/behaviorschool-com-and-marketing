@@ -13,6 +13,7 @@
   NEXT_PUBLIC_SUPABASE_URL = "https://placeholder.supabase.co"
   NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder_anon_key"
   NEXT_PUBLIC_CONVEX_URL = "https://quixotic-fox-157.convex.cloud"
+  NEXT_PUBLIC_CONVEX_SITE_URL = "https://quixotic-fox-157.convex.site"
   NEXT_PUBLIC_NEWSLETTER_CONVEX_URL = "https://modest-malamute-868.convex.cloud"
   NEXT_PUBLIC_NEWSLETTER_CONVEX_SITE_URL = "https://modest-malamute-868.convex.site"
 
