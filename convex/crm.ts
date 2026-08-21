@@ -1,4 +1,4 @@
-import { mutation, query } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import type { Doc, Id } from "./_generated/dataModel";
 
@@ -72,6 +72,21 @@ async function getContactByEmailLower(ctx: any, emailLower: string) {
   return ctx.db
     .query("crmContacts")
     .withIndex("by_email_lower", (q: any) => q.eq("emailLower", emailLower))
+    .first();
+}
+
+async function getContactByStripeCustomerId(ctx: any, stripeCustomerId?: string | null) {
+  if (!stripeCustomerId) return null;
+  return ctx.db
+    .query("crmContacts")
+    .withIndex("by_stripe_customer_id", (q: any) => q.eq("stripeCustomerId", stripeCustomerId))
+    .first();
+}
+
+async function getStripeWebhookEvent(ctx: any, stripeEventId: string) {
+  return ctx.db
+    .query("stripeWebhookEvents")
+    .withIndex("by_stripe_event_id", (q: any) => q.eq("stripeEventId", stripeEventId))
     .first();
 }
 
@@ -729,8 +744,9 @@ export const logCheckoutFollowUpFailed = mutation({
   },
 });
 
-export const recordTransformationPurchase = mutation({
+export const recordTransformationPurchase = internalMutation({
   args: {
+    stripeEventId: v.string(),
     email: v.string(),
     firstName: v.string(),
     lastName: v.optional(v.string()),
@@ -740,13 +756,20 @@ export const recordTransformationPurchase = mutation({
     stripeSessionId: v.string(),
     stripePaymentIntentId: v.optional(v.union(v.string(), v.null())),
     stripeCustomerId: v.optional(v.union(v.string(), v.null())),
+    stripeSubscriptionId: v.optional(v.union(v.string(), v.null())),
     paymentLinkId: v.optional(v.union(v.string(), v.null())),
     checkoutOption: v.optional(v.union(v.string(), v.null())),
     productName: v.string(),
     lineItemDescriptions: v.optional(v.array(v.string())),
+    contractValueCents: v.number(),
     purchasedAt: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    const duplicate = await getStripeWebhookEvent(ctx, args.stripeEventId);
+    if (duplicate) {
+      return { contactId: duplicate.contactId ?? null, dealId: null, duplicate: true };
+    }
+
     const timestamp = nowIso();
     const purchasedAt = args.purchasedAt ?? timestamp;
     const emailLower = normalizeEmail(args.email);
@@ -802,7 +825,7 @@ export const recordTransformationPurchase = mutation({
     if (deals[0]) {
       dealId = deals[0]._id;
       await ctx.db.patch(dealId, {
-        value: revenue || deals[0].value,
+        value: args.contractValueCents / 100,
         stage: "closed_won",
         probability: 100,
         updatedAt: timestamp,
@@ -811,7 +834,7 @@ export const recordTransformationPurchase = mutation({
       dealId = await ctx.db.insert("crmDeals", {
         title: `${args.productName} - ${args.fullName || args.email}`,
         contactId,
-        value: revenue,
+        value: args.contractValueCents / 100,
         stage: "closed_won",
         probability: 100,
         expectedCloseDate: purchasedAt.slice(0, 10),
@@ -829,6 +852,7 @@ export const recordTransformationPurchase = mutation({
       subject: `Transformation Program purchase recorded - ${args.amountDisplay}`,
       body: note,
       metadata: {
+        stripeEventId: args.stripeEventId,
         stripeSessionId: args.stripeSessionId,
         stripePaymentIntentId: args.stripePaymentIntentId,
         stripeCustomerId: args.stripeCustomerId,
@@ -841,7 +865,151 @@ export const recordTransformationPurchase = mutation({
       },
     });
 
-    return { contactId, dealId };
+    await ctx.db.insert("stripeWebhookEvents", {
+      stripeEventId: args.stripeEventId,
+      eventType: "checkout.session.completed",
+      stripeSessionId: args.stripeSessionId,
+      stripeCustomerId: args.stripeCustomerId || undefined,
+      stripeSubscriptionId: args.stripeSubscriptionId || undefined,
+      contactId,
+      customerEmail: emailLower,
+      amountCents: args.amountCents,
+      currency: "usd",
+      paymentStatus: "paid",
+      checkoutOption: args.checkoutOption || undefined,
+      program: "transformation_program",
+      occurredAt: purchasedAt,
+      createdAt: timestamp,
+    });
+
+    return { contactId, dealId, duplicate: false };
+  },
+});
+
+export const recordTransformationSubscriptionPayment = internalMutation({
+  args: {
+    stripeEventId: v.string(),
+    stripeInvoiceId: v.string(),
+    stripeCustomerId: v.string(),
+    stripeSubscriptionId: v.string(),
+    email: v.optional(v.string()),
+    amountCents: v.number(),
+    currency: v.string(),
+    paidAt: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const duplicate = await getStripeWebhookEvent(ctx, args.stripeEventId);
+    if (duplicate) return { duplicate: true, contactId: duplicate.contactId ?? null };
+
+    const contact = await getContactByStripeCustomerId(ctx, args.stripeCustomerId)
+      ?? (args.email ? await getContactByEmailLower(ctx, normalizeEmail(args.email)) : null);
+    if (!contact) {
+      throw new Error("No Behavior School CRM contact exists for this Stripe subscription payment.");
+    }
+
+    const timestamp = nowIso();
+    const amount = args.amountCents / 100;
+    await ctx.db.patch(contact._id, {
+      status: "customer",
+      tags: mergeTags(contact.tags, ["customer", "transformation-program"]),
+      stripeCustomerId: args.stripeCustomerId,
+      revenue: contact.revenue + amount,
+      lastContactedAt: args.paidAt,
+      isArchived: false,
+      updatedAt: timestamp,
+    });
+
+    await insertActivity(ctx, {
+      contactId: contact._id,
+      activityType: "subscription_payment",
+      subject: `Transformation Program installment paid - $${amount.toFixed(2)}`,
+      body: `Stripe invoice ${args.stripeInvoiceId} was paid for subscription ${args.stripeSubscriptionId}.`,
+      metadata: {
+        stripeEventId: args.stripeEventId,
+        stripeInvoiceId: args.stripeInvoiceId,
+        stripeCustomerId: args.stripeCustomerId,
+        stripeSubscriptionId: args.stripeSubscriptionId,
+        amountCents: args.amountCents,
+        currency: args.currency,
+      },
+    });
+
+    await ctx.db.insert("stripeWebhookEvents", {
+      stripeEventId: args.stripeEventId,
+      eventType: "invoice.paid",
+      stripeInvoiceId: args.stripeInvoiceId,
+      stripeCustomerId: args.stripeCustomerId,
+      stripeSubscriptionId: args.stripeSubscriptionId,
+      contactId: contact._id,
+      customerEmail: args.email ? normalizeEmail(args.email) : undefined,
+      amountCents: args.amountCents,
+      currency: args.currency,
+      paymentStatus: "paid",
+      checkoutOption: "installments",
+      program: "transformation_program",
+      occurredAt: args.paidAt,
+      createdAt: timestamp,
+    });
+
+    return { duplicate: false, contactId: contact._id };
+  },
+});
+
+export const recordTransformationPaymentFailure = internalMutation({
+  args: {
+    stripeEventId: v.string(),
+    stripeInvoiceId: v.string(),
+    stripeCustomerId: v.string(),
+    stripeSubscriptionId: v.string(),
+    email: v.optional(v.string()),
+    amountCents: v.number(),
+    currency: v.string(),
+    failedAt: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const duplicate = await getStripeWebhookEvent(ctx, args.stripeEventId);
+    if (duplicate) return { duplicate: true, contactId: duplicate.contactId ?? null };
+
+    const contact = await getContactByStripeCustomerId(ctx, args.stripeCustomerId)
+      ?? (args.email ? await getContactByEmailLower(ctx, normalizeEmail(args.email)) : null);
+    if (!contact) {
+      throw new Error("No Behavior School CRM contact exists for this failed Stripe payment.");
+    }
+
+    const timestamp = nowIso();
+    await insertActivity(ctx, {
+      contactId: contact._id,
+      activityType: "subscription_payment_failed",
+      subject: "Transformation Program installment payment failed",
+      body: `Stripe invoice ${args.stripeInvoiceId} could not be collected for subscription ${args.stripeSubscriptionId}.`,
+      metadata: {
+        stripeEventId: args.stripeEventId,
+        stripeInvoiceId: args.stripeInvoiceId,
+        stripeCustomerId: args.stripeCustomerId,
+        stripeSubscriptionId: args.stripeSubscriptionId,
+        amountCents: args.amountCents,
+        currency: args.currency,
+      },
+    });
+
+    await ctx.db.insert("stripeWebhookEvents", {
+      stripeEventId: args.stripeEventId,
+      eventType: "invoice.payment_failed",
+      stripeInvoiceId: args.stripeInvoiceId,
+      stripeCustomerId: args.stripeCustomerId,
+      stripeSubscriptionId: args.stripeSubscriptionId,
+      contactId: contact._id,
+      customerEmail: args.email ? normalizeEmail(args.email) : undefined,
+      amountCents: args.amountCents,
+      currency: args.currency,
+      paymentStatus: "failed",
+      checkoutOption: "installments",
+      program: "transformation_program",
+      occurredAt: args.failedAt,
+      createdAt: timestamp,
+    });
+
+    return { duplicate: false, contactId: contact._id };
   },
 });
 

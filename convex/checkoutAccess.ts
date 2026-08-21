@@ -1,4 +1,4 @@
-import { mutation, query } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 const CHECKOUT_PASSWORD_KEY = "checkout_password";
@@ -120,6 +120,62 @@ export const addUser = mutation({
       createdAt: timestamp,
       updatedAt: timestamp,
     });
+  },
+});
+
+export const grantForStripePurchase = internalMutation({
+  args: {
+    email: v.string(),
+    firstName: v.optional(v.string()),
+    lastName: v.optional(v.string()),
+    stripeSessionId: v.string(),
+    productName: v.string(),
+    purchasedAt: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const email = args.email.trim();
+    const emailLower = normalizeEmail(email);
+    const timestamp = nowIso();
+    const note = `Stripe purchase ${args.stripeSessionId} for ${args.productName} on ${args.purchasedAt}.`;
+    const existing = await getApprovedUserByEmail(ctx, emailLower);
+
+    if (existing) {
+      const notes = existing.notes?.includes(args.stripeSessionId)
+        ? existing.notes
+        : [existing.notes, note].filter(Boolean).join("\n\n");
+      await ctx.db.patch(existing._id, {
+        email,
+        emailLower,
+        firstName: existing.firstName || args.firstName?.trim() || undefined,
+        lastName: existing.lastName || args.lastName?.trim() || undefined,
+        approvedBy: "Stripe webhook",
+        notes,
+        isActive: true,
+        expiresAt: undefined,
+        updatedAt: timestamp,
+      });
+    } else {
+      await ctx.db.insert("checkoutAccess", {
+        email,
+        emailLower,
+        firstName: args.firstName?.trim() || undefined,
+        lastName: args.lastName?.trim() || undefined,
+        approvedBy: "Stripe webhook",
+        notes: note,
+        isActive: true,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      });
+    }
+
+    await ctx.db.insert("checkoutAccessLogs", {
+      accessType: "stripe_webhook",
+      identifier: emailLower,
+      success: true,
+      createdAt: timestamp,
+    });
+
+    return { email: emailLower };
   },
 });
 

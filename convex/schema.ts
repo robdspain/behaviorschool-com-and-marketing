@@ -620,6 +620,7 @@ export default defineSchema({
     updatedAt: v.string(),
   })
     .index("by_email_lower", ["emailLower"])
+    .index("by_stripe_customer_id", ["stripeCustomerId"])
     .index("by_status", ["status"])
     .index("by_archived", ["isArchived"]),
 
@@ -685,6 +686,29 @@ export default defineSchema({
     .index("by_contact", ["contactId"])
     .index("by_activity_date", ["activityDate"])
     .index("by_discovery_call", ["discoveryCallId"]),
+
+  // Stripe event receipts are the idempotency ledger for Behavior School
+  // purchases. They contain only the fields needed for CRM reconciliation.
+  stripeWebhookEvents: defineTable({
+    stripeEventId: v.string(),
+    eventType: v.string(),
+    stripeSessionId: v.optional(v.string()),
+    stripeInvoiceId: v.optional(v.string()),
+    stripeCustomerId: v.optional(v.string()),
+    stripeSubscriptionId: v.optional(v.string()),
+    contactId: v.optional(v.id("crmContacts")),
+    customerEmail: v.optional(v.string()),
+    amountCents: v.optional(v.number()),
+    currency: v.optional(v.string()),
+    paymentStatus: v.optional(v.string()),
+    checkoutOption: v.optional(v.string()),
+    program: v.optional(v.string()),
+    occurredAt: v.string(),
+    createdAt: v.string(),
+  })
+    .index("by_stripe_event_id", ["stripeEventId"])
+    .index("by_stripe_customer_id", ["stripeCustomerId"])
+    .index("by_stripe_session_id", ["stripeSessionId"]),
 
   crmDiscoveryCalls: defineTable({
     contactId: v.id("crmContacts"),

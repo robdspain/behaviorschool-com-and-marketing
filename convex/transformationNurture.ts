@@ -1,4 +1,4 @@
-import { mutation, query } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import type { Doc, Id } from "./_generated/dataModel";
 
@@ -400,7 +400,7 @@ export const markEmailSkipped = mutation({
   },
 });
 
-export const markConvertedByEmail = mutation({
+export const markConvertedByEmail = internalMutation({
   args: {
     email: v.string(),
     reason: v.optional(v.string()),
