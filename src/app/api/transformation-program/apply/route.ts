@@ -45,16 +45,36 @@ export async function POST(request: NextRequest) {
     const attribution = parseAttribution(body?.attribution);
     const client = getConvexClient();
 
-    const application = await client.mutation(api.crm.recordTransformationApplication, {
-      firstName,
-      lastName,
-      email,
-      role,
-      bcbaCertNumber,
-      currentChallenges,
-      marketingConsent,
-      attribution,
-    });
+    // The dedicated application mutation provides the complete CRM audit trail.
+    // Keep submission available while an older Convex deployment is catching up.
+    let applicationContactId: string | undefined;
+    let usedLegacyCrmFallback = false;
+    try {
+      const application = await client.mutation(api.crm.recordTransformationApplication, {
+        firstName,
+        lastName,
+        email,
+        role,
+        bcbaCertNumber,
+        currentChallenges,
+        marketingConsent,
+        attribution,
+      });
+      applicationContactId = application.contactId;
+    } catch (applicationError) {
+      console.error("Transformation application CRM mutation error:", applicationError);
+      applicationContactId = await client.mutation(api.crm.upsertContact, {
+        firstName,
+        lastName,
+        email,
+        role,
+        leadSource: "transformation_application",
+        status: "lead",
+        tags: ["transformation-program", "transformation-application", "school-bcba-program"],
+        notes: `Transformation Program application\nBCBA certification number: ${bcbaCertNumber || "Not provided"}\n\nApplicant context:\n${currentChallenges}`,
+      });
+      usedLegacyCrmFallback = true;
+    }
 
     await Promise.all([
       client.mutation(api.submissions.createSignupSubmission, {
@@ -78,7 +98,7 @@ export async function POST(request: NextRequest) {
       }),
     ]);
 
-    if (marketingConsent) {
+    if (marketingConsent && !usedLegacyCrmFallback) {
       await startTransformationNurture({
         email,
         firstName,
@@ -87,7 +107,7 @@ export async function POST(request: NextRequest) {
         source: "transformation_application",
         tags: ["transformation-application", "marketing-consent"],
         notes: "Applicant explicitly opted in to program updates.",
-        metadata: { attribution, applicationContactId: application.contactId },
+        metadata: { attribution, applicationContactId },
       });
     }
 
