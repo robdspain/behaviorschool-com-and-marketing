@@ -80,6 +80,9 @@ export async function POST(request: NextRequest) {
             ],
             success_url: successUrl,
             cancel_url: cancelUrl,
+            name_collection: {
+              individual: { enabled: true, optional: false },
+            },
             metadata: commonMetadata,
             payment_intent_data: {
               metadata: commonMetadata,
@@ -107,6 +110,9 @@ export async function POST(request: NextRequest) {
             ],
             success_url: successUrl,
             cancel_url: cancelUrl,
+            name_collection: {
+              individual: { enabled: true, optional: false },
+            },
             metadata: {
               ...commonMetadata,
               installment_total_payments: String(TRANSFORMATION_PROGRAM.pricing.installmentCount),
