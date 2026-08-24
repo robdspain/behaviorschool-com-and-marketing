@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Full mock checkpoint</title>
+  <desc id="desc">Facebook graphic presenting a full BCBA mock exam as a checkpoint for pacing, score review, and domain review.</desc>
+  <rect width="1200" height="630" fill="#f8f4eb"/>
+  <rect x="60" y="58" width="1080" height="514" fill="#21463b"/>
+  <text x="100" y="130" fill="#f8f4eb" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Behavior Study Tools</text>
+  <text x="100" y="215" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="800">Use the full mock</text>
+  <text x="100" y="286" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="800">as a checkpoint.</text>
+  <g transform="translate(100 360)">
+    <rect width="300" height="118" fill="#fffaf0"/>
+    <text x="32" y="48" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">185 questions</text>
+    <text x="32" y="84" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="23">Exam-length practice</text>
+    <rect x="340" width="300" height="118" fill="#fffaf0"/>
+    <text x="372" y="48" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Timer</text>
+    <text x="372" y="84" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="23">Pacing evidence</text>
+    <rect x="680" width="300" height="118" fill="#fffaf0"/>
+    <text x="712" y="48" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Domain review</text>
+    <text x="712" y="84" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="23">Next study target</text>
+  </g>
+  <text x="100" y="540" fill="#f4ddad" font-family="Arial, Helvetica, sans-serif" font-size="29">Start in the browser. Review before choosing the next block.</text>
+</svg>

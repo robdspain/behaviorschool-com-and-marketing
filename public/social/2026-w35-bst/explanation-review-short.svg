@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Review the explanation</title>
+  <desc id="desc">Vertical short-form asset reminding BCBA candidates to review the explanation, not only the score.</desc>
+  <rect width="1080" height="1920" fill="#102f29"/>
+  <rect x="80" y="100" width="920" height="1720" fill="#fffaf0"/>
+  <text x="130" y="210" fill="#21463b" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="130" y="355" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800">Do not</text>
+  <text x="130" y="445" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800">review only</text>
+  <text x="130" y="535" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800">the score.</text>
+  <rect x="130" y="650" width="820" height="330" fill="#ffffff" stroke="#21463b" stroke-width="4"/>
+  <text x="180" y="735" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Question review</text>
+  <line x1="180" y1="785" x2="900" y2="785" stroke="#d8c7a6" stroke-width="4"/>
+  <text x="180" y="860" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="31">Why the correct answer fits</text>
+  <text x="180" y="915" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="31">Why the distractor was tempting</text>
+  <text x="180" y="970" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="31">Which domain needs another pass</text>
+  <g transform="translate(130 1110)">
+    <rect width="820" height="112" fill="#b8842d"/>
+    <text x="42" y="70" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="800">The explanation creates the next task.</text>
+  </g>
+  <text x="130" y="1375" fill="#21463b" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">Practice first.</text>
+  <text x="130" y="1440" fill="#21463b" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">Then study the pattern.</text>
+  <text x="130" y="1710" fill="#5a5144" font-family="Arial, Helvetica, sans-serif" font-size="30">Free BCBA practice in the browser.</text>
+</svg>
