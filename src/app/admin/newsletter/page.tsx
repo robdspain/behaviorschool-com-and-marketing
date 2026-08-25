@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CheckCircle2, FileText, Mail, RefreshCw, Send, ShieldCheck, Users, XCircle } from 'lucide-react'
 import { hasAdminClientSession } from '@/lib/admin-client-session'
+import { newsletterReplyDraftHref, type NewsletterReaderResponse } from '@/lib/newsletter-reply-draft'
 
 type Issue = {
   _id: string
@@ -119,7 +120,7 @@ type DeliveryDashboard = {
   selected: {
     issue: Issue & { version: number; previewedVersion?: number; approvedAt?: number; archiveVerifiedAt?: number }
     sources: Array<{ _id: string; title: string; apaCitation: string; fullTextUrl: string; verifiedAt?: number }>
-    analytics: Record<string, unknown> | null
+    analytics: (Record<string, unknown> & { responses?: NewsletterReaderResponse[] }) | null
     preflight: { ready?: boolean; checks?: Array<{ key: string; label: string; ok: boolean; detail: string }> } | null
   } | null
   audience: { subscribed?: number }
@@ -284,6 +285,7 @@ export default function NewsletterAdmin() {
   const canSend = Boolean(selectedIssue && editoriallyApproved && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
   const selectedDeliveryIssue = deliveryDetail?.selected?.issue
   const deliveryRecipients = deliveryDetail?.audience?.subscribed ?? 0
+  const deliveryResponses = deliveryDetail?.selected?.analytics?.responses ?? []
 
   if (loading) {
     return <div className="min-h-screen bg-[#f5f8f6] flex items-center justify-center text-slate-600">Loading weekly research brief workspace…</div>
@@ -358,6 +360,17 @@ export default function NewsletterAdmin() {
               <button type="button" disabled={busy !== null || !selectedDeliveryIssue.approvedAt || !selectedDeliveryIssue.archiveVerifiedAt || selectedDeliveryIssue.status === 'sent'} onClick={() => { if (window.confirm(`Send “${selectedDeliveryIssue.subject}” to ${deliveryRecipients} confirmed readers?`)) void runDelivery('deliverySend', selectedDeliveryIssue._id, {}, 'Newsletter delivery finished.') }} className="rounded-lg bg-[#087f5b] px-3 py-2 text-sm font-bold text-white disabled:opacity-50">Send to confirmed readers</button>
             </div>
             <div className="mt-4 grid gap-2">{deliveryDetail?.selected?.preflight?.checks?.map((check) => <div key={check.key} className={`rounded-lg border px-3 py-2 text-sm ${check.ok ? 'border-emerald-200 bg-emerald-50 text-emerald-900' : 'border-amber-200 bg-amber-50 text-amber-900'}`}><strong>{check.ok ? 'Ready' : 'Blocked'}: {check.label}</strong><p className="mt-1 text-xs leading-5">{check.detail}</p></div>)}</div>
+            <div className="mt-5 border-t border-[#d6e2dc] pt-5">
+              <h4 className="font-bold text-[#17352d]">Reader responses</h4>
+              <p className="mt-1 text-sm leading-6 text-[#5b7068]">Each response is linked to the email address entered by the reader. The button opens an editable draft in your default mail app and does not send it. Before sending, confirm the From address is rob@behaviorschool.com.</p>
+              <div className="mt-3 space-y-3">
+                {deliveryResponses.map((response) => <article key={response.id} className="rounded-lg border border-[#d6e2dc] bg-white p-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3"><div><strong className="text-sm text-[#17352d]">{response.email}</strong><p className="mt-1 text-xs text-[#6b8178]">{new Date(response.createdAt).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}{response.rating ? ` · Usefulness ${response.rating}/5` : ''}</p></div><a href={newsletterReplyDraftHref(response, selectedDeliveryIssue.subject)} className="rounded-lg bg-[#087f5b] px-3 py-2 text-xs font-bold text-white">Open reply draft</a></div>
+                  <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-[#536a62]">{response.answer || 'No written answer recorded.'}</p>
+                </article>)}
+                {!deliveryResponses.length && <p className="rounded-lg bg-white p-4 text-sm text-[#6b8178]">No reader responses have been submitted for this issue.</p>}
+              </div>
+            </div>
             <p className="mt-4 text-xs leading-5 text-[#6b8178]">This panel controls the RobSpain delivery system from Behavior School admin. Duplicate delivery is blocked both here and in the delivery service.</p>
           </div>}
         </section>
