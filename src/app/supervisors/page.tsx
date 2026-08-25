@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Bell,
@@ -36,30 +36,47 @@ export default function SupervisorsPage() {
   return (
     <main className="min-h-screen bg-white text-[#17211f]">
       <section className="border-b border-[#1f4d3f]/10 bg-[#f7f5f0]">
-        <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 sm:px-8 sm:pb-28 sm:pt-28 lg:px-12">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 border border-[#1f4d3f]/20 bg-white px-3 py-2 text-xs font-bold uppercase text-[#1f4d3f]">
-              <Bell className="h-4 w-4" aria-hidden="true" /> Invite only
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16 lg:px-12 lg:pt-24">
+          <div>
+            <div className="inline-flex items-center gap-2 border border-[#1f4d3f]/20 bg-white px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#1f4d3f]">
+              <Bell className="h-4 w-4" aria-hidden="true" /> Coming soon
             </div>
             <h1 className="mt-7 max-w-3xl text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
-              Supervision tools for school-based behavior analysts.
+              Supervision work, organized in one place.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-[#59645f] sm:text-xl">
-              BehaviorSchool is developing a shared workspace for supervisors and supervisees to organize fieldwork documentation, review progress, and prepare required records. Access is currently invite-only, and public account creation is not available.
+              BehaviorSchool is developing a shared workspace for supervisors and supervisees to organize fieldwork documentation, review progress, and prepare required records. Public account creation and hour tracking are not available yet.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="https://supervision.behaviorschool.com/waitlist"
-                className="inline-flex min-h-12 items-center justify-center gap-2 bg-[#1f4d3f] px-6 py-3 font-bold text-white transition-colors hover:bg-[#163a30] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f]"
-              >
-                Request an invitation <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <Link
-                href="/contact"
-                className="inline-flex min-h-12 items-center justify-center border border-[#1f4d3f]/30 px-6 py-3 font-bold text-[#1f4d3f] transition-colors hover:bg-[#1f4d3f]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f]"
-              >
-                Contact BehaviorSchool
-              </Link>
+            <a
+              href="https://supervision.behaviorschool.com/waitlist"
+              className="mt-9 inline-flex min-h-12 items-center justify-center gap-2 bg-[#1f4d3f] px-6 py-3 font-bold text-white transition-colors hover:bg-[#163a30] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f]"
+            >
+              Join the launch list <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-2xl">
+            <div className="absolute -inset-5 rounded-[2rem] bg-[#d8b64c]/20 blur-2xl" aria-hidden="true" />
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-[#1f4d3f]/15 bg-white p-3 shadow-[0_24px_70px_rgba(31,77,63,0.16)]">
+              <div className="flex items-center justify-between border-b border-[#1f4d3f]/10 px-3 pb-3 text-xs font-bold uppercase tracking-[0.14em] text-[#1f4d3f]">
+                <span>Supervision workspace</span>
+                <span className="bg-[#f5eedc] px-2 py-1 text-[#80621d]">Concept preview</span>
+              </div>
+              <div className="mt-3 overflow-hidden rounded-[1rem] bg-[#edf2ee]">
+                <Image
+                  src="/optimized/Supervision/Supervision1.webp"
+                  alt="Concept visual for a supervisor and supervisee reviewing documentation together"
+                  width={1536}
+                  height={1024}
+                  priority
+                  className="aspect-[4/3] w-full object-cover"
+                />
+              </div>
+              <div className="grid gap-2 px-1 pb-1 pt-3 text-sm text-[#59645f] sm:grid-cols-3">
+                <span className="border-l-2 border-[#d8b64c] pl-2">Document review</span>
+                <span className="border-l-2 border-[#d8b64c] pl-2">Progress discussion</span>
+                <span className="border-l-2 border-[#d8b64c] pl-2">Record preparation</span>
+              </div>
             </div>
           </div>
         </div>
@@ -93,7 +110,7 @@ export default function SupervisorsPage() {
           <div className="max-w-3xl">
             <h2 className="text-2xl font-semibold">Continue using your current approved process</h2>
             <p className="mt-3 leading-7 text-[#59645f]">
-              Until you receive an invitation, continue using current BACB requirements, official forms, and your organization&apos;s approved documentation and record-retention procedures.
+              Until the workspace is available, continue using current BACB requirements, official forms, and your organization&apos;s approved documentation and record-retention procedures.
             </p>
           </div>
         </div>

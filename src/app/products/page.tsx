@@ -11,7 +11,6 @@ import {
   ClipboardCheck,
   Files,
   GraduationCap,
-  Layers3,
   Target,
   UsersRound,
 } from "lucide-react";
@@ -49,11 +48,11 @@ const availableProducts = [
     details: ["Exam-style practice", "Timed mock exams", "Personalized study plan"],
     href: "https://study.behaviorschool.com/free-practice/",
     cta: "Try 10 free BCBA questions",
-    image: "/product-suite/behavior-study-tools-dashboard.png",
-    imageAlt: "Behavior Study Tools iPhone dashboard with streak, mastery, daily goal, and recommended next practice",
+    image: "/BehaviorStudyTools/Hero-BST-Home.webp",
+    imageAlt: "Behavior Study Tools browser experience shown on a laptop",
     icon: GraduationCap,
     tone: "light",
-    imageKind: "phone",
+    imageKind: "laptop",
   },
   {
     number: "03",
@@ -124,15 +123,6 @@ const upcomingProducts = [
     cta: "View invite-only access",
     icon: UsersRound,
   },
-  {
-    name: "Learning Library",
-    stage: "Keep learning",
-    description:
-      "A dedicated home for school-specific professional learning beyond the live Transformation Program.",
-    href: "/contact",
-    cta: "Contact BehaviorSchool",
-    icon: Layers3,
-  },
 ] as const;
 
 const toneClasses = {
@@ -171,15 +161,21 @@ export default function ProductsPage() {
           </div>
 
           <div className="relative hidden min-h-[470px] lg:block" aria-label="BehaviorSchool product previews">
-            <div className="absolute left-[8%] top-0 w-[42%] overflow-hidden border border-white/20 bg-[#0d2b23] p-2 shadow-[0_30px_80px_rgba(0,0,0,0.28)]">
-              <Image
-                src="/product-suite/behavior-study-tools-dashboard.png"
-                alt="Behavior Study Tools iPhone dashboard preview"
-                width={1290}
-                height={2796}
-                priority
-                className="max-h-[465px] w-auto object-contain"
-              />
+            <div className="absolute left-[3%] top-8 w-[59%] overflow-hidden border border-white/20 bg-[#0d2b23] p-3 shadow-[0_30px_80px_rgba(0,0,0,0.28)]">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-white/20 bg-black">
+                <Image
+                  src="/BehaviorStudyTools/Hero-BST-Home.webp"
+                  alt="Behavior Study Tools browser experience shown on a laptop"
+                  width={1024}
+                  height={1024}
+                  priority
+                  className="h-full w-full origin-center scale-[1.55] object-cover object-[32%_center]"
+                />
+                <span className="absolute bottom-3 left-3 bg-[#0d2b23]/90 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/80">
+                  Browser experience
+                </span>
+              </div>
+              <div className="mx-auto h-2 w-3/5 rounded-b-full bg-white/35" />
             </div>
             <div className="absolute bottom-0 right-0 w-[62%] overflow-hidden border border-white/20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.34)]">
               <div className="flex h-8 items-center justify-between border-b border-black/10 bg-[#f4f2ec] px-3">
@@ -315,26 +311,51 @@ export default function ProductsPage() {
                 </div>
 
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div className="overflow-hidden border border-[#173f33]/20 bg-white shadow-[0_28px_70px_rgba(20,35,31,0.13)]">
-                    <div className="flex h-10 items-center justify-between border-b border-[#173f33]/12 bg-[#f4f2ec] px-4">
-                      <div className="flex gap-1.5">
-                        <span className="h-2 w-2 rounded-full bg-[#d56b5c]" />
-                        <span className="h-2 w-2 rounded-full bg-[#dab340]" />
-                        <span className="h-2 w-2 rounded-full bg-[#4d9b71]" />
+                  <div className={product.imageKind === "laptop" ? "overflow-hidden border border-[#173f33]/20 bg-[#0d2b23] shadow-[0_28px_70px_rgba(20,35,31,0.13)]" : "overflow-hidden border border-[#173f33]/20 bg-white shadow-[0_28px_70px_rgba(20,35,31,0.13)]"}>
+                    {product.imageKind !== "laptop" && (
+                      <div className="flex h-10 items-center justify-between border-b border-[#173f33]/12 bg-[#f4f2ec] px-4">
+                        <div className="flex gap-1.5">
+                          <span className="h-2 w-2 rounded-full bg-[#d56b5c]" />
+                          <span className="h-2 w-2 rounded-full bg-[#dab340]" />
+                          <span className="h-2 w-2 rounded-full bg-[#4d9b71]" />
+                        </div>
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#51645d]">
+                          Live product view
+                        </span>
                       </div>
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#51645d]">
-                        Live product view
-                      </span>
-                    </div>
-                    <div className={product.imageKind === "phone" ? "flex justify-center bg-[#0d2b23] p-5 sm:p-8" : product.imageKind === "browser" ? "aspect-video overflow-hidden" : ""}>
-                      <Image
-                        src={product.image}
-                        alt={product.imageAlt}
-                        width={product.imageKind === "phone" ? 1290 : 1280}
-                        height={product.imageKind === "phone" ? 2796 : product.imageKind === "browser" ? 720 : 800}
-                        className={product.imageKind === "phone" ? "h-auto max-h-[680px] w-auto object-contain" : product.imageKind === "browser" ? "h-full w-full origin-bottom scale-[1.4] object-cover object-top" : "aspect-[16/10] w-full object-cover object-top"}
-                      />
-                    </div>
+                    )}
+                    {product.imageKind === "laptop" ? (
+                      <div className="bg-[#0d2b23] p-5 sm:p-8">
+                        <div className="mx-auto max-w-2xl">
+                          <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-white/20 bg-black shadow-[0_20px_45px_rgba(0,0,0,0.24)]">
+                              <Image
+                                src={product.image}
+                                alt={product.imageAlt}
+                                width={1024}
+                                height={1024}
+                                className="h-full w-full origin-center scale-[1.55] object-cover object-[32%_center]"
+                              />
+                            <span className="absolute bottom-3 left-3 bg-[#0d2b23]/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
+                              Browser-based platform
+                            </span>
+                          </div>
+                          <div className="mx-auto h-3 w-4/5 rounded-b-full bg-white/70" />
+                          <p className="mt-4 text-center text-xs font-semibold uppercase tracking-[0.16em] text-white/65">
+                            Works in a browser on laptop and phone
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className={product.imageKind === "browser" ? "aspect-video overflow-hidden" : ""}>
+                        <Image
+                          src={product.image}
+                          alt={product.imageAlt}
+                          width={product.imageKind === "browser" ? 1280 : 1280}
+                          height={product.imageKind === "browser" ? 720 : 800}
+                          className={product.imageKind === "browser" ? "h-full w-full origin-bottom scale-[1.4] object-cover object-top" : "aspect-[16/10] w-full object-cover object-top"}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -404,15 +425,6 @@ export default function ProductsPage() {
             })}
           </div>
 
-          <div className="mt-14 overflow-hidden border border-white/15 bg-white">
-            <Image
-              src="/product-suite/supervision-coming-soon.png"
-              alt="BehaviorSchool supervision tools coming-soon page"
-              width={1280}
-              height={800}
-              className="aspect-[16/7] w-full object-cover object-top"
-            />
-          </div>
         </div>
       </section>
 
