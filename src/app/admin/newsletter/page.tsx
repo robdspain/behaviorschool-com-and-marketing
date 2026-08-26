@@ -70,6 +70,25 @@ type Workspace = {
   channels: Array<{ platform: string; label: string; channelIdEnv: string; status: 'configured' | 'missing' | 'mismatch' }>
 }
 
+type ConsentPilot = {
+  defaultCampaignKey: string
+  maxRecipients: number
+  landingUrl: string
+  candidateCounts: Record<string, number>
+  campaigns: Array<{
+    _id: string
+    campaignKey: string
+    status: 'draft' | 'approved' | 'sending' | 'paused' | 'complete'
+    cohort: string
+    recipientLimit: number
+    steps: Array<{ step: string; subject: string; preheader: string; text: string; html: string; delayHours: number }>
+    approvedBy?: string
+    approvedAt?: number
+    recipientCounts: { total: number; initialSent: number; followUpOneSent: number; followUpTwoSent: number; failed: number }
+    recipients: Array<{ _id: string; email: string; firstName?: string; source: string; initialStatus: string; followUpOneStatus?: string; followUpTwoStatus?: string; lastError?: string }>
+  }>
+}
+
 type Dashboard = {
   issues: Issue[]
   summary: {
@@ -98,6 +117,7 @@ type Dashboard = {
     source: string
     landingUrl: string
   }
+  consentPilot?: ConsentPilot
   ctas: Array<{ _id: string; label: string; kind: string; headline: string; active: boolean }>
   deliveryRecords: Array<{
     issueId: string
@@ -299,6 +319,8 @@ export default function NewsletterAdmin() {
   }
 
   const selectedIssue = detail?.issue
+  const consentPilot = dashboard?.consentPilot
+  const latestConsentCampaign = consentPilot?.campaigns?.[0]
   const allBufferConfigured = useMemo(() => workspaces.length === 2 && workspaces.every((workspace) => workspace.apiStatus === 'verified' && workspace.channels.every((channel) => channel.status === 'configured')), [workspaces])
   const editoriallyApproved = publishingGate?.approved === true
   const canSend = Boolean(selectedIssue && editoriallyApproved && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
@@ -393,25 +415,38 @@ export default function NewsletterAdmin() {
         <section className="rounded-xl border border-amber-200 bg-amber-50 p-5" aria-labelledby="warm-contact-heading">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <h2 id="warm-contact-heading" className="flex items-center gap-2 text-lg font-bold"><Mail className="h-5 w-5 text-amber-700" /> Warm-contact permission campaign</h2>
-              <p className="mt-1 max-w-3xl text-sm leading-6 text-amber-950">{dashboard?.warmContacts.needsConsent ?? 0} contacts in the separate {dashboard?.warmContacts.source ?? 'Behavior School contact store'} do not have recorded newsletter consent. They must not be added to the delivery audience automatically.</p>
+              <h2 id="warm-contact-heading" className="flex items-center gap-2 text-lg font-bold"><Mail className="h-5 w-5 text-amber-700" /> Warm-contact permission pilot</h2>
+              <p className="mt-1 max-w-3xl text-sm leading-6 text-amber-950">This is a small, permission-based pilot for contacts with a prior Behavior School relationship. It never adds anyone to the newsletter automatically. Signup and confirmation are still required.</p>
             </div>
-            <button type="button" onClick={() => void copyWarmInvitation()} className="rounded-lg bg-[#17352d] px-3 py-2 text-sm font-bold text-white">Copy invitation and tracked link</button>
+            <a href={consentPilot?.landingUrl ?? dashboard?.warmContacts.landingUrl} target="_blank" rel="noreferrer" className="rounded-lg border border-[#17352d] bg-white px-3 py-2 text-sm font-bold text-[#17352d]">Open tracked signup page</a>
           </div>
-          <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1.25fr]">
-            <div className="rounded-lg border border-amber-200 bg-white p-4 text-sm leading-6 text-[#536a62]">
-              <h3 className="font-bold text-[#17352d]">Safe audience rules</h3>
-              <ul className="mt-2 list-disc space-y-1 pl-5">
-                <li>Use only contacts with a documented prior relationship and a legitimate reason for one invitation.</li>
-                <li>Remove unsubscribed, bounced, complained, suppressed, district-restricted, test, and internal addresses.</li>
-                <li>Send one permission invitation. Do not send the newsletter until the person subscribes and confirms.</li>
-                <li>Review results by tracked source before sending another permission campaign.</li>
-              </ul>
-              <a href={dashboard?.warmContacts.landingUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex font-bold text-[#087f5b] underline">Open the tracked signup landing page</a>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['Eligible warm contacts', consentPilot?.candidateCounts?.['all-needs-consent'] ?? dashboard?.warmContacts.needsConsent ?? 0],
+              ['BAE SIG cohort', consentPilot?.candidateCounts?.['bae-sig'] ?? 0],
+              ['Community cohort', consentPilot?.candidateCounts?.['mighty-networks'] ?? 0],
+              ['School BCBA cohort', consentPilot?.candidateCounts?.['school-bcba'] ?? 0],
+            ].map(([label, value]) => <div key={String(label)} className="rounded-lg border border-amber-200 bg-white p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">{String(label)}</span><strong className="mt-1 block text-2xl text-[#17352d]">{String(value)}</strong></div>)}
+          </div>
+          <div className="mt-5 rounded-lg border border-amber-200 bg-white p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div><h3 className="font-bold text-[#17352d]">{latestConsentCampaign ? latestConsentCampaign.campaignKey : 'No pilot draft yet'}</h3><p className="mt-1 text-sm text-[#536a62]">Pilot size is capped at {latestConsentCampaign?.recipientLimit ?? 30}. Copy is staged for review before any live send.</p></div>
+              <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold uppercase text-amber-900">{latestConsentCampaign?.status ?? 'not created'}</span>
             </div>
-            <pre className="whitespace-pre-wrap rounded-lg border border-[#d6e2dc] bg-white p-4 font-sans text-sm leading-6 text-[#17352d]">{WARM_CONTACT_INVITATION.replace('[LANDING_URL]', dashboard?.warmContacts.landingUrl ?? '[TRACKED LANDING PAGE]')}</pre>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" disabled={busy !== null || Boolean(latestConsentCampaign && latestConsentCampaign.status !== 'draft')} onClick={() => void run('consentCreatePilot', { campaignKey: consentPilot?.defaultCampaignKey, cohort: 'all-needs-consent', recipientLimit: 30 }, 'A 30-contact permission pilot draft was created.') } className="rounded-lg bg-[#17352d] px-3 py-2 text-sm font-bold text-white disabled:opacity-50">Create draft</button>
+              <button type="button" disabled={busy !== null || !latestConsentCampaign || latestConsentCampaign.status !== 'draft' || latestConsentCampaign.recipientCounts.total > 0} onClick={() => void run('consentPreparePilot', { campaignId: latestConsentCampaign?._id }, 'The consent-safe pilot cohort was prepared for review.') } className="rounded-lg border border-[#b6cfc4] bg-white px-3 py-2 text-sm font-bold text-[#1c5547] disabled:opacity-50">Prepare cohort</button>
+              <button type="button" disabled={busy !== null || !latestConsentCampaign || latestConsentCampaign.status !== 'draft' || latestConsentCampaign.recipientCounts.total === 0} onClick={() => void run('consentApprovePilot', { campaignId: latestConsentCampaign?._id }, 'The staged pilot copy was approved in the admin workflow. Live sending remains separately gated.') } className="rounded-lg border border-[#b6cfc4] bg-white px-3 py-2 text-sm font-bold text-[#1c5547] disabled:opacity-50">Approve staged copy</button>
+              <button type="button" disabled className="rounded-lg bg-[#087f5b] px-3 py-2 text-sm font-bold text-white opacity-40" title="Requires Rob's exact draft approval before a live send">Send pilot after exact copy approval</button>
+              <button type="button" onClick={() => void copyWarmInvitation()} className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm font-bold text-amber-950">Copy simple invitation</button>
+            </div>
           </div>
-          <p className="mt-3 text-xs leading-5 text-amber-900">This workspace prepares the invitation but does not send it. The exact eligible recipients and final copy still require review before one live send.</p>
+          {latestConsentCampaign && <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1fr]">
+            <div className="rounded-lg border border-amber-200 bg-white p-4 text-sm leading-6 text-[#536a62]"><h3 className="font-bold text-[#17352d]">Pilot safeguards</h3><ul className="mt-2 list-disc space-y-1 pl-5"><li>Only active contacts tagged for newsletter consent are eligible.</li><li>Excluded, unsubscribed, blocked-domain, test, pending, confirmed, and previously invited contacts are filtered out.</li><li>Each recipient has an atomic send claim and a provider-log duplicate check.</li><li>Follow-ups stop when the person is no longer eligible or confirms subscription.</li></ul></div>
+            <div className="rounded-lg border border-amber-200 bg-white p-4"><h3 className="font-bold text-[#17352d]">Staged sequence</h3><div className="mt-3 space-y-3">{latestConsentCampaign.steps.map((step) => <div key={step.step} className="border-t border-[#edf2ef] pt-3 first:border-0 first:pt-0"><p className="text-xs font-bold uppercase tracking-wide text-[#087f5b]">{step.step} · {step.delayHours ? `after ${step.delayHours} hours` : 'first message'}</p><p className="mt-1 font-semibold text-[#17352d]">{step.subject}</p><p className="mt-1 text-sm text-[#536a62]">{step.preheader}</p><pre className="mt-2 max-h-32 overflow-auto whitespace-pre-wrap rounded-md bg-[#f8fbf9] p-2 font-sans text-xs leading-5 text-[#536a62]">{step.text}</pre></div>)}</div></div>
+          </div>}
+          {latestConsentCampaign && <div className="mt-4 overflow-x-auto rounded-lg border border-amber-200 bg-white"><table className="min-w-full text-left text-sm"><thead className="border-b border-[#d6e2dc] text-xs uppercase tracking-wide text-[#6b8178]"><tr><th className="px-3 py-2">Source</th><th className="px-3 py-2">Reader</th><th className="px-3 py-2">Initial</th><th className="px-3 py-2">Follow-up 1</th><th className="px-3 py-2">Follow-up 2</th></tr></thead><tbody>{latestConsentCampaign.recipients.map((recipient) => <tr key={recipient._id} className="border-b border-[#edf2ef]"><td className="px-3 py-3">{recipient.source}</td><td className="px-3 py-3">{recipient.firstName || 'Unnamed'} <span className="text-xs text-[#6b8178]">{recipient.email}</span></td><td className="px-3 py-3">{recipient.initialStatus}</td><td className="px-3 py-3">{recipient.followUpOneStatus || 'scheduled after initial'}</td><td className="px-3 py-3">{recipient.followUpTwoStatus || 'scheduled after initial'}</td></tr>)}{!latestConsentCampaign.recipients.length && <tr><td colSpan={5} className="px-3 py-5 text-[#6b8178]">Prepare the cohort to see the selected recipients.</td></tr>}</tbody></table></div>}
+          <p className="mt-3 text-xs leading-5 text-amber-900">This is an admin-only preparation and measurement surface. No email is sent by this build until the exact copy and recipient cohort are approved for a live pilot.</p>
         </section>
 
         <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="delivery-heading">

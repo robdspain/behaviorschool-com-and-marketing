@@ -117,6 +117,21 @@ test('newsletter admin exposes welcome progress and personalized reader response
   assert.match(newsletterAdmin, /responses: Array/)
 })
 
+test('warm-contact pilot is staged on BehaviorSchool admin with consent and send gates', async () => {
+  const controlRoute = await readFile('src/app/api/admin/newsletter/control/route.ts', 'utf8')
+  const dashboard = await readFile('src/app/admin/newsletter/page.tsx', 'utf8')
+
+  assert.match(controlRoute, /weeklyNewsletter:getConsentPilotDashboard/)
+  assert.match(controlRoute, /weeklyNewsletter:createConsentPilot/)
+  assert.match(controlRoute, /weeklyNewsletter:prepareConsentPilot/)
+  assert.match(controlRoute, /weeklyNewsletter:approveConsentPilot/)
+  assert.match(controlRoute, /weeklyNewsletter:sendConsentPilot/)
+  assert.match(dashboard, /Warm-contact permission pilot/)
+  assert.match(dashboard, /Prepare cohort/)
+  assert.match(dashboard, /Send pilot after exact copy approval/)
+  assert.match(dashboard, /disabled className=.*Send pilot after exact copy approval/)
+})
+
 test('source review becomes ready only after two post-launch sends', () => {
   const launchAt = 1_000
   assert.deepEqual(

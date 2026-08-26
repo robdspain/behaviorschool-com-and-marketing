@@ -48,11 +48,12 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    const [issues, legacySummary, audiences, ctas, deliveryDashboard] = await Promise.all([
+    const [issues, legacySummary, audiences, ctas, consentPilot, deliveryDashboard] = await Promise.all([
       callNewsletterConvex<Array<Record<string, unknown>>>('query', 'weeklyNewsletter:listIssuesForAdmin', { limit: 30 }),
       callNewsletterConvex('query', 'weeklyNewsletter:subscriberReadinessForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:audienceSummaryForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:listCtasForAdmin', { activeOnly: false }),
+      callNewsletterConvex('query', 'weeklyNewsletter:getConsentPilotDashboard'),
       getRobSpainNewsletterDashboard(),
     ])
     const deliveryRecords = robSpainDeliveryRecordsFromDashboard(deliveryDashboard)
@@ -138,6 +139,7 @@ export async function GET(request: NextRequest) {
       deliveryAudience,
       onboarding: deliveryDashboard.onboarding,
       warmContacts,
+      consentPilot,
       acquisition,
     })
   } catch (error) {
@@ -201,10 +203,16 @@ export async function POST(request: NextRequest) {
       updateSocial: { kind: 'mutation', path: 'weeklyNewsletter:updateSocialPostWithToken' },
       seedCtas: { kind: 'mutation', path: 'weeklyNewsletter:seedDefaultCtas' },
       tagCodexTests: { kind: 'mutation', path: 'weeklyNewsletter:tagCodexTestContacts' },
+      consentCreatePilot: { kind: 'mutation', path: 'weeklyNewsletter:createConsentPilot' },
+      consentPreparePilot: { kind: 'mutation', path: 'weeklyNewsletter:prepareConsentPilot' },
+      consentApprovePilot: { kind: 'mutation', path: 'weeklyNewsletter:approveConsentPilot' },
+      consentSendPilot: { kind: 'action', path: 'weeklyNewsletter:sendConsentPilot' },
     }
     if (!operation || !operations[operation]) {
       return NextResponse.json({ ok: false, error: 'Unknown newsletter operation.' }, { status: 400 })
     }
+
+    if (operation === 'consentApprovePilot') args.approvedBy = user.email
 
     if (['approve', 'publishAndVerify', 'sendApproved'].includes(operation)) {
       const issueId = typeof args.issueId === 'string' ? args.issueId : ''
