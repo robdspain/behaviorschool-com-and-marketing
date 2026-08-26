@@ -147,7 +147,7 @@ const WARM_CONTACT_INVITATION = `Subject: Would The Weekly Research Brief be use
 
 Hi [First name],
 
-You may know me through Behavior School, BAE SIG, or one of my school BCBA resources. Each Tuesday, I connect two open full-text studies to one practical next step for school-based BCBAs.
+You may know me through Behavior School, BAE SIG, or one of my school BCBA resources. Each week, I connect two open full-text studies to one practical next step for school-based BCBAs.
 
 Take a look at a recent issue and decide for yourself. If you want the next one, enter your email and confirm on this page:
 [LANDING_URL]

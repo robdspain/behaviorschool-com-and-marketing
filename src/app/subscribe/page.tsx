@@ -91,7 +91,7 @@ export default function SubscribePage() {
               The Weekly Research Brief
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              Keep up with useful research without adding another long read to your week. Each Tuesday, Rob connects two full-text studies to one problem school-based behavior analysts face in everyday practice.
+              Keep up with useful research without adding another long read to your week. Each issue connects two full-text studies to one problem school-based behavior analysts face in everyday practice.
             </p>
 
             {status === "success" ? (
@@ -142,7 +142,7 @@ export default function SubscribePage() {
                     disabled={status === "loading"}
                     className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#1f4d3f] px-6 text-sm font-bold text-white transition hover:bg-[#123628] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {status === "loading" ? "Sending..." : "Send me the Tuesday brief"}
+                    {status === "loading" ? "Sending..." : "Send me the weekly brief"}
                     {status !== "loading" && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
                   </button>
                 </div>
@@ -152,7 +152,7 @@ export default function SubscribePage() {
                   </p>
                 )}
                 <p className="mt-3 text-xs leading-5 text-slate-500">
-                  Free. One email each Tuesday. Confirm your email to join. Unsubscribe anytime.
+                  Free. One email each week. Confirm your email to join. Unsubscribe anytime.
                 </p>
               </form>
             )}
@@ -210,7 +210,7 @@ export default function SubscribePage() {
             Read the latest Weekly Research Brief.
           </h2>
           <p className="max-w-2xl leading-7 text-slate-600">
-            Each issue is published publicly with links to the full-text research, so you can decide whether the brief belongs in your Tuesday routine.
+            Each issue is published publicly with links to the full-text research, so you can decide whether the brief belongs in your weekly routine.
           </p>
           <Link
             href="https://robspain.com/newsletter/"

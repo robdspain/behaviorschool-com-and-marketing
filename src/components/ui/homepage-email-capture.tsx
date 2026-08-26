@@ -73,7 +73,7 @@ export function HomepageEmailCapture() {
               The Weekly Research Brief
             </h2>
             <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-              Open research, clear summaries, and practical next steps for school-based BCBAs, delivered every Tuesday.
+              Open research, clear summaries, and practical next steps for school-based BCBAs, delivered each week.
             </p>
 
             {status === 'success' ? (
@@ -115,7 +115,7 @@ export function HomepageEmailCapture() {
                     disabled={status === 'loading'}
                     className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
                   >
-                    {status === 'loading' ? 'Sending...' : 'Send me the Tuesday brief'}
+                    {status === 'loading' ? 'Sending...' : 'Send me the weekly brief'}
                   </button>
                 </div>
 
@@ -124,7 +124,7 @@ export function HomepageEmailCapture() {
                 )}
 
                 <p className="text-xs text-slate-500 mt-4">
-                  Free. One email each Tuesday. Confirm your email to join. Unsubscribe anytime.
+                  Free. One email each week. Confirm your email to join. Unsubscribe anytime.
                 </p>
               </form>
             )}

@@ -73,7 +73,7 @@ export function NewsletterSignup() {
         </h3>
         
         <p className="text-slate-700 mb-6">
-          Open research, clear summaries, and practical next steps for school-based BCBAs, delivered every Tuesday.
+          Open research, clear summaries, and practical next steps for school-based BCBAs, delivered each week.
         </p>
 
         {status === 'success' ? (
@@ -110,7 +110,7 @@ export function NewsletterSignup() {
               disabled={status === 'loading'}
               className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
             >
-              {status === 'loading' ? 'Sending...' : 'Send me the Tuesday brief'}
+              {status === 'loading' ? 'Sending...' : 'Send me the weekly brief'}
             </button>
           </form>
         )}
@@ -120,7 +120,7 @@ export function NewsletterSignup() {
         )}
 
         <p className="text-xs text-slate-600 mt-4">
-          Free. One email each Tuesday. Confirm your email to join. Unsubscribe anytime.
+          Free. One email each week. Confirm your email to join. Unsubscribe anytime.
         </p>
       </div>
     </div>

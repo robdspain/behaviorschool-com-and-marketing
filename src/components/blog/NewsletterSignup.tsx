@@ -82,7 +82,7 @@ export function BlogNewsletterSignup() {
           The Weekly Research Brief
         </h3>
         <p className="text-[#FAF3E0]/80 mb-6 text-center">
-          Every Tuesday: open research, clear summaries, and one practical next step for school-based BCBAs.
+          Each week: open research, clear summaries, and one practical next step for school-based BCBAs.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -100,7 +100,7 @@ export function BlogNewsletterSignup() {
             disabled={status === 'loading'}
             className="px-6 py-3 bg-[#E3B23C] text-[#1E3A34] font-semibold rounded hover:bg-[#E3B23C]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
           >
-            {status === 'loading' ? 'Sending...' : 'Send me the Tuesday brief'}
+            {status === 'loading' ? 'Sending...' : 'Send me the weekly brief'}
           </button>
         </form>
 
@@ -111,7 +111,7 @@ export function BlogNewsletterSignup() {
         )}
 
         <p className="text-xs text-[#FAF3E0]/60 mt-4 text-center">
-          Free. One email each Tuesday. Confirm your email to join. Unsubscribe anytime.
+          Free. One email each week. Confirm your email to join. Unsubscribe anytime.
         </p>
       </div>
     </div>
