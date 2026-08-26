@@ -103,6 +103,20 @@ test('signup surfaces expose confirmation delivery and recovery states', async (
   assert.match(embeddedSignup, /Send me the weekly brief/)
 })
 
+test('newsletter admin exposes welcome progress and personalized reader responses', async () => {
+  const controlRoute = await readFile('src/app/api/admin/newsletter/control/route.ts', 'utf8')
+  const dashboard = await readFile('src/app/admin/newsletter/page.tsx', 'utf8')
+  const newsletterAdmin = await readFile('src/lib/newsletter-admin.ts', 'utf8')
+
+  assert.match(controlRoute, /deliveryDashboard\.onboarding/)
+  assert.match(controlRoute, /newsletter\/start\//)
+  assert.match(dashboard, /New-reader welcome sequence/)
+  assert.match(dashboard, /Recent welcome-form responses/)
+  assert.match(dashboard, /mailto:/)
+  assert.match(newsletterAdmin, /welcomeSent: number/)
+  assert.match(newsletterAdmin, /responses: Array/)
+})
+
 test('source review becomes ready only after two post-launch sends', () => {
   const launchAt = 1_000
   assert.deepEqual(

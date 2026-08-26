@@ -128,6 +128,15 @@ type Dashboard = {
     sources: Array<{ source: string; requested: number; confirmed: number; pending: number; confirmationRate: number | null }>
     allSources: Array<{ source: string; requested: number; confirmed: number; pending: number; confirmationRate: number | null }>
   }
+  onboarding?: {
+    sequenceVersion: string
+    started: number
+    welcomeSent: number
+    resourcesSent: number
+    questionSent: number
+    shareSent: number
+    responses: Array<{ id: string; email: string; question: string; answer: string; createdAt: number; updatedAt: number }>
+  }
 }
 
 type IssueDetail = { issue: Issue; articles: Article[]; socialPosts: SocialPost[] }
@@ -364,6 +373,21 @@ export default function NewsletterAdmin() {
           <div className="mt-4 h-3 overflow-hidden rounded-full bg-[#e5eee9]" aria-label={`${dashboard?.acquisition?.confirmedTotal ?? 0} of ${dashboard?.acquisition?.targetConfirmed ?? 50} confirmed readers`}><div className="h-full rounded-full bg-[#087f5b]" style={{ width: `${Math.min(100, ((dashboard?.acquisition?.confirmedTotal ?? 0) / (dashboard?.acquisition?.targetConfirmed || 50)) * 100)}%` }} /></div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Confirmed since launch</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.available === false ? 'Unavailable' : dashboard?.acquisition?.confirmedSinceLaunch ?? 0}</strong></div><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Awaiting confirmation</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.available === false ? 'Unavailable' : dashboard?.acquisition?.pendingSinceLaunch ?? 0}</strong></div><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Remaining to 50</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.remainingToTarget ?? 50}</strong></div><div className={`rounded-lg border p-3 ${dashboard?.acquisition?.reviewReady ? 'border-emerald-200 bg-emerald-50' : 'border-[#d6e2dc]'}`}><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Source review window</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.sentIssuesSinceLaunch ?? 0} of {dashboard?.acquisition?.reviewIssueTarget ?? 2}</strong><span className="mt-1 block text-xs text-[#6b8178]">{dashboard?.acquisition?.reviewReady ? 'Ready for review' : 'Waiting for two sent issues'}</span></div></div>
           <div className="mt-4 overflow-x-auto"><table className="min-w-full text-left text-sm"><thead className="border-b border-[#d6e2dc] text-xs uppercase tracking-wide text-[#6b8178]"><tr><th className="px-3 py-2">Signup source</th><th className="px-3 py-2">Requests</th><th className="px-3 py-2">Confirmed</th><th className="px-3 py-2">Pending</th><th className="px-3 py-2">Confirmation rate</th></tr></thead><tbody>{dashboard?.acquisition?.sources.map((source) => <tr key={source.source} className="border-b border-[#edf2ef]"><td className="px-3 py-3 font-medium text-[#17352d]">{source.source}</td><td className="px-3 py-3">{source.requested}</td><td className="px-3 py-3">{source.confirmed}</td><td className="px-3 py-3">{source.pending}</td><td className="px-3 py-3">{source.confirmationRate == null ? 'Not available' : `${(source.confirmationRate * 100).toFixed(0)}%`}</td></tr>)}{!dashboard?.acquisition?.sources.length && <tr><td colSpan={5} className="px-3 py-5 text-[#6b8178]">{dashboard?.acquisition?.available === false ? 'Source detail is temporarily unavailable. The overall confirmed count still comes from the delivery audience.' : 'No post-launch signup requests have been recorded yet.'}</td></tr>}</tbody></table></div>
+        </section>
+
+        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="onboarding-heading">
+          <div className="flex flex-wrap items-start justify-between gap-4"><div><h2 id="onboarding-heading" className="flex items-center gap-2 text-lg font-bold"><Mail className="h-5 w-5 text-[#087f5b]" /> New-reader welcome sequence</h2><p className="mt-1 text-sm leading-6 text-[#5b7068]">Confirmed readers receive the welcome, resources, question, and sharing messages over seven days. Every step checks current consent before sending.</p></div><span className="rounded-full bg-[#effaf5] px-3 py-1 text-xs font-bold text-[#087f5b]">{dashboard?.onboarding?.sequenceVersion ?? 'Not deployed'}</span></div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {[
+              ['Started', dashboard?.onboarding?.started ?? 0],
+              ['Welcome sent', dashboard?.onboarding?.welcomeSent ?? 0],
+              ['Resources sent', dashboard?.onboarding?.resourcesSent ?? 0],
+              ['Question sent', dashboard?.onboarding?.questionSent ?? 0],
+              ['Share sent', dashboard?.onboarding?.shareSent ?? 0],
+            ].map(([label, value]) => <div key={String(label)} className="rounded-lg border border-[#d6e2dc] bg-[#f8fbf9] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">{label}</span><strong className="mt-1 block text-2xl text-[#17352d]">{String(value)}</strong></div>)}
+          </div>
+          <div className="mt-5"><h3 className="font-bold text-[#17352d]">Recent welcome-form responses</h3><p className="mt-1 text-sm text-[#6b8178]">Responses are saved with the confirmed reader's email so you can send a personal follow-up.</p></div>
+          <div className="mt-3 overflow-x-auto"><table className="min-w-full text-left text-sm"><thead className="border-b border-[#d6e2dc] text-xs uppercase tracking-wide text-[#6b8178]"><tr><th className="px-3 py-2">Reader</th><th className="px-3 py-2">Response</th><th className="px-3 py-2">Received</th><th className="px-3 py-2">Follow up</th></tr></thead><tbody>{dashboard?.onboarding?.responses.map((response) => <tr key={response.id} className="border-b border-[#edf2ef] align-top"><td className="px-3 py-3 font-medium text-[#17352d]">{response.email}</td><td className="max-w-2xl whitespace-pre-wrap px-3 py-3 text-[#536a62]">{response.answer}</td><td className="whitespace-nowrap px-3 py-3 text-[#6b8178]">{new Date(response.createdAt).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}</td><td className="px-3 py-3"><a className="font-semibold text-[#087f5b] underline" href={`mailto:${encodeURIComponent(response.email)}?subject=${encodeURIComponent('Following up on your Weekly Research Brief response')}`}>Email reader</a></td></tr>)}{!dashboard?.onboarding?.responses.length && <tr><td colSpan={4} className="px-3 py-5 text-[#6b8178]">No welcome-form responses have been recorded yet.</td></tr>}</tbody></table></div>
         </section>
 
         <section className="rounded-xl border border-amber-200 bg-amber-50 p-5" aria-labelledby="warm-contact-heading">

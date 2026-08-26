@@ -27,6 +27,22 @@ export type RobSpainNewsletterDashboard = {
     preflight: { ready?: boolean; checks?: Array<Record<string, any>> } | null
   } | null
   audience: Record<string, number>
+  onboarding?: {
+    sequenceVersion: string
+    started: number
+    welcomeSent: number
+    resourcesSent: number
+    questionSent: number
+    shareSent: number
+    responses: Array<{
+      id: string
+      email: string
+      question: string
+      answer: string
+      createdAt: number
+      updatedAt: number
+    }>
+  }
   evidence?: Record<string, unknown>
   measurement?: Record<string, unknown>
 }
