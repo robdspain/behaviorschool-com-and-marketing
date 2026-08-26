@@ -126,7 +126,7 @@ export async function GET(request: NextRequest) {
       excluded: Number((legacySummary as Record<string, unknown>)?.excluded ?? 0),
       testContacts: Number((legacySummary as Record<string, unknown>)?.codexTests ?? 0),
       source: 'Behavior School contact store',
-      landingUrl: 'https://robspain.com/newsletter/?utm_source=behaviorschool_warm_contacts&utm_medium=email&utm_campaign=weekly_research_brief_permission&utm_content=one_time_invitation#subscribe',
+      landingUrl: 'https://robspain.com/newsletter/?utm_source=behaviorschool_warm_contacts&utm_medium=email&utm_campaign=weekly_research_brief_permission_v1&utm_content=outcome_specific_copy#archive',
     }
     return NextResponse.json({
       ok: true,

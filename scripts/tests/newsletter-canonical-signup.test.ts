@@ -98,7 +98,9 @@ test('signup surfaces expose confirmation delivery and recovery states', async (
   }
   assert.match(popup, /disabled=\{isSubmitting\}/)
   assert.match(popup, /We could not start your subscription/)
+  assert.match(popup, /variant:outcome-specific-v1/)
   assert.match(embeddedSignup, /Request a fresh confirmation link/)
+  assert.match(embeddedSignup, /Send me the Tuesday brief/)
 })
 
 test('source review becomes ready only after two post-launch sends', () => {

@@ -48,7 +48,7 @@ export default function SubscribePage() {
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "/subscribe" }),
+        body: JSON.stringify({ email, source: "/subscribe:variant:outcome-specific-v1" }),
       });
       const result = await response.json().catch(() => ({}));
 
@@ -142,7 +142,7 @@ export default function SubscribePage() {
                     disabled={status === "loading"}
                     className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#1f4d3f] px-6 text-sm font-bold text-white transition hover:bg-[#123628] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {status === "loading" ? "Sending..." : "Send me Tuesday's brief"}
+                    {status === "loading" ? "Sending..." : "Send me the Tuesday brief"}
                     {status !== "loading" && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
                   </button>
                 </div>
@@ -152,7 +152,7 @@ export default function SubscribePage() {
                   </p>
                 )}
                 <p className="mt-3 text-xs leading-5 text-slate-500">
-                  Confirm your email to join. Unsubscribe or change your preferences at any time.
+                  Free. One email each Tuesday. Confirm your email to join. Unsubscribe anytime.
                 </p>
               </form>
             )}

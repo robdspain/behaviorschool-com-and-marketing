@@ -143,13 +143,13 @@ type DeliveryDashboard = {
 type PublishingIdentity = { site: 'robspain'; contentKey: string; contentHash: string; title: string; contentType: string; tier: 'A' }
 type PublishingGate = { approved: boolean; reason: string; record: Record<string, unknown> | null }
 
-const WARM_CONTACT_INVITATION = `Subject: Would you like The Weekly Research Brief?
+const WARM_CONTACT_INVITATION = `Subject: Would The Weekly Research Brief be useful?
 
 Hi [First name],
 
-You may know me through Behavior School, BAE SIG, or one of my school BCBA resources. I publish The Weekly Research Brief each Tuesday with two open full-text studies, clear limits, and one practical next step for school-based BCBAs.
+You may know me through Behavior School, BAE SIG, or one of my school BCBA resources. Each Tuesday, I connect two open full-text studies to one practical next step for school-based BCBAs.
 
-If you would like to receive it, subscribe on this page and confirm your email:
+Take a look at a recent issue and decide for yourself. If you want the next one, enter your email and confirm on this page:
 [LANDING_URL]
 
 If not, no action is needed. You will not be added automatically.

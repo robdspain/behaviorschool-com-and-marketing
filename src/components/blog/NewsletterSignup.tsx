@@ -16,7 +16,7 @@ export function BlogNewsletterSignup() {
     setStatus('loading');
 
     try {
-      const source = `behaviorschool-blog:${pathname}`;
+      const source = `behaviorschool-blog:${pathname}:variant:outcome-specific-v1`;
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -100,7 +100,7 @@ export function BlogNewsletterSignup() {
             disabled={status === 'loading'}
             className="px-6 py-3 bg-[#E3B23C] text-[#1E3A34] font-semibold rounded hover:bg-[#E3B23C]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
           >
-            {status === 'loading' ? 'Sending...' : "Send me Tuesday's brief"}
+            {status === 'loading' ? 'Sending...' : 'Send me the Tuesday brief'}
           </button>
         </form>
 
@@ -111,7 +111,7 @@ export function BlogNewsletterSignup() {
         )}
 
         <p className="text-xs text-[#FAF3E0]/60 mt-4 text-center">
-          The Weekly Research Brief. Unsubscribe anytime. We never share your email.
+          Free. One email each Tuesday. Confirm your email to join. Unsubscribe anytime.
         </p>
       </div>
     </div>

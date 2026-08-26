@@ -18,7 +18,7 @@ export function NewsletterSignup() {
     setStatus('loading');
 
     try {
-      const source = `behaviorschool-embedded:${pathname}`;
+      const source = `behaviorschool-embedded:${pathname}:variant:outcome-specific-v1`;
       const response = await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -110,7 +110,7 @@ export function NewsletterSignup() {
               disabled={status === 'loading'}
               className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
             >
-              {status === 'loading' ? 'Sending...' : "Send me Tuesday's brief"}
+              {status === 'loading' ? 'Sending...' : 'Send me the Tuesday brief'}
             </button>
           </form>
         )}
@@ -120,7 +120,7 @@ export function NewsletterSignup() {
         )}
 
         <p className="text-xs text-slate-600 mt-4">
-          Unsubscribe anytime. We respect your privacy and never share your email.
+          Free. One email each Tuesday. Confirm your email to join. Unsubscribe anytime.
         </p>
       </div>
     </div>

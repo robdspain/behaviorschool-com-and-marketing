@@ -58,7 +58,7 @@ export function EmailSignupPopup({
         body: JSON.stringify({
           email,
           name: name || "",
-          source: pageSource,
+          source: `${pageSource}:variant:outcome-specific-v1`,
         }),
       });
       const result = await response.json().catch(() => ({}));
