@@ -10,7 +10,8 @@ export function NewsletterSignup() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
-  const { trackEmailSignup, trackFormSubmission } = useAnalytics();
+  const [submittedEmail, setSubmittedEmail] = useState('');
+  const { trackButtonClick, trackEmailSignup, trackFormSubmission } = useAnalytics();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,12 +27,13 @@ export function NewsletterSignup() {
       const result = await response.json().catch(() => ({}));
 
       if (response.ok || response.status === 409) {
-        const alreadySubscribed = response.status === 409 || result.isNew === false;
+        const alreadySubscribed = response.status === 409 || result.status === 'already_subscribed' || result.status === 'subscribed';
+        setSubmittedEmail(email);
         setStatus('success');
         setMessage(
           alreadySubscribed
             ? "You are already subscribed. Watch your inbox for the next issue."
-            : "Check your inbox to confirm. We'll send the latest issue as soon as you confirm."
+            : "Check your inbox now and click Confirm subscription. If it is not there in five minutes, check spam or request a fresh link below."
         );
         trackFormSubmission('weekly_research_brief_embedded', true, { source, page: pathname });
         if (!alreadySubscribed) {
@@ -76,7 +78,21 @@ export function NewsletterSignup() {
 
         {status === 'success' ? (
           <div className="bg-emerald-100 border border-emerald-300 text-emerald-800 px-6 py-4 rounded-lg">
-            {message}
+            <p>{message}</p>
+            {submittedEmail && !message.startsWith('You are already subscribed') ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail(submittedEmail);
+                  setStatus('idle');
+                  setMessage('');
+                  trackButtonClick('newsletter_confirmation_retry', 'weekly_research_brief_embedded', { source: `behaviorschool-embedded:${pathname}` });
+                }}
+                className="mt-3 text-sm font-semibold underline underline-offset-4"
+              >
+                Request a fresh confirmation link
+              </button>
+            ) : null}
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -94,7 +110,7 @@ export function NewsletterSignup() {
               disabled={status === 'loading'}
               className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
             >
-              {status === 'loading' ? 'Subscribing...' : 'Subscribe Free'}
+              {status === 'loading' ? 'Sending...' : "Send me Tuesday's brief"}
             </button>
           </form>
         )}

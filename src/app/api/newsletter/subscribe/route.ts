@@ -18,6 +18,8 @@ export async function POST(request: NextRequest) {
       message: result.message,
       isNew: result.isNew ?? true,
       status: result.status,
+      confirmationSent: result.confirmationSent,
+      retryAfterSeconds: result.retryAfterSeconds,
     });
   } catch (error) {
     console.error('Newsletter API error:', error);

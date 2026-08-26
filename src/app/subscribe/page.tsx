@@ -36,6 +36,7 @@ export default function SubscribePage() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
+  const [alreadySubscribed, setAlreadySubscribed] = useState(false);
   const { trackEmailSignup, trackFormSubmission } = useAnalytics();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -55,12 +56,13 @@ export default function SubscribePage() {
         throw new Error("Subscription failed");
       }
 
-      const alreadySubscribed = response.status === 409 || result.isNew === false;
+      const alreadySubscribed = response.status === 409 || result.status === "already_subscribed" || result.status === "subscribed";
+      setAlreadySubscribed(alreadySubscribed);
       setStatus("success");
       setMessage(
         alreadySubscribed
           ? "You are already subscribed. Watch your inbox for the next issue."
-          : "Check your inbox to confirm. We will send the latest issue as soon as you confirm."
+          : "Check your inbox now and click Confirm subscription. If it is not there in five minutes, check spam and submit the same address again."
       );
       trackFormSubmission("newsletter_subscribe_page", true, { source: "/subscribe" });
       if (!alreadySubscribed) {
@@ -69,7 +71,6 @@ export default function SubscribePage() {
           newsletter_name: "the_weekly_research_brief",
         });
       }
-      setEmail("");
     } catch {
       setStatus("error");
       setMessage("We could not start your subscription. Please try again.");
@@ -98,7 +99,19 @@ export default function SubscribePage() {
                 className="mt-8 max-w-xl border-l-4 border-[#1f4d3f] bg-white px-5 py-4 text-sm leading-6 text-[#1f4d3f]"
                 role="status"
               >
-                <span className="font-semibold">You are almost there.</span> {message}
+                <span className="font-semibold">{alreadySubscribed ? "You are subscribed." : "You are almost there."}</span> {message}
+                {!alreadySubscribed ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStatus("idle");
+                      setMessage("");
+                    }}
+                    className="mt-2 block font-semibold underline underline-offset-4"
+                  >
+                    Request a fresh confirmation link
+                  </button>
+                ) : null}
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-8 max-w-xl" noValidate={false}>
@@ -129,7 +142,7 @@ export default function SubscribePage() {
                     disabled={status === "loading"}
                     className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#1f4d3f] px-6 text-sm font-bold text-white transition hover:bg-[#123628] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {status === "loading" ? "Subscribing..." : "Subscribe"}
+                    {status === "loading" ? "Sending..." : "Send me Tuesday's brief"}
                     {status !== "loading" && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
                   </button>
                 </div>

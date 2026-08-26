@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    const [issues, summary, audiences, ctas, deliveryDashboard] = await Promise.all([
+    const [issues, legacySummary, audiences, ctas, deliveryDashboard] = await Promise.all([
       callNewsletterConvex<Array<Record<string, unknown>>>('query', 'weeklyNewsletter:listIssuesForAdmin', { limit: 30 }),
       callNewsletterConvex('query', 'weeklyNewsletter:subscriberReadinessForAdmin'),
       callNewsletterConvex('query', 'weeklyNewsletter:audienceSummaryForAdmin'),
@@ -79,6 +79,7 @@ export async function GET(request: NextRequest) {
         remainingToTarget: Math.max(0, 50 - confirmedTotal),
         pendingSinceLaunch: null,
         sources: [],
+        allSources: [],
         ...reviewProgress,
       }
     }
@@ -112,7 +113,32 @@ export async function GET(request: NextRequest) {
         recyclableForNextIssue: Boolean(delivery && !delivery.sentAt),
       }
     })
-    return NextResponse.json({ ok: true, issues: issuesWithDelivery, summary, audiences, ctas, deliveryRecords, acquisition })
+    const deliveryAudience = {
+      confirmed: Number(deliveryDashboard.audience.subscribed ?? 0),
+      pending: Number(deliveryDashboard.audience.pending ?? 0),
+      unsubscribed: Number(deliveryDashboard.audience.unsubscribed ?? 0),
+      bounced: Number(deliveryDashboard.audience.bounced ?? 0),
+      complained: Number(deliveryDashboard.audience.complained ?? 0),
+      suppressed: Number(deliveryDashboard.audience.suppressed ?? 0),
+    }
+    const warmContacts = {
+      needsConsent: Number((legacySummary as Record<string, unknown>)?.needsConsent ?? 0),
+      excluded: Number((legacySummary as Record<string, unknown>)?.excluded ?? 0),
+      testContacts: Number((legacySummary as Record<string, unknown>)?.codexTests ?? 0),
+      source: 'Behavior School contact store',
+      landingUrl: 'https://robspain.com/newsletter/?utm_source=behaviorschool_warm_contacts&utm_medium=email&utm_campaign=weekly_research_brief_permission&utm_content=one_time_invitation#subscribe',
+    }
+    return NextResponse.json({
+      ok: true,
+      issues: issuesWithDelivery,
+      summary: legacySummary,
+      audiences,
+      ctas,
+      deliveryRecords,
+      deliveryAudience,
+      warmContacts,
+      acquisition,
+    })
   } catch (error) {
     return newsletterErrorResponse(error)
   }

@@ -83,6 +83,21 @@ type Dashboard = {
     pendingNewsletter: number
   }
   audiences: Array<{ key: string; label: string; description: string; eligible: number }>
+  deliveryAudience: {
+    confirmed: number
+    pending: number
+    unsubscribed: number
+    bounced: number
+    complained: number
+    suppressed: number
+  }
+  warmContacts: {
+    needsConsent: number
+    excluded: number
+    testContacts: number
+    source: string
+    landingUrl: string
+  }
   ctas: Array<{ _id: string; label: string; kind: string; headline: string; active: boolean }>
   deliveryRecords: Array<{
     issueId: string
@@ -111,6 +126,7 @@ type Dashboard = {
     reviewIssueTarget: number
     reviewReady: boolean
     sources: Array<{ source: string; requested: number; confirmed: number; pending: number; confirmationRate: number | null }>
+    allSources: Array<{ source: string; requested: number; confirmed: number; pending: number; confirmationRate: number | null }>
   }
 }
 
@@ -126,6 +142,19 @@ type DeliveryDashboard = {
 }
 type PublishingIdentity = { site: 'robspain'; contentKey: string; contentHash: string; title: string; contentType: string; tier: 'A' }
 type PublishingGate = { approved: boolean; reason: string; record: Record<string, unknown> | null }
+
+const WARM_CONTACT_INVITATION = `Subject: Would you like The Weekly Research Brief?
+
+Hi [First name],
+
+You may know me through Behavior School, BAE SIG, or one of my school BCBA resources. I publish The Weekly Research Brief each Tuesday with two open full-text studies, clear limits, and one practical next step for school-based BCBAs.
+
+If you would like to receive it, subscribe on this page and confirm your email:
+[LANDING_URL]
+
+If not, no action is needed. You will not be added automatically.
+
+Rob Spain, BCBA, IBA`
 
 async function jsonRequest<T>(url: string, init?: RequestInit) {
   const response = await fetch(url, { ...init, cache: 'no-store' })
@@ -262,28 +291,20 @@ export default function NewsletterAdmin() {
 
   const selectedIssue = detail?.issue
   const allBufferConfigured = useMemo(() => workspaces.length === 2 && workspaces.every((workspace) => workspace.apiStatus === 'verified' && workspace.channels.every((channel) => channel.status === 'configured')), [workspaces])
-  const audienceCards = useMemo(() => {
-    const audiences = dashboard?.audiences ?? []
-    const allConfirmed = audiences.find((audience) => audience.key === 'all-confirmed')?.eligible ?? dashboard?.summary.confirmedNewsletter ?? 0
-    const namedSegmentTotal = audiences
-      .filter((audience) => audience.key !== 'all-confirmed')
-      .reduce((total, audience) => total + audience.eligible, 0)
-    const notRepresentedByNamedSegments = Math.max(0, allConfirmed - namedSegmentTotal)
-    if (!notRepresentedByNamedSegments || audiences.some((audience) => audience.key === 'unclassified-confirmed')) return audiences
-    return [
-      ...audiences,
-      {
-        key: 'unclassified-confirmed',
-        label: 'Not in named segments',
-        eligible: notRepresentedByNamedSegments,
-        description: 'Confirmed contacts included in All confirmed but not represented by a named source segment.',
-      },
-    ]
-  }, [dashboard])
   const editoriallyApproved = publishingGate?.approved === true
   const canSend = Boolean(selectedIssue && editoriallyApproved && ['approved', 'scheduled'].includes(selectedIssue.status) && selectedIssue.archiveState === 'verified')
   const selectedDeliveryIssue = deliveryDetail?.selected?.issue
   const deliveryRecipients = deliveryDetail?.audience?.subscribed ?? 0
+
+  const copyWarmInvitation = async () => {
+    if (!dashboard?.warmContacts?.landingUrl) return
+    try {
+      await navigator.clipboard.writeText(WARM_CONTACT_INVITATION.replace('[LANDING_URL]', dashboard.warmContacts.landingUrl))
+      setNotice('The consent-safe invitation and tracked landing-page link were copied.')
+    } catch {
+      setError('The invitation could not be copied. Select the draft text and copy it manually.')
+    }
+  }
 
   if (loading) {
     return <div className="min-h-screen bg-[#f5f8f6] flex items-center justify-center text-slate-600">Loading weekly research brief workspace…</div>
@@ -330,11 +351,11 @@ export default function NewsletterAdmin() {
 
         <section className="grid grid-cols-2 gap-3 lg:grid-cols-5" aria-label="Newsletter readiness">
           {[
-            ['Confirmed', dashboard?.summary.confirmedNewsletter ?? 0, 'bg-white'],
-            ['Safe to send', dashboard?.summary.safeWeeklyRecipients ?? 0, 'bg-white'],
-            ['Needs consent', dashboard?.summary.needsConsent ?? 0, 'bg-amber-50'],
-            ['Excluded', dashboard?.summary.excluded ?? 0, 'bg-white'],
-            ['Test contacts', dashboard?.summary.codexTests ?? 0, 'bg-white'],
+            ['Confirmed to receive', dashboard?.deliveryAudience.confirmed ?? 0, 'bg-white'],
+            ['Awaiting confirmation', dashboard?.deliveryAudience.pending ?? 0, 'bg-amber-50'],
+            ['Unsubscribed', dashboard?.deliveryAudience.unsubscribed ?? 0, 'bg-white'],
+            ['Delivery exclusions', (dashboard?.deliveryAudience.bounced ?? 0) + (dashboard?.deliveryAudience.complained ?? 0) + (dashboard?.deliveryAudience.suppressed ?? 0), 'bg-white'],
+            ['Remaining to 50', dashboard?.acquisition?.remainingToTarget ?? 50, 'bg-white'],
           ].map(([label, value, tone]) => <div key={String(label)} className={`${tone} rounded-xl border border-[#d6e2dc] p-4`}><p className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">{label}</p><p className="mt-2 text-3xl font-bold text-[#17352d]">{String(value)}</p></div>)}
         </section>
 
@@ -343,6 +364,30 @@ export default function NewsletterAdmin() {
           <div className="mt-4 h-3 overflow-hidden rounded-full bg-[#e5eee9]" aria-label={`${dashboard?.acquisition?.confirmedTotal ?? 0} of ${dashboard?.acquisition?.targetConfirmed ?? 50} confirmed readers`}><div className="h-full rounded-full bg-[#087f5b]" style={{ width: `${Math.min(100, ((dashboard?.acquisition?.confirmedTotal ?? 0) / (dashboard?.acquisition?.targetConfirmed || 50)) * 100)}%` }} /></div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Confirmed since launch</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.available === false ? 'Unavailable' : dashboard?.acquisition?.confirmedSinceLaunch ?? 0}</strong></div><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Awaiting confirmation</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.available === false ? 'Unavailable' : dashboard?.acquisition?.pendingSinceLaunch ?? 0}</strong></div><div className="rounded-lg border border-[#d6e2dc] p-3"><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Remaining to 50</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.remainingToTarget ?? 50}</strong></div><div className={`rounded-lg border p-3 ${dashboard?.acquisition?.reviewReady ? 'border-emerald-200 bg-emerald-50' : 'border-[#d6e2dc]'}`}><span className="text-xs font-semibold uppercase tracking-wide text-[#6b8178]">Source review window</span><strong className="mt-1 block text-2xl">{dashboard?.acquisition?.sentIssuesSinceLaunch ?? 0} of {dashboard?.acquisition?.reviewIssueTarget ?? 2}</strong><span className="mt-1 block text-xs text-[#6b8178]">{dashboard?.acquisition?.reviewReady ? 'Ready for review' : 'Waiting for two sent issues'}</span></div></div>
           <div className="mt-4 overflow-x-auto"><table className="min-w-full text-left text-sm"><thead className="border-b border-[#d6e2dc] text-xs uppercase tracking-wide text-[#6b8178]"><tr><th className="px-3 py-2">Signup source</th><th className="px-3 py-2">Requests</th><th className="px-3 py-2">Confirmed</th><th className="px-3 py-2">Pending</th><th className="px-3 py-2">Confirmation rate</th></tr></thead><tbody>{dashboard?.acquisition?.sources.map((source) => <tr key={source.source} className="border-b border-[#edf2ef]"><td className="px-3 py-3 font-medium text-[#17352d]">{source.source}</td><td className="px-3 py-3">{source.requested}</td><td className="px-3 py-3">{source.confirmed}</td><td className="px-3 py-3">{source.pending}</td><td className="px-3 py-3">{source.confirmationRate == null ? 'Not available' : `${(source.confirmationRate * 100).toFixed(0)}%`}</td></tr>)}{!dashboard?.acquisition?.sources.length && <tr><td colSpan={5} className="px-3 py-5 text-[#6b8178]">{dashboard?.acquisition?.available === false ? 'Source detail is temporarily unavailable. The overall confirmed count still comes from the delivery audience.' : 'No post-launch signup requests have been recorded yet.'}</td></tr>}</tbody></table></div>
+        </section>
+
+        <section className="rounded-xl border border-amber-200 bg-amber-50 p-5" aria-labelledby="warm-contact-heading">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h2 id="warm-contact-heading" className="flex items-center gap-2 text-lg font-bold"><Mail className="h-5 w-5 text-amber-700" /> Warm-contact permission campaign</h2>
+              <p className="mt-1 max-w-3xl text-sm leading-6 text-amber-950">{dashboard?.warmContacts.needsConsent ?? 0} contacts in the separate {dashboard?.warmContacts.source ?? 'Behavior School contact store'} do not have recorded newsletter consent. They must not be added to the delivery audience automatically.</p>
+            </div>
+            <button type="button" onClick={() => void copyWarmInvitation()} className="rounded-lg bg-[#17352d] px-3 py-2 text-sm font-bold text-white">Copy invitation and tracked link</button>
+          </div>
+          <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1.25fr]">
+            <div className="rounded-lg border border-amber-200 bg-white p-4 text-sm leading-6 text-[#536a62]">
+              <h3 className="font-bold text-[#17352d]">Safe audience rules</h3>
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                <li>Use only contacts with a documented prior relationship and a legitimate reason for one invitation.</li>
+                <li>Remove unsubscribed, bounced, complained, suppressed, district-restricted, test, and internal addresses.</li>
+                <li>Send one permission invitation. Do not send the newsletter until the person subscribes and confirms.</li>
+                <li>Review results by tracked source before sending another permission campaign.</li>
+              </ul>
+              <a href={dashboard?.warmContacts.landingUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex font-bold text-[#087f5b] underline">Open the tracked signup landing page</a>
+            </div>
+            <pre className="whitespace-pre-wrap rounded-lg border border-[#d6e2dc] bg-white p-4 font-sans text-sm leading-6 text-[#17352d]">{WARM_CONTACT_INVITATION.replace('[LANDING_URL]', dashboard?.warmContacts.landingUrl ?? '[TRACKED LANDING PAGE]')}</pre>
+          </div>
+          <p className="mt-3 text-xs leading-5 text-amber-900">This workspace prepares the invitation but does not send it. The exact eligible recipients and final copy still require review before one live send.</p>
         </section>
 
         <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="delivery-heading">
@@ -418,7 +463,14 @@ export default function NewsletterAdmin() {
           </section>
         </div>
 
-        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="audience-heading"><h2 id="audience-heading" className="flex items-center gap-2 text-lg font-bold"><Users className="h-5 w-5 text-[#087f5b]" /> Audience segments</h2><p className="mt-1 text-sm text-[#5b7068]">The default newsletter audience is All confirmed. Named segments describe source groups and do not limit that audience.</p><div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{audienceCards.map((audience) => <div key={audience.key} className="rounded-lg border border-[#d6e2dc] p-3"><div className="flex items-center justify-between gap-2"><span className="font-semibold">{audience.label}</span><strong className="text-[#087f5b]">{audience.eligible}</strong></div><p className="mt-1 text-xs leading-5 text-[#6b8178]">{audience.description}</p></div>)}</div></section>
+        <section className="rounded-xl border border-[#d6e2dc] bg-white p-5" aria-labelledby="audience-heading">
+          <h2 id="audience-heading" className="flex items-center gap-2 text-lg font-bold"><Users className="h-5 w-5 text-[#087f5b]" /> Canonical audience sources</h2>
+          <p className="mt-1 text-sm text-[#5b7068]">Every count below comes from the same confirmed RobSpain delivery database used for newsletter sends.</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {dashboard?.acquisition?.allSources.map((source) => <div key={source.source} className="rounded-lg border border-[#d6e2dc] p-3"><div className="flex items-center justify-between gap-2"><span className="break-all font-semibold">{source.source}</span><strong className="text-[#087f5b]">{source.confirmed}</strong></div><p className="mt-1 text-xs leading-5 text-[#6b8178]">{source.pending} awaiting confirmation. {source.confirmationRate == null ? 'No conversion rate yet.' : `${(source.confirmationRate * 100).toFixed(0)}% confirmed.`}</p></div>)}
+            {!dashboard?.acquisition?.allSources.length && <p className="text-sm text-[#6b8178]">Canonical source detail is unavailable.</p>}
+          </div>
+        </section>
       </div>
     </main>
   )

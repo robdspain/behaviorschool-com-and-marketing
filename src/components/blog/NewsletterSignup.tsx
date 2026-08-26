@@ -8,6 +8,7 @@ export function BlogNewsletterSignup() {
   const pathname = usePathname();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [alreadySubscribed, setAlreadySubscribed] = useState(false);
   const { trackEmailSignup, trackFormSubmission } = useAnalytics();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +25,8 @@ export function BlogNewsletterSignup() {
       const result = await response.json().catch(() => ({}));
 
       if (response.ok || response.status === 409) {
-        const alreadySubscribed = response.status === 409 || result.isNew === false;
+        const alreadySubscribed = response.status === 409 || result.status === 'already_subscribed' || result.status === 'subscribed';
+        setAlreadySubscribed(alreadySubscribed);
         setStatus('success');
         trackFormSubmission('weekly_research_brief_blog', true, { source, page: pathname });
         if (!alreadySubscribed) {
@@ -34,7 +36,6 @@ export function BlogNewsletterSignup() {
             newsletter_name: 'the_weekly_research_brief',
           });
         }
-        setEmail('');
       } else {
         setStatus('error');
       }
@@ -53,11 +54,22 @@ export function BlogNewsletterSignup() {
       <div id="newsletter" className="scroll-mt-24 bg-[#1E3A34] rounded-lg p-8 my-8">
         <div className="max-w-2xl mx-auto text-center">
           <h3 className="text-2xl font-bold text-[#FAF3E0] mb-2">
-            You&apos;re in!
+            {alreadySubscribed ? 'You are already subscribed.' : 'One more step'}
           </h3>
           <p className="text-[#FAF3E0]/80">
-            Check your inbox every Tuesday for The Weekly Research Brief.
+            {alreadySubscribed
+              ? 'Watch your inbox for the next Weekly Research Brief.'
+              : 'Check your inbox now and click Confirm subscription. If it is not there in five minutes, check spam and submit the same address again.'}
           </p>
+          {!alreadySubscribed ? (
+            <button
+              type="button"
+              onClick={() => setStatus('idle')}
+              className="mt-3 text-sm font-semibold text-[#E3B23C] underline underline-offset-4"
+            >
+              Request a fresh confirmation link
+            </button>
+          ) : null}
         </div>
       </div>
     );
@@ -88,7 +100,7 @@ export function BlogNewsletterSignup() {
             disabled={status === 'loading'}
             className="px-6 py-3 bg-[#E3B23C] text-[#1E3A34] font-semibold rounded hover:bg-[#E3B23C]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
           >
-            {status === 'loading' ? 'Subscribing...' : 'Get the research brief'}
+            {status === 'loading' ? 'Sending...' : "Send me Tuesday's brief"}
           </button>
         </form>
 

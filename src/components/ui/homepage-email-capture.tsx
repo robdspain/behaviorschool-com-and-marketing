@@ -8,6 +8,7 @@ export function HomepageEmailCapture() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const [alreadySubscribed, setAlreadySubscribed] = useState(false);
   const { trackEmailSignup, trackFormSubmission } = useAnalytics();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,11 +27,12 @@ export function HomepageEmailCapture() {
       const result = await response.json().catch(() => ({}));
 
       if (response.ok || response.status === 409) {
-        const alreadySubscribed = response.status === 409 || result.isNew === false;
+        const alreadySubscribed = response.status === 409 || result.status === 'already_subscribed' || result.status === 'subscribed';
+        setAlreadySubscribed(alreadySubscribed);
         setStatus('success');
         setMessage(alreadySubscribed
           ? "You're already subscribed! Check your inbox." 
-          : 'You are in. Watch for the next Weekly Research Brief.');
+          : 'Check your inbox now and click Confirm subscription. If it is not there in five minutes, check spam and submit the same address again.');
         trackFormSubmission('homepage_email_capture', true, { source: 'homepage' });
         if (!alreadySubscribed) {
           trackEmailSignup('newsletter', undefined, {
@@ -38,7 +40,6 @@ export function HomepageEmailCapture() {
             newsletter_name: 'the_weekly_research_brief',
           });
         }
-        setEmail('');
       } else {
         throw new Error('Subscription failed');
       }
@@ -76,9 +77,23 @@ export function HomepageEmailCapture() {
             </p>
 
             {status === 'success' ? (
-              <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl px-6 py-4 inline-flex items-center gap-3 max-w-md mx-auto">
+              <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl px-6 py-4 max-w-md mx-auto">
+                <div className="flex items-center gap-3">
                 <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0" />
                 <p className="text-emerald-800 font-medium">{message}</p>
+                </div>
+                {!alreadySubscribed ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStatus('idle');
+                      setMessage('');
+                    }}
+                    className="mt-3 text-sm font-semibold text-emerald-800 underline underline-offset-4"
+                  >
+                    Request a fresh confirmation link
+                  </button>
+                ) : null}
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="max-w-md mx-auto">
@@ -100,7 +115,7 @@ export function HomepageEmailCapture() {
                     disabled={status === 'loading'}
                     className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
                   >
-                    {status === 'loading' ? 'Subscribing...' : 'Join Free'}
+                    {status === 'loading' ? 'Sending...' : "Send me Tuesday's brief"}
                   </button>
                 </div>
 

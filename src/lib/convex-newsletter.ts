@@ -52,9 +52,13 @@ export async function subscribeToNewsletter(input: ConvexNewsletterInput) {
     success: true,
     isNew: data?.value?.isNew ?? true,
     status: data?.value?.status || 'pending',
+    confirmationSent: data?.value?.shouldSend === true,
+    retryAfterSeconds: Number(data?.value?.retryAfterSeconds ?? 0),
     message:
       data?.value?.status === 'subscribed'
         ? 'You are already subscribed.'
+        : data?.value?.shouldSend === false
+          ? `A confirmation email was sent recently. Check your inbox and spam folder${data?.value?.retryAfterSeconds ? `, or request another in about ${Math.max(1, Math.ceil(Number(data.value.retryAfterSeconds) / 60))} minutes` : ''}.`
         : 'Check your inbox to confirm your subscription. We will send the latest issue as soon as you confirm.',
   };
 }

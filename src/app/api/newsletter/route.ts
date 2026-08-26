@@ -19,6 +19,8 @@ export async function POST(request: NextRequest) {
         message: result.message,
         isNew: result.isNew ?? true,
         status: result.status,
+        confirmationSent: result.confirmationSent,
+        retryAfterSeconds: result.retryAfterSeconds,
       },
       { status: 200 }
     );

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 import { subscribeToNewsletter } from '../../src/lib/convex-newsletter'
 import { newsletterSourceReviewProgress, summarizeNewsletterAcquisition } from '../../src/lib/newsletter-acquisition'
@@ -65,8 +66,39 @@ test('source summary returns aggregate confirmed conversions without contact det
     sources: [
       { source: 'behaviorschool-blog:/blog/fba', requested: 2, confirmed: 1, pending: 1, confirmationRate: 0.5 },
     ],
+    allSources: [
+      { source: 'behaviorschool-blog:/blog/fba', requested: 2, confirmed: 1, pending: 1, confirmationRate: 0.5 },
+      { source: 'verified-import', requested: 1, confirmed: 1, pending: 0, confirmationRate: 1 },
+    ],
   })
   assert.doesNotMatch(JSON.stringify(summary), /@/)
+})
+
+test('admin reporting keeps delivery counts on the canonical RobSpain audience', async () => {
+  const controlRoute = await readFile('src/app/api/admin/newsletter/control/route.ts', 'utf8')
+  const marketingRoute = await readFile('src/app/api/admin/transformation-marketing/overview/route.ts', 'utf8')
+  const dashboard = await readFile('src/app/admin/newsletter/page.tsx', 'utf8')
+
+  assert.match(controlRoute, /deliveryAudience/)
+  assert.match(controlRoute, /deliveryDashboard\.audience\.subscribed/)
+  assert.match(marketingRoute, /Canonical RobSpain\.com newsletter audience/)
+  assert.doesNotMatch(marketingRoute, /weeklyNewsletter:subscriberReadinessForAdmin/)
+  assert.match(dashboard, /Every count below comes from the same confirmed RobSpain delivery database/)
+})
+
+test('signup surfaces expose confirmation delivery and recovery states', async () => {
+  const primaryRoute = await readFile('src/app/api/newsletter/route.ts', 'utf8')
+  const embeddedRoute = await readFile('src/app/api/newsletter/subscribe/route.ts', 'utf8')
+  const popup = await readFile('src/components/ui/email-signup-popup.tsx', 'utf8')
+  const embeddedSignup = await readFile('src/components/NewsletterSignup.tsx', 'utf8')
+
+  for (const route of [primaryRoute, embeddedRoute]) {
+    assert.match(route, /confirmationSent/)
+    assert.match(route, /retryAfterSeconds/)
+  }
+  assert.match(popup, /disabled=\{isSubmitting\}/)
+  assert.match(popup, /We could not start your subscription/)
+  assert.match(embeddedSignup, /Request a fresh confirmation link/)
 })
 
 test('source review becomes ready only after two post-launch sends', () => {

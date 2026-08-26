@@ -28,7 +28,7 @@ export function EmailSignupPopup({
   description,
   pageSource,
   buttonText = "Subscribe",
-  successMessage = "Thanks for subscribing!",
+  successMessage = "Check your inbox and click Confirm subscription.",
   className = "",
   showNameField = false,
   isDownloadFlow = false,
@@ -37,6 +37,8 @@ export function EmailSignupPopup({
   unlockOnError = false
 }: EmailSignupPopupProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionFailed, setSubmissionFailed] = useState(false);
   const [localSuccessMessage, setLocalSuccessMessage] = useState(successMessage);
   const { trackEmailSignup, trackFormSubmission, trackButtonClick } = useAnalytics();
 
@@ -45,6 +47,8 @@ export function EmailSignupPopup({
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const name = formData.get("name") as string;
+    setIsSubmitting(true);
+    setSubmissionFailed(false);
     
     try {
       // Submit to our newsletter API
@@ -60,7 +64,7 @@ export function EmailSignupPopup({
       const result = await response.json().catch(() => ({}));
 
       if (response.ok || response.status === 409) {
-        const alreadySubscribed = response.status === 409 || result.isNew === false;
+        const alreadySubscribed = response.status === 409 || result.status === 'already_subscribed' || result.status === 'subscribed';
         console.log('EmailSignupPopup: API response OK');
         // Track successful email signup
         trackFormSubmission('email_signup_popup', true, {
@@ -78,7 +82,7 @@ export function EmailSignupPopup({
         
         // Customize success message for existing subscribers
         if (alreadySubscribed) {
-          setLocalSuccessMessage("You're already subscribed — taking you to the generator...");
+          setLocalSuccessMessage("You are already subscribed. Taking you to the generator...");
         } else {
           setLocalSuccessMessage(successMessage);
         }
@@ -110,12 +114,16 @@ export function EmailSignupPopup({
         // Graceful unlock path if configured
         if (unlockOnError && onSuccess) {
           console.warn('EmailSignupPopup: unlockOnError enabled — proceeding with onSuccess');
+          setSubmissionFailed(true);
+          setLocalSuccessMessage("We could not start the newsletter subscription. Your download is still available.");
           onSuccess();
           setTimeout(() => {
             onClose();
             setIsSubmitted(false);
           }, 500);
         } else {
+          setSubmissionFailed(true);
+          setLocalSuccessMessage("We could not start your subscription. Please try again.");
           setIsSubmitted(true);
           setTimeout(() => {
             onClose();
@@ -123,6 +131,7 @@ export function EmailSignupPopup({
           }, 3000);
         }
       }
+      setIsSubmitting(false);
     } catch (error) {
       console.error("Newsletter subscription error:", error);
       trackFormSubmission('email_signup_popup', false, {
@@ -132,18 +141,23 @@ export function EmailSignupPopup({
       // Graceful unlock on network errors if configured
       if (unlockOnError && onSuccess) {
         console.warn('EmailSignupPopup: unlockOnError on network error — proceeding with onSuccess');
+        setSubmissionFailed(true);
+        setLocalSuccessMessage("We could not start the newsletter subscription. Your download is still available.");
         onSuccess();
         setTimeout(() => {
           onClose();
           setIsSubmitted(false);
         }, 500);
       } else {
+        setSubmissionFailed(true);
+        setLocalSuccessMessage("We could not start your subscription. Please try again.");
         setIsSubmitted(true);
         setTimeout(() => {
           onClose();
           setIsSubmitted(false);
         }, 3000);
       }
+      setIsSubmitting(false);
     }
   };
 
@@ -224,23 +238,24 @@ export function EmailSignupPopup({
 
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     onClick={() => trackButtonClick('email_signup_submit', 'popup_form', {
                       pageSource,
                       buttonText,
                       isDownloadFlow
                     })}
-                    className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-700 to-orange-600 hover:from-orange-800 hover:to-orange-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                    className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-700 to-orange-600 hover:from-orange-800 hover:to-orange-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <Bell className="w-4 h-4 mr-2" />
-                    {buttonText}
+                    {isSubmitting ? "Sending..." : buttonText}
                   </button>
                 </form>
               ) : (
                 <div className="space-y-4">
-                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                  <div className={`${submissionFailed ? "bg-red-50 border-red-200" : "bg-emerald-50 border-emerald-200"} border rounded-lg p-4`}>
                     <div className="flex items-center justify-center gap-2 mb-2">
-                      <Check className="w-5 h-5 text-emerald-600" />
-                      <p className="text-emerald-800 font-medium">{localSuccessMessage}</p>
+                      <Check className={`w-5 h-5 ${submissionFailed ? "text-red-600" : "text-emerald-600"}`} />
+                      <p className={`${submissionFailed ? "text-red-800" : "text-emerald-800"} font-medium`}>{localSuccessMessage}</p>
                     </div>
                     {isDownloadFlow && (
                       <p className="text-emerald-700 text-sm text-center">

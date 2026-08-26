@@ -8,6 +8,36 @@ export type NewsletterSubscriberRecord = {
   updatedAt: number
 }
 
+function summarizeSources(
+  confirmedContacts: NewsletterSubscriberRecord[],
+  pendingContacts: NewsletterSubscriberRecord[],
+) {
+  const sources = new Map<string, { requested: number; confirmed: number; pending: number }>()
+
+  for (const contact of confirmedContacts) {
+    const source = contact.source?.trim() || 'unknown'
+    const current = sources.get(source) ?? { requested: 0, confirmed: 0, pending: 0 }
+    current.requested += 1
+    current.confirmed += 1
+    sources.set(source, current)
+  }
+  for (const contact of pendingContacts) {
+    const source = contact.source?.trim() || 'unknown'
+    const current = sources.get(source) ?? { requested: 0, confirmed: 0, pending: 0 }
+    current.requested += 1
+    current.pending += 1
+    sources.set(source, current)
+  }
+
+  return [...sources.entries()]
+    .map(([source, counts]) => ({
+      source,
+      ...counts,
+      confirmationRate: counts.requested ? counts.confirmed / counts.requested : null,
+    }))
+    .sort((left, right) => right.confirmed - left.confirmed || right.requested - left.requested || left.source.localeCompare(right.source))
+}
+
 export function newsletterSourceReviewProgress(
   deliveryRecords: Array<{ sentAt: number | null }>,
   launchAt = NEWSLETTER_GROWTH_LAUNCH_AT,
@@ -30,22 +60,6 @@ export function summarizeNewsletterAcquisition(
 ) {
   const confirmedSinceLaunch = confirmedContacts.filter((contact) => (contact.confirmedAt ?? 0) >= launchAt)
   const pendingSinceLaunch = pendingContacts.filter((contact) => contact.updatedAt >= launchAt)
-  const sources = new Map<string, { requested: number; confirmed: number; pending: number }>()
-
-  for (const contact of confirmedSinceLaunch) {
-    const source = contact.source?.trim() || 'unknown'
-    const current = sources.get(source) ?? { requested: 0, confirmed: 0, pending: 0 }
-    current.requested += 1
-    current.confirmed += 1
-    sources.set(source, current)
-  }
-  for (const contact of pendingSinceLaunch) {
-    const source = contact.source?.trim() || 'unknown'
-    const current = sources.get(source) ?? { requested: 0, confirmed: 0, pending: 0 }
-    current.requested += 1
-    current.pending += 1
-    sources.set(source, current)
-  }
 
   return {
     available: true as const,
@@ -55,12 +69,7 @@ export function summarizeNewsletterAcquisition(
     confirmedSinceLaunch: confirmedSinceLaunch.length,
     remainingToTarget: Math.max(0, targetConfirmed - confirmedTotal),
     pendingSinceLaunch: pendingSinceLaunch.length,
-    sources: [...sources.entries()]
-      .map(([source, counts]) => ({
-        source,
-        ...counts,
-        confirmationRate: counts.requested ? counts.confirmed / counts.requested : null,
-      }))
-      .sort((left, right) => right.confirmed - left.confirmed || right.requested - left.requested || left.source.localeCompare(right.source)),
+    sources: summarizeSources(confirmedSinceLaunch, pendingSinceLaunch),
+    allSources: summarizeSources(confirmedContacts, pendingContacts),
   }
 }
