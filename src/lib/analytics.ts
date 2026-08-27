@@ -3,6 +3,8 @@
  * Centralized tracking for all conversion events
  */
 
+import { GA4_EVENTS } from './ga4-config';
+
 // Extend the Window interface to include gtag
 declare global {
   interface Window {
@@ -43,6 +45,33 @@ export interface EcommerceEvent extends ConversionEvent {
   }>;
 }
 
+const LEAD_TYPE_TO_GA4_EVENT: Record<LeadEvent['lead_type'], string> = {
+  email_signup: GA4_EVENTS.EMAIL_SIGNUP,
+  download: GA4_EVENTS.DOWNLOAD,
+  tool_usage: GA4_EVENTS.TOOL_USAGE,
+  course_inquiry: GA4_EVENTS.COURSE_INQUIRY,
+  study_app_signup: GA4_EVENTS.STUDY_APP_SIGNUP,
+};
+
+const GA4_PII_PARAM_KEYS = new Set(['user_email', 'email', 'userEmail']);
+
+/** Strip emails and other PII before anything is sent to GA4 / GTM. */
+const omitPiiParams = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params?: Record<string, any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Record<string, any> | undefined => {
+  if (!params) return undefined;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cleaned: Record<string, any> = {};
+  for (const [key, value] of Object.entries(params)) {
+    if (GA4_PII_PARAM_KEYS.has(key)) continue;
+    cleaned[key] = value;
+  }
+  return cleaned;
+};
+
 /**
  * Track a conversion event
  */
@@ -52,13 +81,15 @@ export const trackConversion = (event: ConversionEvent): void => {
     return;
   }
 
+  const safeParams = omitPiiParams(event.custom_parameters);
+
   try {
     window.gtag('event', event.event_name, {
       event_category: event.event_category,
       event_label: event.event_label,
       value: event.value,
       currency: event.currency,
-      ...event.custom_parameters,
+      ...safeParams,
     });
 
     // Also push to dataLayer for Google Tag Manager
@@ -69,11 +100,11 @@ export const trackConversion = (event: ConversionEvent): void => {
         event_label: event.event_label,
         value: event.value,
         currency: event.currency,
-        ...event.custom_parameters,
+        ...safeParams,
       });
     }
 
-    console.log('Conversion tracked:', event);
+    console.log('Conversion tracked:', event.event_name);
   } catch (error) {
     console.error('Error tracking conversion:', error);
   }
@@ -109,21 +140,22 @@ const saveEventToDatabase = async (event: {
  * Track lead generation events
  */
 export const trackLead = (event: LeadEvent): void => {
+  const event_name = LEAD_TYPE_TO_GA4_EVENT[event.lead_type] ?? event.event_name;
+
   trackConversion({
-    event_name: 'generate_lead',
+    event_name,
     event_category: 'lead_generation',
     event_label: event.lead_type,
     value: getLeadValue(event.lead_type),
     custom_parameters: {
       lead_type: event.lead_type,
       source_page: event.source_page,
-      user_email: event.user_email,
       resource_name: event.resource_name,
       timestamp: new Date().toISOString(),
     },
   });
 
-  // Also save to database
+  // Keep email in the first-party database only
   saveEventToDatabase({
     event_type: event.lead_type,
     event_name: event.event_name,
@@ -187,7 +219,7 @@ export const trackToolUsage = (
   additional_data?: Record<string, any>
 ): void => {
   trackConversion({
-    event_name: 'tool_usage',
+    event_name: GA4_EVENTS.TOOL_USAGE,
     event_category: 'engagement',
     event_label: `${tool_name}_${action}`,
     custom_parameters: {
@@ -221,7 +253,7 @@ export const trackDownload = (
   user_email?: string
 ): void => {
   trackLead({
-    event_name: 'file_download',
+    event_name: GA4_EVENTS.DOWNLOAD,
     event_category: 'lead_generation',
     lead_type: 'download',
     source_page,
@@ -245,7 +277,7 @@ export const trackEmailSignup = (
   additional_data?: Record<string, any>
 ): void => {
   trackLead({
-    event_name: 'sign_up',
+    event_name: GA4_EVENTS.EMAIL_SIGNUP,
     event_category: 'lead_generation',
     lead_type: 'email_signup',
     source_page,
@@ -267,7 +299,7 @@ export const trackCourseInquiry = (
   user_email?: string
 ): void => {
   trackLead({
-    event_name: 'course_inquiry',
+    event_name: GA4_EVENTS.COURSE_INQUIRY,
     event_category: 'lead_generation',
     lead_type: 'course_inquiry',
     source_page,
@@ -288,7 +320,7 @@ export const trackStudyAppSignup = (
   plan_type?: string
 ): void => {
   trackLead({
-    event_name: 'study_app_signup',
+    event_name: GA4_EVENTS.STUDY_APP_SIGNUP,
     event_category: 'lead_generation',
     lead_type: 'study_app_signup',
     source_page,
@@ -348,7 +380,7 @@ export const trackButtonClick = (
   additional_data?: Record<string, any>
 ): void => {
   trackConversion({
-    event_name: 'button_click',
+    event_name: GA4_EVENTS.BUTTON_CLICK,
     event_category: 'engagement',
     event_label: button_name,
     custom_parameters: {
@@ -365,7 +397,7 @@ export const trackButtonClick = (
  */
 export const trackScrollDepth = (depth: number, source_page: string): void => {
   trackConversion({
-    event_name: 'scroll_depth',
+    event_name: GA4_EVENTS.SCROLL_DEPTH,
     event_category: 'engagement',
     event_label: `${depth}%`,
     custom_parameters: {
@@ -380,7 +412,7 @@ export const trackScrollDepth = (depth: number, source_page: string): void => {
  */
 export const trackTimeOnPage = (time_seconds: number, source_page: string): void => {
   trackConversion({
-    event_name: 'time_on_page',
+    event_name: GA4_EVENTS.TIME_ON_PAGE,
     event_category: 'engagement',
     event_label: `${Math.round(time_seconds)}s`,
     custom_parameters: {
