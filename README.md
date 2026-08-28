@@ -2,6 +2,10 @@
 
 Next.js marketing website for BehaviorSchool, featuring video library, blog, and course information.
 
+## Business strategy context
+
+For the current money-making plan, Rob's time priorities, funnel sequence, and agent operating guidance, read [BUSINESS_PLAN_AND_TIME_PRIORITIES.md](./BUSINESS_PLAN_AND_TIME_PRIORITIES.md) before proposing marketing work.
+
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
