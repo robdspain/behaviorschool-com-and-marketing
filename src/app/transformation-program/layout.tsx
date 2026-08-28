@@ -3,11 +3,11 @@ import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 export const metadata: Metadata = {
   title: 'School BCBA Transformation Program | Behavior School',
-  description: 'A six-week applied cohort for school BCBAs focused on assessment judgment, school-adapted functional analysis, ACT-informed tools, and systems leadership.',
+  description: 'A six-week live cohort for certified school BCBAs in K-12 school or district settings. Build assessment judgment, school-adapted functional analysis, ACT-informed tools, and systems leadership.',
   alternates: { canonical: '/transformation-program' },
   openGraph: {
     title: 'School BCBA Transformation Program',
-    description: 'Move from crisis responder to systems leader through applied school-based assessment, functional analysis, intervention, and implementation practice.',
+    description: 'A six-week live cohort for certified school BCBAs in K-12 settings. Build assessment judgment, functional analysis, intervention alignment, and implementation systems.',
     url: '/transformation-program',
     type: 'website',
     siteName: 'Behavior School',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'School BCBA Transformation Program',
-    description: 'A six-week applied cohort focused on assessment judgment, functional analysis, ACT-informed tools, and systems leadership.',
+    description: 'A six-week live cohort for certified school BCBAs in K-12 school or district settings.',
     images: ['/optimized/Course/course-hero.webp'],
   },
 };
@@ -27,7 +27,7 @@ export default function TransformationProgramLayout({ children }: { children: Re
     '@context': 'https://schema.org',
     '@type': 'Course',
     name: 'School BCBA Transformation Program',
-    description: 'A six-week applied cohort for certified school BCBAs covering assessment decisions, school-adapted functional analysis, ACT-informed assessment, intervention alignment, and team implementation.',
+    description: 'A six-week live cohort for certified school BCBAs covering assessment decisions, school-adapted functional analysis, ACT-informed assessment, intervention alignment, and team implementation in K-12 settings.',
     provider: { '@type': 'EducationalOrganization', name: 'Behavior School', url: siteUrl },
     instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
     courseMode: 'online',
@@ -35,7 +35,7 @@ export default function TransformationProgramLayout({ children }: { children: Re
     coursePrerequisites: 'BCBA certification',
     audience: { '@type': 'EducationalAudience', audienceType: 'Certified BCBAs working in K-12 schools or districts' },
     teaches: [
-      'School-based assessment decisions',
+      'School assessment decisions',
       'School-adapted functional analysis',
       'ACT-informed functional assessment',
       'Evidence-to-intervention alignment',

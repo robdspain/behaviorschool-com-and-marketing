@@ -46,12 +46,34 @@ const rules = [
   ['stale cohort date or price', /\b(April\s+9|May\s+14|April\s+2026|maximum\s+20|\$2,497|\$833)\b/i],
 ];
 
+const transformationProgramFiles = files.filter((file) =>
+  /transformation-program|ProgramApplication/.test(file)
+);
+
+const transformationRules = [
+  ['clinic or contractor audience leak', /\b(clinic\s+bcbas?|independent\s+contractors?|school-based\s+practitioners?)\b/i],
+  ['school-based BCBA phrasing', /\bschool-based\s+bcbas?\b/i],
+  ['DBA program branding', /\bDBA\b/],
+  ['stale September cohort date', /\bSeptember\s+(17|24)\b/i],
+];
+
 const violations = [];
 for (const file of files) {
   if (!fs.existsSync(file)) continue;
   const lines = fs.readFileSync(file, 'utf8').split('\n');
   for (const [label, pattern] of rules) {
     if (label === 'stale cohort date or price' && !/transformation-program|ProgramApplication/.test(file)) continue;
+    lines.forEach((line, index) => {
+      if (pattern.test(line)) violations.push({ file, line: index + 1, label, text: line.trim() });
+      pattern.lastIndex = 0;
+    });
+  }
+}
+
+for (const file of transformationProgramFiles) {
+  if (!fs.existsSync(file)) continue;
+  const lines = fs.readFileSync(file, 'utf8').split('\n');
+  for (const [label, pattern] of transformationRules) {
     lines.forEach((line, index) => {
       if (pattern.test(line)) violations.push({ file, line: index + 1, label, text: line.trim() });
       pattern.lastIndex = 0;
