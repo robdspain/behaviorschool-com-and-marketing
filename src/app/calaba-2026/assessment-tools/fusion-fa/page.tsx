@@ -992,13 +992,13 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
                 <Brain className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-2xl font-bold text-white mb-2">Fusion Hierarchy Assessment</h1>
-              <p className="text-slate-400">Sign in to access this professional assessment tool</p>
+              <p className="text-slate-400">Invite-only access required for this assessment tool preview</p>
             </div>
             
             <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 mb-6">
               <p className="text-cyan-300 text-sm">
-                <strong>Free with Behavior School Pro</strong><br />
-                This tool is part of the free tier. Sign in with Google to continue.
+                <strong>BehaviorSchool Pro is invite only</strong><br />
+                Public account creation is not available. Sign in only if you already have invite-only access.
               </p>
             </div>
             
@@ -2271,7 +2271,7 @@ Fusion Hierarchy Assessment Tool | CalABA 2026 | Behavior School Pro
       {/* Footer */}
       <footer className="border-t border-slate-800 py-6 text-center text-slate-500 text-sm">
         <p>CalABA 2026 Symposium — Fusion Hierarchy Assessment</p>
-        <p className="mt-1">Behavior School Pro • Free Tier</p>
+        <p className="mt-1">BehaviorSchool Pro • Invite only</p>
       </footer>
     </div>
   );

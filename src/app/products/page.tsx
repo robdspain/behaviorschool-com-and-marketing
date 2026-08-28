@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { ProductsSuiteHero } from "@/components/products/ProductsSuiteHero";
 import {
   ArrowDown,
   ArrowRight,
@@ -18,7 +19,7 @@ import {
 export const metadata: Metadata = {
   title: "The BehaviorSchool Suite | School-Based Behavior Practice",
   description:
-    "Explore free school-practice tools, Behavior Study Tools for BCBA exam prep, professional development, and upcoming products from BehaviorSchool.",
+    "Explore free school-practice tools, Behavior Study Tools for BCBA exam prep, professional development, and invite-only workspaces from BehaviorSchool.",
 };
 
 const availableProducts = [
@@ -104,14 +105,14 @@ const studyToolHighlights = [
   },
 ] as const;
 
-const upcomingProducts = [
+const inviteOnlyProducts = [
   {
     name: "BehaviorSchool Pro",
     stage: "Plan",
     description:
-      "A focused workspace for school-based FBA and BIP drafting, IEP goals, and student plan exports.",
-    href: "https://plan.behaviorschool.com",
-    cta: "View the preview",
+      "An invite-only workspace in development for school FBA and BIP drafting, IEP goals, and student plan exports. Public account creation is not available.",
+    href: "/pro",
+    cta: "View invite-only access",
     icon: ClipboardCheck,
   },
   {
@@ -160,53 +161,21 @@ export default function ProductsPage() {
             </a>
           </div>
 
-          <div className="relative hidden min-h-[470px] lg:block" aria-label="BehaviorSchool product previews">
-            <div className="absolute left-[3%] top-8 w-[59%] overflow-hidden border border-white/20 bg-[#0d2b23] p-3 shadow-[0_30px_80px_rgba(0,0,0,0.28)]">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-white/20 bg-black">
-                <Image
-                  src="/BehaviorStudyTools/Hero-BST-Home.webp"
-                  alt="Behavior Study Tools browser experience shown on a laptop"
-                  width={1024}
-                  height={1024}
-                  priority
-                  className="h-full w-full origin-center scale-[1.55] object-cover object-[32%_center]"
-                />
-                <span className="absolute bottom-3 left-3 bg-[#0d2b23]/90 px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/80">
-                  Browser experience
-                </span>
-              </div>
-              <div className="mx-auto h-2 w-3/5 rounded-b-full bg-white/35" />
-            </div>
-            <div className="absolute bottom-0 right-0 w-[62%] overflow-hidden border border-white/20 bg-white shadow-[0_30px_80px_rgba(0,0,0,0.34)]">
-              <div className="flex h-8 items-center justify-between border-b border-black/10 bg-[#f4f2ec] px-3">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#173f33]">
-                  Free school-practice tools
-                </span>
-              </div>
-              <Image
-                src="/product-suite/iep-goal-writer-live.jpg"
-                alt="Current BehaviorSchool Goal Writing System preview"
-                width={1280}
-                height={720}
-                priority
-                className="aspect-video w-full origin-bottom scale-[1.4] object-cover object-top"
-              />
-            </div>
-          </div>
+          <ProductsSuiteHero />
         </div>
       </section>
 
       <section className="border-b border-[#173f33]/15 bg-white">
         <div className="mx-auto grid max-w-7xl gap-6 px-5 py-8 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center lg:px-10">
           <p className="max-w-2xl text-base leading-7 text-[#51645d]">
-            Start with the product that fits today. Upcoming products are labeled clearly so you know what is usable now and what is still being built.
+            Start with the product that fits today. Invite-only workspaces are labeled clearly so you know what is open now and what requires an invitation.
           </p>
           <div className="flex flex-wrap gap-5 text-xs font-semibold uppercase tracking-[0.16em]">
             <span className="inline-flex items-center gap-2 text-[#1f6b50]">
               <span className="h-2 w-2 rounded-full bg-[#1f8a61]" /> Available now
             </span>
-            <span className="inline-flex items-center gap-2 text-[#8a6820]">
-              <span className="h-2 w-2 rounded-full bg-[#d5a82c]" /> Coming soon
+            <span className="inline-flex items-center gap-2 text-[#6b7280]">
+              <span className="h-2 w-2 rounded-full bg-[#94a3b8]" /> Invite only
             </span>
           </div>
         </div>
@@ -364,24 +333,24 @@ export default function ProductsPage() {
         })}
       </section>
 
-      <section id="coming-soon" className="bg-[#102f27] py-20 text-white sm:py-28" aria-labelledby="coming-soon-heading">
+      <section id="invite-only" className="bg-[#102f27] py-20 text-white sm:py-28" aria-labelledby="invite-only-heading">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="grid gap-8 border-b border-white/15 pb-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#f3c84b]">
                 Product roadmap
               </p>
-              <h2 id="coming-soon-heading" className="mt-4 text-4xl font-semibold sm:text-5xl">
-                Coming soon
+              <h2 id="invite-only-heading" className="mt-4 text-4xl font-semibold sm:text-5xl">
+                Invite only
               </h2>
             </div>
             <p className="max-w-2xl text-lg leading-8 text-white/68 lg:justify-self-end">
-              These products belong to the same suite, but they are not currently available for active use. Each link leads to an honest preview or launch-update page.
+              These workspaces belong to the same suite, but they are not open for public account creation. Each link leads to an honest preview and request-access page.
             </p>
           </div>
 
           <div className="divide-y divide-white/15">
-            {upcomingProducts.map((product, index) => {
+            {inviteOnlyProducts.map((product, index) => {
               const Icon = product.icon;
               const content = (
                 <>
@@ -391,7 +360,7 @@ export default function ProductsPage() {
                   </div>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f3c84b]">
-                      {product.stage} · Coming soon
+                      {product.stage} · Invite only
                     </p>
                     <h3 className="mt-3 text-2xl font-semibold sm:text-3xl">{product.name}</h3>
                     <p className="mt-3 max-w-2xl leading-7 text-white/66">{product.description}</p>

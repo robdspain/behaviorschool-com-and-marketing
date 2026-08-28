@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 
 interface ProTrialCTAProps {
   source?: string;
@@ -9,19 +9,19 @@ interface ProTrialCTAProps {
   className?: string;
 }
 
-export function ProTrialCTA({ source = "tool-page", variant = "banner", className = "" }: ProTrialCTAProps) {
-  const baseUrl = `https://plan.behaviorschool.com?source=${encodeURIComponent(source)}`;
+export function ProTrialCTA({ variant = "banner", className = "" }: ProTrialCTAProps) {
+  const accessHref = "/pro";
 
   if (variant === "inline") {
     return (
       <div className={`flex items-center gap-3 text-sm ${className}`}>
-        <Sparkles className="w-4 h-4 text-amber-500" />
-        <span className="text-slate-600">Want unlimited access?</span>
-        <Link 
-          href={baseUrl}
-          className="text-emerald-600 hover:text-emerald-700 font-medium inline-flex items-center gap-1"
+        <Lock className="w-4 h-4 text-[#1f4d3f]" />
+        <span className="text-[#59645f]">Need the full FBA/BIP workspace?</span>
+        <Link
+          href={accessHref}
+          className="text-[#1f4d3f] hover:text-[#123628] font-medium inline-flex items-center gap-1"
         >
-          Try Pro free for 14 days <ArrowRight className="w-3 h-3" />
+          Request invite-only access <ArrowRight className="w-3 h-3" />
         </Link>
       </div>
     );
@@ -29,54 +29,46 @@ export function ProTrialCTA({ source = "tool-page", variant = "banner", classNam
 
   if (variant === "card") {
     return (
-      <div className={`bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 text-white ${className}`}>
+      <div className={`rounded-2xl border border-[#1f4d3f]/15 bg-[#123628] p-6 text-white ${className}`}>
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-5 h-5 text-amber-400" />
-          <span className="text-amber-400 font-semibold text-sm">Behavior School Pro</span>
+          <Lock className="w-5 h-5 text-[#e4b63d]" />
+          <span className="text-[#e4b63d] font-semibold text-sm">BehaviorSchool Pro</span>
         </div>
-        <h3 className="text-xl font-bold mb-2">Unlock All Tools</h3>
-        <p className="text-slate-300 text-sm mb-4">
-          Get unlimited access to FBA-to-BIP, IEP Goal Writer, Goal Bank, ACT-informed FBA → BIP, and more.
+        <h3 className="text-xl font-bold mb-2">Invite-only workspace</h3>
+        <p className="text-white/75 text-sm mb-4">
+          BehaviorSchool Pro is in development for school FBA/BIP drafting, IEP goals, and student
+          plan exports. Public account creation is not available.
         </p>
-        <ul className="space-y-2 mb-5">
-          {["Unlimited FBAs & BIPs", "AI-powered IEP goals", "500+ goal bank", "ACT assessment tools"].map((item) => (
-            <li key={item} className="flex items-center gap-2 text-sm text-slate-300">
-              <CheckCircle className="w-4 h-4 text-emerald-400" />
-              {item}
-            </li>
-          ))}
-        </ul>
         <Link
-          href={baseUrl}
-          className="block w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-4 rounded-xl text-center transition-colors"
+          href={accessHref}
+          className="block w-full bg-[#e4b63d] hover:bg-[#d7aa32] text-[#123628] font-semibold py-3 px-4 rounded-xl text-center transition-colors"
         >
-          Start 14-Day Free Trial
+          View invite-only access
         </Link>
-        <p className="text-xs text-slate-500 text-center mt-3">No credit card required</p>
+        <p className="text-xs text-white/55 text-center mt-3">Not available for public signup today</p>
       </div>
     );
   }
 
-  // Default: banner
   return (
-    <div className={`bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-6 text-white ${className}`}>
+    <div className={`rounded-2xl border border-[#1f4d3f]/15 bg-[#1f4d3f] p-6 text-white ${className}`}>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="bg-white/20 rounded-xl p-3">
-            <Sparkles className="w-6 h-6 text-amber-300" />
+          <div className="rounded-xl border border-white/15 bg-white/10 p-3">
+            <Lock className="w-6 h-6 text-[#e4b63d]" />
           </div>
           <div>
-            <h3 className="font-bold text-lg">Like this tool? Get unlimited access.</h3>
-            <p className="text-emerald-100 text-sm">
-              Try Behavior School Pro free for 14 days — all tools, no limits.
+            <h3 className="font-bold text-lg">BehaviorSchool Pro is invite only</h3>
+            <p className="text-white/75 text-sm">
+              The commercial FBA/BIP workspace is in development. Public account creation is not available.
             </p>
           </div>
         </div>
         <Link
-          href={baseUrl}
-          className="bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-6 rounded-xl transition-colors flex items-center gap-2 whitespace-nowrap"
+          href={accessHref}
+          className="bg-[#e4b63d] text-[#123628] hover:bg-[#d7aa32] font-semibold py-3 px-6 rounded-xl transition-colors flex items-center gap-2 whitespace-nowrap"
         >
-          Start Free Trial <ArrowRight className="w-4 h-4" />
+          Request access <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
     </div>

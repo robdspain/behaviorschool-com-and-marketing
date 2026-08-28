@@ -257,10 +257,10 @@ export default function ResearchDigestPage() {
             <div style={{ background: '#f9f9f9', borderTop: '1px solid #eee', padding: '20px 28px' }}>
               <p style={{ margin: '0 0 8px', fontSize: 13, fontWeight: 600, color: '#333' }}>Put this research to work</p>
               <p style={{ margin: '0 0 14px', fontSize: 12, color: '#666', lineHeight: 1.6 }}>
-                BehaviorSchool Pro includes AI-assisted FBA/BIP drafting, ACT-informed goal generation, and session transcription — grounded in the same research you just read.
+                BehaviorSchool Pro is an invite-only workspace in development for FBA/BIP drafting and IEP goal workflows. Public account creation is not available.
               </p>
               <span style={{ display: 'inline-block', background: '#1f4d3f', color: '#fff', fontSize: 12, fontWeight: 700, padding: '9px 18px', borderRadius: 5 }}>
-                Try BehaviorSchool Pro Free &rarr;
+                View invite-only access &rarr;
               </span>
             </div>
           </div>

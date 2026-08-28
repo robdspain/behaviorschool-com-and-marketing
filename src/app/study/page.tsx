@@ -114,7 +114,7 @@ const platformLinks = [
     title: "Hour tracking",
     description: "Preview the planned fieldwork documentation and supervisor review workflow.",
     href: hourTrackingHref,
-    cta: "View the preview",
+    cta: "View invite-only access",
     icon: ClipboardCheck,
   },
 ];

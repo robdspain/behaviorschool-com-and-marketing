@@ -426,9 +426,9 @@ export function FBADecisionMatrix() {
               </p>
               <Link
                 href="/pro"
-                className="inline-flex items-center gap-2 bg-white text-emerald-700 font-semibold py-3 px-6 rounded-lg hover:bg-emerald-50 transition-all transform hover:scale-105"
+                className="inline-flex items-center gap-2 bg-white text-[#1f4d3f] font-semibold py-3 px-6 rounded-lg hover:bg-[#f5eedc] transition-all transform hover:scale-105"
               >
-                Try AI-Powered FBA Generator
+                View invite-only Pro access
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>

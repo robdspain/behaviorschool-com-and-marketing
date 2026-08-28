@@ -26,7 +26,7 @@ const tools = [
 const routes = [
   { label: "Need a behavior plan fast", href: "/fba-to-bip" },
   { label: "Need IEP behavior goals", href: "/iep-goals" },
-  { label: "Need district pricing or team plan", href: "/pro" },
+  { label: "Need invite-only Pro access", href: "/pro" },
 ];
 
 export default function FreeDistrictTools() {

@@ -259,7 +259,7 @@ export function ACTFBABIPWizard({ startFromPhase = 0, onPhase0Complete, embedded
             You’re viewing a guided demo with sample data. Edit any field, or start a real case when you’re ready.
             <div className="mt-2 flex flex-wrap gap-3">
               <a href="/act-fba-bip" className="text-[#1E3A34] font-semibold">Start a real case</a>
-              <a href="https://plan.behaviorschool.com" className="text-[#1E3A34] font-semibold">Use inside the learning platform</a>
+              <a href="/pro" className="text-[#1E3A34] font-semibold">View invite-only Pro preview</a>
             </div>
           </div>
         )}

@@ -1039,9 +1039,9 @@
     newFooter.className = "app-footer-v2";
     newFooter.innerHTML = `
       <div class="footer-v2-brand">Free tool by Behavior School</div>
-      <p class="footer-v2-pitch">Want AI-powered IEP tools, supervision tracking, and BCBA exam prep?</p>
-      <a href="https://behaviorschool.com" target="_blank" rel="noopener" class="footer-v2-cta">
-        Explore Behavior School Pro ${ICONS.arrowRight}
+      <p class="footer-v2-pitch">Need the invite-only FBA/BIP workspace or more school-practice tools?</p>
+      <a href="https://behaviorschool.com/pro" target="_blank" rel="noopener" class="footer-v2-cta">
+        View invite-only Pro access ${ICONS.arrowRight}
       </a>
       <div class="footer-v2-privacy">
         Privacy: This app does not store or transmit your data. All entries remain local to your browser.
