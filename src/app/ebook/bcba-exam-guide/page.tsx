@@ -229,14 +229,14 @@ export default function BCBAExamGuidePage() {
             Ready to Accelerate Your Preparation?
           </h2>
           <p className="text-xl text-slate-300 mb-8">
-            BehaviorSchool Pro offers AI-powered study tools, unlimited practice questions,
-            and personalized feedback to help you pass on your first attempt.
+            Behavior Study Tools offers BCBA exam prep with practice questions, mock exams, and personalized
+            study paths to help you pass on your first attempt.
           </p>
           <Link
-            href="/pro"
+            href="https://study.behaviorschool.com/free-practice/"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
           >
-            Start Your Free Trial
+            Start free BCBA practice
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

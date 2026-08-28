@@ -178,84 +178,55 @@ export default function CalABA2026Page() {
       </div>
 
       {/* ============================================
-          SECTION 5: TRANSFORMATION PROGRAM CTA
+          SECTION 5: BEHAVIORSCHOOL PRO (INVITE ONLY)
           ============================================ */}
-      <div className="py-20 px-4 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      <div className="py-20 px-4 bg-gradient-to-br from-[#123628] via-[#1f4d3f] to-[#123628] text-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-400 px-4 py-2 rounded-full text-sm font-bold mb-6 border border-amber-500/30">
-              CalABA 2026 Exclusive · Limited to First 100
+            <div className="inline-flex items-center gap-2 bg-[#e4b63d]/20 text-[#e4b63d] px-4 py-2 rounded-full text-sm font-bold mb-6 border border-[#e4b63d]/30">
+              CalABA 2026 · Invite only
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Become a <span className="text-amber-400">Founding Member</span>
+              BehaviorSchool Pro is <span className="text-[#e4b63d]">not open for public signup</span>
             </h2>
-            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-              Lock in 40% off forever. Be one of the first 100 school BCBAs to shape the future of these tools.
+            <p className="text-xl text-white/75 max-w-2xl mx-auto">
+              The commercial FBA/BIP workspace is in development. Public account creation is not available today.
+              Request invite-only access or use the free school-practice tools that are live now.
             </p>
           </div>
 
-          {/* Pricing Cards */}
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-12">
-            {/* Annual Plan */}
-            <div className="bg-white border-4 border-amber-400 rounded-2xl p-8 relative text-slate-900">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 text-sm font-bold px-4 py-1 rounded-full whitespace-nowrap">
-                BEST VALUE
-              </div>
-              <div className="text-center mb-6 mt-2">
-                <h3 className="text-xl font-bold mb-2">Annual Plan</h3>
-                <div className="mb-1">
-                  <span className="text-slate-400 line-through text-lg">$249/year</span>
-                </div>
-                <div className="text-4xl font-bold text-emerald-600 mb-1">$149</div>
-                <div className="text-slate-500 text-sm">per year</div>
-              </div>
-              <div className="space-y-3 mb-6">
-                {["40% off forever", "All tools included", "Priority feature requests", "Founding Member Discord"].map((f) => (
-                  <div key={f} className="flex items-center gap-2 text-sm">
-                    <CheckCircle className="w-4 h-4 text-emerald-600" />
-                    {f}
-                  </div>
-                ))}
-              </div>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-8">
+              <h3 className="text-xl font-bold mb-2">Invite-only workspace</h3>
+              <p className="text-sm text-white/70 mb-6">
+                Planned areas include FBA-to-BIP drafting, IEP goal generation, and student plan exports for school teams.
+              </p>
               <Link
-                href="https://plan.behaviorschool.com"
-                className="block w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-4 rounded-xl text-center transition-colors"
+                href="/pro/waitlist"
+                className="block w-full bg-[#e4b63d] hover:bg-[#d7aa32] text-[#123628] font-bold py-4 rounded-xl text-center transition-colors"
               >
-                Get Started - $149/year
+                Request invite-only access
               </Link>
             </div>
 
-            {/* Monthly Plan */}
-            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8 text-white">
-              <div className="text-center mb-6">
-                <h3 className="text-xl font-bold mb-2">Monthly Plan</h3>
-                <div className="mb-1">
-                  <span className="text-slate-500 line-through text-lg">$25/month</span>
-                </div>
-                <div className="text-4xl font-bold text-white mb-1">$19</div>
-                <div className="text-slate-400 text-sm">per month · cancel anytime</div>
-              </div>
-              <div className="space-y-3 mb-6">
-                {["24% off forever", "All tools included", "Cancel anytime", "Rate locked forever"].map((f) => (
-                  <div key={f} className="flex items-center gap-2 text-sm text-slate-300">
-                    <CheckCircle className="w-4 h-4 text-emerald-500" />
-                    {f}
-                  </div>
-                ))}
-              </div>
+            <div className="rounded-2xl border border-white/15 bg-white/5 p-8">
+              <h3 className="text-xl font-bold mb-2">Free tools available now</h3>
+              <p className="text-sm text-white/70 mb-6">
+                Use the Goal Writing System, FBA helpers, and other school-practice tools without an invitation.
+              </p>
               <Link
-                href="https://plan.behaviorschool.com"
-                className="block w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl text-center transition-colors border border-slate-600"
+                href="/free-tools"
+                className="block w-full border border-white/25 hover:bg-white/10 text-white font-bold py-4 rounded-xl text-center transition-colors"
               >
-                Get Started - $19/month
+                Explore free tools
               </Link>
             </div>
           </div>
 
           {/* Not Ready CTA */}
           <div className="text-center">
-            <p className="text-slate-400 mb-4">Not ready to commit? Get notified when we launch new features:</p>
+            <p className="text-white/60 mb-4">Want a note when invite-only access expands?</p>
             {!founderSubmitted ? (
               <form onSubmit={handleFounderSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <input

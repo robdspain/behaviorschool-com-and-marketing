@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { X, Star } from "lucide-react";
+import { X, Lock } from "lucide-react";
 
 export function CalabaBanner() {
   const [dismissed, setDismissed] = useState(false);
@@ -10,18 +10,21 @@ export function CalabaBanner() {
   if (dismissed) return null;
 
   return (
-    <div className="fixed top-20 left-0 right-0 z-[90] bg-gradient-to-r from-amber-500 to-amber-400 text-emerald-900 py-2.5 px-4 text-center text-sm font-semibold shadow-md">
+    <div className="fixed top-20 left-0 right-0 z-[90] bg-[#123628] text-white py-2.5 px-4 text-center text-sm font-semibold shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-3">
-        <span className="flex items-center gap-2"><Star className="h-4 w-4 flex-shrink-0" /> See us at CALABA 2026! Conference attendees get <strong>40% off</strong> the first year.</span>
+        <span className="flex items-center gap-2">
+          <Lock className="h-4 w-4 flex-shrink-0 text-[#e4b63d]" />
+          BehaviorSchool Pro is invite only — no public account creation.
+        </span>
         <Link
-          href="/pro/waitlist"
-          className="inline-flex items-center bg-emerald-800 text-white text-xs font-bold px-3 py-1 rounded-full hover:bg-emerald-700 transition-colors"
+          href="/pro"
+          className="inline-flex items-center bg-[#e4b63d] text-[#123628] text-xs font-bold px-3 py-1 rounded-full hover:bg-[#d7aa32] transition-colors"
         >
-          Claim Offer
+          View preview
         </Link>
         <button
           onClick={() => setDismissed(true)}
-          className="absolute right-4 text-emerald-900/60 hover:text-emerald-900 transition-colors"
+          className="absolute right-4 text-white/60 hover:text-white transition-colors"
           aria-label="Dismiss banner"
         >
           <X className="h-4 w-4" />

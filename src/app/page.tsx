@@ -135,16 +135,17 @@ export default function Home() {
               <div className="w-12 h-12 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center mb-6">
                 <BrainCircuit className="text-[#1f4d3f]" size={24} strokeWidth={1.75} />
               </div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-2">Invite only</p>
               <h3 className="text-xl font-bold text-gray-900 mb-3">BehaviorSchool Pro</h3>
               <p className="text-gray-600 leading-relaxed flex-1">
-                Our suite of AI-powered tools for FBA/BIP writing, IEP goals, and student data management.
+                An invite-only workspace in development for school FBA and BIP drafting, IEP goals, and student plan exports. Public account creation is not available.
               </p>
-              <a
-                href="https://plan.behaviorschool.com"
+              <Link
+                href="/pro"
                 className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-[#1f4d3f] hover:underline"
               >
-                Learn More <ArrowRight size={14} />
-              </a>
+                View invite-only access <ArrowRight size={14} />
+              </Link>
             </div>
 
             {/* Card 2 — Exam Prep */}

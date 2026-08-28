@@ -64,20 +64,21 @@ export default function PricingPage() {
           </article>
 
           <article className="rounded-2xl border border-[#1f4d3f]/15 bg-white p-6">
-            <h2 className="text-xl font-bold text-[#123628]">BehaviorSchool Pro</h2>
-            <p className="mt-1 text-slate-600 text-sm">AI tools for school behavior teams</p>
-            <p className="mt-5 text-3xl font-bold text-[#123628]">$29.99<span className="text-base text-slate-500">/month</span></p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">Invite only</p>
+            <h2 className="mt-2 text-xl font-bold text-[#123628]">BehaviorSchool Pro</h2>
+            <p className="mt-1 text-slate-600 text-sm">Invite-only FBA/BIP workspace in development</p>
+            <p className="mt-5 text-base font-semibold text-[#123628]">Not open for public accounts</p>
             <ul className="mt-5 space-y-2 text-sm text-slate-700">
-              <li>FBA and BIP workflow tools</li>
-              <li>Student management features</li>
-              <li>Secure district-oriented setup</li>
+              <li>FBA and BIP workflow planning</li>
+              <li>IEP goal workspace concepts</li>
+              <li>Student plan organization</li>
             </ul>
-            <a
-              href="https://plan.behaviorschool.com"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-[#1f4d3f] px-4 py-3 text-sm font-semibold text-white hover:bg-[#123628]"
+            <Link
+              href="/pro"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-full border border-[#1f4d3f]/30 px-4 py-3 text-sm font-semibold text-[#1f4d3f] hover:bg-[#1f4d3f]/5"
             >
-              View Pro platform
-            </a>
+              View invite-only access
+            </Link>
           </article>
         </section>
 
