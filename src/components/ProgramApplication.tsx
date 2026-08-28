@@ -126,10 +126,10 @@ function ApplicationForm() {
     <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Apply for the {TRANSFORMATION_PROGRAM.cohort.label}
+          Apply for the School BCBA Transformation Program
         </h2>
         <p className="text-slate-600 text-base">
-          Tell us about your school role and what you want to strengthen. We&rsquo;ll respond within two business days.
+          {TRANSFORMATION_PROGRAM.cohort.label} · Tell us about your school role and what you want to strengthen. We&rsquo;ll respond within two business days.
         </p>
       </div>
 
@@ -171,7 +171,7 @@ function ApplicationForm() {
           </div>
           <div>
             <label htmlFor="whyJoin" className="block text-sm font-semibold text-slate-700 mb-1">
-              Why do you want to join the Transformation Program?
+              Why do you want to join the School BCBA Transformation Program?
             </label>
             <textarea
               id="whyJoin"

@@ -29,7 +29,7 @@ const weeklyModules = [
     pain: 'Managing FBA referrals without a clear triage system.',
     build: "A tiered assessment framework, plus a scalable intake process that filters behavioral concerns by severity level to route each student to the appropriate level of assessment, without burning you out.",
     deliverable: "Your personal assessment decision tree, intake form, and referral routing guide.",
-    objectives: ["Design a tiered assessment routing process for a school-based caseload.", "Apply decision rules to select assessment intensity using referral data.", "Evaluate an assessment intake workflow for feasibility and ethical fit in a school system."],
+    objectives: ["Design a tiered assessment routing process for a school caseload.", "Apply decision rules to select assessment intensity using referral data.", "Evaluate an assessment intake workflow for feasibility and ethical fit in a school system."],
     icon: ClipboardList,
   },
   {
@@ -74,7 +74,7 @@ const weeklyModules = [
     pain: 'Delayed decisions because caseload data are difficult to review consistently.',
     build: "A progress monitoring dashboard with decision rules for data-based changes across your full caseload.",
     deliverable: "Complete caseload management system with a built-in review schedule.",
-    objectives: ["Construct data-based decision rules for intervention review.", "Apply progress-monitoring data to prioritize caseload actions.", "Evaluate a caseload dashboard for timely and defensible clinical decisions."],
+    objectives: ["Construct data-based decision rules for intervention review.", "Apply progress-monitoring data to prioritize caseload actions.", "Evaluate a caseload dashboard for timely and defensible data-based decisions."],
     icon: BookOpen,
   },
 ];
@@ -140,7 +140,7 @@ export default function TransformationProgramPage() {
                   href="#waitlist"
                   className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Apply for the Next Cohort
+                  Apply to the School BCBA Transformation Program
                 </a>
               </motion.div>
             </div>
@@ -231,7 +231,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Eligibility</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-4">Who This Program Is For</h2>
-          <p className="text-center text-slate-600 mb-12 text-lg leading-relaxed">This cohort is for school BCBAs who are serious about building systems that last.</p>
+          <p className="text-center text-slate-600 mb-12 text-lg leading-relaxed">The School BCBA Transformation Program is a six-week live cohort for certified school BCBAs working in K-12 school or district settings who are serious about building systems that last.</p>
           <div className="grid sm:grid-cols-2 gap-5">
             {[
               "You hold a BCBA certification and work in a K-12 school or district",
@@ -249,7 +249,7 @@ export default function TransformationProgramPage() {
           </div>
           <div className="mt-8 rounded-xl border border-[#e4b63d]/30 bg-[#e4b63d]/5 p-5">
             <p className="text-[#1a1a1a] text-sm text-center leading-relaxed">
-              This is not for RBTs, pre-certification BCaBAs, or general education professionals. It is designed specifically for certified BCBAs working in school settings.
+              This is not for RBTs, pre-certification BCaBAs, or general education professionals. It is designed specifically for certified school BCBAs in K-12 school or district settings.
             </p>
           </div>
         </div>
@@ -366,7 +366,7 @@ export default function TransformationProgramPage() {
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
             <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-              The Transformation Program is for BCBAs working in school settings who want a clearer way to connect assessment, intervention, staff implementation, and progress monitoring. It is designed for participants who want to apply the work to a current student, staff member, or school system.
+              The Transformation Program is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and progress monitoring in K-12 settings. It is designed for participants who want to apply the work to a current student, staff member, or school system.
             </p>
           </div>
         </div>
@@ -381,7 +381,7 @@ export default function TransformationProgramPage() {
             <p>Rob Spain is a BCBA and IBA with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. Learning CE documentation will not be issued until the instructor qualification and expertise record has been verified for the event.</p>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {['BCBA', 'IBA', 'School-Based Practice'].map((item) => (
+            {['BCBA', 'IBA', 'School Practice'].map((item) => (
               <span key={item} className="px-4 py-2 rounded-full bg-white border border-[#1f4d3f]/15 text-[#1f4d3f] text-sm font-semibold">{item}</span>
             ))}
           </div>
@@ -409,9 +409,10 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the {COHORT_LABEL}</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the School BCBA Transformation Program</h2>
+          <p className="text-white/60 text-sm mb-3">{COHORT_LABEL} · 6 weeks · School BCBAs only</p>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
-            6 weeks. Small cohorts. School BCBAs only.
+            Small cohorts. Direct guidance for school BCBAs.
           </p>
           <p className="text-[#e4b63d] font-bold text-2xl mb-8">
             {OFFER_PRICE} tuition
