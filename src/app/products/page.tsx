@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { ProductsSuiteHero } from "@/components/products/ProductsSuiteHero";
+import { IepGoalWriterProductPreview } from "@/components/products/IepGoalWriterProductPreview";
+import { StudyToolsProductPreview } from "@/components/products/StudyToolsProductPreview";
+import { TransformationProgramPreview } from "@/components/products/TransformationProgramPreview";
 import {
   ArrowDown,
   ArrowRight,
@@ -27,17 +29,15 @@ const availableProducts = [
     number: "01",
     stage: "Use",
     name: "Free Tools and Templates",
-    audience: "For school-based behavior teams",
+    audience: "For school behavior teams",
     description:
       "Start with the BehaviorSchool Goal Writing System, then find practical examples and planning resources in one organized library.",
     details: ["IEP goal writing", "Editable goal output", "School-practice resources"],
     href: "/free-tools",
     cta: "Explore free tools",
-    image: "/product-suite/iep-goal-writer-live.jpg",
-    imageAlt: "Live BehaviorSchool Goal Writing System interface",
+    preview: "iep" as const,
     icon: Files,
-    tone: "mint",
-    imageKind: "browser",
+    tone: "mint" as const,
   },
   {
     number: "02",
@@ -49,17 +49,15 @@ const availableProducts = [
     details: ["Exam-style practice", "Timed mock exams", "Personalized study plan"],
     href: "https://study.behaviorschool.com/free-practice/",
     cta: "Try 10 free BCBA questions",
-    image: "/BehaviorStudyTools/Hero-BST-Home.webp",
-    imageAlt: "Behavior Study Tools browser experience shown on a laptop",
+    preview: "study" as const,
     icon: GraduationCap,
-    tone: "light",
-    imageKind: "laptop",
+    tone: "light" as const,
   },
   {
     number: "03",
     stage: "Lead",
     name: "Transformation Program",
-    audience: "For school-based BCBAs",
+    audience: "For school BCBAs",
     description:
       "Cohort-based professional development for moving from repeated crisis response toward stronger assessment, implementation, and systems leadership.",
     details: [
@@ -69,13 +67,24 @@ const availableProducts = [
     ],
     href: "/transformation-program",
     cta: "Explore the program",
-    image: "/product-suite/transformation-program.png",
-    imageAlt: "BehaviorSchool Transformation Program page",
+    preview: "transformation" as const,
     icon: UsersRound,
-    tone: "gold",
-    imageKind: "wide",
+    tone: "gold" as const,
   },
 ] as const;
+
+function renderProductPreview(preview: (typeof availableProducts)[number]["preview"]) {
+  switch (preview) {
+    case "iep":
+      return <IepGoalWriterProductPreview />;
+    case "study":
+      return <StudyToolsProductPreview variant="card" />;
+    case "transformation":
+      return <TransformationProgramPreview />;
+    default:
+      return null;
+  }
+}
 
 const studyToolHighlights = [
   {
@@ -135,17 +144,17 @@ const toneClasses = {
 export default function ProductsPage() {
   return (
     <main className="overflow-hidden bg-[#f8f7f3] text-[#14231f]">
-      <section className="border-b border-[#173f33]/15 bg-[#0d2b23] text-white">
+      <section className="border-b border-[#173f33]/15 bg-[#123628] text-white">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-14 sm:px-8 lg:min-h-[610px] lg:grid-cols-[0.82fr_1.18fr] lg:px-10 lg:py-16">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#f3c84b]">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#e4b63d]">
               One connected offering
             </p>
             <h1 className="mt-5 text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-7xl">
               The BehaviorSchool Suite
             </h1>
             <p className="mt-7 max-w-lg text-lg leading-8 text-white/72 sm:text-xl">
-              Prepare for certification, strengthen school-based practice, and grow into systems leadership through one clear product family.
+              Prepare for certification, strengthen school BCBA practice, and grow into systems leadership through one clear product family.
             </p>
             <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-sm font-medium text-white/82">
               <span>Exam readiness</span>
@@ -154,7 +163,7 @@ export default function ProductsPage() {
             </div>
             <a
               href="#suite"
-              className="mt-10 inline-flex h-12 items-center gap-3 bg-[#f3c84b] px-5 font-semibold text-[#14231f] transition-colors hover:bg-[#ffd967]"
+              className="mt-10 inline-flex h-12 items-center gap-3 bg-[#e4b63d] px-5 font-semibold text-[#123628] transition-colors hover:bg-[#d7aa32]"
             >
               Explore the suite
               <ArrowDown aria-hidden="true" size={18} />
@@ -280,51 +289,8 @@ export default function ProductsPage() {
                 </div>
 
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div className={product.imageKind === "laptop" ? "overflow-hidden border border-[#173f33]/20 bg-[#0d2b23] shadow-[0_28px_70px_rgba(20,35,31,0.13)]" : "overflow-hidden border border-[#173f33]/20 bg-white shadow-[0_28px_70px_rgba(20,35,31,0.13)]"}>
-                    {product.imageKind !== "laptop" && (
-                      <div className="flex h-10 items-center justify-between border-b border-[#173f33]/12 bg-[#f4f2ec] px-4">
-                        <div className="flex gap-1.5">
-                          <span className="h-2 w-2 rounded-full bg-[#d56b5c]" />
-                          <span className="h-2 w-2 rounded-full bg-[#dab340]" />
-                          <span className="h-2 w-2 rounded-full bg-[#4d9b71]" />
-                        </div>
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#51645d]">
-                          Live product view
-                        </span>
-                      </div>
-                    )}
-                    {product.imageKind === "laptop" ? (
-                      <div className="bg-[#0d2b23] p-5 sm:p-8">
-                        <div className="mx-auto max-w-2xl">
-                          <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-white/20 bg-black shadow-[0_20px_45px_rgba(0,0,0,0.24)]">
-                              <Image
-                                src={product.image}
-                                alt={product.imageAlt}
-                                width={1024}
-                                height={1024}
-                                className="h-full w-full origin-center scale-[1.55] object-cover object-[32%_center]"
-                              />
-                            <span className="absolute bottom-3 left-3 bg-[#0d2b23]/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
-                              Browser-based platform
-                            </span>
-                          </div>
-                          <div className="mx-auto h-3 w-4/5 rounded-b-full bg-white/70" />
-                          <p className="mt-4 text-center text-xs font-semibold uppercase tracking-[0.16em] text-white/65">
-                            Works in a browser on laptop and phone
-                          </p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className={product.imageKind === "browser" ? "aspect-video overflow-hidden" : ""}>
-                        <Image
-                          src={product.image}
-                          alt={product.imageAlt}
-                          width={product.imageKind === "browser" ? 1280 : 1280}
-                          height={product.imageKind === "browser" ? 720 : 800}
-                          className={product.imageKind === "browser" ? "h-full w-full origin-bottom scale-[1.4] object-cover object-top" : "aspect-[16/10] w-full object-cover object-top"}
-                        />
-                      </div>
-                    )}
+                  <div className="overflow-hidden border border-[#173f33]/20 bg-white shadow-[0_28px_70px_rgba(20,35,31,0.13)]">
+                    {renderProductPreview(product.preview)}
                   </div>
                 </div>
               </div>
