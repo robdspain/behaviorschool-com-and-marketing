@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Full mock review</title>
+  <desc id="desc">Vertical short-form asset showing a full BCBA mock exam leading to a domain pattern and next practice block.</desc>
+  <rect width="1080" height="1920" fill="#10342d"/>
+  <rect x="80" y="100" width="920" height="1720" fill="#fffaf0"/>
+  <text x="130" y="210" fill="#1f453a" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="130" y="355" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="800">A full mock</text>
+  <text x="130" y="445" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="800">should point</text>
+  <text x="130" y="535" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="800">somewhere.</text>
+  <rect x="130" y="650" width="820" height="335" fill="#ffffff" stroke="#1f453a" stroke-width="4"/>
+  <text x="180" y="735" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="800">185-question checkpoint</text>
+  <line x1="180" y1="790" x2="900" y2="790" stroke="#d7c5a3" stroke-width="4"/>
+  <text x="180" y="870" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="32">Review the domain pattern</text>
+  <text x="180" y="930" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="32">Pick one focused follow-up</text>
+  <g transform="translate(130 1115)">
+    <rect width="240" height="132" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="42" y="80" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">Mock</text>
+    <path d="M280 66h95" stroke="#bd8630" stroke-width="8"/>
+    <path d="M363 49l30 17-30 17z" fill="#bd8630"/>
+    <rect x="425" width="240" height="132" fill="#1f453a"/>
+    <text x="466" y="60" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800">Domain</text>
+    <text x="466" y="98" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800">pattern</text>
+    <path d="M705 66h72" stroke="#bd8630" stroke-width="8"/>
+    <path d="M765 49l30 17-30 17z" fill="#bd8630"/>
+  </g>
+  <text x="130" y="1460" fill="#1f453a" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="800">Then practice the gap.</text>
+  <text x="130" y="1708" fill="#5a5144" font-family="Arial, Helvetica, sans-serif" font-size="30">Free BCBA mock exam in the browser.</text>
+</svg>

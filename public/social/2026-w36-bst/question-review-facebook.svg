@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Behavior Study Tools question review</title>
+  <desc id="desc">Facebook graphic showing a missed BCBA practice question turning into a focused next study block.</desc>
+  <rect width="1200" height="630" fill="#f5efe3"/>
+  <rect x="58" y="58" width="1084" height="514" fill="#fffdf8" stroke="#1f453a" stroke-width="3"/>
+  <text x="94" y="120" fill="#1f453a" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Behavior Study Tools</text>
+  <text x="94" y="198" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800">A missed question</text>
+  <text x="94" y="265" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800">should create a task.</text>
+  <g transform="translate(94 330)">
+    <rect width="285" height="88" fill="#1f453a"/>
+    <text x="28" y="55" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Review why</text>
+    <path d="M320 44h86" stroke="#bd8630" stroke-width="8"/>
+    <path d="M394 27l30 17-30 17z" fill="#bd8630"/>
+    <rect x="456" width="285" height="88" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="484" y="55" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Name the domain</text>
+    <path d="M776 44h86" stroke="#bd8630" stroke-width="8"/>
+    <path d="M850 27l30 17-30 17z" fill="#bd8630"/>
+    <rect x="912" width="116" height="88" fill="#1f453a"/>
+    <text x="936" y="38" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="800">Next</text>
+    <text x="936" y="66" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="800">block</text>
+  </g>
+  <text x="94" y="505" fill="#2f4f46" font-family="Arial, Helvetica, sans-serif" font-size="31">Start with free BCBA practice in the browser.</text>
+</svg>

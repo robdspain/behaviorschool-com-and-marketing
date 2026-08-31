@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">School week study dashboard</title>
+  <desc id="desc">Instagram carousel cover showing short practice, full mock checkpoints, domain results, saved questions, and one next action.</desc>
+  <rect width="1080" height="1350" fill="#fcf7ef"/>
+  <rect x="70" y="70" width="940" height="1210" fill="#ffffff" stroke="#1f453a" stroke-width="4"/>
+  <text x="112" y="150" fill="#1f453a" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="112" y="248" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="71" font-weight="800">Study around</text>
+  <text x="112" y="332" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="71" font-weight="800">the school week.</text>
+  <g transform="translate(112 430)">
+    <rect width="856" height="150" fill="#1f453a"/>
+    <text x="38" y="64" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="37" font-weight="800">Crowded day</text>
+    <text x="38" y="110" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="29">Short focused practice</text>
+    <rect y="190" width="856" height="150" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="38" y="254" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="37" font-weight="800">Protected block</text>
+    <text x="38" y="300" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="29">Full mock checkpoint</text>
+    <rect y="380" width="856" height="150" fill="#ffffff" stroke="#1f453a" stroke-width="3"/>
+    <text x="38" y="444" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="37" font-weight="800">Review time</text>
+    <text x="38" y="490" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="29">Domain results and saved questions</text>
+  </g>
+  <rect x="112" y="1048" width="856" height="124" fill="#bd8630"/>
+  <text x="154" y="1123" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="800">Leave with one next action.</text>
+</svg>

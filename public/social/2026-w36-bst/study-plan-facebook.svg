@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">BCBA study plan connected to practice</title>
+  <desc id="desc">Facebook graphic showing exam date, weekly time, practice checkpoint, and next domain block.</desc>
+  <rect width="1200" height="630" fill="#f6f0e4"/>
+  <rect x="58" y="58" width="1084" height="514" fill="#fffdf8" stroke="#1f453a" stroke-width="3"/>
+  <text x="94" y="120" fill="#1f453a" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Behavior Study Tools</text>
+  <text x="94" y="195" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800">Plan from the result,</text>
+  <text x="94" y="262" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800">not just the calendar.</text>
+  <g transform="translate(94 335)">
+    <rect width="234" height="95" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="30" y="40" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">Exam date</text>
+    <text x="30" y="72" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="21">Set the target</text>
+    <rect x="272" width="234" height="95" fill="#ffffff" stroke="#1f453a" stroke-width="3"/>
+    <text x="302" y="40" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">Weekly time</text>
+    <text x="302" y="72" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="21">Make it realistic</text>
+    <rect x="544" width="234" height="95" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="574" y="40" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">Practice</text>
+    <text x="574" y="72" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="21">Check the pattern</text>
+    <rect x="816" width="234" height="95" fill="#1f453a"/>
+    <text x="846" y="40" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">Next domain</text>
+    <text x="846" y="72" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="21">Focus the block</text>
+  </g>
+  <text x="94" y="515" fill="#2f4f46" font-family="Arial, Helvetica, sans-serif" font-size="31">Build a schedule that stays tied to practice.</text>
+</svg>

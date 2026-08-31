@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Domain map for BCBA study</title>
+  <desc id="desc">Instagram carousel cover showing a 9-question BCBA diagnostic leading to one focused domain block.</desc>
+  <rect width="1080" height="1350" fill="#fcf7ef"/>
+  <rect x="70" y="70" width="940" height="1210" fill="#ffffff" stroke="#1f453a" stroke-width="4"/>
+  <text x="112" y="150" fill="#1f453a" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="112" y="250" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800">Make the</text>
+  <text x="112" y="334" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800">next block</text>
+  <text x="112" y="418" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800">specific.</text>
+  <rect x="112" y="485" width="856" height="126" fill="#1f453a"/>
+  <text x="150" y="562" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">Start with 9 questions.</text>
+  <g transform="translate(135 705)">
+    <rect width="170" height="128" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="48" y="78" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">A</text>
+    <rect x="210" width="170" height="128" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="258" y="78" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">B</text>
+    <rect x="420" width="170" height="128" fill="#1f453a"/>
+    <text x="468" y="78" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">C</text>
+    <rect x="630" width="170" height="128" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="678" y="78" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">D</text>
+    <rect y="168" width="170" height="128" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="48" y="246" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">E</text>
+    <rect x="210" y="168" width="170" height="128" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="258" y="246" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">F</text>
+    <rect x="420" y="168" width="170" height="128" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="468" y="246" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">G</text>
+    <rect x="630" y="168" width="170" height="128" fill="#f0e2cc" stroke="#bd8630" stroke-width="3"/>
+    <text x="678" y="246" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">H</text>
+  </g>
+  <text x="112" y="1115" fill="#1f453a" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">Check the signal.</text>
+  <text x="112" y="1170" fill="#1f453a" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">Choose one next domain.</text>
+</svg>
