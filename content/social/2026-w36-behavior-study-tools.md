@@ -4,7 +4,7 @@ status: draft_ready_manual_handoff
 created_at: 2026-08-31T07:15:00-07:00
 buffer_workspace_status: not_verified
 buffer_reason: Scoped Behavior School Buffer credentials were not found in macOS Keychain under the expected names.
-production_asset_status: pending_verification_after_push
+production_asset_status: verification_failed_2026-08-31
 primary_product: Behavior Study Tools
 review_required: true
 ---
@@ -20,6 +20,8 @@ The verified Behavior School Buffer profiles from `Docs/BUFFER_WORKSPACE_MAPPING
 - Behavior School YouTube: `6a74bbc899afb443491344d2`
 
 The repository publisher can queue text through Buffer when scoped credentials are present. This run did not verify the workspace or create queue entries. Treat Facebook as schedule-blocked and treat Instagram and YouTube as platform-ready manual handoff drafts with their matching assets.
+
+Production asset verification failed after commit `779418f` was pushed to `origin/main`: the new `/social/2026-w36-bst/*.svg` URLs returned 404 across six bounded polls on 2026-08-31. Do not schedule posts from public asset URLs until the deployment exposes those assets, or upload the committed local SVG files manually in the platform composer.
 
 ## Shipped This Week, Verified for Claims
 
