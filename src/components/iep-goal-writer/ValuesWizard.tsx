@@ -24,6 +24,7 @@ import {
   defaultAnnualGoalDate,
   measurementPhrase,
   measurementDefaults,
+  objectivesCount,
   validateGeneralization,
   validateObjectiveTargets,
 } from "./goalWriterLogic";
@@ -32,6 +33,7 @@ import type {
   GeneralizationMode,
   GoalWriterData,
   MeasurementType,
+  ObjectiveSchedule,
 } from "./goalWriterLogic";
 
 const STEPS = [
@@ -84,11 +86,22 @@ const MEASUREMENT_OPTIONS: Array<{ value: MeasurementType; label: string }> = [
 ];
 
 const MEASUREMENT_UNITS: Partial<Record<MeasurementType, string[]>> = {
-  frequency: ["instances per observation", "instances per class period", "instances per day"],
+  frequency: [
+    "instances per observation",
+    "instances per class period",
+    "instances per day",
+    "instances per 10 consecutive measured days",
+  ],
   rate: ["instances per minute", "instances per hour", "instances per class period"],
   duration: ["seconds", "minutes", "minutes per class period", "hours"],
   latency: ["seconds", "minutes"],
 };
+
+const OBJECTIVE_SCHEDULE_OPTIONS: Array<{ value: ObjectiveSchedule; label: string }> = [
+  { value: "none", label: "No short-term objectives" },
+  { value: "trimester", label: "Trimester objectives (3)" },
+  { value: "quarterly", label: "Quarterly objectives (4)" },
+];
 
 function defaultMeasurementUnit(type: MeasurementType): string {
   return MEASUREMENT_UNITS[type]?.[0] ?? "";
@@ -118,7 +131,7 @@ function initialData(): GoalWriterData {
     generalizationSettings: [],
     generalizationCount: "2",
     maintenanceWeeks: "",
-    includeObjectives: false,
+    objectiveSchedule: "none",
     objectiveTargets: [],
   };
 }
@@ -219,7 +232,7 @@ export default function BehaviorGoalWriter() {
     setData((current) => {
       const next = { ...current, [key]: value };
       if (
-        current.includeObjectives &&
+        current.objectiveSchedule !== "none" &&
         (key === "baselineValue" || key === "masteryValue")
       ) {
         next.objectiveTargets = calculateObjectiveTargets(next);
@@ -337,12 +350,15 @@ export default function BehaviorGoalWriter() {
     setError("");
   }
 
-  function toggleObjectives(includeObjectives: boolean) {
-    setData((current) => ({
-      ...current,
-      includeObjectives,
-      objectiveTargets: includeObjectives ? calculateObjectiveTargets(current) : [],
-    }));
+  function changeObjectiveSchedule(objectiveSchedule: ObjectiveSchedule) {
+    setData((current) => {
+      const next = { ...current, objectiveSchedule };
+      return {
+        ...next,
+        objectiveTargets:
+          objectiveSchedule === "none" ? [] : calculateObjectiveTargets(next),
+      };
+    });
     setError("");
   }
 
@@ -567,31 +583,28 @@ export default function BehaviorGoalWriter() {
           {!data.measurementType.startsWith("percentage") && (
             <div className="mt-5">
               <FieldLabel htmlFor="measurement-unit">Measurement unit</FieldLabel>
-              {MEASUREMENT_UNITS[data.measurementType] ? (
-                <select
-                  id="measurement-unit"
-                  name="measurementUnit"
-                  autoComplete="off"
-                  value={data.measurementUnit}
-                  onChange={(event) => update("measurementUnit", event.target.value)}
-                  className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-                >
+              <input
+                id="measurement-unit"
+                name="measurementUnit"
+                type="text"
+                list="measurement-unit-suggestions"
+                autoComplete="off"
+                value={data.measurementUnit}
+                onChange={(event) => update("measurementUnit", event.target.value)}
+                placeholder="e.g., instances per day or instances per 10 consecutive measured days"
+                className="h-12 w-full rounded-lg border border-slate-300 px-3 placeholder:text-slate-400 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+              />
+              {MEASUREMENT_UNITS[data.measurementType] && (
+                <datalist id="measurement-unit-suggestions">
                   {MEASUREMENT_UNITS[data.measurementType]?.map((unit) => (
-                    <option key={unit}>{unit}</option>
+                    <option key={unit} value={unit} />
                   ))}
-                </select>
-              ) : (
-                <input
-                  id="measurement-unit"
-                  name="measurementUnit"
-                  type="text"
-                  autoComplete="off"
-                  value={data.measurementUnit}
-                  onChange={(event) => update("measurementUnit", event.target.value)}
-                  placeholder="Enter the unit used by the team"
-                  className="h-12 w-full rounded-lg border border-slate-300 px-3 placeholder:text-slate-400 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-                />
+                </datalist>
               )}
+              <p className="mt-1.5 text-xs leading-5 text-slate-500">
+                Enter the exact rate unit the team uses. Do not collapse a multi-day rate such as
+                &quot;instances per 10 consecutive measured days&quot; into &quot;per day.&quot;
+              </p>
             </div>
           )}
 
@@ -817,24 +830,30 @@ export default function BehaviorGoalWriter() {
                 <option value="8">8 weeks</option>
               </select>
             </div>
-            <div className="flex items-end">
-              <label className="flex min-h-12 w-full cursor-pointer items-center gap-3 rounded-lg border border-slate-300 px-3">
-                <input
-                  type="checkbox"
-                  checked={data.includeObjectives}
-                  onChange={(event) => toggleObjectives(event.target.checked)}
-                  className="h-5 w-5 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600"
-                />
-                <span className="text-sm font-semibold text-slate-800">Include four quarterly objectives</span>
-              </label>
+            <div>
+              <FieldLabel htmlFor="objective-schedule">Short-term objectives</FieldLabel>
+              <select
+                id="objective-schedule"
+                name="objectiveSchedule"
+                autoComplete="off"
+                value={data.objectiveSchedule}
+                onChange={(event) => changeObjectiveSchedule(event.target.value as ObjectiveSchedule)}
+                className="h-12 w-full rounded-lg border border-slate-300 bg-white px-3 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+              >
+                {OBJECTIVE_SCHEDULE_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
             </div>
           </div>
 
-          {data.includeObjectives && (
+          {data.objectiveSchedule !== "none" && (
             <div className="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-900">Quarterly objective targets</h3>
+                  <h3 className="text-sm font-semibold text-slate-900">
+                    {data.objectiveSchedule === "trimester" ? "Trimester" : "Quarterly"} objective targets
+                  </h3>
                   <p className="mt-1 text-xs leading-5 text-slate-500">
                     Calculated from {measurementPhrase(data, data.baselineValue || "0")} to {measurementPhrase(data, data.masteryValue || "0")}. Edit any target as needed.
                   </p>
@@ -848,7 +867,7 @@ export default function BehaviorGoalWriter() {
                   Recalculate
                 </button>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div className={`mt-4 grid grid-cols-2 gap-3 ${objectivesCount(data) === 4 ? "sm:grid-cols-4" : "sm:grid-cols-3"}`}>
                 {data.objectiveTargets.map((target, index) => (
                   <div key={index}>
                     <FieldLabel htmlFor={`objective-target-${index}`}>Objective {index + 1}</FieldLabel>

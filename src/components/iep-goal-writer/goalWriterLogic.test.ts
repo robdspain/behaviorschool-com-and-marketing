@@ -12,6 +12,11 @@ import {
   formatUsDate,
   measurementDefaults,
   measurementPhrase,
+  normalizeContext,
+  normalizeGoalFragment,
+  normalizeSupports,
+  objectivesCount,
+  unitEncodesMeasurementWindow,
   validateGeneralization,
   validateObjectiveTargets,
 } from "./goalWriterLogic";
@@ -19,7 +24,7 @@ import type { GoalWriterData } from "./goalWriterLogic";
 
 const baseData: GoalWriterData = {
   annualGoalDate: "2027-08-19",
-  studentName: "Alex",
+  studentName: "the student",
   direction: "increase",
   behaviorTitle: "on-task behavior",
   behaviorDefinition: "remaining in the assigned area and working on the assigned task",
@@ -40,7 +45,7 @@ const baseData: GoalWriterData = {
   generalizationSettings: ["classroom", "small group"],
   generalizationCount: "2",
   maintenanceWeeks: "4",
-  includeObjectives: true,
+  objectiveSchedule: "quarterly",
   objectiveTargets: ["52.5", "65", "77.5", "90"],
 };
 
@@ -76,6 +81,7 @@ test("builds decreasing criteria and quarterly objectives", () => {
     measurementUnit: "instances per day",
     masteryValue: "0",
     consistency: "for 5 consecutively measured school days",
+    objectiveSchedule: "quarterly" as const,
     objectiveTargets: ["4.5", "3", "1.5", "0"],
   };
 
@@ -89,6 +95,36 @@ test("builds decreasing criteria and quarterly objectives", () => {
   assert.match(objectives[3], /0 instances per day for 5 consecutively/);
 });
 
+test("builds trimester objectives with three targets and four-month spacing", () => {
+  const trimester = {
+    ...baseData,
+    direction: "decrease" as const,
+    measurementType: "frequency" as const,
+    baselineValue: "6",
+    measurementUnit: "instances per day",
+    masteryValue: "0",
+    consistency: "for 5 consecutively measured school days",
+    objectiveSchedule: "trimester" as const,
+    objectiveTargets: ["4", "2", "0"],
+  };
+
+  assert.equal(objectivesCount(trimester), 3);
+  assert.equal(validateObjectiveTargets(trimester), null);
+  assert.deepEqual(calculateObjectiveTargets(trimester), ["4", "2", "0"]);
+
+  const objectives = buildObjectives(trimester, undefined, new Date(2026, 7, 20));
+  assert.equal(objectives.length, 3);
+  assert.match(objectives[0], /due 12\/20\/2026/);
+  assert.match(objectives[1], /due 04\/20\/2027/);
+  assert.match(objectives[2], /due 08\/19\/2027/);
+
+  const output = buildOutput(trimester, new Date(2026, 7, 20));
+  assert.match(output, /Short-Term Objectives \(Trimester\)/);
+  assert.match(output, /Objective 1/);
+  assert.match(output, /Objective 3/);
+  assert.doesNotMatch(output, /Objective 4/);
+});
+
 test("keeps the reduction goal and replacement-skill goal separate", () => {
   const decreasing = {
     ...baseData,
@@ -98,14 +134,14 @@ test("keeps the reduction goal and replacement-skill goal separate", () => {
     measurementUnit: "instances per day",
     masteryValue: "0",
     consistency: "for 5 consecutively measured school days",
-    includeObjectives: false,
+    objectiveSchedule: "none" as const,
     objectiveTargets: [],
   };
 
   const output = buildOutput(decreasing, new Date(2026, 7, 20));
   assert.match(output, /Annual Goal:\n/);
   assert.match(output, /Replacement Behavior Goal:\n/);
-  assert.match(output, /Alex will request a break using a break card/);
+  assert.match(output, /the student will request a break using a break card/);
   assert.doesNotMatch(output, /Short-Term Objectives/);
 });
 
@@ -120,7 +156,7 @@ test("updates a progressive draft without inserting fake student data", () => {
   };
 
   const draft = buildLiveDraft(partial);
-  assert.match(draft, /The student will increase on-task behavior/);
+  assert.match(draft, /the student will increase on-task behavior/i);
   assert.doesNotMatch(draft, /Baseline:/);
   assert.doesNotMatch(draft, /\[Student Name\]|teacher observation|classroom settings/);
 });
@@ -179,6 +215,57 @@ test("retains a selected non-default unit throughout a decreasing goal", () => {
   assert.match(output, /to 6 instances per class period/);
   assert.match(output, /for 4 consecutively measured class periods/);
   assert.doesNotMatch(output, /instances? per day/);
+});
+
+test("normalizes duplicated condition stems and broken user edits", () => {
+  assert.equal(normalizeContext("When in in the classroom"), "in the classroom");
+  assert.equal(normalizeSupports("given given space"), "space");
+  assert.equal(normalizeGoalFragment("hitting or kicking others students"), "hitting or kicking other students");
+
+  const messy = {
+    ...baseData,
+    direction: "decrease" as const,
+    measurementType: "frequency" as const,
+    baselineValue: "2",
+    measurementUnit: "instances per day",
+    masteryValue: "0",
+    context: "When in in the classroom",
+    supports: "given given space",
+    behaviorDefinition: "hitting or kicking others students",
+    objectiveSchedule: "none" as const,
+    objectiveTargets: [],
+  };
+
+  const annual = buildAnnualGoal(messy);
+  assert.match(annual, /when in the classroom and given space/);
+  assert.doesNotMatch(annual, /when When|given given|in in|others students/);
+  assert.match(annual, /other students/);
+});
+
+test("preserves per-N-day measurement units instead of collapsing to per day", () => {
+  assert.equal(unitEncodesMeasurementWindow("instances per 10 consecutive measured days"), true);
+  assert.equal(unitEncodesMeasurementWindow("instances per day"), false);
+
+  const preserved = {
+    ...baseData,
+    direction: "decrease" as const,
+    measurementType: "frequency" as const,
+    baselineValue: "2",
+    measurementUnit: "instances per 10 consecutive measured days",
+    baselineDays: "10",
+    masteryValue: "0",
+    objectiveSchedule: "none" as const,
+    objectiveTargets: [],
+  };
+
+  const baseline = buildBaseline(preserved);
+  assert.match(baseline, /2 instances per 10 consecutive measured days/);
+  assert.doesNotMatch(baseline, /instances per day/);
+  assert.doesNotMatch(baseline, /measured across 10 school days/);
+
+  const annual = buildAnnualGoal(preserved);
+  assert.match(annual, /to 0 instances per 10 consecutive measured days/);
+  assert.doesNotMatch(annual, /0 instances per day/);
 });
 
 test("states each selected generalization requirement explicitly", () => {
@@ -252,7 +339,7 @@ test("reviews goal components without assigning a score", () => {
 
   const noObjectives = buildGoalQualityChecks({
     ...baseData,
-    includeObjectives: false,
+    objectiveSchedule: "none",
     objectiveTargets: [],
   });
   assert.equal(noObjectives.find((check) => check.id === "objective-progression")?.status, "not-included");
