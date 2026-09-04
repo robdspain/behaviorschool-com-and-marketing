@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
-import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { TRANSFORMATION_PROGRAM, TRANSFORMATION_SEATS_INVENTORY_LABEL } from '@/lib/transformation-program';
 
 // ─── COHORT FLAG ───────────────────────────────────────────────────────────────
 // Set this to `true` when a cohort is open for enrollment.
@@ -132,11 +132,23 @@ function ApplicationForm() {
           Apply for a seat
         </h2>
         <p className="text-slate-600 text-base">
-          {TRANSFORMATION_PROGRAM.cohort.label} · {TRANSFORMATION_PROGRAM.cohort.seatCap} seats · Applications close when seats fill or by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}, whichever comes first.
+          {TRANSFORMATION_PROGRAM.cohort.label} · {TRANSFORMATION_SEATS_INVENTORY_LABEL} · Applications close when seats fill or by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}, whichever comes first.
         </p>
         <p className="text-slate-500 text-sm mt-3">
-          Apply first. After review, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
+          Apply first. After review, we schedule a fit call. The fit call screens school BCBA role, Thursday attendance capacity, a live system you will rebuild during the cohort, and payment path. Acceptance requires that call and is not automatic with payment; we may decline applicants who are not ready or not a fit.
         </p>
+        <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4 text-left">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-2">Fit call criteria</p>
+          <ul className="space-y-1.5 text-sm text-slate-600 leading-relaxed">
+            <li>Role: certified school BCBA in a K-12 school or district setting</li>
+            <li>Attendance: capacity for live Thursday sessions, 6:00 to 8:00 PM PT</li>
+            <li>Live system: a caseload or systems problem you will rebuild during the six weeks</li>
+            <li>Payment path: self-pay or district PO/invoice identified</li>
+          </ul>
+          <p className="text-sm text-slate-500 mt-3 leading-relaxed">
+            Paying does not guarantee a seat. Acceptance is not automatic with payment.
+          </p>
+        </div>
       </div>
 
       {status === 'success' ? (

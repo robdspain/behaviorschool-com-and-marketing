@@ -26,6 +26,12 @@ export const TRANSFORMATION_PROGRAM = {
     sessionDates: ["Oct 8", "Oct 15", "Oct 22", "Oct 29", "Nov 5", "Nov 12"],
     sessionTime: "6:00 to 8:00 PM PT",
     seatCap: 5,
+    /**
+     * Manual remaining-seat count for public display.
+     * There is no live enrollment counter wired yet — update this when someone
+     * enrolls (or set seatsSold and derive remaining). Do not invent scarcity.
+     */
+    seatsRemaining: 5,
     applicationsCloseLabel: "Wednesday, October 1, 2026",
     applicationsCloseDate: "2026-10-01",
   },
@@ -51,6 +57,9 @@ export const TRANSFORMATION_PROGRAM = {
 
 export const TRANSFORMATION_PROGRAM_URL = "https://behaviorschool.com/transformation-program";
 export const TRANSFORMATION_CHECKOUT_URL = "https://behaviorschool.com/transformation-program/checkout";
+
+/** Public inventory line, e.g. "5 seats · 5 remaining". Update cohort.seatsRemaining when enrollment changes. */
+export const TRANSFORMATION_SEATS_INVENTORY_LABEL = `${TRANSFORMATION_PROGRAM.cohort.seatCap} seats · ${TRANSFORMATION_PROGRAM.cohort.seatsRemaining} remaining`;
 
 export const TRANSFORMATION_PAYMENT_PLAN_LABEL = `${TRANSFORMATION_PROGRAM.pricing.installmentCount} payments of ${TRANSFORMATION_PROGRAM.pricing.installment} (${TRANSFORMATION_PROGRAM.pricing.installmentTotal})`;
 
