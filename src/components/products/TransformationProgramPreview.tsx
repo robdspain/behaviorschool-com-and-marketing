@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CalendarDays } from "lucide-react";
-import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
+import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 type TransformationProgramPreviewProps = {
   className?: string;
@@ -58,7 +58,7 @@ export function TransformationProgramPreview({
           </p>
           <p className="mt-1 text-2xl font-bold text-[#123628]">{pricing.payInFull}</p>
           <p className="mt-1 text-xs text-[#51645d]">
-            Payment plan: {pricing.installmentCount} payments of {pricing.installment}
+            Payment plan: {TRANSFORMATION_PAYMENT_PLAN_LABEL}
           </p>
         </div>
         {showLink && (

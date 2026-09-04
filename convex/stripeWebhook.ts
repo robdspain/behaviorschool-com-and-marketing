@@ -164,7 +164,8 @@ export const stripeWebhook = httpAction(async (ctx, request) => {
         checkoutOption,
         productName: asString(metadata.product) || "School BCBA Transformation Program",
         lineItemDescriptions: [],
-        contractValueCents: checkoutOption === "installments" ? 209100 : 199700,
+        // Confirmed October public tuition sticker: $1,997.
+        contractValueCents: 199700,
         purchasedAt: occurredAt,
       });
 

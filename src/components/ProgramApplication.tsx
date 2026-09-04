@@ -6,7 +6,7 @@ import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 // ─── COHORT FLAG ───────────────────────────────────────────────────────────────
 // Set this to `true` when a cohort is open for enrollment.
-// When false → shows the Waitlist Form.
+// When false → shows the Waitlist Form (true post-full / closed state).
 // When true  → shows the Application Form.
 const isCohortOpen = true;
 // ──────────────────────────────────────────────────────────────────────────────
@@ -39,17 +39,17 @@ function WaitlistForm() {
     <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Join the next cohort waitlist
+          Join the waitlist for the next cohort
         </h2>
         <p className="text-slate-600 text-base">
-          Drop your email and we&rsquo;ll reach out with next cohort details and next steps.
+          The current cohort is full or closed. Leave your email and we will notify you when the next cohort opens.
         </p>
       </div>
 
       {status === 'success' ? (
         <div className="flex flex-col items-center gap-4 py-8 text-center">
           <CheckCircle className="w-12 h-12 text-emerald-500" />
-          <p className="text-slate-800 font-semibold text-lg">You&rsquo;re on the list!</p>
+          <p className="text-slate-800 font-semibold text-lg">You&rsquo;re on the waitlist</p>
           <p className="text-slate-500 text-sm">We&rsquo;ll notify you when the next cohort opens.</p>
         </div>
       ) : (
@@ -93,6 +93,9 @@ function ApplicationForm() {
       email: String(data.get('email') || '').trim(),
       bcbaCertNumber: String(data.get('bcbaCertNumber') || '').trim(),
       currentRole: String(data.get('currentRole') || '').trim(),
+      thursdayCapacity: String(data.get('thursdayCapacity') || '').trim(),
+      payer: String(data.get('payer') || '').trim(),
+      systemToRebuild: String(data.get('systemToRebuild') || '').trim(),
       whyJoin: String(data.get('whyJoin') || '').trim(),
       marketingConsent: data.get('marketingConsent') === 'on',
       attribution: {
@@ -126,18 +129,31 @@ function ApplicationForm() {
     <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Apply for the School BCBA Transformation Program
+          Apply for a seat
         </h2>
         <p className="text-slate-600 text-base">
-          {TRANSFORMATION_PROGRAM.cohort.label} · Tell us about your school role and what you want to strengthen. We&rsquo;ll respond within two business days.
+          {TRANSFORMATION_PROGRAM.cohort.label} · {TRANSFORMATION_PROGRAM.cohort.seatCap} seats · Applications close when seats fill or by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}, whichever comes first.
+        </p>
+        <p className="text-slate-500 text-sm mt-3">
+          Apply first. After review, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
         </p>
       </div>
 
       {status === 'success' ? (
         <div className="flex flex-col items-center gap-4 py-8 text-center">
           <CheckCircle className="w-12 h-12 text-emerald-500" />
-          <p className="text-slate-800 font-semibold text-lg">Application received!</p>
-          <p className="text-slate-500 text-sm">We&rsquo;ll review your application and be in touch shortly.</p>
+          <p className="text-slate-800 font-semibold text-lg">Application received</p>
+          <p className="text-slate-500 text-sm max-w-md">
+            We&rsquo;ll review your application and respond within two business days. If you are already in review and ready to schedule, book your fit call below.
+          </p>
+          <a
+            href={TRANSFORMATION_PROGRAM.calendlyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[#1f4d3f]/40 bg-white px-6 py-3 text-sm font-bold text-[#1f4d3f] transition-colors hover:bg-[#1f4d3f]/5"
+          >
+            Book a Fit Call
+          </a>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -170,8 +186,44 @@ function ApplicationForm() {
             <input id="currentRole" name="currentRole" type="text" required autoComplete="organization-title" className={fieldClass} />
           </div>
           <div>
+            <label htmlFor="thursdayCapacity" className="block text-sm font-semibold text-slate-700 mb-1">
+              Can you attend Thursday sessions, 6–8 PM PT?
+            </label>
+            <select id="thursdayCapacity" name="thursdayCapacity" required className={fieldClass}>
+              <option value="">Select one</option>
+              <option value="yes_all_sessions">Yes — I can attend all six live sessions</option>
+              <option value="yes_most_sessions">Yes — I can attend most sessions and will make up any miss</option>
+              <option value="unsure">Unsure — schedule may conflict</option>
+              <option value="no">No — I cannot commit to Thursday 6–8 PM PT</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="payer" className="block text-sm font-semibold text-slate-700 mb-1">
+              Who will pay tuition?
+            </label>
+            <select id="payer" name="payer" required className={fieldClass}>
+              <option value="">Select one</option>
+              <option value="self">Self-pay</option>
+              <option value="district_po">District purchase order / invoice</option>
+              <option value="unsure">Not sure yet</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="systemToRebuild" className="block text-sm font-semibold text-slate-700 mb-1">
+              What specific system would you rebuild during the cohort?
+            </label>
+            <textarea
+              id="systemToRebuild"
+              name="systemToRebuild"
+              required
+              rows={3}
+              placeholder="Example: referral triage, FBA narrative quality, staff fidelity checks, caseload review cadence"
+              className={`${fieldClass} resize-y`}
+            />
+          </div>
+          <div>
             <label htmlFor="whyJoin" className="block text-sm font-semibold text-slate-700 mb-1">
-              Why do you want to join the School BCBA Transformation Program?
+              Why do you want to join, and what caseload or systems problem are you bringing?
             </label>
             <textarea
               id="whyJoin"
@@ -202,7 +254,7 @@ function ApplicationForm() {
 
 export function ProgramApplication() {
   return (
-    <section id="waitlist" className="scroll-mt-24 bg-white py-20 sm:py-28">
+    <section id="apply" className="scroll-mt-24 bg-white py-20 sm:py-28">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {isCohortOpen ? <ApplicationForm /> : <WaitlistForm />}
       </div>

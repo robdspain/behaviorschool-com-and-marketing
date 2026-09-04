@@ -60,7 +60,8 @@ function fullName(contact: Doc<"crmContacts"> | null) {
 }
 
 function getDealValue(paymentOptionDiscussed: "pay_in_full" | "payment_plan" | "both" | "not_discussed" | "other") {
-  if (paymentOptionDiscussed === "payment_plan") return 2091;
+  // Confirmed October public tuition: $1,997 (payment plan charges 3 × $665.67 = $1,997.01).
+  void paymentOptionDiscussed;
   return 1997;
 }
 
@@ -838,7 +839,13 @@ export const recordTransformationPurchase = internalMutation({
         stage: "closed_won",
         probability: 100,
         expectedCloseDate: purchasedAt.slice(0, 10),
-        paymentOption: args.checkoutOption === "installments" || args.amountCents === 69700 ? "payment_plan" : "pay_in_full",
+        paymentOption:
+          args.checkoutOption === "installments" ||
+          args.amountCents === 83300 ||
+          args.amountCents === 66567 ||
+          args.amountCents === 69700
+            ? "payment_plan"
+            : "pay_in_full",
         isArchived: false,
         createdAt: timestamp,
         updatedAt: timestamp,

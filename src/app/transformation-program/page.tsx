@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
-import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 const OFFER_PRICE = TRANSFORMATION_PROGRAM.pricing.payInFull;
-const PAYMENT_PLAN = `${TRANSFORMATION_PROGRAM.pricing.installmentCount} payments of ${TRANSFORMATION_PROGRAM.pricing.installment}`;
+const PAYMENT_PLAN = TRANSFORMATION_PAYMENT_PLAN_LABEL;
 const CALENDLY_LINK = TRANSFORMATION_PROGRAM.calendlyUrl;
 const DISTRICT_EMAIL_LINK = '/contact';
 
@@ -20,6 +20,8 @@ const COHORT_START_FULL = TRANSFORMATION_PROGRAM.cohort.startFull;
 const COHORT_END_FULL = TRANSFORMATION_PROGRAM.cohort.endFull;
 const COHORT_DATE_RANGE = TRANSFORMATION_PROGRAM.cohort.dateRange;
 const COHORT_SESSION_DATES = TRANSFORMATION_PROGRAM.cohort.sessionDates;
+const COHORT_SEAT_CAP = TRANSFORMATION_PROGRAM.cohort.seatCap;
+const APPLICATIONS_CLOSE_LABEL = TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel;
 const ONLINE_EVENT_DESCRIPTION_PUBLISHED = 'August 11, 2026';
 
 const weeklyModules = [
@@ -129,20 +131,21 @@ export default function TransformationProgramPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <a
-                  href={CALENDLY_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#apply"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Book a Fit Call <ArrowRight className="w-4 h-4" />
+                  Apply for a seat <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
-                  href="#waitlist"
+                  href="#fit-call"
                   className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Apply to the School BCBA Transformation Program
+                  Already applied? Book a Fit Call
                 </a>
               </motion.div>
+              <p className="mt-4 text-sm text-slate-500 max-w-xl mx-auto lg:mx-0">
+                Apply first. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
+              </p>
             </div>
 
             <motion.div
@@ -184,8 +187,8 @@ export default function TransformationProgramPage() {
                 </div>
               </div>
               <div className="flex-shrink-0 bg-[#1f4d3f]/5 rounded-xl px-5 py-3 border border-[#1f4d3f]/10">
-                <p className="text-[#1f4d3f] text-sm font-semibold">Small cohorts. Direct guidance.</p>
-                <p className="text-slate-500 text-xs mt-1">Apply the work to your current school setting.</p>
+                <p className="text-[#1f4d3f] text-sm font-semibold">{COHORT_SEAT_CAP} seats for the October 2026 cohort</p>
+                <p className="text-slate-500 text-xs mt-1">Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.</p>
               </div>
             </div>
           </div>
@@ -231,15 +234,17 @@ export default function TransformationProgramPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Eligibility</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-4">Who This Program Is For</h2>
-          <p className="text-center text-slate-600 mb-12 text-lg leading-relaxed">The School BCBA Transformation Program is a six-week live cohort for certified school BCBAs working in K-12 school or district settings who are serious about building systems that last.</p>
+          <p className="text-center text-slate-600 mb-12 text-lg leading-relaxed">
+            A six-week live cohort for practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings.
+          </p>
           <div className="grid sm:grid-cols-2 gap-5">
             {[
-              "You hold a BCBA certification and work in a K-12 school or district",
-              "Your caseload feels overwhelming and you want a real system for it",
-              "You're tired of rewriting the same documents with no template to start from",
-              "You want to lead your team effectively, not just complete compliance tasks",
-              "You're ready to do the work, not just watch videos and get a certificate",
+              "You are a certified BCBA working in a K-12 school or district role",
+              "You have a current caseload or systems problem you want to rebuild",
+              "You can attend live Thursday sessions from 6 to 8 PM PT",
+              "You will bring real work to apply between sessions, including share-outs in later weeks",
               "You want tools you can use the next day, not theory you'll forget in a week",
+              "You are ready to do the work, not just watch videos and get a certificate",
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-3 p-5 rounded-xl bg-white border border-gray-200">
                 <CheckCircle className="w-5 h-5 text-[#1f4d3f] flex-shrink-0 mt-0.5" />
@@ -247,9 +252,12 @@ export default function TransformationProgramPage() {
               </div>
             ))}
           </div>
-          <div className="mt-8 rounded-xl border border-[#e4b63d]/30 bg-[#e4b63d]/5 p-5">
+          <div className="mt-8 rounded-xl border border-[#e4b63d]/30 bg-[#e4b63d]/5 p-5 space-y-3">
             <p className="text-[#1a1a1a] text-sm text-center leading-relaxed">
-              This is not for RBTs, pre-certification BCaBAs, or general education professionals. It is designed specifically for certified school BCBAs in K-12 school or district settings.
+              Who it is not for: RBTs, BCaBAs who are not yet certified, general-ed staff, and clinic-only BCBAs without a school role.
+            </p>
+            <p className="text-[#1a1a1a] text-sm text-center leading-relaxed">
+              {COHORT_SEAT_CAP} seats for the October 2026 cohort. Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
             </p>
           </div>
         </div>
@@ -366,7 +374,7 @@ export default function TransformationProgramPage() {
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
             <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-              The Transformation Program is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and progress monitoring in K-12 settings. It is designed for participants who want to apply the work to a current student, staff member, or school system.
+              The Transformation Program is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and progress monitoring in K-12 settings. Participants bring real work to apply between sessions and share progress in later weeks.
             </p>
           </div>
         </div>
@@ -395,11 +403,15 @@ export default function TransformationProgramPage() {
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
             { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
+            { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats for the October 2026 cohort. Applications close when seats fill or by ${APPLICATIONS_CLOSE_LABEL}, whichever comes first.` },
+            { question: "What is the order of operations to enroll?", answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
+            { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM PT. It is not for RBTs, BCaBAs who are not yet certified, general-ed staff, or clinic-only BCBAs without a school role." },
+            { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later weeks include share-outs on the systems you are rebuilding." },
             { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
             { question: "Is a W-9 available?", answer: "Yes, available on request. Contact us and we'll send it same day." },
-            { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via Calendly or the contact form to discuss district group pricing." },
+            { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via the fit call link after applying, or through the contact form, to discuss district group pricing." },
             { question: "How are Learning CEUs documented?", answer: "Each session is structured for 1.5 Learning CEUs after verified attendance and active participation. Provider registry status is confirmed before documentation is issued, and documentation is issued within 45 days of verified completion." },
           ]} />
         </div>
@@ -409,26 +421,40 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for the School BCBA Transformation Program</h2>
-          <p className="text-white/60 text-sm mb-3">{COHORT_LABEL} · 6 weeks · School BCBAs only</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for a seat in the October 2026 cohort</h2>
+          <p className="text-white/60 text-sm mb-3">{COHORT_LABEL} · 6 weeks · School BCBAs only · {COHORT_SEAT_CAP} seats</p>
           <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
-            Small cohorts. Direct guidance for school BCBAs.
+            Apply first. Fit calls are scheduled after application review. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
+          </p>
+          <p className="text-white/55 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
+            Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
           </p>
           <p className="text-[#e4b63d] font-bold text-2xl mb-8">
             {OFFER_PRICE} tuition
           </p>
 
           <a
-            href={CALENDLY_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#apply"
             className="block w-full rounded-full bg-[#e4b63d] hover:bg-[#d4a637] text-[#123628] font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
           >
-            Book a Fit Call
+            Apply for a seat
           </a>
 
+          <p id="fit-call" className="scroll-mt-24 text-white/50 text-sm mb-4">
+            Already applied and in review?{' '}
+            <a
+              href={CALENDLY_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#e4b63d] font-semibold underline underline-offset-2"
+            >
+              Book a Fit Call
+            </a>
+          </p>
+
           <p className="text-white/50 text-sm mb-2">
-            Payment plan available: <span className="text-[#e4b63d] font-semibold">{PAYMENT_PLAN}</span>.
+            Payment plan available: <span className="text-[#e4b63d] font-semibold">{PAYMENT_PLAN}</span>
+            {' '}({TRANSFORMATION_PROGRAM.pricing.installmentSchedule.join(', ')}).
           </p>
 
           <p className="text-white/40 text-xs mb-4">
@@ -472,7 +498,7 @@ This program addresses three problems directly:
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
 3. Caseload sustainability: systems for organizing review and implementation work.
 
-6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: $1,997.
+6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: ${OFFER_PRICE}.
 Details: behaviorschool.com/transformation-program`}</div>
               </div>
             </div>
