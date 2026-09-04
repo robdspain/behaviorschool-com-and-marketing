@@ -68,7 +68,7 @@ const workflows = [
     title: "IEP behavior goals",
     description:
       "Draft measurable, function-aware behavior goals faster while keeping the BCBA's clinical judgment in the driver's seat.",
-    href: "/iep-goal-writer",
+    href: "/iep-goals",
     cta: "Open the IEP goal writer",
   },
 ];

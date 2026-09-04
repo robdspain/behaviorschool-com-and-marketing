@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import BehaviorGoalWriter from "@/components/iep-goal-writer/ValuesWizard";
 import { AnimatedSections } from "./AnimatedSections";
 
 export const metadata: Metadata = {
@@ -270,8 +271,41 @@ export default function IEPGoalsPage() {
             ]}
           />
         </nav>
+
+        {/* Canonical product UI (also the destination for /iep-goal-writer 301) */}
+        <section id="goal-writer" className="scroll-mt-24 bg-white pb-10 pt-4">
+          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-emerald-700">
+              Free Tool | No Login Required
+            </p>
+            <h1 className="mb-4 text-balance text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
+              BehaviorSchool Goal Writing System
+            </h1>
+            <p className="mx-auto mb-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+              Build an editable IEP behavior goal draft from student-specific baseline, context, supports, and measurement decisions.
+            </p>
+            <div className="mb-8 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-slate-500">
+              <span>Observable behavior</span>
+              <span>Objective baseline</span>
+              <span>Direction-specific criteria</span>
+              <span>BehaviorSchool Goal Draft</span>
+            </div>
+          </div>
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
+              <BehaviorGoalWriter />
+            </div>
+            <p className="mt-6 text-center text-sm text-slate-500">
+              Free tool from{" "}
+              <Link href="/" className="font-medium text-emerald-700 hover:underline">
+                BehaviorSchool
+              </Link>
+              . Entries stay in this browser session and are not submitted.
+            </p>
+          </div>
+        </section>
         
-        {/* Animated Content */}
+        {/* Supporting SEO / education content */}
         <AnimatedSections />
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8" aria-labelledby="iep-goal-examples">

@@ -181,7 +181,7 @@ const structuredData = [
         "@type": "ListItem",
         position: 1,
         name: "BehaviorSchool Goal Writing System",
-        url: "https://behaviorschool.com/iep-goal-writer",
+        url: "https://behaviorschool.com/iep-goals",
       },
       ...libraryResources.map((resource, index) => ({
         "@type": "ListItem",
@@ -313,7 +313,7 @@ export default function FreeToolsPage() {
               ))}
             </ul>
             <Link
-              href="/iep-goal-writer"
+              href="/iep-goals"
               className="mt-9 inline-flex min-h-12 items-center gap-3 bg-[#1f4d3f] px-5 py-3 font-semibold text-white transition-colors hover:bg-[#123628] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2"
             >
               Use the Goal Writing System

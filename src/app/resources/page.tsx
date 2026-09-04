@@ -67,7 +67,7 @@ const FEATURED_TOOLS = [
   {
     title: "BehaviorSchool Goal Writing System",
     description: "Build an editable goal draft from baseline, measurement, generalization, and maintenance decisions.",
-    href: "/iep-goal-writer",
+    href: "/iep-goals",
     icon: ClipboardList,
     tag: "Tool",
   },

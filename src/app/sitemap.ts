@@ -7,9 +7,34 @@ import { getPublishedPosts } from '@/lib/blog'
 export const dynamic = "force-static"
 export const revalidate = 3600
 
+function minimalSitemap(baseUrl: string, currentDate: string): MetadataRoute.Sitemap {
+  return [
+    {
+      url: baseUrl,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 1,
+    },
+  ]
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://behaviorschool.com'
   const currentDate = new Date().toISOString()
+
+  try {
+    return await buildSitemap(baseUrl, currentDate)
+  } catch (error) {
+    // Never 500 the sitemap for crawlers — return a minimal valid document.
+    console.error('Sitemap generation failed; returning minimal fallback:', error)
+    return minimalSitemap(baseUrl, currentDate)
+  }
+}
+
+async function buildSitemap(
+  baseUrl: string,
+  currentDate: string,
+): Promise<MetadataRoute.Sitemap> {
   const normalize = (p: string) => {
     try {
       let path = p.trim()
@@ -39,15 +64,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return /\b(bcba|exam|practice|study|ai|iep|fba|bip|school|rbt|ceu)\b/.test(searchableText)
   }
 
-  const blogPages: MetadataRoute.Sitemap = getPublishedPosts().map((post) => {
-    const highIntent = isHighIntentBlogPost(post)
-    return {
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: post.date || currentDate,
-      changeFrequency: highIntent ? 'weekly' : 'monthly',
-      priority: highIntent ? 0.8 : 0.65,
-    }
-  })
+  let blogPages: MetadataRoute.Sitemap = []
+  try {
+    blogPages = getPublishedPosts().map((post) => {
+      const highIntent = isHighIntentBlogPost(post)
+      return {
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: post.date || currentDate,
+        changeFrequency: highIntent ? 'weekly' as const : 'monthly' as const,
+        priority: highIntent ? 0.8 : 0.65,
+      }
+    })
+  } catch (error) {
+    console.warn('Could not load blog posts for sitemap:', error)
+  }
 
   // Legacy paths that now permanently redirect. Never include these in the sitemap.
   const legacyRedirectPaths = new Set<string>([
@@ -75,6 +105,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/iep-goal-qualitychecker',
     '/school-based-behavior-support',
     '/iep-goal-generator',
+    '/iep-goal-writer',
     '/behavior-study-tools',
     '/community',
     '/compare/behaviorschool-vs-bds',
@@ -97,22 +128,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const timeout = setTimeout(() => controller.abort(), 2000)
     const res = await fetch(`${siteOrigin}/api/admin/indexing`, { cache: 'no-store', signal: controller.signal })
     clearTimeout(timeout)
-    const json = await res.json().catch(() => ({ items: [] }))
-    const nset = new Set<string>()
-    const iset = new Set<string>()
-    const dset = new Set<string>()
-    for (const it of json.items || []) {
-      if (it && typeof it.path === 'string') {
-        if (it.index === false) nset.add(it.path)
-        if (it.in_sitemap === true) iset.add(it.path)
-        if (it.deleted === true) dset.add(it.path)
+    if (res.ok) {
+      const json = await res.json().catch(() => ({ items: [] }))
+      const nset = new Set<string>()
+      const iset = new Set<string>()
+      const dset = new Set<string>()
+      for (const it of json.items || []) {
+        if (it && typeof it.path === 'string') {
+          if (it.index === false) nset.add(it.path)
+          if (it.in_sitemap === true) iset.add(it.path)
+          if (it.deleted === true) dset.add(it.path)
+        }
       }
+      noindex = nset
+      includeSitemap = iset
+      deleted = dset
     }
-    noindex = nset
-    includeSitemap = iset
-    deleted = dset
   } catch {
-    // If indexing API fails, default to including all entries
+    // If indexing API fails/times out/unauthorized, default to including all entries
   }
 
   const entries: MetadataRoute.Sitemap = [
@@ -343,12 +376,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.85,
     },
-    {
-      url: `${baseUrl}/iep-goal-writer`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
+    // /iep-goal-writer removed — permanent redirect to /iep-goals
     {
       url: `${baseUrl}/bcba-readiness-quiz`,
       lastModified: currentDate,
@@ -404,13 +432,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
 
-    // Study Tools
-    {
-      url: `${baseUrl}/study`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
+    // /study removed — permanent redirect to https://study.behaviorschool.com/
 
     // Engagement Pages
     {

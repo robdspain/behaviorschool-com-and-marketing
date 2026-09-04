@@ -609,7 +609,7 @@ export default function Page() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-goal-writer">
+                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-goals">
                       IEP Goal Quality Checker →
                     </Link>
                   </li>

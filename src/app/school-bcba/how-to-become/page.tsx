@@ -292,7 +292,7 @@ export default function Page() {
                               </div>
                               <div>
                                 <p className="font-semibold text-slate-800 text-sm">IEP Goal Set (Validated Quality)</p>
-                                <p className="text-xs text-slate-600">Validate with <Link href="/iep-goal-writer" className="text-blue-700 underline">Goal Quality Checker</Link> to ensure measurability</p>
+                                <p className="text-xs text-slate-600">Validate with <Link href="/iep-goals" className="text-blue-700 underline">Goal Quality Checker</Link> to ensure measurability</p>
                               </div>
                             </div>
                             <div className="flex items-start gap-3">
@@ -558,7 +558,7 @@ export default function Page() {
                   <p className="text-sm text-slate-700 mb-4">
                     Validate your IEP goals against best practice criteria: measurability, baseline data, conditions, criteria. Ensure 90-100% quality before interviews.
                   </p>
-                  <Link href="/iep-goal-writer">
+                  <Link href="/iep-goals">
                     <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
                       Try Goal Quality Checker
                       <ChevronRight className="w-4 h-4" />

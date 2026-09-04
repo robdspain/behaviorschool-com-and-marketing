@@ -7,8 +7,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const srcRoot = join(root, "src");
 const errors = [];
 const expectedAcquisitionRedirects = new Map([
-  ["/study", "https://behaviorstudytools.com/"],
-  ["/bcba-study-tools", "https://behaviorstudytools.com/"],
+  ["/study", "https://study.behaviorschool.com/"],
+  ["/bcba-study-tools", "https://study.behaviorschool.com/"],
   ["/bcba-exam-prep", "https://study.behaviorschool.com/free-practice/"],
   ["/bcba-practice-exam", "https://study.behaviorschool.com/free-mock-exam/"],
   ["/free-bcba-mock-exam", "https://study.behaviorschool.com/free-mock-exam/"],

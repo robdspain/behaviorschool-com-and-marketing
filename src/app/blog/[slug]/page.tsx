@@ -88,7 +88,7 @@ function getArticleCta(post: { tags?: { name: string }[] | null }) {
       eyebrow: "Try the workflow",
       title: "Draft behavior goals with a more function-based frame.",
       body: "The IEP Goal Writer helps turn behavior needs, present levels, and replacement skills into measurable draft goals you can review with your team.",
-      href: "/iep-goal-writer",
+      href: "/iep-goals",
       label: "Open the IEP Goal Writer",
     };
   }
