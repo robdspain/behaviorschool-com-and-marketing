@@ -418,78 +418,78 @@ export default function TransformationProgramPage() {
       </section>
 
       {/* Enroll */}
-      <section id="enroll" className="py-20 sm:py-28 bg-[#123628] text-white scroll-mt-24">
+      <section id="enroll" className="py-20 sm:py-28 bg-[#e8f0eb] text-[#1a1a1a] scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Apply for a seat in the October 2026 cohort</h2>
-          <p className="text-white/60 text-sm mb-3">{COHORT_LABEL} · 6 weeks · School BCBAs only · {COHORT_SEAT_CAP} seats</p>
-          <p className="text-white/70 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Enrollment</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">Apply for a seat in the October 2026 cohort</h2>
+          <p className="text-slate-600 text-sm mb-3">{COHORT_LABEL} · 6 weeks · School BCBAs only · {COHORT_SEAT_CAP} seats</p>
+          <p className="text-slate-700 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             Apply first. Fit calls are scheduled after application review. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
           </p>
-          <p className="text-white/55 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
             Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
           </p>
-          <p className="text-[#e4b63d] font-bold text-2xl mb-8">
+          <p className="text-[#1f4d3f] font-bold text-2xl mb-8">
             {OFFER_PRICE} tuition
           </p>
 
           <a
             href="#apply"
-            className="block w-full rounded-full bg-[#e4b63d] hover:bg-[#d4a637] text-[#123628] font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
+            className="block w-full rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
           >
             Apply for a seat
           </a>
 
-          <p id="fit-call" className="scroll-mt-24 text-white/50 text-sm mb-4">
+          <p id="fit-call" className="scroll-mt-24 text-slate-600 text-sm mb-4">
             Already applied and in review?{' '}
             <a
               href={CALENDLY_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#e4b63d] font-semibold underline underline-offset-2"
+              className="text-[#1f4d3f] font-semibold underline underline-offset-2"
             >
               Book a Fit Call
             </a>
           </p>
 
-          <p className="text-white/50 text-sm mb-2">
-            Payment plan available: <span className="text-[#e4b63d] font-semibold">{PAYMENT_PLAN}</span>
+          <p className="text-slate-600 text-sm mb-2">
+            Payment plan available: <span className="text-[#1f4d3f] font-semibold">{PAYMENT_PLAN}</span>
             {' '}({TRANSFORMATION_PROGRAM.pricing.installmentSchedule.join(', ')}).
           </p>
 
-          <p className="text-white/40 text-xs mb-4">
+          <p className="text-slate-500 text-xs mb-4">
             District PO or invoice needed?{' '}
-            <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
+            <a href={DISTRICT_EMAIL_LINK} className="text-[#1f4d3f] font-semibold underline underline-offset-2">
               Contact us
             </a>
           </p>
-          <p className="text-white/40 text-xs mb-12">
+          <p className="text-slate-500 text-xs mb-12">
             Refund policy: five calendar days from payment. After that, cohort seats are committed and non-refundable except where required by law.
           </p>
 
-          <details className="text-left bg-white/5 rounded-xl border border-white/10 overflow-hidden">
-            <summary className="cursor-pointer px-6 py-4 font-semibold text-white/70 text-sm flex items-center justify-between list-none">
+          <details className="text-left bg-white rounded-xl border border-[#1f4d3f]/15 overflow-hidden">
+            <summary className="cursor-pointer px-6 py-4 font-semibold text-slate-700 text-sm flex items-center justify-between list-none">
               <span>Getting district approval? We can help.</span>
-              <span className="text-white/40 text-xs">tap to expand</span>
+              <span className="text-slate-400 text-xs">tap to expand</span>
             </summary>
-            <div className="px-6 pb-6 border-t border-white/10 pt-4 space-y-4">
-              <p className="text-sm text-white/60 leading-relaxed">
+            <div className="px-6 pb-6 border-t border-[#1f4d3f]/10 pt-4 space-y-4">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 Many BCBAs have their district cover this as professional development. Here&apos;s what you need:
               </p>
-              <p className="flex items-start gap-3 p-3 rounded-lg border border-white/10 text-sm text-white/70 leading-relaxed">
-                <FileCheck className="w-4 h-4 flex-shrink-0 text-[#e4b63d] mt-0.5" />
+              <p className="flex items-start gap-3 p-3 rounded-lg border border-[#1f4d3f]/10 bg-[#1f4d3f]/5 text-sm text-slate-700 leading-relaxed">
+                <FileCheck className="w-4 h-4 flex-shrink-0 text-[#1f4d3f] mt-0.5" />
                 Need current district paperwork? Contact us for the current program description, invoice, and payment documentation.
               </p>
-              <p className="text-xs text-white/40">
+              <p className="text-xs text-slate-500">
                 Need a W-9, purchase order, or invoice?{' '}
-                <a href={DISTRICT_EMAIL_LINK} className="text-[#e4b63d] font-semibold underline underline-offset-2">
+                <a href={DISTRICT_EMAIL_LINK} className="text-[#1f4d3f] font-semibold underline underline-offset-2">
                   Contact us
                 </a>{' '}
                 and we&apos;ll send the paperwork. Seats are held once a signed PO or written district payment approval is received.
               </p>
-              <div className="bg-white/5 rounded-lg border border-white/10 p-4">
-                <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-3">Copy and forward to your supervisor</p>
-                <div className="bg-[#0d1f17] border border-white/10 rounded-lg p-4 text-xs text-white/60 leading-relaxed font-mono whitespace-pre-line select-all">{`Subject: PD Approval Request, School BCBA Transformation Program
+              <div className="bg-[#f9f7f2] rounded-lg border border-[#1f4d3f]/10 p-4">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Copy and forward to your supervisor</p>
+                <div className="bg-white border border-[#1f4d3f]/15 rounded-lg p-4 text-xs text-slate-700 leading-relaxed font-mono whitespace-pre-line select-all">{`Subject: PD Approval Request, School BCBA Transformation Program
 
 I'd like to attend a 6-week PD cohort for school BCBAs led by Rob Spain, BCBA.
 
