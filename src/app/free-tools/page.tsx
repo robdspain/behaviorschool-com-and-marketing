@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free School Behavior Tools for BCBAs | BehaviorSchool",
+  title: "Free BCBA Tools | IEP Goal Writer, FBA & BIP Templates",
   description:
-    "Free tools for school BCBAs and behavior teams, including an IEP behavior goal writer, school-based FBA guide, BIP examples, and IEP goal examples.",
+    "Free tools for school BCBAs: IEP behavior goal writer, FBA guides, BIP examples, and IEP goal examples. Start without a credit card.",
   alternates: { canonical: "https://behaviorschool.com/free-tools" },
   robots: {
     index: true,
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Free School Behavior Tools for BCBAs | BehaviorSchool",
+    title: "Free BCBA Tools | IEP Goal Writer, FBA & BIP Templates",
     description:
-      "Use free IEP behavior goal, FBA, and behavior intervention planning resources built for school-based teams.",
+      "Free tools for school BCBAs: IEP behavior goal writer, FBA guides, BIP examples, and IEP goal examples. Start without a credit card.",
     url: "https://behaviorschool.com/free-tools",
     type: "website",
     images: [
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free School Behavior Tools for BCBAs | BehaviorSchool",
+    title: "Free BCBA Tools | IEP Goal Writer, FBA & BIP Templates",
     description:
-      "Use free IEP behavior goal, FBA, and behavior intervention planning resources built for school-based teams.",
+      "Free tools for school BCBAs: IEP behavior goal writer, FBA guides, BIP examples, and IEP goal examples. Start without a credit card.",
     images: ["/product-suite/iep-goal-writer-live.jpg"],
   },
 };

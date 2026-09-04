@@ -13,18 +13,18 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI for Behavior Analysts | IEP Goals, BIPs & BCBA Tools",
+  title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
   description:
-    "See BCBA-built AI workflows for IEP goals, FBA-to-BIP planning, exam prep, and FERPA-conscious school documentation. Practical examples, not hype.",
+    "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
   keywords:
     "AI for behavior analysts, AI for BCBAs, ABA AI tools, behavior analyst AI, AI BCBA exam prep, AI behavior plan tools",
   alternates: {
     canonical: "https://behaviorschool.com/ai-for-behavior-analysts",
   },
   openGraph: {
-    title: "AI for Behavior Analysts: IEP Goals, BIPs & BCBA Tools",
+    title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
     description:
-      "BCBA-built AI workflows for IEP goals, FBA-to-BIP planning, exam prep, and FERPA-conscious school documentation.",
+      "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
     url: "https://behaviorschool.com/ai-for-behavior-analysts",
     siteName: "Behavior School",
     type: "website",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI for Behavior Analysts: IEP Goals, BIPs & BCBA Tools",
+    title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
     description:
-      "See practical AI workflows for IEP goals, FBA-to-BIP planning, exam prep, and school documentation.",
+      "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
     images: ["/BehaviorStudyTools/Hero-BST-Home.webp"],
   },
 };
