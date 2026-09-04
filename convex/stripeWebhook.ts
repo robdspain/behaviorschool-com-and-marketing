@@ -164,9 +164,8 @@ export const stripeWebhook = httpAction(async (ctx, request) => {
         checkoutOption,
         productName: asString(metadata.product) || "School BCBA Transformation Program",
         lineItemDescriptions: [],
-        // TODO (Rob): Confirm public tuition. Provisional Early Bird $2,499
-        // (live Stripe also has Standard $2,997 and older $2,497 one-time prices).
-        contractValueCents: 249900,
+        // Confirmed October public tuition sticker: $1,997.
+        contractValueCents: 199700,
         purchasedAt: occurredAt,
       });
 

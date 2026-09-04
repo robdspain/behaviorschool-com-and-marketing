@@ -60,10 +60,9 @@ function fullName(contact: Doc<"crmContacts"> | null) {
 }
 
 function getDealValue(paymentOptionDiscussed: "pay_in_full" | "payment_plan" | "both" | "not_discussed" | "other") {
-  // TODO (Rob): Provisional Early Bird $2,499 until public tuition is confirmed.
-  // Live Stripe also has Standard $2,997 and older $2,497 one-time prices.
+  // Confirmed October public tuition: $1,997 (payment plan charges 3 × $665.67 = $1,997.01).
   void paymentOptionDiscussed;
-  return 2499;
+  return 1997;
 }
 
 function mergeTags(existing: string[], additions: string[]) {

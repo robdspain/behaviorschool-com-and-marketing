@@ -429,11 +429,8 @@ export default function TransformationProgramPage() {
           <p className="text-white/55 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
             Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
           </p>
-          <p className="text-[#e4b63d] font-bold text-2xl mb-2">
+          <p className="text-[#e4b63d] font-bold text-2xl mb-8">
             {OFFER_PRICE} tuition
-          </p>
-          <p className="text-white/45 text-xs mb-8">
-            Provisional Early Bird display ({TRANSFORMATION_PROGRAM.pricing.payInFullLabel}). Confirm public tuition against live Stripe before publish.
           </p>
 
           <a
@@ -501,7 +498,7 @@ This program addresses three problems directly:
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
 3. Caseload sustainability: systems for organizing review and implementation work.
 
-6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: ${OFFER_PRICE} (Early Bird provisional).
+6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: ${OFFER_PRICE}.
 Details: behaviorschool.com/transformation-program`}</div>
               </div>
             </div>

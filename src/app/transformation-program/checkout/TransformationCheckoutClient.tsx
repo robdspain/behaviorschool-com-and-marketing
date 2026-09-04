@@ -157,8 +157,8 @@ export function TransformationCheckoutClient() {
             <p className="mt-8 text-4xl font-bold text-[#123628]">{STRIPE_EQUAL_INSTALLMENT}</p>
             <p className="mt-1 text-sm font-semibold text-slate-600">{PAYMENT_PLAN}</p>
             <p className="mt-1 text-xs text-slate-500">Schedule: {PAYMENT_PLAN_DETAIL}</p>
-            <p className="mt-1 text-xs text-amber-800">
-              Provisional Early Bird pair (matches live Stripe installment {TRANSFORMATION_PROGRAM.pricing.stripeInstallmentPriceId}). Confirm public tuition before publish — do not treat dynamic checkout amounts as final Stripe wiring.
+            <p className="mt-1 text-xs text-slate-500">
+              Equal Stripe subscription amounts: {TRANSFORMATION_PROGRAM.pricing.installmentCount} × {STRIPE_EQUAL_INSTALLMENT} = {STRIPE_INSTALLMENT_TOTAL}
             </p>
             <ul className="mt-6 space-y-3 text-sm text-slate-700">
               <li className="flex gap-2">
