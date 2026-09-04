@@ -1,14 +1,23 @@
 /**
- * Transformation Program catalog constants (sales page + checkout source of truth).
+ * Transformation Program catalog constants (sales page + checkout display).
  *
- * Payment plan math (October 2026):
- * - Sticker / pay-in-full: $1,997 (199700 cents).
- * - Displayed plan: three payments totaling exactly $1,997
- *   ($665.67 + $665.67 + $665.66).
- * - Stripe Checkout `mode: "subscription"` requires equal recurring amounts, so
- *   checkout charges 3 × $665.67 = $1,997.01 (1¢ over sticker). CRM deal /
- *   contract value for the plan uses the sticker total ($1,997); Stripe webhook
- *   amounts reflect actual charged cents.
+ * ============================================================================
+ * TODO (Rob): Confirm the public tuition before merge.
+ * Live Stripe prices on Behavior School acct_1QeP6UAHZC9qJnAY (pulled Sep 2026)
+ * do NOT match the old marketing figure of $1,997 / 3×$697:
+ *
+ *   - Standard one-time:     $2,997  price_1TAtWAAHZC9qJnAYRDuP6aoU
+ *   - Early Bird one-time:   $2,499  price_1TAtWAAHZC9qJnAY24RKIcyo
+ *   - Older one-time nick:   $2,497  price_1RygJFAHZC9qJnAYxwlOPltX
+ *                            ("School BCBA Transformation Program")
+ *   - Recurring 3-month:     $833/mo = $2,499 total
+ *                            price_1TAtWBAHZC9qJnAYp9imDQy8
+ *
+ * PROVISIONAL marketing pair used below (for a consistent page until Rob picks):
+ *   Early Bird one-time $2,499 + installment 3 × $833 (= $2,499).
+ * This does NOT modify Stripe. Checkout still creates dynamic `price_data` from
+ * these cents — wire Checkout to the chosen Stripe Price IDs after Rob decides.
+ * ============================================================================
  */
 export const TRANSFORMATION_PROGRAM = {
   name: "School BCBA Transformation Program",
@@ -29,25 +38,39 @@ export const TRANSFORMATION_PROGRAM = {
     applicationsCloseDate: "2026-10-01",
   },
   pricing: {
-    payInFull: "$1,997",
-    payInFullCents: 199700,
-    /** Equal Stripe subscription installment (see file header for 1¢ note). */
-    installment: "$665.67",
-    installmentCents: 66567,
+    /**
+     * TODO (Rob): Provisional Early Bird display only.
+     * Confirm whether public price is Standard $2,997, Early Bird $2,499,
+     * older $2,497, or another figure before merge.
+     */
+    pricingStatus: "provisional_early_bird" as const,
+    payInFullLabel: "Early Bird",
+    payInFull: "$2,499",
+    payInFullCents: 249900,
+    stripePayInFullPriceId: "price_1TAtWAAHZC9qJnAY24RKIcyo",
+    /** Matches live Stripe recurring price_1TAtWBAHZC9qJnAYp9imDQy8 */
+    installment: "$833",
+    installmentCents: 83300,
     installmentCount: 3,
-    /** Marketing / sales display: payments that sum exactly to sticker. */
-    installmentSchedule: ["$665.67", "$665.67", "$665.66"] as const,
-    installmentTotal: "$1,997 total",
-    installmentTotalCents: 199700,
-    /** Actual Stripe equal-subscription total (3 × installmentCents). */
-    stripeInstallmentTotalCents: 199701,
-    stripeInstallmentTotal: "$1,997.01",
+    installmentSchedule: ["$833", "$833", "$833"] as const,
+    installmentTotal: "$2,499 total",
+    installmentTotalCents: 249900,
+    stripeInstallmentPriceId: "price_1TAtWBAHZC9qJnAYp9imDQy8",
+    stripeInstallmentTotalCents: 249900,
+    stripeInstallmentTotal: "$2,499",
+    /** Catalog reference only — not currently shown on the sales page. */
+    stripeCatalog: {
+      standardOneTime: { amount: "$2,997", priceId: "price_1TAtWAAHZC9qJnAYRDuP6aoU" },
+      earlyBirdOneTime: { amount: "$2,499", priceId: "price_1TAtWAAHZC9qJnAY24RKIcyo" },
+      olderOneTime: { amount: "$2,497", priceId: "price_1RygJFAHZC9qJnAYxwlOPltX" },
+      installment3Month: { amount: "$833/mo", total: "$2,499", priceId: "price_1TAtWBAHZC9qJnAYp9imDQy8" },
+    },
   },
 } as const;
 
 export const TRANSFORMATION_PROGRAM_URL = "https://behaviorschool.com/transformation-program";
 export const TRANSFORMATION_CHECKOUT_URL = "https://behaviorschool.com/transformation-program/checkout";
 
-export const TRANSFORMATION_PAYMENT_PLAN_LABEL = `${TRANSFORMATION_PROGRAM.pricing.installmentCount} payments totaling ${TRANSFORMATION_PROGRAM.pricing.payInFull}`;
+export const TRANSFORMATION_PAYMENT_PLAN_LABEL = `${TRANSFORMATION_PROGRAM.pricing.installmentCount} payments of ${TRANSFORMATION_PROGRAM.pricing.installment} (${TRANSFORMATION_PROGRAM.pricing.installmentTotal})`;
 
 export const TRANSFORMATION_PAYMENT_PLAN_DETAIL = `${TRANSFORMATION_PROGRAM.pricing.installmentSchedule.join(" + ")}`;

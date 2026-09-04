@@ -60,10 +60,10 @@ function fullName(contact: Doc<"crmContacts"> | null) {
 }
 
 function getDealValue(paymentOptionDiscussed: "pay_in_full" | "payment_plan" | "both" | "not_discussed" | "other") {
-  // Sticker tuition is $1,997 for both pay-in-full and the displayed payment plan.
-  // Stripe equal-subscription charges may total $1,997.01 (1¢); CRM uses sticker.
+  // TODO (Rob): Provisional Early Bird $2,499 until public tuition is confirmed.
+  // Live Stripe also has Standard $2,997 and older $2,497 one-time prices.
   void paymentOptionDiscussed;
-  return 1997;
+  return 2499;
 }
 
 function mergeTags(existing: string[], additions: string[]) {
@@ -840,7 +840,13 @@ export const recordTransformationPurchase = internalMutation({
         stage: "closed_won",
         probability: 100,
         expectedCloseDate: purchasedAt.slice(0, 10),
-        paymentOption: args.checkoutOption === "installments" || args.amountCents === 66567 || args.amountCents === 69700 ? "payment_plan" : "pay_in_full",
+        paymentOption:
+          args.checkoutOption === "installments" ||
+          args.amountCents === 83300 ||
+          args.amountCents === 66567 ||
+          args.amountCents === 69700
+            ? "payment_plan"
+            : "pay_in_full",
         isArchived: false,
         createdAt: timestamp,
         updatedAt: timestamp,

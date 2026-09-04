@@ -164,9 +164,9 @@ export const stripeWebhook = httpAction(async (ctx, request) => {
         checkoutOption,
         productName: asString(metadata.product) || "School BCBA Transformation Program",
         lineItemDescriptions: [],
-        // Sticker / CRM contract value is $1,997 for both options.
-        // Stripe equal-subscription installments actually charge 3 × $665.67 = $1,997.01.
-        contractValueCents: 199700,
+        // TODO (Rob): Confirm public tuition. Provisional Early Bird $2,499
+        // (live Stripe also has Standard $2,997 and older $2,497 one-time prices).
+        contractValueCents: 249900,
         purchasedAt: occurredAt,
       });
 
