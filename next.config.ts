@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
 const behaviorStudyToolsUrl = "https://behaviorstudytools.com/";
+const studyAppUrl = "https://study.behaviorschool.com/";
 const freePracticeUrl = "https://study.behaviorschool.com/free-practice/";
 const freeMockUrl = "https://study.behaviorschool.com/free-mock-exam/";
 
@@ -75,14 +76,15 @@ const nextConfig: NextConfig = {
       // ============================================
 
       // -- Behavior Study Tools acquisition consolidation --
+      // Primary study destination is study.behaviorschool.com (not behaviorstudytools.com)
       {
         source: '/study',
-        destination: behaviorStudyToolsUrl,
+        destination: studyAppUrl,
         permanent: true,
       },
       {
         source: '/bcba-study-tools',
-        destination: behaviorStudyToolsUrl,
+        destination: studyAppUrl,
         permanent: true,
       },
       {
@@ -220,8 +222,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/iep-goal-writer',
+        destination: '/iep-goals',
+        permanent: true,
+      },
+      {
+        source: '/iep-goal-writer/',
+        destination: '/iep-goals',
+        permanent: true,
+      },
+      {
         source: '/iep-goal-generator',
-        destination: '/iep-goal-writer',
+        destination: '/iep-goals',
         permanent: true,
       },
 
@@ -423,12 +435,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/iep-goal-qualitychecker',
-        destination: '/iep-goal-writer',
+        destination: '/iep-goals',
         permanent: true,
       },
       {
         source: '/iep-goal-qualitychecker/',
-        destination: '/iep-goal-writer',
+        destination: '/iep-goals',
         permanent: true,
       },
       // Block Ghost CMS URLs with redirects to proper pages

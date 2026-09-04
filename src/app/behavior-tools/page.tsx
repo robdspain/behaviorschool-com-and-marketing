@@ -43,7 +43,7 @@ const tools: ToolCard[] = [
     title: "IEP Goal Writer",
     description:
       "Generate values-aligned, measurable IEP behavior goals in seconds. Our AI-powered wizard creates copy-ready goals based on student needs, function of behavior, and educational context.",
-    href: "/iep-goal-writer",
+    href: "/iep-goals",
     icon: FileText,
     status: "live",
     features: [
@@ -71,7 +71,7 @@ const tools: ToolCard[] = [
     title: "IEP Goal Quality Checker",
     description:
       "Use the BehaviorSchool Goal Writing System to review whether an IEP goal includes observable behavior, baseline, context, supports, measurement, and objective progression.",
-    href: "/iep-goal-writer",
+    href: "/iep-goals",
     icon: CheckCircle2,
     status: "live",
     features: [
@@ -184,7 +184,7 @@ const tools: ToolCard[] = [
     title: "BehaviorSchool Goal Writing System",
     description:
       "Build an editable IEP behavior goal draft from student-specific baseline, context, supports, measurement, and mastery decisions.",
-    href: "/iep-goal-writer",
+    href: "/iep-goals",
     icon: ClipboardCheck,
     status: "live",
     features: [
@@ -237,7 +237,7 @@ export default function BehaviorToolsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/iep-goal-writer"
+                href="/iep-goals"
                 className="inline-flex items-center justify-center px-8 py-4 bg-emerald-600 text-white rounded-xl text-lg font-semibold hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-200"
               >
                 Try IEP Goal Writer

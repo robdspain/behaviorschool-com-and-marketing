@@ -14,8 +14,13 @@ export function AnimatedSections() {
 
   const handleCTAClick = () => {
     console.log('IEP Goals: CTA clicked');
-    // Direct users to the native IEP Goal Writer tool
-    router.push("/iep-goal-writer");
+    // Scroll to the Goal Writer tool on this page (canonical /iep-goals)
+    const el = document.getElementById("goal-writer");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    router.push("/iep-goals#goal-writer");
   };
 
   const faqs = [
@@ -56,9 +61,9 @@ export function AnimatedSections() {
               transition={{ duration: 0.8 }}
                               className="space-y-4"
             >
-              <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight leading-[1.1] text-slate-900">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight leading-[1.1] text-slate-900">
                 The <span className="text-emerald-600">BehaviorSchool Goal Writing System</span>
-              </h1>
+              </h2>
 
               <p className="text-lg sm:text-xl text-slate-700 font-medium mb-4">
                 Turn student-specific decisions into an editable goal draft

@@ -21,7 +21,7 @@ import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker"
 import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
-const canonical = "https://behaviorstudytools.com/";
+const canonical = "https://study.behaviorschool.com/";
 
 export const metadata = buildPageMetadata({
   title: "Behavior Study Tools | BCBA Exam Prep App",
@@ -134,7 +134,7 @@ export default function StudyPage() {
               Behavior Study Tools is the front door to your exam prep.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-700 sm:text-xl">
-              Start at behaviorstudytools.com, practice in the app at study.behaviorschool.com,
+              Practice in the app at study.behaviorschool.com,
               and connect your study progress with supervision and fieldwork hour tracking when you need it.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
