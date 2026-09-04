@@ -3,7 +3,7 @@ import { TransformationCheckoutClient } from './TransformationCheckoutClient';
 
 export const metadata: Metadata = {
   title: 'Transformation Program Checkout | Behavior School',
-  description: 'Private checkout access for the School BCBA Transformation Program.',
+  description: 'Checkout for the School BCBA Transformation Program.',
   robots: {
     index: false,
     follow: false,

@@ -165,7 +165,7 @@ export default function TransformationProgramPage() {
                 </a>
               </motion.div>
               <p className="mt-4 text-sm text-slate-500 max-w-xl mx-auto lg:mx-0">
-                Apply first. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. {SEATS_INVENTORY_LABEL}.
+                Apply with the interest form. If you meet the minimum criteria, you can enroll and pay now. If you are unsure or need district approval, we will use the fit call. We may decline applicants who are not a fit. {SEATS_INVENTORY_LABEL}.
               </p>
             </div>
 
@@ -191,27 +191,33 @@ export default function TransformationProgramPage() {
           </div>
         </div>
 
-        {/* Cohort dates callout */}
+        {/* Cohort dates callout — stacked layout so seats badge never crushes date/time columns */}
         <div className="max-w-2xl mx-auto px-4 mt-14">
           <div className="rounded-2xl bg-white p-6 shadow-sm border border-[#1f4d3f]/10">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" />
-                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, {COHORT_LABEL}</span>
-                </div>
-                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">{COHORT_START_FULL} &middot; {TRANSFORMATION_PROGRAM.cohort.sessionTime}</p>
-                <div className="flex flex-wrap gap-x-3 gap-y-1">
-                  {COHORT_SESSION_DATES.map((d) => (
-                    <span key={d} className="text-[#1f4d3f] font-semibold text-sm">{d}</span>
-                  ))}
-                </div>
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+              <div className="flex items-center gap-2 min-w-0">
+                <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" />
+                <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">
+                  Next Cohort, {COHORT_LABEL}
+                </span>
               </div>
-              <div className="flex-shrink-0 bg-[#1f4d3f]/5 rounded-xl px-5 py-3 border border-[#1f4d3f]/10">
-                <p className="text-[#1f4d3f] text-sm font-semibold">{SEATS_INVENTORY_LABEL}</p>
-                <p className="text-slate-500 text-xs mt-1">October 2026 cohort. Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.</p>
-              </div>
+              <p className="inline-flex items-center rounded-full bg-[#1f4d3f]/5 border border-[#1f4d3f]/10 px-3 py-1.5 text-[#1f4d3f] text-sm font-semibold whitespace-nowrap">
+                {SEATS_INVENTORY_LABEL}
+              </p>
             </div>
+            <p className="text-[#1a1a1a] font-semibold text-sm mb-2">
+              {COHORT_START_FULL} &middot; {TRANSFORMATION_PROGRAM.cohort.sessionTime}
+            </p>
+            <div className="flex flex-wrap gap-x-3 gap-y-1 mb-4">
+              {COHORT_SESSION_DATES.map((d) => (
+                <span key={d} className="text-[#1f4d3f] font-semibold text-sm">
+                  {d}
+                </span>
+              ))}
+            </div>
+            <p className="text-slate-500 text-xs leading-relaxed">
+              Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
+            </p>
           </div>
         </div>
       </section>
@@ -284,7 +290,7 @@ export default function TransformationProgramPage() {
 
           <div className="mt-8 rounded-xl border border-[#e4b63d]/30 bg-[#e4b63d]/5 p-5 space-y-3">
             <p className="text-[#1a1a1a] text-sm text-center leading-relaxed">
-              {SEATS_INVENTORY_LABEL} for the October 2026 cohort. Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
+              {SEATS_INVENTORY_LABEL} for the October 2026 cohort. Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first. Meet the minimum criteria and you can enroll now; if you are unsure or need district approval, we will use the fit call. We may decline applicants who are not a fit.
             </p>
           </div>
         </div>
@@ -431,7 +437,7 @@ export default function TransformationProgramPage() {
           <FAQAccordion items={[
             { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
             { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats total for the October 2026 cohort (${COHORT_SEATS_REMAINING} remaining). Applications close when seats fill or by ${APPLICATIONS_CLOSE_LABEL}, whichever comes first.` },
-            { question: "What is the order of operations to enroll?", answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. The fit call screens school BCBA role, Thursday attendance capacity, a live system you will rebuild during the cohort, and payment path. Acceptance requires that call and is not automatic with payment; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
+            { question: "What is the order of operations to enroll?", answer: "Apply with the interest form on this page. If you meet the minimum criteria — certified school BCBA role, Thursday 6:00 to 8:00 PM PT live attendance, a live caseload or system to rebuild during the six weeks, and readiness to implement (not CEU-only) — you can enroll and pay now. If you are unsure or need district approval, we will use the fit call. We may decline applicants who are not a fit. Fit Call booking is for the unsure or district path." },
             { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem, capacity for Thursday 6:00 to 8:00 PM PT live sessions, and readiness to bring real work between sessions. It is not for RBTs, uncertified BCaBAs, general-education staff, clinic-only BCBAs without a school role, CEU-only shoppers, people who cannot attend live Thursdays, or people with no caseload or system to apply the work to during the six weeks." },
             { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later weeks include share-outs on the systems you are rebuilding." },
             { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
@@ -451,7 +457,7 @@ export default function TransformationProgramPage() {
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">Apply for a seat in the October 2026 cohort</h2>
           <p className="text-slate-600 text-sm mb-3">{COHORT_LABEL} · 6 weeks · School BCBAs only · {SEATS_INVENTORY_LABEL}</p>
           <p className="text-slate-700 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
-            Apply first. Fit calls are scheduled after application review. The fit call screens school BCBA role, Thursday attendance capacity, a live system you will rebuild during the cohort, and payment path. Acceptance requires that call and is not automatic with payment; we may decline applicants who are not ready or not a fit.
+            Apply with the interest form. If you meet the minimum criteria (school BCBA role, Thursday live attendance, a live system to rebuild, ready to implement), you can enroll and pay now. If you are unsure or need district approval, we will use the fit call. We may decline applicants who are not a fit.
           </p>
           <p className="text-slate-600 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
             Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
@@ -467,8 +473,15 @@ export default function TransformationProgramPage() {
             Apply for a seat
           </a>
 
+          <a
+            href="/transformation-program/checkout"
+            className="block w-full rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-bold text-base py-3.5 px-8 text-center transition-colors mb-4"
+          >
+            Meet the criteria? Enroll and pay now
+          </a>
+
           <p id="fit-call" className="scroll-mt-24 text-slate-600 text-sm mb-4">
-            Already applied and in review?{' '}
+            Unsure or need district approval?{' '}
             <a
               href={CALENDLY_LINK}
               target="_blank"
