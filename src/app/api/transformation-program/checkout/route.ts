@@ -10,9 +10,10 @@ type CheckoutOption = 'full' | 'installments';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://behaviorschool.com';
 const PRODUCT_NAME = TRANSFORMATION_PROGRAM.name;
-const PRODUCT_DESCRIPTION = `${TRANSFORMATION_PROGRAM.cohort.label}, ${TRANSFORMATION_PROGRAM.cohort.dateRange}`;
 const FULL_PAYMENT_AMOUNT_CENTS = TRANSFORMATION_PROGRAM.pricing.payInFullCents;
 const INSTALLMENT_AMOUNT_CENTS = TRANSFORMATION_PROGRAM.pricing.installmentCents;
+const FULL_PRICE_ID = TRANSFORMATION_PROGRAM.pricing.stripePayInFullPriceId;
+const INSTALLMENT_PRICE_ID = TRANSFORMATION_PROGRAM.pricing.stripeInstallmentPriceId;
 const CHECKOUT_ERROR_MESSAGE = 'Unable to start checkout right now. Please contact Behavior School for help completing enrollment.';
 
 function getStripe() {
@@ -48,6 +49,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Choose a valid checkout option.' }, { status: 400 });
     }
 
+    if (option === 'full' && !FULL_PRICE_ID) {
+      return NextResponse.json({ error: 'One-time Stripe Price ID is not configured.' }, { status: 500 });
+    }
+
+    if (option === 'installments' && !INSTALLMENT_PRICE_ID) {
+      return NextResponse.json({ error: 'Installment Stripe Price ID is not configured.' }, { status: 500 });
+    }
+
     const customerEmail = normalizeEmail(body.email);
     const stripe = getStripe();
     const successUrl = `${SITE_URL}/transformation-program/checkout?checkout=success&session_id={CHECKOUT_SESSION_ID}`;
@@ -58,6 +67,7 @@ export async function POST(request: NextRequest) {
       program: 'transformation_program',
       cohort: TRANSFORMATION_PROGRAM.cohort.id,
       checkout_option: option,
+      stripe_price_id: option === 'full' ? FULL_PRICE_ID : INSTALLMENT_PRICE_ID,
     };
 
     const session = await stripe.checkout.sessions.create(
@@ -67,14 +77,7 @@ export async function POST(request: NextRequest) {
             customer_email: customerEmail,
             line_items: [
               {
-                price_data: {
-                  currency: 'usd',
-                  product_data: {
-                    name: PRODUCT_NAME,
-                    description: PRODUCT_DESCRIPTION,
-                  },
-                  unit_amount: FULL_PAYMENT_AMOUNT_CENTS,
-                },
+                price: FULL_PRICE_ID,
                 quantity: 1,
               },
             ],
@@ -93,18 +96,7 @@ export async function POST(request: NextRequest) {
             customer_email: customerEmail,
             line_items: [
               {
-                price_data: {
-                  currency: 'usd',
-                  product_data: {
-                    name: `${PRODUCT_NAME} Payment Plan`,
-                    description: `${PRODUCT_DESCRIPTION}. ${TRANSFORMATION_PROGRAM.pricing.installmentCount} monthly payments of ${TRANSFORMATION_PROGRAM.pricing.installment} (plan total ${TRANSFORMATION_PROGRAM.pricing.stripeInstallmentTotal}; sticker ${TRANSFORMATION_PROGRAM.pricing.payInFull}).`,
-                  },
-                  unit_amount: INSTALLMENT_AMOUNT_CENTS,
-                  recurring: {
-                    interval: 'month',
-                    interval_count: 1,
-                  },
-                },
+                price: INSTALLMENT_PRICE_ID,
                 quantity: 1,
               },
             ],
@@ -138,6 +130,7 @@ export async function POST(request: NextRequest) {
         cohort: TRANSFORMATION_PROGRAM.cohort.id,
         checkoutOption: option,
         stripeSessionId: session.id,
+        stripePriceId: option === 'full' ? FULL_PRICE_ID : INSTALLMENT_PRICE_ID,
       },
     }).catch((analyticsError) => {
       console.error('Transformation checkout analytics error:', analyticsError);

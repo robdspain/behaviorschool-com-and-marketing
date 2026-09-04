@@ -1,12 +1,15 @@
 /**
- * Transformation Program catalog constants (sales page + checkout display).
+ * Transformation Program catalog constants (sales page + checkout).
  *
- * Public October 2026 tuition (confirmed by Rob): $1,997 one-time.
+ * Public October 2026 tuition (confirmed): $1,997 one-time.
  * Payment plan: 3 × $665.67 = $1,997.01 (equal Stripe subscription amounts).
  *
- * Stripe Price IDs for the $1,997 catalog are being created separately.
- * Leave placeholders empty until Rob pastes the new Price IDs in a follow-up.
- * Do not wire checkout to the older $2,499 / $2,997 / $833 Stripe prices.
+ * Live Stripe Price IDs (active):
+ *   - One-time $1,997:     price_1UBltAAHZC9qJnAYfebmUlRa
+ *   - 3-month $665.67/mo:  price_1UBltBAHZC9qJnAY3F8ovX5m
+ *
+ * Older mismatched prices (Standard $2997, Early Bird $2499, older $2497,
+ * installment $833) were deactivated and must not be used.
  */
 export const TRANSFORMATION_PROGRAM = {
   name: "School BCBA Transformation Program",
@@ -27,11 +30,9 @@ export const TRANSFORMATION_PROGRAM = {
     applicationsCloseDate: "2026-10-01",
   },
   pricing: {
-    /** Confirmed public October tuition. */
     payInFull: "$1,997",
     payInFullCents: 199700,
-    /** Placeholder — paste new Stripe one-time Price ID when created. */
-    stripePayInFullPriceId: "" as string,
+    stripePayInFullPriceId: "price_1UBltAAHZC9qJnAYfebmUlRa",
     /**
      * Equal 3-payment plan for Stripe subscription checkout.
      * 3 × $665.67 = $1,997.01 (1¢ over sticker; documented).
@@ -42,8 +43,7 @@ export const TRANSFORMATION_PROGRAM = {
     installmentSchedule: ["$665.67", "$665.67", "$665.67"] as const,
     installmentTotal: "$1,997.01 total",
     installmentTotalCents: 199701,
-    /** Placeholder — paste new Stripe recurring Price ID when created. */
-    stripeInstallmentPriceId: "" as string,
+    stripeInstallmentPriceId: "price_1UBltBAHZC9qJnAY3F8ovX5m",
     stripeInstallmentTotalCents: 199701,
     stripeInstallmentTotal: "$1,997.01",
   },
