@@ -9,16 +9,16 @@ import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 export const metadata: Metadata = {
-  title: "BehaviorSchool | Free BCBA Practice Exam & School BCBA Tools",
+  title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
   description:
-    "Take a free BCBA practice exam with instant scoring, then explore AI-powered school BCBA tools, exam prep, and CE resources built by a BCBA.",
+    "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
   alternates: {
     canonical: "https://behaviorschool.com",
   },
   openGraph: {
-    title: "BehaviorSchool | Free BCBA Practice Exam & School BCBA Tools",
+    title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
     description:
-      "Take a free BCBA practice exam with instant scoring, then explore AI-powered school BCBA tools, exam prep, and CE resources built by a BCBA.",
+      "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
     type: "website",
     url: "https://behaviorschool.com",
     images: [
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BehaviorSchool | Free BCBA Practice Exam & School BCBA Tools",
+    title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
     description:
-      "Take a free BCBA practice exam with instant scoring, then explore school BCBA tools and exam prep.",
+      "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -49,7 +49,7 @@ export default function Home() {
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <Hero
         eyebrow="The Modern Toolkit"
-        title="Everything a Behavior Analyst"
+        title="Everything a Behavior Analyst "
         highlight="Actually Needs"
         subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school-based behavior professionals."
         primaryCta={{ href: "https://study.behaviorschool.com/free-practice/", label: "Take Free BCBA Practice Exam" }}
