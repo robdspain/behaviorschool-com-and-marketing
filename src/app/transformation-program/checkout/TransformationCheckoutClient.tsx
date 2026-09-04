@@ -89,7 +89,7 @@ export function TransformationCheckoutClient() {
         variants={fadeInUp}
       >
         <header className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">Private enrollment checkout</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">Enrollment checkout</p>
           <h1 className="mt-3 text-3xl font-bold text-[#123628] sm:text-4xl">School BCBA Transformation Program</h1>
           <div className="mt-5 flex flex-wrap justify-center gap-3 text-sm text-slate-700">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#1f4d3f]/15 bg-white px-4 py-2">

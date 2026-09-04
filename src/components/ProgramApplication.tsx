@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
-import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { TRANSFORMATION_PROGRAM, TRANSFORMATION_SEATS_INVENTORY_LABEL } from '@/lib/transformation-program';
 
 // ─── COHORT FLAG ───────────────────────────────────────────────────────────────
 // Set this to `true` when a cohort is open for enrollment.
@@ -132,11 +132,27 @@ function ApplicationForm() {
           Apply for a seat
         </h2>
         <p className="text-slate-600 text-base">
-          {TRANSFORMATION_PROGRAM.cohort.label} · {TRANSFORMATION_PROGRAM.cohort.seatCap} seats · Applications close when seats fill or by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}, whichever comes first.
+          {TRANSFORMATION_PROGRAM.cohort.label} · {TRANSFORMATION_SEATS_INVENTORY_LABEL} · Applications close when seats fill or by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}, whichever comes first.
         </p>
         <p className="text-slate-500 text-sm mt-3">
-          Apply first. After review, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
+          Apply with this interest form. If you meet the minimum criteria below, you can enroll and pay now. If you are unsure or need district approval, we will use the fit call. We may decline applicants who are not a fit.
         </p>
+        <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4 text-left">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-2">Minimum criteria</p>
+          <ul className="space-y-1.5 text-sm text-slate-600 leading-relaxed">
+            <li>Role: certified school BCBA in a K-12 school or district setting</li>
+            <li>Attendance: capacity for live Thursday sessions, 6:00 to 8:00 PM PT</li>
+            <li>Live system: a caseload or systems problem you will rebuild during the six weeks</li>
+            <li>Ready to implement: not CEU-only</li>
+          </ul>
+          <p className="text-sm text-slate-500 mt-3 leading-relaxed">
+            Meet these criteria?{' '}
+            <a href="/transformation-program/checkout" className="text-[#1f4d3f] font-semibold underline underline-offset-2">
+              Enroll and pay now
+            </a>
+            . Unsure or need district approval? Use the fit call after you apply.
+          </p>
+        </div>
       </div>
 
       {status === 'success' ? (
