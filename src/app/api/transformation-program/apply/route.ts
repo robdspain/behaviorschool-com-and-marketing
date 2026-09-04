@@ -6,6 +6,19 @@ export const dynamic = "force-dynamic";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const THURSDAY_CAPACITY_LABELS: Record<string, string> = {
+  yes_all_sessions: "Yes — can attend all six live sessions",
+  yes_most_sessions: "Yes — can attend most sessions and will make up any miss",
+  unsure: "Unsure — schedule may conflict",
+  no: "No — cannot commit to Thursday 6–8 PM PT",
+};
+
+const PAYER_LABELS: Record<string, string> = {
+  self: "Self-pay",
+  district_po: "District purchase order / invoice",
+  unsure: "Not sure yet",
+};
+
 function cleanString(value: unknown, maxLength: number) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 }
@@ -27,19 +40,59 @@ function parseAttribution(value: unknown) {
   return Object.keys(attribution).length > 0 ? attribution : undefined;
 }
 
+function buildApplicantContext(args: {
+  whyJoin: string;
+  thursdayCapacity: string;
+  payer: string;
+  systemToRebuild: string;
+}) {
+  const thursdayLabel = THURSDAY_CAPACITY_LABELS[args.thursdayCapacity] || args.thursdayCapacity;
+  const payerLabel = PAYER_LABELS[args.payer] || args.payer;
+  return [
+    `Thursday 6–8 PM PT capacity: ${thursdayLabel}`,
+    `Payer: ${payerLabel}`,
+    `System to rebuild: ${args.systemToRebuild}`,
+    "",
+    "Applicant context:",
+    args.whyJoin,
+  ].join("\n");
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const fullName = cleanString(body?.fullName, 160);
     const email = cleanString(body?.email, 320).toLowerCase();
     const role = cleanString(body?.currentRole, 160);
-    const currentChallenges = cleanString(body?.whyJoin, 2000);
+    const whyJoin = cleanString(body?.whyJoin, 2000);
+    const thursdayCapacity = cleanString(body?.thursdayCapacity, 80);
+    const payer = cleanString(body?.payer, 80);
+    const systemToRebuild = cleanString(body?.systemToRebuild, 1000);
     const bcbaCertNumber = cleanString(body?.bcbaCertNumber, 120) || undefined;
     const marketingConsent = body?.marketingConsent === true;
 
-    if (!fullName || !emailPattern.test(email) || !role || !currentChallenges) {
+    if (
+      !fullName ||
+      !emailPattern.test(email) ||
+      !role ||
+      !whyJoin ||
+      !thursdayCapacity ||
+      !payer ||
+      !systemToRebuild
+    ) {
       return NextResponse.json({ error: "Complete each required field with a valid email address." }, { status: 400 });
     }
+
+    if (!THURSDAY_CAPACITY_LABELS[thursdayCapacity] || !PAYER_LABELS[payer]) {
+      return NextResponse.json({ error: "Choose a valid attendance and payer option." }, { status: 400 });
+    }
+
+    const currentChallenges = buildApplicantContext({
+      whyJoin,
+      thursdayCapacity,
+      payer,
+      systemToRebuild,
+    });
 
     const { firstName, lastName } = splitName(fullName);
     const attribution = parseAttribution(body?.attribution);
@@ -71,7 +124,7 @@ export async function POST(request: NextRequest) {
         leadSource: "transformation_application",
         status: "lead",
         tags: ["transformation-program", "transformation-application", "school-bcba-program"],
-        notes: `Transformation Program application\nBCBA certification number: ${bcbaCertNumber || "Not provided"}\n\nApplicant context:\n${currentChallenges}`,
+        notes: `Transformation Program application\nBCBA certification number: ${bcbaCertNumber || "Not provided"}\n\n${currentChallenges}`,
       });
       usedLegacyCrmFallback = true;
     }
@@ -94,6 +147,8 @@ export async function POST(request: NextRequest) {
         additionalData: {
           consentedToProgramUpdates: marketingConsent,
           attribution,
+          thursdayCapacity,
+          payer,
         },
       }),
     ]);

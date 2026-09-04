@@ -104,7 +104,7 @@ export default function TransformationMarketingPage() {
                 <div>
                   <p className="text-sm font-semibold text-[#1f4d3f]">Current offer</p>
                   <h2 className="mt-1 text-xl font-semibold text-slate-950">{TRANSFORMATION_PROGRAM.cohort.label}</h2>
-                  <p className="mt-1 text-sm text-slate-600">{TRANSFORMATION_PROGRAM.cohort.dateRange}. {TRANSFORMATION_PROGRAM.pricing.payInFull} in full or {TRANSFORMATION_PROGRAM.pricing.installmentCount} payments of {TRANSFORMATION_PROGRAM.pricing.installment}.</p>
+                  <p className="mt-1 text-sm text-slate-600">{TRANSFORMATION_PROGRAM.cohort.dateRange}. {TRANSFORMATION_PROGRAM.pricing.payInFull} in full or {TRANSFORMATION_PROGRAM.pricing.installmentCount} payments totaling {TRANSFORMATION_PROGRAM.pricing.payInFull} ({TRANSFORMATION_PROGRAM.pricing.installmentSchedule.join(', ')}).</p>
                 </div>
                 <a className="inline-flex items-center gap-2 text-sm font-semibold text-[#1f4d3f] hover:underline" href="/transformation-program" target="_blank" rel="noreferrer">
                   Review public page <Target className="h-4 w-4" />

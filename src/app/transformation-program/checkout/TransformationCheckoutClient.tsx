@@ -3,13 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CalendarDays, CheckCircle2, CreditCard, ShieldCheck } from 'lucide-react';
-import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 const COHORT_LABEL = TRANSFORMATION_PROGRAM.cohort.label;
 const COHORT_DATES = TRANSFORMATION_PROGRAM.cohort.dateRange;
 const FULL_PAYMENT = TRANSFORMATION_PROGRAM.pricing.payInFull;
-const PAYMENT_PLAN = `${TRANSFORMATION_PROGRAM.pricing.installmentCount} monthly payments of ${TRANSFORMATION_PROGRAM.pricing.installment}`;
-const PAYMENT_PLAN_TOTAL = TRANSFORMATION_PROGRAM.pricing.installmentTotal;
+const PAYMENT_PLAN = TRANSFORMATION_PAYMENT_PLAN_LABEL;
+const PAYMENT_PLAN_DETAIL = TRANSFORMATION_PROGRAM.pricing.installmentSchedule.join(' + ');
+const STRIPE_EQUAL_INSTALLMENT = TRANSFORMATION_PROGRAM.pricing.installment;
+const STRIPE_INSTALLMENT_TOTAL = TRANSFORMATION_PROGRAM.pricing.stripeInstallmentTotal;
 
 type CheckoutOption = 'full' | 'installments';
 
@@ -152,9 +154,12 @@ export function TransformationCheckoutClient() {
               </div>
               <ShieldCheck className="h-6 w-6 flex-none text-[#1f4d3f]" aria-hidden="true" />
             </div>
-            <p className="mt-8 text-4xl font-bold text-[#123628]">$697</p>
+            <p className="mt-8 text-4xl font-bold text-[#123628]">{STRIPE_EQUAL_INSTALLMENT}</p>
             <p className="mt-1 text-sm font-semibold text-slate-600">{PAYMENT_PLAN}</p>
-            <p className="mt-1 text-xs text-slate-500">{PAYMENT_PLAN_TOTAL}</p>
+            <p className="mt-1 text-xs text-slate-500">Sales schedule: {PAYMENT_PLAN_DETAIL}</p>
+            <p className="mt-1 text-xs text-slate-500">
+              Stripe equal-subscription checkout: {TRANSFORMATION_PROGRAM.pricing.installmentCount} × {STRIPE_EQUAL_INSTALLMENT} = {STRIPE_INSTALLMENT_TOTAL}
+            </p>
             <ul className="mt-6 space-y-3 text-sm text-slate-700">
               <li className="flex gap-2">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#1f4d3f]" aria-hidden="true" />

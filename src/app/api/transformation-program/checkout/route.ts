@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
                   currency: 'usd',
                   product_data: {
                     name: `${PRODUCT_NAME} Payment Plan`,
-                    description: `${PRODUCT_DESCRIPTION}. ${TRANSFORMATION_PROGRAM.pricing.installmentCount} monthly payments of ${TRANSFORMATION_PROGRAM.pricing.installment}.`,
+                    description: `${PRODUCT_DESCRIPTION}. ${TRANSFORMATION_PROGRAM.pricing.installmentCount} equal monthly payments of ${TRANSFORMATION_PROGRAM.pricing.installment} via Stripe (sales sticker ${TRANSFORMATION_PROGRAM.pricing.payInFull}).`,
                   },
                   unit_amount: INSTALLMENT_AMOUNT_CENTS,
                   recurring: {

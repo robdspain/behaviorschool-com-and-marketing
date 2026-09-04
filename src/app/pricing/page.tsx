@@ -41,7 +41,7 @@ export default function PricingPage() {
             <h2 className="text-xl font-bold text-[#123628]">Transformation Program</h2>
             <p className="mt-1 text-slate-600 text-sm">6-week live cohort for school BCBAs</p>
             <p className="mt-5 text-3xl font-bold text-[#123628]">$1,997</p>
-            <p className="mt-1 text-sm font-semibold text-slate-600">Payment plan: 3 payments of $697</p>
+            <p className="mt-1 text-sm font-semibold text-slate-600">Payment plan: 3 payments totaling $1,997</p>
             <ul className="mt-5 space-y-2 text-sm text-slate-700">
               <li>Live weekly coaching</li>
               <li>Templates and implementation systems</li>

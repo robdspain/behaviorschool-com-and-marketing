@@ -164,7 +164,9 @@ export const stripeWebhook = httpAction(async (ctx, request) => {
         checkoutOption,
         productName: asString(metadata.product) || "School BCBA Transformation Program",
         lineItemDescriptions: [],
-        contractValueCents: checkoutOption === "installments" ? 209100 : 199700,
+        // Sticker / CRM contract value is $1,997 for both options.
+        // Stripe equal-subscription installments actually charge 3 × $665.67 = $1,997.01.
+        contractValueCents: 199700,
         purchasedAt: occurredAt,
       });
 
