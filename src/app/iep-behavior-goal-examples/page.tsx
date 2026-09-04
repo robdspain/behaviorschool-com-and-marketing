@@ -21,7 +21,7 @@ export default function Page() {
       canonical={canonical}
       primaryCta={{ label: "Use the IEP goal writer", href: "/iep-goals" }}
       secondaryLinks={[
-        { label: "IEP Goal Writer", href: "/iep-goal-writer" },
+        { label: "IEP Goal Writer", href: "/iep-goals" },
         { label: "Behavior Plan Writer", href: "/behavior-plans" },
         { label: "Behavior tools", href: "/behavior-tools" },
       ]}
