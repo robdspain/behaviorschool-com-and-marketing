@@ -170,27 +170,33 @@ export default function TransformationProgramPage() {
           </div>
         </div>
 
-        {/* Cohort dates callout */}
+        {/* Cohort dates callout — stacked full-width body; seats pill never shares a row that can crush dates */}
         <div className="max-w-2xl mx-auto px-4 mt-14">
-          <div className="rounded-2xl bg-white p-6 shadow-sm border border-[#1f4d3f]/10">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" />
-                  <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">Next Cohort, {COHORT_LABEL}</span>
-                </div>
-                <p className="text-[#1a1a1a] font-semibold text-sm mb-1">{COHORT_START_FULL} &middot; {TRANSFORMATION_PROGRAM.cohort.sessionTime}</p>
-                <div className="flex flex-wrap gap-x-3 gap-y-1">
-                  {COHORT_SESSION_DATES.map((d) => (
-                    <span key={d} className="text-[#1f4d3f] font-semibold text-sm">{d}</span>
-                  ))}
-                </div>
+          <div className="rounded-2xl bg-white p-5 sm:p-6 shadow-sm border border-[#1f4d3f]/10">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-4">
+              <div className="flex items-center gap-2 min-w-0">
+                <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" aria-hidden="true" />
+                <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">
+                  Next Cohort, {COHORT_LABEL}
+                </span>
               </div>
-              <div className="flex-shrink-0 bg-[#1f4d3f]/5 rounded-xl px-5 py-3 border border-[#1f4d3f]/10">
-                <p className="text-[#1f4d3f] text-sm font-semibold">{COHORT_SEAT_CAP} seats for the October 2026 cohort</p>
-                <p className="text-slate-500 text-xs mt-1">Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.</p>
-              </div>
+              <p className="self-start inline-flex items-center rounded-full bg-[#1f4d3f]/5 border border-[#1f4d3f]/10 px-3 py-1.5 text-[#1f4d3f] text-sm font-semibold whitespace-nowrap">
+                {COHORT_SEAT_CAP} seats
+              </p>
             </div>
+            <p className="w-full text-[#1a1a1a] font-semibold text-sm sm:text-base mb-2 leading-snug">
+              {COHORT_START_FULL} &middot; {TRANSFORMATION_PROGRAM.cohort.sessionTime}
+            </p>
+            <div className="w-full flex flex-wrap gap-x-3 gap-y-1 mb-4">
+              {COHORT_SESSION_DATES.map((d) => (
+                <span key={d} className="text-[#1f4d3f] font-semibold text-sm">
+                  {d}
+                </span>
+              ))}
+            </div>
+            <p className="w-full text-slate-500 text-xs leading-relaxed">
+              Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
+            </p>
           </div>
         </div>
       </section>
