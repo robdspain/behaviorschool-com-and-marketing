@@ -187,14 +187,14 @@ function ApplicationForm() {
           </div>
           <div>
             <label htmlFor="thursdayCapacity" className="block text-sm font-semibold text-slate-700 mb-1">
-              Can you attend Thursday sessions, 6–8 PM PT?
+              Can you attend Thursday sessions, 6–8 PM Pacific Time?
             </label>
             <select id="thursdayCapacity" name="thursdayCapacity" required className={fieldClass}>
               <option value="">Select one</option>
               <option value="yes_all_sessions">Yes — I can attend all six live sessions</option>
               <option value="yes_most_sessions">Yes — I can attend most sessions and will make up any miss</option>
               <option value="unsure">Unsure — schedule may conflict</option>
-              <option value="no">No — I cannot commit to Thursday 6–8 PM PT</option>
+              <option value="no">No — I cannot commit to Thursday 6–8 PM Pacific Time</option>
             </select>
           </div>
           <div>

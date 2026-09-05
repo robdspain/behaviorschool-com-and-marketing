@@ -10,7 +10,7 @@ const THURSDAY_CAPACITY_LABELS: Record<string, string> = {
   yes_all_sessions: "Yes — can attend all six live sessions",
   yes_most_sessions: "Yes — can attend most sessions and will make up any miss",
   unsure: "Unsure — schedule may conflict",
-  no: "No — cannot commit to Thursday 6–8 PM PT",
+  no: "No — cannot commit to Thursday 6–8 PM Pacific Time",
 };
 
 const PAYER_LABELS: Record<string, string> = {
@@ -49,7 +49,7 @@ function buildApplicantContext(args: {
   const thursdayLabel = THURSDAY_CAPACITY_LABELS[args.thursdayCapacity] || args.thursdayCapacity;
   const payerLabel = PAYER_LABELS[args.payer] || args.payer;
   return [
-    `Thursday 6–8 PM PT capacity: ${thursdayLabel}`,
+    `Thursday 6–8 PM Pacific Time capacity: ${thursdayLabel}`,
     `Payer: ${payerLabel}`,
     `System to rebuild: ${args.systemToRebuild}`,
     "",
