@@ -1,756 +1,377 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { Mail, Users, TrendingUp, BarChart3, FileText, ArrowRight, Archive, ArchiveX, Megaphone, ClipboardList, PhoneCall, Clock, MailCheck, CalendarClock, LifeBuoy, RefreshCw, ShieldCheck } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import Link from "next/link";
+import {
+  ArrowRight,
+  BarChart3,
+  BookOpen,
+  CalendarDays,
+  ClipboardList,
+  FileText,
+  LayoutDashboard,
+  LifeBuoy,
+  Mail,
+  Megaphone,
+  RefreshCw,
+  Search,
+  Settings,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
-interface DashboardStats {
-  totalSubmissions: number
-  weekSubmissions: number
-  totalTemplates: number
-  activeTemplates: number
-  draftTemplates: number
-  totalDownloads: number
+type DashboardStats = {
+  weekSubmissions: number;
+  activeTemplates: number;
+  totalDownloads: number;
+};
+
+type AdminLink = {
+  label: string;
+  description: string;
+  href: string;
+  icon: typeof LayoutDashboard;
+};
+
+type AdminGroup = {
+  title: string;
+  description: string;
+  links: AdminLink[];
+};
+
+const nextActions: AdminLink[] = [
+  {
+    label: "Review discovery calls",
+    description: "Work the next follow-up in the Transformation pipeline.",
+    href: "/admin/crm/discovery-calls",
+    icon: ClipboardList,
+  },
+  {
+    label: "Check support inbox",
+    description: "Resolve customer questions, feedback, and bugs.",
+    href: "/admin/support",
+    icon: LifeBuoy,
+  },
+  {
+    label: "Plan Study content",
+    description: "Choose the next funnel link and social slot.",
+    href: "/admin/behavior-study-tools-marketing",
+    icon: Megaphone,
+  },
+];
+
+const adminGroups: AdminGroup[] = [
+  {
+    title: "Study",
+    description: "Behavior Study Tools, nurture, and research distribution.",
+    links: [
+      {
+        label: "Study marketing",
+        description: "Funnel links, tracking snapshot, and this week’s social slot.",
+        href: "/admin/behavior-study-tools-marketing",
+        icon: Megaphone,
+      },
+      {
+        label: "Study tools nurture",
+        description: "Review the Behavior Study Tools email sequence.",
+        href: "/admin/behavior-study-tools",
+        icon: BookOpen,
+      },
+      {
+        label: "Weekly Research Brief",
+        description: "Manage drafts, subscribers, delivery, and follow-up.",
+        href: "/admin/newsletter",
+        icon: Mail,
+      },
+    ],
+  },
+  {
+    title: "Transformation",
+    description: "Applications, sales pipeline, calls, and access.",
+    links: [
+      {
+        label: "Transformation funnel",
+        description: "Review documented consent, audience readiness, and pipeline.",
+        href: "/admin/transformation-marketing",
+        icon: BarChart3,
+      },
+      {
+        label: "CRM",
+        description: "Manage contacts, deals, and tasks.",
+        href: "/admin/crm",
+        icon: Users,
+      },
+      {
+        label: "Discovery calls",
+        description: "Schedule and complete follow-up work.",
+        href: "/admin/crm/discovery-calls",
+        icon: ClipboardList,
+      },
+      {
+        label: "Checkout access",
+        description: "Manage invitation and checkout access records.",
+        href: "/admin/checkout-access",
+        icon: ShieldCheck,
+      },
+      {
+        label: "Submissions",
+        description: "Review incoming forms and applications.",
+        href: "/admin/submissions",
+        icon: FileText,
+      },
+      {
+        label: "School BCBA survey",
+        description: "Review the current survey response workspace.",
+        href: "/admin/school-bcba-survey",
+        icon: Search,
+      },
+    ],
+  },
+  {
+    title: "Content",
+    description: "Plan, publish, and maintain public content.",
+    links: [
+      {
+        label: "Blog",
+        description: "Edit Ghost posts and review the public content queue.",
+        href: "/admin/content",
+        icon: FileText,
+      },
+      {
+        label: "Content calendar",
+        description: "Plan social posts and content work.",
+        href: "/admin/content-calendar",
+        icon: CalendarDays,
+      },
+      {
+        label: "Email marketing",
+        description: "Manage product sequences, templates, and queues.",
+        href: "/admin/email-marketing",
+        icon: Mail,
+      },
+      {
+        label: "Videos",
+        description: "Review and organize video content.",
+        href: "/admin/videos",
+        icon: BookOpen,
+      },
+      {
+        label: "Presentations",
+        description: "Create and manage presentation drafts.",
+        href: "/admin/presentations",
+        icon: LayoutDashboard,
+      },
+      {
+        label: "Publishing standards",
+        description: "Check evidence, claims, and release readiness.",
+        href: "/admin/publishing-standards",
+        icon: ShieldCheck,
+      },
+    ],
+  },
+  {
+    title: "Support",
+    description: "Keep customer requests visible and moving.",
+    links: [
+      {
+        label: "Support inbox",
+        description: "Review feedback, bugs, and customer questions.",
+        href: "/admin/support",
+        icon: LifeBuoy,
+      },
+    ],
+  },
+  {
+    title: "Ops",
+    description: "Operational tools and specialized workspaces.",
+    links: [
+      {
+        label: "ACE",
+        description: "Manage continuing education events and providers.",
+        href: "/admin/ace",
+        icon: ClipboardList,
+      },
+      {
+        label: "Masterclass",
+        description: "Manage course sections, questions, and resources.",
+        href: "/admin/masterclass",
+        icon: BookOpen,
+      },
+      {
+        label: "Sitemap",
+        description: "Review indexable routes and sitemap controls.",
+        href: "/admin/sitemap",
+        icon: Settings,
+      },
+    ],
+  },
+];
+
+function Metric({
+  label,
+  value,
+  detail,
+}: {
+  label: string;
+  value: number;
+  detail: string;
+}) {
+  return (
+    <div className="rounded-lg border border-slate-200 bg-white p-5">
+      <p className="text-sm font-medium text-slate-600">{label}</p>
+      <p className="mt-2 text-3xl font-semibold text-slate-950">
+        {value.toLocaleString()}
+      </p>
+      <p className="mt-2 text-xs leading-5 text-slate-500">{detail}</p>
+    </div>
+  );
 }
 
-interface Activity {
-  id?: string
-  type: 'submission' | 'template' | 'download'
-  title: string
-  description: string
-  timestamp: string
-  activity_type?: string
-  activity_id?: string
-  original_timestamp?: string
-}
+function LinkCard({ item }: { item: AdminLink }) {
+  const Icon = item.icon;
 
-interface CrmDashboard {
-  discovery: {
-    callsToday: number
-    followUpNotSent: number
-    followUpSent: number
-    checkoutOpened: number
-    checkoutStarted: number
-    paidEnrolled: number
-    overdueFollowUps: number
-  }
+  return (
+    <Link
+      href={item.href}
+      className="group flex min-h-24 items-start gap-3 rounded-lg border border-slate-200 bg-white p-4 transition hover:border-emerald-300 hover:shadow-sm"
+    >
+      <span className="flex h-9 w-9 flex-none items-center justify-center rounded-md bg-emerald-50 text-emerald-700">
+        <Icon className="h-4 w-4" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="flex items-center justify-between gap-2 text-sm font-semibold text-slate-900">
+          {item.label}
+          <ArrowRight className="h-4 w-4 flex-none text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-emerald-700" />
+        </span>
+        <span className="mt-1 block text-xs leading-5 text-slate-600">
+          {item.description}
+        </span>
+      </span>
+    </Link>
+  );
 }
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<DashboardStats | null>(null)
-  const [statsLoading, setStatsLoading] = useState(true)
-  const [statsError, setStatsError] = useState(false)
-  const [activities, setActivities] = useState<Activity[]>([])
-  const [activitiesLoading, setActivitiesLoading] = useState(true)
-  const [archivedActivities, setArchivedActivities] = useState<Activity[]>([])
-  const [archivedLoading, setArchivedLoading] = useState(false)
-  const [showArchived, setShowArchived] = useState(false)
-  const [crmDashboard, setCrmDashboard] = useState<CrmDashboard | null>(null)
-  const [crmLoading, setCrmLoading] = useState(true)
-  const [crmError, setCrmError] = useState(false)
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const fetchStats = async () => {
-    setStatsLoading(true)
-    setStatsError(false)
+  const loadStats = useCallback(async () => {
+    setLoading(true);
+    setError("");
+
     try {
-      const response = await fetch('/api/admin/dashboard-stats', {
-        cache: 'no-store',
-        credentials: 'same-origin',
-      })
-      const data = await response.json()
+      const response = await fetch("/api/admin/dashboard-stats", {
+        cache: "no-store",
+        credentials: "same-origin",
+      });
+      const payload = (await response.json()) as {
+        success?: boolean;
+        stats?: DashboardStats;
+      };
 
-      if (!response.ok || !data.success || !data.stats) {
-        throw new Error(data.error || 'Failed to fetch dashboard metrics')
+      if (!response.ok || payload.success !== true || !payload.stats) {
+        throw new Error("Metrics are temporarily unavailable.");
       }
-      setStats(data.stats)
-    } catch (error) {
-      console.error('Error fetching dashboard stats:', error)
-      setStatsError(true)
-    } finally {
-      setStatsLoading(false)
-    }
-  }
 
-  const fetchActivity = async () => {
-    setActivitiesLoading(true)
-    try {
-      const response = await fetch('/api/admin/recent-activity', {
-        cache: 'no-store',
-        credentials: 'same-origin',
-      })
-      const data = await response.json()
-      
-      if (data.success) {
-        setActivities(data.activities)
-      } else {
-        console.error('Failed to fetch activity:', data.error)
-      }
-    } catch (error) {
-      console.error('Error fetching recent activity:', error)
+      setStats(payload.stats);
+    } catch {
+      setStats(null);
+      setError("Metrics are temporarily unavailable. The workspaces remain available below.");
     } finally {
-      setActivitiesLoading(false)
+      setLoading(false);
     }
-  }
-
-  const fetchCrmDashboard = async () => {
-    setCrmLoading(true)
-    setCrmError(false)
-    try {
-      const response = await fetch('/api/admin/crm/dashboard', {
-        cache: 'no-store',
-        credentials: 'same-origin',
-      })
-      if (!response.ok) throw new Error('Failed to fetch CRM metrics')
-      const data = await response.json()
-      if (!data.discovery) throw new Error('CRM metrics were incomplete')
-      setCrmDashboard(data)
-    } catch (error) {
-      console.error('Error fetching CRM dashboard:', error)
-      setCrmError(true)
-    } finally {
-      setCrmLoading(false)
-    }
-  }
-
-  const refreshMetrics = () => {
-    void Promise.all([fetchStats(), fetchCrmDashboard()])
-  }
+  }, []);
 
   useEffect(() => {
-    document.title = 'Dashboard | Behavior School Admin'
-    void Promise.all([fetchStats(), fetchActivity(), fetchCrmDashboard()])
-  }, [])
-
-  const fetchArchivedActivity = async () => {
-    setArchivedLoading(true)
-    try {
-      const response = await fetch('/api/admin/archived-activities')
-      const data = await response.json()
-
-      if (data.success) {
-        setArchivedActivities(data.activities)
-      } else {
-        console.error('Failed to fetch archived activity:', data.error)
-      }
-    } catch (error) {
-      console.error('Error fetching archived activity:', error)
-    } finally {
-      setArchivedLoading(false)
-    }
-  }
-
-  const handleArchive = async (activity: Activity, index: number) => {
-    try {
-      const activityId = `${activity.type}:${index}`
-
-      const response = await fetch('/api/admin/archive-activity', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          activityType: activity.type,
-          activityId: activityId,
-          title: activity.title,
-          description: activity.description,
-          timestamp: activity.timestamp,
-        }),
-      })
-
-      const data = await response.json()
-
-      if (data.success) {
-        // Remove from current activities
-        setActivities(activities.filter((_, i) => i !== index))
-        // Refresh archived list if showing
-        if (showArchived) {
-          fetchArchivedActivity()
-        }
-      } else {
-        console.error('Failed to archive activity:', data.error)
-        alert('Failed to archive activity')
-      }
-    } catch (error) {
-      console.error('Error archiving activity:', error)
-      alert('Failed to archive activity')
-    }
-  }
-
-  const handleUnarchive = async (activityId: string) => {
-    try {
-      const response = await fetch(`/api/admin/archive-activity?id=${activityId}`, {
-        method: 'DELETE',
-      })
-
-      const data = await response.json()
-
-      if (data.success) {
-        // Remove from archived list
-        setArchivedActivities(archivedActivities.filter(a => a.id !== activityId))
-        // Refresh main activities
-        fetchActivity()
-      } else {
-        console.error('Failed to unarchive activity:', data.error)
-        alert('Failed to unarchive activity')
-      }
-    } catch (error) {
-      console.error('Error unarchiving activity:', error)
-      alert('Failed to unarchive activity')
-    }
-  }
-
-  useEffect(() => {
-    if (showArchived && archivedActivities.length === 0) {
-      fetchArchivedActivity()
-    }
-  }, [showArchived])
-
-  const getTimeAgo = (timestamp: string) => {
-    const now = new Date()
-    const then = new Date(timestamp)
-    const diffMs = now.getTime() - then.getTime()
-    const diffMins = Math.floor(diffMs / 60000)
-    const diffHours = Math.floor(diffMs / 3600000)
-    const diffDays = Math.floor(diffMs / 86400000)
-
-    if (diffMins < 1) return 'Just now'
-    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`
-    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
-  }
-
-  const adminSections = [
-    {
-      title: 'Form Submissions',
-      description: 'View and manage signup form submissions',
-      href: '/admin/submissions',
-      icon: Users,
-      color: 'emerald',
-      stats: statsLoading ? 'Loading' : statsError || !stats ? 'Unavailable' : `${stats.totalSubmissions.toLocaleString()} total`
-    },
-    {
-      title: 'CRM System',
-      description: 'Manage contacts, sales pipeline, and tasks',
-      href: '/admin/crm',
-      icon: TrendingUp,
-      color: 'emerald',
-      stats: 'Leads & Deals'
-    },
-    {
-      title: 'Content Calendar',
-      description: 'Plan and schedule social media posts',
-      href: '/admin/content-calendar',
-      icon: BarChart3,
-      color: 'blue',
-      stats: 'Social Media'
-    },
-    {
-      title: 'BST Marketing Operator',
-      description: 'Daily post plan, SEO targets, CTAs, and competitor signals',
-      href: '/admin/behavior-study-tools-marketing',
-      icon: Megaphone,
-      color: 'emerald',
-      stats: 'Daily'
-    },
-    {
-      title: 'Email Marketing',
-      description: 'Manage every product sequence, template, queue, and newsletter',
-      href: '/admin/email-marketing',
-      icon: Mail,
-      color: 'emerald',
-      stats: statsLoading ? 'Loading' : statsError || !stats ? 'Unavailable' : `${stats.activeTemplates.toLocaleString()} templates`
-    },
-    {
-      title: 'Support Inbox',
-      description: 'Review feedback, bugs, and customer questions in one queue',
-      href: '/admin/support',
-      icon: LifeBuoy,
-      color: 'emerald',
-      stats: 'Central queue'
-    },
-    {
-      title: 'Content',
-      description: 'Manage pages, posts, and site content',
-      href: '/admin/content',
-      icon: FileText,
-      color: 'orange',
-      stats: 'Coming soon'
-    },
-    {
-      title: 'Publishing Standards',
-      description: 'Approve exact content versions after authorship, evidence, and claims review',
-      href: '/admin/publishing-standards',
-      icon: ShieldCheck,
-      color: 'emerald',
-      stats: 'Release lock'
-    }
-  ]
+    document.title = "Admin | Behavior School";
+    void loadStats();
+  }, [loadStats]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b-2 border-slate-200">
-        <div className="py-6 pl-24 pr-4 sm:px-6 lg:px-8">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
-            <p className="text-base text-slate-600 mt-1">Welcome back! Here&apos;s what&apos;s happening.</p>
-          </div>
-        </div>
-      </header>
+    <main className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <header className="border-b border-slate-200 pb-6">
+          <p className="text-xs font-semibold uppercase tracking-widest text-emerald-800">
+            Behavior School operations
+          </p>
+          <h1 className="mt-2 text-3xl font-semibold text-slate-950">Admin home</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+            Start with the next action, then open the workspace that owns the work.
+          </p>
+        </header>
 
-      {/* Main Content */}
-      <main className="px-4 pb-28 pt-8 sm:px-6 sm:pb-8 lg:px-8">
-        {/* Welcome Message */}
-        <div className="mb-8 bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6">
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-emerald-600" />
-            </div>
+        <section className="mt-8" aria-labelledby="next-actions-heading">
+          <div className="mb-4">
+            <h2 id="next-actions-heading" className="text-lg font-semibold text-slate-950">
+              Next actions
+            </h2>
+            <p className="mt-1 text-sm text-slate-600">The shortest path to today’s operator work.</p>
+          </div>
+          <div className="grid gap-3 md:grid-cols-3">
+            {nextActions.map((item) => (
+              <LinkCard key={item.href} item={item} />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-8" aria-labelledby="metrics-heading">
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h2 className="text-xl font-bold text-emerald-900 mb-2">
-                Welcome to Your Admin Panel
+              <h2 id="metrics-heading" className="text-lg font-semibold text-slate-950">
+                Working signals
               </h2>
-              <p className="text-base text-emerald-700">
-                Manage your site content, view submissions, and configure email templates from here.
-              </p>
+              <p className="mt-1 text-sm text-slate-600">Current totals from the admin reporting API.</p>
             </div>
-          </div>
-        </div>
-
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 className="text-xl font-bold text-slate-900">Site metrics</h2>
-            <p className="mt-1 text-sm text-slate-600">Current totals from Convex</p>
-          </div>
-          <button
-            type="button"
-            onClick={refreshMetrics}
-            disabled={statsLoading || crmLoading}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border-2 border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-wait disabled:opacity-60"
-          >
-            <RefreshCw className={`h-4 w-4 ${(statsLoading || crmLoading) ? 'animate-spin' : ''}`} />
-            Refresh metrics
-          </button>
-        </div>
-
-        {/* Quick Stats Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Total Submissions</h3>
-              <Users className="w-5 h-5 text-emerald-600" />
-            </div>
-            {statsLoading ? (
-              <p className="flex h-12 items-center text-sm font-semibold text-slate-500">Loading...</p>
-            ) : statsError || !stats ? (
-              <p className="flex h-12 items-center text-sm font-semibold text-red-700">Unavailable</p>
-            ) : (
-              <>
-                <p className="text-3xl font-bold text-slate-900">{stats.totalSubmissions.toLocaleString()}</p>
-                <p className="text-sm text-emerald-600 mt-1">+{stats.weekSubmissions.toLocaleString()} this week</p>
-              </>
-            )}
-          </div>
-
-          <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Active Templates</h3>
-              <Mail className="w-5 h-5 text-blue-600" />
-            </div>
-            {statsLoading ? (
-              <p className="flex h-12 items-center text-sm font-semibold text-slate-500">Loading...</p>
-            ) : statsError || !stats ? (
-              <p className="flex h-12 items-center text-sm font-semibold text-red-700">Unavailable</p>
-            ) : (
-              <>
-                <p className="text-3xl font-bold text-slate-900">{stats.activeTemplates.toLocaleString()}</p>
-                <p className="text-sm text-slate-600 mt-1">{stats.draftTemplates.toLocaleString()} draft</p>
-              </>
-            )}
-          </div>
-
-          <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Downloads</h3>
-              <BarChart3 className="w-5 h-5 text-emerald-600" />
-            </div>
-            {statsLoading ? (
-              <p className="flex h-12 items-center text-sm font-semibold text-slate-500">Loading...</p>
-            ) : statsError || !stats ? (
-              <p className="flex h-12 items-center text-sm font-semibold text-red-700">Unavailable</p>
-            ) : (
-              <>
-                <p className="text-3xl font-bold text-slate-900">{stats.totalDownloads.toLocaleString()}</p>
-                <p className="text-sm text-slate-600 mt-1">Lead magnets</p>
-              </>
-            )}
-          </div>
-
-          <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Total Templates</h3>
-              <FileText className="w-5 h-5 text-orange-600" />
-            </div>
-            {statsLoading ? (
-              <p className="flex h-12 items-center text-sm font-semibold text-slate-500">Loading...</p>
-            ) : statsError || !stats ? (
-              <p className="flex h-12 items-center text-sm font-semibold text-red-700">Unavailable</p>
-            ) : (
-              <>
-                <p className="text-3xl font-bold text-slate-900">{stats.totalTemplates.toLocaleString()}</p>
-                <p className="text-sm text-slate-600 mt-1">Email templates</p>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Discovery Call Workflow */}
-        <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5">
-            <div>
-              <h2 className="text-xl font-bold text-slate-900">Discovery Call Follow-up</h2>
-              <p className="text-sm text-slate-600 mt-1">Track calls, checkout follow-up, and overdue follow-up tasks.</p>
-            </div>
-            <Link href="/admin/crm/discovery-calls" className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
-              Open discovery calls
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-            <div className="border border-slate-200 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-semibold text-slate-600">Calls Today</h3>
-                <PhoneCall className="w-5 h-5 text-emerald-600" />
-              </div>
-              <p className={`font-bold ${crmLoading || crmError ? 'text-sm text-slate-500' : 'text-2xl text-slate-900'}`}>
-                {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.callsToday.toLocaleString()}
-              </p>
-            </div>
-            <div className="border border-slate-200 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-semibold text-slate-600">Follow-up Not Sent</h3>
-                <Clock className="w-5 h-5 text-amber-600" />
-              </div>
-              <p className={`font-bold ${crmLoading || crmError ? 'text-sm text-slate-500' : 'text-2xl text-slate-900'}`}>
-                {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.followUpNotSent.toLocaleString()}
-              </p>
-            </div>
-            <div className="border border-slate-200 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-semibold text-slate-600">Follow-up Sent</h3>
-                <MailCheck className="w-5 h-5 text-blue-600" />
-              </div>
-              <p className={`font-bold ${crmLoading || crmError ? 'text-sm text-slate-500' : 'text-2xl text-slate-900'}`}>
-                {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.followUpSent.toLocaleString()}
-              </p>
-            </div>
-            <div className="border border-slate-200 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-semibold text-slate-600">Overdue Follow-ups</h3>
-                <CalendarClock className="w-5 h-5 text-red-600" />
-              </div>
-              <p className={`font-bold ${crmLoading || crmError ? 'text-sm text-slate-500' : 'text-2xl text-red-600'}`}>
-                {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.overdueFollowUps.toLocaleString()}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-slate-600">
-            <div>Checkout opened: {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.checkoutOpened.toLocaleString()}</div>
-            <div>Checkout started: {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.checkoutStarted.toLocaleString()}</div>
-            <div>Paid/enrolled: {crmLoading ? 'Loading...' : crmError || !crmDashboard ? 'Unavailable' : crmDashboard.discovery.paidEnrolled.toLocaleString()}</div>
-          </div>
-        </div>
-
-        {/* Newsletter workspace */}
-        <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Weekly Research Brief</h3>
-              <p className="text-slate-900 text-xl font-bold mt-1">Drafts, subscribers, delivery, and social follow-up</p>
-              <p className="mt-2 text-sm text-slate-600">The Convex newsletter workspace is the active source of truth. Legacy Listmonk metrics are no longer shown here.</p>
-            </div>
-            <Link href="/admin/newsletter" className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-800">Open newsletter workspace <ArrowRight className="h-4 w-4" /></Link>
-          </div>
-        </div>
-
-
-        {/* Behavior Study Tools Growth Campaign */}
-        <div className="bg-white border-2 border-slate-200 rounded-xl p-6 mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-                  <Megaphone className="w-5 h-5 text-emerald-700" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-slate-900">Behavior Study Tools Growth Campaign</h2>
-                  <p className="text-sm text-slate-600">Web-first campaign package for BCBA and RBT candidates while iOS approval is pending.</p>
-                </div>
-              </div>
-            </div>
-            <Link href="/admin/behavior-study-tools-marketing" className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-[#1a4731] text-white font-semibold hover:bg-[#153824]">
-              Open daily operator
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-            <div className="border border-slate-200 rounded-lg p-5">
-              <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><ClipboardList className="w-4 h-4 text-emerald-700" /> Launch Timeline</h3>
-              <ul className="space-y-3 text-sm text-slate-700">
-                <li><strong>Now:</strong> send all CTAs to the web app and free practice flows.</li>
-                <li><strong>Daily:</strong> publish one pain-point post and log one search, customer, or competitor signal.</li>
-                <li><strong>Weekly:</strong> improve one SEO page headline, CTA, FAQ, or internal link from the signals.</li>
-                <li><strong>iOS approval:</strong> add App Store CTAs after the web campaign is already converting.</li>
-              </ul>
-            </div>
-
-            <div className="border border-slate-200 rounded-lg p-5">
-              <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><Mail className="w-4 h-4 text-emerald-700" /> Email Sequence</h3>
-              <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700">
-                <li>Stop Guessing What to Study Next</li>
-                <li>Start with a Free BCBA Practice Exam</li>
-                <li>Use Results to Find Your Weakest Domain</li>
-                <li>RBT Candidates Have a Clear Path Too</li>
-                <li>What to Review Before Your Next Mock Exam</li>
-              </ol>
-            </div>
-
-            <div className="border border-slate-200 rounded-lg p-5">
-              <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><TrendingUp className="w-4 h-4 text-emerald-700" /> Tracking & Copy Blocks</h3>
-              <div className="space-y-3 text-sm text-slate-700">
-                <p><strong>Campaign:</strong> bst_web_growth</p>
-                <p><strong>UTM base:</strong> utm_source=behaviorschool&amp;utm_medium=owned&amp;utm_campaign=bst_web_growth</p>
-                <p><strong>Primary CTA:</strong> Start Behavior Study Tools in the web app</p>
-                <p><strong>Support:</strong> behaviorschool.com/admin/support and the public support form</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 border-t border-slate-200 pt-5">
-            <h3 className="font-bold text-slate-900 mb-3">Social Launch Prompts</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-700">
-              <p><strong>LinkedIn:</strong> Many candidates study harder without knowing what to fix. Behavior Study Tools turns practice into a clear next study task.</p>
-              <p><strong>Instagram/Facebook:</strong> Start with practice, review what you missed, and find the domain that needs attention before your next mock.</p>
-              <p><strong>Bluesky/X:</strong> BCBA and RBT practice should tell you what to study next. Start in the Behavior Study Tools web app.</p>
-              <p><strong>Newsletter:</strong> Behavior Study Tools helps candidates practice, review, and track readiness without waiting for the iOS app.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Admin Sections Grid */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">Admin Sections</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {adminSections.map((section) => {
-              const Icon = section.icon
-              const colorClasses = {
-                emerald: 'hover:border-emerald-300',
-                blue: 'hover:border-blue-300',
-                orange: 'hover:border-orange-300'
-              }
-              const iconBgClasses = {
-                emerald: 'bg-emerald-100',
-                blue: 'bg-blue-100',
-                orange: 'bg-orange-100'
-              }
-              const iconColorClasses = {
-                emerald: 'text-emerald-600',
-                blue: 'text-blue-600',
-                orange: 'text-orange-600'
-              }
-              
-              return (
-                <Link
-                  key={section.href}
-                  href={section.href}
-                  className={`block p-6 bg-white border-2 border-slate-200 rounded-xl transition-all hover:shadow-lg ${
-                    colorClasses[section.color as keyof typeof colorClasses]
-                  }`}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <div className={`w-14 h-14 rounded-xl ${
-                        iconBgClasses[section.color as keyof typeof iconBgClasses]
-                      } flex items-center justify-center`}>
-                        <Icon className={`w-7 h-7 ${
-                          iconColorClasses[section.color as keyof typeof iconColorClasses]
-                        }`} />
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-xl font-bold text-slate-900">
-                          {section.title}
-                        </h3>
-                        {section.stats && (
-                          <span className="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded-full">
-                            {section.stats}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm text-slate-600 mb-3">
-                        {section.description}
-                      </p>
-                      <div className={`text-sm font-semibold flex items-center gap-1 ${
-                        iconColorClasses[section.color as keyof typeof iconColorClasses]
-                      }`}>
-                        Access Panel
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="bg-white border-2 border-slate-200 rounded-xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-slate-900">Recent Activity</h3>
             <button
-              onClick={() => setShowArchived(!showArchived)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
-                showArchived
-                  ? 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
+              type="button"
+              onClick={() => void loadStats()}
+              disabled={loading}
+              className="inline-flex min-h-10 items-center gap-2 rounded-md border border-slate-300 bg-white px-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 disabled:cursor-wait disabled:opacity-60"
             >
-              <Archive className="w-4 h-4" />
-              {showArchived ? 'Hide Archived' : 'View Archived'}
+              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+              Refresh
             </button>
           </div>
-
-          {showArchived ? (
-            // Archived Activities View
-            archivedLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-start gap-4 p-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-slate-100 rounded-full animate-pulse"></div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-slate-100 rounded animate-pulse w-3/4"></div>
-                      <div className="h-3 bg-slate-100 rounded animate-pulse w-1/2"></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : archivedActivities.length > 0 ? (
-              <div className="space-y-4">
-                {archivedActivities.map((activity) => {
-                  const getIconConfig = (type: string) => {
-                    switch (type) {
-                      case 'submission':
-                        return { icon: Users, bg: 'bg-emerald-100', color: 'text-emerald-600' }
-                      case 'template':
-                        return { icon: Mail, bg: 'bg-blue-100', color: 'text-blue-600' }
-                      case 'download':
-                        return { icon: TrendingUp, bg: 'bg-emerald-100', color: 'text-emerald-600' }
-                      default:
-                        return { icon: FileText, bg: 'bg-slate-100', color: 'text-slate-600' }
-                    }
-                  }
-
-                  const iconConfig = getIconConfig(activity.activity_type || activity.type)
-                  const Icon = iconConfig.icon
-                  const timeAgo = getTimeAgo(activity.original_timestamp || activity.timestamp)
-
-                  return (
-                    <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg bg-slate-50 border border-slate-200">
-                      <div className={`flex-shrink-0 w-10 h-10 ${iconConfig.bg} rounded-full flex items-center justify-center`}>
-                        <Icon className={`w-5 h-5 ${iconConfig.color}`} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-slate-900">{activity.title}</p>
-                        <p className="text-sm text-slate-600">{activity.description}</p>
-                        <p className="text-xs text-slate-500 mt-1">{timeAgo}</p>
-                      </div>
-                      <button
-                        onClick={() => handleUnarchive(activity.id!)}
-                        className="flex-shrink-0 p-2 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
-                        title="Unarchive"
-                      >
-                        <ArchiveX className="w-5 h-5" />
-                      </button>
-                    </div>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-slate-500">
-                <Archive className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                <p>No archived activities</p>
-              </div>
-            )
+          {loading ? (
+            <div className="grid gap-4 sm:grid-cols-3" aria-busy="true">
+              {[1, 2, 3].map((item) => (
+                <div key={item} className="h-32 animate-pulse rounded-lg border border-slate-200 bg-white" />
+              ))}
+            </div>
+          ) : stats ? (
+            <div className="grid gap-4 sm:grid-cols-3">
+              <Metric label="Submissions this week" value={stats.weekSubmissions} detail="New form submissions in the last seven days." />
+              <Metric label="Active email templates" value={stats.activeTemplates} detail="Templates currently available to the email system." />
+              <Metric label="Lead-magnet downloads" value={stats.totalDownloads} detail="All-time downloads reported by Convex." />
+            </div>
           ) : (
-            // Current Activities View
-            activitiesLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-start gap-4 p-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-slate-100 rounded-full animate-pulse"></div>
-                    <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-slate-100 rounded animate-pulse w-3/4"></div>
-                      <div className="h-3 bg-slate-100 rounded animate-pulse w-1/2"></div>
-                    </div>
-                  </div>
+            <p className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-600" role="status">
+              {error}
+            </p>
+          )}
+        </section>
+
+        <div className="mt-10 space-y-10">
+          {adminGroups.map((group) => (
+            <section key={group.title} aria-labelledby={`${group.title.toLowerCase()}-heading`}>
+              <div className="mb-4">
+                <h2 id={`${group.title.toLowerCase()}-heading`} className="text-lg font-semibold text-slate-950">
+                  {group.title}
+                </h2>
+                <p className="mt-1 text-sm text-slate-600">{group.description}</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                {group.links.map((item) => (
+                  <LinkCard key={item.href} item={item} />
                 ))}
               </div>
-            ) : activities.length > 0 ? (
-              <div className="space-y-4">
-                {activities.map((activity, index) => {
-                  const getIconConfig = (type: string) => {
-                    switch (type) {
-                      case 'submission':
-                        return { icon: Users, bg: 'bg-emerald-100', color: 'text-emerald-600' }
-                      case 'template':
-                        return { icon: Mail, bg: 'bg-blue-100', color: 'text-blue-600' }
-                      case 'download':
-                        return { icon: TrendingUp, bg: 'bg-emerald-100', color: 'text-emerald-600' }
-                      default:
-                        return { icon: FileText, bg: 'bg-slate-100', color: 'text-slate-600' }
-                    }
-                  }
-
-                  const iconConfig = getIconConfig(activity.type)
-                  const Icon = iconConfig.icon
-                  const timeAgo = getTimeAgo(activity.timestamp)
-
-                  return (
-                    <div key={index} className="flex items-start gap-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
-                      <div className={`flex-shrink-0 w-10 h-10 ${iconConfig.bg} rounded-full flex items-center justify-center`}>
-                        <Icon className={`w-5 h-5 ${iconConfig.color}`} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-slate-900">{activity.title}</p>
-                        <p className="text-sm text-slate-600">{activity.description}</p>
-                        <p className="text-xs text-slate-500 mt-1">{timeAgo}</p>
-                      </div>
-                      <button
-                        onClick={() => handleArchive(activity, index)}
-                        className="flex-shrink-0 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
-                        title="Archive"
-                      >
-                        <Archive className="w-5 h-5" />
-                      </button>
-                    </div>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-slate-500">
-                <p>No recent activity</p>
-              </div>
-            )
-          )}
+            </section>
+          ))}
         </div>
-      </main>
-    </div>
-  )
+      </div>
+    </main>
+  );
 }
