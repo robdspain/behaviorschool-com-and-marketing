@@ -3,165 +3,117 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
-  Users,
-  Mail,
-  FileText,
-  Menu,
-  X,
-  LogOut,
-  ChevronRight,
-  Lock,
-  CreditCard,
-  Send,
-  GraduationCap,
-  Layers,
-  Presentation,
-  Megaphone,
   BarChart3,
-  PhoneCall,
+  BookOpen,
+  CalendarDays,
+  ChevronRight,
+  ClipboardList,
+  FileText,
+  Layers,
   LifeBuoy,
-  ShieldCheck
+  LogOut,
+  Mail,
+  Menu,
+  Megaphone,
+  Presentation,
+  Search,
+  Send,
+  ShieldCheck,
+  Users,
+  X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface NavItem {
   name: string;
-  href?: string;
+  href: string;
   icon: React.ComponentType<{ className?: string }>;
-  badge?: string;
-  children?: NavItem[];
 }
 
-const navigation: NavItem[] = [
-  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { 
-    name: "Masterclass", 
-    href: "/admin/masterclass", 
-    icon: GraduationCap,
-    children: [
-      { name: "Design Course", href: "/admin/masterclass/design", icon: GraduationCap },
-      { name: "Resources", href: "/admin/masterclass/resources/design", icon: FileText },
-    ]
-  },
-  { 
-    name: "Leads", 
-    icon: Users,
-    children: [
-      { name: "Submissions", href: "/admin/submissions", icon: Users },
-      { name: "School BCBA Survey", href: "/admin/school-bcba-survey", icon: BarChart3 },
-      { name: "CRM", href: "/admin/crm", icon: Users },
-      { name: "Transformation Funnel", href: "/admin/transformation-marketing", icon: Megaphone },
-      { name: "Discovery Calls", href: "/admin/crm/discovery-calls", icon: PhoneCall },
-      { name: "Checkout Access", href: "/admin/checkout-access", icon: Lock },
-      { name: "Payment Page", href: "/transformation-program/checkout", icon: CreditCard },
-    ]
-  },
+interface NavGroup {
+  name: string;
+  items: NavItem[];
+}
+
+const navigation: NavGroup[] = [
   {
-    name: "Email Marketing",
-    icon: Mail,
-    badge: "All products",
-    children: [
-      { name: "Universal Dashboard", href: "/admin/email-marketing", icon: BarChart3 },
-      { name: "Product Templates", href: "/admin/email-templates", icon: Mail },
-      { name: "Weekly Newsletter", href: "/admin/newsletter", icon: Send },
-      { name: "Study Tools Nurture", href: "/admin/behavior-study-tools", icon: BarChart3, badge: "Live" },
+    name: "Study",
+    items: [
+      { name: "Study marketing", href: "/admin/behavior-study-tools-marketing", icon: Megaphone },
+      { name: "Study tools nurture", href: "/admin/behavior-study-tools", icon: BookOpen },
+      { name: "Weekly Research Brief", href: "/admin/newsletter", icon: Send },
     ],
   },
-  { name: "BST Marketing", href: "/admin/behavior-study-tools-marketing", icon: Megaphone, badge: "Daily" },
-  { name: "Support Inbox", href: "/admin/support", icon: LifeBuoy, badge: "Central" },
-  { name: "Blog", href: "/admin/content", icon: FileText },
-  { name: "Publishing Standards", href: "/admin/publishing-standards", icon: ShieldCheck, badge: "Release lock" },
-  { name: "Presentations", href: "/admin/presentations", icon: Presentation },
-  { name: "Sitemap", href: "/admin/sitemap", icon: Layers },
+  {
+    name: "Transformation",
+    items: [
+      { name: "Transformation funnel", href: "/admin/transformation-marketing", icon: BarChart3 },
+      { name: "CRM", href: "/admin/crm", icon: Users },
+      { name: "Discovery calls", href: "/admin/crm/discovery-calls", icon: ClipboardList },
+      { name: "Checkout access", href: "/admin/checkout-access", icon: ShieldCheck },
+      { name: "Submissions", href: "/admin/submissions", icon: FileText },
+      { name: "School BCBA survey", href: "/admin/school-bcba-survey", icon: Search },
+    ],
+  },
+  {
+    name: "Content",
+    items: [
+      { name: "Blog", href: "/admin/content", icon: FileText },
+      { name: "Content calendar", href: "/admin/content-calendar", icon: CalendarDays },
+      { name: "Email marketing", href: "/admin/email-marketing", icon: Mail },
+      { name: "Email templates", href: "/admin/email-templates", icon: Mail },
+      { name: "Videos", href: "/admin/videos", icon: BookOpen },
+      { name: "Presentations", href: "/admin/presentations", icon: Presentation },
+      { name: "Publishing standards", href: "/admin/publishing-standards", icon: ShieldCheck },
+    ],
+  },
+  {
+    name: "Support",
+    items: [{ name: "Support inbox", href: "/admin/support", icon: LifeBuoy }],
+  },
+  {
+    name: "Ops",
+    items: [
+      { name: "ACE", href: "/admin/ace", icon: ClipboardList },
+      { name: "Masterclass", href: "/admin/masterclass", icon: BookOpen },
+      { name: "Sitemap", href: "/admin/sitemap", icon: Layers },
+    ],
+  },
 ];
 
-function SidebarNavItem({ item, isActive, onClick, collapsed }: { item: NavItem; isActive: (href: string | undefined) => boolean; onClick: () => void; collapsed: boolean }) {
-  const initiallyOpen = item.children?.some(child => isActive(child.href)) || false;
-  const [isOpen, setIsOpen] = useState(initiallyOpen);
-  const hasChildren = item.children && item.children.length > 0;
+function isItemActive(pathname: string | null, href: string) {
+  if (!pathname) return false;
+  if (href === "/admin") return pathname === href;
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const active = hasChildren
-    ? item.children?.some(child => isActive(child.href))
-    : isActive(item.href);
-
-  if (collapsed) {
-    const target = hasChildren ? (item.children?.[0]?.href || item.href || '#') : (item.href || '#');
-    const active = isActive(target);
-    return (
-      <Link
-        href={target}
-        onClick={onClick}
-        className={`flex items-center justify-center w-10 h-10 rounded-lg mx-auto transition-colors ${active ? 'bg-emerald-50 text-emerald-700 border-2 border-emerald-200' : 'text-slate-600 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200'}`}
-        title={item.name}
-      >
-        <item.icon className={`w-5 h-5 ${active ? 'text-emerald-600' : 'text-slate-500'}`} />
-      </Link>
-    );
-  }
-
-  if (hasChildren) {
-    return (
-      <div>
-        <button
-          onClick={handleToggle}
-          className={`
-            flex items-center justify-between w-full gap-3 px-4 py-3 rounded-xl
-            font-medium transition-all duration-200
-            ${
-              active
-                ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200"
-                : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
-            }
-          `}
-          title={item.name}
-        >
-          <div className="flex items-center gap-3">
-            <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
-            <span className="flex-1 text-left">{item.name}</span>
-          </div>
-          <ChevronRight className={`w-4 h-4 transition-transform ${isOpen ? 'transform rotate-90' : ''}`} />
-        </button>
-        {isOpen && (
-          <div className="pl-8 pt-2 space-y-1">
-            {item.children?.map(child => (
-              <SidebarNavItem key={child.name} item={child} isActive={isActive} onClick={onClick} collapsed={false} />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-
+function SidebarLink({
+  item,
+  active,
+  collapsed,
+  onClick,
+}: {
+  item: NavItem;
+  active: boolean;
+  collapsed: boolean;
+  onClick: () => void;
+}) {
   return (
     <Link
-      href={item.href!}
+      href={item.href}
       onClick={onClick}
-      className={`
-        flex items-center gap-3 px-4 py-3 rounded-xl
-        font-medium transition-all duration-200
-        ${
-          active
-            ? "bg-emerald-50 text-emerald-700 border-2 border-emerald-200"
-            : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
-        }
-      `}
-      title={item.name}
+      className={`group flex items-center gap-3 rounded-lg border-2 font-medium transition-colors ${
+        collapsed ? "mx-auto h-10 w-10 justify-center px-0" : "px-3 py-2.5"
+      } ${
+        active
+          ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+          : "border-transparent text-slate-700 hover:border-slate-200 hover:bg-slate-50"
+      }`}
+      title={collapsed ? item.name : undefined}
     >
-      <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
-      <span className="flex-1">{item.name}</span>
-      {item.badge && (
-        <span className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-700 rounded-full">
-          {item.badge}
-        </span>
-      )}
-      {active && (
-        <ChevronRight className="w-4 h-4 text-emerald-600" />
-      )}
+      <item.icon className={`h-5 w-5 flex-none ${active ? "text-emerald-700" : "text-slate-500"}`} />
+      {!collapsed && <span className="min-w-0 flex-1 truncate">{item.name}</span>}
+      {!collapsed && active && <ChevronRight className="h-4 w-4 flex-none text-emerald-700" />}
     </Link>
   );
 }
@@ -169,106 +121,126 @@ function SidebarNavItem({ item, isActive, onClick, collapsed }: { item: NavItem;
 export function AdminSidebar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    setCollapsed(localStorage.getItem('admin_sidebar_collapsed') === '1');
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const updateViewport = () => setIsDesktop(mediaQuery.matches);
+    const frame = window.requestAnimationFrame(() => {
+      setCollapsed(window.localStorage.getItem("admin_sidebar_collapsed") === "1");
+      updateViewport();
+    });
+    mediaQuery.addEventListener("change", updateViewport);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      mediaQuery.removeEventListener("change", updateViewport);
+    };
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    localStorage.setItem('admin_sidebar_collapsed', collapsed ? '1' : '0');
-    window.dispatchEvent(new CustomEvent('admin-sidebar-toggle', { detail: { collapsed } }));
+    window.localStorage.setItem("admin_sidebar_collapsed", collapsed ? "1" : "0");
+    window.dispatchEvent(new CustomEvent("admin-sidebar-toggle", { detail: { collapsed } }));
   }, [collapsed]);
 
-  const isActive = (href: string | undefined) => {
-    if (!href) return false;
-    if (href === "/admin") {
-      return pathname === "/admin";
-    }
-    return pathname?.startsWith(href);
-  };
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  const sidebarCollapsed = collapsed && isDesktop;
 
   return (
     <>
-      {/* Mobile Menu Button */}
       <button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg border-2 border-slate-200 shadow-lg"
-        aria-label="Toggle menu"
+        type="button"
+        onClick={() => setIsMobileMenuOpen((open) => !open)}
+        className="fixed left-4 top-4 z-50 rounded-lg border-2 border-slate-200 bg-white p-2 shadow-lg lg:hidden"
+        aria-label={isMobileMenuOpen ? "Close admin menu" : "Open admin menu"}
       >
-        {isMobileMenuOpen ? (
-          <X className="w-6 h-6 text-slate-900" />
-        ) : (
-          <Menu className="w-6 h-6 text-slate-900" />
-        )}
+        {isMobileMenuOpen ? <X className="h-6 w-6 text-slate-900" /> : <Menu className="h-6 w-6 text-slate-900" />}
       </button>
 
-      {/* Mobile Overlay */}
       {isMobileMenuOpen && (
-        <div
-          className="lg:hidden fixed inset-0 bg-slate-900/50 z-40"
-          onClick={() => setIsMobileMenuOpen(false)}
+        <button
+          type="button"
+          aria-label="Close admin menu"
+          className="fixed inset-0 z-40 bg-slate-900/50 lg:hidden"
+          onClick={closeMobileMenu}
         />
       )}
 
-      {/* Sidebar */}
       <aside
-        className={`
-          fixed top-0 left-0 z-40 h-screen ${collapsed ? 'w-20' : 'w-72'}
-          bg-white border-r-2 border-slate-200
-          transition-transform duration-300 ease-in-out
-          lg:translate-x-0
-          ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
-        `}
+        className={`fixed left-0 top-0 z-40 h-screen w-72 border-r-2 border-slate-200 bg-white transition-[width,transform] duration-300 ease-in-out lg:translate-x-0 ${
+          sidebarCollapsed ? "lg:w-20" : "lg:w-72"
+        } ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="p-4 border-b-2 border-slate-200 flex items-center justify-between">
-            <Link href="/" className="block truncate" title="Behavior School">
-              {!collapsed ? (
-                <>
-                  <h2 className="text-xl font-bold text-slate-900">Behavior School</h2>
-                  <p className="text-sm text-slate-600 mt-1">Admin Dashboard</p>
-                </>
+        <div className="flex h-full flex-col">
+          <div className="flex items-center justify-between border-b-2 border-slate-200 p-4">
+            <Link href="/" className="block min-w-0 truncate" title="Behavior School">
+              {sidebarCollapsed ? (
+                <span className="mx-auto block h-7 w-7 rounded bg-emerald-100 ring-1 ring-emerald-200" />
               ) : (
-                <div className="w-6 h-6 rounded bg-emerald-100 border border-emerald-200" />
+                <>
+                  <span className="block truncate text-xl font-bold text-slate-900">Behavior School</span>
+                  <span className="mt-1 block text-sm text-slate-600">Admin</span>
+                </>
               )}
             </Link>
             <button
-              onClick={() => setCollapsed(v => !v)}
-              className="hidden lg:inline-flex items-center justify-center w-9 h-9 rounded-lg border-2 border-slate-200 hover:bg-slate-50"
-              title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              type="button"
+              onClick={() => setCollapsed((value) => !value)}
+              className="hidden h-9 w-9 items-center justify-center rounded-lg border-2 border-slate-200 hover:bg-slate-50 lg:inline-flex"
+              title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-              {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronRight className="w-5 h-5 rotate-180" />}
+              <ChevronRight className={`h-5 w-5 ${collapsed ? "" : "rotate-180"}`} />
             </button>
           </div>
 
-          {/* Navigation */}
-          <nav className={`flex-1 overflow-y-auto ${collapsed ? 'px-2 py-4' : 'p-4'}`}>
-            <div className={`${collapsed ? 'flex flex-col items-center gap-3' : 'space-y-1'}`}>
-              {navigation.map((item) => (
-                <SidebarNavItem
-                  key={item.name}
-                  item={item}
-                  isActive={isActive}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  collapsed={collapsed}
-                />
+          <nav className={`flex-1 overflow-y-auto ${sidebarCollapsed ? "px-2 py-4" : "p-4"}`} aria-label="Admin navigation">
+            <div className={sidebarCollapsed ? "flex flex-col items-center gap-3" : "space-y-5"}>
+              <SidebarLink
+                item={{ name: "Admin home", href: "/admin", icon: BarChart3 }}
+                active={isItemActive(pathname, "/admin")}
+                collapsed={sidebarCollapsed}
+                onClick={closeMobileMenu}
+              />
+
+              {navigation.map((group) => (
+                <div key={group.name} className={sidebarCollapsed ? "contents" : "space-y-1"}>
+                  {!sidebarCollapsed && (
+                    <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-widest text-slate-400">
+                      {group.name}
+                    </p>
+                  )}
+                  <div className={sidebarCollapsed ? "contents" : "space-y-1"}>
+                    {group.items.map((item) => (
+                      <SidebarLink
+                        key={item.href}
+                        item={item}
+                        active={isItemActive(pathname, item.href)}
+                        collapsed={sidebarCollapsed}
+                        onClick={closeMobileMenu}
+                      />
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </nav>
 
-          {/* Footer */}
-          <div className="p-4 border-t-2 border-slate-200">
+          <div className="border-t-2 border-slate-200 p-4">
             <button
-              onClick={() => { window.location.href = '/api/admin/logout'; }}
-              className={`w-full flex items-center ${collapsed ? 'justify-center' : 'gap-3 px-4'} py-3 rounded-xl text-slate-700 hover:bg-red-50 hover:text-red-700 border-2 border-transparent hover:border-red-200 transition-all duration-200 font-medium`}
-              title="Sign Out"
+              type="button"
+              onClick={() => {
+                window.location.href = "/api/admin/logout";
+              }}
+              className={`flex w-full items-center rounded-lg border-2 border-transparent py-2.5 font-medium text-slate-700 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-700 ${
+                sidebarCollapsed ? "justify-center px-0" : "gap-3 px-3"
+              }`}
+              title="Sign out"
             >
-              <LogOut className="w-5 h-5" />
-              {!collapsed && <span>Sign Out</span>}
+              <LogOut className="h-5 w-5" />
+              {!collapsed && <span>Sign out</span>}
             </button>
           </div>
         </div>

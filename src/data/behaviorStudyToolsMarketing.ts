@@ -22,10 +22,6 @@ export const behaviorStudyToolsMarketing = {
   productName: "Behavior Study Tools",
   primaryMessage:
     "Know what to study next. Start with practice, review exactly why answers were missed, and use results to choose the next task.",
-  audiencePain:
-    "BCBA candidates often study for hours without knowing whether they are getting closer to passing.",
-  solution:
-    "Behavior Study Tools turns practice attempts into a clear next step: weak domains, readiness signals, reviewed explanations, and a plan for the next session.",
   primaryCta: {
     label: "Start the web app",
     href: trackedStudyUrl("/free-practice/", {
@@ -44,40 +40,6 @@ export const behaviorStudyToolsMarketing = {
       utm_content: "admin_full_mock_cta",
     }),
   },
-  weeklyOperatingRule:
-    "Each day, publish one useful study pain point, send traffic to one focused CTA, and record one search, customer, or competitor signal to improve the next page.",
-  channels: [
-    {
-      name: "LinkedIn",
-      role: "Trust and professional proof",
-      cadence: "3 posts per week",
-      bestUse: "School-based BCBA angle, supervisor/cohort reporting, readiness tracking.",
-    },
-    {
-      name: "Instagram Reels",
-      role: "Fast candidate awareness",
-      cadence: "3 reels per week",
-      bestUse: "Question review clips, quick myths, study schedule moments.",
-    },
-    {
-      name: "TikTok",
-      role: "Discovery and pain-point hooks",
-      cadence: "3 short videos per week",
-      bestUse: "Exam anxiety, weak-domain identification, mock exam stamina.",
-    },
-    {
-      name: "YouTube Shorts",
-      role: "Search-friendly video",
-      cadence: "2 shorts per week",
-      bestUse: "BCBA practice question walkthroughs and 6th Edition study tips.",
-    },
-    {
-      name: "Email",
-      role: "Convert existing audience",
-      cadence: "1 send per week",
-      bestUse: "Free mock exam, readiness check, and weak-domain follow-up.",
-    },
-  ],
   seoPages: [
     {
       title: "Free BCBA Practice Exam",
@@ -94,11 +56,11 @@ export const behaviorStudyToolsMarketing = {
       keyword: "BCBA mock exam 6th edition",
     },
     {
-      title: "BCBA Study App for School-Based BCBAs",
+      title: "BCBA Study App for School BCBAs",
       href: "https://study.behaviorschool.com/free-practice/",
-      intent: "School-based candidates want a tool that fits their setting.",
-      message: "Study with scenarios and reports that make sense for school-based practice.",
-      keyword: "BCBA study app school based BCBAs",
+      intent: "School BCBA candidates want a tool that fits their setting.",
+      message: "Study with scenarios and reports that make sense for school BCBA practice.",
+      keyword: "BCBA study app school BCBAs",
     },
     {
       title: "BehaviorSchool vs ABA Wizard",
@@ -113,33 +75,6 @@ export const behaviorStudyToolsMarketing = {
       intent: "Candidate is comparing structured modules with adaptive practice.",
       message: "Use practice and results to decide what to study next.",
       keyword: "BDS Modules alternative",
-    },
-  ],
-  competitorSignals: [
-    {
-      competitor: "ABA Wizard",
-      watchFor: "Mobile-first question practice claims, app store reviews, pricing, and weak areas users mention.",
-      opportunity: "Position Behavior Study Tools around reviewed explanations, readiness, and focused next actions.",
-    },
-    {
-      competitor: "BDS Modules",
-      watchFor: "Candidates who want structure but feel stuck in long modules.",
-      opportunity: "Lead with faster feedback loops: practice, review, readiness, next task.",
-    },
-    {
-      competitor: "Study Notes ABA",
-      watchFor: "Community trust, simple study aids, workshops, and social proof.",
-      opportunity: "Use professional trust labels, school-based examples, and supervisor share reports.",
-    },
-    {
-      competitor: "Pass the Big ABA Exam",
-      watchFor: "Exam anxiety messaging, study groups, and coaching language.",
-      opportunity: "Speak directly to confidence: know your weak domains before exam day.",
-    },
-    {
-      competitor: "Rogue ABA",
-      watchFor: "Low-cost question banks and simple mock exam offers.",
-      opportunity: "Differentiate with readiness scoring, reviewed rationales, and cross-platform access.",
     },
   ],
   postPlan: [
@@ -163,7 +98,7 @@ export const behaviorStudyToolsMarketing = {
       post:
         "Show the user opening results, finding the weakest domain, and starting a short practice session. Close with: Do not guess what to study next.",
       ctaLabel: "Try free BCBA practice",
-      ctaHref: trackedLandingUrl("https://study.behaviorschool.com/free-practice/", {
+      ctaHref: trackedStudyUrl("/free-practice/", {
         utm_content: "tuesday_instagram_free_practice",
       }),
       asset: "Results screen on phone",
