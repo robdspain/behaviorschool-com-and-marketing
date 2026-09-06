@@ -71,7 +71,7 @@ const resultCopy: Record<
   yes: {
     title: "Your goal can travel.",
     body:
-      "A new adult can take data from what you wrote. Protect that. Put fidelity in the plan: who takes data, when, and on what sheet, so the classroom does not depend on you being there.",
+      "A new adult can take data from what you wrote. Protect that. Put one fidelity line in the plan: who takes data, when, and on what sheet, so the classroom does not depend on you being there.",
   },
   sometimes: {
     title: "It works when you are around.",

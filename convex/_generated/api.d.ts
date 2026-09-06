@@ -30,6 +30,7 @@ import type * as crm from "../crm.js";
 import type * as downloads from "../downloads.js";
 import type * as email from "../email.js";
 import type * as http from "../http.js";
+import type * as iepGoalProgramQuiz from "../iepGoalProgramQuiz.js";
 import type * as indexing from "../indexing.js";
 import type * as masterclassAdmin from "../masterclassAdmin.js";
 import type * as masterclassRuntime from "../masterclassRuntime.js";
@@ -38,8 +39,10 @@ import type * as presentations from "../presentations.js";
 import type * as publishingStandardCore from "../publishingStandardCore.js";
 import type * as publishingStandards from "../publishingStandards.js";
 import type * as schoolBcbaSurvey from "../schoolBcbaSurvey.js";
-import type * as iepGoalProgramQuiz from "../iepGoalProgramQuiz.js";
+import type * as stripeBilling from "../stripeBilling.js";
+import type * as stripeWebhook from "../stripeWebhook.js";
 import type * as submissions from "../submissions.js";
+import type * as transformationMarketing from "../transformationMarketing.js";
 import type * as transformationNurture from "../transformationNurture.js";
 
 import type {
@@ -71,6 +74,7 @@ declare const fullApi: ApiFromModules<{
   downloads: typeof downloads;
   email: typeof email;
   http: typeof http;
+  iepGoalProgramQuiz: typeof iepGoalProgramQuiz;
   indexing: typeof indexing;
   masterclassAdmin: typeof masterclassAdmin;
   masterclassRuntime: typeof masterclassRuntime;
@@ -79,8 +83,10 @@ declare const fullApi: ApiFromModules<{
   publishingStandardCore: typeof publishingStandardCore;
   publishingStandards: typeof publishingStandards;
   schoolBcbaSurvey: typeof schoolBcbaSurvey;
-  iepGoalProgramQuiz: typeof iepGoalProgramQuiz;
+  stripeBilling: typeof stripeBilling;
+  stripeWebhook: typeof stripeWebhook;
   submissions: typeof submissions;
+  transformationMarketing: typeof transformationMarketing;
   transformationNurture: typeof transformationNurture;
 }>;
 
