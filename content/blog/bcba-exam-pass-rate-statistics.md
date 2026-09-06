@@ -14,7 +14,7 @@ keywords:
   - BCBA exam difficulty
   - how to pass the BCBA exam
   - BCBA exam prep
-meta_description: "BCBA exam pass rates dropped to about 54% for first-time test takers in 2024. Here’s what the BACB data shows—and how to improve your odds."
+meta_description: "BACB data show first-time BCBA pass rates of 55% (2022), 56% (2023), 54% (2024), and 51% (2025). See what the numbers mean and how to improve your odds."
 category: BCBA Exam Prep
 internal_links:
   - https://behaviorstudytools.com/
@@ -33,7 +33,7 @@ word_count_target: 2000
 
 If you’re preparing for the BCBA® exam, one question keeps coming up: **“What’s the pass rate?”**
 
-The short answer: **the first‑time BCBA pass rate has hovered around the mid‑50% range in recent years**, with 2024 data commonly cited at **about 54%** for first‑time test takers. That means nearly **1 out of 2 candidates don’t pass on their first attempt**.
+The short answer: **the first‑time BCBA pass rate was 51% in 2025** per BACB’s published examination table—the most recent year available. In 2024, **54% passed and 46% did not** on the first attempt.
 
 But the more important question isn’t “What’s the pass rate?”
 

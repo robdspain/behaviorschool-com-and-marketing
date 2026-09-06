@@ -15,11 +15,12 @@ type BcbaComparisonLandingProps = {
   title: string;
   description: string;
   primaryCta?: string;
+  primaryHref?: string;
   bestForCompetitor: string;
   rows: Row[];
 };
 
-const appHref = behaviorStudyToolsAppHref("/free-practice/", {
+const defaultAppHref = behaviorStudyToolsAppHref("/free-practice/", {
   intent: "comparison_page_start",
   utm_content: "comparison_primary_cta",
 });
@@ -29,6 +30,7 @@ export function BcbaComparisonLanding({
   title,
   description,
   primaryCta = "Try BehaviorSchool free",
+  primaryHref = defaultAppHref,
   bestForCompetitor,
   rows,
 }: BcbaComparisonLandingProps) {
@@ -49,7 +51,7 @@ export function BcbaComparisonLanding({
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                href={appHref}
+                href={primaryHref}
                 data-bst-cta="true"
                 data-bst-location="comparison_hero_primary"
                 data-bst-intent="start_practice"
@@ -80,7 +82,7 @@ export function BcbaComparisonLanding({
             <ShieldCheck className="mb-4 text-[#1f4d3f]" size={30} />
             <h2 className="text-xl font-bold text-slate-950">BehaviorSchool is strongest for</h2>
             <p className="mt-3 leading-7 text-slate-700">
-              Candidates who want a complete study workflow: practice questions, full mocks, readiness score, review labels, and supervisor-ready reporting.
+              Candidates who want practice questions, full mocks, domain results, and—where available—readiness language and shareable progress summaries.
             </p>
           </article>
           <article className="rounded-lg border border-slate-200 bg-white p-6">
@@ -92,7 +94,7 @@ export function BcbaComparisonLanding({
             <BarChart3 className="mb-4 text-[#1f4d3f]" size={30} />
             <h2 className="text-xl font-bold text-slate-950">Key differentiator</h2>
             <p className="mt-3 leading-7 text-slate-700">
-              BehaviorSchool ties results to readiness and next actions, so candidates can see whether they are building, near ready, or ready.
+              BehaviorSchool ties practice results to readiness and next actions when those features are available in your study path.
             </p>
           </article>
         </div>
@@ -167,7 +169,7 @@ export function BcbaComparisonLanding({
             The fastest way to judge fit is to answer questions, review rationales, and see whether the score report gives you a clearer next study step.
           </p>
           <Link
-            href={appHref}
+            href={primaryHref}
             data-bst-cta="true"
             data-bst-location="comparison_final_cta"
             data-bst-intent="start_practice"

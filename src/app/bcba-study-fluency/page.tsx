@@ -63,7 +63,7 @@ const studySteps = [
 export default function BCBAStudyFluencyPage() {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "BCBA Exam Prep", href: "/bcba-exam-prep" },
+    { label: "BCBA Exam Prep", href: "https://study.behaviorschool.com/free-practice/" },
     { label: "Study Fluency", href: "/bcba-study-fluency" },
   ];
 
@@ -99,8 +99,9 @@ export default function BCBAStudyFluencyPage() {
             What fluency means for exam prep
           </h2>
           <p className="text-slate-600 leading-relaxed mb-6">
-            Behavioral fluency research emphasizes accuracy plus endurance, stability under pressure, and
-            transfer to new problems. For BCBA candidates, that translates into a few practical habits:
+            Precision-teaching and fluency-building literature (for example, Binder, 1996) emphasizes accuracy
+            plus endurance, stability under pressure, and transfer to new problems. For BCBA candidates, that
+            translates into a few practical habits:
           </p>
           <ul className="space-y-3 text-slate-700">
             <li className="flex gap-3">
@@ -176,7 +177,9 @@ export default function BCBAStudyFluencyPage() {
                 </a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                <Link href="/bcba-exam-prep">More BCBA exam prep resources</Link>
+                <a href="https://study.behaviorschool.com/free-practice/" target="_blank" rel="noopener noreferrer">
+                  More BCBA exam prep resources
+                </a>
               </Button>
             </div>
           </div>
@@ -185,10 +188,10 @@ export default function BCBAStudyFluencyPage() {
         <section className="py-12 border-t border-slate-200">
           <h2 className="text-xl font-bold text-slate-900 mb-4">Related resources</h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <Link href="/free-bcba-mock-exam" className="rounded-xl border border-slate-200 p-4 hover:border-emerald-300 transition-colors">
-              <div className="font-medium text-slate-900">Free BCBA mock exam (marketing hub)</div>
-              <div className="text-sm text-slate-600 mt-1">Overview and links to the study app</div>
-            </Link>
+            <a href={FREE_MOCK_HREF} className="rounded-xl border border-slate-200 p-4 hover:border-emerald-300 transition-colors block">
+              <div className="font-medium text-slate-900">Free BCBA mock exam guide</div>
+              <div className="text-sm text-slate-600 mt-1">Start a timed mock in the study app</div>
+            </a>
             <Link href="/school-bcba" className="rounded-xl border border-slate-200 p-4 hover:border-emerald-300 transition-colors">
               <div className="font-medium text-slate-900">School BCBA career guide</div>
               <div className="text-sm text-slate-600 mt-1">Jobs, tools, and training for school practice</div>

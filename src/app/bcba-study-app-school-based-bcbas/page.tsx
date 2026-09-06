@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BcbaSeoLanding } from "@/components/marketing/BcbaSeoLanding";
 import {
   applySeoMetadataOverride,
+  applySchoolBcbaBrandCopy,
   getBehaviorStudyToolsSeoOverride,
   seoOverrideFaq,
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
@@ -34,9 +35,12 @@ export default async function SchoolBasedBCBAStudyAppPage() {
   return (
     <BcbaSeoLanding
       eyebrow="School BCBA exam prep"
-      title={override?.heroHeadline || "A BCBA study app built for candidates who work in schools."}
-      description={override?.metaDescription || "School BCBA candidates need more than generic question drilling. BehaviorSchool connects adaptive BCBA practice with school-relevant scenarios, progress reports, and next-step readiness signals."}
-      primaryCta={override?.primaryCta || "Start school BCBA practice"}
+      title={applySchoolBcbaBrandCopy(override?.heroHeadline, "A BCBA study app built for candidates who work in schools.")}
+      description={applySchoolBcbaBrandCopy(
+        override?.metaDescription,
+        "School BCBA candidates need more than generic question drilling. BehaviorSchool connects adaptive BCBA practice with school-relevant scenarios, progress reports, and next-step readiness signals.",
+      )}
+      primaryCta={applySchoolBcbaBrandCopy(override?.primaryCta, "Start school BCBA practice")}
       primaryHref={behaviorStudyToolsAppHref("/free-practice/", {
         intent: "school_based_bcba",
         utm_content: "school_based_bcba_primary_cta",
@@ -45,7 +49,7 @@ export default async function SchoolBasedBCBAStudyAppPage() {
       features={[
         {
           title: "School-relevant scenarios",
-          body: "Study examples can connect concepts to classrooms, teams, supervision, data review, and school-based service delivery.",
+          body: "Study examples can connect concepts to classrooms, teams, supervision, data review, and school service delivery.",
         },
         {
           title: "Supervisor-ready reporting",

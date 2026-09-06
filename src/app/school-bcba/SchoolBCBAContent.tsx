@@ -59,8 +59,8 @@ export default function SchoolBCBAContent() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card
               icon={<FileText className="h-8 w-8 text-blue-600" />}
-              title="School BCBA vs School-Based BCBA"
-              desc="Understand the terminology, position your role effectively, and use language that districts actually search for."
+              title="Compare role terminology"
+              desc="See how School BCBA and school-based BCBA wording differ in job searches, profiles, and training materials—without changing the role itself."
               href="/school-bcba/vs-school-based-bcba"
               badge="Start Here"
             />

@@ -35,7 +35,7 @@ export function ComparisonTable({
             <th className="text-left py-4 px-4 sm:px-6 font-semibold text-slate-700 w-1/2">Feature</th>
             <th className="text-center py-4 px-4 sm:px-6 font-bold text-emerald-700 w-1/4">
               <div className="flex flex-col items-center gap-1">
-                <span className="text-xs uppercase tracking-wider text-emerald-600">✨ Recommended</span>
+                <span className="text-xs uppercase tracking-wider text-emerald-600">Recommended</span>
                 <span>BehaviorSchool</span>
               </div>
             </th>
