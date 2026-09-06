@@ -106,7 +106,7 @@ export function IepGoalProgramQuiz() {
   const [answers, setAnswers] = useState<Answers>(emptyAnswers);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [priorityAccess, setPriorityAccess] = useState(true);
+  const [priorityAccess, setPriorityAccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [savedPriorityAccess, setSavedPriorityAccess] = useState(false);
@@ -365,7 +365,7 @@ export function IepGoalProgramQuiz() {
                     className="mt-1 h-4 w-4 rounded border-[#b7b0a2] text-[#1F4D3F] focus:ring-[#1F4D3F]"
                   />
                   <span className="text-sm leading-relaxed text-[#2a3531]">
-                    Get early access. First notice when the next live school BCBA
+                    Priority Access. First notice when the next live school BCBA
                     cohort opens.
                   </span>
                 </label>
@@ -433,7 +433,7 @@ export function IepGoalProgramQuiz() {
 
               <div className="mt-10 rounded-2xl bg-[#1F4D3F] px-6 py-7 text-white">
                 <h3 className="text-xl font-bold leading-snug">
-                  Want more of these + first notice when seats open?
+                  Want more of these + first notice when the next cohort opens?
                 </h3>
                 <p className="mt-2 text-[#d7e4df]">Get early access.</p>
                 {savedPriorityAccess ? (

@@ -2,6 +2,66 @@ import { mutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
 import type { MutationCtx } from "./_generated/server";
 
+const QUIZ_SLUG = "iep-goal-program";
+const MAX_NAME_LEN = 120;
+const MAX_EMAIL_LEN = 320;
+const MAX_PAGE_LEN = 400;
+const MAX_UA_LEN = 500;
+const MIN_SUBMIT_INTERVAL_MS = 5_000;
+const MAX_SUBMITS_PER_EMAIL_PER_HOUR = 8;
+
+const ALLOWED_ROLES = new Set([
+  "school_bcba",
+  "behavior_specialist",
+  "school_psychologist",
+  "other",
+]);
+
+const ALLOWED_SETTINGS = new Set([
+  "preschool_early_childhood",
+  "elementary",
+  "middle",
+  "high_school",
+  "mixed_multiple",
+  "other",
+]);
+
+const ALLOWED_RUNNABLE = new Set(["yes", "sometimes", "no"]);
+
+const ALLOWED_CHALLENGES = new Set([
+  "goal_writing",
+  "making_datasheets",
+  "staff_coaching",
+  "fielding_referrals",
+]);
+
+const RUNNABLE_SCORES: Record<string, number> = {
+  yes: 2,
+  sometimes: 1,
+  no: 0,
+};
+
+const RESULT_BANDS: Record<string, string> = {
+  yes: "can_travel",
+  sometimes: "needs_you",
+  no: "not_a_program",
+};
+
+const REPLACEABLE_TAG_PREFIXES = [
+  "quiz_role:",
+  "quiz_setting:",
+  "quiz_runnable:",
+  "quiz_challenge:",
+  "result_band:",
+] as const;
+
+const REPLACEABLE_EXACT_TAGS = new Set([
+  "iep-goal-program-quiz",
+  "quiz-01",
+  "priority_access",
+  "transformation-program",
+]);
+
 function nowIso() {
   return new Date().toISOString();
 }
@@ -10,14 +70,77 @@ function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
 }
 
+function isValidEmail(email: string) {
+  return (
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= MAX_EMAIL_LEN
+  );
+}
+
 function compact<T extends Record<string, unknown>>(value: T) {
   return Object.fromEntries(
     Object.entries(value).filter(([, entry]) => entry !== undefined)
   ) as Partial<T>;
 }
 
-function mergeTags(existing: string[], additions: string[]) {
-  return Array.from(new Set([...existing, ...additions]));
+function requireAllowed(value: string, allowed: Set<string>, field: string) {
+  if (!allowed.has(value)) {
+    throw new Error(`Invalid ${field}`);
+  }
+  return value;
+}
+
+function sanitizeOptionalString(value: string | undefined, max: number) {
+  const trimmed = value?.trim() ?? "";
+  if (!trimmed) return undefined;
+  return trimmed.slice(0, max);
+}
+
+function splitName(name: string | undefined) {
+  const parts = (name ?? "").trim().split(/\s+/).filter(Boolean);
+  return {
+    firstName: parts.shift() ?? "",
+    lastName: parts.join(" "),
+  };
+}
+
+function buildQuizTags(input: {
+  quizRole: string;
+  quizSetting: string;
+  quizRunnable: string;
+  quizChallenge: string;
+  resultBand: string;
+  priorityAccess: boolean;
+}) {
+  const tags = [
+    "iep-goal-program-quiz",
+    "quiz-01",
+    `quiz_role:${input.quizRole}`,
+    `quiz_setting:${input.quizSetting}`,
+    `quiz_runnable:${input.quizRunnable}`,
+    `quiz_challenge:${input.quizChallenge}`,
+    `result_band:${input.resultBand}`,
+  ];
+  if (input.priorityAccess) {
+    tags.push("priority_access", "transformation-program");
+  }
+  return tags;
+}
+
+function isReplaceableQuizTag(tag: string) {
+  if (REPLACEABLE_EXACT_TAGS.has(tag)) return true;
+  return REPLACEABLE_TAG_PREFIXES.some((prefix) => tag.startsWith(prefix));
+}
+
+function replaceQuizTags(existing: string[], nextQuizTags: string[]) {
+  const preserved = existing.filter((tag) => !isReplaceableQuizTag(tag));
+  return Array.from(new Set([...preserved, ...nextQuizTags]));
+}
+
+function contactHasPriorityAccess(tags: string[] | undefined) {
+  if (!tags) return false;
+  return (
+    tags.includes("priority_access") || tags.includes("transformation-program")
+  );
 }
 
 async function getContactByEmailLower(ctx: MutationCtx, emailLower: string) {
@@ -27,12 +150,39 @@ async function getContactByEmailLower(ctx: MutationCtx, emailLower: string) {
     .first();
 }
 
-function splitName(name: string | undefined) {
-  const parts = (name ?? "").trim().split(/\s+/).filter(Boolean);
-  return {
-    firstName: parts.shift() ?? "",
-    lastName: parts.join(" "),
-  };
+async function assertRateLimit(ctx: MutationCtx, emailLower: string) {
+  const prior = await ctx.db
+    .query("iepGoalProgramQuizResponses")
+    .withIndex("by_email_lower", (q) => q.eq("emailLower", emailLower))
+    .collect();
+
+  if (prior.length === 0) return;
+
+  const sorted = [...prior].sort((a, b) =>
+    b.createdAt.localeCompare(a.createdAt)
+  );
+  const latest = sorted[0];
+  if (latest) {
+    const latestMs = Date.parse(latest.createdAt);
+    if (
+      Number.isFinite(latestMs) &&
+      Date.now() - latestMs < MIN_SUBMIT_INTERVAL_MS
+    ) {
+      throw new Error("Please wait a moment before submitting again.");
+    }
+  }
+
+  const hourAgo = Date.now() - 60 * 60 * 1000;
+  const recentHourCount = prior.filter((row) => {
+    const ms = Date.parse(row.createdAt);
+    return Number.isFinite(ms) && ms >= hourAgo;
+  }).length;
+
+  if (recentHourCount >= MAX_SUBMITS_PER_EMAIL_PER_HOUR) {
+    throw new Error(
+      "Too many submissions from this email. Please try again later."
+    );
+  }
 }
 
 const responseDoc = v.object({
@@ -55,90 +205,153 @@ const responseDoc = v.object({
   updatedAt: v.string(),
 });
 
+/**
+ * Public quiz submit mutation.
+ * Validates allowlists, derives score/band server-side, rate-limits by email,
+ * upserts CRM with replaced quiz tags, and returns whether nurture should start.
+ */
 export const createResponse = mutation({
   args: {
     quizSlug: v.string(),
     quizRole: v.string(),
     quizSetting: v.string(),
     quizRunnable: v.string(),
-    quizRunnableScore: v.number(),
+    // Optional legacy client fields; ignored. Server derives score/band.
+    quizRunnableScore: v.optional(v.number()),
     quizChallenge: v.string(),
-    resultBand: v.string(),
+    resultBand: v.optional(v.string()),
     name: v.optional(v.string()),
     email: v.string(),
     priorityAccess: v.boolean(),
     page: v.optional(v.string()),
     userAgent: v.optional(v.string()),
   },
-  returns: v.id("iepGoalProgramQuizResponses"),
+  returns: v.object({
+    responseId: v.id("iepGoalProgramQuizResponses"),
+    resultBand: v.string(),
+    priorityAccess: v.boolean(),
+    shouldStartNurture: v.boolean(),
+  }),
   handler: async (ctx, args) => {
     const timestamp = nowIso();
-    const email = args.email.trim();
-    const emailLower = normalizeEmail(email);
-    const name = args.name?.trim() || undefined;
+
+    if (args.quizSlug !== QUIZ_SLUG) {
+      throw new Error("Invalid quizSlug");
+    }
+
+    const emailLower = normalizeEmail(args.email);
+    if (!isValidEmail(emailLower)) {
+      throw new Error("Invalid email");
+    }
+
+    await assertRateLimit(ctx, emailLower);
+
+    const quizRole = requireAllowed(
+      args.quizRole.trim(),
+      ALLOWED_ROLES,
+      "quizRole"
+    );
+    const quizSetting = requireAllowed(
+      args.quizSetting.trim(),
+      ALLOWED_SETTINGS,
+      "quizSetting"
+    );
+    const quizRunnable = requireAllowed(
+      args.quizRunnable.trim(),
+      ALLOWED_RUNNABLE,
+      "quizRunnable"
+    );
+    const quizChallenge = requireAllowed(
+      args.quizChallenge.trim(),
+      ALLOWED_CHALLENGES,
+      "quizChallenge"
+    );
+
+    // Never trust client-provided score/band.
+    const quizRunnableScore = RUNNABLE_SCORES[quizRunnable] ?? 0;
+    const resultBand = RESULT_BANDS[quizRunnable] ?? "not_a_program";
+    const priorityAccessRequested = args.priorityAccess === true;
+    const name = sanitizeOptionalString(args.name, MAX_NAME_LEN);
+    const page = sanitizeOptionalString(args.page, MAX_PAGE_LEN);
+    const userAgent = sanitizeOptionalString(args.userAgent, MAX_UA_LEN);
     const { firstName, lastName } = splitName(name);
 
+    const existing = await getContactByEmailLower(ctx, emailLower);
+    const priorResponses = await ctx.db
+      .query("iepGoalProgramQuizResponses")
+      .withIndex("by_email_lower", (q) => q.eq("emailLower", emailLower))
+      .collect();
+    const hadPriorityAccess =
+      contactHasPriorityAccess(existing?.tags) ||
+      priorResponses.some((row) => row.priorityAccess === true);
+
+    // Persist this response checkbox as requested; CRM keeps sticky Priority Access.
     const responseId = await ctx.db.insert("iepGoalProgramQuizResponses", {
-      quizSlug: args.quizSlug,
-      quizRole: args.quizRole,
-      quizSetting: args.quizSetting,
-      quizRunnable: args.quizRunnable,
-      quizRunnableScore: args.quizRunnableScore,
-      quizChallenge: args.quizChallenge,
-      resultBand: args.resultBand,
+      quizSlug: QUIZ_SLUG,
+      quizRole,
+      quizSetting,
+      quizRunnable,
+      quizRunnableScore,
+      quizChallenge,
+      resultBand,
       name,
-      email,
+      email: emailLower,
       emailLower,
-      priorityAccess: args.priorityAccess,
-      page: args.page?.trim() || undefined,
-      userAgent: args.userAgent?.trim() || undefined,
+      priorityAccess: priorityAccessRequested,
+      page,
+      userAgent,
       createdAt: timestamp,
       updatedAt: timestamp,
     });
 
-    const tags = [
-      "iep-goal-program-quiz",
-      "quiz-01",
-      `quiz_role:${args.quizRole}`,
-      `quiz_setting:${args.quizSetting}`,
-      `quiz_runnable:${args.quizRunnable}`,
-      `quiz_challenge:${args.quizChallenge}`,
-      `result_band:${args.resultBand}`,
-    ];
-    if (args.priorityAccess) {
-      tags.push("priority_access", "transformation-program");
-    }
+    // Once opted in, keep Priority Access on tip-only retakes.
+    const effectivePriorityAccess =
+      priorityAccessRequested || hadPriorityAccess;
+    const shouldStartNurture = priorityAccessRequested && !hadPriorityAccess;
+
+    const quizTags = buildQuizTags({
+      quizRole,
+      quizSetting,
+      quizRunnable,
+      quizChallenge,
+      resultBand,
+      priorityAccess: effectivePriorityAccess,
+    });
 
     const notesPayload = {
       quizResponseId: String(responseId),
-      quizSlug: args.quizSlug,
-      quiz_role: args.quizRole,
-      quiz_setting: args.quizSetting,
-      quiz_runnable: args.quizRunnable,
-      quiz_runnable_score: args.quizRunnableScore,
-      quiz_challenge: args.quizChallenge,
-      result_band: args.resultBand,
-      priority_access: args.priorityAccess,
+      quizSlug: QUIZ_SLUG,
+      quiz_role: quizRole,
+      quiz_setting: quizSetting,
+      quiz_runnable: quizRunnable,
+      quiz_runnable_score: quizRunnableScore,
+      quiz_challenge: quizChallenge,
+      result_band: resultBand,
+      priority_access: effectivePriorityAccess,
+      upgraded_to_priority_access: shouldStartNurture,
     };
     const noteLine = `IEP goal program quiz: ${JSON.stringify(notesPayload)}`;
 
-    const existing = await getContactByEmailLower(ctx, emailLower);
     if (existing) {
       await ctx.db.patch(
         existing._id,
         compact({
           firstName: firstName || existing.firstName,
           lastName: lastName || existing.lastName,
-          email,
-          role: args.quizRole === "school_bcba" ? "School BCBA" : existing.role,
+          email: emailLower,
+          role: quizRole === "school_bcba" ? "School BCBA" : existing.role,
           leadSource: existing.leadSource ?? "iep_goal_program_quiz",
-          tags: mergeTags(existing.tags, tags),
+          tags: replaceQuizTags(existing.tags, quizTags),
           notes: existing.notes ? `${existing.notes}\n\n${noteLine}` : noteLine,
-          priority: args.priorityAccess
+          priority: effectivePriorityAccess
             ? existing.priority === "urgent"
               ? "urgent"
               : "high"
             : existing.priority,
+          leadScore: Math.max(
+            existing.leadScore ?? 0,
+            effectivePriorityAccess ? 40 : 20
+          ),
           isArchived: false,
           updatedAt: timestamp,
         })
@@ -147,15 +360,15 @@ export const createResponse = mutation({
       await ctx.db.insert("crmContacts", {
         firstName: firstName || "Quiz",
         lastName: lastName || "Lead",
-        email,
+        email: emailLower,
         emailLower,
-        role: args.quizRole === "school_bcba" ? "School BCBA" : undefined,
+        role: quizRole === "school_bcba" ? "School BCBA" : undefined,
         status: "lead",
         leadSource: "iep_goal_program_quiz",
-        tags,
+        tags: quizTags,
         notes: noteLine,
-        leadScore: args.priorityAccess ? 40 : 20,
-        priority: args.priorityAccess ? "high" : "medium",
+        leadScore: effectivePriorityAccess ? 40 : 20,
+        priority: effectivePriorityAccess ? "high" : "medium",
         revenue: 0,
         isArchived: false,
         createdAt: timestamp,
@@ -163,7 +376,12 @@ export const createResponse = mutation({
       });
     }
 
-    return responseId;
+    return {
+      responseId,
+      resultBand,
+      priorityAccess: effectivePriorityAccess,
+      shouldStartNurture,
+    };
   },
 });
 
