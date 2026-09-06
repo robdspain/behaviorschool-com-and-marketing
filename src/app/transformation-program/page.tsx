@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
+import { InviteListCapture } from '@/components/InviteListCapture';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
 import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
@@ -15,7 +16,6 @@ const CALENDLY_LINK = TRANSFORMATION_PROGRAM.calendlyUrl;
 const DISTRICT_EMAIL_LINK = '/contact';
 
 const COHORT_LABEL = TRANSFORMATION_PROGRAM.cohort.label;
-const COHORT_START_BADGE = TRANSFORMATION_PROGRAM.cohort.startBadge;
 const COHORT_START_FULL = TRANSFORMATION_PROGRAM.cohort.startFull;
 const COHORT_END_FULL = TRANSFORMATION_PROGRAM.cohort.endFull;
 const COHORT_DATE_RANGE = TRANSFORMATION_PROGRAM.cohort.dateRange;
@@ -101,7 +101,7 @@ export default function TransformationProgramPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {['Live cohort', '6 weeks', 'School BCBAs', COHORT_START_BADGE].map((item) => (
+                {['Live cohort', '6 weeks', 'School BCBAs', 'Invite list open'].map((item) => (
                   <span key={item} className="px-3 py-1.5 rounded-full border border-[#1f4d3f]/20 bg-white text-xs font-semibold text-[#1f4d3f] uppercase tracking-wide">
                     {item}
                   </span>
@@ -122,7 +122,7 @@ export default function TransformationProgramPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Build a practical assessment-to-intervention system for the school caseload you manage now.
+                Build a practical assessment-to-intervention system for the school caseload you manage now. I&apos;m building an invite list for practicing school BCBAs who want in.
               </motion.p>
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
@@ -131,20 +131,20 @@ export default function TransformationProgramPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <a
-                  href="#apply"
+                  href="#invite"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Apply for a seat <ArrowRight className="w-4 h-4" />
+                  Join the invite list <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
-                  href="#fit-call"
+                  href="#apply"
                   className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Already applied? Book a Fit Call
+                  Already ready to apply?
                 </a>
               </motion.div>
               <p className="mt-4 text-sm text-slate-500 max-w-xl mx-auto lg:mx-0">
-                Apply first. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
+                Join the invite list to hear when seats open. If you already want to enroll, the full application is still available below.
               </p>
             </div>
 
@@ -195,7 +195,11 @@ export default function TransformationProgramPage() {
               ))}
             </div>
             <p className="w-full text-slate-500 text-xs leading-relaxed">
-              Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
+              Cohort dates for people ready to enroll. Prefer a softer first step?{' '}
+              <a href="#invite" className="text-[#1f4d3f] font-semibold underline underline-offset-2">
+                Join the invite list
+              </a>
+              .
             </p>
           </div>
         </div>
@@ -410,7 +414,8 @@ export default function TransformationProgramPage() {
           <FAQAccordion items={[
             { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
             { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats for the October 2026 cohort. Applications close when seats fill or by ${APPLICATIONS_CLOSE_LABEL}, whichever comes first.` },
-            { question: "What is the order of operations to enroll?", answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
+            { question: "How do I get started if I'm not ready to apply yet?", answer: "Join the invite list on this page. I'm building that list for practicing school BCBAs and will send a personal invite when seats open. No Thursday attendance commitment is required to join the list." },
+            { question: "What is the order of operations to enroll?", answer: "If you are ready to enroll now, apply using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
             { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM PT. It is not for RBTs, BCaBAs who are not yet certified, general-ed staff, or clinic-only BCBAs without a school role." },
             { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later weeks include share-outs on the systems you are rebuilding." },
             { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
@@ -423,17 +428,23 @@ export default function TransformationProgramPage() {
         </div>
       </section>
 
+      <InviteListCapture />
+
       {/* Enroll */}
       <section id="enroll" className="py-20 sm:py-28 bg-[#e8f0eb] text-[#1a1a1a] scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">Apply for a seat in the October 2026 cohort</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">Already ready to apply for the October 2026 cohort?</h2>
           <p className="text-slate-600 text-sm mb-3">{COHORT_LABEL} · 6 weeks · School BCBAs only · {COHORT_SEAT_CAP} seats</p>
           <p className="text-slate-700 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
-            Apply first. Fit calls are scheduled after application review. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
+            Prefer the full apply path? Submit an application below. Fit calls are scheduled after review. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
           </p>
           <p className="text-slate-600 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
-            Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
+            Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first. Still deciding?{' '}
+            <a href="#invite" className="text-[#1f4d3f] font-semibold underline underline-offset-2">
+              Join the invite list
+            </a>
+            {' '}instead.
           </p>
           <p className="text-[#1f4d3f] font-bold text-2xl mb-8">
             {OFFER_PRICE} tuition
@@ -441,9 +452,9 @@ export default function TransformationProgramPage() {
 
           <a
             href="#apply"
-            className="block w-full rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
+            className="block w-full rounded-full border-2 border-[#1f4d3f] bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
           >
-            Apply for a seat
+            Go to the application
           </a>
 
           <p id="fit-call" className="scroll-mt-24 text-slate-600 text-sm mb-4">
