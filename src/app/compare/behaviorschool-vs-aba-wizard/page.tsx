@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BcbaComparisonLanding } from "@/components/marketing/BcbaComparisonLanding";
 import {
   applySeoMetadataOverride,
+  applySchoolBcbaBrandCopy,
   getBehaviorStudyToolsSeoOverride,
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
 import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
@@ -38,17 +39,17 @@ export default async function BehaviorSchoolVsABAWizardPage() {
   return (
     <BcbaComparisonLanding
       competitor="ABA Wizard"
-      title={override?.heroHeadline || "BehaviorSchool vs ABA Wizard"}
-      description={
-        override?.metaDescription ||
-        "ABA Wizard sells a mobile study app, a Total Learning System with video lectures and TAFMEDS, and standalone 185-question timed mock exams with feedback on every question. BehaviorSchool Study focuses on adaptive practice, full mocks, domain readiness, and progress reports you can share with a supervisor or cohort. This page compares those published workflows—not only the mobile app."
-      }
-      primaryCta={override?.primaryCta || "Try BehaviorSchool free"}
+      title={applySchoolBcbaBrandCopy(override?.heroHeadline, "BehaviorSchool vs ABA Wizard")}
+      description={applySchoolBcbaBrandCopy(
+        override?.metaDescription,
+        "ABA Wizard sells a mobile study app, a Total Learning System with video lectures and TAFMEDS, and standalone 185-question timed mock exams with feedback on every question. BehaviorSchool Study focuses on adaptive practice, full mocks, domain readiness, and progress reports you can share with a supervisor or cohort. This page compares those published workflows—not only the mobile app.",
+      )}
+      primaryCta={applySchoolBcbaBrandCopy(override?.primaryCta, "Try BehaviorSchool free")}
       primaryHref={appHref}
-      bestForCompetitor={
-        override?.faqAnswer ||
-        "You want ABA Wizard's bundled Total Learning System (video lectures per Test Content Outline section, TAFMEDS, section probes, and a three-mock bundle), or you prefer their published 185-question, four-hour mock exams with per-question feedback emailed after completion—and you do not need BehaviorSchool's readiness reporting or school BCBA resource ecosystem."
-      }
+      bestForCompetitor={applySchoolBcbaBrandCopy(
+        override?.faqAnswer,
+        "You want ABA Wizard's bundled Total Learning System (video lectures per Test Content Outline section, TAFMEDS, section probes, and a three-mock bundle), or you prefer their published 185-question, four-hour mock exams with per-question feedback emailed after completion—and you do not need BehaviorSchool's readiness reporting or school BCBA resource ecosystem.",
+      )}
       rows={[
         {
           label: "Product scope",

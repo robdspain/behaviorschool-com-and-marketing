@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BehaviorSchool | Tools & Resources for School BCBAs",
-    description: "Free AI-powered tools for school-based BCBAs — FBA generator, BIP builder, IEP goal writer, and more.",
+    description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more.",
     images: ["/optimized/og-image.webp"],
   },
   other: {
