@@ -247,7 +247,7 @@ export default function TransformationProgramPage() {
             {[
               "You are a certified BCBA working in a K-12 school or district role",
               "You have a current caseload or systems problem you want to rebuild",
-              "You can attend live Thursday sessions from 6 to 8 PM PT",
+              "You can attend live Thursday sessions from 6 to 8 PM Pacific Time",
               "You will bring real work to apply between sessions, including share-outs in later weeks",
               "You want tools you can use the next day, not theory you'll forget in a week",
               "You are ready to do the work, not just watch videos and get a certificate",
@@ -266,6 +266,19 @@ export default function TransformationProgramPage() {
               {COHORT_SEAT_CAP} seats for the October 2026 cohort. Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Organic warm-up escape */}
+      <section className="border-y border-[#1f4d3f]/10 bg-white py-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-slate-600 text-base leading-relaxed">
+            Not ready for a cohort?{" "}
+            <a href="/subscribe" className="font-semibold text-[#1f4d3f] underline underline-offset-2 hover:text-[#173a30]">
+              Get the Weekly Research Brief
+            </a>
+            {" "}— open research, clear summaries, and one practical next step for school BCBAs each week.
+          </p>
         </div>
       </section>
 
@@ -332,7 +345,7 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Learning CE Information</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-8">What Each Live Session Includes</h2>
           <div className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed">
-            <p>Each live online session is scheduled for 6:00 to 8:00 PM Pacific and includes 75 documented instructional minutes. It is structured for 1.5 Learning CEUs after verified attendance and active participation.</p>
+            <p>Each live online session is scheduled for 6:00 to 8:00 PM Pacific Time and includes 75 documented instructional minutes. It is structured for 1.5 Learning CEUs after verified attendance and active participation.</p>
             <p><strong>Instructor:</strong> Rob Spain, BCBA, IBA. <strong>Affiliation disclosure:</strong> No relevant financial affiliation or conflict of interest to disclose.</p>
             <p><strong>Provider listing:</strong> Behavior School, Provider OP-26-12729. The BACB does not endorse or approve individual events. Learning CE documentation is issued only after provider authorization is independently confirmed in the BACB registry.</p>
             <p><strong>Online event description published:</strong> {ONLINE_EVENT_DESCRIPTION_PUBLISHED}. Feedback is offered after each session, and CE documentation is issued no later than 45 days after verified completion.</p>
@@ -408,10 +421,10 @@ export default function TransformationProgramPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
+            { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM Pacific Time for six weeks, ending ${COHORT_END_FULL}.` },
             { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats for the October 2026 cohort. Applications close when seats fill or by ${APPLICATIONS_CLOSE_LABEL}, whichever comes first.` },
             { question: "What is the order of operations to enroll?", answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
-            { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM PT. It is not for RBTs, BCaBAs who are not yet certified, general-ed staff, or clinic-only BCBAs without a school role." },
+            { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM Pacific Time. It is not for RBTs, BCaBAs who are not yet certified, general-ed staff, or clinic-only BCBAs without a school role." },
             { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later weeks include share-outs on the systems you are rebuilding." },
             { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
@@ -504,7 +517,7 @@ This program addresses three problems directly:
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
 3. Caseload sustainability: systems for organizing review and implementation work.
 
-6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: ${OFFER_PRICE}.
+6 sessions, weekly from 6 to 8 PM Pacific Time, ${COHORT_DATE_RANGE}. Cost: ${OFFER_PRICE}.
 Details: behaviorschool.com/transformation-program`}</div>
               </div>
             </div>

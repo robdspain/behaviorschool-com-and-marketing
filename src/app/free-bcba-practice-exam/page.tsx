@@ -10,7 +10,6 @@ import {
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
 import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
-import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 
 const PAGE_HREF = "https://study.behaviorschool.com/free-practice/";
 const SEO_OVERRIDE_HREF = PAGE_HREF;
@@ -420,12 +419,6 @@ export default async function FreeBCBAPracticeExamPage() {
               </Link>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SchoolBcbasTransformationCta source="free_bcba_practice_exam" />
         </div>
       </section>
 
