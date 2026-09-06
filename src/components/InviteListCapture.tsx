@@ -46,7 +46,7 @@ export function InviteListCapture() {
         throw new Error(
           typeof body?.error === 'string'
             ? body.error
-            : 'Unable to join the invite list right now.',
+            : 'Unable to join Priority Access right now.',
         );
       }
       setStatus('success');
@@ -56,33 +56,33 @@ export function InviteListCapture() {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : 'Unable to join the invite list right now. Please try again shortly.',
+          : 'Unable to join Priority Access right now. Please try again shortly.',
       );
     }
   }
 
   return (
-    <section id="invite" className="scroll-mt-24 py-20 sm:py-28 bg-[#f7f3ee]">
+    <section id="priority-access" className="scroll-mt-24 py-20 sm:py-28 bg-[#f7f3ee]">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto rounded-2xl border border-[#1f4d3f]/15 bg-white p-7 shadow-sm md:p-12">
           <div className="text-center mb-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">
-              Invite list
+              Priority Access List
             </p>
             <h2 className="text-2xl md:text-3xl font-bold text-[#1a1a1a] mb-3">
-              Join the invite list
+              Get early access
             </h2>
             <p className="text-slate-600 text-base leading-relaxed max-w-xl mx-auto">
-              I&apos;m building an invite list for practicing school BCBAs who want a clearer assessment-to-intervention system. Leave your details and I&apos;ll send a personal invite when seats open.
+              When the next live school BCBA cohort opens, Priority Access hears first — an exclusive early window before a wider announcement.
             </p>
           </div>
 
           {status === 'success' ? (
             <div className="flex flex-col items-center gap-4 py-8 text-center" role="status" aria-live="polite">
               <CheckCircle className="w-12 h-12 text-[#1f4d3f]" aria-hidden="true" />
-              <p className="text-slate-800 font-semibold text-lg">You&apos;re on the invite list</p>
+              <p className="text-slate-800 font-semibold text-lg">You&apos;re on Priority Access</p>
               <p className="text-slate-500 text-sm max-w-md leading-relaxed">
-                Thanks for joining. I&apos;ll reach out personally when the next invites go out. No Thursday session commitment is required to stay on the list.
+                You&apos;ll get an email when seats open — before a wider announcement. No Thursday session commitment is required to stay on the list.
               </p>
               <a
                 href="#apply"
@@ -155,8 +155,12 @@ export function InviteListCapture() {
                 disabled={status === 'loading'}
                 className="w-full min-h-11 rounded-full bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#123628] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f] disabled:opacity-60"
               >
-                {status === 'loading' ? 'Joining…' : 'Join the invite list'}
+                {status === 'loading' ? 'Submitting…' : 'Get early access'}
               </button>
+
+              <p className="text-center text-sm text-slate-500 leading-relaxed">
+                You&apos;ll get one email when seats open — first.
+              </p>
 
               <p className="text-center text-sm text-slate-500 leading-relaxed">
                 Already ready to apply?{' '}

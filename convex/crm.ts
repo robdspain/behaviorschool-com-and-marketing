@@ -371,7 +371,7 @@ export const recordTransformationInvite = mutation({
     const existing = await getContactByEmailLower(ctx, emailLower);
     const systemsProblem = args.systemsProblem?.trim() || "";
     const inviteNotes = [
-      "Transformation Program invite list request",
+      "Transformation Program Priority Access List request",
       `Role: ${args.role.trim()}`,
       systemsProblem
         ? `Caseload or systems problem:\n${systemsProblem}`
@@ -379,7 +379,7 @@ export const recordTransformationInvite = mutation({
     ].join("\n");
     const inviteTags = [
       "transformation-program",
-      "transformation-invite-list",
+      "transformation-priority-access",
       "school-bcba-program",
     ];
 
@@ -392,7 +392,7 @@ export const recordTransformationInvite = mutation({
         email: args.email.trim(),
         role: args.role.trim() || existing.role,
         status: existing.status === "customer" ? "customer" : "lead",
-        leadSource: existing.leadSource || "transformation_invite_list",
+        leadSource: existing.leadSource || "transformation_priority_access",
         tags: mergeTags(existing.tags, inviteTags),
         notes: existing.notes ? `${existing.notes}\n\n${inviteNotes}` : inviteNotes,
         attribution: args.attribution || existing.attribution,
@@ -410,7 +410,7 @@ export const recordTransformationInvite = mutation({
         emailLower,
         role: args.role.trim(),
         status: "lead",
-        leadSource: "transformation_invite_list",
+        leadSource: "transformation_priority_access",
         tags: inviteTags,
         notes: inviteNotes,
         attribution: args.attribution,
@@ -426,8 +426,8 @@ export const recordTransformationInvite = mutation({
 
     await insertActivity(ctx, {
       contactId,
-      activityType: "transformation_invite_list",
-      subject: "Transformation Program invite list join",
+      activityType: "transformation_priority_access",
+      subject: "Transformation Program Priority Access List join",
       body: systemsProblem || args.role.trim(),
       metadata: {
         attribution: args.attribution,

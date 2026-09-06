@@ -101,7 +101,7 @@ export default function TransformationProgramPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {['Live cohort', '6 weeks', 'School BCBAs', 'Invite list open'].map((item) => (
+                {['Live cohort', '6 weeks', 'School BCBAs', 'Priority Access'].map((item) => (
                   <span key={item} className="px-3 py-1.5 rounded-full border border-[#1f4d3f]/20 bg-white text-xs font-semibold text-[#1f4d3f] uppercase tracking-wide">
                     {item}
                   </span>
@@ -122,7 +122,7 @@ export default function TransformationProgramPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Build a practical assessment-to-intervention system for the school caseload you manage now. I&apos;m building an invite list for practicing school BCBAs who want in.
+                Build a practical assessment-to-intervention system for the school caseload you manage now. Priority Access hears first when the next live school BCBA cohort opens.
               </motion.p>
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
@@ -131,10 +131,10 @@ export default function TransformationProgramPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <a
-                  href="#invite"
+                  href="#priority-access"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Join the invite list <ArrowRight className="w-4 h-4" />
+                  Get early access <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
                   href="#apply"
@@ -144,7 +144,7 @@ export default function TransformationProgramPage() {
                 </a>
               </motion.div>
               <p className="mt-4 text-sm text-slate-500 max-w-xl mx-auto lg:mx-0">
-                Join the invite list to hear when seats open. If you already want to enroll, the full application is still available below.
+                Join Priority Access for an exclusive early window before a wider announcement. If you already want to enroll, the full application is still available below.
               </p>
             </div>
 
@@ -195,9 +195,9 @@ export default function TransformationProgramPage() {
               ))}
             </div>
             <p className="w-full text-slate-500 text-xs leading-relaxed">
-              Cohort dates for people ready to enroll. Prefer a softer first step?{' '}
-              <a href="#invite" className="text-[#1f4d3f] font-semibold underline underline-offset-2">
-                Join the invite list
+              Cohort dates for people ready to enroll. Prefer early notice?{' '}
+              <a href="#priority-access" className="text-[#1f4d3f] font-semibold underline underline-offset-2">
+                Get early access
               </a>
               .
             </p>
@@ -414,7 +414,7 @@ export default function TransformationProgramPage() {
           <FAQAccordion items={[
             { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
             { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats for the October 2026 cohort. Applications close when seats fill or by ${APPLICATIONS_CLOSE_LABEL}, whichever comes first.` },
-            { question: "How do I get started if I'm not ready to apply yet?", answer: "Join the invite list on this page. I'm building that list for practicing school BCBAs and will send a personal invite when seats open. No Thursday attendance commitment is required to join the list." },
+            { question: "How do I get started if I'm not ready to apply yet?", answer: "Join the Priority Access List on this page. When the next live school BCBA cohort opens, Priority Access hears first — before a wider announcement. No Thursday attendance commitment is required to join." },
             { question: "What is the order of operations to enroll?", answer: "If you are ready to enroll now, apply using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
             { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM PT. It is not for RBTs, BCaBAs who are not yet certified, general-ed staff, or clinic-only BCBAs without a school role." },
             { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later weeks include share-outs on the systems you are rebuilding." },
@@ -441,10 +441,10 @@ export default function TransformationProgramPage() {
           </p>
           <p className="text-slate-600 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
             Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first. Still deciding?{' '}
-            <a href="#invite" className="text-[#1f4d3f] font-semibold underline underline-offset-2">
-              Join the invite list
+            <a href="#priority-access" className="text-[#1f4d3f] font-semibold underline underline-offset-2">
+              Get early access
             </a>
-            {' '}instead.
+            {' '}on the Priority Access List instead.
           </p>
           <p className="text-[#1f4d3f] font-bold text-2xl mb-8">
             {OFFER_PRICE} tuition

@@ -62,12 +62,12 @@ async function notifyRobOfInvite(input: {
   const systemsProblem = input.systemsProblem || "Not provided";
   const recipients = robNotificationEmails();
   const html = `
-    <h2>New Transformation invite list join</h2>
+    <h2>New Transformation Priority Access List join</h2>
     <p><strong>Name:</strong> ${escapeHtml(input.fullName)}</p>
     <p><strong>Email:</strong> <a href="mailto:${escapeHtml(input.email)}">${escapeHtml(input.email)}</a></p>
     <p><strong>Role / title:</strong> ${escapeHtml(input.role)}</p>
     <p><strong>Caseload or systems problem:</strong><br>${escapeHtml(systemsProblem).replace(/\n/g, "<br>")}</p>
-    <p><strong>Next step:</strong> Keep this contact on the invite list. Send a personal invite when ready — do not treat this as a full application.</p>
+    <p><strong>Next step:</strong> Keep this contact on Priority Access. They get the exclusive early window before a wider announcement — do not treat this as a full application.</p>
   `;
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -79,7 +79,7 @@ async function notifyRobOfInvite(input: {
     body: JSON.stringify({
       from: "BehaviorSchool Leads <noreply@updates.behaviorschool.com>",
       to: recipients,
-      subject: `Invite list: ${input.fullName}`,
+      subject: `Priority Access: ${input.fullName}`,
       html,
       reply_to: input.email,
     }),
@@ -110,8 +110,8 @@ async function sendInviteConfirmation(input: {
       from: RESEND_FROM_ROB,
       to: input.email,
       reply_to: RESEND_REPLY_TO_ROB,
-      subject: "You're on the School BCBA Transformation invite list",
-      html: `<p>${escapeHtml(greeting)}</p><p>You're on the invite list for the School BCBA Transformation Program.</p><p>I'm building this list so I can send personal invites when the next seats open. No Thursday commitment and no payment step are required to stay on the list.</p><p>I'll reach out directly when it's time.</p><p>Rob Spain, BCBA<br>Behavior School<br>${escapeHtml(RESEND_REPLY_TO_ROB)}</p>`,
+      subject: "You're on Priority Access for the School BCBA Transformation Program",
+      html: `<p>${escapeHtml(greeting)}</p><p>You're on Priority Access for the School BCBA Transformation Program.</p><p>You'll get an email when seats open — before a wider announcement. No Thursday commitment and no payment step are required to stay on the list.</p><p>Rob Spain, BCBA<br>Behavior School<br>${escapeHtml(RESEND_REPLY_TO_ROB)}</p>`,
     }),
   });
 
@@ -135,7 +135,7 @@ async function notifyTelegram(message: string) {
     });
     return { ok: response.ok, skipped: false };
   } catch (error) {
-    console.error("Telegram invite-list notification error:", error);
+    console.error("Telegram Priority Access notification error:", error);
     return { ok: false, skipped: false };
   }
 }
@@ -159,7 +159,7 @@ export async function POST(request: NextRequest) {
     const attribution = parseAttribution(body?.attribution);
     const client = getConvexClient();
     const inviteNotes = [
-      "Transformation Program invite list request",
+      "Transformation Program Priority Access List request",
       `Role: ${role}`,
       systemsProblem
         ? `Caseload or systems problem:\n${systemsProblem}`
@@ -178,15 +178,15 @@ export async function POST(request: NextRequest) {
       });
       contactId = invite?.contactId;
     } catch (inviteError) {
-      console.error("Transformation invite CRM mutation error:", inviteError);
+      console.error("Transformation Priority Access CRM mutation error:", inviteError);
       contactId = await client.mutation(api.crm.upsertContact, {
         firstName,
         lastName,
         email,
         role,
-        leadSource: "transformation_invite_list",
+        leadSource: "transformation_priority_access",
         status: "lead",
-        tags: ["transformation-program", "transformation-invite-list", "school-bcba-program"],
+        tags: ["transformation-program", "transformation-priority-access", "school-bcba-program"],
         notes: inviteNotes,
       });
     }
@@ -198,13 +198,13 @@ export async function POST(request: NextRequest) {
         email,
         role,
         currentChallenges: systemsProblem,
-        status: "transformation_invite_list",
+        status: "transformation_priority_access",
       }),
       client.mutation(api.analytics.createConversionEvent, {
         eventType: "course_inquiry",
-        eventName: "transformation_invite_list_joined",
+        eventName: "transformation_priority_access_joined",
         sourcePage: "/transformation-program",
-        resourceName: "School BCBA Transformation Program Invite List",
+        resourceName: "School BCBA Transformation Program Priority Access List",
         additionalData: {
           attribution,
           contactId,
@@ -214,7 +214,7 @@ export async function POST(request: NextRequest) {
     ]);
 
     const notificationText = [
-      "TRANSFORMATION INVITE LIST",
+      "TRANSFORMATION PRIORITY ACCESS",
       "",
       `Name: ${fullName}`,
       `Email: ${email}`,
@@ -230,9 +230,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    console.error("Transformation invite list error:", error);
+    console.error("Transformation Priority Access error:", error);
     return NextResponse.json(
-      { error: "Unable to join the invite list right now. Please try again shortly." },
+      { error: "Unable to join Priority Access right now. Please try again shortly." },
       { status: 500 },
     );
   }
