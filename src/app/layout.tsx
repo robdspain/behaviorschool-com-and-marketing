@@ -19,7 +19,7 @@ const EFFECTIVE_SITE_URL = (!RAW_SITE_URL || /localhost/i.test(RAW_SITE_URL))
 export const metadata: Metadata = {
   metadataBase: new URL(EFFECTIVE_SITE_URL),
   title: "BehaviorSchool | Tools & Resources for School BCBAs",
-  description: "Free AI-powered tools for school-based BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
+  description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
   keywords: [
     "Behavior School",
     "Behavior School platform",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "BehaviorSchool | Tools & Resources for School BCBAs",
-    description: "Free AI-powered tools for school-based BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
+    description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     locale: "en_US",
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BehaviorSchool | Tools & Resources for School BCBAs",
-    description: "Free AI-powered tools for school-based BCBAs — FBA generator, BIP builder, IEP goal writer, and more.",
+    description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more.",
     images: ["/optimized/og-image.webp"],
   },
   other: {
@@ -126,7 +126,7 @@ export default function RootLayout({
           height: 512
         },
         image: `${SITE_URL}/optimized/og-image.webp`,
-        description: "Professional development, study tools, and resources for school-based BCBAs and behavior analysts in education.",
+        description: "Professional development, study tools, and resources for school BCBAs and behavior analysts in education.",
         foundingDate: "2020",
         contactPoint: {
           "@type": "ContactPoint",

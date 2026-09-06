@@ -87,7 +87,7 @@ export default function BCBAStudyToolsPage() {
           name: "Can I try the BCBA study tools for free?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes. Candidates can try ten BCBA practice questions without an account. Free and paid options are available after the starter set.",
+            text: "Yes. Candidates can start with a free Quick domain check (9 questions) without an account. Free and paid options are available after that starter set.",
           },
         },
         {

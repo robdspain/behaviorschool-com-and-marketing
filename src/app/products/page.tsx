@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "The BehaviorSchool Suite | School-Based Behavior Practice",
+  title: "The BehaviorSchool Suite | School BCBA Practice Tools",
   description:
     "Explore free school-practice tools, Behavior Study Tools for BCBA exam prep, professional development, and invite-only workspaces from BehaviorSchool.",
 };
@@ -45,10 +45,10 @@ const availableProducts = [
     name: "Behavior Study Tools",
     audience: "For BCBA candidates",
     description:
-      "Move from a free 10-question set into focused practice, timed mock exams, a personalized pacing guide, and domain-level progress tracking.",
+      "Start with a free Quick domain check (9 questions), then move into focused practice, timed mock exams, a personalized pacing guide, and domain-level progress tracking.",
     details: ["Exam-style practice", "Timed mock exams", "Personalized study plan"],
     href: "https://study.behaviorschool.com/free-practice/",
-    cta: "Try 10 free BCBA questions",
+    cta: "Start free Quick domain check",
     preview: "study" as const,
     icon: GraduationCap,
     tone: "light" as const,

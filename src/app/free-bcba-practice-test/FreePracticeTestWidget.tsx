@@ -133,20 +133,6 @@ const PRACTICE_QUESTIONS: QuizQuestion[] = [
     letter: "B",
     explanation: "Asking relevant questions is socially significant and should not be reduced. Ethical guidelines prohibit targeting behavior that is not harmful or maladaptive. Options C and D suggest compromise but ignore the ethical violation, and A is clearly incorrect.",
   },
-  {
-    id: "q10",
-    tag: "K-5: Supervise the implementation of behavior-change procedures",
-    stem: "A BCBA trains staff to use DRA for attention-maintained aggression. During observations, some staff reinforce alternative behaviors inconsistently. What is the most appropriate supervisory action?",
-    choices: [
-      "Collect more baseline data before intervening",
-      "Provide immediate performance feedback and model correct implementation",
-      "Replace DRA with a simpler intervention",
-      "Wait to see if staff improve with more practice",
-    ],
-    answer: "Provide immediate performance feedback and model correct implementation",
-    letter: "B",
-    explanation: "Effective supervision requires prompt, specific feedback and modeling to improve treatment fidelity. Collecting more baseline data or waiting delays correction, and replacing DRA ignores the problem of staff performance rather than intervention design.",
-  },
 ];
 
 export default function FreePracticeTestWidget() {

@@ -169,8 +169,8 @@ export function BCBAStudyToolsClient() {
               className="flex flex-wrap justify-center gap-8 mb-10 p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50"
             >
               <div className="text-center">
-                <div className="text-2xl font-bold text-emerald-600">10</div>
-                <div className="text-sm text-slate-600">Questions Free</div>
+                <div className="text-2xl font-bold text-emerald-600">9</div>
+                <div className="text-sm text-slate-600">Quick domain check</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-emerald-600">9</div>
@@ -194,7 +194,7 @@ export function BCBAStudyToolsClient() {
                 href="https://study.behaviorschool.com/free-practice/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=hero"
                 className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
               >
-                Try 10 Free Questions
+                Start free Quick domain check
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </motion.div>
@@ -449,7 +449,7 @@ export function BCBAStudyToolsClient() {
                 How do I access the interactive study platform?
               </h3>
               <p className="text-slate-600 mb-4">
-                The interactive study platform is available at study.behaviorschool.com with free and paid access options. You can try ten questions without an account, then create a profile if you want to save progress and use expanded study features.
+                The interactive study platform is available at study.behaviorschool.com with free and paid access options. You can start with a free Quick domain check (9 questions) without an account, then create a profile if you want to save progress and use expanded study features.
               </p>
               <p className="text-slate-600">
                 The platform includes domain-specific practice, progress tracking, and personalized study recommendations based on your performance.
@@ -551,13 +551,13 @@ export function BCBAStudyToolsClient() {
             Ready to Find Your Next Study Target?
           </h2>
           <p className="text-xl text-emerald-100 mb-8">
-            Start with ten questions, review the rationales, and use your results to decide which domain needs attention next.
+            Start with a free Quick domain check (9 questions), review the rationales, and use your results to decide which domain needs attention next.
           </p>
           <Link
             href="https://study.behaviorschool.com/free-practice/?utm_source=behaviorschool.com&utm_medium=organic&utm_campaign=bcba_study_tools&utm_content=footer"
             className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-white text-emerald-600 rounded-xl hover:bg-slate-50 transition-colors group"
           >
-            Try 10 Free Questions
+            Start free Quick domain check
             <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

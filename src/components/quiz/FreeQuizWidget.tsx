@@ -235,7 +235,7 @@ export function FreeQuizWidget({
             </h2>
             <p className="text-lg sm:text-xl text-slate-600">
               {isPerfectScore
-                ? 'Outstanding! You aced all 10 questions!'
+                ? `Outstanding! You aced all ${questions.length} questions!`
                 : 'Great job completing the practice quiz'}
             </p>
           </div>

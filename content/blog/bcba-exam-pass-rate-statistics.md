@@ -1,5 +1,5 @@
 ---
-title: "BCBA Exam Pass Rate Statistics (2024–2025): What the Data Actually Means"
+title: "BCBA Exam Pass Rate Statistics (2022–2025): What the Data Actually Means"
 slug: bcba-exam-pass-rate-statistics
 date: 2026-02-24
 status: draft
@@ -14,7 +14,7 @@ keywords:
   - BCBA exam difficulty
   - how to pass the BCBA exam
   - BCBA exam prep
-meta_description: "BCBA exam pass rates dropped to about 54% for first-time test takers in 2024. Here’s what the BACB data shows—and how to improve your odds."
+meta_description: "BACB data show first-time BCBA pass rates of 55% (2022), 56% (2023), 54% (2024), and 51% (2025). See what the numbers mean and how to improve your odds."
 category: BCBA Exam Prep
 internal_links:
   - https://behaviorstudytools.com/
@@ -29,31 +29,38 @@ word_count_target: 2000
 
 > *This article was written with AI assistance and reviewed by Rob Spain, BCBA. All pass rate data cited below comes from BACB public reports and published analyses current as of February 2026.*
 
-# BCBA Exam Pass Rate Statistics (2024–2025): What the Data Actually Means
+# BCBA Exam Pass Rate Statistics (2022–2025): What the Data Actually Means
 
 If you’re preparing for the BCBA® exam, one question keeps coming up: **“What’s the pass rate?”**
 
-The short answer: **the first‑time BCBA pass rate has hovered around the mid‑50% range in recent years**, with 2024 data commonly cited at **about 54%** for first‑time test takers. That means nearly **1 out of 2 candidates don’t pass on their first attempt**.
+The short answer: **the first‑time BCBA pass rate was 51% in 2025** per BACB’s published examination table—the most recent year available. In 2024, **54% passed and 46% did not** on the first attempt.
 
 But the more important question isn’t “What’s the pass rate?”
 
 It’s **“What does the data actually mean for me, and how do I beat the odds?”**
 
-This post breaks down the most current BCBA exam pass rate statistics, where the numbers come from, and what you can do to improve your probability of passing—especially under the 6th Edition Test Content Outline (TCO).
+This post breaks down the most current BCBA exam pass rate statistics from BACB’s [Examination Information](https://www.bacb.com/examination-information/) page, and what you can do to improve your probability of passing. The 6th Edition Test Content Outline began governing BCBA exams in **2025**; pass-rate tables alone do not prove that edition changes caused year-over-year shifts.
 
 ---
 
 ## What Is the BCBA Exam Pass Rate Right Now?
 
-### The most cited recent data
-The BACB publishes public pass rate data annually in its **Annual Data Report** and **University Examination Pass Rates** reports. While the BACB doesn’t publish a single “overall pass rate” headline for each year, multiple sources referencing BACB data report that **first‑time BCBA pass rates were approximately 54% in 2024**.
+### Official BACB first-time BCBA pass rates
+
+| Year | First-time pass | First-time fail | Retake pass |
+|------|-----------------|-----------------|-------------|
+| 2022 | 55% | 45% | 24% |
+| 2023 | 56% | 44% | 23% |
+| 2024 | 54% | 46% | 25% |
+| 2025 | 51% | 49% | 23% |
+
+The most recent published year is **2025** (51% first-time pass). When the rate was **54% in 2024**, **46% did not pass** on the first attempt—not “more than half.”
 
 **Sources:**
-- BACB Annual Data Report (public data tables) — bacb.com
-- BACB University Examination Pass Rates (program‑level first‑time pass rates) — bacb.com
-- Independent summaries citing BACB data (e.g., ABA Technologies and Pass the Big ABA Exam)
+- [BACB Examination Information](https://www.bacb.com/examination-information/) — Historical BCBA Examination Results
+- [6th Edition Test Content Outline](https://www.bacb.com/wp-content/bcba-outline-6thEd/)
 
-> ✅ **Key takeaway:** The BCBA exam is not a “hard” exam in the traditional sense — it’s a **high‑volume, application‑heavy exam** where most people fail due to lack of structure and targeted practice, not lack of intelligence.
+**Key takeaway:** The BCBA exam is application-heavy. Candidates who pass on the first attempt usually combine structured study, domain-level practice data, and full-length timed mocks—not passive reading alone.
 
 ---
 

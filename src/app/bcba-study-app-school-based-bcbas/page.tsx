@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BcbaSeoLanding } from "@/components/marketing/BcbaSeoLanding";
 import {
   applySeoMetadataOverride,
+  applySchoolBcbaBrandCopy,
   getBehaviorStudyToolsSeoOverride,
   seoOverrideFaq,
 } from "@/lib/behavior-study-tools/seo-draft-overrides";
@@ -11,14 +12,14 @@ const PAGE_HREF = "https://behaviorschool.com/bcba-study-app-school-based-bcbas"
 const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/bcba-study-app-school-based-bcbas";
 
 const baseMetadata: Metadata = {
-  title: "BCBA Study App for School-Based BCBAs | BehaviorSchool Study",
+  title: "BCBA Study App for School BCBAs | BehaviorSchool Study",
   description:
-    "A BCBA study app for school-based candidates who need adaptive practice, school-relevant scenarios, readiness scoring, and supervisor reporting.",
+    "A BCBA study app for school BCBA candidates who need adaptive practice, school-relevant scenarios, readiness scoring, and supervisor reporting.",
   alternates: { canonical: PAGE_HREF },
   openGraph: {
-    title: "BCBA Study App for School-Based BCBAs | BehaviorSchool Study",
+    title: "BCBA Study App for School BCBAs | BehaviorSchool Study",
     description:
-      "Adaptive BCBA practice for school-based candidates, with readiness scoring, review labels, and supervisor reports.",
+      "Adaptive BCBA practice for school BCBA candidates, with readiness scoring, review labels, and supervisor reports.",
     url: PAGE_HREF,
     images: [{ url: "/optimized/og-image.webp", width: 1200, height: 630 }],
   },
@@ -33,19 +34,22 @@ export default async function SchoolBasedBCBAStudyAppPage() {
   const override = await getBehaviorStudyToolsSeoOverride(SEO_OVERRIDE_HREF);
   return (
     <BcbaSeoLanding
-      eyebrow="School-based BCBA exam prep"
-      title={override?.heroHeadline || "A BCBA study app built for candidates who work in schools."}
-      description={override?.metaDescription || "School-based candidates need more than generic question drilling. BehaviorSchool connects adaptive BCBA practice with school-relevant scenarios, progress reports, and next-step readiness signals."}
-      primaryCta={override?.primaryCta || "Start school-based practice"}
+      eyebrow="School BCBA exam prep"
+      title={applySchoolBcbaBrandCopy(override?.heroHeadline, "A BCBA study app built for candidates who work in schools.")}
+      description={applySchoolBcbaBrandCopy(
+        override?.metaDescription,
+        "School BCBA candidates need more than generic question drilling. BehaviorSchool connects adaptive BCBA practice with school-relevant scenarios, progress reports, and next-step readiness signals.",
+      )}
+      primaryCta={applySchoolBcbaBrandCopy(override?.primaryCta, "Start school BCBA practice")}
       primaryHref={behaviorStudyToolsAppHref("/free-practice/", {
         intent: "school_based_bcba",
         utm_content: "school_based_bcba_primary_cta",
       })}
-      imageAlt="BehaviorSchool Study app for school-based BCBA candidates"
+      imageAlt="BehaviorSchool Study app for school BCBA candidates"
       features={[
         {
           title: "School-relevant scenarios",
-          body: "Study examples can connect concepts to classrooms, teams, supervision, data review, and school-based service delivery.",
+          body: "Study examples can connect concepts to classrooms, teams, supervision, data review, and school service delivery.",
         },
         {
           title: "Supervisor-ready reporting",
@@ -77,8 +81,8 @@ export default async function SchoolBasedBCBAStudyAppPage() {
       faqs={[
         ...seoOverrideFaq(override),
         {
-          title: "Is this only for school-based BCBAs?",
-          body: "No. BCBA candidates in other settings can still use the app. This page explains why school-based candidates may find the workflow especially useful.",
+          title: "Is this only for school BCBAs?",
+          body: "No. BCBA candidates in other settings can still use the app. This page explains why school BCBA candidates may find the workflow especially useful.",
         },
         {
           title: "Can a supervisor see my full account?",

@@ -2,11 +2,10 @@ import { Metadata } from "next";
 import SchoolBCBAContent from "./SchoolBCBAContent";
 
 export const metadata: Metadata = {
-  title: "School-Based BCBA Career Guide, Jobs & Resources",
+  title: "School BCBA Career Guide, Jobs & Resources",
   description:
-    "Explore school-based BCBA jobs, salary data, career pathways, free tools, and practical training resources for behavior analysts working in schools.",
+    "Explore school BCBA jobs, salary data, career pathways, free tools, and practical training resources for behavior analysts working in schools.",
   keywords: [
-    "school-based BCBA",
     "school BCBA",
     "school bcba jobs",
     "school bcba salary",
@@ -17,9 +16,9 @@ export const metadata: Metadata = {
     "mtss pbis",
   ],
   openGraph: {
-    title: "School-Based BCBA: Complete Career Guide & Resources | Behavior School",
+    title: "School BCBA: Complete Career Guide & Resources | Behavior School",
     description:
-      "Comprehensive school BCBA resources: job guides, salary insights, career pathways, free tools, and training for school-based behavior analysts.",
+      "Comprehensive school BCBA resources: job guides, salary insights, career pathways, free tools, and training for school behavior analysts.",
     url: "https://behaviorschool.com/school-bcba",
     siteName: "Behavior School",
     images: [

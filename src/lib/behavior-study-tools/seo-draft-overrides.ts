@@ -89,6 +89,20 @@ export async function getBehaviorStudyToolsSeoOverride(pageHref: string): Promis
     : null;
 }
 
+function normalizeSchoolBcbaBrandCopy(value: string) {
+  return value
+    .replace(/\bschool-based\s+BCBAs\b/gi, "school BCBAs")
+    .replace(/\bschool-based\s+BCBA\b/gi, "school BCBA")
+    .replace(/\bschool-based\s+candidates\b/gi, "school BCBA candidates")
+    .replace(/\bschool-based\s+behavior analysts?\b/gi, "school BCBAs")
+    .trim();
+}
+
+export function applySchoolBcbaBrandCopy(value: string | undefined, fallback: string) {
+  const source = value?.trim() ? value : fallback;
+  return normalizeSchoolBcbaBrandCopy(source);
+}
+
 export function applySeoMetadataOverride({
   base,
   pageHref,
@@ -100,8 +114,12 @@ export function applySeoMetadataOverride({
 }): Metadata {
   if (!override) return base;
 
-  const title = override.heroHeadline ? `${override.heroHeadline} | BehaviorSchool Study` : base.title;
-  const description = override.metaDescription || base.description;
+  const title = override.heroHeadline
+    ? `${normalizeSchoolBcbaBrandCopy(override.heroHeadline)} | BehaviorSchool Study`
+    : base.title;
+  const description = override.metaDescription
+    ? normalizeSchoolBcbaBrandCopy(override.metaDescription)
+    : base.description;
 
   return {
     ...base,
@@ -124,6 +142,6 @@ export function seoOverrideFaq(override: BehaviorStudyToolsSeoOverride | null) {
   if (!override?.faqAnswer) return [];
   return [{
     title: "How does this help me pass?",
-    body: override.faqAnswer,
+    body: normalizeSchoolBcbaBrandCopy(override.faqAnswer),
   }];
 }

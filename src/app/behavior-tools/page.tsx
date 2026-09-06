@@ -56,7 +56,7 @@ const tools: ToolCard[] = [
   {
     title: "IEP Goal Resources",
     description:
-      "Explore our library of pre-written IEP behavior goals, templates, and best practices for school-based behavior analysts and special education teams.",
+      "Explore our library of pre-written IEP behavior goals, templates, and best practices for school BCBAs and special education teams.",
     href: "/iep-goals",
     icon: ClipboardCheck,
     status: "live",
@@ -141,7 +141,7 @@ const tools: ToolCard[] = [
   {
     title: "ACT Matrix",
     description:
-      "Interactive Acceptance and Commitment Therapy Matrix tool designed for school-based behavior analysts. Help students and staff identify values and committed actions.",
+      "Interactive Acceptance and Commitment Therapy Matrix tool designed for school BCBAs. Help students and staff identify values and committed actions.",
     href: "/act-matrix",
     icon: Brain,
     status: "live",
@@ -228,7 +228,7 @@ export default function BehaviorToolsPage() {
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               AI-Powered Tools for{" "}
-              <span className="text-emerald-600">School-Based BCBAs</span>
+              <span className="text-emerald-600">School BCBAs</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
               Write better IEP goals, build function-based behavior plans, and
@@ -326,7 +326,7 @@ export default function BehaviorToolsPage() {
             Ready to Save Hours Every Week?
           </h2>
           <p className="text-xl text-emerald-100 mb-8">
-            Join thousands of school-based BCBAs using Behavior School tools to
+            Join school BCBAs using Behavior School tools to
             write better goals, build stronger plans, and support more students.
           </p>
           <Link

@@ -68,12 +68,12 @@ export default function BCBAExamPrepPage() {
       answer: "If you don't pass, you can retake after 30 days; up to 8 attempts within your 2-year authorization. The retake pass rate is only 25% according to 2024 BACB data, which emphasizes why comprehensive preparation for your first attempt is crucial."
     },
     {
-      question: "How can school-based BCBAs prepare differently?",
-      answer: "School-based BCBAs should prioritize Experimental Design, Measurement & data interpretation, and procedures less common in schools (e.g., FCT, token economies, discrete-trial training). Study school-specific scenarios for ethics questions and practice translating clinical ABA terminology to educational settings. Our platform includes school-focused practice questions that bridge this gap."
+      question: "How can school BCBAs prepare differently?",
+      answer: "School BCBAs should prioritize Experimental Design, Measurement & data interpretation, and procedures less common in schools (e.g., FCT, token economies, discrete-trial training). Study school-specific scenarios for ethics questions and practice translating clinical ABA terminology to educational settings. Our platform includes school-focused practice questions that bridge this gap."
     },
     {
       question: "Where can I find free BCBA practice exam questions?",
-      answer: "Behavior School offers unlimited free BCBA practice questions with detailed explanations across all 9 content domains. Our AI-powered question bank adapts to your knowledge level and provides instant feedback. Start with our free 10-question diagnostic exam, then access the full adaptive practice platform at no cost."
+      answer: "Behavior School offers unlimited free BCBA practice questions with detailed explanations across all 9 content domains. Our AI-powered question bank adapts to your knowledge level and provides instant feedback. Start with our free Quick domain check (9 questions), then access the full adaptive practice platform at no cost."
     }
   ];
 
@@ -145,7 +145,7 @@ export default function BCBAExamPrepPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  With only 54% passing in 2024, you need smarter prep. Start with a free 10-question BCBA practice exam, review the rationales, then choose domain practice or a full mock exam based on your score pattern.
+                  With only 54% passing in 2024, you need smarter prep. Start with a free Quick domain check (9 questions), review the rationales, then choose domain practice or a full mock exam based on your score pattern.
                 </motion.p>
               </div>
 
@@ -156,7 +156,7 @@ export default function BCBAExamPrepPage() {
                 transition={{ delay: 0.72 }}
               >
                 {[
-                  { label: "10 free questions", detail: "Instant score" },
+                  { label: "Quick domain check (9)", detail: "Instant score" },
                   { label: "Detailed rationales", detail: "Learn the decision rule" },
                   { label: "Next study path", detail: "Domain or mock exam" },
                 ].map((item) => (
@@ -177,7 +177,7 @@ export default function BCBAExamPrepPage() {
                     href="https://study.behaviorschool.com/free-practice/"
                     className="inline-flex items-center px-8 py-4 text-lg font-semibold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                   >
-                    Take the Free 10-Question Exam
+                    Start free Quick domain check
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                   <Link
@@ -680,7 +680,7 @@ export default function BCBAExamPrepPage() {
                 <h3 className="text-lg font-semibold text-slate-900">Free Practice Exam</h3>
               </div>
               <p className="text-slate-600 text-sm">
-                Take a free 10-question BCBA practice exam with instant feedback and rationales.
+                Take a free Quick domain check (9 questions) with instant feedback and rationales.
               </p>
             </Link>
             <Link
