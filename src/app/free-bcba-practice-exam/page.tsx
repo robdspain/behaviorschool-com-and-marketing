@@ -16,8 +16,8 @@ const PAGE_HREF = "https://study.behaviorschool.com/free-practice/";
 const SEO_OVERRIDE_HREF = PAGE_HREF;
 
 const baseMetadata: Metadata = {
-  title: "Free BCBA Practice Exam | 10 Questions, Score + Rationales",
-  description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path. No credit card required.",
+  title: "Free BCBA Practice Exam | Quick Domain Check (9 Questions)",
+  description: "Take a free Quick domain check (9 questions) with instant scoring, detailed rationales, and a next-step study path. No credit card required.",
   keywords: [
     "bcba practice test",
     "quick bcba practice test",
@@ -32,8 +32,8 @@ const baseMetadata: Metadata = {
   alternates: { canonical: PAGE_HREF },
   openGraph: {
     type: "article",
-    title: "Free BCBA Practice Exam: 10 Questions, Score + Rationales",
-    description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path.",
+    title: "Free BCBA Practice Exam: Quick Domain Check (9 Questions)",
+    description: "Take a free Quick domain check (9 questions) with instant scoring, detailed rationales, and a next-step study path.",
     url: PAGE_HREF,
     images: [
       {
@@ -46,8 +46,8 @@ const baseMetadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Practice Exam: 10 Questions, Score + Rationales",
-    description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path.",
+    title: "Free BCBA Practice Exam: Quick Domain Check (9 Questions)",
+    description: "Take a free Quick domain check (9 questions) with instant scoring, detailed rationales, and a next-step study path.",
     images: ["/optimized/og-image.webp"],
   },
   robots: { index: true, follow: true },
@@ -195,22 +195,6 @@ export default async function FreeBCBAPracticeExamPage() {
       explanation:
         "Asking relevant questions is socially significant and should not be reduced. Ethical guidelines prohibit targeting behavior that is not harmful or maladaptive. Options C and D suggest compromise but ignore the ethical violation, and A is clearly incorrect.",
     },
-    {
-      id: "q10",
-      tag: "K-5: Supervise the implementation of behavior-change procedures",
-      stem:
-        "A BCBA trains staff to use DRA for attention-maintained aggression. During observations, some staff reinforce alternative behaviors inconsistently. What is the most appropriate supervisory action?",
-      choices: [
-        "Collect more baseline data before intervening",
-        "Provide immediate performance feedback and model correct implementation",
-        "Replace DRA with a simpler intervention",
-        "Wait to see if staff improve with more practice",
-      ],
-      answer: "Provide immediate performance feedback and model correct implementation",
-      letter: "B",
-      explanation:
-        "Effective supervision requires prompt, specific feedback and modeling to improve treatment fidelity. Collecting more baseline data or waiting delays correction, and replacing DRA ignores the problem of staff performance rather than intervention design.",
-    },
   ];
 
   const SITE_URL = "https://behaviorschool.com";
@@ -245,11 +229,11 @@ export default async function FreeBCBAPracticeExamPage() {
               {override?.heroHeadline || "Free BCBA Practice Exam with Instant Score and Rationales"}
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
-              {override?.metaDescription || "Take a free 10-question BCBA practice exam designed for efficient exam prep. Get instant scoring, detailed explanations, and a clear next step into domain practice or a full mock exam."}
+              {override?.metaDescription || "Take a free Quick domain check (9 questions) designed for efficient exam prep. Get instant scoring, detailed explanations, and a clear next step into domain practice or a full mock exam."}
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm font-medium text-slate-700">
               <span className="rounded-lg border border-slate-200 bg-white px-4 py-2">Reviewed by Rob Spain, BCBA</span>
-              <span className="rounded-lg border border-slate-200 bg-white px-4 py-2">10 questions before signup</span>
+              <span className="rounded-lg border border-slate-200 bg-white px-4 py-2">9-question Quick domain check</span>
               <span className="rounded-lg border border-slate-200 bg-white px-4 py-2">Instant score and rationales</span>
             </div>
           </div>
@@ -356,7 +340,7 @@ export default async function FreeBCBAPracticeExamPage() {
           {/* Stats Row */}
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center p-6 bg-white rounded-xl border-2 border-slate-200">
-              <div className="text-4xl font-bold text-emerald-600 mb-2">10</div>
+              <div className="text-4xl font-bold text-emerald-600 mb-2">9</div>
               <div className="text-sm font-semibold text-slate-600 uppercase tracking-wide">Questions</div>
             </div>
             <div className="text-center p-6 bg-white rounded-xl border-2 border-slate-200">
@@ -383,7 +367,7 @@ export default async function FreeBCBAPracticeExamPage() {
               From Free BCBA Practice Exam to Full Mock Exam
             </h2>
             <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Use the 10-question exam as a quick concept check, then move into BCBA exam practice questions, sample BCBA exam questions, or a free BCBA mock exam depending on what your score shows.
+              Use the Quick domain check (9 questions) as a fast concept check, then move into BCBA exam practice questions, sample BCBA exam questions, or a free BCBA mock exam depending on what your score shows.
             </p>
           </div>
 
@@ -459,7 +443,7 @@ export default async function FreeBCBAPracticeExamPage() {
                 Is the free BCBA practice exam really free?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                Yes. You can take the 10-question BCBA practice exam on this page for free before creating an account or entering payment information.
+                Yes. You can take the free Quick domain check (9 questions) on this page before creating an account or entering payment information.
               </p>
             </div>
 
@@ -469,7 +453,7 @@ export default async function FreeBCBAPracticeExamPage() {
                 How many questions are on this free BCBA practice exam?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                This page starts with 10 exam-style questions so you can check your current reasoning quickly. After you finish, you can move into longer mock exam practice.
+                This page starts with a 9-question Quick domain check so you can review your current reasoning quickly. After you finish, you can move into longer mock exam practice.
               </p>
             </div>
 
@@ -499,7 +483,7 @@ export default async function FreeBCBAPracticeExamPage() {
                 Do I need to sign up to take the free practice exam?
               </h3>
               <p className="text-slate-700 leading-relaxed">
-                No signup is required to start the 10-question practice exam. If you want to save your score or continue into longer practice, you can create an account afterward.
+                No signup is required to start the Quick domain check. If you want to save your score or continue into longer practice, you can create an account afterward.
               </p>
             </div>
 
@@ -565,9 +549,9 @@ export default async function FreeBCBAPracticeExamPage() {
         const webPageJsonLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Free BCBA Practice Exam (10 Questions with Rationales)",
+          name: "Free BCBA Practice Exam (Quick Domain Check — 9 Questions)",
           url: PAGE_HREF,
-          description: "Take a free 10-question BCBA practice exam with instant scoring, detailed rationales, and a next-step study path.",
+          description: "Take a free Quick domain check (9 questions) with instant scoring, detailed rationales, and a next-step study path.",
           author: {
             "@type": "Person",
             name: "Rob Spain",
@@ -616,7 +600,7 @@ export default async function FreeBCBAPracticeExamPage() {
               name: "Is the free BCBA practice exam really free?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes. You can take the 10-question BCBA practice exam on this page for free before creating an account or entering payment information."
+                text: "Yes. You can take the free Quick domain check (9 questions) on this page before creating an account or entering payment information."
               }
             },
             {
@@ -624,7 +608,7 @@ export default async function FreeBCBAPracticeExamPage() {
               name: "How many questions are on this free BCBA practice exam?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "This page starts with 10 exam-style questions so you can check your current reasoning quickly. After you finish, you can move into longer mock exam practice."
+                text: "This page starts with a 9-question Quick domain check so you can review your current reasoning quickly. After you finish, you can move into longer mock exam practice."
               }
             },
             {
@@ -648,7 +632,7 @@ export default async function FreeBCBAPracticeExamPage() {
               name: "Do I need to sign up to take the free practice exam?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "No signup is required to start the 10-question practice exam. If you want to save your score or continue into longer practice, you can create an account afterward."
+                text: "No signup is required to start the Quick domain check. If you want to save your score or continue into longer practice, you can create an account afterward."
               }
             },
             {

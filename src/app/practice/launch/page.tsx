@@ -5,7 +5,7 @@ export default async function LaunchPage({ searchParams }: { searchParams: Promi
   const mode = (resolvedSearchParams.mode || 'mini').toLowerCase()
   const url = mode === 'full'
     ? 'https://study.behaviorschool.com/quiz/guest?limit=185'
-    : 'https://study.behaviorschool.com/quiz/guest?limit=10'
+    : 'https://study.behaviorschool.com/free-practice/'
   // In a fuller build, call our API to record attempt before redirecting.
   redirect(url)
 }

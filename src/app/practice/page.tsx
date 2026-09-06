@@ -4,7 +4,7 @@ import { buildPageMetadata } from '@/lib/seo/metadata'
 
 export const metadata = buildPageMetadata({
   title: 'BCBA Practice | Free Mini or Full Mock (Guest) | Results gated',
-  description: 'Start a free guest BCBA practice test: one mini (10) or one full mock. Auth required to view results and analytics.',
+  description: 'Start a free guest BCBA practice test: Quick domain check (9 questions) or one full mock. Auth required to view results and analytics.',
   canonical: 'https://behaviorschool.com/practice',
 })
 
@@ -15,7 +15,7 @@ export default function PracticePage() {
         <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">BCBA Practice</div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Free BCBA Practice Tests</h1>
         <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
-          Take one free guest test: mini (10 Q) or full mock (185 Q). Sign in to unlock results and analytics.
+          Take one free guest test: Quick domain check (9 questions) or full mock (185 questions). Sign in to unlock results and analytics.
         </p>
       </section>
 
@@ -24,7 +24,7 @@ export default function PracticePage() {
           {/* Mini Mock */}
           <Card
             badge="Quick Start"
-            title="Mini Mock (10 questions)"
+            title="Quick domain check (9 questions)"
             desc="Fast diagnostic to sample difficulty and pacing."
             bullets={[
               'Instant scoring (guest)',
@@ -32,7 +32,7 @@ export default function PracticePage() {
               'No signup to start',
             ]}
             href="/practice/launch?mode=mini"
-            cta="Start Mini (10)"
+            cta="Start Quick domain check"
           />
 
           {/* Full Mock */}

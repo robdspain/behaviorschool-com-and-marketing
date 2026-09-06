@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Clock, Target, TrendingUp, Zap, BarChart3, Brain, Shield, ArrowRight, Star, Award, Users, BookOpen, Timer, PlayCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Practice Exam - 10 Questions | Behavior School",
-  description: "Free BCBA practice exam with 10 realistic 6th edition questions. Instant scoring, detailed explanations, and analytics. No signup required. Start now!",
+  title: "Free BCBA Practice Exam - Quick Domain Check (9 Questions) | Behavior School",
+  description: "Free Quick domain check with 9 realistic 6th edition questions. Instant scoring, detailed explanations, and analytics. No signup required. Start now!",
   robots: {
     index: true,
     follow: true,
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     canonical: "https://study.behaviorschool.com/free-mock-exam/"
   },
   openGraph: {
-    title: "Free BCBA Practice Exam - 10 Questions | Behavior School",
-    description: "Free BCBA practice exam with 10 realistic 6th edition questions. Instant scoring, detailed explanations, and analytics. No signup required. Start now!",
+    title: "Free BCBA Practice Exam - Quick Domain Check (9 Questions) | Behavior School",
+    description: "Free Quick domain check with 9 realistic 6th edition questions. Instant scoring, detailed explanations, and analytics. No signup required. Start now!",
     url: "https://study.behaviorschool.com/free-mock-exam/",
     siteName: "Behavior School",
     images: [
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Practice Exam: 10 Questions | 6th Edition",
-    description: "Free BCBA practice exam with 10 realistic 6th edition questions. Best BCBA mock exams with instant scoring and detailed explanations. No signup or credit card required.",
+    title: "Free BCBA Practice Exam: Quick Domain Check (9 Questions) | 6th Edition",
+    description: "Free Quick domain check with 9 realistic 6th edition questions. Best BCBA mock exams with instant scoring and detailed explanations. No signup or credit card required.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -140,8 +140,8 @@ export default function BCBAMockPracticeTestPage() {
       duration: "15-45 minutes",
       questions: "8-35 questions",
       ideal: "Focused practice",
-      ctaText: "Start 10‑Question Guest Quiz",
-      ctaUrl: "https://study.behaviorschool.com/quiz/guest?limit=10",
+      ctaText: "Start Quick domain check (9 questions)",
+      ctaUrl: "https://study.behaviorschool.com/free-practice/",
       popular: false,
       features: ["Domain A: 8 questions", "Domain G: 35 questions", "All 9 domains available", "Free with detailed analytics"]
     },
@@ -162,8 +162,8 @@ export default function BCBAMockPracticeTestPage() {
       duration: "Flexible",
       questions: "10 questions daily (free)",
       ideal: "Daily habit building",
-      ctaText: "Start 10‑Question Guest Quiz",
-      ctaUrl: "https://study.behaviorschool.com/quiz/guest?limit=10",
+      ctaText: "Start Quick domain check (9 questions)",
+      ctaUrl: "https://study.behaviorschool.com/free-practice/",
       popular: false,
       features: ["10 free questions per day", "Choose specific domains", "Adaptive difficulty", "Progress tracking included"]
     }
@@ -183,11 +183,11 @@ export default function BCBAMockPracticeTestPage() {
               No signup
             </div>
             <div className="text-sm font-medium text-slate-900">
-              Start your free 10-question BCBA practice test now
+              Start your free Quick domain check (9 questions) now
             </div>
           </div>
           <Button asChild size="sm" className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white rounded-xl font-semibold whitespace-nowrap">
-            <TrackedOutboundLink href="https://study.behaviorschool.com/quiz/guest?limit=10" location="free-mock-sticky" variant="10">
+            <TrackedOutboundLink href="https://study.behaviorschool.com/free-practice/" location="free-mock-sticky" variant="9">
               Start Quiz <ArrowRight className="ml-1 h-4 w-4" />
             </TrackedOutboundLink>
           </Button>
@@ -327,7 +327,7 @@ export default function BCBAMockPracticeTestPage() {
             </div>
 
             <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-              Free 10-Question BCBA Practice Test
+              Free Quick Domain Check (9 Questions)
               <span className="block bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">Start in 2 Minutes — No Signup</span>
             </h1>
 
@@ -338,8 +338,8 @@ export default function BCBAMockPracticeTestPage() {
             {/* PRIMARY CTA - Hero Button */}
             <div className="mb-6">
               <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-12 py-6 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-200 transform hover:scale-105 text-xl font-bold">
-                <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=10&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked&quiz=' + encodeURIComponent('Mini-Mock Exam (10 Questions)'))} location="free-mock-hero" variant="10">
-                  <PlayCircle className="mr-3 h-6 w-6" /> Start Free 10-Question Quiz <ArrowRight className="ml-3 h-6 w-6" />
+                <TrackedOutboundLink href="https://study.behaviorschool.com/free-practice/" location="free-mock-hero" variant="9">
+                  <PlayCircle className="mr-3 h-6 w-6" /> Start free Quick domain check <ArrowRight className="ml-3 h-6 w-6" />
                 </TrackedOutboundLink>
               </Button>
               <p className="mt-3 text-sm text-slate-600">Takes 2-3 minutes • Instant results</p>
@@ -631,8 +631,8 @@ export default function BCBAMockPracticeTestPage() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105">
-                  <TrackedOutboundLink href={"https://study.behaviorschool.com/quiz/guest?limit=10&return=" + encodeURIComponent('https://behaviorschool.com/free-bcba-mock-practice-test?results=locked&quiz=' + encodeURIComponent('Mini-Mock Exam (10 Questions)'))} location="free-mock-mid" variant="10">
-                    <PlayCircle className="mr-2 h-5 w-5" /> Start 10‑Q Guest Quiz <ArrowRight className="ml-2 h-5 w-5" />
+                  <TrackedOutboundLink href="https://study.behaviorschool.com/free-practice/" location="free-mock-mid" variant="9">
+                    <PlayCircle className="mr-2 h-5 w-5" /> Start Quick domain check <ArrowRight className="ml-2 h-5 w-5" />
                   </TrackedOutboundLink>
                 </Button>
               </div>
