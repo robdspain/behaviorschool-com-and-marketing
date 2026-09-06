@@ -51,7 +51,7 @@ export default function Home() {
         eyebrow="The Modern Toolkit"
         title="Everything a Behavior Analyst "
         highlight="Actually Needs"
-        subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school-based behavior professionals."
+        subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school behavior professionals."
         primaryCta={{ href: "https://study.behaviorschool.com/free-practice/", label: "Take Free BCBA Practice Exam" }}
         variant="brand"
       />
@@ -203,7 +203,7 @@ export default function Home() {
                 Rob Spain, M.S., BCBA, IBA
               </h2>
               <p className="text-gray-600 leading-relaxed text-lg">
-                BehaviorSchool was founded by Rob Spain, M.S., BCBA, IBA, a practicing school-based behavior analyst. Every tool, course, and question is designed from the ground up to meet the real-world needs of professionals in the field.
+                BehaviorSchool was founded by Rob Spain, M.S., BCBA, IBA, a practicing school BCBA. Every tool, course, and question is designed from the ground up to meet the real-world needs of professionals in the field.
               </p>
             </div>
           </div>

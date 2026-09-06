@@ -35,7 +35,7 @@ If you are preparing for the exam — or if you have already taken it and did no
 
 The BACB publishes pass rate data annually. In recent reporting cycles, the first-time pass rate for the BCBA exam has been 54% in 2024 — meaning more than half of candidates sitting for the exam for the first time do not pass.
 
-This is not a rounding error. It is a consistent pattern. The BACB's published data shows that in multiple recent years, the first-time pass rate has ranged from approximately 40% to 49%.
+This is not a rounding error. It is a consistent pattern. Since the 6th Edition Task List was fully in effect (2022 onward), first-time pass rates have trended from 58% down to 54% in the most recent reporting year—not the higher rates seen during the 5th-to-6th Edition transition period in 2021.
 
 Repeat candidates fare worse. The pass rate for candidates who have previously failed the exam drops significantly, reflecting both the additional difficulty of re-examination and the challenges of sustained preparation over multiple testing windows.
 
@@ -111,7 +111,7 @@ If you are preparing for the BCBA exam or preparing to retake it, start with a b
 
 ---
 
-*Rob Spain, BCBA, IBA, is the founder of BehaviorSchool and a practicing school-based behavior analyst.*
+*Rob Spain, BCBA, IBA, is the founder of BehaviorSchool and a practicing school BCBA.*
 
 ---
 *Edited by Rob Spain, BCBA, IBA. Content written and researched with AI assistance.*

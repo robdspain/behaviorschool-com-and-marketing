@@ -4,7 +4,7 @@ import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/f
 
 export const metadata: Metadata = {
   title: 'BehaviorSchool vs BDS | BCBA Exam Prep Comparison 2026',
-  description: 'Compare BehaviorSchool vs BDS for BCBA exam prep. See features, pricing, AI tools, and which platform is best for school-based behavior analysts in 2026.',
+  description: 'Compare BehaviorSchool vs BDS for BCBA exam prep. See features, pricing, fluency modules, and which platform fits school BCBA candidates in 2026.',
   keywords: 'BehaviorSchool vs BDS, Behavior Development Solutions review, BCBA exam prep comparison, BDS alternative, best BCBA exam prep 2026, BCBA practice exam',
   alternates: { canonical: 'https://behaviorschool.com/compare/behaviorschool-vs-bds' },
   openGraph: {
@@ -44,7 +44,7 @@ export default function BehaviorSchoolVsBDS() {
         name: 'Is BehaviorSchool better than BDS for BCBA exam prep?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'BehaviorSchool offers AI-powered adaptive learning, school-based BCBA focus, and free tools alongside exam prep. BDS focuses purely on question-based fluency training. The best choice depends on your study style and whether you need additional tools like IEP writers and behavior plan generators.',
+          text: 'BehaviorSchool offers AI-powered adaptive learning, school BCBA focus, and free practice tools alongside exam prep. BDS (Behavior Development Solutions) is a long-established fluency-based program with a large modular question library and traditional precision-teaching approach. The best choice depends on whether you want drill-heavy modules or a broader study workflow with mocks and readiness reporting.',
         },
       },
       {
@@ -72,16 +72,16 @@ export default function BehaviorSchoolVsBDS() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <ComparisonPageLayout
         heroTitle="BehaviorSchool vs BDS"
-        heroSubtitle="Compare the AI-powered all-in-one platform for school BCBAs against the traditional fluency-based question bank. Find the right BCBA exam prep for you."
+        heroSubtitle="Compare BehaviorSchool’s mock-and-readiness workflow against BDS’s established fluency modules and large question library. See when each platform fits."
         competitorName="BDS"
         competitorUrl="https://bds.com"
-        competitorDescription="Behavior Development Solutions (BDS) offers a fluency-based BCBA exam-preparation platform. This comparison focuses on publicly described product approaches rather than pass-rate or customer-outcome claims."
+        competitorDescription="Behavior Development Solutions (BDS) has offered BCBA exam preparation for decades, with modular fluency training, a large question bank, and a traditional precision-teaching lineage. This comparison focuses on study workflow and publicly described features—not pass-rate claims."
         behaviorSchoolAdvantages={[
-          'AI-powered adaptive practice questions',
-          'Built specifically for school-based BCBAs',
-          'Free tier with practice questions included',
-          'IEP goal writer + behavior plan tools included',
-          'Modern, mobile-friendly platform',
+          'AI-powered adaptive practice with domain-level readiness',
+          'Built for school BCBA candidates and school-relevant scenarios',
+          'Free tier with practice questions and public study resources',
+          'Timed full mock exams with score reports',
+          'IEP goal writer and behavior plan tools on the marketing site',
           `Created by a BCBA with ${founderEducationYears} years in education since ${FOUNDER_EDUCATION_START_LABEL}`,
         ]}
         features={[
@@ -93,10 +93,12 @@ export default function BehaviorSchoolVsBDS() {
               { name: 'Mock Exams', behaviorSchool: true, competitor: true },
               { name: 'Personalized Study Plans', behaviorSchool: true, competitor: false },
               { name: 'AI Explanations for Wrong Answers', behaviorSchool: true, competitor: false },
-              { name: 'School-Based Scenarios', behaviorSchool: true, competitor: false },
+              { name: 'School BCBA Scenarios', behaviorSchool: true, competitor: false },
               { name: 'Fluency-Based Training', behaviorSchool: true, competitor: true },
               { name: 'Mobile App / Mobile-Friendly', behaviorSchool: true, competitor: false },
+              { name: 'Modular fluency curriculum', behaviorSchool: 'partial', competitor: true },
               { name: 'Money-Back Guarantee', behaviorSchool: false, competitor: true },
+              { name: 'Large legacy question bank (4,000+ items)', behaviorSchool: 'partial', competitor: true },
             ],
           },
           {
@@ -115,7 +117,7 @@ export default function BehaviorSchoolVsBDS() {
             features: [
               { name: 'Modern UI/UX', behaviorSchool: true, competitor: false },
               { name: 'Free Tier Available', behaviorSchool: true, competitor: false },
-              { name: 'School-Based BCBA Focus', behaviorSchool: true, competitor: false },
+              { name: 'School BCBA Focus', behaviorSchool: true, competitor: false },
               { name: 'Video Content', behaviorSchool: true, competitor: false },
               { name: 'Blog & Study Resources', behaviorSchool: true, competitor: 'partial' },
             ],
@@ -128,12 +130,16 @@ export default function BehaviorSchoolVsBDS() {
           { name: 'IEP + Behavior Tools', behaviorSchool: 'Included free', competitor: 'Not available' },
           { name: 'All-Access Bundle', behaviorSchool: '$249/yr', competitor: 'N/A' },
         ]}
-        verdict="BDS is a solid choice if you want a traditional, question-heavy approach to BCBA exam prep. But if you're a school-based BCBA who wants AI-powered study tools, IEP writing assistance, behavior plan generators, and a modern platform — all in one place — BehaviorSchool gives you significantly more value at a lower price point."
+        verdict="Choose BDS if you want a established, module-driven fluency program with a very large question bank and you are comfortable studying primarily through structured drills. Choose BehaviorSchool if you want timed mock checkpoints, domain readiness reporting, school BCBA scenarios, and optional practice tools beyond exam prep—all in a modern web workflow."
         emailSource="compare-vs-bds"
         faqItems={[
           {
             q: 'Is BehaviorSchool better than BDS for BCBA exam prep?',
-            a: 'It depends on your needs. BDS excels at pure fluency-based question practice with a large bank of 4,000+ questions. BehaviorSchool offers AI-adaptive learning, school-based scenarios, and bundles additional tools (IEP writer, BIP generator, CEUs) that BDS doesn\'t offer. If you want an all-in-one platform, BehaviorSchool is the better value.',
+            a: 'It depends on your study style. BDS excels if you want modular fluency training, a large established question bank, and a traditional BDS-style progression with a money-back guarantee. BehaviorSchool fits better if you want timed full mocks, domain readiness signals, adaptive practice, and school BCBA scenarios alongside free public tools. Neither replaces the other for every candidate.',
+          },
+          {
+            q: 'When does BDS make more sense than BehaviorSchool?',
+            a: 'Candidates who prefer long-running fluency modules, maximum drill volume, and BDS’s historical precision-teaching format may prefer BDS—especially if they do not need supervisor progress exports or school-practice tools on the same platform.',
           },
           {
             q: 'Does BDS have AI or adaptive learning?',

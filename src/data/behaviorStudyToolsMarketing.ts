@@ -94,10 +94,10 @@ export const behaviorStudyToolsMarketing = {
       keyword: "BCBA mock exam 6th edition",
     },
     {
-      title: "BCBA Study App for School-Based BCBAs",
+      title: "BCBA Study App for School BCBAs",
       href: "https://study.behaviorschool.com/free-practice/",
       intent: "School-based candidates want a tool that fits their setting.",
-      message: "Study with scenarios and reports that make sense for school-based practice.",
+      message: "Study with scenarios and reports that make sense for school BCBA practice.",
       keyword: "BCBA study app school based BCBAs",
     },
     {

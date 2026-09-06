@@ -21,7 +21,7 @@ export default function SchoolBCBAContent() {
       <Hero
         eyebrow="Complete School BCBA Resource Hub"
         title="Everything You Need to"
-        highlight="Excel as a School-Based BCBA"
+        highlight="Excel as a School BCBA"
         subtitle="From getting your first school BCBA job to mastering systems-level impact—free tools, comprehensive guides, and proven frameworks."
         primaryCta={{ href: "/iep-goals", label: "Free IEP Goals Generator" }}
         variant="brand"
@@ -52,7 +52,7 @@ export default function SchoolBCBAContent() {
               Your School BCBA Career Roadmap
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Everything you need to know about becoming and excelling as a school-based behavior analyst.
+              Everything you need to know about becoming and excelling as a school BCBA.
             </p>
           </div>
 
@@ -121,7 +121,7 @@ export default function SchoolBCBAContent() {
                 <Download className="w-4 h-4 mr-2" /> Free Guide
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                New to School-Based Work?
+                New to School Practice?
               </h2>
               <p className="text-emerald-100 text-lg mb-6">
                 Get our complete First 90 Days survival guide—phase-by-phase roadmap, email templates, and pro tips from experienced school BCBAs.
@@ -181,7 +181,7 @@ export default function SchoolBCBAContent() {
               Free School BCBA Tools
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Professional-grade tools used by school-based behavior analysts across the country.
+              Professional-grade tools used by school BCBAs across the country.
             </p>
           </div>
 
@@ -212,7 +212,7 @@ export default function SchoolBCBAContent() {
                 Ready to Transform Your School BCBA Practice?
               </h2>
               <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Join our 6-week transformation program designed specifically to help school-based behavior analysts lead with confidence.
+                Join our 6-week transformation program designed specifically to help school BCBAs lead with confidence.
               </p>
               <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white text-lg px-10 py-7 font-bold rounded-2xl shadow-xl shadow-red-900/20 transition-all transform hover:scale-105">
                 <Link href="/transformation-program">
