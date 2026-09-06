@@ -73,7 +73,7 @@ export function HomepageEmailCapture() {
               The Weekly Research Brief
             </h2>
             <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-              Open research, clear summaries, and practical next steps for school-based BCBAs, delivered each week.
+              Open research, clear summaries, and practical next steps for school BCBAs, delivered each week.
             </p>
 
             {status === 'success' ? (

@@ -48,11 +48,12 @@ export default function Home() {
 
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <Hero
-        eyebrow="The Modern Toolkit"
-        title="Everything a Behavior Analyst "
-        highlight="Actually Needs"
-        subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school-based behavior professionals."
-        primaryCta={{ href: "https://study.behaviorschool.com/free-practice/", label: "Take Free BCBA Practice Exam" }}
+        eyebrow="For School BCBAs"
+        title="Practical tools and research "
+        highlight="for school practice"
+        subtitle="The Weekly Research Brief, live cohort training, and exam prep — built for school BCBAs who need systems that work in real districts."
+        primaryCta={{ href: "/subscribe", label: "Get the Weekly Research Brief" }}
+        secondaryCta={{ href: "https://study.behaviorschool.com/free-practice/", label: "Take Free BCBA Practice Exam" }}
         variant="brand"
       />
 
@@ -68,6 +69,13 @@ export default function Home() {
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
               A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. {TRANSFORMATION_PROGRAM.cohort.startFull}. Small cohorts.
+            </p>
+            <p className="mt-4 text-sm text-white/60">
+              Not ready for a cohort?{" "}
+              <Link href="/subscribe" className="font-semibold text-[#e4b63d] underline underline-offset-2 hover:text-[#f0c84a]">
+                Get the Weekly Research Brief
+              </Link>
+              .
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
@@ -203,7 +211,7 @@ export default function Home() {
                 Rob Spain, M.S., BCBA, IBA
               </h2>
               <p className="text-gray-600 leading-relaxed text-lg">
-                BehaviorSchool was founded by Rob Spain, M.S., BCBA, IBA, a practicing school-based behavior analyst. Every tool, course, and question is designed from the ground up to meet the real-world needs of professionals in the field.
+                BehaviorSchool was founded by Rob Spain, M.S., BCBA, IBA, a practicing school BCBA. Every tool, course, and question is designed from the ground up to meet the real-world needs of professionals in the field.
               </p>
             </div>
           </div>

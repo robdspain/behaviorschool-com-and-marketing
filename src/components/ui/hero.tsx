@@ -14,6 +14,7 @@ type HeroProps = {
   highlight?: string;
   subtitle?: string;
   primaryCta?: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
   variant?: 'light' | 'dark' | 'brand';
 };
 
@@ -24,6 +25,7 @@ export function Hero({
   highlight,
   subtitle,
   primaryCta = { href: "https://study.behaviorschool.com/free-practice/", label: "Get Started" },
+  secondaryCta,
   variant = 'light',
 }: HeroProps) {
   const isDark = variant === 'dark' || variant === 'brand';
@@ -148,6 +150,21 @@ export function Hero({
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-emerald-500/20 to-teal-500/20" />
                 </Link>
               </Button>
+              {secondaryCta ? (
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className={cn(
+                    "h-16 w-full sm:w-auto px-10 text-lg font-semibold rounded-2xl transition-all duration-300",
+                    isDark
+                      ? 'border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white'
+                      : 'border-slate-300 bg-white/60 text-slate-900 hover:bg-white'
+                  )}
+                >
+                  <Link href={secondaryCta.href}>{secondaryCta.label}</Link>
+                </Button>
+              ) : null}
             </div>
           </div>
 
@@ -168,7 +185,7 @@ export function Hero({
               <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3]">
                 <Image
                   src="/optimized/Hero/Hero-group1-optimized.webp"
-                  alt="School-based BCBAs collaborating"
+                  alt="School BCBAs collaborating"
                   fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   loading="eager"

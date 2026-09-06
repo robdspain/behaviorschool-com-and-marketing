@@ -69,56 +69,90 @@ function extractFAQs(html: string): { question: string; answer: string }[] {
   return faqs;
 }
 
-function getArticleCta(post: { tags?: { name: string }[] | null }) {
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
+
+type ArticleCta = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  href: string;
+  label: string;
+  secondary?: {
+    href: string;
+    label: string;
+    body: string;
+  };
+};
+
+const RESEARCH_BRIEF_CTA: ArticleCta = {
+  eyebrow: "Keep learning",
+  title: "Get the Weekly Research Brief",
+  body: "Each week: open research, clear summaries, and one practical next step for school BCBAs.",
+  href: "/subscribe",
+  label: "Subscribe to the Weekly Research Brief",
+};
+
+const SOFT_TRANSFORMATION_SECONDARY = {
+  href: `/transformation-program?utm_source=blog&utm_medium=article_cta&utm_campaign=${TRANSFORMATION_PROGRAM.cohort.id}`,
+  label: "Explore the Transformation Program",
+  body: "When you are ready for live cohort work on FBA, BIP, staff training, and caseload systems.",
+};
+
+function getArticleCta(post: { tags?: { name: string }[] | null }): ArticleCta {
   const tags = (post.tags || []).map((tag) => tag.name.toLowerCase());
   const hasTag = (needle: string) => tags.some((tag) => tag.includes(needle));
+
+  const isExamPost =
+    hasTag("bcba exam") ||
+    hasTag("exam prep") ||
+    hasTag("study") ||
+    hasTag("pass rate") ||
+    hasTag("pass-rate") ||
+    hasTag("mock exam") ||
+    hasTag("practice exam");
+
+  if (isExamPost) {
+    return {
+      eyebrow: "Keep studying",
+      title: "Turn the article into exam practice.",
+      body: "Use Behavior School's free BCBA practice on study.behaviorschool.com for questions, mock exams, rationales, and study planning aligned to the task list.",
+      href: "https://study.behaviorschool.com/free-practice/",
+      label: "Start free BCBA practice",
+    };
+  }
+
+  const isSchoolPost =
+    hasTag("fba") ||
+    hasTag("bip") ||
+    hasTag("iep") ||
+    hasTag("fidelity") ||
+    hasTag("caseload") ||
+    hasTag("school") ||
+    hasTag("behavior intervention") ||
+    hasTag("pbis") ||
+    hasTag("mtss");
+
+  if (isSchoolPost) {
+    return {
+      ...RESEARCH_BRIEF_CTA,
+      secondary: SOFT_TRANSFORMATION_SECONDARY,
+    };
+  }
 
   if (hasTag("ai")) {
     return {
       eyebrow: "Put this into practice",
       title: "Explore AI tools built around behavior analytic work.",
-      body: "Use the AI for Behavior Analysts hub to connect this idea to IEP goals, FBA-to-BIP workflows, exam prep, and privacy-conscious school practice.",
+      body: "Use the AI for Behavior Analysts hub to connect this idea to IEP goals, FBA-to-BIP workflows, and privacy-conscious school practice.",
       href: "/ai-for-behavior-analysts",
       label: "Open the AI hub",
-    };
-  }
-
-  if (hasTag("iep")) {
-    return {
-      eyebrow: "Try the workflow",
-      title: "Draft behavior goals with a more function-based frame.",
-      body: "The IEP Goal Writer helps turn behavior needs, present levels, and replacement skills into measurable draft goals you can review with your team.",
-      href: "/iep-goals",
-      label: "Open the IEP Goal Writer",
-    };
-  }
-
-  if (hasTag("bcba exam") || hasTag("exam prep") || hasTag("study")) {
-    return {
-      eyebrow: "Keep studying",
-      title: "Turn the article into exam practice.",
-      body: "Use Behavior School's BCBA exam prep tools for practice questions, mock exams, rationales, and study planning aligned to the task list.",
-      href: "https://study.behaviorschool.com/free-practice/",
-      label: "Explore BCBA exam prep",
-    };
-  }
-
-  if (hasTag("fba") || hasTag("bip") || hasTag("behavior intervention")) {
-    return {
-      eyebrow: "Build the plan",
-      title: "Move from assessment data to a clearer behavior plan.",
-      body: "Use the FBA-to-BIP workflow to connect hypothesis statements, replacement skills, and intervention strategies into a practical school plan.",
-      href: "/fba-to-bip",
-      label: "Open FBA to BIP",
+      secondary: SOFT_TRANSFORMATION_SECONDARY,
     };
   }
 
   return {
-    eyebrow: "Keep going",
-    title: "Explore tools for school-based behavior work.",
-    body: "Behavior School brings together practical resources for BCBAs, special education teams, exam candidates, and school-based behavior support.",
-    href: "/products",
-    label: "Explore Behavior School tools",
+    ...RESEARCH_BRIEF_CTA,
+    secondary: SOFT_TRANSFORMATION_SECONDARY,
   };
 }
 
@@ -434,6 +468,19 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         >
           {articleCta.label}
         </a>
+        {articleCta.secondary ? (
+          <div className="mt-6 border-t border-emerald-100 pt-5">
+            <p className="text-sm leading-6 text-slate-600">
+              {articleCta.secondary.body}
+            </p>
+            <a
+              href={articleCta.secondary.href}
+              className="mt-2 inline-flex text-sm font-medium text-slate-700 underline underline-offset-2 hover:text-slate-900"
+            >
+              {articleCta.secondary.label}
+            </a>
+          </div>
+        ) : null}
       </aside>
       
       <div className="mt-12">
