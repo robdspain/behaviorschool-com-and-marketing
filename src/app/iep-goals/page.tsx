@@ -284,6 +284,16 @@ export default function IEPGoalsPage() {
             <p className="mx-auto mb-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
               Build an editable IEP behavior goal draft from student-specific baseline, context, supports, and measurement decisions.
             </p>
+            <p className="mx-auto mb-4 max-w-2xl text-sm text-slate-500">
+              Not sure your last goal is ready?{" "}
+              <Link
+                href="/quiz/iep-goal-program"
+                className="font-medium text-emerald-700 underline-offset-2 hover:underline"
+              >
+                Take the free goal readiness quiz
+              </Link>
+              .
+            </p>
             <div className="mb-8 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-slate-500">
               <span>Observable behavior</span>
               <span>Objective baseline</span>

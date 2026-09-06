@@ -68,6 +68,20 @@ const tools: ToolCard[] = [
     ],
   },
   {
+    title: "IEP Goal Readiness Quiz",
+    description:
+      "A 3-minute check: score your last IEP goal on observable behavior, measurement, supports, and classroom runnability. Get a ready/review checklist instantly.",
+    href: "/quiz/iep-goal-program",
+    icon: Brain,
+    status: "live",
+    features: [
+      "Goal-quality checklist",
+      "Plan readiness score",
+      "Free Goal Writer link",
+      "No email required for results",
+    ],
+  },
+  {
     title: "IEP Goal Quality Checker",
     description:
       "Use the BehaviorSchool Goal Writing System to review whether an IEP goal includes observable behavior, baseline, context, supports, measurement, and objective progression.",

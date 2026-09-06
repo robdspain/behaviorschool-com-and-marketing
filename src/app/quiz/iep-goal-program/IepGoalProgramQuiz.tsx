@@ -1,121 +1,66 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  CircleAlert,
+  Loader2,
+  Mail,
+  Minus,
+} from "lucide-react";
+import {
+  IEP_GOAL_PROGRAM_QUESTIONS,
+  EMPTY_IEP_GOAL_PROGRAM_ANSWERS,
+  buildQuizChecklist,
+  countChecklistStatuses,
+  deriveResultBand,
+  RESULT_BAND_COPY,
+  type IepGoalProgramAnswers,
+  type QuizChecklistItem,
+} from "@/lib/iep-goal-program-quiz";
 
-type Phase = "landing" | "quiz" | "email" | "results";
+type Phase = "landing" | "quiz" | "preview" | "sent";
 
-type Answers = {
-  quizRole: string;
-  quizSetting: string;
-  quizRunnable: string;
-  quizChallenge: string;
-};
-
-type Question = {
-  id: keyof Answers;
-  prompt: string;
-  options: { label: string; value: string }[];
-};
-
-const questions: Question[] = [
-  {
-    id: "quizRole",
-    prompt: "What is your role?",
-    options: [
-      { label: "School BCBA", value: "school_bcba" },
-      { label: "Behavior specialist", value: "behavior_specialist" },
-      { label: "School psychologist", value: "school_psychologist" },
-      { label: "Other", value: "other" },
-    ],
-  },
-  {
-    id: "quizSetting",
-    prompt: "What setting do you primarily serve?",
-    options: [
-      { label: "Preschool / early childhood", value: "preschool_early_childhood" },
-      { label: "Elementary", value: "elementary" },
-      { label: "Middle", value: "middle" },
-      { label: "High school", value: "high_school" },
-      { label: "Mixed / multiple grade bands", value: "mixed_multiple" },
-      { label: "Other", value: "other" },
-    ],
-  },
-  {
-    id: "quizRunnable",
-    prompt:
-      "Can a new person in the classroom record data for the goal just by reading it?",
-    options: [
-      { label: "Yes", value: "yes" },
-      { label: "Sometimes", value: "sometimes" },
-      { label: "No", value: "no" },
-    ],
-  },
-  {
-    id: "quizChallenge",
-    prompt: "Where does your work get stuck most often?",
-    options: [
-      { label: "Goal writing", value: "goal_writing" },
-      { label: "Making datasheets", value: "making_datasheets" },
-      { label: "Staff coaching", value: "staff_coaching" },
-      { label: "Fielding and sorting referrals", value: "fielding_referrals" },
-    ],
-  },
-];
-
-const resultCopy: Record<
-  string,
-  { title: string; body: string }
-> = {
-  yes: {
-    title: "Your goal can travel.",
-    body:
-      "A new adult can take data from what you wrote. Protect that. Put one fidelity line in the plan: who takes data, when, and on what sheet, so the classroom does not depend on you being there.",
-  },
-  sometimes: {
-    title: "It works when you are around.",
-    body:
-      "The goal still needs you to interpret it. Rewrite until a new person in the classroom can record data just by reading it. If they ask clarifying questions, the measure is not done.",
-  },
-  no: {
-    title: "Not a program yet.",
-    body:
-      "Stop adding BIP pages. Build the datasheet first (what to look for, how often, what to mark). If a new classroom adult cannot take data from that page alone, fix the goal before you coach.",
-  },
-};
-
-const challengeTips: Record<string, string> = {
-  goal_writing: "Start with a measure staff can mark. Not more goal language.",
-  making_datasheets: "One page. Columns. Codes. When. Put it where staff stand.",
-  staff_coaching: "Coach from the sheet, not from the BIP narrative.",
-  fielding_referrals:
-    "Triage with the same filter. If nobody can take data from the goal as written, it is not ready for a full plan.",
-};
-
-const emptyAnswers: Answers = {
-  quizRole: "",
-  quizSetting: "",
-  quizRunnable: "",
-  quizChallenge: "",
-};
+function ChecklistIcon({ status }: { status: QuizChecklistItem["status"] }) {
+  if (status === "ready") {
+    return <CheckCircle2 className="h-5 w-5 shrink-0 text-[#1F4D3F]" aria-hidden />;
+  }
+  if (status === "not-included") {
+    return <Minus className="h-5 w-5 shrink-0 text-[#7a8681]" aria-hidden />;
+  }
+  return <CircleAlert className="h-5 w-5 shrink-0 text-[#b45309]" aria-hidden />;
+}
 
 export function IepGoalProgramQuiz() {
   const [phase, setPhase] = useState<Phase>("landing");
   const [currentQ, setCurrentQ] = useState(0);
-  const [answers, setAnswers] = useState<Answers>(emptyAnswers);
+  const [answers, setAnswers] = useState<IepGoalProgramAnswers>(
+    EMPTY_IEP_GOAL_PROGRAM_ANSWERS
+  );
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [priorityAccess, setPriorityAccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [savedPriorityAccess, setSavedPriorityAccess] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
+  const questions = IEP_GOAL_PROGRAM_QUESTIONS;
   const question = questions[currentQ];
   const progress = ((currentQ + 1) / questions.length) * 100;
   const selected = question ? answers[question.id] : "";
-  const result = resultCopy[answers.quizRunnable] ?? resultCopy.no;
-  const tip = challengeTips[answers.quizChallenge] ?? "";
+
+  const checklist = useMemo(() => buildQuizChecklist(answers), [answers]);
+  const { readyCount, reviewCount, scoredCount } = useMemo(
+    () => countChecklistStatuses(checklist),
+    [checklist]
+  );
+  const resultBand = deriveResultBand(answers);
+  const result = RESULT_BAND_COPY[resultBand];
 
   const selectOption = (value: string) => {
     if (!question) return;
@@ -128,11 +73,11 @@ export function IepGoalProgramQuiz() {
       setCurrentQ((n) => n + 1);
       return;
     }
-    setPhase("email");
+    setPhase("preview");
   };
 
   const handleBack = () => {
-    if (phase === "email") {
+    if (phase === "preview") {
       setPhase("quiz");
       setCurrentQ(questions.length - 1);
       return;
@@ -144,14 +89,15 @@ export function IepGoalProgramQuiz() {
     setPhase("landing");
   };
 
-  const handleEmailSubmit = async (event: FormEvent) => {
+  const submitEmail = async (event: FormEvent, forcePriorityAccess?: boolean) => {
     event.preventDefault();
     setError("");
     if (!email.trim()) {
-      setError("Email is required to see your result.");
+      setError("Email is required to send your checklist.");
       return;
     }
 
+    const pa = forcePriorityAccess === true ? true : priorityAccess;
     setSubmitting(true);
     try {
       const response = await fetch("/api/quiz/iep-goal-program", {
@@ -161,18 +107,51 @@ export function IepGoalProgramQuiz() {
           ...answers,
           name: name.trim() || undefined,
           email: email.trim(),
-          priorityAccess,
+          priorityAccess: pa,
           page: "/quiz/iep-goal-program",
         }),
       });
 
-      const data = (await response.json()) as { error?: string };
+      const data = (await response.json()) as { error?: string; priorityAccess?: boolean };
       if (!response.ok) {
         throw new Error(data.error || "Unable to save your response.");
       }
 
-      setSavedPriorityAccess(priorityAccess);
-      setPhase("results");
+      setSavedPriorityAccess(Boolean(data.priorityAccess));
+      setEmailSent(true);
+      setPhase("sent");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const upgradePriorityAccess = async () => {
+    if (!email.trim()) {
+      setError("Enter your email above first, then opt in to Priority Access.");
+      return;
+    }
+    setSubmitting(true);
+    setError("");
+    try {
+      const response = await fetch("/api/quiz/iep-goal-program", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...answers,
+          name: name.trim() || undefined,
+          email: email.trim(),
+          priorityAccess: true,
+          page: "/quiz/iep-goal-program",
+        }),
+      });
+      const data = (await response.json()) as { error?: string; priorityAccess?: boolean };
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to save Priority Access.");
+      }
+      setSavedPriorityAccess(Boolean(data.priorityAccess));
+      setPriorityAccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
@@ -197,12 +176,12 @@ export function IepGoalProgramQuiz() {
                 Behavior School
               </p>
               <h1 className="text-4xl font-bold leading-tight tracking-tight text-[#123628] sm:text-5xl">
-                Is your IEP goal a program yet?
+                Is your goal ready to become a plan?
               </h1>
               <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-[#3d4a46]">
-                A 2-minute check for school behavior teams. See whether a new
-                person in the classroom could record data for your last BIP goal
-                just by reading it.
+                A 3-minute check for school behavior teams. Score your last IEP
+                goal against the same quality checks in our free Behavior Goal
+                Writer — then see whether a new classroom adult could run it.
               </p>
               <motion.button
                 type="button"
@@ -217,6 +196,9 @@ export function IepGoalProgramQuiz() {
                 Start the check
                 <ArrowRight className="h-5 w-5" />
               </motion.button>
+              <p className="mt-4 text-sm text-[#7a8681]">
+                See your checklist instantly — email is optional.
+              </p>
             </motion.section>
           )}
 
@@ -248,6 +230,9 @@ export function IepGoalProgramQuiz() {
               <h2 className="text-2xl font-bold leading-snug text-[#123628] sm:text-3xl">
                 {question.prompt}
               </h2>
+              {question.helper && (
+                <p className="mt-2 text-sm text-[#7a8681]">{question.helper}</p>
+              )}
 
               <div className="mt-6 space-y-3">
                 {question.options.map((option) => {
@@ -295,121 +280,16 @@ export function IepGoalProgramQuiz() {
                   disabled={!selected}
                   className="inline-flex items-center gap-2 rounded-xl bg-[#1F4D3F] px-6 py-2.5 font-semibold text-white transition hover:bg-[#123628] disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  {currentQ === questions.length - 1 ? "Continue" : "Next"}
+                  {currentQ === questions.length - 1 ? "See my checklist" : "Next"}
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>
             </motion.section>
           )}
 
-          {phase === "email" && (
+          {(phase === "preview" || phase === "sent") && (
             <motion.section
-              key="email"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3 }}
-              className="mx-auto max-w-md"
-            >
-              <h2 className="text-2xl font-bold text-[#123628] sm:text-3xl">
-                See your result
-              </h2>
-              <p className="mt-3 text-[#3d4a46]">
-                Enter your email to unlock your result band and a practical tip
-                for your next goal.
-              </p>
-
-              <form onSubmit={handleEmailSubmit} className="mt-6 space-y-4">
-                <div>
-                  <label
-                    htmlFor="quiz-name"
-                    className="mb-1.5 block text-sm font-medium text-[#3d4a46]"
-                  >
-                    Name <span className="font-normal text-[#7a8681]">(optional)</span>
-                  </label>
-                  <input
-                    id="quiz-name"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    autoComplete="name"
-                    className="w-full rounded-xl border border-[#ddd5c6] bg-white px-4 py-3 text-[#171F1D] outline-none ring-[#1F4D3F] focus:ring-2"
-                    placeholder="Your name"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="quiz-email"
-                    className="mb-1.5 block text-sm font-medium text-[#3d4a46]"
-                  >
-                    Email
-                  </label>
-                  <input
-                    id="quiz-email"
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    autoComplete="email"
-                    className="w-full rounded-xl border border-[#ddd5c6] bg-white px-4 py-3 text-[#171F1D] outline-none ring-[#1F4D3F] focus:ring-2"
-                    placeholder="you@school.org"
-                  />
-                </div>
-
-                <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-[#ddd5c6] bg-white/70 px-4 py-3">
-                  <input
-                    type="checkbox"
-                    checked={priorityAccess}
-                    onChange={(e) => setPriorityAccess(e.target.checked)}
-                    className="mt-1 h-4 w-4 rounded border-[#b7b0a2] text-[#1F4D3F] focus:ring-[#1F4D3F]"
-                  />
-                  <span className="text-sm leading-relaxed text-[#2a3531]">
-                    Priority Access. First notice when the next live school BCBA
-                    cohort opens.
-                  </span>
-                </label>
-
-                {error && (
-                  <p className="text-sm text-red-700" role="alert">
-                    {error}
-                  </p>
-                )}
-
-                <div className="flex items-center justify-between gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={handleBack}
-                    className="inline-flex items-center gap-1 rounded-xl px-4 py-2.5 font-medium text-[#5b6a65] transition hover:bg-[#1F4D3F]/5"
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                    Back
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="inline-flex items-center gap-2 rounded-xl bg-[#1F4D3F] px-6 py-3 font-semibold text-white transition hover:bg-[#123628] disabled:opacity-60"
-                  >
-                    {submitting ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Saving
-                      </>
-                    ) : (
-                      <>
-                        Show my result
-                        <ArrowRight className="h-4 w-4" />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
-            </motion.section>
-          )}
-
-          {phase === "results" && (
-            <motion.section
-              key="results"
+              key="preview"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
@@ -421,61 +301,157 @@ export function IepGoalProgramQuiz() {
                 {result.title}
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-[#2a3531]">
-                {result.body}
+                {result.summary}
               </p>
 
-              {tip && (
-                <p className="mt-6 border-l-4 border-[#E4B63D] pl-4 text-base leading-relaxed text-[#3d4a46]">
-                  <span className="font-semibold text-[#123628]">P.S. </span>
-                  {tip}
-                </p>
-              )}
+              <p className="mt-4 text-sm font-medium text-[#5b6a65]">
+                {readyCount} of {scoredCount} checks ready
+                {reviewCount > 0 ? ` · ${reviewCount} to review` : ""}
+              </p>
 
-              <div className="mt-10 rounded-2xl bg-[#1F4D3F] px-6 py-7 text-white">
-                <h3 className="text-xl font-bold leading-snug">
-                  Want more of these + first notice when the next cohort opens?
-                </h3>
-                <p className="mt-2 text-[#d7e4df]">Get early access.</p>
-                {savedPriorityAccess ? (
-                  <p className="mt-5 inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-3 text-sm font-medium">
-                    <CheckCircle2 className="h-4 w-4 text-[#E4B63D]" />
-                    You are on the early access list.
+              <ul className="mt-6 space-y-4 rounded-2xl border border-[#ddd5c6] bg-white/80 p-5 sm:p-6">
+                {checklist.map((item) => (
+                  <li key={item.id} className="flex gap-3">
+                    <ChecklistIcon status={item.status} />
+                    <div>
+                      <p className="font-semibold text-[#123628]">{item.label}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-[#3d4a46]">
+                        {item.detail}
+                      </p>
+                      <p className="mt-1 text-xs uppercase tracking-wide text-[#7a8681]">
+                        {item.status === "ready"
+                          ? "Ready"
+                          : item.status === "not-included"
+                            ? "Not included"
+                            : "Review"}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-6 border-l-4 border-[#E4B63D] pl-4 text-base leading-relaxed text-[#3d4a46]">
+                <span className="font-semibold text-[#123628]">Tip: </span>
+                {result.tip}
+              </p>
+
+              <div className="mt-8 rounded-2xl border border-[#ddd5c6] bg-white/90 p-6">
+                <div className="flex items-start gap-3">
+                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#1F4D3F]" />
+                  <div className="flex-1">
+                    {emailSent ? (
+                      <>
+                        <h3 className="text-lg font-bold text-[#123628]">
+                          Checklist sent
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-[#3d4a46]">
+                          We emailed your checklist and a link to the free{" "}
+                          <Link
+                            href="/iep-goals"
+                            className="font-medium text-[#1F4D3F] underline-offset-2 hover:underline"
+                          >
+                            Behavior Goal Writer
+                          </Link>
+                          .
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h3 className="text-lg font-bold text-[#123628]">
+                          Email me my checklist + free Behavior Goal Writer link
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-[#3d4a46]">
+                          Get this checklist in your inbox with a direct link to{" "}
+                          <Link
+                            href="/iep-goals"
+                            className="font-medium text-[#1F4D3F] underline-offset-2 hover:underline"
+                          >
+                            /iep-goals
+                          </Link>
+                          .
+                        </p>
+                        <form
+                          onSubmit={(event) => submitEmail(event)}
+                          className="mt-4 space-y-3"
+                        >
+                          <input
+                            id="quiz-name"
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            autoComplete="name"
+                            className="w-full rounded-xl border border-[#ddd5c6] bg-white px-4 py-3 text-[#171F1D] outline-none ring-[#1F4D3F] focus:ring-2"
+                            placeholder="Name (optional)"
+                          />
+                          <input
+                            id="quiz-email"
+                            type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            autoComplete="email"
+                            className="w-full rounded-xl border border-[#ddd5c6] bg-white px-4 py-3 text-[#171F1D] outline-none ring-[#1F4D3F] focus:ring-2"
+                            placeholder="you@school.org"
+                          />
+                          <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-[#e6e0d4] bg-[#FBFAF6] px-4 py-3">
+                            <input
+                              type="checkbox"
+                              checked={priorityAccess}
+                              onChange={(e) => setPriorityAccess(e.target.checked)}
+                              className="mt-1 h-4 w-4 rounded border-[#b7b0a2] text-[#1F4D3F] focus:ring-[#1F4D3F]"
+                            />
+                            <span className="text-sm leading-relaxed text-[#2a3531]">
+                              <span className="font-medium text-[#123628]">
+                                Priority Access (optional)
+                              </span>
+                              — first notice when the next School BCBA
+                              Transformation Program cohort opens. Includes
+                              occasional program updates; unsubscribe anytime.
+                            </span>
+                          </label>
+                          {error && (
+                            <p className="text-sm text-red-700" role="alert">
+                              {error}
+                            </p>
+                          )}
+                          <button
+                            type="submit"
+                            disabled={submitting}
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1F4D3F] px-6 py-3 font-semibold text-white transition hover:bg-[#123628] disabled:opacity-60 sm:w-auto"
+                          >
+                            {submitting ? (
+                              <>
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                Sending
+                              </>
+                            ) : (
+                              <>
+                                Email my checklist
+                                <ArrowRight className="h-4 w-4" />
+                              </>
+                            )}
+                          </button>
+                        </form>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {!savedPriorityAccess && emailSent && (
+                <div className="mt-6 rounded-2xl bg-[#1F4D3F] px-6 py-6 text-white">
+                  <h3 className="text-lg font-bold leading-snug">
+                    Want Priority Access to the Transformation Program?
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#d7e4df]">
+                    Optional — get first notice when the next live School BCBA
+                    cohort opens. No payment required to join the list.
                   </p>
-                ) : (
                   <button
                     type="button"
-                    onClick={async () => {
-                      setSubmitting(true);
-                      setError("");
-                      try {
-                        const response = await fetch("/api/quiz/iep-goal-program", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            ...answers,
-                            name: name.trim() || undefined,
-                            email: email.trim(),
-                            priorityAccess: true,
-                            page: "/quiz/iep-goal-program",
-                          }),
-                        });
-                        if (!response.ok) {
-                          const data = (await response.json()) as { error?: string };
-                          throw new Error(data.error || "Unable to save early access.");
-                        }
-                        setSavedPriorityAccess(true);
-                      } catch (err) {
-                        setError(
-                          err instanceof Error
-                            ? err.message
-                            : "Something went wrong. Please try again."
-                        );
-                      } finally {
-                        setSubmitting(false);
-                      }
-                    }}
+                    onClick={upgradePriorityAccess}
                     disabled={submitting}
-                    className="mt-5 inline-flex items-center gap-2 rounded-xl bg-[#E4B63D] px-5 py-3 font-semibold text-[#123628] transition hover:bg-[#f0c75a] disabled:opacity-60"
+                    className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#E4B63D] px-5 py-3 font-semibold text-[#123628] transition hover:bg-[#f0c75a] disabled:opacity-60"
                   >
                     {submitting ? (
                       <>
@@ -484,17 +460,34 @@ export function IepGoalProgramQuiz() {
                       </>
                     ) : (
                       <>
-                        Get early access
+                        Add Priority Access
                         <ArrowRight className="h-4 w-4" />
                       </>
                     )}
                   </button>
-                )}
-                {error && phase === "results" && (
-                  <p className="mt-3 text-sm text-[#ffd4d4]" role="alert">
-                    {error}
-                  </p>
-                )}
+                  {error && (
+                    <p className="mt-3 text-sm text-[#ffd4d4]" role="alert">
+                      {error}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {savedPriorityAccess && (
+                <p className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#1F4D3F]/10 px-4 py-3 text-sm font-medium text-[#123628]">
+                  <CheckCircle2 className="h-4 w-4 text-[#1F4D3F]" />
+                  You are on the Transformation Program Priority Access list.
+                </p>
+              )}
+
+              <div className="mt-8 text-center">
+                <Link
+                  href="/iep-goals"
+                  className="inline-flex items-center gap-2 font-semibold text-[#1F4D3F] underline-offset-2 hover:underline"
+                >
+                  Open the free Behavior Goal Writer
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
             </motion.section>
           )}
