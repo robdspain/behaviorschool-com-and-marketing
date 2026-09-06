@@ -38,6 +38,7 @@ import type * as presentations from "../presentations.js";
 import type * as publishingStandardCore from "../publishingStandardCore.js";
 import type * as publishingStandards from "../publishingStandards.js";
 import type * as schoolBcbaSurvey from "../schoolBcbaSurvey.js";
+import type * as iepGoalProgramQuiz from "../iepGoalProgramQuiz.js";
 import type * as submissions from "../submissions.js";
 import type * as transformationNurture from "../transformationNurture.js";
 
@@ -78,6 +79,7 @@ declare const fullApi: ApiFromModules<{
   publishingStandardCore: typeof publishingStandardCore;
   publishingStandards: typeof publishingStandards;
   schoolBcbaSurvey: typeof schoolBcbaSurvey;
+  iepGoalProgramQuiz: typeof iepGoalProgramQuiz;
   submissions: typeof submissions;
   transformationNurture: typeof transformationNurture;
 }>;
