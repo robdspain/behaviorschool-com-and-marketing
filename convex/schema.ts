@@ -944,6 +944,29 @@ export default defineSchema({
     .index("by_created_at", ["createdAt"])
     .index("by_email_lower", ["emailLower"]),
 
+  // Quiz 01: IEP goal program check (Transformation Program lead gen)
+  iepGoalProgramQuizResponses: defineTable({
+    quizSlug: v.string(),
+    quizRole: v.string(),
+    quizSetting: v.string(),
+    quizRunnable: v.string(),
+    quizRunnableScore: v.number(),
+    quizChallenge: v.string(),
+    resultBand: v.string(),
+    name: v.optional(v.string()),
+    email: v.string(),
+    emailLower: v.string(),
+    priorityAccess: v.boolean(),
+    page: v.optional(v.string()),
+    userAgent: v.optional(v.string()),
+    createdAt: v.string(),
+    updatedAt: v.string(),
+  })
+    .index("by_quiz_slug", ["quizSlug"])
+    .index("by_created_at", ["createdAt"])
+    .index("by_email_lower", ["emailLower"])
+    .index("by_priority_access", ["priorityAccess"]),
+
   archivedActivities: defineTable({
     activityType: v.string(),
     activityId: v.string(),

@@ -75,6 +75,13 @@ const nextConfig: NextConfig = {
       // Consolidate duplicate URLs → canonical targets
       // ============================================
 
+      // Quiz 01 alternate URL → canonical IEP goal program quiz
+      {
+        source: '/school-bcba-quiz',
+        destination: '/quiz/iep-goal-program',
+        permanent: false,
+      },
+
       // -- Behavior Study Tools acquisition consolidation --
       // Primary study destination is study.behaviorschool.com (not behaviorstudytools.com)
       {
