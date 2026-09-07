@@ -389,6 +389,12 @@ async function buildSitemap(
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/quiz/iep-goal-program`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
 
     // Main Navigation Pages
     {

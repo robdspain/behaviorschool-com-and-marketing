@@ -1,6 +1,16 @@
 import { mutation, internalQuery } from "./_generated/server";
 import { v } from "convex/values";
 import type { MutationCtx } from "./_generated/server";
+import {
+  ALLOWED_GEN_MAINT,
+  ALLOWED_ROLES,
+  ALLOWED_SETTINGS,
+  ALLOWED_TRI_STATE,
+  RESULT_BANDS,
+  RUNNABLE_SCORES,
+  buildQuizAnswerTags,
+  deriveQualityScore,
+} from "./lib/iepGoalProgramQuizLogic";
 
 const QUIZ_SLUG = "iep-goal-program";
 const MAX_NAME_LEN = 120;
@@ -10,49 +20,19 @@ const MAX_UA_LEN = 500;
 const MIN_SUBMIT_INTERVAL_MS = 5_000;
 const MAX_SUBMITS_PER_EMAIL_PER_HOUR = 8;
 
-const ALLOWED_ROLES = new Set([
-  "school_bcba",
-  "behavior_specialist",
-  "school_psychologist",
-  "other",
-]);
-
-const ALLOWED_SETTINGS = new Set([
-  "preschool_early_childhood",
-  "elementary",
-  "middle",
-  "high_school",
-  "mixed_multiple",
-  "other",
-]);
-
-const ALLOWED_RUNNABLE = new Set(["yes", "sometimes", "no"]);
-
-const ALLOWED_CHALLENGES = new Set([
-  "goal_writing",
-  "making_datasheets",
-  "staff_coaching",
-  "fielding_referrals",
-]);
-
-const RUNNABLE_SCORES: Record<string, number> = {
-  yes: 2,
-  sometimes: 1,
-  no: 0,
-};
-
-const RESULT_BANDS: Record<string, string> = {
-  yes: "can_travel",
-  sometimes: "needs_you",
-  no: "not_a_program",
-};
-
 const REPLACEABLE_TAG_PREFIXES = [
   "quiz_role:",
   "quiz_setting:",
+  "quiz_observable:",
+  "quiz_context:",
+  "quiz_measurement_method:",
+  "quiz_matching_units:",
+  "quiz_supports:",
   "quiz_runnable:",
+  "quiz_generalization_maintenance:",
   "quiz_challenge:",
   "result_band:",
+  "quality_score:",
 ] as const;
 
 const REPLACEABLE_EXACT_TAGS = new Set([
@@ -106,19 +86,23 @@ function splitName(name: string | undefined) {
 function buildQuizTags(input: {
   quizRole: string;
   quizSetting: string;
+  quizObservable: string;
+  quizContext: string;
+  quizMeasurementMethod: string;
+  quizMatchingUnits: string;
+  quizSupports: string;
   quizRunnable: string;
-  quizChallenge: string;
+  quizGeneralizationMaintenance: string;
   resultBand: string;
+  qualityScore: number;
   priorityAccess: boolean;
 }) {
   const tags = [
     "iep-goal-program-quiz",
     "quiz-01",
-    `quiz_role:${input.quizRole}`,
-    `quiz_setting:${input.quizSetting}`,
-    `quiz_runnable:${input.quizRunnable}`,
-    `quiz_challenge:${input.quizChallenge}`,
+    ...buildQuizAnswerTags(input),
     `result_band:${input.resultBand}`,
+    `quality_score:${input.qualityScore}`,
   ];
   if (input.priorityAccess) {
     tags.push("priority_access", "transformation-program");
@@ -191,9 +175,16 @@ const responseDoc = v.object({
   quizSlug: v.string(),
   quizRole: v.string(),
   quizSetting: v.string(),
+  quizObservable: v.string(),
+  quizContext: v.string(),
+  quizMeasurementMethod: v.string(),
+  quizMatchingUnits: v.string(),
+  quizSupports: v.string(),
   quizRunnable: v.string(),
   quizRunnableScore: v.number(),
-  quizChallenge: v.string(),
+  quizGeneralizationMaintenance: v.string(),
+  qualityScore: v.number(),
+  quizChallenge: v.optional(v.string()),
   resultBand: v.string(),
   name: v.optional(v.string()),
   email: v.string(),
@@ -208,18 +199,25 @@ const responseDoc = v.object({
 /**
  * Public quiz submit mutation.
  * Validates allowlists, derives score/band server-side, rate-limits by email,
- * upserts CRM with replaced quiz tags, and returns whether nurture should start.
+ * upserts CRM with replaced quiz tags on retake, and returns nurture flags.
  */
 export const createResponse = mutation({
   args: {
     quizSlug: v.string(),
     quizRole: v.string(),
     quizSetting: v.string(),
+    quizObservable: v.string(),
+    quizContext: v.string(),
+    quizMeasurementMethod: v.string(),
+    quizMatchingUnits: v.string(),
+    quizSupports: v.string(),
     quizRunnable: v.string(),
-    // Optional legacy client fields; ignored. Server derives score/band.
+    quizGeneralizationMaintenance: v.string(),
+    // Optional legacy / client fields; ignored for scoring.
     quizRunnableScore: v.optional(v.number()),
-    quizChallenge: v.string(),
+    quizChallenge: v.optional(v.string()),
     resultBand: v.optional(v.string()),
+    qualityScore: v.optional(v.number()),
     name: v.optional(v.string()),
     email: v.string(),
     priorityAccess: v.boolean(),
@@ -229,6 +227,7 @@ export const createResponse = mutation({
   returns: v.object({
     responseId: v.id("iepGoalProgramQuizResponses"),
     resultBand: v.string(),
+    qualityScore: v.number(),
     priorityAccess: v.boolean(),
     shouldStartNurture: v.boolean(),
   }),
@@ -256,20 +255,57 @@ export const createResponse = mutation({
       ALLOWED_SETTINGS,
       "quizSetting"
     );
+    const quizObservable = requireAllowed(
+      args.quizObservable.trim(),
+      ALLOWED_TRI_STATE,
+      "quizObservable"
+    );
+    const quizContext = requireAllowed(
+      args.quizContext.trim(),
+      ALLOWED_TRI_STATE,
+      "quizContext"
+    );
+    const quizMeasurementMethod = requireAllowed(
+      args.quizMeasurementMethod.trim(),
+      ALLOWED_TRI_STATE,
+      "quizMeasurementMethod"
+    );
+    const quizMatchingUnits = requireAllowed(
+      args.quizMatchingUnits.trim(),
+      ALLOWED_TRI_STATE,
+      "quizMatchingUnits"
+    );
+    const quizSupports = requireAllowed(
+      args.quizSupports.trim(),
+      ALLOWED_TRI_STATE,
+      "quizSupports"
+    );
     const quizRunnable = requireAllowed(
       args.quizRunnable.trim(),
-      ALLOWED_RUNNABLE,
+      ALLOWED_TRI_STATE,
       "quizRunnable"
     );
-    const quizChallenge = requireAllowed(
-      args.quizChallenge.trim(),
-      ALLOWED_CHALLENGES,
-      "quizChallenge"
+    const quizGeneralizationMaintenance = requireAllowed(
+      args.quizGeneralizationMaintenance.trim(),
+      ALLOWED_GEN_MAINT,
+      "quizGeneralizationMaintenance"
     );
 
-    // Never trust client-provided score/band.
+    const answerInput = {
+      quizRole,
+      quizSetting,
+      quizObservable,
+      quizContext,
+      quizMeasurementMethod,
+      quizMatchingUnits,
+      quizSupports,
+      quizRunnable,
+      quizGeneralizationMaintenance,
+    };
+
     const quizRunnableScore = RUNNABLE_SCORES[quizRunnable] ?? 0;
     const resultBand = RESULT_BANDS[quizRunnable] ?? "not_a_program";
+    const qualityScore = deriveQualityScore(answerInput);
     const priorityAccessRequested = args.priorityAccess === true;
     const name = sanitizeOptionalString(args.name, MAX_NAME_LEN);
     const page = sanitizeOptionalString(args.page, MAX_PAGE_LEN);
@@ -285,14 +321,19 @@ export const createResponse = mutation({
       contactHasPriorityAccess(existing?.tags) ||
       priorResponses.some((row) => row.priorityAccess === true);
 
-    // Persist this response checkbox as requested; CRM keeps sticky Priority Access.
     const responseId = await ctx.db.insert("iepGoalProgramQuizResponses", {
       quizSlug: QUIZ_SLUG,
       quizRole,
       quizSetting,
+      quizObservable,
+      quizContext,
+      quizMeasurementMethod,
+      quizMatchingUnits,
+      quizSupports,
       quizRunnable,
       quizRunnableScore,
-      quizChallenge,
+      quizGeneralizationMaintenance,
+      qualityScore,
       resultBand,
       name,
       email: emailLower,
@@ -304,28 +345,23 @@ export const createResponse = mutation({
       updatedAt: timestamp,
     });
 
-    // Once opted in, keep Priority Access on tip-only retakes.
     const effectivePriorityAccess =
       priorityAccessRequested || hadPriorityAccess;
     const shouldStartNurture = priorityAccessRequested && !hadPriorityAccess;
 
     const quizTags = buildQuizTags({
-      quizRole,
-      quizSetting,
-      quizRunnable,
-      quizChallenge,
+      ...answerInput,
       resultBand,
+      qualityScore,
       priorityAccess: effectivePriorityAccess,
     });
 
     const notesPayload = {
       quizResponseId: String(responseId),
       quizSlug: QUIZ_SLUG,
-      quiz_role: quizRole,
-      quiz_setting: quizSetting,
-      quiz_runnable: quizRunnable,
+      ...answerInput,
       quiz_runnable_score: quizRunnableScore,
-      quiz_challenge: quizChallenge,
+      quality_score: qualityScore,
       result_band: resultBand,
       priority_access: effectivePriorityAccess,
       upgraded_to_priority_access: shouldStartNurture,
@@ -379,6 +415,7 @@ export const createResponse = mutation({
     return {
       responseId,
       resultBand,
+      qualityScore,
       priorityAccess: effectivePriorityAccess,
       shouldStartNurture,
     };

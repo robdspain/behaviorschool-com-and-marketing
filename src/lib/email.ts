@@ -191,6 +191,77 @@ export async function sendTransactionalEmail(
   }
 }
 
+export async function sendIepGoalProgramChecklistEmail(
+  email: string,
+  options: {
+    name?: string;
+    checklist: Array<{
+      label: string;
+      status: "ready" | "review" | "not-included";
+      detail: string;
+    }>;
+    resultTitle: string;
+    resultSummary: string;
+  }
+) {
+  const goalWriterUrl = "https://behaviorschool.com/iep-goals";
+  const checklistHtml = options.checklist
+    .map((item) => {
+      const icon =
+        item.status === "ready"
+          ? "✓"
+          : item.status === "not-included"
+            ? "—"
+            : "→";
+      const color =
+        item.status === "ready"
+          ? "#059669"
+          : item.status === "not-included"
+            ? "#6b7280"
+            : "#b45309";
+      return `
+        <li style="margin-bottom: 16px; list-style: none; padding-left: 0;">
+          <p style="margin: 0 0 4px 0; font-weight: 600; color: ${color};">
+            ${icon} ${item.label}
+          </p>
+          <p style="margin: 0; color: #374151; font-size: 14px; line-height: 1.5;">
+            ${item.detail}
+          </p>
+        </li>
+      `;
+    })
+    .join("");
+
+  return sendTransactionalEmail(
+    email,
+    "Your IEP goal readiness checklist",
+    `
+      <h2 style="color: #123628; margin-top: 0;">${options.resultTitle}</h2>
+      <p style="color: #374151; line-height: 1.6;">${options.resultSummary}</p>
+      <h3 style="color: #123628; margin-bottom: 12px;">Your checklist</h3>
+      <ul style="padding: 0; margin: 0 0 24px 0;">
+        ${checklistHtml}
+      </ul>
+      <div style="background: #f0fdf4; border-left: 4px solid #059669; padding: 20px; margin: 24px 0;">
+        <p style="margin: 0 0 12px 0; font-weight: 600; color: #123628;">
+          Free Behavior Goal Writer
+        </p>
+        <p style="margin: 0 0 16px 0; color: #374151; font-size: 14px; line-height: 1.5;">
+          Draft or tighten your next goal with the same quality checks used in this quiz.
+        </p>
+        <a href="${goalWriterUrl}" style="display: inline-block; background: #1F4D3F; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 600;">
+          Open the free Goal Writer
+        </a>
+      </div>
+      <p style="color: #666; font-size: 14px; margin-top: 32px;">
+        Rob Spain, M.S., BCBA, IBA<br>
+        Behavior School
+      </p>
+    `,
+    { replyTo: RESEND_REPLY_TO_ROB }
+  );
+}
+
 export async function sendContactFormEmail(
   name: string,
   email: string,
