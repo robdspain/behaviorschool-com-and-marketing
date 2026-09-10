@@ -29,6 +29,7 @@
     "seo:verify-canonical-links": "node scripts/verify-canonical-links.mjs",
     "seo:verify-titles": "node scripts/verify-title-hygiene.mjs",
     "pdf:bcba-exam-guide": "tsx scripts/generate-bcba-exam-guide-pdf.tsx",
+    "pdf:cited-lead-magnets": "tsx scripts/generate-all-cited-pdfs.tsx",
     "universal-indexing": "node scripts/universal-indexing-submit.js",
     "universal-indexing:priority": "node scripts/universal-indexing-submit.js --priority",
     "universal-indexing:validate": "node scripts/universal-indexing-submit.js --validate",
