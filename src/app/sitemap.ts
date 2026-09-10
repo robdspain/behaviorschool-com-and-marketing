@@ -117,6 +117,7 @@ async function buildSitemap(
     '/events',
     '/fba-to-bip',
     '/fba-bip-plan-writer',
+    '/rbt-study',
   ])
   // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
   const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view']
@@ -434,6 +435,7 @@ async function buildSitemap(
       priority: 0.75,
     },
     // /fba-to-bip removed — permanent redirect to https://plan.behaviorschool.com/
+    // /rbt-study removed — permanent redirect to https://rbtstudy.behaviorschool.com/
 
     // /study removed — permanent redirect to https://study.behaviorschool.com/
 

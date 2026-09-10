@@ -6,6 +6,7 @@ const studyAppUrl = "https://study.behaviorschool.com/";
 const freePracticeUrl = "https://study.behaviorschool.com/free-practice/";
 const freeMockUrl = "https://study.behaviorschool.com/free-mock-exam/";
 const planAppUrl = "https://plan.behaviorschool.com/";
+const rbtStudyUrl = "https://rbtstudy.behaviorschool.com/";
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
@@ -335,6 +336,16 @@ const nextConfig: NextConfig = {
       {
         source: '/fba-bip-plan-writer',
         destination: planAppUrl,
+        permanent: true,
+      },
+      {
+        source: '/rbt-study',
+        destination: rbtStudyUrl,
+        permanent: true,
+      },
+      {
+        source: '/rbt-study/',
+        destination: rbtStudyUrl,
         permanent: true,
       },
       {

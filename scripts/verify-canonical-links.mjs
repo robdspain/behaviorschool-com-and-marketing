@@ -34,6 +34,7 @@ const legacyPaths = new Set([
   "/events",
   "/fba-to-bip",
   "/fba-bip-plan-writer",
+  "/rbt-study",
 ]);
 
 const ignoredDirectories = new Set([".git", ".next", "node_modules"]);
