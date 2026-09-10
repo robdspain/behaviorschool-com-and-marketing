@@ -111,7 +111,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-center text-sm">
             <Link href="/products" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Tools
+              Products
             </Link>
             <Link href="/free-tools" className="text-gray-600 hover:text-gray-900 transition-colors">
               Free School Behavior Tools

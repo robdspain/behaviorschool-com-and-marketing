@@ -107,7 +107,7 @@ Losers are out of `sitemap.ts` and listed in `legacyRedirectPaths`. `/ce-events`
 
 ### 2.4 Navigation IA
 
-"Free Tools" (`/free-tools`) was added to the primary nav as the first item; it is the highest-intent free entry point for the school-BCBA audience and feeds the Transformation Program. The `/school-bcba` hub stays out of the primary nav: it is job-search content (jobs, salary, interviews), which is a different reader than a practicing BCBA deciding on the program. "Tools" (`/products`) and "Free Tools" now sit side by side; consider renaming "Tools" to "Products" or "Pro" in a follow-up. Also see Q2 about the "Exam Prep" nav item.
+"Free Tools" (`/free-tools`) was added to the primary nav as the first item; it is the highest-intent free entry point for the school-BCBA audience and feeds the Transformation Program. The `/school-bcba` hub stays out of the primary nav: it is job-search content (jobs, salary, interviews), which is a different reader than a practicing BCBA deciding on the program. The `/products` nav item is labeled **Products** so it does not sit next to Free Tools as a second “Tools.”
 
 ### 2.5 Pricing inconsistency
 
