@@ -88,7 +88,7 @@ export default function AboutContent() {
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
                   Then a behavior analyst visited my classroom and modeled a different way forward—using behavioral principles
-                  to teach in a structured, systematic way. Within a year, that student gained three grade levels in reading.
+                  to teach in a structured, systematic way. Within a year, that student made significant progress.
                   That moment changed the trajectory of my career.
                 </p>
                 <div className="bg-emerald-50 rounded-2xl p-6">
