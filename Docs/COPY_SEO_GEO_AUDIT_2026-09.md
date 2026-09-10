@@ -137,7 +137,7 @@ Study product prices now come from `src/lib/study-pricing.ts`, matching live Str
 ## 3. Questions for Rob
 
 1. ~~X / Twitter handle.~~ Confirmed live account is `https://x.com/behavior_school`. Organization JSON-LD, school-based-bcba schema, and the newsletter template now match the footer.
-2. ~~Nav "Exam Prep" destination.~~ For now the header "Exam Prep" item (and the landing-nav "Study Tools" link) send to `https://study.behaviorschool.com/`. behaviorstudytools.com remains a live product but is not in the primary nav.
+2. ~~Nav "Exam Prep" destination.~~ The header "Exam Prep" item (and the landing-nav "Study Tools" link) send to `https://study.behaviorschool.com/free-practice/`. The study app's root is noindex and `scripts/verify-bcba-acquisition-routing.mjs` (run in `postbuild`) fails the build when any public page links to it, so the canonical free-practice page is the entry point. behaviorstudytools.com remains a live product but is not in the primary nav.
 3. ~~Add "School BCBA Career" and "Free Tools" to the primary nav?~~ Decided: "Free Tools" added; the career hub stays in the footer only.
 4. ~~Study pricing.~~ Live Stripe (checked September 10, 2026): $29.99/month, $89.99/quarter, $288/year. Compare pages now use those figures. Competitor prices were re-checked the same day (ABA Exam Review $115 / $140 and 1,480 questions; MagicSchool Plus $12.99/mo or $99.96/year) and each table has a "checked on" note.
 5. ~~About-page anecdote.~~ Use the general line: the student made significant progress. Do not publish the specific “three grade levels in reading” outcome. The evidence-based line stays “published behavior-analytic literature,” not “proven.”
