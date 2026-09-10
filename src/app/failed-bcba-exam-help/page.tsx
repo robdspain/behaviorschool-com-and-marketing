@@ -10,7 +10,7 @@ const retakePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
 });
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Failed the BCBA Exam? Retake Strategy + Free Practice",
+  title: "Failed the BCBA Exam? Retake Plan | Behavior School",
   description:
     "Failed the BCBA exam? Build a 30-day retake strategy with score report review, weak-domain practice, mock exam timing, and free BCBA practice questions.",
   canonical,

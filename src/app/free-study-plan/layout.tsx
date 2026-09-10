@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 
 // The page component is a client component, so metadata lives here.
 export const metadata: Metadata = {
-  title: "Free BCBA and RBT Study Guides, Practice Exams, and Study Plan | Behavior School",
+  title: "Free BCBA and RBT Study Plan | Behavior School",
   description:
     "Free RBT and BCBA study guide PDFs, free practice questions with no signup, and an optional 7-day study schedule sent by email.",
   alternates: { canonical: "https://behaviorschool.com/free-study-plan" },
   openGraph: {
-    title: "Free BCBA and RBT Study Guides and Practice Exams | Behavior School",
+    title: "Free BCBA and RBT Study Plan | Behavior School",
     description:
       "Download free RBT and BCBA study guide PDFs, try free practice questions, and get a 7-day study schedule by email.",
     url: "https://behaviorschool.com/free-study-plan",

@@ -3,12 +3,12 @@ import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout'
 import { STUDY_PRICING, STUDY_PRICING_LINE } from '@/lib/study-pricing';
 
 export const metadata: Metadata = {
-  title: 'BehaviorSchool vs MagicSchool AI | IEP Tools 2026',
+  title: 'Behavior School vs MagicSchool AI: IEP & Behavior Tools',
   description: 'Compare BehaviorSchool vs MagicSchool AI for IEP goal writing, behavior tools, and school BCBA support built for behavior analysts.',
   keywords: 'BehaviorSchool vs MagicSchool, MagicSchool AI alternative, IEP goal writer comparison, AI IEP tools, behavior analyst tools, MagicSchool AI review, best IEP goal generator',
   alternates: { canonical: 'https://behaviorschool.com/compare/behaviorschool-vs-magicschool' },
   openGraph: {
-    title: 'BehaviorSchool vs MagicSchool AI – IEP & Behavior Tools Comparison 2026',
+    title: 'Behavior School vs MagicSchool AI: IEP & Behavior Tools',
     description: 'Specialized behavior analysis tools vs generic AI education platform. Which is better for school BCBAs and special education professionals?',
     url: 'https://behaviorschool.com/compare/behaviorschool-vs-magicschool',
     siteName: 'Behavior School',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BehaviorSchool vs MagicSchool AI – Which Is Better for BCBAs?',
+    title: 'Behavior School vs MagicSchool AI: IEP & Behavior Tools',
     description: 'Specialized behavior analysis vs generic AI education tools. See the full comparison.',
   },
 };

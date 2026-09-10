@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/behavior-intervention-plan-examples";
 
 export const metadata = buildPageMetadata({
-  title: "Behavior Intervention Plan Examples | BIP Guide",
+  title: "Behavior Intervention Plan Examples | Behavior School",
   description:
     "Behavior intervention plan examples for school teams, including function-based strategies, replacement skills, reinforcement, and data collection.",
   canonical,

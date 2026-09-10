@@ -10,7 +10,7 @@ const baselinePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
 });
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "BCBA Study Schedule | 8, 12, and 16 Week Plans",
+  title: "BCBA Study Schedule: 8, 12, 16 Week Plans | Behavior School",
   description:
     "Build a BCBA study schedule for 8, 12, or 16 weeks. Includes weekly priorities, practice questions, mock exam timing, and retake adjustments.",
   canonical,

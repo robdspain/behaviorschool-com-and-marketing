@@ -9,12 +9,12 @@ const PAGE_HREF = "https://behaviorschool.com/compare/behaviorschool-vs-bds-modu
 const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/compare/behaviorschool-vs-bds-modules";
 
 const baseMetadata: Metadata = {
-  title: "BehaviorSchool vs BDS Modules: Which BCBA Prep Fits You?",
+  title: "Behavior School vs BDS Modules: Which BCBA Prep Fits You?",
   description:
     "Side-by-side: BDS Modules vs BehaviorSchool adaptive practice, readiness scoring, and supervisor reports. Pick the prep style that matches how you study.",
   alternates: { canonical: PAGE_HREF },
   openGraph: {
-    title: "BehaviorSchool vs BDS Modules: Which BCBA Prep Fits You?",
+    title: "Behavior School vs BDS Modules: Which BCBA Prep Fits You?",
     description:
       "Side-by-side: BDS Modules vs BehaviorSchool adaptive practice, readiness scoring, and supervisor reports. Pick the prep style that matches how you study.",
     url: PAGE_HREF,

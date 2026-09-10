@@ -12,12 +12,12 @@ const PAGE_HREF = "https://behaviorschool.com/bcba-study-app-school-based-bcbas"
 const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/bcba-study-app-school-based-bcbas";
 
 const baseMetadata: Metadata = {
-  title: "BCBA Study App for School BCBAs | BehaviorSchool Study",
+  title: "BCBA Study App for School BCBAs | Behavior School",
   description:
     "A BCBA study app for school BCBA candidates who need adaptive practice, school-relevant scenarios, readiness scoring, and supervisor reporting.",
   alternates: { canonical: PAGE_HREF },
   openGraph: {
-    title: "BCBA Study App for School BCBAs | BehaviorSchool Study",
+    title: "BCBA Study App for School BCBAs | Behavior School",
     description:
       "Adaptive BCBA practice for school BCBA candidates, with readiness scoring, review labels, and supervisor reports.",
     url: PAGE_HREF,

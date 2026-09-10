@@ -7,7 +7,7 @@ import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 const canonical = "https://behaviorschool.com/bcba-exam-weak-areas";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "BCBA Exam Weak Areas | Find What to Study Next",
+  title: "BCBA Exam Weak Areas: What to Study Next | Behavior School",
   description:
     "Find BCBA exam weak areas from readiness checks, practice questions, mock exams, and score patterns. Build the next focused study block.",
   canonical,

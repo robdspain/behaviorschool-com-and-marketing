@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Brain, Bot, BarChart3, Smartphone, Target, Zap, GraduationCap } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "CALABA 2026 Exclusive: 40% Off BCBA Study Tools | Behavior School",
+  title: "CALABA 2026: 40% Off BCBA Study Tools | Behavior School",
   description:
     "CALABA 2026 attendees get 40% off Behavior School's AI-powered BCBA exam prep. Use code CALABA40 at checkout.",
   robots: { index: false, follow: false },

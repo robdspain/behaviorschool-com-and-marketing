@@ -3,12 +3,12 @@ import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout'
 import { STUDY_PRICING, STUDY_PRICING_LINE } from '@/lib/study-pricing';
 
 export const metadata: Metadata = {
-  title: 'BehaviorSchool vs StudyABA | BCBA Exam Prep Comparison 2026',
+  title: 'Behavior School vs StudyABA: BCBA Exam Prep Comparison',
   description: 'Compare BehaviorSchool vs ABA Exam Review for BCBA exam prep. Adaptive practice with rationales versus one-time mock exam bundles, side by side for behavior analysts.',
   keywords: 'BehaviorSchool vs ABA Exam Review, StudyABA alternative, BCBA exam prep comparison, behavioranalyststudy review, BCBA mock exam, BCBA study guide comparison, best BCBA practice exam',
   alternates: { canonical: 'https://behaviorschool.com/compare/behaviorschool-vs-studyaba' },
   openGraph: {
-    title: 'BehaviorSchool vs ABA Exam Review – BCBA Exam Prep Comparison 2026',
+    title: 'Behavior School vs ABA Exam Review: BCBA Prep Comparison',
     description: 'Adaptive practice with rationales vs. one-time mock exam bundles. Compare features, pricing models, and study tools before you choose a BCBA prep platform.',
     url: 'https://behaviorschool.com/compare/behaviorschool-vs-studyaba',
     siteName: 'Behavior School',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BehaviorSchool vs ABA Exam Review – BCBA Prep Comparison 2026',
+    title: 'Behavior School vs ABA Exam Review: BCBA Prep Comparison',
     description: 'Adaptive practice vs. static mock exams. A side-by-side BCBA exam prep comparison.',
   },
 };

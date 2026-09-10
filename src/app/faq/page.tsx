@@ -3,7 +3,7 @@ import { FAQClient } from "./FAQClient";
 import { getFaqSchemaItems } from "./faq-data";
 
 export const metadata: Metadata = {
-  title: "Behavior School FAQ | Transformation Program, CEUs, Free Tools",
+  title: "FAQ: Program, CEUs, and Free Tools | Behavior School",
   description: "Answers about the School BCBA Transformation Program (dates, cost, CEUs, district pay), Behavior School's free IEP and BIP tools, and BCBA exam prep.",
   robots: {
     index: true,
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     "school-based BCBA"
   ],
   openGraph: {
-    title: "Behavior School FAQ | Transformation Program, CEUs, Free Tools",
+    title: "FAQ: Program, CEUs, and Free Tools | Behavior School",
     description: "Answers about the School BCBA Transformation Program, free IEP and BIP tools, CEUs, and BCBA exam prep.",
     type: "website",
     url: "https://behaviorschool.com/faq",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School FAQ | Transformation Program, CEUs, Free Tools",
+    title: "FAQ: Program, CEUs, and Free Tools | Behavior School",
     description: "Answers about the School BCBA Transformation Program, free IEP and BIP tools, CEUs, and BCBA exam prep.",
     images: ["https://behaviorschool.com/optimized/og-image.webp"]
   },

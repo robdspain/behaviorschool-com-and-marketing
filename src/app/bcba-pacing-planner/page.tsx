@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BCBAPacingPlanner } from "@/components/bcba-pacing/BCBAPacingPlanner";
 
 export const metadata: Metadata = {
-  title: "BCBA Exam Pacing Planner | Free Tool | BehaviorSchool",
+  title: "BCBA Exam Pacing Planner: Free Tool | Behavior School",
   description:
     "Build a personalized BCBA study pacing plan based on your exam date and prep stage. Free weekly schedule and study checklist.",
   openGraph: {

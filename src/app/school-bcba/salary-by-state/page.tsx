@@ -22,14 +22,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export async function generateMetadata(): Promise<Metadata> {
   const year = new Date().getFullYear();
   return {
-    title: `School BCBA Salary by State ${year}: Ranges & Benefits`,
+    title: `School BCBA Salary by State ${year} | Behavior School`,
     description:
       `${year} School BCBA salary ranges by state with a salary range chart, total compensation factors, and negotiation tips for K–12 districts.`,
     alternates: { canonical: "https://behaviorschool.com/school-bcba/salary-by-state" },
     robots: { index: true, follow: true },
     keywords: "school BCBA salary, BCBA pay by state, K-12 behavior analyst salary, school BCBA ranges, benefits, negotiation",
     openGraph: {
-      title: `School BCBA Salary by State ${year}: Ranges & Benefits`,
+      title: `School BCBA Salary by State ${year} | Behavior School`,
       description: "State-by-state School BCBA salary ranges with a chart, benefits, and negotiation tips.",
       type: "article",
       url: "https://behaviorschool.com/school-bcba/salary-by-state",

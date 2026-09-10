@@ -22,7 +22,7 @@ const bcbaPracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
 });
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "RBT Exam Prep: Mock Exams, Flashcards, SAFMEDS | Behavior School",
+  title: "RBT Exam Prep: Mocks, Flashcards, SAFMEDS | Behavior School",
   description:
     "Free RBT exam practice aligned to the 2nd edition task list: timed 85-question mock exams, flashcards, SAFMEDS fluency drills, and progress tracking.",
   canonical,

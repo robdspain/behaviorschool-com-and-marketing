@@ -8,7 +8,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/school-bcba/job-guide";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "School BCBA Job Guide: Role, Artifacts, Interview Prep",
+  title: "School BCBA Job Guide and Interview Prep | Behavior School",
   description:
     "What districts expect from School BCBAs—MTSS/PBIS alignment, FBA→BIP, IEP goals, coaching, fidelity—and the artifacts that prove systems-level impact.",
   canonical,

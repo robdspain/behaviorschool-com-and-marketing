@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BehaviorSchool Goal Writing System | IEP Behavior Goals",
+  title: "Free IEP Behavior Goal Writer | Behavior School",
   description: "Build an editable IEP behavior goal draft from student-specific baseline, context, supports, measurement, and mastery decisions.",
   keywords: "IEP goals, special education, goal writing, measurable objectives, student success, behavior analysis, education tools, IEP writing software",
   alternates: { canonical: "https://behaviorschool.com/iep-goals" },
   openGraph: {
     type: "website",
-    title: "BehaviorSchool Goal Writing System | IEP Behavior Goals",
+    title: "Free IEP Behavior Goal Writer | Behavior School",
     description: "Build an editable IEP behavior goal draft from student-specific information for IEP team review.",
     url: "/iep-goals",
     images: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BehaviorSchool Goal Writing System | IEP Behavior Goals",
+    title: "Free IEP Behavior Goal Writer | Behavior School",
     description: "Build an editable IEP behavior goal draft from student-specific information for IEP team review.",
     images: ["/optimized/og-image.webp"],
   },

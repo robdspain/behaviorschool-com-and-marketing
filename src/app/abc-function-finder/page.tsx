@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ABCWizard } from "@/components/abc-function-finder/ABCWizard";
 
 export const metadata: Metadata = {
-  title: "ABC Data Function Finder | Free FBA Tool | BehaviorSchool",
+  title: "ABC Data Function Finder: Free FBA Tool | Behavior School",
   description:
     "Enter your ABC observations and get a hypothesized behavior function with intervention recommendations. Free for BCBAs, RBTs, and school behavior teams.",
   openGraph: {

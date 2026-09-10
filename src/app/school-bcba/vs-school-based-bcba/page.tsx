@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/school-bcba/vs-school-based-bcba";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "School BCBA vs School-Based BCBA | Which Term to Use",
+  title: "School BCBA vs School-Based BCBA | Behavior School",
   description:
     "Learn how School BCBA and School-Based BCBA terms differ in job searches, positioning, and career visibility for behavior analysts in schools.",
   canonical,

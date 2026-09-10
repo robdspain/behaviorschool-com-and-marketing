@@ -17,14 +17,14 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "How to Become a School BCBA: Complete Pathway Guide",
+  title: "How to Become a School BCBA | Behavior School",
   description:
     "Step-by-step pathway to becoming a School BCBA with district-ready competencies, key artifacts, timeline planning, and credential requirements.",
   alternates: { canonical: "https://behaviorschool.com/school-bcba/how-to-become" },
   robots: { index: true, follow: true },
   keywords: "how to become school BCBA, school BCBA requirements, BCBA certification pathway, school behavior analyst training, BCBA fieldwork, school BCBA qualifications",
   openGraph: {
-    title: "How to Become a School BCBA: Complete Pathway Guide",
+    title: "How to Become a School BCBA | Behavior School",
     description: "Step-by-step guide with timelines, artifacts, and district-specific competencies for becoming a School BCBA.",
     type: "article",
     url: "https://behaviorschool.com/school-bcba/how-to-become",

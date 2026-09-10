@@ -11,12 +11,12 @@ const PAGE_HREF = "https://behaviorschool.com/compare/behaviorschool-vs-aba-wiza
 const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/compare/behaviorschool-vs-aba-wizard";
 
 const baseMetadata: Metadata = {
-  title: "BehaviorSchool vs ABA Wizard | BCBA Study App Comparison",
+  title: "Behavior School vs ABA Wizard: BCBA Study App Comparison",
   description:
     "Compare BehaviorSchool Study with ABA Wizard's mobile app, Total Learning System, and 185-question timed mock exams. See which BCBA prep workflow fits you.",
   alternates: { canonical: PAGE_HREF },
   openGraph: {
-    title: "BehaviorSchool vs ABA Wizard | BCBA Study App Comparison",
+    title: "Behavior School vs ABA Wizard: BCBA Study App Comparison",
     description:
       "Side-by-side look at BehaviorSchool Study vs ABA Wizard mock exams, learning system, and mobile practice—without ignoring what each vendor publishes.",
     url: PAGE_HREF,

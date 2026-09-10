@@ -3,7 +3,7 @@ import { ArrowRight, PlayCircle, Shield, Target, TrendingUp } from 'lucide-react
 import { buildPageMetadata } from '@/lib/seo/metadata'
 
 export const metadata = buildPageMetadata({
-  title: 'BCBA Practice | Free Mini or Full Mock (Guest) | Results gated',
+  title: 'BCBA Practice: Free Mini or Full Mock | Behavior School',
   description: 'Start a free guest BCBA practice test: Quick domain check (9 questions) or one full mock. Auth required to view results and analytics.',
   canonical: 'https://behaviorschool.com/practice',
 })

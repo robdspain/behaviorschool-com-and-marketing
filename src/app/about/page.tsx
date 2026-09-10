@@ -91,7 +91,7 @@ const robSpainPersonSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "About Behavior School | BCBA-Led Training & Tools",
+  title: "About Us: BCBA-Led Training and Tools | Behavior School",
   description: "Meet Rob Spain, BCBA, founder of Behavior School. Professional training for school-based ABA, BCBA certification prep, and evidence-based tools. Learn more!",
   robots: {
     index: true,

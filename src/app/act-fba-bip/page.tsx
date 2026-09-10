@@ -112,7 +112,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "ACT-Informed FBA & BIP Generator | Free Values-Based Behavior Plan",
+    title: "ACT-Informed FBA and BIP Generator | Behavior School",
     description:
       "Create ACT-informed behavior intervention plans with values assessment, acceptance strategies, defusion techniques, and committed action goals. Free for educators and BCBAs.",
     url: pageUrl,
@@ -127,7 +127,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ACT-Informed FBA & BIP Generator | Free Values-Based Behavior Plan",
+    title: "ACT-Informed FBA and BIP Generator | Behavior School",
     description:
       "Create ACT-informed FBA/BIPs with values assessment, defusion techniques, acceptance strategies, and committed action goals. Free for BCBAs and educators.",
     images: [`${baseUrl}/og-image.webp`],

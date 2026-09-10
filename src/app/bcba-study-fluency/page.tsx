@@ -7,7 +7,7 @@ import { CheckCircle, ArrowRight, Timer, Target, BookOpen } from "lucide-react";
 const FREE_MOCK_HREF = "https://study.behaviorschool.com/free-mock-exam/";
 
 export const metadata: Metadata = {
-  title: "BCBA Study Fluency: How to Build Speed Without Guessing",
+  title: "BCBA Study Fluency: Speed Without Guessing | Behavior School",
   description:
     "Practical steps to build BCBA exam fluency: timed practice, error review, domain rotation, and full mock checkpoints. Start with a free mock exam.",
   robots: { index: true, follow: true },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/bcba-study-fluency",
   },
   openGraph: {
-    title: "BCBA Study Fluency: How to Build Speed Without Guessing",
+    title: "BCBA Study Fluency: Speed Without Guessing | Behavior School",
     description:
       "How to practice BCBA exam items with accuracy, pacing, and review habits that hold up across a four-hour exam.",
     url: "https://behaviorschool.com/bcba-study-fluency",

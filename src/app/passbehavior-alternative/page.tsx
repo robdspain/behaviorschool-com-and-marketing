@@ -17,7 +17,7 @@ const freePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
 });
 
 export const metadata: Metadata = {
-  title: "PassBehavior Alternative | BCBA Exam Prep on Behavior Study Tools",
+  title: "PassBehavior Alternative: BCBA Exam Prep | Behavior School",
   description:
     "Comparing PassBehavior alternatives? Behavior Study Tools offers free BCBA practice questions, timed mock exams, and domain-level results with a rationale on every answer.",
 };

@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/functional-behavior-assessment-guide";
 
 export const metadata = buildPageMetadata({
-  title: "Functional Behavior Assessment Guide | School FBA Steps",
+  title: "Functional Behavior Assessment Guide | Behavior School",
   description:
     "Functional behavior assessment guide for school teams, including FBA steps, data sources, hypothesis statements, and links to BIP planning.",
   canonical,

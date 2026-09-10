@@ -3,7 +3,7 @@ import ACTMatrixBuilder from "@/components/act-matrix-builder/ACTMatrixBuilder";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "ACT Matrix Builder | Free Interactive Tool | BehaviorSchool",
+  title: "ACT Matrix Builder: Free Tool | Behavior School",
   description:
     "Build an ACT Matrix for any student, complete all four quadrants, and get printable ACT strategy recommendations for BCBAs and school teams.",
   canonical: "https://behaviorschool.com/act-matrix-builder",

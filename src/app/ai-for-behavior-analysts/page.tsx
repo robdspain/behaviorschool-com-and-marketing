@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
+  title: "AI Tools for BCBAs: IEP Goals and BIPs | Behavior School",
   description:
     "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
   keywords:
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/ai-for-behavior-analysts",
   },
   openGraph: {
-    title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
+    title: "AI Tools for BCBAs: IEP Goals and BIPs | Behavior School",
     description:
       "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
     url: "https://behaviorschool.com/ai-for-behavior-analysts",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
+    title: "AI Tools for BCBAs: IEP Goals and BIPs | Behavior School",
     description:
       "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
     images: ["/BehaviorStudyTools/Hero-BST-Home.webp"],

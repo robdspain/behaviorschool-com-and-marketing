@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ACT-Informed FBA for Schools | CalABA 2026 | BehaviorSchool",
+  title: "ACT-Informed FBA for Schools: CalABA 2026 | Behavior School",
   description:
     "Free ACT-Informed FBA & BIP tool from Rob Spain's CalABA 2026 presentation. Generates a complete, values-based behavior plan in about 10 minutes. Free for school BCBAs.",
   openGraph: {
