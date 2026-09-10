@@ -412,8 +412,8 @@ export default function Page() {
             <div id="cta-transformation" className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 md:p-10 text-white shadow-xl scroll-mt-24">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2">Become Interview‑Ready in 8 Weeks</h2>
-                  <p className="text-emerald-100 max-w-2xl">Join our Transformation Program for School BCBAs—coaching cycles, artifacts, and systems templates aligned to PBIS/MTSS so you can show measurable impact fast.</p>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">Build the Systems Districts Ask About</h2>
+                  <p className="text-emerald-100 max-w-2xl">The six-week School BCBA Transformation Program walks you through FBA triage, function-based BIPs, staff training, and caseload review, and you leave with the artifacts hiring panels want to see.</p>
                 </div>
                 <div className="flex-shrink-0">
                   <TrackableLink

@@ -33,7 +33,7 @@ export default function RBTStudyPage() {
               RBT Exam Prep
             </div>
             <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1f4d3f] leading-tight tracking-tight">
-              Pass the RBT exam on your first try.
+              RBT exam prep: mock exams, flashcards, and SAFMEDS.
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
               Mock exams, flashcards, and SAFMEDS practice aligned to the 2nd edition RBT task list. Track your progress and know when you're ready.

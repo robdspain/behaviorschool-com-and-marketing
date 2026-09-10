@@ -71,7 +71,7 @@ export default function PassBehaviorAlternativePage() {
             Looking for PassBehavior? Try BehaviorSchool for BCBA Exam Prep
           </h1>
           <p className="text-lg sm:text-xl text-emerald-100 mb-8 leading-relaxed">
-            PassBehavior.com appears to be experiencing DNS issues and is currently unavailable. BehaviorSchool is an actively maintained BCBA exam prep platform — practice questions, mock exams, analytics, and more, available right now.
+            If PassBehavior is not meeting your needs or you cannot reach it, BehaviorSchool Study is an actively maintained BCBA exam prep platform with practice questions, mock exams, and domain analytics you can start using today.
           </p>
           <Link
             href="https://study.behaviorschool.com/signup"
@@ -87,7 +87,7 @@ export default function PassBehaviorAlternativePage() {
       <section className="py-16 sm:py-20 bg-slate-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-lg text-slate-700 leading-relaxed">
-            If you searched for PassBehavior and landed here, you may have found the site is unreachable. BCBA candidates need a reliable, structured place to prepare — practice questions aligned to the BACB Task List, timed mock exams, and clear analytics on where they stand. BehaviorSchool provides all of that and is actively maintained and updated.
+            If you searched for PassBehavior and landed here, you are probably comparing options. BCBA candidates need a reliable, structured place to prepare: practice questions aligned to the BACB Task List, timed mock exams, and clear analytics on where they stand. BehaviorSchool Study provides all of that and is actively maintained and updated.
           </p>
         </div>
       </section>

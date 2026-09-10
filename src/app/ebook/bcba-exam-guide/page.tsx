@@ -83,8 +83,8 @@ export default function BCBAExamGuidePage() {
             </h1>
             
             <p className="text-xl text-slate-300 mb-8">
-              Your complete roadmap to passing the BCBA exam on your first attempt.
-              Study smarter, not harder.
+              A free, structured plan for the 6th Edition BCBA exam: what to study, in what order,
+              and how to check your readiness before test day.
             </p>
 
             {/* Benefits */}
@@ -189,7 +189,7 @@ export default function BCBAExamGuidePage() {
               {
                 chapter: "Chapter 2",
                 title: "Creating Your Study Schedule",
-                description: "A proven 12-week intensive plan with daily structure and milestone checkpoints."
+                description: "A 12-week intensive plan with daily structure and milestone checkpoints."
               },
               {
                 chapter: "Chapter 3",
@@ -229,8 +229,8 @@ export default function BCBAExamGuidePage() {
             Ready to Accelerate Your Preparation?
           </h2>
           <p className="text-xl text-slate-300 mb-8">
-            Behavior Study Tools offers BCBA exam prep with practice questions, mock exams, and personalized
-            study paths to help you pass on your first attempt.
+            BehaviorSchool Study offers BCBA exam prep with practice questions, full-length mock exams, and
+            domain analytics so you know exactly what to study next.
           </p>
           <Link
             href="https://study.behaviorschool.com/free-practice/"

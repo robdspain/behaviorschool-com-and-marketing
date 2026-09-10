@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Free BCBA CEU Masterclass | School BCBA Mastery Fundamentals',
-  description: 'Free 1-hour masterclass for school BCBAs. Earn 1.0 BACB CEU credits. Learn ethics, teacher buy-in, data systems, and crisis management. Professional Development: .',
+  description: 'Free 1-hour masterclass for school BCBAs covering ethics, teacher buy-in, data systems, and crisis management. Structured for 1.0 BACB CEU after verified completion.',
   keywords: 'BCBA CEU, free BCBA training, school BCBA course, BACB continuing education, behavior analyst CEU, school-based BCBA, ethics training, teacher collaboration',
   alternates: { canonical: 'https://behaviorschool.com/masterclass' },
   openGraph: {

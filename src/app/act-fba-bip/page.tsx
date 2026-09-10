@@ -178,7 +178,7 @@ export default function ACTFBABIPPage() {
 
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl font-bold text-white leading-[1.1] tracking-tight mb-5">
-              Stop Writing FBAs at 10&nbsp;PM.
+              ACT-Informed FBA and BIP for School Teams
             </h1>
 
             {/* Subheadline */}

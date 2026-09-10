@@ -53,7 +53,7 @@ export default function VideosPage() {
               Free BCBA Exam Prep Videos
             </h1>
             <p className="text-xl text-blue-100 mb-8">
-              Learn from an experienced school BCBA. Expert insights on ethics, concepts, and study strategies to help you pass on your first attempt.
+              Learn from an experienced school BCBA. Practical walkthroughs of ethics scenarios, core concepts, and study strategies for the 6th Edition exam.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center">

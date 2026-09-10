@@ -726,7 +726,7 @@ export default function Page() {
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": "School BCBA Salary by State: 2025 Complete Compensation Guide",
-            "description": "Comprehensive 2025 School BCBA salary data by state with negotiation strategies, career progression timelines, and total compensation breakdowns. Real ranges from 500+ district postings.",
+            "description": "Comprehensive 2025 School BCBA salary data by state with negotiation strategies, career progression timelines, and total compensation breakdowns. Directional ranges aggregated from public K-12 district postings and HR salary schedules.",
             "author": {
               "@type": "Organization",
               "name": "Behavior School"

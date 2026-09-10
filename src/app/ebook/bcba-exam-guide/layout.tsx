@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free Download: The 2026 BCBA Exam Survival Guide | Behavior School",
-  description: "Download your free guide to passing the BCBA exam. Includes 6th Edition Task List breakdown, 12-week study schedule, test-taking strategies, and more.",
+  title: "Free 2026 BCBA Exam Survival Guide (PDF) | Behavior School",
+  description: "Free BCBA exam study guide: 6th Edition Task List breakdown, a 12-week study schedule, and test-taking strategies from a practicing BCBA.",
+  alternates: { canonical: "https://behaviorschool.com/ebook/bcba-exam-guide" },
   keywords: [
     "BCBA exam guide",
     "BCBA study guide",
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
     "2026 BCBA exam"
   ],
   openGraph: {
-    title: "Free Download: The 2026 BCBA Exam Survival Guide",
-    description: "Your complete roadmap to passing the BCBA exam on your first attempt. Study smarter, not harder.",
+    title: "Free 2026 BCBA Exam Survival Guide (PDF)",
+    description: "Free BCBA exam study guide: 6th Edition Task List breakdown, a 12-week study schedule, and test-taking strategies from a practicing BCBA.",
     images: [
       {
         url: "/ebooks/bcba-guide-mockup.png",
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Download: The 2026 BCBA Exam Survival Guide",
-    description: "Your complete roadmap to passing the BCBA exam on your first attempt.",
+    title: "Free 2026 BCBA Exam Survival Guide (PDF)",
+    description: "6th Edition Task List breakdown, a 12-week study schedule, and test-taking strategies from a practicing BCBA.",
     images: ["/ebooks/bcba-guide-mockup.png"],
   },
 };
