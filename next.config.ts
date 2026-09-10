@@ -201,6 +201,28 @@ const nextConfig: NextConfig = {
         destination: '/school-bcba/job-guide',
         permanent: true,
       },
+      {
+        source: '/school-bcba-training-program',
+        destination: '/transformation-program',
+        permanent: true,
+      },
+      {
+        source: '/research-digest',
+        destination: '/subscribe',
+        permanent: true,
+      },
+      // Public CE catalog lives at /ce-events. Keep /events/:id/certificate|quiz|feedback
+      // (ACE completion flows) on the old path — :id matches one segment only.
+      {
+        source: '/events',
+        destination: '/ce-events',
+        permanent: true,
+      },
+      {
+        source: '/events/:id',
+        destination: '/ce-events/:id',
+        permanent: true,
+      },
 
       // -- Blog / Content Duplicates --
       {

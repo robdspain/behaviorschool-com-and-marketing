@@ -79,7 +79,7 @@ export default function Home() {
               <ArrowRight size={16} />
             </Link>
             <Link
-              href="/school-bcba-training-program"
+              href="/transformation-program"
               className="inline-flex items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
             >
               See the training path

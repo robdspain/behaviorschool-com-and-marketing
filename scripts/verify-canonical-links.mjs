@@ -27,6 +27,9 @@ const legacyPaths = new Set([
   "/iep-goal-writer",
   "/school-based-behavior-support",
   "/community",
+  "/school-bcba-training-program",
+  "/research-digest",
+  "/events",
 ]);
 
 const ignoredDirectories = new Set([".git", ".next", "node_modules"]);

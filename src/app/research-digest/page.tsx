@@ -18,6 +18,7 @@ import {
 export const metadata: Metadata = {
   title: 'The Weekly Research Brief for School BCBAs | Behavior School',
   description: 'A free weekly email summarizing peer-reviewed behavior analytic research for BCBAs working in K-12 schools, with practical takeaways.',
+  alternates: { canonical: 'https://behaviorschool.com/subscribe' },
   robots: 'noindex',
 }
 

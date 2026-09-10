@@ -163,7 +163,7 @@ export default function QuizPage({ params }: { params: Promise<{ id: string }> }
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-slate-900 mb-2">Error</h2>
           <p className="text-slate-600 mb-6">{error}</p>
-          <Link href={`/events/${eventId}`}>
+          <Link href={`/ce-events/${eventId}`}>
             <Button variant="outline">Back to Event</Button>
           </Link>
         </Card>
@@ -180,7 +180,7 @@ export default function QuizPage({ params }: { params: Promise<{ id: string }> }
           <p className="text-slate-600 mb-6">
             Please access this quiz from your event confirmation email or participant dashboard.
           </p>
-          <Link href={`/events/${eventId}`}>
+          <Link href={`/ce-events/${eventId}`}>
             <Button variant="outline">Back to Event</Button>
           </Link>
         </Card>
@@ -307,7 +307,7 @@ export default function QuizPage({ params }: { params: Promise<{ id: string }> }
                   Retake Quiz
                 </Button>
               )}
-              <Link href={`/events/${eventId}`}>
+              <Link href={`/ce-events/${eventId}`}>
                 <Button variant="outline">Back to Event</Button>
               </Link>
             </div>
@@ -324,7 +324,7 @@ export default function QuizPage({ params }: { params: Promise<{ id: string }> }
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <Link href={`/events/${eventId}`} className="text-slate-600 hover:text-slate-900">
+          <Link href={`/ce-events/${eventId}`} className="text-slate-600 hover:text-slate-900">
             ← Back to Event
           </Link>
           <div className="flex items-center gap-4 text-sm text-slate-600">

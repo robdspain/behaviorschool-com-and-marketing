@@ -85,11 +85,13 @@ Per `MARKETING_CONTEXT.md`, the product should not lead with "AI-powered." Rewro
 
 ### 2.1 Duplicate or cannibalizing pages
 
-These pairs target the same query and split link equity. Recommend a 301 from the weaker page to the stronger and removing the weaker from `sitemap.ts`. Not done because redirects are structural changes.
+These pairs targeted the same query and split link equity. Rob approved 301s (September 10, 2026):
 
-- `/school-bcba-training-program` vs `/transformation-program` (same program, older copy on the first).
-- `/events` (in the `(public)` route group) vs `/ce-events`.
-- `/research-digest` (noindex) vs `/subscribe` (indexed). Could be deleted or redirected.
+- `/school-bcba-training-program` → `/transformation-program`
+- `/events` and `/events/:id` → `/ce-events` and `/ce-events/:id` (ACE certificate/quiz/feedback stay on `/events/:id/...`)
+- `/research-digest` → `/subscribe`
+
+Losers are out of `sitemap.ts` and listed in `legacyRedirectPaths`. `/ce-events` was added to the sitemap as the canonical catalog.
 - Exam-prep landing pages on the marketing domain. Many legacy routes (`/bcba-exam-prep`, `/bcba-mock-practice-test`, `/behavior-study-tools`, and others) already 301 off-site, which is correct. The remaining indexable exam pages (`/bcba-study-schedule`, `/bcba-exam-weak-areas`, `/failed-bcba-exam-help`, `/bcba-readiness-quiz`, `/free-bcba-practice`, `/free-bcba-practice-test`, `/rbt-study`, `/ebook/bcba-exam-guide`) should each have one clear job and a single CTA to study.behaviorschool.com; a couple of them still compete for "free BCBA practice test."
 
 ### 2.2 Thin or stub pages that make promises
@@ -127,10 +129,10 @@ Study product prices now come from `src/lib/study-pricing.ts`, matching live Str
 2. ~~Nav "Exam Prep" destination.~~ For now the header "Exam Prep" item (and the landing-nav "Study Tools" link) send to `https://study.behaviorschool.com/`. behaviorstudytools.com remains a live product but is not in the primary nav.
 3. ~~Add "School BCBA Career" and "Free Tools" to the primary nav?~~ Decided: "Free Tools" added; the career hub stays in the footer only.
 4. ~~Study pricing.~~ Live Stripe (checked September 10, 2026): $29.99/month, $89.99/quarter, $288/year. Compare pages now use those figures. Competitor prices were re-checked the same day (ABA Exam Review $115 / $140 and 1,480 questions; MagicSchool Plus $12.99/mo or $99.96/year) and each table has a "checked on" note.
-5. **About-page anecdote.** The original copy said the student advanced "three grade levels" in reading within a year. I could not verify that number, so it now says "making real progress in reading." If you can confirm the figure and its source, I will restore it.
+5. ~~About-page anecdote.~~ Restored the original "three grade levels in reading" line after Rob confirmed it.
 6. **Founding date.** Organization JSON-LD says `foundingDate: 2020`. Confirm or correct.
 7. **AI crawler policy.** `robots.txt` now explicitly allows the AI search bots (which is what gets the site cited in AI answers). Do you also want to allow the pure training bots (`GPTBot`, `Google-Extended`, `CCBot`, `anthropic-ai`), or block those while keeping the search/user-agent ones? Blocking training bots does not affect citations from OAI-SearchBot, Claude-SearchBot, or PerplexityBot.
-8. **Duplicate page consolidation.** Approve 301s for the pairs in 2.1? If yes, I will add the redirects in `next.config.ts`, remove the losers from `sitemap.ts`, and update internal links.
+8. ~~Duplicate page consolidation.~~ 301s added for `/school-bcba-training-program`, `/events` + `/events/:id`, and `/research-digest`. Internal links and sitemap updated.
 9. **`/fba-to-bip` stub.** Finish, redirect to `/behavior-plans`, or noindex?
 10. **Salary data sourcing.** The salary pages say figures come from 2024-2025 district postings and HR schedules. Is there a saved dataset or list of sources I can cite by name (state DOE schedules, EdJoin, etc.) so the page can show its work? That is the biggest E-E-A-T lift available on those pages.
 11. ~~Stray duplicate files.~~ Deleted all tracked macOS `* 2` copies (19 files). None were imported.
