@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 const title = "Free BCBA Exam Survival Guide (PDF) | Behavior School";
 const description =
-  "Free BCBA exam study guide: a 12-week study schedule, test-taking strategies, common mistakes to avoid, and a 30-day action plan from a practicing BCBA.";
+  "Free BCBA exam study guide written to the 6th Edition Test Content Outline: domain weights, a 12-week schedule by domain, test-taking strategies, and a 30-day action plan.";
 
 export const metadata: Metadata = {
   title,

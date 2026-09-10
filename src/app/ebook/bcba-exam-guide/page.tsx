@@ -93,18 +93,18 @@ export default function BCBAExamGuidePage() {
               and how to check your readiness before test day.
             </p>
             <p className="text-sm text-slate-400 mb-8">
-              The study schedule, test-taking strategies, and mistake list apply to any edition. The
-              task list chapter is organized around the 5th Edition sections and weights, so use the
-              BACB&apos;s current 6th Edition Test Content Outline for section weights.
+              Written to the BACB&apos;s 6th Edition Test Content Outline, the outline in effect for
+              every BCBA exam since January 2025: all nine domains with task counts, question counts,
+              and exam weights, plus a 12-week schedule that assigns each domain to a week.
             </p>
 
             {/* Benefits */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               {[
+                { icon: Target, text: "6th Edition Domain Weights" },
                 { icon: Clock, text: "12-Week Study Schedule" },
                 { icon: BookOpen, text: "Test-Taking Strategies" },
-                { icon: Award, text: "Common Mistakes to Avoid" },
-                { icon: Target, text: "30-Day Action Plan" },
+                { icon: Award, text: "30-Day Action Plan" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2 text-slate-300">
                   <item.icon className="w-5 h-5 text-cyan-400 flex-shrink-0" />
@@ -197,33 +197,33 @@ export default function BCBAExamGuidePage() {
             {[
               {
                 chapter: "Chapter 1",
-                title: "Understanding the Task List",
-                description: "How the exam is organized into content sections and how to prioritize by weight. Written to the 5th Edition sections; check the current 6th Edition outline for today's weights."
+                title: "The 6th Edition Test Content Outline",
+                description: "All nine domains with the BACB's task counts, question counts, and exam weights, which domains pay back fastest per task, and what changed from the 5th Edition."
               },
               {
                 chapter: "Chapter 2",
-                title: "Creating Your Study Schedule",
-                description: "A 12-week plan: foundation building, deep dive, application practice, and final review."
+                title: "A 12-Week Schedule by Domain",
+                description: "Each domain assigned to a week, two full-length timed mocks, a daily structure, and the four readiness signals to track."
               },
               {
                 chapter: "Chapter 3",
-                title: "Mastering Key Concepts",
-                description: "Reinforcement versus punishment, the four functions of behavior, and an ethics decision-making sequence."
+                title: "Concepts the Exam Keeps Coming Back To",
+                description: "Reinforcement and punishment, functions of behavior and assessment methods, an ethics decision sequence, measurement, and supervision."
               },
               {
                 chapter: "Chapter 4",
-                title: "Test-Taking Strategies",
-                description: "Pacing for 185 questions in four hours, question analysis, qualifier words, and managing test anxiety."
+                title: "Test-Taking Strategy",
+                description: "Pacing 185 questions in four hours, question analysis, qualifier words, and managing anxiety in the room."
               },
               {
                 chapter: "Chapter 5",
-                title: "Common Mistakes to Avoid",
+                title: "Mistakes to Avoid",
                 description: "Study mistakes and exam-day mistakes, each paired with what to do instead."
               },
               {
                 chapter: "Chapter 6",
-                title: "Resources and Next Steps",
-                description: "Recommended materials and a 30-day action plan to get started."
+                title: "Resources and a 30-Day Action Plan",
+                description: "Official BACB documents, two textbooks, and a checklist for your first 30 days."
               },
             ].map((chapter, i) => (
               <div key={i} className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-colors">
