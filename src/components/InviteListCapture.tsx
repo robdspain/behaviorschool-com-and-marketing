@@ -88,7 +88,7 @@ export function InviteListCapture() {
                 href="#apply"
                 className="text-sm text-[#1f4d3f] font-semibold underline underline-offset-2"
               >
-                Already ready to apply?
+                Prefer to apply now?
               </a>
             </div>
           ) : (
