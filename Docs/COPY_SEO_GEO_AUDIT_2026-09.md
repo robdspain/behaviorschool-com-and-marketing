@@ -113,7 +113,7 @@ Study product prices differ across pages: `$29.99 / $89.99 / $288` (readiness qu
 
 ### 2.6 Stray files
 
-- `src/app/subscribe/page 2.tsx` and `src/components/admin/PresentationSettings 2.tsx` look like accidental duplicates (macOS "copy" naming). Not routes, but they are compiled and linted. Recommend deleting.
+- Accidental macOS `* 2` copies (including `src/app/subscribe/page 2.tsx` and `src/components/admin/PresentationSettings 2.tsx`) were deleted. None were imported.
 
 ### 2.7 Pre-existing lint errors
 
@@ -133,7 +133,7 @@ Study product prices differ across pages: `$29.99 / $89.99 / $288` (readiness qu
 8. **Duplicate page consolidation.** Approve 301s for the pairs in 2.1? If yes, I will add the redirects in `next.config.ts`, remove the losers from `sitemap.ts`, and update internal links.
 9. **`/fba-to-bip` stub.** Finish, redirect to `/behavior-plans`, or noindex?
 10. **Salary data sourcing.** The salary pages say figures come from 2024-2025 district postings and HR schedules. Is there a saved dataset or list of sources I can cite by name (state DOE schedules, EdJoin, etc.) so the page can show its work? That is the biggest E-E-A-T lift available on those pages.
-11. **Stray duplicate files.** OK to delete `src/app/subscribe/page 2.tsx` and `src/components/admin/PresentationSettings 2.tsx`?
+11. ~~Stray duplicate files.~~ Deleted all tracked macOS `* 2` copies (19 files). None were imported.
 
 ---
 
