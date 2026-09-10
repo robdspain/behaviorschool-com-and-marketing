@@ -1,33 +1,19 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import VideoPlayer from '@/components/VideoPlayer';
 import VideoCard from '@/components/VideoCard';
-import type { Video } from '@/types/video';
-import fs from 'fs';
-import path from 'path';
+import { behaviorStudyToolsAppHref } from '@/lib/behavior-study-tools/links';
+import { getPublishedVideos, getPublishedVideoBySlug } from '@/lib/videos';
 
-// Load videos from JSON file
-function getVideos(): Video[] {
-  try {
-    const filePath = path.join(process.cwd(), 'public', 'data', 'videos.json');
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const data = JSON.parse(fileContents);
-    return data.videos || [];
-  } catch (error) {
-    console.error('Error loading videos:', error);
-    return [];
-  }
-}
+const freePracticeHref = behaviorStudyToolsAppHref('/free-practice/', {
+  intent: 'video_page',
+  utm_content: 'video_detail_page',
+});
 
-function getVideoBySlug(slug: string): Video | null {
-  const videos = getVideos();
-  return videos.find(v => v.slug === slug) || null;
-}
-
-// Generate static params for all videos
+// Only videos with a real recording get a page; placeholder entries 404.
 export async function generateStaticParams() {
-  const videos = getVideos();
-  return videos.map((video) => ({
+  return getPublishedVideos().map((video) => ({
     slug: video.slug,
   }));
 }
@@ -35,7 +21,7 @@ export async function generateStaticParams() {
 // Generate metadata for each video page
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const video = getVideoBySlug(slug);
+  const video = getPublishedVideoBySlug(slug);
 
   if (!video) {
     return {
@@ -59,14 +45,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function VideoPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const video = getVideoBySlug(slug);
+  const video = getPublishedVideoBySlug(slug);
 
   if (!video) {
     notFound();
   }
 
   // Get related videos (same category, different video)
-  const allVideos = getVideos();
+  const allVideos = getPublishedVideos();
   const relatedVideos = allVideos
     .filter(v => v.category === video.category && v.id !== video.id)
     .sort((a, b) => a.order - b.order)
@@ -144,24 +130,24 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
               {/* CTA */}
               <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-lg p-8 text-white">
                 <h2 className="text-2xl font-bold mb-3">
-                  Ready to Master the BCBA Exam?
+                  Turn the video into practice
                 </h2>
                 <p className="text-blue-100 mb-6">
-                  Get access to interactive flashcards, practice exams, and personalized study tools at BehaviorSchool.com
+                  Behavior Study Tools has free BCBA practice questions written to the 6th Edition outline. See the missed domain, review the rationale, and choose the next study task.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a
-                    href="/signup"
+                    href={freePracticeHref}
                     className="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors text-center"
                   >
-                    Start Free Trial
+                    Start free BCBA practice
                   </a>
-                  <a
+                  <Link
                     href="/videos"
                     className="inline-block bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-800 transition-colors text-center border border-blue-500"
                   >
                     Watch More Videos
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -191,13 +177,13 @@ export default async function VideoPage({ params }: { params: Promise<{ slug: st
                     Get More Study Tools
                   </h3>
                   <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
-                    Practice questions, flashcards, and study plans designed for the BCBA exam.
+                    Free practice questions with results by domain and a rationale on every answer.
                   </p>
                   <a
-                    href="/signup"
+                    href={freePracticeHref}
                     className="block text-center bg-blue-600 text-white font-semibold px-4 py-2 rounded hover:bg-blue-700 transition-colors text-sm"
                   >
-                    Try Free
+                    Start free practice
                   </a>
                 </div>
               </div>

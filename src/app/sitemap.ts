@@ -1,7 +1,6 @@
 import { MetadataRoute } from 'next'
-import fs from 'fs'
-import path from 'path'
 import { getPublishedPosts } from '@/lib/blog'
+import { getPublishedVideos } from '@/lib/videos'
 
 // Cache sitemap for 1 hour to reduce server load from crawler requests
 export const dynamic = "force-static"
@@ -44,20 +43,23 @@ async function buildSitemap(
     } catch { return p }
   }
   
-  // Load videos for sitemap
-  let videoPages: MetadataRoute.Sitemap = []
-  try {
-    const videosPath = path.join(process.cwd(), 'public', 'data', 'videos.json')
-    const videosData = JSON.parse(fs.readFileSync(videosPath, 'utf-8'))
-    videoPages = (videosData.videos || []).map((video: any) => ({
-      url: `${baseUrl}/videos/${video.slug}`,
-      lastModified: video.updatedAt || video.publishedAt || currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }))
-  } catch (error) {
-    console.warn('Could not load videos for sitemap:', error)
-  }
+  // Load videos for sitemap. Placeholder entries (no real recording yet) 404 and are excluded;
+  // the /videos library page itself is noindex until at least one video is published.
+  const publishedVideos = getPublishedVideos()
+  const videoPages: MetadataRoute.Sitemap = publishedVideos.map((video) => ({
+    url: `${baseUrl}/videos/${video.slug}`,
+    lastModified: video.updatedAt || video.publishedAt || currentDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+  const videoLibraryPage: MetadataRoute.Sitemap = publishedVideos.length > 0
+    ? [{
+        url: `${baseUrl}/videos`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.85,
+      }]
+    : []
 
   const isHighIntentBlogPost = (post: { slug: string; tags?: string[] }) => {
     const searchableText = `${post.slug} ${(post.tags || []).join(' ')}`.toLowerCase()
@@ -420,13 +422,8 @@ async function buildSitemap(
       priority: 0.7,
     },
     
-    // Video Library
-    {
-      url: `${baseUrl}/videos`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
+    // Video Library: only when a published video exists (still subject to admin noindex toggles)
+    ...videoLibraryPage,
     // Removed legacy blog route that redirects: /bcbas-in-schools -> /school-bcba
     {
       url: `${baseUrl}/bcba-study-fluency`,
