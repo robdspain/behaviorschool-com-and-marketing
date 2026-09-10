@@ -163,7 +163,7 @@ export function InviteListCapture() {
               </p>
 
               <p className="text-center text-sm text-slate-500 leading-relaxed">
-                Already ready to apply?{' '}
+                Prefer to apply now?{' '}
                 <a href="#apply" className="text-[#1f4d3f] font-semibold underline underline-offset-2">
                   Go to the full application
                 </a>

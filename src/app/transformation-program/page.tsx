@@ -140,7 +140,7 @@ export default function TransformationProgramPage() {
                   href="#apply"
                   className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
                 >
-                  Already ready to apply?
+                  Prefer to apply now?
                 </a>
               </motion.div>
               <p className="mt-4 text-sm text-slate-500 max-w-xl mx-auto lg:mx-0">
@@ -434,7 +434,7 @@ export default function TransformationProgramPage() {
       <section id="enroll" className="py-20 sm:py-28 bg-[#e8f0eb] text-[#1a1a1a] scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">Already ready to apply for the October 2026 cohort?</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">Prefer to apply for the October 2026 cohort?</h2>
           <p className="text-slate-600 text-sm mb-3">{COHORT_LABEL} · 6 weeks · School BCBAs only · {COHORT_SEAT_CAP} seats</p>
           <p className="text-slate-700 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             Prefer the full apply path? Submit an application below. Fit calls are scheduled after review. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
