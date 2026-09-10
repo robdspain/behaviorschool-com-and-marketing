@@ -124,7 +124,7 @@ Study product prices differ across pages: `$29.99 / $89.99 / $288` (readiness qu
 ## 3. Questions for Rob
 
 1. ~~X / Twitter handle.~~ Confirmed live account is `https://x.com/behavior_school`. Organization JSON-LD, school-based-bcba schema, and the newsletter template now match the footer.
-2. **Nav "Exam Prep" destination.** The header sends "Exam Prep" to behaviorstudytools.com while the homepage, footer, and FAQ send exam traffic to study.behaviorschool.com. Which one is the primary product? The other should be a clearly labeled secondary link or dropped from the nav.
+2. ~~Nav "Exam Prep" destination.~~ For now the header "Exam Prep" item (and the landing-nav "Study Tools" link) send to `https://study.behaviorschool.com/`. behaviorstudytools.com remains a live product but is not in the primary nav.
 3. ~~Add "School BCBA Career" and "Free Tools" to the primary nav?~~ Decided: "Free Tools" added; the career hub stays in the footer only.
 4. **Study pricing.** Confirm the current BehaviorSchool Study prices so the readiness quiz and both comparison pages can be made consistent (see 2.5). Also confirm the competitor prices and question counts on `/compare/*` are still accurate, or approve a "checked on" date line.
 5. **About-page anecdote.** The original copy said the student advanced "three grade levels" in reading within a year. I could not verify that number, so it now says "making real progress in reading." If you can confirm the figure and its source, I will restore it.
