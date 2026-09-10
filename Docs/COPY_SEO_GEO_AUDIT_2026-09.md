@@ -105,7 +105,7 @@ These pairs target the same query and split link equity. Recommend a 301 from th
 
 ### 2.4 Navigation IA
 
-Primary nav has no direct path to `/school-bcba` (career hub) or `/free-tools`. Both are strong entry points for the school-BCBA audience. Recommend adding them (see Q3). Also see Q2 about the "Exam Prep" nav item.
+"Free Tools" (`/free-tools`) was added to the primary nav as the first item; it is the highest-intent free entry point for the school-BCBA audience and feeds the Transformation Program. The `/school-bcba` hub stays out of the primary nav: it is job-search content (jobs, salary, interviews), which is a different reader than a practicing BCBA deciding on the program. "Tools" (`/products`) and "Free Tools" now sit side by side; consider renaming "Tools" to "Products" or "Pro" in a follow-up. Also see Q2 about the "Exam Prep" nav item.
 
 ### 2.5 Pricing inconsistency
 
@@ -125,7 +125,7 @@ Study product prices differ across pages: `$29.99 / $89.99 / $288` (readiness qu
 
 1. **X / Twitter handle.** Organization JSON-LD now uses `x.com/behaviorschool`; the footer previously used `x.com/behavior_school`. Which is the live account? I will align the other.
 2. **Nav "Exam Prep" destination.** The header sends "Exam Prep" to behaviorstudytools.com while the homepage, footer, and FAQ send exam traffic to study.behaviorschool.com. Which one is the primary product? The other should be a clearly labeled secondary link or dropped from the nav.
-3. **Add "School BCBA Career" and "Free Tools" to the primary nav?** Both hubs are strong for the target audience and currently only reachable from the footer or in-page links.
+3. ~~Add "School BCBA Career" and "Free Tools" to the primary nav?~~ Decided: "Free Tools" added; the career hub stays in the footer only.
 4. **Study pricing.** Confirm the current BehaviorSchool Study prices so the readiness quiz and both comparison pages can be made consistent (see 2.5). Also confirm the competitor prices and question counts on `/compare/*` are still accurate, or approve a "checked on" date line.
 5. **About-page anecdote.** The original copy said the student advanced "three grade levels" in reading within a year. I could not verify that number, so it now says "making real progress in reading." If you can confirm the figure and its source, I will restore it.
 6. **Founding date.** Organization JSON-LD says `foundingDate: 2020`. Confirm or correct.
