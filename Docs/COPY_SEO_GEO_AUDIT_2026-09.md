@@ -92,7 +92,18 @@ These pairs targeted the same query and split link equity. Rob approved 301s (Se
 - `/research-digest` → `/subscribe`
 
 Losers are out of `sitemap.ts` and listed in `legacyRedirectPaths`. `/ce-events` was added to the sitemap as the canonical catalog.
-- Exam-prep landing pages on the marketing domain. Many legacy routes (`/bcba-exam-prep`, `/bcba-mock-practice-test`, `/behavior-study-tools`, and others) already 301 off-site, which is correct. The remaining indexable exam pages (`/bcba-study-schedule`, `/bcba-exam-weak-areas`, `/failed-bcba-exam-help`, `/bcba-readiness-quiz`, `/free-bcba-practice`, `/free-bcba-practice-test`, `/rbt-study`, `/ebook/bcba-exam-guide`) should each have one clear job and a single CTA to study.behaviorschool.com; a couple of them still compete for "free BCBA practice test."
+- ~~Exam-prep landing pages on the marketing domain.~~ Resolved in this PR. Each remaining exam page now has one job and one study.behaviorschool.com CTA (UTM'd via `behaviorStudyToolsAppHref` with a page-specific `intent`):
+
+  | Route | Job | Single study CTA | Related links (internal only) |
+  | --- | --- | --- | --- |
+  | `/bcba-readiness-quiz` | Self-assess readiness | Results: ≤70 → free practice, >70 → free timed mock (was `?plan=monthly/quarterly/annual` with prices on the button) | weak areas, study schedule |
+  | `/bcba-exam-weak-areas` | Diagnose the miss pattern | Free practice ("find weak areas in the app") | readiness quiz, retake plan, study schedule |
+  | `/bcba-study-schedule` | Pick an 8/12/16-week timeline | Free practice for the baseline (was the internal pacing planner) | pacing planner, readiness quiz, retake plan |
+  | `/failed-bcba-exam-help` | Build a 30-day retake plan | Free practice by domain | weak areas, study schedule, pacing planner |
+  | `/ebook/bcba-exam-guide` | Deliver the PDF | Free practice after the guide | — |
+  | `/rbt-study` | RBT exam prep | Primary CTA stays `rbtstudy.behaviorschool.com` (different product); the one BCBA cross-link now goes to study free practice instead of behaviorstudytools.com | — |
+
+  `/free-bcba-practice` and `/free-bcba-practice-test` were already 301'd to `study.behaviorschool.com/free-practice/`, so the "same query" fight was settled at the routing layer; the page files were dead code (inline 20-question quiz with unverified "60-75% pass rate" copy, an ungated copy of the survival-guide PDF, and a results page that expected localStorage from the retired widget). Both directories are deleted, `/free-bcba-practice-test/results` now 301s too, and the retired paths are in `verify-canonical-links.mjs` and `verify-bcba-acquisition-routing.mjs`. Keyword-stuffed sidebars (four labels → one URL, duplicate React keys) are gone. See Q12 for the ebook PDF itself.
 
 ### 2.2 Thin or stub pages that make promises
 
@@ -136,6 +147,8 @@ Study product prices now come from `src/lib/study-pricing.ts`, matching live Str
 9. **`/fba-to-bip` stub.** Finish, redirect to `/behavior-plans`, or noindex?
 10. **Salary data sourcing.** The salary pages say figures come from 2024-2025 district postings and HR schedules. Is there a saved dataset or list of sources I can cite by name (state DOE schedules, EdJoin, etc.) so the page can show its work? That is the biggest E-E-A-T lift available on those pages.
 11. ~~Stray duplicate files.~~ Deleted all tracked macOS `* 2` copies (19 files). None were imported.
+12. **The BCBA Exam Survival Guide PDF is written to the 5th Edition Task List.** Both copies (`public/ebooks/bcba-exam-guide-2026.pdf`, 27 pp, and the retired `public/downloads/bcba-exam-survival-guide-2026.pdf`, 11 pp) list 5th Edition sections A–I with 5th Edition weights, tell the reader to "Download the 5th Edition Task List," and recommend competitor question banks by name. The page was advertising a "6th Edition Task List Breakdown." Interim fix in this PR: copy and metadata no longer claim 6th Edition, and the page says which chapters are edition-agnostic and where to get current weights. Options: (a) rebuild the PDF on the 6th Edition Test Content Outline and drop the competitor list, (b) noindex the page until then, or (c) retire it and send the traffic to the free practice set. Separately, the email gate had never worked: it posted `firstName` but `/api/crm` requires `name`, so every submission got a 400 and nobody received the file. Fixed here. `/ebook/school-bcba-starter-kit` has the same one-line bug (not touched; outside this scope).
+13. **`/rbt-study` is not in `sitemap.ts`.** It has a canonical and is indexable, but it was never added to the sitemap. Add it, or leave it discoverable via links only? Not changed (sitemap additions need approval).
 
 ---
 
