@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout';
+import { STUDY_PRICING, STUDY_PRICING_LINE } from '@/lib/study-pricing';
 
 export const metadata: Metadata = {
   title: 'BehaviorSchool vs StudyABA | BCBA Exam Prep Comparison 2026',
@@ -101,18 +102,19 @@ export default function BehaviorSchoolVsStudyABA() {
           },
         ]}
         pricing={[
-          { name: 'Free Tier', behaviorSchool: '✅ Free practice Qs + tools', competitor: '❌ No free tier' },
-          { name: 'Mock Exams Only', behaviorSchool: 'Free (basic) / $49 full', competitor: '$70–$140 (one-time)' },
-          { name: 'Full Exam Prep', behaviorSchool: '$149/6mo or $199/yr', competitor: '$70–$140 (one-time)' },
-          { name: 'IEP + Behavior Tools', behaviorSchool: 'Included free', competitor: 'Not available' },
-          { name: 'All-Access Bundle', behaviorSchool: '$249/yr (exam + CEUs + tools)', competitor: 'N/A' },
+          { name: 'Free tier', behaviorSchool: 'Free practice questions + mock exam', competitor: 'Sample questions only' },
+          { name: 'Monthly', behaviorSchool: STUDY_PRICING.monthly.short, competitor: 'Not offered' },
+          { name: 'Quarterly', behaviorSchool: STUDY_PRICING.quarterly.short, competitor: 'Not offered' },
+          { name: 'Annual / one-time', behaviorSchool: STUDY_PRICING.annual.short, competitor: '$115 mock exams or $140 combo' },
+          { name: 'IEP + behavior tools', behaviorSchool: 'Free on behaviorschool.com', competitor: 'Not available' },
         ]}
+        pricingNote={`Behavior Study Tools prices confirmed in Stripe on ${STUDY_PRICING.stripeCheckedOn}. ABA Exam Review prices and the 1,480-question / 8-exam count are from behavioranalyststudy.com, checked ${STUDY_PRICING.stripeCheckedOn}.`}
         verdict="ABA Exam Review is a reasonable pick if you want a one-time purchase of mock exams and study guides. BehaviorSchool Study fits better if you want adaptive practice with rationales, a free tier to try first, and school-based tools (IEP goals, BIP and FBA builders, CEUs) alongside exam prep. Choose based on how you study and whether you need more than exam prep."
         emailSource="compare-vs-studyaba"
         faqItems={[
           {
             q: 'Is ABA Exam Review cheaper than BehaviorSchool?',
-            a: 'ABA Exam Review sells one-time purchases ($70–$140 at the time of writing), which can be cheaper upfront. BehaviorSchool includes a free tier, and its paid plans bundle exam prep with IEP tools, behavior plan builders, and CEUs. Which is the better value depends on whether you need those extra tools.',
+            a: `ABA Exam Review sells one-time packs ($115 for mock exams, $140 for the combo, checked ${STUDY_PRICING.stripeCheckedOn} on its product page). Behavior Study Tools is a subscription: ${STUDY_PRICING_LINE}. IEP, FBA, and BIP tools on behaviorschool.com stay free. Which is cheaper depends on how long you study.`,
           },
           {
             q: 'Does ABA Exam Review have AI tools?',

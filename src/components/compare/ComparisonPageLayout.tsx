@@ -20,6 +20,8 @@ interface ComparisonPageProps {
   behaviorSchoolAdvantages: string[];
   features: ComparisonFeature[];
   pricing: PricingTier[];
+  /** Shown under the pricing table (source / checked-on date). */
+  pricingNote?: string;
   verdict: string;
   emailSource: string;
   faqItems: { q: string; a: string }[];
@@ -34,6 +36,7 @@ export function ComparisonPageLayout({
   behaviorSchoolAdvantages,
   features,
   pricing,
+  pricingNote,
   verdict,
   emailSource,
   faqItems,
@@ -194,6 +197,9 @@ export function ComparisonPageLayout({
               </tbody>
             </table>
           </div>
+          {pricingNote ? (
+            <p className="mt-4 text-center text-xs leading-5 text-slate-500">{pricingNote}</p>
+          ) : null}
         </div>
       </section>
 

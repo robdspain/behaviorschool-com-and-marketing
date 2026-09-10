@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout';
+import { STUDY_PRICING, STUDY_PRICING_LINE } from '@/lib/study-pricing';
 
 export const metadata: Metadata = {
   title: 'BehaviorSchool vs MagicSchool AI | IEP Tools 2026',
@@ -115,12 +116,11 @@ export default function BehaviorSchoolVsMagicSchool() {
           },
         ]}
         pricing={[
-          { name: 'Free Tier', behaviorSchool: '✅ Free tools', competitor: '✅ Free (limited)' },
-          { name: 'BCBA Starter', behaviorSchool: '$19/mo', competitor: '$8.33–$12.99/mo' },
-          { name: 'IEP + Behavior Tools', behaviorSchool: 'Included in free & pro', competitor: 'Basic only (1 of 80+ tools)' },
-          { name: 'BCBA Exam Prep', behaviorSchool: '$149/6mo or $199/yr', competitor: 'Not available' },
-          { name: 'All-Access Bundle', behaviorSchool: '$249/yr', competitor: 'N/A' },
+          { name: 'Free tier', behaviorSchool: 'Free IEP, FBA, and BIP tools', competitor: 'Free (limited)' },
+          { name: 'Paid school tools', behaviorSchool: 'No paid school-tool plan (Pro is invite-only)', competitor: '$12.99/month or $99.96/year ($8.33/mo billed annually)' },
+          { name: 'BCBA exam prep', behaviorSchool: STUDY_PRICING_LINE, competitor: 'Not available' },
         ]}
+        pricingNote={`Behavior Study Tools prices confirmed in Stripe on ${STUDY_PRICING.stripeCheckedOn}. MagicSchool Plus prices are from magicschool.ai/pricing, checked ${STUDY_PRICING.stripeCheckedOn}.`}
         verdict="MagicSchool AI is a broad tool for classroom teachers who want help with lesson plans, quizzes, and basic IEP drafts. Behavior School is narrower on purpose: IEP behavior goals written with function and measurement in mind, FBA and BIP builders, BCBA exam prep, and CEUs for behavior analysts. If you are a school BCBA, the behavior-specific tooling is the difference; if you mostly need general teaching support, MagicSchool covers more ground."
         emailSource="compare-vs-magicschool"
         faqItems={[

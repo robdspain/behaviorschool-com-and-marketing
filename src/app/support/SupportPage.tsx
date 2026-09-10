@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Send, CheckCircle, MessageCircle, BookOpen, CreditCard, KeyRound, Smartphone, HelpCircle } from "lucide-react";
 import Link from "next/link";
+import { STUDY_PRICING, STUDY_PRICING_LINE } from "@/lib/study-pricing";
 
 /* ------------------------------------------------------------------ */
 /*  FAQ Data                                                            */
@@ -55,7 +56,7 @@ const faqSections = [
     items: [
       {
         q: "What are the pricing plans?",
-        a: "Monthly ($29.99/mo), Quarterly ($89.99/quarter), or Annual ($288/year). All plans include full access to practice questions, mock exams, and the AI Tutor.",
+        a: `${STUDY_PRICING_LINE}. All plans include full access to practice questions, mock exams, and the AI Tutor.`,
       },
       {
         q: "How do I cancel my subscription?",

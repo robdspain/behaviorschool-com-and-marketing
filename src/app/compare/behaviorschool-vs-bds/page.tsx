@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ComparisonPageLayout } from '@/components/compare/ComparisonPageLayout';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
+import { STUDY_PRICING, STUDY_PRICING_LINE } from '@/lib/study-pricing';
 
 export const metadata: Metadata = {
   title: 'BehaviorSchool vs BDS | BCBA Exam Prep Comparison 2026',
@@ -126,10 +127,10 @@ export default function BehaviorSchoolVsBDS() {
         pricing={[
           { name: 'Free Tier', behaviorSchool: 'Free practice tier', competitor: 'Free demo (per BDS site)' },
           { name: 'Practice Questions', behaviorSchool: 'Free tier + paid plans', competitor: 'See BDS subscription options' },
-          { name: 'Full Exam Prep', behaviorSchool: 'See behaviorschool.com pricing', competitor: 'See BDS CBA LMS pricing' },
+          { name: 'Full Exam Prep', behaviorSchool: STUDY_PRICING_LINE, competitor: 'See BDS CBA LMS pricing' },
           { name: 'IEP + Behavior Tools', behaviorSchool: 'Included free on site', competitor: 'Not offered' },
-          { name: 'All-Access Bundle', behaviorSchool: 'See behaviorschool.com pricing', competitor: 'N/A' },
         ]}
+        pricingNote={`Behavior Study Tools prices confirmed in Stripe on ${STUDY_PRICING.stripeCheckedOn}. BDS publishes its own subscription prices on its site; we do not restate them here.`}
         verdict="Choose BDS if you want an established, module-driven fluency program with thousands of published module questions, domain tests, and a money-back guarantee—and you are comfortable studying primarily through structured drills. Choose BehaviorSchool if you want timed mock checkpoints, domain readiness reporting where available, school BCBA scenarios, and free practice tools on behaviorschool.com."
         emailSource="compare-vs-bds"
         faqItems={[

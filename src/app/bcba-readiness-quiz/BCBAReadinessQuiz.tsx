@@ -15,6 +15,7 @@ import {
   Rocket,
 } from "lucide-react";
 import Link from "next/link";
+import { STUDY_PRICING } from "@/lib/study-pricing";
 
 /* ------------------------------------------------------------------ */
 /*  Quiz Data                                                          */
@@ -413,7 +414,7 @@ export function BCBAReadinessQuiz() {
         title: "You Need Structured Practice",
         description:
           "You're in the early stages of exam prep. The good news? With the right tools and a solid study plan, you can build your knowledge quickly. Behavior Study Tools helps you focus on weak areas and build a personalized study schedule.",
-        cta: "Start Your Study Plan — $29.99/mo",
+        cta: `Start Your Study Plan — ${STUDY_PRICING.monthly.short}`,
         ctaUrl: "https://study.behaviorschool.com?plan=monthly",
         badge: "Monthly plan",
         color: "red" as const,
@@ -425,7 +426,7 @@ export function BCBAReadinessQuiz() {
         title: "You're On Track but Have Gaps",
         description:
           "You have a solid foundation, but there are specific content areas that need attention. Our study app identifies exactly where your gaps are and focuses your study time where it matters most.",
-        cta: "Close Your Gaps — $89.99/quarter",
+        cta: `Close Your Gaps — ${STUDY_PRICING.quarterly.short}`,
         ctaUrl: "https://study.behaviorschool.com?plan=quarterly",
         badge: "Quarterly plan",
         color: "yellow" as const,
@@ -436,7 +437,7 @@ export function BCBAReadinessQuiz() {
       title: "Almost There — Fine-Tune Your Practice",
       description:
         "You're in great shape! At this stage, it's all about sharpening your weakest areas and building exam-day confidence. Behavior Study Tools helps you rehearse the areas that still need attention and practice under exam-like conditions.",
-      cta: "Rehearse Under Exam Conditions — $288/year",
+      cta: `Rehearse Under Exam Conditions — ${STUDY_PRICING.annual.short}`,
       ctaUrl: "https://study.behaviorschool.com?plan=annual",
       badge: "Annual plan",
       color: "green" as const,

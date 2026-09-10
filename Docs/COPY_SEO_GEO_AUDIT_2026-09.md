@@ -109,7 +109,7 @@ These pairs target the same query and split link equity. Recommend a 301 from th
 
 ### 2.5 Pricing inconsistency
 
-Study product prices differ across pages: `$29.99 / $89.99 / $288` (readiness quiz) vs `$49 / $149 per 6 months / $199 per year / $249 all-access` (comparison pages). One of these is stale. Not changed because the source of truth is not in this repo.
+Study product prices now come from `src/lib/study-pricing.ts`, matching live Stripe (`$29.99/month`, `$89.99/quarter`, `$288/year`, checked September 10, 2026). Stale `$49 / $149 / $199 / $249` figures were removed from the compare pages.
 
 ### 2.6 Stray files
 
@@ -126,7 +126,7 @@ Study product prices differ across pages: `$29.99 / $89.99 / $288` (readiness qu
 1. ~~X / Twitter handle.~~ Confirmed live account is `https://x.com/behavior_school`. Organization JSON-LD, school-based-bcba schema, and the newsletter template now match the footer.
 2. ~~Nav "Exam Prep" destination.~~ For now the header "Exam Prep" item (and the landing-nav "Study Tools" link) send to `https://study.behaviorschool.com/`. behaviorstudytools.com remains a live product but is not in the primary nav.
 3. ~~Add "School BCBA Career" and "Free Tools" to the primary nav?~~ Decided: "Free Tools" added; the career hub stays in the footer only.
-4. **Study pricing.** Confirm the current BehaviorSchool Study prices so the readiness quiz and both comparison pages can be made consistent (see 2.5). Also confirm the competitor prices and question counts on `/compare/*` are still accurate, or approve a "checked on" date line.
+4. ~~Study pricing.~~ Live Stripe (checked September 10, 2026): $29.99/month, $89.99/quarter, $288/year. Compare pages now use those figures. Competitor prices were re-checked the same day (ABA Exam Review $115 / $140 and 1,480 questions; MagicSchool Plus $12.99/mo or $99.96/year) and each table has a "checked on" note.
 5. **About-page anecdote.** The original copy said the student advanced "three grade levels" in reading within a year. I could not verify that number, so it now says "making real progress in reading." If you can confirm the figure and its source, I will restore it.
 6. **Founding date.** Organization JSON-LD says `foundingDate: 2020`. Confirm or correct.
 7. **AI crawler policy.** `robots.txt` now explicitly allows the AI search bots (which is what gets the site cited in AI answers). Do you also want to allow the pure training bots (`GPTBot`, `Google-Extended`, `CCBot`, `anthropic-ai`), or block those while keeping the search/user-agent ones? Blocking training bots does not affect citations from OAI-SearchBot, Claude-SearchBot, or PerplexityBot.
