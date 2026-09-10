@@ -123,7 +123,7 @@ export default function RootLayout({
         },
         image: `${SITE_URL}/optimized/og-image.webp`,
         description: "Behavior School builds practical tools, live training, and research summaries for school-based BCBAs: IEP behavior goals, FBA and BIP systems, supervision, and BACB continuing education.",
-        foundingDate: "2020",
+        foundingDate: "2024-04-01",
         contactPoint: {
           "@type": "ContactPoint",
           contactType: "customer support",
