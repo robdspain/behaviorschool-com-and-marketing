@@ -115,7 +115,7 @@ export function applySeoMetadataOverride({
   if (!override) return base;
 
   const title = override.heroHeadline
-    ? `${normalizeSchoolBcbaBrandCopy(override.heroHeadline)} | BehaviorSchool Study`
+    ? `${normalizeSchoolBcbaBrandCopy(override.heroHeadline)} | Behavior School`
     : base.title;
   const description = override.metaDescription
     ? normalizeSchoolBcbaBrandCopy(override.metaDescription)
