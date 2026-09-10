@@ -59,9 +59,9 @@ const workflows = [
     icon: ClipboardList,
     title: "FBA to BIP workflows",
     description:
-      "Move from interviews, ABC patterns, and hypothesis statements into function-aligned intervention planning with clearer documentation.",
-    href: "/fba-to-bip",
-    cta: "See FBA to BIP tools",
+      "BehaviorSchool Pro is the FBA-to-BIP workspace for school BCBAs. Early access is on a waitlist.",
+    href: "https://plan.behaviorschool.com",
+    cta: "Join the early-access waitlist",
   },
   {
     icon: FileText,

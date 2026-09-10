@@ -22,7 +22,7 @@ export default function Page() {
       primaryCta={{ label: "Use the free BIP generator", href: "/behavior-plans" }}
       secondaryLinks={[
         { label: "Functional behavior assessment guide", href: "/functional-behavior-assessment-guide" },
-        { label: "FBA to BIP tool", href: "/fba-to-bip" },
+        { label: "FBA-to-BIP early access", href: "https://plan.behaviorschool.com" },
         { label: "Behavior tools", href: "/behavior-tools" },
       ]}
       sections={[

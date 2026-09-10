@@ -106,11 +106,11 @@ function getArticleCta(post: { tags?: { name: string }[] | null }) {
 
   if (hasTag("fba") || hasTag("bip") || hasTag("behavior intervention")) {
     return {
-      eyebrow: "Build the plan",
-      title: "Move from assessment data to a clearer behavior plan.",
-      body: "Use the FBA-to-BIP workflow to connect hypothesis statements, replacement skills, and intervention strategies into a practical school plan.",
-      href: "/fba-to-bip",
-      label: "Open FBA to BIP",
+      eyebrow: "Early access",
+      title: "Join the BehaviorSchool Pro waitlist.",
+      body: "BehaviorSchool Pro is the FBA-to-BIP workspace for school BCBAs. Early access is opening soon.",
+      href: "https://plan.behaviorschool.com",
+      label: "Join the waitlist",
     };
   }
 

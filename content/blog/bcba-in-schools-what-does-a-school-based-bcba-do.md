@@ -250,7 +250,7 @@ Yes. Most states do not require teaching certification to work as a school-based
 
 BehaviorSchool was built specifically for BCBAs who work in schools. Here's what we offer:
 
-- **[FBA-to-BIP Generator](/fba-to-bip)** — Turn your FBA data into a complete, function-based BIP
+- **[BehaviorSchool Pro waitlist](https://plan.behaviorschool.com)** — FBA-to-BIP workspace for school BCBAs; early access opening soon
 - **[IEP Goal Writer](/iep-goal-writer)** — Generate measurable behavior goals aligned with FBA findings
 - **[BCBA Practice Exam](/bcba-practice-exam)** — Prepare for the BCBA exam with school-relevant scenarios
 - **[Study Tools](/study)** — Adaptive study app built for busy professionals

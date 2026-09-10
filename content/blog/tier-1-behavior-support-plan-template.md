@@ -338,7 +338,7 @@ At that point, move to [Tier 2 targeted supports](/blog/tier-2-behavior-support-
 
 If you need help building Tier 1, Tier 2, or Tier 3 behavior plans, the [BehaviorSchool Behavior Plans tool](/behavior-plans) provides templates, examples, and customization options for all three tiers.
 
-For students who need Tier 3 support, use the [FBA-to-BIP tool](/fba-to-bip) to create function-based, legally defensible plans in minutes.
+For students who need Tier 3 support, [join the BehaviorSchool Pro waitlist](https://plan.behaviorschool.com) for the FBA-to-BIP workspace. Early access is opening soon.
 
 ## Frequently Asked Questions
 

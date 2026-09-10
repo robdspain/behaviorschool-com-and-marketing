@@ -194,7 +194,7 @@ For a complete guide on building function-based BIPs, check out our guide on [fu
 
 ### Tools That Can Help
 
-Writing FBAs and BIPs is time-intensive. BehaviorSchool's [FBA-to-BIP Generator](/fba-to-bip) helps you move from assessment data to a complete, function-based intervention plan in minutes — not hours. It's built by BCBAs, for BCBAs, and it ensures your BIP is directly linked to your FBA findings.
+Writing FBAs and BIPs is time-intensive. [BehaviorSchool Pro](https://plan.behaviorschool.com) is the FBA-to-BIP workspace for school BCBAs. Early access is on a waitlist.
 
 If you're also writing IEP behavior goals based on your FBA, our [IEP Goal Writer](/iep-goal-writer) generates measurable, function-aligned goals that align with best practices.
 
@@ -220,7 +220,7 @@ It's common for behavior to serve more than one function, or for different topog
 
 A well-written FBA is the foundation of everything that follows — the BIP, the IEP goals, the progress monitoring, and ultimately the student's success. Take the time to do it right.
 
-**Ready to streamline your FBA-to-BIP process?** Try BehaviorSchool's [FBA-to-BIP Generator](/fba-to-bip) — it takes your assessment data and builds a complete, function-based behavior intervention plan aligned with best practices.
+**Ready for an FBA-to-BIP workspace?** [Join the BehaviorSchool Pro waitlist](https://plan.behaviorschool.com) for early access.
 
 ---
 

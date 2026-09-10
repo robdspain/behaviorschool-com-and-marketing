@@ -82,7 +82,7 @@ const faqSections = [
       },
       {
         q: "How does the FBA-to-BIP tool work?",
-        a: "It walks you through a structured functional behavior assessment and generates a behavior intervention plan based on your inputs. Visit behaviorschool.com/fba-to-bip to get started.",
+        a: "BehaviorSchool Pro is the FBA-to-BIP workspace for school BCBAs. Early access is on a waitlist at plan.behaviorschool.com.",
       },
       {
         q: "Is my student data secure?",

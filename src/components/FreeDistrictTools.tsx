@@ -4,7 +4,7 @@ const tools = [
   {
     title: "FBA to BIP Quality Check",
     desc: "Audit plan quality with a clear checklist and export-ready structure.",
-    href: "/fba-to-bip",
+    href: "/behavior-plans",
   },
   {
     title: "ACT Matrix Builder",
@@ -24,7 +24,7 @@ const tools = [
 ];
 
 const routes = [
-  { label: "Need a behavior plan fast", href: "/fba-to-bip" },
+  { label: "Need a behavior plan fast", href: "/behavior-plans" },
   { label: "Need IEP behavior goals", href: "/iep-goals" },
   { label: "Need invite-only Pro access", href: "/pro" },
 ];
