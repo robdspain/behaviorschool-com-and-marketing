@@ -55,12 +55,12 @@ export default function BehaviorSchoolVsStudyABA() {
         competitorName="ABA Exam Review"
         competitorDescription="ABA Exam Review is a one-time-purchase BCBA prep product: a set of full-length mock exams, downloadable study guides, flashcards, and a YouTube channel with free study content. It is built around fixed question sets and PDFs rather than practice that adapts to your results. This comparison covers publicly described features, not pass-rate claims or their current catalog."
         behaviorSchoolAdvantages={[
-          'AI-powered adaptive practice (not static question sets)',
-          'Personalized study paths based on your weak areas',
+          'Adaptive practice that weights your weak domains (not static question sets)',
+          'A rationale on every answer, shown as soon as you respond',
           'School-based BCBA scenarios and content',
-          'IEP + behavior plan tools included at no extra cost',
-          'Modern, interactive platform (not PDFs)',
-          'All-in-one: exam prep + CEUs + tools + community',
+          'Free IEP goal, FBA, and BIP tools on behaviorschool.com',
+          'Web app you can use in any browser (not PDFs)',
+          'Exam prep, CEUs, and school BCBA tools in one place',
         ]}
         features={[
           {
@@ -84,14 +84,13 @@ export default function BehaviorSchoolVsStudyABA() {
               { name: 'Behavior Intervention Plan Generator', behaviorSchool: true, competitor: false },
               { name: 'FBA-to-BIP Pipeline', behaviorSchool: true, competitor: false },
               { name: 'Continuing Education (CEUs)', behaviorSchool: true, competitor: false },
-              { name: 'Supervision Tools', behaviorSchool: true, competitor: false },
-              { name: 'Professional Community', behaviorSchool: true, competitor: false },
+              { name: 'Supervision Resources', behaviorSchool: true, competitor: false },
             ],
           },
           {
             category: 'Platform & Experience',
             features: [
-              { name: 'Modern Web Platform', behaviorSchool: true, competitor: false },
+              { name: 'Web App (any browser)', behaviorSchool: true, competitor: false },
               { name: 'Mobile-Friendly', behaviorSchool: true, competitor: 'partial' },
               { name: 'Interactive Learning (not PDFs)', behaviorSchool: true, competitor: false },
               { name: 'Progress Tracking & Analytics', behaviorSchool: true, competitor: false },
@@ -112,23 +111,23 @@ export default function BehaviorSchoolVsStudyABA() {
         faqItems={[
           {
             q: 'Is ABA Exam Review cheaper than BehaviorSchool?',
-            a: `They are priced differently, so it depends on how long you study. ABA Exam Review sells one-time bundles. Behavior Study Tools is a subscription (${STUDY_PRICING_LINE}) that you stop when you pass, and the IEP, FBA, and BIP tools on behaviorschool.com are free either way. A short, focused study window favors the subscription; a long open-ended one favors a one-time bundle.`,
+            a: `It depends on how long you study. ABA Exam Review is a one-time purchase, so the price is the same whether you use it for a month or a year. Behavior Study Tools is a subscription (${STUDY_PRICING_LINE}) that you cancel when you pass. A focused study window of a few months usually favors the subscription; an open-ended, on-and-off study plan favors paying once. The IEP, FBA, and BIP tools on behaviorschool.com are free either way.`,
           },
           {
-            q: 'Does ABA Exam Review have AI tools?',
-            a: 'Based on its published product pages, ABA Exam Review uses PDFs, pre-set mock exams, and flashcards rather than adaptive practice. BehaviorSchool Study adapts question selection to your weak domains and provides rationales for each answer.',
+            q: 'Does ABA Exam Review adapt to my weak areas?',
+            a: 'No. ABA Exam Review is a fixed set of mock exams, study guides, and flashcards; you decide what to review after each mock. Behavior Study Tools flags the domain you missed as soon as you answer, shows the rationale, and weights your next practice set toward those domains. The difference matters most in the last few weeks before the exam, when you need to spend time where the points are.',
           },
           {
-            q: 'Can I try BehaviorSchool before committing?',
-            a: 'Yes! BehaviorSchool offers free BCBA practice questions, IEP goal writing tools, and study resources. No credit card required.',
+            q: 'Can I try BehaviorSchool before paying?',
+            a: 'Yes. Start with free practice questions or a free timed mock exam on study.behaviorschool.com. Both show domain-level results and rationales without a credit card, so you can judge the workflow on real questions before deciding.',
           },
           {
             q: 'Does ABA Exam Review offer IEP or behavior plan tools?',
-            a: 'No. ABA Exam Review focuses exclusively on BCBA exam preparation materials. BehaviorSchool includes IEP goal writing, BIP generators, FBA tools, and more.',
+            a: 'No. ABA Exam Review is exam preparation only. Behavior School includes free IEP behavior goal, FBA, and BIP tools that you keep using after you pass, so the exam prep sits inside a set of tools built for school-based practice.',
           },
           {
             q: 'Which has more practice questions?',
-            a: 'Question counts change, so check each product page for the current number. The more useful difference is how the questions are delivered: ABA Exam Review gives you fixed mock exams to work through in order, while Behavior Study Tools organizes its bank by BACB task list domain and adapts which questions you see based on your weak areas.',
+            a: 'Counts change, so check each product page for the current number. The more useful question is how the questions are delivered. ABA Exam Review gives you complete mock exams to sit through in order; Behavior Study Tools organizes its bank by BACB Test Content Outline domain and chooses questions based on your results. If you want to rehearse the full exam repeatedly, fixed mocks work. If you want to fix specific domains between mocks, adaptive practice works.',
           },
         ]}
       />

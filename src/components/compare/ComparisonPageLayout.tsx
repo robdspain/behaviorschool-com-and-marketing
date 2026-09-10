@@ -25,6 +25,8 @@ interface ComparisonPageProps {
   verdict: string;
   emailSource: string;
   faqItems: { q: string; a: string }[];
+  /** Hide the free BCBA practice cards on comparisons that are not about exam prep. */
+  showExamPracticePaths?: boolean;
 }
 
 export function ComparisonPageLayout({
@@ -39,6 +41,7 @@ export function ComparisonPageLayout({
   verdict,
   emailSource,
   faqItems,
+  showExamPracticePaths = true,
 }: ComparisonPageProps) {
   return (
     <div className="min-h-screen bg-white">
@@ -138,37 +141,30 @@ export function ComparisonPageLayout({
         </div>
       </section>
 
-      {/* BCBA Exam Resource Paths */}
-      <section className="py-12 sm:py-16 bg-emerald-50/40">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
-              Choose the right BCBA exam practice path
-            </h2>
-            <p className="mt-4 text-slate-600 leading-relaxed">
-              After comparing platforms, use the public resource that matches your next study decision.
-            </p>
+      {showExamPracticePaths && (
+        <section className="py-12 sm:py-16 bg-emerald-50/40">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="max-w-3xl">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+                Two free ways to test the workflow
+              </h2>
+              <p className="mt-4 text-slate-600 leading-relaxed">
+                A comparison table can only tell you so much. Answer real questions and see whether the results give you a clearer next study step than what you use now.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-xl border border-emerald-100 bg-white p-5 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+                <h3 className="font-bold text-slate-900">Free practice questions</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">A short set with a rationale on every answer and a domain breakdown at the end. Start here if you want to see how the app teaches.</p>
+              </Link>
+              <Link href="https://study.behaviorschool.com/free-mock-exam/" className="rounded-xl border border-emerald-100 bg-white p-5 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50">
+                <h3 className="font-bold text-slate-900">Free timed mock exam</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">A timed run scored by domain. Start here if you already have a study routine and want to know where you stand.</p>
+              </Link>
+            </div>
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="rounded-xl border border-emerald-100 bg-white p-5 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50">
-              <h3 className="font-bold text-slate-900">BCBA practice exam</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Use a broader practice exam when you need scoring, rationales, and repeated exam-style review.</p>
-            </Link>
-            <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-xl border border-emerald-100 bg-white p-5 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50">
-              <h3 className="font-bold text-slate-900">BCBA exam prep</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Start with the full prep hub when you need a study plan, resource map, and next-step guidance.</p>
-            </Link>
-            <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-xl border border-emerald-100 bg-white p-5 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50">
-              <h3 className="font-bold text-slate-900">Sample BCBA exam questions</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Review sample question formats before choosing a full mock exam or practice question route.</p>
-            </Link>
-            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="rounded-xl border border-emerald-100 bg-white p-5 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50">
-              <h3 className="font-bold text-slate-900">BCBA mock exam free</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Use the free mock exam path when you need to check timing, stamina, and readiness.</p>
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Pricing */}
       <section className="py-12 sm:py-16 bg-slate-50">

@@ -39,7 +39,7 @@ export default function BehaviorSchoolVsMagicSchool() {
         name: 'Is BehaviorSchool better than MagicSchool AI for IEP goals?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'For behavior-specific IEP goals, yes. BehaviorSchool is built by a BCBA with expertise in applied behavior analysis. MagicSchool AI offers a general-purpose IEP tool inside a large catalog of teacher tools; it is not built around function-based intervention or behavior-analytic measurement.',
+          text: 'For behavior-specific IEP goals, Behavior School is the more specialized tool. Its goal writer was built by a practicing school BCBA and walks you through the target behavior, context, measurement, baseline, and mastery criterion before it produces an editable draft. MagicSchool AI includes an IEP goal writer inside a broad catalog of teacher tools; it is a general-purpose drafting aid rather than a behavior-analytic one. Run the same goal through both and compare what comes back.',
         },
       },
       {
@@ -47,7 +47,7 @@ export default function BehaviorSchoolVsMagicSchool() {
         name: 'Does MagicSchool AI have BCBA exam prep?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'No. MagicSchool AI is a general education AI tool suite. It does not offer BCBA exam prep, behavior plan generators, or any behavior analysis-specific tools.',
+          text: 'No. MagicSchool AI is built for general K-12 teaching and its published catalog does not include BCBA exam preparation, practice questions, or CEUs. Behavior School pairs its free IEP, FBA, and BIP tools with Behavior Study Tools for exam prep and CEU courses for behavior analysts.',
         },
       },
     ],
@@ -63,12 +63,12 @@ export default function BehaviorSchoolVsMagicSchool() {
         competitorName="MagicSchool AI"
         competitorDescription="MagicSchool AI is a general-purpose AI platform for K-12 educators: lesson planners, quiz and rubric generators, a Chrome extension, and an IEP goal writer among a large catalog of teacher tools, with a free tier and paid individual and district plans. Its IEP and behavior tools are one entry in that catalog rather than a behavior-analytic product. This comparison covers publicly described features, not their current prices or tool count."
         behaviorSchoolAdvantages={[
-          'Built by a BCBA specifically for behavior analysts',
-          'ABA-grounded IEP goals (not generic education AI)',
-          'FBA-to-BIP pipeline — no competitor has this',
-          'BCBA exam prep + CEUs + tools in one platform',
+          'Built by a practicing school BCBA for behavior analysts',
+          'IEP behavior goals written around function, measurable criteria, and data collection',
+          'FBA and BIP builders that carry assessment findings into the plan',
+          'BCBA exam prep and CEUs alongside the school tools',
           'Behavior-specific goal bank and templates',
-          'Deep understanding of school-based behavior challenges',
+          'Free to use for IEP, FBA, and BIP work',
         ]}
         features={[
           {
@@ -77,9 +77,8 @@ export default function BehaviorSchoolVsMagicSchool() {
               { name: 'IEP Goal Writer', behaviorSchool: true, competitor: true },
               { name: 'Behavior-Specific IEP Goals (ABA-based)', behaviorSchool: true, competitor: false },
               { name: 'Behavior Intervention Plan (BIP) Generator', behaviorSchool: true, competitor: false },
-              { name: 'FBA-to-BIP AI Pipeline', behaviorSchool: true, competitor: false },
+              { name: 'FBA Builder', behaviorSchool: true, competitor: false },
               { name: 'Behavior Goal Bank', behaviorSchool: true, competitor: false },
-              { name: 'Progress Monitoring for Behavior Goals', behaviorSchool: true, competitor: false },
               { name: 'Structured goal review', behaviorSchool: true, competitor: 'partial' },
             ],
           },
@@ -89,8 +88,7 @@ export default function BehaviorSchoolVsMagicSchool() {
               { name: 'BCBA Exam Prep', behaviorSchool: true, competitor: false },
               { name: 'BCBA Practice Questions', behaviorSchool: true, competitor: false },
               { name: 'Continuing Education (CEUs)', behaviorSchool: true, competitor: false },
-              { name: 'Supervision Tools', behaviorSchool: true, competitor: false },
-              { name: 'School BCBA Community', behaviorSchool: true, competitor: false },
+              { name: 'Supervision Resources', behaviorSchool: true, competitor: false },
             ],
           },
           {
@@ -107,10 +105,10 @@ export default function BehaviorSchoolVsMagicSchool() {
             category: 'Platform',
             features: [
               { name: 'Free Tier', behaviorSchool: true, competitor: true },
-              { name: 'FERPA / COPPA Compliant', behaviorSchool: true, competitor: true },
+              { name: 'Published FERPA Overview', behaviorSchool: true, competitor: true },
               { name: 'School-Based BCBA Focus', behaviorSchool: true, competitor: false },
               { name: 'Built by a Behavior Analyst', behaviorSchool: true, competitor: false },
-              { name: 'District / Enterprise Pricing', behaviorSchool: true, competitor: true },
+              { name: 'District Plans', behaviorSchool: 'partial', competitor: true },
             ],
           },
         ]}
@@ -125,25 +123,26 @@ export default function BehaviorSchoolVsMagicSchool() {
         faqItems={[
           {
             q: 'Is BehaviorSchool better than MagicSchool AI for behavior IEP goals?',
-            a: 'For behavior-specific goals, Behavior School\'s IEP tools are designed by a practicing school BCBA around function, measurable criteria, and data collection. MagicSchool\'s IEP writer is a general-purpose tool that is not built specifically around behavior-analytic terminology or function-based intervention. Try both with a real goal and compare the output.',
+            a: 'For behavior goals, Behavior School is the more specialized tool. Its goal writer walks you through the target behavior, context, measurement, baseline, and mastery criterion, then hands you an editable draft for the IEP team. MagicSchool\'s IEP writer is a general drafting aid that works from a short prompt. The fastest test is to run the same student scenario through both and compare which draft you would actually put in front of a team.',
           },
           {
             q: 'Does MagicSchool AI offer BCBA exam prep?',
-            a: 'No. MagicSchool AI is designed for general K-12 educators. It has no BCBA exam prep, practice questions, CEU courses, or behavior analysis-specific professional development.',
+            a: 'No. MagicSchool AI is built for general K-12 teaching, and its published catalog does not include BCBA exam preparation, practice questions, or CEUs. Behavior School pairs its free school tools with Behavior Study Tools for exam prep and CEU courses for behavior analysts.',
           },
           {
             q: 'Can I use both platforms?',
-            a: 'Yes. The two tools do not overlap much: MagicSchool for general teaching tasks, Behavior School for behavior-specific IEP goals, FBA and BIP work, exam prep, and CEUs.',
+            a: 'Yes. Use MagicSchool for lesson-adjacent work such as rubrics, quizzes, and parent letters. Use Behavior School for the behavior-specific pieces: IEP behavior goals, FBAs, BIPs, exam prep, and CEUs. The two barely overlap, so there is no need to pick one.',
           },
           {
             q: 'Does MagicSchool AI have a behavior plan generator?',
-            a: 'No. MagicSchool AI does not offer FBA, BIP, or behavior intervention plan tools. BehaviorSchool includes a full FBA-to-BIP AI pipeline specifically designed for school-based behavior analysts.',
+            a: 'Not as a behavior-analytic tool. MagicSchool\'s published catalog does not include an FBA or BIP builder; its behavior-related outputs come from general-purpose writing tools. Behavior School\'s FBA and BIP builders are free and structured around what a school-based behavior analyst has to document: target behavior, function, prevention and teaching strategies, reinforcement, and a data collection plan.',
           },
           {
             q: 'Which platform is more affordable?',
-            a: `For the tools a school BCBA would actually compare, Behavior School's IEP goal, FBA, and BIP tools are free with no paid tier. MagicSchool has a free tier with limits and a paid individual subscription for its full teacher toolkit. Behavior Study Tools exam prep is a separate subscription (${STUDY_PRICING_LINE}). Value depends on which set of tools you will actually use.`,
+            a: `For the tools a school BCBA would compare, Behavior School's IEP goal, FBA, and BIP tools are free with no paid tier. MagicSchool has a free tier with usage limits and a paid individual subscription for its full teacher toolkit. Behavior Study Tools exam prep is a separate subscription (${STUDY_PRICING_LINE}) and is not required for the school tools. Value comes down to which set of tools you will actually open each week.`,
           },
         ]}
+        showExamPracticePaths={false}
       />
     </>
   );
