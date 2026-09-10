@@ -109,7 +109,7 @@ Losers are out of `sitemap.ts` and listed in `legacyRedirectPaths`. `/ce-events`
 
 - `/fba-to-bip`: describes a "free FBA-to-BIP generator" but the wizard is stubbed. Either finish the wizard, redirect to `/behavior-plans`, or noindex until it is real.
 - `/school-bcba/first-90-days`, `/school-bcba/interview-questions`: good topics, thin bodies. Worth 600-1,000 more words each with concrete examples.
-- Several `/compare/*` pages carry competitor prices and question counts that will drift. Consider a "checked on [date]" line and a quarterly review.
+- ~~Several `/compare/*` pages carry competitor prices and question counts that will drift.~~ Resolved: no compare page lists a competitor price, question count, or tool count anymore (BDS, ABA Exam Review, MagicSchool). Pricing tables compare the *model* (one-time bundle vs. subscription; free tier vs. paid individual plan) and only our own Stripe-confirmed prices carry a "checked on" date. Nothing on those pages now needs a quarterly re-check except our own `STUDY_PRICING`.
 
 ### 2.3 Title and description hygiene
 
@@ -139,7 +139,7 @@ Study product prices now come from `src/lib/study-pricing.ts`, matching live Str
 1. ~~X / Twitter handle.~~ Confirmed live account is `https://x.com/behavior_school`. Organization JSON-LD, school-based-bcba schema, and the newsletter template now match the footer.
 2. ~~Nav "Exam Prep" destination.~~ The header "Exam Prep" item (and the landing-nav "Study Tools" link) send to `https://study.behaviorschool.com/free-practice/`. The study app's root is noindex and `scripts/verify-bcba-acquisition-routing.mjs` (run in `postbuild`) fails the build when any public page links to it, so the canonical free-practice page is the entry point. behaviorstudytools.com remains a live product but is not in the primary nav.
 3. ~~Add "School BCBA Career" and "Free Tools" to the primary nav?~~ Decided: "Free Tools" added; the career hub stays in the footer only.
-4. ~~Study pricing.~~ Live Stripe (checked September 10, 2026): $29.99/month, $89.99/quarter, $288/year. Compare pages now use those figures. Competitor prices were re-checked the same day (ABA Exam Review $115 / $140 and 1,480 questions; MagicSchool Plus $12.99/mo or $99.96/year) and each table has a "checked on" note.
+4. ~~Study pricing.~~ Live Stripe (checked September 10, 2026): $29.99/month, $89.99/quarter, $288/year. Compare pages now use those figures with a "checked on" note. Competitor prices, question counts, and tool counts were removed from every compare page (decided after the BDS change): they drift, they send shoppers to the competitor's checkout, and the pricing *model* is the honest comparison anyway.
 5. ~~About-page anecdote.~~ Use the general line: the student made significant progress. Do not publish the specific “three grade levels in reading” outcome. The evidence-based line stays “published behavior-analytic literature,” not “proven.”
 6. ~~Founding date.~~ Delaware Certificate of Formation is April 1, 2024 (file 3358113). Publishing that year would make the organization look newer than the founder’s work history, and 2020 is not documented. `foundingDate` omitted from Organization JSON-LD.
 7. ~~AI crawler policy.~~ Leave training bots allowed. `robots.txt` keeps the explicit Allow group for search crawlers and training agents (`GPTBot`, `Google-Extended`, `CCBot`, `anthropic-ai`, and the rest). Same private-path disallows as `*`.
