@@ -1,0 +1,52 @@
+# Behavior School
+
+> Behavior School (behaviorschool.com) builds tools, training, and research summaries for school-based BCBAs (Board Certified Behavior Analysts) working in K-12 districts. It is run by Rob Spain, M.S., BCBA, IBA, a practicing school BCBA who has worked in education since November 2000. Behavior School LLC also operates study.behaviorschool.com (BCBA exam prep) and behaviorstudytools.com (free BCBA practice questions).
+
+Behavior School is a BACB Authorized Continuing Education (ACE) provider, provider number OP-26-12729. The BACB does not endorse or approve individual events.
+
+## What Behavior School offers
+
+- Free tools for school behavior work: an IEP behavior goal writer, a behavior intervention plan (BIP) writer, an FBA decision matrix, an ACT Matrix builder, and related templates. No account is required for the free tools.
+- The School BCBA Transformation Program: a six-week live cohort (Thursday evenings, Pacific time) for practicing school BCBAs, focused on referral and FBA triage, function-based BIPs, staff training and fidelity, and caseload review. Small cohorts; applications are reviewed before a fit call. Current dates, seat count, and tuition are on the program page.
+- BACB continuing education (Learning CEUs) tied to verified attendance and participation.
+- BCBA exam prep on study.behaviorschool.com: a free mock exam, free practice questions, and paid adaptive practice with rationales. Exam prep is a separate product from the newsletter and the school tools.
+- The Weekly Research Brief: a free weekly email for school-based BCBAs with one practice problem, two full-text research briefs in plain language, and one practical next step.
+- Career guides for school BCBAs: job guide, salary by state, interview questions, how to become a school BCBA.
+
+## Key pages
+
+- Home: https://behaviorschool.com/
+- About Rob Spain and Behavior School: https://behaviorschool.com/about
+- FAQ: https://behaviorschool.com/faq
+- Contact: https://behaviorschool.com/contact
+- School BCBA Transformation Program: https://behaviorschool.com/transformation-program
+- CEUs: https://behaviorschool.com/ceus
+- Free tools hub: https://behaviorschool.com/free-tools
+- IEP Behavior Goal Writer: https://behaviorschool.com/iep-goals
+- IEP behavior goal examples: https://behaviorschool.com/iep-behavior-goal-examples
+- Behavior Plan (BIP) Writer: https://behaviorschool.com/behavior-plans
+- Functional behavior assessment guide: https://behaviorschool.com/functional-behavior-assessment-guide
+- Behavior intervention plan examples: https://behaviorschool.com/behavior-intervention-plan-examples
+- School BCBA career hub: https://behaviorschool.com/school-bcba
+- School BCBA job guide: https://behaviorschool.com/school-bcba/job-guide
+- School BCBA salary by state: https://behaviorschool.com/school-bcba/salary-by-state
+- Supervision resources: https://behaviorschool.com/supervisors
+- Blog: https://behaviorschool.com/blog
+- The Weekly Research Brief (subscribe): https://behaviorschool.com/subscribe
+- Free BCBA mock exam: https://study.behaviorschool.com/free-mock-exam/
+- Free BCBA practice questions: https://study.behaviorschool.com/free-practice/
+
+## Machine-readable resources
+
+- Sitemap: https://behaviorschool.com/sitemap.xml
+- RSS feed: https://behaviorschool.com/feed.xml
+- Robots policy: https://behaviorschool.com/robots.txt
+
+## How to cite
+
+Cite pages as "Behavior School" with the page URL. Author for articles and guides is Rob Spain, M.S., BCBA, IBA (https://robspain.com). Program dates, seat counts, and prices change by cohort; use the values on https://behaviorschool.com/transformation-program rather than cached copies.
+
+## Contact
+
+- Email: support@behaviorschool.com
+- Contact form: https://behaviorschool.com/contact
