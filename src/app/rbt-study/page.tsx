@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   BadgeCheck,
@@ -10,12 +11,22 @@ import {
   Layers,
   Zap,
 } from "lucide-react";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
-export const metadata = {
-  title: "RBT Exam Prep - Practice Tests & Flashcards | BehaviorSchool",
+const canonical = "https://behaviorschool.com/rbt-study";
+const rbtStudyHref = "https://rbtstudy.behaviorschool.com";
+const bcbaPracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
+  intent: "rbt_to_bcba",
+  utm_content: "rbt_study_page",
+});
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "RBT Exam Prep: Mock Exams, Flashcards, SAFMEDS | Behavior School",
   description:
-    "Prepare for the RBT certification exam with mock exams, flashcards, SAFMEDS practice, and progress tracking. 2nd edition task list coverage.",
-};
+    "Free RBT exam practice aligned to the 2nd edition task list: timed 85-question mock exams, flashcards, SAFMEDS fluency drills, and progress tracking.",
+  canonical,
+});
 
 export default function RBTStudyPage() {
   return (
@@ -36,23 +47,23 @@ export default function RBTStudyPage() {
               RBT exam prep: mock exams, flashcards, and SAFMEDS.
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
-              Mock exams, flashcards, and SAFMEDS practice aligned to the 2nd edition RBT task list. Track your progress and know when you're ready.
+              Mock exams, flashcards, and SAFMEDS practice aligned to the 2nd edition RBT task list. Track your progress and know when you&apos;re ready.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <a
-                href="https://rbtstudy.behaviorschool.com"
+                href={rbtStudyHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] bg-[#e4b63d] rounded-full hover:bg-[#d4a82d] transition-colors"
               >
-                Start free practice
+                Start free RBT practice
                 <ArrowRight className="ml-2" size={16} />
               </a>
               <a
                 href="#features"
                 className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-[#1f4d3f] border border-[#1f4d3f]/40 rounded-full hover:bg-[#1f4d3f]/10 transition-colors"
               >
-                See what's included
+                See what&apos;s included
               </a>
             </div>
             <p className="mt-6 text-sm text-slate-500">
@@ -192,12 +203,12 @@ export default function RBTStudyPage() {
             Create a free account and take your first mock exam today.
           </p>
           <a
-            href="https://rbtstudy.behaviorschool.com"
+            href={rbtStudyHref}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-[#1f4d3f] rounded-full hover:bg-[#173a2f] transition-colors"
           >
-            Start free practice
+            Start free RBT practice
             <ArrowRight className="ml-2" size={18} />
           </a>
         </div>
@@ -206,12 +217,12 @@ export default function RBTStudyPage() {
       {/* Also check out BCBA */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-slate-500 mb-4">Pursuing your BCBA?</p>
+          <p className="text-slate-500 mb-4">Studying for the BCBA exam instead?</p>
           <Link
-            href="https://behaviorstudytools.com/"
+            href={bcbaPracticeHref}
             className="inline-flex items-center text-[#1f4d3f] font-semibold hover:underline"
           >
-            See BCBA exam prep tools
+            Try free BCBA practice questions on Behavior Study Tools
             <ArrowRight className="ml-1" size={16} />
           </Link>
         </div>
