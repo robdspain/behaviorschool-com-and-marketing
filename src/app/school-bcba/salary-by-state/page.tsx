@@ -18,18 +18,20 @@ import { TrackableLink } from "@/components/TrackableLink";
 import { OnThisPageTOC } from "@/components/OnThisPageTOC";
 import EmailGateDownload from "@/components/EmailGateDownload";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { formatSalaryReviewDate, SALARY_BENCHMARKS, SALARY_REVIEW_POLICY } from "@/data/salaryBenchmarks";
+
+const salaryReviewDate = formatSalaryReviewDate();
 
 export async function generateMetadata(): Promise<Metadata> {
-  const year = new Date().getFullYear();
   return {
-    title: `School BCBA Salary by State ${year} | Behavior School`,
+    title: "School BCBA Salary by State | Behavior School",
     description:
-      `${year} School BCBA salary ranges by state with a salary range chart, total compensation factors, and negotiation tips for K–12 districts.`,
+      `School BCBA salary ranges by state (last reviewed ${salaryReviewDate}) with a range chart, compensation factors, and negotiation tips. Directional only — verify with local HR.`,
     alternates: { canonical: "https://behaviorschool.com/school-bcba/salary-by-state" },
     robots: { index: true, follow: true },
     keywords: "school BCBA salary, BCBA pay by state, K-12 behavior analyst salary, school BCBA ranges, benefits, negotiation",
     openGraph: {
-      title: `School BCBA Salary by State ${year} | Behavior School`,
+      title: "School BCBA Salary by State | Behavior School",
       description: "State-by-state School BCBA salary ranges with a chart, benefits, and negotiation tips.",
       type: "article",
       url: "https://behaviorschool.com/school-bcba/salary-by-state",
@@ -48,7 +50,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function Page() {
-  const year = new Date().getFullYear();
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Breadcrumb */}
@@ -67,15 +68,15 @@ export default function Page() {
         <div className="max-w-5xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-blue-100 rounded-full mb-6">
             <DollarSign className="w-4 h-4 text-emerald-700" />
-            <span className="text-sm font-semibold text-emerald-700">2025 Salary Data</span>
+            <span className="text-sm font-semibold text-emerald-700">Last reviewed {salaryReviewDate}</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-            School BCBA Salary by State: {year} Overview
+            School BCBA Salary by State
           </h1>
 
           <p className="text-xl text-slate-600 leading-relaxed max-w-3xl">
-            State-by-state School BCBA salary benchmarks with a visual range chart, negotiation strategies, and total compensation insights. Benchmarks reflect public district postings and HR schedules; verify with local HR.
+            State-by-state School BCBA salary benchmarks with a visual range chart, negotiation strategies, and total compensation insights. Benchmarks are a directional snapshot from public district postings and HR schedules. {SALARY_REVIEW_POLICY}
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -106,8 +107,8 @@ export default function Page() {
                   <MapPin className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-900">2025 Salary Ranges by State</h2>
-                  <p className="text-sm text-slate-600">Based on public district postings and HR schedules</p>
+                  <h2 className="text-2xl font-bold text-slate-900">Salary Ranges by State</h2>
+                  <p className="text-sm text-slate-600">Directional snapshot last reviewed {salaryReviewDate}</p>
                 </div>
               </div>
 
@@ -216,14 +217,14 @@ export default function Page() {
                   title="Salary Benchmarks (CSV)"
                   buttonText="Download CSV"
                   downloadUrl="/api/salary-benchmarks?format=csv&download=1"
-                  fileName={`school-bcba-salaries-${new Date().getFullYear()}.csv`}
+                  fileName={`school-bcba-salaries-${SALARY_BENCHMARKS.year}.csv`}
                   resourceName="salary-benchmarks-csv"
                 />
                 <EmailGateDownload
                   title="Salary Benchmarks (JSON)"
                   buttonText="Download JSON"
                   downloadUrl="/api/salary-benchmarks?format=json&download=1"
-                  fileName={`school-bcba-salaries-${new Date().getFullYear()}.json`}
+                  fileName={`school-bcba-salaries-${SALARY_BENCHMARKS.year}.json`}
                   resourceName="salary-benchmarks-json"
                 />
               </div>
@@ -234,7 +235,7 @@ export default function Page() {
                   Methodology & Data Sources
                 </h3>
                 <p className="text-sm text-slate-700 leading-relaxed mb-3">
-                  Ranges aggregated from 2024–2025 public district postings, HR salary schedules, and recruiter data. Figures reflect full-time School BCBA/behavior analyst roles aligned to K–12 districts and are directional benchmarks only.
+                  Ranges are a directional snapshot last reviewed {salaryReviewDate}, aggregated from public K–12 district postings and HR salary schedules for full-time School BCBA/behavior analyst roles. We do not publish a named district-by-district dataset. {SALARY_REVIEW_POLICY}
                 </p>
                 <p className="text-sm text-slate-600 italic">
                   Always verify step/column placement, education differentials (Master's vs. Doctorate), and available stipends (bilingual, high-need sites, leadership). Some districts offer 200+ day contracts and robust benefits packages that effectively raise total compensation by 15-30%.
@@ -249,7 +250,7 @@ export default function Page() {
                     <AccordionContent className="px-6 pb-6 text-sm text-slate-700 leading-relaxed">
                       <ul className="list-disc pl-5 space-y-2">
                         <li>
-                          Primary benchmarks from 2024–2025 <strong>public K–12 district postings</strong> and <strong>HR salary schedules</strong> (e.g., California listings on EdJoin).
+                          Primary benchmarks from <strong>public K–12 district postings</strong> and <strong>HR salary schedules</strong> (for example, California listings on EdJoin). Last reviewed {salaryReviewDate}.
                           {" "}
                           <a href="https://www.edjoin.org/" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">EdJoin.org</a>
                         </li>
@@ -266,6 +267,9 @@ export default function Page() {
                         </li>
                         <li>
                           Outliers (e.g., extended-year contracts, high-need stipends, metro cost-of-living adjustments) can exceed plotted ranges.
+                        </li>
+                        <li>
+                          {SALARY_REVIEW_POLICY} Last reviewed {salaryReviewDate}.
                         </li>
                       </ul>
                     </AccordionContent>
@@ -675,7 +679,7 @@ export default function Page() {
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "What is the average School BCBA salary in 2025?",
+                "name": "What is the average School BCBA salary?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "School BCBA salaries vary significantly by state and district. Top ranges include: California $90k-$125k+, Washington $85k-$115k, Massachusetts $85k-$120k, New York $80k-$115k. Lower cost-of-living states range from $65k-$95k. Always verify with local district HR schedules and account for benefits."
@@ -725,8 +729,8 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            "headline": "School BCBA Salary by State: 2025 Complete Compensation Guide",
-            "description": "Comprehensive 2025 School BCBA salary data by state with negotiation strategies, career progression timelines, and total compensation breakdowns. Directional ranges aggregated from public K-12 district postings and HR salary schedules.",
+            "headline": "School BCBA Salary by State",
+            "description": "School BCBA salary ranges by state with negotiation strategies, career progression, and total compensation notes. Directional snapshot from public K-12 district postings and HR salary schedules.",
             "author": {
               "@type": "Organization",
               "name": "Behavior School"
@@ -739,8 +743,8 @@ export default function Page() {
                 "url": "https://behaviorschool.com/optimized/og-image.webp"
               }
             },
-            "datePublished": "2025-01-15",
-            "dateModified": new Date().toISOString().split('T')[0]
+            "datePublished": SALARY_BENCHMARKS.updatedAt,
+            "dateModified": SALARY_BENCHMARKS.updatedAt
           })
         }}
       />

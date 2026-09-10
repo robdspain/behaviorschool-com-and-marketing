@@ -1,6 +1,7 @@
 {
   "year": 2025,
   "updatedAt": "2025-01-15",
+  "reviewCadence": "quarterly-if-traffic",
   "items": [
     { "label": "California", "min": 90, "max": 125 },
     { "label": "Texas", "min": 70, "max": 95 },
