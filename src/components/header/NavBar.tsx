@@ -46,7 +46,7 @@ export function NavBar() {
                 href="/transformation-program"
                 className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#123628]"
               >
-                {TRANSFORMATION_PROGRAM.cohort.label} Open
+                Apply: {TRANSFORMATION_PROGRAM.cohort.label}
               </Link>
               <Link
                 href="https://study.behaviorschool.com/free-practice/"
