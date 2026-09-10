@@ -19,11 +19,11 @@ export default function SchoolBCBAContent() {
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <Hero
-        eyebrow="Complete School BCBA Resource Hub"
-        title="Everything You Need to"
-        highlight="Excel as a School BCBA"
-        subtitle="From getting your first school BCBA job to mastering systems-level impact—free tools, comprehensive guides, and proven frameworks."
-        primaryCta={{ href: "/iep-goals", label: "Free IEP Goals Generator" }}
+        eyebrow="School BCBA Career Hub"
+        title="School BCBA Jobs, Salary, and "
+        highlight="Career Guides"
+        subtitle="How to land a school BCBA role, what districts pay, what to expect in your first 90 days, and the FBA, BIP, and IEP goal tools you will use once you are there."
+        primaryCta={{ href: "/school-bcba/job-guide", label: "Read the Job Guide" }}
         variant="brand"
       />
 
@@ -209,10 +209,10 @@ export default function SchoolBCBAContent() {
             <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -ml-48 -mt-48" />
             <div className="relative z-10">
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                Ready to Transform Your School BCBA Practice?
+                Already in a school role? Build systems that hold up on a real caseload.
               </h2>
               <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Join our 6-week transformation program designed specifically to help school BCBAs lead with confidence.
+                The six-week School BCBA Transformation Program covers FBA triage, function-based BIPs, staff training, and caseload review with a small live cohort.
               </p>
               <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white text-lg px-10 py-7 font-bold rounded-2xl shadow-xl shadow-red-900/20 transition-all transform hover:scale-105">
                 <Link href="/transformation-program">

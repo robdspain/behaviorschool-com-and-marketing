@@ -9,16 +9,16 @@ import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 export const metadata: Metadata = {
-  title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
+  title: "Behavior School | School BCBA Tools & Free BCBA Mock Exam",
   description:
-    "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
+    "Free IEP goal and FBA/BIP tools, a live school BCBA cohort, BACB CEUs, and a free 185-question BCBA mock exam. Built by a practicing school BCBA.",
   alternates: {
     canonical: "https://behaviorschool.com",
   },
   openGraph: {
-    title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
+    title: "Behavior School | School BCBA Tools & Free BCBA Mock Exam",
     description:
-      "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
+      "Free IEP goal and FBA/BIP tools, a live school BCBA cohort, BACB CEUs, and a free 185-question BCBA mock exam. Built by a practicing school BCBA.",
     type: "website",
     url: "https://behaviorschool.com",
     images: [
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
+    title: "Behavior School | School BCBA Tools & Free BCBA Mock Exam",
     description:
-      "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
+      "Free IEP goal and FBA/BIP tools, a live school BCBA cohort, BACB CEUs, and a free 185-question BCBA mock exam. Built by a practicing school BCBA.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -48,11 +48,11 @@ export default function Home() {
 
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <Hero
-        eyebrow="The Modern Toolkit"
-        title="Everything a Behavior Analyst "
-        highlight="Actually Needs"
-        subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school behavior professionals."
-        primaryCta={{ href: "https://study.behaviorschool.com/free-practice/", label: "Start free Quick domain check" }}
+        eyebrow="Built by a practicing school BCBA"
+        title="Behavior Tools and Training for "
+        highlight="School BCBAs"
+        subtitle="Free IEP goal and FBA/BIP tools, a live systems cohort, BACB CEUs, and free BCBA exam practice. Built for K-12 caseloads, not adapted from clinic software."
+        primaryCta={{ href: "https://study.behaviorschool.com/free-practice/", label: "Start the free Quick check" }}
         variant="brand"
       />
 
@@ -67,7 +67,7 @@ export default function Home() {
               {TRANSFORMATION_PROGRAM.cohort.label} now open: build FBA, BIP, staff training, and caseload systems.
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
-              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. {TRANSFORMATION_PROGRAM.cohort.startFull}. Small cohorts.
+              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. {TRANSFORMATION_PROGRAM.cohort.startFull}. {TRANSFORMATION_PROGRAM.cohort.seatCap} seats per cohort.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
@@ -96,7 +96,7 @@ export default function Home() {
               Free BCBA Exam Prep
             </p>
             <h2 className="mt-2 text-2xl font-bold text-gray-950 sm:text-3xl">
-              Start with a free Quick domain check (9 questions), instant score, and rationales.
+              Studying for the BCBA exam? Start with a free 9-question Quick domain check, instant score, and rationales.
             </h2>
             <div className="mt-4 grid gap-2 text-sm font-medium text-gray-700 sm:grid-cols-3">
               {["No credit card", "Score immediately", "Know what to study next"].map((item) => (
@@ -125,8 +125,11 @@ export default function Home() {
               What We Offer
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-              Everything a behavior professional needs
+              Tools for the work, prep for the exam
             </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-gray-600">
+              Two tracks: practice tools and training for BCBAs already working in schools, and exam prep for candidates on their way there.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -135,17 +138,28 @@ export default function Home() {
               <div className="w-12 h-12 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center mb-6">
                 <BrainCircuit className="text-[#1f4d3f]" size={24} strokeWidth={1.75} />
               </div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-2">Invite only</p>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">BehaviorSchool Pro</h3>
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-2">For school BCBAs</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">School Practice Tools</h3>
               <p className="text-gray-600 leading-relaxed flex-1">
-                An invite-only workspace in development for school FBA and BIP drafting, IEP goals, and student plan exports. Public account creation is not available.
+                Free, no-login tools for the documents school BCBAs write most: an IEP behavior goal writer, FBA and BIP guides with examples, and ACT tools for student values and defusion work. BehaviorSchool Pro, an invite-only FBA/BIP workspace, is in development.
               </p>
-              <Link
-                href="/pro"
-                className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-[#1f4d3f] hover:underline"
-              >
-                View invite-only access <ArrowRight size={14} />
-              </Link>
+              <div className="mt-6 grid gap-2 text-sm">
+                <Link href="/iep-goals" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  Free IEP behavior goal writer <ArrowRight size={14} />
+                </Link>
+                <Link href="/functional-behavior-assessment-guide" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  School FBA guide <ArrowRight size={14} />
+                </Link>
+                <Link href="/behavior-intervention-plan-examples" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  Function-based BIP examples <ArrowRight size={14} />
+                </Link>
+                <Link href="/free-tools" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  All free school behavior tools <ArrowRight size={14} />
+                </Link>
+                <Link href="/pro" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  BehaviorSchool Pro (invite only) <ArrowRight size={14} />
+                </Link>
+              </div>
             </div>
 
             {/* Card 2 — Exam Prep */}
@@ -153,25 +167,26 @@ export default function Home() {
               <div className="w-12 h-12 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center mb-6">
                 <GraduationCap className="text-[#1f4d3f]" size={24} strokeWidth={1.75} />
               </div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-2">For exam candidates</p>
               <h3 className="text-xl font-bold text-gray-900 mb-3">BCBA Exam Prep</h3>
               <p className="text-gray-600 leading-relaxed flex-1">
-                Start with free BCBA practice questions, then move into mock exams, detailed analytics, and adaptive study paths.
+                Start with free 6th Edition practice questions and a full-length mock exam, then use domain analytics to decide what to study next. Exam prep lives at study.behaviorschool.com.
               </p>
               <div className="mt-6 grid gap-2 text-sm">
                 <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
                   Free Quick domain check (9 questions) <ArrowRight size={14} />
                 </Link>
-                <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  BCBA exam prep <ArrowRight size={14} />
-                </Link>
                 <Link href="https://study.behaviorschool.com/free-mock-exam/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  BCBA practice exam <ArrowRight size={14} />
+                  Free 185-question BCBA mock exam <ArrowRight size={14} />
                 </Link>
-                <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  Sample BCBA exam questions <ArrowRight size={14} />
+                <Link href="/bcba-exam-weak-areas" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  Find your BCBA exam weak areas <ArrowRight size={14} />
                 </Link>
-                <Link href="https://study.behaviorschool.com/free-mock-exam/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  BCBA mock exam free <ArrowRight size={14} />
+                <Link href="/bcba-study-schedule" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  8, 12, or 16-week study schedules <ArrowRight size={14} />
+                </Link>
+                <Link href="/failed-bcba-exam-help" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
+                  Retaking the exam? Start here <ArrowRight size={14} />
                 </Link>
               </div>
             </div>
@@ -197,13 +212,25 @@ export default function Home() {
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">
-                Built by a BCBA, for BCBAs
+                What Behavior School is
               </p>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                Rob Spain, M.S., BCBA, IBA
+                Built by Rob Spain, M.S., BCBA, IBA
               </h2>
               <p className="text-gray-600 leading-relaxed text-lg">
-                BehaviorSchool was founded by Rob Spain, M.S., BCBA, IBA, a practicing school BCBA. Every tool, course, and question is designed from the ground up to meet the real-world needs of professionals in the field.
+                Behavior School is a resource company for school-based BCBAs. It publishes free IEP goal, FBA, and BIP tools, runs the live School BCBA Transformation Program, provides BACB continuing education as ACE provider OP-26-12729, and sends The Weekly Research Brief newsletter.
+              </p>
+              <p className="mt-4 text-gray-600 leading-relaxed text-lg">
+                It was founded by Rob Spain, a Board Certified Behavior Analyst who has worked in education since {FOUNDER_EDUCATION_START_LABEL} ({founderEducationYears} years) and still practices as a school BCBA. Every tool starts with a problem from that work. Learn more about Rob at{" "}
+                <a
+                  href="https://robspain.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#1f4d3f] font-semibold hover:underline"
+                >
+                  robspain.com
+                </a>
+                .
               </p>
             </div>
           </div>
@@ -272,27 +299,6 @@ export default function Home() {
       )}
 
       <HomepageEmailCapture />
-
-      {/* ─── CREATOR BIO ──────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white border-t border-gray-100">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-4">
-            From a BCBA in the Field, For You
-          </p>
-          <p className="text-gray-600 leading-relaxed text-lg">
-            Behavior School and its suite of tools were created by Rob Spain, a Board Certified Behavior Analyst (BCBA) with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. The platform is designed around practical workflows for behavior analysts working with students, staff, and school systems. Learn more about Rob&apos;s work at{" "}
-            <a
-              href="https://robspain.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#1f4d3f] font-semibold not-italic hover:underline"
-            >
-              robspain.com
-            </a>
-            .
-          </p>
-        </div>
-      </section>
 
     </main>
   );
