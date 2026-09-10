@@ -157,6 +157,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // Old post-signup return URL from the retired on-site practice widget.
+        source: '/free-bcba-practice-test/results',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
         source: '/bcba-mock-exam-guide',
         destination: freeMockUrl,
         permanent: true,

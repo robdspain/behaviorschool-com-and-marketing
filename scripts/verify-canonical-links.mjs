@@ -17,6 +17,8 @@ const legacyPaths = new Set([
   "/bcba-6th-edition-practice-questions",
   "/free-bcba-practice-exam",
   "/free-bcba-practice-test",
+  "/free-bcba-practice-test/results",
+  "/free-bcba-practice",
   "/bcba-mock-exam-6th-edition",
   "/bcba-mock-practice-test",
   "/free-bcba-mock-practice-test",

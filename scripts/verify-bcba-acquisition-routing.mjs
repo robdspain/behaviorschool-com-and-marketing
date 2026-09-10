@@ -17,11 +17,13 @@ const expectedAcquisitionRedirects = new Map([
   ["/bcba-6th-edition-practice-questions", "https://study.behaviorschool.com/free-practice/"],
   ["/free-bcba-practice-exam", "https://study.behaviorschool.com/free-practice/"],
   ["/bcba-mock-exam-6th-edition", "https://study.behaviorschool.com/free-mock-exam/"],
+  ["/free-bcba-practice-test", "https://study.behaviorschool.com/free-practice/"],
+  ["/free-bcba-practice-test/results", "https://study.behaviorschool.com/free-practice/"],
+  ["/free-bcba-practice", "https://study.behaviorschool.com/free-practice/"],
 ]);
 
 const allowedAccountFlowFiles = new Set([
   "src/app/calaba40/page.tsx",
-  "src/app/free-bcba-practice-test/FreePracticeTestWidget.tsx",
   "src/components/GuestResultsModal.tsx",
 ]);
 
