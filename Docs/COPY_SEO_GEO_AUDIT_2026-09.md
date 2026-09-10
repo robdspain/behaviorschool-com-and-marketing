@@ -1,0 +1,147 @@
+# behaviorschool.com copy, SEO, and AI-search audit (September 2026)
+
+Scope: every public route under `src/app` (about 140), global metadata and JSON-LD, header and footer, `robots.txt`, and the sitemap. Goal: improve conversion, organic search, and how AI answer engines (Google AI Overviews, ChatGPT search, Perplexity, Claude) recognize and cite the site, while staying inside the `AGENTS.md` public-copy authenticity rules.
+
+This document has three parts: what changed in this PR, what was found but deliberately not changed, and questions that need a decision from Rob.
+
+---
+
+## 1. What changed
+
+### 1.1 Positioning and default metadata (`src/app/layout.tsx`, `src/app/page.tsx`)
+
+Problem: the site-wide default title, description, keywords, and Organization JSON-LD still described Behavior School primarily as a BCBA exam-prep company. The homepage hero did the same. But the product mix, the nav, and most indexable pages are about school-based practice (IEP goals, FBA and BIP tools, the Transformation Program, CEUs). Search engines and LLMs pick up the strongest, most repeated signal; that signal was pointing at the smaller product.
+
+Changes:
+
+- Default title: `Behavior School | Tools & Training for School BCBAs`. Default description leads with school-BCBA tools, then CEUs and exam prep.
+- Organization JSON-LD description rewritten; `sameAs` now lists only real, consistent profile URLs; broken `SearchAction` (pointed at `/blog?q=` which does not search) removed.
+- Removed non-standard or unverifiable `<meta>` tags (COPPA, "child-safe", ICRA, `verify-v1`, `expertise`, `authority`, `trustworthiness`, `content-accuracy`, Dublin Core, SafeSearch, duplicate `og:type`). None of these are read by Google; some are read by LLM scrapers and looked like keyword stuffing.
+- Homepage hero now states who the site is for and what it does in the first sentence ("Behavior Tools and Training for School BCBAs"), with the eyebrow "Built by a practicing school BCBA."
+- Added a definition paragraph in the About section ("Behavior School is a resource company for school-based BCBAs. It publishes...") because answer engines quote the first clear "X is Y" sentence they can find.
+- Removed the duplicate "Creator Bio" at the bottom of the homepage; kept one author block with credentials, tenure (from `founder-tenure.ts`), and a link to robspain.com.
+- Exam-prep band moved below school tools and framed as the secondary offer; it now says exactly what the free thing is (9-question Quick domain check, instant score, rationales).
+
+### 1.2 Transformation Program (`transformation-program/page.tsx`, `layout.tsx`, `lib/transformation-program.ts`)
+
+- Meta description now matches the page (six-week live cohort, what you build, cohort label and seat cap pulled from constants).
+- Course JSON-LD `description` and `teaches` aligned to the actual six-week curriculum; instructor `url` added.
+- New `TRANSFORMATION_PROGRAM_FAQ` constant is the single source for the visible FAQ accordion and a new `FAQPage` JSON-LD block. Includes a cost answer (there was none before).
+- Removed the duplicated "Who this is for" section.
+- Hero note and district-pay paragraph rewritten to say the order of operations plainly (apply, review, fit call, seat).
+- Instructor block gives full credentials and tenure and a note on how CE is verified.
+
+### 1.3 Navigation and footer
+
+- Header CTA: `Apply: October 2026 cohort` (was ungrammatical).
+- Footer tagline and entity line rewritten. Footer link list reorganized by intent (Tools, Training, Career, Exam Prep, Company). Removed links to noindex pages (`/resources`), the self-link, and duplicate exam links; added `/school-bcba`, `/ceus`, `/supervisors`, `/subscribe` (The Weekly Research Brief), `/contact`.
+
+### 1.4 Authenticity and policy fixes (AGENTS.md "Public Copy Authenticity")
+
+Removed or rewrote:
+
+| File | Was | Now |
+|---|---|---|
+| `act-fba-bip/page.tsx` | H1 "Stop Writing FBAs at 10 PM." (banned pattern) | "ACT-Informed FBA and BIP for School Teams" |
+| `about/AboutContent.tsx` | "proven behavioral science"; unverified student-outcome number | "published behavior-analytic literature"; non-quantified outcome (see Q5) |
+| `toolkit/page.tsx` | "used by top school-based BCBAs"; dead download button | neutral phrasing; button now downloads the existing PDF |
+| `passbehavior-alternative/page.tsx` | claims that a competitor is "unavailable / DNS issues" | neutral "if it is not meeting your needs" |
+| `compare/behaviorschool-vs-studyaba/page.tsx` | "best chance to pass", "far more value", "better overall value", "potentially unlimited" questions | balanced verdict; competitor figures attributed to "its published product pages" |
+| `compare/behaviorschool-vs-magicschool/page.tsx` | "simply can't match", "Absolutely! Many school-based BCBAs use...", "significantly better value" | balanced verdict; no usage claims |
+| `school-bcba/salary-by-state/page.tsx` | "Real ranges from 500+ district postings" | "Directional ranges aggregated from public K-12 district postings" |
+| `school-bcba/job-guide/page.tsx` | "Become Interview-Ready in 8 Weeks" (program is 6 weeks) | "Build the Systems Districts Ask About" |
+| `ce-events/CEEventsClient.tsx` | "Instant Certificates" | "CE Certificates After Verified Completion" |
+| `videos/page.tsx`, `ebook/bcba-exam-guide/*` | "pass on your first attempt", "proven" | removed |
+| `bcba-readiness-quiz/BCBAReadinessQuiz.tsx` | "Most popular / Best value" badges (unverified) | plan-name badges |
+| `masterclass/*` | broken description; "Master proven strategies" | fixed; "Practical strategies" |
+| `rbt-study/page.tsx` | H1 was a sales line | "RBT exam prep: mock exams, flashcards, and SAFMEDS." |
+
+### 1.5 Brand voice: "AI-powered" leads removed
+
+Per `MARKETING_CONTEXT.md`, the product should not lead with "AI-powered." Rewrote: `behavior-tools/page.tsx` H1 and IEP card, `behavior-tools/layout.tsx` description, `behavior-plans/layout.tsx` (also removed a stale "Coming Soon" title that contradicted the live tool), `fba-decision-matrix/FBADecisionMatrix.tsx` (three instances), `faq/FAQClient.tsx` link text.
+
+### 1.6 Broken or stale items
+
+- `act-tools/page.tsx`: "ACT Matrix Builder" card linked to `/act-fba-bip`; now links to `/act-matrix-builder`.
+- `school-bcba/how-to-become` and `school-bcba/vs-school-based-bcba`: "2025" removed from titles and link labels (evergreen titles).
+- `research-digest/page.tsx` (noindex): renamed "ABA Research Digest" to "The Weekly Research Brief" per the newsletter identity rule.
+- `quiz/iep-goal-program`: meta description trimmed from 189 to under 160 characters.
+
+### 1.7 Missing metadata and E-E-A-T
+
+- `/free-study-plan`: was a client page with no metadata and an H1 ("Free Practice Exam") that did not match the URL or the page (study guide PDFs + practice exam routing + study-plan form). Added `layout.tsx` with title/description/canonical; H1 now "Free Study Guides and Practice Exams."
+- `/subscribe`: in the sitemap but had no metadata. Added `layout.tsx` using `buildPageMetadata` with The Weekly Research Brief title.
+- `/faq`: FAQ data moved to `faq/faq-data.tsx` with a `plainAnswer` field; `faq/page.tsx` now emits `FAQPage` JSON-LD. Answers rewritten from the verified program constants (they previously said "several weeks," "CEU details temporarily unavailable while provider renewal is processed," "multiple cohorts throughout the year," and hedged on refunds).
+- Blog posts (`blog/[slug]/page.tsx`): visible byline "By Rob Spain, M.S., BCBA, IBA · date · Updated date" added under the H1; OG `authors` changed from "Behavior School" to "Rob Spain"; Article JSON-LD author now includes `sameAs: robspain.com`; publisher name fixed to "Behavior School." Google's and LLMs' author-attribution both key off visible bylines matched to schema.
+
+### 1.8 AI-search assets
+
+- `public/robots.txt`: explicit `Allow` group for GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, anthropic-ai, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended, Amazonbot, meta-externalagent, DuckAssistBot, YouBot, CCBot, with the same private-path disallows. No behavior change from the implicit `*` rule; it makes the policy explicit and auditable. See Q7 before blocking any training bots.
+- `public/llms.txt`: identity, offerings, key URLs, machine-readable resources, citation guidance, and the exam-prep/newsletter boundary. All URLs verified to exist and be indexable; the redirected `/iep-behavior-goals` was excluded.
+
+---
+
+## 2. Found, not changed (needs approval or a product decision)
+
+### 2.1 Duplicate or cannibalizing pages
+
+These pairs target the same query and split link equity. Recommend a 301 from the weaker page to the stronger and removing the weaker from `sitemap.ts`. Not done because redirects are structural changes.
+
+- `/school-bcba-training-program` vs `/transformation-program` (same program, older copy on the first).
+- `/events` (in the `(public)` route group) vs `/ce-events`.
+- `/research-digest` (noindex) vs `/subscribe` (indexed). Could be deleted or redirected.
+- Exam-prep landing pages on the marketing domain. Many legacy routes (`/bcba-exam-prep`, `/bcba-mock-practice-test`, `/behavior-study-tools`, and others) already 301 off-site, which is correct. The remaining indexable exam pages (`/bcba-study-schedule`, `/bcba-exam-weak-areas`, `/failed-bcba-exam-help`, `/bcba-readiness-quiz`, `/free-bcba-practice`, `/free-bcba-practice-test`, `/rbt-study`, `/ebook/bcba-exam-guide`) should each have one clear job and a single CTA to study.behaviorschool.com; a couple of them still compete for "free BCBA practice test."
+
+### 2.2 Thin or stub pages that make promises
+
+- `/fba-to-bip`: describes a "free FBA-to-BIP generator" but the wizard is stubbed. Either finish the wizard, redirect to `/behavior-plans`, or noindex until it is real.
+- `/school-bcba/first-90-days`, `/school-bcba/interview-questions`: good topics, thin bodies. Worth 600-1,000 more words each with concrete examples.
+- Several `/compare/*` pages carry competitor prices and question counts that will drift. Consider a "checked on [date]" line and a quarterly review.
+
+### 2.3 Title and description hygiene
+
+- 14 pages have `<title>` over 60 characters (mostly `| Behavior School` appended to a long phrase). Not changed individually; a follow-up pass could standardize `Primary phrase | Behavior School` and drop the middle segment.
+- Brand suffix is inconsistent: `| Behavior School`, `| BehaviorSchool`, `- Behavior School`, none. `BehaviorSchool` (one word) should be reserved for product names per `MARKETING_CONTEXT.md`.
+
+### 2.4 Navigation IA
+
+Primary nav has no direct path to `/school-bcba` (career hub) or `/free-tools`. Both are strong entry points for the school-BCBA audience. Recommend adding them (see Q3). Also see Q2 about the "Exam Prep" nav item.
+
+### 2.5 Pricing inconsistency
+
+Study product prices differ across pages: `$29.99 / $89.99 / $288` (readiness quiz) vs `$49 / $149 per 6 months / $199 per year / $249 all-access` (comparison pages). One of these is stale. Not changed because the source of truth is not in this repo.
+
+### 2.6 Stray files
+
+- `src/app/subscribe/page 2.tsx` and `src/components/admin/PresentationSettings 2.tsx` look like accidental duplicates (macOS "copy" naming). Not routes, but they are compiled and linted. Recommend deleting.
+
+### 2.7 Pre-existing lint errors
+
+`pnpm lint` reports 250 pre-existing errors (mostly `react/no-unescaped-entities`). This PR adds none and fixes none; a mechanical cleanup PR would be low risk.
+
+---
+
+## 3. Questions for Rob
+
+1. **X / Twitter handle.** Organization JSON-LD now uses `x.com/behaviorschool`; the footer previously used `x.com/behavior_school`. Which is the live account? I will align the other.
+2. **Nav "Exam Prep" destination.** The header sends "Exam Prep" to behaviorstudytools.com while the homepage, footer, and FAQ send exam traffic to study.behaviorschool.com. Which one is the primary product? The other should be a clearly labeled secondary link or dropped from the nav.
+3. **Add "School BCBA Career" and "Free Tools" to the primary nav?** Both hubs are strong for the target audience and currently only reachable from the footer or in-page links.
+4. **Study pricing.** Confirm the current BehaviorSchool Study prices so the readiness quiz and both comparison pages can be made consistent (see 2.5). Also confirm the competitor prices and question counts on `/compare/*` are still accurate, or approve a "checked on" date line.
+5. **About-page anecdote.** The original copy said the student advanced "three grade levels" in reading within a year. I could not verify that number, so it now says "making real progress in reading." If you can confirm the figure and its source, I will restore it.
+6. **Founding date.** Organization JSON-LD says `foundingDate: 2020`. Confirm or correct.
+7. **AI crawler policy.** `robots.txt` now explicitly allows the AI search bots (which is what gets the site cited in AI answers). Do you also want to allow the pure training bots (`GPTBot`, `Google-Extended`, `CCBot`, `anthropic-ai`), or block those while keeping the search/user-agent ones? Blocking training bots does not affect citations from OAI-SearchBot, Claude-SearchBot, or PerplexityBot.
+8. **Duplicate page consolidation.** Approve 301s for the pairs in 2.1? If yes, I will add the redirects in `next.config.ts`, remove the losers from `sitemap.ts`, and update internal links.
+9. **`/fba-to-bip` stub.** Finish, redirect to `/behavior-plans`, or noindex?
+10. **Salary data sourcing.** The salary pages say figures come from 2024-2025 district postings and HR schedules. Is there a saved dataset or list of sources I can cite by name (state DOE schedules, EdJoin, etc.) so the page can show its work? That is the biggest E-E-A-T lift available on those pages.
+11. **Stray duplicate files.** OK to delete `src/app/subscribe/page 2.tsx` and `src/components/admin/PresentationSettings 2.tsx`?
+
+---
+
+## 4. Verification run for this PR
+
+- `pnpm copy:guard`: pass
+- `pnpm authenticity:check`: pass
+- `pnpm typecheck`: pass
+- `pnpm lint`: 250 pre-existing errors, 0 new (diffed before/after by file and message)
+- `node scripts/verify-canonical-links.mjs`: pass
+- `pnpm build` including `postbuild` routing verification: see PR description for the result
