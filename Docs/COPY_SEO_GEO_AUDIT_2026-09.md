@@ -111,7 +111,7 @@ Losers are out of `sitemap.ts` and listed in `legacyRedirectPaths`. `/ce-events`
 
 ### 2.5 Pricing inconsistency
 
-Study product prices now come from `src/lib/study-pricing.ts`, matching live Stripe (`$29.99/month`, `$89.99/quarter`, `$288/year`, checked September 10, 2026). Stale `$49 / $149 / $199 / $249` figures were removed from the compare pages.
+Study product prices now come from `src/lib/study-pricing.ts`, matching live Stripe (`$29.99/month`, `$89.99/quarter`, `$288/year`, checked September 10, 2026). Stale `$49 / $149 / $199 / $249` figures were removed from the compare pages. The BDS compare page does not link out to BDS and does not restate their catalog or prices.
 
 ### 2.6 Stray files
 

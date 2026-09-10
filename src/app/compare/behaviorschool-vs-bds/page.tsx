@@ -75,8 +75,7 @@ export default function BehaviorSchoolVsBDS() {
         heroTitle="BehaviorSchool vs BDS"
         heroSubtitle="Compare BehaviorSchool’s mock-and-readiness workflow against BDS’s established CBA Learning Module Series. See when each platform fits."
         competitorName="BDS"
-        competitorUrl="https://bds.com"
-        competitorDescription="Behavior Development Solutions (BDS) publishes the CBA Learning Module Series with 3,500+ module questions, domain tests, a mock exam, and a money-back guarantee on its BCBA prep product page. This comparison focuses on publicly described features—not pass-rate claims."
+        competitorDescription="Behavior Development Solutions (BDS) is a long-established fluency-based BCBA prep program: modular questions, domain tests, a mock exam, and an advertised money-back guarantee. This comparison focuses on publicly described features—not pass-rate claims or their current catalog."
         behaviorSchoolAdvantages={[
           'Adaptive practice with domain-level readiness where available',
           'Built for school BCBA candidates and school-relevant scenarios',
@@ -99,7 +98,7 @@ export default function BehaviorSchoolVsBDS() {
               { name: 'Mobile-Friendly Web Access', behaviorSchool: true, competitor: 'partial' },
               { name: 'Modular fluency curriculum', behaviorSchool: 'partial', competitor: true },
               { name: 'Money-Back Guarantee (published)', behaviorSchool: false, competitor: true },
-              { name: '3,500+ module questions (per BDS product page)', behaviorSchool: 'partial', competitor: true },
+              { name: 'Large published question library', behaviorSchool: 'partial', competitor: true },
             ],
           },
           {
@@ -125,12 +124,12 @@ export default function BehaviorSchoolVsBDS() {
           },
         ]}
         pricing={[
-          { name: 'Free Tier', behaviorSchool: 'Free practice tier', competitor: 'Free demo (per BDS site)' },
-          { name: 'Practice Questions', behaviorSchool: 'Free tier + paid plans', competitor: 'See BDS subscription options' },
-          { name: 'Full Exam Prep', behaviorSchool: STUDY_PRICING_LINE, competitor: 'See BDS CBA LMS pricing' },
+          { name: 'Free Tier', behaviorSchool: 'Free practice tier', competitor: 'Demo / trial (varies)' },
+          { name: 'Practice Questions', behaviorSchool: 'Free tier + paid plans', competitor: 'Paid subscription' },
+          { name: 'Full Exam Prep', behaviorSchool: STUDY_PRICING_LINE, competitor: 'Paid subscription' },
           { name: 'IEP + Behavior Tools', behaviorSchool: 'Included free on site', competitor: 'Not offered' },
         ]}
-        pricingNote={`Behavior Study Tools prices confirmed in Stripe on ${STUDY_PRICING.stripeCheckedOn}. BDS publishes its own subscription prices on its site; we do not restate them here.`}
+        pricingNote={`Behavior Study Tools prices confirmed in Stripe on ${STUDY_PRICING.stripeCheckedOn}. BDS prices are not listed here.`}
         verdict="Choose BDS if you want an established, module-driven fluency program with thousands of published module questions, domain tests, and a money-back guarantee—and you are comfortable studying primarily through structured drills. Choose BehaviorSchool if you want timed mock checkpoints, domain readiness reporting where available, school BCBA scenarios, and free practice tools on behaviorschool.com."
         emailSource="compare-vs-bds"
         faqItems={[
@@ -144,7 +143,7 @@ export default function BehaviorSchoolVsBDS() {
           },
           {
             q: 'Does BDS have AI or adaptive learning?',
-            a: 'BDS markets a traditional fluency-based module approach. BehaviorSchool uses adaptive practice where available in the study app. Compare both workflows directly before choosing.',
+            a: 'BDS markets a traditional fluency-based module approach. BehaviorSchool uses adaptive practice where available in the study app.',
           },
           {
             q: 'Can I try BehaviorSchool before paying?',

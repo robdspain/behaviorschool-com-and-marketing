@@ -15,7 +15,7 @@ interface ComparisonPageProps {
   heroTitle: string;
   heroSubtitle: string;
   competitorName: string;
-  competitorUrl: string;
+  competitorUrl?: string;
   competitorDescription: string;
   behaviorSchoolAdvantages: string[];
   features: ComparisonFeature[];
@@ -31,7 +31,6 @@ export function ComparisonPageLayout({
   heroTitle,
   heroSubtitle,
   competitorName,
-  competitorUrl,
   competitorDescription,
   behaviorSchoolAdvantages,
   features,
