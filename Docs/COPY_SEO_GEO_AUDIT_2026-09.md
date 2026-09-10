@@ -76,7 +76,7 @@ Per `MARKETING_CONTEXT.md`, the product should not lead with "AI-powered." Rewro
 
 ### 1.8 AI-search assets
 
-- `public/robots.txt`: explicit `Allow` group for GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, anthropic-ai, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended, Amazonbot, meta-externalagent, DuckAssistBot, YouBot, CCBot, with the same private-path disallows. No behavior change from the implicit `*` rule; it makes the policy explicit and auditable. See Q7 before blocking any training bots.
+- `public/robots.txt`: explicit `Allow` group for GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, anthropic-ai, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended, Amazonbot, meta-externalagent, DuckAssistBot, YouBot, CCBot, with the same private-path disallows. Training bots stay allowed (Rob, September 10, 2026).
 - `public/llms.txt`: identity, offerings, key URLs, machine-readable resources, citation guidance, and the exam-prep/newsletter boundary. All URLs verified to exist and be indexable; the redirected `/iep-behavior-goals` was excluded.
 
 ---
@@ -131,7 +131,7 @@ Study product prices now come from `src/lib/study-pricing.ts`, matching live Str
 4. ~~Study pricing.~~ Live Stripe (checked September 10, 2026): $29.99/month, $89.99/quarter, $288/year. Compare pages now use those figures. Competitor prices were re-checked the same day (ABA Exam Review $115 / $140 and 1,480 questions; MagicSchool Plus $12.99/mo or $99.96/year) and each table has a "checked on" note.
 5. ~~About-page anecdote.~~ Restored the original "three grade levels in reading" line after Rob confirmed it.
 6. ~~Founding date.~~ Delaware Certificate of Formation is April 1, 2024 (file 3358113). Publishing that year would make the organization look newer than the founder’s work history, and 2020 is not documented. `foundingDate` omitted from Organization JSON-LD.
-7. **AI crawler policy.** `robots.txt` now explicitly allows the AI search bots (which is what gets the site cited in AI answers). Do you also want to allow the pure training bots (`GPTBot`, `Google-Extended`, `CCBot`, `anthropic-ai`), or block those while keeping the search/user-agent ones? Blocking training bots does not affect citations from OAI-SearchBot, Claude-SearchBot, or PerplexityBot.
+7. ~~AI crawler policy.~~ Leave training bots allowed. `robots.txt` keeps the explicit Allow group for search crawlers and training agents (`GPTBot`, `Google-Extended`, `CCBot`, `anthropic-ai`, and the rest). Same private-path disallows as `*`.
 8. ~~Duplicate page consolidation.~~ 301s added for `/school-bcba-training-program`, `/events` + `/events/:id`, and `/research-digest`. Internal links and sitemap updated.
 9. **`/fba-to-bip` stub.** Finish, redirect to `/behavior-plans`, or noindex?
 10. **Salary data sourcing.** The salary pages say figures come from 2024-2025 district postings and HR schedules. Is there a saved dataset or list of sources I can cite by name (state DOE schedules, EdJoin, etc.) so the page can show its work? That is the biggest E-E-A-T lift available on those pages.
