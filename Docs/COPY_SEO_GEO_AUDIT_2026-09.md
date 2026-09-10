@@ -113,8 +113,10 @@ Losers are out of `sitemap.ts` and listed in `legacyRedirectPaths`. `/ce-events`
 
 ### 2.3 Title and description hygiene
 
-- 14 pages have `<title>` over 60 characters (mostly `| Behavior School` appended to a long phrase). Not changed individually; a follow-up pass could standardize `Primary phrase | Behavior School` and drop the middle segment.
-- Brand suffix is inconsistent: `| Behavior School`, `| BehaviorSchool`, `- Behavior School`, none. `BehaviorSchool` (one word) should be reserved for product names per `MARKETING_CONTEXT.md`.
+- ~~14 pages have `<title>` over 60 characters.~~ ~~Brand suffix is inconsistent: `| Behavior School`, `| BehaviorSchool`, `- Behavior School`, none.~~ Resolved. Convention: `Primary phrase | Behavior School`, 60 characters or fewer, measured on the rendered `<title>` in the build output (not the source string, which also caught `og:title`). Pages whose primary phrase already contains the brand (home, the four `/compare/behaviorschool-vs-*` pages titled "Behavior School vs X") carry no extra suffix. `BehaviorSchool` (one word) now appears only in product names (`BehaviorSchool Pro`, the study-app override title). About 50 page titles were rewritten; the middle keyword segment was dropped rather than the brand. Redirected legacy pages were not retitled.
+- `scripts/verify-title-hygiene.mjs` runs in `postbuild` (also `pnpm seo:verify-titles`). It reads every prerendered sitemap page and fails the build if a `<title>` is over 60 characters, lacks "Behavior School", or ends in `| BehaviorSchool` / `- Behavior School`. Blog posts (`meta_title` from the CMS, already suffixed `| Behavior School`) are rendered on demand and are outside the check.
+- `/videos/[slug]` titles come from the video record. The five videos in `public/data/videos.json` have long editorial titles (up to 71 characters with the suffix), so the `Video` type gained an optional `seoTitle` that the page prefers when present; the display title is unchanged. The admin videos writer serializes the same JSON shape, so the field round-trips.
+- The study-app SEO override (`seo-draft-overrides.ts`) appended `| BehaviorSchool Study`; now `| Behavior School`.
 
 ### 2.4 Navigation IA
 
@@ -153,6 +155,8 @@ Study product prices now come from `src/lib/study-pricing.ts`, matching live Str
 11. ~~Stray duplicate files.~~ Deleted all tracked macOS `* 2` copies (19 files). None were imported.
 12. **The BCBA Exam Survival Guide PDF is written to the 5th Edition Task List.** Both copies (`public/ebooks/bcba-exam-guide-2026.pdf`, 27 pp, and the retired `public/downloads/bcba-exam-survival-guide-2026.pdf`, 11 pp) list 5th Edition sections A–I with 5th Edition weights, tell the reader to "Download the 5th Edition Task List," and recommend competitor question banks by name. The page was advertising a "6th Edition Task List Breakdown." Interim fix in this PR: copy and metadata no longer claim 6th Edition, and the page says which chapters are edition-agnostic and where to get current weights. Options: (a) rebuild the PDF on the 6th Edition Test Content Outline and drop the competitor list, (b) noindex the page until then, or (c) retire it and send the traffic to the free practice set. Separately, the email gate had never worked: it posted `firstName` but `/api/crm` requires `name`, so every submission got a 400 and nobody received the file. Fixed here. `/ebook/school-bcba-starter-kit` has the same one-line bug (not touched; outside this scope).
 13. **`/rbt-study` is not in `sitemap.ts`.** It has a canonical and is indexable, but it was never added to the sitemap. Add it, or leave it discoverable via links only? Not changed (sitemap additions need approval).
+14. **All five `/videos/*` pages are in the sitemap with placeholder YouTube URLs.** Every entry in `public/data/videos.json` has `videoUrl: https://www.youtube.com/watch?v=PLACEHOLDER`, so the indexed pages embed a broken player and the VideoObject JSON-LD points at a non-existent video. Options: fill in the real URLs, or pull the video pages from the sitemap and noindex them until the recordings exist. Not changed (sitemap and indexing changes need approval); titles were shortened via `seoTitle` in the meantime.
+15. **`/calaba40` claims "10,000+ AI Questions."** I could not verify that count against the study app or `behaviorStudyToolsMarketing.ts`. Confirm the figure or I will replace it with the approved product language.
 
 ---
 
@@ -163,4 +167,5 @@ Study product prices now come from `src/lib/study-pricing.ts`, matching live Str
 - `pnpm typecheck`: pass
 - `pnpm lint`: 250 pre-existing errors, 0 new (diffed before/after by file and message)
 - `node scripts/verify-canonical-links.mjs`: pass
+- `node scripts/verify-title-hygiene.mjs` (after `next build`): pass, 50 prerendered titles at 60 characters or fewer with the `Behavior School` brand
 - `pnpm build` including `postbuild` routing verification: see PR description for the result
