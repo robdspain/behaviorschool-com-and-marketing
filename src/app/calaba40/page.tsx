@@ -5,7 +5,7 @@ import { Brain, Bot, BarChart3, Smartphone, Target, Zap, GraduationCap } from "l
 export const metadata: Metadata = {
   title: "CALABA 2026: 40% Off BCBA Study Tools | Behavior School",
   description:
-    "CALABA 2026 attendees get 40% off Behavior School's AI-powered BCBA exam prep. Use code CALABA40 at checkout.",
+    "CALABA 2026 attendees get 40% off Behavior Study Tools, Behavior School's BCBA exam prep. Use code CALABA40 at checkout.",
   robots: { index: false, follow: false },
 };
 
@@ -22,9 +22,9 @@ export default function CALABA40Page() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-bold mb-6 leading-tight">
-            <span className="text-emerald-400">40% Off</span> AI-Powered
+            <span className="text-emerald-400">40% Off</span> Behavior
             <br />
-            BCBA Exam Prep
+            Study Tools
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -63,33 +63,33 @@ export default function CALABA40Page() {
             {[
               {
                 Icon: Brain,
-                title: "10,000+ AI Questions",
-                desc: "Adaptive practice that targets your weak areas automatically.",
+                title: "Adaptive Practice",
+                desc: "Practice sessions that follow your missed domains instead of a fixed question order.",
               },
               {
                 Icon: Bot,
-                title: "AI Tutor",
-                desc: "Ask questions and get detailed explanations in real time.",
+                title: "A Rationale on Every Answer",
+                desc: "See the missed domain, review the rationale, and choose the next study task.",
               },
               {
                 Icon: BarChart3,
-                title: "Mock Exams",
-                desc: "Full-length simulated exams with score tracking and analytics.",
+                title: "Full Mock Exams",
+                desc: "185 questions in four hours, with results by domain.",
               },
               {
                 Icon: Smartphone,
-                title: "Study Anywhere",
-                desc: "Works on phone, tablet, and desktop. Study on the go.",
+                title: "Web App on Any Device",
+                desc: "Runs in the browser on phone, tablet, and desktop. No install.",
               },
               {
                 Icon: Target,
-                title: "Task List Aligned",
-                desc: "Questions mapped to the 6th Edition BCBA Task List.",
+                title: "6th Edition Aligned",
+                desc: "Questions mapped to the BACB 6th Edition Test Content Outline.",
               },
               {
                 Icon: Zap,
-                title: "Progress Tracking",
-                desc: "See exactly where you stand and what to study next.",
+                title: "Readiness Signals",
+                desc: "Domain accuracy, response time, consistency, and mock endurance.",
               },
             ].map((item) => (
               <div
