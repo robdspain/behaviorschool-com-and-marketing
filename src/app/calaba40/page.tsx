@@ -201,8 +201,7 @@ export default function CALABA40Page() {
       {/* Footer */}
       <div className="border-t border-slate-700 py-8 px-4 text-center">
         <p className="text-sm text-slate-500">
-          © {new Date().getFullYear()} Behavior School · Code CALABA40 valid
-          through March 31, 2026
+          © {new Date().getFullYear()} Behavior School
         </p>
       </div>
     </div>
