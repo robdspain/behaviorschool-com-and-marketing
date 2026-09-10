@@ -18,23 +18,20 @@ const EFFECTIVE_SITE_URL = (!RAW_SITE_URL || /localhost/i.test(RAW_SITE_URL))
 
 export const metadata: Metadata = {
   metadataBase: new URL(EFFECTIVE_SITE_URL),
-  title: "BehaviorSchool | Tools & Resources for School BCBAs",
-  description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
+  title: "Behavior School | Tools & Training for School BCBAs",
+  description: "Tools, training, and research for school-based BCBAs: IEP behavior goals, FBA and BIP systems, CEUs, and exam prep. Built by a practicing school BCBA.",
   keywords: [
     "Behavior School",
-    "Behavior School platform",
-    "Behavior School BCBA",
-    "education",
+    "school BCBA",
+    "school-based BCBA",
+    "behavior analysis in schools",
     "special education",
-    "behavior analysis",
-    "teacher training",
-    "professional development",
-    "educational research",
-    "academic resources",
-    "school psychology",
-    "IEP goals",
-    "behavior intervention",
-    "BCBA certification",
+    "IEP behavior goals",
+    "functional behavior assessment",
+    "behavior intervention plan",
+    "BCBA supervision",
+    "BCBA CEUs",
+    "BCBA exam prep",
     "applied behavior analysis"
   ],
   authors: [{ name: "Behavior School" }],
@@ -67,8 +64,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BehaviorSchool | Tools & Resources for School BCBAs",
-    description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
+    title: "Behavior School | Tools & Training for School BCBAs",
+    description: "Tools, training, and research for school-based BCBAs: IEP behavior goals, FBA and BIP systems, CEUs, and exam prep. Built by a practicing school BCBA.",
     url: "https://behaviorschool.com",
     siteName: "Behavior School",
     locale: "en_US",
@@ -83,15 +80,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BehaviorSchool | Tools & Resources for School BCBAs",
-    description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more.",
+    title: "Behavior School | Tools & Training for School BCBAs",
+    description: "Tools, training, and research for school-based BCBAs: IEP behavior goals, FBA and BIP systems, CEUs, and exam prep.",
     images: ["/optimized/og-image.webp"],
   },
   other: {
     'feed': '/feed.xml',
     'rss': '/feed.xml',
     'application/rss+xml': '/feed.xml',
-    'application/feed+json': '/feed.json',
   },
 };
 
@@ -126,7 +122,7 @@ export default function RootLayout({
           height: 512
         },
         image: `${SITE_URL}/optimized/og-image.webp`,
-        description: "Professional development, study tools, and resources for school BCBAs and behavior analysts in education.",
+        description: "Behavior School builds practical tools, live training, and research summaries for school-based BCBAs: IEP behavior goals, FBA and BIP systems, supervision, and BACB continuing education.",
         foundingDate: "2020",
         contactPoint: {
           "@type": "ContactPoint",
@@ -152,7 +148,10 @@ export default function RootLayout({
         sameAs: [
           "https://www.linkedin.com/company/behavior-school",
           "https://x.com/behaviorschool",
-          "https://community.behaviorschool.com"
+          "https://www.youtube.com/@BehaviorSchool",
+          "https://www.instagram.com/behaviorschool",
+          "https://bsky.app/profile/behaviorschool.bsky.social",
+          "https://www.facebook.com/profile.php?id=61564836345571"
         ],
         knowsAbout: [
           "Applied Behavior Analysis",
@@ -171,17 +170,9 @@ export default function RootLayout({
         alternateName: ["Behavior School", "BehaviorSchool.com"],
         url: SITE_URL,
         inLanguage: "en-US",
-        description: "Behavior School provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school-based behavior analysts.",
+        description: "Behavior School provides IEP goal tools, FBA and BIP resources, supervision tools, BACB continuing education, and BCBA exam prep for school-based behavior analysts.",
         publisher: {
           "@id": `${SITE_URL}/#organization`
-        },
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate: `${SITE_URL}/blog?q={search_term_string}`
-          },
-          "query-input": "required name=search_term_string"
         }
       }
     ]
@@ -230,69 +221,18 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F4D3F" />
 
-        {/* Educational Institution Classification */}
-        <meta name="category" content="education" />
-        <meta name="subject" content="special education, behavior analysis, teacher training" />
-        <meta name="audience" content="educators, teachers, school psychologists, behavior analysts" />
-        <meta name="education-level" content="higher education, professional development" />
-        <meta name="content-type" content="educational resources" />
-
-        {/* Academic and Research Tags */}
-        <meta name="dc.type" content="Text.Educational" />
-        <meta name="dc.subject" content="Applied Behavior Analysis; Special Education; Teacher Training" />
-        <meta name="dc.audience" content="Educator" />
-        <meta name="resource-type" content="educational" />
-
-        {/* COPPA Compliance */}
-        <meta name="coppa-compliant" content="true" />
-        <meta name="child-safe" content="true" />
-        <meta name="family-friendly" content="true" />
-
-        {/* Educational Standards */}
-        <meta name="educational-use" content="professional development" />
-        <meta name="typical-age-range" content="adult" />
-        <meta name="interactivity-type" content="mixed" />
-
-        {/* Logo meta tags for Google search results */}
+        {/* Logo hint for search result branding */}
         <meta name="logo" content="https://behaviorschool.com/behavior-school-icon.png" />
         <link rel="image_src" href="https://behaviorschool.com/behavior-school-icon.png" />
 
-        {/* Bing-specific meta tags */}
+        {/* Bing site verification and tile config */}
         <meta name="msvalidate.01" content="D6F638D35C42D071C62B47907C2CD0CC" />
         <meta name="msapplication-TileColor" content="#1F4D3F" />
         <meta name="msapplication-TileImage" content="/behavior-school-icon-150.png" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
 
-        {/* IndexNow API key for instant indexing */}
-        <meta name="indexnow" content="D6F638D35C42D071C62B47907C2CD0CC" />
-
-        {/* Educational Verification & SafeSearch */}
         <meta name="rating" content="general" />
-        <meta name="distribution" content="global" />
         <meta name="language" content="en" />
-        <meta name="content-language" content="en-US" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-
-        {/* E-A-T Enhancement Meta Tags */}
-        <meta name="expertise" content="Applied Behavior Analysis, School-Based Behavior Support, BCBA Certification" />
-        <meta name="authority" content="School-based behavior analysis, BCBA-led professional development" />
-        <meta name="trustworthiness" content="Evidence-based practices, professional credentials, transparent methodology" />
-        <meta name="author-credentials" content="BCBA, IBA" />
-        <meta name="content-accuracy" content="Peer-reviewed, evidence-based, professionally verified" />
-        <meta name="professional-standards" content="BACB-aligned, ethical guidelines maintained" />
-
-        {/* SafeSearch and Content Filtering Tags */}
-        <meta name="SafeSearch" content="true" />
-        <meta name="adult" content="false" />
-        <meta name="mature" content="false" />
-
-        {/* Educational Taxonomy */}
-        <meta name="ICRA labels" content="(pics-1.1 'http://www.icra.org/ratingsv02.html' l gen true for 'http://behaviorschool.com' on '2024.01.01' r (n 0 s 0 v 0 l 0))" />
-
-        {/* Trust and Safety Indicators */}
-        <meta name="verify-v1" content="educational+resource+professional+development" />
-        <meta name="site-verification" content="educational-institution" />
       </head>
       <body className="font-sans antialiased mobile-optimized prevent-horizontal-scroll">
         {/* Skip link for keyboard users */}
