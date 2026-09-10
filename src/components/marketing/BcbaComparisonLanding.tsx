@@ -109,21 +109,27 @@ export function BcbaComparisonLanding({
             </h2>
           </div>
           <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-            <div className="grid grid-cols-[1.1fr_1fr_1fr] bg-[#1f4d3f] text-sm font-bold text-white">
+            <div className="hidden grid-cols-[1.1fr_1fr_1fr] bg-[#1f4d3f] text-sm font-bold text-white md:grid">
               <div className="p-4">Decision factor</div>
               <div className="p-4">BehaviorSchool</div>
               <div className="p-4">{competitor}</div>
             </div>
             {rows.map((row) => (
-              <div key={row.label} className="grid grid-cols-[1.1fr_1fr_1fr] border-t border-slate-200 text-sm">
-                <div className="p-4 font-bold text-slate-950">{row.label}</div>
+              <div key={row.label} className="border-t border-slate-200 text-sm first:border-t-0 md:grid md:grid-cols-[1.1fr_1fr_1fr] md:first:border-t">
+                <div className="bg-slate-50 p-4 font-bold text-slate-950 md:bg-transparent">{row.label}</div>
                 <div className="flex gap-2 p-4 text-slate-700">
                   <Check className="mt-0.5 shrink-0 text-[#1f4d3f]" size={16} />
-                  <span>{row.behaviorSchool}</span>
+                  <span>
+                    <span className="block text-xs font-bold uppercase tracking-wide text-[#1f4d3f] md:hidden">BehaviorSchool</span>
+                    {row.behaviorSchool}
+                  </span>
                 </div>
-                <div className="flex gap-2 p-4 text-slate-700">
+                <div className="flex gap-2 border-t border-slate-100 p-4 text-slate-700 md:border-t-0">
                   <X className="mt-0.5 shrink-0 text-slate-400" size={16} />
-                  <span>{row.competitor}</span>
+                  <span>
+                    <span className="block text-xs font-bold uppercase tracking-wide text-slate-500 md:hidden">{competitor}</span>
+                    {row.competitor}
+                  </span>
                 </div>
               </div>
             ))}

@@ -59,7 +59,7 @@ export default async function BehaviorSchoolVsBDSModulesPage() {
         },
         {
           label: "Guarantee and trial",
-          behaviorSchool: "Free practice questions and a free mock exam before you pay. No guarantee; you keep the results either way.",
+          behaviorSchool: "Free practice questions and a free mock exam before you pay, so you can judge fit on real questions. No pass guarantee is advertised.",
           competitor: "A published money-back guarantee tied to completing the program as directed.",
         },
         {
