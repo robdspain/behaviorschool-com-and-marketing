@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'ABA Research Digest for School BCBAs | BehaviorSchool',
+  title: 'The Weekly Research Brief for School BCBAs | Behavior School',
   description: 'A free weekly email summarizing peer-reviewed behavior analytic research for BCBAs working in K-12 schools, with practical takeaways.',
   robots: 'noindex',
 }
@@ -120,10 +120,10 @@ export default function ResearchDigestPage() {
       <section style={{ background: '#1f4d3f', padding: '72px 24px 64px' }}>
         <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ margin: '0 0 16px', fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#e4b63d' }}>
-            BehaviorSchool &mdash; Free Weekly Email
+            Behavior School &mdash; Free Weekly Email
           </p>
           <h1 style={{ margin: '0 0 20px', fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 800, color: '#fff', lineHeight: 1.15 }}>
-            The ABA Research Digest<br />for School BCBAs
+            The Weekly Research Brief<br />for School BCBAs
           </h1>
           <p style={{ margin: '0 0 36px', fontSize: 17, color: 'rgba(255,255,255,0.8)', lineHeight: 1.7 }}>
             Every Monday morning: 5 peer-reviewed behavior analytic studies — summarized in plain language so you can stay current without spending your weekend reading abstracts.
@@ -218,7 +218,7 @@ export default function ResearchDigestPage() {
             {/* Email header */}
             <div style={{ background: '#1f4d3f', padding: '22px 28px' }}>
               <p style={{ margin: '0 0 4px', fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#e4b63d' }}>BehaviorSchool</p>
-              <p style={{ margin: 0, fontSize: 18, fontWeight: 700, color: '#fff' }}>ABA Research Digest</p>
+              <p style={{ margin: 0, fontSize: 18, fontWeight: 700, color: '#fff' }}>The Weekly Research Brief</p>
               <p style={{ margin: '4px 0 0', fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>Issue #12 &nbsp;&middot;&nbsp; March 10, 2026 &nbsp;&middot;&nbsp; 5 papers</p>
             </div>
 

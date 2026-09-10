@@ -42,7 +42,7 @@ const tools: ToolCard[] = [
   {
     title: "IEP Goal Writer",
     description:
-      "Generate values-aligned, measurable IEP behavior goals in seconds. Our AI-powered wizard creates copy-ready goals based on student needs, function of behavior, and educational context.",
+      "Draft measurable, values-aligned IEP behavior goals in minutes. The guided wizard produces copy-ready goals based on student needs, function of behavior, and educational context.",
     href: "/iep-goals",
     icon: FileText,
     status: "live",
@@ -241,13 +241,13 @@ export default function BehaviorToolsPage() {
               IEP &amp; Behavior Tools
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              AI-Powered Tools for{" "}
+              IEP and Behavior Tools for{" "}
               <span className="text-emerald-600">School BCBAs</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
-              Write better IEP goals, build function-based behavior plans, and
-              use ACT-based tools — all designed specifically for behavior
-              analysts working in schools.
+              Write measurable IEP behavior goals, build function-based
+              behavior plans, and use ACT-based tools. Each one is built
+              around how behavior analysts actually work in schools.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

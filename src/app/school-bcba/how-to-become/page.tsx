@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "How to Become a School BCBA: Complete 2025 Pathway Guide",
+  title: "How to Become a School BCBA: Complete Pathway Guide",
   description:
     "Step-by-step pathway to becoming a School BCBA with district-ready competencies, key artifacts, timeline planning, and credential requirements.",
   alternates: { canonical: "https://behaviorschool.com/school-bcba/how-to-become" },
@@ -350,7 +350,7 @@ export default function Page() {
                             </li>
                             <li className="flex items-start gap-2">
                               <CheckCircle2 className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
-                              <span>Use <Link href="/school-bcba/job-guide" className="text-purple-700 underline">Job Guide 2025</Link> for resume templates and cover letter examples</span>
+                              <span>Use <Link href="/school-bcba/job-guide" className="text-purple-700 underline">School BCBA Job Guide</Link> for resume templates and cover letter examples</span>
                             </li>
                           </ul>
                         </div>
@@ -576,7 +576,7 @@ export default function Page() {
                   </p>
                   <Link href="/school-bcba/job-guide">
                     <button className="w-full bg-slate-600 hover:bg-slate-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
-                      View Job Guide 2025
+                      View the School BCBA Job Guide
                       <ChevronRight className="w-4 h-4" />
                     </button>
                   </Link>
@@ -600,7 +600,7 @@ export default function Page() {
                   <li>
                     <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/school-bcba/job-guide">
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      <span className="text-sm font-medium">School BCBA Job Guide 2025</span>
+                      <span className="text-sm font-medium">School BCBA Job Guide</span>
                     </Link>
                   </li>
                   <li>
