@@ -39,12 +39,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!video) {
     return {
-      title: 'Video Not Found | BehaviorSchool',
+      title: 'Video Not Found | Behavior School',
     };
   }
 
   return {
-    title: `${video.title} | BehaviorSchool`,
+    title: `${video.seoTitle ?? video.title} | Behavior School`,
     description: video.metaDescription || video.description,
     keywords: video.keywords,
     openGraph: {
