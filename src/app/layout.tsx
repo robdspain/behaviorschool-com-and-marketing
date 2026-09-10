@@ -147,7 +147,7 @@ export default function RootLayout({
         },
         sameAs: [
           "https://www.linkedin.com/company/behavior-school",
-          "https://x.com/behaviorschool",
+          "https://x.com/behavior_school",
           "https://www.youtube.com/@BehaviorSchool",
           "https://www.instagram.com/behaviorschool",
           "https://bsky.app/profile/behaviorschool.bsky.social",
