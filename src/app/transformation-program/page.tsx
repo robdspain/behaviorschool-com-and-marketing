@@ -7,7 +7,7 @@ import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, 
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
-import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM, TRANSFORMATION_PROGRAM_FAQ } from '@/lib/transformation-program';
 
 const OFFER_PRICE = TRANSFORMATION_PROGRAM.pricing.payInFull;
 const PAYMENT_PLAN = TRANSFORMATION_PAYMENT_PLAN_LABEL;
@@ -17,7 +17,6 @@ const DISTRICT_EMAIL_LINK = '/contact';
 const COHORT_LABEL = TRANSFORMATION_PROGRAM.cohort.label;
 const COHORT_START_BADGE = TRANSFORMATION_PROGRAM.cohort.startBadge;
 const COHORT_START_FULL = TRANSFORMATION_PROGRAM.cohort.startFull;
-const COHORT_END_FULL = TRANSFORMATION_PROGRAM.cohort.endFull;
 const COHORT_DATE_RANGE = TRANSFORMATION_PROGRAM.cohort.dateRange;
 const COHORT_SESSION_DATES = TRANSFORMATION_PROGRAM.cohort.sessionDates;
 const COHORT_SEAT_CAP = TRANSFORMATION_PROGRAM.cohort.seatCap;
@@ -144,7 +143,7 @@ export default function TransformationProgramPage() {
                 </a>
               </motion.div>
               <p className="mt-4 text-sm text-slate-500 max-w-xl mx-auto lg:mx-0">
-                Apply first. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
+                Apply first. After we review your application, we schedule a fit call before confirming your seat.
               </p>
             </div>
 
@@ -374,25 +373,14 @@ export default function TransformationProgramPage() {
         </div>
       </section>
 
-      {/* Who This Is For */}
-      <section className="py-20 sm:py-28 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
-            <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-              The Transformation Program is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and progress monitoring in K-12 settings. Participants bring real work to apply between sessions and share progress in later weeks.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* About Rob */}
       <section className="py-20 sm:py-28 bg-[#f9f7f2]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Your Instructor</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-8">Rob Spain, BCBA, IBA</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-8">Rob Spain, M.S., BCBA, IBA</h2>
           <div className="text-left space-y-4 text-slate-600 text-base leading-relaxed">
-            <p>Rob Spain is a BCBA and IBA with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. Learning CE documentation will not be issued until the instructor qualification and expertise record has been verified for the event.</p>
+            <p>Rob Spain is a practicing school BCBA and IBA who has worked in education since {FOUNDER_EDUCATION_START_LABEL} ({founderEducationYears} years). He built this program around the referral, FBA, BIP, and staff-training problems he works through as a practicing school BCBA.</p>
+            <p className="text-sm text-slate-500">Learning CE documentation is issued only after the instructor qualification and expertise record has been verified for the event.</p>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {['BCBA', 'IBA', 'School Practice'].map((item) => (
@@ -407,19 +395,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
-          <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins October 8, 2026. Sessions run weekly on Thursdays from 6 to 8 PM PT for six weeks, ending ${COHORT_END_FULL}.` },
-            { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats for the October 2026 cohort. Applications close when seats fill or by ${APPLICATIONS_CLOSE_LABEL}, whichever comes first.` },
-            { question: "What is the order of operations to enroll?", answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
-            { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM PT. It is not for RBTs, BCaBAs who are not yet certified, general-ed staff, or clinic-only BCBAs without a school role." },
-            { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later weeks include share-outs on the systems you are rebuilding." },
-            { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
-            { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
-            { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
-            { question: "Is a W-9 available?", answer: "Yes, available on request. Contact us and we'll send it same day." },
-            { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via the fit call link after applying, or through the contact form, to discuss district group pricing." },
-            { question: "How are Learning CEUs documented?", answer: "Each session is structured for 1.5 Learning CEUs after verified attendance and active participation. Provider registry status is confirmed before documentation is issued, and documentation is issued within 45 days of verified completion." },
-          ]} />
+          <FAQAccordion items={[...TRANSFORMATION_PROGRAM_FAQ]} />
         </div>
       </section>
 
@@ -480,7 +456,7 @@ export default function TransformationProgramPage() {
             </summary>
             <div className="px-6 pb-6 border-t border-[#1f4d3f]/10 pt-4 space-y-4">
               <p className="text-sm text-slate-600 leading-relaxed">
-                Many BCBAs have their district cover this as professional development. Here&apos;s what you need:
+                This program qualifies as professional development, and district purchase orders are accepted. Here&apos;s what you need:
               </p>
               <p className="flex items-start gap-3 p-3 rounded-lg border border-[#1f4d3f]/10 bg-[#1f4d3f]/5 text-sm text-slate-700 leading-relaxed">
                 <FileCheck className="w-4 h-4 flex-shrink-0 text-[#1f4d3f] mt-0.5" />

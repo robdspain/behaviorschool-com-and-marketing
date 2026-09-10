@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
-import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { TRANSFORMATION_PROGRAM, TRANSFORMATION_PROGRAM_FAQ } from '@/lib/transformation-program';
+
+const META_DESCRIPTION = `Six-week live cohort for school BCBAs. Build FBA triage, function-based BIPs, staff fidelity systems, and caseload review. ${TRANSFORMATION_PROGRAM.cohort.label}, ${TRANSFORMATION_PROGRAM.cohort.seatCap} seats.`;
 
 export const metadata: Metadata = {
   title: 'School BCBA Transformation Program | Behavior School',
-  description: 'A six-week live cohort for certified school BCBAs in K-12 school or district settings. Build assessment judgment, school-adapted functional analysis, ACT-informed tools, and systems leadership.',
+  description: META_DESCRIPTION,
   alternates: { canonical: '/transformation-program' },
   openGraph: {
     title: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs in K-12 settings. Build assessment judgment, functional analysis, intervention alignment, and implementation systems.',
+    description: META_DESCRIPTION,
     url: '/transformation-program',
     type: 'website',
     siteName: 'Behavior School',
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs in K-12 school or district settings.',
+    description: META_DESCRIPTION,
     images: ['/optimized/Course/course-hero.webp'],
   },
 };
@@ -27,19 +29,21 @@ export default function TransformationProgramLayout({ children }: { children: Re
     '@context': 'https://schema.org',
     '@type': 'Course',
     name: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs covering assessment decisions, school-adapted functional analysis, ACT-informed assessment, intervention alignment, and team implementation in K-12 settings.',
+    description: 'A six-week live cohort for certified school BCBAs covering tiered assessment routing, data collection systems, FBA hypothesis development, function-based BIP design, staff implementation and fidelity, and caseload progress monitoring in K-12 settings.',
+    url: `${siteUrl}/transformation-program`,
     provider: { '@type': 'EducationalOrganization', name: 'Behavior School', url: siteUrl },
-    instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
+    instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA', url: 'https://robspain.com' },
     courseMode: 'online',
     timeRequired: 'P6W',
     coursePrerequisites: 'BCBA certification',
     audience: { '@type': 'EducationalAudience', audienceType: 'Certified BCBAs working in K-12 schools or districts' },
     teaches: [
-      'School assessment decisions',
-      'School-adapted functional analysis',
-      'ACT-informed functional assessment',
-      'Evidence-to-intervention alignment',
-      'Staff training and implementation systems',
+      'Tiered assessment routing for school referrals',
+      'Data collection systems for school staff',
+      'FBA hypothesis development and function verification',
+      'Function-based BIP design',
+      'Staff training, implementation, and fidelity systems',
+      'Caseload progress monitoring and decision rules',
     ],
     hasCourseInstance: {
       '@type': 'CourseInstance',
@@ -51,10 +55,21 @@ export default function TransformationProgramLayout({ children }: { children: Re
     },
   };
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: TRANSFORMATION_PROGRAM_FAQ.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
+
   return (
     <>
       {children}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
     </>
   );
 }
