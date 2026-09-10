@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/ghost-hybrid";
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { EditPostButton } from "@/components/admin/EditPostButton";
 import { BlogNewsletterSignup } from "@/components/blog/NewsletterSignup";
@@ -196,7 +197,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "Behavior School",
       publishedTime: post.published_at || undefined,
       modifiedTime: post.updated_at || undefined,
-      authors: ['Behavior School'],
+      authors: ['Rob Spain'],
       images: [
         {
           url: post.og_image ? transformImageUrl(post.og_image as string) : featureImage,
@@ -339,12 +340,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     dateModified: post.updated_at || post.published_at,
     author: {
       '@type': 'Person',
-      name: 'Rob Spain, BCBA, IBA',
-      url: 'https://behaviorschool.com/about'
+      name: 'Rob Spain, M.S., BCBA, IBA',
+      url: 'https://behaviorschool.com/about',
+      sameAs: ['https://robspain.com']
     },
     publisher: {
       '@type': 'Organization',
-      name: 'BehaviorSchool',
+      name: 'Behavior School',
       logo: {
         '@type': 'ImageObject',
         url: 'https://behaviorschool.com/behavior-school-icon.png'
@@ -380,9 +382,26 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     <article className="mx-auto max-w-3xl px-6 lg:px-8 pt-20 pb-12">
       <header>
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">{post.title}</h1>
-        {post.published_at ? (
-          <p className="mt-2 text-sm text-slate-500">{new Date(post.published_at).toLocaleDateString()}</p>
-        ) : null}
+        <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+          <span>
+            By{' '}
+            <Link href="/about" className="font-medium text-slate-700 hover:text-emerald-700">
+              Rob Spain, M.S., BCBA, IBA
+            </Link>
+          </span>
+          {post.published_at ? (
+            <>
+              <span aria-hidden="true">·</span>
+              <time dateTime={post.published_at}>{new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+            </>
+          ) : null}
+          {post.updated_at && post.published_at && new Date(post.updated_at).toDateString() !== new Date(post.published_at).toDateString() ? (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Updated <time dateTime={post.updated_at}>{new Date(post.updated_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time></span>
+            </>
+          ) : null}
+        </p>
       </header>
       {post.feature_image ? (
         <div className="mt-6 overflow-hidden rounded-lg bg-slate-100">

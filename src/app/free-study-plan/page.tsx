@@ -74,7 +74,7 @@ export default function FreeStudyPlanPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight"
           >
-            Free Practice Exam
+            Free Study Guides and Practice Exams
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -82,7 +82,7 @@ export default function FreeStudyPlanPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-4 text-lg sm:text-xl text-emerald-50/90 max-w-xl mx-auto"
           >
-            Choose your path below. No signup required.
+            Pick your exam below to start practicing. No signup required.
           </motion.p>
         </div>
       </section>
