@@ -115,6 +115,8 @@ async function buildSitemap(
     '/school-bcba-training-program',
     '/research-digest',
     '/events',
+    '/fba-to-bip',
+    '/fba-bip-plan-writer',
   ])
   // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
   const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view']
@@ -431,12 +433,7 @@ async function buildSitemap(
       changeFrequency: 'monthly',
       priority: 0.75,
     },
-    {
-      url: `${baseUrl}/fba-to-bip`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
+    // /fba-to-bip removed — permanent redirect to https://plan.behaviorschool.com/
 
     // /study removed — permanent redirect to https://study.behaviorschool.com/
 

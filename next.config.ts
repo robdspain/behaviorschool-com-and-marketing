@@ -5,6 +5,7 @@ const behaviorStudyToolsUrl = "https://behaviorstudytools.com/";
 const studyAppUrl = "https://study.behaviorschool.com/";
 const freePracticeUrl = "https://study.behaviorschool.com/free-practice/";
 const freeMockUrl = "https://study.behaviorschool.com/free-mock-exam/";
+const planAppUrl = "https://plan.behaviorschool.com/";
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
@@ -322,8 +323,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/fba-to-bip',
+        destination: planAppUrl,
+        permanent: true,
+      },
+      {
+        source: '/fba-to-bip/',
+        destination: planAppUrl,
+        permanent: true,
+      },
+      {
         source: '/fba-bip-plan-writer',
-        destination: '/fba-to-bip',
+        destination: planAppUrl,
         permanent: true,
       },
       {
