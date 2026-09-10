@@ -33,29 +33,39 @@ export default async function BehaviorSchoolVsBDSModulesPage() {
     <BcbaComparisonLanding
       competitor="BDS Modules"
       title={override?.heroHeadline || "BehaviorSchool vs BDS Modules"}
-      description={override?.metaDescription || "BDS Modules is known as a structured BCBA study option. BehaviorSchool is positioned for candidates who want adaptive practice, mock exam readiness, transparent review labels, and progress reports they can share."}
+      description={override?.metaDescription || "Behavior Development Solutions (BDS) is the long-running fluency program most BCBA candidates have heard of: work through modules until you answer quickly and accurately, then take domain tests and a mock. Behavior Study Tools starts from practice questions instead of modules: every answer shows the missed domain and a rationale, timed mocks feed a readiness signal, and the results are built to be shared with a supervisor. This page compares the two study methods, not their catalogs or pass-rate claims."}
       primaryCta={override?.primaryCta || "Try BehaviorSchool free"}
-      bestForCompetitor={override?.faqAnswer || "A candidate prefers a traditional module-based study structure and already knows they want that format."}
+      bestForCompetitor={override?.faqAnswer || "You want a fluency program with a fixed sequence of modules to complete, you are motivated by a published money-back guarantee, and you would rather work through a set curriculum from start to finish than have practice adapt to your results."}
       rows={[
         {
-          label: "Study structure",
-          behaviorSchool: "Adaptive practice, domain work, mock exams, readiness status, and next-step analytics.",
-          competitor: "Traditional module-based study structure.",
+          label: "How you study",
+          behaviorSchool: "Answer practice questions, see the missed domain, review the rationale, and choose the next study task. Timed mocks act as checkpoints.",
+          competitor: "Complete modules in order until you reach a fluency criterion, then move to domain tests and a mock exam.",
+        },
+        {
+          label: "What happens when you miss a question",
+          behaviorSchool: "A rationale appears immediately and the domain is flagged so your next practice set weights it more heavily.",
+          competitor: "The item cycles back into the module until you answer it correctly and quickly.",
         },
         {
           label: "Readiness signal",
-          behaviorSchool: "Exam Readiness status based on accuracy, response time, endurance, and consistency.",
-          competitor: "Candidates should compare current scoring and reporting details before choosing.",
+          behaviorSchool: "One readiness status built from domain accuracy, response time, consistency, and mock endurance, so you know whether to schedule the exam or keep studying.",
+          competitor: "Readiness is tied to finishing the modules and meeting fluency criteria on the program's own tests.",
         },
         {
-          label: "Supervisor or cohort use",
-          behaviorSchool: "Clean export/share workflow for supervisors, universities, and employers.",
-          competitor: "May not be centered on supervisor-facing progress reports.",
+          label: "Sharing progress",
+          behaviorSchool: "Domain-level progress summaries you can send to a supervisor, cohort, or university program.",
+          competitor: "Progress lives inside the program; supervisor reporting is not what it is built around.",
         },
         {
-          label: "Best fit",
-          behaviorSchool: "Candidates who want a modern app workflow with clear progress decisions.",
-          competitor: "Candidates who prefer established modular study routines.",
+          label: "Guarantee and trial",
+          behaviorSchool: "Free practice questions and a free mock exam before you pay. No guarantee; you keep the results either way.",
+          competitor: "A published money-back guarantee tied to completing the program as directed.",
+        },
+        {
+          label: "Beyond exam prep",
+          behaviorSchool: "Free IEP goal, FBA, and BIP tools on behaviorschool.com for school-based practice after you pass.",
+          competitor: "Focused on exam preparation and continuing education.",
         },
       ]}
     />

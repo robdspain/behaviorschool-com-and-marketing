@@ -82,7 +82,7 @@ export function BcbaComparisonLanding({
             <ShieldCheck className="mb-4 text-[#1f4d3f]" size={30} />
             <h2 className="text-xl font-bold text-slate-950">BehaviorSchool is strongest for</h2>
             <p className="mt-3 leading-7 text-slate-700">
-              Candidates who want practice questions, full mocks, domain results, and—where available—readiness language and shareable progress summaries.
+              Candidates who want to see the missed domain, review the rationale, and choose the next study task, with timed mocks that feed one readiness signal and progress they can share with a supervisor.
             </p>
           </article>
           <article className="rounded-lg border border-slate-200 bg-white p-6">
@@ -94,7 +94,7 @@ export function BcbaComparisonLanding({
             <BarChart3 className="mb-4 text-[#1f4d3f]" size={30} />
             <h2 className="text-xl font-bold text-slate-950">Key differentiator</h2>
             <p className="mt-3 leading-7 text-slate-700">
-              BehaviorSchool ties practice results to readiness and next actions when those features are available in your study path.
+              Every practice result turns into a next step. Readiness is scored from domain accuracy, response time, consistency, and mock endurance, not from how many modules or videos you have finished.
             </p>
           </article>
         </div>
@@ -133,30 +133,22 @@ export function BcbaComparisonLanding({
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#1f4d3f]">BCBA exam practice paths</p>
+          <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#1f4d3f]">Try it before you decide</p>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
-            Pick the resource that matches your next study decision
+            Two free ways to test the workflow
           </h2>
           <p className="mt-5 leading-8 text-slate-600">
-            Use the comparison to choose a platform, then use these public BCBA exam resources to practice in the right format.
+            A comparison table can only tell you so much. Answer real questions and see whether the results give you a clearer next study step than what you use now.
           </p>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <Link href="https://study.behaviorschool.com/free-mock-exam/" className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md">
-            <h3 className="text-lg font-bold text-slate-950">BCBA practice exam</h3>
-            <p className="mt-2 leading-7 text-slate-600">Use a broader practice exam when you need scoring, rationales, and repeated exam-style review.</p>
-          </Link>
           <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md">
-            <h3 className="text-lg font-bold text-slate-950">BCBA exam prep</h3>
-            <p className="mt-2 leading-7 text-slate-600">Start with the full prep hub when you need a study plan, resource map, and next-step guidance.</p>
-          </Link>
-          <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md">
-            <h3 className="text-lg font-bold text-slate-950">Sample BCBA exam questions</h3>
-            <p className="mt-2 leading-7 text-slate-600">Review sample question formats before choosing a mock exam, practice question set, or full practice exam.</p>
+            <h3 className="text-lg font-bold text-slate-950">Free practice questions</h3>
+            <p className="mt-2 leading-7 text-slate-600">A short set with a rationale on every answer and a domain breakdown at the end. Start here if you want to see how the app teaches.</p>
           </Link>
           <Link href="https://study.behaviorschool.com/free-mock-exam/" className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[#1f4d3f]/35 hover:shadow-md">
-            <h3 className="text-lg font-bold text-slate-950">BCBA mock exam free</h3>
-            <p className="mt-2 leading-7 text-slate-600">Use the free mock exam path when you need to test timing, stamina, and readiness.</p>
+            <h3 className="text-lg font-bold text-slate-950">Free timed mock exam</h3>
+            <p className="mt-2 leading-7 text-slate-600">A timed run scored by domain. Start here if you already have a study routine and want to know where you stand.</p>
           </Link>
         </div>
       </section>

@@ -42,48 +42,44 @@ export default async function BehaviorSchoolVsABAWizardPage() {
       title={applySchoolBcbaBrandCopy(override?.heroHeadline, "BehaviorSchool vs ABA Wizard")}
       description={applySchoolBcbaBrandCopy(
         override?.metaDescription,
-        "ABA Wizard sells a mobile study app, a Total Learning System with video lectures and TAFMEDS, and standalone 185-question timed mock exams with feedback on every question. BehaviorSchool Study focuses on adaptive practice, full mocks, domain readiness, and progress reports you can share with a supervisor or cohort. This page compares those published workflows—not only the mobile app.",
+        "ABA Wizard is a lecture-and-drill program: a mobile study app, a Total Learning System built around video lectures and TAFMEDS flashcards, and timed mock exams sold on their own. Behavior Study Tools is practice-first: adaptive questions with a rationale on every answer, timed full mocks, domain-level results, and progress you can share with a supervisor. This page compares how the two products teach, not how much they sell.",
       )}
       primaryCta={applySchoolBcbaBrandCopy(override?.primaryCta, "Try BehaviorSchool free")}
       primaryHref={appHref}
       bestForCompetitor={applySchoolBcbaBrandCopy(
         override?.faqAnswer,
-        "You want ABA Wizard's bundled Total Learning System (video lectures per Test Content Outline section, TAFMEDS, section probes, and a three-mock bundle), or you prefer their published 185-question, four-hour mock exams with per-question feedback emailed after completion—and you do not need BehaviorSchool's readiness reporting or school BCBA resource ecosystem.",
+        "You learn best by watching lectures and drilling flashcards, you want a fixed curriculum that walks the Test Content Outline section by section, and you are happy to review mock results on your own rather than share them with a supervisor.",
       )}
       rows={[
         {
-          label: "Product scope",
-          behaviorSchool: "Web-based study app with practice, full mocks, domain results, and readiness language.",
-          competitor:
-            "Mobile app, Total Learning System (videos + TAFMEDS + mock bundle), and standalone 6th-edition mock exams sold separately.",
+          label: "How you study",
+          behaviorSchool: "Answer questions, see the missed domain, review the rationale, and choose the next study task. The app adapts to your results.",
+          competitor: "Watch a video lecture for each outline section, drill TAFMEDS flashcards, then take section probes and mock exams in a set order.",
         },
         {
-          label: "Full mock exams (185 questions / 4 hours)",
-          behaviorSchool: "Timed full mocks with domain-level score reports in the study app.",
-          competitor:
-            "Publishes 185-question, four-hour mocks aligned to the 6th Edition Test Content Outline, with percentage grades and feedback on every question emailed after completion.",
+          label: "Full mock exams (185 questions, 4 hours)",
+          behaviorSchool: "Timed full mocks in the app, scored by domain, with a readiness signal built from accuracy, response time, consistency, and mock endurance.",
+          competitor: "Timed full mocks aligned to the 6th Edition Test Content Outline, with a percentage grade and per-question feedback delivered after you finish.",
         },
         {
-          label: "Structured curriculum",
-          behaviorSchool: "Practice-first workflow with domain targeting between mock checkpoints.",
-          competitor:
-            "Total Learning System includes video lectures for each outline section, exclusive practice questions, TAFMEDS decks, and section probes.",
+          label: "Explanations",
+          behaviorSchool: "A rationale on every practice question, shown as soon as you answer, so you can fix the misconception before the next question.",
+          competitor: "Per-question feedback on mock exams; instruction comes through the video lectures.",
         },
         {
-          label: "Explanations and review",
-          behaviorSchool: "Rationales in practice sessions; public-facing review metadata where published.",
-          competitor: "Mock exams provide feedback on every question; learning system includes section-level video instruction.",
+          label: "Weak-domain targeting",
+          behaviorSchool: "Practice sets weight your weakest domains automatically between mock checkpoints.",
+          competitor: "You choose which sections to rewatch or drill based on your own review of the results.",
         },
         {
-          label: "Supervisor or cohort reporting",
-          behaviorSchool: "Progress summaries intended for supervision or cohort check-ins (export workflow).",
-          competitor: "Not advertised as a supervisor-facing export workflow on product pages reviewed.",
+          label: "Sharing progress",
+          behaviorSchool: "Domain-level progress summaries you can send to a supervisor or study group.",
+          competitor: "Results are yours to review; a supervisor-facing report is not part of the published product.",
         },
         {
-          label: "When ABA Wizard may fit better",
-          behaviorSchool: "You want readiness signals, school BCBA resources, and a single BehaviorSchool study ecosystem.",
-          competitor:
-            "You want the published learning-system bundle (videos + TAFMEDS + mocks) or standalone timed mocks with emailed per-question feedback, and mobile-first practice is a priority.",
+          label: "Platform",
+          behaviorSchool: "Web app that works in any browser, including on your phone.",
+          competitor: "Mobile app first, with web-based mock exams sold separately.",
         },
       ]}
     />
