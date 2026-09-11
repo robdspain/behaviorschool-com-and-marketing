@@ -173,56 +173,11 @@ async function buildSitemap(
       changeFrequency: 'weekly',
       priority: 0.95,
     },
-    {
-      url: `${baseUrl}/bcba-exam-prep`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/bcba-study-tools`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/bcba-practice-exam`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/free-bcba-mock-exam`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-test-questions`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-exam-practice-questions`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-6th-edition-practice-questions`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
+    // Exam-prep pages on the marketing domain. Practice, mock exams, and the study app itself live on
+    // study.behaviorschool.com; the old marketing-domain exam pages permanently redirect there and are
+    // listed in legacyRedirectPaths above, not here.
     {
       url: `${baseUrl}/bcba-exam-weak-areas`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/free-bcba-practice-exam`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -235,12 +190,6 @@ async function buildSitemap(
     },
     {
       url: `${baseUrl}/bcba-study-schedule`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-mock-exam-6th-edition`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
