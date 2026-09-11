@@ -14,12 +14,12 @@ const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/bcba-study-app-school-
 const baseMetadata: Metadata = {
   title: "BCBA Study App for School BCBAs | Behavior School",
   description:
-    "A BCBA study app for school BCBA candidates who need adaptive practice, school-relevant scenarios, readiness scoring, and supervisor reporting.",
+    "A BCBA study app for school BCBA candidates: adaptive practice by missed domain, a rationale on every answer, full timed mocks, and readiness signals you can act on between fieldwork and supervision.",
   alternates: { canonical: PAGE_HREF },
   openGraph: {
     title: "BCBA Study App for School BCBAs | Behavior School",
     description:
-      "Adaptive BCBA practice for school BCBA candidates, with readiness scoring, review labels, and supervisor reports.",
+      "Adaptive BCBA practice for school BCBA candidates, with domain-level results, rationales, and full timed mocks.",
     url: PAGE_HREF,
     images: [{ url: "/optimized/og-image.webp", width: 1200, height: 630 }],
   },
@@ -38,26 +38,26 @@ export default async function SchoolBasedBCBAStudyAppPage() {
       title={applySchoolBcbaBrandCopy(override?.heroHeadline, "A BCBA study app built for candidates who work in schools.")}
       description={applySchoolBcbaBrandCopy(
         override?.metaDescription,
-        "School BCBA candidates need more than generic question drilling. BehaviorSchool connects adaptive BCBA practice with school-relevant scenarios, progress reports, and next-step readiness signals.",
+        "School BCBA candidates need more than generic question drilling. Behavior Study Tools connects adaptive BCBA practice with school-relevant scenarios, domain-level results, and a clear next task after every miss.",
       )}
       primaryCta={applySchoolBcbaBrandCopy(override?.primaryCta, "Start school BCBA practice")}
       primaryHref={behaviorStudyToolsAppHref("/free-practice/", {
         intent: "school_based_bcba",
         utm_content: "school_based_bcba_primary_cta",
       })}
-      imageAlt="BehaviorSchool Study app for school BCBA candidates"
+      imageAlt="Behavior Study Tools app for school BCBA candidates"
       features={[
         {
           title: "School-relevant scenarios",
           body: "Study examples can connect concepts to classrooms, teams, supervision, data review, and school service delivery.",
         },
         {
-          title: "Supervisor-ready reporting",
-          body: "Export progress summaries for supervisors, university cohorts, or employers when candidates need to show study progress.",
+          title: "A rationale on every answer",
+          body: "Every item explains why the keyed answer fits and why the distractors do not, so a miss becomes the next thing to study rather than a number to worry about.",
         },
         {
-          title: "Clear readiness language",
-          body: "Candidates see whether they are not yet ready, building, near ready, or ready based on more than one quiz score.",
+          title: "Readiness from more than one score",
+          body: "Readiness signals draw on domain accuracy, response time, consistency across sessions, and endurance on full timed mocks, not a single quiz percentage.",
         },
       ]}
       sections={[
@@ -74,8 +74,8 @@ export default async function SchoolBasedBCBAStudyAppPage() {
           body: "Domain reporting keeps the next study decision obvious when candidates have limited time.",
         },
         {
-          title: "Stay inside the BehaviorSchool ecosystem",
-          body: "BehaviorSchool’s public resources, school BCBA content, and study app can support the same candidate journey.",
+          title: "Stay inside the Behavior School ecosystem",
+          body: "Behavior School’s public resources, school BCBA content, and study app can support the same candidate journey.",
         },
       ]}
       faqs={[
@@ -85,8 +85,8 @@ export default async function SchoolBasedBCBAStudyAppPage() {
           body: "No. BCBA candidates in other settings can still use the app. This page explains why school BCBA candidates may find the workflow especially useful.",
         },
         {
-          title: "Can a supervisor see my full account?",
-          body: "The intended workflow is a clean progress report, not unrestricted account access. Candidates can share the level of progress evidence they need.",
+          title: "Do I need an account to try it?",
+          body: "No. The free 9-question domain check and the free 185-question timed mock both run without signup and show results by domain.",
         },
         {
           title: "Where should I start?",

@@ -166,7 +166,7 @@ export default function BCBAStudyFluencyPage() {
           <div className="rounded-2xl bg-slate-900 p-8 text-white">
             <h2 className="text-2xl font-bold mb-3">Start with a free mock exam</h2>
             <p className="text-slate-300 mb-6 leading-relaxed">
-              BehaviorSchool Study offers timed mock exams with domain-level results. Use your first mock to
+              Behavior Study Tools offers timed mock exams with domain-level results. Use your first mock to
               set a baseline, then return to focused practice before your next checkpoint.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
