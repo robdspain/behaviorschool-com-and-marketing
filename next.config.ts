@@ -146,6 +146,30 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // Retired on-site "practice hub" that duplicated the study app's own start pages.
+        source: '/practice',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        source: '/practice/launch',
+        has: [{ type: 'query', key: 'mode', value: 'full' }],
+        destination: freeMockUrl,
+        permanent: true,
+      },
+      {
+        source: '/practice/launch',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        // Retired study-guide/PDF hub with unverified free-tier claims; the study schedule page
+        // is the canonical marketing-domain study-plan page.
+        source: '/free-study-plan',
+        destination: '/bcba-study-schedule',
+        permanent: true,
+      },
+      {
         source: '/free-bcba-diagnostic',
         destination: '/bcba-readiness-quiz',
         permanent: true,

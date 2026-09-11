@@ -119,6 +119,9 @@ async function buildSitemap(
     '/fba-bip-plan-writer',
     '/rbt-study',
     '/blog/bds-modules-down-bcba-alternative',
+    '/practice',
+    '/practice/launch',
+    '/free-study-plan',
   ])
   // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
   const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view']

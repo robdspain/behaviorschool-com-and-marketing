@@ -20,6 +20,7 @@ const expectedAcquisitionRedirects = new Map([
   ["/free-bcba-practice-test", "https://study.behaviorschool.com/free-practice/"],
   ["/free-bcba-practice-test/results", "https://study.behaviorschool.com/free-practice/"],
   ["/free-bcba-practice", "https://study.behaviorschool.com/free-practice/"],
+  ["/practice", "https://study.behaviorschool.com/free-practice/"],
 ]);
 
 const allowedAccountFlowFiles = new Set([
