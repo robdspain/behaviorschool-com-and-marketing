@@ -194,8 +194,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link rel="dns-prefetch" href="//googletagmanager.com" />
 
-        <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
-
         {/* Google Ads tag (gtag.js) - Deferred for better performance */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-17439907778"
@@ -249,6 +247,7 @@ export default function RootLayout({
           </div>
         </ToastProvider>
         </Providers>
+        <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteGraphJsonLd) }}
