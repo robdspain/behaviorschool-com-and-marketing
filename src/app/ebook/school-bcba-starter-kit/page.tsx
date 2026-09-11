@@ -52,34 +52,34 @@ export default function SchoolBCBAStarterKitPage() {
 
   const kitContents = [
     {
-      icon: ClipboardList,
-      title: "FBA Checklist",
-      description: "Step-by-step functional behavior assessment template",
+      icon: Calendar,
+      title: "First 30 Days Roadmap and Caseload Triage Sheet",
+      description: "A week-by-week plan for a new position, plus a one-page sheet to rank every student on your caseload by safety, plan status, and data quality.",
     },
     {
-      icon: FileText,
-      title: "BIP Template",
-      description: "Complete behavior intervention plan with all required sections",
+      icon: ClipboardList,
+      title: "FBA Checklist and Hypothesis Builder",
+      description: "The minimum data sources for a defensible hypothesis, a decision date, and a fill-in hypothesis statement.",
     },
     {
       icon: BarChart,
-      title: "ABC Data Sheet",
-      description: "Ready-to-print antecedent-behavior-consequence tracking form",
+      title: "ABC and Opportunity Data Sheets",
+      description: "Two printable data sheets: an ABC form with a worked example row, and a plus/minus opportunity sheet that converts to a percentage.",
+    },
+    {
+      icon: FileText,
+      title: "One-Page BIP, Feasibility Filter, and Staff One-Pager",
+      description: "A behavior intervention plan that fits on one page, a six-question check before training staff, and the clipboard version teachers actually use.",
     },
     {
       icon: Users,
-      title: "Teacher Consultation Guide",
-      description: "How to run effective 15-minute staff consultations",
-    },
-    {
-      icon: Calendar,
-      title: "First 30 Days Roadmap",
-      description: "Week-by-week plan for new school BCBA positions",
+      title: "Fidelity Checklist and 15-Minute Consultation Guide",
+      description: "A 0-3 implementation fidelity checklist with scoring bands, a fixed consultation agenda, and a ten-minute staff training structure.",
     },
     {
       icon: Shield,
-      title: "Ethics Quick Reference",
-      description: "Common school-based ethical dilemmas and solutions",
+      title: "Decision Rules and Ethics Quick Reference",
+      description: "If-then rules for weekly progress reviews, and common school situations mapped to the BACB Ethics Code sections that apply.",
     },
   ];
 
@@ -100,7 +100,7 @@ export default function SchoolBCBAStarterKitPage() {
                     <p className="text-emerald-100">Starter Kit</p>
                   </div>
                   <div className="mt-6 space-y-3">
-                    {["FBA Checklist", "BIP Template", "ABC Data Sheet", "30-Day Roadmap"].map((item, i) => (
+                    {["11 printable working forms", "FBA Checklist and Hypothesis Builder", "One-Page BIP and Fidelity Checklist", "ABC and Opportunity Data Sheets", "First 30 Days Roadmap"].map((item, i) => (
                       <div key={i} className="flex items-center gap-2 text-sm text-slate-600">
                         <Check className="w-4 h-4 text-emerald-500" />
                         {item}
@@ -125,8 +125,10 @@ export default function SchoolBCBAStarterKitPage() {
             </h1>
 
             <p className="text-lg text-slate-300 mb-8 leading-relaxed">
-              Everything you need for your first 30 days: FBA checklist, BIP template, 
-              data sheets, consultation guides, and a week-by-week roadmap.
+              Eleven printable working forms for a school caseload: caseload triage, FBA checklist
+              and hypothesis builder, ABC and opportunity data sheets, a one-page BIP, a fidelity
+              checklist, a 15-minute consultation guide, progress decision rules, and an ethics
+              quick reference.
             </p>
 
             {isSuccess ? (
@@ -136,7 +138,7 @@ export default function SchoolBCBAStarterKitPage() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">Your download is ready!</h3>
                 <p className="text-emerald-200 mb-4">
-                  Check your inbox for additional resources.
+                  The PDF opens in a new tab. If it did not, use the button below.
                 </p>
                 <a
                   href="/ebooks/school-bcba-starter-kit.pdf"
@@ -204,7 +206,7 @@ export default function SchoolBCBAStarterKitPage() {
               What's Inside the Kit
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Six essential resources every school BCBA needs, created by Rob Spain, BCBA, with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}.
+              Eleven working forms adapted from the templates Rob Spain, M.S., BCBA, IBA, uses with district behavior teams, drawing on {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}.
             </p>
           </div>
 
@@ -229,11 +231,12 @@ export default function SchoolBCBAStarterKitPage() {
       <div className="bg-gradient-to-br from-emerald-600 to-teal-600 py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Want the Complete System?
+            The forms are the tools. The program is where you build the system.
           </h2>
           <p className="text-xl text-emerald-100 mb-8">
-            The Transformation Program gives you everything in this kit, plus live coaching, 
-            a full playbook, and a community of school BCBAs.
+            The School BCBA Transformation Program is a six-week live cohort for school-based BCBAs:
+            weekly two-hour sessions, an applied assignment each week on your own caseload, and a
+            small group so every question gets answered.
           </p>
           <Link
             href="/transformation-program"
