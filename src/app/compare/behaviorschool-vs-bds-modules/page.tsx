@@ -11,12 +11,12 @@ const SEO_OVERRIDE_HREF = "https://behaviorstudytools.com/compare/behaviorschool
 const baseMetadata: Metadata = {
   title: "Behavior School vs BDS Modules: Which BCBA Prep Fits You?",
   description:
-    "Side-by-side: BDS Modules vs BehaviorSchool adaptive practice, readiness scoring, and supervisor reports. Pick the prep style that matches how you study.",
+    "Side-by-side: BDS fluency modules vs Behavior Study Tools adaptive practice, rationales, and timed mocks. Pick the prep style that matches how you study.",
   alternates: { canonical: PAGE_HREF },
   openGraph: {
     title: "Behavior School vs BDS Modules: Which BCBA Prep Fits You?",
     description:
-      "Side-by-side: BDS Modules vs BehaviorSchool adaptive practice, readiness scoring, and supervisor reports. Pick the prep style that matches how you study.",
+      "Side-by-side: BDS fluency modules vs Behavior Study Tools adaptive practice, rationales, and timed mocks. Pick the prep style that matches how you study.",
     url: PAGE_HREF,
     images: [{ url: "/optimized/og-image.webp", width: 1200, height: 630 }],
   },
@@ -33,7 +33,7 @@ export default async function BehaviorSchoolVsBDSModulesPage() {
     <BcbaComparisonLanding
       competitor="BDS Modules"
       title={override?.heroHeadline || "BehaviorSchool vs BDS Modules"}
-      description={override?.metaDescription || "Behavior Development Solutions (BDS) is the long-running fluency program most BCBA candidates have heard of: work through modules until you answer quickly and accurately, then take domain tests and a mock. Behavior Study Tools starts from practice questions instead of modules: every answer shows the missed domain and a rationale, timed mocks feed a readiness signal, and the results are built to be shared with a supervisor. This page compares the two study methods, not their catalogs or pass-rate claims."}
+      description={override?.metaDescription || "Behavior Development Solutions (BDS) is the long-running fluency program most BCBA candidates have heard of: work through modules until you answer quickly and accurately, then take domain tests and a mock. Behavior Study Tools starts from practice questions instead of modules: every answer shows the missed domain and a rationale, and timed mocks feed a readiness signal so you can decide the next study task. This page compares the two study methods, not their catalogs or pass-rate claims."}
       primaryCta={override?.primaryCta || "Try BehaviorSchool free"}
       bestForCompetitor={override?.faqAnswer || "You want a fluency program with a fixed sequence of modules to complete, you are motivated by a published money-back guarantee, and you would rather work through a set curriculum from start to finish than have practice adapt to your results."}
       rows={[
@@ -53,9 +53,9 @@ export default async function BehaviorSchoolVsBDSModulesPage() {
           competitor: "Readiness is tied to finishing the modules and meeting fluency criteria on the program's own tests.",
         },
         {
-          label: "Sharing progress",
-          behaviorSchool: "Domain-level progress summaries you can send to a supervisor, cohort, or university program.",
-          competitor: "Progress lives inside the program; supervisor reporting is not what it is built around.",
+          label: "Where you can study",
+          behaviorSchool: "Web app on any device, so short practice sets fit between fieldwork, supervision, and school days.",
+          competitor: "Module-based program; a session runs until the module's fluency criterion is met.",
         },
         {
           label: "Guarantee and trial",
