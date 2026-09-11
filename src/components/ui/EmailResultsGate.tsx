@@ -40,15 +40,12 @@ export function EmailResultsGate({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email,
-          firstName: firstName || undefined,
+          name: firstName.trim() || email.trim().split("@")[0] || "Lead",
+          email: email.trim(),
           source: toolSource,
           role: "School BCBA",
-          segment: "tools",
-          metadata: {
-            tool: toolName,
-            resultsSummary: resultsSummary?.substring(0, 500),
-          },
+          tags: [toolSource],
+          notes: resultsSummary?.substring(0, 500),
         }),
       });
 

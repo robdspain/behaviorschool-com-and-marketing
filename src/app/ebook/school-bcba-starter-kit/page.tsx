@@ -24,11 +24,12 @@ export default function SchoolBCBAStarterKitPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email,
-          firstName,
+          // /api/crm requires `name`; sending only `firstName` returns 400 and the download never unlocks.
+          name: firstName.trim(),
+          email: email.trim(),
           role: "School BCBA",
           source: "ebook-school-bcba-starter-kit",
-          segment: "tools",
+          tags: ["ebook-school-bcba-starter-kit"],
         }),
       });
 
@@ -150,6 +151,8 @@ export default function SchoolBCBAStarterKitPage() {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="text"
+                    name="name"
+                    autoComplete="given-name"
                     placeholder="First name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
