@@ -349,6 +349,16 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/blog/bds-modules-down-bcba-alternative',
+        destination: '/blog/bds-modules-bcba-alternative',
+        permanent: true,
+      },
+      {
+        source: '/blog/bds-modules-down-bcba-alternative/',
+        destination: '/blog/bds-modules-bcba-alternative',
+        permanent: true,
+      },
+      {
         source: '/program',
         destination: '/transformation-program',
         permanent: true,
