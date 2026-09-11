@@ -767,7 +767,7 @@ export default function SchoolBasedBCBAPage() {
               "description": "Professional development platform for school-based BCBAs and behavior analysts",
               "sameAs": [
                 "https://www.linkedin.com/company/behavior-school",
-                "https://x.com/behaviorschool"
+                "https://x.com/behavior_school"
               ]
             },
             "offers": {

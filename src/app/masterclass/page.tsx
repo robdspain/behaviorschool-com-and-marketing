@@ -214,7 +214,7 @@ export default function MasterclassPage() {
                 number: 2,
                 title: 'Building Teacher Buy-In',
                 duration: '15 min',
-                description: 'Master proven strategies to gain teacher collaboration, overcome resistance, and create a culture of shared ownership in behavior support.',
+                description: 'Practical strategies for gaining teacher collaboration, working through resistance, and building shared ownership of behavior support.',
                 icon: Users,
                 color: 'blue',
               },

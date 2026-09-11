@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/behavior-intervention-plan-examples";
 
 export const metadata = buildPageMetadata({
-  title: "Behavior Intervention Plan Examples | BIP Guide",
+  title: "Behavior Intervention Plan Examples | Behavior School",
   description:
     "Behavior intervention plan examples for school teams, including function-based strategies, replacement skills, reinforcement, and data collection.",
   canonical,
@@ -22,7 +22,7 @@ export default function Page() {
       primaryCta={{ label: "Use the free BIP generator", href: "/behavior-plans" }}
       secondaryLinks={[
         { label: "Functional behavior assessment guide", href: "/functional-behavior-assessment-guide" },
-        { label: "FBA to BIP tool", href: "/fba-to-bip" },
+        { label: "FBA-to-BIP early access", href: "https://plan.behaviorschool.com" },
         { label: "Behavior tools", href: "/behavior-tools" },
       ]}
       sections={[

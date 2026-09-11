@@ -44,13 +44,13 @@ export function NavBar() {
             <div className="flex items-center gap-3">
               <Link
                 href="/transformation-program"
-                className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#123628]"
+                className="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-md bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#123628]"
               >
-                {TRANSFORMATION_PROGRAM.cohort.label} Open
+                Apply: {TRANSFORMATION_PROGRAM.cohort.label}
               </Link>
               <Link
                 href="https://study.behaviorschool.com/free-practice/"
-                className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#1f4d3f]/30 px-4 py-2 text-sm font-semibold text-[#1f4d3f] transition hover:bg-[#f2eee6]"
+                className="hidden xl:inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-md border border-[#1f4d3f]/30 px-4 py-2 text-sm font-semibold text-[#1f4d3f] transition hover:bg-[#f2eee6]"
               >
                 Free BCBA Exam
               </Link>

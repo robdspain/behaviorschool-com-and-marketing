@@ -9,11 +9,17 @@ import {
   TrendingUp,
   ArrowRight,
 } from "lucide-react";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
+
+const freePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
+  intent: "passbehavior_alternative",
+  utm_content: "passbehavior_alternative_page",
+});
 
 export const metadata: Metadata = {
-  title: "PassBehavior Alternative — BCBA Exam Prep Available Now",
+  title: "PassBehavior Alternative: BCBA Exam Prep | Behavior School",
   description:
-    "Looking for PassBehavior? The site appears to be down. BehaviorSchool offers BCBA practice questions, mock exams, and performance analytics — available now.",
+    "Comparing PassBehavior alternatives? Behavior Study Tools offers free BCBA practice questions, timed mock exams, and domain-level results with a rationale on every answer.",
 };
 
 const FEATURES = [
@@ -56,9 +62,9 @@ const FEATURES = [
 ];
 
 const STEPS = [
-  { number: "1", title: "Create a free account", description: "Sign up at study.behaviorschool.com — no credit card required to start." },
-  { number: "2", title: "Pick your domains", description: "Select the BACB content areas you want to focus on first." },
-  { number: "3", title: "Start practicing", description: "Work through questions, review explanations, and track your progress." },
+  { number: "1", title: "Start with free practice", description: "Answer a free set on study.behaviorschool.com. No credit card required." },
+  { number: "2", title: "Read your domain results", description: "See which BACB content domains you missed and the rationale for each question." },
+  { number: "3", title: "Choose the next study task", description: "Drill the weak domain, or take a free timed mock when you want a readiness check." },
 ];
 
 export default function PassBehaviorAlternativePage() {
@@ -71,10 +77,10 @@ export default function PassBehaviorAlternativePage() {
             Looking for PassBehavior? Try BehaviorSchool for BCBA Exam Prep
           </h1>
           <p className="text-lg sm:text-xl text-emerald-100 mb-8 leading-relaxed">
-            PassBehavior.com appears to be experiencing DNS issues and is currently unavailable. BehaviorSchool is an actively maintained BCBA exam prep platform — practice questions, mock exams, analytics, and more, available right now.
+            If PassBehavior is not the right fit, Behavior Study Tools gives you practice questions with a rationale on every answer, timed mock exams, and domain-level results you can start using today, free.
           </p>
           <Link
-            href="https://study.behaviorschool.com/signup"
+            href={freePracticeHref}
             className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-emerald-900 font-bold text-lg px-8 py-4 rounded-xl transition-colors"
           >
             Try BehaviorSchool Free
@@ -87,7 +93,7 @@ export default function PassBehaviorAlternativePage() {
       <section className="py-16 sm:py-20 bg-slate-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-lg text-slate-700 leading-relaxed">
-            If you searched for PassBehavior and landed here, you may have found the site is unreachable. BCBA candidates need a reliable, structured place to prepare — practice questions aligned to the BACB Task List, timed mock exams, and clear analytics on where they stand. BehaviorSchool provides all of that and is actively maintained and updated.
+            If you searched for PassBehavior and landed here, you are comparing options. The things that matter in any BCBA prep tool are the same: questions organized by BACB content domain, timed mock exams that match the real format, and results that tell you what to study next rather than just a score. That is what Behavior Study Tools is built around, and you can test it on free questions before deciding.
           </p>
         </div>
       </section>
@@ -96,24 +102,20 @@ export default function PassBehaviorAlternativePage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
-              BCBA exam practice questions, mock exams, and sample questions
+              Two free ways to test it today
             </h2>
             <p className="mt-4 text-slate-700 leading-relaxed">
-              If you need a PassBehavior replacement today, start with the public resource that matches how you want to study.
+              Pick the one that matches where you are in your study plan. Both show domain-level results without a credit card.
             </p>
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
             <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
-              <h3 className="font-bold text-slate-900">BCBA exam practice questions</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Use mixed question sets when you want shorter sessions with rationales before a full exam.</p>
+              <h3 className="font-bold text-slate-900">Free practice questions</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">A short set with a rationale on every answer. Start here if you want to see how the questions and explanations work.</p>
             </Link>
             <Link href="https://study.behaviorschool.com/free-mock-exam/" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
-              <h3 className="font-bold text-slate-900">BCBA mock exam free</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Take the free mock exam route when you need a timed readiness check and next-step guidance.</p>
-            </Link>
-            <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-xl border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-emerald-300 hover:bg-emerald-50">
-              <h3 className="font-bold text-slate-900">Sample BCBA exam questions</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">Review sample question formats before choosing domain practice, mock exams, or a full practice test.</p>
+              <h3 className="font-bold text-slate-900">Free timed mock exam</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">A timed run scored by domain. Start here if you already have a routine and want to know where you stand.</p>
             </Link>
           </div>
         </div>
@@ -168,7 +170,7 @@ export default function PassBehaviorAlternativePage() {
           </div>
           <div className="text-center">
             <Link
-              href="https://study.behaviorschool.com/signup"
+              href={freePracticeHref}
               className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-lg px-8 py-4 rounded-xl transition-colors"
             >
               Try BehaviorSchool Free

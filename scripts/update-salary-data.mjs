@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 // Refresh salary benchmarks from a published CSV (e.g., Google Sheets export)
 // Env: SALARY_DATA_URL=https://docs.google.com/spreadsheets/d/.../export?format=csv
+//
+// Policy (Q10): run this quarterly only if /school-bcba/salary-by-state has
+// search traffic. The GitHub Action gates scheduled runs on
+// vars.SALARY_PAGE_HAS_TRAFFIC. Preserve reviewCadence when writing JSON.
 
 import fs from 'node:fs/promises';
 
@@ -52,7 +56,8 @@ if (items.length === 0) {
 const now = new Date();
 const payload = {
   year: now.getFullYear(),
-  updatedAt: now.toISOString().split('T')[0],
+  updatedAt: now.toISOString().split("T")[0],
+  reviewCadence: "quarterly-if-traffic",
   items,
 };
 

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { IepGoalProgramQuiz } from "./IepGoalProgramQuiz";
 import { FAQAccordion } from "@/components/ui/faq-accordion";
 
-const title = "Is your goal ready to become a plan? | School BCBA quiz";
+const title = "Is Your IEP Goal Ready to Become a Plan? | Behavior School";
 const description =
-  "Free 3-minute IEP goal quality check for school behavior teams. Score observable behavior, measurement, supports, and classroom runnability — then get a personalized ready/review checklist.";
+  "Free 3-minute IEP goal quality check for school behavior teams. Score observable behavior, measurement, supports, and classroom fit, then get a ready/review checklist.";
 const canonical = "https://behaviorschool.com/quiz/iep-goal-program";
 
 export const metadata: Metadata = {

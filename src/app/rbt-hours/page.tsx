@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { RBTHoursCalc } from "@/components/rbt-hours/RBTHoursCalc";
 
 export const metadata: Metadata = {
-  title: "RBT Supervision Hours Calculator | Free Tool | BehaviorSchool",
+  title: "RBT Supervision Hours Calculator | Behavior School",
   description:
     "Calculate your remaining RBT supervision hours, projected BCBA exam eligibility date, and monthly supervision requirements. Free for RBTs and supervisors.",
   openGraph: {

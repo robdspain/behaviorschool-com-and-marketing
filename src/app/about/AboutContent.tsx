@@ -88,7 +88,7 @@ export default function AboutContent() {
                 </p>
                 <p className="text-lg text-slate-600 leading-relaxed">
                   Then a behavior analyst visited my classroom and modeled a different way forward—using behavioral principles
-                  to teach in a structured, systematic way. Within a year, that student gained three grade levels in reading.
+                  to teach in a structured, systematic way. Within a year, that student made significant progress.
                   That moment changed the trajectory of my career.
                 </p>
                 <div className="bg-emerald-50 rounded-2xl p-6">
@@ -223,7 +223,7 @@ export default function AboutContent() {
                 icon: Target,
                 title: "Evidence-Based",
                 description:
-                  "Built on proven behavioral science and field-tested in real classrooms across diverse school settings.",
+                  "Built on the published behavior-analytic literature and refined in the classrooms and IEP meetings where Rob still practices.",
                 color: "emerald",
               },
               {

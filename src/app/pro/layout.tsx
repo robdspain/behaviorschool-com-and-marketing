@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "BehaviorSchool Pro | Invite-Only FBA/BIP Workspace",
+  title: "BehaviorSchool Pro: Invite-Only FBA and BIP Workspace",
   description:
     "Invite-only BehaviorSchool Pro workspace for school FBA and BIP drafting, IEP goals, and student plan exports. Public account creation is not available.",
   alternates: { canonical: "https://behaviorschool.com/pro" },
   openGraph: {
     type: "website",
-    title: "BehaviorSchool Pro | Invite-Only FBA/BIP Workspace",
+    title: "BehaviorSchool Pro: Invite-Only FBA and BIP Workspace",
     description:
       "Invite-only BehaviorSchool Pro workspace for school FBA and BIP drafting, IEP goals, and student plan exports. Public account creation is not available.",
     url: "https://behaviorschool.com/pro",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BehaviorSchool Pro | Invite-Only FBA/BIP Workspace",
+    title: "BehaviorSchool Pro: Invite-Only FBA and BIP Workspace",
     description:
       "Invite-only BehaviorSchool Pro workspace for school FBA and BIP drafting, IEP goals, and student plan exports. Public account creation is not available.",
     images: ["/optimized/og-image.webp"],

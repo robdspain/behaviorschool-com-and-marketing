@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/functional-behavior-assessment-guide";
 
 export const metadata = buildPageMetadata({
-  title: "Functional Behavior Assessment Guide | School FBA Steps",
+  title: "Functional Behavior Assessment Guide | Behavior School",
   description:
     "Functional behavior assessment guide for school teams, including FBA steps, data sources, hypothesis statements, and links to BIP planning.",
   canonical,
@@ -19,7 +19,7 @@ export default function Page() {
       eyebrow="FBA guide"
       breadcrumbLabel="Functional Behavior Assessment Guide"
       canonical={canonical}
-      primaryCta={{ label: "Turn an FBA into a BIP", href: "/fba-to-bip" }}
+      primaryCta={{ label: "Join the FBA-to-BIP waitlist", href: "https://plan.behaviorschool.com" }}
       secondaryLinks={[
         { label: "Behavior intervention plan examples", href: "/behavior-intervention-plan-examples" },
         { label: "Behavior Plan Writer", href: "/behavior-plans" },

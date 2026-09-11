@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/iep-behavior-goal-examples";
 
 export const metadata = buildPageMetadata({
-  title: "IEP Behavior Goal Examples | Measurable School Goals",
+  title: "IEP Behavior Goal Examples | Behavior School",
   description:
     "IEP behavior goal examples for school teams, including measurable replacement behavior goals, baseline language, criteria, and data collection tips.",
   canonical,

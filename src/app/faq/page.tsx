@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import { FAQClient } from "./FAQClient";
+import { getFaqSchemaItems } from "./faq-data";
 
 export const metadata: Metadata = {
-  title: "FAQ | Frequently Asked Questions | Behavior School",
-  description: "Get answers to common questions about BCBA certification, exam prep, school-based behavior analysis training, and Behavior School's resources and programs.",
+  title: "FAQ: Program, CEUs, and Free Tools | Behavior School",
+  description: "Answers about the School BCBA Transformation Program (dates, cost, CEUs, district pay), Behavior School's free IEP and BIP tools, and BCBA exam prep.",
   robots: {
     index: true,
     follow: true,
@@ -28,8 +29,8 @@ export const metadata: Metadata = {
     "school-based BCBA"
   ],
   openGraph: {
-    title: "FAQ | Frequently Asked Questions | Behavior School",
-    description: "Get answers to common questions about BCBA certification, exam prep, and school-based behavior analysis training.",
+    title: "FAQ: Program, CEUs, and Free Tools | Behavior School",
+    description: "Answers about the School BCBA Transformation Program, free IEP and BIP tools, CEUs, and BCBA exam prep.",
     type: "website",
     url: "https://behaviorschool.com/faq",
     images: [
@@ -43,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FAQ | Frequently Asked Questions | Behavior School",
-    description: "Get answers to common questions about BCBA certification, exam prep, and school-based behavior analysis training.",
+    title: "FAQ: Program, CEUs, and Free Tools | Behavior School",
+    description: "Answers about the School BCBA Transformation Program, free IEP and BIP tools, CEUs, and BCBA exam prep.",
     images: ["https://behaviorschool.com/optimized/og-image.webp"]
   },
   alternates: {
@@ -53,5 +54,26 @@ export const metadata: Metadata = {
 };
 
 export default function FAQPage() {
-  return <FAQClient />;
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: getFaqSchemaItems().map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <FAQClient />
+    </>
+  );
 }

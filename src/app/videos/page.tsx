@@ -1,38 +1,37 @@
 import type { Metadata } from 'next';
 import VideoCard from '@/components/VideoCard';
 import type { Video, VideoCategory } from '@/types/video';
-import fs from 'fs';
-import path from 'path';
 import { buildPageMetadata } from '@/lib/seo/metadata';
+import { behaviorStudyToolsAppHref } from '@/lib/behavior-study-tools/links';
+import { getPublishedVideos } from '@/lib/videos';
 
-export const metadata: Metadata = buildPageMetadata({
-  title: 'Free BCBA Exam Prep Videos | Behavior School',
-  description: 'Watch free BCBA exam prep videos covering ethics, reinforcement, experimental design, and study strategies from an experienced school BCBA. Start learning!',
-  keywords: [
-    'BCBA exam prep videos',
-    'free BCBA study videos',
-    'behavior analyst training',
-    'BCBA ethics videos',
-    'school BCBA tips'
-  ],
-  canonical: 'https://behaviorschool.com/videos',
+const freePracticeHref = behaviorStudyToolsAppHref('/free-practice/', {
+  intent: 'video_library',
+  utm_content: 'video_library_page',
 });
 
-// Load videos from JSON file
-function getVideos(): Video[] {
-  try {
-    const filePath = path.join(process.cwd(), 'public', 'data', 'videos.json');
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const data = JSON.parse(fileContents);
-    return data.videos || [];
-  } catch (error) {
-    console.error('Error loading videos:', error);
-    return [];
+// The library is noindex until at least one video has a real recording behind it.
+export function generateMetadata(): Metadata {
+  const base = buildPageMetadata({
+    title: 'Free BCBA Exam Prep Videos | Behavior School',
+    description: 'Watch free BCBA exam prep videos covering ethics, reinforcement, experimental design, and study strategies from an experienced school BCBA. Start learning!',
+    keywords: [
+      'BCBA exam prep videos',
+      'free BCBA study videos',
+      'behavior analyst training',
+      'BCBA ethics videos',
+      'school BCBA tips'
+    ],
+    canonical: 'https://behaviorschool.com/videos',
+  });
+  if (getPublishedVideos().length === 0) {
+    return { ...base, robots: { index: false, follow: false } };
   }
+  return base;
 }
 
 export default function VideosPage() {
-  const videos = getVideos();
+  const videos = getPublishedVideos();
   
   // Group videos by category
   const categories: VideoCategory[] = ['Exam Prep', 'School BCBA Tips', 'Tool Tutorials'];
@@ -53,7 +52,9 @@ export default function VideosPage() {
               Free BCBA Exam Prep Videos
             </h1>
             <p className="text-xl text-blue-100 mb-8">
-              Learn from an experienced school BCBA. Expert insights on ethics, concepts, and study strategies to help you pass on your first attempt.
+              {videos.length > 0
+                ? 'Learn from an experienced school BCBA. Practical walkthroughs of ethics scenarios, core concepts, and study strategies for the 6th Edition exam.'
+                : 'Short walkthroughs of ethics scenarios, core concepts, and study strategies for the 6th Edition exam, from a school BCBA. Recording is in progress.'}
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center">
@@ -102,13 +103,15 @@ export default function VideosPage() {
         {videos.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-600 dark:text-gray-400 text-lg">
-              New videos coming soon! Sign up below to get notified.
+              The first videos are being recorded. Until they are published, the free practice
+              questions below are the fastest way to work on the same content.
             </p>
           </div>
         )}
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Section (only when there is a library to describe) */}
+      {videos.length > 0 && (
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
@@ -156,37 +159,37 @@ export default function VideosPage() {
                 Can I watch these videos on my phone or tablet?
               </h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Absolutely! All videos are optimized for mobile viewing so you can study on the go. Whether you're on a phone, tablet, or desktop, you'll have full access to the entire video library with no special apps required.
+                Absolutely! All videos are optimized for mobile viewing so you can study on the go. Whether you&apos;re on a phone, tablet, or desktop, you&apos;ll have full access to the entire video library with no special apps required.
               </p>
             </div>
           </div>
         </div>
       </section>
+      )}
 
       {/* CTA Section */}
       <section className="bg-blue-50 dark:bg-gray-800 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Want More Than Videos?
+              Practice what the videos cover
             </h2>
             <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
-              Get access to interactive flashcards, practice exams, and study tools designed specifically for BCBA exam prep.
+              Behavior Study Tools has free BCBA practice questions written to the 6th Edition outline.
+              See the missed domain, review the rationale, and choose the next study task.
             </p>
             <a
-              href="/signup"
+              href={freePracticeHref}
               className="inline-block bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors text-lg"
             >
-              Start Your Free Trial
+              Start free BCBA practice
             </a>
-            <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-              No credit card required • Free practice questions included
-            </p>
           </div>
         </div>
       </section>
 
       {/* Structured Data */}
+      {videos.length > 0 && (
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -238,6 +241,7 @@ export default function VideosPage() {
           })
         }}
       />
+      )}
     </div>
   );
 }

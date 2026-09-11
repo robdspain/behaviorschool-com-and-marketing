@@ -45,9 +45,9 @@ const DEFAULT_APP_HREF = behaviorStudyToolsAppHref("/free-practice/", {
 
 const trustSignals = [
   { icon: BadgeCheck, label: "6th Edition aligned" },
-  { icon: ShieldCheck, label: "Review labels on questions" },
-  { icon: BarChart3, label: "Readiness score" },
-  { icon: Users, label: "Supervisor report export" },
+  { icon: ShieldCheck, label: "A rationale on every answer" },
+  { icon: BarChart3, label: "Results by domain" },
+  { icon: Users, label: "Free 185-question timed mock" },
 ];
 
 export function BcbaSeoLanding({
@@ -140,7 +140,7 @@ export function BcbaSeoLanding({
               Better prep is a workflow, not a pile of questions.
             </h2>
             <p className="mt-5 leading-8 text-slate-600">
-              BehaviorSchool connects practice, review, readiness, timing, and reporting so candidates can make better study decisions after every session.
+              Behavior Study Tools connects practice, rationale review, domain results, and timed mocks so candidates can make a better study decision after every session.
             </p>
           </div>
           <div className="grid gap-4">

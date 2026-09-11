@@ -22,12 +22,14 @@ export default function ToolkitPage() {
             <span className="text-emerald-400">Support Toolkit</span>
           </h1>
           <p className="text-xl text-emerald-100 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Stop reinventing the wheel. Get the essential templates, data collection sheets, and fidelity checklists used by top school-based BCBAs.
+            Stop reinventing the wheel. Get the templates, data collection sheets, and fidelity checklists school-based BCBAs reach for most.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-emerald-900 hover:bg-emerald-50 text-lg h-14 px-8">
-              Download Toolkit Preview
-              <Download className="ml-2 h-5 w-5" />
+            <Button asChild size="lg" className="bg-white text-emerald-900 hover:bg-emerald-50 text-lg h-14 px-8">
+              <a href="/5-levels-iep-goals.pdf" target="_blank" rel="noopener noreferrer">
+                Download Toolkit Preview
+                <Download className="ml-2 h-5 w-5" />
+              </a>
             </Button>
             <p className="text-emerald-200 text-sm mt-3 sm:mt-0 sm:self-center">
               *Includes 5 Levels of IEP Goals Guide

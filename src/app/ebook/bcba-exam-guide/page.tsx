@@ -3,7 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, Download, Mail, ArrowRight, BookOpen, Target, Clock, Award } from "lucide-react";
+import { Check, Download, ArrowRight, BookOpen, Target, Clock, Award } from "lucide-react";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
+
+const guidePdfPath = "/ebooks/bcba-exam-guide-2026.pdf";
+const freePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
+  intent: "bcba_exam_guide_ebook",
+  utm_content: "ebook_bcba_exam_guide_page",
+});
 
 export default function BCBAExamGuidePage() {
   const [email, setEmail] = useState("");
@@ -18,16 +25,16 @@ export default function BCBAExamGuidePage() {
     setError("");
 
     try {
-      // Submit to CRM
+      // /api/crm requires `name`; sending only `firstName` returns 400 and the download never unlocks.
       const response = await fetch("/api/crm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email,
-          firstName,
+          name: firstName.trim(),
+          email: email.trim(),
           role: "BCBA Candidate",
           source: "ebook-bcba-exam-guide",
-          segment: "business",
+          tags: ["ebook-bcba-exam-guide"],
         }),
       });
 
@@ -36,12 +43,11 @@ export default function BCBAExamGuidePage() {
       }
 
       setIsSuccess(true);
-      
-      // Trigger download after short delay
+
       setTimeout(() => {
-        window.open("/ebooks/bcba-exam-guide-2026.pdf", "_blank");
+        window.open(guidePdfPath, "_blank");
       }, 500);
-    } catch (err) {
+    } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -82,18 +88,23 @@ export default function BCBAExamGuidePage() {
               </span>
             </h1>
             
-            <p className="text-xl text-slate-300 mb-8">
-              Your complete roadmap to passing the BCBA exam on your first attempt.
-              Study smarter, not harder.
+            <p className="text-xl text-slate-300 mb-4">
+              A free, structured plan for the BCBA exam: what to study, in what order,
+              and how to check your readiness before test day.
+            </p>
+            <p className="text-sm text-slate-400 mb-8">
+              Written to the BACB&apos;s 6th Edition Test Content Outline, the outline in effect for
+              every BCBA exam since January 2025: all nine domains with task counts, question counts,
+              and exam weights, plus a 12-week schedule that assigns each domain to a week.
             </p>
 
             {/* Benefits */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               {[
-                { icon: Target, text: "6th Edition Task List Breakdown" },
+                { icon: Target, text: "6th Edition Domain Weights" },
                 { icon: Clock, text: "12-Week Study Schedule" },
                 { icon: BookOpen, text: "Test-Taking Strategies" },
-                { icon: Award, text: "Common Mistakes to Avoid" },
+                { icon: Award, text: "30-Day Action Plan" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-2 text-slate-300">
                   <item.icon className="w-5 h-5 text-cyan-400 flex-shrink-0" />
@@ -111,6 +122,8 @@ export default function BCBAExamGuidePage() {
                     placeholder="First name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
+                    required
+                    autoComplete="given-name"
                     className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                   />
                   <input
@@ -119,6 +132,7 @@ export default function BCBAExamGuidePage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    autoComplete="email"
                     className="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                   />
                 </div>
@@ -159,7 +173,7 @@ export default function BCBAExamGuidePage() {
                   Your download should start automatically. If not, click below.
                 </p>
                 <a
-                  href="/ebooks/bcba-exam-guide-2026.pdf"
+                  href={guidePdfPath}
                   download
                   className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-400 text-white font-semibold rounded-lg transition-colors"
                 >
@@ -183,33 +197,33 @@ export default function BCBAExamGuidePage() {
             {[
               {
                 chapter: "Chapter 1",
-                title: "Understanding the 6th Edition Task List",
-                description: "Complete breakdown of all sections with exam weights and high-yield focus areas."
+                title: "The 6th Edition Test Content Outline",
+                description: "All nine domains with the BACB's task counts, question counts, and exam weights, which domains pay back fastest per task, and what changed from the 5th Edition."
               },
               {
                 chapter: "Chapter 2",
-                title: "Creating Your Study Schedule",
-                description: "A proven 12-week intensive plan with daily structure and milestone checkpoints."
+                title: "A 12-Week Schedule by Domain",
+                description: "Each domain assigned to a week, two full-length timed mocks, a daily structure, and the four readiness signals to track."
               },
               {
                 chapter: "Chapter 3",
-                title: "Mastering Key Concepts",
-                description: "Deep dive into reinforcement, FBA functions, and ethics decision-making frameworks."
+                title: "Concepts the Exam Keeps Coming Back To",
+                description: "Reinforcement and punishment, functions of behavior and assessment methods, an ethics decision sequence, measurement, and supervision."
               },
               {
                 chapter: "Chapter 4",
-                title: "Test-Taking Strategies",
-                description: "Pacing techniques, question analysis methods, and anxiety management tips."
+                title: "Test-Taking Strategy",
+                description: "Pacing 185 questions in four hours, question analysis, qualifier words, and managing anxiety in the room."
               },
               {
                 chapter: "Chapter 5",
-                title: "Common Mistakes to Avoid",
-                description: "Learn from others' mistakes—both in studying and on exam day."
+                title: "Mistakes to Avoid",
+                description: "Study mistakes and exam-day mistakes, each paired with what to do instead."
               },
               {
                 chapter: "Chapter 6",
-                title: "Resources and Next Steps",
-                description: "Recommended materials and your 30-day action plan to get started."
+                title: "Resources and a 30-Day Action Plan",
+                description: "Official BACB documents, two textbooks, and a checklist for your first 30 days."
               },
             ].map((chapter, i) => (
               <div key={i} className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-colors">
@@ -226,14 +240,14 @@ export default function BCBAExamGuidePage() {
       <div className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Accelerate Your Preparation?
+            The guide tells you what to study. Practice tells you where you stand.
           </h2>
           <p className="text-xl text-slate-300 mb-8">
-            Behavior Study Tools offers BCBA exam prep with practice questions, mock exams, and personalized
-            study paths to help you pass on your first attempt.
+            Behavior Study Tools has free 6th Edition-aligned practice questions with domain-level results
+            and rationales, so the first step of the 30-day plan can happen today.
           </p>
           <Link
-            href="https://study.behaviorschool.com/free-practice/"
+            href={freePracticeHref}
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
           >
             Start free BCBA practice

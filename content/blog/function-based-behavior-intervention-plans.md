@@ -196,7 +196,7 @@ A function-based BIP that works in a real school is not a form you fill out. It 
 
 This is more work upfront. Significantly more. But it saves time in the long run because you are not rewriting the BIP every six weeks when the generic plan fails again.
 
-BehaviorSchool's [FBA-to-BIP Generator](/fba-to-bip) can help you draft the initial framework, including function-matched strategies, replacement behavior teaching plans, and data collection systems. Use it as a starting point, then layer in the advanced components: your competition analysis, your SBT progression, your fidelity monitoring plan. Pair it with the [IEP Goal Writer](/iep-goal-writer) to align your BIP goals with measurable IEP objectives.
+[BehaviorSchool Pro](https://plan.behaviorschool.com) is the FBA-to-BIP workspace for school BCBAs. Early access is on a waitlist. Pair it later with the [IEP Goal Writer](/iep-goals) to keep BIP goals measurable.
 
 The science of behavior works. The challenge has always been implementing it well, consistently, in messy, underfunded, overcrowded schools. That is our job. Let us do it well.
 
@@ -230,7 +230,7 @@ Train them directly with modeling and rehearsal, give them a simple self-monitor
 
 The core framework applies across ages, but the specific strategies look different. For younger students, the emphasis is on FCT and structured tolerance training with visual supports. For older students, you can integrate ACT-informed components like defusion and values-based motivation alongside the SBT framework. The principles are the same; the delivery adapts to developmental level.
 
-**Ready to build better BIPs?** [Try the BehaviorSchool FBA-to-BIP Generator](/fba-to-bip) to get a function-based draft in minutes, then customize with the advanced strategies outlined above.
+**Ready for an FBA-to-BIP workspace?** [Join the BehaviorSchool Pro waitlist](https://plan.behaviorschool.com) for early access.
 
 ---
 

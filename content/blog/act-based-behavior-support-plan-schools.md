@@ -98,7 +98,7 @@ Do not skip the basics. You still need:
 - Antecedents and consequences
 - A hypothesis about function
 
-Use the [FBA-to-BIP tool](/fba-to-bip) if you want to streamline the report and ensure legal defensibility.
+[Join the BehaviorSchool Pro waitlist](https://plan.behaviorschool.com) if you want the FBA-to-BIP workspace when early access opens.
 
 ### Step 2: Identify Internal Barriers
 
@@ -220,7 +220,7 @@ Any ACT-based intervention still involves student data. Keep all notes, reflecti
 
 The [BehaviorSchool ACT Tools](/act-tools) provide school-friendly exercises, visuals, and scripts aligned with the ACT hexaflex. Use them to teach acceptance, defusion, and values work in a way that fits classroom settings.
 
-For the full behavior plan, use the [Behavior Plans tool](/behavior-plans) or the [FBA-to-BIP tool](/fba-to-bip) to keep documentation aligned with IDEA and your district requirements.
+For the full behavior plan, use the [Behavior Plans tool](/behavior-plans) today, or [join the BehaviorSchool Pro waitlist](https://plan.behaviorschool.com) for the FBA-to-BIP workspace.
 
 ## Frequently Asked Questions
 

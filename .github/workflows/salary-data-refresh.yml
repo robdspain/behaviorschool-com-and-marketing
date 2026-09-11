@@ -1,9 +1,14 @@
 name: Refresh Salary Benchmarks
 
+# Q10 policy: update quarterly if /school-bcba/salary-by-state is getting traffic.
+# Scheduled runs only proceed when the GitHub Actions variable
+# SALARY_PAGE_HAS_TRAFFIC is the string "true" (set it from GSC or Ahrefs).
+# workflow_dispatch always runs so a refresh can be triggered by hand.
+
 on:
   schedule:
-    # Run at 00:05 UTC on Jan 1 each year
-    - cron: '5 0 1 1 *'
+    # 00:05 UTC on the 1st of January, April, July, and October
+    - cron: "5 0 1 1,4,7,10 *"
   workflow_dispatch: {}
 
 permissions:
@@ -11,6 +16,7 @@ permissions:
 
 jobs:
   refresh:
+    if: ${{ github.event_name == 'workflow_dispatch' || vars.SALARY_PAGE_HAS_TRAFFIC == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,7 +25,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Refresh salary data from sheet
         env:
@@ -40,4 +46,3 @@ jobs:
           else
             echo "No changes to commit."
           fi
-

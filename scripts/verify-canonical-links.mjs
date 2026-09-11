@@ -17,6 +17,8 @@ const legacyPaths = new Set([
   "/bcba-6th-edition-practice-questions",
   "/free-bcba-practice-exam",
   "/free-bcba-practice-test",
+  "/free-bcba-practice-test/results",
+  "/free-bcba-practice",
   "/bcba-mock-exam-6th-edition",
   "/bcba-mock-practice-test",
   "/free-bcba-mock-practice-test",
@@ -27,6 +29,16 @@ const legacyPaths = new Set([
   "/iep-goal-writer",
   "/school-based-behavior-support",
   "/community",
+  "/school-bcba-training-program",
+  "/research-digest",
+  "/events",
+  "/fba-to-bip",
+  "/fba-bip-plan-writer",
+  "/rbt-study",
+  "/blog/bds-modules-down-bcba-alternative",
+  "/practice",
+  "/practice/launch",
+  "/free-study-plan",
 ]);
 
 const ignoredDirectories = new Set([".git", ".next", "node_modules"]);
