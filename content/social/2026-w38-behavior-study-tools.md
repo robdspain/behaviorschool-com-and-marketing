@@ -4,14 +4,14 @@ status: draft_ready_manual_handoff
 created_at: 2026-09-14T14:34:00-07:00
 buffer_workspace_status: not_verified
 buffer_reason: Scoped Behavior School Buffer API key, organization ID, and profile channel IDs were not found in macOS Keychain under the expected names.
-production_asset_status: pending_commit_and_deploy_verification
+production_asset_status: verified_live_2026-09-14T14:38:29-07:00
 primary_product: Behavior Study Tools
 review_required: true
 ---
 
 # 2026-W38 Behavior Study Tools Social Package
 
-This package is ready for review and manual scheduling. It was not scheduled automatically because the required scoped Behavior School Buffer credentials were unavailable in macOS Keychain. The repository publisher supports the verified Behavior School Facebook, Instagram, and YouTube profiles only when those scoped credentials are present. It does not upload media, so Instagram and YouTube remain platform-ready manual handoff drafts even when Buffer is configured.
+This package is ready for review and manual scheduling. The committed W38 assets are live on production as of 2026-09-14T14:38:29-07:00. It was not scheduled automatically because the required scoped Behavior School Buffer credentials were unavailable in macOS Keychain. The repository publisher supports the verified Behavior School Facebook, Instagram, and YouTube profiles only when those scoped credentials are present. It does not upload media, so Instagram and YouTube remain platform-ready manual handoff drafts even when Buffer is configured.
 
 The verified Behavior School Buffer profiles from `Docs/BUFFER_WORKSPACE_MAPPING.md` remain:
 
