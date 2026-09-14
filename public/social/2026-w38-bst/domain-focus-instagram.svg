@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">One domain focus for BCBA study</title>
+  <desc id="desc">Instagram carousel cover showing a BCBA candidate choosing one focused domain after a diagnostic.</desc>
+  <rect width="1080" height="1350" fill="#fbf6ed"/>
+  <rect x="70" y="70" width="940" height="1210" fill="#ffffff" stroke="#1f4d3f" stroke-width="4"/>
+  <text x="112" y="150" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="112" y="256" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800">Choose one</text>
+  <text x="112" y="340" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800">domain for</text>
+  <text x="112" y="424" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800">the next block.</text>
+  <g transform="translate(120 560)">
+    <rect width="840" height="92" fill="#1f4d3f"/>
+    <text x="36" y="59" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">Diagnostic result</text>
+    <rect y="144" width="250" height="142" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="56" y="228" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">A</text>
+    <rect x="295" y="144" width="250" height="142" fill="#1f4d3f"/>
+    <text x="351" y="208" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">Focus</text>
+    <text x="351" y="250" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">domain</text>
+    <rect x="590" y="144" width="250" height="142" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="646" y="228" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">C</text>
+  </g>
+  <text x="112" y="1046" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">Review the explanation.</text>
+  <text x="112" y="1104" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">Practice the gap.</text>
+  <text x="112" y="1190" fill="#5b6a63" font-family="Arial, Helvetica, sans-serif" font-size="30">Free BCBA practice in the browser.</text>
+</svg>

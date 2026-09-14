@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">IEP goal readiness check</title>
+  <desc id="desc">Vertical short-form graphic showing an IEP goal readiness check before turning a goal into a plan.</desc>
+  <rect width="1080" height="1920" fill="#12382f"/>
+  <rect x="80" y="100" width="920" height="1720" fill="#fffaf0"/>
+  <text x="130" y="212" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior School</text>
+  <text x="130" y="360" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800">Is this goal</text>
+  <text x="130" y="450" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800">ready to</text>
+  <text x="130" y="540" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800">become a plan?</text>
+  <rect x="130" y="670" width="820" height="420" fill="#ffffff" stroke="#1f4d3f" stroke-width="4"/>
+  <text x="180" y="760" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">Check before the meeting</text>
+  <line x1="180" y1="820" x2="900" y2="820" stroke="#d8c5a2" stroke-width="4"/>
+  <text x="180" y="900" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="34">Observable behavior</text>
+  <text x="180" y="970" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="34">Measurable progress</text>
+  <text x="180" y="1040" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="34">A practical next step</text>
+  <g transform="translate(130 1248)">
+    <rect width="245" height="132" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="42" y="80" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">Draft</text>
+    <path d="M285 66h92" stroke="#c8952d" stroke-width="8"/>
+    <path d="M365 49l30 17-30 17z" fill="#c8952d"/>
+    <rect x="430" width="245" height="132" fill="#1f4d3f"/>
+    <text x="472" y="60" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800">Quality</text>
+    <text x="472" y="98" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800">check</text>
+  </g>
+  <text x="130" y="1585" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="45" font-weight="800">Use the free readiness quiz.</text>
+  <text x="130" y="1708" fill="#5a5144" font-family="Arial, Helvetica, sans-serif" font-size="30">Built for school behavior teams.</text>
+</svg>

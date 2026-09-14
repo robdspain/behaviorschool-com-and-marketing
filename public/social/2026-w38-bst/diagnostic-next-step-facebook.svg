@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Behavior Study Tools diagnostic next step</title>
+  <desc id="desc">Facebook graphic showing a short BCBA diagnostic leading to one focused next study block.</desc>
+  <rect width="1200" height="630" fill="#f6efe2"/>
+  <rect x="60" y="58" width="1080" height="514" fill="#fffdf7" stroke="#1f4d3f" stroke-width="4"/>
+  <text x="96" y="122" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Behavior Study Tools</text>
+  <text x="96" y="204" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">Start smaller.</text>
+  <text x="96" y="274" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">Study with a signal.</text>
+  <g transform="translate(96 344)">
+    <rect width="250" height="92" fill="#1f4d3f"/>
+    <text x="28" y="57" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">9 questions</text>
+    <path d="M286 46h82" stroke="#c8952d" stroke-width="8"/>
+    <path d="M356 29l30 17-30 17z" fill="#c8952d"/>
+    <rect x="420" width="268" height="92" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="448" y="57" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">Domain signal</text>
+    <path d="M724 46h62" stroke="#c8952d" stroke-width="8"/>
+    <path d="M774 29l30 17-30 17z" fill="#c8952d"/>
+    <rect x="836" width="168" height="92" fill="#1f4d3f"/>
+    <text x="866" y="40" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800">Next</text>
+    <text x="866" y="70" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800">block</text>
+  </g>
+  <text x="96" y="514" fill="#2f4f46" font-family="Arial, Helvetica, sans-serif" font-size="30">Use the free diagnostic before another broad review session.</text>
+</svg>
