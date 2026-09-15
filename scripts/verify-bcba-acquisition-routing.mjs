@@ -116,6 +116,11 @@ if (existsSync(sitemapBodyPath)) {
     "/free-mock-exam/",
     "/support/",
     "/contact",
+    // Legal cross-links, not acquisition CTAs.
+    "/terms-of-service/",
+    "/terms-of-service",
+    "/privacy-policy/",
+    "/privacy-policy",
   ]);
 
   for (const sitemapUrl of sitemapUrls) {

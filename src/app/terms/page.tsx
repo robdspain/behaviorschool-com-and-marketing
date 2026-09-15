@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const updatedDate = "June 26, 2026";
+const updatedDate = "September 15, 2026";
 
 export default function TermsPage() {
   return (
@@ -37,6 +37,26 @@ export default function TermsPage() {
               You are responsible for maintaining the confidentiality of your account credentials
               and for activity under your account. Access to paid products, courses, or software
               may be limited by subscription, registration, or purchase terms.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-slate-950">
+              Behavior Study Tools subscriptions and trials
+            </h2>
+            <p className="mt-3">
+              Paid access, free trials, automatic renewal, cancellation, and refunds for Behavior
+              Study Tools (study.behaviorschool.com and related apps) are governed by Section 7
+              (Subscriptions, billing, and refunds) of the Behavior Study Tools Terms of Service
+              at{" "}
+              <a
+                href="https://study.behaviorschool.com/terms-of-service/"
+                className="font-semibold text-emerald-700 hover:text-emerald-900"
+              >
+                https://study.behaviorschool.com/terms-of-service/
+              </a>
+              . Those Study Terms control if they conflict with this page on subscription or trial
+              billing for Behavior Study Tools.
             </p>
           </section>
 
