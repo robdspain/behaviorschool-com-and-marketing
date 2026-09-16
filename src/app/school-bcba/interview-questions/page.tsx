@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/school-bcba/interview-questions";
 
 export const metadata = buildPageMetadata({
-  title: "School BCBA Interview Questions (With Answer Themes)",
+  title: "School BCBA Interview Questions | Behavior School",
   description:
     "Common school BCBA interview questions from district hiring panels, sample answer themes, and portfolio pieces to bring to the interview.",
   canonical,

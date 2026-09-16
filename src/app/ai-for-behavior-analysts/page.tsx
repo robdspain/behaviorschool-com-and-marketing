@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
+  title: "AI Tools for BCBAs: IEP Goals and BIPs | Behavior School",
   description:
     "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
   keywords:
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     canonical: "https://behaviorschool.com/ai-for-behavior-analysts",
   },
   openGraph: {
-    title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
+    title: "AI Tools for BCBAs: IEP Goals and BIPs | Behavior School",
     description:
       "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
     url: "https://behaviorschool.com/ai-for-behavior-analysts",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Tools for BCBAs | IEP Goals, BIPs & School Documentation",
+    title: "AI Tools for BCBAs: IEP Goals and BIPs | Behavior School",
     description:
       "Practical AI workflows for school BCBAs: write IEP behavior goals, move FBA to BIP, and draft documentation without student data in public prompts.",
     images: ["/BehaviorStudyTools/Hero-BST-Home.webp"],
@@ -59,9 +59,9 @@ const workflows = [
     icon: ClipboardList,
     title: "FBA to BIP workflows",
     description:
-      "Move from interviews, ABC patterns, and hypothesis statements into function-aligned intervention planning with clearer documentation.",
-    href: "/fba-to-bip",
-    cta: "See FBA to BIP tools",
+      "BehaviorSchool Pro is the FBA-to-BIP workspace for school BCBAs. Early access is on a waitlist.",
+    href: "https://plan.behaviorschool.com",
+    cta: "Join the early-access waitlist",
   },
   {
     icon: FileText,

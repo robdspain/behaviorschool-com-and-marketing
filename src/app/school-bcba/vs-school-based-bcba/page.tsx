@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/school-bcba/vs-school-based-bcba";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "School BCBA vs School-Based BCBA | Career Guide 2025",
+  title: "School BCBA vs School-Based BCBA | Behavior School",
   description:
     "Learn how School BCBA and School-Based BCBA terms differ in job searches, positioning, and career visibility for behavior analysts in schools.",
   canonical,
@@ -248,7 +248,7 @@ export default function Page() {
                   color="emerald"
                   title="Actively Job Searching"
                   items={[
-                    { text: "2025 job guide & interview prep", href: "/school-bcba/job-guide" },
+                    { text: "School BCBA job guide & interview prep", href: "/school-bcba/job-guide" },
                     { text: "Resume keywords that work", href: "/school-bcba/job-guide" },
                     { text: "Portfolio examples", href: "/school-bcba/job-guide" }
                   ]}
@@ -294,7 +294,7 @@ export default function Page() {
                   </li>
                   <li>
                     <Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/school-bcba/job-guide">
-                      📋 Job Guide 2025
+                      📋 School BCBA Job Guide
                       <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </li>

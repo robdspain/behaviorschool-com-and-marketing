@@ -15,6 +15,16 @@ import {
   Rocket,
 } from "lucide-react";
 import Link from "next/link";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
+
+const freePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
+  intent: "bcba_readiness_quiz",
+  utm_content: "bcba_readiness_quiz_results",
+});
+const freeMockHref = behaviorStudyToolsAppHref("/free-mock-exam/", {
+  intent: "bcba_readiness_quiz",
+  utm_content: "bcba_readiness_quiz_results",
+});
 
 /* ------------------------------------------------------------------ */
 /*  Quiz Data                                                          */
@@ -410,12 +420,12 @@ export function BCBAReadinessQuiz() {
     if (score <= 40) {
       return {
         emoji: "book",
-        title: "You Need Structured Practice",
+        title: "Start With Structured Practice",
         description:
-          "You're in the early stages of exam prep. The good news? With the right tools and a solid study plan, you can build your knowledge quickly. Behavior Study Tools helps you focus on weak areas and build a personalized study schedule.",
-        cta: "Start Your Study Plan — $29.99/mo",
-        ctaUrl: "https://study.behaviorschool.com?plan=monthly",
-        badge: "Most Popular for New Studiers",
+          "You're early in exam prep, and this score is a starting point, not a verdict. The most useful next step is a short practice set that shows which domains need work first, so your study plan starts from data instead of a chapter list.",
+        cta: "Start free practice questions",
+        ctaUrl: freePracticeHref,
+        badge: "Next step: baseline",
         color: "red" as const,
       };
     }
@@ -424,21 +434,21 @@ export function BCBAReadinessQuiz() {
         emoji: "target",
         title: "You're On Track but Have Gaps",
         description:
-          "You have a solid foundation, but there are specific content areas that need attention. Our study app identifies exactly where your gaps are and focuses your study time where it matters most.",
-        cta: "Close Your Gaps — $89.99/quarter",
-        ctaUrl: "https://study.behaviorschool.com?plan=quarterly",
-        badge: "Best Value",
+          "You have a foundation, but specific content areas still need attention. Free practice on Behavior Study Tools gives you domain-level results and rationales so you can spend your study time on the gaps that cost points.",
+        cta: "Find your weak domains free",
+        ctaUrl: freePracticeHref,
+        badge: "Next step: weak domains",
         color: "yellow" as const,
       };
     }
     return {
       emoji: "rocket",
-      title: "Almost There — Fine-Tune Your Practice",
+      title: "Almost There — Check Pacing and Endurance",
       description:
-        "You're in great shape! At this stage, it's all about sharpening your weakest areas and building exam-day confidence. Behavior Study Tools helps you rehearse the areas that still need attention and practice under exam-like conditions.",
-      cta: "Lock In Your Pass — $288/year",
-      ctaUrl: "https://study.behaviorschool.com?plan=annual",
-      badge: "Best for Exam-Ready Students",
+        "You're in good shape. At this stage the question is whether accuracy holds when domains are mixed and the clock is running. A free timed mock exam on Behavior Study Tools shows you that before test day does.",
+      cta: "Take a free timed mock exam",
+      ctaUrl: freeMockHref,
+      badge: "Next step: mock exam",
       color: "green" as const,
     };
   };
@@ -478,10 +488,10 @@ export function BCBAReadinessQuiz() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm font-semibold">
             <Link href="/bcba-exam-weak-areas" className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-emerald-800 hover:bg-emerald-50">
-              Find BCBA weak areas
+              How to read your weak areas
             </Link>
-            <Link href="https://study.behaviorschool.com/free-practice/" className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-emerald-800 hover:bg-emerald-50">
-              6th Edition practice questions
+            <Link href="/bcba-study-schedule" className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-emerald-800 hover:bg-emerald-50">
+              8, 12, and 16 week schedules
             </Link>
           </div>
         </motion.div>

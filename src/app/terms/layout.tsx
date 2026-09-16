@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service - Behavior School",
+  title: "Terms of Service | Behavior School",
   description: "Terms for using Behavior School and Behavior Study Tools, including accounts, subscriptions, acceptable use, and legal requirements.",
   keywords: "terms of service, user agreement, Behavior School, study tools terms, legal terms, service agreement",
   alternates: { canonical: "/terms" },
   openGraph: {
     type: "website",
-    title: "Terms of Service - Behavior School",
+    title: "Terms of Service | Behavior School",
     description: "Please read these terms carefully before using Behavior Study Tools.",
     url: "/terms",
     images: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms of Service - Behavior School",
+    title: "Terms of Service | Behavior School",
     description: "Please read these terms carefully before using Behavior Study Tools.",
     images: ["/optimized/og-image.webp"],
   },

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
 const canonical = "https://behaviorschool.com/bcba-study-schedule";
+const baselinePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
+  intent: "bcba_study_schedule",
+  utm_content: "bcba_study_schedule_page",
+});
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "BCBA Study Schedule | 8, 12, and 16 Week Plans",
+  title: "BCBA Study Schedule: 8, 12, 16 Week Plans | Behavior School",
   description:
     "Build a BCBA study schedule for 8, 12, or 16 weeks. Includes weekly priorities, practice questions, mock exam timing, and retake adjustments.",
   canonical,
@@ -22,13 +26,11 @@ export default function BCBAStudySchedulePage() {
       breadcrumbLabel="BCBA Study Schedule"
       canonical={canonical}
       heroVisual
-      primaryCta={{ label: "Build a free pacing plan", href: "/bcba-pacing-planner" }}
+      primaryCta={{ label: "Get your baseline with free practice questions", href: baselinePracticeHref }}
       secondaryLinks={[
-        { label: "Take the free practice exam", href: "https://study.behaviorschool.com/free-practice/" },
-        { label: "BCBA exam prep guide", href: "https://study.behaviorschool.com/free-practice/" },
-        { label: "Failed? Build a retake plan", href: "/failed-bcba-exam-help" },
-        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
-        { label: "BCBA exam practice questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "Turn this into a dated pacing plan", href: "/bcba-pacing-planner" },
+        { label: "Not sure where you stand? Take the readiness check", href: "/bcba-readiness-quiz" },
+        { label: "Retaking? Start with the retake plan", href: "/failed-bcba-exam-help" },
       ]}
       sections={[
         {
@@ -129,32 +131,26 @@ export default function BCBAStudySchedulePage() {
           {[
             {
               heading: "Domain practice",
-              body: "Choose one content area and practice until you can explain why the correct answer is best.",
-              href: "https://study.behaviorschool.com/free-practice/",
-              label: "Practice exam questions",
+              body: "Choose one content area and practice until you can explain why the correct answer is best, not just which letter was right.",
             },
             {
               heading: "Rationale review",
-              body: "Write down why distractors were tempting. This is where many candidates actually improve.",
-              href: "https://study.behaviorschool.com/free-practice/",
-              label: "Review sample questions",
+              body: "Write down why the distractors were tempting. This is where many candidates actually improve.",
             },
             {
               heading: "Timing check",
-              body: "Add timed sets after accuracy improves. Timing too early can hide concept gaps.",
-              href: "https://study.behaviorschool.com/free-mock-exam/",
-              label: "Plan a mock exam",
+              body: "Add timed sets only after accuracy improves. Timing too early can hide concept gaps.",
             },
           ].map((item) => (
             <div key={item.heading} className="rounded-xl border border-slate-200 p-5">
               <h3 className="font-semibold text-slate-950">{item.heading}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.body}</p>
-              <Link href={item.href} className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
-                {item.label}
-              </Link>
             </div>
           ))}
         </div>
+        <p className="mt-6 text-sm leading-relaxed text-slate-600">
+          The free practice set on Behavior Study Tools is the fastest way to get the baseline this schedule starts from. Use the button at the top of the page, then come back and pick your timeline.
+        </p>
       </section>
     </SeoArticlePage>
   );

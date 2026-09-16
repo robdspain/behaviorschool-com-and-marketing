@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { ContactClient } from "./ContactClient";
 
 export const metadata: Metadata = {
-  title: "Contact Behavior School | BCBA Training & Support",
+  title: "Contact Us: BCBA Training and Support | Behavior School",
   description: "Get expert help with BCBA certification prep, school behavior analysis, IEP goals, and intervention planning. Contact our team for personalized support today.",
   robots: {
     index: true,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "school BCBA support"
   ],
   openGraph: {
-    title: "Contact Behavior School | BCBA Training & Support",
+    title: "Contact Us: BCBA Training and Support | Behavior School",
     description: "Get expert help with BCBA certification prep, school behavior analysis, IEP goals, and intervention planning. Contact our team for personalized support today.",
     type: "website",
     url: "https://behaviorschool.com/contact",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Behavior School | BCBA Training & Support",
+    title: "Contact Us: BCBA Training and Support | Behavior School",
     description: "Get expert help with BCBA certification prep, school behavior analysis, IEP goals, and intervention planning. Contact our team for personalized support today.",
     images: ["https://behaviorschool.com/optimized/og-image.webp"]
   },

@@ -80,7 +80,7 @@ export default function CEEventsClient({ initialEvents }: { initialEvents: Event
               </div>
               <div className="flex items-center gap-2 bg-emerald-800/50 px-4 py-2 rounded-full">
                 <Award className="w-4 h-4" />
-                <span>Instant Certificates</span>
+                <span>CE Certificates After Verified Completion</span>
               </div>
               <div className="flex items-center gap-2 bg-emerald-800/50 px-4 py-2 rounded-full">
                 <Video className="w-4 h-4" />

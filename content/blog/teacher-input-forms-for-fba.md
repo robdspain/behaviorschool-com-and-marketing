@@ -382,7 +382,7 @@ Thank you! Your input is essential to developing an effective behavior plan.
 
 If you are conducting multiple FBAs per month, manually organizing teacher input forms, observation data, and interviews gets overwhelming fast.
 
-The [BehaviorSchool FBA-to-BIP tool](/fba-to-bip) includes built-in teacher input templates, stores all your FBA data in one place, and uses your inputs to generate hypothesis-driven FBA reports and function-based BIPs. You spend less time formatting documents and more time doing the actual clinical work.
+Teacher input is easier to keep organized when it lives with the rest of the FBA, not in a separate stack of forms. [BehaviorSchool Pro](https://plan.behaviorschool.com) is the FBA-to-BIP workspace for school teams; early access is on a waitlist.
 
 ## Frequently Asked Questions
 
@@ -408,4 +408,4 @@ Yes, a well-designed form is flexible enough for most behaviors. You may want sl
 
 ---
 
-*Need a faster way to go from teacher input to a complete FBA and BIP? [Try the BehaviorSchool FBA-to-BIP tool](/fba-to-bip) — FERPA-compliant and built for school teams.*
+*Need a faster way to go from teacher input to a complete FBA and BIP? [Join the BehaviorSchool Pro waitlist](https://plan.behaviorschool.com) for early access.*

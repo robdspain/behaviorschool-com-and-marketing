@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         success: true,
         message: 'Registration confirmed (free event)',
-        redirect_url: `${SITE_URL}/events/${event_id}?registered=true&code=${registration.confirmationCode}`,
+        redirect_url: `${SITE_URL}/ce-events/${event_id}?registered=true&code=${registration.confirmationCode}`,
       });
     }
 
@@ -104,8 +104,8 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
       ],
-      success_url: `${SITE_URL}/events/${event_id}?registered=true&code=${registration.confirmationCode}&payment=success`,
-      cancel_url: `${SITE_URL}/events/${event_id}?payment=cancelled`,
+      success_url: `${SITE_URL}/ce-events/${event_id}?registered=true&code=${registration.confirmationCode}&payment=success`,
+      cancel_url: `${SITE_URL}/ce-events/${event_id}?payment=cancelled`,
       metadata: {
         registration_id: registration_id,
         event_id: event_id,

@@ -33,6 +33,8 @@ export interface Video {
   order: number;
   
   // SEO
+  /** Short form for the <title> tag (keeps "title | Behavior School" under 60 chars). */
+  seoTitle?: string;
   metaDescription?: string;
   keywords?: string[];
 }

@@ -65,7 +65,7 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "ACT Metaphor Creator | Classroom-Friendly ACT Metaphors",
+  title: "ACT Metaphor Creator for Classrooms | Behavior School",
   description:
     "Create ACT metaphors for students by grade level, process, and interests. Printable prompts, reflection questions, and adaptations.",
   keywords: [
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "ACT Metaphor Creator | Classroom-Friendly ACT Metaphors",
+    title: "ACT Metaphor Creator for Classrooms | Behavior School",
     description:
       "Generate ACT metaphors with student-friendly prompts, reflection questions, and adaptations by grade level.",
     url: pageUrl,
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ACT Metaphor Creator | Classroom-Friendly ACT Metaphors",
+    title: "ACT Metaphor Creator for Classrooms | Behavior School",
     description:
       "Generate ACT metaphors with student-friendly prompts, reflection questions, and adaptations by grade level.",
     images: [`${baseUrl}/og-image.webp`],

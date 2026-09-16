@@ -5,6 +5,8 @@ const behaviorStudyToolsUrl = "https://behaviorstudytools.com/";
 const studyAppUrl = "https://study.behaviorschool.com/";
 const freePracticeUrl = "https://study.behaviorschool.com/free-practice/";
 const freeMockUrl = "https://study.behaviorschool.com/free-mock-exam/";
+const planAppUrl = "https://plan.behaviorschool.com/";
+const rbtStudyUrl = "https://rbtstudy.behaviorschool.com/";
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
@@ -43,30 +45,6 @@ const nextConfig: NextConfig = {
   // Compiler optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/',
-        destination: '/study',
-        has: [
-          {
-            type: 'host',
-            value: 'behaviorstudytools.com',
-          },
-        ],
-      },
-      {
-        source: '/',
-        destination: '/study',
-        has: [
-          {
-            type: 'host',
-            value: 'www.behaviorstudytools.com',
-          },
-        ],
-      },
-    ];
   },
   async redirects() {
     return [
@@ -157,8 +135,38 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // Old post-signup return URL from the retired on-site practice widget.
+        source: '/free-bcba-practice-test/results',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
         source: '/bcba-mock-exam-guide',
         destination: freeMockUrl,
+        permanent: true,
+      },
+      {
+        // Retired on-site "practice hub" that duplicated the study app's own start pages.
+        source: '/practice',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        source: '/practice/launch',
+        has: [{ type: 'query', key: 'mode', value: 'full' }],
+        destination: freeMockUrl,
+        permanent: true,
+      },
+      {
+        source: '/practice/launch',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        // Retired study-guide/PDF hub with unverified free-tier claims; the study schedule page
+        // is the canonical marketing-domain study-plan page.
+        source: '/free-study-plan',
+        destination: '/bcba-study-schedule',
         permanent: true,
       },
       {
@@ -199,6 +207,28 @@ const nextConfig: NextConfig = {
       {
         source: '/school-bcba/job-guide-2025',
         destination: '/school-bcba/job-guide',
+        permanent: true,
+      },
+      {
+        source: '/school-bcba-training-program',
+        destination: '/transformation-program',
+        permanent: true,
+      },
+      {
+        source: '/research-digest',
+        destination: '/subscribe',
+        permanent: true,
+      },
+      // Public CE catalog lives at /ce-events. Keep /events/:id/certificate|quiz|feedback
+      // (ACE completion flows) on the old path — :id matches one segment only.
+      {
+        source: '/events',
+        destination: '/ce-events',
+        permanent: true,
+      },
+      {
+        source: '/events/:id',
+        destination: '/ce-events/:id',
         permanent: true,
       },
 
@@ -294,8 +324,38 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/fba-to-bip',
+        destination: planAppUrl,
+        permanent: true,
+      },
+      {
+        source: '/fba-to-bip/',
+        destination: planAppUrl,
+        permanent: true,
+      },
+      {
         source: '/fba-bip-plan-writer',
-        destination: '/fba-to-bip',
+        destination: planAppUrl,
+        permanent: true,
+      },
+      {
+        source: '/rbt-study',
+        destination: rbtStudyUrl,
+        permanent: true,
+      },
+      {
+        source: '/rbt-study/',
+        destination: rbtStudyUrl,
+        permanent: true,
+      },
+      {
+        source: '/blog/bds-modules-down-bcba-alternative',
+        destination: '/blog/bds-modules-bcba-alternative',
+        permanent: true,
+      },
+      {
+        source: '/blog/bds-modules-down-bcba-alternative/',
+        destination: '/blog/bds-modules-bcba-alternative',
         permanent: true,
       },
       {

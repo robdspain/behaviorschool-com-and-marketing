@@ -94,7 +94,7 @@ export default function EventDetailClient({ event }: EventDetailClientProps) {
       <div className="bg-white border-b">
         <div className="max-w-5xl mx-auto px-4 py-4">
           <Link
-            href="/events"
+            href="/ce-events"
             className="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition"
           >
             <ArrowLeft className="w-4 h-4" />

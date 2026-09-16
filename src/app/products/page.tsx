@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "The BehaviorSchool Suite | School BCBA Practice Tools",
+  title: "Products: Study, Supervision, IEP Tools | Behavior School",
   description:
     "Explore free school-practice tools, Behavior Study Tools for BCBA exam prep, professional development, and invite-only workspaces from BehaviorSchool.",
 };

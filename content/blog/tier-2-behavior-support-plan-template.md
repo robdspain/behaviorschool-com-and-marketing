@@ -402,7 +402,7 @@ If Tier 2 is not working after 6-8 weeks, move on. Do not let a student languish
 
 The [BehaviorSchool Behavior Plans tool](/behavior-plans) includes ready-to-use Tier 2 templates: CICO point sheets, behavior contracts, self-monitoring forms, and progress monitoring trackers.
 
-For students who need to escalate to Tier 3, the [FBA-to-BIP tool](/fba-to-bip) streamlines the process and ensures your Tier 3 plan is function-based and legally defensible.
+For students who need to escalate to Tier 3, [BehaviorSchool Pro](https://plan.behaviorschool.com) is the FBA-to-BIP workspace for school BCBAs. Early access is on a waitlist.
 
 ## Frequently Asked Questions
 

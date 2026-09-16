@@ -279,7 +279,7 @@ If the plan is not working, revisit the FBA. Either the function is wrong or the
 
 ## How BehaviorSchool Helps
 
-The [BehaviorSchool FBA-to-BIP tool](/fba-to-bip) streamlines the entire Tier 3 workflow. It collects interview data, organizes observations, and generates a hypothesis-driven FBA report and function-based BIP with aligned goals and progress monitoring templates.
+[BehaviorSchool Pro](https://plan.behaviorschool.com) is the FBA-to-BIP workspace for school BCBAs. Early access is on a waitlist.
 
 For Tier 1 and Tier 2 plans, use the [Behavior Plans tool](/behavior-plans) to keep your interventions aligned across tiers.
 
@@ -307,4 +307,4 @@ Ensure the BIP is based on a documented FBA, includes clear behavior definitions
 
 ---
 
-*Ready to move faster from FBA to BIP? [Use the BehaviorSchool FBA-to-BIP tool](/fba-to-bip) for FERPA-compliant, function-based reports built for school teams.*
+*Ready to move from FBA to BIP in one workspace? [Join the BehaviorSchool Pro waitlist](https://plan.behaviorschool.com) for early access.*

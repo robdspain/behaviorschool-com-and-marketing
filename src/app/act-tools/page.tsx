@@ -37,7 +37,7 @@ const tools = [
   {
     title: "ACT Matrix Builder",
     description: "Create a visual ACT Matrix to map student values, barriers, and committed actions.",
-    href: "/act-fba-bip",
+    href: "/act-matrix-builder",
     icon: Compass,
     color: "bg-blue-100 text-blue-600",
   },

@@ -302,66 +302,49 @@ export default function AdminSitemapPage() {
     {
       title: 'BCBA Study & Exam Prep',
       icon: <BarChart3 className="w-6 h-6" />,
+      // Practice, mock exams, and the study app live on study.behaviorschool.com.
+      // Legacy marketing-domain exam pages (/bcba-exam-prep, /bcba-study-tools, /practice,
+      // /free-study-plan, ...) permanently redirect there and are not listed.
       pages: [
         {
-          name: 'BCBA Exam Prep',
-          path: '/bcba-exam-prep',
-          description: 'Comprehensive BCBA exam preparation resources'
+          name: 'BCBA Readiness Quiz',
+          path: '/bcba-readiness-quiz',
+          description: 'Self-assessment that routes to free practice or the free mock'
         },
         {
-          name: 'BCBA Study Tools',
-          path: '/bcba-study-tools',
-          description: 'Study tools and resources for BCBA candidates'
+          name: 'BCBA Exam Weak Areas',
+          path: '/bcba-exam-weak-areas',
+          description: 'Diagnose the miss pattern before choosing a domain focus'
         },
         {
-          name: 'Behavior Study Tools',
-          path: '/behavior-study-tools',
-          description: 'Interactive study tools platform'
+          name: 'BCBA Study Schedule',
+          path: '/bcba-study-schedule',
+          description: '8-, 12-, and 16-week plans plus a 30-day retake plan'
         },
         {
-          name: 'Practice Hub',
-          path: '/practice',
-          description: 'Practice launcher and modes'
+          name: 'BCBA Pacing Planner',
+          path: '/bcba-pacing-planner',
+          description: 'Weekly hours and mock cadence from an exam date'
         },
         {
-          name: 'Practice Launcher',
-          path: '/practice/launch',
-          description: 'Launch practice with selected mode'
-        },
-        {
-          name: 'BCBA Practice Exam',
-          path: '/bcba-practice-exam',
-          description: 'Full-length BCBA practice examination'
-        },
-        {
-          name: 'Free BCBA Practice Exam',
-          path: '/free-bcba-practice-exam',
-          description: 'Free practice exam for BCBA candidates'
-        },
-        {
-          name: 'BCBA Mock Practice Test',
-          path: '/bcba-mock-practice-test',
-          description: 'Realistic mock practice test'
-        },
-        {
-          name: 'Free Mock Practice Test',
-          path: '/free-bcba-mock-practice-test',
-          description: 'Free mock practice test for BCBA exam'
-        },
-        {
-          name: 'Study Platform',
-          path: '/study',
-          description: 'Main study platform and tools hub'
+          name: 'Failed BCBA Exam Help',
+          path: '/failed-bcba-exam-help',
+          description: '30-day retake plan'
         },
         {
           name: 'BCBA Study Fluency',
           path: '/bcba-study-fluency',
-          description: 'Fluency practice for BCBA prep'
+          description: 'Timed practice and mock checkpoints'
         },
         {
-          name: 'BCBA Mock Exam Guide',
-          path: '/bcba-mock-exam-guide',
-          description: 'Detailed guide to mock exams'
+          name: 'BCBA Study App for School BCBAs',
+          path: '/bcba-study-app-school-based-bcbas',
+          description: 'Study app landing page for school BCBA candidates'
+        },
+        {
+          name: 'BCBA Exam Guide (PDF)',
+          path: '/ebook/bcba-exam-guide',
+          description: 'Email-gated 6th Edition exam guide'
         }
       ]
     },

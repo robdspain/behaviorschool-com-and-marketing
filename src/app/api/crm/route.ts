@@ -147,11 +147,15 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    if (!body.name || !body.email) {
+    const rawName = typeof body.name === "string" ? body.name.trim() : "";
+    const rawFirstName = typeof body.firstName === "string" ? body.firstName.trim() : "";
+    const rawLastName = typeof body.lastName === "string" ? body.lastName.trim() : "";
+    const displayName = rawName || [rawFirstName, rawLastName].filter(Boolean).join(" ").trim();
+    if (!displayName || !body.email) {
       return NextResponse.json({ error: "Name and email are required" }, { status: 400 });
     }
 
-    const { firstName, lastName } = splitName(body.name);
+    const { firstName, lastName } = splitName(displayName);
     const client = getConvexClient();
     const id = await client.mutation(api.crm.upsertContact, {
       firstName,

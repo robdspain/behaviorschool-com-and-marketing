@@ -17,11 +17,14 @@ const expectedAcquisitionRedirects = new Map([
   ["/bcba-6th-edition-practice-questions", "https://study.behaviorschool.com/free-practice/"],
   ["/free-bcba-practice-exam", "https://study.behaviorschool.com/free-practice/"],
   ["/bcba-mock-exam-6th-edition", "https://study.behaviorschool.com/free-mock-exam/"],
+  ["/free-bcba-practice-test", "https://study.behaviorschool.com/free-practice/"],
+  ["/free-bcba-practice-test/results", "https://study.behaviorschool.com/free-practice/"],
+  ["/free-bcba-practice", "https://study.behaviorschool.com/free-practice/"],
+  ["/practice", "https://study.behaviorschool.com/free-practice/"],
 ]);
 
 const allowedAccountFlowFiles = new Set([
   "src/app/calaba40/page.tsx",
-  "src/app/free-bcba-practice-test/FreePracticeTestWidget.tsx",
   "src/components/GuestResultsModal.tsx",
 ]);
 
@@ -78,14 +81,14 @@ expect(
   "Behavior Study Tools marketing data must include the canonical free-mock destination"
 );
 
-const bcbaToolsPage = readFileSync(
-  join(root, "src/app/bcba-study-tools/BCBAStudyToolsClient.tsx"),
-  "utf8"
-);
-expect(
-  !bcbaToolsPage.includes("/quiz/guest"),
-  "The public BCBA study tools page must route acquisition traffic through /free-practice/"
-);
+for (const absolutePath of filesUnder(join(srcRoot, "app"))) {
+  const path = relative(root, absolutePath);
+  if (path.startsWith("src/app/admin/") || path.startsWith("src/app/api/")) continue;
+  expect(
+    !readFileSync(absolutePath, "utf8").includes("/quiz/guest"),
+    `${path} must route acquisition traffic through /free-practice/ or /free-mock-exam/, not /quiz/guest`
+  );
+}
 
 const sitemapBodyPath = join(root, ".next/server/app/sitemap.xml.body");
 expect(existsSync(sitemapBodyPath), "The production sitemap artifact must exist before routing verification");

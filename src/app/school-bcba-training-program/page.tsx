@@ -5,14 +5,14 @@ import { ArrowRight, CheckCircle2, ClipboardList, FileCheck, Users, BarChart3 } 
 import { SchoolBcbasTransformationCta } from "@/components/marketing/SchoolBcbasTransformationCta";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
-const canonical = "https://behaviorschool.com/school-bcba-training-program";
+const canonical = "https://behaviorschool.com/transformation-program";
 
 export const metadata: Metadata = {
   title: "School BCBA Training Program | Build Better FBA and BIP Systems",
   description:
     "A 6-week school BCBA training program for building repeatable FBA, BIP, staff training, and caseload systems.",
   alternates: { canonical },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
   openGraph: {
     title: "School BCBA Training Program | Behavior School",
     description:

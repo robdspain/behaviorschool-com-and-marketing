@@ -11,8 +11,15 @@
       "thumbnailUrl": "/images/video-thumbnails/ethics-traps.jpg",
       "publishedAt": "2026-02-07T00:00:00Z",
       "order": 1,
+      "seoTitle": "5 Tricky BCBA Ethics Exam Questions",
       "metaDescription": "Practice 5 common BCBA ethics questions with real-world school scenarios and explanations from an experienced BCBA.",
-      "keywords": ["BCBA ethics", "BCBA exam prep", "behavior analyst ethics", "dual relationships", "confidentiality"]
+      "keywords": [
+        "BCBA ethics",
+        "BCBA exam prep",
+        "behavior analyst ethics",
+        "dual relationships",
+        "confidentiality"
+      ]
     },
     {
       "id": "reinforcement-vs-punishment",
@@ -25,8 +32,15 @@
       "thumbnailUrl": "/images/video-thumbnails/reinforcement-vs-punishment.jpg",
       "publishedAt": "2026-02-07T00:00:00Z",
       "order": 2,
+      "seoTitle": "Reinforcement vs Punishment: BCBA Exam",
       "metaDescription": "Master the reinforcement vs punishment matrix that appears in 15-20 BCBA exam questions. Learn the 2-question decision tree that prevents common mistakes.",
-      "keywords": ["reinforcement vs punishment", "BCBA exam", "positive reinforcement", "negative reinforcement", "punishment procedures"]
+      "keywords": [
+        "reinforcement vs punishment",
+        "BCBA exam",
+        "positive reinforcement",
+        "negative reinforcement",
+        "punishment procedures"
+      ]
     },
     {
       "id": "experimental-design",
@@ -39,8 +53,15 @@
       "thumbnailUrl": "/images/video-thumbnails/experimental-design.jpg",
       "publishedAt": "2026-02-07T00:00:00Z",
       "order": 3,
+      "seoTitle": "Experimental Design for the BCBA Exam",
       "metaDescription": "Simplify BCBA experimental design with reversal, multiple baseline, and multielement designs for exam practice.",
-      "keywords": ["experimental design", "BCBA exam", "single-subject design", "reversal design", "multiple baseline"]
+      "keywords": [
+        "experimental design",
+        "BCBA exam",
+        "single-subject design",
+        "reversal design",
+        "multiple baseline"
+      ]
     },
     {
       "id": "fba-to-bip",
@@ -53,8 +74,15 @@
       "thumbnailUrl": "/images/video-thumbnails/fba-to-bip.jpg",
       "publishedAt": "2026-02-07T00:00:00Z",
       "order": 1,
+      "seoTitle": "From FBA to BIP in 10 Minutes",
       "metaDescription": "Create function-based behavior plans in 10 minutes with this proven 6-step framework used by school BCBAs. From FBA hypothesis to BIP implementation.",
-      "keywords": ["FBA to BIP", "behavior intervention plan", "school BCBA", "function-based assessment", "behavior plan template"]
+      "keywords": [
+        "FBA to BIP",
+        "behavior intervention plan",
+        "school BCBA",
+        "function-based assessment",
+        "behavior plan template"
+      ]
     },
     {
       "id": "study-strategy",
@@ -67,8 +95,15 @@
       "thumbnailUrl": "/images/video-thumbnails/study-strategy.jpg",
       "publishedAt": "2026-02-07T00:00:00Z",
       "order": 4,
+      "seoTitle": "How to Pass the BCBA Exam: Study Strategy",
       "metaDescription": "Stop re-reading and start learning with this evidence-based BCBA exam study strategy. Active recall, spaced repetition, and timed practice for first-time passers.",
-      "keywords": ["BCBA exam study tips", "how to pass BCBA exam", "active recall", "spaced repetition", "BCBA study strategy"]
+      "keywords": [
+        "BCBA exam study tips",
+        "how to pass BCBA exam",
+        "active recall",
+        "spaced repetition",
+        "BCBA study strategy"
+      ]
     }
   ],
   "lastUpdated": "2026-02-07T00:00:00Z"

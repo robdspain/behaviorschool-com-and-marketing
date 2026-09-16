@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "BACB Authorized Continuing Education Provider | Behavior School",
+  title: "BACB ACE Provider: BCBA CEUs | Behavior School",
   description:
     "Behavior School LLC is a BACB Authorized Continuing Education Provider, provider number OP-26-12729.",
   canonical: "https://behaviorschool.com/bacb-ace-provider",

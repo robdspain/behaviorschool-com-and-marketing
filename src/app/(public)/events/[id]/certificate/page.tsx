@@ -106,7 +106,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-slate-900 mb-2">Certificate Not Available</h2>
           <p className="text-slate-600 mb-6">{error}</p>
-          <Link href={`/events/${eventId}`}>
+          <Link href={`/ce-events/${eventId}`}>
             <Button variant="outline">Back to Event</Button>
           </Link>
         </Card>
@@ -123,7 +123,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
           <p className="text-slate-600 mb-6">
             Please access this page from your event confirmation email or participant dashboard.
           </p>
-          <Link href={`/events/${eventId}`}>
+          <Link href={`/ce-events/${eventId}`}>
             <Button variant="outline">Back to Event</Button>
           </Link>
         </Card>
@@ -140,7 +140,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
           <p className="text-slate-600 mb-6">
             Please complete all requirements to receive your certificate.
           </p>
-          <Link href={`/events/${eventId}`}>
+          <Link href={`/ce-events/${eventId}`}>
             <Button variant="outline">Back to Event</Button>
           </Link>
         </Card>
@@ -271,7 +271,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
         {/* Back Link */}
         <div className="mt-8 text-center">
           <Link
-            href={`/events/${eventId}`}
+            href={`/ce-events/${eventId}`}
             className="text-emerald-600 hover:text-emerald-700 font-medium"
           >
             ← Back to Event

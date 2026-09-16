@@ -83,7 +83,7 @@ export function RangeChartBlock() {
         {updatedAt && (
           <span className="inline-flex items-center gap-2 text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full border border-slate-200">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-600" />
-            Last updated: {updatedAt}
+            Last reviewed: {updatedAt} · quarterly if this page has traffic
           </span>
         )}
       </div>

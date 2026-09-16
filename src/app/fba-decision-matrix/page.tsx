@@ -3,7 +3,7 @@ import { FBADecisionMatrix } from "./FBADecisionMatrix";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Free FBA Decision Matrix | Functional Behavior Assessment Tool",
+  title: "Free FBA Decision Matrix Tool | Behavior School",
   description: "Use this free FBA decision tool to answer 7 quick questions and decide whether a Functional Behavior Assessment is needed or if supports should come first.",
   keywords: [
     "FBA decision matrix",

@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return buildPageMetadata({
     title: `${event.title} | Behavior School CE Events`,
     description: event.description || `Earn ${event.total_ceus} CEUs in ${event.ce_category} with this professional development event.`,
-    canonical: `https://behaviorschool.com/events/${id}`,
+    canonical: `https://behaviorschool.com/ce-events/${id}`,
   });
 }
 

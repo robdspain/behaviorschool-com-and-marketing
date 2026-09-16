@@ -124,7 +124,7 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
           <p className="text-slate-600 mb-6">
             Please access this feedback form from your event confirmation email.
           </p>
-          <Link href={`/events/${eventId}`}>
+          <Link href={`/ce-events/${eventId}`}>
             <Button variant="outline">Back to Event</Button>
           </Link>
         </Card>
@@ -149,7 +149,7 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
               Get Your Certificate
             </Button>
           </Link>
-          <Link href={`/events/${eventId}`}>
+          <Link href={`/ce-events/${eventId}`}>
             <Button variant="outline" className="w-full">
               Back to Event
             </Button>
@@ -297,7 +297,7 @@ export default function FeedbackPage({ params }: { params: Promise<{ id: string 
 
         <div className="mt-4 text-center">
           <Link
-            href={`/events/${eventId}`}
+            href={`/ce-events/${eventId}`}
             className="text-slate-600 hover:text-emerald-600"
           >
             ← Back to Event

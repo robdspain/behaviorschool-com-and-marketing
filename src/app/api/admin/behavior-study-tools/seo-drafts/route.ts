@@ -26,10 +26,9 @@ type SignalRow = {
   created_at: string | null
 }
 
+// Only live marketing pages belong here. Redirected exam-prep paths (e.g. /free-bcba-practice-exam,
+// /bcba-mock-exam-6th-edition) fall through to the shared marketing data file.
 const pageFileMap: Record<string, string> = {
-  '/': 'src/app/behavior-study-tools/page.tsx',
-  '/free-bcba-practice-exam': 'src/app/free-bcba-practice-exam/page.tsx',
-  '/bcba-mock-exam-6th-edition': 'src/app/bcba-mock-exam-6th-edition/page.tsx',
   '/bcba-study-app-school-based-bcbas': 'src/app/bcba-study-app-school-based-bcbas/page.tsx',
   '/compare/behaviorschool-vs-aba-wizard': 'src/app/compare/behaviorschool-vs-aba-wizard/page.tsx',
   '/compare/behaviorschool-vs-bds-modules': 'src/app/compare/behaviorschool-vs-bds-modules/page.tsx',

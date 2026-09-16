@@ -1,33 +1,38 @@
 import { Metadata } from "next";
 
+const title = "Free BCBA Exam Survival Guide (PDF) | Behavior School";
+const description =
+  "Free BCBA exam study guide written to the 6th Edition Test Content Outline: domain weights, a 12-week schedule by domain, test-taking strategies, and a 30-day action plan.";
+
 export const metadata: Metadata = {
-  title: "Free Download: The 2026 BCBA Exam Survival Guide | Behavior School",
-  description: "Download your free guide to passing the BCBA exam. Includes 6th Edition Task List breakdown, 12-week study schedule, test-taking strategies, and more.",
+  title,
+  description,
+  alternates: { canonical: "https://behaviorschool.com/ebook/bcba-exam-guide" },
   keywords: [
     "BCBA exam guide",
     "BCBA study guide",
     "BCBA exam prep",
     "free BCBA guide",
     "BCBA exam tips",
-    "2026 BCBA exam"
+    "BCBA study schedule"
   ],
   openGraph: {
-    title: "Free Download: The 2026 BCBA Exam Survival Guide",
-    description: "Your complete roadmap to passing the BCBA exam on your first attempt. Study smarter, not harder.",
+    title: "Free BCBA Exam Survival Guide (PDF)",
+    description,
     images: [
       {
         url: "/ebooks/bcba-guide-mockup.png",
         width: 1200,
         height: 900,
-        alt: "The 2026 BCBA Exam Survival Guide",
+        alt: "The BCBA Exam Survival Guide from Behavior School",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Download: The 2026 BCBA Exam Survival Guide",
-    description: "Your complete roadmap to passing the BCBA exam on your first attempt.",
+    title: "Free BCBA Exam Survival Guide (PDF)",
+    description,
     images: ["/ebooks/bcba-guide-mockup.png"],
   },
 };

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { STUDY_PRICING, STUDY_PRICING_LINE } from '@/lib/study-pricing';
 
 export const metadata: Metadata = {
   title: 'Pricing | Behavior School',
@@ -22,7 +23,8 @@ export default function PricingPage() {
           <article className="rounded-2xl border border-[#1f4d3f]/15 bg-white p-6">
             <h2 className="text-xl font-bold text-[#123628]">BCBA Exam Prep</h2>
             <p className="mt-1 text-slate-600 text-sm">Self-paced prep platform</p>
-            <p className="mt-5 text-3xl font-bold text-[#123628]">$29.99<span className="text-base text-slate-500">/month</span></p>
+            <p className="mt-5 text-3xl font-bold text-[#123628]">{STUDY_PRICING.monthly.label}<span className="text-base text-slate-500">{STUDY_PRICING.monthly.per}</span></p>
+            <p className="mt-2 text-sm text-slate-600">{STUDY_PRICING_LINE}</p>
             <ul className="mt-5 space-y-2 text-sm text-slate-700">
               <li>Mock exams and analytics</li>
               <li>Task-list aligned practice</li>

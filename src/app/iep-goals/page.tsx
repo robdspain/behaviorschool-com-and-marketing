@@ -5,7 +5,7 @@ import BehaviorGoalWriter from "@/components/iep-goal-writer/ValuesWizard";
 import { AnimatedSections } from "./AnimatedSections";
 
 export const metadata: Metadata = {
-  title: "Free IEP Behavior Goal Writer | School BCBA Tool",
+  title: "Free IEP Behavior Goal Writer | Behavior School",
   description: "Free IEP behavior goal writer for school BCBAs. Enter student context, get an editable goal draft with measurable criteria. No signup wall to start.",
   robots: {
     index: true,
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     "progressive behavior goals"
   ],
   openGraph: {
-    title: "Free IEP Behavior Goal Writer | School BCBA Tool",
+    title: "Free IEP Behavior Goal Writer | Behavior School",
     description: "Free IEP behavior goal writer for school BCBAs. Enter student context, get an editable goal draft with measurable criteria. No signup wall to start.",
     type: "website",
     url: "https://behaviorschool.com/iep-goals",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free IEP Behavior Goal Writer | School BCBA Tool",
+    title: "Free IEP Behavior Goal Writer | Behavior School",
     description: "Free IEP behavior goal writer for school BCBAs. Enter student context, get an editable goal draft with measurable criteria. No signup wall to start.",
     images: ["https://behaviorschool.com/thumbnails/iep-goal-thumb.webp"]
   },

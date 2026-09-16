@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 const canonical = "https://behaviorschool.com/school-bcba/job-description";
 
 export const metadata = buildPageMetadata({
-  title: "School BCBA Job Description | Duties, Skills, Examples",
+  title: "School BCBA Job Description and Duties | Behavior School",
   description:
     "School BCBA job description with common duties, required skills, district expectations, and examples of school-based BCBA responsibilities.",
   canonical,

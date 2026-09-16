@@ -164,7 +164,7 @@ If the report does not clarify what staff should do differently or what data the
 
 Use the [Functional Behavior Assessment Guide](/functional-behavior-assessment-guide) for a concise overview of core steps, data sources, and hypothesis statements.
 
-When the team is deciding whether the current concern calls for additional assessment, use the [FBA Decision Matrix](/fba-decision-matrix) as a discussion aid. When the assessment is complete, the [FBA-to-BIP workflow](/fba-to-bip) can help connect the hypothesis to a function-based plan.
+When the team is deciding whether the current concern calls for additional assessment, use the [FBA Decision Matrix](/fba-decision-matrix) as a discussion aid. When the assessment is complete, [BehaviorSchool Pro](https://plan.behaviorschool.com) is the FBA-to-BIP workspace for turning that hypothesis into a function-based plan. Early access is on a waitlist.
 
 ## Frequently Asked Questions About FBA in Schools
 

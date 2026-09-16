@@ -1,8 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AlertTriangle, CheckCircle, ClipboardList, Mail, Timer } from "lucide-react";
+import Link from "next/link";
+import { AlertTriangle, ArrowRight, CheckCircle, ClipboardList, Timer } from "lucide-react";
 import { ShareBar } from "@/components/ui/ShareBar";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
+
+const baselinePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
+  intent: "bcba_pacing_planner",
+  utm_content: "pacing_planner_baseline",
+});
+const freeMockHref = behaviorStudyToolsAppHref("/free-mock-exam/", {
+  intent: "bcba_pacing_planner",
+  utm_content: "pacing_planner_mock",
+});
 
 const masteryOptions = [
   { value: "early", label: "Early prep (need a full content review)", hours: 120 },
@@ -19,11 +30,6 @@ export function BCBAPacingPlanner() {
   const [examDate, setExamDate] = useState("");
   const [hoursPerWeek, setHoursPerWeek] = useState("6");
   const [mastery, setMastery] = useState<(typeof masteryOptions)[number]["value"]>("mid");
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [sendError, setSendError] = useState("");
 
   const result = useMemo(() => {
     if (!examDate) return null;
@@ -49,33 +55,6 @@ export function BCBAPacingPlanner() {
       shortfall: hoursPlanned < weeklyNeeded,
     };
   }, [examDate, hoursPerWeek, mastery]);
-
-  async function handleEmail(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
-    setSending(true);
-    setSendError("");
-    try {
-      const res = await fetch("/api/lead-magnet", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          role: "bcba",
-          tags: ["lead-magnet", "pacing-planner"],
-          source: "website",
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok || data?.error) throw new Error(data?.error || "Failed");
-      setSent(true);
-    } catch (err) {
-      setSendError(err instanceof Error ? err.message : "Something went wrong.");
-    } finally {
-      setSending(false);
-    }
-  }
 
   return (
     <div className="space-y-6">
@@ -194,55 +173,42 @@ export function BCBAPacingPlanner() {
               <li>Complete {Math.round(result.hoursPlanned * 0.6)} hours of content review.</li>
               <li>Do {Math.round(result.questionTarget * 0.7)} mixed practice questions.</li>
               <li>Review your weakest domain for 1 focused session.</li>
-              <li>Take a 60-question timed mini-mock to practice pacing.</li>
+              <li>
+                Practice pacing under time: the free 185-question mock if you have a four-hour block, or the
+                9-question domain check if you do not.
+              </li>
             </ul>
           </div>
 
-          {!sent ? (
-            <form onSubmit={handleEmail} className="rounded-2xl border border-slate-200 p-5 space-y-3">
-              <div className="flex items-center gap-2 text-slate-700 text-sm font-semibold">
-                <Mail className="h-4 w-4" />
-                Email me the 7-day plan + study checklist
-              </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="First name (optional)"
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f4d3f]/20 focus:border-[#1f4d3f]"
-                />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@email.com"
-                  required
-                  className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f4d3f]/20 focus:border-[#1f4d3f]"
-                />
-              </div>
-              {sendError && <p className="text-sm text-red-600">{sendError}</p>}
-              <button
-                type="submit"
-                disabled={sending}
-                className="inline-flex items-center justify-center rounded-xl bg-[#1f4d3f] px-5 py-3 text-sm font-semibold text-white hover:bg-[#153528] transition disabled:opacity-70"
+          <div className="rounded-2xl bg-[#1f4d3f] p-6 text-white">
+            <h4 className="text-lg font-bold">Start the plan with a baseline</h4>
+            <p className="mt-2 text-sm text-emerald-50/90">
+              A pacing plan tells you how many hours to study. A baseline tells you which domain to study
+              first. The free 9-question check on Behavior Study Tools shows your weakest domain with a
+              rationale on every answer, with no signup.
+            </p>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href={baselinePracticeHref}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#e4b63d] px-5 py-3 text-sm font-bold text-[#1f4d3f] transition hover:bg-[#d4a82d]"
               >
-                {sending ? "Sending..." : "Send My Free Plan"}
-              </button>
-              <p className="text-xs text-slate-500">No spam. Unsubscribe anytime.</p>
-            </form>
-          ) : (
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-900">
-              <CheckCircle className="inline-block h-4 w-4 mr-2" />
-              Sent! Check your inbox for your free plan.
+                Find your weakest domain (free)
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href={freeMockHref}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Take the free 185-question mock
+              </Link>
             </div>
-          )}
+          </div>
         </div>
       )}
 
       <ShareBar
         title="BCBA Exam Pacing Planner"
-        text="Just used BehaviorSchool's free BCBA exam pacing planner. It builds a weekly schedule and pacing targets based on your exam date."
+        text="Just used Behavior School's free BCBA exam pacing planner. It builds a weekly schedule and pacing targets based on your exam date."
         url="https://behaviorschool.com/bcba-pacing-planner"
         hashtags={["BCBA", "ABA", "BehaviorSchool"]}
       />

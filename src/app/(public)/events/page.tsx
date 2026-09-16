@@ -10,7 +10,7 @@ import { buildPageMetadata } from '@/lib/seo/metadata';
 export const metadata: Metadata = buildPageMetadata({
   title: 'Continuing Education Events | Behavior School',
   description: 'Browse and register for professional development events. BCBAs & BCaBAs earn CEUs · RBTs earn PDUs. Live and on-demand courses.',
-  canonical: 'https://behaviorschool.com/events',
+  canonical: 'https://behaviorschool.com/ce-events',
 });
 
 async function getPublicEvents() {
@@ -206,7 +206,7 @@ export default async function EventsPage() {
                           </span>
                         )}
                       </div>
-                      <Link href={`/events/${event.id}`}>
+                      <Link href={`/ce-events/${event.id}`}>
                         <Button className="bg-emerald-600 hover:bg-emerald-700">
                           View Details
                         </Button>

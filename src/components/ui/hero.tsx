@@ -77,7 +77,7 @@ export function Hero({
         <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-center">
 
           {/* Text Content */}
-          <div className="space-y-10 z-10">
+          <div className="min-w-0 space-y-10 z-10">
             <div className="space-y-6">
               {eyebrow && (
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-both">
@@ -133,7 +133,7 @@ export function Hero({
                 asChild
                 size="lg"
                 className={cn(
-                  "h-16 w-full sm:w-auto px-10 text-lg font-semibold rounded-2xl transition-all duration-300 group overflow-hidden relative",
+                  "min-h-16 h-auto w-full sm:w-auto px-6 sm:px-10 py-3 text-lg font-semibold whitespace-normal sm:whitespace-nowrap rounded-2xl transition-all duration-300 group overflow-hidden relative",
                   isDark
                     ? 'bg-white text-slate-900 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]'
                     : 'bg-slate-900 text-white hover:scale-[1.02] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]'

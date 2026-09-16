@@ -342,8 +342,8 @@ export const emailProducts: EmailProductDefinition[] = [
   {
     id: 'upcoming-products',
     name: 'Upcoming products',
-    audience: 'BehaviorSchool Pro and Learning Library leads',
-    description: 'Launch and waitlist messaging needs a defined sequence before these products are promoted.',
+    audience: 'BehaviorSchool Pro waitlist leads',
+    description: 'Launch and waitlist messaging needs a defined sequence before BehaviorSchool Pro is promoted.',
     status: 'planned',
     provider: 'Resend (planned)',
     managementHref: '/admin/email-templates',

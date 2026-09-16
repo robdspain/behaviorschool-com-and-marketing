@@ -1,7 +1,6 @@
 import { MetadataRoute } from 'next'
-import fs from 'fs'
-import path from 'path'
 import { getPublishedPosts } from '@/lib/blog'
+import { getPublishedVideos } from '@/lib/videos'
 
 // Cache sitemap for 1 hour to reduce server load from crawler requests
 export const dynamic = "force-static"
@@ -44,20 +43,23 @@ async function buildSitemap(
     } catch { return p }
   }
   
-  // Load videos for sitemap
-  let videoPages: MetadataRoute.Sitemap = []
-  try {
-    const videosPath = path.join(process.cwd(), 'public', 'data', 'videos.json')
-    const videosData = JSON.parse(fs.readFileSync(videosPath, 'utf-8'))
-    videoPages = (videosData.videos || []).map((video: any) => ({
-      url: `${baseUrl}/videos/${video.slug}`,
-      lastModified: video.updatedAt || video.publishedAt || currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    }))
-  } catch (error) {
-    console.warn('Could not load videos for sitemap:', error)
-  }
+  // Load videos for sitemap. Placeholder entries (no real recording yet) 404 and are excluded;
+  // the /videos library page itself is noindex until at least one video is published.
+  const publishedVideos = getPublishedVideos()
+  const videoPages: MetadataRoute.Sitemap = publishedVideos.map((video) => ({
+    url: `${baseUrl}/videos/${video.slug}`,
+    lastModified: video.updatedAt || video.publishedAt || currentDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+  const videoLibraryPage: MetadataRoute.Sitemap = publishedVideos.length > 0
+    ? [{
+        url: `${baseUrl}/videos`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.85,
+      }]
+    : []
 
   const isHighIntentBlogPost = (post: { slug: string; tags?: string[] }) => {
     const searchableText = `${post.slug} ${(post.tags || []).join(' ')}`.toLowerCase()
@@ -110,6 +112,16 @@ async function buildSitemap(
     '/community',
     '/compare/behaviorschool-vs-bds',
     '/bds-modules-alternative',
+    '/school-bcba-training-program',
+    '/research-digest',
+    '/events',
+    '/fba-to-bip',
+    '/fba-bip-plan-writer',
+    '/rbt-study',
+    '/blog/bds-modules-down-bcba-alternative',
+    '/practice',
+    '/practice/launch',
+    '/free-study-plan',
   ])
   // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
   const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view']
@@ -164,62 +176,11 @@ async function buildSitemap(
       changeFrequency: 'weekly',
       priority: 0.95,
     },
-    {
-      url: `${baseUrl}/school-bcba-training-program`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/bcba-exam-prep`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/bcba-study-tools`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/bcba-practice-exam`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/free-bcba-mock-exam`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-test-questions`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-exam-practice-questions`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-6th-edition-practice-questions`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
+    // Exam-prep pages on the marketing domain. Practice, mock exams, and the study app itself live on
+    // study.behaviorschool.com; the old marketing-domain exam pages permanently redirect there and are
+    // listed in legacyRedirectPaths above, not here.
     {
       url: `${baseUrl}/bcba-exam-weak-areas`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/free-bcba-practice-exam`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -232,12 +193,6 @@ async function buildSitemap(
     },
     {
       url: `${baseUrl}/bcba-study-schedule`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bcba-mock-exam-6th-edition`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -277,6 +232,12 @@ async function buildSitemap(
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/ce-events`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/bacb-ace-provider`,
@@ -417,13 +378,8 @@ async function buildSitemap(
       priority: 0.7,
     },
     
-    // Video Library
-    {
-      url: `${baseUrl}/videos`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
+    // Video Library: only when a published video exists (still subject to admin noindex toggles)
+    ...videoLibraryPage,
     // Removed legacy blog route that redirects: /bcbas-in-schools -> /school-bcba
     {
       url: `${baseUrl}/bcba-study-fluency`,
@@ -431,12 +387,8 @@ async function buildSitemap(
       changeFrequency: 'monthly',
       priority: 0.75,
     },
-    {
-      url: `${baseUrl}/fba-to-bip`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
+    // /fba-to-bip removed — permanent redirect to https://plan.behaviorschool.com/
+    // /rbt-study removed — permanent redirect to https://rbtstudy.behaviorschool.com/
 
     // /study removed — permanent redirect to https://study.behaviorschool.com/
 

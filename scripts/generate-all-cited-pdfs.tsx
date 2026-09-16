@@ -1,11 +1,20 @@
 #!/usr/bin/env npx tsx
 /**
- * Generate all PDF lead magnets with proper APA citations from research corpus
+ * Generate all PDF lead magnets with proper APA citations from research corpus.
+ *
+ * Both PDFs are written to the BACB BCBA Test Content Outline (6th ed.), the
+ * outline in effect for exams administered from January 2025.
+ *
+ *   pnpm pdf:cited-lead-magnets
  */
 
 import React from "react";
-import { renderToBuffer, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { renderToBuffer, Document, Font, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import { writeFileSync } from "fs";
+import { resolve } from "path";
+
+// Helvetica has no hyphenation dictionary; keep words whole instead of breaking mid-word.
+Font.registerHyphenationCallback((word) => [word]);
 
 const styles = StyleSheet.create({
   page: {
@@ -191,14 +200,14 @@ const BCBAPracticeQuestions = () => (
 
       <View style={styles.citationBox}>
         <Text style={styles.citationText}>
-          These practice questions align with the BACB 5th Edition Task List and are grounded in foundational behavior analytic literature (Cooper et al., 2020; Skinner, 1957).
+          These practice questions align with the BACB BCBA Test Content Outline (6th ed.) and are grounded in foundational behavior analytic literature (Cooper et al., 2020; Skinner, 1957).
         </Text>
       </View>
 
       <View style={styles.questionBox}>
-        <Text style={styles.questionNum}>Question 1: Measurement</Text>
+        <Text style={styles.questionNum}>Question 1: Measurement (Domain C)</Text>
         <Text style={styles.questionText}>
-          A behavior analyst is collecting data on a student's hand-raising behavior during a 30-minute class period. Which measurement procedure would provide the most accurate count of this discrete behavior?
+          A behavior analyst is collecting data on a student&apos;s hand-raising behavior during a 30-minute class period. Which measurement procedure would provide the most accurate count of this discrete behavior?
         </Text>
         <Text style={styles.answerOption}>A) Duration recording</Text>
         <Text style={styles.answerOption}>B) Frequency/event recording</Text>
@@ -207,7 +216,7 @@ const BCBAPracticeQuestions = () => (
       </View>
 
       <View style={styles.questionBox}>
-        <Text style={styles.questionNum}>Question 2: Reinforcement</Text>
+        <Text style={styles.questionNum}>Question 2: Reinforcement (Domain G)</Text>
         <Text style={styles.questionText}>
           Which of the following best describes differential reinforcement of alternative behavior (DRA)?
         </Text>
@@ -218,9 +227,9 @@ const BCBAPracticeQuestions = () => (
       </View>
 
       <View style={styles.questionBox}>
-        <Text style={styles.questionNum}>Question 3: Verbal Behavior</Text>
+        <Text style={styles.questionNum}>Question 3: Verbal Behavior (Domain B)</Text>
         <Text style={styles.questionText}>
-          A child says "cookie" when shown a picture of a cookie. This is an example of which verbal operant?
+          A child says &quot;cookie&quot; when shown a picture of a cookie. This is an example of which verbal operant?
         </Text>
         <Text style={styles.answerOption}>A) Mand</Text>
         <Text style={styles.answerOption}>B) Tact</Text>
@@ -229,7 +238,7 @@ const BCBAPracticeQuestions = () => (
       </View>
 
       <View style={styles.questionBox}>
-        <Text style={styles.questionNum}>Question 4: Functional Assessment</Text>
+        <Text style={styles.questionNum}>Question 4: Functional Assessment (Domain F)</Text>
         <Text style={styles.questionText}>
           During a functional analysis, problem behavior occurs at high rates during the attention condition and low rates during the alone condition. What function does this suggest?
         </Text>
@@ -257,7 +266,7 @@ const BCBAPracticeQuestions = () => (
         </Text>
         <View style={styles.citationBox}>
           <Text style={styles.citationText}>
-            "Direct measurement of behavior provides the most accurate data for making treatment decisions" (Cooper et al., 2020).
+            &quot;Direct measurement of behavior provides the most accurate data for making treatment decisions&quot; (Cooper et al., 2020).
           </Text>
         </View>
       </View>
@@ -269,7 +278,7 @@ const BCBAPracticeQuestions = () => (
         </Text>
         <View style={styles.citationBox}>
           <Text style={styles.citationText}>
-            "{CITATIONS.reinforcement.text}" (Cooper et al., 2020).
+            &quot;{CITATIONS.reinforcement.text}&quot; (Cooper et al., 2020).
           </Text>
         </View>
       </View>
@@ -281,7 +290,7 @@ const BCBAPracticeQuestions = () => (
         </Text>
         <View style={styles.citationBox}>
           <Text style={styles.citationText}>
-            "{CITATIONS.verbal.text}" (Skinner, 1957).
+            &quot;{CITATIONS.verbal.text}&quot; (Skinner, 1957).
           </Text>
         </View>
       </View>
@@ -307,126 +316,119 @@ const BCBAPracticeQuestions = () => (
   </Document>
 );
 
+/** From the BACB BCBA Test Content Outline (6th ed.), updated 09/2024. */
+const DOMAINS = [
+  { id: "A", name: "Behaviorism and Philosophical Foundations", tasks: 5, questions: 8 },
+  { id: "B", name: "Concepts and Principles", tasks: 24, questions: 24 },
+  { id: "C", name: "Measurement, Data Display, and Interpretation", tasks: 12, questions: 21 },
+  { id: "D", name: "Experimental Design", tasks: 9, questions: 13 },
+  { id: "E", name: "Ethical and Professional Issues", tasks: 12, questions: 22 },
+  { id: "F", name: "Behavior Assessment", tasks: 8, questions: 23 },
+  { id: "G", name: "Behavior-Change Procedures", tasks: 19, questions: 25 },
+  { id: "H", name: "Selecting and Implementing Interventions", tasks: 8, questions: 20 },
+  { id: "I", name: "Personnel Supervision and Management", tasks: 7, questions: 19 },
+] as const;
+
+const TOTAL_TASKS = DOMAINS.reduce((sum, d) => sum + d.tasks, 0);
+const TOTAL_SCORED = DOMAINS.reduce((sum, d) => sum + d.questions, 0);
+if (TOTAL_TASKS !== 104 || TOTAL_SCORED !== 175) {
+  throw new Error(`Domain table drifted from the 6th Edition outline: ${TOTAL_TASKS} tasks, ${TOTAL_SCORED} scored questions`);
+}
+
+const domainLine = (id: (typeof DOMAINS)[number]["id"]) => {
+  const d = DOMAINS.find((domain) => domain.id === id);
+  if (!d) throw new Error(`Unknown domain ${id}`);
+  return `Domain ${d.id}: ${d.name} (${d.tasks} tasks, ${d.questions} scored questions)`;
+};
+
+const Bullet = ({ children }: { children: React.ReactNode }) => (
+  <View style={styles.bulletPoint}>
+    <Text style={styles.bullet}>•</Text>
+    <Text style={styles.bulletText}>{children}</Text>
+  </View>
+);
+
+const Week = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <View style={styles.weekBox} wrap={false}>
+    <Text style={styles.weekTitle}>{title}</Text>
+    {children}
+  </View>
+);
+
 // 12-Week Study Schedule PDF
 const StudySchedule = () => (
-  <Document>
+  <Document
+    title="12-Week BCBA Exam Study Schedule"
+    author="Behavior School"
+    subject="BCBA exam study schedule by domain, written to the BACB 6th Edition Test Content Outline"
+  >
     <Page size="LETTER" style={styles.page}>
       <View style={styles.header}>
         <Text style={styles.title}>12-Week BCBA Exam Study Schedule</Text>
-        <Text style={styles.subtitle}>Research-Based Preparation Plan</Text>
+        <Text style={styles.subtitle}>One domain at a time, written to the 6th Edition Test Content Outline</Text>
         <Text style={{ fontSize: 9, color: "#888", marginTop: 5 }}>Behavior School | study.behaviorschool.com</Text>
       </View>
 
       <View style={styles.citationBox}>
         <Text style={styles.citationText}>
-          This schedule incorporates spaced practice and interleaved learning, evidence-based study strategies shown to improve long-term retention (Roediger & Butler, 2011).
+          The BCBA exam is built from the BACB BCBA Test Content Outline (6th ed.): 9 domains, 104 tasks, 175 scored questions plus 10 unscored pilot questions, four hours (BACB, 2022). This schedule assigns each domain to a week and spaces practice across all of them, a study strategy shown to improve long-term retention (Roediger & Butler, 2011).
         </Text>
       </View>
 
-      <View style={styles.weekBox}>
-        <Text style={styles.weekTitle}>Weeks 1-2: Foundations</Text>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section A: Philosophical Underpinnings (4-5 hours)</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section B: Concepts and Principles (8-10 hours)</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Daily: 50 flashcard reviews using SAFMEDS method</Text>
-        </View>
+      <Text style={styles.paragraph}>
+        Twelve weeks is enough for a candidate who has finished coursework and can study about ten hours a week. If you have less time, compress the foundation weeks; do not compress the mock-exam weeks. Each week, split study time three ways: new content for the week&apos;s domain, practice questions with the rationale read for every item, and a short definitions review.
+      </Text>
+
+      <Week title="Weeks 1-2: Foundations">
+        <Bullet>{domainLine("A")}</Bullet>
+        <Bullet>{domainLine("B")}: B.1 to B.12 in week 1, B.13 to B.24 in week 2</Bullet>
+        <Bullet>Daily: build and review a definitions deck as you go (SAFMEDS or flashcards)</Bullet>
+      </Week>
+
+      <Week title="Weeks 3-4: Measurement and Baseline">
+        <Bullet>{domainLine("C")}</Bullet>
+        <Bullet>Practice: reading graphs and choosing a measurement system for a described behavior</Bullet>
+        <Bullet>Week 4: take a timed practice set that reports results by domain and record your accuracy for each domain. This is your baseline.</Bullet>
+      </Week>
+
+      <Week title="Weeks 5-6: Design and Ethics">
+        <Bullet>{domainLine("D")}: single-case designs, internal validity, and when each design fits</Bullet>
+        <Bullet>{domainLine("E")}: read the Ethics Code for Behavior Analysts alongside the E tasks, not instead of them</Bullet>
+      </Week>
+
+      <Week title="Weeks 7-8: Assessment and Behavior-Change Procedures">
+        <Bullet>{domainLine("F")}: preference, descriptive, and functional assessment; interpreting the data</Bullet>
+        <Bullet>{domainLine("G")}: reinforcement, prompting, shaping, chaining, generalization, punishment</Bullet>
+        <Bullet>Apply each procedure to a written case scenario before you move on</Bullet>
+      </Week>
+
+      <Week title="Weeks 9-11: Integration and Full Mock Exams">
+        <Bullet>Week 9: {domainLine("H")} and {domainLine("I")}. Goal writing, intervention selection, procedural integrity, supervision.</Bullet>
+        <Bullet>Weeks 10 and 11: one full-length timed mock exam each week (185 questions, four hours). Spend the rest of the week reviewing every missed item against its task number.</Bullet>
+      </Week>
+
+      <Week title="Week 12: Review and Rest">
+        <Bullet>Light review of your lowest two domains from the mocks. No new material.</Bullet>
+        <Bullet>Reread your own notes on the questions you missed twice.</Bullet>
+        <Bullet>Take the day before the exam off.</Bullet>
+      </Week>
+
+      <View style={styles.section} wrap={false}>
+        <Text style={styles.sectionTitle}>What to track</Text>
+        <Text style={styles.paragraph}>
+          Keep one page per domain. Each time you miss a question, write the task number, what the question was really testing, and the rule you should have applied. By week 9 those pages are your personalized review guide. Four signals tell you whether you are ready: domain accuracy (consistently correct in every domain), response time (about 75 seconds per question without rushing), consistency (the same result on a domain across several sessions), and mock endurance (holding accuracy through the fourth hour).
+        </Text>
       </View>
 
-      <View style={styles.weekBox}>
-        <Text style={styles.weekTitle}>Weeks 3-4: Measurement & Assessment</Text>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section C: Measurement, Data Display, and Interpretation (6-8 hours)</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section D: Experimental Design (4-6 hours)</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Practice: Graph interpretation exercises</Text>
-        </View>
-      </View>
-
-      <View style={styles.weekBox}>
-        <Text style={styles.weekTitle}>Weeks 5-6: Assessment & Intervention</Text>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section E: Ethics (6-8 hours) with case study analysis</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section F: Behavior Assessment (6-8 hours)</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Milestone: Complete first cumulative practice exam (aim for 60%+)</Text>
-        </View>
-      </View>
-
-      <View style={styles.weekBox}>
-        <Text style={styles.weekTitle}>Weeks 7-8: Behavior-Change Procedures</Text>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section G: Behavior-Change Procedures (10-12 hours)</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Focus: Reinforcement, punishment, extinction procedures</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Apply procedures to case scenarios</Text>
-        </View>
-      </View>
-
-      <View style={styles.weekBox}>
-        <Text style={styles.weekTitle}>Weeks 9-10: Intervention & Supervision</Text>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section H: Selecting and Implementing Interventions (6-8 hours)</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Section I: Personnel Supervision (4-6 hours)</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Milestone: Complete second practice exam (aim for 70%+)</Text>
-        </View>
-      </View>
-
-      <View style={styles.weekBox}>
-        <Text style={styles.weekTitle}>Weeks 11-12: Review & Practice Tests</Text>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Focus on weak areas identified in practice exams</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Complete 2-3 full-length timed practice exams</Text>
-        </View>
-        <View style={styles.bulletPoint}>
-          <Text style={styles.bullet}>•</Text>
-          <Text style={styles.bulletText}>Milestone: Score 80%+ on practice exams consistently</Text>
-        </View>
-      </View>
-
-      <View style={styles.referencesSection}>
+      <View style={styles.referencesSection} wrap={false}>
         <Text style={styles.referenceTitle}>References</Text>
+        <Text style={styles.reference}>Behavior Analyst Certification Board. (2020). Ethics code for behavior analysts.</Text>
+        <Text style={styles.reference}>Behavior Analyst Certification Board. (2022). BCBA test content outline (6th ed.).</Text>
         <Text style={styles.reference}>Roediger, H. L., & Butler, A. C. (2011). The critical role of retrieval practice in long-term retention. Trends in Cognitive Sciences, 15(1), 20-27.</Text>
-        <Text style={styles.reference}>Behavior Analyst Certification Board. (2022). BCBA/BCaBA Task List (5th ed.).</Text>
-        <Text style={styles.reference}>{CITATIONS.reinforcement.apa}</Text>
+        <Text style={styles.reference}>Domain, task, and question counts are from the BCBA Test Content Outline (6th ed.), updated September 2024. Verify against the current document at bacb.com. BCBA and BACB are registered trademarks of the Behavior Analyst Certification Board, Inc.</Text>
       </View>
 
-      <Text style={styles.footer}>
+      <Text style={styles.footer} fixed>
         © 2026 Behavior School LLC | study.behaviorschool.com
       </Text>
     </Page>
@@ -435,7 +437,7 @@ const StudySchedule = () => (
 
 // Generate all PDFs
 async function generateAllPDFs() {
-  const outputDir = "/Volumes/Fast Storage/00-Organized/Work/Neo AI/neo_code_repos/behaviorschool-com-and-marketing/public/ebooks";
+  const outputDir = resolve(process.cwd(), "public/ebooks");
   
   console.log("Generating PDFs with proper APA citations...\n");
 

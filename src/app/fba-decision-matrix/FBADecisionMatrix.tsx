@@ -86,7 +86,7 @@ function getRecommendation(answers: Answer[]): Recommendation {
         "Review existing behavior data and identify patterns",
         "Conduct indirect assessments (interviews with key stakeholders)",
         "Plan and conduct direct observations across settings",
-        "Use our AI-powered FBA Generator at /pro to streamline the process"
+        "Use the FBA Report Writer in BehaviorSchool Pro (/pro) to draft the written report"
       ],
       color: "bg-red-50 border-red-200",
       icon: <XCircle className="w-6 h-6 text-red-600" />
@@ -104,7 +104,7 @@ function getRecommendation(answers: Answer[]): Recommendation {
         "Review previous interventions and their outcomes",
         "Identify assessment tools (ABC data, scatterplots, functional analysis if needed)",
         "Conduct systematic observations and data collection",
-        "Use our AI-powered FBA Generator at /pro to write professional reports faster"
+        "Use the FBA Report Writer in BehaviorSchool Pro (/pro) to draft the written report"
       ],
       color: "bg-red-50 border-red-200",
       icon: <XCircle className="w-6 h-6 text-red-600" />
@@ -420,9 +420,9 @@ export function FBADecisionMatrix() {
                 Ready to write your FBA?
               </h3>
               <p className="text-emerald-50 mb-6">
-                Our AI-powered FBA Generator helps you create compliant, professional Functional Behavior Assessments in 
-                a fraction of the time. Generate comprehensive reports with hypothesis statements, data analysis, and 
-                intervention recommendations.
+                The FBA Report Writer in BehaviorSchool Pro turns your interview and observation data into a
+                structured report: hypothesis statements, data summary, and function-matched intervention
+                recommendations you edit before it goes to the team.
               </p>
               <Link
                 href="/pro"

@@ -149,7 +149,7 @@ Add these JSON-LD schemas in the `<head>`:
   "logo": "https://behaviorschool.com/Logos/logo-gold-transparent.webp",
   "sameAs": [
     "https://www.linkedin.com/company/behavior-school",
-    "https://x.com/behaviorschool",
+    "https://x.com/behavior_school",
     "https://community.behaviorschool.com"
   ],
   "contactPoint": {

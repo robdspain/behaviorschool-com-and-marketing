@@ -65,7 +65,7 @@ const structuredData = {
 };
 
 export const metadata: Metadata = {
-  title: "ACT Values Sort | Values Card Sort for Students",
+  title: "ACT Values Sort for Students | Behavior School",
   description:
     "Interactive ACT values card sort to help students identify top values, summarize results, and print or share outcomes.",
   keywords: [
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "ACT Values Sort | Values Card Sort for Students",
+    title: "ACT Values Sort for Students | Behavior School",
     description:
       "Help students identify their top values with an interactive card sort and printable summary.",
     url: pageUrl,
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ACT Values Sort | Values Card Sort for Students",
+    title: "ACT Values Sort for Students | Behavior School",
     description:
       "Help students identify their top values with an interactive card sort and printable summary.",
     images: [`${baseUrl}/og-image.webp`],

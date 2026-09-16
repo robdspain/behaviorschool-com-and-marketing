@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Free BCBA Tools | IEP Goal Writer, FBA & BIP Templates",
+  title: "Free BCBA Tools: IEP Goals, FBA, BIP | Behavior School",
   description:
     "Free tools for school BCBAs: IEP behavior goal writer, FBA guides, BIP examples, and IEP goal examples. Start without a credit card.",
   alternates: { canonical: "https://behaviorschool.com/free-tools" },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Free BCBA Tools | IEP Goal Writer, FBA & BIP Templates",
+    title: "Free BCBA Tools: IEP Goals, FBA, BIP | Behavior School",
     description:
       "Free tools for school BCBAs: IEP behavior goal writer, FBA guides, BIP examples, and IEP goal examples. Start without a credit card.",
     url: "https://behaviorschool.com/free-tools",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Tools | IEP Goal Writer, FBA & BIP Templates",
+    title: "Free BCBA Tools: IEP Goals, FBA, BIP | Behavior School",
     description:
       "Free tools for school BCBAs: IEP behavior goal writer, FBA guides, BIP examples, and IEP goal examples. Start without a credit card.",
     images: ["/product-suite/iep-goal-writer-live.jpg"],

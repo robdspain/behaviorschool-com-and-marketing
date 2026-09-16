@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { behaviorStudyToolsAppHref } from "@/lib/behavior-study-tools/links";
 
 const canonical = "https://behaviorschool.com/failed-bcba-exam-help";
+const retakePracticeHref = behaviorStudyToolsAppHref("/free-practice/", {
+  intent: "failed_bcba_exam_retake",
+  utm_content: "failed_bcba_exam_help_page",
+});
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Failed the BCBA Exam? Retake Strategy + Free Practice",
+  title: "Failed the BCBA Exam? Retake Plan | Behavior School",
   description:
     "Failed the BCBA exam? Build a 30-day retake strategy with score report review, weak-domain practice, mock exam timing, and free BCBA practice questions.",
   canonical,
@@ -22,14 +26,11 @@ export default function FailedBcbaExamHelpPage() {
       breadcrumbLabel="Failed BCBA Exam Help"
       canonical={canonical}
       heroVisual
-      primaryCta={{ label: "Start free retake practice", href: "https://study.behaviorschool.com/free-practice/" }}
+      primaryCta={{ label: "Start free retake practice by domain", href: retakePracticeHref }}
       secondaryLinks={[
-        { label: "BCBA exam prep guide", href: "https://study.behaviorschool.com/free-practice/" },
-        { label: "BCBA study schedule", href: "/bcba-study-schedule" },
-        { label: "Free BCBA practice exam", href: "https://study.behaviorschool.com/free-practice/" },
-        { label: "Free BCBA mock exam", href: "https://study.behaviorschool.com/free-mock-exam/" },
-        { label: "BCBA exam practice questions", href: "https://study.behaviorschool.com/free-practice/" },
-        { label: "BCBA test questions", href: "https://study.behaviorschool.com/free-practice/" },
+        { label: "Find your weak domains first", href: "/bcba-exam-weak-areas" },
+        { label: "Pick an 8, 12, or 16 week schedule", href: "/bcba-study-schedule" },
+        { label: "Turn the 30 days into a dated plan", href: "/bcba-pacing-planner" },
       ]}
       sections={[
         {
@@ -125,32 +126,26 @@ export default function FailedBcbaExamHelpPage() {
           {[
             {
               heading: "If you ran out of time",
-              body: "Practice shorter timed sets first. Track questions that take longer than 90 seconds and review why they slowed you down.",
-              href: "https://study.behaviorschool.com/free-mock-exam/",
-              label: "Plan timed mock practice",
+              body: "Practice shorter timed sets first. Track questions that take longer than 90 seconds and review why they slowed you down. Save full-length mocks for the last week.",
             },
             {
               heading: "If distractors fooled you",
               body: "Do not just reread definitions. Write why the wrong answer was tempting and what detail in the stem ruled it out.",
-              href: "https://study.behaviorschool.com/free-practice/",
-              label: "Review sample questions",
             },
             {
               heading: "If domains were uneven",
               body: "Use domain practice before mixed practice. Your goal is not more hours; it is better allocation of the hours you have.",
-              href: "https://study.behaviorschool.com/free-practice/",
-              label: "Practice by domain",
             },
           ].map((item) => (
             <div key={item.heading} className="rounded-xl border border-slate-200 p-5">
               <h3 className="font-semibold text-slate-950">{item.heading}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.body}</p>
-              <Link href={item.href} className="mt-4 inline-flex text-sm font-semibold text-emerald-800 hover:text-emerald-900">
-                {item.label}
-              </Link>
             </div>
           ))}
         </div>
+        <p className="mt-6 text-sm leading-relaxed text-slate-600">
+          All three fixes start the same way: a free practice set on Behavior Study Tools, with domain-level results and rationales, so you can see which decision rules are still shaky. Use the button at the top of the page to begin.
+        </p>
       </section>
     </SeoArticlePage>
   );

@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Apply for School BCBA Transformation System | Behavior School",
+  title: "Apply: School BCBA Transformation System | Behavior School",
   description: "Apply for the six-week School BCBA Transformation System focused on assessment, intervention, implementation, and systems work in schools.",
   keywords: ["BCBA training", "behavior analyst program", "school BCBA", "behavior intervention", "district leadership", "BCBA certification"],
   openGraph: {
-    title: "Apply for School BCBA Transformation System | Behavior School",
+    title: "Apply: School BCBA Transformation System | Behavior School",
     description: "Apply for the six-week School BCBA Transformation System focused on assessment, intervention, implementation, and systems work in schools.",
     url: "https://behaviorschool.com/signup",
     siteName: "Behavior School",
