@@ -1050,15 +1050,22 @@ export default function BCBAMockExamGuidePage() {
               Ready to Test Your BCBA Knowledge?
             </h2>
             <p className="text-emerald-100 mb-6 max-w-2xl mx-auto text-lg">
-              Take our FREE 185-question BCBA mock exam designed specifically for school-based behavior analysts. Get instant results with domain-by-domain breakdown and personalized study recommendations.
+              Take our free 185-question BCBA mock exam designed specifically for school-based behavior analysts. Get instant results with domain-by-domain breakdown and personalized study recommendations.
             </p>
             <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-slate-100 text-lg px-8 py-6">
-              <Link href="https://study.behaviorschool.com/free-mock-exam/">
-                Start Your FREE Mock Exam Now →
-              </Link>
+              <a href="https://study.behaviorschool.com/free-mock-exam/" target="_blank" rel="noopener noreferrer">
+                Start Your Free Mock Exam →
+              </a>
             </Button>
             <p className="text-emerald-100 mt-4 text-sm">
-              No signup required • 185 questions • 4-hour format • Instant detailed results
+              Free account required before the full mock • 185 questions • 4-hour format • Instant detailed results
+            </p>
+            <p className="text-emerald-100 mt-2 text-sm">
+              Want to try first?{" "}
+              <a href="https://study.behaviorschool.com/free-practice/" target="_blank" rel="noopener noreferrer" className="underline font-semibold">
+                Take a short free practice with no account
+              </a>
+              .
             </p>
           </div>
         </div>

@@ -517,7 +517,7 @@ export default async function FreeBCBAPracticeExamPage() {
             Ready for the Full 185-Question Mock Exam?
           </h2>
           <p className="text-xl text-emerald-50 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Experience the complete BCBA exam with 185 questions across all 9 domains. 4-hour timed simulation with instant scoring and detailed performance analytics — completely free, no signup required.
+            Experience the complete BCBA exam with 185 questions across all 9 domains. 4-hour timed simulation with instant scoring and detailed performance analytics — free, with a free account required before you start.
           </p>
           <Link
             href={fullMockHref}
@@ -531,7 +531,7 @@ export default async function FreeBCBAPracticeExamPage() {
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
           <p className="mt-6 text-emerald-100 text-sm font-medium">
-            Practice with realistic exam conditions and review the rationale after each attempt.
+            Practice with realistic exam conditions and review the rationale after each attempt. Just want a quick try? The 10-question practice above needs no account.
           </p>
         </div>
       </section>

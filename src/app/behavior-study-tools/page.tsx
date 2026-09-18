@@ -142,7 +142,7 @@ export default function BehaviorStudyToolsPage() {
                   </Link>
                   <div className="text-sm text-slate-600 flex items-center">
                     <Check className="w-4 h-4 text-emerald-500 mr-2" />
-                    185 Questions • No Signup Required • Instant Results
+                    185 Questions • Free Account Required • Instant Results
                   </div>
                 </div>
               </div>

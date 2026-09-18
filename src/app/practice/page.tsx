@@ -4,7 +4,7 @@ import { buildPageMetadata } from '@/lib/seo/metadata'
 
 export const metadata = buildPageMetadata({
   title: 'BCBA Practice | Free Mini or Full Mock (Guest) | Results gated',
-  description: 'Start a free guest BCBA practice test: Quick domain check (9 questions) or one full mock. Auth required to view results and analytics.',
+  description: 'Start a free BCBA mini practice (10 questions, no account) or the full 185-question mock in Behavior Study Tools (free account required).',
   canonical: 'https://behaviorschool.com/practice',
 })
 
@@ -15,7 +15,7 @@ export default function PracticePage() {
         <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">BCBA Practice</div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Free BCBA Practice Tests</h1>
         <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
-          Take one free guest test: Quick domain check (9 questions) or full mock (185 questions). Sign in to unlock results and analytics.
+          Try a free 10-question mini practice with no account, or take the full 185-question mock with a free account.
         </p>
       </section>
 
@@ -29,7 +29,7 @@ export default function PracticePage() {
             bullets={[
               'Instant scoring (guest)',
               'Mixed domains',
-              'No signup to start',
+              'No account needed',
             ]}
             href="/practice/launch?mode=mini"
             cta="Start Quick domain check"
@@ -41,11 +41,11 @@ export default function PracticePage() {
             title="Full Mock (185 questions)"
             desc="Realistic timing and distribution for deep prep."
             bullets={[
-              'Instant scoring (guest)',
+              'Instant scoring',
               'All domains covered',
-              'No signup to start',
+              'Free account required before you start',
             ]}
-            href="/practice/launch?mode=full"
+            href="https://study.behaviorschool.com/free-mock-exam/"
             cta="Start Full (185)"
             highlight
           />
@@ -59,7 +59,7 @@ export default function PracticePage() {
 
         <div className="max-w-4xl mx-auto mt-12 bg-blue-50 border border-blue-200 rounded-2xl p-6 text-blue-900">
           <p className="text-sm">
-            Note: Guest mode lets you complete one mini or one full mock for free. To view your results, explanations, and analytics, you&apos;ll be prompted to sign in. Returning users can resume where they left off.
+            Note: The 10-question mini practice needs no account, and you&apos;ll be prompted to sign in to view results, explanations, and analytics. The full 185-question mock requires a free account before you start. Returning users can resume where they left off.
           </p>
         </div>
       </section>
