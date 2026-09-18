@@ -355,6 +355,89 @@ export const recordTransformationApplication = mutation({
   },
 });
 
+export const recordTransformationInvite = mutation({
+  args: {
+    firstName: v.string(),
+    lastName: v.string(),
+    email: v.string(),
+    role: v.string(),
+    systemsProblem: v.optional(v.string()),
+    attribution: v.optional(v.any()),
+  },
+  returns: v.object({ contactId: v.id("crmContacts") }),
+  handler: async (ctx, args) => {
+    const timestamp = nowIso();
+    const emailLower = normalizeEmail(args.email);
+    const existing = await getContactByEmailLower(ctx, emailLower);
+    const systemsProblem = args.systemsProblem?.trim() || "";
+    const inviteNotes = [
+      "Transformation Program Priority Access List request",
+      `Role: ${args.role.trim()}`,
+      systemsProblem
+        ? `Caseload or systems problem:\n${systemsProblem}`
+        : "Caseload or systems problem: (not provided)",
+    ].join("\n");
+    const inviteTags = [
+      "transformation-program",
+      "transformation-priority-access",
+      "school-bcba-program",
+    ];
+
+    let contactId: Id<"crmContacts">;
+    if (existing) {
+      contactId = existing._id;
+      await ctx.db.patch(contactId, compact({
+        firstName: args.firstName.trim() || existing.firstName,
+        lastName: args.lastName.trim() || existing.lastName,
+        email: args.email.trim(),
+        role: args.role.trim() || existing.role,
+        status: existing.status === "customer" ? "customer" : "lead",
+        leadSource: existing.leadSource || "transformation_priority_access",
+        tags: mergeTags(existing.tags, inviteTags),
+        notes: existing.notes ? `${existing.notes}\n\n${inviteNotes}` : inviteNotes,
+        attribution: args.attribution || existing.attribution,
+        priority: existing.priority === "urgent" || existing.priority === "high"
+          ? existing.priority
+          : "medium",
+        isArchived: false,
+        updatedAt: timestamp,
+      }));
+    } else {
+      contactId = await ctx.db.insert("crmContacts", {
+        firstName: args.firstName.trim(),
+        lastName: args.lastName.trim(),
+        email: args.email.trim(),
+        emailLower,
+        role: args.role.trim(),
+        status: "lead",
+        leadSource: "transformation_priority_access",
+        tags: inviteTags,
+        notes: inviteNotes,
+        attribution: args.attribution,
+        leadScore: 30,
+        priority: "medium",
+        followUpDate: timestamp.slice(0, 10),
+        revenue: 0,
+        isArchived: false,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      });
+    }
+
+    await insertActivity(ctx, {
+      contactId,
+      activityType: "transformation_priority_access",
+      subject: "Transformation Program Priority Access List join",
+      body: systemsProblem || args.role.trim(),
+      metadata: {
+        attribution: args.attribution,
+      },
+    });
+
+    return { contactId };
+  },
+});
+
 export const updateContact = mutation({
   args: {
     id: v.id("crmContacts"),
