@@ -74,11 +74,11 @@ const weeklyModules = [
     week: 6,
     title: "School-Based Functional Analysis",
     pain: "Teams write BIPs from ABC notes alone, then the plan fails when staff run it without you.",
-    build: "A school-safe FA decision path (PFA/IISCA, trial-based, latency, precursor) with printable data sheets and a multielement graph workflow so you confirm the EO before the team invests in a plan.",
+    build: "A classroom FA decision path across research-supported formats, with printable data sheets and a multielement graph workflow so you confirm the EO before the team invests in a plan.",
     deliverable: "One de-identified school-safe FA (or realistic simulation): data sheet, multielement graph, and a two-sentence interpretation.",
     objectives: [
       "Explain why descriptive ABC assessment alone can misidentify function, and when an experimental analysis is warranted.",
-      "Select a school-safe FA format (PFA, trial-based, latency, or precursor) based on risk, setting, and schedule.",
+      "Select a classroom-appropriate FA format based on risk, setting, and schedule.",
       "Record FA data on a printable data sheet, graph it as a multielement design, and state whether responding is differentiated.",
     ],
     icon: FlaskConical,
@@ -218,7 +218,7 @@ export default function TransformationProgramPage() {
               { pain: "Unclear functional hypotheses", sub: "Organize indirect and direct assessment data into testable decisions." },
               { pain: "Plans that do not generalize to implementation", sub: "Connect assessment findings to practical, function-matched supports." },
               { pain: "Limited staff implementation support", sub: "Build protocols, training, and fidelity checks around the plan." },
-              { pain: "BIPs built on unverified function", sub: "Confirm the EO with a school-safe FA before the team invests in a plan." },
+              { pain: "BIPs built on unverified function", sub: "Confirm the EO with a classroom FA before the team invests in a plan." },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -360,7 +360,7 @@ export default function TransformationProgramPage() {
               "FBA templates with built-in quality checks you can stand behind in any IEP meeting",
               "Function-matched BIP templates organized by behavioral function",
               "Staff communication plans",
-              "A school-safe FA workflow: method choice, printable data sheet, and multielement graph",
+              "A classroom FA workflow across research-supported formats: printable data sheet and multielement graph",
             ].map((outcome, i) => (
               <motion.div
                 key={i}
@@ -384,7 +384,7 @@ export default function TransformationProgramPage() {
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
             <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-              The Transformation Program is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and school-safe functional analysis in K-12 settings. Participants bring real work to apply between sessions and share progress in later weeks.
+              The Transformation Program is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and research approaches to functional behavior assessment in the classroom. Participants bring real work to apply between sessions and share progress in later weeks.
             </p>
           </div>
         </div>
@@ -506,7 +506,7 @@ I'd like to attend a 6-week PD cohort for school BCBAs led by Rob Spain, BCBA.
 This program addresses three problems directly:
 1. Assessment and FBA quality: builds a replicable, legally defensible process I can apply across my caseload.
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
-3. School-safe functional analysis: confirm the EO before the team invests in a plan.
+3. Classroom FA: confirm the EO with research-supported formats before the team invests in a plan.
 
 6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: ${OFFER_PRICE}.
 Details: behaviorschool.com/transformation-program`}</div>
