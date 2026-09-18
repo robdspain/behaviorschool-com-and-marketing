@@ -25,7 +25,7 @@ const FAQData = dynamic(() => import('./structured-data').then(mod => ({ default
 
 export const metadata: Metadata = {
   title: "Free BCBA Mock Exam | Behavior School",
-  description: "FREE full-length BCBA mock exam with 185 questions. Instant scoring, detailed explanations & performance analytics. No signup required - start practicing now!",
+  description: "Free full-length BCBA mock exam with 185 questions in Behavior Study Tools. Free account required before you start. Instant scoring, detailed explanations & performance analytics. Want to try first? Take a short free practice with no account.",
   robots: {
     index: true,
     follow: true,
@@ -132,7 +132,7 @@ export default function BCBAMockPracticeTestPage() {
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:scale-105"
               >
-                <a href="https://study.behaviorschool.com/free-mock-exam/full" target="_blank" rel="noopener noreferrer">
+                <a href="https://study.behaviorschool.com/free-mock-exam/" target="_blank" rel="noopener noreferrer">
                   <PlayCircle className="mr-2 h-5 w-5" />
                   Start Full 185-Question Mock Exam
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -143,7 +143,7 @@ export default function BCBAMockPracticeTestPage() {
             <div className="flex items-center justify-center space-x-8 text-sm text-slate-600">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="h-4 w-4 text-emerald-600" />
-                <span>Quick signup</span>
+                <span>Free account required</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Clock className="h-4 w-4 text-emerald-600" />
@@ -299,7 +299,7 @@ export default function BCBAMockPracticeTestPage() {
                 Where can I find free BCBA mock exams?
               </h3>
               <p className="text-slate-700 leading-relaxed mb-4">
-                Behavior School offers <Link href="https://study.behaviorschool.com/free-mock-exam/" className="text-emerald-700 hover:text-emerald-800 font-semibold">completely free BCBA mock exams</Link> with no signup required. Our platform includes:
+                Behavior School offers <Link href="/free-bcba-mock-practice-test" className="text-emerald-700 hover:text-emerald-800 font-semibold">free BCBA mock exams</Link> in Behavior Study Tools. Short practice needs no account; the full 185-question mock requires a free account before you start. Our platform includes:
               </p>
               <ul className="space-y-2 text-slate-700 mb-4">
                 <li className="flex items-start gap-2">
@@ -380,14 +380,21 @@ export default function BCBAMockPracticeTestPage() {
           <div className="mt-12 text-center bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">Ready to Test Your BCBA Knowledge?</h3>
             <p className="text-emerald-100 mb-6 max-w-2xl mx-auto">
-              Take a free BCBA mock exam now and get instant feedback on your readiness. No signup required.
+              Take a free BCBA mock exam now and get instant feedback on your readiness. Create a free account to start the full 185-question mock, or try a short practice with no account first.
             </p>
             <Button asChild size="lg" className="bg-white text-emerald-700 hover:bg-slate-100">
-              <Link href="https://behaviorstudytools.com/">
-                Start Free Mock Exam
+              <a href="https://study.behaviorschool.com/free-mock-exam/" target="_blank" rel="noopener noreferrer">
+                Start Free Mock Exam (free account required)
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </a>
             </Button>
+            <p className="mt-4 text-sm text-emerald-100">
+              Not ready to sign up?{" "}
+              <a href="https://study.behaviorschool.com/free-practice/" target="_blank" rel="noopener noreferrer" className="underline font-semibold">
+                Try a short free practice with no account
+              </a>
+              .
+            </p>
           </div>
         </div>
       </section>

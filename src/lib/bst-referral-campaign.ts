@@ -53,7 +53,7 @@ export const bstSupervisorReferralCampaign = {
     '',
     'Free BCBA mock exam: {{supervisor_share_url}}',
     '',
-    'They can begin without creating an account or entering a credit card.',
+    'The full mock requires a free account before they start, with no credit card. They can also try a short practice with no account: https://study.behaviorschool.com/free-practice/',
     '',
     'If you try it or share it, I would appreciate hearing what would make it more useful for supervisors and exam candidates. Just reply to this email.',
     '',
