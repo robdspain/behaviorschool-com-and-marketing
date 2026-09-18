@@ -67,7 +67,7 @@ const weeklyPath = [
   "FBA to hypothesis",
   "BIP design by function",
   "Implementation and staff training",
-  "Progress monitoring and caseload management",
+  "School-based functional analysis",
 ];
 
 export default function SchoolBcbaTrainingProgramPage() {

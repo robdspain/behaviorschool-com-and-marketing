@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, BookOpen, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
+import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, FlaskConical, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
@@ -72,12 +72,16 @@ const weeklyModules = [
   },
   {
     week: 6,
-    title: "Progress Monitoring and Caseload Management",
-    pain: 'Delayed decisions because caseload data are difficult to review consistently.',
-    build: "A progress monitoring dashboard with decision rules for data-based changes across your full caseload.",
-    deliverable: "Complete caseload management system with a built-in review schedule.",
-    objectives: ["Construct data-based decision rules for intervention review.", "Apply progress-monitoring data to prioritize caseload actions.", "Evaluate a caseload dashboard for timely and defensible data-based decisions."],
-    icon: BookOpen,
+    title: "School-Based Functional Analysis",
+    pain: "Teams write BIPs from ABC notes alone, then the plan fails when staff run it without you.",
+    build: "A school-safe FA decision path (PFA/IISCA, trial-based, latency, precursor) with printable data sheets and a multielement graph workflow so you confirm the EO before the team invests in a plan.",
+    deliverable: "One de-identified school-safe FA (or realistic simulation): data sheet, multielement graph, and a two-sentence interpretation.",
+    objectives: [
+      "Explain why descriptive ABC assessment alone can misidentify function, and when an experimental analysis is warranted.",
+      "Select a school-safe FA format (PFA, trial-based, latency, or precursor) based on risk, setting, and schedule.",
+      "Record FA data on a printable data sheet, graph it as a multielement design, and state whether responding is differentiated.",
+    ],
+    icon: FlaskConical,
   },
 ];
 
@@ -214,7 +218,7 @@ export default function TransformationProgramPage() {
               { pain: "Unclear functional hypotheses", sub: "Organize indirect and direct assessment data into testable decisions." },
               { pain: "Plans that do not generalize to implementation", sub: "Connect assessment findings to practical, function-matched supports." },
               { pain: "Limited staff implementation support", sub: "Build protocols, training, and fidelity checks around the plan." },
-              { pain: "Caseload decisions that arrive too late", sub: "Use progress-monitoring rules to determine when a change is needed." },
+              { pain: "BIPs built on unverified function", sub: "Confirm the EO with a school-safe FA before the team invests in a plan." },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -356,7 +360,7 @@ export default function TransformationProgramPage() {
               "FBA templates with built-in quality checks you can stand behind in any IEP meeting",
               "Function-matched BIP templates organized by behavioral function",
               "Staff communication plans",
-              "A progress monitoring dashboard with clear decision rules across your full caseload",
+              "A school-safe FA workflow: method choice, printable data sheet, and multielement graph",
             ].map((outcome, i) => (
               <motion.div
                 key={i}
@@ -380,7 +384,7 @@ export default function TransformationProgramPage() {
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
             <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-              The Transformation Program is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and progress monitoring in K-12 settings. Participants bring real work to apply between sessions and share progress in later weeks.
+              The Transformation Program is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and school-safe functional analysis in K-12 settings. Participants bring real work to apply between sessions and share progress in later weeks.
             </p>
           </div>
         </div>
@@ -502,7 +506,7 @@ I'd like to attend a 6-week PD cohort for school BCBAs led by Rob Spain, BCBA.
 This program addresses three problems directly:
 1. Assessment and FBA quality: builds a replicable, legally defensible process I can apply across my caseload.
 2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
-3. Caseload sustainability: systems for organizing review and implementation work.
+3. School-safe functional analysis: confirm the EO before the team invests in a plan.
 
 6 sessions, weekly from 6 to 8 PM PT, ${COHORT_DATE_RANGE}. Cost: ${OFFER_PRICE}.
 Details: behaviorschool.com/transformation-program`}</div>
