@@ -1,3 +1,5 @@
+> **OBSOLETE — full 185 mock requires free account before start (as of Sep 2026).** Any "no signup" / "no email" wording for the 185-question mock in this document is outdated and must not be reused as live copy. Only the short Quick domain check (9Q) and /free-practice need no account.
+
 # Marketing Pages Optimization Plan
 
 **Goal:** Optimize 8 marketing pages to link to specific quiz/exam types for better conversion
@@ -76,7 +78,7 @@
   - "Free full-length mock test"
   - "185 questions, real exam conditions"
   - "Instant scoring and feedback"
-  - "No signup, no hidden fees"
+  - "Free account required, no credit card, no hidden fees"
 - **CTA:** "Take Free Mock Test →"
 
 ---

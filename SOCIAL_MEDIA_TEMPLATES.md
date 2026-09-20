@@ -24,7 +24,7 @@ What you'll learn:
 
 [Specific benefit - time saved, confidence gained, exam success, etc.]
 
-Free resource, no signup required.
+Free resource.
 
 👉 [LINK]
 
@@ -44,7 +44,7 @@ What you'll learn:
 
 This comprehensive guide includes 25 practice questions with detailed explanations for every answer—plus study tips that actually work.
 
-Free resource, no signup required.
+Free resource.
 
 👉 https://behaviorschool.com/blog/bcba-domain-a-practice-questions
 
@@ -65,7 +65,7 @@ Free resource, no signup required.
 • [Feature 2 with benefit]
 • [Feature 3 with benefit]
 
-Best part? 100% free. No credit card. No signup required.
+Best part? 100% free. No credit card. [State account requirement accurately. Never say "no signup" for the full 185 mock.]
 
 Try it now: [LINK]
 
@@ -254,7 +254,7 @@ Complete timing guide + pre-exam checklist →
 
 ✨ [Key feature/benefit]
 
-Free, no signup →
+Free →
 [LINK]
 
 #BCBA #[ToolHashtag]
@@ -266,10 +266,10 @@ Free, no signup →
 
 Practice under real exam conditions without spending $100+ on prep courses.
 
-✨ Instant feedback, detailed explanations, domain-by-domain breakdown
+✨ Instant score and domain-by-domain breakdown, then a taste of explanations + 7-day Pro trial
 
-Free, no signup →
-https://behaviorschool.com/free-bcba-practice-exam
+Free account required before you start →
+https://study.behaviorschool.com/free-mock-exam/
 
 #BCBA #BCBAExam #FreePracticeTest
 ```

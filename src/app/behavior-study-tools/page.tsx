@@ -41,7 +41,7 @@ export default function BehaviorStudyToolsPage() {
     },
     {
       question: "Do you offer a free BCBA mock exam?",
-      answer: "Yes! You can access our free BCBA mock exam with 10+ practice questions immediately - no signup required. Try sample questions from all exam domains with detailed explanations. For unlimited practice, create a free account to access our adaptive learning system and track your progress across all BACB task list areas."
+      answer: "Yes! The full 185-question BCBA mock exam is free in Behavior Study Tools. Create a free account before you start (no credit card), and you'll get your score and domain breakdown right after you finish. Want a quick try first? Take the 9-question Quick domain check with no account."
     },
     {
       question: "Are these BCBA mock exams similar to the real exam?",
@@ -142,7 +142,7 @@ export default function BehaviorStudyToolsPage() {
                   </Link>
                   <div className="text-sm text-slate-600 flex items-center">
                     <Check className="w-4 h-4 text-emerald-500 mr-2" />
-                    185 Questions • Free Account Required • Instant Results
+                    185 Questions • Free Account Required • Instant Score
                   </div>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function BehaviorStudyToolsPage() {
                 Try Our Free BCBA Mock Exam
               </h2>
               <p className="text-base text-slate-600 mb-6 max-w-3xl mx-auto">
-                Get instant access to 10+ free BCBA practice questions. No signup required. Test your knowledge across all BACB task list domains.
+                Take the full 185-question BCBA mock exam free in Behavior Study Tools. A free account is required before you start. Test your knowledge across all BACB task list domains.
               </p>
 
               <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -181,19 +181,19 @@ export default function BehaviorStudyToolsPage() {
                   <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
                     <Check className="w-5 h-5 text-white" />
                   </div>
-                  <span className="font-semibold text-emerald-700">10+ Free Questions</span>
+                  <span className="font-semibold text-emerald-700">185 Questions</span>
                 </div>
                 <div className="flex items-center justify-center p-4 bg-blue-50 rounded-xl">
                   <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3">
                     <Check className="w-5 h-5 text-white" />
                   </div>
-                  <span className="font-semibold text-blue-700">Instant Results</span>
+                  <span className="font-semibold text-blue-700">Instant Score</span>
                 </div>
                 <div className="flex items-center justify-center p-4 bg-purple-50 rounded-xl">
                   <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mr-3">
                     <Check className="w-5 h-5 text-white" />
                   </div>
-                  <span className="font-semibold text-purple-700">No Signup Required</span>
+                  <span className="font-semibold text-purple-700">Free Account, No Card</span>
                 </div>
               </div>
 

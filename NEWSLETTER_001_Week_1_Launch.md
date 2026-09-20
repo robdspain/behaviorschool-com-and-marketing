@@ -2,7 +2,7 @@
 
 **Send Date:** Week 2, Monday 9:00 AM
 **Subject Line:** 📚 New: 25 Free BCBA Domain A Practice Questions + Study Tips
-**Preview Text:** Master philosophical underpinnings with detailed explanations. No signup required.
+**Preview Text:** Master philosophical underpinnings with detailed explanations. Free resource.
 
 ---
 
@@ -39,7 +39,7 @@ Free BCBA Mock Exam: 185 Questions, All 9 Domains
 
 **{{ .ProductDescription }}**
 ```
-Ready to test your knowledge across all domains? Our full-length practice exam mirrors the actual BCBA exam format with 185 questions, instant feedback, and detailed explanations for every answer. Practice under realistic conditions without spending $100+ on prep courses. Completely free, no signup required.
+Ready to test your knowledge across all domains? Our full-length practice exam mirrors the actual BCBA exam format with 185 questions, instant feedback, and detailed explanations for every answer. Practice under realistic conditions without spending $100+ on prep courses. Completely free. The full mock requires a free Behavior Study Tools account before you start; a 9-question Quick domain check needs no account.
 ```
 
 **{{ .ProductURL }}**
@@ -91,7 +91,7 @@ Master the philosophical underpinnings of behavior analysis with 25 comprehensiv
 ### 🎯 PRODUCT SPOTLIGHT
 **Free BCBA Mock Exam: 185 Questions, All 9 Domains**
 
-Ready to test your knowledge across all domains? Our full-length practice exam mirrors the actual BCBA exam format with 185 questions, instant feedback, and detailed explanations for every answer. Practice under realistic conditions without spending $100+ on prep courses. Completely free, no signup required.
+Ready to test your knowledge across all domains? Our full-length practice exam mirrors the actual BCBA exam format with 185 questions, instant feedback, and detailed explanations for every answer. Practice under realistic conditions without spending $100+ on prep courses. Completely free. The full mock requires a free Behavior Study Tools account before you start; a 9-question Quick domain check needs no account.
 
 [**Try it now (100% free) →**](https://behaviorschool.com/free-bcba-practice-exam)
 
@@ -142,7 +142,7 @@ Click **Template** tab and add these template variables as JSON:
   "FeaturedPostDescription": "Master the philosophical underpinnings of behavior analysis with 25 comprehensive practice questions covering determinism, empiricism, radical behaviorism, and the 7 dimensions of ABA. Each question includes detailed explanations of correct answers AND why other options are incorrect—helping you build the discrimination skills you need for exam day.",
   "FeaturedPostURL": "https://behaviorschool.com/blog/bcba-domain-a-practice-questions",
   "ProductTitle": "Free BCBA Mock Exam: 185 Questions, All 9 Domains",
-  "ProductDescription": "Ready to test your knowledge across all domains? Our full-length practice exam mirrors the actual BCBA exam format with 185 questions, instant feedback, and detailed explanations for every answer. Practice under realistic conditions without spending $100+ on prep courses. Completely free, no signup required.",
+  "ProductDescription": "Ready to test your knowledge across all domains? Our full-length practice exam mirrors the actual BCBA exam format with 185 questions, instant feedback, and detailed explanations for every answer. Practice under realistic conditions without spending $100+ on prep courses. Completely free. The full mock requires a free Behavior Study Tools account before you start; a 9-question Quick domain check needs no account.",
   "ProductURL": "https://behaviorschool.com/free-bcba-practice-exam",
   "QuickTip": "Struggling to remember the 7 dimensions of ABA? Use this mnemonic: \"All Behavior Analysts Can Talk, E.G., Generally\" — Applied, Behavioral, Analytic, Conceptually systematic, Technological, Effective, Generality. Write it out by hand 3 times before your exam to cement it in long-term memory.",
   "SecondaryCTAText": "Want unlimited practice questions that adapt to your weak areas?",
@@ -179,7 +179,7 @@ What you'll learn:
 
 This comprehensive guide includes 25 practice questions with detailed explanations for every answer—plus study tips that actually work.
 
-Free resource, no signup required.
+Free resource.
 
 👉 https://behaviorschool.com/blog/bcba-domain-a-practice-questions
 

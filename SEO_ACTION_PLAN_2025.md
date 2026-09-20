@@ -1,3 +1,5 @@
+> **OBSOLETE — full 185 mock requires free account before start (as of Sep 2026).** Any "no signup" / "no email" wording for the 185-question mock in this document is outdated and must not be reused as live copy. Only the short Quick domain check (9Q) and /free-practice need no account.
+
 # SEO Action Plan 2025 - 4-Week Growth Sprint
 
 **Goal**: Increase organic traffic from 40 clicks/week to 120+ clicks/week in 28 days
@@ -35,7 +37,7 @@
 
 **Task**:
 - [ ] Add prominent "Start Free Mock Exam" button above the fold
-- [ ] Copy: "185 Questions • No Signup Required • Instant Results"
+- [ ] Copy: "185 Questions • Free Account Required • Instant Score"
 - [ ] Link to `/free-bcba-practice-exam`
 - [ ] Use emerald gradient button with hover state
 - [ ] Add tracking event: `hero_free_mock_exam_click`
@@ -94,7 +96,7 @@
 
 **FAQs to Add**:
 1. "Is the free BCBA mock practice test really free?"
-   - "Yes, completely free with no signup required. Access all 185 questions instantly."
+   - "Yes, completely free. Create a free account before you start to access all 185 questions."
 
 2. "How many questions are on the BCBA mock exam?"
    - "Our free mock exam has 185 questions matching the real BCBA exam format (175 scored + 10 unscored)."
@@ -106,7 +108,7 @@
    - "Questions are written by BCBAs and cover all 9 content areas matching the BACB task list."
 
 5. "Do I need to sign up to take the free mock exam?"
-   - "No signup required! Start practicing immediately and track your progress locally."
+   - "A free account is required before you start the full 185 mock. A short Quick domain check needs no account."
 
 6. "How long should I take to complete the mock exam?"
    - "The real BCBA exam allows 4 hours. We recommend timing yourself for realistic practice."
@@ -157,7 +159,7 @@
 
 **FAQs to Add**:
 1. "Are Behavior School tools free to use?"
-   - "Yes! All our core tools are 100% free with no signup required, including BCBA practice exams and IEP goal generators."
+   - "Yes! All our core tools are 100% free, including BCBA practice exams and IEP goal generators. The full 185 mock requires a free account before you start."
 
 2. "Do I need a subscription to access BCBA practice questions?"
    - "No subscription needed. Access unlimited BCBA practice questions for free anytime."
@@ -227,10 +229,10 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[], baseUrl = 'htt
 1. Export top 20 queries from Google Search Console
 2. Identify pages with CTR < 2%
 3. Rewrite titles/descriptions for exact match + intent
-4. Focus on modifiers: "free", "185 questions", "no signup", "examples"
+4. Focus on modifiers: "free", "185 questions", "free account", "examples"
 
 **Target Pages** (initial guess, pending GSC data):
-- [ ] `/free-bcba-practice-exam` - Add "185 Questions" + "No Signup"
+- [ ] `/free-bcba-practice-exam` - Add "185 Questions" + "Free Account"
 - [ ] `/bcba-practice-exam` - Emphasize "Full-Length Mock"
 - [ ] `/iep-behavior-goals` - Add "Measurable Examples"
 - [ ] `/behavior-plans` - Add "Free Templates"
@@ -414,7 +416,7 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[], baseUrl = 'htt
 - [ ] Add "Popular Hub Pages" section to blog homepage
 - [ ] Feature 4-6 cornerstone pages with rich descriptions:
   1. **BCBA Exam Prep** - "Free practice questions, study guides, and mock exams"
-  2. **Free BCBA Mock Test** - "185 questions, no signup, instant feedback"
+  2. **Free BCBA Mock Test** - "185 questions, free account required, instant score"
   3. **IEP Goal Writer** - "Generate measurable behavior goals in minutes"
   4. **School BCBA Hub** - "Career guides, salaries, and job resources"
   5. **Study Tools** - "Adaptive learning platform for BCBA certification"
@@ -504,7 +506,7 @@ Hi [Name],
 
 I'm Rob Spain, a BCBA and founder of Behavior School. We've created free tools specifically for BCBA candidates and school-based behavior analysts:
 
-• 185-question mock exam (no signup required)
+• 185-question mock exam (free account required before you start)
 • IEP behavior goal generator
 • Adaptive study platform across all 9 domains
 

@@ -1,3 +1,5 @@
+> **OBSOLETE — full 185 mock requires free account before start (as of Sep 2026).** Any "no signup" / "no email" wording for the 185-question mock in this document is outdated and must not be reused as live copy. Only the short Quick domain check (9Q) and /free-practice need no account.
+
 # Compact Keywords Implementation - Behavior School
 
 **Date:** January 2025
@@ -46,7 +48,7 @@ Your SEO becomes an **acquisition channel** that feeds the top of your ecosystem
 | `/` | Free BCBA Exam Prep & Mock Tests → Boost Your Certification Prep \| Behavior School | **Free BCBA Exam Prep** \| Behavior School | 37 chars |
 | `/bcba-exam-prep` | BCBA Exam Prep: Free Practice Questions, Mock Tests, and Study Guide | **Free BCBA Exam Prep** | 21 chars ✅ |
 | `/bcba-mock-practice-test` | Free BCBA Mock Exam → 185 Questions + Instant Results \| Prep Confidently | **Free BCBA Mock Exam** → 185 Questions \| Instant Results | 50 chars |
-| `/free-bcba-mock-practice-test` | Free BCBA Practice Exam → 185 Questions \| No Email Required \| Start Now | **Free BCBA Practice Exam** → No Signup Required | 48 chars |
+| `/free-bcba-mock-practice-test` | Free BCBA Practice Exam → 185 Questions \| Free Account Required \| Start Now | **Free BCBA Practice Exam** → Free Account Required | 48 chars |
 | `/supervisors` | ABA Supervision Tools & Free BCBA Supervision Curriculum \| Behavior School | **BCBA Supervision Tools** | 24 chars ✅ |
 | `/transformation-program` | Transform Your School Practice in 8 Weeks \| School BCBA Transformation System | **School BCBA Training Program** | 30 chars ✅ |
 | `/community` | Join the Behavior School Community \| Support for School-Based BCBAs | **School BCBA Community** | 23 chars ✅ |
@@ -63,7 +65,7 @@ Your SEO becomes an **acquisition channel** that feeds the top of your ecosystem
 |------|------------------------|--------------|-----------------|
 | `/bcba-exam-prep` | Free BCBA Exam Prep | Comprehensive guide | Planning to study |
 | `/bcba-mock-practice-test` | Free BCBA Mock Exam | 185-question full test | Ready to practice 4hrs |
-| `/free-bcba-mock-practice-test` | Free BCBA Practice Exam | No signup version | Privacy-conscious |
+| `/free-bcba-mock-practice-test` | Free BCBA Practice Exam | Free account version | Ready to practice 4hrs |
 | `/free-bcba-practice-exam` | Quick BCBA Practice Test | 10 questions | Quick check-in |
 
 ### Tools & Resources

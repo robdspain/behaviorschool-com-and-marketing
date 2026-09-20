@@ -3,8 +3,8 @@ import { ArrowRight, PlayCircle, Shield, Target, TrendingUp } from 'lucide-react
 import { buildPageMetadata } from '@/lib/seo/metadata'
 
 export const metadata = buildPageMetadata({
-  title: 'BCBA Practice | Free Mini or Full Mock (Guest) | Results gated',
-  description: 'Start a free BCBA mini practice (10 questions, no account) or the full 185-question mock in Behavior Study Tools (free account required).',
+  title: 'Free BCBA Practice | Quick Check or Full 185 Mock | Behavior Study Tools',
+  description: 'Try a free 9-question BCBA Quick domain check with no account, or take the full 185-question mock in Behavior Study Tools. The full mock requires a free account before you start.',
   canonical: 'https://behaviorschool.com/practice',
 })
 
@@ -15,7 +15,7 @@ export default function PracticePage() {
         <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">BCBA Practice</div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Free BCBA Practice Tests</h1>
         <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
-          Try a free 10-question mini practice with no account, or take the full 185-question mock with a free account.
+          Try a free 9-question Quick domain check with no account, or take the full 185-question mock in Behavior Study Tools with a free account.
         </p>
       </section>
 
@@ -27,7 +27,7 @@ export default function PracticePage() {
             title="Quick domain check (9 questions)"
             desc="Fast diagnostic to sample difficulty and pacing."
             bullets={[
-              'Instant scoring (guest)',
+              'Instant score and domain breakdown',
               'Mixed domains',
               'No account needed',
             ]}
@@ -41,7 +41,7 @@ export default function PracticePage() {
             title="Full Mock (185 questions)"
             desc="Realistic timing and distribution for deep prep."
             bullets={[
-              'Instant scoring',
+              'Score and domain breakdown right after you finish',
               'All domains covered',
               'Free account required before you start',
             ]}
@@ -53,13 +53,13 @@ export default function PracticePage() {
 
         <div className="max-w-5xl mx-auto mt-10 grid md:grid-cols-3 gap-6">
           <Value icon={<Target className="w-6 h-6" />} title="Realistic" text="Exam‑style timing and items" />
-          <Value icon={<TrendingUp className="w-6 h-6" />} title="Insightful" text="Detailed domain analytics (with sign‑in)" />
-          <Value icon={<Shield className="w-6 h-6" />} title="Secure" text="Results gated until you sign in" />
+          <Value icon={<TrendingUp className="w-6 h-6" />} title="Insightful" text="Domain-level score breakdown after every mock" />
+          <Value icon={<Shield className="w-6 h-6" />} title="Free to start" text="Free account, no credit card" />
         </div>
 
         <div className="max-w-4xl mx-auto mt-12 bg-blue-50 border border-blue-200 rounded-2xl p-6 text-blue-900">
           <p className="text-sm">
-            Note: The 10-question mini practice needs no account, and you&apos;ll be prompted to sign in to view results, explanations, and analytics. The full 185-question mock requires a free account before you start. Returning users can resume where they left off.
+            Note: The 9-question Quick domain check needs no account. The full 185-question mock requires a free account before you start. After the mock, your score and domain breakdown appear right away, and you get a taste of the explanations plus a 7-day Pro trial to review the rest.
           </p>
         </div>
       </section>

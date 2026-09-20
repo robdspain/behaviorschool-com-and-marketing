@@ -1,3 +1,5 @@
+> **OBSOLETE — full 185 mock requires free account before start (as of Sep 2026).** Any "no signup" / "no email" wording for the 185-question mock in this document is outdated and must not be reused as live copy. Only the short Quick domain check (9Q) and /free-practice need no account.
+
 # Keyword Optimization Audit - Behavior School
 **Date:** January 2025
 **Auditor:** Claude (Automated SEO Analysis)
@@ -20,7 +22,7 @@ This audit analyzed 20 key pages in the Behavior School Next.js application to e
 | `/` | Free BCBA Exam Prep & Mock Tests → Boost Your Certification Prep \| Behavior School | BCBA Exam Prep | **START** ✅ | GOOD | Consider shortening: "BCBA Exam Prep: Free Mock Tests + Study Tools \| Behavior School" |
 | `/bcba-exam-prep` | Client-side rendered (no metadata in page.tsx) | BCBA Exam Prep | N/A | MISSING | **CRITICAL:** Add metadata export with "BCBA Exam Prep → [benefit]" format |
 | `/bcba-mock-practice-test` | Free BCBA Mock Exam → 185 Questions + Instant Results \| Prep Confidently | BCBA Mock Exam | **START** ✅ | GOOD | Already optimal. Primary keyword at position 1. |
-| `/free-bcba-mock-practice-test` | Free BCBA Practice Exam → 185 Questions \| No Email Required \| Start Now | BCBA Practice Exam | **START** ✅ | GOOD | Already optimal. Primary keyword at position 1. |
+| `/free-bcba-mock-practice-test` | Free BCBA Practice Exam → 185 Questions \| Free Account Required \| Start Now | BCBA Practice Exam | **START** ✅ | GOOD | Already optimal. Primary keyword at position 1. |
 | `/bcba-practice-exam` | Free BCBA Practice Exam & Questions - Unlimited Adaptive Tests | BCBA Practice Exam | **START** ✅ | GOOD | Already optimal. Primary keyword at position 1. |
 | `/free-bcba-practice-exam` | FREE BCBA Practice Exam → 10 Questions \| No Signup \| Instant Results | BCBA Practice Exam | **START** ✅ (implied) | GOOD | Title within client component. Verify metadata export exists. |
 | `/bcba-study-tools` | FREE BCBA Study Tools 2025 \| AI Practice Tests + Adaptive Learning \| Behavior School | BCBA Study Tools | **START** ✅ | GOOD | Already optimal. Primary keyword at position 1. |
@@ -53,7 +55,7 @@ This audit analyzed 20 key pages in the Behavior School Next.js application to e
 **Recommendation:**
 1. **Differentiate by intent:**
    - `/bcba-mock-practice-test` → "BCBA Mock Exam: 185-Question Full-Length Test"
-   - `/free-bcba-mock-practice-test` → "Free BCBA Mock Exam: No Signup Required"
+   - `/free-bcba-mock-practice-test` → "Free BCBA Mock Exam: Free Account Required"
    - `/bcba-practice-exam` → "BCBA Practice Questions: Unlimited Adaptive Study"
    - `/free-bcba-practice-exam` → "Quick BCBA Practice Test: 10 Questions in 5 Minutes"
 
@@ -279,7 +281,7 @@ export default function Page() {
 1. **Emphasize "FREE" for exam prep** (most competitors charge $200-500)
 2. **Lead with "School-Based"** differentiation
 3. **Showcase "AI-Powered"** for modern, tech-forward positioning
-4. **Highlight "No Signup Required"** for immediate value
+4. **Highlight "Free" and "Instant Score"** for immediate value (do not claim "No Signup" for the 185 mock)
 
 ---
 
@@ -339,8 +341,8 @@ MOCK EXAM (/bcba-mock-practice-test)
 ✅ Recommended: BCBA Mock Exam: 185 Questions Free | Instant Results (54 chars)
 
 FREE MOCK (/free-bcba-mock-practice-test)
-✅ Current: Free BCBA Practice Exam → 185 Questions | No Email Required | Start Now (75 chars)
-✅ Keep as is, or shorten to: Free BCBA Mock Exam → No Signup Required (46 chars)
+✅ Current: Free BCBA Practice Exam → 185 Questions | Free Account Required | Start Now (75 chars)
+✅ Keep as is, or shorten to: Free BCBA Mock Exam → Free Account Required (48 chars)
 
 PRACTICE EXAM (/bcba-practice-exam)
 ✅ Current: Free BCBA Practice Exam & Questions - Unlimited Adaptive Tests (68 chars)
