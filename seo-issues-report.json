@@ -1,4 +1,5 @@
 {
+  "_obsolete": "OBSOLETE — full 185 mock requires free account before start (as of Sep 2026). Historical report; do not reuse description strings as live copy.",
   "metaDescription": {
     "tooLong": [
       {
@@ -19,7 +20,7 @@
       {
         "file": "src/app/bcba-mock-practice-test/page.tsx",
         "len": 166,
-        "desc": "FREE full-length BCBA mock exam with 185 questions. Instant scoring + detailed explanations. No signup required - start practicing now and build your exam confidence!"
+        "desc": "FREE full-length BCBA mock exam with 185 questions. Instant scoring + detailed explanations. Free account required before you start."
       },
       {
         "file": "src/app/bcba-study-fluency/page.tsx",
@@ -54,7 +55,7 @@
       {
         "file": "src/app/page.tsx",
         "len": 189,
-        "desc": "Get instant access to FREE BCBA practice questions + 185-question mock exams. No signup required. Comprehensive study tools to help you prepare confidently for your BCBA certification exam."
+        "desc": "Get instant access to FREE BCBA practice questions + 185-question mock exams. Free account required for the full mock. Comprehensive study tools to help you prepare confidently for your BCBA certification exam."
       },
       {
         "file": "src/app/products/page.tsx",

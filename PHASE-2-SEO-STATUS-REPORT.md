@@ -1,3 +1,5 @@
+> **OBSOLETE — full 185 mock requires free account before start (as of Sep 2026).** Any "no signup" / "no email" wording for the 185-question mock in this document is outdated and must not be reused as live copy. Only the short Quick domain check (9Q) and /free-practice need no account.
+
 # Phase 2 SEO Fix Status Report
 **Generated:** October 29, 2025
 **Scope:** Meta Descriptions, Title Tags, H1 Tags, OpenGraph Tags
@@ -37,8 +39,8 @@ After analyzing all 78 `page.tsx` files in the `src/app/` directory, I identifie
    - **Impact:** 38 chars shorter, improved readability
 
 4. **src/app/bcba-mock-practice-test/page.tsx**
-   - **Before:** 166 chars - "FREE full-length BCBA mock exam with 185 questions. Instant scoring + detailed explanations. No signup required - start practicing now and build your exam confidence!"
-   - **After:** 160 chars - "FREE full-length BCBA mock exam with 185 questions. Instant scoring, detailed explanations & performance analytics. No signup required - start practicing now!"
+   - **Before:** 166 chars - "FREE full-length BCBA mock exam with 185 questions. Instant scoring + detailed explanations. Free account required before you start."
+   - **After:** 160 chars - "FREE full-length BCBA mock exam with 185 questions. Instant scoring, detailed explanations & performance analytics. Free account required before you start."
    - **Impact:** 6 chars shorter, added "performance analytics" keyword
 
 ---
@@ -247,7 +249,7 @@ After analyzing all 78 `page.tsx` files in the `src/app/` directory, I identifie
 **Formula:** `[Value Proposition] + [Key Benefit] + [Call to Action] + [Brand]`
 
 **Example:**
-- "Free BCBA mock exam with 185 questions. Instant scoring, detailed explanations & analytics. No signup required - start practicing now!"
+- "Free BCBA mock exam with 185 questions. Instant scoring, detailed explanations & analytics. Free account required before you start."
 
 ### Title Tags (50-60 chars)
 **Formula:** `[Primary Keyword] | [Modifier/Benefit] | [Brand]`
