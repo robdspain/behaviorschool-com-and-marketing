@@ -26,7 +26,7 @@ export const TRANSFORMATION_PROGRAM = {
     sessionDates: ["Oct 8", "Oct 15", "Oct 22", "Oct 29", "Nov 5", "Nov 12"],
     sessionTime: "6:00 to 8:00 PM PT",
     seatCap: 5,
-    applicationsCloseLabel: "Wednesday, October 1, 2026",
+    applicationsCloseLabel: "Thursday, October 1, 2026",
     applicationsCloseDate: "2026-10-01",
   },
   pricing: {
