@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">BCBA 6th Edition domain map</title>
+  <desc id="desc">Instagram graphic mapping official BCBA 6th Edition domains to focused study practice.</desc>
+  <rect width="1080" height="1350" fill="#fbf6ed"/>
+  <rect x="70" y="70" width="940" height="1210" fill="#ffffff" stroke="#1f4d3f" stroke-width="4"/>
+  <text x="112" y="150" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="112" y="260" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800">Study the</text>
+  <text x="112" y="344" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800">domains you</text>
+  <text x="112" y="428" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800">actually miss.</text>
+  <g transform="translate(118 560)">
+    <rect width="844" height="98" fill="#1f4d3f"/>
+    <text x="34" y="62" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">6th Edition A-I domains</text>
+    <rect y="148" width="162" height="126" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="52" y="226" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">F</text>
+    <rect x="206" y="148" width="162" height="126" fill="#1f4d3f"/>
+    <text x="258" y="226" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">G</text>
+    <rect x="412" y="148" width="162" height="126" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="464" y="226" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">H</text>
+    <rect x="618" y="148" width="162" height="126" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="670" y="226" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">I</text>
+  </g>
+  <text x="112" y="1016" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">Check the pattern.</text>
+  <text x="112" y="1076" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">Pick the next block.</text>
+  <text x="112" y="1180" fill="#5b6a63" font-family="Arial, Helvetica, sans-serif" font-size="30">Free BCBA practice in the browser.</text>
+</svg>

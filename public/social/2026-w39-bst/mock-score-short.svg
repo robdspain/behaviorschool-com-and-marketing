@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Mock score is a checkpoint</title>
+  <desc id="desc">YouTube Shorts graphic showing a BCBA mock score as one checkpoint with domains, pacing, and error type.</desc>
+  <rect width="1080" height="1920" fill="#123628"/>
+  <rect x="72" y="92" width="936" height="1736" fill="#fffdf7"/>
+  <text x="118" y="190" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Behavior Study Tools</text>
+  <text x="118" y="345" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="800">A mock score</text>
+  <text x="118" y="438" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="800">is a</text>
+  <text x="118" y="531" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="800">checkpoint.</text>
+  <g transform="translate(118 700)">
+    <rect width="844" height="150" fill="#f1e1c5" stroke="#c8952d" stroke-width="4"/>
+    <text x="40" y="94" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800">Domains</text>
+    <rect y="210" width="844" height="150" fill="#1f4d3f"/>
+    <text x="40" y="304" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800">Pacing</text>
+    <rect y="420" width="844" height="150" fill="#f1e1c5" stroke="#c8952d" stroke-width="4"/>
+    <text x="40" y="514" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800">Error pattern</text>
+  </g>
+  <text x="118" y="1488" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">Use the result to choose</text>
+  <text x="118" y="1550" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">one next study action.</text>
+</svg>

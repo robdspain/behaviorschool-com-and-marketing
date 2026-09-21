@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">School week BCBA study report</title>
+  <desc id="desc">Instagram graphic showing a school-week study rhythm with short practice, mock checkpoint, and supervisor-ready report.</desc>
+  <rect width="1080" height="1350" fill="#f8f7f3"/>
+  <rect x="70" y="70" width="940" height="1210" fill="#ffffff" stroke="#1f4d3f" stroke-width="4"/>
+  <text x="112" y="150" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="112" y="256" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800">Make study</text>
+  <text x="112" y="340" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800">visible during</text>
+  <text x="112" y="424" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800">a school week.</text>
+  <g transform="translate(120 570)">
+    <rect width="840" height="110" fill="#1f4d3f"/>
+    <text x="34" y="69" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">Short practice</text>
+    <rect y="170" width="840" height="110" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="34" y="239" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">Mock checkpoint</text>
+    <rect y="340" width="840" height="110" fill="#1f4d3f"/>
+    <text x="34" y="409" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800">Progress report</text>
+  </g>
+  <text x="112" y="1140" fill="#5b6a63" font-family="Arial, Helvetica, sans-serif" font-size="30">Use practice data to plan the next session.</text>
+</svg>

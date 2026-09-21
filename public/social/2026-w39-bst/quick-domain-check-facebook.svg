@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Behavior Study Tools quick domain check</title>
+  <desc id="desc">Facebook graphic showing a nine-question BCBA quick check leading to one next study block.</desc>
+  <rect width="1200" height="630" fill="#f8f7f3"/>
+  <rect x="58" y="58" width="1084" height="514" fill="#ffffff" stroke="#1f4d3f" stroke-width="4"/>
+  <text x="96" y="124" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Behavior Study Tools</text>
+  <text x="96" y="206" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">Do not start with</text>
+  <text x="96" y="276" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">everything.</text>
+  <g transform="translate(96 346)">
+    <rect width="262" height="94" fill="#1f4d3f"/>
+    <text x="28" y="58" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">9-question check</text>
+    <path d="M304 47h86" stroke="#c8952d" stroke-width="8"/>
+    <path d="M378 30l30 17-30 17z" fill="#c8952d"/>
+    <rect x="448" width="260" height="94" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="477" y="58" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Domain signal</text>
+    <path d="M750 47h68" stroke="#c8952d" stroke-width="8"/>
+    <path d="M806 30l30 17-30 17z" fill="#c8952d"/>
+    <rect x="878" width="164" height="94" fill="#1f4d3f"/>
+    <text x="908" y="42" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">One</text>
+    <text x="908" y="72" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">block</text>
+  </g>
+  <text x="96" y="518" fill="#3d4a46" font-family="Arial, Helvetica, sans-serif" font-size="30">Use free practice to choose the next study task.</text>
+</svg>
