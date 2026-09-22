@@ -75,7 +75,7 @@ export default function CEUsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -273,6 +273,6 @@ export default function CEUsPage() {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
