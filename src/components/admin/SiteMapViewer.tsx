@@ -115,6 +115,7 @@ export default function SiteMapViewer() {
       color: "bg-indigo-100 text-indigo-800",
       pages: [
         { path: "/supervisors", title: "Supervisors", description: "Supervision tools and resources", status: "live", cluster: "Supervision", priority: "high" },
+        { path: "/ceus", title: "BCBA CEUs", description: "Behavior School Learning lander for CEUs and professional development", status: "live", cluster: "Supervision", priority: "high" },
         { path: "/rbt-supervision-requirements", title: "RBT Supervision Requirements", description: "BACB requirements guide", status: "planned", cluster: "Supervision", priority: "high" },
         { path: "/bcba-fieldwork-tracking", title: "BCBA Fieldwork Tracking", description: "Hours documentation", status: "planned", cluster: "Supervision", priority: "medium" },
         { path: "/supervision-documentation", title: "Supervision Documentation", description: "Record keeping", status: "planned", cluster: "Supervision", priority: "medium" },

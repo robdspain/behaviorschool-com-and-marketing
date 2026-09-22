@@ -1,267 +1,278 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
 import {
   ArrowRight,
   Award,
   BookOpen,
-  Clock,
-  GraduationCap,
   CheckCircle2,
-  Star,
+  Clock,
+  FileCheck,
+  GraduationCap,
   Users,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
-const fadeInUp: Variants = {
-  initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
+const LEARNING_URL = "https://learning.behaviorschool.com";
 
-const courses = [
+const learningBenefits = [
   {
-    title: "Free BCBA Masterclass",
+    title: "Live and on-demand CEUs",
     description:
-      "A comprehensive, free 1-CEU course covering essential strategies for school-based behavior analysts. Includes video lessons, assessments, and a downloadable certificate upon completion.",
-    href: "/masterclass",
-    ceus: "1 Free CEU",
-    price: "Free",
-    status: "live" as const,
-    features: [
-      "professional development",
-      "Video-based lessons",
-      "Knowledge assessment",
-      "Downloadable certificate",
-      "Self-paced learning",
-    ],
-    highlight: true,
+      "Enroll in live cohorts or on-demand learning built for school BCBAs, then complete verified continuing education requirements in one place.",
+    icon: BookOpen,
   },
   {
-    title: "Transformation Program",
+    title: "Certificates in your account",
     description:
-      "An intensive 6-week cohort-based training program for school BCBAs who want to build systematic behavior support programs. Covers FBA systems, IEP goal frameworks, staff training, and data-driven decision making.",
-    href: "/transformation-program",
-    ceus: "CEUs Included",
-    price: "$1,997",
-    status: "live" as const,
-    features: [
-      "6-week live cohort format",
-      "Weekly group coaching calls",
-      "Complete systems & templates",
-      "Community access",
-      "CEUs upon completion",
-    ],
-    highlight: false,
+      "CEU certificates stay available in your Behavior School Learning account after you complete a course.",
+    icon: Award,
+  },
+  {
+    title: "ACE completion records",
+    description:
+      "Learning keeps required objectives, instructor evidence, disclosures, and completion records with the course.",
+    icon: FileCheck,
+  },
+  {
+    title: "School-focused professional development",
+    description:
+      "Continuing education built for school BCBAs, with professional development focused on school practice.",
+    icon: GraduationCap,
   },
 ];
 
-const upcomingTopics = [
-  "Advanced FBA & Function-Based Interventions",
-  "Ethics for School-Based Practice",
-  "Supervision Best Practices",
-  "Data-Driven Decision Making in Schools",
-  "Staff Training & RBT Supervision",
-  "ACT for Behavior Analysts",
+const trustItems = [
+  { icon: Award, label: "BACB ACE Provider OP-26-12729" },
+  { icon: GraduationCap, label: "School-focused CEUs" },
+  { icon: Clock, label: "Live and on-demand learning" },
+  { icon: Users, label: "Built by a school BCBA" },
 ];
 
 export default function CEUsPage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "BCBA CEUs and Professional Development",
+    url: "https://behaviorschool.com/ceus",
+    description:
+      "Earn BCBA CEUs and school-focused professional development on Behavior School Learning.",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Behavior School",
+      url: "https://behaviorschool.com",
+    },
+    about: {
+      "@type": "EducationalOrganization",
+      name: "Behavior School Learning",
+      url: LEARNING_URL,
+      description:
+        "Continuing education and CEU certificate platform for behavior analysts.",
+      parentOrganization: {
+        "@type": "Organization",
+        name: "Behavior School",
+        url: "https://behaviorschool.com",
+      },
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <main className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <Breadcrumbs items={[{ label: "CEUs & Professional Development" }]} />
       </div>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div {...fadeInUp}>
-            <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6">
-              Professional Development
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              CEUs &amp; Professional Development{" "}
-              <span className="text-blue-600">for BCBAs</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
-              Earn continuing education credits with courses designed
-              specifically for school-based behavior analysts. From free
-              masterclasses to intensive training programs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/masterclass"
-                className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white rounded-xl text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200"
-              >
-                Start Free Masterclass (1 CEU)
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-700 rounded-xl text-lg font-semibold border-2 border-blue-200 hover:border-blue-300 hover:bg-blue-50 transition-colors"
-              >
-                Questions About CE Status
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Trust bar */}
-      <section className="py-8 bg-gray-50 border-y border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 flex flex-wrap justify-center gap-8 text-center">
-          <div className="flex items-center gap-2 text-gray-600">
-            <Award className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-medium">Professional Development</span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-600">
-            <GraduationCap className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-medium">
-              School-Focused Content
-            </span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-600">
-            <Clock className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-medium">Self-Paced Learning</span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-600">
-            <Users className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-medium">
-              Built by a School BCBA
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Courses */}
-      <section className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Available Courses &amp; Programs
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Earn your CEUs while learning practical strategies you can
-              implement in your school Monday morning.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {courses.map((course) => (
-              <motion.div key={course.title} variants={fadeInUp}>
-                <Link href={course.href} className="block group h-full">
-                  <div
-                    className={`bg-white border rounded-2xl p-8 h-full hover:shadow-lg transition-all duration-300 ${
-                      course.highlight
-                        ? "border-blue-300 ring-2 ring-blue-100"
-                        : "border-gray-200 hover:border-blue-200"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <span
-                        className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          course.price === "Free"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-blue-100 text-blue-700"
-                        }`}
-                      >
-                        {course.ceus}
-                      </span>
-                      <span className="text-2xl font-bold text-gray-900">
-                        {course.price}
-                      </span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
-                      {course.title}
-                    </h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      {course.description}
-                    </p>
-                    <ul className="space-y-3 mb-6">
-                      {course.features.map((feature) => (
-                        <li
-                          key={feature}
-                          className="flex items-center text-sm text-gray-600"
-                        >
-                          <CheckCircle2 className="h-4 w-4 text-blue-500 mr-2 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="pt-4 border-t border-gray-100">
-                      <span className="text-blue-600 font-semibold inline-flex items-center group-hover:translate-x-1 transition-transform">
-                        {course.price === "Free"
-                          ? "Enroll Free"
-                          : "Learn More"}
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Upcoming Topics */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <BookOpen className="h-10 w-10 text-blue-600 mx-auto mb-4" />
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Coming Soon: More CEU Courses
-          </h2>
-          <p className="text-lg text-gray-600 mb-10">
-            We&apos;re developing additional professional development courses on these
-            high-demand topics. Sign up to get notified when they launch.
+      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-slate-50 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <span className="mb-6 inline-block rounded-full bg-emerald-100 px-4 py-1.5 text-sm font-medium text-emerald-800">
+            Behavior School Learning
+          </span>
+          <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
+            CEUs &amp; Professional Development{" "}
+            <span className="text-emerald-700">for BCBAs</span>
+          </h1>
+          <p className="mx-auto mb-10 max-w-3xl text-xl text-slate-600">
+            Behavior School Learning is the place for BCBA CEUs, continuing
+            education, and certificates for school-based behavior analysts. Enroll
+            in live or on-demand courses, complete verified CEU requirements, and
+            keep every certificate in one account.
           </p>
-          <div className="grid sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto mb-10">
-            {upcomingTopics.map((topic) => (
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              href={LEARNING_URL}
+              className="inline-flex min-h-12 items-center justify-center rounded-xl bg-emerald-700 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-emerald-200 transition-colors hover:bg-emerald-800"
+            >
+              Go to Behavior School Learning
+              <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+            </Link>
+            <Link
+              href={LEARNING_URL}
+              className="inline-flex min-h-12 items-center justify-center rounded-xl border-2 border-emerald-200 bg-white px-8 py-4 text-lg font-semibold text-emerald-800 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
+            >
+              Browse CEU courses
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-slate-100 bg-slate-50 py-8">
+        <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-8 px-4 text-center">
+          {trustItems.map((item) => (
+            <div key={item.label} className="flex items-center gap-2 text-slate-600">
+              <item.icon className="h-5 w-5 text-emerald-700" aria-hidden="true" />
+              <span className="text-sm font-medium">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+              What you get on Behavior School Learning
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg text-slate-600">
+              Continuing education built for school BCBAs: live cohorts, on-demand
+              learning, verified completion, and certificates you can keep.
+            </p>
+          </div>
+
+          <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
+            {learningBenefits.map((benefit) => (
               <div
-                key={topic}
-                className="flex items-center gap-3 bg-white p-4 rounded-xl border border-gray-200"
+                key={benefit.title}
+                className="rounded-2xl border border-slate-200 bg-white p-8 transition-shadow hover:shadow-lg"
               >
-                <Star className="h-5 w-5 text-amber-500 flex-shrink-0" />
-                <span className="text-gray-700 font-medium text-sm">
-                  {topic}
-                </span>
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100">
+                  <benefit.icon className="h-6 w-6 text-emerald-700" aria-hidden="true" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold text-slate-900">
+                  {benefit.title}
+                </h3>
+                <p className="leading-relaxed text-slate-600">{benefit.description}</p>
               </div>
             ))}
           </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              href={LEARNING_URL}
+              className="inline-flex items-center text-lg font-semibold text-emerald-800 hover:text-emerald-900"
+            >
+              Browse current CEU courses
+              <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-slate-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-4 text-center text-3xl font-bold text-slate-900 sm:text-4xl">
+            Related Behavior School paths
+          </h2>
+          <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-slate-600">
+            Learning is the CEU platform. These existing pages are optional next
+            steps, not the main continuing education catalog.
+          </p>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <Link
+              href="/masterclass"
+              className="group block h-full rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
+            >
+              <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-emerald-800">
+                Free BCBA Masterclass
+              </h3>
+              <p className="mb-6 leading-relaxed text-slate-600">
+                A free 1-CEU introduction on this site for school-based behavior
+                analysts who want a first look at professional development before
+                browsing the full Learning catalog.
+              </p>
+              <span className="inline-flex items-center font-semibold text-emerald-800 group-hover:translate-x-1">
+                View masterclass
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </span>
+            </Link>
+
+            <Link
+              href="/transformation-program"
+              className="group block h-full rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
+            >
+              <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-emerald-800">
+                School BCBA Transformation Program
+              </h3>
+              <p className="mb-6 leading-relaxed text-slate-600">
+                A live cohort for school BCBAs who want repeatable systems for
+                assessment, intervention, and staff implementation. Continuing
+                education details are listed with the program.
+              </p>
+              <span className="inline-flex items-center font-semibold text-emerald-800 group-hover:translate-x-1">
+                View program
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-4 text-3xl font-bold text-slate-900">
+            BACB Authorized Continuing Education
+          </h2>
+          <p className="mx-auto mb-8 max-w-2xl text-lg text-slate-600">
+            Behavior School LLC is a BACB Authorized Continuing Education
+            Provider. Course listings on Learning identify available credit,
+            completion requirements, and documentation for each opportunity.
+          </p>
+          <ul className="mx-auto mb-8 max-w-xl space-y-3 text-left text-slate-700">
+            {[
+              "Provider: Behavior School LLC",
+              "ACE Provider Number: OP-26-12729",
+              "Coordinator: Rob Spain, M.S., BCBA, IBA",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <CheckCircle2
+                  className="mt-0.5 h-5 w-5 flex-none text-emerald-700"
+                  aria-hidden="true"
+                />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
           <Link
-            href="/subscribe"
-            className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white rounded-xl text-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200"
+            href="/bacb-ace-provider"
+            className="inline-flex items-center font-semibold text-emerald-800 hover:text-emerald-900"
           >
-            Get Notified About New Courses
-            <ArrowRight className="ml-2 h-5 w-5" />
+            View ACE provider details
+            <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-blue-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Start Earning CEUs Today
+      <section className="bg-emerald-800 py-16">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
+            Start earning CEUs on Behavior School Learning
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Begin with our free 1-CEU Masterclass — no credit card required. Learn practical strategies for school-based behavior support.
+          <p className="mb-8 text-xl text-emerald-100">
+            Browse live and on-demand continuing education, then keep your
+            certificates in one Learning account.
           </p>
           <Link
-            href="/masterclass/enroll"
-            className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-700 rounded-xl text-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg"
+            href={LEARNING_URL}
+            className="inline-flex min-h-12 items-center justify-center rounded-xl bg-white px-8 py-4 text-lg font-semibold text-emerald-800 shadow-lg transition-colors hover:bg-emerald-50"
           >
-            Enroll in Free Masterclass
-            <ArrowRight className="ml-2 h-5 w-5" />
+            Go to Behavior School Learning
+            <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
           </Link>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
