@@ -8,6 +8,11 @@ const root = process.cwd();
 
 test("the public masterclass route is deleted so it cannot serve a free-CEU claim", () => {
   assert.equal(existsSync(path.join(root, "src/app/masterclass")), false);
+  assert.equal(existsSync(path.join(root, "src/app/api/masterclass/enroll/route.ts")), false);
+  assert.equal(
+    existsSync(path.join(root, "src/app/api/masterclass/[...slug]/route.ts")),
+    true,
+  );
 });
 
 test("Next.js, Netlify, and middleware permanently send /masterclass to /ceus", async () => {
