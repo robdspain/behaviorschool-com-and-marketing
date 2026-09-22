@@ -173,35 +173,17 @@ export default function CEUsPage() {
       <section className="bg-slate-50 py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-4 text-center text-3xl font-bold text-slate-900 sm:text-4xl">
-            Related Behavior School paths
+            Related Behavior School path
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-slate-600">
-            Learning is the CEU platform. These existing pages are optional next
-            steps, not the main continuing education catalog.
+            Learning is the CEU platform. The Transformation Program is an
+            optional live cohort, not the main continuing education catalog.
           </p>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            <Link
-              href="/masterclass"
-              className="group block h-full rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
-            >
-              <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-emerald-800">
-                Free BCBA Masterclass
-              </h3>
-              <p className="mb-6 leading-relaxed text-slate-600">
-                A free 1-CEU introduction on this site for school-based behavior
-                analysts who want a first look at professional development before
-                browsing the full Learning catalog.
-              </p>
-              <span className="inline-flex items-center font-semibold text-emerald-800 group-hover:translate-x-1">
-                View masterclass
-                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-              </span>
-            </Link>
-
+          <div className="mx-auto max-w-xl">
             <Link
               href="/transformation-program"
-              className="group block h-full rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
+              className="group block rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
             >
               <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-emerald-800">
                 School BCBA Transformation Program
