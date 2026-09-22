@@ -27,6 +27,10 @@ const legacyPaths = new Set([
   "/iep-goal-writer",
   "/school-based-behavior-support",
   "/community",
+  "/masterclass",
+  "/masterclass/enroll",
+  "/masterclass/course",
+  "/masterclass/certificate",
 ]);
 
 const ignoredDirectories = new Set([".git", ".next", "node_modules"]);
@@ -34,6 +38,7 @@ const ignoredPathFragments = [
   `${path.sep}src${path.sep}app${path.sep}admin${path.sep}`,
   `${path.sep}src${path.sep}app${path.sep}api${path.sep}`,
   `${path.sep}src${path.sep}components${path.sep}admin${path.sep}`,
+  `${path.sep}src${path.sep}components${path.sep}masterclass${path.sep}`,
   `${path.sep}src${path.sep}app${path.sep}sitemap.ts`,
 ];
 

@@ -80,13 +80,13 @@ export default function MasterclassAdminPage() {
               <div>
                 <h1 className="text-3xl font-bold text-slate-900">Masterclass Management</h1>
                 <p className="text-base text-slate-600 mt-1">
-                  Manage your free CEU masterclass course
+                  Internal builder only. The public free-CEU masterclass is retired.
                 </p>
               </div>
             </div>
-            <Link href="/masterclass" target="_blank">
+            <Link href="/ceus" target="_blank">
               <Button className="bg-emerald-600 hover:bg-emerald-700">
-                View Live Course
+                View CEU lander
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -261,10 +261,10 @@ export default function MasterclassAdminPage() {
                 Configure Certificate
               </Button>
             </Link>
-            <Link href="/masterclass" target="_blank">
+            <Link href="/ceus" target="_blank">
               <Button variant="outline" className="w-full justify-start">
                 <GraduationCap className="w-4 h-4 mr-2" />
-                View Course
+                View CEU lander
               </Button>
             </Link>
           </div>

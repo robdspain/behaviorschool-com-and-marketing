@@ -518,16 +518,6 @@ export default function AdminSitemapPage() {
           description: 'BCBA supervision platform and tools'
         },
         {
-          name: 'Masterclass',
-          path: '/masterclass',
-          description: 'Masterclass overview and details'
-        },
-        {
-          name: 'Masterclass Enroll',
-          path: '/masterclass/enroll',
-          description: 'Enrollment page for masterclass'
-        },
-        {
           name: 'Blog',
           path: '/blog',
           description: 'Blog posts and articles'

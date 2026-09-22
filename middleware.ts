@@ -1,20 +1,33 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-// Routes requiring authentication
-function isProtectedRoute(request: NextRequest): boolean {
-  const { pathname } = request.nextUrl;
-  return (
-    pathname.startsWith('/masterclass/course') ||
-    pathname.startsWith('/masterclass/certificate')
-  );
-}
-
 const COMMUNITY_HOST = 'community.behaviorschool.com'
 const COMMUNITY_TARGET = 'https://behaviorschool.com/transformation-program'
+
+function isRetiredMasterclassPath(pathname: string): boolean {
+  return pathname === '/masterclass' || pathname.startsWith('/masterclass/')
+}
 
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host')?.split(':')[0]?.toLowerCase()
   const { pathname } = request.nextUrl
+
+  if (isRetiredMasterclassPath(pathname)) {
+    return NextResponse.redirect(new URL('/ceus', request.url), 301)
+  }
+
+  if (pathname.startsWith('/api/masterclass')) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: 'masterclass_retired',
+        message: 'The public masterclass has been retired. Use /ceus or https://learning.behaviorschool.com.',
+      },
+      {
+        status: 410,
+        headers: { 'Cache-Control': 'no-store, max-age=0' },
+      },
+    )
+  }
 
   if (pathname.startsWith('/api/nm')) {
     return NextResponse.json(
@@ -41,21 +54,13 @@ export async function middleware(request: NextRequest) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
 
-  if (isProtectedRoute(request)) {
-    // Check for Better Auth JWT cookie (set by convex plugin)
-    const jwtCookie = request.cookies.get('convex_jwt')?.value;
-    if (!jwtCookie) {
-      // Not authenticated — redirect to masterclass landing
-      return NextResponse.redirect(new URL('/masterclass', request.url));
-    }
-  }
-
   return response;
 }
 
 export const config = {
   matcher: [
     '/api/nm/:path*',
+    '/api/masterclass/:path*',
     // Exclude API routes and static assets from middleware
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],

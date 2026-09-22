@@ -39,6 +39,25 @@
   status = 301
   force = true
 
+# Retired fake free-CEU masterclass → Learning lander
+[[redirects]]
+  from = "/masterclass"
+  to = "/ceus"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/masterclass/"
+  to = "/ceus"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/masterclass/*"
+  to = "/ceus"
+  status = 301
+  force = true
+
 # Handle old URLs if any
 [[redirects]]
   from = "/old-page"
