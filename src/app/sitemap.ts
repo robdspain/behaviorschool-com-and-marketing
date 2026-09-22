@@ -108,11 +108,15 @@ async function buildSitemap(
     '/iep-goal-writer',
     '/behavior-study-tools',
     '/community',
+    '/masterclass',
+    '/masterclass/enroll',
+    '/masterclass/course',
+    '/masterclass/certificate',
     '/compare/behaviorschool-vs-bds',
     '/bds-modules-alternative',
   ])
   // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
-  const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view']
+  const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view', '/masterclass']
   // Hard noindex paths: pages intentionally kept out of sitemap
   const hardNoindexPaths = new Set<string>([
     '/resources',

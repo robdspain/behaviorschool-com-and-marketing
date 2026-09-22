@@ -1,4 +1,7 @@
 https://www.behaviorschool.com/* https://behaviorschool.com/:splat 301!
+/masterclass /ceus 301!
+/masterclass/ /ceus 301!
+/masterclass/* /ceus 301!
 /iep-behavior-goals/quality-checker /iep-goal-qualitychecker 301!
 /school-bcba/california /school-bcba 301!
 /school-bcba/fresno /school-bcba 301!

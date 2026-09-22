@@ -75,6 +75,23 @@ const nextConfig: NextConfig = {
       // Consolidate duplicate URLs → canonical targets
       // ============================================
 
+      // Retired fake free-CEU masterclass → Learning lander
+      {
+        source: '/masterclass',
+        destination: '/ceus',
+        statusCode: 301,
+      },
+      {
+        source: '/masterclass/',
+        destination: '/ceus',
+        statusCode: 301,
+      },
+      {
+        source: '/masterclass/:path*',
+        destination: '/ceus',
+        statusCode: 301,
+      },
+
       // Quiz 01 alternate URL → canonical IEP goal program quiz
       {
         source: '/school-bcba-quiz',

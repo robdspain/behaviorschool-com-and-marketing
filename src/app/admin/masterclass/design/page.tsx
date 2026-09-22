@@ -568,9 +568,9 @@ export default function DesignCoursePage() {
                   <Plus className="w-4 h-4" /> Add Quiz Questions
                 </Button>
               </Link>
-              <Link href="/masterclass/course" prefetch={false}>
+              <Link href="/ceus" prefetch={false}>
                 <Button variant="outline" className="gap-2">
-                  Preview Course
+                  View CEU lander
                 </Button>
               </Link>
               <Button
