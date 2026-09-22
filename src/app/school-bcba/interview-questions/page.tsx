@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -47,7 +48,15 @@ export default function Page() {
         },
         {
           heading: "What to bring",
-          body: "Bring a small portfolio with a de-identified FBA/BIP example, coaching checklist, progress graph, sample IEP behavior goal, and a 90-day support plan.",
+          body: (
+            <>
+              Bring a small portfolio with a de-identified FBA/BIP example, coaching checklist, progress graph, sample IEP behavior goal, and a 90-day support plan. If the panel asks about pay, use{" "}
+              <Link href="/school-bcba/salary-by-state" className="font-semibold text-emerald-800 underline">
+                school BCBA salary by state
+              </Link>{" "}
+              before you negotiate.
+            </>
+          ),
         },
       ]}
       faqs={[

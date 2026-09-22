@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -48,7 +49,15 @@ export default function Page() {
         },
         {
           heading: "How to stand out",
-          body: "Bring artifacts: a sample FBA summary, a BIP, progress-monitoring graph, coaching checklist, and a 90-day plan for district support.",
+          body: (
+            <>
+              Bring artifacts: a sample FBA summary, a BIP, progress-monitoring graph, coaching checklist, and a 90-day plan for district support. If you are still building that path, start with{" "}
+              <Link href="/school-bcba/how-to-become" className="font-semibold text-emerald-800 underline">
+                how to become a school BCBA
+              </Link>
+              .
+            </>
+          ),
         },
       ]}
       faqs={[

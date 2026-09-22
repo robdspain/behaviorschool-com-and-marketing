@@ -19,7 +19,7 @@ meta_description: "Complete guide to writing an FBA in schools. Step-by-step pro
 
 A functional behavior assessment (FBA) is one of the most powerful tools in a school-based BCBA's toolkit. When done well, an FBA doesn't just describe what a student is doing — it explains *why* they're doing it. That understanding is what separates effective behavior intervention plans from the kind that collect dust in a filing cabinet.
 
-Whether you're new to school-based practice or looking to sharpen your process, this guide walks you through every step of writing a thorough, defensible FBA that leads directly to meaningful intervention.
+Whether you're new to school-based practice or looking to sharpen your process, this guide walks you through every step of writing a thorough, defensible FBA that leads directly to meaningful intervention. For a shorter overview of the same process, use the [Functional Behavior Assessment Guide](/functional-behavior-assessment-guide).
 
 ## What Is a Functional Behavior Assessment?
 

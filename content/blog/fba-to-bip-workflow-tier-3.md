@@ -23,7 +23,7 @@ Tier 3 behavior support is where mistakes get expensive. When a student has high
 
 The problem is that many school teams treat Tier 3 like a vague process. One person writes an FBA, another person writes a BIP, and no one connects the dots. That is how you end up with interventions that do not match the function, progress data that is inconsistent, and a plan that falls apart after three weeks.
 
-This guide provides a complete, step-by-step workflow for moving from referral to FBA to BIP to progress monitoring in a way that is efficient, compliant, and effective.
+This guide provides a complete, step-by-step workflow for moving from referral to FBA to BIP to progress monitoring in a way that is efficient, compliant, and effective. If the team still needs the assessment steps, start with the [Functional Behavior Assessment Guide](/functional-behavior-assessment-guide).
 
 ## When Tier 3 Is Required
 

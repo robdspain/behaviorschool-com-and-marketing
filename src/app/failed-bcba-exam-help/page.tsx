@@ -121,6 +121,17 @@ export default function FailedBcbaExamHelpPage() {
 
       <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
         <h2 className="text-2xl font-bold text-slate-950">What to change before your next attempt</h2>
+        <p className="mt-3 leading-relaxed text-slate-700">
+          Use{" "}
+          <Link href="/behavior-study-tools" className="font-semibold text-emerald-800 underline">
+            Behavior Study Tools
+          </Link>{" "}
+          to sort the miss, then{" "}
+          <Link href="https://study.behaviorschool.com/free-practice/" className="font-semibold text-emerald-800 underline">
+            start free practice
+          </Link>{" "}
+          on that pattern. Save the 185-question mock for after a free account, once the same miss is less common.
+        </p>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {[
             {

@@ -54,7 +54,7 @@ The BIP must be directly linked to your FBA. Before you write a single word of t
 - **What conditions reduce the behavior?** What's different when the behavior doesn't occur?
 - **What's the student's current skill level?** Can they do the replacement behavior, or does it need to be taught?
 
-If you cannot answer these questions confidently, the FBA is not complete enough to write an effective BIP.
+If you cannot answer these questions confidently, the FBA is not complete enough to write an effective BIP. Use the [Functional Behavior Assessment Guide](/functional-behavior-assessment-guide) to finish the assessment, then compare the written plan with [behavior intervention plan examples](/behavior-intervention-plan-examples).
 
 ---
 

@@ -185,7 +185,7 @@ Also, remember FERPA. Do not include student names or confidential case details 
 
 ## How BehaviorSchool Can Help
 
-BehaviorSchool offers school-relevant PDU courses for RBTs at [learning.behaviorschool.com](https://learning.behaviorschool.com). Courses include certificates, tracking, and topics aligned with school-based practice, not clinic-based case examples.
+BehaviorSchool offers school-relevant PDU courses for RBTs. Start from the [CEU hub](/ceus), which opens Behavior School Learning at [learning.behaviorschool.com](https://learning.behaviorschool.com). Courses include certificates, tracking, and topics aligned with school-based practice, not clinic-based case examples.
 
 For supervision tracking and documentation, use [supervision.behaviorschool.com](https://supervision.behaviorschool.com).
 

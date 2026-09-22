@@ -138,7 +138,15 @@ export function BcbaComparisonLanding({
             Pick the resource that matches your next study decision
           </h2>
           <p className="mt-5 leading-8 text-slate-600">
-            Use the comparison to choose a platform, then use these public BCBA exam resources to practice in the right format.
+            Use the comparison to choose a platform, then open{" "}
+            <Link href="/behavior-study-tools" className="font-semibold text-[#1f4d3f] underline">
+              Behavior Study Tools
+            </Link>{" "}
+            or{" "}
+            <Link href="https://study.behaviorschool.com/free-practice/" className="font-semibold text-[#1f4d3f] underline">
+              start free practice
+            </Link>{" "}
+            with the 9-question set. The 185-question mock is a separate path and asks for a free account before you start.
           </p>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2">

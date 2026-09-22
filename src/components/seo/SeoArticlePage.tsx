@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 export type SeoArticleSection = {
   heading: string;
-  body: string;
+  body: ReactNode;
   bullets?: string[];
 };
 

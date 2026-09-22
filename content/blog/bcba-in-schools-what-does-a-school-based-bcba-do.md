@@ -232,7 +232,7 @@ You need a master's degree, BACB-approved coursework, supervised fieldwork hours
 
 ### How much does a school-based BCBA make?
 
-School BCBA salaries vary widely by region and district, typically ranging from $60,000-$95,000 annually. Many positions follow teacher salary schedules with additional stipends for advanced degrees and certifications.
+School BCBA salaries vary widely by region and district, typically ranging from $60,000-$95,000 annually. Many positions follow teacher salary schedules with additional stipends for advanced degrees and certifications. Compare published ranges in the [school BCBA salary by state](/school-bcba/salary-by-state) guide before you treat any single number as typical.
 
 ### Do school BCBAs get summers off?
 

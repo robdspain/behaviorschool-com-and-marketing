@@ -54,7 +54,12 @@ export default function BacbAceProviderPage() {
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700">
                 Behavior School LLC is authorized to provide BACB continuing education
-                opportunities for behavior analysts and other professionals.
+                opportunities for behavior analysts and other professionals. Current courses
+                are listed on the{" "}
+                <Link href="/ceus" className="font-semibold text-emerald-800 underline">
+                  CEU hub
+                </Link>
+                .
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button asChild className="bg-emerald-700 hover:bg-emerald-800">

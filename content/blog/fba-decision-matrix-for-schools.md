@@ -218,7 +218,7 @@ An FBA is useless if the resulting BIP does not align with the identified functi
 
 ## How BehaviorSchool Can Help
 
-If your team decides a student needs a full FBA, the [BehaviorSchool FBA-to-BIP tool](/fba-to-bip) streamlines the entire process. Enter your observation data, interviews, and ABC information, and it generates a hypothesis-driven FBA report and function-based BIP in a fraction of the time.
+If your team decides a student needs a full FBA, follow the [Functional Behavior Assessment Guide](/functional-behavior-assessment-guide), then use the [BehaviorSchool FBA-to-BIP tool](/fba-to-bip) to draft the report and plan. Enter your observation data, interviews, and ABC information, and it generates a hypothesis-driven FBA report and function-based BIP in a fraction of the time.
 
 For students at Tier 2, use the [Behavior Plans tool](/behavior-plans) to quickly build simple, targeted interventions without the full FBA process.
 

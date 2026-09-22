@@ -48,7 +48,7 @@ Continuing Education Units (CEUs) are the BACB's mechanism for ensuring that beh
 
 Unlike some professional licenses where "any training" counts, BCBA CEUs must come from **BACB-approved Authorized Continuing Education (ACE) providers**. That matters — not every webinar, conference session, or university course qualifies unless the provider holds ACE status.
 
-Behavior School LLC holds ACE Provider status (ACE #: OP-25-11420). That means our [continuing education offerings](https://behaviorschool.com/bacb-ace-provider) count toward your recertification requirements.
+Behavior School LLC holds ACE Provider status (ACE #: OP-25-11420). That means courses on the [CEU hub](/ceus) count toward your recertification requirements when they are ACE-approved. Provider details stay on the [ACE provider page](/bacb-ace-provider).
 
 ---
 

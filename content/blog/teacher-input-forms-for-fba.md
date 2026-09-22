@@ -24,7 +24,7 @@ Just kidding. What you actually get is: "He has anger issues" and "She refuses t
 
 The problem is not that teachers do not care. The problem is that most FBA input forms ask the wrong questions in the wrong way. Teachers are not trained in behavior analysis, and they are juggling 28 other students while filling out your form during their 22-minute lunch break.
 
-This guide will show you how to design teacher input forms that actually generate useful FBA data without adding hours to your workload or theirs.
+This guide will show you how to design teacher input forms that actually generate useful FBA data without adding hours to your workload or theirs. Those forms sit inside the broader [Functional Behavior Assessment Guide](/functional-behavior-assessment-guide).
 
 ## Why Teacher Input Matters for FBAs
 
