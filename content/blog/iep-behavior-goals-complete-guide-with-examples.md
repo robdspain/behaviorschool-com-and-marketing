@@ -189,7 +189,7 @@ Notice how the goal:
 
 ## Tools for Writing Better IEP Behavior Goals
 
-Writing individualized, measurable, function-aligned behavior goals takes time — especially when you have a full caseload. BehaviorSchool's [IEP Goal Writer](/iep-goal-writer) is designed specifically for behavior analysts and special educators. Enter the target behavior, the function from your FBA, and the student's current level, and it generates a complete, measurable goal you can customize.
+Writing individualized, measurable, function-aligned behavior goals takes time — especially when you have a full caseload. Start from the [IEP behavior goal examples](/iep-behavior-goal-examples) hub, then use BehaviorSchool's [IEP Goal Writer](/iep-goal-writer) when you need a draft for one student. Enter the target behavior, the function from your FBA, and the student's current level, and it generates a complete, measurable goal you can customize.
 
 For goals that need to flow from a formal FBA, our [FBA-to-BIP Generator](/fba-to-bip) creates a complete behavior intervention plan with aligned IEP goal recommendations — so your assessment, intervention, and goals are all connected.
 

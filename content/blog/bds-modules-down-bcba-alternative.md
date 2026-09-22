@@ -34,7 +34,7 @@ Not all exam prep tools are built the same. When evaluating an alternative, look
 
 ## BehaviorSchool as an Alternative
 
-[BehaviorSchool](https://study.behaviorschool.com/free-practice/) is an actively maintained BCBA exam prep platform that covers all of the above. Practice questions are organized by BACB content domain, full-length timed mock exams are available, and the analytics dashboard shows your performance by domain so you can adjust your study plan based on actual data — not guesswork.
+[Behavior Study Tools](/behavior-study-tools) is an actively maintained BCBA exam prep platform that covers all of the above. You can [start free practice](https://study.behaviorschool.com/free-practice/) with a 9-question set and no account. Practice questions are organized by BACB content domain, and a full-length timed mock exam is available after you create a free account. The analytics dashboard shows your performance by domain so you can adjust your study plan based on actual data — not guesswork.
 
 It also includes SAFMEDS-style flashcard sessions for fluency-building, which is a legitimate evidence-based approach to learning behavioral concepts quickly.
 
@@ -45,7 +45,7 @@ There's a free tier to get started, so you can try it without committing.
 If you are replacing BDS Modules in the middle of exam prep, start with the format that matches your immediate problem:
 
 - **[BCBA exam practice questions](/bcba-exam-practice-questions)** — use these when you need shorter daily sessions, concept review, and rationales before a full-length exam.
-- **[BCBA mock exam free](/free-bcba-mock-exam)** — use this when you need a timed readiness check and want to practice stamina under realistic conditions.
+- **[Free mock exam](https://study.behaviorschool.com/free-mock-exam/)** — use this when you need a timed 185-question readiness check after you create a free account.
 - **[Sample BCBA exam questions](/bcba-test-questions)** — use these when you want to preview question formats, wording, and explanation style before choosing a full practice path.
 - **[BCBA practice exam](/bcba-practice-exam)** — use this when you want broader practice with scoring, explanations, and repeated exam-style review.
 

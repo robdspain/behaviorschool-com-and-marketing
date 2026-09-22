@@ -109,11 +109,11 @@ A few patterns show up consistently among candidates who pass on the first attem
 
 ## Preparing for the BCBA Exam With the Right Practice Format
 
-The BCBA exam study platform at [study.behaviorschool.com](https://study.behaviorschool.com/free-mock-exam/) was built to address common preparation gaps, but your first step should match the kind of data you need.
+[Behavior Study Tools](/behavior-study-tools) was built to address common preparation gaps. Use the [free mock exam](https://study.behaviorschool.com/free-mock-exam/) when you need exam-length feedback; that 185-question mock asks for a free account before you start. Your first step should still match the kind of data you need.
 
 - Start with [BCBA exam practice questions](/bcba-exam-practice-questions) when you need shorter study sessions, rationales, and daily repetition.
 - Review [sample BCBA exam questions](/bcba-test-questions) when you want to inspect wording, scenario structure, and distractor patterns.
-- Take a [BCBA mock exam free](/free-bcba-mock-exam) path when you need a timed full mock for stamina and pacing.
+- Take a [free mock exam](https://study.behaviorschool.com/free-mock-exam/) when you need a timed 185-question mock for stamina and pacing. Create a free account before that mock starts.
 - Use a broader [BCBA practice exam](/bcba-practice-exam) when you need repeated exam-style review with scoring and explanations.
 
 If you are preparing for the BCBA exam or preparing to retake it, start with a full mock when you need exam-length feedback, then use the score and error patterns to decide where your preparation should be focused.

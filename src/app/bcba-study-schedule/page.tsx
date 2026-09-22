@@ -125,6 +125,17 @@ export default function BCBAStudySchedulePage() {
 
       <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
         <h2 className="text-2xl font-bold text-slate-950">What each study week should include</h2>
+        <p className="mt-3 leading-relaxed text-slate-700">
+          Keep the weekly plan inside{" "}
+          <Link href="/behavior-study-tools" className="font-semibold text-emerald-800 underline">
+            Behavior Study Tools
+          </Link>
+          . When a block calls for a short check,{" "}
+          <Link href="https://study.behaviorschool.com/free-practice/" className="font-semibold text-emerald-800 underline">
+            start free practice
+          </Link>{" "}
+          with the 9-question set before you schedule a full mock.
+        </p>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {[
             {

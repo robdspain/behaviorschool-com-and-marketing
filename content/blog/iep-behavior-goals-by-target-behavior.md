@@ -21,7 +21,7 @@ meta_description: "50+ IEP behavior goal examples by target behavior. Measurable
 
 You have an IEP meeting in two days, a caseload of 30 students, and a behavior goal that still says, "Student will improve behavior." That goal will not survive the meeting, and it will not help the student.
 
-This guide gives you 50+ IEP behavior goal examples organized by target behavior. Every example is written in observable, measurable terms and aligns with function-based practice. You can use them as starting points and customize them for your student.
+This guide gives you 50+ IEP behavior goal examples organized by target behavior. Every example is written in observable, measurable terms and aligns with function-based practice. You can use them as starting points and customize them for your student. The shorter hub is [IEP behavior goal examples](/iep-behavior-goal-examples).
 
 If you need a faster way to individualize goals, use the [BehaviorSchool IEP Goal Writer](/iep-goal-writer). It takes your target behavior and function data and generates a complete goal in minutes.
 

@@ -303,7 +303,7 @@ The BCBA 6th Edition Test Content Outline organizes 175 scored exam questions ac
 **Next steps:**
 - [Take a free BCBA practice exam by domain](https://study.behaviorschool.com/free-practice/)
 - [Read our BCBA exam prep study strategies guide](/blog/free-bcba-exam-prep-study-strategies)
-- [Explore Behavior Study Tools for domain-specific practice](https://study.behaviorschool.com/free-practice/)
+- [Explore Behavior Study Tools for domain-specific practice](/behavior-study-tools)
 
 ---
 

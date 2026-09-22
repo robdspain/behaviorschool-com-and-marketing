@@ -149,16 +149,16 @@ You don't need to spend hundreds of dollars to prepare effectively. Here are the
 
 ### Free Practice Questions
 
-- **[BehaviorSchool Free Practice Exam](/free-bcba-practice-exam)** — Free practice questions with detailed explanations for every answer, covering all 6th Edition Task List areas
+- **[Free 9-question practice](https://study.behaviorschool.com/free-practice/)** — A short anonymous check with explanations. It is not the full 185-question mock.
 - **[BCBA exam practice questions](/bcba-exam-practice-questions)** — Shorter mixed-question practice when you need rationales, concept review, and daily repetition
 - **[Sample BCBA exam questions](/bcba-test-questions)** — Example question formats and explanations before you commit to a longer practice session
-- **[BCBA mock exam free](/free-bcba-mock-exam)** — A timed mock exam path when you need to check stamina, pacing, and readiness
+- **[Free mock exam](https://study.behaviorschool.com/free-mock-exam/)** — The 185-question mock, after you create a free account, when you need stamina and pacing
 - **BACB Newsletter archives** — The BACB periodically publishes sample questions and exam preparation guidance
 - **University study materials** — Many VCS programs share study resources with students; ask your program
 
 ### Free Study Materials
 
-- **[BehaviorSchool Study Tools](/study)** — Adaptive study app with flashcards, practice questions, and progress tracking
+- **[Behavior Study Tools](/behavior-study-tools)** — The exam-prep hub for practice, rationales, and the next study step
 - **BACB 6th Edition Task List** — Free on the BACB website; this IS your study outline
 - **BACB Ethics Code** — Free on the BACB website; required reading
 - **YouTube channels** — Several BCBAs create free exam prep content (search for "BCBA exam prep 6th edition")

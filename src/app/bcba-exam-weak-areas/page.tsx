@@ -113,7 +113,14 @@ export default function BcbaExamWeakAreasPage() {
       <section className="rounded-2xl border border-emerald-200 bg-emerald-50 p-7">
         <h2 className="text-2xl font-bold text-emerald-950">Use weak areas as a route, not a verdict</h2>
         <p className="mt-3 leading-relaxed text-emerald-900">
-          Behavior Study Tools is the practical next step when you need repeated practice, timing, and rationales in one place. Start there after you have a weak-area label.
+          <Link href="/behavior-study-tools" className="font-semibold underline">
+            Behavior Study Tools
+          </Link>{" "}
+          is the practical next step when you need repeated practice, timing, and rationales in one place.{" "}
+          <Link href="https://study.behaviorschool.com/free-practice/" className="font-semibold underline">
+            Start free practice
+          </Link>{" "}
+          with the 9-question set after you have a weak-area label.
         </p>
         <Link
           href={appWeakAreasHref}

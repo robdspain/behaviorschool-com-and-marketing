@@ -370,7 +370,7 @@ export default function Page() {
                       <div>
                         <h3 className="text-xl font-bold text-slate-900 mb-2">Interview with Systems-Level Confidence</h3>
                         <p className="text-slate-700 text-sm leading-relaxed mb-3">
-                          School BCBA interviews focus on collaboration, systems thinking, and sustainability. Lead with how you implement supports that teachers can maintain without you present. Avoid clinic jargon; speak the language of education.
+                          <Link href="/school-bcba/interview-questions" className="font-semibold text-emerald-800 underline">School BCBA interviews</Link> focus on collaboration, systems thinking, and sustainability. Lead with how you implement supports that teachers can maintain without you present. Avoid clinic jargon; speak the language of education.
                         </p>
                         <div className="bg-white rounded-lg p-4 border border-emerald-200">
                           <p className="text-sm font-semibold text-slate-900 mb-2">Common Interview Questions to Prepare For:</p>

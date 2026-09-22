@@ -72,7 +72,11 @@ export default function First90DaysPage() {
             </h1>
             
             <p className="text-xl text-slate-600 mb-6">
-              A survival guide for new school-based behavior analysts. Move from surviving to thriving in your first three months.
+              A survival guide for new school-based behavior analysts. Move from surviving to thriving in your first three months. If you are still choosing the role, read{" "}
+              <Link href="/school-bcba/how-to-become" className="font-semibold text-emerald-800 underline">
+                how to become a school BCBA
+              </Link>
+              .
             </p>
 
             <div className="space-y-3 mb-8">

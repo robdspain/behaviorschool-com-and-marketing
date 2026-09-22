@@ -71,7 +71,11 @@ export default function CEEventsClient({ initialEvents }: { initialEvents: Event
             </h1>
             <p className="text-xl text-emerald-100 max-w-2xl mx-auto mb-6">
               professional development — CEUs for BCBAs &amp; BCaBAs · PDUs for RBTs.
-              Maintain your certification with quality professional development.
+              Maintain your certification with quality professional development. Browse the{" "}
+              <Link href="/ceus" className="font-semibold underline">
+                CEU hub
+              </Link>{" "}
+              for live and on-demand Learning courses.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center gap-2 bg-emerald-800/50 px-4 py-2 rounded-full">

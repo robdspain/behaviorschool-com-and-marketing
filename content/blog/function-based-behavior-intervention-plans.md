@@ -23,7 +23,7 @@ If you went to grad school for behavior analysis, you learned the four functions
 
 Most BIPs fail. Not because the science is wrong, but because the plan was too simple for the problem. Behavior in schools is messy, multiply controlled, and embedded in a context where 30 other students, a stressed teacher, and an unpredictable schedule are all part of the equation. A plan that says "teach the student to request a break" without addressing why the break card sits untouched on the desk every single day is not a function-based plan. It is a gesture toward one.
 
-This guide is for practitioners who want to build BIPs that actually hold up in real classrooms with real kids and real staff. I write this as someone who does it every day in a public school district, and I am going to share what I have learned works, what does not, and what the research supports when we move past the textbook basics.
+This guide is for practitioners who want to build BIPs that actually hold up in real classrooms with real kids and real staff. For sample plans before the advanced methods, see [behavior intervention plan examples](/behavior-intervention-plan-examples). I write this as someone who does it every day in a public school district, and I am going to share what I have learned works, what does not, and what the research supports when we move past the textbook basics.
 
 ## Start with a Real Functional Analysis, Not Just an FBA
 
