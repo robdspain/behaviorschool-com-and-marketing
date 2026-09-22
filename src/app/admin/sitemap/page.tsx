@@ -508,6 +508,11 @@ export default function AdminSitemapPage() {
           description: 'Professional transformation program'
         },
         {
+          name: 'BCBA CEUs',
+          path: '/ceus',
+          description: 'Behavior School Learning lander for BCBA CEUs and professional development'
+        },
+        {
           name: 'Supervisors',
           path: '/supervisors',
           description: 'BCBA supervision platform and tools'

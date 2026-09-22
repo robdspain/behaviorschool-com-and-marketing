@@ -116,6 +116,9 @@ export function Footer() {
             <Link href="/resources" className="text-gray-600 hover:text-gray-900 transition-colors">
               Resources
             </Link>
+            <Link href="/ceus" className="text-gray-600 hover:text-gray-900 transition-colors">
+              BCBA CEUs
+            </Link>
             <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
               About
             </Link>
