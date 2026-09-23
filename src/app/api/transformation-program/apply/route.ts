@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { api, getConvexClient } from "@/lib/convex";
 import { startTransformationNurture } from "@/lib/transformation-nurture";
+import {
+  buildStoredRole,
+  describeCashFields,
+  isRoleCategory,
+  isUrgencyWindow,
+  mapPayerToPaymentPath,
+  type PaymentPath,
+  type RoleCategory,
+  type UrgencyWindow,
+} from "@/lib/transformation-cash-fields";
 
 export const dynamic = "force-dynamic";
 
@@ -13,11 +23,12 @@ const THURSDAY_CAPACITY_LABELS: Record<string, string> = {
   no: "No — cannot commit to Thursday 6–8 PM Pacific Time",
 };
 
-const PAYER_LABELS: Record<string, string> = {
-  self: "Self-pay",
-  district_po: "District purchase order / invoice",
-  unsure: "Not sure yet",
-};
+const APPLICATION_TAGS = [
+  "transformation-program",
+  "transformation-application",
+  "school-bcba-program",
+  "pipe_a_apply",
+];
 
 function cleanString(value: unknown, maxLength: number) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
@@ -43,14 +54,23 @@ function parseAttribution(value: unknown) {
 function buildApplicantContext(args: {
   whyJoin: string;
   thursdayCapacity: string;
-  payer: string;
+  employer: string;
+  roleCategory: RoleCategory;
+  roleTitle: string;
+  paymentPath: PaymentPath;
+  urgencyWindow: UrgencyWindow;
   systemToRebuild: string;
 }) {
   const thursdayLabel = THURSDAY_CAPACITY_LABELS[args.thursdayCapacity] || args.thursdayCapacity;
-  const payerLabel = PAYER_LABELS[args.payer] || args.payer;
   return [
+    ...describeCashFields({
+      employer: args.employer,
+      roleCategory: args.roleCategory,
+      roleTitle: args.roleTitle,
+      paymentPath: args.paymentPath,
+      urgencyWindow: args.urgencyWindow,
+    }),
     `Thursday 6–8 PM Pacific Time capacity: ${thursdayLabel}`,
-    `Payer: ${payerLabel}`,
     `System to rebuild: ${args.systemToRebuild}`,
     "",
     "Applicant context:",
@@ -63,40 +83,59 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const fullName = cleanString(body?.fullName, 160);
     const email = cleanString(body?.email, 320).toLowerCase();
-    const role = cleanString(body?.currentRole, 160);
+    const employer = cleanString(body?.employer, 200);
+    const roleTitle = cleanString(body?.currentRole, 160);
+    const roleCategoryInput = cleanString(body?.roleCategory, 40);
     const whyJoin = cleanString(body?.whyJoin, 2000);
     const thursdayCapacity = cleanString(body?.thursdayCapacity, 80);
-    const payer = cleanString(body?.payer, 80);
+    const payerInput = cleanString(body?.paymentPath || body?.payer, 80);
+    const urgencyInput = cleanString(body?.urgencyWindow, 40);
     const systemToRebuild = cleanString(body?.systemToRebuild, 1000);
     const bcbaCertNumber = cleanString(body?.bcbaCertNumber, 120) || undefined;
     const marketingConsent = body?.marketingConsent === true;
+    const paymentPath = mapPayerToPaymentPath(payerInput);
 
     if (
       !fullName ||
       !emailPattern.test(email) ||
-      !role ||
+      !employer ||
+      !isRoleCategory(roleCategoryInput) ||
+      !paymentPath ||
+      !isUrgencyWindow(urgencyInput) ||
       !whyJoin ||
       !thursdayCapacity ||
-      !payer ||
       !systemToRebuild
     ) {
       return NextResponse.json({ error: "Complete each required field with a valid email address." }, { status: 400 });
     }
 
-    if (!THURSDAY_CAPACITY_LABELS[thursdayCapacity] || !PAYER_LABELS[payer]) {
-      return NextResponse.json({ error: "Choose a valid attendance and payer option." }, { status: 400 });
+    if (!THURSDAY_CAPACITY_LABELS[thursdayCapacity]) {
+      return NextResponse.json({ error: "Choose a valid attendance option." }, { status: 400 });
     }
 
+    const roleCategory: RoleCategory = roleCategoryInput;
+    const urgencyWindow: UrgencyWindow = urgencyInput;
+    const storedRole = buildStoredRole(roleCategory, roleTitle);
     const currentChallenges = buildApplicantContext({
       whyJoin,
       thursdayCapacity,
-      payer,
+      employer,
+      roleCategory,
+      roleTitle,
+      paymentPath,
+      urgencyWindow,
       systemToRebuild,
     });
 
     const { firstName, lastName } = splitName(fullName);
     const attribution = parseAttribution(body?.attribution);
     const client = getConvexClient();
+    const cashFields = {
+      employer,
+      roleCategory,
+      paymentPath,
+      urgencyWindow,
+    };
 
     // The dedicated application mutation provides the complete CRM audit trail.
     // Keep submission available while an older Convex deployment is catching up.
@@ -107,48 +146,92 @@ export async function POST(request: NextRequest) {
         firstName,
         lastName,
         email,
-        role,
+        role: storedRole,
         bcbaCertNumber,
         currentChallenges,
         marketingConsent,
         attribution,
+        ...cashFields,
       });
       applicationContactId = application.contactId;
     } catch (applicationError) {
       console.error("Transformation application CRM mutation error:", applicationError);
-      applicationContactId = await client.mutation(api.crm.upsertContact, {
+      const legacyNotes = `Transformation Program application\nBCBA certification number: ${bcbaCertNumber || "Not provided"}\n\n${currentChallenges}`;
+      const legacyContact = {
         firstName,
         lastName,
         email,
-        role,
+        role: storedRole,
+        organization: employer,
         leadSource: "transformation_application",
         status: "lead",
-        tags: ["transformation-program", "transformation-application", "school-bcba-program"],
-        notes: `Transformation Program application\nBCBA certification number: ${bcbaCertNumber || "Not provided"}\n\n${currentChallenges}`,
-      });
+        tags: APPLICATION_TAGS,
+        notes: legacyNotes,
+      };
+      try {
+        applicationContactId = await client.mutation(api.crm.upsertContact, {
+          ...legacyContact,
+          ...cashFields,
+        });
+      } catch (cashFallbackError) {
+        console.error("Transformation application CRM cash-field fallback error:", cashFallbackError);
+        applicationContactId = await client.mutation(api.crm.upsertContact, legacyContact);
+      }
       usedLegacyCrmFallback = true;
     }
 
+    const submissionBase = {
+      firstName,
+      lastName,
+      email,
+      role: storedRole,
+      organization: employer,
+      currentChallenges,
+      bcbaCertNumber,
+      status: "transformation_application",
+    };
+    const analyticsBase = {
+      eventType: "course_inquiry",
+      sourcePage: "/transformation-program",
+      resourceName: "School BCBA Transformation Program",
+    };
+
     await Promise.all([
-      client.mutation(api.submissions.createSignupSubmission, {
-        firstName,
-        lastName,
-        email,
-        role,
-        currentChallenges,
-        bcbaCertNumber,
-        status: "transformation_application",
-      }),
+      (async () => {
+        try {
+          await client.mutation(api.submissions.createSignupSubmission, {
+            ...submissionBase,
+            ...cashFields,
+          });
+        } catch (submissionError) {
+          console.error("Transformation application submission cash-field error:", submissionError);
+          await client.mutation(api.submissions.createSignupSubmission, submissionBase);
+        }
+      })(),
       client.mutation(api.analytics.createConversionEvent, {
-        eventType: "course_inquiry",
+        ...analyticsBase,
         eventName: "transformation_application_submitted",
-        sourcePage: "/transformation-program",
-        resourceName: "School BCBA Transformation Program",
         additionalData: {
           consentedToProgramUpdates: marketingConsent,
           attribution,
           thursdayCapacity,
-          payer,
+          payer: paymentPath,
+          employer,
+          role: roleCategory,
+          payment_path: paymentPath,
+          urgency_window: urgencyWindow,
+        },
+      }),
+      client.mutation(api.analytics.createConversionEvent, {
+        eventType: "transformation_apply",
+        eventName: "transformation_apply_submitted",
+        sourcePage: "/transformation-program",
+        resourceName: "School BCBA Transformation Program",
+        additionalData: {
+          employer,
+          role: roleCategory,
+          payment_path: paymentPath,
+          urgency_window: urgencyWindow,
         },
       }),
     ]);
@@ -158,7 +241,7 @@ export async function POST(request: NextRequest) {
         email,
         firstName,
         lastName,
-        role,
+        role: storedRole,
         source: "transformation_application",
         tags: ["transformation-application", "marketing-consent"],
         notes: "Applicant explicitly opted in to program updates.",

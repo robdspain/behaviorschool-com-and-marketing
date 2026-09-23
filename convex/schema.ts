@@ -1,5 +1,6 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { paymentPath, roleCategory, urgencyWindow } from "./lib/cashFields";
 
 // ============================================================================
 // ACE CEU Platform Schema
@@ -582,6 +583,10 @@ export default defineSchema({
     phone: v.optional(v.string()),
     organization: v.optional(v.string()),
     role: v.optional(v.string()),
+    employer: v.optional(v.string()),
+    roleCategory: v.optional(roleCategory),
+    paymentPath: v.optional(paymentPath),
+    urgencyWindow: v.optional(urgencyWindow),
     caseloadSize: v.optional(v.number()),
     status: v.union(
       v.literal("lead"),
@@ -870,6 +875,10 @@ export default defineSchema({
     phone: v.optional(v.string()),
     organization: v.optional(v.string()),
     role: v.string(),
+    employer: v.optional(v.string()),
+    roleCategory: v.optional(roleCategory),
+    paymentPath: v.optional(paymentPath),
+    urgencyWindow: v.optional(urgencyWindow),
     caseloadSize: v.optional(v.string()),
     currentChallenges: v.optional(v.string()),
     bcbaCertNumber: v.optional(v.string()),

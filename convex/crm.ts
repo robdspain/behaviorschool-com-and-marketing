@@ -1,6 +1,7 @@
 import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import type { Doc, Id } from "./_generated/dataModel";
+import { paymentPath, roleCategory, urgencyWindow } from "./lib/cashFields";
 
 const contactStatus = v.union(
   v.literal("lead"),
@@ -137,7 +138,8 @@ export const listContacts = query({
         return (
           fullName(contact).toLowerCase().includes(search) ||
           contact.emailLower.includes(search) ||
-          contact.organization?.toLowerCase().includes(search)
+          contact.organization?.toLowerCase().includes(search) ||
+          contact.employer?.toLowerCase().includes(search)
         );
       })
       .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
@@ -218,6 +220,10 @@ export const upsertContact = mutation({
     phone: v.optional(v.string()),
     organization: v.optional(v.string()),
     role: v.optional(v.string()),
+    employer: v.optional(v.string()),
+    roleCategory: v.optional(roleCategory),
+    paymentPath: v.optional(paymentPath),
+    urgencyWindow: v.optional(urgencyWindow),
     status: v.optional(contactStatus),
     leadSource: v.optional(v.string()),
     tags: v.optional(v.array(v.string())),
@@ -230,6 +236,8 @@ export const upsertContact = mutation({
     const emailLower = normalizeEmail(args.email);
     const existing = await getContactByEmailLower(ctx, emailLower);
     const timestamp = nowIso();
+    const employer = args.employer?.trim() || undefined;
+    const organization = args.organization?.trim() || employer;
 
     if (existing) {
       await ctx.db.patch(existing._id, compact({
@@ -237,8 +245,12 @@ export const upsertContact = mutation({
         lastName: args.lastName?.trim() ?? existing.lastName,
         email: args.email.trim(),
         phone: args.phone ?? existing.phone,
-        organization: args.organization ?? existing.organization,
+        organization: organization ?? existing.organization,
         role: args.role ?? existing.role,
+        employer: employer ?? existing.employer,
+        roleCategory: args.roleCategory ?? existing.roleCategory,
+        paymentPath: args.paymentPath ?? existing.paymentPath,
+        urgencyWindow: args.urgencyWindow ?? existing.urgencyWindow,
         status: args.status ?? existing.status,
         leadSource: args.leadSource ?? existing.leadSource,
         tags: args.tags ?? existing.tags,
@@ -258,8 +270,12 @@ export const upsertContact = mutation({
       email: args.email.trim(),
       emailLower,
       phone: args.phone,
-      organization: args.organization,
+      organization,
       role: args.role,
+      employer,
+      roleCategory: args.roleCategory,
+      paymentPath: args.paymentPath,
+      urgencyWindow: args.urgencyWindow,
       status: args.status ?? "lead",
       leadSource: args.leadSource,
       tags: args.tags ?? [],
@@ -282,6 +298,10 @@ export const recordTransformationApplication = mutation({
     lastName: v.string(),
     email: v.string(),
     role: v.string(),
+    employer: v.string(),
+    roleCategory,
+    paymentPath,
+    urgencyWindow,
     bcbaCertNumber: v.optional(v.string()),
     currentChallenges: v.string(),
     marketingConsent: v.boolean(),
@@ -292,8 +312,16 @@ export const recordTransformationApplication = mutation({
     const timestamp = nowIso();
     const emailLower = normalizeEmail(args.email);
     const existing = await getContactByEmailLower(ctx, emailLower);
+    const employer = args.employer.trim();
     const applicationNotes = `Transformation Program application\nBCBA certification number: ${args.bcbaCertNumber || "Not provided"}\n\nApplicant context:\n${args.currentChallenges}`;
-    const applicationTags = ["transformation-program", "transformation-application", "school-bcba-program"];
+    const applicationTags = ["transformation-program", "transformation-application", "school-bcba-program", "pipe_a_apply"];
+    const cashFields = {
+      organization: employer,
+      employer,
+      roleCategory: args.roleCategory,
+      paymentPath: args.paymentPath,
+      urgencyWindow: args.urgencyWindow,
+    };
 
     let contactId: Id<"crmContacts">;
     if (existing) {
@@ -303,6 +331,7 @@ export const recordTransformationApplication = mutation({
         lastName: args.lastName.trim() || existing.lastName,
         email: args.email.trim(),
         role: args.role.trim() || existing.role,
+        ...cashFields,
         status: existing.status === "customer" ? "customer" : "lead",
         leadSource: existing.leadSource || "transformation_application",
         tags: mergeTags(existing.tags, applicationTags),
@@ -322,6 +351,7 @@ export const recordTransformationApplication = mutation({
         email: args.email.trim(),
         emailLower,
         role: args.role.trim(),
+        ...cashFields,
         status: "lead",
         leadSource: "transformation_application",
         tags: applicationTags,
@@ -348,6 +378,11 @@ export const recordTransformationApplication = mutation({
       metadata: {
         marketingConsent: args.marketingConsent,
         attribution: args.attribution,
+        employer,
+        role: args.roleCategory,
+        roleTitle: args.role.trim(),
+        payment_path: args.paymentPath,
+        urgency_window: args.urgencyWindow,
       },
     });
 

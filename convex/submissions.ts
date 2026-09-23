@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { paymentPath, roleCategory, urgencyWindow } from "./lib/cashFields";
 
 function nowIso() {
   return new Date().toISOString();
@@ -30,6 +31,10 @@ export const createSignupSubmission = mutation({
     phone: v.optional(v.string()),
     organization: v.optional(v.string()),
     role: v.string(),
+    employer: v.optional(v.string()),
+    roleCategory: v.optional(roleCategory),
+    paymentPath: v.optional(paymentPath),
+    urgencyWindow: v.optional(urgencyWindow),
     caseloadSize: v.optional(v.string()),
     currentChallenges: v.optional(v.string()),
     bcbaCertNumber: v.optional(v.string()),
@@ -39,6 +44,7 @@ export const createSignupSubmission = mutation({
   handler: async (ctx, args) => {
     const timestamp = nowIso();
     const submittedAt = args.submittedAt ?? timestamp;
+    const employer = args.employer?.trim() || undefined;
 
     return ctx.db.insert("signupSubmissions", {
       firstName: args.firstName.trim(),
@@ -46,8 +52,12 @@ export const createSignupSubmission = mutation({
       email: args.email.trim(),
       emailLower: normalizeEmail(args.email),
       phone: args.phone || undefined,
-      organization: args.organization || undefined,
+      organization: args.organization?.trim() || employer,
       role: args.role,
+      employer,
+      roleCategory: args.roleCategory,
+      paymentPath: args.paymentPath,
+      urgencyWindow: args.urgencyWindow,
       caseloadSize: args.caseloadSize || undefined,
       currentChallenges: args.currentChallenges || undefined,
       bcbaCertNumber: args.bcbaCertNumber || undefined,

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cashFieldRows, hasCashFields, isPaymentPath, isRoleCategory, isUrgencyWindow, PAYMENT_PATH_LABELS, ROLE_CATEGORY_LABELS, URGENCY_WINDOW_LABELS } from '@/lib/transformation-cash-fields';
 import {
   Users,
   Search,
@@ -29,6 +30,10 @@ interface Contact {
   phone: string | null;
   company: string | null;
   role: string | null;
+  employer: string | null;
+  roleCategory: string | null;
+  paymentPath: string | null;
+  urgencyWindow: string | null;
   type: 'lead' | 'customer' | 'partner' | 'prospect';
   source: 'website' | 'conference' | 'referral' | 'email' | 'social';
   status: 'new' | 'contacted' | 'qualified' | 'converted' | 'inactive';
@@ -52,6 +57,10 @@ interface AdminContactRow {
   phone: string | null;
   organization: string | null;
   role: string | null;
+  employer: string | null;
+  role_category: string | null;
+  payment_path: string | null;
+  urgency_window: string | null;
   status: string;
   lead_source: string | null;
   tags: string[] | null;
@@ -97,6 +106,19 @@ function formatDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+function cashSummary(contact: Pick<Contact, 'paymentPath' | 'urgencyWindow' | 'roleCategory'>): string {
+  const roleLabel = contact.roleCategory && isRoleCategory(contact.roleCategory)
+    ? ROLE_CATEGORY_LABELS[contact.roleCategory]
+    : null;
+  const payment = contact.paymentPath && isPaymentPath(contact.paymentPath)
+    ? PAYMENT_PATH_LABELS[contact.paymentPath]
+    : null;
+  const urgency = contact.urgencyWindow && isUrgencyWindow(contact.urgencyWindow)
+    ? URGENCY_WINDOW_LABELS[contact.urgencyWindow]
+    : null;
+  return [roleLabel, payment, urgency].filter(Boolean).join(' · ');
+}
+
 const allowedSources = new Set(['website', 'conference', 'referral', 'email', 'social']);
 
 function splitName(name: string) {
@@ -136,6 +158,10 @@ function toLegacyContact(row: AdminContactRow): Contact {
     phone: row.phone,
     company: row.organization,
     role: row.role,
+    employer: row.employer,
+    roleCategory: row.role_category,
+    paymentPath: row.payment_path,
+    urgencyWindow: row.urgency_window,
     type: row.status === 'customer' ? 'customer' : 'lead',
     source,
     status: toLegacyStatus(row.status),
@@ -210,7 +236,11 @@ export default function CRMPage() {
           nextContacts = nextContacts.filter((contact) =>
             contact.name.toLowerCase().includes(query) ||
             contact.email.toLowerCase().includes(query) ||
-            contact.company?.toLowerCase().includes(query)
+            contact.company?.toLowerCase().includes(query) ||
+            contact.employer?.toLowerCase().includes(query) ||
+            contact.roleCategory?.toLowerCase().includes(query) ||
+            contact.paymentPath?.toLowerCase().includes(query) ||
+            contact.urgencyWindow?.toLowerCase().includes(query)
           );
         }
         if (typeFilter) nextContacts = nextContacts.filter((contact) => contact.type === typeFilter);
@@ -612,6 +642,9 @@ export default function CRMPage() {
                           <div className="min-w-0">
                             <p className="text-slate-100 font-medium truncate">{contact.name}</p>
                             <p className="text-sm text-slate-400 truncate">{contact.role}{contact.company ? ` · ${contact.company}` : ''}</p>
+                            {cashSummary(contact) && (
+                              <p className="text-xs text-slate-500 truncate">{cashSummary(contact)}</p>
+                            )}
                           </div>
                         </div>
                         <div className="flex items-center gap-3 flex-shrink-0 ml-4">
@@ -645,6 +678,9 @@ export default function CRMPage() {
                           <div className="min-w-0">
                             <p className="text-slate-100 font-medium truncate">{contact.name}</p>
                             <p className="text-sm text-slate-400 truncate">{contact.role}{contact.company ? ` · ${contact.company}` : ''}</p>
+                            {cashSummary(contact) && (
+                              <p className="text-xs text-slate-500 truncate">{cashSummary(contact)}</p>
+                            )}
                           </div>
                         </div>
                         <div className="flex items-center gap-3 flex-shrink-0 ml-4">
@@ -711,6 +747,9 @@ export default function CRMPage() {
                         </div>
                       )}
                       {contact.role && <p className="text-sm text-slate-500 pl-6 truncate">{contact.role}</p>}
+                      {cashSummary(contact) && (
+                        <p className="text-xs text-slate-500 pl-6 truncate">{cashSummary(contact)}</p>
+                      )}
                     </div>
                   )}
 
@@ -865,6 +904,20 @@ export default function CRMPage() {
                     <span className="px-3 py-1 rounded bg-slate-800 text-slate-300">{selectedContact.source}</span>
                   </div>
                 </div>
+
+                {hasCashFields(selectedContact) && (
+                  <div>
+                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Transformation cash fields</h3>
+                    <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {cashFieldRows(selectedContact).map((row) => (
+                        <div key={row.label} className="rounded-lg bg-slate-800 px-3 py-2">
+                          <dt className="text-xs text-slate-400">{row.label}</dt>
+                          <dd className="text-sm text-slate-100 break-words">{row.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
 
                 {selectedContact.tags.length > 0 && (
                   <div>
