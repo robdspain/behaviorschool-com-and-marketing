@@ -222,15 +222,19 @@
     touch-action: manipulation;
   }
 
+  /*
+    !important: Tailwind's nested &:focus rule sets outline-style to none
+    and would otherwise hide this ring.
+  */
   .bs-focus:focus-visible {
-    outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring);
-    outline-offset: 2px;
+    outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring) !important;
+    outline-offset: 2px !important;
   }
 
   /* Gold ring only when the adjacent surface is forest. Never on paper. */
   .bs-on-forest:focus-visible {
-    outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring-on-forest);
-    outline-offset: 2px;
+    outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring-on-forest) !important;
+    outline-offset: 2px !important;
   }
 
   /* Responsive text sizing */
