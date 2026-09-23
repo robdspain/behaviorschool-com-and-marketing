@@ -127,7 +127,7 @@ export default function BCBAStudySchedulePage() {
         <h2 className="text-2xl font-bold text-slate-950">What each study week should include</h2>
         <p className="mt-3 leading-relaxed text-slate-700">
           Keep the weekly plan inside{" "}
-          <Link href="/behavior-study-tools" className="font-semibold text-emerald-800 underline">
+          <Link href="https://behaviorstudytools.com/" className="font-semibold text-emerald-800 underline">
             Behavior Study Tools
           </Link>
           . When a block calls for a short check,{" "}
