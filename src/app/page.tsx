@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { BrainCircuit, GraduationCap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 import { Hero } from "@/components/ui/hero";
-import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
+
+const HomepageEmailCapture = dynamic(
+  () => import("@/components/ui/homepage-email-capture").then((mod) => mod.HomepageEmailCapture),
+);
 
 export const metadata: Metadata = {
   title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",

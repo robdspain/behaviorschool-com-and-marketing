@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,6 +10,10 @@ import Image from "next/image";
  * Live brand look: `#0A1512` field, teal/emerald gradient word, blue glow, white 16px pill.
  * Canon is `src/app/globals.css` `--bs-*` (forest `#1f4d3f`, gold `#e4b63d`, paper `#fbfaf6`, ink `#171f1d`, radius 8px).
  * See BRAND_DEBT.md. Homepage still uses this variant until Rob signs off a hero restyle.
+ *
+ * Copy and the primary CTA are server-rendered with no entrance animation.
+ * `animate-in` / `fade-in` / `fill-mode-both` held them at opacity 0 until the
+ * main thread finished page JS, which left a blank hero on mobile.
  */
 type HeroProps = {
   className?: string;
@@ -87,7 +89,7 @@ export function Hero({
           <div className="space-y-10 z-10">
             <div className="space-y-6">
               {eyebrow && (
-                <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-both">
+                <div>
                   <Badge
                     variant="outline"
                     className={cn(
@@ -103,14 +105,11 @@ export function Hero({
                 </div>
               )}
 
-              <h1 className={cn(
-                "animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200 fill-mode-both",
-                "text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] font-extrabold tracking-tight leading-[1.05]"
-              )}>
-                <span className={cn(
-                  "block mb-2",
-                  isDark ? 'text-white' : 'text-slate-900'
-                )}>{title}</span>
+              <h1
+                className="text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] font-extrabold tracking-tight leading-[1.05]"
+                style={{ color: isDark ? "#ffffff" : "#0f172a" }}
+              >
+                <span className="mb-2 block">{title}</span>
 
                 {highlight && (
                   <span className={cn(
@@ -125,17 +124,16 @@ export function Hero({
               </h1>
 
               {subtitle && (
-                <p className={cn(
-                  "animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both",
-                  "text-xl sm:text-2xl leading-relaxed max-w-2xl font-light",
-                  isDark ? 'text-slate-300' : 'text-slate-600'
-                )}>
+                <p
+                  className="max-w-2xl text-xl font-light leading-relaxed sm:text-2xl"
+                  style={{ color: isDark ? "#cbd5e1" : "#475569" }}
+                >
                   {subtitle}
                 </p>
               )}
             </div>
 
-            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both flex flex-col sm:flex-row gap-5">
+            <div className="flex flex-col gap-5 sm:flex-row">
               <Button
                 asChild
                 size="lg"
@@ -146,7 +144,14 @@ export function Hero({
                     : 'bg-slate-900 text-white hover:scale-[1.02] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]'
                 )}
               >
-                <Link href={primaryCta.href}>
+                <Link
+                  href={primaryCta.href}
+                  style={
+                    isDark
+                      ? { backgroundColor: "#ffffff", color: "#0f172a" }
+                      : { backgroundColor: "#0f172a", color: "#ffffff" }
+                  }
+                >
                   <span className="relative z-10 flex items-center">
                     {primaryCta.label}
                     <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -159,7 +164,7 @@ export function Hero({
           </div>
 
           {/* Visual Element - Glassmorphism Card */}
-          <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-300 fill-mode-both lg:ml-auto w-full max-w-[600px]">
+          <div className="relative w-full max-w-[600px] lg:ml-auto">
             {/* Glow behind image */}
             <div className="absolute -inset-4 bg-gradient-to-tr from-emerald-500/30 to-blue-500/30 rounded-[2.5rem] blur-[40px] opacity-60" />
 
@@ -178,9 +183,6 @@ export function Hero({
                   alt="School-based BCBAs collaborating"
                   fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                  loading="eager"
-                  priority={true}
-                  fetchPriority="high"
                   sizes="(max-width: 768px) 100vw, 600px"
                 />
 
