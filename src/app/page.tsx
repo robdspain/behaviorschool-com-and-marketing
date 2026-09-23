@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { BrainCircuit, GraduationCap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
 import { Hero } from "@/components/ui/hero";
-import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
+
+const HomepageEmailCapture = dynamic(
+  () => import("@/components/ui/homepage-email-capture").then((mod) => mod.HomepageEmailCapture),
+);
 
 export const metadata: Metadata = {
   title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
@@ -73,14 +77,14 @@ export default function Home() {
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <Link
               href={`/transformation-program?utm_source=homepage&utm_medium=hero_band&utm_campaign=${TRANSFORMATION_PROGRAM.cohort.id}`}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#123628] shadow-lg transition hover:bg-[#d7aa32]"
+              className="bs-control bs-on-forest inline-flex items-center justify-center gap-2 bg-bs-accent px-6 py-3 text-sm font-bold text-bs-on-gold shadow-lg transition hover:brightness-95"
             >
               Apply for the {TRANSFORMATION_PROGRAM.cohort.label}
               <ArrowRight size={16} />
             </Link>
             <Link
               href="/school-bcba-training-program"
-              className="inline-flex items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+              className="bs-control bs-on-forest inline-flex items-center justify-center border border-white/25 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
             >
               See the training path
             </Link>
@@ -109,7 +113,7 @@ export default function Home() {
           </div>
           <Link
             href="https://study.behaviorschool.com/free-practice/"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-[#173a30]"
+            className="bs-control bs-focus inline-flex items-center justify-center gap-2 bg-bs-primary px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-bs-primary-dark"
           >
             Start Quick domain check
             <ArrowRight size={16} />
