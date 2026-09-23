@@ -7,6 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
+/**
+ * DEBT — `variant="brand"` is not the Behavior School reference and must not be exported.
+ * Live brand look: `#0A1512` field, teal/emerald gradient word, blue glow, white 16px pill.
+ * Canon is `src/app/globals.css` `--bs-*` (forest `#1f4d3f`, gold `#e4b63d`, paper `#fbfaf6`, ink `#171f1d`, radius 8px).
+ * See BRAND_DEBT.md. Homepage still uses this variant until Rob signs off a hero restyle.
+ */
 type HeroProps = {
   className?: string;
   eyebrow?: string;
@@ -36,14 +42,15 @@ export function Hero({
         className
       )}
       style={variant === 'brand' ? { backgroundColor: '#0A1512' } : undefined}
+      data-brand-debt={variant === 'brand' ? 'hero-glow' : undefined}
     >
       {/* Dynamic Background Elements - 2026 Aesthetic */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {isDark ? (
           <>
             {/* Dark mode abstract gradients */}
-            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[70%] rounded-full bg-emerald-600/20 blur-[120px] mix-blend-screen animate-pulse duration-[8000ms]" />
-            <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[80%] rounded-full bg-blue-600/20 blur-[150px] mix-blend-screen animate-pulse duration-[10000ms] delay-1000" />
+            <div className="bs-hero-debt-motion absolute top-[-20%] left-[-10%] w-[50%] h-[70%] rounded-full bg-emerald-600/20 blur-[120px] mix-blend-screen animate-pulse duration-[8000ms] motion-reduce:animate-none" />
+            <div className="bs-hero-debt-motion absolute bottom-[-20%] right-[-10%] w-[60%] h-[80%] rounded-full bg-blue-600/20 blur-[150px] mix-blend-screen animate-pulse duration-[10000ms] delay-1000 motion-reduce:animate-none" />
 
             {/* Neo-brutalist grid */}
             <div
@@ -57,9 +64,9 @@ export function Hero({
         ) : (
           <>
             {/* Light mode vibrant gradients with glassmorphism feel */}
-            <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-emerald-300/40 blur-[100px] animate-pulse duration-[8000ms]" />
-            <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] rounded-full bg-teal-300/30 blur-[120px] animate-pulse duration-[12000ms] delay-500" />
-            <div className="absolute top-[20%] right-[10%] w-[30%] h-[40%] rounded-full bg-blue-200/40 blur-[80px] animate-pulse duration-[10000ms] delay-1000" />
+            <div className="bs-hero-debt-motion absolute top-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-emerald-300/40 blur-[100px] animate-pulse duration-[8000ms] motion-reduce:animate-none" />
+            <div className="bs-hero-debt-motion absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] rounded-full bg-teal-300/30 blur-[120px] animate-pulse duration-[12000ms] delay-500 motion-reduce:animate-none" />
+            <div className="bs-hero-debt-motion absolute top-[20%] right-[10%] w-[30%] h-[40%] rounded-full bg-blue-200/40 blur-[80px] animate-pulse duration-[10000ms] delay-1000 motion-reduce:animate-none" />
 
             {/* Subtle dot matrix */}
             <div
